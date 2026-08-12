@@ -1,0 +1,19 @@
+#!/bin/sh
+# SMR-BugFixPack pre-commit hook — the mechanical floor (DOC_RESTRUCTURE_SPEC §5).
+#
+# Enable once per clone (it is a repo-local git setting, not a tracked file):
+#
+#     git config core.hooksPath tools/hooks
+#
+# Runs tools/doccheck.py and BLOCKS the commit on red. The counts block it
+# prints is pasteable straight into a commit body — the `PROBE SWEEP:` ritual,
+# generalized. Git runs hooks from the worktree root, so the relative path holds.
+#
+# The escape hatch is `git commit --no-verify`, and it means exactly one thing:
+# "the docs are inconsistent, I know, and I am committing anyway." Say that in
+# the commit message, or the next session inherits a lie with no record of it.
+
+PY=python
+command -v "$PY" >/dev/null 2>&1 || PY=python3
+
+"$PY" tools/doccheck.py --emit-counts || exit 1

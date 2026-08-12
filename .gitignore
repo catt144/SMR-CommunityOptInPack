@@ -1,0 +1,13 @@
+# Mod Editor / game-generated artifacts (if the game writes into the mod folder)
+*.log
+ModContent.hpk
+Previews/
+
+# tools/ is importable, so anything that imports doccheck leaves bytecode here
+__pycache__/
+*.pyc
+
+# OS
+Thumbs.db
+Desktop.ini
+.claude/

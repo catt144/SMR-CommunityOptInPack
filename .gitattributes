@@ -1,0 +1,6 @@
+# core.autocrlf is true in this clone, so anything git checks out gets CRLF
+# unless told otherwise. A shell script with CRLF endings dies on its own
+# shebang (`/bin/sh^M: bad interpreter`), silently, on a fresh clone — so the
+# hooks are pinned to LF. Nothing else in the repo needs pinning: the Lua and
+# the docs are read by tools that do not care.
+tools/hooks/* text eol=lf
