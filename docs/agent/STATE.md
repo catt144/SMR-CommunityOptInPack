@@ -7,53 +7,54 @@ Current only, rewritten in place; history newest-first in
 
 ## Where the project is
 
-⚠️⚠️ **MID-SPLIT — this repo is a SCAFFOLD and does not load yet.** Commit 1 of
-the `split-optins` build (fix pack `docs/agent/prompts/split-optins/`, prompt 3,
-2026-08-12) is the teaching skeleton: policies, engine facts, tooling, the
-provenance ledger. **No `Code/`, no `metadata.lua`, no `items.lua` yet** — the
-framework port and the 8 modules land in the next two commits of the same
-session. If you are reading this line in a later session, the build did not
-finish: check the fix pack's chain folder and `docs/archive/SESSION_LOG.md`
-before touching anything.
-
-⇒ **What this mod IS, once it loads:** eight opt-in behaviour modules
-(D01–D07, D09, D12), each off or at base until the player enables it in
-Options → Mod Options, over its OWN copy of the pack framework
-(`SMROptInPack`). **TRUE STANDALONE** — it must work with the Community Fix
-Pack present and identically with it absent.
+⭐ **BUILT 2026-08-12, NOT YET LAUNCHED.** Split out of `SMR-BugFixPack` @
+`33d69f5` by that repo's chain `docs/agent/prompts/split-optins/` (prompt 3).
+Eight opt-in behaviour modules (D01–D07, D09, D12) over their OWN copy of the
+pack framework (`SMROptInPack`), each off or at base until the player enables it
+in Options → Mod Options. ⛔ **TRUE STANDALONE** — must work with the Community
+Fix Pack present and identically with it absent.
+⇒ **NEXT, and it is owned by the fix pack's chain folder, not by this repo:**
+① `04_OPUS_VERIFY.md` — the three-cell matrix (both mods · this mod alone · fix
+pack alone) + a save-compat witness on a `CP15PT15` copy. Unattended; needs the
+game. **Nothing here has been run in a game yet: every number below is static.**
+② `05_FABLE_AUDIT.md` — byte-compare, whole-log read, and the no-retraining
+acceptance test run from THIS repo with the fix pack closed.
+③ then the D13 chain (save-rescue artifact — ONE artifact covering BOTH mods by
+owner ruling; its exposed set is re-derived over this tree, never inherited).
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
 
 ```
-(not yet emitted — Code/ is empty at commit 1)
-PREDICTED at split close: Code/*.lua 9 · registered 8 · optional-gated 7 ·
-default-active 1 (DroneStatDials, which registers without `optional` and is
-active at its base dial positions) · bugs index rows 9 D
+BUILD STATE (emitted by tools/doccheck.py)
+- modules: 8 registered (1 default-active, 7 optional-gated files)
+- Code/*.lua files: 9
+- TestKit probes: 88 (shared kit — serves both mods)
+- BUGS index rows: 0 F + 9 D + 0 C
 ```
 
-Re-emit after any module/entry change (red refuses); game pinned
-**1.0.7.396349** (fpk parity — `agent/facts/EF-014`). The TestKit probe count
-doccheck prints is the SHARED suite's, not this mod's share.
+The 1 default-active is `DroneStatDials`, which registers WITHOUT `optional`
+and is active at its base dial positions (vanilla behaviour, armed). Game
+pinned **1.0.7.396349** (`agent/facts/EF-014`). ⚠️ The probe count is the
+SHARED suite's, not this mod's share. **Predicted gate read at fresh account
+defaults: `1/8`** — unmeasured until leg ①.
 
 ## Gates and holds
 
-- ⛔ **PERSISTED NAMES ARE SAVE CONTRACT** — the `SMRFixPack_*` fields and
-  modifier ids this mod writes keep their exact bytes forever. Inventory:
-  `agent/PROVENANCE.md` §2. **Renaming one is forbidden here.**
-- ⛔ **ZERO `SMRFixPack` references in executable code** (the standalone
-  invariant). The persisted strings above are data, not references.
-- ⛔ **No behaviour change to any module** while the split chain runs — the
-  port is byte-conservative by construction, and `Opt_DroneOverhaul` carries
-  PT-52's freeze with it.
-- **OWED, in order:** the framework port + the 8 modules (this session) → the
-  three-cell verification matrix + save-compat witness (chain prompt 4, needs
-  the game) → the terminal audit and the no-retraining acceptance test (prompt
-  5) → then the D13 chain, which covers BOTH mods with one artifact.
+- ⛔ **PERSISTED NAMES ARE SAVE CONTRACT** — the five `SMRFixPack_*` fields and
+  modifier ids this mod writes keep those exact bytes forever, prefix and all
+  (`agent/PROVENANCE.md` §2). **Renaming one is forbidden here.** Verified at
+  the port: all five carried across byte-for-byte, counted before and after.
+- ⛔ **ZERO `SMRFixPack` references in executable code.** The 11 surviving
+  tokens in `Code/` are exactly those five persisted STRINGS (5 definitions, 6
+  comments) — data, not references.
+- ⛔ **No behaviour change to any module** while the split chain runs.
+  `Opt_DroneOverhaul` carries PT-52's freeze with it — frozen it stays.
+- ⚠️ **The mod id changed, so Mod Options state resets ONCE.** The owner re-ticks
+  7 toggles + 2 dials in one ~1-minute visit, AFTER leg ① reports clean.
+  Predicted, not a defect; it is on the fix pack's checklist, item 15.
 - **Owner decisions open (routed to the FIX PACK's `PLAYTEST_CHECKLIST.md`,
-  item 15):** DISPLAY NAME + store description (placeholder sites listed in
+  item 15):** DISPLAY NAME + store description (placeholders listed in
   `agent/PROVENANCE.md` §3) · GitHub remote (until then LOCAL git — do not
-  create one unasked) · the stay-OFF-by-default recommendation (build took OFF).
-- ⚠️ **The mod id changed, so Mod Options state resets ONCE** — the owner
-  re-ticks their toggles in one ~1-minute visit. Predicted, not a defect.
+  create one unasked) · stay-OFF-by-default (build took OFF).
 - ⚠️ **Rig has CHEATS ENABLED**, and **BOTH MODS LOADED is the rig's standing
   configuration** from the split onward (owner rule, `agent/WORKFLOW.md`).
