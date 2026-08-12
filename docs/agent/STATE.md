@@ -2,28 +2,31 @@
 
 Current only, rewritten in place; history newest-first in
 `docs/archive/SESSION_LOG.md`. Module truth `agent/bugs/INDEX.md` · engine facts
-`agent/facts/INDEX.md` · doc map `docs/README.md` · authoring `agent/WORKFLOW.md`
-· code `agent/FIX_POLICY.md` · what came from where `agent/PROVENANCE.md`.
+`agent/facts/INDEX.md` · doc map `docs/README.md` · authoring `agent/WORKFLOW.md` ·
+code `agent/FIX_POLICY.md` · what came from where `agent/PROVENANCE.md`.
 
 ## Where the project is
-
-⭐ **BUILT 2026-08-12, NOT YET LAUNCHED.** Split out of `SMR-BugFixPack` @
-`33d69f5` by that repo's chain `docs/agent/prompts/split-optins/` (prompt 3).
-Eight opt-in behaviour modules (D01–D07, D09, D12) over their OWN copy of the
-pack framework (`SMROptInPack`), each off or at base until the player enables it
-in Options → Mod Options. ⛔ **TRUE STANDALONE** — must work with the Community
-Fix Pack present and identically with it absent.
-⇒ **NEXT, and it is owned by the fix pack's chain folder, not by this repo:**
-① `04_OPUS_VERIFY.md` — the three-cell matrix (both mods · this mod alone · fix
-pack alone) + a save-compat witness on a `CP15PT15` copy. Unattended; needs the
-game. **Nothing here has been run in a game yet: every number below is static.**
-② `05_FABLE_AUDIT.md` — byte-compare, whole-log read, and the no-retraining
-acceptance test run from THIS repo with the fix pack closed.
-③ then the D13 chain (save-rescue artifact — ONE artifact covering BOTH mods by
-owner ruling; its exposed set is re-derived over this tree, never inherited).
+⭐ **BUILT 2026-08-12 AND ✅✅ VERIFIED IN GAME THE SAME EVENING.** Split out of
+`SMR-BugFixPack` @ `33d69f5` by that repo's chain `docs/agent/prompts/split-optins/`
+(prompts 3+4). Eight opt-in behaviour modules (D01–D07, D09, D12) over their OWN
+copy of the pack framework (`SMROptInPack`), each off or at base until the player
+enables it in Options → Mod Options. ⭐⭐ **TRUE STANDALONE IS MEASURED** (fix pack's
+`archive/sp*_20260812-*`, 9 launches): this mod ran **with the fix pack
+UNINSTALLED** at `8/8`, its 8 probes reporting exactly what they report beside it;
+and the fix pack ran with THIS mod uninstalled at `74/74`, registry absent, zero
+`[CommunityOptInPack]` lines. Save contract PROVED: every persisted name read back
+off 4 real saves under its exact `SMRFixPack_` bytes, plus an in-game
+write→save→reload where **0 of 3 fields broke**. ⚠️ **The leg's one finding is a
+TestKit fixture, not this mod:** with the fix pack absent,
+`Opt_ClassicRockets.lua:89`'s `self:IsPlayerControlled()` became reachable for the
+first time and a synthetic probe fixture lacked the method — repaired in the kit;
+the method is real on the class (`Lua/UniversalRocket.lua:2140`).
+⇒ **NEXT, owned by the fix pack's chain folder, not by this repo:**
+① `05_FABLE_AUDIT.md` — byte-compare, whole-log read, and the no-retraining
+acceptance test run from THIS repo with the fix pack closed. ② then the D13 chain
+(ONE save-rescue artifact covering BOTH mods; exposed set re-derived, not inherited).
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
-
 ```
 BUILD STATE (emitted by tools/doccheck.py)
 - modules: 8 registered (1 default-active, 7 optional-gated files)
@@ -31,30 +34,27 @@ BUILD STATE (emitted by tools/doccheck.py)
 - TestKit probes: 88 (shared kit — serves both mods)
 - BUGS index rows: 0 F + 9 D + 0 C
 ```
-
-The 1 default-active is `DroneStatDials`, which registers WITHOUT `optional`
-and is active at its base dial positions (vanilla behaviour, armed). Game
-pinned **1.0.7.396349** (`agent/facts/EF-014`). ⚠️ The probe count is the
-SHARED suite's, not this mod's share. **Predicted gate read at fresh account
-defaults: `1/8`** — unmeasured until leg ①.
-
+The 1 default-active is `DroneStatDials`, which registers WITHOUT `optional` and is
+active at its base dial positions (vanilla behaviour, armed). Game pinned
+**1.0.7.396349** (`EF-014`); the probe count is the SHARED suite's. ✅ **Gate
+MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults** (the latter from the
+owner's 08-12 18:30 log — the only recording of that state there will ever be).
 ## Gates and holds
-
 - ⛔ **PERSISTED NAMES ARE SAVE CONTRACT** — the five `SMRFixPack_*` fields and
   modifier ids this mod writes keep those exact bytes forever, prefix and all
-  (`agent/PROVENANCE.md` §2). **Renaming one is forbidden here.** Verified at
-  the port: all five carried across byte-for-byte, counted before and after.
-- ⛔ **ZERO `SMRFixPack` references in executable code.** The 11 surviving
-  tokens in `Code/` are exactly those five persisted STRINGS (5 definitions, 6
-  comments) — data, not references.
-- ⛔ **No behaviour change to any module** while the split chain runs.
-  `Opt_DroneOverhaul` carries PT-52's freeze with it — frozen it stays.
-- ⚠️ **The mod id changed, so Mod Options state resets ONCE.** The owner re-ticks
-  7 toggles + 2 dials in one ~1-minute visit, AFTER leg ① reports clean.
-  Predicted, not a defect; it is on the fix pack's checklist, item 15.
-- **Owner decisions open (routed to the FIX PACK's `PLAYTEST_CHECKLIST.md`,
-  item 15):** DISPLAY NAME + store description (placeholders listed in
-  `agent/PROVENANCE.md` §3) · GitHub remote (until then LOCAL git — do not
-  create one unasked) · stay-OFF-by-default (build took OFF).
-- ⚠️ **Rig has CHEATS ENABLED**, and **BOTH MODS LOADED is the rig's standing
-  configuration** from the split onward (owner rule, `agent/WORKFLOW.md`).
+  (`agent/PROVENANCE.md` §2). **Renaming one is forbidden here.** Carried across
+  byte-for-byte at the port and ✅ **read back live off 4 real saves 08-12**.
+  ⛔ **ZERO `SMRFixPack` references in executable code**: the 11 surviving tokens
+  in `Code/` are exactly those five persisted STRINGS (5 definitions, 6 comments)
+  — data, not references. ⛔ **No behaviour change to any module** while the split
+  chain runs; `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
+- ✅ **The one-minute Mod Options re-tick is SPENT** (owner, 08-12 18:30): mod
+  enabled, 7 toggles on, both dials at `5x` / `+2`. Nothing owed. ⛔ **`EF-055` /
+  `EF-056` copied in 08-12** — a junction pull is a real uninstall (account
+  untouched); a campaign COPY still runs that campaign's autosave, whose rotation
+  eats the owner's autosaves.
+- **Owner decisions open (routed to the FIX PACK's `PLAYTEST_CHECKLIST.md`, item
+  15):** DISPLAY NAME + store description (placeholders in `agent/PROVENANCE.md`
+  §3) · GitHub remote (until then LOCAL git — do not create one unasked) ·
+  stay-OFF-by-default (build took OFF). ⚠️ **CHEATS ENABLED on the rig**, and
+  **BOTH MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).
