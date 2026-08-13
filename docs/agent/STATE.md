@@ -16,15 +16,16 @@ UNINSTALLED** at `8/8`, its 8 probes reporting exactly what they report beside i
 and the fix pack ran with THIS mod uninstalled at `74/74`, registry absent, zero
 `[CommunityOptInPack]` lines. Save contract PROVED: every persisted name read back
 off 4 real saves under its exact `SMRFixPack_` bytes, plus an in-game
-write→save→reload where **0 of 3 fields broke**. ⚠️ **The leg's one finding is a
-TestKit fixture, not this mod:** with the fix pack absent,
-`Opt_ClassicRockets.lua:89`'s `self:IsPlayerControlled()` became reachable for the
-first time and a synthetic probe fixture lacked the method — repaired in the kit;
-the method is real on the class (`Lua/UniversalRocket.lua:2140`).
-⇒ **NEXT, owned by the fix pack's chain folder, not by this repo:**
-① `05_FABLE_AUDIT.md` — byte-compare, whole-log read, and the no-retraining
-acceptance test run from THIS repo with the fix pack closed. ② then the D13 chain
-(ONE save-rescue artifact covering BOTH mods; exposed set re-derived, not inherited).
+write→save→reload where **0 of 3 fields broke**. ⚠️ The leg's one finding was a
+TestKit fixture, not this mod (`Opt_ClassicRockets.lua:89`'s
+`self:IsPlayerControlled()`, reachable for the first time with the fix pack
+absent; fixture repaired in the kit — the method is real,
+`Lua/UniversalRocket.lua:2140`). ⚖️⚖️ **AUDIT CLOSED 08-12: everything above
+SUSTAINED** (logs byte-compared + read whole, tallies recounted, persisted names
+re-derived from THIS tree, EF-055 re-derived from Src); **no-retraining test
+PASSED from this repo alone** (transcript: `docs/archive/SESSION_LOG.md`, top).
+Both-mods WORKFLOW clause ACTIVE. ⇒ **NEXT: nothing owed by this repo** — the
+D13 chain (ONE rescue artifact, BOTH mods) runs from the fix pack.
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
 ```
@@ -48,11 +49,10 @@ owner's 08-12 18:30 log — the only recording of that state there will ever be)
   in `Code/` are exactly those five persisted STRINGS (5 definitions, 6 comments)
   — data, not references. ⛔ **No behaviour change to any module** while the split
   chain runs; `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
-- ✅ **The one-minute Mod Options re-tick is SPENT** (owner, 08-12 18:30): mod
-  enabled, 7 toggles on, both dials at `5x` / `+2`. Nothing owed. ⛔ **`EF-055` /
-  `EF-056` copied in 08-12** — a junction pull is a real uninstall (account
-  untouched); a campaign COPY still runs that campaign's autosave, whose rotation
-  eats the owner's autosaves.
+- ✅ **Re-tick SPENT** (owner, 08-12 18:30): mod enabled, 7 toggles on, dials
+  `5x`/`+2`. Nothing owed. ⛔ **`EF-055`/`EF-056`**: a junction pull is a real
+  uninstall (account untouched); a campaign COPY still runs that campaign's
+  autosave — its rotation eats the owner's autosaves (pre-copy them first).
 - **Owner decisions open (routed to the FIX PACK's `PLAYTEST_CHECKLIST.md`, item
   15):** DISPLAY NAME + store description (placeholders in `agent/PROVENANCE.md`
   §3) · GitHub remote (until then LOCAL git — do not create one unasked) ·
