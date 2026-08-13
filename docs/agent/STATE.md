@@ -24,15 +24,15 @@ absent; fixture repaired in the kit — the method is real,
 SUSTAINED** (logs byte-compared + read whole, tallies recounted, persisted names
 re-derived from THIS tree, EF-055 re-derived from Src); **no-retraining test
 PASSED from this repo alone** (transcript: `docs/archive/SESSION_LOG.md`, top).
-Both-mods WORKFLOW clause ACTIVE. ⇒ **NEXT: nothing owed by this repo** — the
-D13 chain (ONE rescue artifact, BOTH mods) runs from the fix pack.
+Both-mods WORKFLOW clause ACTIVE. ✅✅ **08-13: the D13 rescue artifact (ONE, BOTH mods — this repo's five names included, D15 dials the headline) is BUILT, VERIFIED UNATTENDED, AUDIT-SUSTAINED** (removed 1617 by name; suite 94 probes, both-mods 78/0/16/0; fix-pack `archive/rs_*` + `D13_VERIFICATION.md`).
+⇒ **NEXT: nothing owed by this repo** — the combined sitting + step ③ MOD_DESCRIPTION run from the fix pack.
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
 ```
 BUILD STATE (emitted by tools/doccheck.py)
 - modules: 8 registered (1 default-active, 7 optional-gated files)
 - Code/*.lua files: 9
-- TestKit probes: 88 (shared kit — serves both mods)
+- TestKit probes: 94 (shared kit — serves both mods)
 - BUGS index rows: 0 F + 9 D + 0 C
 ```
 The 1 default-active is `DroneStatDials`, which registers WITHOUT `optional` and is
