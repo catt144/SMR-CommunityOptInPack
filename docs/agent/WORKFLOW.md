@@ -424,8 +424,12 @@ issue because we should be compatible as well."*
    the standalone opt-in mod. A gate read shows two registries. ⭐ **MEASURED
    BASELINE (cell a2, 2026-08-12, audit-recounted from the fix pack's
    `archive/spa2_Mars.exe-20260812-18.44.24.log`): `fix pack present: 74/74` ·
-   `opt-in pack present: 8/8` · suite `78 PASS / 0 FAIL / 10 SKIP / 0 ERROR`
-   of 88; load order `1:SMR_CommunityFixPackTestKit 2:SMR_CommunityFixPack
+   `opt-in pack present: 8/8` · suite ~~`78/0/10/0 of 88`~~ ⭐ **RE-MEASURED
+   2026-08-13 (fix pack `archive/rs_r0_*`): `78 PASS / 0 FAIL / 16 SKIP /
+   0 ERROR` of 94** — the six new SKIPs are the Save Rescue probes standing
+   down (that separate rescue mod is NOT a standing rig mod; with it loaded
+   the same run reads `84/0/10/0`);
+   load order `1:SMR_CommunityFixPackTestKit 2:SMR_CommunityFixPack
    3:SMR_CommunityOptInPack` (enable order, `EF-054` — THIS mod's wrappers sit
    OUTERMOST).** Every "the pack" claim names WHICH pack. A fix-pack line
    in one of this mod's legs is expected background: attributed, never flagged
