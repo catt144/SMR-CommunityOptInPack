@@ -329,13 +329,20 @@ failure is:
 **This binds new fixes as well as repairs.** Anything that replaces a blocking
 body, wraps a command method, or creates its own game-time thread must state in
 its header which layer it is on and why. Full analysis, the exposure list
-(**13** after two same-day membership corrections — `DroneUnreachableForever`
+(~~**13** after two same-day membership corrections — `DroneUnreachableForever`
 in, `TrainCargoDumping` out, compliant `CaveInsNoDisasters` counted;
 **re-derived 2026-08-01 by the five-shape Phase-1 enumeration, which confirmed
 the 13 and classified one additional inert route-(c) preset-field site** —
 `Fix_LastTransmissionStorage`'s `Condition.eval`, disclosed-no-build,
-adjudication §4.4) and the per-module disposition:
-`docs/agent/reports/SAVE_SAFETY_REDESIGN.md` and `agent/bugs/F86.md`.
+adjudication §4.4~~ ⛔ **SUPERSEDED 2026-08-13 — the authoritative figure lives
+in the FIX PACK repo, `agent/reports/D13_EXPOSED_SET.md`: 27 sites over BOTH
+shipped trees = 12 capturable-code + 15 persisted-data. Four of those sites are
+THIS mod's (D12-D15, all persisted data, no thread and no GameVar anywhere in
+this tree). The "13+1" was an open lower bound over capturable CODE in the fix
+pack only; §4.1 there reconciles it row by row**) and the per-module
+disposition: **that report's §7** (complete, every site called), with the older
+analysis at `docs/agent/reports/SAVE_SAFETY_REDESIGN.md` and `agent/bugs/F86.md`
+in the fix pack repo.
 
 ## 4. What may be BUILT here — opinionated modules, proven and reachable
 

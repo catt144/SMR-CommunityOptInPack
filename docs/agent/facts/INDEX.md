@@ -35,7 +35,7 @@ The preamble that opened the old file is `_preamble.md`.
 | EF-020 | A named GLOBAL game-time thread's BODY is stored in a table you can edit, and the engine ships the restart helper | 2026-08-02 | 2026-08-02 | 23 | [EF-020.md](EF-020.md) |
 | EF-021 | Every shipped popup is ASYNC — the persistable popup path is dead code | — | 2026-07-30 | 11 | [EF-021.md](EF-021.md) |
 | EF-022 | A MOD-AUTHORED CLOSURE STORED ON A PERSISTED GAME OBJECT GOES INTO THE SAVE, SURVIVES UNINSTALL, AND KEEPS RUNNING | 2026-07-31 | 2026-07-31 | 28 | [EF-022.md](EF-022.md) |
-| EF-023 | THE REAL RULE (measured 2026-07-31, PT-20 — supersedes the framing above): A SAVE CAPTURES EVERY GAME-TIME THREAD WITH… | 2026-07-31 | 2026-08-02 | 69 | [EF-023.md](EF-023.md) |
+| EF-023 | THE REAL RULE (measured 2026-07-31, PT-20 — supersedes the framing above): A SAVE CAPTURES EVERY GAME-TIME THREAD WITH… | 2026-07-31 | 2026-08-13 | 92 | [EF-023.md](EF-023.md) |
 | EF-024 | MODS *DO* GET A PRE-SAVE HOOK — `OnMsg.SaveGameStart` and `OnMsg.SaveGameDone` reach mod code | 2026-07-31 | 2026-08-01 | 25 | [EF-024.md](EF-024.md) |
 | EF-025 | ENABLING A MOD AT THE MAIN MENU IS A DIFFERENT LOAD ORDER FROM A COLD BOOT, AND IT IS THE ONE EVERY PLAYER GETS FIRST | 2026-07-31 | 2026-07-31 | 33 | [EF-025.md](EF-025.md) |
 | EF-026 | `Msg` dispatches static handlers through `procall` | — | 2026-07-31 | 6 | [EF-026.md](EF-026.md) |
