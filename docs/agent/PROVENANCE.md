@@ -106,9 +106,10 @@ carrying it, to be swept in one pass at launch prep:
 | all 8 modules' headers | the comment `Options → Mod Options → Community Opt-In Pack` |
 | `README.md`, `CLAUDE.md`, `docs/` | prose |
 
-Also owner-owned and still open: the **GitHub remote** (this is a LOCAL git repo
-until the owner asks for one — never create a public remote unasked) and the
-store description.
+✅ **The GitHub remote is DECIDED and LIVE (owner, 2026-08-13): PUBLIC**, at
+`github.com/catt144/SMR-CommunityOptInPack`, matching the fix pack's setup. All
+6 commits pushed; `main` tracks `origin/main`. Still owner-owned and open: the
+**display name** placeholders above and the **store description**.
 
 ---
 

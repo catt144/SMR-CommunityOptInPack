@@ -108,8 +108,9 @@ Two mechanical rules that came with the same restructure:
 ## Layout
 
 - **Dev repo (this folder):** `C:\Dev\SMR-OptInPack` — git-versioned, canonical.
-  ⚠️ **LOCAL git only** until the owner asks for a remote (chain rule 9) — do
-  not create a public one unasked.
+  Remote `github.com/catt144/SMR-CommunityOptInPack`, **public** by owner ruling
+  2026-08-13 (chain rule 9's "no remote unasked" was satisfied by asking). Push
+  what you commit, the same as the fix pack.
 - **Companion mod, a separate product:** `C:\Dev\SMR-BugFixPack` (Community Fix
   Pack, remote `github.com/catt144/SMR-CommunityFixPack`). Shares no files with
   this repo. Its `docs/archive/` holds all pre-2026-08-12 history, and its

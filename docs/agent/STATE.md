@@ -53,8 +53,8 @@ owner's 08-12 18:30 log — the only recording of that state there will ever be)
   `5x`/`+2`. Nothing owed. ⛔ **`EF-055`/`EF-056`**: a junction pull is a real
   uninstall (account untouched); a campaign COPY still runs that campaign's
   autosave — its rotation eats the owner's autosaves (pre-copy them first).
-- **Owner decisions open (routed to the FIX PACK's `PLAYTEST_CHECKLIST.md`, item
-  15):** DISPLAY NAME + store description (placeholders in `agent/PROVENANCE.md`
-  §3) · GitHub remote (until then LOCAL git — do not create one unasked) ·
-  stay-OFF-by-default (build took OFF). ⚠️ **CHEATS ENABLED on the rig**, and
+- ✅ **Remote DECIDED 08-13: PUBLIC** — `github.com/catt144/SMR-CommunityOptInPack`,
+  `main` tracks `origin/main`. **Still open (on the FIX PACK's checklist, item
+  15):** DISPLAY NAME + store description (placeholders `agent/PROVENANCE.md` §3)
+  · stay-OFF-by-default (build took OFF). ⚠️ **CHEATS ENABLED on the rig**, and
   **BOTH MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).
