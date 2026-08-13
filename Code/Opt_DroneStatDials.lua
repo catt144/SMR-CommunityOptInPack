@@ -1,6 +1,6 @@
 -- D09 — OPTIONAL stat dials, BASE (= vanilla) BY DEFAULT. Not a bug fix.
 --
--- Two Mod Options dropdowns (Options → Mod Options → Community Opt-In Pack):
+-- Two Mod Options dropdowns (Options → Mod Options → Community Fix Pack: Opt-In Modules):
 --   * "Drone speed"          — 1x (base) / 2x / 3x / 5x
 --   * "Drone carry capacity" — +0 (base) / +1 / +2
 -- Decision record: docs/DRONE_OVERHAUL_OPTIONS.md, DECISION 2026-07-29 —

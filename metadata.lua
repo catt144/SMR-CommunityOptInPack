@@ -1,7 +1,8 @@
 return PlaceObj('ModDef', {
-	-- ⚠️ WORKING TITLE. The display name is an OWNER decision at launch prep;
-	-- every placeholder site is listed in docs/agent/PROVENANCE.md §3.
-	'title', "Community Opt-In Pack",
+	-- ✅ DISPLAY NAME DECIDED (owner, 2026-08-13): family-prefixed so the two
+	-- mods sort together in mod lists. Swept everywhere the same day
+	-- (docs/agent/PROVENANCE.md §3).
+	'title', "Community Fix Pack: Opt-In Modules",
 	'description', "Eight opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Rockets that keep requesting fuel while parked, acknowledged \"not working\" warnings, a per-Dome \"closed to new residents\" policy, more than one Artificial Sun, a closest-hub-first Drone dispatch overhaul (experimental), automatic cohort housing for Seniors and Children, a Nursery/Retirement Dome policy, and two Drone stat dials (speed, carry capacity). Nothing is patched on disk: the mod wraps the game's own Lua at runtime, and a module you leave off behaves exactly like the unmodded game. Works with or without the Community Fix Pack. ⚠️ Set both Drone dials back to base before uninstalling — a non-base dial leaves its boost in the savegame.",
 	'short_description', "Eight opt-in gameplay modules, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Community Fix Pack.",
 	-- Split out of the Community Fix Pack on 2026-08-12: these eight modules

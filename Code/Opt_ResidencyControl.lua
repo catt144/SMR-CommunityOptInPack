@@ -1,6 +1,6 @@
 -- D03 — OPTIONAL module, OFF BY DEFAULT. Not a bug fix.
 --
--- Enable it in-game: Options → Mod Options → Community Opt-In Pack (D05; toggles
+-- Enable it in-game: Options → Mod Options → Community Fix Pack: Opt-In Modules (D05; toggles
 -- take effect immediately, both directions — the gates below consult
 -- SMROptInPack.IsActive per call and pass through while off; the infopanel row
 -- stops being appended to newly opened panels). Gate 1 (the class-method wrap
@@ -144,7 +144,7 @@ local function append_policy_row(section, context)
 				end
 			end
 			-- rollover
-			self:SetRolloverTitle(Untranslated("Residency Policy (Community Opt-In Pack)"))
+			self:SetRolloverTitle(Untranslated("Residency Policy (Community Fix Pack: Opt-In Modules)"))
 			self:SetRolloverText(Untranslated(closed
 				and "No new Colonists will move in — voluntarily or on arrival. Current residents keep commuting, working and using services through Passages exactly as before. You can still relocate Colonists here manually, and Tourists still check in.<newline><newline>Current status: <em>Closed to new residents</em>"
 				or  "Close this Dome to new residents without quarantining it: no one new moves in, while current residents keep commuting, working and using services through Passages. Manual relocation and Tourists are unaffected.<newline><newline>Current status: <em>Accepts new residents</em>"))

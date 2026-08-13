@@ -1,4 +1,4 @@
-# Community Opt-In Pack (working title) — Surviving Mars: Relaunched
+# Community Fix Pack: Opt-In Modules — Surviving Mars: Relaunched
 
 Eight opt-in modules for *Surviving Mars: Relaunched*. Every one of them is
 **off, or at its vanilla base setting, until you turn it on** in

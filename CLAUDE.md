@@ -1,10 +1,10 @@
-# Community Opt-In Pack — Surviving Mars: Relaunched
+# Community Fix Pack: Opt-In Modules — Surviving Mars: Relaunched
 
-⚠️ **"Community Opt-In Pack" is a PLACEHOLDER display name** (owner call at
-launch prep). The mod id `SMR_CommunityOptInPack`, the global `SMROptInPack`
-and the log prefix `[CommunityOptInPack]` are the working names this repo was
-built with; every player-visible site that carries the placeholder is listed in
-`docs/agent/PROVENANCE.md`.
+✅ **Display name DECIDED (owner, 2026-08-13): "Community Fix Pack: Opt-In
+Modules"** — family-prefixed, swept across every player-visible site the same
+day (`docs/agent/PROVENANCE.md` §3). The mod id `SMR_CommunityOptInPack`, the
+global `SMROptInPack` and the log prefix `[CommunityOptInPack]` are UNCHANGED —
+they are code/save contract, not display names.
 
 An **opt-in behaviour mod**: eight modules that change how the game plays, each
 one **off (or at its base setting) until the player turns it on** in Options →

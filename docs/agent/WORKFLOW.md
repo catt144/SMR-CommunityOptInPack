@@ -138,7 +138,7 @@ New-Item -ItemType Directory -Force "$env:APPDATA\Surviving Mars Relaunched\Mods
 New-Item -ItemType Junction -Path "$env:APPDATA\Surviving Mars Relaunched\Mods\SMR-OptInPack" -Target "C:\Dev\SMR-OptInPack"
 ```
 
-Then enable "Community Opt-In Pack" in the game's Mod Manager (working title —
+Then enable "Community Fix Pack: Opt-In Modules" in the game's Mod Manager (working title —
 `agent/PROVENANCE.md` §3). After editing Lua, restart the game.
 ⛔ **A Mod-Manager disable takes effect only after a FULL PROCESS RESTART**, and
 re-enabling the owner's mods is the owner's call, not an agent's. **Opt-module first-enable caveat is FIXED (audit 2026-07-29):**

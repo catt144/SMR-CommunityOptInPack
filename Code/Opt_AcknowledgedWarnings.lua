@@ -1,6 +1,6 @@
 -- D02 — OPTIONAL module, OFF BY DEFAULT. Not a bug fix.
 --
--- Enable it in-game: Options → Mod Options → Community Opt-In Pack (D05; toggles
+-- Enable it in-game: Options → Mod Options → Community Fix Pack: Opt-In Modules (D05; toggles
 -- take effect immediately, both directions — the wrappers below consult
 -- SMROptInPack.IsActive per call and pass through while off). Other mods /
 -- power users can also pre-seed SMROptInPack_Optional = { AcknowledgedWarnings

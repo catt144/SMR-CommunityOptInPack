@@ -92,10 +92,16 @@ footprint. Its header's "Savegame footprint: none" means "no NEW names".
 
 ---
 
-## 3. Placeholder sites — the display name is an OWNER decision
+## 3. Placeholder sites — ✅ the display name is DECIDED and SWEPT
 
-`"Community Opt-In Pack"` is a working title. Every player-visible site
-carrying it, to be swept in one pass at launch prep:
+✅ **DECIDED (owner, 2026-08-13): `"Community Fix Pack: Opt-In Modules"`** —
+family-prefixed so the two mods sort together in mod lists, which also serves
+the Paradox-Mods discoverability observation (keyword search broken there;
+shared naming lets the fix pack surface its sibling). **Swept the same day, one
+pass, every site below (15 occurrences, 11 files), parse sweep GREEN.** The
+mod id / global / log tag are unchanged (code + save contract). Historical
+table — the working title `"Community Opt-In Pack"` occupied these sites from
+the 2026-08-12 split until the sweep:
 
 | site | string |
 |---|---|
@@ -109,7 +115,8 @@ carrying it, to be swept in one pass at launch prep:
 ✅ **The GitHub remote is DECIDED and LIVE (owner, 2026-08-13): PUBLIC**, at
 `github.com/catt144/SMR-CommunityOptInPack`, matching the fix pack's setup. All
 6 commits pushed; `main` tracks `origin/main`. Still owner-owned and open: the
-**display name** placeholders above and the **store description**.
+**store description** (launch prep). ~~The display name placeholders~~ —
+decided and swept 2026-08-13, see above.
 
 ---
 

@@ -1,6 +1,6 @@
 -- D12 — OPTIONAL module, OFF BY DEFAULT. Not a bug fix.
 --
--- Enable it in-game: Options → Mod Options → Community Opt-In Pack (D05; the
+-- Enable it in-game: Options → Mod Options → Community Fix Pack: Opt-In Modules (D05; the
 -- toggle takes effect immediately, both directions — every hook below consults
 -- SMROptInPack.IsActive per call and passes through while off, and the infopanel
 -- row stops being appended to newly opened panels). Other mods / power users
@@ -744,7 +744,7 @@ local function append_policy_row(section, context)
 					self:ProcessToggle(context, true)
 				end
 			end
-			self:SetRolloverTitle(Untranslated("Dedicated Dome Policy (Community Opt-In Pack)"))
+			self:SetRolloverTitle(Untranslated("Dedicated Dome Policy (Community Fix Pack: Opt-In Modules)"))
 			self:SetRolloverText(Untranslated(
 				"For <em>Nursery</em> and <em>Retirement</em> Domes. Those Domes keep only enough ordinary housing to staff their services, so unhoused jobseekers pile up in them — and once a Dome holds enough homeless it counts as overcrowded and stops receiving anyone, including the Children or Seniors it was built for.<newline><newline>"
 				.. "When this is on, <em>unemployed</em> Colonists with no home here move to the nearest Dome that has housing they can use.<newline><newline>"
