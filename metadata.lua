@@ -11,11 +11,13 @@ return PlaceObj('ModDef', {
 	'last_changes', "Initial release: the eight optional modules, split out of the Community Fix Pack into their own mod.",
 	'id', "SMR_CommunityOptInPack",
 	'author', "catt144",
-	-- pre-release 0.1.0 (PackVersion reads major.minor.version); launch prep
-	-- sets the ship value
+	-- ✅ SHIP VALUE 1.0.0, owner-ruled 2026-08-14 at launch prep ("we go 1.0,
+	-- especially with the amount of QA we have done") — matches the changelog's
+	-- "Initial release" and the sibling pack. PackVersion reads
+	-- major.minor.version.
 	'version', 0,
-	'version_major', 0,
-	'version_minor', 1,
+	'version_major', 1,
+	'version_minor', 0,
 	'lua_revision', 350453,
 	-- saves made with this mod load fine without it (FIX_POLICY §3), so don't
 	-- nag players who removed it with the missing-mods prompt.
