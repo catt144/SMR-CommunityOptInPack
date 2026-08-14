@@ -26,6 +26,14 @@ return PlaceObj('ModDef', {
 	-- the packer includes EVERYTHING recursively minus this list (Mod.lua:250-256,
 	-- GedModEditor.lua:716-732) — without the extra patterns docs/, README.md,
 	-- .gitignore and .claude/ all ship inside the .hpk. LICENSE ships on purpose.
+	-- ⭐ THREE PATTERNS ADDED 2026-08-14 AT LAUNCH PREP (fix-pack chain
+	-- `release-3` prompt 1) — checklist item 23, the owner's ruling "YES, add the
+	-- missing patterns, at launch prep", all three mods. MEASURED before and
+	-- after over the real tree: without them this package shipped `CLAUDE.md`,
+	-- `.gitattributes` and all EIGHT files of `tools/` into a player's download —
+	-- 22 files where 12 belong. Nothing there ever RUNS (only `code` executes),
+	-- but CLAUDE.md is agent instructions and `tools/` is build machinery.
+	-- ⚠️ `LICENSE` is NOT excluded, deliberately — see the fix pack's note.
 	'ignore_files', {
 		"*.git/*",
 		"*.svn/*",
@@ -33,8 +41,11 @@ return PlaceObj('ModDef', {
 		"*/SourceData/*",
 		"*/docs/*",
 		"*/.claude/*",
+		"*/tools/*",
 		"*README.md",
+		"*CLAUDE.md",
 		"*.gitignore",
+		"*.gitattributes",
 	},
 	-- Mod Options defaults (D05): must mirror items.lua's ModItemOptionToggle
 	-- names, all false. This field is what makes Options → Mod Options list the
