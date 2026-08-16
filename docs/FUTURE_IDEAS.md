@@ -247,3 +247,7 @@ the same sitting).
 **To un-park.** Post-launch owner decision, one option at a time. ⚠️ J's fate
 also hangs on the fix pack's brake-intervention leg — if that refutes the
 distance knob, only I survives.
+⛔⛔ **It did, the same evening: J is REFUTED by measurement** (the leg applied
+the brake at 100% and the routing did not move — see the report §J amendment
+and fix pack `agent/bugs/C48.md`). **Only I — the seeds-only gleaner — remains
+parked here.**

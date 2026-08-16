@@ -734,6 +734,16 @@ source (*"surface deposits are considered 50% further than storages"*,
   the routing — the fix pack's planned intervention leg tests exactly this
   before anyone trusts the knob. If that leg refutes it, option J dies and
   option I (which attacks trip EFFICIENCY, not source choice) is the survivor.
+* ⛔⛔ **REFUTED 2026-08-15, the same evening, by that leg** (fix pack
+  `archive/c48brake_*`, owner-authorized): the brake was applied at 100% — all
+  3,390 live requests rebuilt and provably rebaked at 150 — and **the routing
+  did not move**: the 280-crumb wall stood in the braked window (86–88%/68%),
+  zero bulk arrivals appeared, and the farms went on eating the landscape.
+  Exactly the known limit above, now measured. **Option J is DEAD. Option I
+  (the gleaner) is the surviving remedy, strengthened** — it works regardless
+  of why drones pick the landscape. ⭐ The propagation-churn claim below was
+  incidentally confirmed live (3,580 → 3,702 requesters across 10.5 game
+  hours).
 
 **Relationship.** I and J are complementary, not alternatives: J tries to send
 drones to depots more often; I makes the landscape trips that still happen cost
