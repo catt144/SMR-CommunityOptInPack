@@ -216,3 +216,34 @@ questions listed, legacy loader citation `RocketBase.lua:1729-1736`).
 **To un-park.** Post-launch owner decision; answer research question (2) — the
 sell path — before anything is written, since it decides whether the feature is
 even coherent.
+
+---
+
+## 7. Drone seed-supply routing pair — the "gleaner" + the scattered-source brake — parked 2026-08-15, ⚖️ destination ruled by owner the same day
+
+**What.** Two complementary drone-judgment options born out of the fix pack's
+`C47`/`C48` farm investigation: **(I) a seeds-only cargo top-up** — after a
+drone picks up one plant's 280-seed offer, let it claim more nearby offers
+until full before delivering (~10× fewer trips for the same flow on a
++2-carry rig), and **(J) the developers' own 150 distance brake** applied to
+vegetation seed offers (`supply_dist_modifier = 150`, the exact number and
+comment they gave surface deposits).
+
+⚖️ **Why it is parked HERE and may never touch the fix pack — owner ruling
+2026-08-15, verbatim:** *"I am not going to manipulate drone behavior on a bug
+fix mod."*
+
+**Why it is a good idea.** Measured, not argued: 134 deliveries on the owner's
+own colony, not one a full drone trip, 84% exactly one bush's yield, while
+12.4M stored seeds sat untouched — every landscape trip wastes ~90% of the
+drone's capacity. The full design with verified seams, guards, save-safety
+shape and the known limit of the brake: **`agent/reports/
+DRONE_OVERHAUL_OPTIONS.md` §I+J** (added 2026-08-15).
+
+**Where the material lives.** That report section; fix pack `agent/bugs/C47.md`
++ `C48.md` (the measurements); this repo's `D02.md` (the flapping boundary from
+the same sitting).
+
+**To un-park.** Post-launch owner decision, one option at a time. ⚠️ J's fate
+also hangs on the fix pack's brake-intervention leg — if that refutes the
+distance knob, only I survives.

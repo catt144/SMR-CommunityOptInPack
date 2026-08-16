@@ -644,3 +644,102 @@ save risk, which is most of what the building was wanted for.
    pressure to grow radii should be lower by then.
 5. **Building** — only behind a PT-20 verdict, purely as gate + cost + failure
    mode. Nothing from 1-4 is wasted if it is rejected.
+
+# I + J — seed-supply routing pair (added 2026-08-15 out of the fix pack's C47/C48 measurement chain)
+
+⚖️ **OWNER RULING, 2026-08-15, recorded verbatim: "I am not going to manipulate
+drone behavior on a bug fix mod."** ⇒ Every behavioral remedy for the
+`C47`/`C48` seed-routing family lives HERE, in this house, behind this pack's
+default-OFF convention — the fix pack gets, at most, data-shaped repairs, and
+only after `C48` is ruled. This section is the standing record of that boundary.
+
+**Provenance.** The fix pack's `C48` leg (2026-08-15, `archive/c48veg_*` in that
+repo) measured the routing signature on the owner's own colony: **134 deliveries
+to two farms at 200 ms sampling, not one a full drone trip (3,000 on the rig),
+83.6% exactly 280 = one bush's yield at soil 100, while 12.4M stored Seeds
+across 34 depots did not fall.** Mechanism source-verified there:
+`VegetationTaskRequester` posts ONE request per PLANT for
+`GetVegOutputAmount(preset)` (Bush 200 × soil bonus ⇒ 280 ceiling,
+`Vegetation.lua:1848-1851`), inherits `supply_dist_modifier = 100` (no distance
+brake; the tree's only override is `SurfaceDeposit = 150`), and carries
+`priority = 1`. The drone side is NOT seeds-specific: one trip serves exactly
+one supply request and takes `min(capacity, what that request holds)`
+(`Drone:PickUp`, `Drone.lua:940-1014`; `FindTask` pairing is C-side). A bush
+outbidding a depot therefore wastes ~90% of the trip's capacity on a +2-carry
+rig, every time.
+
+## I. Cargo top-up on the way to deliver — the "gleaner"
+
+**What.** After a drone completes its assigned pickup with cargo below
+capacity, let it claim additional same-resource supply requests within a
+bounded radius of where it stands (or roughly on the corridor to its
+destination), topping up before it delivers. Converts 280-per-trip seed crumbs
+into up-to-capacity loads — on the owner's rig, roughly **10× fewer trips for
+the same seed flow**.
+
+**Why it is legal (each point rests on a verified ground rule above or a fresh
+2026-08-15 source read):**
+* The C matcher's CHOICE is untouchable (ground rule 1) — this option does not
+  touch it. It extends what the drone does AFTER assignment, which is all Lua.
+* ⭐ **Vanilla precedent for post-assignment second-guessing already exists on
+  the demand side**: `Drone:Deliver` calls `ImproveDemandRequest` — *"req,
+  coming from PickUp, find a better dest"* (`Drone.lua:1172-1175`). The gleaner
+  is the mirror image on the supply side.
+* ⭐ **The seam is vanilla-provided**: `Drone:PickUp(s_request, d_request,
+  resource, amount, dont_chain_deliver)` — a pre-wrapper calls the vanilla body
+  with `dont_chain_deliver = true`, runs the top-up loop, then
+  `SetCommand("Deliver", d_request)` exactly as vanilla would have
+  (`Drone.lua:940,1013-1014`).
+* Claims are atomic and Lua-visible (`RequestAssignUnit` /
+  `RequestUnitFulfill`, ground rule 3); each extra hop must replicate the
+  vanilla Push/PopDestructor discipline (`Drone.lua:956-995`) so an interrupted
+  drone releases every reservation.
+* **Over-carry is a handled state, not a new failure mode**: `Deliver` clamps
+  to the destination's remaining need (`Min(amount,
+  d_request:GetTargetAmount())`, `Drone.lua:1183`), leftover cargo goes through
+  the idle-with-cargo path (find another demand), and the terminal fallback is
+  vanilla `CreateDumpingStockpile` (`Drone.lua:1195`).
+* **Save/uninstall shape**: commands are restartable — `SetCommand` persists
+  name + args and the command re-runs from scratch on load (why `PickUp`
+  re-asserts its claims at the top). The wrapper passes only vanilla-shaped
+  args, so a save taken mid-glean loads without the mod as a plain vanilla
+  `PickUp` retry. Same safety class as the built D06 core; still owes the
+  standard save-contract proof before shipping.
+
+**Guards it must ship with** (the failure mode is not a crash, it is a drone
+wasting its life hopping bushes): hard cap on extra stops · hard radius ·
+a gate on when gleaning is allowed — lowest-priority resources only (seeds are
+already `priority = 1`, so a seeds-only v1 is self-selecting) or hub load
+reading Low via `CalcLapTime` (ground rule 7, free to read).
+
+**v1 scoping: SEEDS-ONLY GLEANER.** Smallest blast radius, biggest measured
+win, self-selecting priority gate. Generalising to all resources touches every
+logistics flow in the game and is a separate decision.
+
+## J. Scattered-source distance brake — the devs' own number
+
+**What.** `VegetationTaskRequester.supply_dist_modifier = 150` — the exact
+value and rationale the developers applied to the only comparable scattered
+source (*"surface deposits are considered 50% further than storages"*,
+`SurfaceDeposit.lua:84`). One field, class-level, no wrapper.
+
+* ⭐ **Propagation is self-healing**: the modifier is baked into each request at
+  creation (`Request_New`, `_TaskRequest.lua:154`), BUT the requester
+  population churns fast — the C48 ladder watched it move 3,583 → 3,457 →
+  3,304 → 3,637 within 14 game hours (every harvest destroys one, every
+  cooldown expiry spawns one) — so a class-level change reaches most of the
+  live population in hours of game time with zero teardown surgery.
+* ⚠️ **Known limit, stated up front**: the brake multiplies DISTANCE. On a
+  carpeted map where bushes stand beside the farm, a 150 brake may barely move
+  the routing — the fix pack's planned intervention leg tests exactly this
+  before anyone trusts the knob. If that leg refutes it, option J dies and
+  option I (which attacks trip EFFICIENCY, not source choice) is the survivor.
+
+**Relationship.** I and J are complementary, not alternatives: J tries to send
+drones to depots more often; I makes the landscape trips that still happen cost
+what they should. Either could ship alone.
+
+⛔ **Parked per the FUTURE_IDEAS hard rule** — nothing here is built, and
+un-parking is an owner decision after launch. Cross-reference: fix pack
+`agent/bugs/C47.md` + `C48.md` (the measurements), this repo's `D02.md` (the
+flapping boundary the same sitting found), FUTURE_IDEAS item 7.
