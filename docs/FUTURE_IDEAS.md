@@ -276,7 +276,10 @@ the category to unlock this law"*.
 
 **Why it is a good idea.** Owner hit it live on their own campaign 2026-08-16 —
 two full sessions cycled, no dome option anywhere, and read the grid as broken.
-It is not; it is **two independent gates and the game only announces one**:
+It is not; it is **two independent gates and the game only announces one**.
+⭐ **The cost is player-confirmed, not estimated:** the owner then reached the
+law organically and *"had to work my way down the row"*, exactly as the chain
+predicts (`EF-058`).
 
 - **Gate 1, announced.** The law's `DisableConditions`, *"Must have Breathable
   Atmosphere"* — Atmosphere ≥ 95% **and** Temperature ≥ 50%
@@ -311,9 +314,13 @@ explained in-UI. A reveal or a reword is a design change, not a repair, so it
 cannot enter the fix pack. Severity is feel, not function — the law is
 reachable the whole time.
 
-**Where the material lives.** This entry only. The derivation was a single
-2026-08-16 conversation; every citation above was read off the shipped tree
-that session and none of it is recorded in `agent/facts/` yet.
+**Where the material lives.** ✅ **The fact debt is PAID (2026-08-16, same
+day):** the mechanism is `agent/facts/EF-057` (breathability is a
+two-parameter quorum; which effects belong to the atmosphere and which to the
+law) + `EF-058` (the policy grid's prepare-chain, its caps and bypasses, the
+session economy, and why a locked hex can never name itself). Mirrored in the
+fix pack as `EF-061`/`EF-062` — amend both or neither. This entry keeps only
+the QoL shapes and the ruling.
 
 **Rough cost.** Unscoped. M and N look like text/rollover work; L needs a seam
 on the policy-state recalc plus a save-safe way to hold the override — **no
@@ -321,7 +328,8 @@ seam has been verified**, and `RecalcPoliciesState` is a plain `Legislature`
 method, so the flattened-class trap does not obviously apply but has not been
 checked either.
 
-**To un-park.** Post-launch owner decision, one shape at a time. Whichever is
-picked, the first work item is the same and is worth doing even if all three
-die: **record the two-gate structure as an engine fact.** It cost a full
-session to derive and will be re-derived from scratch otherwise.
+**To un-park.** Post-launch owner decision, one shape at a time. The one item
+that was worth doing even if all three die is already done (the facts above),
+so un-parking starts cold at seam work: L needs `RecalcPoliciesState` wrapped
+and a save-safe home for the override; M and N need the loc-string discipline
+any player-visible text change carries.
