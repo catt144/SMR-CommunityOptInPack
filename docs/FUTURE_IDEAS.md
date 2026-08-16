@@ -333,3 +333,51 @@ that was worth doing even if all three die is already done (the facts above),
 so un-parking starts cold at seam work: L needs `RecalcPoliciesState` wrapped
 and a save-safe home for the override; M and N need the loc-string discipline
 any player-visible text change carries.
+
+## 9. Per-fix player toggles for the FIX PACK — a Mod Options page like the one we admired — parked 2026-08-16
+
+**What.** A player-facing on/off switch per fix in the **fix pack** (not this
+mod), reached the way every other setting is: Main Menu → Options → a page
+listing the modules with checkboxes. Parked HERE and not in the fix pack's own
+`FUTURE_IDEAS.md` per the 2026-08-14 ruling that reserves that file for
+bug-related items only — same routing as #5 (dev/cheat tooling).
+
+**Why it is a good idea.** Owner, 2026-08-16, on seeing the parallel community
+fix mod's options page: *"I genuinely like that he allows people to turn off
+fixes in his pack as well."* And the gap it exposes is real and currently
+total — **a player cannot disable a single fix of ours by any route:**
+- the `SMRFixPack_Disabled` veto is read at mod load (`00_Core.lua:384-388`),
+  so it only works from **a companion mod that loads before ours** — a modder's
+  tool, not a player's;
+- ⛔ the developer console cannot do it — by the time anyone can type, the fixes
+  are applied;
+- ⛔ the fix pack has **no Mod Options page at all**, and the reason matters:
+  not a decision against toggles, but a consequence of the opt-in split leaving
+  it with nothing left to configure, so the engine correctly stops listing it
+  (checklist, 2026-08-12 build notes).
+⇒ The argument gets stronger as the pack grows: 75 modules today, and the
+"one mod fixes all" direction (`agent/prompts/COVERAGE_SWEEP_SMRCF.md`) points
+at more. A player who dislikes exactly one fix currently has one remedy —
+uninstall all of them.
+
+**Where the material lives.** ⭐ **The capability is already built and shipped
+in THIS mod:** the opt-in pack's own Mod Options page gates its 7 modules, so
+the template, the persistence and the gamepad surface all exist and work. Fix
+pack `FIX_POLICY` §7 carries the surface rules (*"Mod Options is the one
+universal surface (gamepad-native) — anything a console player must be able to
+steer goes there or nowhere"*, and the note that every log/console surface is
+invisible on console).
+
+**Rough cost.** Unscoped, and bigger than it looks — the page itself is the
+easy part. Real questions: what a mid-save toggle means for a fix that has
+already changed state; whether toggling needs the full restart a Mod-Manager
+disable needs (`D13`); how 75+ entries stay navigable (their page has search
+and version grouping, which is why it works); and a save-safety pass under
+`FIX_POLICY` §3a for anything that can now be switched off at runtime.
+
+**To un-park.** Post-launch owner decision. ⛔ Not a pre-release change — the
+ship line was frozen 2026-08-12 and this touches every module. ⚠️ **Unrelated
+but adjacent, and NOT parked:** the frozen `MOD_DESCRIPTION.md` tells players
+to set the veto *"in the console"*, which is false and is already logged as a
+correction release prep must make. Confirm that landed before upload; it is a
+release item, not a future idea.
