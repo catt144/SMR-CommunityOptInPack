@@ -89,6 +89,22 @@ owner's words and the record's verdict. No fix-pack repair exists or will.
 All default-OFF, post-launch, un-parked one at a time. Report sections
 `DRONE_OVERHAUL_OPTIONS.md` §I/§K hold the engineering detail; this is the map.
 
+⛔⛔ **FIRST, THE OPTION THAT IS DEAD BEFORE ANYONE REACHES FOR IT — the
+"just size the buffer" shape (fix pack `C47.md` shape 1). OWNER, 2026-08-16:**
+*"I don't think a buffer will fix it because they don't fill the current buffer
+as of now."* It is the cheapest-looking fix in the whole family and it is
+**refuted by this case's own numbers**: 134 deliveries, not one a full drone
+trip, 83.6% exactly 280 against a 3000 capacity, while the farm never reached
+the 5000 it already had (minima 305–605 unattended; true zeros attended). A
+ceiling you never touch does nothing when raised. ⚠️ And the obvious rebuttal —
+that `consumption_max_storage` also sizes the demand REQUEST — dies on §1's own
+finding: 479/479 Seeds pairings chose landscape over storage, so a larger ask
+buys more 280-crumbs, not bulk trips. **It is a delivery-rate problem wearing a
+storage problem's clothes.** The same ruling retired the fix pack's "don't fix
+C47 while C48 is open" caution: a buffer that cannot fill cannot mask anything.
+⇒ Every design below fixes the TRIP or the CHOICE. None of them fixes the
+BUFFER, and that is deliberate.
+
 * **§I — the seeds-only GLEANER** (filed 2026-08-15, unchanged by every twist
   of the case, because it fixes the TRIP, not the choice): after a pickup
   below capacity, top up from nearby same-resource offers before delivering,
