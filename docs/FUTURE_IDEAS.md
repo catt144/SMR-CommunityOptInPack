@@ -260,3 +260,68 @@ and the parked set here is now **I (gleaner) + K (pairing policy: bank crumbs
 to depots, feed consumers from depots, farm-only or all-consumer scope) + the
 K-probe (flag-brand experiment, runs FIRST)** — designs in
 `DRONE_OVERHAUL_OPTIONS.md` §I/§K. J stays dead as a tombstone.
+
+## 8. "Open Domes" discoverability — the endgame law the game says you have and you cannot find — parked 2026-08-16
+
+**What.** QoL options for the moment terraforming turns the atmosphere
+breathable and the *Planet Habitable* popup announces *"The Open Domes law has
+been unlocked"* — while the policy itself can still be an unnamed **?** in the
+Politics grid with no route to it. Candidate shapes, cheapest first:
+**(L) reveal-on-unlock** — force the `OpenDomes` policy slot to `visible` once
+`BreathableAtmosphere` is true, leaving the prepare-chain untouched for every
+other policy; **(M) honest popup** — append the real remaining requirement to
+the `AtmosphereBreathable` popup text; **(N) name the "?"** — let a locked hex's
+rollover name the policy it hides instead of the generic *"Prepare more laws in
+the category to unlock this law"*.
+
+**Why it is a good idea.** Owner hit it live on their own campaign 2026-08-16 —
+two full sessions cycled, no dome option anywhere, and read the grid as broken.
+It is not; it is **two independent gates and the game only announces one**:
+
+- **Gate 1, announced.** The law's `DisableConditions`, *"Must have Breathable
+  Atmosphere"* — Atmosphere ≥ 95% **and** Temperature ≥ 50%
+  (`Data/LawDef/LawDef-Research.lua:632-644`; `Data/TerraformingParam.lua:86`
+  + `:143`).
+- **Gate 2, silent.** The policy grid's sequential prepare-chain. `OpenDomes` is
+  `SortKey 900` — **10th of 11** in **Research & Ecology** (`ResearchAndSafety`)
+  — and a slot only turns `visible` when *every* earlier slot in the row has
+  been **prepared**; visible-but-unprepared blocks the rest of the row exactly
+  as hard as locked (`Lua/Factions/Legislature.lua:1085-1140`, `are_prev_prepared`
+  `:1075-1084`). A Martian Assembly lifts the 3-per-category cap but not this.
+- **Nothing links them, and nothing is broken.** `SetAtmosphereBreathable`
+  (`Lua/Terraforming.lua:304-366`) never touches the Legislature — there is no
+  reveal path failing to fire, no dead branch to repair. That absence is
+  precisely why this is not a fix-pack item.
+- **The game's own two variants disagree.** `AtmosphereBreathable` and
+  `AtmosphereBreathableNoPoliticsRule` share title and body and diverge in one
+  line: with politics off the player gets an *"Open the Domes"* button on the
+  spot (`Data/PopupNotifications/PopupNotificationPreset-GreenMars.lua:15-19`);
+  with politics on they get "unlocked" and no route.
+- **The locked hex never names what it hides** (`Data/XDef/LawEntry.lua:155`
+  + `:212`), so the announced law is undiscoverable by inspection.
+- **Player cost when it bites:** 8 further preparations, one per session,
+  sessions 1 Sol apart (`LegislatureBetweenSessions` = 1440000ms = 1 Sol).
+  Accelerators exist and blunt the severity — Efficient Assembly's instant
+  prepare (`Legislature.lua:767-781`) and a Law Office auto-preparing a random
+  visible policy every ~3 Sols (`DLC/thomas/Code/LawOffice.lua:41-63`).
+
+⚖️ **Why it is parked HERE — ruled on the spot 2026-08-16.** No shipped-Lua
+defect: every line behaves as written and the mechanic *is* generically
+explained in-UI. A reveal or a reword is a design change, not a repair, so it
+cannot enter the fix pack. Severity is feel, not function — the law is
+reachable the whole time.
+
+**Where the material lives.** This entry only. The derivation was a single
+2026-08-16 conversation; every citation above was read off the shipped tree
+that session and none of it is recorded in `agent/facts/` yet.
+
+**Rough cost.** Unscoped. M and N look like text/rollover work; L needs a seam
+on the policy-state recalc plus a save-safe way to hold the override — **no
+seam has been verified**, and `RecalcPoliciesState` is a plain `Legislature`
+method, so the flattened-class trap does not obviously apply but has not been
+checked either.
+
+**To un-park.** Post-launch owner decision, one shape at a time. Whichever is
+picked, the first work item is the same and is worth doing even if all three
+die: **record the two-gate structure as an engine fact.** It cost a full
+session to derive and will be re-derived from scratch otherwise.
