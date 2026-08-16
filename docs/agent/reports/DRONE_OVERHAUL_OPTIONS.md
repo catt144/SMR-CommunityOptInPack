@@ -753,3 +753,62 @@ what they should. Either could ship alone.
 un-parking is an owner decision after launch. Cross-reference: fix pack
 `agent/bugs/C47.md` + `C48.md` (the measurements), this repo's `D02.md` (the
 flapping boundary the same sitting found), FUTURE_IDEAS item 7.
+
+# K + K-probe — pairing policy at the FindTask seam: "depots are the supply interface" (added 2026-08-16, owner's design, handed off with the farm case)
+
+⚖️ **HANDOFF RULING, 2026-08-16, verbatim:** *"as much as I want to fix this
+since it is bug territory in practice even if not logic, this I think has to
+be in opt in as its tinkering with drone logic in a way that manipulates it
+that could have other non bug related complications."* Full case background:
+`agent/reports/SEED_LOGISTICS_HANDOFF.md`.
+
+**What K is.** The owner's two rules, mechanised at the one Lua seam every
+pairing crosses (`TaskRequestHub:FindTask`, `_TaskRequest.lua:72-83`; witnessed
+carrying 985 decisions on 2026-08-16, fix pack `archive/c48pair2_*`):
+
+1. **Banking:** a loose/vegetation supply paired to a consumer gets its
+   destination re-asked as a DEPOT demand — the crumbs go to the warehouse.
+   If no depot in range has room: prefer fallback-to-original over
+   suppression (FindTask returns a drone's single best task; suppressing it
+   idles the drone that cycle). The rule self-limits at full depots.
+2. **Depot-only feeding:** a consumer-bound pairing whose supply is not
+   depot-flagged gets its supply re-asked with `required_flags =
+   const.rfStorageDepot` — the farm draws bulk from storage. ⛔ **Mandatory
+   starvation fallback: no depot supply resolves ⇒ serve the original
+   pairing.** Never starve a building to enforce a doctrine.
+
+**Why it is legal and cheap:** the substitution never re-implements the
+matchmaker — `FindSupplyRequest` / `FindDemandRequest` pass `ignore_flags` /
+`required_flags` STRAIGHT into the C finders (`_TaskRequest.lua:54-69`), so
+distance, reachability, restrictor tables and claim arithmetic stay engine
+arithmetic; the wrapper only constrains the CLASS. Precedent in this repo: the
+D06 core claim gate already wraps this exact seam. Wrapper is transient,
+pairings produced are vanilla-legal requests, uninstall = the matcher reverts
+instantly — the D06 safety class.
+
+**Scoping, one line apart:** `IsKindOf(dest_source, "OpenFarmBase")` = the
+surgical farm-only v1 (recommended — touches exactly the measured pathology);
+`DoesHaveConsumption()` = every consumer (colony-wide doctrine; measured data
+says food logistics already works — depots served 46% of food pairings — so
+the global form buys less and risks more).
+
+⛔ **Engineering lessons that BIND any build here** (fix pack `EF-058/060`):
+patch EVERY class carrying the flattened `FindTask` copy and prove wiring on
+live instances (the log leg's first launch caught 0 calls from base-class-only
+patching, `classes.lua:988`); per-call work must be tiny (the seam fires
+constantly); intervene per-resource (seeds-only v1).
+
+## K-probe — the flag-brand experiment: run this BEFORE building K proper
+
+Add `const.rfStorageDepot` to `VegetationTaskRequester` requests ⇒ the
+matcher's own reserve semantics demotes bushes to co-equal with depots,
+distance finally decides, and the depot beside the farm wins **with no wrapper
+at all**. One flag, self-propagating through requester churn (population turns
+over in hours — measured). ⚠️ Unknown C-side special-casing of the flag
+(shuttle logic, depot rebalancing, UI listings) ⇒ one staged-copy leg with the
+existing pairing-log instruments (fix pack `docs/agent/prompts/c48-pairing/`)
+settles whether the one-liner IS the module or K needs the full wrapper.
+
+**Composition:** I (gleaner — efficient landscape→depot banking) + K (bulk
+depot→consumer serving) = the complete seed economy; each stands alone. J
+stays dead.

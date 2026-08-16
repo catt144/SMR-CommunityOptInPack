@@ -49,12 +49,12 @@ owner's 08-12 18:30 log — the only recording of that state there will ever be)
   in `Code/` are exactly those five persisted STRINGS (5 definitions, 6 comments)
   — data, not references. ⛔ **No behaviour change to any module** while the split
   chain runs; `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
-- ✅ **Re-tick SPENT** (owner, 08-12 18:30): mod enabled, 7 toggles on, dials
-  `5x`/`+2`. Nothing owed. ⛔ **`EF-055`/`EF-056`**: a junction pull is a real
-  uninstall (account untouched); a campaign COPY still runs that campaign's
-  autosave — its rotation eats the owner's autosaves (pre-copy them first).
-- ✅ **Remote DECIDED 08-13: PUBLIC** — `github.com/catt144/SMR-CommunityOptInPack`,
-  `main` tracks `origin/main`. **Still open (on the FIX PACK's checklist, item
-  15):** DISPLAY NAME + store description (placeholders `agent/PROVENANCE.md` §3)
-  · stay-OFF-by-default (build took OFF). ⚠️ **CHEATS ENABLED on the rig**, and
-  **BOTH MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).
+- ✅ **Re-tick SPENT** (owner 08-12): enabled, 7 toggles on, dials `5x`/`+2`;
+  nothing owed. ⛔ **`EF-055`/`EF-056`**: junction pull = real uninstall; a
+  campaign COPY still runs its autosave rotation (pre-copy autosaves first).
+- ✅ **Remote PUBLIC 08-13** (`github.com/catt144/SMR-CommunityOptInPack`); display
+  name **"Community Fix Pack: Opt-In Modules"** SET 08-13 (`e17586b`) · store
+  description BUILT+audited (fix pack `reports/RELEASE_DESCRIPTION_OPTIN`) ·
+  v1.0.0 · default-OFF RATIFIED. ⚠️ **CHEATS ENABLED on the rig**, and **BOTH
+  MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).
+- ⭐⭐ **08-16: THE FARM/SEED-LOGISTICS CASE IS THIS HOUSE'S** (owner: *"bug territory in practice even if not logic … has to be in opt in"*). Report `agent/reports/SEED_LOGISTICS_HANDOFF.md`; designs `DRONE_OVERHAUL_OPTIONS.md` §I gleaner + §K pairing policy + K-probe (flag-brand, runs FIRST); §J = tombstone. Parked per FUTURE_IDEAS #7, post-launch, one decision at a time. Mechanism: depots = the matcher's strict last resort (985 pairings witnessed, fix pack `archive/c48pair2_*`).

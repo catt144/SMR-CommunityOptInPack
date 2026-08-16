@@ -249,5 +249,14 @@ also hangs on the fix pack's brake-intervention leg — if that refutes the
 distance knob, only I survives.
 ⛔⛔ **It did, the same evening: J is REFUTED by measurement** (the leg applied
 the brake at 100% and the routing did not move — see the report §J amendment
-and fix pack `agent/bugs/C48.md`). **Only I — the seeds-only gleaner — remains
-parked here.**
+and fix pack `agent/bugs/C48.md`).
+
+⭐⭐ **AMENDED 2026-08-16 — THE WHOLE FARM CASE IS NOW THIS HOUSE'S, by owner
+ruling** (*"it is bug territory in practice even if not logic … has to be in
+opt in as its tinkering with drone logic"*): the mechanism was closed by the
+pairing-log leg (985 witnessed decisions; storage depots are a strict last
+resort, categorically — full report `agent/reports/SEED_LOGISTICS_HANDOFF.md`),
+and the parked set here is now **I (gleaner) + K (pairing policy: bank crumbs
+to depots, feed consumers from depots, farm-only or all-consumer scope) + the
+K-probe (flag-brand experiment, runs FIRST)** — designs in
+`DRONE_OVERHAUL_OPTIONS.md` §I/§K. J stays dead as a tombstone.
