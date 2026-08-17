@@ -4,18 +4,19 @@ return PlaceObj('ModDef', {
 	-- (docs/agent/PROVENANCE.md §3).
 	-- ⭐ FAMILY RENAMED (owner, 2026-08-17, fix-pack checklist 36): "Community
 	-- Fix Pack" → "Relaunched Fix Pack" across the whole set, before any upload;
-	-- owner ruled the sibling titles move NOW. ⛔ TITLE ONLY by that ruling —
-	-- the `description`/`short_description`/`last_changes` strings below still
-	-- say "Community Fix Pack" and MUST be brought to the new family before
-	-- this mod ever publishes (ready wordings: fix-pack repo,
-	-- docs/agent/reports/STORE_METADATA_STRINGS.md, rename note).
+	-- owner ruled the sibling titles move NOW, then widened the license the
+	-- same day ("fix any references that you recommend") — so the
+	-- `description`/`short_description`/`last_changes` strings below carry the
+	-- new name too, renamed IN PLACE (no other wording change). The richer
+	-- description draft in the fix-pack repo's STORE_METADATA_STRINGS.md
+	-- remains release-prep's option at this mod's own launch.
 	'title', "Relaunched Fix Pack: Opt-In Modules",
-	'description', "Eight opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Rockets that keep requesting fuel while parked, acknowledged \"not working\" warnings, a per-Dome \"closed to new residents\" policy, more than one Artificial Sun, a closest-hub-first Drone dispatch overhaul (experimental), automatic cohort housing for Seniors and Children, a Nursery/Retirement Dome policy, and two Drone stat dials (speed, carry capacity). Nothing is patched on disk: the mod wraps the game's own Lua at runtime, and a module you leave off behaves exactly like the unmodded game. Works with or without the Community Fix Pack. ⚠️ Set both Drone dials back to base and then save before uninstalling — setting them to base clears the boost from the colony you are playing, and saving is what clears it from the file.",
-	'short_description', "Eight opt-in gameplay modules, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Community Fix Pack.",
+	'description', "Eight opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Rockets that keep requesting fuel while parked, acknowledged \"not working\" warnings, a per-Dome \"closed to new residents\" policy, more than one Artificial Sun, a closest-hub-first Drone dispatch overhaul (experimental), automatic cohort housing for Seniors and Children, a Nursery/Retirement Dome policy, and two Drone stat dials (speed, carry capacity). Nothing is patched on disk: the mod wraps the game's own Lua at runtime, and a module you leave off behaves exactly like the unmodded game. Works with or without the Relaunched Fix Pack. ⚠️ Set both Drone dials back to base and then save before uninstalling — setting them to base clears the boost from the colony you are playing, and saving is what clears it from the file.",
+	'short_description', "Eight opt-in gameplay modules, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Relaunched Fix Pack.",
 	-- Split out of the Community Fix Pack on 2026-08-12: these eight modules
 	-- shipped there as `optional = true` files and moved here whole, behaviour
 	-- unchanged and persisted names unchanged (docs/agent/PROVENANCE.md).
-	'last_changes', "Initial release: the eight optional modules, split out of the Community Fix Pack into their own mod.",
+	'last_changes', "Initial release: the eight optional modules, split out of the Relaunched Fix Pack into their own mod.",
 	'id', "SMR_CommunityOptInPack",
 	'author', "catt144",
 	-- ✅ SHIP VALUE 1.0.0, owner-ruled 2026-08-14 at launch prep ("we go 1.0,

@@ -474,7 +474,7 @@ it belongs in the fix pack as a plain fix, not here behind a toggle.*
 > ⭐ **BINDS HERE UNCHANGED** (marked 2026-08-12, split). Read "this pack" as
 > "this mod" throughout; the owner's rule was given about the project, not about
 > one repository, and the WHO-BENEFITS test below is the same test. ⚠️ One
-> sharpening the split makes necessary: **the Community Fix Pack is "another
+> sharpening the split makes necessary: **the Relaunched Fix Pack is "another
 > mod" for the purposes of this rule.** A module here may not exist to work
 > around a fix-pack behaviour, and a fix-pack bug is reported and fixed there.
 
@@ -652,7 +652,7 @@ module's own maps — byte-identical in all three.
 - `00_Core.lua` must load first (list order in metadata controls load order).
 - Before release: verify each target against the shipping `Packs\Lua.fpk`
   (see WORKFLOW.md), test each module in-game **in both configurations — with
-  the Community Fix Pack installed and with it absent** (the standalone
+  the Relaunched Fix Pack installed and with it absent** (the standalone
   invariant), update agent/bugs/ statuses, credit prior art (ChoGGi's Fix Bugs
   mod documented several of these bug families for the original game).
 - ⚠️ **The two mods ship as two products.** Each needs its own metadata,

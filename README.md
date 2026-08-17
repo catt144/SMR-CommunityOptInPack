@@ -1,4 +1,4 @@
-# Community Fix Pack: Opt-In Modules — Surviving Mars: Relaunched
+# Relaunched Fix Pack: Opt-In Modules — Surviving Mars: Relaunched
 
 Eight opt-in modules for *Surviving Mars: Relaunched*. Every one of them is
 **off, or at its vanilla base setting, until you turn it on** in
@@ -6,7 +6,7 @@ Eight opt-in modules for *Surviving Mars: Relaunched*. Every one of them is
 own Lua at runtime, and a module you leave off behaves exactly like the
 unmodded game.
 
-**It works with or without the Community Fix Pack.** The two mods are separate
+**It works with or without the Relaunched Fix Pack.** The two mods are separate
 downloads, share no files, and can be installed in either combination.
 
 | module | what it does |

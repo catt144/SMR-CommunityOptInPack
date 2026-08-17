@@ -1,6 +1,6 @@
 -- D04 — OPTIONAL module, OFF BY DEFAULT. Not a bug fix.
 --
--- Enable it in-game: Options → Mod Options → Community Fix Pack: Opt-In Modules (D05; toggles
+-- Enable it in-game: Options → Mod Options → Relaunched Fix Pack: Opt-In Modules (D05; toggles
 -- take effect immediately, both directions — the build menu re-reads
 -- CanBuildOnlyOnce() live, so on_activate/on_deactivate below flip the
 -- template flag on the spot; existing suns are ordinary buildings and keep

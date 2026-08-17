@@ -23,7 +23,8 @@
 >    are N/A here and which apply. Nothing deleted.
 >
 > Where a clause says "the pack", read "this mod" — except where it names the
-> Community Fix Pack explicitly, which after the split is a DIFFERENT product.
+> Relaunched Fix Pack (pre-2026-08-17 records: "Community Fix Pack") explicitly,
+> which after the split is a DIFFERENT product.
 
 ## Reading path for a new session
 
@@ -111,7 +112,7 @@ Two mechanical rules that came with the same restructure:
   Remote `github.com/catt144/SMR-CommunityOptInPack`, **public** by owner ruling
   2026-08-13 (chain rule 9's "no remote unasked" was satisfied by asking). Push
   what you commit, the same as the fix pack.
-- **Companion mod, a separate product:** `C:\Dev\SMR-BugFixPack` (Community Fix
+- **Companion mod, a separate product:** `C:\Dev\SMR-BugFixPack` (Relaunched Fix
   Pack, remote `github.com/catt144/SMR-CommunityFixPack`). Shares no files with
   this repo. Its `docs/archive/` holds all pre-2026-08-12 history, and its
   `docs/PLAYTEST_CHECKLIST.md` / `PLAYTEST_HELP.md` are the owner's two files
@@ -138,7 +139,8 @@ New-Item -ItemType Directory -Force "$env:APPDATA\Surviving Mars Relaunched\Mods
 New-Item -ItemType Junction -Path "$env:APPDATA\Surviving Mars Relaunched\Mods\SMR-OptInPack" -Target "C:\Dev\SMR-OptInPack"
 ```
 
-Then enable "Community Fix Pack: Opt-In Modules" in the game's Mod Manager (working title —
+Then enable "Relaunched Fix Pack: Opt-In Modules" in the game's Mod Manager (the
+decided title, `metadata.lua`; renamed with the family 2026-08-17 —
 `agent/PROVENANCE.md` §3). After editing Lua, restart the game.
 ⛔ **A Mod-Manager disable takes effect only after a FULL PROCESS RESTART**, and
 re-enabling the owner's mods is the owner's call, not an agent's. **Opt-module first-enable caveat is FIXED (audit 2026-07-29):**
@@ -894,7 +896,7 @@ say what the owner reads afterwards. Owner-facing record of the decision:
 > 2. **⛔ ADD, and it is this mod's release blocker:** the DISPLAY NAME is still
 >    a placeholder. Sweep every site in `agent/PROVENANCE.md` §3 in one commit
 >    before upload, and state in the description that the mod works with or
->    without the Community Fix Pack.
+>    without the Relaunched Fix Pack.
 > 3. **N/A HERE — `MOD_DESCRIPTION.md`**: the frozen draft, its four
 >    `[DRAFT NOTE]` markers and the "judgment calls" wording item live in the
 >    FIX PACK's `docs/archive/`. This mod needs its OWN description, written

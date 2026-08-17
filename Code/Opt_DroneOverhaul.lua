@@ -1,6 +1,6 @@
 -- D06 — OPTIONAL module, OFF BY DEFAULT. Not a bug fix: an assignment-POLICY
--- overhaul (core v1). Enable in-game: Options → Mod Options → Community Fix
--- Pack. Toggles take effect immediately in both directions — every hook below
+-- overhaul (core v1). Enable in-game: Options → Mod Options → Relaunched Fix
+-- Pack: Opt-In Modules. Toggles take effect immediately in both directions — every hook below
 -- consults SMROptInPack.IsActive per call and passes through while off. Design
 -- study with the full option analysis: docs/DRONE_OVERHAUL_OPTIONS.md; the
 -- underlying investigation is on the BUGS.md DroneControl bullet.

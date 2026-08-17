@@ -53,7 +53,7 @@ owner's 08-12 18:30 log — the only recording of that state there will ever be)
   nothing owed. ⛔ **`EF-055`/`EF-056`**: junction pull = real uninstall; a
   campaign COPY still runs its autosave rotation (pre-copy autosaves first).
 - ✅ **Remote PUBLIC 08-13** (`github.com/catt144/SMR-CommunityOptInPack`); display
-  name **"Community Fix Pack: Opt-In Modules"** SET 08-13 (`e17586b`) · store
+  name SET 08-13 (`e17586b`) as "Community Fix Pack: Opt-In Modules" ⭐ **RENAMED 08-17 (owner, fix-pack checklist 36) → "Relaunched Fix Pack: Opt-In Modules"** — title + player strings + live surfaces swept HERE same day (metadata strings renamed IN PLACE; richer draft = release-prep option, fix-pack `STORE_METADATA_STRINGS.md`); repo/id/log-tag UNCHANGED · store
   description BUILT+audited (fix pack `reports/RELEASE_DESCRIPTION_OPTIN`) ·
   v1.0.0 · default-OFF RATIFIED. ⚠️ **CHEATS ENABLED on the rig**, and **BOTH
   MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).

@@ -1,4 +1,4 @@
--- Community Fix Pack: Opt-In Modules — core registry.
+-- Relaunched Fix Pack: Opt-In Modules — core registry.
 --
 -- Every module lives in its own Code/Opt_*.lua file and registers here. Design goals:
 --   * Mod-compatible: fixes prefer wrapping/chaining originals over replacement,
@@ -509,9 +509,9 @@ CreateRealTimeThread(function()
 	local wait_message = rawget(_G, "WaitMessage")
 	if type(wait_message) == "function" then
 		wait_message(nil,
-			Untranslated("Community Fix Pack: Opt-In Modules"),
+			Untranslated("Relaunched Fix Pack: Opt-In Modules"),
 			Untranslated(string.format(
-				"%d of this mod's modules found that the game code they patch has changed — usually after a game update — and switched themselves off for safety.\n\nModules that cannot detect such changes may still need attention: if the game was recently updated, check for a new version of the Community Fix Pack: Opt-In Modules.\n\nSwitched off: %s", #suspects, list)))
+				"%d of this mod's modules found that the game code they patch has changed — usually after a game update — and switched themselves off for safety.\n\nModules that cannot detect such changes may still need attention: if the game was recently updated, check for a new version of the Relaunched Fix Pack: Opt-In Modules.\n\nSwitched off: %s", #suspects, list)))
 	end
 end)
 

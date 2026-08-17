@@ -1,5 +1,5 @@
 -- Mod Options — the in-game enable surface for the eight modules
--- (Options → Mod Options → Community Fix Pack: Opt-In Modules). Moved here from the
+-- (Options → Mod Options → Relaunched Fix Pack: Opt-In Modules). Moved here from the
 -- Community Fix Pack on 2026-08-12 with the split; the entries below are
 -- BYTE-IDENTICAL to the ones that shipped there.
 --
