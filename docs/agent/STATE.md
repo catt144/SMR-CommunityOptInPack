@@ -25,7 +25,7 @@ SUSTAINED** (logs byte-compared + read whole, tallies recounted, persisted names
 re-derived from THIS tree, EF-055 re-derived from Src); **no-retraining test
 PASSED from this repo alone** (transcript: `docs/archive/SESSION_LOG.md`, top).
 Both-mods WORKFLOW clause ACTIVE. ✅✅ **08-13: the D13 rescue artifact (ONE, BOTH mods — this repo's five names included, D15 dials the headline) is BUILT, VERIFIED UNATTENDED, AUDIT-SUSTAINED** (removed 1617 by name; suite 94 probes, both-mods 78/0/16/0; fix-pack `archive/rs_*` + `D13_VERIFICATION.md`).
-⇒ **NEXT: nothing owed by this repo** — the combined sitting + step ③ MOD_DESCRIPTION run from the fix pack.
+⇒ **NEXT: nothing owed by this repo UNTIL ITS LAUNCH** — ⛔⛔ **2026-08-17 (owner): THE FIX PACK LAUNCHED ALONE; THIS MOD DID NOT PUBLISH ("its not ready imo") AND EVERY PLAYER-FACING REFERENCE TO IT WAS PARKED** out of the fix pack, the site and both `metadata.lua` player strings. **The session that publishes this mod inherits a standing obligation it must not skip: BEFORE upload, walk the restore checklist in `SMR-BugFixPack/docs/agent/reports/PARKED_OPTIN_REFERENCES.md`** — ~46 passages stored VERBATIM (byte-compared) across the fix pack repo + `SMR-CommunityMods` (landing page, install, FAQ ×5 whole questions incl. the drone-dial uninstall warning, fix list, for-modders, `mkdocs.yml` site_description, store card + STORE record, fix-pack `metadata.lua` ⛔ = version bump + re-upload), then re-measure the counts, re-prove STORE↔RELEASE VERBATIM, doccheck + `mkdocs --strict`. The paste source `RELEASE_DESCRIPTION_OPTIN.md` (fix pack repo) carries the matching parked banner.
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
 ```
