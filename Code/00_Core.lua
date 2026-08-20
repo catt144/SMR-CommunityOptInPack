@@ -258,6 +258,16 @@ function SMROptInPack.DataPatch(id, opts)
 		if entry and (entry.status == "active" or entry.status == "inactive") then
 			entry.status = "active"
 			entry.detail = ""
+			-- MIRRORED 2026-08-20 from the fix pack's `Code/00_Core.lua` (2f077e8),
+			-- on the owner's ruling (fix-pack checklist 37 Q1). Same leak as
+			-- run_apply's success branch, same reason: healing undoes the latch, so
+			-- it must undo the latch's mark too, or `latch -> heal -> benign latch`
+			-- leaves a working module flagged as patch rot for `UpdateSuspects`.
+			-- ⚠️ PRE-EMPTIVE HERE, and deliberately so: no `Opt_*` module calls
+			-- `DataPatch` today, so this site has no caller in this repo (measured
+			-- 2026-08-20). It is mirrored because the two cores are one design and
+			-- the next module to use DataPatch must not re-inherit the defect.
+			entry.update_suspect = nil
 		end
 	end
 	local function run()
@@ -361,6 +371,20 @@ local function run_apply(id, def, entry)
 		entry.status = "active"
 		entry.detail = ""
 		entry.installed = true
+		-- ⛔ MIRRORED 2026-08-20 from the fix pack's `Code/00_Core.lua` (2f077e8),
+		-- owner ruling (fix-pack checklist 37 Q1). `Require` marks
+		-- `update_suspect` on a target-shape failure (:159), and a module can fail
+		-- a pass and then succeed — the first pass can run before the class
+		-- hierarchy is flattened, which is documented and benign. Without this
+		-- line the mark outlives the success and `UpdateSuspects` reads it on ANY
+		-- later `inactive`, including a `latch(..., "benign")` whose whole point is
+		-- to say the data is verifiably already-correct. The player-facing
+		-- consequence is a dialog claiming the game code changed and inviting them
+		-- to look for a newer version, over a module that is working.
+		-- ⚠️ This repo is where that dialog was SEEN (2026-08-17 upload sitting:
+		-- "2 of this mod's modules … NoHomeless, NoHomeless"), so the mark does get
+		-- set here; five of eight modules call `Require`.
+		entry.update_suspect = nil
 		log("%s: applied", id)
 	end
 end
@@ -377,9 +401,25 @@ end
 -- explaining why it deactivated itself (not an error — e.g. "already fixed").
 function SMROptInPack.Register(id, def)
 	local entry = { title = def.title, status = "pending", detail = "" }
+	-- ⛔ MIRRORED 2026-08-20 from the fix pack's `Code/00_Core.lua` (2f077e8),
+	-- owner ruling (fix-pack checklist 37 Q1). The append below used to be
+	-- unconditional, and `SMROptInPack` itself is deliberately preserved across a
+	-- Lua reload (`rawget(_G, ...) or {...}`, :17). So every `ReloadLua` re-ran
+	-- every Register and pushed a SECOND copy of each id into `order`, while
+	-- `fixes[id]` was replaced in place — one module, two order entries pointing
+	-- at one shared entry. Everything that walks `order` then double-counted:
+	-- `ListFixes` prints twice, `ApplyModOptions` reconciles twice, and
+	-- `UpdateSuspects` emitted the same suspect once per copy.
+	-- ⚠️ MEASURED ON THIS MOD, not inherited: the 2026-08-17 dialog read
+	-- "2 of this mod's modules … NoHomeless, NoHomeless" over ONE module, and the
+	-- same log carried 1 `inactive` line and 2 `applied` lines for it.
+	-- Guard on `fixes[id]` BEFORE the overwrite: a known id means re-registration.
+	local reregistered = SMROptInPack.fixes[id] ~= nil
 	SMROptInPack.fixes[id] = entry
 	SMROptInPack.defs[id] = def
-	SMROptInPack.order[#SMROptInPack.order + 1] = id
+	if not reregistered then
+		SMROptInPack.order[#SMROptInPack.order + 1] = id
+	end
 
 	if SMROptInPack_Disabled[id] then
 		entry.status = "disabled"
