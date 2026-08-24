@@ -381,3 +381,131 @@ but adjacent, and NOT parked:** the frozen `MOD_DESCRIPTION.md` tells players
 to set the veto *"in the console"*, which is false and is already logged as a
 correction release prep must make. Confirm that landed before upload; it is a
 release item, not a future idea.
+
+---
+
+## 10. Passage Network — a popular mod with no maintained ancestor, and we now know exactly what is wrong with it — parked 2026-08-23
+
+⛔ **Parked under this file's HARD RULE like everything else here.** Nothing
+below is work, and none of it was researched for this file — it is the residue
+of diagnosing a fix-pack field report (`SMR-BugFixPack` `agent/bugs/F104.md`,
+which carries the full derivation and the live capture). ⛔ **No further
+diagnosis was done or is owed.**
+
+**What it is.** *Passage Network* — Steam `3607071753`, Paradox `124952`, id
+`iooW34Y`, author **Loler**, described as "a conversion of the Passage Network
+mod for Relaunched. Original mod by ChoGGi". **2,221 subscribers, 5 stars from
+6 ratings.** Its promise: *"Colonists travel to any Dome connected through
+Passages regardless of distance or number of Passages."*
+
+**Why it is here.** It is genuinely popular, it fills a real gap, and it looks
+unmaintained: `saved_with_revision` **384011** against a game on **396349**,
+last updated **2025-12-11**, and the Steam and Paradox builds are
+**byte-identical** (md5 `f9c0e49b9c5233b809a4095742482855`) — so neither store
+carries a newer one. Its own source contains a large commented-out block
+labelled *"pre 1.0.4 / ChoGGi's implementation that doesn't work anymore and i
+don't want to fix this"*, i.e. the author already shipped a knowingly reduced
+port. ⚠️ **"Unmaintained" is an inference from dates and metadata, not a
+statement from the author** — nobody has been contacted.
+
+### What works
+
+* The core idea is one line and it is sound: mark every dome in a passage
+  network as a direct neighbour, `d.connected_domes[dome] = -1`, so
+  `AreDomesConnectedWithPassage` and the walking-distance check treat the whole
+  network as connected. `-1` is truthy, and vanilla's readers accept it.
+* `GetNumDomesConnectedToDome` is correctly overridden to count only `k > 0`,
+  so the sponsor goal that counts real passages is not fooled by the pseudo-links.
+* `OnMsg.PostLoadGame` re-establishes the pseudo-links after every load, which
+  is why the mod appears to work at all.
+
+### What does not work (all read at `ModTools\Src` against game 1.0.7.396349)
+
+1. ⛔ **`CreateDomeNetworks` is replaced with a version that takes no `city`
+   argument and returns nothing.** Vanilla's takes `city`, sets
+   `city.dome_networks`, and **returns** the table (`Passage.lua:1096-1107`).
+   All three vanilla readers do `local networks = city.dome_networks or
+   CreateDomeNetworks(city)` and then index the result
+   (`Passage.lua:1116/:1117`, `Dome.lua:1642/:1645`, `Passage.lua:2135`).
+   `city.dome_networks` is `false` by default (`City.lua:11`) and is reset to
+   `false` on every passage connect/disconnect (`Passage.lua:1244`, `:1361`).
+   ⇒ **The first reader after any passage change throws `attempt to index a nil
+   value (local 'networks')`.** ⭐ Confirmed live on the rig 2026-08-23.
+   It self-heals — the override's internal `vanillaCreateDomeNetworks(UICity)`
+   repopulates the field as a side effect — so the cost is **one aborted
+   operation per passage change**, landing on the colonist emigration and
+   workplace-selection paths. ⚠️ Probably NOT self-healing for non-main cities
+   (underground/asteroid): the side effect only ever covers `UICity`. Untested.
+2. ⛔ **Two of its three wrappers are dead.** It wraps
+   `ConnectDomesWithPassage` and `DisconnectDomesConnectedWithPassage`, and
+   **neither global exists** in the shipped Lua (zero hits across `Src/Lua`).
+   They capture `nil` as "vanilla" and define globals nothing calls — so the
+   clear→work→re-add cycle never runs on a passage change, only on load.
+3. ⚠️ **The headline promise is defeated by a clause it never overrides.**
+   `IsInWalkingDistDome` (`Dome.lua:256-259`) returns walkable only if
+   `GetOpenAirBuildings(map)` **or** there is no long-range transport **or**
+   `dist <= const.ColonistMinDistToIgnorePassage` (1200 m). So with a working
+   Shuttle Hub, passage-connected domes further apart than 1200 m stop being
+   walkable and colonists queue for shuttles — exactly "regardless of distance"
+   failing. The const's own help text says this is deliberate vanilla design.
+   ⚠️ **Derived, never measured** — it was screened out as a cause of the field
+   report and not pursued further.
+4. ℹ️ It never gets blamed for any of this. The throw is one line *after* its
+   function returned, so its path is not in the traceback and the engine's
+   mod-blame heuristic names some other loaded mod instead — which is how this
+   landed on us. See `EF-065` in the fix pack.
+
+### ⭐ What the feature actually IS on this build (found 2026-08-23, after the entry above was written)
+
+⚠️ **Corrects the sketch below — read this first.** On Relaunched,
+`AreDomesConnectedWithPassage` (`Passage.lua:1109-1119`) ALREADY tests **network
+membership**, not adjacency, so "connected through passages regardless of number
+of passages" is partly vanilla behaviour already. The thing the mod really buys
+is elsewhere: `recursive_enum_dome_workplaces` (`Dome.lua:640-682`) recurses into
+`dome:GetConnectedDomes()` with `not "recursive"` — i.e. **exactly ONE hop**.
+Vanilla commuting reaches your dome plus its DIRECT passage neighbours and stops.
+Writing every network member into `connected_domes` turns that one hop into the
+whole network, which is precisely why the `-1` trick works.
+
+⇒ A cleaner reimplementation exists: **override `Dome:GetConnectedDomes` to
+return network members** and leave `connected_domes` itself alone. That avoids
+two side effects the current mod has — an empty dome with pseudo-links can never
+be demolished (`Dome.lua:1388` tests `not next(self.connected_domes)`), and
+`GetDomesPassagePath` collapses to a 2-element path because every dome looks
+adjacent. ⚠️ But `GetConnectedDomes` has **~9 callers** (`Dome.lua:672`, `:1810`,
+`:2906`, `:2928`, `:2948`, `:3602`, `:3641`, `Station.lua:209`,
+`Community.lua:485`) and network scope is not obviously right for all of them.
+**Deciding that per caller is the actual design work.** Unenumerated.
+
+### What a replacement would need (sketch only — nothing costed)
+
+* Override `CreateDomeNetworks(city)` **honouring the contract**: take the city,
+  build (or delegate to vanilla for) the networks, apply the pseudo-links, set
+  `city.dome_networks`, and **return the table**. That alone removes (1).
+* Drop the two dead wrappers and hook what actually fires instead —
+  `PassageBase:ConnectDomes` / `:DisconnectDomes`, or `OnMsg.DomesConnected` /
+  `DomesDisconnected`, which are the live signals on this build.
+* Decide what to do about (3), because it is the actual feature: either raise
+  `ColonistMinDistToIgnorePassage`, or patch `IsInWalkingDistDome` to treat a
+  network-connected pair as walkable regardless of distance. ⚠️ **That is a
+  design decision, not a repair** — it deliberately overrides a vanilla balance
+  const, which is precisely why it belongs in an OPT-IN pack and not the fix
+  pack.
+* Handle multi-city maps (underground/asteroids), which the current mod does not.
+
+### Where the material lives
+
+Fix pack `docs/agent/bugs/F104.md` (full derivation, the live stack capture, the
+byte-identical portal comparison, and everything screened out).
+Fix pack `docs/agent/facts/EF-065.md` (why the wrong mod gets named).
+
+### To un-park
+
+⛔ Owner decision, one item at a time, and **not before someone has actually
+asked for it.** Two questions come first: is re-implementing another author's
+popular mod something this pack wants to do at all, and has the author been
+given the finding? ⚠️ Nothing here has been shared with them, and the "abandoned"
+read is an inference. ⚖️ **Fix pack ruling 2026-08-23 (owner):** naming the mod
+when answering a reporter is fair and is not slander — protecting an
+unmaintained mod is not our job. That ruling covers issue replies; it is not a
+decision to build anything.
