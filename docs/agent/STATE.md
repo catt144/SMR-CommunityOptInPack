@@ -20,8 +20,7 @@ Pre-2026-08-31 STATE (the long form): `git show e8d8cee:docs/agent/STATE.md`.
      ✅ entry RECONCILED 09-01: P4/P6 PASSED 08-03 (its own re-run section had said so; tag/row had not). Status stays `speced`.
   b. D07 `CohortHousing` — ✅ `tested-attended` GRANTED 09-01 by reconciliation: E's uninstall half RAN CLEAN 08-10 (leg T,
      raw log re-read: `pack=0/0`, 0 `[LUA ERROR]`); E's precedence half UNMEASURED (fixture unholdable), its question RULED 08-11.
-  c. D06 `DroneOverhaul` — design decision (owner; fix pack `DRONE_PROJECT_PROMPT.md` §3) → build → PT-52 rewrite
-     from the plan + a `RunAll` probe (checklist 83). No probe exists today.
+  c. D06 `DroneOverhaul` — spec written, build gated on checklist 94 + 92; see the drone hold below. No probe exists.
   d. D01/D02/D03/D04/D09 — PT-55/48/49/50/56 PASSED in full (pre-split, fix pack context). ✅ D01 `tested-attended`
      09-01 (bookkeeping; PT-55 closed 07-30). FIX_POLICY §8 both-config test still owed at ship for every module.
 - ⇒ THEN the launch session owes, in order (report §6):
@@ -57,17 +56,17 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
 - ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling.
   ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): `Opt_DroneOverhaul` (D06) and
   `Opt_DroneStatDials` (D09) are open to design + playtest work under FIX_POLICY, A/B per change;
-  PT-52's freeze is LIFTED (its test still needs the rewrite from the approved plan). Entry point:
-  fix pack `prompts/DRONE_PROJECT_PROMPT.md` §3 — the design decision is the owner's next call;
-  its inputs were re-derived 09-01: `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` (YES IF, E-4/E-8 owed;
-  reviewed same day — held, one gap: `EF-074` ImproveDemandRequest hijack; findings are facts `EF-070–074`).
-  Next: one-off `prompts/DRONE_BUILD_DESIGN.md` → design spec + tier table + build brief (owner ratifies before any build).
+  PT-52's freeze is LIFTED; its rewrite is specced (below), not written.
+  ⭐ 09-01 DESIGN SPEC: `reports/DRONE_REBUILD_DESIGN_20260901.md` — V-a "view tiers", the tier × demand table,
+  the `EF-074` guard, zero new persisted names, the ONE playtest; fallbacks P → 2-S → D. Evidence behind it:
+  `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md`, facts `EF-069`–`EF-074`.
+  ⛔ BUILD BRIEF `prompts/DRONE_REBUILD_BUILD.md` — starts ONLY when checklist 94 has a line; its first gate is
+  E-4/E-8 (checklist 92) before any module code. Nothing about D06 is built before both.
   Not touched by this ruling: `FUTURE_IDEAS.md` #7 (gleaner/pairing) stays parked post-launch until said otherwise.
 - ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
   rotation (pre-copy autosaves first, outside the save folder).
 - ⚠️ CHEATS ENABLED on the rig; BOTH MODS LOADED is the standing config (owner rule, `agent/WORKFLOW.md`).
   Grep logs with the FULL token `[CommunityOptInPack]`.
-- ✅ Re-tick SPENT (owner 08-12): enabled, 7 toggles on, dials `5x`/`+2`; nothing owed.
 - ✅ Remote PUBLIC 08-13 (`github.com/catt144/SMR-CommunityOptInPack`); title "Relaunched Fix Pack:
   Opt-In Modules" (family renamed 08-17, checklist 36); id/global/log tag UNCHANGED; v1.0.0; default-OFF RATIFIED.
 - ⭐ 08-16 (owner): the farm/seed-logistics case is THIS HOUSE'S — `reports/SEED_LOGISTICS_HANDOFF.md`,
@@ -95,7 +94,9 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
   (`agent/WORKFLOW.md` reading path 2; ratify = checklist 86).
 
 ## Open owner decisions — bodies in the FIX PACK's `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you"
-- 83 TestKit edits for this mod's coverage · 84 Require pairs for the 3 allowlisted wrap sites ·
+- 83 TestKit edits for this mod's coverage · 84 Require pairs for the 3 allowlisted wrap sites (answered by construction when the D06 rebuild lands) ·
   85 preview art · 86 ratify EF-id allocation rule ·
   88 `FUTURE_IDEAS.md` #9 routing · 89 `Code/` comment-only wording sweep · 90 loc-table ruling scope (audit 09-01) ·
-  91 D06 design w/ the bands report · 92 run E-4/E-8 · 93 tiers on rockets/rovers (bands 09-01).
+  91 D06 design w/ the bands report (answered in form by 94) · 92 run E-4/E-8 · 93 tiers on rockets/rovers (bands 09-01) ·
+  94 ratify the D06 rebuild spec · 95 food-service default 3 · 96 moonlighting keep/drop · 97 disclaimer wording
+  (rebuild design 09-01).

@@ -12,6 +12,55 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-09-01 — the D06 rebuild's DESIGN SPEC + build brief: V-a view tiers, the tier × demand table, no uninstall mod required
+
+tags: D06 drones design spec prompts EF-074 checklist-94 checklist-95 checklist-96 checklist-97
+
+One-off `prompts/DRONE_BUILD_DESIGN.md`, consumed by this commit (grave:
+`git show 870c3e0:docs/agent/prompts/DRONE_BUILD_DESIGN.md`). Desk only, `PROBE SWEEP: clean`.
+Written under the owner's directive: the best build-out **that does not require the Save Rescue
+or any uninstall mod** — which makes rubric rows R3/R7 hard constraints, not trade-offs.
+- **`reports/DRONE_REBUILD_DESIGN_20260901.md`** — mechanism **V-a "view tiers"** with the 11-row
+  rubric re-checked cell by cell (no citation inherited), **THE tier × demand layout table**
+  (T5 = the five life-support producers + vanilla's own band-3 grid/dome legs, co-equal; T4 =
+  every other malfunctioned `RequiresMaintenance`; 3/2/1/0/−1 untouched; construction stated as a
+  decision), the demand-side prose rules, the savegame-footprint statement (**zero new persisted
+  names**, argued per structure via `EF-072`'s only-route rule), the file-by-file replacement of
+  v1, the disclaimer draft, the ONE playtest replacing PT-52, and the A/B + probe plan.
+  Fallback ladder written in: **P** → **2-S** → **D**.
+- ⭐ **Two design findings the bands report did not have.** (1) The lifecycle wrapper set is
+  **provably complete**: `is_malfunctioned` is written in exactly four places tree-wide
+  (`RequiresMaintenance.lua:41` classdef default, `:252`, `:271`, `:324`), and `BaseRover:Repair`
+  is a name collision, not a carrier (`BaseRover.lua:2-12` has no `RequiresMaintenance` parent).
+  (2) **Discard-and-continue**: the tier proxy carries the REAL `under_construction`, and a pass
+  whose result is not one of our requests is discarded rather than returned — which removes every
+  assumption about C's internal scan order and about empty-table tolerance, and stops the tiers
+  from either starving or promoting construction.
+- ⚠️ **`EF-074`'s first-named guard route is unsafe as written and is amended** (fix pack first,
+  mirrored): declining improvement unconditionally loops the drone forever on an unreachable
+  destination (`Drone.lua:1246-1264`). The guard declines **only while `must_change` is false**;
+  in that case its return is byte-equivalent to vanilla's own "nothing better found" path
+  (`:807-812`). The `do_not_improve_req` alternative is unreachable without replacing
+  `Drone:PickUp`. Membership needs no mod table — it is computed from vanilla fields.
+- ⚠️ **`DRONE_PRIORITY_SYSTEM.md` §6 landmine 8 was announced in fix-pack `3e224a7`'s subject line
+  and never written** (that commit touched only `docs/agent/facts/`). Written for real this
+  session, with the record correction noted in place.
+- **`tools/blocking_analysis.py` run over the whole wrap set**: `FindTask`, `SetMalfunction`,
+  `DisableMaintenance`, `ImproveDemandRequest`, the two finders and `CleanUnreachables` all
+  `clear`; `Repair` AMBIGUOUS and `AddBuilding`/`RemoveBuilding` BLOCKS, both hand-adjudicated as
+  false alarms with the reason (the tool cannot see that a yield sits inside a closure passed to
+  `CreateGameTimeThread` — filed as a tooling defect, not fixed here).
+- **`prompts/DRONE_REBUILD_BUILD.md`** — the build brief. Eight `WORKFLOW.md` elements; its FIRST
+  GATE is E-4 / E-8 / the guard assertion before any module code; the spec is its single design
+  authority; the `Require` block retires two `harvest_wrap_targets.py` allowlist rows and answers
+  checklist 84 by construction. It refuses to start while checklist 94 is unruled.
+- **Checklist 94–97 filed** on the fix pack (ratify · food default 3 · moonlighting keep/drop ·
+  disclaimer wording); 91 marked answered-in-form by 94; 92/93 still open and named as the
+  build's gates.
+Not done: any code, any experiment, any TestKit edit, PT-52's actual archival.
+
+---
+
 ## 2026-09-01 — the bands report reviewed: held, one gap (EF-074); its findings become facts EF-070–074; the build-design one-off is written
 
 tags: D06 drones facts EF-070 EF-071 EF-072 EF-073 EF-074 review prompts
