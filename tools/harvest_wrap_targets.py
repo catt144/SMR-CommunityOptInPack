@@ -175,7 +175,10 @@ CHECK_ALLOWLIST = {
         "declares it — SolarPanel.lua:8 (readiness pass 2026-08-31); guarded inline at Opt_MultipleSuns.lua:95/132, not by a Require pair",
 }
 
-_NOT_CLASSES = {"SMROptInPack", "SMRFixPack", "SMRTest", "_G"}
+# `SMRFixPack` deliberately NOT in this set (contamination audit 2026-09-01): in this
+# repo a capture off that global would be a ban-2 breach, and the tool should
+# surface it as an unresolved class rather than skip it as a known framework name.
+_NOT_CLASSES = {"SMROptInPack", "SMRTest", "_G"}
 
 
 def _aliases(src):

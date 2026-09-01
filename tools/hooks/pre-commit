@@ -1,5 +1,6 @@
 #!/bin/sh
-# SMR-BugFixPack pre-commit hook — the mechanical floor (DOC_RESTRUCTURE_SPEC §5).
+# SMR-OptInPack pre-commit hook — the mechanical floor (the fix pack's DOC_RESTRUCTURE_SPEC §5;
+# carried VERBATIM from SMR-BugFixPack at the split, docs/agent/PROVENANCE.md §1; label fixed 2026-09-01).
 #
 # Enable once per clone (it is a repo-local git setting, not a tracked file):
 #

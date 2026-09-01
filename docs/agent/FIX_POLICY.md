@@ -25,6 +25,13 @@ compatibility with other mods and future game patches, zero edits to game files.
 > 4. §1, §2, §3, §3a, §6, §7 are **unchanged and fully binding** — they are
 >    about the engine and about save safety, and this mod patches the same
 >    engine and writes into the same saves.
+> 5. **Bare names inside donor clauses are the FIX PACK's** (marked 2026-09-01,
+>    contamination audit — `agent/reports/CONTAMINATION_AUDIT_20260901.md`):
+>    every `Fix_*.lua`, every `F##`/`C##` id, `D13`, `F86_ADJUDICATION.md`,
+>    `F86_EXECUTION_PLAN.md`, `SAVE_SAFETY_REDESIGN.md`, `PRIOR_ART_SURVEY.md`,
+>    `REACHABILITY_AUDIT.md` resolve under `C:\Dev\SMR-BugFixPack` — this repo
+>    holds none of them. They are cited as the LESSONS that produced a rule, and
+>    the rules bind here; the files are read there.
 
 ## 1. Choose the least invasive technique that works
 
@@ -573,7 +580,8 @@ for that one case**. It is never inferred, never assumed from precedent, and
 never carried forward to a second case. An existing shipped fix is NOT
 precedent — one (F28) already violated this rule and was retired under it.
 
-**Why this exists.** The pack shipped `Fix_ReplaceTechCount` (F28) against a
+**Why this exists** *(fix-pack history — "the pack" here IS the fix pack, not
+this mod; marked 2026-09-01)*. The pack shipped `Fix_ReplaceTechCount` (F28) against a
 function with **zero callers in all of Src** — a 37-line copy of a shipped
 method, carrying per-game-update re-verification cost forever, for a code path
 no player can reach. It was not an accident: the entry said "No vanilla caller"
@@ -659,7 +667,10 @@ module's own maps — byte-identical in all three.
   Full mechanism, all four routes, and the queued live control: `agent/facts/`,
   "RE-USING A SHIPPED TRANSLATION ID …". ⭐ **Owner decision 2026-08-02: the pack
   WILL ship its own `ModItemLocTable` translations, post-release** — at which
-  point this bullet is revisited, not before.
+  point this bullet is revisited, not before. ⚠️ **That ruling was given about
+  the FIX PACK, twelve days before the split; whether it extends to THIS mod's
+  17 `Untranslated(` sites is UNASKED** (marked 2026-09-01; fix-pack checklist
+  item 90). `FUTURE_IDEAS.md` #4(b) hangs on the answer.
 - **Logging:** every ModLog call escapes `%` (`msg:gsub("%%", "%%%%")`) —
   ModLog's print path formats the message a second time (00_Core.lua:24-30).
 

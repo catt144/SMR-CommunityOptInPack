@@ -25,6 +25,16 @@
 > Where a clause says "the pack", read "this mod" — except where it names the
 > Relaunched Fix Pack (pre-2026-08-17 records: "Community Fix Pack") explicitly,
 > which after the split is a DIFFERENT product.
+>
+> 6. **Bare file names and counts inside donor clauses are the FIX PACK's**
+>    (marked 2026-09-01, contamination audit — `agent/reports/CONTAMINATION_AUDIT_20260901.md`):
+>    `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`, `AUDIT_FINDINGS.md`,
+>    `PRIOR_ART_SURVEY.md`, `DRONE_RESEARCH_BRIEF.md`, `CORUN_RIG_SPEC.md`,
+>    `MOD_DESCRIPTION.md`, `F86_EXECUTION_PLAN.md`, every `F##`/`C##`/`D13`
+>    entry and every `Fix_*.lua` resolve under `C:\Dev\SMR-BugFixPack`, never
+>    here — this repo holds none of them (`git ls-files` proves it). The "~29
+>    full replacements" and the `F87`/`F86` site counts are the fix pack's
+>    figures; this mod's are measured by its own tools (`l3`, `l5`, `l6`).
 
 ## Reading path for a new session
 
@@ -188,7 +198,10 @@ registries, two log prefixes (`[CommunityOptInPack]` vs `[CommunityFixPack]`).
    a syntax error in ANY listed file breaks the whole pack at load.
 4. One commit per fix or tight group; agent/bugs/ updated in the same commit;
    MOD_DESCRIPTION.md updated in the same commit as the code change it
-   describes.
+   describes. ⚠️ **N/A here (marked 2026-09-01):** `MOD_DESCRIPTION.md` is the
+   fix pack's frozen draft in ITS `docs/archive/`; this mod's player-facing text
+   is `metadata.lua` (`description`/`short_description`/`last_changes`) and the
+   `items.lua` `Help` strings — those are what a code change updates in step.
 
 ## fpk verification — RELEASE GATE, re-run after every game update
 
@@ -294,7 +307,10 @@ metadata/items lines, commit) or stops and reports.
    Two things the rule does NOT say, so nobody reads them into it: it does not
    ban long-lived instrumentation (that belongs in `90_Loggers.lua` behind an
    explicit toggle, permanent and non-`TEMPORARY` by design — the file exists
-   and is the established home), and it does not excuse skipping the parse
+   and is the established home ⚠️ **N/A here (marked 2026-09-01): no
+   `90_Loggers.lua` exists in THIS repo — nor in the fix pack any more — so
+   long-lived instrumentation here has no established home yet; adding one is a
+   `metadata.lua` `code` change and an owner call**), and it does not excuse skipping the parse
    sweep — which runs at the sitting, on the real file, before the launch,
    exactly as before.
 
@@ -983,10 +999,14 @@ is sure about; ⛔ **doc changes still go to `main` directly**, or reason 2 bite
 >    `metadata.lua` `code` change together, same order) · "the TestKit must NOT
 >    be uploaded" · the probe-number recount in any player-facing claim · the
 >    ChoGGi/LukeH prior-art credit.
-> 2. **⛔ ADD, and it is this mod's release blocker:** the DISPLAY NAME is still
+> 2. ~~**⛔ ADD, and it is this mod's release blocker:** the DISPLAY NAME is still
 >    a placeholder. Sweep every site in `agent/PROVENANCE.md` §3 in one commit
 >    before upload, and state in the description that the mod works with or
->    without the Relaunched Fix Pack.
+>    without the Relaunched Fix Pack.~~ ✅ **DONE** — name decided 2026-08-13 and
+>    family-renamed 2026-08-17 at every §3 site; `metadata.lua`'s description and
+>    `short_description` already say "Works with or without the Relaunched Fix
+>    Pack" (marked 2026-09-01). The launch session re-reads the §3 sites once,
+>    which is a check, not a sweep.
 > 3. **N/A HERE — `MOD_DESCRIPTION.md`**: the frozen draft, its four
 >    `[DRAFT NOTE]` markers and the "judgment calls" wording item live in the
 >    FIX PACK's `docs/archive/`. This mod needs its OWN description, written
@@ -1030,8 +1050,9 @@ is sure about; ⛔ **doc changes still go to `main` directly**, or reason 2 bite
   stale number there is a false claim in player-facing text. Authoritative count
   is in `agent/STATE.md`.
 - **Drone overhaul, if it has shipped by then:** its design-drift disclaimer is
-  MANDATORY (owner requirement — spec in `docs/archive/DRONE_RESEARCH_BRIEF.md`). Do not
-  publish the module without it.
+  MANDATORY (owner requirement — spec in `docs/archive/DRONE_RESEARCH_BRIEF.md`
+  **of the FIX PACK repo**, where it was written; marked 2026-09-01). This bullet
+  is THIS mod's (D06 lives here). Do not publish the module without it.
 - Upload via the in-game Mod Editor (Paradox Mods / Steam Workshop). The
   editor round-trip is SAFE since audit 2.2: items.lua carries one
   `ModItemCode` per Code/ file in metadata order, so SaveDef regenerates the
@@ -1149,6 +1170,16 @@ Rules that keep the tag worth having:
   the FAQ is a launch-time task, and tagging things is not progress toward it.
 - If the tagged behaviour is later changed or fixed, **remove the tag** in the
   same commit, or the FAQ inherits a stale answer.
+
+⚠️ **The list below is the DONOR's, as of 2026-08-01, and names fix-pack entries
+(F88, D13, `MOD_DESCRIPTION.md`, `PRIOR_ART_SURVEY.md`) that are not in this repo
+(marked 2026-09-01). Re-derived for THIS repo by `grep -rn "\[FAQ\]" docs/ Code/`
+on 2026-09-01:** D01's parked-rocket activation limit (`agent/bugs/D01.md` +
+`FUTURE_IDEAS.md` #2); D12's "Why are my colonists shuffling around constantly?"
+draft (`agent/bugs/D12.md` §`[FAQ]`); `FIX_POLICY.md` §3's D13 artefact line (the
+fix pack's artefact, covering both mods); and `Code/Opt_NoHomeless.lua:319`, a
+comment that still points at the fix pack's frozen `MOD_DESCRIPTION.md`
+(comment-only; owner item 89). Everything else below is history.
 
 Currently tagged (re-derived from `grep -rn "\[FAQ\]" docs/ Code/` on
 2026-08-01 — the previous list named a tag in `MOD_DESCRIPTION.md` that did not

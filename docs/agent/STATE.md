@@ -42,7 +42,8 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
 - ⛔ PERSISTED NAMES ARE SAVE CONTRACT — the five `SMRFixPack_*` fields/modifier ids keep their bytes
   forever (`agent/PROVENANCE.md` §2); renaming one is FORBIDDEN. `l3_save_footprint.py` §3 must read exactly those five.
 - ⛔ ZERO `SMRFixPack` references in executable code: the surviving tokens in `Code/` are the five
-  persisted STRINGS (5 definitions, 6 comments) — data, not references.
+  persisted STRINGS (5 definitions, 6 comments) — data, not references. AST-PROVEN 09-01: 0 `Name` nodes
+  carry the token (`reports/CONTAMINATION_AUDIT_20260901.md`; 817 hits classified, 0 contamination).
 - ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling.
   ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): `Opt_DroneOverhaul` (D06) and
   `Opt_DroneStatDials` (D09) are open to design + playtest work under FIX_POLICY, A/B per change;
@@ -79,4 +80,5 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
 
 ## Open owner decisions — bodies in the FIX PACK's `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you"
 - 83 TestKit edits for this mod's coverage · 84 Require pairs for the 3 allowlisted wrap sites ·
-  85 preview art · 86 ratify EF-id allocation rule.
+  85 preview art · 86 ratify EF-id allocation rule ·
+  88 `FUTURE_IDEAS.md` #9 routing · 89 `Code/` comment-only wording sweep · 90 loc-table ruling scope (audit 09-01).

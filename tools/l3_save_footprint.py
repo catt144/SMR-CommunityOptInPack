@@ -185,7 +185,11 @@ def classify(receiver, aliases, locals_, path_name):
         return "class", resolved
     if resolved in ENGINE_PERSISTED_GLOBALS:
         return "engine", resolved
-    if resolved.startswith(("SMROptInPack", "SMRFixPack")):
+    # Only THIS mod's framework table is a `modtable` receiver. A write into a
+    # `SMRFixPack` table would be a ban-2 breach and must fall through to the
+    # default bucket where it is visible (contamination audit 2026-09-01). The
+    # persisted `SMRFixPack_*` NAMES are census 3's business (NAMED_STATE), not this.
+    if resolved.startswith("SMROptInPack"):
         return "modtable", resolved
     if resolved in ("OnMsg", "_G"):
         return "engine", resolved

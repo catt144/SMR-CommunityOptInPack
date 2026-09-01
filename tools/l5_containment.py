@@ -106,7 +106,10 @@ FILESCOPE_KINDS = [
 #   * SMROptInPack.* — 00_Core.lua is first in metadata `code`, so it is loaded
 #     before every other file; a throw there is its own row
 SAFE_RHS = re.compile(
-    r"=\s*(\{|\"|'|\d|true|false|nil|rawget\s*\(|SMRFixPack[.\[]|function\b)"
+    # ⚠️ Was `SMRFixPack[.\[]` until 2026-09-01 — the 08-31 token rename missed this
+    # regex, so every `local x = SMROptInPack.Y` at file scope read 'check' instead
+    # of safe (contamination audit, reports/CONTAMINATION_AUDIT_20260901.md).
+    r"=\s*(\{|\"|'|\d|true|false|nil|rawget\s*\(|SMROptInPack[.\[]|function\b)"
 )
 
 RE_ENTRY = {
@@ -171,7 +174,7 @@ def scan():
                 elif kind == "decl-fn":
                     # `function A.B()` indexes A at definition time
                     risk = "no" if re.match(
-                        r"^function\s+(OnMsg|SMRFixPack)\.", body) else "check"
+                        r"^function\s+(OnMsg|SMROptInPack)\.", body) else "check"  # was SMRFixPack until 2026-09-01
                 elif kind in ("register", "call"):
                     risk = "call"
                 elif kind in ("onmsg",):

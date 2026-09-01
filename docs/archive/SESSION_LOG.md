@@ -12,6 +12,40 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-09-01 — contamination audit: every fix-pack reference sorted, 0 contamination, the l5 lens found mis-renamed
+
+tags: tools WORKFLOW FIX_POLICY item-88 item-89 item-90
+
+One-off (`prompts/CONTAMINATION_AUDIT.md`, consumed; `git show d3d9053:docs/agent/prompts/CONTAMINATION_AUDIT.md`).
+Inventory at `d3d9053`: **817 grep hits** over Code/, tools/, docs/ (archive excluded), metadata,
+items, README, CLAUDE, LICENSE, .claude — every one classified: **572 HISTORY · 175 POINTER ·
+29 CONTRACT · 16 STALE fixed · 4 STALE proposed (Code/ comments, owner) · 21 the prompt's own · 0
+CONTAMINATION.** Ban 2 proven by AST, not grep: `luaparser` over all 9 `Code/*.lua`, 2,943 `Name`
+nodes walked, **0** carry `SMRFixPack`; the 5 string literals are the persisted names. Every
+persisted-looking token in `Code/` is in PROVENANCE §2. Player-visible strings (17 `Untranslated(`
+sites, l4's count = grep's) name this mod or no mod.
+
+**Fixed.** `l5_containment.py`: two regexes still said `SMRFixPack` (the 08-31 rename missed them)
+so every `SMROptInPack.*` file-scope declaration read `check` — after: check 36→17, no 60→79,
+19 rows re-bucketed, nothing else moved. `harvest_wrap_targets.py`: `SMRFixPack` dropped from the
+not-a-class set so a stray capture off it would be REPORTED, not skipped (output unchanged).
+`l3_save_footprint.py`: only `SMROptInPack` is a `modtable` receiver (output unchanged).
+`tools/hooks/pre-commit`: header named the other repo. WORKFLOW/FIX_POLICY: one banner clause each
+— bare donor file names (`BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`, `MOD_DESCRIPTION.md`,
+`Fix_*.lua`, F-/C-ids, D13 …) resolve in the fix pack, not here — plus inline N/A markers on the
+`MOD_DESCRIPTION.md` per-fix bullet, the `90_Loggers.lua` claim (no such file in either repo), the
+release-steps "display name is a placeholder" item (DONE 08-13/08-17), the `DRONE_RESEARCH_BRIEF.md`
+path, the donor's 08-01 `[FAQ]` list (this repo's re-derived), §4a's F28 history, §6's loc ruling.
+
+**Pass B.** Every tracked file has a recorded reason to be here. 0 ORPHAN. KEPT-N/A confirmed with
+markers present: doccheck `--verify-split*`, `split_bugs`/`split_facts` migration halves, the
+`DataPatch` runner in `00_Core.lua` (no `Opt_*` caller; `OnDataReady` is live). 1 OWNER:
+`FUTURE_IDEAS.md` #9 (a fix-pack feature parked here by analogy, no ruling) → checklist 88.
+Also to the owner: 89 (comment-only `Code/` wording, five sites) and 90 (does the 08-02 loc-table
+ruling extend to this mod). Nothing in `Code/`, no persisted string and no archived record was edited.
+
+---
+
 ## 2026-08-31 (late) — the ported tools are made to survive a Windows console, and stop talking about the other mod
 
 tags: tools
