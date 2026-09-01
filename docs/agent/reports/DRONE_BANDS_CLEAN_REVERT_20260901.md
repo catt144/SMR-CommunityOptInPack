@@ -20,7 +20,7 @@ its date · **INFERRED** = follows from SOURCE/MEASURED by an argument written o
 > is claimed and executed like a matcher-chosen one).** Bands 4–5 **as persisted data in the
 > real hub tables** (option 1) fail R3 and R7 by measurement (§9 stranding) and only the
 > layer-1 tear-down the owner declined would rescue them — and Src now shows even that
-> cannot hold its invariant on the autosave path (§4.1.5). Option 2 reverts clean but is
+> cannot hold its invariant on the autosave path (§4.1.2, delta 15). Option 2 reverts clean but is
 > not bands 4–5 (R10), and its natural implementation — a class-level
 > `GetPriorityForRequest` — fails R3 through a route the record did not have (EF-069).
 
@@ -647,6 +647,12 @@ Running any card is an owner call — checklist item 92.
 ---
 
 ## 6 · Corrections and filings
+
+**Owner asks — bodies on the fix pack's `docs/PLAYTEST_CHECKLIST.md` "Decisions waiting on you":**
+ask A (is the 5/4/3 distinction a requirement or a preference?) and ask B (tear-down-on-save is
+layer 1, owner-declined; this report gives no new evidence FOR reopening it) are folded into
+**item 91**, the restated design decision; the experiments to run are **item 92**; ask C
+(tiers on rockets/rovers or hubs only) is **item 93**.
 
 - **Fix pack `DRONE_PRIORITY_SYSTEM.md`** (same commit as this report, fix-pack side): §4
   gains the fourth override (`RCTransport.lua:217-223`); §6 landmine 4 gains the EF-069
