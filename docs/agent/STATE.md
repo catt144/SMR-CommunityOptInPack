@@ -74,6 +74,9 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
 - ⚠️ 08-31 TESTKIT GAPS FILED, none edited (report §5): no opt-only run mode; D06 unprobed;
   `98_EnablePathLeg` hardcodes the fix pack's id; `FixtureCarry` blind to D09's modifiers;
   no vanilla controls for D01–D04/D07/D09. Owner (checklist 83).
+- ⚖️ 09-01 (owner): fix pack is LAUNCHED + in MAINTENANCE; this mod is its own product. The site
+  `SMR-CommunityMods` is SHARED by both mods (own repo). Its opt-in restore (46 parked passages) runs
+  on PUBLISH DAY, never before — silence over "coming soon" (fix pack `PARKED_OPTIN_REFERENCES.md`).
 - ⛔ 08-31 FACTS: re-synced from the fix pack @ `bec2e06` (68 files); this repo's old `EF-057`/`EF-058`
   are now `EF-061`/`EF-062`. `EF-` ids are ALLOCATED BY THE FIX PACK from now on
   (`agent/WORKFLOW.md` reading path 2; ratify = checklist 86).
