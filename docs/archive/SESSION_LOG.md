@@ -12,6 +12,24 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-08-31 (late) — the ported tools are made to survive a Windows console, and stop talking about the other mod
+
+tags: tools
+
+A second session, started from the new prompt, hit `l3_save_footprint.py` dying
+with a cp1252 `UnicodeEncodeError` on its own ⭐ line and read its docstrings as
+being about the fix pack. Both true: the readiness pass ran every tool under
+`PYTHONIOENCODING=utf-8` and never saw the crash, and the donor narrative was
+left in place "as history". That session added the stdout guard to seven tools
+(uncommitted); this one kept those edits, guarded the remaining six, trimmed the
+port headers to one provenance line, rewrote docstrings and printed labels to
+this mod's terms, and made `l3 --src` fail fast on a path with no `Lua/` under it
+(it had scanned 0 files and reported every field "absent" — a false census). All
+13 tools re-run under a plain cp1252 pipe: 0 `UnicodeEncodeError`. The fix
+pack's own copies of `l3`/`l4`/`l5` still lack the guard — noted, not touched.
+
+---
+
 ## 2026-08-31 — the readiness pass: the fix pack's 19 days of tooling and process are carried across, measured against this tree
 
 tags: D01 D02 D03 D04 D06 D07 D09 D12 EF-008 EF-023 EF-039 EF-051 EF-054 EF-055 EF-056 EF-057 EF-058 EF-061 EF-062 EF-068 item-83 item-84 item-85 item-86

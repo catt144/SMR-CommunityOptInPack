@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l3_save_footprint.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# NAMED_STATE matches BOTH prefixes and rows are labelled by the token found:
-# this mod's persisted names keep the donor's SMRFixPack_ bytes forever (save
-# contract, PROVENANCE section 2) while its framework globals are SMROptInPack_*.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """L3 — aggregate save-footprint census over the shipped Code/ tree.
 
-Link 3 of the pre-launch sweep chain (lens L3, save & exit). The question this
+Lens L3 (save & exit) instrument. The question this
 instrument exists to answer is the AGGREGATE one: not "is this module save-safe"
 (every module was verified alone) but "what does the whole pack put into one
-savegame, and what happens to all of it at once when the pack is removed".
+savegame, and what happens to all of it at once when this mod is removed".
 
 It emits five censuses, each mechanical and each citing file:line:
 
@@ -21,8 +14,9 @@ It emits five censuses, each mechanical and each citing file:line:
                      `instance` is the one that can reach a savegame.
   2. THREADS       — every thread constructor, game-time (persisted by default,
                      EF-019) separated from real-time (never persisted).
-  3. NAMED STATE   — every `SMRFixPack_*` token, which is the pack's own
-                     convention for anything it leaves behind (FIX_POLICY §3).
+  3. NAMED STATE   — every `SMRFixPack_*` / `SMROptInPack_*` token: the
+                     persisted names (save contract, PROVENANCE §2) and the
+                     framework globals (FIX_POLICY §3).
   4. GAMEVARS      — every `GameVar(` declaration (registers in
                      PersistableGlobals, so it self-clears on uninstall).
   5. LOAD ORDER    — every file-scope `OnMsg.<M> =` registration, in metadata.lua
@@ -42,6 +36,13 @@ import os
 import re
 import sys
 import collections
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(ROOT, "Code")
@@ -63,7 +64,7 @@ METADATA = os.path.join(ROOT, "metadata.lua")
 # ---------------------------------------------------------------------------
 
 CLASS_RECEIVERS = {
-    # class tables the pack patches, by the name it writes through (alias map
+    # class tables this mod patches, by the name it writes through (alias map
     # resolves the file-local form first)
     "Building", "Colonist", "Drone", "Workplace", "City", "TrackBase",
     "RCTransport", "TunnelBase", "Shroudable", "LabelContainer",
@@ -95,8 +96,8 @@ NAMED_STATE = re.compile(r'\b(?:SMRFixPack|SMROptInPack)_(\w+)')
 GAMEVAR = re.compile(r'^\s*GameVar\s*\(\s*([^,)]+)')
 # ⚠️ TWO registration forms, and the first draft of this script saw only one.
 # `OnMsg.X = f` and `function OnMsg.X() … end` are the same act; missing the
-# second hid 2 of the pack's PostLoadGame passes (Fix_MeteorFrequency:164,
-# Fix_MeteorStormWedge:217) from the load-order census. Own-instrument defect,
+# second hid two of the fix pack's PostLoadGame passes from the load-order
+# census when this tool was first written there. Own-instrument defect,
 # found by cross-checking the census against a plain grep — disclosed here
 # because a load-order table that silently omits two passes is worse than none.
 ONMSG_ANY = re.compile(r'^(\s*)(?:function\s+)?OnMsg\.(\w+)\s*[=(]')
@@ -217,6 +218,15 @@ def metadata_order():
 
 
 def main():
+    # Validate --src BEFORE printing anything: a wrong path must not pass
+    # silently — with 0 files scanned every field would read "absent from the
+    # whole shipped tree", a false census.
+    if "--src" in sys.argv:
+        _src = sys.argv[sys.argv.index("--src") + 1]
+        if not os.path.isdir(os.path.join(_src, "Lua")):
+            sys.exit("l3_save_footprint: --src %r is not a ModTools Src tree "
+                     "(no Lua/ under it); the game's is <game>/ModTools/Src "
+                     "(WORKFLOW.md 'Layout')" % _src)
     files = metadata_order()
     on_disk = sorted(f for f in os.listdir(CODE) if f.endswith(".lua"))
     listed = [os.path.basename(f) for f in files]
@@ -330,7 +340,7 @@ def main():
         print("    %-34s :%-4d %s" % (t["file"], t["line"], t["call"]))
 
     print()
-    print("--- 3. NAMED STATE (`SMRFixPack_*` tokens) " + "-" * 36)
+    print("--- 3. NAMED STATE (persisted `SMRFixPack_*` + framework `SMROptInPack_*`) " + "-" * 8)
     print("  %d distinct name(s)" % len(named))
     for key in sorted(named):
         sites = named[key]
@@ -369,13 +379,13 @@ def main():
     for msg in ("SaveGameStart", "SaveGameDone"):
         n = counts.get(msg, 0)
         print("  OnMsg.%-14s %d registration(s)%s" % (
-            msg, n, "   ⇒ the pack installs NO layer-1 tear-down" if n == 0 else ""))
+            msg, n, "   ⇒ this mod installs NO layer-1 tear-down" if n == 0 else ""))
 
     # ------------------------------------------------------------------
     # 7. ⭐ MOD-AUTHORED PERSISTED KEYS — the census the `SMRFixPack_*` token
     #    sweep structurally cannot do.
     #
-    # FIX_POLICY §3 says anything we persist is named `SMRFixPack_*`, and the
+    # FIX_POLICY §3 says anything we persist carries one of the two prefixes, and the
     # authoritative exposed-set derivation (D13 §1.1) swept route-(c) state with
     # exactly that token as its key. So a site that writes a differently-named
     # key onto a persisted carrier is INVISIBLE to that derivation — the naming
@@ -417,7 +427,7 @@ def main():
         print()
         for field in sorted(foreign):
             conv = ("SMRFixPack_" in field) or ("SMROptInPack_" in field)
-            print("    %-34s %s" % (field, "(follows §3 naming)" if conv else "⛔ BREAKS §3 NAMING — invisible to a SMRFixPack_* sweep"))
+            print("    %-34s %s" % (field, "(follows §3 naming)" if conv else "⛔ BREAKS §3 NAMING — invisible to a prefix sweep"))
             for w in sorted(foreign[field], key=lambda w: (w["file"], w["line"])):
                 print("        %-34s :%-4d  %s%s   [%s]" % (
                     w["file"], w["line"], w["receiver"], w["path"], w["kind"]))

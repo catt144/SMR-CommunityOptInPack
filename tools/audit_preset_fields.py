@@ -1,8 +1,4 @@
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/audit_preset_fields.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 # Terminal-audit instrument (2026-08-19): preset-FIELD write census over Code/.
 #
 # WHY THIS EXISTS: three lenses named preset-field patches as unswept territory
@@ -41,6 +37,15 @@
 
 import os, re, sys, io
 from collections import defaultdict
+import sys
+
+# The Windows console defaults to cp1252 and this tool prints the project's
+# non-ASCII vocabulary; without this it dies on its own output.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 
 SRC_DEFAULT = r"A:\SteamLibrary\steamapps\common\Project Spark\ModTools\Src"
 CODE_DEFAULT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "Code")
@@ -109,7 +114,7 @@ def scan_file(path, containers):
                 rhs = m.group(2)
                 names = "|".join(re.escape(r) for r in (roots | aliases))
                 hit = re.search(r"\b(" + names + r")\b(?=\s*[.\[(]|\s*$)", rhs)
-                # the pack's dominant idiom: local X = rawget(_G, "Container")
+                # this mod's dominant idiom: local X = rawget(_G, "Container")
                 if not hit:
                     hit = re.search(r"rawget\s*\(\s*_G\s*,\s*['\"](" + names + r")['\"]", rhs)
                 if hit and m.group(1) not in aliases and m.group(1) not in roots:

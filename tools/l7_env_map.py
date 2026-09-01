@@ -3,7 +3,7 @@
 """L7 (environment & namespace) — the global map, taken from the COMPILER.
 
 WHY THIS EXISTS
-    L7's first question is "enumerate every global the pack creates or writes",
+    L7's first question is "enumerate every global this mod creates or writes",
     and every previous census in this project has been a regex over source text.
     A regex cannot answer this one, because whether `x = 1` is a global or a
     local is decided by SCOPE, not by shape: the same eight characters are a
@@ -50,11 +50,11 @@ CONTROL
     `--selftest` runs a battery of snippets whose correct answer is written out
     by hand, including every shadowing shape that would fool a regex. The
     battery must pass before any count below is trusted; the harness is not
-    evidence about the pack until it reproduces known answers.
+    evidence about this mod until it reproduces known answers.
 
 USAGE
     python tools/l7_env_map.py --selftest
-    python tools/l7_env_map.py                 # the fix pack
+    python tools/l7_env_map.py                 # this mod
     python tools/l7_env_map.py --tree ../SMR-BugFixPack-TestKit
     python tools/l7_env_map.py --json out.json
 """
@@ -65,6 +65,14 @@ import json
 import os
 import struct
 import sys
+
+# The Windows console defaults to cp1252 and this tool prints the project's
+# non-ASCII vocabulary; without this it dies on its own output.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -353,7 +361,7 @@ def main():
         print("global WRITE sites: %d   global READ sites: %d"
               % (len(writes), len(reads)))
         print()
-        print("=== every global the pack WRITES ===")
+        print("=== every global this mod WRITES ===")
         byname = {}
         for w in writes:
             byname.setdefault(w["name"], []).append(w)
@@ -364,7 +372,7 @@ def main():
             for s in sites:
                 print("        %s:%d  (%s)" % (s["file"], s["line"], s["scope"]))
         print()
-        print("=== global names the pack READS (distinct) ===")
+        print("=== global names this mod READS (distinct) ===")
         rnames = {}
         for r in reads:
             rnames.setdefault(r["name"], []).append(r)

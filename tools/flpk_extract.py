@@ -13,6 +13,15 @@ ZSTD wrapper: 'ZSTD' | u32 decompressedSize | u32 chunkSize (0x400) |
 """
 import io, os, struct, sys
 import zstandard
+import sys
+
+# The Windows console defaults to cp1252 and this tool prints the project's
+# non-ASCII vocabulary; without this it dies on its own output.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 
 ZMAGIC = b"\x28\xb5\x2f\xfd"
 

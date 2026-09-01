@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l6_promise_map.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Census 5 (site fix-list) is N/A until this mod's parked passages are restored
-# (fix pack reports/PARKED_OPTIN_REFERENCES.md); it reports 'absent' honestly.
-# Ledger: docs/agent/PROVENANCE.md section 6.
-"""L6 — promise vs behaviour. Mechanical censuses for the pre-launch sweep chain.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+"""L6 — promise vs behaviour. Mechanical censuses over this mod's promise surfaces.
 
-Five surfaces have to agree and have drifted before: the registry the pack
+Five surfaces have to agree and have drifted before: the registry this mod
 builds at runtime, `metadata.lua`'s `code` list, `items.lua`, the shipped
 package, and the player-facing pages. This emits the tables that let a reader
 check the agreement instead of being told about it.
@@ -32,6 +26,13 @@ import json
 import os
 import re
 import sys
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(ROOT, "Code")
@@ -131,7 +132,7 @@ def decomment(text):
 
     ⛔ OWN-INSTRUMENT DEFECT, found and fixed 2026-08-19 before any count below
     was taken: the site scan ran over the raw file, so a thread constructor
-    QUOTED IN A HEADER counted as a real site — `Fix_RainsDeadlock:11` is the
+    QUOTED IN A HEADER counted as a real site — a fix-pack module's header was the
     vanilla defect the module exists to describe, reproduced verbatim in its
     own header comment. This project's headers quote shipped code constantly,
     so a census that cannot tell a quotation from a call over-reports exactly

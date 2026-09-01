@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l4_player_surfaces.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """L4 — census of every surface a PLAYER can see or read, over the shipped tree.
 
-Link 4 of the pre-launch sweep chain (lens L4, player experience). The question
+Lens L4 (player experience) instrument. The question
 this instrument exists to answer is not "is this module correct" but "what does
-a player actually SEE and READ, across all 76 files at once, and is any of it
+a player actually SEE and READ, across every Code/*.lua file at once, and is any of it
 alarming, false, or untranslated".
 
 It emits five censuses, each mechanical and each citing file:line:
@@ -47,6 +43,13 @@ import re
 import sys
 import csv
 import collections
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(ROOT, "Code")

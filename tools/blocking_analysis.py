@@ -10,6 +10,15 @@
 #      with a mix of blocking and non-blocking definitions are reported as
 #      AMBIGUOUS and read by hand rather than guessed.
 import io, os, re, sys, json
+import sys
+
+# The Windows console defaults to cp1252 and this tool prints the project's
+# non-ASCII vocabulary; without this it dies on its own output.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 
 SRC = r"A:\SteamLibrary\steamapps\common\Project Spark\ModTools\Src"
 PRIM = re.compile(r'\b(Sleep|WaitMsg|WaitWakeup|PlayState)\s*\(')

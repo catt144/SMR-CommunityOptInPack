@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/harvest_wrap_targets.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Allowlist emptied; the F107 rule text is FIX_POLICY section 2 in this repo too.
-# Ledger: docs/agent/PROVENANCE.md section 6.
-"""Harvest every `{ class = C, method = M }` target the pack declares.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+"""Harvest every `{ class = C, method = M }` target this mod declares.
 
-Why this is a tool and not a hand-typed list: the pack declares these across
-~60 modules and the count drifts with every fix. `EF-066` said "~60"; the real
-figure the first run of this script produced was 105 entries / 100 distinct
-(class, method) pairs. A hand-typed list is a silent under-sweep, and an
+Why this is a tool and not a hand-typed list: the count drifts with every
+module edit (24 entries / 17 distinct pairs / 8 classes here at 2026-08-31;
+the fix pack, where the tool was born, had estimated "~60" and measured 105). A hand-typed list is a silent under-sweep, and an
 under-sweep is the expensive error — a wrap wrongly believed reachable stays
 broken forever.
 
@@ -19,7 +13,7 @@ a spec list; a `{ class, method }` entry is a SHAPE SELF-CHECK ("this function
 still exists on this class"). ⚠️ That is NOT the same as "the module wraps it":
 some modules require a function they only READ. The sweep in
 TestKit/Code/64_Probes_Wave14.lua is deliberately built on the Require targets
-anyway, because the runtime test it applies is self-limiting — a target the pack
+anyway, because the runtime test it applies is self-limiting — a target this mod
 never wrote to still resolves identically on every descendant, so it reports
 clean. Sweeping the superset costs nothing and cannot miss a wrap.
 
@@ -37,6 +31,13 @@ Usage:
 import os
 import re
 import sys
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(HERE, "Code")
@@ -98,8 +99,8 @@ def require_blocks(src):
 def entries(block):
     """Yield each `{ ... }` spec entry inside the block's spec table.
 
-    Depth-aware, so multi-line entries (Fix_DestroyedTunnels, Fix_BombardmentSpread)
-    are harvested whole rather than truncated at the newline.
+    Depth-aware, so multi-line entries (Opt_NoHomeless declares several) are
+    harvested whole rather than truncated at the newline.
     """
     k = block.find("{")
     if k < 0:
@@ -139,18 +140,18 @@ def harvest():
 
 
 # ---------------------------------------------------------------------------
-# --check: the F107 rule (FIX_POLICY §2, adopted 2026-08-24 by the f106-dispatch
-# terminal audit).
+# --check: the F107 rule (this repo's FIX_POLICY §2; adopted in the fix pack
+# 2026-08-24, carried here 2026-08-31).
 #
 # A module that CAPTURES a method off a class table and INSTALLS a replacement
 # under the same name is wrapping that (class, method) pair — and `Require`
 # validates only what the author DECLARES, so a pair wrapped but never declared
 # bypasses the one check that would have caught a nil `prev` at apply time
-# (F107: `Fix_LandscapeCostRefresh` captured `<leaf>.RefreshConstructionResources`,
-# declared only `ConstructionSite.…`, and `prev` was nil on every boot).
+# (the fix pack's F107: a module captured a leaf class's method while declaring
+# only the base class's, and `prev` was nil on every boot).
 #
 # The detector is PRECISION-FIRST: it flags only the capture+install shape,
-# resolving class aliases of the pack's stylised forms —
+# resolving class aliases of this mod's stylised forms —
 #     local A = rawget(_G, "Class")     local A = Class
 #     for _, cls in ipairs({ "C1", … }) do local A = rawget(_G, cls)
 # — and skips what it cannot resolve. Misses stay misses (the static audit on

@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l6_reachability.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """L6 — dead-coded targets. Does the shipped game still CALL what we patch?
 
-`02_LENS_NOTES.md` L6 asks: "Dead-coded targets: is F85 the only one? Its
+The L6 lens question: "Dead-coded targets: is F85 the only one? Its
 dialog's sole caller sits behind a literal `local cond = false`. Nobody has
 swept for a second instance."
 
-This is the sweep. It resolves the pack's patch targets through file-local
+This is the sweep. It resolves this mod's patch targets through file-local
 aliases (link 1's lesson: `local C = rawget(_G,"Colonist")` then
 `function C:Idle` — a plain grep cannot join those across files), then counts
 call sites for each target in the whole shipped tree.
@@ -25,6 +21,13 @@ import os
 import re
 import sys
 from collections import defaultdict
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(ROOT, "Code")

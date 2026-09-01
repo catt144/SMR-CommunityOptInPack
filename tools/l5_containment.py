@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l5_containment.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """L5 — census of every route by which pack code can THROW, and what catches it.
 
-Link 5 of the pre-launch sweep chain (lens L5, failure & containment). The
+Lens L5 (failure & containment) instrument. The
 question this instrument exists to answer is not "is this module correct" but
 **"when something in this pack throws, who catches it, and what does the player
-see"** — asked over all 76 files at once.
+see"** — asked over every Code/*.lua file at once.
 
-⭐ The framing that makes it worth building: the pack's whole fail-safe story is
+⭐ The framing that makes it worth building: this mod's whole fail-safe story is
 told about `apply` (`FIX_POLICY` §2 — "apply runs under pcall; an error
 deactivates only that fix"). `apply` is ONE of six entry classes. The other five
 have never been enumerated, and three of them are not caught by anything the
@@ -20,26 +16,27 @@ pack owns.
 Four censuses, each mechanical and each citing file:line:
 
   1. FILESCOPE  — every executable statement at column 0, i.e. OUTSIDE every
-                  pcall the pack owns. The only thing catching these is the
+                  pcall this mod owns. The only thing catching these is the
                   engine's own `pdofile` (`lib.lua:242-251`) inside
                   `ModDef:LoadCode` (`Mod.lua:490-520`), whose collected errors
                   become a PLAYER-FACING message box (`Mod.lua:2254-2275`).
                   Classified by whether the statement can throw at all.
-  2. ENTRY      — every callable the pack hands to the engine, tagged with the
+  2. ENTRY      — every callable this mod hands to the engine, tagged with the
                   catcher that stands between a throw in it and the player.
   3. DEFERRED   — the F87 shape: modules whose actual repair work happens AFTER
                   apply returns (message handler, thread, wrapper), crossed with
                   whether that later path can report its own failure into the
                   registry. A module in this set can log `applied` and be doing
                   nothing.
-  4. GUARD      — every `pcall` the pack owns, so census 3's "reports failure"
+  4. GUARD      — every `pcall` this mod owns, so census 3's "reports failure"
                   column is derived from sites, not from belief.
 
 ⛔ Lexical, therefore an over-reporter by design, exactly like the L1/L3/L4
 extractors: column 0 means file scope because every function body in this tree
 is indented with tabs, and a statement flagged `may-throw` is a candidate to be
 READ AT SOURCE, not a verdict. Every number below is an enumeration; every
-adjudication in `reports/L5_CONTAINMENT_MAP.md` was made by reading the line.
+adjudication belongs in a lens report made by reading the line (the fix pack's
+`reports/L5_CONTAINMENT_MAP.md` is the model; this mod has none yet).
 
 Usage:  python tools/l5_containment.py [--csv <dir>]
 """
@@ -49,6 +46,13 @@ import re
 import sys
 import csv
 import collections
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(ROOT, "Code")
@@ -96,7 +100,7 @@ FILESCOPE_KINDS = [
     ("call", re.compile(r"^[A-Za-z_][\w.:]*\s*\(")),
 ]
 
-# an RHS the pack itself guarantees cannot be nil at this point:
+# an RHS this mod itself guarantees cannot be nil at this point:
 #   * a literal / table constructor
 #   * rawget(_G, "...") — returns nil rather than throwing
 #   * SMROptInPack.* — 00_Core.lua is first in metadata `code`, so it is loaded
@@ -235,7 +239,7 @@ def main():
     print("L5 CONTAINMENT CENSUS -- %d Code/*.lua in metadata load order" % len(files))
     print()
 
-    print("=== 1 . FILE-SCOPE STATEMENTS (outside every pcall the pack owns) ===")
+    print("=== 1 . FILE-SCOPE STATEMENTS (outside every pcall this mod owns) ===")
     by_kind = collections.Counter(k for _, _, k, _, _ in filescope)
     by_risk = collections.Counter(r for _, _, _, r, _ in filescope)
     print("  %d statements at column 0" % len(filescope))
@@ -310,7 +314,7 @@ def main():
           % (len(sweeps), unguarded))
     print()
 
-    print("=== 4 . GUARDS the pack owns (pcall sites) ===")
+    print("=== 4 . GUARDS this mod owns (pcall sites) ===")
     print("  %d pcall sites in %d files" % (len(guards), len(set(g[0] for g in guards))))
     for name, n, body in guards:
         print("    %-34s :%-4d %s" % (name, n, body[:88]))

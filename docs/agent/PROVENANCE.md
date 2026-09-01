@@ -183,6 +183,13 @@ Donor sha for every row: `SMR-BugFixPack` @ `bec2e06d` (v5 closed, 2026-08-30).
 | `docs/agent/WORKFLOW.md`, `FIX_POLICY.md` | ADAPTED | rules carried, each marked with its donor date and this repo's state at adoption (listed in the report §4) |
 | `.claude/settings.json` | ADAPTED | the donor's read-only git allowances, plus this repo's |
 
+**Hardened the same evening (2026-08-31, after a second session hit it):** every
+tool forces UTF-8 stdout (the Windows console is cp1252 and the tools print
+⛔/⭐/§ — `l3` died on its own §7 line), the multi-line PORTED headers shrank to
+one provenance line pointing here, docstrings and printed labels now say "this
+mod" rather than "the pack", and `l3 --src` refuses a path with no `Lua/` under
+it BEFORE printing (a wrong path had produced a silent all-absent census).
+
 **Not carried, by decision:** the donor's sweep-chain folders and lens reports
 (they are ITS evidence; this repo's lens sweep, if ever run, produces its own),
 `GENERAL_USE_PROMPT.md` / `RELEASE*.md` / `POST_UPLOAD_CLOSE.md` /

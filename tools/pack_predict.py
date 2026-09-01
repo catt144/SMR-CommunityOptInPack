@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/pack_predict.py). Token rename
-# SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module lists swapped for this repo's Opt_*.lua files. The donor's Fix_*
-# citations inside comments are ITS history and are left as written.
-# Only edit: CONTENT_PREFIX names this mod's id.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """Predict the file list DbgPackMod will put into ModContent.fpk.
 
 Mirrors GedModEditor.lua:716-732 exactly:
@@ -13,7 +8,7 @@ Mirrors GedModEditor.lua:716-732 exactly:
     dst = string.sub(file, #content_path + 1)
 
 MatchWildcard: `*` crosses `/` (MEASURED 2026-08-17 against the real .fpk,
-seed note in SWEEP_LEDGER.md), `?` is one char. Case-insensitive is NOT
+seed note in the fix pack's SWEEP_LEDGER.md), `?` is one char. Case-insensitive is NOT
 assumed; the patterns and the tree agree in case anyway.
 
 Usage: python tools/pack_predict.py <mod-root> [--json]
@@ -22,6 +17,14 @@ import os
 import re
 import sys
 import json
+
+# The Windows console defaults to cp1252 and this tool prints the project's
+# non-ASCII vocabulary; without this it dies on its own output.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 
 # from metadata.lua 'ignore_files'
 IGNORE = [

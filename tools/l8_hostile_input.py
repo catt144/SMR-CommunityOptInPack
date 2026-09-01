@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# PORTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l8_hostile_input.py).
-# Token rename SMRFixPack->SMROptInPack and [CommunityFixPack]->[CommunityOptInPack];
-# module list swapped for this repo's Opt_*.lua files (three chosen for shape).
-# Ledger: docs/agent/PROVENANCE.md section 6.
-"""L8 (adversarial / hostile modder) — hostile-input harness for the pack's
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+"""L8 (adversarial / hostile modder) — hostile-input harness for this mod's
 PUBLIC globals.
 
 WHY THIS EXISTS
     `SMROptInPack_Disabled`, `SMROptInPack_Optional` and `SMROptInPack` are not private
     names. `00_Core.lua:11`/`:15`/`:17` each read them with `rawget(_G, ...) or {}`,
     which is an explicit contract: *another mod may create this before we load and
-    we will adopt it*. `README.md:71-77` publishes that contract to modders, and
+    we will adopt it*. `00_Core.lua:6-7` publishes that contract to modders, and
     `EF-064`'s route (`ModEnvMeta.__newindex` rawsets into the real `_G` in every
     branch, `Mod.lua:1562`) means a foreign mod's write really does reach us.
 
@@ -43,6 +40,13 @@ USAGE
 
 import os
 import sys
+
+# The reports are full of non-cp1252 markup (⛔ ⭐ ⚠️ ⇒); a Windows console must
+# not die on printing a finding (same guard as doccheck.py / l2_reload_sim.py).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
 
 try:
     import lupa
@@ -144,7 +148,7 @@ CASES = [
 
     ("SMROptInPack_Optional = true",
      'SMROptInPack_Optional = true',
-     "the same misreading on the pack's other published override surface"),
+     "the same misreading on this mod's other published override surface"),
 
     ("SMROptInPack = true",
      'SMROptInPack = true',
@@ -152,7 +156,7 @@ CASES = [
 
     ("SMROptInPack = {} (a fork or an older copy)",
      'SMROptInPack = {}',
-     "a fork, a second copy of the pack, or a shim that reserves the table"),
+     "a fork, a second copy of this mod, or a shim that reserves the table"),
 
     ("SMROptInPack = {fixes={}, order={}} (partial)",
      'SMROptInPack = { fixes = {}, order = {} }',
@@ -214,7 +218,7 @@ def main():
     worst = 0
 
     print("=" * 78)
-    print("L8 — hostile input to the pack's three PUBLIC globals")
+    print("L8 — hostile input to this mod's three PUBLIC globals")
     print("    shipped source, %d files, each in its own pcall (pdofile, lib.lua:242-251)" % len(MODULES))
     print("=" * 78)
 

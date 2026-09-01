@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# ADAPTED 2026-08-31 from SMR-BugFixPack @ bec2e06 (tools/l2_reload_sim.py). The
-# donor's simulator is built around four DataPatch modules and their preset
-# fixtures; no Opt_* module calls DataPatch, so the fixtures are N/A here. What
-# is carried is the METHOD — real shipped source, twice, in one Lua 5.4 process,
-# with the engine's reload persistence rules reproduced — pointed at the one
-# lifecycle defect this repo has MEASURED: double registration after ReloadLua.
-# Ledger: docs/agent/PROVENANCE.md section 6.
+# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
 """L2 (lifecycle & idempotency) — two-Lua-load simulator for the registry.
 
 WHY THIS EXISTS
