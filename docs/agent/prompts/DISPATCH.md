@@ -1,9 +1,12 @@
-# Dispatch — general-purpose orientation (model-agnostic) — written 2026-08-31
+# Dispatch — live-issue triage (model-agnostic) — written 2026-08-31
 
 Adapted from the fix pack's `prompts/DISPATCH.md` (2026-08-29) for THIS repo.
-Paste into a fresh Claude Code session for **ad-hoc work that is not a sitting**:
-a code question, an investigation, a module check, a new finding, a new report, a
-triage of something the owner noticed. **Any model; the owner picks per task.**
+⚖️ **Scope (owner, 2026-08-31): this prompt is for ISSUES ONCE THE MOD IS LIVE** —
+a player report, a field bug, a triage of something the owner noticed in play.
+**For ordinary development work — design, build, docs, tooling, investigation,
+launch prep — use `prompts/WORK_PROMPT.md` instead; it is the start-here.**
+Paste this one into a fresh Claude Code session for a live issue. **Any model;
+the owner picks per task.**
 **Start with `git log --oneline -10` + `git pull`** — the tree moves and this
 file, like every record, goes stale the moment another session commits.
 Staleness anchor: **written 2026-08-31**; verify against `git log` before trusting
@@ -55,8 +58,8 @@ runtime; a **true standalone** beside the Relaunched Fix Pack. The map is
   §2 enable-path / declaring-class / the F107 wrap rule / the F110 runtime-global
   rule, §1 fix-shape — and **judged by enumeration, never by an entry's own words.**
 - ⛔ **Module freeze:** no behaviour change to any module without an owner ruling
-  (`STATE.md`); `Opt_DroneOverhaul` carries the PT-52 freeze. A mechanical repair
-  needs a re-verified A/B in the same commit.
+  — `STATE.md` says which are lifted (drones unfrozen 2026-08-31). A mechanical
+  repair needs a re-verified A/B in the same commit.
 - **Parse-sweep every Lua change** before you trust it: `python` + `luaparser`
   (`from luaparser import ast; ast.parse(open(f, encoding="utf-8-sig").read())`).
 - **`python tools/doccheck.py` must be GREEN before any doc commit** (red blocks;
@@ -113,6 +116,7 @@ runtime; a **true standalone** beside the Relaunched Fix Pack. The map is
 
 | the task is really… | switch to |
 |---|---|
+| ordinary development work (design, build, docs, tooling, investigation, launch prep) | `prompts/WORK_PROMPT.md` — the start-here |
 | a LIVE playtest at the keyboard (both mods) | fix pack `prompts/GENERAL_USE_PROMPT.md` (single-sourced there) |
 | this mod's LAUNCH — the whole thing | `agent/STATE.md` launch obligation → fix pack `reports/PARKED_OPTIN_REFERENCES.md` restore checklist, then the fix pack's `prompts/RELEASE.md` shape adapted (`WORKFLOW.md` "Release marking" + "Release steps") |
 | the owner's mechanical pack+upload only | fix pack `docs/UPLOAD_WORKFLOW.md` (+ `reports/RELEASE_PORTAL_PREP.md`) — after `tools/upload_preflight.py` reports 0 FAIL |

@@ -86,7 +86,13 @@ STATE_MAX_LINE_BYTES = 200
 # old 43k-token prompt). The cap is a tripwire, not a prohibition: at the cap,
 # relocate per the prompt's own routing rule (WORKFLOW / PLAYTEST_HELP /
 # agent/facts/ / the entry), then trim.
+# The standing prompts are instructions, not logbooks (donor rule 2026-08-04).
+# Here the capped files are WORK_PROMPT.md (start-here for any work) and
+# DISPATCH.md (live-issue triage); GENERAL_USE_PROMPT.md is single-sourced in
+# the fix pack and only checked if someone ever copies it here.
 GENERAL_USE = os.path.join(DOCS, "agent", "prompts", "GENERAL_USE_PROMPT.md")
+STANDING_PROMPTS = [os.path.join(DOCS, "agent", "prompts", n)
+                    for n in ("WORK_PROMPT.md", "DISPATCH.md", "GENERAL_USE_PROMPT.md")]
 GENERAL_USE_MAX_LINES = 220
 
 # N/A HERE (split-optins, 2026-08-12) — the donor carries three MOVED stubs
@@ -462,14 +468,15 @@ def check_state(out):
                 red.append("STATE.md line %d is %d bytes, per-line cap is %d — "
                            "one fact per line; walls defeat grep, diff and "
                            "audit" % (i, len(ln), STATE_MAX_LINE_BYTES))
-    if os.path.exists(GENERAL_USE):
-        n_gu = len(read(GENERAL_USE))
+    for prompt in STANDING_PROMPTS:
+        if not os.path.exists(prompt):
+            continue
+        n_gu = len(read(prompt))
         if n_gu > GENERAL_USE_MAX_LINES:
-            red.append("GENERAL_USE_PROMPT.md is %d lines, budget is %d — it is "
-                       "instructions, not a logbook; route sitting lessons per "
-                       "its own header rule (WORKFLOW / PLAYTEST_HELP / "
-                       "agent/facts/ / the entry) and trim"
-                       % (n_gu, GENERAL_USE_MAX_LINES))
+            red.append("%s is %d lines, budget is %d — it is instructions, not "
+                       "a logbook; route the lesson to its home (WORKFLOW / "
+                       "FIX_POLICY / agent/facts/ / the entry) and trim"
+                       % (os.path.basename(prompt), n_gu, GENERAL_USE_MAX_LINES))
     out.append("STATE: STATE.md %s bytes (warn %d, hard %d, line %d); stub "
                "check N/A in this repo"
                % ("?" if n_state is None else n_state, STATE_WARN_BYTES,

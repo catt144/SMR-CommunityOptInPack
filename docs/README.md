@@ -19,7 +19,7 @@ docs/
     bugs/                 defect/design truth — one file per entry
     facts/                engine behaviour — one file per fact
     reports/              reports, plans, specs, audits, surveys
-    prompts/              the standing prompts + any live one-off
+    prompts/              WORK_PROMPT (start here for any work) · DISPATCH (live-issue triage) · STATE_EVICTION · live one-offs
   archive/                spent. SESSION_LOG.md, retired prompts
 ```
 
