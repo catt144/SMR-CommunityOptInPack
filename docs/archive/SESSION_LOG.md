@@ -12,6 +12,30 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-09-01 — the three stale entries catch up with the fix pack's checklist: D07 and D01 `tested-attended`, D12's tag stops owing P4/P6
+
+tags: D07 D12 D01 STATE reconciliation testing-debt
+
+`WORK_PROMPT.md` session against `STATE.md` "Now" a/b/d (owner 09-01, testing precedes launch).
+Desk work only — no game launch, no code touched, no new claim; every flip is a record catching
+up with a result the fix pack's `PLAYTEST_CHECKLIST.md` / `archive/` already carried.
+- **D07** `built` → `tested-attended`. The tag said E's uninstall half was unrun; the checklist's PT-53
+  block has said RAN CLEAN 2026-08-10 (`corun-batch-2` leg T) for three weeks. Re-read the RAW log
+  (`cb2uninstall_Mars.exe-20260810-17.20.20.log`): save written with the pack (`Unpersist missing
+  permanent: Mod/SMR_CommunityFixPack`), sitting read `CohortHousing: applied`, full restart,
+  `pack=0/0 active`, **0 `[LUA ERROR]`**, ~7 min sim. E's precedence half stays UNMEASURED (fixture
+  unholdable 08-05; its design question ruled 08-11). Stated on the entry: pre-split run, transfers
+  on zero persisted state; §8 ship test still owed. Third time this entry lagged the archive.
+- **D12** stays `speced` (owner disposition 08-03 item 2). Tag + row said "P4/P6 owed"; the entry's own
+  08-03 re-run section and the checklist's PT-62 header say PASSED (23 → 0, overpop cleared). Owed
+  now reads P12 · P13 · P14 · split counter through a landing · longer `Clark #1` watch.
+- **D01** `opt-in` → `tested-attended`: PT-55 closed in full 07-30 at the keyboard; the tag had opened
+  with `opt-in fix` since 08-01. Bookkeeping, no new claim.
+- Fix pack checklist: PT-53's status header now says nothing runnable remains, pointing here.
+Not done: anything needing the keyboard (D12 P12–P14 + landing; D06 design decision, checklist 83).
+
+---
+
 ## 2026-09-01 — contamination audit: every fix-pack reference sorted, 0 contamination, the l5 lens found mis-renamed
 
 tags: tools WORKFLOW FIX_POLICY item-88 item-89 item-90

@@ -17,13 +17,13 @@ Pre-2026-08-31 STATE (the long form): `git show e8d8cee:docs/agent/STATE.md`.
 - ⚖️ 09-01 (owner, verbatim "the opt in modules has not fully tested yet"): TESTING PRECEDES LAUNCH. Owed:
   a. D12 `NoHomeless` — PT-62 remainder: P12 (save ON → Mod-Manager disable → load), P13 (veto lever mid-drain),
      P14 (free-work door), the split counter through a ROCKET LANDING. Attended; needs a STABLE colony.
-     ⚠️ entry says P4/P6 owed; checklist says P4/P6 PASSED 08-03 — reconcile the entry against the archive first.
-  b. D07 `CohortHousing` — entry tag says E's uninstall half unrun; checklist: RAN 08-10 (leg T), CLEAN. Reconcile;
-     E's precedence half was routed to an owner decision (08-05). If both hold, D07 is `tested-attended` material.
+     ✅ entry RECONCILED 09-01: P4/P6 PASSED 08-03 (its own re-run section had said so; tag/row had not). Status stays `speced`.
+  b. D07 `CohortHousing` — ✅ `tested-attended` GRANTED 09-01 by reconciliation: E's uninstall half RAN CLEAN 08-10 (leg T,
+     raw log re-read: `pack=0/0`, 0 `[LUA ERROR]`); E's precedence half UNMEASURED (fixture unholdable), its question RULED 08-11.
   c. D06 `DroneOverhaul` — design decision (owner; fix pack `DRONE_PROJECT_PROMPT.md` §3) → build → PT-52 rewrite
      from the plan + a `RunAll` probe (checklist 83). No probe exists today.
-  d. D01/D02/D03/D04/D09 — PT-55/48/49/50/56 PASSED in full (pre-split, fix pack context). D01's status word is
-     `opt-in`, not `tested`, though PT-55 closed — bookkeeping. FIX_POLICY §8 both-config test still owed at ship.
+  d. D01/D02/D03/D04/D09 — PT-55/48/49/50/56 PASSED in full (pre-split, fix pack context). ✅ D01 `tested-attended`
+     09-01 (bookkeeping; PT-55 closed 07-30). FIX_POLICY §8 both-config test still owed at ship for every module.
 - ⇒ THEN the launch session owes, in order (report §6):
   1. walk the restore checklist — ~46 parked passages across the fix pack repo + `SMR-CommunityMods`;
      the fix pack's `metadata.lua` change = its version bump + re-upload; re-measure, doccheck, `mkdocs --strict`;

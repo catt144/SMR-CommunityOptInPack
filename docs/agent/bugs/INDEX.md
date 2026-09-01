@@ -11,13 +11,13 @@ matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matte
 
 | seq | id | title | status | priority | evidence | entry |
 |----|----|-------|--------|----------|----------|-------|
-| 1 | D01 | Rockets don't auto-refuel/auto-export rare metals | opt-in | dsgn | high | [D01.md](D01.md) |
+| 1 | D01 | Rockets don't auto-refuel/auto-export rare metals | tested-attended | dsgn | high | [D01.md](D01.md) |
 | 2 | D02 | Dismissed "not working" warnings re-nag every 4 game h | tested | dsgn | med | [D02.md](D02.md) |
 | 3 | D03 | No way to block dome move-ins short of full quarantine | tested | dsgn | med | [D03.md](D03.md) |
 | 4 | D04 | Artificial Sun is build-once; second-sun support unused | tested | dsgn | low | [D04.md](D04.md) |
 | 5 | D05 | Opt-in modules had no player-usable enable surface | tested | dsgn | high | [D05.md](D05.md) |
 | 6 | D06 | Drone assignment has no cross-hub locality (far fleets claim near work) | built | dsgn | high | [D06.md](D06.md) |
-| 7 | D07 | Cohort housing: seniors/children never consolidate without filter micromanagement | built | dsgn | med | [D07.md](D07.md) |
+| 7 | D07 | Cohort housing: seniors/children never consolidate without filter micromanagement | tested-attended | dsgn | med | [D07.md](D07.md) |
 | 8 | D09 | No player control over drone speed/carry (breakthrough lottery) | tested | dsgn | med | [D09.md](D09.md) |
 | 9 | D12 | Homeless strand in specialist domes; emigration ties never move them | speced | dsgn | med | [D12.md](D12.md) |
 
