@@ -14,7 +14,17 @@ Pre-2026-08-31 STATE (the long form): `git show e8d8cee:docs/agent/STATE.md`.
   every player-facing reference to this mod was PARKED (fix pack `reports/PARKED_OPTIN_REFERENCES.md`).
 - 2026-08-31 READINESS PASS: tooling/process parity with the fix pack @ `bec2e06` restored.
   Report `agent/reports/READINESS_REVIEW_0831.md`; ledger `agent/PROVENANCE.md` §6.
-- ⇒ NEXT: nothing owed until this mod's launch session. That session owes, in order (report §6):
+- ⚖️ 09-01 (owner, verbatim "the opt in modules has not fully tested yet"): TESTING PRECEDES LAUNCH. Owed:
+  a. D12 `NoHomeless` — PT-62 remainder: P12 (save ON → Mod-Manager disable → load), P13 (veto lever mid-drain),
+     P14 (free-work door), the split counter through a ROCKET LANDING. Attended; needs a STABLE colony.
+     ⚠️ entry says P4/P6 owed; checklist says P4/P6 PASSED 08-03 — reconcile the entry against the archive first.
+  b. D07 `CohortHousing` — entry tag says E's uninstall half unrun; checklist: RAN 08-10 (leg T), CLEAN. Reconcile;
+     E's precedence half was routed to an owner decision (08-05). If both hold, D07 is `tested-attended` material.
+  c. D06 `DroneOverhaul` — design decision (owner; fix pack `DRONE_PROJECT_PROMPT.md` §3) → build → PT-52 rewrite
+     from the plan + a `RunAll` probe (checklist 83). No probe exists today.
+  d. D01/D02/D03/D04/D09 — PT-55/48/49/50/56 PASSED in full (pre-split, fix pack context). D01's status word is
+     `opt-in`, not `tested`, though PT-55 closed — bookkeeping. FIX_POLICY §8 both-config test still owed at ship.
+- ⇒ THEN the launch session owes, in order (report §6):
   1. walk the restore checklist — ~46 parked passages across the fix pack repo + `SMR-CommunityMods`;
      the fix pack's `metadata.lua` change = its version bump + re-upload; re-measure, doccheck, `mkdocs --strict`;
   2. preview art → `preview.png` + `'image'` in `metadata.lua` (owner, checklist 85);
