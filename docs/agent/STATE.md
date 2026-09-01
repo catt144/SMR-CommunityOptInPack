@@ -59,7 +59,9 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
   `Opt_DroneStatDials` (D09) are open to design + playtest work under FIX_POLICY, A/B per change;
   PT-52's freeze is LIFTED (its test still needs the rewrite from the approved plan). Entry point:
   fix pack `prompts/DRONE_PROJECT_PROMPT.md` §3 — the design decision is the owner's next call;
-  its inputs were re-derived 09-01: `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` (YES IF, E-4/E-8 owed).
+  its inputs were re-derived 09-01: `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` (YES IF, E-4/E-8 owed;
+  reviewed same day — held, one gap: `EF-074` ImproveDemandRequest hijack; findings are facts `EF-070–074`).
+  Next: one-off `prompts/DRONE_BUILD_DESIGN.md` → design spec + tier table + build brief (owner ratifies before any build).
   Not touched by this ruling: `FUTURE_IDEAS.md` #7 (gleaner/pairing) stays parked post-launch until said otherwise.
 - ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
   rotation (pre-copy autosaves first, outside the save folder).

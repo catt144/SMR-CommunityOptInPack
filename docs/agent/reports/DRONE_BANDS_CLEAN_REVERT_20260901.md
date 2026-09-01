@@ -686,3 +686,34 @@ to answer before the build brief is written.
 **What this report does not claim:** band ordering inside or between bands (E-9 owed); the
 leak's magnitude (n=1 until E-3); that V "has no behaviour change" (desk-derived); which option
 the owner should pick (the checklist item asks it).
+
+---
+
+## 8 · Addendum, 2026-09-01 (review, same day) — one gap found, the findings promoted to facts
+
+**Reviewed against Src the same day** (session after `0674ed6`): every SOURCE
+claim in §2's deltas 14–21 and §4.1 re-verified at the cited lines and HELD.
+One gap in §4.2 V's R11 row:
+
+- ⚠️ **`Drone:ImproveDemandRequest` can trade a tier-chosen delivery up to any
+  strictly-higher REAL-band demand mid-flight** (`Drone.lua:1164-1175` — Deliver
+  improves every PickUp-chained delivery; `:1013-1014` — PickUp never passes
+  `do_not_improve_req`; `:766` — `min_priority = GetPriorityForRequest(d_request)
+  + 1`). A T5 demand's real band is 2, so its parts can be hijacked by routine
+  player-High traffic — the inversion the tiers exist to prevent. R11's row
+  considered only the opposite direction. **V, P and E all need the guard** (a
+  chained wrapper on `ImproveDemandRequest` — synchronous — declining
+  improvement for tier-tracked demands, or the vanilla `do_not_improve_req`
+  seam), and **E-8's card gains an assertion:** the tier delivery ARRIVES at
+  the tier building. Filed as **`EF-074`**.
+- Second-order note on §4.2 V/R10: "strict between tiers" is strict **per hub
+  poll** — a far hub's drone can take T4 while a near hub's T5 waits for that
+  hub's next poll. Persisted bands share the property; stated so nobody reads
+  a colony-global guarantee into either.
+- **Durability:** deltas 15/16/17/18/19 and the review's gap are now facts —
+  `EF-070` (autosave unpaused, ≥4 yields), `EF-071` (C reads the group bound),
+  `EF-072` (FindTask's inputs; the persist walk's only-route rule), `EF-073`
+  (the band lives in the queue key), `EF-074` (the hijack) — allocated in the
+  fix pack, mirrored here. `DRONE_PRIORITY_SYSTEM.md` §6 gains landmine 8.
+  The verdict and ranking of §7 are UNCHANGED by the review; the guard is one
+  more chained sync wrapper in V/P's R8 row.

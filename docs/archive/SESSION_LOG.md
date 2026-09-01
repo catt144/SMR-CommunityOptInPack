@@ -12,6 +12,30 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-09-01 — the bands report reviewed: held, one gap (EF-074); its findings become facts EF-070–074; the build-design one-off is written
+
+tags: D06 drones facts EF-070 EF-071 EF-072 EF-073 EF-074 review prompts
+
+Review of `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` against Src, then durability work on
+the owner's order ("update all the facts it found so we don't lose anything"):
+- **Every SOURCE delta re-verified and HELD** (the `:94` flatten verbatim; class-table functions
+  not permanents; the 07-31 experiment widened only the group const; autosave unpaused with ≥4
+  yields). **One gap found:** `Drone:ImproveDemandRequest` can trade a tier-chosen delivery up to
+  routine band-3 traffic mid-flight (`Drone.lua:766`, `:1013-1014`, `:1164-1175`) — V/P/E need a
+  guard; E-8's card gains the assertion. Report §8 addendum; verdict/ranking unchanged.
+- **Facts filed** (fix pack first, mirrored here): `EF-070` autosave/quicksave unpaused before the
+  persist walk · `EF-071` C reads the `const.TaskRequest` bound, not table keys · `EF-072`
+  FindTask's nine inputs + the persist walk's only-route rule · `EF-073` the band lives in the
+  queue key · `EF-074` the hijack. `DRONE_PRIORITY_SYSTEM.md` §6 landmine 8 (fix pack commit).
+- **D06 tag/row refreshed** — they had said "4 gates owed, playtest FROZEN" for a month after both
+  moved (gates answered 07-31, freeze lifted 08-31). Third entry-lags-body instance.
+- **`prompts/DRONE_BUILD_DESIGN.md` written** (one-off, self-consuming): design spec + THE tier ×
+  demand layout table + build brief, under the owner's hard constraint — no uninstall mod (R3/R7
+  hard); branches on whether E-4/E-8 have run; owner ratifies the spec before any build.
+Not done: the experiments (owner, checklist 92); any code.
+
+---
+
 ## 2026-09-01 — drones: bands 4–5 + clean revert — YES IF (view tiers), two matcher experiments owed; EF-069 filed
 
 tags: D06 drones EF-069 reports checklist-91 checklist-92 checklist-93 desk-only
