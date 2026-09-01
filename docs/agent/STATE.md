@@ -58,7 +58,8 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
   ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): `Opt_DroneOverhaul` (D06) and
   `Opt_DroneStatDials` (D09) are open to design + playtest work under FIX_POLICY, A/B per change;
   PT-52's freeze is LIFTED (its test still needs the rewrite from the approved plan). Entry point:
-  fix pack `prompts/DRONE_PROJECT_PROMPT.md` §3 — the design decision is the owner's next call.
+  fix pack `prompts/DRONE_PROJECT_PROMPT.md` §3 — the design decision is the owner's next call;
+  its inputs were re-derived 09-01: `reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` (YES IF, E-4/E-8 owed).
   Not touched by this ruling: `FUTURE_IDEAS.md` #7 (gleaner/pairing) stays parked post-launch until said otherwise.
 - ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
   rotation (pre-copy autosaves first, outside the save folder).
@@ -94,4 +95,5 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
 ## Open owner decisions — bodies in the FIX PACK's `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you"
 - 83 TestKit edits for this mod's coverage · 84 Require pairs for the 3 allowlisted wrap sites ·
   85 preview art · 86 ratify EF-id allocation rule ·
-  88 `FUTURE_IDEAS.md` #9 routing · 89 `Code/` comment-only wording sweep · 90 loc-table ruling scope (audit 09-01).
+  88 `FUTURE_IDEAS.md` #9 routing · 89 `Code/` comment-only wording sweep · 90 loc-table ruling scope (audit 09-01) ·
+  91 D06 design w/ the bands report · 92 run E-4/E-8 · 93 tiers on rockets/rovers (bands 09-01).

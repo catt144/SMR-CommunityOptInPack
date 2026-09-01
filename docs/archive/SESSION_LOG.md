@@ -12,6 +12,35 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-09-01 — drones: bands 4–5 + clean revert — YES IF (view tiers), two matcher experiments owed; EF-069 filed
+
+tags: D06 drones EF-069 reports checklist-91 checklist-92 checklist-93 desk-only
+
+One-off `prompts/BANDS_CLEAN_REVERT.md` (consumed; `git show ba6c3b7:docs/agent/prompts/BANDS_CLEAN_REVERT.md`).
+Desk only — no module touched, no save loaded, no probe run (`PROBE SWEEP: clean`). Report:
+`agent/reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` — the evidence delta since 07-31 (23 lines), the
+three options and fourteen brainstormed mechanisms each against an 11-row clean-revert rubric, seven
+experiment cards with committed predictions, and the verdict.
+- **Verdict: YES IF** — "view tiers" (the elevated requests handed to the C matcher in transient mod-built
+  tables, tier by tier, before the hub's real tables; nothing widened, nothing persisted) fills every rubric
+  row from citations except two matcher cells (E-4, E-8). Bands 4–5 as PERSISTED data: NO (R3/R7 fail by the
+  07-31 §9 measurements). Option 2 reverts clean only by table surgery (R10 fails).
+- **Three SOURCE findings the record lacked:** (1) the 07-31 v1 experiment (TestKit `f617576`) widened only the
+  `const.TaskRequest` group and C still nil-indexed narrow tables ⇒ the matcher reads the group bound, not the
+  keys (corroborated by Haemimont's 2018 Lua mirror of the matcher); (2) autosave/quicksave do not pause game
+  time and ≥4 yields sit between `SaveGameStart` and `EngineSaveGame` ⇒ tear-down-on-save cannot hold its
+  invariant; (3) `RequiresMaintenance.lua:94` copies the class's `GetPriorityForRequest` onto every
+  no-maintenance building and class-table functions are not permanents ⇒ a class-level override enters saves
+  by value via vanilla — **EF-069** (allocated in the fix pack, mirrored here).
+- Fix pack, own commit: EF-069 + INDEX; `DRONE_PRIORITY_SYSTEM.md` corrected in place (§4 a fourth override,
+  `RCTransport.lua:217`; §6 landmine 4 amended; §10's "requires a full replacement" withdrawn — a pre-wrapper
+  closes the leak); `DRONE_PROJECT_PROMPT.md` §3 pointer; checklist items 91–93.
+- Web prior art: no published mod widens the range or overrides the method; the devs shipped and removed a
+  one-band maintenance urgency in 2018 (`maintenance_request_is_highest_prio`, field still at `:53`).
+Not done: any experiment (owner, item 92); the decision (item 91); D06 entry untouched (plan of record unchanged).
+
+---
+
 ## 2026-09-01 — the three stale entries catch up with the fix pack's checklist: D07 and D01 `tested-attended`, D12's tag stops owing P4/P6
 
 tags: D07 D12 D01 STATE reconciliation testing-debt
