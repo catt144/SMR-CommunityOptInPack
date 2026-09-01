@@ -43,8 +43,12 @@ Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 
   forever (`agent/PROVENANCE.md` §2); renaming one is FORBIDDEN. `l3_save_footprint.py` §3 must read exactly those five.
 - ⛔ ZERO `SMRFixPack` references in executable code: the surviving tokens in `Code/` are the five
   persisted STRINGS (5 definitions, 6 comments) — data, not references.
-- ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling;
-  `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
+- ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling.
+  ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): `Opt_DroneOverhaul` (D06) and
+  `Opt_DroneStatDials` (D09) are open to design + playtest work under FIX_POLICY, A/B per change;
+  PT-52's freeze is LIFTED (its test still needs the rewrite from the approved plan). Entry point:
+  fix pack `prompts/DRONE_PROJECT_PROMPT.md` §3 — the design decision is the owner's next call.
+  Not touched by this ruling: `FUTURE_IDEAS.md` #7 (gleaner/pairing) stays parked post-launch until said otherwise.
 - ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
   rotation (pre-copy autosaves first, outside the save folder).
 - ⚠️ CHEATS ENABLED on the rig; BOTH MODS LOADED is the standing config (owner rule, `agent/WORKFLOW.md`).

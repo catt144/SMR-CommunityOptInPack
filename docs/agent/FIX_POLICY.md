@@ -132,7 +132,8 @@ Every fix goes through `SMROptInPack.Register(id, {title, apply})` (Code/00_Core
   with their citations** — `Opt_DroneOverhaul` (`Drone.CleanUnreachables`,
   `TaskRequestHub.FindTask`; the module calls no `Require` at all) and
   `Opt_MultipleSuns` (`SolarPanelBase.GameInit`). Naming those pairs in a
-  Require block is a code edit to frozen modules and sits with the owner; an
+  Require block is a code edit to modules under the freeze at adoption (drones
+  unfrozen 2026-08-31, `STATE.md`) and sits with the owner (checklist 84); an
   allowlist entry carrying a defect id is a receipt for an open case, never a
   permanent waiver.
 - ⛔ **NEVER `Require` A PER-GAME RUNTIME GLOBAL AT APPLY TIME (the F110 rule —
