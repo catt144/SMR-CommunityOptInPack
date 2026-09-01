@@ -112,6 +112,41 @@ Every fix goes through `SMROptInPack.Register(id, {title, apply})` (Code/00_Core
   ITSELF — checking an inherited method on a subclass finds nil and silently
   deactivates the fix. Verify where the method is declared in Src and check
   that class.
+- ⛔ **EVERY `(class, method)` PAIR A MODULE INSTALLS ON OR CAPTURES FROM MUST
+  APPEAR IN THAT MODULE'S OWN `Require` BLOCK (the F107 rule — adopted in the
+  fix pack 2026-08-24, carried here 2026-08-31).** `Require` validates what the
+  author DECLARES, never what the module WRAPS, and the two diverged silently
+  next door: the fix pack's `Fix_LandscapeCostRefresh` required the declaring
+  class plus three leaves' gatherers, then captured
+  `local prev = <leaf>.RefreshConstructionResources` — a pair it never
+  declared — and `prev` was nil on every boot (fix-pack F107). Had the
+  installed pair been in the block, the `{class, method}` check would have
+  FAILED at apply time and `find_declaring_ancestor` (`00_Core.lua:132-137`
+  here too) would have named the authoring error, with no game launch needed.
+  Corollary for captures: take the original from the class that DECLARES the
+  method (the F64 lesson above). Statically enforced for the shape that can
+  produce a nil `prev`: `python tools/harvest_wrap_targets.py --check`, run by
+  doccheck, goes RED on a capture-AND-install site whose pair is absent from
+  its module's Require block. ⚠️ **This repo's state at adoption: three
+  pre-rule sites verified benign at Src 2026-08-31 and allowlisted in the tool
+  with their citations** — `Opt_DroneOverhaul` (`Drone.CleanUnreachables`,
+  `TaskRequestHub.FindTask`; the module calls no `Require` at all) and
+  `Opt_MultipleSuns` (`SolarPanelBase.GameInit`). Naming those pairs in a
+  Require block is a code edit to frozen modules and sits with the owner; an
+  allowlist entry carrying a defect id is a receipt for an open case, never a
+  permanent waiver.
+- ⛔ **NEVER `Require` A PER-GAME RUNTIME GLOBAL AT APPLY TIME (the F110 rule —
+  fix pack 2026-08-30, carried here 2026-08-31).** `apply()`/`Require` run at
+  the MENU, before any game is loaded, so a game-scoped global — `Cities`,
+  `UIColony`, `UICity`, `MainCity`, a map object — is legitimately nil there.
+  Putting one in the `Require` block makes the self-check read it as "game code
+  changed" and SAFE-DISABLE the module on every boot (seen live next door:
+  `JumboCaveReinforcementWedge: inactive (Cities not found …)`). `Require` is
+  only for what a game UPDATE could remove and that is present at apply time:
+  engine globals, built classes, `(class, method)` pairs. A per-game global is
+  a RUNTIME condition — `rawget(_G, "UIColony")` + a `type(...) == "table"`
+  guard inside the handler, never a Require entry. (`Opt_DroneStatDials`
+  already does exactly this with `UIColony`.)
 - ⛔ **NO `apply()` MAY ASSUME A COLD BOOT (the F87 rule, 2026-07-31).** A mod is
   never auto-enabled: the player ticks it at the main menu of a process that is
   already running, the engine does an **in-place reload**

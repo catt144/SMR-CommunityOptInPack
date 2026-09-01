@@ -1,60 +1,78 @@
 # Project State — the one mandatory read
 
-Current only, rewritten in place; history newest-first in
-`docs/archive/SESSION_LOG.md`. Module truth `agent/bugs/INDEX.md` · engine facts
-`agent/facts/INDEX.md` · doc map `docs/README.md` · authoring `agent/WORKFLOW.md` ·
-code `agent/FIX_POLICY.md` · what came from where `agent/PROVENANCE.md`.
+Current only, rewritten in place; history newest-first in `docs/archive/SESSION_LOG.md`.
+Module truth `agent/bugs/INDEX.md` · engine facts `agent/facts/INDEX.md` · doc map `docs/README.md`.
+Authoring `agent/WORKFLOW.md` · code `agent/FIX_POLICY.md` · what came from where `agent/PROVENANCE.md`.
+Pre-2026-08-31 STATE (the long form): `git show e8d8cee:docs/agent/STATE.md`.
 
-## Where the project is
-⭐ **BUILT 2026-08-12 AND ✅✅ VERIFIED IN GAME THE SAME EVENING.** Split out of
-`SMR-BugFixPack` @ `33d69f5` by that repo's chain `docs/agent/prompts/split-optins/`
-(prompts 3+4). Eight opt-in behaviour modules (D01–D07, D09, D12) over their OWN
-copy of the pack framework (`SMROptInPack`), each off or at base until the player
-enables it in Options → Mod Options. ⭐⭐ **TRUE STANDALONE IS MEASURED** (fix pack's
-`archive/sp*_20260812-*`, 9 launches): this mod ran **with the fix pack
-UNINSTALLED** at `8/8`, its 8 probes reporting exactly what they report beside it;
-and the fix pack ran with THIS mod uninstalled at `74/74`, registry absent, zero
-`[CommunityOptInPack]` lines. Save contract PROVED: every persisted name read back
-off 4 real saves under its exact `SMRFixPack_` bytes, plus an in-game
-write→save→reload where **0 of 3 fields broke**. ⚠️ The leg's one finding was a
-TestKit fixture, not this mod (`Opt_ClassicRockets.lua:89`'s
-`self:IsPlayerControlled()`, reachable for the first time with the fix pack
-absent; fixture repaired in the kit — the method is real,
-`Lua/UniversalRocket.lua:2140`). ⚖️⚖️ **AUDIT CLOSED 08-12: everything above
-SUSTAINED** (logs byte-compared + read whole, tallies recounted, persisted names
-re-derived from THIS tree, EF-055 re-derived from Src); **no-retraining test
-PASSED from this repo alone** (transcript: `docs/archive/SESSION_LOG.md`, top).
-Both-mods WORKFLOW clause ACTIVE. ✅✅ **08-13: the D13 rescue artifact (ONE, BOTH mods — this repo's five names included, D15 dials the headline) is BUILT, VERIFIED UNATTENDED, AUDIT-SUSTAINED** (removed 1617 by name; suite 94 probes, both-mods 78/0/16/0; fix-pack `archive/rs_*` + `D13_VERIFICATION.md`).
-⇒ **NEXT: nothing owed by this repo UNTIL ITS LAUNCH** — ⛔⛔ **2026-08-17 (owner): THE FIX PACK LAUNCHED ALONE; THIS MOD DID NOT PUBLISH ("its not ready imo") AND EVERY PLAYER-FACING REFERENCE TO IT WAS PARKED** out of the fix pack, the site and both `metadata.lua` player strings. **The session that publishes this mod inherits a standing obligation it must not skip: BEFORE upload, walk the restore checklist in `SMR-BugFixPack/docs/agent/reports/PARKED_OPTIN_REFERENCES.md`** — ~46 passages stored VERBATIM (byte-compared) across the fix pack repo + `SMR-CommunityMods` (landing page, install, FAQ ×5 whole questions incl. the drone-dial uninstall warning, fix list, for-modders, `mkdocs.yml` site_description, store card + STORE record, fix-pack `metadata.lua` ⛔ = version bump + re-upload), then re-measure the counts, re-prove STORE↔RELEASE VERBATIM, doccheck + `mkdocs --strict`. The paste source `RELEASE_DESCRIPTION_OPTIN.md` (fix pack repo) carries the matching parked banner. ⭐ **2026-08-20 (owner ruling, fix-pack checklist 37 Q1): the fix pack's two `00_Core.lua` defects of 2026-08-17 (`2f077e8`) are MIRRORED here** — `update_suspect` cleared at both sites that restore `active`, and `Register`'s `order` append guarded against re-registration. ⚠️ **Neither is verified in a running game in THIS repo** (the fix pack proved both in its act-1 launch, its `archive/act1_*`); the `Register` guard is the one that was MEASURED on this mod's own module (the "NoHomeless, NoHomeless" dialog), and the `ctx.heal` clear is pre-emptive here because no `Opt_*` module calls `DataPatch` today. ⇒ **This mod's launch session owes a boot check that the eight modules register once each after a `ReloadLua`.**
+## Now
+- BUILT 2026-08-12, VERIFIED IN GAME the same evening: `8/8` beside the fix pack; `8/8` with it
+  UNINSTALLED; fix pack `74/74` with this mod absent. Audit CLOSED 08-12, everything SUSTAINED.
+- Save contract PROVED 08-12: five persisted names read back off 4 real saves under exact
+  `SMRFixPack_` bytes; write→save→reload broke 0 of 3 fields (`archive/SESSION_LOG.md`, 08-12).
+- ⛔ NOT PUBLISHED. 2026-08-17 (owner): the fix pack launched ALONE ("its not ready imo");
+  every player-facing reference to this mod was PARKED (fix pack `reports/PARKED_OPTIN_REFERENCES.md`).
+- 2026-08-31 READINESS PASS: tooling/process parity with the fix pack @ `bec2e06` restored.
+  Report `agent/reports/READINESS_REVIEW_0831.md`; ledger `agent/PROVENANCE.md` §6.
+- ⇒ NEXT: nothing owed until this mod's launch session. That session owes, in order (report §6):
+  1. walk the restore checklist — ~46 parked passages across the fix pack repo + `SMR-CommunityMods`;
+     the fix pack's `metadata.lua` change = its version bump + re-upload; re-measure, doccheck, `mkdocs --strict`;
+  2. preview art → `preview.png` + `'image'` in `metadata.lua` (owner, checklist 85);
+     `python tools/upload_preflight.py` FAILS on exactly this today (16 checked, 1 FAIL);
+  3. in-game boot check: eight modules report once each after a Mod-Manager `ReloadLua`
+     (desk half PASSED 08-31, `tools/l2_reload_sim.py --strict`; its falsifier reproduces the 08-17 doubling);
+  4. both-configuration ship test — with the fix pack and with it absent (`FIX_POLICY` §8), naming the version;
+  5. tag `optin-v1.0.0` at upload (`agent/WORKFLOW.md` "Release marking").
 
 ## Build state — `python tools/doccheck.py --emit-counts`, never hand-typed
 ```
 BUILD STATE (emitted by tools/doccheck.py)
 - modules: 8 registered (1 default-active, 7 optional-gated files)
 - Code/*.lua files: 9
-- TestKit probes: 94 (shared kit — serves both mods)
+- TestKit probes: 100 (shared kit — serves both mods)
 - BUGS index rows: 0 F + 9 D + 0 C
 ```
-The 1 default-active is `DroneStatDials`, which registers WITHOUT `optional` and is
-active at its base dial positions (vanilla behaviour, armed). Game pinned
-**1.0.7.396349** (`EF-014`); the probe count is the SHARED suite's. ✅ **Gate
-MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults** (the latter from the
-owner's 08-12 18:30 log — the only recording of that state there will ever be).
+The 1 default-active is `DroneStatDials` (registers WITHOUT `optional`, active at base dials = vanilla, armed).
+Game pinned **1.0.7.396349** (`EF-014`).
+Probe count is the SHARED suite's (94 excluding the 6 rescue probes). This mod owns **9** of them —
+8 in `60_Probes_Opt.lua` + `ClassicRockets` in wave 3; D06 `DroneOverhaul` has NONE (report §5).
+Gate MEASURED `8/8` beside the fix pack, `1/8` at fresh defaults (owner's 08-12 18:30 log — the only recording).
+
 ## Gates and holds
-- ⛔ **PERSISTED NAMES ARE SAVE CONTRACT** — the five `SMRFixPack_*` fields and
-  modifier ids this mod writes keep those exact bytes forever, prefix and all
-  (`agent/PROVENANCE.md` §2). **Renaming one is forbidden here.** Carried across
-  byte-for-byte at the port and ✅ **read back live off 4 real saves 08-12**.
-  ⛔ **ZERO `SMRFixPack` references in executable code**: the 11 surviving tokens
-  in `Code/` are exactly those five persisted STRINGS (5 definitions, 6 comments)
-  — data, not references. ⛔ **No behaviour change to any module** while the split
-  chain runs; `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
-- ✅ **Re-tick SPENT** (owner 08-12): enabled, 7 toggles on, dials `5x`/`+2`;
-  nothing owed. ⛔ **`EF-055`/`EF-056`**: junction pull = real uninstall; a
-  campaign COPY still runs its autosave rotation (pre-copy autosaves first).
-- ✅ **Remote PUBLIC 08-13** (`github.com/catt144/SMR-CommunityOptInPack`); display
-  name SET 08-13 (`e17586b`) as "Community Fix Pack: Opt-In Modules" ⭐ **RENAMED 08-17 (owner, fix-pack checklist 36) → "Relaunched Fix Pack: Opt-In Modules"** — title + player strings + live surfaces swept HERE same day (metadata strings renamed IN PLACE; richer draft = release-prep option, fix-pack `STORE_METADATA_STRINGS.md`); repo/id/log-tag UNCHANGED · store
-  description BUILT+audited (fix pack `reports/RELEASE_DESCRIPTION_OPTIN`) ·
-  v1.0.0 · default-OFF RATIFIED. ⚠️ **CHEATS ENABLED on the rig**, and **BOTH
-  MODS LOADED is its standing config** (owner rule, `agent/WORKFLOW.md`).
-- ⭐⭐ **08-16: THE FARM/SEED-LOGISTICS CASE IS THIS HOUSE'S** (owner: *"bug territory in practice even if not logic … has to be in opt in"*). Report `agent/reports/SEED_LOGISTICS_HANDOFF.md`; designs `DRONE_OVERHAUL_OPTIONS.md` §I gleaner + §K pairing policy + K-probe (flag-brand, runs FIRST); §J = tombstone. Parked per FUTURE_IDEAS #7, post-launch, one decision at a time. Mechanism: depots = the matcher's strict last resort (985 pairings witnessed, fix pack `archive/c48pair2_*`).
+- ⛔ PERSISTED NAMES ARE SAVE CONTRACT — the five `SMRFixPack_*` fields/modifier ids keep their bytes
+  forever (`agent/PROVENANCE.md` §2); renaming one is FORBIDDEN. `l3_save_footprint.py` §3 must read exactly those five.
+- ⛔ ZERO `SMRFixPack` references in executable code: the surviving tokens in `Code/` are the five
+  persisted STRINGS (5 definitions, 6 comments) — data, not references.
+- ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling;
+  `Opt_DroneOverhaul` carries PT-52's freeze — frozen it stays.
+- ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
+  rotation (pre-copy autosaves first, outside the save folder).
+- ⚠️ CHEATS ENABLED on the rig; BOTH MODS LOADED is the standing config (owner rule, `agent/WORKFLOW.md`).
+  Grep logs with the FULL token `[CommunityOptInPack]`.
+- ✅ Re-tick SPENT (owner 08-12): enabled, 7 toggles on, dials `5x`/`+2`; nothing owed.
+- ✅ Remote PUBLIC 08-13 (`github.com/catt144/SMR-CommunityOptInPack`); title "Relaunched Fix Pack:
+  Opt-In Modules" (family renamed 08-17, checklist 36); id/global/log tag UNCHANGED; v1.0.0; default-OFF RATIFIED.
+- ⭐ 08-16 (owner): the farm/seed-logistics case is THIS HOUSE'S — `reports/SEED_LOGISTICS_HANDOFF.md`,
+  `DRONE_OVERHAUL_OPTIONS.md` §I/§K; PARKED per `FUTURE_IDEAS.md` #7, post-launch, one decision at a time.
+- ⭐ 08-20 (owner, checklist 37 Q1): the fix pack's two `00_Core.lua` repairs (`2f077e8`) MIRRORED —
+  `update_suspect` cleared on success, `Register` guarded against re-registration.
+  Neither verified in a running game HERE; the guard is desk-verified 08-31 (`l2_reload_sim.py`);
+  the `ctx.heal` clear is pre-emptive (no `Opt_*` calls `DataPatch`).
+- ⚖️ 08-31 WRAP CHECK (F107 rule, `FIX_POLICY` §2): 3 pre-rule sites allowlisted with Src citations —
+  `Opt_DroneOverhaul` (`Drone.CleanUnreachables`, `TaskRequestHub.FindTask`), `Opt_MultipleSuns`
+  (`SolarPanelBase.GameInit`). Require-block additions = owner (checklist 84).
+- ⚖️ 08-31 LOAD ORDER enforced by doccheck: CohortHousing < NoHomeless (`Colonist:FindEmigrationDome`),
+  ResidencyControl < NoHomeless (`ChooseDome`) — the shipped nesting; reordering is a behaviour change.
+- ⚠️ 08-31 HOSTILE INPUT (`l8_hostile_input.py`): a foreign `SMROptInPack = true` / `_Disabled = true` /
+  throwing `__index` kills module files at load — the donor's L8 verdict on the same Core;
+  adjudication inherited (fix pack `reports/L8_ADVERSARIAL_MAP.md`); not a launch blocker there.
+- ⚠️ 08-31 TESTKIT GAPS FILED, none edited (report §5): no opt-only run mode; D06 unprobed;
+  `98_EnablePathLeg` hardcodes the fix pack's id; `FixtureCarry` blind to D09's modifiers;
+  no vanilla controls for D01–D04/D07/D09. Owner (checklist 83).
+- ⛔ 08-31 FACTS: re-synced from the fix pack @ `bec2e06` (68 files); this repo's old `EF-057`/`EF-058`
+  are now `EF-061`/`EF-062`. `EF-` ids are ALLOCATED BY THE FIX PACK from now on
+  (`agent/WORKFLOW.md` reading path 2; ratify = checklist 86).
+
+## Open owner decisions — bodies in the FIX PACK's `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you"
+- 83 TestKit edits for this mod's coverage · 84 Require pairs for the 3 allowlisted wrap sites ·
+  85 preview art · 86 ratify EF-id allocation rule.

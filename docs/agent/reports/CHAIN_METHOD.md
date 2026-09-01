@@ -129,6 +129,8 @@ emptiness is the objective done-condition. The final prompt is always an
 
 | ⛔ A pre-flighted console line can still carry an untested ASSUMPTION about game state — and the operator judges by the screen (corun-pt60, 2026-08-12 — the batch-coverage co-run) | Prep pre-flighted every console line for syntax, but the brief's order assumed a console at the main menu. At the sitting the kit's own boot line said the console only comes up "once in a colony"; the operator inferred "no console at the main menu" and spent an extra owner load (~2 min) to reach one. The archived log then proved the inference wrong in one direction: the menu command EXECUTED and reached the log (`CP60.Menu()` at `Lua 0:02:57`) — only the on-screen ECHO was missing, because `ConsolePrint` had no UI. Two separable failures: pre-flight validated syntax but not the state assumption, and the operator treated a silent screen as a failed command. ⭐ The wasted load was banked anyway as an accidental negative control (a post-batch save loading with zero save-state heals). | **Authoring:** a brief that drives a console names WHERE each line runs (menu vs colony) and states the echo contract — at the main menu, input EXECUTES but does not display, so the operator must judge by the LOG (flush first), never by the screen. **Method:** pre-flight covers state assumptions, not just syntax — every "run X then Y" order names the game state it presumes. **Salvage:** when an operator mis-step burns owner time, look for what the detour measured for free before writing it off — this one bought a control the leg design had not thought to stage. |
 
+| ⛔ A matrix cell's PREDICTION can be falsified by its PREMISE going stale between authoring and run — while its stated mechanism stays right (split-optins, 2026-08-12 — the first CROSS-REPO chain: one mod split into two repos under a save-contract constitution) | The design predicted the D09 dial modifiers ABSENT after load "because the mod id changed, so the dials read BASE" — but the premise (dials at base) died before the run: the owner, acting early on a routed checklist ask, had set both dials off base at 18:30. The harness caught it because it read the premise (a `DIALOPTS` dial-position read) beside the prediction, re-ran with the modifier's own fields, and landed on the STRONGER reading (presence = the module reconciling to current dials, exactly as the design's mechanism said). Same chain, two more method finds: (1) prompt 3 priced cells (b)/(c) at three owner Mod-Manager visits; prompt 4 dissolved the cost to ZERO by re-deriving the uninstall route from Src — a junction pull is a real uninstall that never touches account storage (`EF-055`, audit re-derived leg by leg); (2) the owner's own 18:30 log became the only recording that will ever exist of the fresh-default state and was cited as "banked" — but sat unarchived on a ~20-file rotation until the terminal audit archived it (R8 recurrence, third instance of the class). | **Authoring:** every matrix cell names its PREMISES and the harness READS them at run top beside the prediction (the `DIALOPTS`-beside-`INVROW` shape is the template); a routed owner ask can be acted on at ANY time, so a prompt that depends on the ask's not-yet-done state re-reads the world, never inherits the handoff. **Pricing:** before a design prices owner hands, ask whether the state is agent-mutable at the FILE-SYSTEM level (junction/file moves) — the Mod-Manager UI is not the only door. **Evidence:** R8 binds regardless of who produced the log — a log the chain cites is archived in the citing commit, owner-produced or not. |
+
 ## 4 · The chain template (assemble from these parts)
 
 0. **Author the chain WITH the owner — and size decides who assigns the
@@ -164,6 +166,14 @@ emptiness is the objective done-condition. The final prompt is always an
    route-don't-drop (unsure → STOP AND ASK), self-split, defect filing,
    drift-evidence capture, WORKFLOW elements 1–7, commit convention, any
    sealed documents.
+   ⛔ **COMMIT the folder in the authoring session, before any prompt fires**
+   (adopted 2026-08-24, f106-dispatch): every chain mechanic assumes git —
+   prompts `git rm` themselves, and a damaged prompt is restored with
+   `git checkout --` — and BOTH silently no-op on an untracked folder.
+   f106-dispatch ran untracked: an append script truncated `02`'s body, the
+   restore was a no-op, the file had to be reconstructed from a session's
+   memory (fidelity unprovable), and `01` could not `git rm` its own grave.
+   An uncommitted chain folder is unprotected evidence.
 2. **Prompt bodies**, each with: staleness check first (`git log` + `git
    pull`); the job; a **scope fence** (in/out); **stop conditions**; **"what
    may not be claimed"** (the honesty rail — the single best guard against
@@ -273,6 +283,71 @@ Lessons this run banked, beyond the shapes above:
   the rig was described; integration dissolves it into standing docs and the
   close-out cites `git show <sha>:<path>` for the full text, so deletion
   costs nothing.
+
+## 5a · ⭐ Parallel vs sequential — the rule the 2026-08-17 sweep chain earned
+
+**Owner question, 2026-08-19, while link 5 ran:** *"why do we separate this out so
+much? Why not have Fable trigger all lenses at once and assign a sub agent to
+each lens, judge all the lenses, write up a report, and send it to a stage 2 chain
+and have another adversarial Fable rule on it?"*
+
+⛔ **First, the correction that decides the answer: lenses are NOT partitions of
+the work.** L1 and L2 both read all 76 files. A lens is *a different question
+asked over the whole subject*, not a slice of it. So fan-out is not splitting a
+job across workers — it is asking N questions at once instead of in sequence.
+
+### What fan-out genuinely buys
+
+⭐ **Real blinding, for free.** The sweep chain proved a fence cannot be enforced
+sequentially in this repo (`prelaunch-sweep/00_CHAIN_SPEC.md` §2): `STATE.md` is a
+mandatory read and carries prior verdicts. **Parallel agents cannot read each
+other's findings because the findings do not exist yet.** Fan-out gets by
+construction the property the fence failed to enforce. Plus one kickoff instead of
+N, one report instead of N, and wall-clock collapse — a large win on owner
+attention, which is the scarce resource.
+
+### ⛔ What it costs, and it is the thing that actually produced results
+
+**Every good finding in that chain came from COMPOUNDING:**
+
+* link 2 found the fence hole **because** it read link 1's verdicts in STATE;
+* the verification interlude exists **because** links 1–4 each wrote *"no
+  launch"*, and the pattern was only visible **stacked up**;
+* that interlude then found a junction/account-state defect in a procedure written
+  **after** the lenses that never looked at it.
+
+⛔ **In a parallel round none of those happen** — eight agents report at t=0,
+nobody watches four declarations accumulate, and the synthesiser is reading
+reports rather than doing the work. Three more: the **coverage ledger stops
+functioning** (its job is *"go where the last one did not"*); **fixes cannot run
+concurrently** on a shared core file without each verifying against a tree the
+others are mutating; and the **stopping rule dies**, because *repeat-until-dry*
+needs iteration and one round has no convergence signal at all.
+
+### ⇒ The rule
+
+> ⭐ **Fan-out is a poor fit for DISCOVERY THAT COMPOUNDS, and an excellent fit for
+> VERIFYING A FIXED FINDING SET.**
+>
+> **Sequential for the sweep · parallel for the audit.**
+
+### The hybrid, for the next effort of this size
+
+1. **Stage 1 — parallel, FIND-ONLY.** Fan the lenses out. Genuinely blind, cheap,
+   fast. ⛔ No fixes: concurrent edits to a shared core cannot be verified.
+2. **Synthesis (Fable).** Judge, dedupe, rank — and ⭐ **hunt the cross-lens
+   pattern deliberately**, because that is the thing sequential links produce by
+   accident and a parallel round produces not at all. *"What did every lens
+   assume?"* is the question that replaces compounding.
+3. **Stage 2 — sequential, SHORT.** The synthesis names the 2–3 questions nobody
+   asked; those get sequential links, because those are where compounding pays.
+4. **Adversarial ruling.** A second, independent Fable whose job is to **refute
+   the verdict**, not to redo the work.
+
+⚠️ **Timing matters more than architecture.** This rule was adopted with three
+lenses left to run, and the existing chain was deliberately **not** converted:
+converting mid-flight would have saved two kickoffs and discarded a ledger built
+on sequential assumptions. **Choose the shape before link 1, not after link 5.**
 
 ## 6 · The two sentences to keep if everything else is lost
 

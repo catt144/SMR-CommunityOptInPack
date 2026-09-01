@@ -47,11 +47,13 @@ questions a fresh session actually has to answer — lives in those two files.
 **`agent/bugs/` — one file per entry** (`D*.md` today: the eight modules plus
 the Mod Options enable surface). `INDEX.md` is **generated**.
 
-**`agent/facts/` — 53 fact files** (`EF-001` … `EF-053`) plus `_preamble.md`,
-**copied whole from the fix pack @ `33d69f5` on 2026-08-12**. Engine facts
-describe the GAME, so both mods need all of them; the two copies **diverge from
-that date on** — see `_preamble.md` and `agent/PROVENANCE.md`. `INDEX.md` is
-**generated**.
+**`agent/facts/` — 68 fact files** (`EF-001` … `EF-068` at 2026-08-31) plus
+`_preamble.md`, **copied whole from the fix pack @ `33d69f5` on 2026-08-12 and
+re-synced from it @ `bec2e06` on 2026-08-31**. Engine facts describe the GAME,
+so both mods need all of them; the two copies **diverge between syncs** — see
+`_preamble.md` and `agent/PROVENANCE.md`. ⛔ **`EF-` ids are allocated by the
+fix pack** (`agent/WORKFLOW.md`, reading path 2): file a new fact there first,
+mirror it here at the same id. `INDEX.md` is **generated**.
 
 ⚠️ **`INDEX.md` is generated in both folders and is never hand-edited.** Edit
 the entry or fact file; doccheck regenerates the index and fails on any
@@ -60,9 +62,10 @@ difference. Generated files say so on line 1.
 ## Where new things go
 
 - A **defect or module record** → a new file in `agent/bugs/`. Never a report.
-- An **engine fact** → a new `EF-###.md` in `agent/facts/`, with its date.
-  ⚠️ It probably belongs in the fix pack's copy too — carry it across and say
-  so in both, or write down why it is this mod's alone.
+- An **engine fact** → a new `EF-###.md` in `agent/facts/`, with its date —
+  ⛔ numbered by the FIX PACK: file it there first (or reserve the id there),
+  then mirror it here at the same id and say so in both. Never mint an `EF-`
+  number in this repo alone (the 2026-08-16 collision is why).
 - A **rule that binds future work** → `agent/WORKFLOW.md` or
   `agent/FIX_POLICY.md`, not buried in a report.
 - A **report, plan, spec, audit or survey** → `agent/reports/`.

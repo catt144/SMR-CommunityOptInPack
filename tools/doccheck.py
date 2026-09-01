@@ -8,6 +8,17 @@ docs/agent/bugs/ plus a GENERATED INDEX.md, so the row<->tag check moves onto
 front matter, INDEX freshness is checked by regenerating and diffing, and
 `--verify-split` re-runs the migration's byte-accounting against the pre-split
 blob in git.
+v5 (2026-08-31, readiness pass): the four checks the donor grew after the
+split, carried across from SMR-BugFixPack @ bec2e06 — (1) STATE.md is
+budgeted in BYTES with a per-line cap (owner ruling 2026-08-18, checklist
+42; the 60-line cap is RETIRED); (2) `tested-attended` / `tested-unattended`
+join the status vocabulary (owner ruling 2026-08-15, checklist 26b);
+(3) LOAD_ORDER_RULES — this repo's two shared-symbol wrap orders in
+`metadata.lua`'s `code` list are enforced, not just commented; (4) the F107
+wrap-target check (`harvest_wrap_targets.py --check`, FIX_POLICY §2).
+GENERAL_USE_PROMPT.md's line cap is kept but N/A — that prompt is
+single-sourced in the fix pack (docs/README.md).
+
 v4 (split-optins prompt 3, 2026-08-12): PORTED to SMR-OptInPack from
 SMR-BugFixPack @ 33d69f5. Four deliberate differences, each recorded in
 docs/agent/PROVENANCE.md: (1) the registered-module needle is
@@ -57,7 +68,18 @@ README = os.path.join(DOCS, "README.md")
 STATE = os.path.join(DOCS, "agent", "STATE.md")
 CODE = os.path.join(REPO, "Code")
 
-STATE_MAX_LINES = 60
+# 2026-08-18 owner ruling (checklist 42), carried here 2026-08-31: STATE.md is
+# budgeted in BYTES, not lines. The 60-line budget was satisfied while being
+# defeated — single lines grew into thousand-word walls (the fix pack's hit
+# 71,077 B = 33,066 tokens; this repo's line 28 was 1,734 B). Bytes are the
+# resource a session actually spends at boot. Crossing WARN prints a warn
+# line that close-out reports must copy to the owner verbatim; the owner then
+# fires agent/prompts/STATE_EVICTION.md. The hard cap is the backstop if flags
+# go unread. The per-line cap keeps lines atomic (grep/diff/Edit-safe) so
+# walls cannot return inside the budget; never widen lines to satisfy anything.
+STATE_WARN_BYTES = 9 * 1024
+STATE_MAX_BYTES = 18 * 1024
+STATE_MAX_LINE_BYTES = 200
 
 # The standing prompt is instructions, not a logbook (rule added 2026-08-04
 # after two sittings appended their lessons to it — the habit that grew the
@@ -87,10 +109,20 @@ HEAD_RE = re.compile(r"^### ([FDC]\d+)\b")
 # is the LAST `[...]` group on the line, never the first backtick group.
 TAG_RE = re.compile(r"`\[(.*)\]`\s*$")
 
-# Status vocabulary, longest-first so `fixed*` is never read as `fixed`.
+# Status vocabulary, longest-first so `fixed*` is never read as `fixed` and
+# `tested-attended` is never read as `tested` (status_word() uses startswith).
+#
+# ⚖️ Owner ruling 2026-08-15 (fix-pack checklist 26b), carried 2026-08-31:
+# `tested` SPLITS by who was present.
+#   tested-attended    — a human was at the keyboard when it was confirmed.
+#   tested-unattended  — confirmed by real launches with nobody watching:
+#                        measurements are real, screen events are NOT claimable.
+#   tested             — ⛔ LEGACY ONLY, pre-2026-08-15 (D02/D03/D04/D09 here).
+#                        Attendance is NOT recorded; never apply it to new work.
 STATUS_WORDS = sorted(
     [
-        "tested", "fixed*", "fixed", "wontfix", "blocked", "todo", "open",
+        "tested-unattended", "tested-attended", "tested",
+        "fixed*", "fixed", "wontfix", "blocked", "todo", "open",
         "investigating", "closed", "built", "directed", "parked", "opt-in",
         "candidate", "folded", "filed", "speced", "cand", "dsgn",
     ],
@@ -407,17 +439,29 @@ def check_root(out):
 
 
 def check_state(out):
-    """STATE.md's line budget (the stub half is N/A here — see STUBS above)."""
-    red = []
+    """STATE.md's byte budget (checklist 42); the stub half is N/A here."""
+    red, warns = [], []
     if not os.path.exists(STATE):
         red.append("docs/agent/STATE.md is missing — it is the mandatory read")
         n_state = None
     else:
-        n_state = len(read(STATE))
-        if n_state > STATE_MAX_LINES:
-            red.append("STATE.md is %d lines, budget is %d — it is a one-screen "
-                       "current-state doc; the narrative belongs in "
-                       "archive/SESSION_LOG.md" % (n_state, STATE_MAX_LINES))
+        with open(STATE, "rb") as f:
+            raw = f.read()
+        n_state = len(raw)
+        if n_state > STATE_MAX_BYTES:
+            red.append("STATE.md is %d bytes, hard cap is %d — run "
+                       "agent/prompts/STATE_EVICTION.md; history belongs in "
+                       "archive/SESSION_LOG.md" % (n_state, STATE_MAX_BYTES))
+        elif n_state > STATE_WARN_BYTES:
+            warns.append("STATE.md is %d bytes, warn threshold is %d — copy "
+                         "this line VERBATIM into the owner report; the owner "
+                         "fires agent/prompts/STATE_EVICTION.md"
+                         % (n_state, STATE_WARN_BYTES))
+        for i, ln in enumerate(raw.split(b"\n"), 1):
+            if len(ln) > STATE_MAX_LINE_BYTES:
+                red.append("STATE.md line %d is %d bytes, per-line cap is %d — "
+                           "one fact per line; walls defeat grep, diff and "
+                           "audit" % (i, len(ln), STATE_MAX_LINE_BYTES))
     if os.path.exists(GENERAL_USE):
         n_gu = len(read(GENERAL_USE))
         if n_gu > GENERAL_USE_MAX_LINES:
@@ -426,10 +470,14 @@ def check_state(out):
                        "its own header rule (WORKFLOW / PLAYTEST_HELP / "
                        "agent/facts/ / the entry) and trim"
                        % (n_gu, GENERAL_USE_MAX_LINES))
-    out.append("STATE: STATE.md %s/%d lines (stub check N/A in this repo)"
-               % ("?" if n_state is None else n_state, STATE_MAX_LINES))
+    out.append("STATE: STATE.md %s bytes (warn %d, hard %d, line %d); stub "
+               "check N/A in this repo"
+               % ("?" if n_state is None else n_state, STATE_WARN_BYTES,
+                  STATE_MAX_BYTES, STATE_MAX_LINE_BYTES))
     for line in red:
         out.append("  RED  " + line)
+    for line in warns:
+        out.append("  warn " + line)
     return not red
 
 
@@ -569,6 +617,100 @@ def testkit_tree(out):
     return True
 
 
+# ---------------------------------------------------------------------------
+# Load-order constraints (carried 2026-08-31 from the donor's sweep-chain link 1)
+#
+# `metadata.lua`'s `code` list IS the intra-mod load order (FIX_POLICY §8), and
+# it is ours to set. Where two modules wrap the SAME function, the LAST one
+# listed installs LAST and is the OUTER wrapper. metadata.lua has carried these
+# two constraints as a comment since the split ("ORDER IS LOAD-BEARING … so wrap
+# nesting is unchanged"); a comment does not fail a build. This check does.
+#
+# Provenance of the rules: INHERITED from the fix pack's order, MEASURED as the
+# nesting every 8/8 leg ran (2026-08-12), never re-derived as a necessity —
+# D12's own header says its FindEmigrationDome veto is order-independent with
+# D07. The constraint therefore preserves the SHIPPED configuration; reordering
+# is a behaviour change under the module freeze, not a tidy-up.
+#
+# ⛔ It lives in tools/ ON PURPOSE: `*/tools/*` is in `metadata.lua`'s
+# `ignore_files`, so nothing here ships.
+LOAD_ORDER_RULES = [
+    {
+        "before": "Code/Opt_CohortHousing.lua",
+        "after": "Code/Opt_NoHomeless.lua",
+        "symbol": "Colonist:FindEmigrationDome",
+        "why": "both post-wrap Colonist:FindEmigrationDome (Opt_CohortHousing.lua:168, "
+               "Opt_NoHomeless.lua:449); NoHomeless is the OUTER wrapper as shipped, "
+               "so its flagged-dome veto has the last word over CohortHousing's "
+               "cross-dome redirect.",
+    },
+    {
+        "before": "Code/Opt_ResidencyControl.lua",
+        "after": "Code/Opt_NoHomeless.lua",
+        "symbol": "ChooseDome",
+        "why": "both pre-filter the global ChooseDome through SetGlobal "
+               "(Opt_ResidencyControl.lua:228, Opt_NoHomeless.lua:906); NoHomeless "
+               "is OUTER as shipped, so arrivals are screened for flagged domes "
+               "before ResidencyControl screens for closed ones.",
+    },
+]
+
+
+def load_order(out):
+    """Two modules wrapping one function: the list order decides which wins."""
+    path = os.path.join(REPO, "metadata.lua")
+    try:
+        with open(path, encoding="utf-8-sig", errors="replace") as fh:
+            text = fh.read()
+    except OSError as exc:
+        out.append("LOAD ORDER: not checked (%s)" % exc)
+        return True
+    listed = re.findall(r'"(Code/[^"]+\.lua)"', text)
+    index = {}
+    for pos, name in enumerate(listed):
+        index.setdefault(name, pos)
+
+    ok = True
+    checked = 0
+    for rule in LOAD_ORDER_RULES:
+        first, second = rule["before"], rule["after"]
+        if first not in index or second not in index:
+            out.append("  RED  load order: %s or %s is not in metadata.lua's "
+                       "code list — the %s constraint cannot be checked"
+                       % (first, second, rule["symbol"]))
+            ok = False
+            continue
+        checked += 1
+        if index[first] >= index[second]:
+            out.append("  RED  load order VIOLATED for %s: %s (position %d) "
+                       "must be listed BEFORE %s (position %d) — %s"
+                       % (rule["symbol"], first, index[first],
+                          second, index[second], rule["why"]))
+            ok = False
+    out.append("LOAD ORDER: %d shared-symbol constraint(s) checked, %d file(s) "
+               "in the code list" % (checked, len(listed)))
+    return ok
+
+
+def wrap_targets_check(out):
+    """FIX_POLICY §2, the F107 rule (donor 2026-08-24, here 2026-08-31): every
+    capture+install wrap site must declare its (class, method) pair in its
+    module's Require block. The detector and its allowlist live in
+    harvest_wrap_targets.py."""
+    try:
+        import harvest_wrap_targets as hwt
+        violations, allowlisted = hwt.check()
+    except Exception as exc:                          # a tool bug must report, not crash the gate
+        out.append("WRAP CHECK: not checked (%s)" % exc)
+        return True
+    out.append("WRAP CHECK: %d wrap site(s) outside Require, %d allowlisted "
+               "(FIX_POLICY §2; detector+allowlist in tools/harvest_wrap_targets.py)"
+               % (len(violations), len(allowlisted)))
+    for mod, c, m, note in violations:
+        out.append("  RED  %s wraps %s.%s — %s" % (mod, c, m, note))
+    return not violations
+
+
 def counts_block(counts):
     """A STATE-ready block; commit bodies may paste it verbatim."""
     lines = [
@@ -624,6 +766,8 @@ def main():
     ok = check_state(out) and ok
     counts = recount(model, out)
     ok = temporary_sweep(out) and ok
+    ok = load_order(out) and ok
+    ok = wrap_targets_check(out) and ok
     testkit_tree(out)  # report-only by owner decision (2026-08-04) — never gates
 
     if args.verify_split:

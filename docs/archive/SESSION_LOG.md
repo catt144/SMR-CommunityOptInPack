@@ -12,6 +12,58 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-08-31 — the readiness pass: the fix pack's 19 days of tooling and process are carried across, measured against this tree
+
+tags: D01 D02 D03 D04 D06 D07 D09 D12 EF-008 EF-023 EF-039 EF-051 EF-054 EF-055 EF-056 EF-057 EF-058 EF-061 EF-062 EF-068 item-83 item-84 item-85 item-86
+
+**Asked (owner):** how ready is this workspace for work, and which of the fix
+pack's tools, tests, auditing, chain method and processes belong here. **Answer:**
+`agent/reports/READINESS_REVIEW_0831.md`; port ledger `agent/PROVENANCE.md` §6.
+
+**Measured before the pass.** doccheck GREEN, hook set, tree clean, `main ==
+origin/main` — and every improvement the fix pack made after the split absent:
+doccheck 4 checks behind (byte budget, `tested-attended`, load order, the F107 wrap
+check); 14 of 20 tools missing; WORKFLOW/FIX_POLICY/CHAIN_METHOD behind their
+donors; `prompts/` empty; **the two fact sets had COLLIDED** — this repo minted
+`EF-057`/`EF-058` on 08-16 for facts the fix pack holds as `EF-061`/`EF-062`, while
+its own `EF-057`/`EF-058` are different facts; 7 shared facts were updated there and
+never carried. STATE's counts block said 94 probes (doccheck: 100) and its line 28
+had grown to 1,734 bytes.
+
+**Carried.** doccheck v5 (the four checks); `harvest_wrap_targets` (namespace);
+`upload_preflight`, `pack_list`, `flpk_extract`, `l7_env_map` verbatim;
+`pack_predict` (prefix); `l3`/`l4`/`l5`/`l6`×2/`audit_preset_fields`/`l8_hostile_input`
+(token rename, module lists); `l2_reload_sim` REWRITTEN for this repo's one measured
+lifecycle defect. Facts re-synced whole from `bec2e06` (68). CHAIN_METHOD verbatim.
+WORKFLOW: byte-budget rule 8, "Release marking — tags, not branches" (`optin-`),
+release-step bullets 7–8, the 08-24 probe rule, the EF-id allocation rule.
+FIX_POLICY §2: F107 + F110. `prompts/DISPATCH.md`, `STATE_EVICTION.md`.
+`.claude/settings.json`. STATE.md rewritten to the kernel (one fact per line).
+
+**Found by running the instruments here.** `upload_preflight`: **1 FAIL** — no
+`image`/`preview.png`, the portal rejects before packing. `harvest --check`: 3
+capture+install sites with no Require pair (`Opt_DroneOverhaul` ×2, `Opt_MultipleSuns`);
+each captured class DECLARES the method at Src (Drone.lua:879, _TaskRequest.lua:72,
+SolarPanel.lua:8) → benign, allowlisted with citations, Require additions routed to
+the owner. `l2_reload_sim --strict`: **PASS**, 8 register once across a reload;
+**control REPRODUCED** — the pre-guard core (`2cedf7d~1`) yields 16 order entries,
+the 08-17 "NoHomeless, NoHomeless" mechanism. `l3` §3: exactly PROVENANCE §2's five
+persisted names, no GameVars. `l8`: hostile `SMROptInPack = true` / `_Disabled = true`
+kill module files — identical to the donor's L8 on the same Core; adjudication
+inherited. `l6_promise_map`: identity 8/8, package lists equal and ordered.
+`audit_preset_fields`: 0 preset-field writes.
+
+**TestKit — surveyed, FILED, not edited** (shared kit; edits need a launch): 9 opt
+probes not 8 (`ClassicRockets` is in wave 3); D06 has no `RunAll` probe; no
+opt-only run mode; `98_EnablePathLeg` hardcodes the fix pack's id; `FixtureCarry`
+blind to D09's modifiers; only D12 clause 1 is a vanilla control.
+
+**Owner decisions raised** (fix pack checklist, R10): 83 kit edits · 84 Require
+pairs · 85 preview art · 86 ratify EF-id allocation. Nothing was pushed to a portal;
+no module's behaviour changed; no Lua under `Code/` was edited.
+
+---
+
 ## 2026-08-12 — the split chain's terminal audit SUSTAINS this repo, and the no-retraining test passes from these files alone
 
 **The audit (run from the fix pack's chain folder, which it emptied at close)

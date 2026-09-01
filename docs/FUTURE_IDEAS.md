@@ -279,7 +279,7 @@ two full sessions cycled, no dome option anywhere, and read the grid as broken.
 It is not; it is **two independent gates and the game only announces one**.
 ⭐ **The cost is player-confirmed, not estimated:** the owner then reached the
 law organically and *"had to work my way down the row"*, exactly as the chain
-predicts (`EF-058`).
+predicts (`EF-062`).
 
 - **Gate 1, announced.** The law's `DisableConditions`, *"Must have Breathable
   Atmosphere"* — Atmosphere ≥ 95% **and** Temperature ≥ 50%
@@ -315,9 +315,9 @@ cannot enter the fix pack. Severity is feel, not function — the law is
 reachable the whole time.
 
 **Where the material lives.** ✅ **The fact debt is PAID (2026-08-16, same
-day):** the mechanism is `agent/facts/EF-057` (breathability is a
+day):** the mechanism is `agent/facts/EF-061` (breathability is a
 two-parameter quorum; which effects belong to the atmosphere and which to the
-law) + `EF-058` (the policy grid's prepare-chain, its caps and bypasses, the
+law) + `EF-062` (the policy grid's prepare-chain, its caps and bypasses, the
 session economy, and why a locked hex can never name itself). Mirrored in the
 fix pack as `EF-061`/`EF-062` — amend both or neither. This entry keeps only
 the QoL shapes and the ruling.

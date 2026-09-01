@@ -33,13 +33,24 @@
    Session history lives in `docs/archive/SESSION_LOG.md` (append-only,
    newest first).
 2. `docs/agent/facts/INDEX.md` — one row per proven engine behavior (several
-   are the opposite of what the code suggests). Scan all 54 rows so you know
-   what exists; OPEN the fact files your job touches and read them before
-   writing or reviewing any module. Reading all 54 files as a matter of course
-   is the cost the 2026-08-03 restructure removed — don't reinstate it.
+   are the opposite of what the code suggests). Scan all the rows (68 at
+   2026-08-31) so you know what exists; OPEN the fact files your job touches
+   and read them before writing or reviewing any module. Reading every file as
+   a matter of course is the cost the 2026-08-03 restructure removed — don't
+   reinstate it.
    ⚠️ **This folder is a COPY of the fix pack's, taken 2026-08-12** and the two
    diverge from that date on: a fact learned here should usually be carried
    across, and a fact learned there will not appear here by itself.
+   ⛔ **`EF-###` ids are ALLOCATED BY THE FIX PACK (rule adopted 2026-08-31).**
+   Both repos minted their own numbers after the split and collided: this
+   repo's `EF-057`/`EF-058` (2026-08-16) were different facts from the fix
+   pack's `EF-057`/`EF-058` (2026-08-15/19), so a cross-repo citation was
+   ambiguous for two weeks. Resolved 2026-08-31 by re-syncing this folder from
+   the fix pack @ `bec2e06` (this repo's two became `EF-061`/`EF-062`, their
+   donor ids). From now on: a fact learned HERE is filed in the fix pack FIRST
+   (or its next id reserved there in the same sitting), then mirrored here at
+   the SAME id; a periodic re-sync copies donor-updated shared facts across
+   verbatim. Never mint an `EF-` number in this repo alone.
 3. `docs/agent/bugs/INDEX.md` — the defect tracker's entry point: status,
    priority and evidence label per row; the entry file carries the narrative.
    Update the ENTRY in the same change that adds or edits a fix. **`INDEX.md`
@@ -99,12 +110,18 @@ Two mechanical rules that came with the same restructure:
    you stopped halfway.
 7. **Run `python tools/doccheck.py` before committing doc changes** — red
    blocks. One-time setup: `git config core.hooksPath tools/hooks`.
-8. **STATE.md's 60-line cap comes with an eviction rule** (adopted 2026-08-03,
-   standing-prompts redesign O7). To add a line at the cap, evict in the same
-   commit: resolved or superseded material moves to
-   `docs/archive/SESSION_LOG.md` (append-only, newest-first). Evict history,
-   never obligations — open gates, holds, owner decisions and the counts
-   block stay.
+8. **STATE.md is BYTE-budgeted with an eviction rule** (owner ruling
+   2026-08-18, fix-pack checklist 42, carried here 2026-08-31; the 2026-08-03
+   60-line cap is RETIRED — it was satisfied while being defeated, this repo's
+   line 28 had grown to 1,734 bytes). doccheck enforces warn (9 KiB) / hard
+   (18 KiB) byte caps plus a 200-byte per-line cap; a doccheck WARN must be
+   copied VERBATIM into the owner report, and the owner fires
+   `agent/prompts/STATE_EVICTION.md`. Format for machine efficiency and
+   safety: one fact per line, never widen or pack lines to satisfy a budget —
+   evict, don't compress. Resolved or superseded material moves to
+   `docs/archive/SESSION_LOG.md` (append-only, newest-first, `tags:` line).
+   Evict history, never obligations — open gates, holds, owner decisions and
+   the counts block stay.
 
 ## Layout
 
@@ -125,6 +142,13 @@ Two mechanical rules that came with the same restructure:
 - **Mod install point:** `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack`
   — a directory junction into the dev repo (see below), so edits are live. The
   fix pack has its own junction (`SMR-BugFixPack`) beside it.
+- **Tools:** `tools/` — doccheck (the commit gate: doc structure, STATE
+  budget, load order, the F107 wrap check), the release gates
+  (`upload_preflight`, `pack_predict`, `pack_list`) and the audit instruments
+  (`l2`…`l8`, `harvest_wrap_targets`, `audit_preset_fields`). Inventory, what
+  each proves and where it came from: `agent/PROVENANCE.md` §6. Every
+  instrument is an over-reporter by design — a row is adjudicated by reading
+  the source line, never by the count.
 - **Companion TestKit** (never shipped): `C:\Dev\SMR-BugFixPack-TestKit`
   (own git repo, local-only by decision — see its README). ⭐ **ONE kit serves
   BOTH mods** — it is not forked, and a probe change is made once, there. This
@@ -289,6 +313,21 @@ logbook):**
   selection half by reconstructing the pool and reading it (F11's
   `SetCommand("EnterTransporter", …)` is verbatim the shipped caller's body —
   an unrunnable rider became a five-minute answer costing zero expeditions).
+- ⛔ **A probe must reach the code the way PRODUCTION reaches it, and must not
+  compute its expectation with the fix's own logic** (adopted in the fix pack
+  2026-08-24, f106-dispatch Pass E — two independent false-greens of the same
+  family; carried here 2026-08-31). A probe that indexes the table the module
+  patched cannot fail on a broken dispatch (the fix pack's F33 probe printed
+  PASS for a month over a suspected no-op); a probe that derives its expected
+  number with the patched arithmetic passes over the defect by construction
+  (its C50 probe). So: dispatch through the production route (an
+  instance-shaped table carrying the built class as its metatable resolves
+  identically, with zero map footprint), and compute expectations
+  independently — vanilla's algorithm or hand-derived constants. Corollary
+  for guard probes: also assert the guard still DELEGATES; a clause that only
+  checks the veto passes for a wrapper that swallows every call. ⚠️ Applied
+  to this mod's probes: D12's clause 1 is the only explicit vanilla control in
+  `60_Probes_Opt.lua`; D01–D04/D07/D09 have none (readiness review 2026-08-31).
 - ⛔ **A negative result must state the CONDITION it sampled, not just the
   count** (adopted 2026-08-04, co-run #1 correction C10). "Absence under N
   cycles is a rate bound" holds only if the condition the claim needs was
@@ -880,6 +919,57 @@ routing axis: the triage above says who is present during a leg; the tiers
 say what the owner reads afterwards. Owner-facing record of the decision:
 `PLAYTEST_CHECKLIST.md` "Decisions waiting on you", 2026-08-04.
 
+## Release marking — tags, not branches (adopted in the fix pack 2026-08-17, carried 2026-08-31)
+
+**What is live on the portal is a fixed point in history, so it is marked with a
+TAG.** `main` is *latest verified work*; the tag is *what shipped*. Main sitting
+ahead of the published version is the NORMAL state of a mod repo.
+
+⛔ **No standing `testing`/`published` branch — the reasons are this repo's too:**
+
+1. **The junction makes the checked-out tree the running mod.**
+   `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack` is a directory
+   junction into the dev repo, so whatever is checked out is what the game
+   loads. Every gate reading (`8/8`, the SKIP set BY NAME) would silently become
+   "…on whichever branch was last checked out."
+2. **The truth-bearing documents are rewritten in place, not appended.**
+   `STATE.md` has hard byte caps with an eviction rule; `bugs/INDEX.md` and
+   `facts/INDEX.md` are GENERATED. Parallel long-lived branches means every
+   merge conflicts on exactly those files.
+3. **Uploading is manual** (in-game Mod Editor / portal, no CI), so "main holds
+   unshipped code" only bites if you upload carelessly — tagging at upload
+   removes that.
+
+**At upload** (this mod has NOT uploaded yet — its first tag is `optin-v1.0.0`):
+
+```
+git tag -a optin-v<major>.<minor>.<version> -m "uploaded <portal> <date>"
+git push origin <tag>
+```
+
+- The prefix is `optin-` (the fix pack's is `fixpack-`, the rescue's `rescue-`);
+  the version is what `PackVersion` reads: `version_major.version_minor.version`
+  from `metadata.lua`. ⛔ **The tag and `metadata.lua` must agree.**
+- ⛔ `metadata.lua`'s `version` is the upload SITTING's to set, never an agent's
+  and never by hand (the fix pack's H-02): every Mod Editor save runs
+  `version = version + 1` (`Mod.lua:967`), so a hand-set on top double-bumps.
+- Record portal version → commit sha on the fix pack's ④ sheet
+  (`SMR-BugFixPack/docs/agent/reports/RELEASE_PORTAL_PREP.md`) in the same pass.
+
+**To reproduce what a player is running** — never disturb `main`:
+
+```
+git worktree add ../SMR-OptInPack-shipped optin-v1.0.0
+```
+…then point the junction at that worktree for the investigation and put it back
+afterwards. ⚠️ While it is pointed there, **the rig is running the shipped code,
+not `main`** — no suite reading taken in that window describes current work.
+
+**Hotfix path**, created the day it is needed and not before:
+`git checkout -b hotfix/optin-1.0.1 optin-v1.0.0` — fix, ship, tag, merge back.
+A short-lived branch is justified only for a single chain producing code nobody
+is sure about; ⛔ **doc changes still go to `main` directly**, or reason 2 bites.
+
 ## Release steps
 
 > ## ⚠️ ADAPTED — what applies to THIS mod, bullet by bullet (2026-08-12, split)
@@ -913,6 +1003,16 @@ say what the owner reads afterwards. Owner-facing record of the decision:
 > 6. **⛔ ADD:** the Drone dials' uninstall instruction ("set both dials to base
 >    before uninstalling") is MANDATORY in the store description — a non-base
 >    dial persists its boost into a save loaded without this mod.
+> 7. **⛔ ADD (2026-08-31):** `python tools/upload_preflight.py` must report
+>    0 FAIL before the Mod Editor is opened — it runs the portals' own
+>    pre-upload guards locally. At adoption it FAILS on one clause: this mod has
+>    no `image` field and no `preview.png` (the fix pack's is
+>    `Mod/<id>/preview.png`, ≤1 MB Steam / ≤2 MB PDX). Pair it with
+>    `pack_predict.py .` (the file list the packer will produce) and, after
+>    download, `pack_list.py <ModContent.fpk> --tree .` (byte reconciliation).
+> 8. **⛔ ADD (2026-08-31):** the standing launch obligation — walk the restore
+>    checklist in the fix pack's `reports/PARKED_OPTIN_REFERENCES.md` (~46
+>    parked passages) BEFORE upload; `agent/STATE.md` carries it.
 
 - Owner tasks first: preview image (PDX ≤2 MB / Steam ≤1 MB), screenshots,
   portal rules check for console publishing (`docs/archive/AUDIT_FINDINGS.md` plan 2.5).
