@@ -159,6 +159,22 @@ moved here left tombstones behind.
 
 ---
 
+## 7. The third port — 2026-09-12, one dangling citation closed (donor @ `85d95cb`)
+
+Not a pass, a single repair. A knowledge inventory run in the fix pack found that
+**five files in THIS repo cite `DRONE_PRIORITY_SYSTEM` by name and the file was not
+here** — `agent/bugs/D06.md`, `agent/facts/EF-071.md`,
+`agent/prompts/DRONE_REBUILD_BUILD.md`, `agent/reports/DRONE_REBUILD_DESIGN_20260901.md`
+and `agent/reports/DRONE_BANDS_CLEAN_REVERT_20260901.md`. The D06 drone rebuild is
+live work, so this was a live dependency gap, not historical residue.
+
+| artifact here | how | what it proves here |
+|---|---|---|
+| `docs/agent/reports/DRONE_PRIORITY_SYSTEM.md` | **VERBATIM** | the vanilla drone task-priority breakdown (research 2026-07-31) that the D06 design and build docs cite by section. Byte-identical to the donor: md5 `58fc77176fa811fb3e057457a60e7fa8`, 30,544 B, 565 lines. Donor `SMR-BugFixPack` @ `85d95cb` |
+
+⛔ The donor keeps its copy — the fix pack cites it too. Two byte-identical copies is
+the intended state; if either is edited, re-sync rather than diverge.
+
 ## 6. The second port — 2026-08-31 readiness pass (donor @ `bec2e06`)
 
 The fix pack kept building after the split; this pass carried across what it
