@@ -26,6 +26,16 @@ first DLC on 09-08. ⛔ **Re-read every citation against the live tree before ac
 the fix pack's own experience is that line numbers moved, modules were deleted and some defects were
 fixed by vanilla. None of this has been re-verified since.
 
+⚠️⚠️ **A LAUNCH TRAP, homed here 2026-09-12 so it is not lost — read this before restoring anything.**
+The fix pack's `agent/reports/PARKED_OPTIN_REFERENCES.md` §P38 (line ~697) holds the parked
+`metadata.lua` `description` for this mod, and its restore checklist says to **paste P38 back
+verbatim** at launch. That text still contains the over-promise the fix pack **retired** on
+2026-09-12 — *"stands down if an official patch changes what it was written for"* — because the
+parked file was deliberately NOT updated. ⇒ **Restoring it as written puts a retired over-promise
+straight back onto a store card.** ⛔ The fix pack's hazard **H-07** forbids touching the parked
+references before this mod launches, so it must be fixed **at the restore**, not before. Whoever
+runs that restore: compare P38 against the fix pack's live `metadata.lua` wording first.
+
 ⛔ **Nothing here is owed by anyone right now.** This mod is not launching; these are its launch
 obligations. The source reports are in `docs/agent/reports/`.
 
