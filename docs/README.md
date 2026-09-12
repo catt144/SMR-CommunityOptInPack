@@ -9,6 +9,9 @@ is a red build until it is added here too.
 
 ```
 docs/
+  DECISIONS_OWED.md       this mod's OWN owner-decision list — moved here from the fix
+                          pack 2026-09-12 (its checklist 167). Launch obligations; nothing
+                          is owed while this mod is not launching. ⚠️ written pre-1.1.0
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
   README.md               this map
   agent/
