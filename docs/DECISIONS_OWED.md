@@ -45,7 +45,42 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 
 ---
 
-### 2026-09-17 — OI-09 OPEN: may agent-facing docs be machine-tuned hard, where human-facing ones may not?
+### 2026-09-17 — ⚖️ RULED BY THE OWNER: OI-09 — agent docs may be cut hard; deleted, not re-archived
+
+> **The ruling, 2026-09-17 (owner), on option (a).** Agent-facing documents may be machine-tuned
+> hard; the owner's may not. Content already recorded elsewhere is **DELETED, not re-archived.**
+>
+> **Recorded where the role that obeys it reads it:** `.claude/skills/doc-editing/SKILL.md`, which
+> every session loads before touching a document (and its generated `.agents/` mirror). The split,
+> the delete-not-archive clause, the protected list and the re-derive-citations warning are all
+> there. This entry is the ask and its answer; the skill is the instruction.
+>
+> ⛔ **Nothing has been cut yet.** The ruling licenses the prose half; no document has been pruned.
+> The first candidate named below is still on disk, untouched.
+
+**What this unblocks, and in what order.** The donor's sequence is baseline → entrance gate → prune
+behind the gate → generated indexes → rules machinery → a terminal **attended** audit that no agent
+declares finished. The baseline and the gates landed 2026-09-17 (`PROVENANCE.md` §9); the prune is
+the next unit and is larger than one session, so it wants a chain (`reports/CHAIN_METHOD.md`) rather
+than an opportunistic start.
+
+⚠️ **The census is still owner-adjudicated work, and this ruling does not replace it.** Classifying
+rule-shaped lines into global / doc-local / redundant / dead / task-local is judgement, and
+`redundant` and `dead` are the owner's calls — the survey §6 and the donor's own gate docstring both
+say so. This ruling settles *whether* agent docs may be cut, not *which* lines are dead.
+
+**The measured first candidate.** `docs/agent/reports/CONTAMINATION_AUDIT_20260901.md` —
+**261,696 B, 17% of this repo's entire `docs/` tree in one file**, of which 1,009 of 2,034 lines are
+one table row per classified grep hit. Its verdict is a single paragraph and is already carried in
+`STATE.md` (*817 hits classified, 0 contamination, AST-PROVEN*), which is precisely the
+already-recorded-elsewhere case the ruling addresses. ⛔ Confirm the verdict survives at its home
+before cutting — a matching heading is not proof.
+
+---
+
+*(The ask as it was put, kept because the options and the measured split are the working:)*
+
+### 2026-09-17 — OI-09 (ANSWERED ABOVE): may agent-facing docs be machine-tuned hard?
 
 > Raised by your port note `C:\Dev\SMR-BugFixPack\.claude\OPTIN_OVERHAUL_PORT.md`, whose closing
 > line is *"One thing to ask your owner early"*. The fix pack ruled this for itself; this repo has
