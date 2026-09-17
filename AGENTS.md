@@ -19,10 +19,12 @@ Rule: Attribute shared-tree work by commit and diff rather than author identity,
 Rule: Commit with a pathspec — `git commit -F <msgfile> -- <paths>` — never `-a`, never a bare `-m`.
 <!-- /RULES -->
 
-An **opt-in behaviour mod**: eight modules that change how the game plays, each one **off (or at
-its base setting) until the player turns it on** in Options → Mod Options. Patched at runtime; no
-game files are modified. It is a **TRUE STANDALONE** — it works with the Relaunched Fix Pack
-installed, and identically without it. ⛔ **NOT PUBLISHED.** Map of the tree: `docs/README.md`.
+An **opt-in behaviour mod**: a small set of modules that change how the game plays, each one
+**off (or at its base setting) until the player turns it on** in Options → Mod Options.
+⛔ Never hand-type how many — `python tools/doccheck.py --emit-counts`; three modules were
+RETIRED 2026-09-17 (owner) and the shipped set is smaller than every pre-09-17 record says.
+Patched at runtime; no game files are modified. It is a **TRUE STANDALONE** — it works with the
+Relaunched Fix Pack installed, and identically without it. ⛔ **NOT PUBLISHED.** Map of the tree: `docs/README.md`.
 
 **⛔ The two bans, before you touch anything:**
 

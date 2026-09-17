@@ -5,10 +5,11 @@ description: Orient at the start of a session in the Relaunched Fix Pack Opt-In 
 
 # Orientation — Relaunched Fix Pack: Opt-In Modules
 
-An **opt-in behaviour mod** for *Surviving Mars: Relaunched*: eight modules that change how the
-game plays, each **off (or at its base setting) until the player turns it on** in Options → Mod
-Options. Patched at runtime; no game files are modified. A **TRUE STANDALONE** — it works beside
-the Relaunched Fix Pack and identically without it. ⛔ **NOT PUBLISHED.**
+An **opt-in behaviour mod** for *Surviving Mars: Relaunched*: a small set of modules that change
+how the game plays, each **off (or at its base setting) until the player turns it on** in Options →
+Mod Options. ⛔ Never hand-type how many — three were RETIRED 2026-09-17 (owner). Patched at
+runtime; no game files are modified. A **TRUE STANDALONE** — it works beside the Relaunched Fix
+Pack and identically without it. ⛔ **NOT PUBLISHED.**
 
 ## 1 · The two bans, before you touch anything
 
@@ -19,8 +20,9 @@ the Relaunched Fix Pack and identically without it. ⛔ **NOT PUBLISHED.**
    `SMROptInPack`. The surviving tokens in `Code/` are the persisted STRINGS of ban 1 — data, not
    references. That distinction is the whole rule.
 
-⛔ **MODULE FREEZE:** no behaviour change to any module without an owner ruling. Drones (`D06`,
-`D09`) are unfrozen (2026-08-31); everything else is not.
+⛔ **MODULE FREEZE:** no behaviour change to any module without an owner ruling. Drones were unfrozen
+2026-08-31, and the 2026-09-17 ruling lifted it for `D06`/`D07`/`D12` only — all three are now
+RETIRED, so `D09` is the only live drone module; everything else is still frozen.
 
 ## 2 · Where the project stands
 

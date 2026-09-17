@@ -654,3 +654,77 @@ Recorded here; item 95 is not reopened by this pass.
 **Citations in older records.** Nothing in this report edits an existing entry's text. Where a
 module header or an entry cites a 1.0.7 line, that citation is still correct **for 1.0.7** and
 should be read that way; the 1.1.0 equivalents are all given above with their build prefix.
+
+---
+
+## 10 · ⚖️ 2026-09-17 — what the owner ruled on this report, and the two consequences of it
+
+**The ruling (owner, 2026-09-17).** On the asks this report raised: **`Opt_DroneOverhaul` (D06)
+archived as PARKED**, **`Opt_CohortHousing` (D07) and `Opt_NoHomeless` (D12) archived as DEAD**,
+**`Opt_DroneStatDials` (D09) kept**. That lifted MODULE FREEZE for exactly those three and for
+nothing else. ⛔ **OI-01 (`ClassicRockets`), OI-03 (D03's dead tourist guard) and OI-04 (D04's
+sun-removal gap) were NOT ruled on and stay open** in `docs/DECISIONS_OWED.md`.
+
+All three modules were **deleted** — file, `items.lua` `ModItemCode` + `ModItemOptionToggle`, and
+`metadata.lua` `code` entry + `default_options` key. Counts after: **6 `Code/*.lua` files,
+5 registered modules** (1 default-active, 4 carrying `optional = true`), the two sets agree;
+**1 allowlisted wrap site** (was 3 — D06's two left with its file); **0 shared-symbol load-order
+constraints** (both retired rules named `NoHomeless`; the pair is preserved verbatim as a comment in
+`tools/doccheck.py`). Pull them, never type them: `python tools/doccheck.py --emit-counts`.
+
+Shipping modules are now `ClassicRockets` (D01), `AcknowledgedWarnings` (D02), `ResidencyControl`
+(D03), `MultipleSuns` (D04), `DroneStatDials` (D09). ⛔ **Git is the record** — restore sha
+**`cc846e4`**, the last commit in which all three still shipped
+(`git show cc846e4:Code/Opt_DroneOverhaul.lua`). The untracked convenience copies at
+`C:\Dev\SMR-OptInPack-archive\` sit deliberately OUTSIDE the mod root, so the Mod Editor cannot
+sweep a retired module into an upload pack and the junctioned game folder cannot see it.
+
+### 10.1 · A stale Mod-Options key is INERT — removing a toggle is safe
+
+Removing a `ModItemOptionToggle` leaves its key behind in
+`AccountStorage.ModOptions[mod.id]` forever. That residue **does nothing**, and this is the engine
+answer to the account-state worry raised under OI-01 (*"check what a stale `ClassicRockets` key in
+`AccountStorage.ModOptions` does before promising it is clean"*). Read off
+`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src\CommonLua\Modding\Mod.lua`:
+
+- `ModDef:LoadOptions` (`:680-699`) does `table.overwrite(self.options, options_in_storage)` and
+  **then** seeds defaults for the properties the mod currently declares. An extra key in storage is
+  copied into `self.options` and never looked at again.
+- The write path (`:755-770`) iterates the **current** `options:GetProperties()`. It never
+  enumerates, never clears and never errors on a key that no longer has a property.
+
+⇒ A removed toggle's key lingers, is read by nothing, and the Mod Options UI simply does not render
+it — no crash, no reset of the player's other toggles, no migration needed. **Source-read, not run
+in the game**; the falsifier is to enable a retired toggle on 1.1.0, remove it, and reopen Mod
+Options expecting the surviving toggles to hold their values.
+
+⛔ **This deserves an `EF-` fact and does not have one.** `EF-` ids are **allocated by the FIX
+PACK** (`../WORKFLOW.md` reading path 2; fix pack checklist item 86) — file it there first, then
+mirror it here at the same id and say so in both. **No `EF-` number was minted for it in this
+repo.** Until then, this section is its home.
+
+### 10.2 · `SMRFixPack_no_homeless` residue — real, inert, and NOT renameable
+
+D12 wrote `SMRFixPack_no_homeless` as a **real field** onto `Dome` / `MicroGHabitatBase` objects,
+through `TogglePolicy`, in any save where the policy was switched on. It is row 3 of the
+persisted-name inventory (`../PROVENANCE.md` §2) and **stays there with its exact bytes**: retiring
+a module does not retire save contract, and the inventory is history as well as contract.
+
+Scope: this mod is **UNPUBLISHED**, so the only saves that can carry the field are the owner's own
+test saves. The fix pack's **Save Rescue** (its `D13`) already targets these keys, so there is a
+route if one is ever wanted. With the module gone, nothing in this pack reads the field, so the
+residue is **inert** — stated rather than assumed, because "stale = harmless" is exactly the kind of
+claim this project files a control for. The control: load an affected test save with the current
+pack and confirm no `[CommunityOptInPack]` line and no `[LUA ERROR]` mentions the field. Not run.
+
+### 10.3 · Three TestKit probes are now orphaned — ⛔ FLAGGED, NOT EDITED
+
+`C:\Dev\SMR-BugFixPack-TestKit\Code\60_Probes_Opt.lua` still registers `CohortHousing` (`:215`) and
+`NoHomeless` (`:392`) against modules that no longer ship, and `OptionsMenuOptIn`'s `WANT` list
+(`:892-901`) names all three of `DroneOverhaul`, `CohortHousing` and `NoHomeless` — so that probe
+will assert toggles the pack no longer declares. D06 never had a probe of its own.
+
+⛔ **The kit is SHARED with the fix pack and kit edits are owner-gated** — fix pack checklist item
+**83**, which deliberately stayed on the fix pack's list because kit changes land in ITS tree
+(`docs/DECISIONS_OWED.md`, the table at the top). Nothing in the kit was touched. **This is the
+owner's call and it is the one piece of fallout from the ruling that is still outstanding.**

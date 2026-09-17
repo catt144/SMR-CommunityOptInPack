@@ -85,6 +85,28 @@ rebuilt from data every load). The `rawset(self, "ProcessToggle", …)` in both
 UI rows (an `InfopanelActiveSection` **window** instance, not a game object).
 **No named threads. No GameVars.**
 
+⛔ **2026-09-17 — THREE OF THESE NAMES NOW BELONG TO MODULES THAT NO LONGER SHIP,
+AND NOT ONE ROW LEAVES THIS TABLE.** The owner retired `Opt_DroneOverhaul` (D06,
+PARKED), `Opt_CohortHousing` (D07, DEAD) and `Opt_NoHomeless` (D12, DEAD); the files,
+their `items.lua` entries and their `metadata.lua` keys are deleted. The strings are
+**save contract and history**, and deleting a row would teach the next session that a
+name is renameable once its writer is gone. It is not. Specifically:
+
+- **Row 3, `SMRFixPack_no_homeless`, is a REAL FIELD already written onto `Dome` /
+  `MicroGHabitatBase` objects** in every save where the policy was switched on. This mod
+  is UNPUBLISHED, so the only such saves are the owner's own test saves; the fix pack's
+  Save Rescue (its `D13`) already targets these keys. With the module gone nothing reads
+  the field, so the residue is **inert** — stated, not assumed
+  (`reports/MODULE_REVALIDATION_1_1_0.md` §10.2).
+- **Row 8** still lists `DroneOverhaul`, `CohortHousing` and `NoHomeless` as Mod-Options
+  toggle keys and `Register` ids. Their keys linger in `AccountStorage.ModOptions` and are
+  **read by nothing** — the engine never clears a removed key and the UI does not render
+  it, so no crash and no reset of the player's other toggles (§10.1 of the same report;
+  it wants an `EF-` fact, which the FIX PACK allocates).
+- Rows 1, 2, 4, 5 belong to modules that still ship. Nothing else changed.
+
+Code for the three: ⛔ **git is the record** — restore sha **`cc846e4`**.
+
 ⚠️ `Opt_MultipleSuns` DOES leave persisted state on `SolarPanelBase` objects —
 the **vanilla** `artificial_sun` member, written through the shipped
 `SetArtificialSun` with a vanilla value. Not ours, not renameable, not our

@@ -78,8 +78,10 @@ questions a fresh session actually has to answer — lives in those two files.
 
 ## The two split folders
 
-**`agent/bugs/` — one file per entry** (`D*.md` today: the eight modules plus
-the Mod Options enable surface). `INDEX.md` is **generated**.
+**`agent/bugs/` — one file per entry** (`D*.md` today: every module this mod
+has ever shipped — the ones still in `Code/` and the three RETIRED 2026-09-17 —
+plus the Mod Options enable surface). A retired module keeps its entry: the record
+does not leave when the file does. `INDEX.md` is **generated**.
 
 **`agent/facts/` — 107 fact files** plus `_preamble.md`, **copied whole from the
 fix pack @ `33d69f5` on 2026-08-12 and re-synced from it @ `bec2e06` (68 files,

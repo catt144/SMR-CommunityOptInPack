@@ -45,13 +45,78 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 
 ---
 
-### 2026-09-17 — OI-01, OI-02 OPEN: the game moved to 1.1.0 and one module was overtaken by it
+### 2026-09-17 — ⚖️ RULED BY THE OWNER: three modules retired. This CLOSES OI-02, OI-05, OI-06, OI-07
+
+> **The ruling, 2026-09-17 (owner).** Archive **`Opt_DroneOverhaul` (D06) as PARKED**; archive
+> **`Opt_CohortHousing` (D07)** and **`Opt_NoHomeless` (D12) as DEAD**; **keep `Opt_DroneStatDials`
+> (D09)**. MODULE FREEZE was lifted for exactly those three and for nothing else.
+>
+> ⛔ **OI-01 (`ClassicRockets`), OI-03 (D03's dead tourist guard) and OI-04 (D04's sun-removal gap)
+> were NOT ruled on and remain OPEN below.**
+
+**What was carried out.** All three modules were **deleted** — the `Code/Opt_*.lua` file, the
+`items.lua` `ModItemCode` + `ModItemOptionToggle` entries, and the `metadata.lua` `code` entry +
+`default_options` key. Counts after, pulled with `python tools/doccheck.py --emit-counts` and never
+hand-typed: **6 `Code/*.lua` files, 5 registered modules** (1 default-active, 4 carrying
+`optional = true`), the two sets agree; **1 allowlisted wrap site** (was 3 — D06's two left with its
+file); **0 shared-symbol load-order constraints** (both retired rules named `NoHomeless`; the pair is
+preserved verbatim as a comment in `tools/doccheck.py`). Shipping modules are now `ClassicRockets`
+(D01), `AcknowledgedWarnings` (D02), `ResidencyControl` (D03), `MultipleSuns` (D04), `DroneStatDials`
+(D09).
+
+**Where the code went.** ⛔ **Git is the record.** Restore sha **`cc846e4`** — the last commit in
+which all three still shipped: `git show cc846e4:Code/Opt_DroneOverhaul.lua`. Untracked convenience
+copies sit at `C:\Dev\SMR-OptInPack-archive\`, deliberately OUTSIDE the mod root so the Mod Editor
+cannot sweep a retired module into an upload pack and the junctioned game folder cannot see them.
+
+**Where the reasoning lives now.** Each entry carries a dated retirement section —
+`docs/agent/bugs/D06.md`, `D07.md`, `D12.md` — with what left, where the code is and what reviving
+it would take; the consequences are §10 of `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`.
+Historical `status:` words were KEPT (`built`, `tested-attended`, `speced`), per the hotfix-2
+precedent the fix pack set on 2026-09-12: retirement does not un-test what was tested.
+
+⚠️ **Three things the ruling did NOT settle, preserved from the closed items:**
+
+1. **D12's defect is still real on 1.1.0.** The emigration tie survived **verbatim**, relocated into
+   `Colonist:GetBestReachableCommunities` (`1.1.0.403908/Src/Lua/Units/Colonist.lua:3474-3492`). The
+   module died; the bug did not, and nothing of ours now aims at it. Reviving it means **porting the
+   field** (`exclusive_trait` → `filter_residents`, naming `Children` and `Seniors` explicitly
+   because 1.1.0 also ships `Adults`; the Hotel carve-out maps to `"Tourists"`, plural) — the same
+   port D07 would need. The owner's stated cheapest next step stands: **look again in the game
+   first**, because 1.1.0 softened the overpopulation penalty from a hardcoded -500 to
+   `CommunityEvalOverpopulated = -200` and that alone may drain the origin scenario. Full body:
+   `docs/agent/bugs/D12.md`.
+2. **Items 94 and 92 are still specified against 1.0.7 machinery** and should not be ruled on until
+   the D06 rebuild is re-based on 1.1.0. That caveat was raised under OI-05 and survives its closure;
+   both items remain OPEN below.
+3. ⛔ **Three TestKit probes are now orphaned, and the kit was NOT edited.**
+   `C:\Dev\SMR-BugFixPack-TestKit\Code\60_Probes_Opt.lua` still registers `CohortHousing` (`:215`)
+   and `NoHomeless` (`:392`), and `OptionsMenuOptIn`'s `WANT` list (`:892-901`) names all three
+   retired ids, so that probe asserts toggles the pack no longer declares. The kit is **SHARED** with
+   the fix pack, so this is **fix pack checklist item 83** (see the table at the top of this file) —
+   raised here so it is not lost, but it must be ruled and edited over there. **This is the one piece
+   of fallout from the ruling that is still outstanding.**
+
+**Stale Mod-Options keys are inert — the account-state worry raised under OI-01 is answered.**
+Removing a toggle leaves its key in `AccountStorage.ModOptions[mod.id]` forever, and nothing reads
+it: `ModDef:LoadOptions` (`1.1.0.403908/Src/CommonLua/Modding/Mod.lua:680-699`) overwrites from
+storage and then seeds defaults for the currently declared properties, and the write path
+(`:755-770`) iterates the **current** `options:GetProperties()` and never clears a removed key. No
+crash, no reset of the player's other toggles, and the UI does not render it. Source-read, not run.
+⛔ It deserves an `EF-` fact and does not have one — `EF-` ids are allocated by the FIX PACK
+(item 86), so file it there first and mirror it here. No number was minted. Working: report §10.1.
+
+---
+
+### 2026-09-17 — OI-01 OPEN: the game moved to 1.1.0 and one module was overtaken by it
 
 > Raised by the tooling/process parity pass against the fix pack @ `e6ec192`. The pass ported
 > skills, the archive boundary, the entry-file rules header and doccheck `--regen` /
 > `--emit-fingerprint`, and re-synced the fact mirror (68 → 107 files). Those are process changes
-> and needed no ruling. The two below are **module** questions and MODULE FREEZE reserves them for
-> you. Nothing about either was acted on.
+> and needed no ruling. The one below is a **module** question and MODULE FREEZE reserves it for
+> you. Nothing about it was acted on. (Its companion, **OI-02** — *"the other seven modules have
+> not been re-checked against 1.1.0; check them when?"* — was CLOSED on 2026-09-17: option (a) was
+> carried out, and its output is the ruling above.)
 
 OI-01. **`ClassicRockets` (D01) is obsolete on 1.1.0 and now points the other way — retire it,
     rewrite it, or leave it?** *This is the "classic rockets is probably no longer needed" call.*
@@ -92,23 +157,8 @@ OI-01. **`ClassicRockets` (D01) is obsolete on 1.1.0 and now points the other wa
     **Recommend (a)** — it is the module whose reason for existing vanilla has adopted.
     Whichever you pick, it is a behaviour change to a frozen module and needs your line.
 
-OI-02. **The other seven modules have NOT been re-checked against 1.1.0. Check them when?**
-    What IS known (mechanical, 2026-09-17): every class+method named in every module's `Require`
-    block still exists in the 1.1.0 tree, so **no module is hard-broken at load**. What is NOT
-    known: whether any of the seven still does something the game does not already do, and whether
-    any of their measured playtest results survive the version. `--emit-fingerprint` reports **56
-    of 107 facts MOVED** onto a tree that is no longer installed. Every gate, probe tally and test
-    result in this repo was taken on 1.0.7.
-
-    **Options:** (a) one pass now over all seven, desk-only against the archived trees, filing what
-    moved — this is what caught OI-01; (b) fold it into the launch session's step 1; (c) leave it
-    until a module is next touched. **Recommend (a)**, because (b) puts the discovery after the
-    restore checklist has already been walked, and (c) means the D06 rebuild gets designed against
-    1.0.7 behaviour.
-
 ---
-
-### 2026-09-17 — OI-03 … OI-07 OPEN: the other seven modules, re-read against 1.1.0 (this answers OI-02)
+### 2026-09-17 — OI-03, OI-04 OPEN: the other seven modules, re-read against 1.1.0 (this answered OI-02)
 
 > This is OI-02 option (a), carried out: one desk pass over the seven modules other than
 > `ClassicRockets`, against `C:\Dev\SMR-SrcArchive\1.0.7.396349\Src` and `…\1.1.0.403908\Src`.
@@ -119,13 +169,13 @@ OI-02. **The other seven modules have NOT been re-checked against 1.1.0. Check t
 >
 > | module | verdict |
 > |---|---|
-> | D09 `DroneStatDials` | **STILL NEEDED** — every cited mechanism unchanged. No ask. |
+> | D09 `DroneStatDials` | **STILL NEEDED** — every cited mechanism unchanged. No ask; ⚖️ KEPT 09-17. |
 > | D04 `MultipleSuns` | **STILL NEEDED** — both halves. One new uncovered case → OI-04. |
 > | D03 `ResidencyControl` | **STILL NEEDED**, one guard silently dead → OI-03. |
 > | D02 `AcknowledgedWarnings` | **PARTLY OVERTAKEN** — the id was split seven ways. No ask (see the entry). |
-> | D06 `DroneOverhaul` | **NEEDS A PLAYTEST TO TELL** → OI-05. |
-> | D07 `CohortHousing` | **OVERTAKEN in-dome + INERT** → OI-06. |
-> | D12 `NoHomeless` | **NEEDED in principle, INERT in practice** → OI-07. |
+> | D06 `DroneOverhaul` | **NEEDS A PLAYTEST TO TELL** → was OI-05 → ⚖️ RULED 09-17: PARKED, module deleted. |
+> | D07 `CohortHousing` | **OVERTAKEN in-dome + INERT** → was OI-06 → ⚖️ RULED 09-17: DEAD, module deleted. |
+> | D12 `NoHomeless` | **NEEDED in principle, INERT in practice** → was OI-07 → ⚖️ RULED 09-17: DEAD, module deleted — ⚠️ the DEFECT survives. |
 
 OI-03. **`ResidencyControl` (D03): its tourist exemption is dead code on 1.1.0 and the row now
     lies to the player. Repair it, or accept the new behaviour?**
@@ -175,110 +225,6 @@ OI-04. **`MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and
     nothing, and (a) is a module edit for a case that needs two suns AND a demolition AND no reload.
     **Falsifier:** with two overlapping suns, demolish one and watch the panels in the survivor's
     range. If they stay lit, there is nothing to decide.
-
-OI-05. **`DroneOverhaul` (D06): three of its four assumptions were re-based by 1.1.0 and its
-    telemetry now throws. Re-measure, re-scope, or park until the rebuild?**
-    *⚠️ This is the one that blocks other work — the rebuild spec was written against 1.0.7.*
-
-    **What is unchanged.** The hole it was built for. `TaskRequestHub:FindTask` is byte-identical
-    (`1.1.0.403908/Src/Lua/_TaskRequest.lua:74-85`), requests still post to every covering hub
-    (`:286-317`), and there is still no cross-hub locality for WORK requests anywhere.
-
-    **What moved.** (1) `FindTask` is no longer reached only from `Idle`: it moved into
-    `Drone:TryTakeTask` (`1.1.0.403908/Src/Lua/Units/Drone.lua:593-615`), which is also called by
-    the NEW `Drone:TryTakeTaskOnTheWay` (`:638-651`) every 1000 ms for travelling drones — the
-    module's header claim *"its ONLY caller is the drone auto-Idle path"* is now false, and the
-    strike budget (`STRIKES_MAX = 4`) can be burned in seconds. (2) `GetIdleDronesCount` is now an
-    alias for `GetFreeDronesCount`, which also counts travelling drones
-    (`1.1.0.403908/Src/Lua/Buildings/DroneControl.lua:992-1005`) — so the "saturated hub" test that
-    triggers moonlighting may never be satisfied again. (3) Vanilla added task **swapping**
-    (`Drone:TryTaskSwap`, `1.1.0.403908/Src/Lua/Units/Drone.lua:1065-1114`) — PickUp-only and
-    same-hub-only, so it does not overtake this module, but it does land squarely on the hauling half
-    this module declared out of scope. (4) ⛔ `DroneControl:CalcLapTime`, `const.DroneLoadLowThreshold`
-    and `const.DroneLoadMediumThreshold` **no longer exist** (1.1.0 measures load as a sampled idle
-    percentage, `1.1.0.403908/Src/Lua/_GameConst.lua:94-98`), so `SMROptInPack.DroneReport()` raises
-    `attempt to call a nil value (method 'CalcLapTime')` — and it is registered whether or not the
-    module is enabled.
-
-    **What is NOT known, and cannot be.** Whether the claim gate still helps. Its value was always a
-    MEASURED claim and 1.1.0 removed the instrument that produced the measurements.
-
-    **Options:** (a) **repair the telemetry first** (it is read-only, outside the module's behaviour,
-    and nothing can be judged without it), then re-run the A/B on 1.1.0; (b) **park D06 entirely**
-    until the rebuild, and re-derive the rebuild spec against 1.1.0 before ratifying item 94;
-    (c) leave everything and let launch day find it. **Recommend (a) then (b)** — the telemetry
-    repair is the cheapest thing on this list and it unblocks every other drone question. ⚠️ Note
-    that item **94** (ratify the rebuild spec) and item **92** (experiments E-4/E-8) were both
-    specified against 1.0.7 machinery and should not be ruled on until this is settled.
-    **Falsifier:** with telemetry repaired, read `vetoed` vs `veto_expired` and `moonlighted` over a
-    session. `veto_expired` dominating, or `moonlighted` stuck at 0 beside a visibly saturated hub,
-    confirms the two drifts above.
-
-OI-06. **`CohortHousing` (D07): vanilla now ships the in-dome half, and the module is a no-op
-    because the field it reads was deleted. Retire it, port half of it, or port all of it?**
-    *This is the closest match to the OI-01 shape on this list.*
-
-    **What changed — two independent things, either one decisive.**
-    (1) **`exclusive_trait` does not exist in 1.1.0.** A grep over the whole tree returns nothing;
-    so does `children_only`. They were replaced by `filter_residents`
-    (`1.1.0.403908/Src/Lua/Buildings/Residence.lua:15`, predicates
-    `1.1.0.403908/Src/Lua/Stats.lua:192-197`, `NurseryBase = "Children"` `Residence.lua:551-556`,
-    `SeniorsResidence = "Seniors"` `:573-585`). The module matches cohort housing ONLY as
-    `r.exclusive_trait == trait` (`Code/Opt_CohortHousing.lua:104`), so `find_cohort_slot` returns
-    nil always and **both passes are no-ops**.
-    (2) **Vanilla adopted the in-dome half.** `ChooseResidence` gained a **tier** above score
-    (`1.1.0.403908/Src/Lua/Buildings/Residence.lua:416-467`): a residence whose filter matches the
-    colonist now wins outright, at any comfort score. On 1.0.7 the scorer ranked purely on comfort
-    and only moved a housed colonist on a strictly better score (`1.0.7…/Residence.lua:382-422`) —
-    which is the module's stated reason for existing.
-    The **cross-dome** half is NOT adopted: the emigration tie survives verbatim
-    (`1.1.0.403908/Src/Lua/Units/Colonist.lua:3474-3492`) and there is no cross-dome tier.
-
-    ⚠️ **It reports `active` while doing nothing**, because its `Require` block names only methods,
-    all of which still exist. `Require` cannot see a data field.
-
-    **Options:** (a) **retire the module** — vanilla owns the in-dome half and the cross-dome half
-    was the smaller claim; (b) **port to `filter_residents`, cross-dome half only** — keep the piece
-    vanilla does not do, drop the piece it now does; (c) **port whole** and accept that the in-dome
-    pass is now a redundant second opinion. **Recommend (b)**, with (a) a clean second: it keeps the
-    only behaviour that is still distinct. ⚠️ Whichever you pick, a port must name `Children` and
-    `Seniors` explicitly — 1.1.0 also ships an `Adults` filter, so "any filter other than Everyone"
-    would misfire on ordinary housing.
-    **Falsifier:** with the module OFF, put a comfortable Senior in ordinary housing in a dome with
-    a free Seniors Residence. If vanilla does not move them, the tier reading is wrong.
-
-OI-07. **`NoHomeless` (D12): the defect survived 1.1.0 verbatim but the module has no control
-    surface on it. Port it, or stand it down?**
-
-    **The defect is still there.** `FindEmigrationDome` was split, and the tie moved into
-    `Colonist:GetBestReachableCommunities` **unchanged** — same `new_eval >= eval`, same
-    *"if homeless, try changing community even if doesn't have living space available"* comment,
-    same strictly-better gate (`1.1.0.403908/Src/Lua/Units/Colonist.lua:3474-3492`, against
-    `1.0.7.396349/Src/Lua/Units/Colonist.lua:2668-2685`). `need_work` is still computed the same way
-    two dozen lines above (`:3428-3429`).
-
-    **The module cannot act on it.** Its dome precondition reads the deleted `exclusive_trait`
-    (`Code/Opt_NoHomeless.lua:305-310`), so `has_cohort_housing` is always false ⇒
-    **the infopanel row never draws on any dome**, the push never fires, and the symmetric entry
-    veto never fires. Like D07 it still reports `active`.
-
-    **One thing that may have moved in your favour, and cannot be read from source.** 1.1.0 softened
-    the overpopulation penalty from a hardcoded **-500** to `CommunityEvalOverpopulated = -200`
-    (`1.1.0.403908/Src/Lua/Buildings/Community.lua:438`, applied
-    `1.1.0.403908/Src/Lua/Buildings/Dome.lua:4200-4210`) with the devs' own comment that it *"pushes
-    the homeless out and deters newcomers"*. Whether that alone unsticks your original 68-slots /
-    28-stranded-Youths case is a game question, not a source question.
-
-    **Options:** (a) **port the precondition to `filter_residents`** (naming `Children` and
-    `Seniors`; the Hotel carve-out maps to `"Tourists"`, plural) and re-run PT-62's owed remainder on
-    1.1.0; (b) **stand the module down** pending a 1.1.0 observation of the origin scenario — if
-    vanilla now drains the dome by itself, there is nothing to build; (c) port and re-run later.
-    **Recommend (b) then (a)**: the module exists because you SAW the stranding, and the cheapest
-    next step is to look again on 1.1.0 before porting anything. It also answers OI-06's option (b)
-    at the same time, since both ports are the same field.
-    **Falsifier:** open a dome containing a Nursery with the module ON. If the row appears, the
-    inertness claim is wrong. Independently: rebuild the origin scenario and see whether the Youths
-    still sit there.
 
 ---
 
