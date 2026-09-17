@@ -30,6 +30,12 @@ in executable code**.
 
 ## 0 · Orient — every session, before touching anything
 
+> 🧰 **Five skills carry the routine knowledge** (`.claude/skills/`, ported from the
+> fix pack 2026-09-17): `smr-orientation` (where things are, what to emit not type),
+> `smr-bug-library` (reading/filing an entry or fact), `doc-editing` (before any doc
+> edit), `prompt-authoring` (writing a brief), `smr-session-close` (close-out).
+> Invoke the one that matches instead of re-deriving it here.
+
 1. `git log --oneline -10` + `git pull`.
 2. **Read `docs/agent/STATE.md` whole** — the mandatory kernel: what is built,
    what is frozen, what the launch owes, which owner decisions are open.
@@ -64,9 +70,10 @@ in executable code**.
 - **Any design-flavoured call** — "should this module do X", "is that a defect
   or a rebalance", a new module's scope, a drone option. This mod's product IS
   opinionated behaviour, so these are owner rulings. Write the options up
-  neutrally with the trade-offs measured, put the ask on the fix pack's
-  `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you" (single-sourced
-  THERE — `docs/README.md` says why), one line + pointer, and stop. **A decision
+  neutrally with the trade-offs measured, put the ask in **`docs/DECISIONS_OWED.md`**
+  — this mod's OWN list since 2026-09-12 (owner, fix-pack checklist 167); only the
+  shared TestKit, the `EF-` id rule and fix-pack features go to its
+  `docs/PLAYTEST_CHECKLIST.md` — one line + pointer, and stop. **A decision
   recorded only in an entry or report is not considered asked.**
 - **Lifting a freeze, changing a persisted name, uploading, renaming anything
   with a save or log contract** — never without the ruling in writing.

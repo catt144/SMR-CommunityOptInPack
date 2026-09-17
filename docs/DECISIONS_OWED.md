@@ -39,6 +39,73 @@ runs that restore: compare P38 against the fix pack's live `metadata.lua` wordin
 ⛔ **Nothing here is owed by anyone right now.** This mod is not launching; these are its launch
 obligations. The source reports are in `docs/agent/reports/`.
 
+**Numbering.** Items 84–97 keep the fix-pack numbers they were carried across under, so their
+citations elsewhere still resolve. Items raised HERE from 2026-09-17 on use an `OI-` prefix, so the
+two lists can never collide no matter how far the fix pack's numbering runs.
+
+---
+
+### 2026-09-17 — OI-01, OI-02 OPEN: the game moved to 1.1.0 and one module was overtaken by it
+
+> Raised by the tooling/process parity pass against the fix pack @ `e6ec192`. The pass ported
+> skills, the archive boundary, the entry-file rules header and doccheck `--regen` /
+> `--emit-fingerprint`, and re-synced the fact mirror (68 → 107 files). Those are process changes
+> and needed no ruling. The two below are **module** questions and MODULE FREEZE reserves them for
+> you. Nothing about either was acted on.
+
+OI-01. **`ClassicRockets` (D01) is obsolete on 1.1.0 and now points the other way — retire it,
+    rewrite it, or leave it?** *This is the "classic rockets is probably no longer needed" call.*
+
+    **What changed.** The module exists because 1.0.7's
+    `UniversalRocketBase:GetFuelResourceRequest` returned **0** for a rocket parked with no
+    destination picked, so drones never topped it up
+    (`SMR-SrcArchive\1.0.7.396349\Src\Lua\UniversalRocket.lua:1639-1642`). On 1.1.0 the same
+    function returns the **full ration** in that state:
+
+    > `if not self.arrival_loc then return self:IsPlayerControlled() and not self:IsSpecialAutomode() and amount or 0 end`
+    > — `SMR-SrcArchive\1.1.0.403908\Src\Lua\UniversalRocket.lua:1891-1895`
+
+    ⇒ **Vanilla now ships the module's entire feature**, for exactly the rockets it was written for.
+
+    **The part that is not just redundant.** The wrapper only fires when the shipped answer is `0`
+    (`Code/Opt_ClassicRockets.lua:83-90`). On 1.1.0 the only way to get `0` while still passing the
+    module's own `IsPlayerControlled()` + `GetDepartureLocType() == "our_colony"` guards is
+    `IsSpecialAutomode()` — Trade, TradePad and Rival rockets (`UniversalRocket.lua:2020-2026`).
+    So its whole remaining reach is **forcing a fuel request onto the rockets 1.1.0 deliberately
+    excludes**. That is the opposite of "restore the legacy behaviour": nothing about trade rockets
+    was ever part of D01.
+
+    **How this was established, and its limit.** Read off the two archived source trees, 2026-09-17.
+    **Desk only — not run in the game**, and the toggle is off by default, so no player has seen
+    either behaviour on 1.1.0. Falsifier: enable the module on 1.1.0, park a player rocket with no
+    destination, and confirm vanilla already refuels it; then park a Trade rocket and watch whether
+    it starts demanding fuel.
+
+    **Options:** (a) **retire the module** — delete the file, drop its `items.lua` toggle and its
+    `metadata.lua` `default_options` entry, keep D01 as the record. Cheapest, and the store copy
+    for it (fix pack `reports/RELEASE_DESCRIPTION_OPTIN.md`) never has to be written. ⚠️ Removing a
+    Mod Options toggle is an **account-state** change, not a save-state one — check what a stale
+    `ClassicRockets` key in `AccountStorage.ModOptions` does before promising it is clean.
+    (b) **keep it, narrowed** — add `and not self:IsSpecialAutomode()` so it can never fire on
+    1.1.0, leaving it as a no-op that would come back if a future patch reverted the change.
+    (c) **leave it exactly as it is** and document the trade-rocket effect as intended.
+    **Recommend (a)** — it is the module whose reason for existing vanilla has adopted.
+    Whichever you pick, it is a behaviour change to a frozen module and needs your line.
+
+OI-02. **The other seven modules have NOT been re-checked against 1.1.0. Check them when?**
+    What IS known (mechanical, 2026-09-17): every class+method named in every module's `Require`
+    block still exists in the 1.1.0 tree, so **no module is hard-broken at load**. What is NOT
+    known: whether any of the seven still does something the game does not already do, and whether
+    any of their measured playtest results survive the version. `--emit-fingerprint` reports **56
+    of 107 facts MOVED** onto a tree that is no longer installed. Every gate, probe tally and test
+    result in this repo was taken on 1.0.7.
+
+    **Options:** (a) one pass now over all seven, desk-only against the archived trees, filing what
+    moved — this is what caught OI-01; (b) fold it into the launch session's step 1; (c) leave it
+    until a module is next touched. **Recommend (a)**, because (b) puts the discovery after the
+    restore checklist has already been walked, and (c) means the D06 rebuild gets designed against
+    1.0.7 behaviour.
+
 ---
 
 ### 2026-09-01 — ITEMS 94–97 OPEN: the D06 rebuild DESIGN SPEC (opt-in repo, `docs/agent/reports/DRONE_REBUILD_DESIGN_20260901.md`)

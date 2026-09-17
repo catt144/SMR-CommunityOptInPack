@@ -92,8 +92,9 @@ runtime; a **true standalone** beside the Relaunched Fix Pack. The map is
   that a count happened to be zero.
 - **Design-flavoured calls go to the OWNER, not into an agent doc.** This mod's
   whole product is opinionated behaviour, so "should it do X?" is the owner's —
-  route it to the fix pack's `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on
-  you" (single-sourced THERE, `docs/README.md` says why). Anything too big for
+  route it to **`docs/DECISIONS_OWED.md`**, this mod's own list (owner, 2026-09-12);
+  only the shared TestKit, the `EF-` id rule and fix-pack features go to its
+  `docs/PLAYTEST_CHECKLIST.md`. Anything too big for
   the session gets FILED, never half-started. Ideas go to `docs/FUTURE_IDEAS.md`
   — a parking lot, NOT a backlog.
 

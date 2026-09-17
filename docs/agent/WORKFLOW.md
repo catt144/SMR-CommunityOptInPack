@@ -68,8 +68,12 @@
    both are now inside the entry file: front-matter `status:` and the heading
    tag. doccheck goes red if they disagree, and red on a stale INDEX.
 4. `docs/agent/FIX_POLICY.md` — how we patch. Binding for every fix.
-5. ⚠️ **`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`** — the owner's live
-   playtest queue, the reporting protocol and **"Decisions waiting on you"**;
+5. **`docs/DECISIONS_OWED.md`** — THIS mod's owner-decision list since 2026-09-12
+   (owner, fix-pack checklist 167). Read it before asking the owner anything.
+   ⚠️ **`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`** — the owner's live
+   playtest queue, the reporting protocol, and the three decisions that stayed
+   there because they bind the FIX PACK (the shared TestKit, `EF-` id allocation,
+   a fix-pack feature parked by analogy);
    its companion `PLAYTEST_HELP.md` (same folder) carries the ground rules,
    console facts, the verified command table, Test Kit helpers and save-fixture
    recipes. **Both are single-sourced in the FIX PACK repo on purpose** — the
@@ -105,8 +109,9 @@ time and each one is named after the miss it prevents.
    complete (one commit shipped with a false archive claim before this was
    caught, 2026-08-03).
 5. **Owner-decision mirroring (R10).** Every item needing the owner's call is
-   mirrored into `docs/PLAYTEST_CHECKLIST.md` → "Decisions waiting on you"
-   (one line + pointer), and struck the moment it is decided. **An owner
+   mirrored into `docs/DECISIONS_OWED.md` (one line + pointer) — or, for the three
+   classes that bind the FIX PACK, into its `docs/PLAYTEST_CHECKLIST.md` — and struck
+   the moment it is decided. Items raised here from 2026-09-17 use an `OI-` id. **An owner
    decision recorded only in an entry or a report is not considered asked.**
 
 Two mechanical rules that came with the same restructure:

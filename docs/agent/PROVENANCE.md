@@ -159,6 +159,38 @@ moved here left tombstones behind.
 
 ---
 
+## 8. The fourth port — 2026-09-17 tooling/process parity (donor @ `e6ec192`)
+
+The fix pack spent the fortnight after 09-01 rebuilding how a session works there — skills, a rules
+header on the entry file, a generated Codex mirror, a search boundary, and doccheck growing from
+810 to 2,907 lines. ⛔ **None of that reasoning was re-opened here.** This port carried the
+artifacts and adapted their paths, names and examples to this mod; where a donor rule cites a
+fix-pack-only surface (its `PLAYTEST_CHECKLIST.md`, its `prompts/perma/` tree, its `support/`
+folder) the row says what replaced it.
+
+| artifact here | how | what changed / what it proves here |
+|---|---|---|
+| `.claude/skills/smr-orientation/` | ADAPTED | this mod's product description, the two bans, MODULE FREEZE, the 1.1.0 hazard, the `EF-`-ids-are-the-fix-pack's rule, and the split-checklist caveat replace the donor's equivalents |
+| `.claude/skills/smr-bug-library/` | ADAPTED | `D`-entry counts and this repo's index sizes; the donor's `F`/`C` framing kept because both letters are still legal here |
+| `.claude/skills/doc-editing/` | ADAPTED | donor text plus a section this repo needs and the donor does not: the persisted names, pre-split/pre-rename records and the archive are not rewritable by a doc edit |
+| `.claude/skills/prompt-authoring/` | ADAPTED | donor text; `support/CHAIN_METHOD.md` → `reports/CHAIN_METHOD.md`, the both-configuration ship test and the both-toggle-directions rule added, the shared-TestKit caveat added |
+| `.claude/skills/smr-session-close/` | ADAPTED | the routing table splits owner calls three ways (this mod → `DECISIONS_OWED.md`; the shared kit / `EF-` ids / fix-pack features → its checklist) |
+| `.rgignore` | VERBATIM (one comment line changed) | the `docs/archive/` search boundary. Tested here: a default `rg` returns live hits only |
+| `CLAUDE.md` | ADAPTED | donor's `Must_Read_Header` `<!-- RULES -->` block, rewritten for this repo's duties. ⛔ the donor's `[A3: pass]` audit tags were NOT copied — that audit ran on its text, not ours |
+| `AGENTS.md` | NEW, GENERATED | byte copy of `CLAUDE.md`; `--regen` writes it, `check_agents_mirror` reds on drift |
+| `tools/doccheck.py` `--regen` | NEW | the donor has had it since the split; this repo could detect index drift and not fix it. Writes `bugs/INDEX.md`, `facts/INDEX.md`, `AGENTS.md` |
+| `tools/doccheck.py` `--emit-fingerprint` | ADAPTED | donor's function and `.acf` read verbatim; the sha row says "fix-pack shas" because facts are allocated there, so they do not resolve in this clone |
+| `tools/doccheck.py` PUSH SET | ADAPTED | budget 24 KiB not 40 — this repo's push set is two files, not four (no `GENERAL_USE_PROMPT.md` here) |
+| `docs/agent/facts/` | VERBATIM (re-sync) | 68 → **107** files @ donor `e6ec192`. Every shared fact gained `derived_at:`; 33 new, incl. the 1.1.0 facts (`EF-083`). ⛔ **`EF-062`'s `FUTURE_IDEAS` pointer is the ONLY local adaptation** — a re-sync is otherwise a straight overwrite |
+| `docs/agent/prompts/STATE_EVICTION.md` | ADAPTED | the donor's 2026-09-15 four-test admission door (harm · reach · gate · volatility) added to this repo's existing boundary section |
+| `docs/agent/STATE.md` | APPLIED | the donor's ruling that counts are pulled, never stored, applied here: the stored BUILD STATE block (which had gone stale — 100 probes vs 97, "game pinned 1.0.7") is now a pull pointer |
+
+**What was NOT ported, and why.** The donor's `docs/agent/support/` tree (its `CHAIN_METHOD.md`
+lives in `reports/` here), its `prompts/perma/` split (this repo has five prompts, not a tree), its
+`.claude/agents/doc-surgeon.md` and its `.claude/` working corpus (a live chain's scratch, not an
+artifact), and the rest of its 2,097 new doccheck lines — most of which check surfaces this repo
+does not have (its checklist's `opened:` dates, its STATE admission parser, its stub files).
+
 ## 7. The third port — 2026-09-12, one dangling citation closed (donor @ `85d95cb`)
 
 Not a pass, a single repair. A knowledge inventory run in the fix pack found that

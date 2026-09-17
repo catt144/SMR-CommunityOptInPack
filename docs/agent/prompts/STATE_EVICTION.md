@@ -31,12 +31,52 @@ STATE is a kernel: **status + pointer, never derivation.** Five sections only:
 3. **Rules in force** — owner rulings still binding, one line each, dated,
    with a pointer to where they were made. A ruling fully discharged or
    recorded in a policy doc (FIX_POLICY/WORKFLOW) needs only the pointer.
-4. **Open owner decisions** — item numbers + five-word gists; bodies live in
-   the FIX PACK's `docs/PLAYTEST_CHECKLIST.md` "Decisions waiting on you".
-5. **Build state** — the `--emit-counts` block, verbatim, never hand-typed.
+4. **Open owner decisions** — item ids + five-word gists; bodies live in
+   `docs/DECISIONS_OWED.md` (this mod's own list since 2026-09-12), except the
+   three that bind the FIX PACK and stayed on its `docs/PLAYTEST_CHECKLIST.md`.
+5. **Build state** — ⛔ NOT STORED. Counts and the game build are PULLED:
+   `--emit-counts`, `--emit-fingerprint`. A stored number goes stale in silence.
 
 Everything else is pull: `SESSION_LOG` (history), `agent/reports/` (evidence),
 `agent/bugs/` + `agent/facts/` (module/fact truth), git graves.
+
+## The admission door — every section, all four tests
+
+Carried from the fix pack's `prompts/perma/STATE_EVICTION.md` on 2026-09-17 (owner ruling there,
+2026-09-15; `agent/PROVENANCE.md` §8). It **replaces** the per-line hazard test in section 2 above
+and extends to every section: a section name grants no admission.
+
+**A line enters STATE only by passing ALL FOUR tests. AND-ed, never OR-ed. One failure is enough.**
+A pass on one test cannot rescue a failure on another, and applying a subset is not an admission
+review. Required structural text and protected parser dependencies are identified explicitly, never
+waved through as passing status.
+
+**1 · HARM — name the victim.** Who is worse off, and can the next command make them whole? A
+mechanism is not a victim. Floor: moderate. A silent harm outranks a loud one of the same size.
+"Files get deleted" is not harm if nobody wanted them.
+
+**2 · REACH — both halves must answer *everyone*.**
+- **(a) Whose job is this?** If you can name a role, it belongs in that role's doc.
+- **(b) Who needs to know this?** Not everyone means it belongs where they are. **Self-consuming
+  chain work never passes (b)** — by construction its knowledge dies with the chain. Do not weigh
+  that class case by case.
+
+A destructive rail is role-gated by construction. An epistemic rail that binds every session can
+pass both halves; it still needs the other two tests. An unfinished task for one role fails reach
+even while its status can change.
+
+**3 · GATE — can a machine catch it?** Then cite the gate instead of restating the duty. If a
+machine *could* and nothing does, the entry is a placeholder and the real deliverable is the check.
+A placeholder still needs the other tests; when the check lands, the restated duty leaves.
+*Worked example, 2026-09-17:* the wrap-site allowlist and the load-order constraints were two
+multi-line STATE entries; doccheck prints both every run, so they collapsed to one line naming the
+gate and the file that holds the list.
+
+**4 · VOLATILITY — can the thing's state still change?** Settled means it is a record, not state.
+Receipts, tombstones, immutable facts and closed chains do not become status by passing harm, reach
+or gate. The *current* version can change; when it changes, the previous version changes too. A
+line that moves only when another STATE line moves is still state; a line that never moves is not.
+Passing volatility alone does not admit anything.
 
 ## Procedure
 
