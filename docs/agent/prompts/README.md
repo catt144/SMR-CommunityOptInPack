@@ -41,6 +41,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | prompt | declared class | state |
 |---|---|---|
+| `PROVENANCE_DISSOLVE_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED.** Dissolve `agent/PROVENANCE.md` (owner, 2026-09-17: *"I would honestly like it to just go away"*). Rehome §2 save contract to `support/`, §6 to `tools/README.md`, §4 to the suite docs; replace the 15,599 B port ledger with `tools/sync_facts.py` + a doccheck gate, because the fact mirror differs from the donor's in exactly **3 declared files**. ⚠️ Carries a stop: `items.lua` and `metadata.lua` cite §2 as save-contract authority and they ship |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before `DECISIONS_OWED` 94 then 92 can even be ruled on. Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
