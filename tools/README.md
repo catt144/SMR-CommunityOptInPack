@@ -17,6 +17,16 @@ fact groups still describe what is on disk.
 
 Install the pre-commit hook once per clone: `git config core.hooksPath tools/hooks`.
 
+⛔ **A tool here that shells out to `git` must scrub `GIT_*` from its environment first.** The hook
+runs `doccheck`, `doccheck` runs the falsifiers, so during a commit every subprocess inherits
+`GIT_INDEX_FILE` and `GIT_DIR` pointing at the **temporary index git is building the commit from**.
+A scratch repository is not isolated unless its environment is too. Learned 2026-09-17: a scratch
+`git add` wrote its fixtures into the real commit's index and killed it with
+`invalid object … for 'docs/agent/prompts/README.md'` — naming a file nothing had touched. The
+second failure is quieter and worse: a gate's own `git ls-files` enumerates the REAL tree while the
+test believes it is reading the scratch one, so the falsifier passes for the wrong reason. Working
+example: `rule_headers_selftest.py`, top of file.
+
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
 *19 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
