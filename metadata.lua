@@ -70,27 +70,24 @@ return PlaceObj('ModDef', {
 		AcknowledgedWarnings = false,
 		ResidencyControl = false,
 		MultipleSuns = false,
-		DroneOverhaul = false,
-		CohortHousing = false,
-		NoHomeless = false,
 		DroneSpeedDial = "1x (base)",
 		DroneCarryDial = "+0 (base)",
 	},
 	-- ⛔ ORDER IS LOAD-BEARING: ModDef:LoadCode iterates THIS list and scans no
 	-- directory (Mod.lua:490-521), so 00_Core.lua must stay first — every module
-	-- calls SMROptInPack.Register at file scope. The eight below keep the
-	-- relative order they had in the fix pack: CohortHousing before NoHomeless
-	-- (both wrap Colonist:FindEmigrationDome) and ResidencyControl before
-	-- NoHomeless (both wrap ChooseDome), so wrap nesting is unchanged.
+	-- calls SMROptInPack.Register at file scope. The five below keep the
+	-- relative order they had in the fix pack.
+	-- ⚖️ 2026-09-17 (owner): DroneOverhaul PARKED, CohortHousing + NoHomeless DEAD
+	-- on 1.1.0 — all three removed from this list and from items.lua. Both wrap-order
+	-- constraints this comment used to record involved NoHomeless and left with it;
+	-- ResidencyControl now wraps ChooseDome alone. Archive + restore steps:
+	-- C:\Dev\SMR-OptInPack-archive\README.md; the record is git (bugs/D06, D07, D12).
 	'code', {
 		"Code/00_Core.lua",
 		"Code/Opt_ClassicRockets.lua",
 		"Code/Opt_AcknowledgedWarnings.lua",
 		"Code/Opt_ResidencyControl.lua",
 		"Code/Opt_MultipleSuns.lua",
-		"Code/Opt_DroneOverhaul.lua",
-		"Code/Opt_CohortHousing.lua",
-		"Code/Opt_NoHomeless.lua",
 		"Code/Opt_DroneStatDials.lua",
 	},
 	'TagGameplay', true,

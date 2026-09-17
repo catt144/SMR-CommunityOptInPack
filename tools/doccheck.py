@@ -642,24 +642,22 @@ def testkit_tree(out):
 # ⛔ It lives in tools/ ON PURPOSE: `*/tools/*` is in `metadata.lua`'s
 # `ignore_files`, so nothing here ships.
 LOAD_ORDER_RULES = [
-    {
-        "before": "Code/Opt_CohortHousing.lua",
-        "after": "Code/Opt_NoHomeless.lua",
-        "symbol": "Colonist:FindEmigrationDome",
-        "why": "both post-wrap Colonist:FindEmigrationDome (Opt_CohortHousing.lua:168, "
-               "Opt_NoHomeless.lua:449); NoHomeless is the OUTER wrapper as shipped, "
-               "so its flagged-dome veto has the last word over CohortHousing's "
-               "cross-dome redirect.",
-    },
-    {
-        "before": "Code/Opt_ResidencyControl.lua",
-        "after": "Code/Opt_NoHomeless.lua",
-        "symbol": "ChooseDome",
-        "why": "both pre-filter the global ChooseDome through SetGlobal "
-               "(Opt_ResidencyControl.lua:228, Opt_NoHomeless.lua:906); NoHomeless "
-               "is OUTER as shipped, so arrivals are screened for flagged domes "
-               "before ResidencyControl screens for closed ones.",
-    },
+    # ⚖️ EMPTIED 2026-09-17 by owner ruling: both rules named Opt_NoHomeless, which
+    # no longer ships (DEAD on 1.1.0 — it reads the renamed `exclusive_trait`). With it
+    # gone, no two shipping modules wrap the same symbol: CohortHousing left with it, and
+    # ResidencyControl now wraps the global ChooseDome alone. The retired pair is kept
+    # here verbatim because restoring either module must restore its rule with it:
+    #
+    #   CohortHousing before NoHomeless — both post-wrap Colonist:FindEmigrationDome
+    #     (Opt_CohortHousing.lua:168, Opt_NoHomeless.lua:449); NoHomeless was the OUTER
+    #     wrapper as shipped, so its flagged-dome veto had the last word over
+    #     CohortHousing's cross-dome redirect.
+    #   ResidencyControl before NoHomeless — both pre-filter the global ChooseDome
+    #     through SetGlobal (Opt_ResidencyControl.lua:228, Opt_NoHomeless.lua:906);
+    #     NoHomeless was OUTER, so arrivals were screened for flagged domes before
+    #     ResidencyControl screened for closed ones.
+    #
+    # Code: C:\Dev\SMR-OptInPack-archive\README.md, or `git show cc846e4:Code/<file>`.
 ]
 
 

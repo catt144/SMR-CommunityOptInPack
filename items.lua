@@ -61,18 +61,6 @@ return {
 		'CodeFileName', "Code/Opt_MultipleSuns.lua",
 	}),
 	PlaceObj('ModItemCode', {
-		'name', "Opt_DroneOverhaul",
-		'CodeFileName', "Code/Opt_DroneOverhaul.lua",
-	}),
-	PlaceObj('ModItemCode', {
-		'name', "Opt_CohortHousing",
-		'CodeFileName', "Code/Opt_CohortHousing.lua",
-	}),
-	PlaceObj('ModItemCode', {
-		'name', "Opt_NoHomeless",
-		'CodeFileName', "Code/Opt_NoHomeless.lua",
-	}),
-	PlaceObj('ModItemCode', {
 		'name', "Opt_DroneStatDials",
 		'CodeFileName', "Code/Opt_DroneStatDials.lua",
 	}),
@@ -98,24 +86,6 @@ return {
 		'name', "MultipleSuns",
 		'DisplayName', "Multiple Artificial Suns",
 		'Help', "Lets you build more than one Artificial Sun, and fixes the base-game bug where solar panels only ever check the first sun for night-time light. Turning it off restores the one-per-colony limit (existing suns keep working).",
-		'DefaultValue', false,
-	}),
-	PlaceObj('ModItemOptionToggle', {
-		'name', "DroneOverhaul",
-		'DisplayName', "Drone dispatch overhaul (experimental)",
-		'Help', "With overlapping Drone Hub coverage, the base game lets a far-away hub's drone claim a repair that idle drones are parked next to. This makes the CLOSEST hub's fleet get first claim on repair and cleaning jobs (a far fleet still serves if the near one doesn't respond within seconds), and lets idle drones help a neighboring OVERLOADED hub with nearby repairs. Player orders, hauling, construction and RC rovers are untouched.",
-		'DefaultValue', false,
-	}),
-	PlaceObj('ModItemOptionToggle', {
-		'name', "CohortHousing",
-		'DisplayName', "Cohort housing — Seniors & Children",
-		'Help', "Seniors and Children living in normal housing automatically move into free Retirement Home / Nursery slots — in their own Dome first, in any reachable Dome second — and are left completely alone when no such slot exists. Employed Seniors stay put; your manual residence and Dome assignments always win; quarantine and closed Domes are respected. No dome designation needed: concentrate the cohort buildings where you want the cohort to live.",
-		'DefaultValue', false,
-	}),
-	PlaceObj('ModItemOptionToggle', {
-		'name', "NoHomeless",
-		'DisplayName', "Nursery / Retirement Dome policy",
-		'Help', 'For the Dome you dedicate to Children or Seniors. Such a Dome keeps only enough ordinary housing to staff its services, so unhoused jobseekers pile up in it — and once it holds enough homeless it counts as overcrowded and stops receiving anyone, including the cohort it was built for. This adds a per-Dome toggle row: when it is on, UNEMPLOYED Colonists with no home there move to the nearest Dome with housing they can use. Colonists who work there stay, and Seniors and Children stay even while homeless — a homeless Senior in a Retirement Dome is the game telling you to build more Retirement Homes, and hiding it would not help. Nobody is ever put outside, and a quarantined Dome still releases no one.',
 		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionChoice', {

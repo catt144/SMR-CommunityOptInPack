@@ -36,8 +36,9 @@ Relaunched Fix Pack installed, and identically without it. ⛔ **NOT PUBLISHED.*
    `SMROptInPack`. No cross-mod `Require`, no load-order assumption, no shared file. (The persisted
    STRINGS in ban 1 are data, not references — that is the whole distinction.)
 
-⛔ **MODULE FREEZE:** no behaviour change to any module without an owner ruling. Drones (`D06`,
-`D09`) are unfrozen (owner, 2026-08-31); nothing else is.
+⛔ **MODULE FREEZE:** no behaviour change to any shipping module without an owner ruling. `D09`
+`DroneStatDials` is unfrozen (owner, 2026-08-31). `D06` was too and is now RETIRED/PARKED with
+`D07` + `D12` (owner, 2026-09-17) — retiring them WAS the ruling; nothing else is unfrozen.
 
 ⚠️ **The game auto-updated to 1.1.0 + DLC on 2026-09-08 and overwrote `ModTools\Src`.** Records
 written before then cite a tree that is not installed. Both trees are archived at
