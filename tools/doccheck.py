@@ -1234,6 +1234,14 @@ TOOL_GROUPS = (
      "2026-09-08 and overwrote `ModTools\\Src`.",
      ("flpk_extract.py", "pack_list.py", "audit_preset_fields.py",
       "blocking_analysis.py")),
+    ("Cross-repo sync with the fix pack",
+     "Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner "
+     "has changed the main pack and wants to know what lands here. ⛔ Read-only "
+     "in BOTH repos, and it decides nothing — its `LOCAL_ADAPTATIONS` and "
+     "`LAST_SYNC` constants are the former `PROVENANCE.md` port ledger in the "
+     "only form that cannot go stale, because the thing that reads them is the "
+     "thing that checks them.",
+     ("sync_from_fixpack.py",)),
     ("Launch",
      "⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the "
      "missing preview art (owner, `DECISIONS_OWED.md` 85).",

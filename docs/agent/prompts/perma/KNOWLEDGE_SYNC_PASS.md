@@ -20,7 +20,31 @@ citations looked fine; the target did not exist. Nothing flagged it, because not
 **Trust by source:** the owner's instruction is authority · tool output carrying its command and sha
 is a derived fact · everything else authored — this prompt included — is a **claim**.
 
-## 1 · The main sweep: dangling citations (do this first, it is the one that pays)
+## 0.5 · Run the helper FIRST — it does the mechanical half
+
+```sh
+python tools/sync_from_fixpack.py          # all three passes, read-only in both repos
+```
+
+It answers, by measurement rather than by reading:
+
+- **`--facts`** — is the fact mirror still a mirror, apart from the adaptations we DECLARE? Its
+  `LOCAL_ADAPTATIONS` constant is the former `PROVENANCE.md` port ledger in the only form that
+  cannot go stale, because the thing that reads it is the thing that checks it.
+- **`--donor-log`** — what changed on a shared donor surface since `LAST_SYNC`. ⛔ Move `LAST_SYNC`
+  in the same commit that lands a sync, or the next run re-reports everything.
+- **`--citations`** — §1's sweep, mechanised, with the presence control §1 demands already built in.
+  Donor-owned names (WORKFLOW clause 6), shipped-game source and the placeholder examples in this
+  prompt are counted, not listed.
+
+⛔ **The helper finds CANDIDATES. It decides nothing** — it never writes, stages or copies, because
+"does this subject apply to this mod" is judgement. Everything below is how you adjudicate what it
+prints, and §2 is a question it cannot ask at all.
+
+⚠️ **Its output is a claim like any other.** Before filing anything it reports, read the sentence
+that makes the citation — a name cited *as deleted on purpose* looks identical to a dangling one.
+
+## 1 · The main sweep: dangling citations (the helper's `--citations` pass, adjudicated)
 
 For every file under `docs/` in THIS repo, extract what it cites and check the target exists here.
 

@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*19 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*20 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -82,6 +82,14 @@ Run by `doccheck` as well as by hand; the allowlists live beside the detectors, 
 | [`pack_list.py`](pack_list.py) | List a Surviving Mars .fpk WITHOUT extracting it, and reconcile it against the tree it was supposed to be built from. |
 | [`audit_preset_fields.py`](audit_preset_fields.py) | Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6. |
 | [`blocking_analysis.py`](blocking_analysis.py) | Blocking analysis, v2 -- v1 was useless: bare-name resolution marked half the codebase blocking (IsValid, SetText, Random all collided with some unrelated blocking method). |
+
+### Cross-repo sync with the fix pack
+
+Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has changed the main pack and wants to know what lands here. ⛔ Read-only in BOTH repos, and it decides nothing — its `LOCAL_ADAPTATIONS` and `LAST_SYNC` constants are the former `PROVENANCE.md` port ledger in the only form that cannot go stale, because the thing that reads them is the thing that checks them.
+
+| script | what its own header says |
+|---|---|
+| [`sync_from_fixpack.py`](sync_from_fixpack.py) | Cross-repo sync helper: what has the fix pack got that this repo needs? |
 
 ### Launch
 

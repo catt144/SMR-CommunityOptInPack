@@ -74,31 +74,41 @@ save contract is. The test is in `docs/README.md` "Where new things go".
 
 ## 4 · The sync tool — and why a GATE beats a cron
 
-Build `tools/sync_facts.py`:
+✅ **ALREADY BUILT, 2026-09-17 — `tools/sync_from_fixpack.py`.** You do not have to write it.
+It is read-only in both repos, and it carries the ledger as declared constants:
 
-- **Read-only by default.** Prints drift between `docs/agent/facts/` and the fix pack's, classified
-  against a declared `LOCAL_ADAPTATIONS` constant (the three rows in §2). Unexpected drift is the
-  finding; expected drift is silent.
-- **`--apply` explicit**, copying donor-side changes and preserving the declared adaptations.
-- The `LOCAL_ADAPTATIONS` constant **is** the port ledger, in the only form that cannot go stale:
-  the thing that reads it also enforces it.
-- ⛔ **It needs a falsifier** — `tools/sync_facts_selftest.py`, wired in via `required_selftest`,
-  proving it fires on a planted unexpected diff AND stays silent on a planted declared one, with a
-  negative control. A gate only ever seen passing has not been tested (`tools/README.md` and
-  `rule_headers_selftest.py` are the worked example). Add its row via `--regen`, never by hand.
+- `LOCAL_ADAPTATIONS` — the three files the fact mirror is ALLOWED to differ in. **This is what
+  §1 and §5–§9 of `PROVENANCE.md` reduced to once measured.** A row is a promise the difference is
+  deliberate; anything differing that is not listed is the finding.
+- `LAST_SYNC` — the donor sha this repo last synced from. Move it when a sync completes, in the
+  same commit.
+- `DONOR_OWNED_FILES` / `DONOR_ID` — WORKFLOW banner clause 6 as data, so donor-owned names are
+  counted rather than reported as breakage.
 
-**On the cron question, answered rather than deflected.** A gate is better here, and a cron is
-actively wrong for the apply half:
+Three passes: `--facts` (mirror drift vs the declared adaptations), `--donor-log` (what changed on
+a shared surface since `LAST_SYNC`), `--citations` (does this repo hold what it cites). It never
+writes, stages or copies: applying a change is a human act with a commit message, because "does
+this subject apply to us" is judgement.
 
-- A **doccheck gate** runs at the moment it matters — every commit, via the pre-commit hook. It
-  cannot be forgotten and it cannot fire while you are mid-edit. Wire the read-only drift report
-  in as a gate; that is the primary answer, and it is how this repo already handles generated
-  files, counts and the game fingerprint.
-- A **cron that auto-applies** would overwrite authority files unattended: it can land a donor
-  change into a dirty tree, in the middle of a session, or silently revert a local adaptation a
-  human meant to keep. Facts are truth here. Do not build that.
-- A **scheduled read-only report** is harmless if the owner wants one later — but it is strictly
-  weaker than the gate, so build the gate first and only add scheduling if asked.
+⛔ **What is still owed on the tool.** It has **no falsifier**, and this repo's own rule is that a
+gate only ever seen passing has not been tested (`tools/README.md`; `rule_headers_selftest.py` is
+the worked example). If you wire it into doccheck, write `tools/sync_from_fixpack_selftest.py`
+first — planted unexpected drift must fire, planted declared drift must stay silent, with a
+negative control. While it stays owner-fired rather than gated, that is a recommendation, not a
+blocker.
+
+**On the cron question, answered rather than deflected.** The owner's shape — a prompt they fire
+after changing the main pack, calling this helper — is right, and better than a gate:
+
+- it runs **when the owner knows something changed**, which is the only moment the interesting
+  half ("did the fix pack learn something we need?") is answerable at all;
+- that half is **judgement and cannot be scripted** — the helper finds candidates, the session
+  decides. A gate can only ever do the mechanical part;
+- a cron that **auto-applies** would overwrite authority files unattended: landing a donor change
+  into a dirty tree mid-session, or silently reverting a local adaptation someone meant to keep.
+  Facts are truth here. ⛔ Do not build that.
+- a doccheck gate on `--facts --strict` is still available later and costs nothing, but it needs
+  the falsifier above first.
 
 ⚠️ `prompts/perma/KNOWLEDGE_SYNC_PASS.md` already does a *manual* cross-repo sweep and is broader
 than this tool (it checks dangling citations, not just fact drift). **Do not delete or rewrite it.**
