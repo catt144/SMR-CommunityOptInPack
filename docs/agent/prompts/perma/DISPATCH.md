@@ -24,8 +24,9 @@ any specific it names.
 > stays here.
 
 You are doing focused, self-contained work in an **opt-in behaviour mod** for
-Surviving Mars: Relaunched — eight modules that change how the game plays, each
-OFF (or at base) until the player enables it in Options → Mod Options; patched at
+Surviving Mars: Relaunched — a small set of modules that change how the game plays,
+each OFF (or at base) until the player enables it in Options → Mod Options (never
+hand-type how many: `python tools/doccheck.py --emit-counts`); patched at
 runtime; a **true standalone** beside the Relaunched Fix Pack. The map is
 `docs/README.md`; `CLAUDE.md` (auto-loaded) carries the two bans.
 

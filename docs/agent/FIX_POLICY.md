@@ -444,7 +444,7 @@ Every module links to an `agent/bugs/` entry, and before it ships:
 
 ### §4-donor — the fix pack's §4, kept verbatim (do not edit; the donor is authoritative for it)
 
-⛔ **This is not dead text.** It is the rule that put these eight modules behind
+⛔ **This is not dead text.** It is the rule that put this mod's modules behind
 toggles instead of shipping them as fixes, and it is the test a new proposal
 still has to fail before it may live here: *if a defect passes the donor's §4,
 it belongs in the fix pack as a plain fix, not here behind a toggle.*
@@ -590,7 +590,7 @@ in its second line and it shipped anyway. That is the failure this rule stops.
 ## 5. Optional modules (`Opt_*`)
 
 > ⭐ **THIS SECTION IS THIS MOD'S CORE SPEC** (marked 2026-08-12, split). In the
-> donor it describes a minority of files; here it describes all eight. The
+> donor it describes a minority of files; here it describes every shipping module. The
 > install pattern, the dial addendum and the OFF-says-nothing-about-the-save
 > warning are unchanged and mandatory. The only edit is the namespace.
 

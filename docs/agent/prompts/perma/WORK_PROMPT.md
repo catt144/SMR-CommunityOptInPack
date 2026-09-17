@@ -19,7 +19,9 @@ the moment another session commits. Staleness anchor: **written 2026-08-31 at
 > Everything else starts here.
 
 **What you are working on.** An opt-in behaviour mod for Surviving Mars:
-Relaunched — eight modules (D01–D07, D09, D12) that change how the game plays,
+Relaunched — a small set of modules that change how the game plays (never hand-type
+how many: `python tools/doccheck.py --emit-counts`; D06, D07 and D12 were RETIRED
+2026-09-17 and every pre-09-17 record overstates the set),
 each OFF or at its base setting until the player enables it in Options → Mod
 Options; patched at runtime over the mod's own copy of the pack framework
 (`SMROptInPack`); a true standalone beside the Relaunched Fix Pack. Not yet
