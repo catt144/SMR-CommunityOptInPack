@@ -10,4 +10,9 @@ __pycache__/
 # OS
 Thumbs.db
 Desktop.ini
-.claude/
+
+# .claude/ is local scratch and never committed -- EXCEPT the skills, which are
+# repo knowledge every session loads and therefore belong in the tree
+# (carried from SMR-BugFixPack 2026-09-17, PROVENANCE section 8).
+.claude/*
+!.claude/skills/

@@ -734,10 +734,221 @@ def counts_block(counts):
     return "\n".join(lines)
 
 
+# ---------------------------------------------------------------------------
+# AGENTS.md — the Codex byte copy of CLAUDE.md.
+#
+# Carried from SMR-BugFixPack 2026-09-17 (PROVENANCE §6). Two vendors read this
+# tree and only one of them reads CLAUDE.md, so the entry file is mirrored
+# rather than forked: a fork is a second set of house rules that drifts in
+# silence. It is GENERATED — edit CLAUDE.md and run --regen.
+
+CLAUDE_MD = os.path.join(REPO, "CLAUDE.md")
+AGENTS_MD = os.path.join(REPO, "AGENTS.md")
+
+
+def lf_bytes(path):
+    """Content bytes for budgets and comparisons, independent of CRLF checkout."""
+    with open(path, "rb") as fh:
+        return fh.read().replace(b"\r\n", b"\n")
+
+
+def check_agents_mirror(out):
+    """AGENTS.md must reproduce CLAUDE.md byte for byte (LF-normalised)."""
+    if not os.path.exists(CLAUDE_MD):
+        out.append("MIRROR: RED  CLAUDE.md is missing")
+        return False
+    if not os.path.exists(AGENTS_MD):
+        out.append("MIRROR: RED  AGENTS.md is missing — run "
+                   "python tools/doccheck.py --regen")
+        return False
+    want, have = lf_bytes(CLAUDE_MD), lf_bytes(AGENTS_MD)
+    if want == have:
+        out.append("MIRROR: AGENTS.md reproduces CLAUDE.md byte for byte (%d B)"
+                   % len(want))
+        return True
+    out.append("MIRROR: RED  AGENTS.md has drifted from CLAUDE.md (%d B vs %d B) "
+               "— edit CLAUDE.md, then python tools/doccheck.py --regen"
+               % (len(have), len(want)))
+    return False
+
+
+# ---------------------------------------------------------------------------
+# The push set.
+#
+# PUSH = the files loaded into EVERY session before it has decided anything.
+# They are the only documents where bytes genuinely hurt, because nobody chooses
+# to read them and the cost is paid every session, forever. Everything else is
+# PULL (read a section on demand, uncapped) or RECORD (written once, read
+# rarely, never capped). Report-only; it never gates.
+
+PUSH_SET = [
+    ("CLAUDE.md", lambda: CLAUDE_MD),
+    ("docs/agent/STATE.md", lambda: STATE),
+    # Claude's own memory index: outside the repo, per-machine, and absent for
+    # any other vendor — reported when present, never required.
+    ("MEMORY.md (Claude, outside the repo)",
+     lambda: os.environ.get("SMR_MEMORY", os.path.join(
+         os.path.expanduser("~"), ".claude", "projects",
+         "c--Dev-SMR-OptInPack", "memory", "MEMORY.md"))),
+]
+PUSH_BUDGET = 24 * 1024
+PUSH_CHARS_PER_TOKEN = 2.17     # measured on the donor's own documents
+
+
+def push_set_report(out):
+    rows, total, missing = [], 0, 0
+    for label, resolve in PUSH_SET:
+        path = resolve()
+        if os.path.exists(path):
+            size = len(lf_bytes(path))
+            total += size
+            rows.append("    %-38s %7d B" % (label, size))
+        else:
+            missing += 1
+            rows.append("    %-38s   absent" % label)
+    out.append("PUSH SET: %d B in %d file(s) ~ %dk tokens (budget %d B)%s"
+               % (total, len(PUSH_SET) - missing,
+                  round(total / PUSH_CHARS_PER_TOKEN / 1000), PUSH_BUDGET,
+                  "" if total <= PUSH_BUDGET else "  WARN OVER"))
+    out.extend(rows)
+    if total > PUSH_BUDGET:
+        out.append("    -> every session pays this before it has decided "
+                   "anything; evict from the largest, not the easiest "
+                   "(agent/prompts/STATE_EVICTION.md)")
+
+
+# ---------------------------------------------------------------------------
+# Durable-fact fingerprints (carried from SMR-BugFixPack 2026-09-17).
+
+ACF = os.environ.get("SMR_ACF", r"A:\SteamLibrary\steamapps\appmanifest_3215050.acf")
+
+
+def installed_build():
+    """-> the installed game's Steam buildid, read from the .acf, or None.
+
+    A build id is VOLATILE-external: it changes without anyone here doing
+    anything (the rig auto-updated into 1.1.0 unasked on 2026-09-08). So it is
+    always read, never stored — a number pasted into a doc will be wrong.
+    """
+    try:
+        with open(ACF, encoding="utf-8", errors="replace") as fh:
+            hit = re.search(r'"buildid"\s+"(\d+)"', fh.read())
+        return hit.group(1) if hit else None
+    except OSError:
+        return None
+
+
+def emit_fingerprints(out):
+    """--emit-fingerprint: route evidence checks by exact build identity.
+
+    Identity alone does not verify a group's claims, scope or dependencies.
+    HOLDS is a routing aid; MOVED identifies citations needing a new baseline.
+    """
+    sf = facts_splitter()
+    groups, total = {}, 0
+    for fact in sf.load_from_dir()["facts"]:
+        total += 1
+        pin = str(fact.get("derived_at") or "").strip()
+        bare = re.sub(r"\s*\(inferred[^)]*\)", "", pin) or "(none)"
+        g = groups.setdefault(bare, {"n": 0, "inferred": 0})
+        g["n"] += 1
+        g["inferred"] += 1 if "(inferred" in pin else 0
+
+    build = installed_build()
+    out.append("")
+    out.append("FINGERPRINTS — derived_at across %d facts; installed game build %s"
+               % (total, build or "UNREADABLE (%s)" % ACF))
+
+    shas, behind = [], []
+    for bare in sorted(groups, key=lambda k: (-groups[k]["n"], k)):
+        g = groups[bare]
+        note = " (%d inferred)" % g["inferred"] if g["inferred"] else ""
+        if bare.startswith("game"):
+            hit = re.search(r"\bbuild\s+(\d+)\b", bare)
+            if build is None:
+                verdict = "cannot check — the .acf is unreadable from here"
+            elif hit and hit.group(1) == build:
+                verdict = ("HOLDS — build identity matches; routing aid only, "
+                           "check claim scope and source dependencies")
+            else:
+                verdict = ("MOVED — installed is %s, so these line citations "
+                           "describe a tree that is not on disk; re-derive "
+                           "against C:\\Dev\\SMR-SrcArchive (EF-083)" % build)
+            out.append("  %-30s %3d fact(s)%s  %s" % (bare, g["n"], note, verdict))
+        elif re.match(r"^[0-9a-f]{7,40}$", bare):
+            shas.append((bare, g))
+        else:
+            out.append("  %-30s %3d fact(s)%s  no fingerprint — re-derive before "
+                       "relying on it" % (bare, g["n"], note))
+
+    # Repo shas collapse to one row: a dozen "N commits behind" lines is noise,
+    # and the only thing a reader does with them is notice none is current.
+    # NOTE: these shas are the FIX PACK's (facts are allocated and mirrored from
+    # there), so most will not resolve in this clone. That is expected.
+    if shas:
+        nfacts = sum(g["n"] for _, g in shas)
+        ninf = sum(g["inferred"] for _, g in shas)
+        for sha, _ in shas:
+            try:
+                behind.append(int(subprocess.check_output(
+                    ["git", "rev-list", "--count", "%s..HEAD" % sha],
+                    cwd=REPO, stderr=subprocess.DEVNULL).decode().strip()))
+            except (subprocess.CalledProcessError, OSError, ValueError):
+                behind.append(-1)
+        live = [b for b in behind if b >= 0]
+        out.append("  %-30s %3d fact(s)%s  %s"
+                   % ("shas (%d distinct)" % len(shas), nfacts,
+                      " (%d inferred)" % ninf if ninf else "",
+                      "behind HEAD by %d–%d commits — re-check before quoting"
+                      % (min(live), max(live)) if live
+                      else "none resolve in this clone (fix-pack shas)"))
+
+
+# ---------------------------------------------------------------------------
+# --regen: write every generated file from its source.
+
+def regen(out):
+    """Rewrite bugs/INDEX.md, facts/INDEX.md and AGENTS.md from their sources.
+
+    Reads EVERY entry on disk, a peer's uncommitted ones included — check
+    `git status docs/agent/` first and commit only your own paths.
+    """
+    wrote = []
+    sb, sf = splitter(), facts_splitter()
+
+    for label, path, lines in (
+            ("bugs/INDEX.md", os.path.join(BUGS_DIR, "INDEX.md"),
+             sb.render_index(sb.load_from_dir())),
+            ("facts/INDEX.md", os.path.join(FACTS_DIR, "INDEX.md"),
+             sf.render_index(sf.load_from_dir()))):
+        body = ("\n".join(lines) + "\n").encode("utf-8")
+        before = lf_bytes(path) if os.path.exists(path) else None
+        if before != body:
+            with open(path, "wb") as fh:
+                fh.write(body)
+            wrote.append(label)
+
+    if os.path.exists(CLAUDE_MD):
+        want = lf_bytes(CLAUDE_MD)
+        if not os.path.exists(AGENTS_MD) or lf_bytes(AGENTS_MD) != want:
+            with open(AGENTS_MD, "wb") as fh:
+                fh.write(want)
+            wrote.append("AGENTS.md")
+
+    out.append("REGEN: %s" % (", ".join(wrote) + " rewritten" if wrote
+                              else "nothing to do — every generated file was fresh"))
+
+
 def main():
     ap = argparse.ArgumentParser(description="SMR-OptInPack doc structure check")
     ap.add_argument("--emit-counts", action="store_true",
                     help="also print the STATE-ready counts block")
+    ap.add_argument("--emit-fingerprint", action="store_true",
+                    help="group facts by derived_at and say which groups still "
+                         "describe the installed game build")
+    ap.add_argument("--regen", action="store_true",
+                    help="rewrite every generated file (bugs/INDEX.md, "
+                         "facts/INDEX.md, AGENTS.md) from its source, then check")
     ap.add_argument("--verify-split", nargs="?", const="HEAD~1", metavar="REV",
                     help="N/A in this repo (kept from the donor): re-runs the "
                          "BUGS split accounting against REV's docs/BUGS.md, "
@@ -759,6 +970,12 @@ def main():
     out = []
     sb = splitter()
     sf = facts_splitter()
+    if args.regen:
+        try:
+            regen(out)
+        except Exception as exc:                      # noqa: BLE001 — report, don't crash
+            print("doccheck: RED — --regen failed: %s" % exc)
+            return 1
     try:
         model = sb.load_from_dir()
         ok = check_entries(model, out)
@@ -770,7 +987,9 @@ def main():
         print("doccheck: RED — %s" % exc)
         return 1
     ok = check_root(out) and ok
+    ok = check_agents_mirror(out) and ok
     ok = check_state(out) and ok
+    push_set_report(out)
     counts = recount(model, out)
     ok = temporary_sweep(out) and ok
     ok = load_order(out) and ok
@@ -793,6 +1012,9 @@ def main():
         except sb.SplitError as exc:
             out.append("  RED  %s" % exc)
             ok = False
+
+    if args.emit_fingerprint:
+        emit_fingerprints(out)
 
     print("\n".join(out))
     print("doccheck: %s" % ("GREEN" if ok else "RED"))
