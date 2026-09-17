@@ -233,7 +233,7 @@ OI-04. **`MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and
 > The spec is the build-out of the tiers **under your directive that it must not need the Save
 > Rescue or any uninstall mod** — which makes "uninstall-clean" and "nothing for the Rescue to do"
 > hard constraints rather than trade-offs. Its build brief
-> (`prompts/DRONE_REBUILD_BUILD.md`) is written and **will not start until item 94 has a line.**
+> (`prompts/DRONE_REBUILD_BUILD_high.md`) is written and **will not start until item 94 has a line.**
 
 97. **The disclaimer's final player-facing wording.** A full draft is spec §7 — what the module
     does, what it does NOT do (it changes which job is served first, never which pile feeds it —

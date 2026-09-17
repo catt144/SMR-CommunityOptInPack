@@ -74,7 +74,7 @@ CODE = os.path.join(REPO, "Code")
 # 71,077 B = 33,066 tokens; this repo's line 28 was 1,734 B). Bytes are the
 # resource a session actually spends at boot. Crossing WARN prints a warn
 # line that close-out reports must copy to the owner verbatim; the owner then
-# fires agent/prompts/STATE_EVICTION.md. The hard cap is the backstop if flags
+# fires agent/prompts/perma/STATE_EVICTION.md. The hard cap is the backstop if flags
 # go unread. The per-line cap keeps lines atomic (grep/diff/Edit-safe) so
 # walls cannot return inside the budget; never widen lines to satisfy anything.
 STATE_WARN_BYTES = 9 * 1024
@@ -90,8 +90,8 @@ STATE_MAX_LINE_BYTES = 200
 # Here the capped files are WORK_PROMPT.md (start-here for any work) and
 # DISPATCH.md (live-issue triage); GENERAL_USE_PROMPT.md is single-sourced in
 # the fix pack and only checked if someone ever copies it here.
-GENERAL_USE = os.path.join(DOCS, "agent", "prompts", "GENERAL_USE_PROMPT.md")
-STANDING_PROMPTS = [os.path.join(DOCS, "agent", "prompts", n)
+GENERAL_USE = os.path.join(DOCS, "agent", "prompts", "perma", "GENERAL_USE_PROMPT.md")
+STANDING_PROMPTS = [os.path.join(DOCS, "agent", "prompts", "perma", n)
                     for n in ("WORK_PROMPT.md", "DISPATCH.md", "GENERAL_USE_PROMPT.md")]
 GENERAL_USE_MAX_LINES = 220
 
@@ -456,12 +456,12 @@ def check_state(out):
         n_state = len(raw)
         if n_state > STATE_MAX_BYTES:
             red.append("STATE.md is %d bytes, hard cap is %d — run "
-                       "agent/prompts/STATE_EVICTION.md; history belongs in "
+                       "agent/prompts/perma/STATE_EVICTION.md; history belongs in "
                        "archive/SESSION_LOG.md" % (n_state, STATE_MAX_BYTES))
         elif n_state > STATE_WARN_BYTES:
             warns.append("STATE.md is %d bytes, warn threshold is %d — copy "
                          "this line VERBATIM into the owner report; the owner "
-                         "fires agent/prompts/STATE_EVICTION.md"
+                         "fires agent/prompts/perma/STATE_EVICTION.md"
                          % (n_state, STATE_WARN_BYTES))
         for i, ln in enumerate(raw.split(b"\n"), 1):
             if len(ln) > STATE_MAX_LINE_BYTES:
@@ -743,6 +743,193 @@ def counts_block(counts):
 CLAUDE_MD = os.path.join(REPO, "CLAUDE.md")
 AGENTS_MD = os.path.join(REPO, "AGENTS.md")
 
+REGEN_CURE = ("  → regenerate with `python tools/doccheck.py --regen` (never by "
+              "hand-editing the generated file)")
+
+# ---------------------------------------------------------------------------
+# Skills, and the Codex mirror.
+#
+# `.claude/` is otherwise local scratch and gitignored; `.claude/skills/` is
+# re-included by .gitignore because it is project material, not scratch.
+# Codex reads `.agents/`, so the same bodies are mirrored there byte-for-byte:
+# a fork would be two vendors working this tree under different instructions.
+# Carried from SMR-BugFixPack 2026-09-17 (PROVENANCE §8).
+#
+# Size is REPORTED, not gated — a skill body is PULL (loaded only on invoke),
+# and this file's PUSH_SET comment says the budget belongs on the push set "as
+# one number, and on nothing else". The donor tore its per-skill caps down for
+# exactly that reason (its owner ruling 2026-09-14); this repo never had them
+# and does not re-introduce them on an agent's judgement.
+
+SKILLS_DIR = os.path.join(REPO, ".claude", "skills")
+CODEX_SKILLS_DIR = os.path.join(REPO, ".agents", "skills")
+
+
+def skill_names():
+    """-> sorted skill folder names that actually hold a SKILL.md."""
+    if not os.path.isdir(SKILLS_DIR):
+        return []
+    return sorted(n for n in os.listdir(SKILLS_DIR)
+                  if os.path.isfile(os.path.join(SKILLS_DIR, n, "SKILL.md")))
+
+
+def regen_skills():
+    """Mirror every skill byte-for-byte into .agents/skills/ for Codex."""
+    wrote = []
+    for name in skill_names():
+        dst_dir = os.path.join(CODEX_SKILLS_DIR, name)
+        if not os.path.isdir(dst_dir):
+            os.makedirs(dst_dir)
+        with open(os.path.join(SKILLS_DIR, name, "SKILL.md"), "rb") as fh:
+            data = fh.read()
+        dst = os.path.join(dst_dir, "SKILL.md")
+        if not os.path.exists(dst) or open(dst, "rb").read() != data:
+            with open(dst, "wb") as fh:
+                fh.write(data)
+            wrote.append(name)
+    return wrote
+
+
+def check_skills(out):
+    """Both vendors' copies identical; body sizes reported, never gated."""
+    names = skill_names()
+    if not names:
+        out.append("SKILLS: none")
+        return True
+    ok, rows, total = True, [], 0
+    for name in names:
+        src = os.path.join(SKILLS_DIR, name, "SKILL.md")
+        dst = os.path.join(CODEX_SKILLS_DIR, name, "SKILL.md")
+        total += len(lf_bytes(src))
+        if not os.path.exists(dst):
+            out.append("SKILLS: RED  .agents/skills/%s/SKILL.md is missing — Codex "
+                       "cannot see this skill" % name)
+            out.append(REGEN_CURE)
+            ok = False
+        else:
+            with open(src, "rb") as a, open(dst, "rb") as b:
+                if a.read() != b.read():
+                    out.append("SKILLS: RED  %s differs between .claude/skills/ and "
+                               ".agents/skills/ — the two vendors would read "
+                               "different instructions" % name)
+                    out.append(REGEN_CURE)
+                    ok = False
+        rows.append("    %-24s %5d B" % (name, len(lf_bytes(src))))
+    out.append("SKILLS: %d skill(s), %d B of bodies, mirrored to .agents/skills/"
+               % (len(names), total))
+    out.extend(rows)
+    return ok
+
+
+# ---------------------------------------------------------------------------
+# The prompt map.
+#
+# Carried from SMR-BugFixPack 2026-09-17. Its owner ruled (its checklist 174)
+# that the map lists LIVE prompts only: a row that outlives its file is how a
+# next session fires spent work. The donor's `ledger-exception` class and its
+# migration-allowance machinery are NOT carried — this repo has no such ledger
+# and no migration debt, and a class nothing can legally declare is a trap.
+
+PROMPT_MAP_DEFAULT_CLASSES = {
+    "perma": "prompt",
+    "root": "prompt",
+    "chain": "live",
+}
+
+
+def prompt_map_rows(mapfile):
+    """Parse map paths and declared classes, including grouped first cells."""
+    rows = {"perma": {}, "root": {}, "chain": {}}
+    struck, malformed = [], []
+    table = None
+    for lineno, line in enumerate(read(mapfile), 1):
+        if line.startswith("## "):
+            table = ("perma" if "perma" in line
+                     else "root" if "Root" in line
+                     else "chain" if "Chain folders" in line else None)
+            continue
+        if table is None or not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+        if len(cells) < 2:
+            continue
+        name_re = r"`([^`]+/)`" if table == "chain" else r"`([^`]+\.md)`"
+        names = re.findall(name_re, cells[0])
+        if not names:
+            continue
+        if "~~" in cells[0]:
+            struck.append((table, cells[0], lineno))
+            continue
+        classes = re.findall(r"`([^`]+)`", cells[1])
+        if len(classes) != 1:
+            malformed.append("line %d %s row needs exactly one declared class"
+                             % (lineno, table))
+            continue
+        declared = classes[0]
+        for raw in names:
+            name = raw[:-1] if table == "chain" else raw
+            if name in rows[table]:
+                malformed.append("line %d repeats %s/%s" % (lineno, table, name))
+            else:
+                rows[table][name] = declared
+    return rows, struck, malformed
+
+
+def check_prompt_map(out):
+    """Gate prompt paths, chain directories, and declared classifications."""
+    prompts = os.path.join(DOCS, "agent", "prompts")
+    perma = os.path.join(prompts, "perma")
+    mapfile = os.path.join(prompts, "README.md")
+    if not os.path.exists(mapfile):
+        out.append("PROMPT MAP: RED  docs/agent/prompts/README.md is missing "
+                   "— the one-offs have no map")
+        return False
+    if not os.path.isdir(perma):
+        out.append("PROMPT MAP: RED  docs/agent/prompts/perma/ is missing")
+        return False
+    rows, struck, malformed = prompt_map_rows(mapfile)
+    disk = {
+        "perma": {f for f in os.listdir(perma) if f.endswith(".md")},
+        "root": {f for f in os.listdir(prompts)
+                 if f.endswith(".md") and f != "README.md"},
+        # Descendants are deliberately not enumerated: mapped LIVE chains may
+        # contain their README and evidence. The map itself is the root README
+        # excluded above. Neither exception licenses a supporting root file.
+        "chain": {f for f in os.listdir(prompts)
+                  if f != "perma" and os.path.isdir(os.path.join(prompts, f))},
+    }
+    red = ["  RED  prompts/README.md %s" % finding for finding in malformed]
+    for cell in struck:
+        red.append("  RED  prompts/README.md keeps a struck-through row (%s) — a "
+                   "fired prompt leaves the map entirely" % cell[1])
+    where = {"perma": "perma/", "root": "", "chain": ""}
+    noun = {"perma": "file", "root": "file", "chain": "directory"}
+    for table in ("perma", "root", "chain"):
+        mapped = set(rows[table])
+        suffix = "/" if table == "chain" else ""
+        for name in sorted(mapped - disk[table]):
+            red.append("  RED  prompts/README.md has a row for %s%s%s and the %s is "
+                       "not there — delete the row in the commit that consumes it"
+                       % (where[table], name, suffix, noun[table]))
+        for name in sorted(disk[table] - mapped):
+            red.append("  RED  docs/agent/prompts/%s%s%s exists and the map does not "
+                       "list it — every prompt or chain is reachable from the map"
+                       % (where[table], name, suffix))
+        for name, declared in sorted(rows[table].items()):
+            expected = PROMPT_MAP_DEFAULT_CLASSES[table]
+            if declared != expected:
+                red.append("  RED  prompts/README.md declares %s%s as `%s`; exact "
+                           "path requires `%s`"
+                           % (where[table], name, declared, expected))
+    if red:
+        out.extend(red)
+        out.append("PROMPT MAP: RED  %d finding(s)" % len(red))
+        return False
+    out.append("PROMPT MAP: PASS — %d perma + %d one-off + %d chain row(s) agree "
+               "with disk in both directions; declared classes hold; no tombstones"
+               % (len(rows["perma"]), len(rows["root"]), len(rows["chain"])))
+    return True
+
 
 def lf_bytes(path):
     """Content bytes for budgets and comparisons, independent of CRLF checkout."""
@@ -812,7 +999,7 @@ def push_set_report(out):
     if total > PUSH_BUDGET:
         out.append("    -> every session pays this before it has decided "
                    "anything; evict from the largest, not the easiest "
-                   "(agent/prompts/STATE_EVICTION.md)")
+                   "(agent/prompts/perma/STATE_EVICTION.md)")
 
 
 # ---------------------------------------------------------------------------
@@ -926,6 +1113,8 @@ def regen(out):
                 fh.write(body)
             wrote.append(label)
 
+    wrote.extend("skill:" + n for n in regen_skills())
+
     if os.path.exists(CLAUDE_MD):
         want = lf_bytes(CLAUDE_MD)
         if not os.path.exists(AGENTS_MD) or lf_bytes(AGENTS_MD) != want:
@@ -986,6 +1175,8 @@ def main():
         return 1
     ok = check_root(out) and ok
     ok = check_agents_mirror(out) and ok
+    ok = check_skills(out) and ok
+    ok = check_prompt_map(out) and ok
     ok = check_state(out) and ok
     push_set_report(out)
     counts = recount(model, out)

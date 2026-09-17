@@ -39,7 +39,7 @@ The probe count is the SHARED suite's, not this mod's share. Gate MEASURED `8/8`
 - ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling.
   ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): D09 `DroneStatDials` is open to
   design + playtest work under FIX_POLICY, A/B per change. D06 was too, and is now RETIRED/PARKED (below).
-  ⛔ The D06 rebuild spec `reports/DRONE_REBUILD_DESIGN_20260901.md` and brief `prompts/DRONE_REBUILD_BUILD.md`
+  ⛔ The D06 rebuild spec `reports/DRONE_REBUILD_DESIGN_20260901.md` and brief `prompts/DRONE_REBUILD_BUILD_high.md`
   were written against 1.0.7 and are NOT re-based; DECISIONS_OWED 94 then 92 still gate any build.
 - ⛔ `EF-055`/`EF-056`: junction pull = real uninstall; a campaign COPY still runs its autosave
   rotation (pre-copy autosaves first, outside the save folder).
