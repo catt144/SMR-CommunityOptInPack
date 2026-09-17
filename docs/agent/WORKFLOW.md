@@ -2,185 +2,51 @@
 
 > ## ⭐ ADAPTED COPY — read this ledger before you trust a clause
 >
-> Copied from `SMR-BugFixPack/docs/agent/WORKFLOW.md` @ `33d69f5` on 2026-08-12
-> (chain `split-optins`). **Every harness rule is kept VERBATIM and binds here:**
-> probe hygiene and its ARM gate, the resolution cross-check, leg design, the
-> log-review rule ("never silently discount a line"), the cheats rule, the
-> co-run protocol, the prompt/brief authoring requirements, EF-047/048/049/050,
-> the PowerShell 5.1 hazards, the parse sweep, the `PROBE SWEEP:` line.
+> Copied from `SMR-BugFixPack/docs/agent/WORKFLOW.md` at `33d69f5` on 2026-08-12
+> (chain `split-optins`). Its harness rules bind here: probe hygiene and the ARM gate, resolution
+> cross-checks, leg design, log review, cheats, co-runs, prompt authoring, EF-047/048/049/050,
+> PowerShell 5.1 hazards, the parse sweep and the `PROBE SWEEP:` line.
 >
-> **What changed, and nothing else:**
+> The six adaptations are:
 >
-> 1. **Layout + Install for testing** — re-pointed at this repo, its junction
->    (`SMR-OptInPack`), its mod name and its console helper
->    (`SMROptInPack.ListFixes()`). ⭐ The TestKit is SHARED, not copied.
-> 2. **The namespace** — `SMRFixPack.*` → `SMROptInPack.*` throughout. ⛔ NOT
->    the persisted `SMRFixPack_*` field names (`agent/PROVENANCE.md` §2).
-> 3. **Reading path** — the two human playtest files live in the FIX PACK repo
->    and are named with their full path; the fact count is this repo's.
-> 4. **BOTH MODS LOADED** — installed as this repo's twin of the donor's clause.
-> 5. **Release steps** — kept in full, with a marked block saying which bullets
->    are N/A here and which apply. Nothing deleted.
+> 1. **Layout and install:** this repo, its `SMR-OptInPack` junction, its title and
+>    `SMROptInPack.ListFixes()` replace the donor's. The TestKit is shared, not copied.
+> 2. **Namespace:** `SMRFixPack.*` becomes `SMROptInPack.*`, but persisted `SMRFixPack_*` field and
+>    modifier-id strings keep their exact bytes (`PROVENANCE.md` §2).
+> 3. **Reading path:** the human playtest file lives in the fix pack; facts and emitted counts are
+>    this repo's. `PLAYTEST_HELP.md` was dissolved there on 2026-09-15.
+> 4. **Both mods loaded:** the standing rule below is this repo's twin of the donor's clause.
+> 5. **Release:** use this document's opt-in-specific release duties, not the donor's release list.
+> 6. **Donor names and figures:** bare `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`,
+>    `AUDIT_FINDINGS.md`, `PRIOR_ART_SURVEY.md`, `DRONE_RESEARCH_BRIEF.md`, `CORUN_RIG_SPEC.md`,
+>    `MOD_DESCRIPTION.md`, `F86_EXECUTION_PLAN.md`, every `F##`/`C##`/`D13`, `Fix_*.lua`, and donor
+>    site/module counts resolve under `C:\Dev\SMR-BugFixPack`, never here. A future cross-mod sweep
+>    searches those names as well as `SMRFixPack`/`Community`; `\bC[0-9]{2}\b` over-reports co-run
+>    corrections and audit ids, so it cannot supply a count by itself.
 >
-> Where a clause says "the pack", read "this mod" — except where it names the
-> Relaunched Fix Pack (pre-2026-08-17 records: "Community Fix Pack") explicitly,
-> which after the split is a DIFFERENT product.
->
-> 6. **Bare file names and counts inside donor clauses are the FIX PACK's**
->    (marked 2026-09-01 by a contamination audit; its report was deleted
->    2026-09-17 once every finding was homed — `git log -S` has the text):
->    `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`, `AUDIT_FINDINGS.md`,
->    `PRIOR_ART_SURVEY.md`, `DRONE_RESEARCH_BRIEF.md`, `CORUN_RIG_SPEC.md`,
->    `MOD_DESCRIPTION.md`, `F86_EXECUTION_PLAN.md`, every `F##`/`C##`/`D13`
->    entry and every `Fix_*.lua` resolve under `C:\Dev\SMR-BugFixPack`, never
->    here — this repo holds none of them (`git ls-files` proves it). The "~29
->    full replacements" and the `F87`/`F86` site counts are the fix pack's
->    figures; this mod's are measured by its own tools (`l3`, `l5`, `l6`).
->    ⛔ **A future cross-mod sweep must grep for those file names ABOVE, not
->    just for `SMRFixPack`/`Community`** — the 2026-09-01 audit's worst misses
->    were stale lines carrying none of its tokens, found only by reading the two
->    live docs whole. And `\bC[0-9]{2}\b` OVER-REPORTS: it also matches co-run
->    correction ids and audit item ids that are not entries, so a count from
->    that grep alone is wrong.
+> “The pack” means this mod unless the Relaunched Fix Pack is named explicitly. Pre-split records
+> use older names; translate them mentally and do not edit them.
 
-## Reading path for a new session
-
-1. `docs/agent/STATE.md` — current state: authoritative build counts, open
-   owner decisions, next gates (`CLAUDE.md`, auto-loaded, points here).
-   Session history lives in `docs/archive/SESSION_LOG.md` (append-only,
-   newest first).
-2. `docs/agent/facts/INDEX.md` — one row per proven engine behavior (several
-   are the opposite of what the code suggests). Scan all the rows — ⛔ never
-   hand-type how many, `python tools/doccheck.py --emit-counts` prints it (this
-   line said "68 at 2026-08-31" until 2026-09-17, when it was 107) — so you know
-   what exists; OPEN the fact files your job touches
-   and read them before writing or reviewing any module. Reading every file as
-   a matter of course is the cost the 2026-08-03 restructure removed — don't
-   reinstate it.
-   ⚠️ **This folder is a COPY of the fix pack's, taken 2026-08-12** and the two
-   diverge from that date on: a fact learned here should usually be carried
-   across, and a fact learned there will not appear here by itself.
-   ⛔ **`EF-###` ids are ALLOCATED BY THE FIX PACK (rule adopted 2026-08-31).**
-   Both repos minted their own numbers after the split and collided: this
-   repo's `EF-057`/`EF-058` (2026-08-16) were different facts from the fix
-   pack's `EF-057`/`EF-058` (2026-08-15/19), so a cross-repo citation was
-   ambiguous for two weeks. Resolved 2026-08-31 by re-syncing this folder from
-   the fix pack @ `bec2e06` (this repo's two became `EF-061`/`EF-062`, their
-   donor ids). From now on: a fact learned HERE is filed in the fix pack FIRST
-   (or its next id reserved there in the same sitting), then mirrored here at
-   the SAME id; a periodic re-sync copies donor-updated shared facts across
-   verbatim. Never mint an `EF-` number in this repo alone.
-3. `docs/agent/bugs/INDEX.md` — the defect tracker's entry point: status,
-   priority and evidence label per row; the entry file carries the narrative.
-   Update the ENTRY in the same change that adds or edits a fix. **`INDEX.md`
-   is GENERATED — never hand-edit it.** A status still lives in two places, but
-   both are now inside the entry file: front-matter `status:` and the heading
-   tag. doccheck goes red if they disagree, and red on a stale INDEX.
-4. `docs/agent/FIX_POLICY.md` — how we patch. Binding for every fix.
-5. **`docs/DECISIONS_OWED.md`** — THIS mod's owner-decision list since 2026-09-12
-   (owner, fix-pack checklist 167). Read it before asking the owner anything.
-   ⚠️ **`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`** — the owner's live
-   playtest queue, the reporting protocol, and the three decisions that stayed
-   there because they bind the FIX PACK (the shared TestKit, `EF-` id allocation,
-   a fix-pack feature parked by analogy);
-   ⛔ its former companion `PLAYTEST_HELP.md` — ground rules, console facts, the
-   verified command table, Test Kit helpers and save-fixture recipes — was
-   DISSOLVED there on 2026-09-15 (`c91310f`) and its content consumed into the
-   surrounding documents; do not route to that filename.
-   **The checklist is single-sourced in the FIX PACK repo on purpose** — the
-   owner plays one game with both mods loaded, and `docs/README.md` explains
-   the decision. An owner decision arising from work HERE still goes THERE.
-
-## Binding authoring rules (adopted 2026-08-03, DOC_STRUCTURE_REVIEW → spec §7)
-
-Recommendations until this date; **binding from it.** They are cheap at write
-time and each one is named after the miss it prevents.
-
-1. **Execution markers (R2).** Every console line, lever or command printed in a
-   human doc carries `[RAN <date>, log <name>]` or `[NEVER RUN]`. Unmarked, a
-   never-executed snippet reads exactly like a proven one — the PT-61 near-miss
-   was a gate that would have parked a whole attended sitting.
-2. **Provenance words (R3).** Load-bearing claims in entries, specs and briefs
-   are prefixed **MEASURED / SOURCE / INFERRED / INHERITED / GUESS**, and **the
-   ROUTE sentence is tagged separately from its citations** ("therefore the only
-   way is…" is a different claim from the lines it cites — the project has been
-   wrong about a route while every cited line was right, twice). ⛔ **A blanket
-   verification claim over a table is banned: the tag goes per row.**
-3. **TAKEABLE-WHEN on routed items (R5).** Routing names the owner prompt AND
-   the precondition ("needs a suite run" / "a colony with the law enacted" /
-   "the owner at the keyboard"). An item whose precondition is a *situation*
-   goes to the checklist as a rider immediately, not to a prompt that will
-   forward it again.
-4. **Archive load-bearing logs (R8).** If a leg's numbers will be cited by a
-   status flip, copy the log into the repo in the SAME commit. The game's
-   rotation cap is ~20 files and it has already eaten founding measurements.
-   Cannot be applied retroactively, which is the whole argument for now.
-   ⛔ **`.gitignore` line 2 is `*.log`, so the archive copy needs
-   `git add -f`** — a plain `git add` drops it SILENTLY and the commit looks
-   complete (one commit shipped with a false archive claim before this was
-   caught, 2026-08-03).
-5. **Owner-decision mirroring (R10).** Every item needing the owner's call is
-   mirrored into `docs/DECISIONS_OWED.md` (one line + pointer) — or, for the three
-   classes that bind the FIX PACK, into its `docs/PLAYTEST_CHECKLIST.md` — and struck
-   the moment it is decided. Items raised here from 2026-09-17 use an `OI-` id. **An owner
-   decision recorded only in an entry or a report is not considered asked.**
-
-Two mechanical rules that came with the same restructure:
-
-6. **`INDEX.md` in `agent/bugs/` and `agent/facts/` is GENERATED.** Edit the
-   entry or fact file; doccheck regenerates the index and goes red on any
-   difference, and red when front-matter `status:` and the heading tag disagree.
-   **Edit order for a status flip** (adopted 2026-08-03, standing-prompts
-   redesign O4): front-matter `status:` first — the index regenerates from
-   it — then the heading tag to match, in the same edit. A red doccheck means
-   you stopped halfway.
-7. **Run `python tools/doccheck.py` before committing doc changes** — red
-   blocks. One-time setup: `git config core.hooksPath tools/hooks`.
-8. **STATE.md is BYTE-budgeted with an eviction rule** (owner ruling
-   2026-08-18, fix-pack checklist 42, carried here 2026-08-31; the 2026-08-03
-   60-line cap is RETIRED — it was satisfied while being defeated, this repo's
-   line 28 had grown to 1,734 bytes). doccheck enforces warn (9 KiB) / hard
-   (18 KiB) byte caps plus a 200-byte per-line cap; a doccheck WARN must be
-   copied VERBATIM into the owner report, and the owner fires
-   `agent/prompts/perma/STATE_EVICTION.md`. Format for machine efficiency and
-   safety: one fact per line, never widen or pack lines to satisfy a budget —
-   evict, don't compress. Resolved or superseded material moves to
-   `docs/archive/SESSION_LOG.md` (append-only, newest-first, `tags:` line).
-   Evict history, never obligations — open gates, holds, owner decisions and
-   the counts block stay.
+Process rules for this repo. Code rules are `FIX_POLICY.md`; global duties and the two bans are in
+`CLAUDE.md`; orientation, entry/fact filing, documentation edits, prompt authoring and session close
+are the skills in `.claude/skills/`. Situational binding protocol lives in `support/`; the map is
+`docs/README.md`.
 
 ## Layout
 
-- **Dev repo (this folder):** `C:\Dev\SMR-OptInPack` — git-versioned, canonical.
-  Remote `github.com/catt144/SMR-CommunityOptInPack`, **public** by owner ruling
-  2026-08-13 (chain rule 9's "no remote unasked" was satisfied by asking). Push
-  what you commit, the same as the fix pack.
-- **Companion mod, a separate product:** `C:\Dev\SMR-BugFixPack` (Relaunched Fix
-  Pack, remote `github.com/catt144/SMR-CommunityFixPack`). Shares no files with
-  this repo. Its `docs/archive/` holds all pre-2026-08-12 history, and its
-  `docs/PLAYTEST_CHECKLIST.md` is the owner's playtest file for BOTH mods
-  (`PLAYTEST_HELP.md` was dissolved there 2026-09-15, `c91310f`).
-- **Game install:** `A:\SteamLibrary\steamapps\common\Project Spark`
-  (Surviving Mars: Relaunched; "Project Spark" is the Steam folder codename).
-- **Shipped Lua source (read-only reference):** `<game>\ModTools\Src`
-  (`Lua\`, `CommonLua\`, `Data\`, `DLC\`). We never modify anything under the
-  game folder.
-- **Mod install point:** `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack`
-  — a directory junction into the dev repo (see below), so edits are live. The
-  fix pack has its own junction (`SMR-BugFixPack`) beside it.
-- **Tools:** `tools/` — doccheck (the commit gate: doc structure, STATE
-  budget, load order, the F107 wrap check), the release gates
-  (`upload_preflight`, `pack_predict`, `pack_list`) and the audit instruments
-  (`l2`…`l8`, `harvest_wrap_targets`, `audit_preset_fields`). Inventory, what
-  each proves and where it came from: `agent/PROVENANCE.md` §6. Every
-  instrument is an over-reporter by design — a row is adjudicated by reading
-  the source line, never by the count.
-- **Companion TestKit** (never shipped): `C:\Dev\SMR-BugFixPack-TestKit`
-  (own git repo, local-only by decision — see its README). ⭐ **ONE kit serves
-  BOTH mods** — it is not forked, and a probe change is made once, there. This
-  mod's surface in it is `SMRTest.OptStatus` / `SMRTest.OptMissing` /
-  `SMRTest.FromOptInPack`; `OptMissing` SKIPs (never FAILs) when this mod is
-  simply not installed.
+- Dev repo: `C:\Dev\SMR-OptInPack`, git-versioned and canonical. Its public remote is
+  `github.com/catt144/SMR-CommunityOptInPack` (owner, 2026-08-13); push what you commit.
+- Companion product: `C:\Dev\SMR-BugFixPack`. It shares no runtime files with this mod. Its
+  `docs/PLAYTEST_CHECKLIST.md` is the owner's single playtest queue for both mods.
+- Game install: `A:\SteamLibrary\steamapps\common\Project Spark`. Shipped Lua source is the
+  read-only `<game>\ModTools\Src`; versioned source trees are under
+  `C:\Dev\SMR-SrcArchive\<version>\Src`. Never modify the game folder.
+- Mod install point: `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack`, a junction to this
+  repo, so the checked-out tree is live. The fix pack has a separate junction beside it.
+- Tools: `tools/`; `tools/README.md` and `PROVENANCE.md` §6 say what each instrument proves. Audit
+  instruments over-report by design: adjudicate a row from its source, never from the tally.
+- Shared TestKit, local-only and never shipped: `C:\Dev\SMR-BugFixPack-TestKit`. Change a shared
+  probe once there. `SMRTest.OptMissing` SKIPs when this mod is not installed.
 
 ## Install for testing
 
@@ -189,638 +55,230 @@ New-Item -ItemType Directory -Force "$env:APPDATA\Surviving Mars Relaunched\Mods
 New-Item -ItemType Junction -Path "$env:APPDATA\Surviving Mars Relaunched\Mods\SMR-OptInPack" -Target "C:\Dev\SMR-OptInPack"
 ```
 
-Then enable "Relaunched Fix Pack: Opt-In Modules" in the game's Mod Manager (the
-decided title, `metadata.lua`; renamed with the family 2026-08-17 —
-`agent/PROVENANCE.md` §3). After editing Lua, restart the game.
-⛔ **A Mod-Manager disable takes effect only after a FULL PROCESS RESTART**, and
-re-enabling the owner's mods is the owner's call, not an agent's. **Opt-module first-enable caveat is FIXED (audit 2026-07-29):**
-hooks now install at file scope, so a first mid-session Mod Options enable
-works without a relaunch.
+Enable “Relaunched Fix Pack: Opt-In Modules” in the Mod Manager and restart after editing Lua. A
+Mod-Manager disable takes effect only after a full process restart; re-enabling an owner's mod is
+the owner's call. `SMROptInPack.ListFixes()` prints this mod's module states. The fix pack has its
+own registry and prefix; grep logs with the full `[CommunityOptInPack]` token because `Pack]`
+matches both.
 
-In-game checks: console `SMROptInPack.ListFixes()` prints each module's status
-(active / inactive+reason / disabled / error). The fix pack's own
-`SMRFixPack.ListFixes()` still exists in ITS env when it is installed — two
-registries, two log prefixes (`[CommunityOptInPack]` vs `[CommunityFixPack]`).
-⛔ **Grep logs with the full bracketed token**: `Pack]` matches both.
+## Per-module discipline
 
-## Per-fix discipline
+1. Every module links to its `bugs/` entry and obeys `FIX_POLICY.md`.
+2. Before patching, re-verify the target in the archived source tree for the cited build. Runtime
+   `apply()` checks return a reason rather than erroring if a target moved.
+3. Parse-check every edited Lua file before commit with Python + `luaparser`, calling
+   `ast.parse(open(path, encoding="utf-8-sig").read())`; a syntax error in any listed file breaks
+   the whole mod at load.
+4. Use one commit per module or tight unit. Update its entry and any player-facing
+   `metadata.lua`/`items.lua` text in the same commit as the code.
 
-1. Every fix links to an `agent/bugs/` entry with file:line evidence (FIX_POLICY §4).
-2. Before patching, re-verify the target against the cited Src lines; the
-   apply() self-check then guards it at runtime and returns a reason string
-   (never errors) if a game update changed it.
-3. Parse sweep before any commit that touches Lua: python + `luaparser`,
-   `ast.parse(open(f, encoding='utf-8-sig').read())` over every edited file —
-   a syntax error in ANY listed file breaks the whole pack at load.
-4. One commit per fix or tight group; agent/bugs/ updated in the same commit;
-   MOD_DESCRIPTION.md updated in the same commit as the code change it
-   describes. ⚠️ **N/A here (marked 2026-09-01):** `MOD_DESCRIPTION.md` is the
-   fix pack's frozen draft in ITS `docs/archive/`; this mod's player-facing text
-   is `metadata.lua` (`description`/`short_description`/`last_changes`) and the
-   `items.lua` `Help` strings — those are what a code change updates in step.
+## Records and rulings
 
-## fpk verification — RELEASE GATE, re-run after every game update
+- Every console line, lever or command printed in a human doc carries `[RAN <date>, log <name>]` or
+  `[NEVER RUN]`.
+- Load-bearing claims in entries, specs and briefs are tagged MEASURED / SOURCE / INFERRED /
+  INHERITED / GUESS per row, never once over a table. Tag the route sentence separately from its
+  citations.
+- Routed work names its prompt and takeable precondition. A situation-dependent item goes directly
+  to the owner's checklist as a rider, not through a prompt that will forward it again.
+- A log cited by a status flip is copied into `docs/archive/` in the same commit with `git add -f`;
+  `.gitignore` silently drops ordinary `*.log` adds.
+- A decision about this mod is not asked until it is mirrored into `docs/DECISIONS_OWED.md` under
+  the next `OI-` id, and leaves that list when decided. The kernel names the three classes that
+  instead bind the fix pack and go to its checklist.
+- For a status flip, edit the entry's front-matter `status:` first and its heading tag second in the
+  same edit; regenerate rather than hand-editing `bugs/INDEX.md`.
 
-All agent/bugs/ line numbers come from `ModTools\Src`; the game executes
-`Packs\Lua.fpk` + `Data.fpk`. **Parity is PROVEN for the current build
-(1.0.7.396349, extraction diff 2026-07-29): 2,250/2,256 shipped Lua files
-byte-identical to Src; the 5 divergences are engine/tooling only** (details in
-agent/facts/). The discipline guards *future* updates:
+## After a game patch
 
-1. After every game patch, re-extract `Packs\Lua.fpk` (FLPK container, zstd
-   per file) and diff against the new Src tree; re-verify every replacement
-   fix's target function byte-for-byte (the ~29 full replacements are the
-   pack's patch-rot exposure — C1 in `docs/archive/AUDIT_FINDINGS.md`).
-2. Runtime self-checks stay mandatory in every apply() regardless (existence/
-   layout checks only — the sandbox has no introspection; they catch renamed/
-   removed targets, NOT an edited same-named function — hence step 1).
+Source citations come from `ModTools\Src`, while the game executes `Packs\Lua.fpk` and `Data.fpk`.
+Read the installed build and fact hold/move groups with `python tools/doccheck.py
+--emit-fingerprint`; never infer them from a prior run.
 
-## ⛔ Probe hygiene — HARD GATE before ANY testing (owner, 2026-08-01)
+1. Archive an unarchived source tree under `C:\Dev\SMR-SrcArchive\<version>\Src` before Steam
+   overwrites it.
+2. Re-extract `Packs\Lua.fpk` and diff it against that build's Src tree; re-verify every full-body
+   replacement target byte-for-byte.
+3. Run the applicable source-diff instruments routed by `tools/README.md`, and read both source
+   bodies before claiming a vanilla fix, continued need, harmlessness or complete coverage.
+4. Alongside the fpk diff, re-run the save-exposure enumeration over all five shapes: class method,
+   table slot, global assignment, preset field and own thread. Persisted-body version skew is a
+   standing failure mode, not only a launch-time one.
 
-**No test session — attended or unattended — starts, and NO result is
-recorded, until the stale-probe sweep has run and reported clean.** Stale
-probes are how false facts got recorded: leftover instrumentation logs, hooks
-messages, creates threads, and contaminates both the measurement and the log
-it is read from (the 2026-07-31 probes were still armed days after their
-questions were answered).
+Runtime existence/layout checks remain mandatory, but cannot detect an edited same-named function.
+A clean mechanical sweep is not evidence that every module still works.
 
-**The sweep (mechanical, one command):**
+## Probe hygiene (owner, 2026-08-01)
 
-```
+No attended or unattended test starts and no result is recorded until this sweep is clean:
+
+```text
 grep -rln "TEMPORARY" Code/ ../SMR-BugFixPack-TestKit/Code/
 ```
 
-**CLEAN =** zero hits, **or** every hit is a probe that THIS session's test
-design explicitly declares it needs — named in the brief and in the todo
-list. Anything else: the session repairs first (delete the file + its
-metadata/items lines, commit) or stops and reports.
+CLEAN is zero hits, or exactly the probes declared by this session's brief and live work list.
+Anything else is repaired first (delete file and registration, then commit) or the session stops.
 
-**The rules that make this work:**
+- Every temporary probe/experiment has literal `TEMPORARY` in its header. A temporary probe without
+  it is a defect: file it on sight.
+- A probe is stale when its answer is recorded. Delete it and its registration in the same commit
+  that records the answer.
+- Every commit that flips an entry status, records a MEASURED fact or reports PASS/FAIL carries
+  `PROBE SWEEP: clean` or `PROBE SWEEP: armed: <files>, declared by <test>`. Re-verify a result
+  committed without that line before building on it.
+- The sweep covers this repo and the shared TestKit.
+- A probe file is present in `Code/` only while its run is happening (owner, 2026-08-04): placing
+  and running are one act; deleting and recording are one commit. Until the sitting, keep source
+  as a fenced block in the brief, where it is inert because only `metadata.lua`'s code list loads.
+  At the sitting place and register it, parse-check it, run, then remove it with the result.
+  `doccheck` deliberately blocks a commit while a probe is armed; `--no-verify` is not an escape.
+- Long-lived instrumentation has no established home in this repo. Adding one changes the shipped
+  code list and requires an owner ruling; it is not a `TEMPORARY` probe.
 
-1. **Every temporary probe/experiment file MUST carry the literal word
-   `TEMPORARY` in its header comment** — that is what the sweep greps for.
-   A temp probe without the marker is itself a defect: file it on sight.
-2. **A probe is STALE the moment its answer is recorded.** Deletion belongs
-   in the SAME commit that records the answer (docs-never-lag, applied to
-   instrumentation).
-3. **The sweep result is part of the record:** every commit that flips a
-   agent/bugs/ status, records a MEASURED fact, or reports a PASS/FAIL carries a
-   `PROBE SWEEP:` line — either `clean` or `armed: <files>, declared by
-   <test>`. **A result commit without that line is invalid and gets
-   re-verified before anything builds on it.**
-4. Both repos are in scope (the pack AND the TestKit) — the
-   `GetPriorityForRequest` experiment that seeded agent/facts/ lived in the
-   PACK's code list.
-5. ⛔ **A PROBE FILE IS PRESENT IN `Code/` ONLY WHILE ITS RUN IS ACTUALLY
-   HAPPENING** (owner decision, 2026-08-04 — *"I want to do whatever is safest,
-   I do not want to get back into the situations where armed probes start
-   giving us false problems or issues"*). **Placing the file and running are the
-   same act; deleting it and recording the answer are the same commit.** There
-   is no state in between, and therefore no armed probe can outlive the sitting
-   that needed it.
+## Testing checklist per module
 
-   **What made this a decision rather than an observation.** `doccheck.py`'s
-   `temporary_sweep()` (`tools/doccheck.py:501-517`) implements only the FIRST
-   half of the CLEAN definition above — any marker in `Code/` is red, no
-   declared-probe exception — and `tools/hooks/pre-commit` blocks on red. So a
-   session may legitimately declare a probe but **cannot commit anything while
-   it is armed**, which collides with the co-run rule that all prep is committed
-   before the owner sits down. Found by co-run #0 (2026-08-04), the first job to
-   arm a probe since doccheck landed. **The tool was NOT loosened, deliberately:
-   a hatch a hurried session can open without saying so re-creates the
-   2026-07-31 incident exactly.** ⛔ **`--no-verify` is not an alternative** —
-   the hook documents its meaning as *"the docs are inconsistent, I know"*,
-   which is a false statement when the only red is a declared probe.
+Leg-design rules:
 
-   **How prep works under this rule, and it costs nothing.** Everything else
-   commits normally and early: the staged save copy, the measure-moments list,
-   the entry and checklist edits, and **the probe's source itself as a fenced
-   code block in the session's own brief or spec**. Docs are not swept (the
-   sweep walks `Code/` and TestKit `Code/` only), and a probe parked in a doc is
-   **inert by construction** — the mod loads only files listed in
-   `metadata.lua` `code`, all of which live under `Code/`, so a file that is not
-   there cannot arm anything, log anything, or contaminate a measurement. At the
-   sitting: write the file into `Code/`, add its metadata line, parse sweep,
-   run. Then delete both in the commit that records the answer, per rule 2.
+- An objective counter can fail and has a liveness witness beside it.
+- Reach code by its production route and compute expectations independently from vanilla logic or
+  hand-derived constants, never the module's own patched logic. A guard probe also proves that the
+  guard still delegates.
+- If a selection trigger cannot be steered, invoke the shipped call site on a chosen target and
+  settle selection separately by reconstructing its pool.
+- A negative result states the condition sampled as well as the count; absence of a never-sampled
+  condition is no result.
+- A gate on an owner action detects the condition. A typed token is convenience, never the primary
+  signal.
 
-   **If the sitting slips, nothing is stranded and nothing is armed** — which is
-   the whole point.
+Steps:
 
-   ⚖️ **In force. The owner-requested recheck RAN 2026-08-04 (corun-rig prompt
-   4) and the rule STANDS as written.** The diagnosis re-verified from primary
-   sources (`temporary_sweep()` really has no conditional path,
-   `tools/doccheck.py:501-517`; the hook really blocks on red; the CLEAN clause
-   reads as quoted). The one claim the diagnosis had left unverified is now
-   SOURCE-verified: **`ModDef:LoadCode` executes only the files listed in
-   `metadata.lua` `code`** — both of its loops iterate `ipairs(self.code)`,
-   no directory is scanned (`Mod.lua:490-521`) — so a parked probe is inert by
-   construction in the strong form, not merely the outside-`Code/` form. The
-   feared cost does not exist: the parse sweep is location-independent
-   (measured GREEN on a parked path during co-run #1 prep), and the declined
-   one-time override measured what any hatch would buy — **0.4 s of machine
-   time and zero owner time** — against a red doccheck in the history and a
-   live disarm deadline. No hatch is recommended; none was built.
-   Two things the rule does NOT say, so nobody reads them into it: it does not
-   ban long-lived instrumentation (that belongs in `90_Loggers.lua` behind an
-   explicit toggle, permanent and non-`TEMPORARY` by design — the file exists
-   and is the established home ⚠️ **N/A here (marked 2026-09-01): no
-   `90_Loggers.lua` exists in THIS repo — nor in the fix pack any more — so
-   long-lived instrumentation here has no established home yet; adding one is a
-   `metadata.lua` `code` change and an owner call**), and it does not excuse skipping the parse
-   sweep — which runs at the sitting, on the real file, before the launch,
-   exactly as before.
+1. Load a save or new game where the behavior is observable; establish the disabled/base control.
+2. Exercise both live Mod Options directions: mid-session enable and mid-session disable, and
+   confirm the promised behavior in each state.
+3. Review `%AppData%\Surviving Mars Relaunched\logs` for errors.
+4. Test uninstall safety separately: save with the mod enabled, disable it in the Mod Manager,
+   restart the full process, then load. A Mod Options toggle is not an uninstall test: hooks and the
+   environment remain loaded and can no-op cleanly while saved residue still breaks.
+5. Update the entry's front-matter status and heading tag together. `tested-attended` means the
+   owner was at the keyboard; `tested-unattended` is a real launch without a witness and carries
+   weight only for instrument-readable behavior. Bare `tested` is legacy and closed to new work
+   (owner, 2026-08-15); do not promote or reinterpret one without its archived evidence.
 
-## Testing checklist per fix
+Run the shared TestKit's `SMRTest.RunAll()` A/B pair when STATE or the brief says it is owed.
 
-**Leg-design rules (adopted 2026-08-04, from the first campaign sittings —
-relocated here from the standing prompt, which is instructions, not a
-logbook):**
-- **An "objective counter" is only objective if it can FAIL, and it needs a
-  liveness witness beside it.** PT-62's loop check counted a delivery the
-  flagged dome was *required* to receive, so it could not fail; F11's `nil`
-  reading only meant something because `#units` and `holder` were read in the
-  same breath, ruling out an empty list and a call that never fired.
-- **When a test's trigger is a selection you cannot steer, delete the lottery:**
-  invoke the shipped call site directly on a chosen target and settle the
-  selection half by reconstructing the pool and reading it (F11's
-  `SetCommand("EnterTransporter", …)` is verbatim the shipped caller's body —
-  an unrunnable rider became a five-minute answer costing zero expeditions).
-- ⛔ **A probe must reach the code the way PRODUCTION reaches it, and must not
-  compute its expectation with the fix's own logic** (adopted in the fix pack
-  2026-08-24, f106-dispatch Pass E — two independent false-greens of the same
-  family; carried here 2026-08-31). A probe that indexes the table the module
-  patched cannot fail on a broken dispatch (the fix pack's F33 probe printed
-  PASS for a month over a suspected no-op); a probe that derives its expected
-  number with the patched arithmetic passes over the defect by construction
-  (its C50 probe). So: dispatch through the production route (an
-  instance-shaped table carrying the built class as its metatable resolves
-  identically, with zero map footprint), and compute expectations
-  independently — vanilla's algorithm or hand-derived constants. Corollary
-  for guard probes: also assert the guard still DELEGATES; a clause that only
-  checks the veto passes for a wrapper that swallows every call. ⚠️ Applied
-  to this mod's probes: D12's clause 1 is the only explicit vanilla control in
-  `60_Probes_Opt.lua`; D01–D04/D07/D09 have none (readiness review 2026-08-31).
-- ⛔ **A negative result must state the CONDITION it sampled, not just the
-  count** (adopted 2026-08-04, co-run #1 correction C10). "Absence under N
-  cycles is a rate bound" holds only if the condition the claim needs was
-  actually present in those N cycles; absence of a never-sampled condition is
-  not a negative result at all. The breach that earned this: a pre-registered
-  corner-slam prediction was recorded REFUTED, with a confident false reason,
-  when its y-axis condition had never been sampled — one 64 s re-run sampled
-  it and confirmed the prediction to the pixel. The rate-bound rule is about
-  counts; this one is about conditions; a verdict needs both.
-- **Gates on owner actions DETECT the condition; they never ask for a typed
-  token as the primary signal** (co-run #1, found by the owner). Run 1's brief
-  told the owner to type a gate the code did not contain — the run proceeded
-  without them and only the owner noticed. Run 2 polled until the condition
-  itself held (cursor actually reading out of range) and could neither be
-  mis-documented nor missed. Typed gates still work as a convenience
-  (`GATE 1 RELEASED by owner`); they are one more thing to keep in sync.
+### Log review (owner, 2026-08-01)
 
-1. Load a save (or new game) where the bug reproduces; confirm reproduction
-   with the mod disabled.
-2. Enable mod; confirm fixed behavior.
-3. Confirm no error spam in the log (`%AppData%\Surviving Mars Relaunched\logs`).
-4. Save with mod enabled → **disable the pack in the MOD MANAGER** → load: game
-   must not break (PT-20 shape; FIX_POLICY §3).
-   ⛔ **NOT a Mod Options toggle, ever.** A toggled-off module still has its
-   hooks installed and its env present, so a captured frame resolves
-   `SMROptInPack`, reads inactive and no-ops — **the load reads clean by
-   construction whether or not the module leaks.** `Opt_DroneOverhaul` leaked at
-   98 errors/session with its own toggle OFF; that is how F86 Site 2 was found.
-   Mod-Manager-disable is measured equivalent to a real uninstall (PT-20: 98 vs
-   98 on the same save). `agent/facts/`, "OFF" IS THREE DIFFERENT THINGS.
-5. Set the entry's status to `tested` in `agent/bugs/<ID>.md` — front matter
-   AND heading tag — per the checklist's reporting protocol. Not INDEX.md.
+A flushed log can cover hours of continuous play, and the owner reviews errors with the agent.
+“Not caused by our leg” is an attribution verdict, never a reason to stop looking. Report every
+unexplained line with its age and let the owner decide; stop and say so when something is out of
+the ordinary. Old logs can hold evidence no leg was designed to collect, so mining them for
+`[LUA ERROR]` is useful.
 
-The TestKit's `SMRTest.RunAll()` A/B pair (baseline vs full pack) is the
-regression harness; run it as pre-flight when STATUS says one is owed.
+### Cheats on playtest saves (owner, 2026-08-12)
 
-### ⛔ Log review: NEVER silently discount a line (owner rule, 2026-08-01)
+Playtest colonies are deliberately oversized and under-industrialized. `CheatFill` on food and
+maintenance is life support for the fixture, so cheat markers are the normal condition.
 
-**Two facts about how legs actually run, and they change what a log is** (full
-reasoning: `BUG_LIST_AUDIT.md` §10.6f(i); the same session provisioning is why
-our test colonies are heavily loaded before any agent starts):
+- Count and name them, record the reason, and ask for it once.
+- A cheat is a confound only where the reading intersects what it changed; name the intersection or
+  state there is none.
+- A leg needing a no-cheat run declares that in its brief and prepares a resource-rich save; it
+  cannot ask the owner to stop supporting a colony that needs the cheats.
+- `[SMRTK] SMRTK_<Verb>` is an intentional TestKit action and needs no owner question. A new vanilla
+  `ObjCheat`/`Cheat` marker merits one attribution question. Taint and eligibility are separate
+  (`EF-095`/`EF-096`); no-taint does not prove eligibility.
 
-- **The owner does not close or refresh a game session unless a leg calls for
-  it**, so a flushed log typically covers **1–6 hours of continuous play**.
-- **The owner reviews the errors WITH the agent** and pushes back when a line
-  does not fit the test. That has happened rarely — and **every time it has, it
-  turned up a VANILLA defect that was not on our list.** The practice has paid
-  for itself; it is not ceremony.
+### Both mods loaded (owner, 2026-08-12; active since the split audit that day)
 
-**The rule, and it is the whole point:**
+The rig baseline is the Relaunched Fix Pack and this opt-in mod both enabled. A gate read shows two
+registries in the player's enable order (`EF-054`).
 
-> **"Not caused by our leg" is an ATTRIBUTION verdict, never a reason to stop
-> looking.** Locating an error in time answers *"did we cause this?"* — it does
-> **not** answer *"what is it, then?"* Collapsing those two is how a discovery
-> gets thrown away.
+- Every “the pack” claim names which pack. A `[CommunityFixPack]` line in this mod's leg is expected
+  background, attributed and never treated as foreign.
+- A loaded module is a confound only where the reading intersects what it changes; name the
+  intersection or state there is none.
+- A leg needing either mod off declares it in the brief, budgets a full process restart, and hands
+  re-enable back to the owner.
+- The standing configuration is the compatibility soak. Whole-log review treats cross-mod
+  interference as a named class and routes a hit to both repos.
 
-**So: report every unexplained line, state its age, and let the owner decide.**
-Do not reason privately that a line is hours older than the leg and therefore
-irrelevant, and do not summarise it away as noise. If something is out of the
-ordinary, **stop and say so** before continuing the leg.
-
-**Why this works, stated precisely.** The agent writes its predictions before
-the run (PT-58's P1–P7 shape) and so knows what it *should* see and why; the
-owner independently reviews everything the agent saw and does not know what to
-expect. **Anything outside the prediction is signal by construction** — and the
-one party able to recognise it is the one being asked not to file it away
-quietly. A log that only ever confirms the prediction has been read for the
-prediction, not read.
-
-**Corollary worth acting on:** since the logs span hours of ordinary play, **old
-logs hold evidence no leg was designed to collect.** Mining them for `[LUA
-ERROR]` of any origin is cheap and has a track record.
-
-### ⛔ Cheats on playtest saves are the NORMAL condition, not a deviation (owner rule, 2026-08-12)
-
-**Adopted mid-sitting during `corun-pt60`, in the owner's own words, after a leg
-flagged six `ObjCheat CheatFill` markers as if they needed defending:**
-
-> *"We really need a standing rule that these saves are play testing saves with
-> colonies that are over sized and underindustrialized. They cannot support
-> themselves so cheats are needed to keep the colonies alive and functional. So
-> filling food, and maintance materials are needed for the game to run without
-> all the colonists dieing or buildings breaking. And unless a chain truely
-> needs a no cheat setup we will continue to have to use it, and we will need to
-> prep a save with alot of reasouces if we need a no cheat run"*
-
-**What binds, for every future leg:**
-
-1. **The baseline expectation is that cheats WILL appear in a playtest log.**
-   Every save in the owner's folder is a heavily-loaded test colony built to
-   exercise defects, not a balanced economy — it cannot feed or maintain itself.
-   `CheatFill` on food and maintenance resources is **life support for the
-   fixture**, and without it the colony dies or its buildings break, which
-   destroys the very state the leg was provisioned to read.
-2. **Still count them, still name them, still put the reason in the log** —
-   the reporting duty is unchanged (`git`-archived logs are the record). What
-   changes is the FRAMING: a cheat marker is **attributed**, not excused, and
-   **⛔ ask for the reason ONCE.** (`corun-batch-2`'s own ledger records that
-   the cheat disclosure took three asks; that is the failure mode this rule
-   retires.)
-3. **⛔ A cheat is only a confound if the reading intersects what it changed,
-   and the agent must NAME the intersection or state there is none.** "Cheats
-   were used" is not by itself a caveat on a verdict — e.g. filled storages do
-   not touch track shells, dome-Saint modifiers, colony `label_modifiers` or a
-   field on `DroneControl`, so PT-60's P8/P9 readings were unaffected and said
-   so.
-4. **A leg that genuinely needs a no-cheat run must DECLARE it in its brief and
-   PREP a resource-rich save in advance.** It cannot be improvised on an
-   existing playtest save, and it may not be satisfied by asking the owner to
-   stop using cheats on a colony that needs them to survive. Provisioning that
-   save is prep-side work with a stated cost, like any other fixture.
-
-**Why this is a rule and not a note:** the owner has now justified the same
-practice across multiple sittings, and every re-ask spends the one resource the
-co-run model exists to protect. See also the standing fixture rule — playtest
-saves are PROVISIONED before an agent ever reads them, so their state is never
-"fresh".
-
-### ⛔ BOTH MODS LOADED is the rig's NORMAL condition (owner rule 2026-08-12 — ⚖️ ACTIVE since the `split-optins` terminal audit, same date)
-
-> ⭐ **THIS REPO'S TWIN of the fix pack's clause, installed at the split**
-> (2026-08-12). It is the SAME rule, read from this side: an
-> `[CommunityFixPack]` line in one of THIS mod's legs is expected background,
-> attributed and never flagged as foreign. Both copies were activated together
-> by the split chain's terminal audit, 2026-08-12.
-
-**The owner's words, given while the `split-optins` chain was authored:**
-*"Once we get it seperated I will keep the opt ins loaded in as they make
-testing easier. So the agents should be aware of that, and it shouldn't be an
-issue because we should be compatible as well."*
-
-**What binds, for every leg after the split chain closes:**
-
-1. **The baseline rig configuration is BOTH mods enabled** — the fix pack AND
-   the standalone opt-in mod. A gate read shows two registries. ⭐ **MEASURED
-   BASELINE (cell a2, 2026-08-12, audit-recounted from the fix pack's
-   `archive/spa2_Mars.exe-20260812-18.44.24.log`): `fix pack present: 74/74` ·
-   `opt-in pack present: 8/8` · suite ~~`78/0/10/0 of 88`~~ ⭐ **RE-MEASURED
-   2026-08-13 (fix pack `archive/rs_r0_*`): `78 PASS / 0 FAIL / 16 SKIP /
-   0 ERROR` of 94** — the six new SKIPs are the Save Rescue probes standing
-   down (that separate rescue mod is NOT a standing rig mod; with it loaded
-   the same run reads `84/0/10/0`);
-   load order `1:SMR_CommunityFixPackTestKit 2:SMR_CommunityFixPack
-   3:SMR_CommunityOptInPack` (enable order, `EF-054` — THIS mod's wrappers sit
-   OUTERMOST).** Every "the pack" claim names WHICH pack. A fix-pack line
-   in one of this mod's legs is expected background: attributed, never flagged
-   as foreign.
-2. **Same confound rule as cheats:** a loaded opt-in module is only a confound
-   where the reading intersects what it changes (D09 dials touch drone
-   speed/carry; NoHomeless/CohortHousing move colonists; MultipleSuns touches
-   build limits) — **name the intersection or state there is none.** "The
-   opt-in mod was loaded" is not by itself a caveat.
-3. **A leg that genuinely needs the opt-in mod OFF must DECLARE it in its
-   brief** — and budget the toggle honestly: a Mod-Manager disable takes
-   effect only after a FULL PROCESS RESTART (D13's four-states rule), and the
-   re-enable is handed back to the owner like any pack re-enable.
-4. **The standing configuration is also the compatibility soak.** The owner's
-   ordinary testing IS continuous both-mods exposure; any cross-mod
-   interference that survives the split chain's matrix will surface here
-   first — whole-log reviews watch for it as a named class, and a hit routes
-   to BOTH repos' records.
-
-⚖️ **ACTIVATED 2026-08-12 by the `split-optins` terminal audit, in BOTH
-repos.** Pre-split single-pack gate reads are history, quotable never.
+Pre-split single-pack gate reads are historical and never quoted as current.
 
 ## Co-runs
 
-`support/CO_RUNS.md` — binding when a batch is tested attended. It carries the objective
-rule (the owner's time is what is minimised, quality is the constraint that binds), the
-routing criteria, the binding protocol, the rig's capability envelope and the
-unattended / co-run / playtest triage.
+`support/CO_RUNS.md` is binding when a batch is tested attended.
 
 ## Sign-off tiers (owner, 2026-08-04)
 
-**Sign-off tiers: ✅ ADOPTED 2026-08-04 (owner, in their own hand on the
-checklist — `----Approved` on the tiers item; integrated by the unattended-1
-terminal audit).** Standing policy for every leg from here on:
+- Tier A, witness: the owner's eyes add information the log cannot carry; they attend the measure
+  moment.
+- Tier B, evidence card: log-demonstrable; the owner reads a one-screen card with scenario,
+  forced/organic state, raw before/after lines, run conditions and one-sentence falsifier. For
+  hands-only, the owner performs the named act and then reads the card as Tier B.
+- Tier C, delegated: mechanically self-verifying; it ships on the suite verdict with a one-line
+  digest per batch, while the owner keeps the veto.
+- A demotion from designed Tier A is stated on the card and applies to the next instance, never
+  silently.
 
-- **Tier A — WITNESS.** The owner's eyes genuinely add information the log
-  cannot carry; they attend the measure moment. Unchanged from before.
-- **Tier B — EVIDENCE CARD.** Log-demonstrable; the owner quick-reads a
-  one-screen card — scenario, forced-vs-organic, the raw before/after log
-  lines, run conditions, the one-sentence falsifier — and OKs it. Sub-class
-  **HANDS-ONLY**: a leg needing the owner's hands (a click, a cursor park)
-  but not their eyes — they do the named act, then read the card as Tier B.
-- **Tier C — DELEGATED.** Mechanically self-verifying (the probe-suite
-  class): ships on the suite verdict; the owner gets a one-line digest per
-  batch and keeps the veto.
-- **Visible demotion:** when a designed-A item's card turns out strictly
-  stronger than the eyes, the demotion is stated ON the card and applies to
-  the NEXT instance — never silently.
+These tiers govern what the owner reads afterwards; they do not redefine attendance status or
+reclassify an existing result.
 
-⛔ **What adoption does NOT carry, in the item's own words:** *"`tested` still
-means a pass at the keyboard per WORKFLOW, and no already-granted status is
-reclassified."* Neither moves. ⚠️ The tiers are a *sign-off* axis, not this
-routing axis: the triage above says who is present during a leg; the tiers
-say what the owner reads afterwards. Owner-facing record of the decision:
-`PLAYTEST_CHECKLIST.md` "Decisions waiting on you", 2026-08-04.
+## Release marking (owner-adopted 2026-08-17; carried here 2026-08-31)
 
-## Release marking — tags, not branches (adopted in the fix pack 2026-08-17, carried 2026-08-31)
+Mark what is live on the portal with an annotated `optin-v<version_major>.<version_minor>.<version>`
+tag at upload. The tag and `metadata.lua` agree; `main` remains latest verified work and normally
+runs ahead of what shipped. Do not keep standing `testing` or `published` branches: the junction
+makes checkout live and the truth-bearing documents are rewritten in place.
 
-**What is live on the portal is a fixed point in history, so it is marked with a
-TAG.** `main` is *latest verified work*; the tag is *what shipped*. Main sitting
-ahead of the published version is the NORMAL state of a mod repo.
+The upload sitting/Mod Editor sets `metadata.lua`'s patch `version`; an agent never hand-sets it,
+because the editor increments it on save. Record portal version to commit SHA in the fix pack's
+`docs/agent/reports/RELEASE_PORTAL_PREP.md` in the same pass.
 
-⛔ **No standing `testing`/`published` branch — the reasons are this repo's too:**
+To inspect shipped code without disturbing `main`, create a worktree at the tag and point the
+junction there temporarily. While pointed there, suite readings describe shipped code, not current
+work. Create a hotfix branch from the tag only when needed; merge it back, and keep documentation
+changes on `main`.
 
-1. **The junction makes the checked-out tree the running mod.**
-   `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack` is a directory
-   junction into the dev repo, so whatever is checked out is what the game
-   loads. Every gate reading (`8/8`, the SKIP set BY NAME) would silently become
-   "…on whichever branch was last checked out."
-2. **The truth-bearing documents are rewritten in place, not appended.**
-   `STATE.md` has hard byte caps with an eviction rule; `bugs/INDEX.md` and
-   `facts/INDEX.md` are GENERATED. Parallel long-lived branches means every
-   merge conflicts on exactly those files.
-3. **Uploading is manual** (in-game Mod Editor / portal, no CI), so "main holds
-   unshipped code" only bites if you upload carelessly — tagging at upload
-   removes that.
+## Release
 
-**At upload** (this mod has NOT uploaded yet — its first tag is `optin-v1.0.0`):
+The launch session owns this list; this mod is not published. Before upload:
 
-```
-git tag -a optin-v<major>.<minor>.<version> -m "uploaded <portal> <date>"
-git push origin <tag>
-```
+1. Schedule the owner's preview image, screenshots and description wording first, and check current portal
+   rules. Write the description from the current module entries; it states that this mod works with
+   or without the Relaunched Fix Pack and tells Drone Stat Dials users to return both dials to base
+   before uninstalling.
+2. Walk the fix pack's `docs/agent/reports/PARKED_OPTIN_REFERENCES.md` restore checklist on publish
+   day, not earlier; re-read the display-name sites in `PROVENANCE.md` §3.
+3. Update `metadata.lua`'s `version_major`/`version_minor` and `last_changes` without changing
+   `lua_revision`. Any add/remove/reorder of `Code/` files changes `metadata.lua` `code` and the
+   `items.lua` `ModItemCode` list together, in the same order and commit.
+4. Run `python tools/upload_preflight.py` to zero FAIL before opening the Mod Editor, inspect
+   `python tools/pack_predict.py .`, and reconcile the downloaded archive with
+   `python tools/pack_list.py <ModContent.fpk> --tree .`. The TestKit is never uploaded.
+5. Recount every player-facing probe total with the emitting command before quoting it. Credit
+   ChoGGi (Fix Bugs) and LukeH (Martian Express) as prior art.
+6. Apply the save-exit duties (owner, 2026-07-31) in `FIX_POLICY.md` §3: publish the uninstall
+   procedure and residual disclosure, record a disposition for every exposed site, and have the
+   D13 rescue artifact ready. Its one-artifact scope covers both mods, but this mod's residue is
+   measured from this tree, never inherited. A separately shipped rescue artifact receives its own
+   metadata, preview, description, portal pass, console certification, version-skew statement and
+   zero-residue proof.
+7. Run every shipping module in both configurations—with the fix pack installed and absent—as
+   required by `FIX_POLICY.md` §8, and name the tested fix-pack version in the release note.
+8. Tag the exact uploaded commit as described above and push the tag.
 
-- The prefix is `optin-` (the fix pack's is `fixpack-`, the rescue's `rescue-`);
-  the version is what `PackVersion` reads: `version_major.version_minor.version`
-  from `metadata.lua`. ⛔ **The tag and `metadata.lua` must agree.**
-- ⛔ `metadata.lua`'s `version` is the upload SITTING's to set, never an agent's
-  and never by hand (the fix pack's H-02): every Mod Editor save runs
-  `version = version + 1` (`Mod.lua:967`), so a hand-set on top double-bumps.
-- Record portal version → commit sha on the fix pack's ④ sheet
-  (`SMR-BugFixPack/docs/agent/reports/RELEASE_PORTAL_PREP.md`) in the same pass.
+## Authoring a prompt
 
-**To reproduce what a player is running** — never disturb `main`:
+Use the `prompt-authoring` skill. It owns brief structure, staleness, live work-list granularity,
+scope, stops, testing rails and lifecycle.
 
-```
-git worktree add ../SMR-OptInPack-shipped optin-v1.0.0
-```
-…then point the junction at that worktree for the investigation and put it back
-afterwards. ⚠️ While it is pointed there, **the rig is running the shipped code,
-not `main`** — no suite reading taken in that window describes current work.
+## `[FAQ]` tag
 
-**Hotfix path**, created the day it is needed and not before:
-`git checkout -b hotfix/optin-1.0.1 optin-v1.0.0` — fix, ship, tag, merge back.
-A short-lived branch is justified only for a single chain producing code nobody
-is sure about; ⛔ **doc changes still go to `main` directly**, or reason 2 bites.
+Mark behavior a player could mistake for a bug, or a deliberate design answer of “no”, with
+literal `[FAQ]` on the entry or module source that already explains it. Never create a document
+just to hold a tag. A tag is a bookmark, not work or a promise; remove it in the commit that changes
+the behavior. Collect the current set mechanically:
 
-## Release steps
-
-> ## ⚠️ ADAPTED — what applies to THIS mod, bullet by bullet (2026-08-12, split)
->
-> The section below is the donor's, kept in full rather than rewritten, because
-> the shape of a release is identical and the traps in it were paid for. Read it
-> with these five corrections:
->
-> 1. **APPLIES:** owner preview/screenshots/portal pass · `metadata.lua` version
->    + `last_changes` · the Mod-Editor upload round-trip rule (`items.lua` and
->    `metadata.lua` `code` change together, same order) · "the TestKit must NOT
->    be uploaded" · the probe-number recount in any player-facing claim · the
->    ChoGGi/LukeH prior-art credit.
-> 2. ~~**⛔ ADD, and it is this mod's release blocker:** the DISPLAY NAME is still
->    a placeholder. Sweep every site in `agent/PROVENANCE.md` §3 in one commit
->    before upload, and state in the description that the mod works with or
->    without the Relaunched Fix Pack.~~ ✅ **DONE** — name decided 2026-08-13 and
->    family-renamed 2026-08-17 at every §3 site; `metadata.lua`'s description and
->    `short_description` already say "Works with or without the Relaunched Fix
->    Pack" (marked 2026-09-01). The launch session re-reads the §3 sites once,
->    which is a check, not a sweep.
-> 3. **N/A HERE — `MOD_DESCRIPTION.md`**: the frozen draft, its four
->    `[DRAFT NOTE]` markers and the "judgment calls" wording item live in the
->    FIX PACK's `docs/archive/`. This mod needs its OWN description, written
->    from `agent/bugs/`, and the owner owes its wording exactly once.
-> 4. **N/A HERE — the four save-exit gates** below (uninstall procedure, the
->    D13 save-rescue artifact, the residual disclosure, the post-update
->    five-shape re-enumeration) are the FIX PACK's release blockers. ⚠️ **But
->    D13 covers BOTH mods by owner ruling — one artifact** — so this mod's
->    residue is inside that scope and its numbers must be re-derived over THIS
->    tree, never inherited.
-> 5. **⛔ ADD:** ship-testing is TWO configurations, not one — with the fix pack
->    installed and with it absent (FIX_POLICY §8). A release note says which fix
->    pack version it was tested beside.
-> 6. **⛔ ADD:** the Drone dials' uninstall instruction ("set both dials to base
->    before uninstalling") is MANDATORY in the store description — a non-base
->    dial persists its boost into a save loaded without this mod.
-> 7. **⛔ ADD (2026-08-31):** `python tools/upload_preflight.py` must report
->    0 FAIL before the Mod Editor is opened — it runs the portals' own
->    pre-upload guards locally. At adoption it FAILS on one clause: this mod has
->    no `image` field and no `preview.png` (the fix pack's is
->    `Mod/<id>/preview.png`, ≤1 MB Steam / ≤2 MB PDX). Pair it with
->    `pack_predict.py .` (the file list the packer will produce) and, after
->    download, `pack_list.py <ModContent.fpk> --tree .` (byte reconciliation).
-> 8. **⛔ ADD (2026-08-31):** the standing launch obligation — walk the restore
->    checklist in the fix pack's `reports/PARKED_OPTIN_REFERENCES.md` (~46
->    parked passages) BEFORE upload; `agent/STATE.md` carries it.
-
-- Owner tasks first: preview image (PDX ≤2 MB / Steam ≤1 MB), screenshots,
-  portal rules check for console publishing (`docs/archive/AUDIT_FINDINGS.md` plan 2.5).
-- metadata.lua: bump `version_major`/`version_minor`, refresh `last_changes`.
-  `short_description`, `ignore_files`, `optional_mod` are already in place
-  (audit 2.1). `lua_revision` stays 350453.
-- MOD_DESCRIPTION.md: delete the `[DRAFT NOTE]` markers; do NOT promise the
-  ClassicRockets export half; sync the fix list with agent/bugs/ statuses.
-  ⭐ **Add the "judgment calls" section** (owner ADOPTED the relabel proposal
-  2026-08-04: F55, F40, F73(b), F70, F97 presented as design-judgment repairs,
-  not plain bugs) — ⚠️ **its wording is OWED BY THE OWNER** and must be asked
-  for if it does not exist yet; the checklist line tracks it.
-  **Recount the probe number** quoted in the "What we can promise, and what we
-  can't" block — it moves whenever a wave file gains or loses a probe, and a
-  stale number there is a false claim in player-facing text. Authoritative count
-  is in `agent/STATE.md`.
-- **Drone overhaul, if it has shipped by then:** its design-drift disclaimer is
-  MANDATORY (owner requirement — spec in `docs/archive/DRONE_RESEARCH_BRIEF.md`
-  **of the FIX PACK repo**, where it was written; marked 2026-09-01). This bullet
-  is THIS mod's (D06 lives here). Do not publish the module without it.
-- Upload via the in-game Mod Editor (Paradox Mods / Steam Workshop). The
-  editor round-trip is SAFE since audit 2.2: items.lua carries one
-  `ModItemCode` per Code/ file in metadata order, so SaveDef regenerates the
-  same `code` list. If a Code/ file is ever added/removed/reordered, update
-  BOTH metadata.lua `code` AND items.lua in the same commit, same order.
-- The TestKit must NOT be uploaded.
-- Credit ChoGGi (Fix Bugs) + LukeH (Martian Express) as prior art — and the
-  prior-art survey (`docs/agent/reports/PRIOR_ART_SURVEY.md`) backs the save-safety claim in
-  player-facing text.
-- **Save-exit gates (owner, 2026-07-31 — release blockers alongside the fpk
-  diff):**
-  1. the **uninstall procedure** is published in MOD_DESCRIPTION ("update,
-     load, save, then uninstall", backup-first) and is true (latched heal +
-     rains migration shipped and verified);
-  2. the **standalone save-rescue artifact** (`agent/bugs/` **D13**) is built and
-     tested, ready to publish (the only console-viable remedy). ⛔ Its spec is
-     GATED on Tier 1/2 landing and verifying — scoped against their measured
-     output, never today's leak set. ⚠️ **A second shipped artifact doubles
-     this checklist**: it needs its OWN metadata, preview image, description,
-     PDX portal pass and console cert, plus a version-skew statement (which
-     pack versions' residue it handles) and proof its own residue is zero —
-     budget the release window accordingly;
-  3. the **residual disclosure** (inert layer-2 residue; irreversible-history
-     class) appears wherever save-cleanliness is claimed;
-  4. after EVERY game update, alongside the fpk extraction diff, **re-run the
-     five-shape exposure enumeration** (class-method / table-slot / global
-     assignment / preset-field / own-thread) — a live game means persisted-body
-     version skew is a standing failure mode, not a launch-time one.
-
-## Authoring a prompt / job brief — required elements
-
-Every brief written for another session (`*_PROMPT.md`, `*_BRIEF.md`,
-`*_REVIEW.md`) must include these. They are not optional polish; each one exists
-because its absence cost this project something.
-
-**1. A live progress list — REQUIRED, and required to stay current.**
-
-The owner reads the session's todo list to decide **when to step in** — whether
-there is time to start a playtest, whether to wait, whether a job is nearly
-done. A list that is created and then not maintained is worse than no list,
-because it actively misleads that decision.
-
-So every brief must instruct the agent to:
-
-- **Create a todo list covering the whole job before starting.**
-- **⚠️ GRANULARITY: one item per commit-and-verify unit — this is the rule that
-  actually matters.** If a stage produces its own commit, or its own
-  verification run, it is its own item. Never bundle several of those behind one
-  checkbox. *Observed failure, Phase 4, 2026-07-31:* the list carried
-  `S6a-d: Require migration in 4 waves` as a **single** item covering four
-  waves, four commits and four legs — so the owner saw the list at S4 and the
-  next time it moved it read "final phase", with no signal across the longest
-  stretch of the job. Per-item discipline cannot fix a list that is coarser than
-  the work.
-- **If a stage turns out to contain more units than the brief anticipated,
-  expand it in the list at that moment** — do not carry one checkbox through
-  work you have already discovered is four things.
-- **Mark each item complete the moment it completes** — before starting the
-  next one, never as a batch at the end. "I'll tidy the list later" is the
-  failure mode.
-- Keep **exactly one item in progress** at a time.
-- **Rewrite the list when reality diverges** — if a stage splits, grows, or
-  turns out unnecessary, the list changes. A stale item is a wrong answer to
-  the owner's question.
-- Put **useful state in the item text** where it is short and stable (which
-  stage, what the last verification read), so the list answers "where are we"
-  without the owner reading the transcript.
-
-**2. `git log` + `git pull` first**, and a named commit to check staleness
-against — briefs go stale the moment another session commits.
-
-**3. An explicit scope fence** — what is in, what is out, and what to do with
-something interesting found out of scope (**file it, do not fix it**).
-
-**4. Stop conditions** — the situations where reporting beats pushing through,
-stated as permission, not as failure.
-
-**5. What may NOT be claimed** — for any brief that ends in a verdict or a
-certification. An agent that cannot cite evidence for a claim must say the
-narrower true thing instead.
-
-**6. Whether the brief deletes itself.** One-off jobs delete their brief on
-completion (precedent: the popup audit). Re-runnable ones say plainly that they
-do not.
-
-**7. The stale-probe gate — for any brief that runs or records a test.** The
-brief must instruct: run the probe sweep (the hard gate above) BEFORE testing,
-put the sweep line in the todo list, and refuse to record results without it.
-A brief that omits this is non-compliant; add the gate before running it.
-
-**8. The read path, declared** (adopted 2026-08-03, standing-prompts redesign
-O1). Name the files the job requires — file granularity, not folders — and the
-index (`agent/bugs/INDEX.md` / `agent/facts/INDEX.md`) that finds more. "Read
-the whole folder" is not a read path: every stale reading instruction the
-restructure report catalogued was a folder-granularity one, and a brief that
-names its files is one whose staleness the next session can check against git.
-
-## `[FAQ]` — the tag for "a player will ask about this"
-
-Owner intends to write an FAQ doc at some point. Rather than start one early
-(and rather than let the material scatter), **tag the source of truth in place**
-with the literal marker `[FAQ]` and collect it later:
-
-```
+```text
 grep -rn "\[FAQ\]" docs/ Code/
 ```
-
-Rules that keep the tag worth having:
-
-- Put it on the **entry that already explains the thing** — an `agent/bugs/` entry, a
-  parked item, a module header. Never create a doc just to hold a tag.
-- Tag **behaviour a player could reasonably mistake for a bug**, or a question
-  the design deliberately answers "no" to. Not every quirk.
-- A `[FAQ]` tag is **not work and not a promise** — it is a bookmark. Writing
-  the FAQ is a launch-time task, and tagging things is not progress toward it.
-- If the tagged behaviour is later changed or fixed, **remove the tag** in the
-  same commit, or the FAQ inherits a stale answer.
-
-⚠️ **The list below is the DONOR's, as of 2026-08-01, and names fix-pack entries
-(F88, D13, `MOD_DESCRIPTION.md`, `PRIOR_ART_SURVEY.md`) that are not in this repo
-(marked 2026-09-01). Re-derived for THIS repo by `grep -rn "\[FAQ\]" docs/ Code/`
-on 2026-09-01:** D01's parked-rocket activation limit (`agent/bugs/D01.md` +
-`FUTURE_IDEAS.md` #2); D12's "Why are my colonists shuffling around constantly?"
-draft (`agent/bugs/D12.md` §`[FAQ]`); `FIX_POLICY.md` §3's D13 artefact line (the
-fix pack's artefact, covering both mods); and `Code/Opt_NoHomeless.lua:319`, a
-comment that still points at the fix pack's frozen `MOD_DESCRIPTION.md`
-(comment-only; owner item 89). Everything else below is history.
-
-Currently tagged (re-derived from `grep -rn "\[FAQ\]" docs/ Code/` on
-2026-08-01 — the previous list named a tag in `MOD_DESCRIPTION.md` that did not
-exist):
-
-- D01's parked-rocket activation limitation — `agent/bugs/` D01 entry +
-  `FUTURE_IDEAS.md` entry 2.
-- The save-repair framework's honest limits — `FUTURE_IDEAS.md` entry 4.
-- "Put the mod back" as advice for a damaged save, and its F88 caveat —
-  `agent/bugs/` F88 entry.
-- The uninstall procedure and the standalone save-rescue artifact —
-  `agent/bugs/` D13 + `FIX_POLICY.md` §3a + `F86_EXECUTION_PLAN.md` Phase 5.
-- **Why we make a fuss about the savegame footprint at all** — the documented
-  engine behaviour (mod code is serialised into saves by design) and the
-  community norm we deliberately exceed: `MOD_DESCRIPTION.md`, added
-  2026-08-01 from `PRIOR_ART_SURVEY.md` §1/§2/§4.
-- **The no-precedent uninstall claim** — `MOD_DESCRIPTION.md`, added
-  2026-08-01 but **written conditionally and marked do-not-publish until F86
-  Tier 1 lands and verifies** (`PRIOR_ART_SURVEY.md` §6). A tag on a claim
-  that is not yet true has to say so.
