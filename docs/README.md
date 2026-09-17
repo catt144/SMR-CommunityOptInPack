@@ -22,7 +22,8 @@ docs/
     PROVENANCE.md         what came from where, at which sha — the port ledger
     bugs/                 defect/design truth — one file per entry
     facts/                engine behaviour — one file per fact
-    reports/              reports, plans, specs, audits, surveys
+    reports/              reports, plans, specs, audits, surveys — NOT authority
+    support/              binding protocol, pulled: read when the job needs it
     prompts/              README.md is the MAP and doccheck gates it both ways
       perma/              standing prompts — WORK_PROMPT (start here for any work) ·
                           DISPATCH (live-issue triage) · STATE_EVICTION · KNOWLEDGE_SYNC_PASS
@@ -119,6 +120,9 @@ difference. Generated files say so on line 1.
 - A **rule that binds future work** → `agent/WORKFLOW.md` or
   `agent/FIX_POLICY.md`, not buried in a report.
 - A **report, plan, spec, audit or survey** → `agent/reports/`.
+- **Binding protocol too long to sit inside a routing document** → `agent/support/`.
+  ⛔ Not `reports/`: a report is explicitly not authority, and protocol is. The test
+  is whether a leg that ignored it would be wrong, not whether the file is long.
 - A **prompt** → `agent/prompts/` — reusable in `perma/`, one-off at the root,
   and **add its row to `agent/prompts/README.md` in the same commit** (doccheck
   gates the map both ways). A consumed one-off deletes itself AND its row.

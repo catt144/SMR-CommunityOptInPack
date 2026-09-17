@@ -57,7 +57,8 @@ Modules"). Earlier records use the older names — translate mentally, do not ed
 
 **Folder contract** (doccheck enforces it, in both directions). `docs/` root holds only
 `DECISIONS_OWED.md`, `FUTURE_IDEAS.md`, `README.md`, `agent/` and `archive/`. Agent material is
-`docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, STATE/WORKFLOW/FIX_POLICY/PROVENANCE).
+`docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`, STATE/WORKFLOW/FIX_POLICY/PROVENANCE).
+`support/` holds BINDING protocol pulled out of a routing document — authority, unlike `reports/`.
 Prompts: the map is `docs/agent/prompts/README.md`, reusable ones live in `prompts/perma/`, and
 a consumed one-off deletes itself AND its map row — doccheck gates that both ways.
 `docs/archive/` is append-only. `INDEX.md` in `bugs/` and `facts/` is GENERATED (line-1 banner) —
