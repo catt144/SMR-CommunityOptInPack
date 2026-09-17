@@ -86,7 +86,7 @@ STATE_MAX_LINE_BYTES = 200
 # The standing prompt is instructions, not a logbook (rule added 2026-08-04
 # after two sittings appended their lessons to it — the habit that grew the
 # old 43k-token prompt). The cap is a tripwire, not a prohibition: at the cap,
-# relocate per the prompt's own routing rule (WORKFLOW / PLAYTEST_HELP /
+# relocate per the prompt's own routing rule (WORKFLOW / the fix pack's
 # agent/facts/ / the entry), then trim.
 # The standing prompts are instructions, not logbooks (donor rule 2026-08-04).
 # Here the capped files are WORK_PROMPT.md (start-here for any work) and

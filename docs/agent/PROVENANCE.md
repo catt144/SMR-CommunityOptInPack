@@ -41,7 +41,9 @@ after them in the fix pack's history; `git log --oneline` there, around
 
 **Deliberately NOT copied:** `docs/archive/` (append-only; history stays where
 it happened), `docs/PLAYTEST_CHECKLIST.md` + `docs/PLAYTEST_HELP.md` (single-
-sourced in the fix pack by design — `docs/README.md` says why), the 73 `Fix_*`
+sourced in the fix pack by design — `docs/README.md` says why; ⚠️ both existed
+at the split, and `PLAYTEST_HELP.md` was DISSOLVED there 2026-09-15, `c91310f`),
+the 73 `Fix_*`
 modules and `90_SaveSanitizer.lua`, and the fix pack's `docs/BUGS.md` /
 `docs/STATUS.md` / `docs/agent/ENGINE_FACTS.md` MOVED stubs (this repo has no
 pre-restructure history to resolve).
@@ -49,6 +51,36 @@ pre-restructure history to resolve).
 ---
 
 ## 2. ⛔ The persisted-name inventory — SAVE CONTRACT, verbatim
+
+⚠️ **WHICH NAMES STILL HAVE A LIVE WRITER (2026-09-17).** Four of the five
+`SMRFixPack_*` rows are written by shipping code; **row 3
+`SMRFixPack_no_homeless` has NO writer** — its only one was `Opt_NoHomeless.lua`
+(D12), deleted 2026-09-17. ⛔ **All five remain contract. A deleted writer is not
+a release** — the field is still in players' saves, so the name can never be
+reused for anything else, and nothing may "restore" a writer to make a count
+match. Likewise rows 8–9 keep the three retired modules' Mod-Options keys.
+⇒ `tools/l3_save_footprint.py` §3 therefore reports **four**, not five. That is
+correct, not a breach. Records written before 09-17 say "exactly those five".
+
+⛔ **Re-derive, never trust these numbers** — that is why they live here and not
+in `STATE.md`, whose own rule is that a stored count goes stale in silence (it
+did: STATE carried "5 definitions, 6 comments" for the `Code/` tokens until
+2026-09-17, when the truth was 4 and 3):
+
+```sh
+python tools/l3_save_footprint.py --src C:\Dev\SMR-SrcArchive\1.1.0.403908\Src   # §3 = the live writers
+grep -n SMRFixPack Code/*.lua                                                    # the tokens themselves
+```
+
+⛔ **Ban 2 is proved by an AST walk, never by that grep** — the grep is the
+inventory, the AST is the evidence. Zero `Name` nodes may carry the token
+(measured 2026-09-17: 6 files, 8 raw tokens, **0** `Name` nodes; first proved
+2026-09-01 over 817 classified hits, 0 contamination):
+
+```py
+from luaparser import ast, astnodes
+[n for n in ast.walk(ast.parse(src)) if isinstance(n, astnodes.Name) and "SMRFixPack" in (n.id or "")]
+```
 
 **Every string below has entered savegames or account storage. It keeps its
 EXACT bytes forever, `SMRFixPack_` prefix and all.** They were written by these
@@ -214,7 +246,8 @@ guard donor gates this repo does not run.
 
 ⚠️ **The gates found two real defects on their first run, both pre-existing.** `_preamble.md` — a
 SOURCE the facts INDEX is generated from — was MIXED: 29 lines read one way, 37 the other, so a
-reader splitting on CRLF dropped 8. `CONTAMINATION_AUDIT_20260901.md` was MIXED at crlf=932/lf=1102.
+reader splitting on CRLF dropped 8. `CONTAMINATION_AUDIT_20260901.md` was MIXED at crlf=932/lf=1102
+(that report was deleted later the same day under OI-09; the gate's find stands as the record).
 Both converted with `--fix-eol`; the stored blob was already LF in both cases, so **git saw no
 content change** and `git status` stayed empty — verified, not assumed.
 

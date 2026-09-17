@@ -60,11 +60,18 @@ rg --no-ignore <term>       live + archive in one pass
 `grep -r`, `git grep` and `git log` ignore `.rgignore` entirely and always see everything. A default
 search coming back empty is the boundary working, not a missing file.
 
-## ⚠️ The two human playtest files live in the FIX PACK repo
+## ⚠️ The human playtest file lives in the FIX PACK repo
 
-`PLAYTEST_CHECKLIST.md` (the owner's test queue and the reporting protocol) and
-`PLAYTEST_HELP.md` (console facts, the verified command table, fixture recipes)
-are **single-sourced in `C:\Dev\SMR-BugFixPack\docs\`** and are NOT duplicated here.
+`PLAYTEST_CHECKLIST.md` (the owner's test queue and the reporting protocol) is
+**single-sourced in `C:\Dev\SMR-BugFixPack\docs\`** and is NOT duplicated here.
+
+⛔ **Its companion `PLAYTEST_HELP.md` no longer exists.** It was DISSOLVED in the
+fix pack on 2026-09-15 (`c91310f`, "Dissolve PLAYTEST_HELP and consume its
+brief") and its content — console facts, the verified command table, fixture
+recipes — was consumed into the surrounding documents there. Nothing propagated
+here, so this repo carried a dead pointer in nine live places for two days,
+including its own kernel. Corrected 2026-09-17. **Route console and fixture
+questions to the fix pack's live docs, not to a filename.**
 
 **Why, decided at design time and sustained by the chain's QA gate:** the owner
 plays ONE game with BOTH mods loaded (`agent/WORKFLOW.md`, "BOTH MODS

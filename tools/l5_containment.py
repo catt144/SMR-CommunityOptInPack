@@ -108,7 +108,8 @@ FILESCOPE_KINDS = [
 SAFE_RHS = re.compile(
     # ⚠️ Was `SMRFixPack[.\[]` until 2026-09-01 — the 08-31 token rename missed this
     # regex, so every `local x = SMROptInPack.Y` at file scope read 'check' instead
-    # of safe (contamination audit, reports/CONTAMINATION_AUDIT_20260901.md).
+    # of safe (contamination audit 2026-09-01; its report was deleted 2026-09-17
+    # once every finding was homed -- `git log -S` has the text).
     r"=\s*(\{|\"|'|\d|true|false|nil|rawget\s*\(|SMROptInPack[.\[]|function\b)"
 )
 

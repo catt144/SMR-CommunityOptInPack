@@ -51,10 +51,14 @@ both directions, so a new file at `docs/` root is a red build until the map name
 A `GENERATED` banner on line 1 means **edit the source, never the file**. doccheck is RED if a
 generated file drifted. `AGENTS.md` is a byte copy of `CLAUDE.md` for Codex — never edit it.
 
-⚠️ **The two human playtest files live in the FIX PACK repo.** `docs/PLAYTEST_CHECKLIST.md` and
-`docs/PLAYTEST_HELP.md` are single-sourced in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays
-ONE game with BOTH mods loaded. `docs/README.md` says why. A decision that binds the FIX PACK still
-goes to its checklist; a decision about THIS mod goes to `docs/DECISIONS_OWED.md`.
+⚠️ **The human playtest file lives in the FIX PACK repo.** `docs/PLAYTEST_CHECKLIST.md` is
+single-sourced in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays ONE game with BOTH mods
+loaded. `docs/README.md` says why. A decision that binds the FIX PACK still goes to its checklist;
+a decision about THIS mod goes to `docs/DECISIONS_OWED.md`.
+
+⛔ `docs/PLAYTEST_HELP.md` **no longer exists** — dissolved in the fix pack 2026-09-15 (`c91310f`),
+its content consumed there. Records written before then cite it as live; read it out of git
+(`git show c91310f^:docs/PLAYTEST_HELP.md`) rather than expecting a file.
 
 ## 4 · The archive boundary
 

@@ -55,8 +55,7 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 > the delete-not-archive clause, the protected list and the re-derive-citations warning are all
 > there. This entry is the ask and its answer; the skill is the instruction.
 >
-> ⛔ **Nothing has been cut yet.** The ruling licenses the prose half; no document has been pruned.
-> The first candidate named below is still on disk, untouched.
+> ✅ **The first cut has now been made under it** — see below. Everything else is still on disk.
 
 **What this unblocks, and in what order.** The donor's sequence is baseline → entrance gate → prune
 behind the gate → generated indexes → rules machinery → a terminal **attended** audit that no agent
@@ -69,12 +68,18 @@ rule-shaped lines into global / doc-local / redundant / dead / task-local is jud
 `redundant` and `dead` are the owner's calls — the survey §6 and the donor's own gate docstring both
 say so. This ruling settles *whether* agent docs may be cut, not *which* lines are dead.
 
-**The measured first candidate.** `docs/agent/reports/CONTAMINATION_AUDIT_20260901.md` —
-**261,696 B, 17% of this repo's entire `docs/` tree in one file**, of which 1,009 of 2,034 lines are
-one table row per classified grep hit. Its verdict is a single paragraph and is already carried in
-`STATE.md` (*817 hits classified, 0 contamination, AST-PROVEN*), which is precisely the
-already-recorded-elsewhere case the ruling addresses. ⛔ Confirm the verdict survives at its home
-before cutting — a matching heading is not proof.
+✅ **The first cut was made under this ruling, 2026-09-17: `CONTAMINATION_AUDIT_20260901.md` is
+DELETED** — 261,696 B, 17% of this repo's entire `docs/` tree in one file, of which 1,009 of 2,034
+lines were one table row per classified grep hit. **Not archived; deleted**, per the ruling.
+`git log -S` and `git show 76a63b1:docs/agent/reports/CONTAMINATION_AUDIT_20260901.md` hold it.
+
+**Every finding was confirmed at its home first, body not heading:** the verdict is in `STATE.md`
+and `PROVENANCE.md` §2 with the AST command that **re-proves it in about a second** (re-run
+2026-09-17: 0 `Name` nodes); its three owner items are 88 (fix pack), 89 and 90 (here); its eight
+fixes are in the tree; Pass B found `ORPHAN: 0`, so there was nothing to carry. Its §7 method — the
+token list a future sweep must include, and the `\bC[0-9]{2}\b` over-report — moved into
+`WORKFLOW.md` banner clause 6. ⛔ Its §6 POINTER allowlist was **not** carried: its sole purpose was
+"so the next audit does not re-derive them", and 4 of 9 spot-checked entries no longer resolved.
 
 ---
 
@@ -437,7 +442,7 @@ OI-04. **`MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and
     turned the recommendation into a full spec (mechanism, tier table, guard, footprint,
     playtest, build brief). Rule item 94 and 91 closes with it.
 
-### 2026-09-01 — ITEMS 88–90 OPEN: raised by the OPT-IN mod's contamination audit (its repo, `docs/agent/reports/CONTAMINATION_AUDIT_20260901.md`)
+### 2026-09-01 — ITEMS 88–90 OPEN: raised by the OPT-IN mod's contamination audit (report deleted 2026-09-17 under OI-09; `git log -S`)
 
 90. **Does your 2026-08-02 loc-table ruling extend to the opt-in mod?** You ruled
     (this repo's `FIX_POLICY` §6) that *the pack* WILL ship its own `ModItemLocTable`
@@ -446,12 +451,15 @@ OI-04. **`MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and
     stand-down dialog) and its `FUTURE_IDEAS.md` #4(b) hangs on the answer. Say
     "both", "fix pack only", or "decide at its launch".
 
-89. **Opt-in `Code/`: allow a comment-only wording sweep?** Five comments still speak
-    the donor's terms — "the pack" meaning the opt-in mod itself
-    (`00_Core.lua:497`, `:536`, `:558`, `Opt_ResidencyControl.lua:63`) and one that
-    points players' FAQ guidance at THIS repo's frozen `MOD_DESCRIPTION.md`
-    (`Opt_NoHomeless.lua:319`). Zero behaviour change, parse sweep after; but it is a
-    module-file edit, so it is yours. Say "sweep" or "leave as history".
+89. **Opt-in `Code/`: allow a comment-only wording sweep?** ⚠️ **FOUR comments, not five —
+    corrected 2026-09-17.** They still speak the donor's terms, "the pack" meaning the
+    opt-in mod itself: `00_Core.lua:497`, `:536`, `:558`, `Opt_ResidencyControl.lua:63`.
+    All four re-read against the live tree on 2026-09-17 and still say what this item
+    claims. ⛔ The fifth — `Opt_NoHomeless.lua:319`, which pointed players' FAQ guidance
+    at the fix pack's frozen `MOD_DESCRIPTION.md` — **left with D12 when the module was
+    deleted**, so that part of the ask is moot, not answered. Zero behaviour change,
+    parse sweep after; but it is a module-file edit, so it is yours. Say "sweep" or
+    "leave as history".
 
 *(Item **88** was here and has been left with the FIX PACK — `FUTURE_IDEAS.md` #9 is a fix-pack
 feature, per-fix player toggles for THIS mod's fixes, parked in this repo only by analogy. See the table

@@ -32,10 +32,9 @@ The probe count is the SHARED suite's, not this mod's share. Gate MEASURED `8/8`
 
 ## Gates and holds
 - ⛔ PERSISTED NAMES ARE SAVE CONTRACT — the five `SMRFixPack_*` fields/modifier ids keep their bytes
-  forever (`agent/PROVENANCE.md` §2); renaming one is FORBIDDEN. `l3_save_footprint.py` §3 must read exactly those five.
-- ⛔ ZERO `SMRFixPack` references in executable code: the surviving tokens in `Code/` are the five
-  persisted STRINGS (5 definitions, 6 comments) — data, not references. AST-PROVEN 09-01: 0 `Name` nodes
-  carry the token (`reports/CONTAMINATION_AUDIT_20260901.md`; 817 hits classified, 0 contamination).
+  forever; renaming one is FORBIDDEN. Which still have a live writer: `agent/PROVENANCE.md` §2.
+- ⛔ ZERO `SMRFixPack` references in executable code: the `Code/` tokens are persisted STRINGS — data,
+  not references. ⛔ RE-PROVE BY AST, never by grep; the command and the count are PROVENANCE §2.
 - ⛔ MODULE FREEZE: no behaviour change to any module without an owner ruling.
   ⚖️ DRONES UNFROZEN 2026-08-31 (owner, verbatim "Un freeze drones"): D09 `DroneStatDials` is open to
   design + playtest work under FIX_POLICY, A/B per change. D06 was too, and is now RETIRED/PARKED (below).

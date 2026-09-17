@@ -25,8 +25,8 @@ compatibility with other mods and future game patches, zero edits to game files.
 > 4. §1, §2, §3, §3a, §6, §7 are **unchanged and fully binding** — they are
 >    about the engine and about save safety, and this mod patches the same
 >    engine and writes into the same saves.
-> 5. **Bare names inside donor clauses are the FIX PACK's** (marked 2026-09-01,
->    contamination audit — `agent/reports/CONTAMINATION_AUDIT_20260901.md`):
+> 5. **Bare names inside donor clauses are the FIX PACK's** (marked 2026-09-01 by a
+>    contamination audit; report deleted 2026-09-17, findings homed — `git log -S`):
 >    every `Fix_*.lua`, every `F##`/`C##` id, `D13`, `F86_ADJUDICATION.md`,
 >    `F86_EXECUTION_PLAN.md`, `SAVE_SAFETY_REDESIGN.md`, `PRIOR_ART_SURVEY.md`,
 >    `REACHABILITY_AUDIT.md` resolve under `C:\Dev\SMR-BugFixPack` — this repo

@@ -63,10 +63,11 @@ a consumed one-off deletes itself AND its map row — doccheck gates that both w
 `docs/archive/` is append-only. `INDEX.md` in `bugs/` and `facts/` is GENERATED (line-1 banner) —
 `python tools/doccheck.py --regen`.
 
-⚠️ **The two human playtest files live in the FIX PACK repo.** `PLAYTEST_CHECKLIST.md` and
-`PLAYTEST_HELP.md` are single-sourced in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays ONE
-game with BOTH mods loaded; `docs/README.md` says why. This mod's own owner decisions live here, in
-`docs/DECISIONS_OWED.md` (owner, 2026-09-12).
+⚠️ **The human playtest file lives in the FIX PACK repo.** `PLAYTEST_CHECKLIST.md` is single-sourced
+in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays ONE game with BOTH mods loaded;
+`docs/README.md` says why. ⛔ Its companion `PLAYTEST_HELP.md` was DISSOLVED there on 2026-09-15
+(`c91310f`) and its content consumed — every reference to it in this repo was a dead pointer until
+2026-09-17. This mod's own owner decisions live here, in `docs/DECISIONS_OWED.md` (owner, 2026-09-12).
 
 **`docs/archive/` is hidden from a default `rg`** by a root `.rgignore` — a deliberate boundary, not
 a deletion. Search it by naming it: `rg <term> docs/archive/`, or `rg --no-ignore <term>` for both.

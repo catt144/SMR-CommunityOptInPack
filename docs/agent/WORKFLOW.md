@@ -27,7 +27,8 @@
 > which after the split is a DIFFERENT product.
 >
 > 6. **Bare file names and counts inside donor clauses are the FIX PACK's**
->    (marked 2026-09-01, contamination audit — `agent/reports/CONTAMINATION_AUDIT_20260901.md`):
+>    (marked 2026-09-01 by a contamination audit; its report was deleted
+>    2026-09-17 once every finding was homed — `git log -S` has the text):
 >    `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`, `AUDIT_FINDINGS.md`,
 >    `PRIOR_ART_SURVEY.md`, `DRONE_RESEARCH_BRIEF.md`, `CORUN_RIG_SPEC.md`,
 >    `MOD_DESCRIPTION.md`, `F86_EXECUTION_PLAN.md`, every `F##`/`C##`/`D13`
@@ -35,6 +36,12 @@
 >    here — this repo holds none of them (`git ls-files` proves it). The "~29
 >    full replacements" and the `F87`/`F86` site counts are the fix pack's
 >    figures; this mod's are measured by its own tools (`l3`, `l5`, `l6`).
+>    ⛔ **A future cross-mod sweep must grep for those file names ABOVE, not
+>    just for `SMRFixPack`/`Community`** — the 2026-09-01 audit's worst misses
+>    were stale lines carrying none of its tokens, found only by reading the two
+>    live docs whole. And `\bC[0-9]{2}\b` OVER-REPORTS: it also matches co-run
+>    correction ids and audit item ids that are not entries, so a count from
+>    that grep alone is wrong.
 
 ## Reading path for a new session
 
@@ -74,9 +81,11 @@
    playtest queue, the reporting protocol, and the three decisions that stayed
    there because they bind the FIX PACK (the shared TestKit, `EF-` id allocation,
    a fix-pack feature parked by analogy);
-   its companion `PLAYTEST_HELP.md` (same folder) carries the ground rules,
-   console facts, the verified command table, Test Kit helpers and save-fixture
-   recipes. **Both are single-sourced in the FIX PACK repo on purpose** — the
+   ⛔ its former companion `PLAYTEST_HELP.md` — ground rules, console facts, the
+   verified command table, Test Kit helpers and save-fixture recipes — was
+   DISSOLVED there on 2026-09-15 (`c91310f`) and its content consumed into the
+   surrounding documents; do not route to that filename.
+   **The checklist is single-sourced in the FIX PACK repo on purpose** — the
    owner plays one game with both mods loaded, and `docs/README.md` explains
    the decision. An owner decision arising from work HERE still goes THERE.
 
@@ -147,8 +156,8 @@ Two mechanical rules that came with the same restructure:
 - **Companion mod, a separate product:** `C:\Dev\SMR-BugFixPack` (Relaunched Fix
   Pack, remote `github.com/catt144/SMR-CommunityFixPack`). Shares no files with
   this repo. Its `docs/archive/` holds all pre-2026-08-12 history, and its
-  `docs/PLAYTEST_CHECKLIST.md` / `PLAYTEST_HELP.md` are the owner's two files
-  for BOTH mods.
+  `docs/PLAYTEST_CHECKLIST.md` is the owner's playtest file for BOTH mods
+  (`PLAYTEST_HELP.md` was dissolved there 2026-09-15, `c91310f`).
 - **Game install:** `A:\SteamLibrary\steamapps\common\Project Spark`
   (Surviving Mars: Relaunched; "Project Spark" is the Steam folder codename).
 - **Shipped Lua source (read-only reference):** `<game>\ModTools\Src`
@@ -728,7 +737,8 @@ not an achievement.
   against these:**
   1. **Every owner-typed console line is pre-flighted for THREAD CONTEXT, not
      just resolution** — four `Sleep()`-carrying entry points were briefed
-     bare, and the bare console has no thread context (`PLAYTEST_HELP.md`);
+     bare, and the bare console has no thread context (established in the fix
+     pack's `PLAYTEST_HELP.md`, dissolved 2026-09-15 — `git show c91310f^:docs/PLAYTEST_HELP.md`);
      a resolution gate cannot see this. The `*r` prefix is part of the
      briefed line, never assumed.
   2. **The brief names the LOAD MECHANISM for every staged copy** —
@@ -824,8 +834,9 @@ scoping work route "needs hours of observation" items there instead of parking
 them.
 
 **The rig's capability envelope** (measured 2026-08-04, co-runs #0 and #1 —
-four launches; run procedure and cost model: `PLAYTEST_HELP.md` "The co-run
-rig". The founding spec, `CORUN_RIG_SPEC.md`, was consumed at chain close and
+four launches; run procedure and cost model were in the fix pack's
+`PLAYTEST_HELP.md` "The co-run rig", dissolved 2026-09-15 —
+`git show c91310f^:docs/PLAYTEST_HELP.md`. The founding spec, `CORUN_RIG_SPEC.md`, was consumed at chain close and
 survives in git — `git show 93088ba:docs/agent/prompts/corun-rig/CORUN_RIG_SPEC.md`):
 
 - **PROVEN by execution:** agent-driven Steam launch (no picker interposes;
