@@ -50,10 +50,12 @@ the 2026-08-03 QA session that hand-ran these checks. Do not "simplify" them.
 """
 
 import argparse
+import glob
 import os
 import re
 import subprocess
 import sys
+import time
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ONE kit serves both mods (split-optins, 2026-08-12): the probe count below
@@ -94,6 +96,57 @@ GENERAL_USE = os.path.join(DOCS, "agent", "prompts", "perma", "GENERAL_USE_PROMP
 STANDING_PROMPTS = [os.path.join(DOCS, "agent", "prompts", "perma", n)
                     for n in ("WORK_PROMPT.md", "DISPATCH.md", "GENERAL_USE_PROMPT.md")]
 GENERAL_USE_MAX_LINES = 220
+
+# 2026-09-17 RULES-HEADER ARCHITECTURE, ported from SMR-BugFixPack @ ac4e4d3
+# (its constants at doccheck.py:138-162, its checks at :2255-2390).
+#
+# Every binding duty is ONE canonical `Rule:` line inside exactly one
+# `## Must_Read_Header` / `<!-- RULES -->` block. This is a deduplication and
+# authority mechanism: it makes "where does this rule live" a question with an
+# answer, and it is what stops rules breeding in prose.
+#
+# ⛔ ONE DELIBERATE DIFFERENCE FROM THE DONOR, recorded in PROVENANCE §8.
+# The donor's style regex requires a trailing `[A3: pass]` tag — the marker its
+# one-time census left on each rule its owner adjudicated. That audit ran on
+# ITS text, not ours, and the tags were deliberately NOT copied here. Requiring
+# the tag now would either red the repo permanently or invite an agent to paste
+# an adjudication nobody performed. So this port enforces the STRUCTURAL half
+# (placement, uniqueness, style, caps) and omits the semantic tag until a
+# census actually runs here. When it does, add `\ \[A3: pass\]` back to
+# RULE_STYLE_RE and the duty group in RULE_DUTY_RE stays as it is.
+#
+# ⚠️ The list is the documents that carry a header TODAY, not an aspiration.
+# Adding a file here forces it to grow a block, so a name lands here only when
+# that document has a genuinely unique local duty. Absence from this list never
+# licenses a Rule: line outside a Must_Read_Header — the placement scan below
+# runs over every tracked Markdown file regardless.
+RULE_HEADER_DOCS = (
+    "CLAUDE.md",
+    "docs/agent/prompts/README.md",
+)
+RULE_HEADER_WARN_BYTES = 1024
+RULE_HEADER_MAX_BYTES = 2048
+# The kernel is a different animal from a doc-local header and gets its own cap.
+# The donor learned this the hard way: one shared cap forced correct rules to be
+# compressed to fit, and the compression broke four of them (donor 396d7f2).
+KERNEL_HEADER_WARN_BYTES = 2560
+KERNEL_HEADER_MAX_BYTES = 3072
+KERNEL_HEADER_FILE = "CLAUDE.md"
+RULE_START = "<!-- RULES -->"
+RULE_END = "<!-- /RULES -->"
+RULE_HEADING = "## Must_Read_Header"
+# A canonical rule is a plain imperative sentence ending in a period. No bold,
+# no emoji, and none of MUST/NEVER/ALWAYS: a rule that has to shout is a rule
+# that has not been written precisely enough, and the shouting does not survive
+# being quoted somewhere else.
+RULE_STYLE_RE = re.compile(r"^Rule: \S.*\.$")
+RULE_DUTY_RE = re.compile(r"^Rule: (.+)\.$")
+RULE_EMOJI_RE = re.compile("[☀-➿️\U0001f000-\U0001faff]")
+RULE_FORBIDDEN = {
+    "AGENTS.md",  # generated mirror of CLAUDE.md, not a second surface
+    "docs/agent/bugs/INDEX.md",
+    "docs/agent/facts/INDEX.md",
+}
 
 # N/A HERE (split-optins, 2026-08-12) — the donor carries three MOVED stubs
 # (docs/BUGS.md, docs/STATUS.md, docs/agent/ENGINE_FACTS.md) so its
@@ -702,12 +755,19 @@ def wrap_targets_check(out):
     capture+install wrap site must declare its (class, method) pair in its
     module's Require block. The detector and its allowlist live in
     harvest_wrap_targets.py."""
+    # ⛔ THE EXCEPT HERE IS NARROW ON PURPOSE (2026-09-17, donor @ ac4e4d3's
+    # method note 4). It used to be a bare `except Exception` whose failure path
+    # printed "not checked" and returned True — i.e. GREEN. The donor shipped a
+    # gate DEAD exactly that way: a NameError fell into a broad except, rendered
+    # as a benign skip, and would have skipped silently forever. A missing or
+    # unimportable tool is a real condition and still passes; a coding error
+    # inside the detector now RAISES, loudly, and the pre-commit hook blocks.
     try:
         import harvest_wrap_targets as hwt
-        violations, allowlisted = hwt.check()
-    except Exception as exc:                          # a tool bug must report, not crash the gate
+    except ImportError as exc:
         out.append("WRAP CHECK: not checked (%s)" % exc)
         return True
+    violations, allowlisted = hwt.check()
     out.append("WRAP CHECK: %d wrap site(s) outside Require, %d allowlisted "
                "(FIX_POLICY §2; detector+allowlist in tools/harvest_wrap_targets.py)"
                % (len(violations), len(allowlisted)))
@@ -1124,6 +1184,640 @@ def regen(out):
 
     out.append("REGEN: %s" % (", ".join(wrote) + " rewritten" if wrote
                               else "nothing to do — every generated file was fresh"))
+    # The tool rows are spliced in place, so this reports separately: its prose
+    # is hand-authored and only the marked region is generated.
+    regen_tools(out)
+
+
+# ---------------------------------------------------------------------------
+# The generated tools catalog (ported from SMR-BugFixPack @ ac4e4d3, where it
+# landed 2026-09-17). A hand-kept list of N rows is a list that goes stale; this
+# one is regenerated from each script's OWN opening header and reconciled both
+# ways against glob(tools/*.py), so a new tool with no row is RED and a row with
+# no tool is RED. There is no exempt class.
+TOOLS_DIR = os.path.join(REPO, "tools")
+TOOLS_README = os.path.join(TOOLS_DIR, "README.md")
+TOOLS_BEGIN = ("<!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: "
+               "python tools/doccheck.py --regen -->")
+TOOLS_END = "<!-- END GENERATED TOOL ROWS -->"
+
+# Declared data, not a filename heuristic. A prefix rule would place the `l*_`
+# instruments correctly and `blocking_analysis.py`, `pack_predict.py` and
+# `audit_preset_fields.py` nowhere, and would silently reclassify a script on
+# rename. Order here is the order the catalog renders in.
+TOOL_GROUPS = (
+    ("Repo gates, and the falsifiers that keep them honest",
+     "The pre-commit hook runs `doccheck.py`; a `*_selftest.py` is required BY "
+     "it, so a gate whose falsifier stops firing is itself RED. A gate that has "
+     "only ever been seen passing on a clean tree has not been tested.",
+     ("doccheck.py", "rule_headers_selftest.py")),
+    ("Generated-document machinery",
+     "The splitters own `bugs/INDEX.md` and `facts/INDEX.md`. ⛔ Never run "
+     "either with `--write`: that re-runs the one-time migration from a "
+     "retired pre-split document. `--regen` is the cure for drift.",
+     ("split_bugs.py", "split_facts.py")),
+    ("Desk instruments — what a module does without launching the game",
+     "The L-series. ⛔ A desk PASS is \"desk-verified\", never \"verified\" "
+     "(`WORK_PROMPT.md` §7): none of these launches the retail game. Every one "
+     "is an over-reporter — adjudicate a row by reading the source line it "
+     "cites, never by its count.",
+     ("l2_reload_sim.py", "l3_save_footprint.py", "l4_player_surfaces.py",
+      "l5_containment.py", "l6_promise_map.py", "l6_reachability.py",
+      "l7_env_map.py", "l8_hostile_input.py")),
+    ("This mod's own code gates",
+     "Run by `doccheck` as well as by hand; the allowlists live beside the "
+     "detectors, with a source citation per entry (`FIX_POLICY` §2).",
+     ("harvest_wrap_targets.py",)),
+    ("Reading the shipped game by hand",
+     "⛔ Cite a line only with the build it was read on, from the archived tree "
+     "for that build (`C:\\Dev\\SMR-SrcArchive`). The game moved to 1.1.0 on "
+     "2026-09-08 and overwrote `ModTools\\Src`.",
+     ("flpk_extract.py", "pack_list.py", "audit_preset_fields.py",
+      "blocking_analysis.py")),
+    ("Launch",
+     "⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the "
+     "missing preview art (owner, `DECISIONS_OWED.md` 85).",
+     ("upload_preflight.py", "pack_predict.py")),
+)
+TOOLS_UNGROUPED = (
+    "Ungrouped",
+    "These carry no group in `TOOL_GROUPS`. They still render, because the "
+    "catalog reconciles against the glob and not against the groups — giving "
+    "them a group is tidying, not a fix.",
+)
+
+
+def tool_scripts():
+    """Every tools/*.py on disk, by basename. The catalog's row set."""
+    return sorted(os.path.basename(p)
+                  for p in glob.glob(os.path.join(TOOLS_DIR, "*.py")))
+
+
+def tool_header_line(name):
+    """The script's own opening sentence(s), from its docstring or `#` header.
+
+    Trap: a header's FIRST LINE is usually a fragment ("L6 — promise vs" …), so
+    this reads the whole first paragraph and then cuts on sentence boundaries,
+    taking a second sentence when the first is too short to route on. Purely
+    mechanical: nothing here decides what a tool does, it only copies the claim
+    the tool makes about itself.
+    """
+    with open(os.path.join(TOOLS_DIR, name), encoding="utf-8") as fh:
+        lines = fh.read().replace("\r\n", "\n").split("\n")
+    i = 0
+    while i < len(lines) and (lines[i].startswith("#!")
+                              or lines[i].startswith("# -*-")
+                              or not lines[i].strip()):
+        i += 1
+    para = []
+    if i < len(lines) and lines[i].lstrip()[:3] in ('"""', "'''"):
+        quote = lines[i].lstrip()[:3]
+        for ln in [lines[i].lstrip()[3:]] + lines[i + 1:]:
+            if quote in ln:
+                para.append(ln.split(quote)[0])
+                break
+            if not ln.strip():
+                break
+            para.append(ln)
+    elif i < len(lines) and lines[i].lstrip().startswith("#"):
+        for ln in lines[i:]:
+            if not ln.strip().startswith("#"):
+                break
+            stripped = ln.strip().lstrip("#").strip()
+            if not stripped:
+                break
+            para.append(stripped)
+    text = re.sub(r"\s+", " ", " ".join(x.strip() for x in para)).strip()
+    out = ""
+    for piece in re.split(r"(?<=[.?!])\s+", text):
+        out = (out + " " + piece).strip() if out else piece
+        if len(out) >= 45:
+            break
+    if not out:
+        out = "*(no header — give this script an opening docstring)*"
+    return out.replace("|", r"\|")
+
+
+def render_tool_rows():
+    """The generated region, marker lines included. Pure function of disk."""
+    on_disk = tool_scripts()
+    placed, body = set(), []
+    for title, blurb, names in TOOL_GROUPS:
+        rows = [n for n in names if n in on_disk]
+        placed.update(rows)
+        if not rows:
+            continue
+        body += ["", "### %s" % title, "", blurb, "",
+                 "| script | what its own header says |", "|---|---|"]
+        body += ["| [`%s`](%s) | %s |" % (n, n, tool_header_line(n))
+                 for n in rows]
+    rest = [n for n in on_disk if n not in placed]
+    if rest:
+        title, blurb = TOOLS_UNGROUPED
+        body += ["", "### %s" % title, "", blurb, "",
+                 "| script | what its own header says |", "|---|---|"]
+        body += ["| [`%s`](%s) | %s |" % (n, n, tool_header_line(n))
+                 for n in rest]
+    head = ("*%d scripts, every `tools/*.py` on disk. This block is GENERATED: "
+            "a row's text is copied from the script's own header, so a wrong "
+            "row is repaired in the script, never here.*" % len(on_disk))
+    return [TOOLS_BEGIN, "", head] + body + ["", TOOLS_END]
+
+
+def _tools_region(lines):
+    """(start, end) index of the marker lines, or None if either is missing."""
+    try:
+        return lines.index(TOOLS_BEGIN), lines.index(TOOLS_END)
+    except ValueError:
+        return None
+
+
+def regen_tools(out):
+    """Splice fresh rows into tools/README.md; leave every other line alone."""
+    if not os.path.exists(TOOLS_README):
+        out.append("REGEN: tools/README.md is missing — its PROSE is "
+                   "hand-authored, so --regen cannot create it; only its rows "
+                   "are generated")
+        return
+    with open(TOOLS_README, encoding="utf-8") as fh:
+        lines = fh.read().replace("\r\n", "\n").split("\n")
+    span = _tools_region(lines)
+    if span is None:
+        out.append("REGEN: tools/README.md has no generated-rows markers — "
+                   "left untouched")
+        return
+    start, end = span
+    new = lines[:start] + render_tool_rows() + lines[end + 1:]
+    with open(TOOLS_README, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(new))
+    out.append("REGEN: wrote tools/README.md's generated tool rows (%d scripts)"
+               % len(tool_scripts()))
+
+
+def check_tools_catalog(out):
+    """The catalog lists every tools/*.py, and every row matches its header."""
+    on_disk = tool_scripts()
+    # The one condition under which there is nothing to check, stated exactly
+    # rather than as "no scripts found": this checker IS a tools/*.py, so in any
+    # real checkout it is always one of its own rows. This line cannot print in
+    # the repo — if it ever does, doccheck is not running from tools/.
+    if "doccheck.py" not in on_disk:
+        out.append("TOOL CATALOG: not applicable — this checker is not running "
+                   "from a tools/ directory (%d script(s) beside it)"
+                   % len(on_disk))
+        return True
+    if not os.path.exists(TOOLS_README):
+        out.append("TOOL CATALOG: RED  tools/README.md is missing (%d scripts "
+                   "have nowhere to be routed from)" % len(on_disk))
+        return False
+    with open(TOOLS_README, encoding="utf-8") as fh:
+        lines = fh.read().replace("\r\n", "\n").split("\n")
+    span = _tools_region(lines)
+    if span is None:
+        out.append("TOOL CATALOG: RED  tools/README.md is missing one or both "
+                   "generated-rows markers; restore them around the tool "
+                   "tables, then regenerate:")
+        out.append("    %s" % TOOLS_BEGIN)
+        out.append("    %s" % TOOLS_END)
+        out.append(REGEN_CURE)
+        return False
+    start, end = span
+    have, want = lines[start:end + 1], render_tool_rows()
+    if have != want:
+        out.append("TOOL CATALOG: RED  the generated rows in tools/README.md "
+                   "differ from the tools on disk (%d row-block lines, %d "
+                   "regenerated, %d scripts)"
+                   % (len(have), len(want), len(on_disk)))
+        for n, (a, b) in enumerate(zip(have, want), start + 1):
+            if a != b:
+                out.append("  RED  first difference at line %d:" % n)
+                out.append("    on disk:     %r" % a[:100])
+                out.append("    regenerated: %r" % b[:100])
+                break
+        out.append(REGEN_CURE)
+        return False
+    declared = [n for _, _, names in TOOL_GROUPS for n in names]
+    stale = sorted(set(declared) - set(on_disk))
+    ungrouped = sorted(set(on_disk) - set(declared))
+    out.append("TOOL CATALOG: %d script(s) on disk, %d row(s) rendered, both "
+               "directions reconciled against glob(tools/*.py)"
+               % (len(on_disk), len(on_disk)))
+    if stale:
+        out.append("  note  TOOL_GROUPS names %d script(s) no longer on disk "
+                   "(dropped from the rows, harmless): %s"
+                   % (len(stale), ", ".join(stale)))
+    if ungrouped:
+        out.append("  note  %d script(s) rendered under \"Ungrouped\"; giving "
+                   "them a group in TOOL_GROUPS is tidying, not a fix: %s"
+                   % (len(ungrouped), ", ".join(ungrouped)))
+    return True
+
+
+# ---------------------------------------------------------------------------
+# Line endings (ported from SMR-BugFixPack @ ac4e4d3).
+#
+# `.gitattributes` governs what a CHECKOUT writes; it does not stop a tool from
+# writing CRLF into the working tree afterwards. A MIXED file is the hazard: git
+# normalises both forms to one blob and shows nothing, while a reader that
+# splits on the file's dominant ending silently DROPS the minority lines. The
+# donor lost a script's `### ` headers exactly that way, and its checker stayed
+# GREEN throughout.
+#
+# A whole-CRLF file is listed but not RED: every line agrees, so no reader
+# splits it wrong — yet the next LF write into it makes it mixed.
+_EOL_CONTROL = (
+    "i/lf    w/mixed attr/text=auto eol=lf \tdocs/x.md\n"
+    "i/lf    w/crlf  attr/text=auto eol=lf \tdocs/y.md\n"
+    "i/-text w/-text attr/-text            \tdocs/archive/logs/z.log.raw\n"
+    "i/lf    w/lf    attr/text eol=lf      \tdocs/agent/STATE.md\n"
+)
+
+
+def _eol_parse(text):
+    """Return [(index_kind, worktree_kind, attr, path)] for `git ls-files --eol`."""
+    rows = []
+    for line in text.splitlines():
+        head, tab, path = line.partition("\t")
+        if not tab:
+            continue
+        parts = head.split()
+        i = next((p[2:] for p in parts if p.startswith("i/")), "")
+        w = next((p[2:] for p in parts if p.startswith("w/")), "")
+        attr = head.split("attr/", 1)[1].strip() if "attr/" in head else ""
+        rows.append((i, w, attr, path.replace("\\", "/")))
+    return rows
+
+
+def _eol_is_raw_evidence(rel):
+    """Archived game logs are raw output whose mixed endings ARE the record: the
+    game writes them that way and `docs/archive/` is append-only. Never listed,
+    never rewritten."""
+    return rel.startswith("docs/archive/") and rel.endswith((".log", ".raw"))
+
+
+def _eol_counts(rel):
+    with open(os.path.join(REPO, rel), "rb") as fh:
+        data = fh.read()
+    crlf = data.count(b"\r\n")
+    return crlf, data.count(b"\n") - crlf
+
+
+def _eol_rows():
+    """[(worktree_kind, path)] for every tracked TEXT file that is not raw
+    archived evidence, or None if git did not answer."""
+    try:
+        text = subprocess.check_output(["git", "ls-files", "--eol"], cwd=REPO,
+                                       text=True, encoding="utf-8", errors="replace")
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return [(w, path) for i, w, attr, path in _eol_parse(text)
+            if i != "-text" and "-text" not in attr.split()
+            and not _eol_is_raw_evidence(path)]
+
+
+def eol_report(out):
+    """RED on a mixed tracked text file, or on a failed parser control."""
+    control = [w for _, w, _, _ in _eol_parse(_EOL_CONTROL)]
+    if control != ["mixed", "crlf", "-text", "lf"]:
+        out.append("EOL: RED  the ls-files --eol parser failed its positive control (%r) — "
+                   "this run says nothing about line endings" % (control,))
+        return False
+    rows = _eol_rows()
+    if rows is None:
+        out.append("EOL: not checked (git ls-files --eol did not run) — this run says "
+                   "nothing about line endings")
+        return True
+    mixed = sorted(p for w, p in rows if w == "mixed")
+    crlf = sorted(p for w, p in rows if w == "crlf")
+    if not mixed and not crlf:
+        out.append("EOL: PASS — every tracked text file is LF in the working tree")
+        return True
+    if mixed:
+        out.append("EOL: RED  %d tracked file(s) MIXED — a reader that splits on one "
+                   "ending drops the other's lines. Cure: `python tools/doccheck.py "
+                   "--fix-eol` (git sees no change)" % len(mixed))
+        for rel in mixed:
+            c, l = _eol_counts(rel)
+            out.append("  RED  %-58s crlf=%d lf=%d" % (rel, c, l))
+    if crlf:
+        # ⛔ ADAPTED FROM THE DONOR, deliberately. Its tree is LF everywhere by
+        # owner ruling 2026-09-16 (`* text=auto eol=lf`), so a whole-CRLF file
+        # there is out of step and it lists each one. THIS repo is a CRLF
+        # checkout BY DESIGN — `core.autocrlf = true` and `.gitattributes` pins
+        # only `tools/hooks/*`, because a CRLF shebang kills a hook — so
+        # whole-CRLF is the EXPECTED state of most files here. Listing them
+        # would put ~24 correct files under a WARN on every run, which is how a
+        # gate teaches people to ignore it. The count still prints, because the
+        # population that can BECOME mixed is worth knowing.
+        # Adopting the donor's LF-everywhere .gitattributes is an owner call: it
+        # rewrites every tracked file's worktree bytes. Not taken here.
+        out.append("EOL: %d tracked file(s) whole-CRLF — expected in this tree "
+                   "(core.autocrlf=true; only tools/hooks/* is pinned LF). Not a "
+                   "defect: every line agrees. They are the files a stray LF "
+                   "write could make MIXED." % len(crlf))
+    return not mixed
+
+
+def eol_fix(paths, out):
+    """--fix-eol: convert CRLF to LF in every tracked text file that carries any
+    (mixed or whole-CRLF), or only in the PATHs given. The stored blob is already
+    LF, so git sees no content change; this only makes the working tree agree."""
+    rows = _eol_rows()
+    if rows is None:
+        out.append("FIX-EOL: git ls-files --eol did not run; nothing rewritten")
+        return
+    fixable = set(p for w, p in rows if w in ("mixed", "crlf"))
+    targets = sorted(fixable) if not paths else [p.replace("\\", "/") for p in paths]
+    for rel in targets:
+        if rel not in fixable:
+            out.append("FIX-EOL: %s has no CRLF to convert, or is binary, -text or an "
+                       "archived log; left alone" % rel)
+            continue
+        c, l = _eol_counts(rel)
+        with open(os.path.join(REPO, rel), "rb") as fh:
+            data = fh.read()
+        with open(os.path.join(REPO, rel), "wb") as fh:
+            fh.write(data.replace(b"\r\n", b"\n"))
+        out.append("FIX-EOL: %s -> LF (was crlf=%d lf=%d)" % (rel, c, l))
+    done = [t for t in targets if t in fixable]
+    if not done:
+        return
+    # A converted file keeps the index's old stat size, so `git status` lists it
+    # modified with an empty diff. `git add --renormalize` refreshes that record,
+    # but it would also STAGE a peer's pending edit on the shared index, so it runs
+    # only on files whose bytes now equal the stored blob exactly.
+    try:
+        worktree = subprocess.check_output(
+            ["git", "hash-object", "--no-filters", "--stdin-paths"], cwd=REPO,
+            input=("\n".join(done) + "\n").encode("utf-8")).decode().split()
+        staged = {}
+        listing = subprocess.check_output(["git", "ls-files", "-s", "--"] + done, cwd=REPO)
+        for line in listing.decode("utf-8", "replace").splitlines():
+            meta, _, p = line.partition("\t")
+            staged[p] = meta.split()[1]
+        clean = [p for p, h in zip(done, worktree) if staged.get(p) == h]
+        if clean:
+            subprocess.run(["git", "add", "--renormalize", "--"] + clean,
+                           cwd=REPO, check=True, capture_output=True)
+        for p in sorted(set(done) - set(clean)):
+            out.append("FIX-EOL: %s carries an uncommitted edit; converted, index left "
+                       "alone" % p)
+    except (OSError, subprocess.CalledProcessError) as exc:
+        out.append("FIX-EOL: index refresh failed (%s); `git status` may list the "
+                   "converted files with an empty diff" % exc)
+
+
+STATE_DOOR = "docs/agent/prompts/perma/STATE_EVICTION.md"
+
+
+def state_added_lines():
+    """Lines the working tree adds to STATE.md relative to HEAD.
+
+    Returns (lines, note). `note` is set when the comparison could not be made
+    and the caller must say so rather than imply a clean result.
+    """
+    import difflib
+    if not os.path.exists(STATE):
+        return [], "STATE.md is absent"
+    # Only subprocess failures are recoverable here. A NameError or a typo must
+    # raise: a broad except turns a coding error into a silent, permanent SKIP,
+    # which is how this gate shipped DEAD in the donor on its first run.
+    try:
+        head = subprocess.check_output(
+            ["git", "show", "HEAD:docs/agent/STATE.md"],
+            cwd=REPO, stderr=subprocess.PIPE)
+    except (OSError, subprocess.CalledProcessError):
+        cur = lf_bytes(STATE).decode("utf-8", "replace").split("\n")
+        return [l for l in cur if l.strip()], "no HEAD copy to compare against"
+    old = head.replace(b"\r\n", b"\n").decode("utf-8", "replace").split("\n")
+    new = lf_bytes(STATE).decode("utf-8", "replace").split("\n")
+    added = []
+    for tag, _, _, j1, j2 in difflib.SequenceMatcher(None, old, new).get_opcodes():
+        if tag in ("insert", "replace"):
+            added.extend(l for l in new[j1:j2] if l.strip())
+    return added, None
+
+
+def check_state_admission(out):
+    """Put the admission door in front of anyone adding a line to STATE.
+
+    This gate CANNOT judge a line — no machine can answer "whose job is this".
+    It makes the judgement unavoidable at the moment of the write by printing
+    the added lines beside the four questions. A PASS here is not approval.
+
+    Ported from SMR-BugFixPack @ ac4e4d3. The door's full text was already here
+    (`prompts/perma/STATE_EVICTION.md`); only its gate was missing — which is
+    what `DECISIONS_OWED.md` OI-08 option (b) asks for before STATE's framing
+    flips from push to pull.
+    """
+    added, note = state_added_lines()
+    if note:
+        out.append("STATE ADMISSION: SKIPPED — %s (no judgement made)" % note)
+        return True
+    if not added:
+        out.append("STATE ADMISSION: no lines added; door is %s" % STATE_DOOR)
+        return True
+
+    out.append("STATE ADMISSION: %d line(s) added — ANSWER THE DOOR BEFORE COMMITTING"
+               % len(added))
+    for line in added[:12]:
+        out.append("    + %s" % line.strip()[:96])
+    if len(added) > 12:
+        out.append("    + ... %d more" % (len(added) - 12))
+    out.append("  1 HARM        name the victim; a mechanism is not one; floor moderate")
+    out.append("  2 REACH       (a) whose job is this?  (b) who needs to know?")
+    out.append("                both must answer EVERYONE; self-consuming chain work")
+    out.append("                never passes (b), by construction")
+    out.append("  3 GATE        a machine catches it -> cite the gate, don't restate it")
+    out.append("  4 VOLATILITY  can its state still change? settled means record, not state")
+    out.append("  AND-ed, never OR-ed: one failure is enough. Full text: %s" % STATE_DOOR)
+    out.append("  This gate cannot judge a line. It only makes you answer. "
+               "A PASS is not approval.")
+    return True
+
+
+def required_selftest(filename, out):
+    """Repo-local falsifiers need no game tree; missing/broken is always RED.
+
+    A falsifier that stops firing is itself a red: it is the only evidence that
+    the gate it guards is alive rather than silently skipping. Note the broad
+    `except` here is correct BECAUSE its failure path is RED — the trap the
+    donor hit was a broad except whose failure path printed as benign.
+    """
+    label = filename.removesuffix(".py").replace("_", " ").upper()
+    tool = os.path.join(REPO, "tools", filename)
+    started = time.perf_counter()
+    try:
+        p = subprocess.run([sys.executable, tool], capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=60)
+    except Exception as exc:                          # noqa: BLE001 — see docstring
+        out.append("%s: RED — could not run (%s)" % (label, exc))
+        return False
+    elapsed = time.perf_counter() - started
+    if p.returncode == 0:
+        out.append("%s: PASS (%.3f s)" % (label, elapsed))
+        return True
+    out.append("%s: RED — FAILED (exit %d, %.3f s). Full output:"
+               % (label, p.returncode, elapsed))
+    out.extend("         " + line for stream in (p.stdout, p.stderr)
+               for line in (stream or "").splitlines())
+    return False
+
+
+def _rule_text(rel):
+    """Read one Markdown file with line endings normalized for byte checks."""
+    with open(os.path.join(REPO, *rel.split("/")), encoding="utf-8-sig",
+              newline="") as fh:
+        return fh.read().replace("\r\n", "\n").replace("\r", "\n")
+
+
+def _rule_block(lines):
+    """Return the sole well-formed rule-block span, or None.
+
+    Trap: a document may MENTION the markers in prose (PROVENANCE §8 and the
+    efficiency survey both quote them inside backticks). Requiring exactly one
+    of each, in order, is what keeps a quotation from reading as a second block.
+    """
+    headings = [i for i, line in enumerate(lines) if line == RULE_HEADING]
+    starts = [i for i, line in enumerate(lines) if line == RULE_START]
+    ends = [i for i, line in enumerate(lines) if line == RULE_END]
+    if (len(headings), len(starts), len(ends)) != (1, 1, 1):
+        return None
+    if not headings[0] < starts[0] < ends[0]:
+        return None
+    return headings[0], starts[0], ends[0]
+
+
+def check_rule_headers(out):
+    """Check the deliberately mechanical half of the rules-header model.
+
+    An untagged sentence cannot be classified reliably by syntax, so this check
+    deliberately does not pretend to find one. A one-time census and owner
+    adjudication supply that semantic half; this function enforces the durable
+    structure they produce. A PASS here is not approval of any rule's content.
+    """
+    ok = True
+    required_blocks = {}
+    header_rule_count = 0
+    over_warn = []
+
+    for rel in RULE_HEADER_DOCS:
+        try:
+            body = _rule_text(rel)
+        except OSError as exc:
+            out.append("RULES HEADERS: RED — cannot read %s: %s" % (rel, exc))
+            ok = False
+            continue
+        lines = body.split("\n")
+        block = _rule_block(lines)
+        if block is None:
+            out.append("RULES HEADERS: RED — %s must contain exactly one ordered "
+                       "%s / RULES marker block" % (rel, RULE_HEADING))
+            ok = False
+            continue
+        heading, start, end = block
+        required_blocks[rel] = block
+        size = len("\n".join(lines[heading:end + 1]).encode("utf-8"))
+        is_kernel = rel.replace("\\", "/").endswith(KERNEL_HEADER_FILE)
+        hard = KERNEL_HEADER_MAX_BYTES if is_kernel else RULE_HEADER_MAX_BYTES
+        warn = KERNEL_HEADER_WARN_BYTES if is_kernel else RULE_HEADER_WARN_BYTES
+        if size > hard:
+            out.append("RULES HEADERS: RED — %s header is %d B; hard cap is %d B"
+                       % (rel, size, hard))
+            ok = False
+        elif size > warn:
+            over_warn.append("%s (%d B, warn %d)" % (rel, size, warn))
+        header_rule_count += sum(1 for line in lines[start + 1:end]
+                                 if line.startswith("Rule:"))
+
+    # The placement half. It runs over EVERY tracked Markdown file, not just the
+    # required ones — that is what makes the header the only legal home.
+    try:
+        tracked = subprocess.check_output(
+            ["git", "ls-files", "*.md"], cwd=REPO,
+            text=True, encoding="utf-8", errors="replace",
+        ).splitlines()
+    except (OSError, subprocess.CalledProcessError) as exc:
+        out.append("RULE PLACEMENT: RED — cannot enumerate tracked Markdown: %s" % exc)
+        return False
+
+    misplaced = []
+    malformed = []
+    forbidden = []
+    duties = {}
+    duplicate_duties = []
+    state_rules = []
+    for rel in tracked:
+        rel = rel.replace("\\", "/")
+        # AGENTS.md is a generated byte mirror, verified by check_agents_mirror.
+        # Counting it would manufacture a second canonical surface and report
+        # every kernel rule as its own duplicate.
+        if rel == "AGENTS.md":
+            continue
+        try:
+            lines = _rule_text(rel).split("\n")
+        except OSError as exc:
+            out.append("RULE PLACEMENT: RED — cannot read %s: %s" % (rel, exc))
+            ok = False
+            continue
+        block = _rule_block(lines)
+        for index, line in enumerate(lines):
+            if not line.startswith("Rule:"):
+                continue
+            location = "%s:%d" % (rel, index + 1)
+            if rel == "docs/agent/STATE.md":
+                state_rules.append(location)
+            if rel in RULE_FORBIDDEN or rel.startswith("docs/archive/"):
+                forbidden.append(location)
+            in_header = (block is not None and block[1] < index < block[2])
+            if not in_header:
+                misplaced.append(location)
+            if in_header and (not RULE_STYLE_RE.fullmatch(line) or "**" in line
+                              or RULE_EMOJI_RE.search(line)
+                              or re.search(r"\b(?:MUST|NEVER|ALWAYS)\b", line)):
+                malformed.append(location)
+                continue
+            if not in_header:
+                continue
+            duty_match = RULE_DUTY_RE.fullmatch(line)
+            duty = re.sub(r"\s+", " ", duty_match.group(1)).casefold()
+            previous = duties.get(duty)
+            if previous is None:
+                duties[duty] = location
+            else:
+                duplicate_duties.append((previous, location))
+
+    # STATE is status, not law. A rule parked there is a rule that expires with
+    # the next eviction, which is exactly how a duty gets silently lost.
+    if state_rules:
+        out.append("RULES HEADERS: RED — STATE.md must contain zero Rule lines: %s"
+                   % ", ".join(state_rules))
+        ok = False
+    if forbidden:
+        out.append("RULES HEADERS: RED — Rule lines are forbidden on generated or "
+                   "archived surfaces: %s" % ", ".join(forbidden))
+        ok = False
+    if malformed:
+        out.append("RULES HEADERS: RED — malformed canonical Rule line(s): %s"
+                   % ", ".join(malformed))
+        ok = False
+    if duplicate_duties:
+        out.append("RULES HEADERS: RED — duplicate canonical duties: %s"
+                   % "; ".join("%s = %s" % pair for pair in duplicate_duties))
+        ok = False
+
+    if ok:
+        out.append("RULES HEADERS: PASS — %d required block(s), %d canonical "
+                   "header rule(s)" % (len(required_blocks), header_rule_count))
+    if over_warn:
+        out.append("RULES HEADERS: WARN — header over its warning threshold: %s"
+                   % ", ".join(over_warn))
+    if misplaced:
+        out.append("RULE PLACEMENT: WARN — Rule line(s) outside Must_Read_Header: %s"
+                   % ", ".join(misplaced))
+    else:
+        out.append("RULE PLACEMENT: PASS — every canonical Rule line is in a header")
+    return ok
 
 
 def main():
@@ -1133,9 +1827,15 @@ def main():
     ap.add_argument("--emit-fingerprint", action="store_true",
                     help="group facts by derived_at and say which groups still "
                          "describe the installed game build")
-    ap.add_argument("--regen", action="store_true",
+    ap.add_argument("--regen", "--regen-index", action="store_true", dest="regen",
                     help="rewrite every generated file (bugs/INDEX.md, "
-                         "facts/INDEX.md, AGENTS.md) from its source, then check")
+                         "facts/INDEX.md, the .agents/skills/ mirror, "
+                         "tools/README.md's tool rows and AGENTS.md) from its "
+                         "source, then check")
+    ap.add_argument("--fix-eol", nargs="*", metavar="PATH", dest="fix_eol",
+                    help="convert CRLF to LF in every tracked text file that "
+                         "carries any, or only in the PATHs given. The stored "
+                         "blob is already LF, so git sees no content change")
     ap.add_argument("--verify-split", nargs="?", const="HEAD~1", metavar="REV",
                     help="N/A in this repo (kept from the donor): re-runs the "
                          "BUGS split accounting against REV's docs/BUGS.md, "
@@ -1157,6 +1857,11 @@ def main():
     out = []
     sb = splitter()
     sf = facts_splitter()
+    if args.fix_eol is not None:
+        fixed = []
+        eol_fix(args.fix_eol, fixed)
+        print("\n".join(fixed) or "FIX-EOL: nothing to convert")
+        return 0
     if args.regen:
         try:
             regen(out)
@@ -1177,7 +1882,12 @@ def main():
     ok = check_agents_mirror(out) and ok
     ok = check_skills(out) and ok
     ok = check_prompt_map(out) and ok
+    ok = check_rule_headers(out) and ok
+    ok = required_selftest("rule_headers_selftest.py", out) and ok
+    ok = check_tools_catalog(out) and ok
+    ok = eol_report(out) and ok
     ok = check_state(out) and ok
+    ok = check_state_admission(out) and ok
     push_set_report(out)
     counts = recount(model, out)
     ok = temporary_sweep(out) and ok

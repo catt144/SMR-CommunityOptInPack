@@ -45,6 +45,60 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 
 ---
 
+### 2026-09-17 — OI-09 OPEN: may agent-facing docs be machine-tuned hard, where human-facing ones may not?
+
+> Raised by your port note `C:\Dev\SMR-BugFixPack\.claude\OPTIN_OVERHAUL_PORT.md`, whose closing
+> line is *"One thing to ask your owner early"*. The fix pack ruled this for itself; this repo has
+> no equivalent line. ⛔ **Nothing has been pruned here.** The gates that port note lists are now
+> in (`PROVENANCE.md` §9) — this is the ask that unblocks the prose half, and the port deliberately
+> stopped at it.
+
+OI-09. **Draw the line between documents an AGENT reads and documents YOU read — and say whether
+    the first may be cut hard.**
+
+    **Why it comes first.** The donor's experience is that this one line decides most of the
+    arguments that follow: an agent-facing document can be compressed to whatever a machine routes
+    from, while a human-facing one keeps the connective prose a person needs to read it once and
+    understand it. Without the line drawn, every individual cut becomes its own negotiation, and
+    the donor's note is explicit that negotiating cuts line by line never got past *"down enough"*.
+
+    **The split as it would fall here**, if you take the donor's shape:
+
+    | agent-facing (cut hard) | yours (cut only with your line) |
+    |---|---|
+    | `docs/agent/WORKFLOW.md`, `FIX_POLICY.md`, `PROVENANCE.md`, `STATE.md` | `docs/DECISIONS_OWED.md` — this file; you are its reader |
+    | `docs/agent/prompts/**`, `docs/agent/reports/**` | `docs/FUTURE_IDEAS.md` — your parking lot |
+    | `CLAUDE.md` / `AGENTS.md` (the kernel) | `docs/README.md` — the map, read by both |
+    | `docs/agent/bugs/**`, `facts/**` (entries are truth; they are not prose) | ⚠️ the two PLAYTEST files are **not here** — they are single-sourced in the fix pack, so its ruling already governs them |
+
+    **The measured first case, if the answer is yes.** `docs/agent/reports/CONTAMINATION_AUDIT_20260901.md`
+    is **261,696 B — 17% of this repo's entire `docs/` tree in one file**, and 1,009 of its 2,034
+    lines are one table row per classified grep hit. Its verdict is a single paragraph and is
+    already carried in `STATE.md` (*817 hits classified, 0 contamination, AST-PROVEN*). It is the
+    same shape as the donor's own containment trap — a rules audit that filed 842,551 B of JSON
+    into the docs it was shrinking, making the de-bloat net negative without anyone noticing.
+    ⛔ It is NOT proposed for deletion here and nothing was touched; it is named because it is the
+    cheapest way to see what the answer to this question is worth. Numbers from `.claude/baseline.py`,
+    re-runnable.
+
+    **Options:** (a) **adopt the donor's line** — agent docs may be machine-tuned hard, yours may
+    not, and a report whose verdict is recorded elsewhere is **deleted, not re-archived**;
+    (b) **adopt it, but archive rather than delete** — `docs/archive/` is append-only and already
+    hidden from a default `rg`, so the bytes leave the working set without leaving the repo;
+    (c) **no line — every cut comes to you individually**; (d) **leave the prose alone entirely**
+    and keep only the gates that just landed. **Recommend (a) with (b) for anything carrying
+    measurements that cannot be re-taken** — the donor's own trap was that under hard triage a model
+    archives everything rather than cut, which meets the letter and misses the goal, so the ruling
+    has to say *deleted, not re-archived* out loud to work.
+
+    ⚠️ **What a naive cut would destroy, whichever way you rule** (already listed by the survey §5,
+    repeated here because this is the item that licenses cutting): the two bans; `FIX_POLICY` §4
+    **inverted** for a mod whose product IS opinionated modules, with the donor's §4 kept verbatim
+    as §4-donor; the §5 dial addendum for D09; and the both-configuration ship test. These are
+    protected regardless.
+
+---
+
 ### 2026-09-17 — OI-08 OPEN: is `STATE.md` still "the one mandatory read", or is it PULL?
 
 > Raised by the efficiency-parity survey, `agent/reports/EFFICIENCY_PARITY_SURVEY_20260917.md` §7.
@@ -74,6 +128,14 @@ OI-08. **Flip `STATE.md` from push to pull, as the fix pack did?**
     work is scoped. **Recommend (b)**: the door is already written here
     (`prompts/perma/STATE_EVICTION.md`), only its gate is missing, and it is the step that makes the
     flip safe rather than merely cheap.
+
+    ⭐ **2026-09-17 UPDATE — half of (b) is DONE and the ask is now cheaper.** `check_state_admission`
+    and `state_added_lines` are ported and live (`PROVENANCE.md` §9); doccheck now prints every line
+    a commit ADDS to `STATE.md` beside the four questions. Verified by positive control: silent on a
+    clean tree, opens on an added line. ⛔ **The remaining half of (b) is not done** — no eviction has
+    been run under the door, so this repo's live 1.1.0 holds still sit in `STATE.md` and the caveat
+    above stands unchanged. What is left to rule is the flip itself, plus whether the eviction runs
+    first. The gate cannot judge a line and says so on every run; a PASS is not approval.
 
     ⚠️ This is a framing rule, not a behaviour change — no module, save or account state is touched
     whichever way it goes.

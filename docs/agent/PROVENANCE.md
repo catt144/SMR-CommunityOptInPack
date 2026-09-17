@@ -181,6 +181,43 @@ moved here left tombstones behind.
 
 ---
 
+## 9. The fifth port — 2026-09-17 the doc-overhaul gates (donor @ `ac4e4d3`)
+
+Later the same day, and a **separate** port from §8. The owner's note
+`C:\Dev\SMR-BugFixPack\.claude\OPTIN_OVERHAUL_PORT.md` (written for this repo, in the donor's
+ignored space) surveyed what the donor's documentation overhaul actually consisted of and concluded
+the gap here is **gates and machinery, not design**. Its claims about this tree were re-derived
+before use and every one held: 1,221 doccheck lines / 9 gates, 18 `tools/*.py`, no `tools/README.md`,
+no falsifiers.
+
+⛔ **This port carried MACHINERY only. No document was pruned and no rule was reworded** — the
+prose half needs the census and the human-vs-agent licence ruling that `DECISIONS_OWED.md` OI-09
+asks for.
+
+| artifact here | how | what changed / what it proves here |
+|---|---|---|
+| `tools/doccheck.py` `check_rule_headers` + RULE PLACEMENT | ADAPTED | the entrance gate: every canonical `Rule:` line lives in exactly one `Must_Read_Header` / `<!-- RULES -->` block, duplicates across the whole repo are RED, and `STATE.md`, generated indexes and `docs/archive/` may hold none. ⛔ **The donor's `[A3: pass]` tag is NOT required by this port's style regex** — that tag records ITS one-time census, which never ran on our text (§8 says the same of the tags themselves). Requiring it would either red this repo permanently or invite an agent to paste an adjudication nobody performed. The constant carries the one-line change that reinstates it when a census runs here |
+| `tools/rule_headers_selftest.py` | NEW | the falsifier the gate above is worthless without. 13 cases — one per red the gate claims, plus a **negative control** and the WARN/RED distinction. Imports `doccheck` as a library and repoints `REPO` at a scratch git repo, so it exercises the real parser, not a copy of it. Wired in as `required_selftest`, so a falsifier that stops firing is itself RED |
+| `tools/doccheck.py` `check_tools_catalog` + `regen_tools` | VERBATIM (groups re-authored) | `tools/README.md`'s rows are GENERATED from each script's own opening header and reconciled **both ways** against `glob(tools/*.py)`. `TOOL_GROUPS` is this repo's own six groups over its 19 scripts; the renderer and the header parser are the donor's |
+| `tools/README.md` | NEW | did not exist here. Prose hand-authored for this repo (the over-reporter rule, the desk-verified rule, the not-published warning); only the marked region is generated |
+| `tools/doccheck.py` `eol_report` / `eol_fix` / `--fix-eol` | ADAPTED | MIXED files are RED — a reader that splits on one ending silently drops the other's lines, and git shows nothing because it normalises both to one blob. ⛔ **The whole-CRLF half is DELIBERATELY SOFTENED.** The donor's tree is LF everywhere by its owner ruling 2026-09-16, so a CRLF file there is out of step and it lists each one; **this repo is a CRLF checkout BY DESIGN** (`core.autocrlf = true`, `.gitattributes` pins only `tools/hooks/*` because a CRLF shebang kills a hook). Listing them would put ~24 correct files under a WARN on every run, which is how a gate teaches people to ignore it. Adopting the donor's LF-everywhere `.gitattributes` would rewrite every tracked file's worktree bytes and is an owner call; not taken |
+| `tools/doccheck.py` `check_state_admission` + `state_added_lines` | VERBATIM (path swapped) | prints the lines a commit ADDS to `STATE.md` beside the four-test door. ⭐ This is exactly what `DECISIONS_OWED.md` **OI-08 option (b)** asks for before STATE's framing flips from push to pull: §8 had already ported the door's TEXT into `prompts/perma/STATE_EVICTION.md`, and only its gate was missing. The gate cannot judge a line and says so; a PASS is not approval |
+| `.claude/baseline.py` | ADAPTED | the metric emitter, in this repo's gitignored space (`.claude/*`, skills and agents excepted) so the overhaul's working papers cannot land in the docs being overhauled. Frozen file list, LF-normalised bytes, the survey's own rule-proxy expression. ⭐ It independently reproduces `EFFICIENCY_PARITY_SURVEY_20260917.md` §1 and §4 to the byte |
+
+**What was DELIBERATELY not ported.** `check_waiting` and `check_marker_integrity` — the owner's
+note records both as **dead in the donor**, surviving as stubs nothing calls; porting them would
+port a corpse. `check_entry_mirror` — not missing here, it is `check_agents_mirror` under another
+name. The donor's `check_checklist` (item format + a 30-day age from `opened:`) — it governs a
+checklist this repo does not keep in that shape; whether `DECISIONS_OWED.md` should take the same
+treatment is open. Its three remaining falsifiers (`ck170`, `counts`, `prompt_map`, `repair_pass`)
+guard donor gates this repo does not run.
+
+⚠️ **The gates found two real defects on their first run, both pre-existing.** `_preamble.md` — a
+SOURCE the facts INDEX is generated from — was MIXED: 29 lines read one way, 37 the other, so a
+reader splitting on CRLF dropped 8. `CONTAMINATION_AUDIT_20260901.md` was MIXED at crlf=932/lf=1102.
+Both converted with `--fix-eol`; the stored blob was already LF in both cases, so **git saw no
+content change** and `git status` stayed empty — verified, not assumed.
+
 ## 8. The fourth port — 2026-09-17 tooling/process parity (donor @ `e6ec192`)
 
 The fix pack spent the fortnight after 09-01 rebuilding how a session works there — skills, a rules
@@ -214,7 +251,9 @@ folder) the row says what replaced it.
 lives in `reports/` here), its `prompts/perma/` split (this repo has five prompts, not a tree), its
 `.claude/agents/doc-surgeon.md` and its `.claude/` working corpus (a live chain's scratch, not an
 artifact), and the rest of its 2,097 new doccheck lines — most of which check surfaces this repo
-does not have (its checklist's `opened:` dates, its STATE admission parser, its stub files).
+does not have (its checklist's `opened:` dates, its stub files). ⚠️ **Superseded in part by §9**,
+which landed the STATE admission parser this paragraph lists as not ported, along with the rules
+header, tools-catalog and EOL gates.
 
 ## 7. The third port — 2026-09-12, one dangling citation closed (donor @ `85d95cb`)
 
