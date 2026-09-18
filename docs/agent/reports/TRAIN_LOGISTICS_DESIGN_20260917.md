@@ -482,12 +482,16 @@ the drone half of T1 and T3 is read from `stored` in the DUMP.
   capacity (§3), so with Metals enabled X settles near its capacity share (about ⅓ of the
   route-A total, with neither station upgraded). T1 therefore runs a **control phase first**:
   X stocked, Metals enabled, two watch windows, the settled share read.
-- **Route check before the base save.** Trains are a colony pool (`ColonyGetPrefabs("Train")`),
-  but each one is assigned to one route. A route's cap is its number of distinct stations
-  (`TrainTransport.lua:506-523`), and a station's Trains rollover sums the caps of its connected
-  routes (`Station.lua:1270-1290`). With A and B separate routes, the rollover reads `…/2` at X,
-  `…/4` at H and `…/2` at P, with one train per route. `…/3` at X means X, H and P form **one**
-  through-route on the same track pair, and T2 would then test nothing.
+- **Route check before the base save.** A route is a linear chain. A train continues through a
+  station only when the next track leaves from the connector directly opposite the one it came in
+  on (`Station.lua:931-960`, used by `EnumRouteTracks`, `TrainTransport.lua:251-300`). The
+  Trains rollover's cap counts each distinct station **once** across all of a station's
+  routes: `GetTrainsOnRoute` shares one `seen` table, and a route left with fewer than two unseen
+  stations adds 0 (`TrainTransport.lua:492-536`). So separate A and B read `…/2` at X, H and P,
+  and one through-route reads `…/3` everywhere, in which case T2 tests nothing. Corrected
+  2026-09-18: this line first predicted `…/4` at H. The owner's H read `3/3`, and they pointed
+  out that a fourth station would be needed. Slot 1 now also DUMPs every route's station path,
+  which settles the question from the log.
 - **P1 (T1, slot 4 on X, after the control):** `en=false`, `pol=send` (`Station.lua:1079-1081`).
   X's `stored` then goes to **zero**, below its settled share, which is the forbidden branch
   and not balancing. H gains the difference plus or minus `in_trains`, and `colony_total` does
