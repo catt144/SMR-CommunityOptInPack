@@ -1,6 +1,14 @@
-# core.autocrlf is true in this clone, so anything git checks out gets CRLF
-# unless told otherwise. A shell script with CRLF endings dies on its own
-# shebang (`/bin/sh^M: bad interpreter`), silently, on a fresh clone — so the
-# hooks are pinned to LF. Nothing else in the repo needs pinning: the Lua and
-# the docs are read by tools that do not care.
+# Line endings: LF everywhere (the fix pack's owner ruling 2026-09-16, taken here under the
+# 2026-09-17 standardisation). Git stores LF and
+# checks text out as LF on every machine, whatever core.autocrlf says, because
+# the eol attribute outranks it. The old CRLF checkout meant any tool that
+# wrote LF left a file mixed, git could not see it, and a reader that split on
+# the dominant ending silently lost lines. doccheck's EOL section is RED on a
+# mixed file; the cure is `python tools/doccheck.py --fix-eol`.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+
+# Shell hooks must stay LF; a CRLF shebang dies silently on a fresh clone
+# (`/bin/sh^M: bad interpreter`). Redundant with the line above, kept explicit.
 tools/hooks/* text eol=lf
