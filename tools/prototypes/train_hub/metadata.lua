@@ -4,7 +4,7 @@ return PlaceObj('ModDef', {
 	'short_description', "DEV ONLY: six-connector train-station prototype.",
 	'id', "SMR_TrainHubPrototype_20260918",
 	'author', "catt144",
-	'version', 1,
+	'version', 2,
 	'lua_revision', 350453,
 	'saved_with_revision', 403908,
 	'optional_mod', true,
