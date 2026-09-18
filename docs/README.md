@@ -1,11 +1,11 @@
 # docs/ — the map
 
 Created 2026-08-12 by the `split-optins` chain (prompt 3), mirroring
-`SMR-BugFixPack`'s tree so one set of habits serves both repos. **Human docs at
-the root; everything an agent reads under `agent/`; everything spent under
-`archive/`.** `python tools/doccheck.py` enforces this map — the root list
-below is an allowlist checked in BOTH directions, so a new file at `docs/` root
-is a red build until it is added here too.
+`SMR-BugFixPack`'s tree so one set of habits serves both repos. **Human docs
+are at the root; everything an agent reads is under `agent/`; everything spent
+is under `archive/`.** `python tools/doccheck.py` enforces this map — the root
+list below is an allowlist checked in BOTH directions, so a new file at
+`docs/` root is a red build until it is added here too.
 
 ```
 docs/
@@ -15,18 +15,14 @@ docs/
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
   README.md               this map
   agent/
-    STATE.md              current state only — status + pointer, never derivation.
-                          Byte-capped; the door is prompts/perma/STATE_EVICTION.md
-    WORKFLOW.md           process rules — commits, probe hygiene, todo discipline
+    STATE.md              Pull-only current status, byte-budgeted (doccheck)
+    WORKFLOW.md           process rules — layout, patches, probe hygiene, testing, release
     FIX_POLICY.md         what may be built, and how
     bugs/                 defect/design truth — one file per entry
     facts/                engine behaviour — one file per fact
-    reports/              reports, plans, specs, audits, surveys — NOT authority
+    reports/              reports, plans, specs, audits, surveys
+    prompts/              README.md = the map · perma/ = standing prompts · root = live one-offs · live chains only
     support/              protocols and references used by prompts, but not themselves fired
-    prompts/              README.md is the MAP and doccheck gates it both ways
-      perma/              standing prompts — WORK_PROMPT (start here for any work) ·
-                          DISPATCH (live-issue triage) · STATE_EVICTION · KNOWLEDGE_SYNC_PASS
-      *.md                live one-offs; a fired one deletes itself AND its map row
   archive/                spent. SESSION_LOG.md, retired prompts
 ```
 
@@ -48,17 +44,24 @@ tools/doccheck.py         the mechanical floor. --regen writes every generated f
 
 ## The archive boundary
 
-`docs/archive/` is append-only history and is kept **out of a default ripgrep** by the root
-`.rgignore`, so an ordinary search returns only what is live. It is a boundary, not a deletion —
-search it on purpose:
+`docs/archive/` is append-only history — spent reports, retired prompts, session
+logs, settled decision bodies. A root **`.rgignore`** keeps it out of a *default*
+ripgrep, which is what the agent `Grep` tool runs, so an ordinary search returns
+only what is **live**. This is a search boundary, not a deletion: the record is
+whole, and sometimes it is exactly what you want — *"we may already have learned
+this in an archived report."*
+
+Two ways to search it **on purpose**:
 
 ```
 rg <term> docs/archive/     the archive alone — naming the path defeats the filter
 rg --no-ignore <term>       live + archive in one pass
 ```
 
-`grep -r`, `git grep` and `git log` ignore `.rgignore` entirely and always see everything. A default
-search coming back empty is the boundary working, not a missing file.
+`grep -r`, `git grep` and `git log` never consult `.rgignore` and always see
+everything. If a default search comes back empty on something you are sure this
+project once knew, that is the boundary working — re-run with one of the two forms
+above before concluding it was never here. It is not a bug and not a missing file.
 
 ## ⚠️ The human playtest file lives in the FIX PACK repo
 
@@ -105,29 +108,31 @@ so both mods need all of them; the two copies **diverge between syncs** — see
 fix pack**: file a new fact there first,
 mirror it here at the same id. `INDEX.md` is **generated**.
 
-⚠️ **`INDEX.md` is generated in both folders.** The source/regeneration duty is
-canonical in `CLAUDE.md`; generated files also say so on line 1.
+⚠️ **`INDEX.md` is generated in both folders and is never hand-edited.** Edit
+the entry or fact file; doccheck regenerates the index and fails on any
+difference. Generated files say so on line 1.
 
 ## Where new things go
 
-- A **defect or module record** → a new file in `agent/bugs/`. Never a report.
+- A **defect or module record** → a new file in `agent/bugs/`. Never a report, never FUTURE_IDEAS.
 - An **engine fact** → a new `EF-###.md` in `agent/facts/`, with its date —
   ⛔ numbered by the FIX PACK: file it there first (or reserve the id there),
   then mirror it here at the same id and say so in both. Never mint an `EF-`
   number in this repo alone (the 2026-08-16 collision is why).
-- A **duty that binds future work** → run the `doc-editing` skill's rule-placement test; tier is
-  determined by when the duty loads, not by whether its topic sounds like process or code.
+- A **rule that binds future work** → `agent/WORKFLOW.md` or `agent/FIX_POLICY.md`,
+  not buried in a report.
 - A **report, plan, spec, audit or survey** → `agent/reports/`.
+- A **prompt** → reusable: `agent/prompts/perma/`; one-off: the `agent/prompts/` root, deleted when consumed. Update the
+  map, `agent/prompts/README.md`, either way.
 - A **supporting document used by a prompt** → `agent/support/`; keep the prompt's pointer and
   update `agent/support/README.md` when the document lands.
-- A **prompt** → `agent/prompts/`; its map and `prompt-authoring` define class and lifecycle,
-  with doccheck gating file/map agreement.
-- A **session leg** → `archive/SESSION_LOG.md` (append-only history, newest first).
+- A **session leg** → `archive/SESSION_LOG.md` (append-only, newest first).
 - A **decision the owner must make** → `DECISIONS_OWED.md`, this mod's own list
-  (owner, 2026-09-12). Only three classes stayed on the FIX PACK's
+  (owner, 2026-09-12). The ruling, once made, goes to the doc of the role that obeys it,
+  never only to an agent's memory. Only three classes stayed on the FIX PACK's
   `docs/PLAYTEST_CHECKLIST.md`: the shared TestKit, the `EF-` id allocation rule,
   and a fix-pack feature parked here by analogy.
-- **Spent** anything → `archive/`; its write discipline is canonical in `CLAUDE.md`.
+- **Spent** anything → `archive/`, which is append-only and never edited.
 
 ⚠️ **Reports are not authority.** When a report disagrees with `agent/bugs/` or
 `agent/facts/`, the entry wins — or the report is wrong and is corrected in the

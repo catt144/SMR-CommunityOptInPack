@@ -54,15 +54,13 @@ DONOR = os.environ.get("SMR_FIXPACK", r"C:\Dev\SMR-BugFixPack")
 LOCAL_ADAPTATIONS = {
     "EF-062.md": "its FUTURE_IDEAS pointer is adapted to this repo's file "
                  "(the only CONTENT adaptation in the mirror)",
-    "INDEX.md": "GENERATED here from local front matter by tools/split_facts.py; "
-                "never copied from the donor",
     "_preamble.md": "carries this repo's dated copy note and sync-tool pointer "
                     "on top of the donor's text",
 }
 
 # The last donor sha this repo synced from. Move it when a sync completes, in
 # the same commit that lands the sync.
-LAST_SYNC = "e6ec192"
+LAST_SYNC = "2ec1c62"
 
 # Donor paths whose changes could matter here. Deliberately NOT the whole tree:
 # its Fix_*.lua modules, its playtest checklist and its store drafts are its own
