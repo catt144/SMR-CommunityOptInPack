@@ -53,6 +53,7 @@ import argparse
 import ast
 import glob
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -118,6 +119,7 @@ GENERAL_USE_MAX_LINES = 220
 RULE_HEADER_DOCS = (
     "CLAUDE.md",
     "docs/PLAYTEST_CHECKLIST.md",
+    "docs/PARKED_MODULES.md",
     "docs/agent/FIX_POLICY.md",
     "docs/agent/prompts/README.md",
 )
@@ -652,6 +654,175 @@ def check_checklist(out):
     for b in bad:
         out.append("  RED  " + b)
     out.append("CHECKLIST: RED  %d violation(s); the gate is the file's Must_Read_Header"
+               % len(bad))
+    return False
+
+
+# The parked-modules file (owner, 2026-09-18): designed or part-built work the
+# owner declared parked, between live work and docs/archive/. Pull-only, read by
+# the owner AND agents, and it must not become a journal. Enforcement is PER
+# ENTRY, not per document: an entry is a `### <name> · parked <date>` heading
+# through the next `### ` heading or EOF, at most 10 lines and 1,024 bytes, the
+# five fields in the owner's order, and only `Basic summary:` may continue.
+# The Evidence line (owner, 2026-09-18) is PATHS ONLY: at most 8 record paths
+# joined by ` · `, its own 400-character cap instead of the 100-column one, and
+# it is left out of the 1,024-byte count so paths never squeeze the summary. The
+# markup bans exist because every one of them packs mass information into a
+# line the caps count as one (a table row, a list, a comment, a <details>).
+# The prose above the first entry is outside the entry checks but inside the
+# HTML and invisible-character checks. Legs: tools/rule_headers_selftest.py.
+PARKED_REL = "docs/PARKED_MODULES.md"
+PARKED_MAX_LINES = 10
+PARKED_MAX_WIDTH = 100
+PARKED_MAX_BYTES = 1024          # every entry line except Evidence
+PARKED_EVIDENCE_MAX_WIDTH = 400  # the Evidence line, whole
+PARKED_EVIDENCE_MAX_PATHS = 8
+PARKED_HEAD_RE = re.compile(r"^### (.+) · parked (\d{4}-\d{2}-\d{2})$")
+PARKED_FIELDS = ("What:", "Scope:", "Revives by:", "Evidence:", "Basic summary:")
+PARKED_SCOPE_RE = re.compile(r"^Scope: (full module|part of \S.*) \(D\d+\)$")
+PARKED_EVIDENCE_ROOTS = ("docs/agent/bugs/", "docs/agent/reports/",
+                         "docs/agent/facts/", "docs/agent/prompts/")
+# A path is path characters and nothing else: no space, backtick, bracket or
+# parenthesis can sit in one, so a word or a note after a path fails here.
+PARKED_EVIDENCE_PATH_RE = re.compile(
+    r"^docs/agent/(bugs|reports|facts|prompts)/[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$")
+# Inline code renders its content literally, so HTML inside a closed code span
+# hides nothing; spans are stripped per line before the HTML test (a span left
+# open across lines is NOT stripped, so it is tested — the strict side).
+PARKED_CODE_SPAN_RE = re.compile(r"`[^`\n]*`")
+PARKED_HTML_RE = re.compile(r"<!--|</?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$)")
+PARKED_INVISIBLE_RE = re.compile(
+    "[\u00ad\u180e\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]")
+PARKED_MARKUP = (
+    (re.compile(r"^\s*(```|~~~)"), "a code fence"),
+    (re.compile(r"^\s*\|"), "a table row"),
+    (re.compile(r"^\s*>"), "a blockquote"),
+    (re.compile(r"^\s*([-*+]|\d+[.)])(\s|$)"), "a list bullet"),
+    (re.compile(r"\[\^"), "a footnote"),
+    (re.compile(r"^\s*#"), "a sub-heading"),
+    (re.compile(r"^\s*(={2,}|-{3,}|\*{3,}|_{3,})\s*$"), "a heading underline or rule"),
+)
+
+
+def parked_shape(text, today, repo):
+    """-> list of violations of the parked-modules entry gate."""
+    import datetime
+    bad = []
+    lines = text.split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()                                   # the file's final newline
+
+    for n, line in enumerate(lines, 1):
+        if PARKED_INVISIBLE_RE.search(line):
+            bad.append("line %d carries an invisible or zero-width character" % n)
+        if line in (RULE_START, RULE_END):
+            continue                                  # the header's own markers
+        if PARKED_HTML_RE.search(PARKED_CODE_SPAN_RE.sub("", line)):
+            bad.append("line %d carries HTML (a comment, <details>, <br> or a tag)" % n)
+
+    heads = [i for i, line in enumerate(lines) if line.startswith("### ")]
+    for k, start in enumerate(heads):
+        end = heads[k + 1] if k + 1 < len(heads) else len(lines)
+        span = lines[start:end]
+        trailing = 0
+        while span and not span[-1].strip():
+            span.pop()
+            trailing += 1
+        last = k + 1 == len(heads)
+        n0 = start + 1
+        m = PARKED_HEAD_RE.match(span[0])
+        name = m.group(1) if m else "line %d" % n0
+        if not m:
+            bad.append("line %d: an entry heading is `### <name> · parked YYYY-MM-DD`" % n0)
+        else:
+            try:
+                stamp = datetime.date.fromisoformat(m.group(2))
+            except ValueError:
+                stamp = None
+                bad.append("%s: %s is not a real date" % (name, m.group(2)))
+            if stamp and stamp > today:
+                bad.append("%s: parked date %s is in the future" % (name, m.group(2)))
+        if not last and trailing != 1:
+            bad.append("%s: entries are separated by exactly one blank line, found %d"
+                       % (name, trailing))
+        if last and trailing:
+            bad.append("%s: blank line inside the entry (after its last line)" % name)
+        if len(span) > PARKED_MAX_LINES:
+            bad.append("%s: %d lines, cap %d (heading included)"
+                       % (name, len(span), PARKED_MAX_LINES))
+        size = len("\n".join(line for line in span
+                              if not line.startswith("Evidence: ")).encode("utf-8"))
+        if size > PARKED_MAX_BYTES:
+            bad.append("%s: %d bytes without its Evidence line, cap %d"
+                       % (name, size, PARKED_MAX_BYTES))
+        seen = []
+        for i, line in enumerate(span):
+            n = n0 + i
+            cap = (PARKED_EVIDENCE_MAX_WIDTH if line.startswith("Evidence: ")
+                   else PARKED_MAX_WIDTH)
+            if len(line) > cap:
+                bad.append("line %d is %d characters, cap %d" % (n, len(line), cap))
+            if i == 0:
+                continue
+            if not line.strip():
+                bad.append("line %d: blank line inside an entry" % n)
+                continue
+            for pattern, what in PARKED_MARKUP:
+                if pattern.search(line):
+                    bad.append("line %d: %s inside an entry" % (n, what))
+            field = next((f for f in PARKED_FIELDS if line.startswith(f + " ")
+                          or line == f), None)
+            if field:
+                seen.append(field)
+                value = line[len(field):].strip()
+                if not value:
+                    bad.append("line %d: %s is empty" % (n, field))
+                elif field == "Scope:" and not PARKED_SCOPE_RE.match(line):
+                    bad.append("line %d: Scope is `full module (Dxx)` or "
+                               "`part of <module> (Dxx)`" % n)
+                elif field == "Evidence:":
+                    parts = line[len("Evidence: "):].split(" · ")
+                    if len(parts) > PARKED_EVIDENCE_MAX_PATHS:
+                        bad.append("line %d: %d evidence paths, cap %d"
+                                   % (n, len(parts), PARKED_EVIDENCE_MAX_PATHS))
+                    for path in parts:
+                        if (not PARKED_EVIDENCE_PATH_RE.match(path)
+                                or posixpath.normpath(path) != path
+                                or not path.startswith(PARKED_EVIDENCE_ROOTS)):
+                            bad.append("line %d: evidence %r is not a bare path under %s; "
+                                       "Evidence holds paths joined by ` · ` and nothing else"
+                                       % (n, path, ", ".join(PARKED_EVIDENCE_ROOTS)))
+                        elif not os.path.isfile(os.path.join(repo, *path.split("/"))):
+                            bad.append("line %d: evidence %s does not exist" % (n, path))
+            elif "Basic summary:" not in seen:
+                bad.append("line %d: only a field line or a `Basic summary:` "
+                           "continuation may follow the heading" % n)
+        if tuple(seen) != PARKED_FIELDS:
+            bad.append("%s: fields must be %s, once each, in that order; found %s"
+                       % (name, ", ".join(PARKED_FIELDS), ", ".join(seen) or "none"))
+    return bad
+
+
+def check_parked(out):
+    import datetime
+    path = os.path.join(REPO, *PARKED_REL.split("/"))
+    if not os.path.exists(path):
+        out.append("PARKED: RED  %s is missing" % PARKED_REL)
+        return False
+    with open(path, encoding="utf-8", newline="") as fh:
+        text = fh.read().replace("\r\n", "\n").replace("\r", "\n")
+    bad = parked_shape(text, datetime.date.today(), REPO)
+    entries = sum(1 for line in text.split("\n") if line.startswith("### "))
+    if not bad:
+        out.append("PARKED: PASS — %d entr%s, each within %d lines / %d bytes / %d columns "
+                   "(Evidence: paths only, %d columns, %d paths)"
+                   % (entries, "y" if entries == 1 else "ies", PARKED_MAX_LINES,
+                      PARKED_MAX_BYTES, PARKED_MAX_WIDTH, PARKED_EVIDENCE_MAX_WIDTH,
+                      PARKED_EVIDENCE_MAX_PATHS))
+        return True
+    for b in bad:
+        out.append("  RED  " + b)
+    out.append("PARKED: RED  %d violation(s); the gate is the file's Must_Read_Header"
                % len(bad))
     return False
 
@@ -2355,6 +2526,7 @@ def main():
         return 1
     ok = check_root(out) and ok
     ok = check_checklist(out) and ok
+    ok = check_parked(out) and ok
     ok = check_agents_mirror(out) and ok
     ok = check_skills(out) and ok
     ok = check_prompt_map(out) and ok

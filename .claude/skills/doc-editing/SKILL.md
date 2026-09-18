@@ -23,8 +23,8 @@ purpose and its actual destination passages, not a topic match or a fresh GREEN.
 - ⚖️ **Owner ruling 2026-09-17 (OI-09): agent-facing documents may be
   machine-tuned hard; the owner's may not.** Agent-facing is `docs/agent/**`,
   `CLAUDE.md` / `AGENTS.md` and `tools/README.md`; the owner's are
-  `docs/PLAYTEST_CHECKLIST.md` and `docs/FUTURE_IDEAS.md`; `docs/README.md` is read
-  by both and is cut only with a line from the owner. The fix pack's own checklist
+  `docs/PLAYTEST_CHECKLIST.md`, `docs/FUTURE_IDEAS.md` and `docs/PARKED_MODULES.md`;
+  `docs/README.md` is read by both and is cut only with a line from the owner. The fix pack's own checklist
   is not in this repo; its ruling governs it. Content already recorded
   elsewhere is deleted, not re-archived: `git log -S` holds the text, the
   reasoning goes in the commit message, and retirement is silent — no dated

@@ -15,7 +15,8 @@ tests the re-implementation.
     python tools/rule_headers_selftest.py          # exit 0 = every case fired
 
 It also carries the legs for `check_checklist`, the gate on the owner's list
-under its own Must_Read_Header; the donor has no falsifier for that gate.
+under its own Must_Read_Header; the donor has no falsifier for that gate. And the
+legs for `check_parked`, the per-entry gate on docs/PARKED_MODULES.md (this repo only).
 
 Nothing here touches the live tree: every fixture is written under a temporary
 directory that is removed on the way out.
@@ -312,6 +313,194 @@ def main():
               checklist("### OI-01 · opened %s" % day(-10)), True, "differs from")
     list_case("checklist — new item back-dated", None, None,
               checklist("### OI-02 · opened %s" % day(-10)), True, "is new")
+
+    # ---- PARKED gate (docs/PARKED_MODULES.md) ------------------------------
+    # One leg per RED the gate claims, each planting exactly one defect into an
+    # otherwise well-formed file; the controls prove a 10-line entry and the
+    # header's own markup (the RULES markers, `<name>` in a code span) pass.
+    parked_prose = ("# Parked modules\n\nIntro prose.\n\n## Must_Read_Header\n"
+                    "<!-- RULES -->\n"
+                    "Rule: Write each entry as `### <name> · parked <date>`. [A3: pass]\n"
+                    "<!-- /RULES -->\n\n## Entries\n\n")
+    fields = ["What: A module that does one thing.",
+              "Scope: full module (D06)",
+              "Revives by: an owner ruling.",
+              "Evidence: docs/agent/bugs/D06.md · docs/agent/reports/R.md",
+              "Basic summary: One plain sentence."]
+
+    def entry(name="Alpha", date=None, body=None):
+        return "\n".join(["### %s · parked %s" % (name, date or day(-1))]
+                         + (fields if body is None else body))
+
+    def parked_file(*entries, gap="\n\n", prose=parked_prose):
+        return prose + gap.join(entries) + "\n"
+
+    ten = entry(body=fields + ["continuation %d of the summary." % i for i in range(1, 5)])
+    eleven = entry(body=fields + ["continuation %d of the summary." % i for i in range(1, 6)])
+
+    def parked_case(name, text, want_red, needle, extra=()):
+        tmp = tempfile.mkdtemp(prefix="parked_")
+        try:
+            repo = os.path.join(tmp, "repo")
+            files = {"docs/agent/bugs/D06.md": "# D06\n",
+                     "docs/agent/reports/R.md": "# R\n",
+                     "CLAUDE.md": "# kernel\n",
+                     "docs/PARKED_MODULES.md": text}
+            files.update({rel: "# x\n" for rel in extra})
+            for rel, body in files.items():
+                path = os.path.join(repo, *rel.split("/"))
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                    fh.write(body)
+            saved = doccheck.REPO
+            try:
+                doccheck.REPO = repo
+                out = []
+                ok = doccheck.check_parked(out)
+            finally:
+                doccheck.REPO = saved
+            text_out = "\n".join(out)
+            # A RED leg must fire ONLY the planted defect, or it proves nothing
+            # about which condition the gate caught.
+            single = (not want_red) or "RED  1 violation(s)" in text_out
+            passed = ((not ok) if want_red else ok) and needle in text_out and single
+            results.append((name, passed, text_out.replace("\n", " | ")))
+            if not passed:
+                failures.append("%s: wanted %s containing %r, got ok=%s\n    %s"
+                                % (name, "RED" if want_red else "GREEN", needle, ok, text_out))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def swap(old, new):
+        """The clean pair of entries with one field line replaced."""
+        return parked_file(entry(), entry("Beta", body=[new if f == old else f for f in fields]))
+
+    def add(line, after="Basic summary: One plain sentence."):
+        """The clean pair with `line` inserted after the named field of Beta."""
+        body = []
+        for f in fields:
+            body.append(f)
+            if f == after:
+                body.append(line)
+        return parked_file(entry(), entry("Beta", body=body))
+
+    parked_case("parked negative control (two clean entries pass)",
+                parked_file(entry(), entry("Beta")), False, "PARKED: PASS")
+    parked_case("parked — a 10-line entry passes", parked_file(ten), False, "PARKED: PASS")
+    parked_case("parked — an 11-line entry fails", parked_file(eleven), True, "11 lines, cap 10")
+    parked_case("parked — malformed heading",
+                parked_file(entry(), "### Beta parked %s\n" % day(-1) + "\n".join(fields)),
+                True, "an entry heading is")
+    parked_case("parked — invalid date", parked_file(entry(date="2026-02-30")),
+                True, "not a real date")
+    parked_case("parked — future date", parked_file(entry(date=day(3))), True, "in the future")
+    parked_case("parked — blank line inside an entry",
+                add("", after="Scope: full module (D06)"), True, "blank line inside an entry")
+    parked_case("parked — two blank lines between entries",
+                parked_file(entry(), entry("Beta"), gap="\n\n\n"), True, "exactly one blank line")
+    parked_case("parked — no blank line between entries",
+                parked_file(entry(), entry("Beta"), gap="\n"), True, "exactly one blank line")
+    parked_case("parked — line over 100 characters",
+                add("x" * 101), True, "101 characters, cap 100")
+    parked_case("parked — entry over 1,024 bytes",
+                parked_file(entry(body=fields + ["€" * 99] * 4)), True,
+                "without its Evidence line, cap 1024")
+    parked_case("parked — field missing",
+                parked_file(entry(body=[f for f in fields if not f.startswith("Scope:")])),
+                True, "fields must be")
+    parked_case("parked — field duplicated", add("What: A second what."), True, "fields must be")
+    parked_case("parked — fields out of order",
+                parked_file(entry(body=[fields[1], fields[0]] + fields[2:])),
+                True, "fields must be")
+    parked_case("parked — stray line before the summary",
+                add("A stray note.", after="What: A module that does one thing."),
+                True, "only a field line")
+    parked_case("parked — Scope off its template",
+                swap("Scope: full module (D06)", "Scope: most of it, see D06"),
+                True, "Scope is")
+    for label, line in (("HTML comment", "<!-- hidden -->"),
+                        ("<details>", "<details>hidden</details>"),
+                        ("<br>", "text<br>more"),
+                        ("any tag", "a <b>bold</b> word")):
+        parked_case("parked — %s in an entry" % label, add(line), True, "carries HTML")
+    parked_case("parked — HTML in the prose above the entries",
+                parked_file(entry(), prose=parked_prose.replace(
+                    "Intro prose.", "Intro <details>hidden</details> prose.")),
+                True, "carries HTML")
+    for label, line in (("code fence", "```"), ("table row", "| a | b |"),
+                        ("blockquote", "> quoted"), ("bullet -", "- item"),
+                        ("bullet *", "* item"), ("bullet 1.", "1. item"),
+                        ("footnote", "see note[^1]"), ("sub-heading", "#### More")):
+        parked_case("parked — %s in an entry" % label, add(line), True, "inside an entry")
+    for code in (0x200B, 0x200C, 0x200D, 0x200E, 0x200F, 0x2060, 0xFEFF, 0x00AD):
+        parked_case("parked — U+%04X in an entry" % code,
+                    add("Basic words%sthat hide." % chr(code)), True, "invisible or zero-width")
+    parked_case("parked — U+200B in the prose",
+                parked_file(entry(), prose=parked_prose.replace("Intro", "In" + chr(0x200B) + "tro")),
+                True, "invisible or zero-width")
+    parked_case("parked — evidence path missing",
+                swap(fields[3], "Evidence: docs/agent/bugs/D99.md"), True, "does not exist")
+    parked_case("parked — evidence outside the agent record folders",
+                swap(fields[3], "Evidence: CLAUDE.md"), True, "not a bare path")
+    parked_case("parked — evidence escaping by ..",
+                swap(fields[3], "Evidence: docs/agent/bugs/../../../CLAUDE.md"),
+                True, "not a bare path")
+
+    # ---- the Evidence ruling (owner, 2026-09-18): paths only, 400 columns,
+    # at most 8 paths, and outside the 1,024-byte entry count.
+    def long_evidence(total):
+        """-> (Evidence line of exactly `total` characters, the 4 paths it names)."""
+        room = total - len("Evidence: ") - 3 * len(" · ")
+        sizes = [room // 4] * 3 + [room - 3 * (room // 4)]
+        paths = ["docs/agent/reports/" + ch * (n - len("docs/agent/reports/.md")) + ".md"
+                 for ch, n in zip("abcd", sizes)]
+        line = "Evidence: " + " · ".join(paths)
+        assert len(line) == total, (len(line), total)
+        return line, paths
+
+    ev400, paths400 = long_evidence(400)
+    ev401, paths401 = long_evidence(401)
+    parked_case("parked — a 400-character path-only Evidence line passes",
+                swap(fields[3], ev400), False, "PARKED: PASS", extra=paths400)
+    parked_case("parked — a 401-character Evidence line fails",
+                swap(fields[3], ev401), True, "401 characters, cap 400", extra=paths401)
+    for label, line in (("a path plus a word", "Evidence: docs/agent/bugs/D06.md record"),
+                        ("a path with a comment", "Evidence: docs/agent/bugs/D06.md (the record)"),
+                        ("a trailing note", "Evidence: docs/agent/bugs/D06.md · see also D07"),
+                        ("a backticked path", "Evidence: `docs/agent/bugs/D06.md`")):
+        parked_case("parked — Evidence with %s fails" % label, swap(fields[3], line),
+                    True, "not a bare path")
+    parked_case("parked — 8 Evidence paths pass",
+                swap(fields[3], "Evidence: " + " · ".join(["docs/agent/bugs/D06.md"] * 8)),
+                False, "PARKED: PASS")
+    parked_case("parked — 9 Evidence paths fail",
+                swap(fields[3], "Evidence: " + " · ".join(["docs/agent/bugs/D06.md"] * 9)),
+                True, "9 evidence paths, cap 8")
+    parked_case("parked — Evidence continued onto a second line fails",
+                add("docs/agent/reports/R.md", after=fields[3]), True, "only a field line")
+
+    def byte_entry(target):
+        """-> a 10-line entry whose lines other than Evidence total `target` bytes."""
+        head = ["### Alpha · parked %s" % day(-1)] + fields[:3]
+        slots = [("Basic summary: ", 85)] + [("", 100)] * 4
+        fixed = sum(len(x.encode("utf-8")) for x in head) + len("Basic summary: ")
+        need = target - fixed - (len(head) + len(slots) - 1)      # the joining newlines
+        shares = [need // len(slots)] * (len(slots) - 1)
+        shares.append(need - sum(shares))
+        body = []
+        for (prefix, cap), share in zip(slots, shares):
+            euros, rest = divmod(share, 3)
+            assert 0 < euros + rest <= cap, (share, cap)
+            body.append(prefix + "€" * euros + "a" * rest)
+        text = "\n".join(head[1:] + [ev400] + body)
+        assert len(("\n".join(head + body)).encode("utf-8")) == target
+        return head[0] + "\n" + text
+
+    parked_case("parked — 1,024 B besides a 400-column Evidence line passes",
+                parked_file(byte_entry(1024)), False, "PARKED: PASS", extra=paths400)
+    parked_case("parked — 1,025 B besides the Evidence line fails",
+                parked_file(byte_entry(1025)), True,
+                "1025 bytes without its Evidence line, cap 1024", extra=paths400)
 
     width = max(len(n) for n, _, _ in results)
     for name, passed, _text in results:

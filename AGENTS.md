@@ -53,8 +53,9 @@ nothing else is unfrozen.
 Modules"). Earlier records retain the older names and pre-split paths.
 
 **Folder contract** (doccheck enforces it, in both directions). `docs/` root holds only
-`PLAYTEST_CHECKLIST.md`, `FUTURE_IDEAS.md`, `README.md`, `agent/` and `archive/`. Agent material is
-`docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`, STATE/WORKFLOW/FIX_POLICY).
+`PLAYTEST_CHECKLIST.md`, `FUTURE_IDEAS.md`, `PARKED_MODULES.md`, `README.md`, `agent/` and
+`archive/`. Agent material is `docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`,
+STATE/WORKFLOW/FIX_POLICY).
 Prompts: the map is `docs/agent/prompts/README.md`, whose own gate carries the prompt-map duty;
 reusable ones live in `prompts/perma/`, and one-offs live at the prompt root until consumed.
 

@@ -13,6 +13,7 @@ docs/
                           gives or runs, except live playtest runs (fix pack's list);
                           format and age gated by doccheck
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
+  PARKED_MODULES.md       designed or part-built modules the owner parked: not live, not dead
   README.md               this map
   agent/
     STATE.md              Pull-only current status, byte-budgeted (doccheck)
@@ -106,6 +107,8 @@ difference. Generated files say so on line 1.
 ## Where new things go
 
 - A **defect or module record** → a new file in `agent/bugs/`. Never a report, never FUTURE_IDEAS.
+- A **module, or part of one, the owner declares parked** → an entry in `PARKED_MODULES.md`
+  that points at its record; the record itself stays in `agent/bugs/`.
 - An **engine fact** → a new `EF-###.md` in `agent/facts/`, with its date —
   ⛔ numbered by the FIX PACK: file it there first (or reserve the id there),
   then mirror it here at the same id and say so in both. Never mint an `EF-`
