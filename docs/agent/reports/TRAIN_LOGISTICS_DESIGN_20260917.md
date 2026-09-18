@@ -165,7 +165,7 @@ through the export branch in normal play today. See §7.1.
 - **Reserve — own the scheduler.** Populate the dead `ttPrioShortage` lane for
   demand-driven hauling instead of proportional parity. Deepest patch exposure.
 
-### 4.5 Five vanilla paths that rewrite per-resource desired amounts
+### 4.5 Six vanilla paths that rewrite per-resource desired amounts
 
 Our values must survive all of them:
 
@@ -174,7 +174,8 @@ Our values must survive all of them:
 | `Station:SetDesiredAmount` (`:964`) | the flatten loop |
 | `Station:SetAcceptResourceState` (`:1038-1045`) | **every accept/export/disable click** |
 | `MultiResourceDepotBase:UpdateRequestCapacity` (`MultiResourceDepot.lua:221-222`) | capacity change |
-| `MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:397`) | the `max_storage_per_resource` upgrade — live via `upgrade1_mod_prop_id_1` |
+| `MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:225-240`), through `UpdateRequestCapacity` | the **Expanded Warehousing** upgrade, which doubles `max_storage_per_resource` (`upgrade1_mul_value_1 = 100`, `Data/BuildingTemplate/StationSmall.lua`, and likewise `StationBig`; tech `StationsStorage`) and then rewrites every resource from the dial, whatever the policy |
+| `MultiResourceDepotBase:RecalculateAfterResourceListChange` (`MultiResourceDepot.lua:379-397`) | a storable resource is added, removed or unlocked (`:322`, `:376`, `:459`) |
 | `SavegameFixups.RevertStationDesiredAmount` (`Station.lua:1744`) | once, on old saves |
 
 ### 4.6 ⛔ The alias trap
@@ -186,6 +187,22 @@ affect the alias `Station` resolves through. Declaring class is
 `MultiResourceCubeVisuals:RegisterResourceRequest` (`MultiResourceCubeVisuals.lua:372`).
 This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 `tools/harvest_wrap_targets.py --check` gates it via doccheck. Design around it.
+
+### 4.7 UI direction (owner, 2026-09-18)
+
+1.1.0's station infopanel is cleaner, and Module A must blend with it rather than add a section
+of its own. The panel groups resources into collapsible **Basic / Advanced / Delicacies /
+Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
+with an icon button at the left and `stored/max` plus the resource glyph at the right. The
+per-resource control belongs **in that row**, with the same visual weight as the existing
+parts: a state the row already has room for, not a new panel. How it does that (the row's
+button, a glyph beside the amount, or a ctrl-click the way the row's broadcast already works) is
+open, and the prototype decides it.
+
+**Capacity is not fixed.** Expanded Warehousing doubles the per-resource max (60 → 120 on a
+`StationSmall`), and §4.5's upgrade path rewrites every resource's desired amounts when it lands.
+Any floor or amount the module shows or stores must therefore be relative to the live
+`GetMaxStorage(res)`, and the module must re-apply its values after that rewrite.
 
 ---
 
@@ -455,7 +472,12 @@ variable: normal is two round trips of the train that serves the station, abort 
   the 2nd `pol=accept sdes=0 ddes=max`, and the 3rd `pol=default sdes=dial ddes=max−dial`
   (`Station.lua:964-994`). Behaviour is as in item 3. **Clobber:** slot 4 twice leaves `raw`
   unchanged but resets `sdes=dial ddes=max−dial`.
-- **P4 (T4, slot 6):** `sdes=dial ddes=max−dial` at each step.
+- **P3b (upgrade clobber, T3 continued):** on a station that is **not yet upgraded**, set the
+  policy to `send` with slot 5, then apply Expanded Warehousing with the Selected page's
+  **Upgrade 1**. Predicted: `max` doubles, and `sdes=dial ddes=max−dial` returns while `raw`
+  stays `send` (`MultiResourceDepot.lua:217-240`). This is §4.5's upgrade path.
+- **P4 (T4, slot 6):** the dial steps in quarters of the live `max`, with
+  `sdes=dial ddes=max−dial` at each step.
 
 Stop on unexpected taint, a Lua error, or a DUMP read of `read=FAILED`. Do not rerun a test to get
 a preferred verdict.
