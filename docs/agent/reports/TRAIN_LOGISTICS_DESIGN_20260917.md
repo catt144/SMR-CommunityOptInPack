@@ -361,21 +361,66 @@ single-route restriction on colonists is a real, verifiable gap — but it shoul
 Every claim in this spec is desk-read. These are the checks that would prove it wrong, in
 the order they should be run. ⛔ None has been run: `<<PENDING-RUN>>`.
 
-1. **Does the export branch already work?** `GetTrainTransportPolicy` returns `"send"` for
-   any disabled resource (`Station.lua:1078-1082`). Disable a resource at a station with
-   stock and watch whether trains evacuate it. Costs one session, no code, and it validates
-   half of module A's mechanism before a line is written.
-2. **Does station interchange already work?** Build a station using both connector pairs so
-   two routes cross it, and watch whether cargo flows route A → hub → route B. This decides
-   module B's entire scope and may show the 2-way case already ships.
-3. **Does the slider mechanism still bite?** Under the multi-resource model, one station-wide
-   value now spans every transportable resource. Confirm it changes drone behaviour at all.
-4. **What breaks when `GetMaxStorage(res)` stops being uniform?** It also drives visual cube
+**Correction, 2026-09-18.** Item 1 below used to say that disabling a resource tests the
+`transport_policy` export branch. It does not. A disabled resource is evacuated by
+`TransferCargo`'s *forbidden* branch (`Train.lua:873`, `:910-941`, priority `ttPrioForbidden`),
+whatever `transport_policy` says. Test T3 is the one that exercises the policy.
+
+**Common setup for T1–T4.** Use a **disposable save**, never a campaign save: a campaign copy
+still runs its autosave rotation (`EF-055`/`EF-056`), and T3 writes the vanilla
+`transport_policy` field into whatever save it runs on. Cheats are fine (`WORKFLOW.md`, cheats on
+playtest saves). Place the stations far enough apart that drones and shuttles cannot carry
+between them, or they will fake a pass on T1 and T2. The owner runs these in the game
+(owner, 2026-09-18). Every console line below is `<<PENDING-RUN>>`: it has not been run, and it
+needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human doc.
+
+1. **T1: does "export everything" already exist?** Two stations X and Y on one track with a
+   train. Stock Metals at X, then switch Metals off at X in its per-resource row.
+   *Pass:* trains carry X's Metals to Y. That is export with a floor of zero, already shipping
+   in vanilla, which narrows Module A's new work to the non-zero floor. Also note whether
+   drones stop delivering Metals to X. *Fail:* the forbidden branch does not behave as read;
+   re-read `Train.lua:903-944` before designing further.
+2. **T2: does station interchange already work?** Station H with track on **both** connector
+   pairs, forming route A (X–H–Y) and route B (P–H–Q). Put Metals only at X, with Metals
+   enabled everywhere. *Pass:* Metals reach P or Q, which only route B serves, so they must
+   have passed through H. That is a working 2-way interchange in vanilla, and Module B's first
+   question narrows to "more connectors". *Record either way:* do H's two connector pairs make a
+   cross or two parallel through-lines? The pairing is `(1,2)`/`(3,4)` (`Station.lua:620`), but
+   the geometry comes from the entity art and has not been seen. *Fail:* Module B needs more
+   than interchange, so re-scope OPTION 5 before any prototype.
+3. **T3: does the dead `transport_policy` work when driven by hand?** This tests Module A's
+   mechanism with no mod code. Select a station holding Metals, then type these into the
+   in-game Lua console one line at a time. Reads are bare expressions and writes run under
+   `*r`, following the house console form (`prompt-authoring`). `SelectedObj` is open in the mod
+   sandbox (`EF-096`); `const` is not on that fact's checked list, so if the first line fails,
+   that is why.
+
+        const.ResourceScale
+        *r SelectedObj:ToggleTransportResource("Metals")
+        SelectedObj:GetTrainTransportPolicy("Metals")
+        *r SelectedObj:SetDesiredAmount(SelectedObj.desired_amount + const.ResourceScale)
+
+   The first toggle moves the policy from `"default"` to `"send"`, and the third line should
+   then read `send`. The fourth line is required: `ToggleTransportResource` only writes the policy, and
+   `SetDesiredAmount` returns early on an unchanged value (`Station.lua:964-965`), so it must be
+   called with a different value to re-apply. `SelectedObj` is set in
+   `CommonLua/Selection.lua:17`. Toggle a second time to reach `"accept"`, then re-apply.
+   *Pass:* on `"send"`, drones fill Metals toward max and stop taking from it; on `"accept"`,
+   drones drain it to zero. Watch the trains too: they read supply desired as a route-wide gate
+   (§3), so no direct directional change is expected. *Clobber check:* click the station's
+   per-resource row once. `SetAcceptResourceState` rewrites desired amounts from
+   `self.desired_amount` and ignores the policy (`:1038-1045`), so the policy effect should
+   vanish. Seeing that confirms §4.5's second path.
+4. **T4 (optional): does the station-wide dial still bite?** With the policy at `"default"`, run
+   `*r SelectedObj:SetDesiredAmount(20 * const.ResourceScale)` with a few multipliers and compare
+   drone filling against
+   a second station. This only matters to the parity-restore route, which §2 recommends against.
+5. **What breaks when `GetMaxStorage(res)` stops being uniform?** It also drives visual cube
    columns, `GetEmptyStorage` (`MultiResourceCubeVisuals.lua:506`) and load caps — so
    overriding it changes *real* capacity, not only a balance weight.
-5. **Can native `CObject` methods be overridden on a Lua class?** The assumption under
+6. **Can native `CObject` methods be overridden on a Lua class?** The assumption under
    OPTION 3a. A hello-world test settles it without any design commitment.
-6. **Paradox patch notes / dev diaries** on the 1.1.0 station change — external, not checked.
+7. **Paradox patch notes / dev diaries** on the 1.1.0 station change — external, not checked.
    Would settle §1's intent inference.
 
 ---
@@ -396,3 +441,93 @@ the order they should be run. ⛔ None has been run: `<<PENDING-RUN>>`.
 - **FIX_POLICY §8** — the both-configuration ship test is owed at ship for every module.
 - ⚠️ The shared TestKit is **DO NOT EDIT** (fix pack checklist 83) and already carries
   orphaned probes from the 09-17 retirement.
+
+---
+
+## 9 · The asset pipeline, as read on disk 2026-09-17
+
+Read from the installed game, not the source archive. The install path is volatile, so
+re-read it with a command (Steam's `libraryfolders.vdf` lists libraries on C:, A: and B:). On
+2026-09-17 the game was at `A:\SteamLibrary\steamapps\common\Surviving Mars`. This section
+supports OPTION 3 and OPTION 4.
+
+**ModTools contents.** `BlenderExport.py` (1423 lines), `HGBlenderExporter.zip`,
+`AssetsProcessor\AssetsProcessor.exe`, `hgimgcvt.exe`, `Docs\ModItemEntity.md.html` (the
+entity authoring doc), and two worked samples: `Samples\Mods\Cemetery\` (a complete building
+mod) and `Samples\Assets\ModTerrainIcon\ExportedEntities\`.
+
+**What an export produces:**
+
+| File | Format | Holds |
+|---|---|---|
+| `.ent` | XML, text | spots, surfaces, bounds, and the mesh and material file names |
+| `.mtl` | XML, text | texture and material bindings |
+| `.m.hgm` | **binary**, header magic `hsmh`, version 4, undocumented | the visible mesh |
+| `.dds` | binary | textures |
+| `.map`, `.md5` | text | texture id mapping |
+
+**Spots and surfaces are text in the `.ent`**, as in `Samples\Mods\Cemetery\Entities\Cemetery.ent`:
+
+    <attach name="Top" spot_pos="-4,561,937"/>
+    <attach name="Workdrone" spot_pos="-404,1502,0" spot_rot="-0.000000,0.000000,-0.704864,89.6371"/>
+    <surf type="hex_shape" points="-582,861,0;716,874,0;-77,-79,0"/>
+    <surf type="collision" points="829,570,107;1000,866,0;829,570,0"/>
+    <surf_hash type="collision" value="1739606373"/>
+
+`spot_rot` is `axis·sin(θ/2)` followed by `θ` in degrees. This was checked against three sample
+values: `0,0,0.5,60` → sin 30° = 0.5; `0,0,-0.707107,90` → sin 45°; `0,0,0.999905,178.4237` →
+sin 89.2°. In Blender, spots are Empty objects whose names start with `-`; `Origin`,
+`hex_shape`, `Selection` and `Collision` are named objects (`ModItemEntity.md.html`).
+`_EntityData.generated.lua` holds editor metadata only, with no spots. PassageHub's entry is at
+`:16336`, and its template sets `entity = "PassageHub"`, `object_class = "PassageHubBase"`.
+
+**Environment on 2026-09-17:** Blender is not installed (`C:\Program Files\Blender Foundation`
+is absent); Python 3.13.5 is.
+
+**Capability, as judged on 2026-09-17: inference, not tested.** An agent can author the text
+side reliably: `.ent` spots and surfaces computed from hex math, `.mtl`, templates and Lua. It
+cannot reliably edit or produce `.m.hgm` or texture art. A third route sits between those two:
+if Blender were installed, generating simple parametric geometry by `bpy` script and exporting
+headless with the shipped exporter looks feasible. That is programming, not modelling, and it
+has not been tried. A capability comparison with Codex was drafted for the owner to run. Its
+discriminating questions are scripted Blender and whether a mod can reference a packed mesh.
+
+**Unknowns this pipeline leaves open, each decisive for OPTION 3:**
+- Can a mod's `.ent` reference a mesh that exists only inside `Packs\Meshes.hpk`? This decides
+  whether 3b is possible.
+- What does `<surf_hash>` gate? If it is an integrity check, hand-edited surfaces may be
+  rejected.
+- Can a Lua class override native `CObject` spot methods? This is §7 item 6, and 3a depends
+  on it.
+
+---
+
+## 10 · The prototype, the next build (not yet authorised)
+
+**Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
+runs the in-game checks. ⛔ The build itself needs **OI-10** ruled, at least to the extent of
+"prototype Module B via option 3a". MODULE FREEZE applies until then.
+
+**Shape (recommended; re-scope from T2's result first).** Module B only, option 3a, interchange
+only (5a). A `Station` subclass whose template references `entity = "PassageHub"` by name, with
+the palette moved to the train family and connector positions computed in Lua. It must be a
+`Station`: interchange needs storage and the balancer, and a bare `TrackConnectedObjBase`, like
+the tunnel, only passes trains through. If T2 passes, the prototype's question narrows to "does
+a PassageHub-shaped hub with more than four connectors work". If T2 fails, re-scope OPTION 5
+before building anything. PassageHub's hex footprint, including how many edge hexes it has, is
+not readable from Lua and is discovered during the prototype.
+
+**Step 0 is a spike:** override `GetSpotBeginIndex` and `GetSpotPos` on the class (§7 item 6).
+If that fails, override the six `TrackConnectedObjBase` spot methods and wrap the two external
+readers, `TrackElement.lua:345` and `Train.lua:660`. §5.4 lists all twelve sites.
+
+**Done means:** the hub is buildable; tracks attach to its computed connectors; trains on two
+routes both stop at it; cargo moves from route A through the hub to route B; and it demolishes
+cleanly. `PassageHub.lua:50-55` warns that teardown is where hubs assert.
+
+⛔ **Disposable saves only** (recommended; the owner confirms it with the OI-10 ruling). The
+prototype's class and field names are not save contract until they touch a kept save; after
+that, ban 1 makes them permanent.
+
+**The build prompt** is authored with the `prompt-authoring` skill as a root one-off, only after
+T1–T3 results are recorded in §7.
