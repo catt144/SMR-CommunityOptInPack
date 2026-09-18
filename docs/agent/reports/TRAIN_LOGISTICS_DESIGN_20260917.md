@@ -684,6 +684,13 @@ vanilla body may be reused. The owner wants a go/no-go before investing in an as
 `docs/agent/prompts/TRAIN_HUB_PROTOTYPE_high.md`, and its done-condition is **three lines** (six
 connectors), matching the owner's routing target (§6 OPTION 5).
 
+**Round 1 (`dfb8052`, sitting 1, 2026-09-18): the spot overrides held on the placed object;
+the sitting stopped before attachment.** Slot 2 read six connectors and six valid track-grid
+elements. Placement raised a Lua error because vanilla `CanBuildOver` reads spots from the
+construction cursor, and the owner could not see where to attach track. Evidence:
+`TRAIN_HUB_PROTOTYPE_20260918.md` §Result. **Owner, 2026-09-18:** rebuild round 2 with both fixed,
+then rerun the sitting (the same brief, rewritten). No go/no-go yet.
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 

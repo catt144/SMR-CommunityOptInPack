@@ -72,5 +72,26 @@ taint, Lua error, assert, or mutation and do not rerun for a preferred verdict.
 
 ## Result
 
-`<<PENDING-RUN>>` No in-game evidence yet. Do not issue a go/no-go or ask for asset investment
-until the fixture, interchange, teardown and reload legs above are recorded from one colony.
+**Sitting 1, 2026-09-18: STOPPED at prediction 2 on a Lua error; no verdict.** One colony
+(`train1.savegame.sav`, sol 71, `BlankBig_02`), build 403908; the fingerprint lists both shipping
+mods, the TestKit and `SMR_TrainHubPrototype_20260918`. Log
+`%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-20260918-15.32.53-6a91a190.log`.
+
+- **Prediction 2 held on its count:** slot 2 read `connectors=6 valid_elements=6
+  connected_tracks=0 routes=0`, with six distinct connector hexes around a hub centred near
+  (79,253): pair (1,2) at (86,253)/(72,253), pair (3,4) at (79,260)/(79,246), and pair (5,6) at
+  (72,260)/(86,246). No track was attached, so attachment is untested.
+- **It also read `errors=1`, and that error stopped the sitting.** Log lines 258–273:
+  `[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot` at `Station.lua(620)` `CanBuildOver`,
+  called from `Construction.lua(1749)` `UpdateConstructionObstructors` during placement. `this`
+  was the `CursorBuilding` and the loop index was 5. Vanilla `CanBuildOver` reads spots from
+  `cursor_obj` (1.1.0.403908 `Station.lua:615-622`). The cursor does not carry the prototype's
+  virtual spot methods, so indices 1–4 came from the vanilla entity and index 5 failed. The hub
+  still placed, but its placement obstruction check ran against the wrong hexes.
+- **Owner, in play:** the connectors are invisible and the body reads as an ordinary station, so
+  they could not tell where to connect track (*"I cannot tell where to connect the tracks"*).
+
+Predictions 3–8 were not run. Sitting 2 follows the rebuild round
+(`docs/agent/prompts/TRAIN_HUB_PROTOTYPE_high.md`). Do not issue a go/no-go or ask for asset
+investment until the fixture, interchange, teardown and reload legs are recorded from one
+colony.
