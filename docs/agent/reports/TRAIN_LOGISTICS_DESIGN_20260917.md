@@ -403,7 +403,10 @@ needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human d
    have passed through H. That is a working 2-way interchange in vanilla, and Module B's first
    question narrows to "more connectors". *Record either way:* do H's two connector pairs make a
    cross or two parallel through-lines? The pairing is `(1,2)`/`(3,4)` (`Station.lua:620`), but
-   the geometry comes from the entity art and has not been seen. *Fail:* Module B needs more
+   the geometry comes from the entity art. **Seen 2026-09-18 (owner screenshot, top-down, large
+   station, no DUMP):** two **parallel** through-lines, each with its own rail and two end
+   connectors. A track through one line's two ends makes one through-route (the owner's X–H–P
+   read `3/3` everywhere), so a hub needs the second route on the **other** line. *Fail:* Module B needs more
    than interchange, so re-scope OPTION 5 before any prototype.
 3. **T3: does the dead `transport_policy` work when driven by hand?** This tests Module A's
    mechanism with no mod code. Select a station holding Metals, then type these into the
