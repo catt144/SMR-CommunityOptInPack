@@ -95,3 +95,54 @@ Predictions 3–8 were not run. Sitting 2 follows the rebuild round
 (`docs/agent/prompts/TRAIN_HUB_PROTOTYPE_high.md`). Do not issue a go/no-go or ask for asset
 investment until the fixture, interchange, teardown and reload legs are recorded from one
 colony.
+
+## Round 2 — what changed, and predictions written before boot
+
+**Build.** Pack `625053c` (dev mod version 2), TestKit `73f857e`. Parse-checked only; nothing
+below has run in game. All source lines were read on 1.1.0.403908.
+
+- **Placement (defect 1).** The hub carries its own `CanBuildOver`, vanilla's body with the six
+  hexes computed from the cursor's position and angle. Two more literal `0..4` readers sat on the
+  same path. `GridConstructionController:Activate` (`GridConstruction.lua:287-295`) moves a track's
+  start from a connector element to its direction hex; a wrapper now does that for every hub
+  connector. `PlaceUnderconstructionSigns` (`UnderconstructionSign.lua:41-56`) attaches signs to
+  the vanilla body's `Sign` spots; the hub reports none, so no sign shows at the vanilla platforms.
+- **⚠️ Connector geometry changed, and this is the round's largest unmeasured claim.** Vanilla
+  resolves a station from a connector hex through the object hex grid
+  (`Tracks.lua:19-24`, used by `TrackElement.lua:344`, `Tracks.lua:240,535` and `Train.lua:658`).
+  A connector outside the body's footprint therefore cannot attach a track, and round 1's fixed
+  radius 7 was never checked against the footprint, which is not readable from Lua source. Each
+  connector now sits on the **last footprint hex along its line**, and its direction hex on the
+  first hex outside. The radii print once: `[TrainHubPrototype] <entity> line radii d0..d5 = …`.
+  The two diagonal lines will sit much closer to the centre than the long one.
+- **Markers (defect 2).** Each line has one colour at both ends: **A (1,2) red, B (3,4) green,
+  C (5,6) blue.** A marked end is four hex tiles, the connector hex and the three hexes beyond it,
+  with a bouncing tutorial arrow above the first hex outside the body. The same tiles follow the
+  placement ghost. Markers are unsaved and are rebuilt on load.
+
+**Fixture.** Unchanged from above, with one constraint read from source: station centres must be
+at least ten hexes apart (`Station.lua` `min_dist_to_other`, `Construction.lua:2924-2927`), so
+place H first on open flat ground, then the six ends. A track to H starts by clicking a coloured
+arrow hex, or the connector hex beside it.
+
+Predictions 1 and 3–8 stand as written; slot 2's line gains fields. New lines:
+
+- **R2-a. Placement raises no Lua error.** Move the ghost over open ground and once across an
+  existing track (`CanBuildOver` runs only when something obstructs), then place H. Expected: the
+  status bar's error count stays at its boot value and the log holds no `l_GetSpotBeginIndex`.
+  First-screen witness: three coloured lines of tiles move with the ghost. Normal
+  `<<PENDING-RUN>>` 30 seconds; abort `<<PENDING-RUN>>` 90 seconds.
+- **R2-b. Slot 2, with H complete and selected and no placement ghost up.** Expected `status=OK`,
+  `connectors=6 in_footprint=6 direction_free=6 valid_elements=6 marker_tiles=24
+  marker_arrows=6`, and the radii line in the log. `in_footprint` below 6 is a geometry defect in
+  the prototype, not a no-go: stop before dragging track and report. `marker_arrows=0` with the
+  tiles visible is a marker shortfall the owner judges by eye. First-screen witness: two red, two
+  green and two blue ends around H, each pair opposite. Normal `<<PENDING-RUN>>` 10 seconds; abort
+  `<<PENDING-RUN>>` 30 seconds.
+- **R2-c. A track starts from every line.** Clicking the connector hex of lines A, B and C each
+  starts the track on the first hex outside the body, and the finished track reads as attached in
+  slot 2 (`connected_tracks` rises, `destination` names the end station). A track that will not
+  attach with `in_footprint=6` is the brief's **no-go** stop. Normal `<<PENDING-RUN>>` two minutes
+  per line; abort `<<PENDING-RUN>>` six minutes.
+
+**Sitting 2 result:** `<<PENDING-RUN>>`.
