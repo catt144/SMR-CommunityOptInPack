@@ -18,8 +18,9 @@ tested before any of it is believed.
 exists yet.
 
 ⚠️ Reports are not authority. Where this disagrees with `agent/bugs/`, `agent/facts/`,
-`WORKFLOW.md` or `FIX_POLICY.md`, those win. The owner asks are `PLAYTEST_CHECKLIST.md`
-**OI-10**.
+`WORKFLOW.md` or `FIX_POLICY.md`, those win. OI-10 was ruled on 2026-09-18 (§10) and has left the
+checklist. The §6 calls the ruling did not settle return there when their next action is the
+owner's.
 
 ---
 
@@ -286,7 +287,8 @@ computed. This is what makes a code-only hub plausible — see OPTION 3.
 ## 6 · Open questions, as options with a recommendation
 
 Nothing in this section is settled. Each states the options considered and the one
-recommended. ⛔ None is an owner ruling; the asks are `PLAYTEST_CHECKLIST.md` **OI-10**.
+recommended. ⛔ None is an owner ruling, except where one is marked: the 2026-09-18 ruling (§10)
+settled 1b for the prototype, 3a and 5a first.
 
 ### OPTION 1 — Which module is built first
 
@@ -675,11 +677,15 @@ discriminating questions are scripted Blender and whether a mod can reference a 
 
 ---
 
-## 10 · The prototype, the next build (not yet authorised)
+## 10 · The prototype, the next build (authorised 2026-09-18)
+
+**Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
+vanilla body may be reused. The owner wants a go/no-go before investing in an asset. The brief is
+`docs/agent/prompts/TRAIN_HUB_PROTOTYPE_high.md`, and its done-condition is **three lines** (six
+connectors), matching the owner's routing target (§6 OPTION 5).
 
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
-runs the in-game checks. ⛔ The build itself needs **OI-10** ruled, at least to the extent of
-"prototype Module B via option 3a". MODULE FREEZE applies until then.
+runs the in-game checks. Done (§7.2), and the build is ruled (above).
 
 **Shape (recommended; re-scope from T2's result first).** Module B only, option 3a, interchange
 only (5a). A `Station` subclass whose template references `entity = "PassageHub"` by name, with
@@ -699,7 +705,7 @@ readers, `TrackElement.lua:345` and `Train.lua:660`. §5.4 lists all twelve site
 routes both stop at it; cargo moves from route A through the hub to route B; and it demolishes
 cleanly. `PassageHub.lua:50-55` warns that teardown is where hubs assert.
 
-⛔ **Disposable saves only** (recommended; the owner confirms it with the OI-10 ruling). The
+⛔ **Disposable saves only** (the brief binds it). The
 prototype's class and field names are not save contract until they touch a kept save; after
 that, ban 1 makes them permanent.
 

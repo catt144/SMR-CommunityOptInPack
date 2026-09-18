@@ -37,16 +37,6 @@ Name `Opt_MultipleSuns`'s `SolarPanelBase.GameInit` capture in its `Require` blo
 - Recommended: (a).
 Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 
-### OI-10 · opened 2026-09-18
-Do we build a per-resource station logistics module and a train junction hub, and on what terms?
-- 1.1.0 gated the station slider off; the game's own per-resource `transport_policy` import/export exists unwired.
-- Your tests, 2026-09-18 (spec §7.2): export-to-zero already ships; hand-driven `send` works; `accept` unconfirmed.
-- Measured too: a row click or a warehouse upgrade silently undoes the policy, so a module must re-apply it.
-- A large station already moves cargo between two routes, so a hub prototype only adds more than four connectors.
-- Five calls, recommendations in spec §6: module order, where values persist, hub model, assets, hub scope.
-- For the hub prototype (spec §10), say "prototype B via 3a". A persisted field name is permanent from save one.
-Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
-
 ### OI-04 · opened 2026-09-17
 `MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and never re-tests the other sun. Fix or document?
 - 1.1.0's new `ArtificialSunBase:Done` clears every panel bound to the removed sun without checking another.
