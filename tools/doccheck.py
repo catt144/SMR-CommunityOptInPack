@@ -496,7 +496,7 @@ def check_state(out):
     """STATE.md's byte budget (checklist 42); the stub half is N/A here."""
     red, warns = [], []
     if not os.path.exists(STATE):
-        red.append("docs/agent/STATE.md is missing — it is the mandatory read")
+        red.append("docs/agent/STATE.md is missing — restore the pull-only status file")
         n_state = None
     else:
         with open(STATE, "rb") as f:

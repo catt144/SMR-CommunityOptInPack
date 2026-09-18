@@ -140,49 +140,6 @@ OI-09. **Draw the line between documents an AGENT reads and documents YOU read �
 
 ---
 
-### 2026-09-17 — OI-08 OPEN: is `STATE.md` still "the one mandatory read", or is it PULL?
-
-> Raised by the efficiency-parity survey, `agent/reports/EFFICIENCY_PARITY_SURVEY_20260917.md` §7.
-> Nothing was acted on: this is a framing rule, and the fix pack's equivalent was your ruling there.
-
-OI-08. **Flip `STATE.md` from push to pull, as the fix pack did?**
-
-    **What it is now.** This repo's `docs/agent/STATE.md` titles itself *"the one mandatory read"* —
-    the framing both repos had before the fix pack's overhaul. Every session pays for it at boot
-    whether or not status is the question.
-
-    **What the fix pack did.** Its STATE reads *"pull; read it when a task, a prompt or the owner
-    calls for status"*, under its owner ruling of 2026-09-15 that **opening a session is not such a
-    call**. Its STATE is now **745 B / 15 lines** with no gates-and-holds section at all; this
-    repo's is **9,002 B of a 15,036 B push set** — the single largest per-session cost here.
-
-    **What is known and what is not.** The size figures are measured (survey §1, re-run before
-    quoting). What is NOT established is whether this repo can afford it *today*: its STATE still
-    carries live 1.1.0 holds that the fix pack's carries nowhere, because the fix pack has gates and
-    entries to hold them and this repo has fewer. Flipping the title without moving that content
-    would hide live holds rather than route them.
-
-    **Options:** (a) **flip the framing now** and let the holds route out over the next STATE
-    eviction — cheapest, but there is a window where live 1.1.0 holds are pull-only;
-    (b) **port `check_state_admission` first** (survey §2a, ~40 lines), run one eviction under the
-    four-test door, then flip — the fix pack's actual order; (c) **leave it** until the efficiency
-    work is scoped. **Recommend (b)**: the door is already written here
-    (`prompts/perma/STATE_EVICTION.md`), only its gate is missing, and it is the step that makes the
-    flip safe rather than merely cheap.
-
-    ⭐ **2026-09-17 UPDATE — half of (b) is DONE and the ask is now cheaper.** `check_state_admission`
-    and `state_added_lines` are ported and live (`tools/doccheck.py`); doccheck now prints every line
-    a commit ADDS to `STATE.md` beside the four questions. Verified by positive control: silent on a
-    clean tree, opens on an added line. ⛔ **The remaining half of (b) is not done** — no eviction has
-    been run under the door, so this repo's live 1.1.0 holds still sit in `STATE.md` and the caveat
-    above stands unchanged. What is left to rule is the flip itself, plus whether the eviction runs
-    first. The gate cannot judge a line and says so on every run; a PASS is not approval.
-
-    ⚠️ This is a framing rule, not a behaviour change — no module, save or account state is touched
-    whichever way it goes.
-
----
-
 ### 2026-09-17 — ⚖️ RULED BY THE OWNER: three modules retired. This CLOSES OI-02, OI-05, OI-06, OI-07
 
 > **The ruling, 2026-09-17 (owner).** Archive **`Opt_DroneOverhaul` (D06) as PARKED**; archive

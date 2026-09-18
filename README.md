@@ -27,5 +27,5 @@ it back off.
 ---
 
 *Development repo. `docs/` and `.claude/` never ship — see `metadata.lua`'s
-`ignore_files`. Agent-facing documentation starts at `docs/README.md`; the
-mandatory read is `docs/agent/STATE.md`.*
+`ignore_files`. Agent-facing documentation starts at `docs/README.md`;
+`docs/agent/STATE.md` is pull-only status.*

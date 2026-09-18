@@ -4,9 +4,9 @@ Carried 2026-08-31 from the fix pack's `prompts/STATE_EVICTION.md` (designed
 2026-08-18 with the owner, checklist 42). Fired by the owner whenever doccheck
 WARNs on STATE.md's size, or on their own call. One session, docs only, no code.
 
-**The problem this prompt exists for:** STATE.md is the one mandatory read, so
-every close-out is tempted to wedge its verdicts there — presence in STATE has
-felt like the only guaranteed audience. Left alone, the file compounds (the fix
+**The problem this prompt exists for:** `docs/agent/STATE.md` is pull-only but
+highly shared when current status is called for, so close-outs are tempted to
+wedge verdicts there. Left alone, the file compounds (the fix
 pack's hit 71,077 bytes while satisfying a 60-line budget; this repo's line 28
 had grown to 1,734 bytes by 2026-08-31 — lines become walls). The cure is not a
 summary pass; it is enforcing the push/pull boundary below.

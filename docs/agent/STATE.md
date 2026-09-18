@@ -1,4 +1,4 @@
-# Project State — the one mandatory read
+# Project State — pull; read it when a task, a prompt or the owner calls for status
 
 Current only; history is newest-first in `docs/archive/SESSION_LOG.md`.
 Module truth `agent/bugs/INDEX.md` · engine facts `agent/facts/INDEX.md` · doc map `docs/README.md`.
