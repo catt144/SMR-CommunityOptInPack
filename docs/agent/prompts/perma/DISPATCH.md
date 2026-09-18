@@ -11,8 +11,9 @@ decision register. A task with a dedicated prompt switches to that prompt.
 ## Context and authority
 
 This is an opt-in behaviour mod for Surviving Mars: Relaunched, standalone beside the Relaunched
-Fix Pack. `CLAUDE.md` supplies the always-loaded rules and two bans. `docs/README.md` maps the tree;
-`FIX_POLICY.md` governs code; `WORKFLOW.md` governs testing, records and releases.
+Fix Pack. `CLAUDE.md` supplies the always-loaded rules; `docs/README.md` maps the tree;
+`FIX_POLICY.md` governs code and heads with the two bans; `WORKFLOW.md` governs testing, records
+and releases.
 
 ## Orient
 

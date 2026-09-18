@@ -1202,10 +1202,13 @@ TOOLS_END = "<!-- END GENERATED TOOL ROWS -->"
 # rename. Order here is the order the catalog renders in.
 TOOL_GROUPS = (
     ("Repo gates, and the falsifiers that keep them honest",
-     "The pre-commit hook runs `doccheck.py`; a `*_selftest.py` is required BY "
-     "it, so a gate whose falsifier stops firing is itself RED. A gate that has "
-     "only ever been seen passing on a clean tree has not been tested.",
-     ("doccheck.py", "rule_headers_selftest.py")),
+     "The pre-commit hook runs `doccheck.py`; the five `*_selftest.py` are "
+     "required BY it, so a gate whose falsifier stops firing is itself RED. A "
+     "gate that has only ever been seen passing on a clean tree has not been "
+     "tested.",
+     ("doccheck.py", "rule_headers_selftest.py", "ck170_selftest.py",
+      "counts_selftest.py", "prompt_map_selftest.py",
+      "repair_pass_selftest.py")),
     ("Generated-document machinery",
      "The splitters own `bugs/INDEX.md` and `facts/INDEX.md`. ⛔ Never run "
      "either with `--write`: that re-runs the one-time migration from a "
@@ -1213,9 +1216,9 @@ TOOL_GROUPS = (
      ("split_bugs.py", "split_facts.py")),
     ("Desk instruments — what a module does without launching the game",
      "The L-series. ⛔ A desk PASS is \"desk-verified\", never \"verified\" "
-     "(`WORK_PROMPT.md` §7): none of these launches the retail game. Every one "
-     "is an over-reporter — adjudicate a row by reading the source line it "
-     "cites, never by its count.",
+     "(`WORK_PROMPT.md` \"Code-change loop\"): none of these launches the "
+     "retail game. Every one is an over-reporter — adjudicate a row by reading "
+     "the source line it cites, never by its count.",
      ("l2_reload_sim.py", "l3_save_footprint.py", "l4_player_surfaces.py",
       "l5_containment.py", "l6_promise_map.py", "l6_reachability.py",
       "l7_env_map.py", "l8_hostile_input.py")),
@@ -1887,6 +1890,10 @@ def main():
     ok = check_prompt_map(out) and ok
     ok = check_rule_headers(out) and ok
     ok = required_selftest("rule_headers_selftest.py", out) and ok
+    ok = required_selftest("ck170_selftest.py", out) and ok
+    ok = required_selftest("prompt_map_selftest.py", out) and ok
+    ok = required_selftest("repair_pass_selftest.py", out) and ok
+    ok = required_selftest("counts_selftest.py", out) and ok
     ok = check_tools_catalog(out) and ok
     ok = eol_report(out) and ok
     ok = check_state(out) and ok

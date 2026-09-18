@@ -4,12 +4,12 @@ The map of this repo's instruments. **Route from here; read the script's own hea
 quote it.**
 
 ⛔ **Every instrument is an over-reporter.** Adjudicate a row by reading the source line it cites,
-never by its count (`WORK_PROMPT.md` §4 and the readiness tooling ledger below). A tool that finds 30 hits has found
+never by its count (`WORKFLOW.md` "Layout" and the readiness tooling ledger below). A tool that finds 30 hits has found
 30 candidates, not 30 defects.
 
 ⛔ **A desk PASS is "desk-verified", never "verified."** Nothing in this folder launches the retail
 game. `tested-attended` / `tested-unattended` are claims about a real game run and no script here
-can earn one (`WORK_PROMPT.md` §7).
+can earn one (`WORK_PROMPT.md` "Claims bounded by evidence").
 
 ⛔ **Never hand-type a number any of these emits.** `python tools/doccheck.py --emit-counts` prints
 the counts; `--emit-fingerprint` reads the installed game build from the Steam `.acf` and says which
@@ -29,16 +29,20 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*20 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*24 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
-The pre-commit hook runs `doccheck.py`; a `*_selftest.py` is required BY it, so a gate whose falsifier stops firing is itself RED. A gate that has only ever been seen passing on a clean tree has not been tested.
+The pre-commit hook runs `doccheck.py`; the five `*_selftest.py` are required BY it, so a gate whose falsifier stops firing is itself RED. A gate that has only ever been seen passing on a clean tree has not been tested.
 
 | script | what its own header says |
 |---|---|
 | [`doccheck.py`](doccheck.py) | doccheck.py — the structure checker (DOC_RESTRUCTURE_SPEC.md §5). |
 | [`rule_headers_selftest.py`](rule_headers_selftest.py) | Falsifier for doccheck's RULES HEADERS / RULE PLACEMENT gate. |
+| [`ck170_selftest.py`](ck170_selftest.py) | Falsifier for doccheck's STATE byte budget, the standing-prompt line budget and the skills mirror, on disk copies. |
+| [`counts_selftest.py`](counts_selftest.py) | Falsifier for doccheck's --emit-counts block: counts follow the source, a RED run withholds the block, and --regen never writes STATE. |
+| [`prompt_map_selftest.py`](prompt_map_selftest.py) | Falsifier for doccheck's PROMPT MAP gate: one broken fixture per red it claims to raise. |
+| [`repair_pass_selftest.py`](repair_pass_selftest.py) | Falsifier for doccheck's --emit-fingerprint build routing, and home of the scratch-copy loader the other falsifiers import. |
 
 ### Generated-document machinery
 
@@ -51,7 +55,7 @@ The splitters own `bugs/INDEX.md` and `facts/INDEX.md`. ⛔ Never run either wit
 
 ### Desk instruments — what a module does without launching the game
 
-The L-series. ⛔ A desk PASS is "desk-verified", never "verified" (`WORK_PROMPT.md` §7): none of these launches the retail game. Every one is an over-reporter — adjudicate a row by reading the source line it cites, never by its count.
+The L-series. ⛔ A desk PASS is "desk-verified", never "verified" (`WORK_PROMPT.md` "Code-change loop"): none of these launches the retail game. Every one is an over-reporter — adjudicate a row by reading the source line it cites, never by its count.
 
 | script | what its own header says |
 |---|---|

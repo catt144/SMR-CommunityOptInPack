@@ -16,13 +16,13 @@ docs/
   README.md               this map
   agent/
     STATE.md              current state only — status + pointer, never derivation.
-                          Byte-capped; the door is prompts/STATE_EVICTION.md
+                          Byte-capped; the door is prompts/perma/STATE_EVICTION.md
     WORKFLOW.md           process rules — commits, probe hygiene, todo discipline
     FIX_POLICY.md         what may be built, and how
     bugs/                 defect/design truth — one file per entry
     facts/                engine behaviour — one file per fact
     reports/              reports, plans, specs, audits, surveys — NOT authority
-    support/              binding protocol, pulled: read when the job needs it
+    support/              protocols and references used by prompts, but not themselves fired
     prompts/              README.md is the MAP and doccheck gates it both ways
       perma/              standing prompts — WORK_PROMPT (start here for any work) ·
                           DISPATCH (live-issue triage) · STATE_EVICTION · KNOWLEDGE_SYNC_PASS
@@ -102,7 +102,7 @@ fix pack @ `33d69f5` on 2026-08-12 and re-synced from it @ `bec2e06` (68 files,
 `python tools/doccheck.py`; the figures here are historical sync receipts. Engine facts describe the GAME,
 so both mods need all of them; the two copies **diverge between syncs** — see
 `_preamble.md` and `tools/sync_from_fixpack.py`. ⛔ **`EF-` ids are allocated by the
-fix pack** (`agent/WORKFLOW.md`, reading path 2): file a new fact there first,
+fix pack**: file a new fact there first,
 mirror it here at the same id. `INDEX.md` is **generated**.
 
 ⚠️ **`INDEX.md` is generated in both folders.** The source/regeneration duty is
@@ -118,9 +118,8 @@ canonical in `CLAUDE.md`; generated files also say so on line 1.
 - A **duty that binds future work** → run the `doc-editing` skill's rule-placement test; tier is
   determined by when the duty loads, not by whether its topic sounds like process or code.
 - A **report, plan, spec, audit or survey** → `agent/reports/`.
-- **Binding protocol too long to sit inside a routing document** → `agent/support/`.
-  ⛔ Not `reports/`: a report is explicitly not authority, and protocol is. The test
-  is whether a leg that ignored it would be wrong, not whether the file is long.
+- A **supporting document used by a prompt** → `agent/support/`; keep the prompt's pointer and
+  update `agent/support/README.md` when the document lands.
 - A **prompt** → `agent/prompts/`; its map and `prompt-authoring` define class and lifecycle,
   with doccheck gating file/map agreement.
 - A **session leg** → `archive/SESSION_LOG.md` (append-only history, newest first).

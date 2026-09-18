@@ -11,8 +11,8 @@ This is an instruction surface, not a logbook. Results and status go to their du
 
 This is an unpublished opt-in behaviour mod for Surviving Mars: Relaunched, standalone beside the
 Relaunched Fix Pack. Live counts come from `python tools/doccheck.py --emit-counts`. `CLAUDE.md`
-supplies the always-loaded rules and two bans; `docs/README.md` maps the tree; `STATE.md` carries
-current status and holds.
+supplies the always-loaded rules and `FIX_POLICY.md`'s header the two bans; `docs/README.md` maps
+the tree; `STATE.md` carries current status and holds.
 
 ## Orient
 

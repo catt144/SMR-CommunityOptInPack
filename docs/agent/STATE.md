@@ -20,7 +20,7 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 
 ## Holds
 
-- The two bans, module freeze and measurement duties are in `CLAUDE.md`'s `Must_Read_Header`.
+- The two bans are in `FIX_POLICY.md`'s header; module freeze and measurement, in `CLAUDE.md`'s.
   D09 `DroneStatDials` is the sole live unfrozen module.
 - The game moved to 1.1.0 + DLC, build 24995074, on 2026-09-08. Archived trees are under
   `C:\Dev\SMR-SrcArchive`; fingerprint routing is `EF-083`. No module, probe, gate or test result

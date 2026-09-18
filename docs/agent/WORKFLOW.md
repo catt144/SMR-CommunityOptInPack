@@ -27,10 +27,10 @@
 > “The pack” means this mod unless the Relaunched Fix Pack is named explicitly. Pre-split records
 > use older names; translate them mentally and do not edit them.
 
-Process rules for this repo. Code rules are `FIX_POLICY.md`; global duties and the two bans are in
-`CLAUDE.md`; orientation, entry/fact filing, documentation edits, prompt authoring and session close
-are the skills in `.claude/skills/`. Situational binding protocol lives in `support/`; the map is
-`docs/README.md`.
+Process rules for this repo. Code rules, the two bans included, are `FIX_POLICY.md`; global
+duties are in `CLAUDE.md`; orientation, entry/fact filing, documentation edits, prompt authoring
+and session close are the skills in `.claude/skills/`. Situational procedures live in `support/`;
+the map is `docs/README.md`.
 
 ## Layout
 

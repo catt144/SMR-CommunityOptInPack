@@ -10,16 +10,16 @@ judgement, and cut every line a named skill or the worker's own judgement alread
 
 ## Match the rails to the job
 
-- **Investigation or design work** (find a cause, design or build a module change): give the
-  evidence so far, the question or the done-condition, and the hard rules
-  (`docs/agent/FIX_POLICY.md`, the two bans, MODULE FREEZE, and any special rule the owner set).
-  Then free rein: no read path, no step order, no prescribed hypothesis, no fence on what to open,
-  run or explore. A lead is offered as a lead, never as the route.
+- **Investigation or module build** (find a cause, design or build a module change): give the evidence
+  so far, the question or the done-condition, and the hard rules (`FIX_POLICY.md`, the reach rule,
+  and any special rule the owner or an owner-and-agent design set). Then free rein: no read path,
+  no step order, no prescribed hypothesis, no fence on what to open, run or explore. A lead is
+  offered as a lead, never as the route.
 - **Job** (perma prompts such as release, STATE eviction, a sweep, a prune): rails. Fixed order,
   named files, scope, checks, and a clear focus.
 - Unsure which: it is an investigation if the answer is not known when the brief is written.
-- **An effort over about two sessions** is a chain of briefs: read
-  `docs/agent/support/CHAIN_METHOD.md` before splitting it.
+- **An effort over about two sessions** is a chain of briefs: read `docs/agent/support/CHAIN_METHOD.md`
+  before splitting it.
 
 ## Every brief
 
@@ -40,18 +40,17 @@ judgement, and cut every line a named skill or the worker's own judgement alread
 - **Stops**, at most three, as permission to report instead of pushing on.
 - **Do not claim:** the claim the evidence cannot carry, and the narrower true one to write instead.
 - **Lifecycle:** a one-off is deleted when fired; a perma prompt stays.
-- **Difficulty tag** in the filename: `_low` (light-to-moderate reasoning on a settled plan; never
-  an investigation), `_medium`, `_high`, or `_fanout_level_<x>` (1-10) for subagent control. It is
-  the owner's routing hint, not a gate: a brief never names a model or checks which one runs it.
-- **Name skills, do not restate them:** `doc-editing`, `smr-bug-library`, `smr-orientation`; house
-  rules are `CLAUDE.md`.
+- **Difficulty tag** in the filename: `_low` (light-to-moderate reasoning on a settled plan; never an
+  investigation), `_medium`, `_high`, or `_fanout_level_<x>` (1–10) for subagent control. It is the
+  owner's routing hint, not a gate: a brief never names a model or checks which one runs it.
+- **Name skills, do not restate them:** `doc-editing`, `smr-bug-library`; house rules are `CLAUDE.md`.
 
 ## Shapes that fail
 
 - **A shrink job that keeps by default.** Make deletion the default; survivors earn a home or a slot
   under a cap, with concrete examples of gaming the cap.
-- **"Archive everything"** as the answer to hard triage. Content already recorded elsewhere is
-  deleted, not re-archived.
+- **"Archive everything"** as the answer to hard triage. Say that content already recorded elsewhere
+  is deleted, not re-archived.
 - **"Already homed" proven by a heading match.** Require the body.
 - **Subagent output used unchecked.** It is a claim until one command confirms what a cut or verdict
   rests on.
@@ -59,12 +58,11 @@ judgement, and cut every line a named skill or the worker's own judgement alread
   first, and a blind check that sees only the new text and the inventory.
 - **A build brief for a state players cannot reach.** A defect that lives only in a save Steam and
   console cannot load stops before the brief and goes to the owner.
-- **A brief that violates the kernel's build-citation rule.** The archived trees are under
-  `C:\Dev\SMR-SrcArchive\<build>\Src`.
 
 ## Test and playtest briefs
 
-- Include the probe sweep before testing (`docs/agent/WORKFLOW.md`, Probe hygiene).
+- Include the probe sweep before testing (WORKFLOW, Probe hygiene). Its age is a trigger satisfied
+  at the next playtest (ck184), never a reason to refuse work.
 - **Every module owes a BOTH-CONFIGURATION test at ship** — with the fix pack installed and with it
   absent (`FIX_POLICY` §8), naming the version. A brief that tests one configuration is incomplete.
 - A module's test must cover **both toggle directions**, including a mid-session enable and a
@@ -74,15 +72,19 @@ judgement, and cut every line a named skill or the worker's own judgement alread
 - Behaviour, timing, throughput and player-notice claims state the fixture's scarcity, fleet,
   density and layout, and report that colony, not a generalisation.
 - Name every setup mutation; reject one that intersects the mechanism measured. A no-taint claim
-  needs a clean current-build save.
+  needs a clean current-build save; toolkit `CLEAN` is not an achievement verdict.
 - A shortened `MapGameTimeRepeat` is restarted after the change and after every reload and proven
   live; a negative result is paired with a positive control.
+- Salvage targets objects, not hexes; a bare red `Salvage` means nothing under the cursor is
+  targetable.
 - Label probe tallies with their build and name each SKIP. A MarsDebug pass is not retail evidence
-  (`EF-044`). The TestKit is **shared with the fix pack** — a probe count is the whole suite's
+  (EF-044). The TestKit is **shared with the fix pack** — a probe count is the whole suite's
   unless the brief says which share it means.
 - Owner-typed console lines are one paste-safe line with no `--` comment: a bare expression for a
   read, `*r` for real-time or multi-statement work, `*g` for game-time work that yields. Make `nil`
   explicit, read presence from the file log, claim absence only after exit.
+- Check console and toolkit names against the retail sandbox (EF-096). `ConsolePrint` silently
+  rejects multiple or non-string arguments; an OS display measurement needs a DPI-aware tool.
 - Grep logs with the FULL token `[CommunityOptInPack]`; the fix pack's tag is a different string
   and BOTH MODS LOADED is the rig's normal condition.
 - A fix invalidates its own tests: rebase harm legs on the pre-fix body and rerun the whole suite.

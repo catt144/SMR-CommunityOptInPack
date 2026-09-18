@@ -38,8 +38,8 @@ owner picks. **Start with `git log --oneline -10` + `git pull` in BOTH repos**
 
 **This repo:** `agent/reports/DRONE_REBUILD_DESIGN_20260901.md` **WHOLE** (the authority) ·
 `agent/reports/DRONE_BANDS_CLEAN_REVERT_20260901.md` §4.2 (V / P / 2-S / D) and §5 (the
-experiment cards, with predictions) · `CLAUDE.md` (both bans) ·
-`agent/FIX_POLICY.md` §1, §2 (F107 + F110 + F87), §3, §3a, §5 · `agent/bugs/D06.md` ·
+experiment cards, with predictions) · `CLAUDE.md` ·
+`agent/FIX_POLICY.md` header (both bans), §1, §2 (F107 + F110 + F87), §3, §3a, §5 · `agent/bugs/D06.md` ·
 `Code/Opt_DroneOverhaul.lua` (what you are replacing) · `Code/00_Core.lua`
 (`Register` / `Require` / `IsActive` / `OnDataReady`) · facts `EF-059 060 069 070 071 072
 073 074` + `EF-002 014 019 022 023 029 053 054 058 066` · `agent/facts/INDEX.md` scan.
@@ -157,7 +157,7 @@ spec §9 ask 3**; `DroneReport()` kept and extended with tier depths and the new
   false (F86 Site 2) and the header must not reinstate any version of it. Point at the spec §4
   statement instead.
 
-**Loop, per `WORK_PROMPT.md` §3 / `WORKFLOW.md` "Per-fix discipline":** game-not-running check →
+**Loop, per `WORK_PROMPT.md` "Code-change loop" / `WORKFLOW.md` "Per-module discipline":** game-not-running check →
 edit → Lua parse sweep → desk instruments → the A/B → the D06 entry updated **in the same
 commit as the code** → `PROBE SWEEP:` line.
 
