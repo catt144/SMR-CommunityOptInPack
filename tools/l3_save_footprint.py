@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """L3 — aggregate save-footprint census over the shipped Code/ tree.
 
 Lens L3 (save & exit) instrument. The question this
@@ -15,7 +15,7 @@ It emits five censuses, each mechanical and each citing file:line:
   2. THREADS       — every thread constructor, game-time (persisted by default,
                      EF-019) separated from real-time (never persisted).
   3. NAMED STATE   — every `SMRFixPack_*` / `SMROptInPack_*` token: the
-                     persisted names (save contract, PROVENANCE §2) and the
+                     persisted names (save contract, FIX_POLICY §3) and the
                      framework globals (FIX_POLICY §3).
   4. GAMEVARS      — every `GameVar(` declaration (registers in
                      PersistableGlobals, so it self-clears on uninstall).

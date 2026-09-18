@@ -43,7 +43,7 @@ both-mods rule, save-safety policy — all already here and current.
 
 ## 3 · What was ported, and what each run found
 
-Ledger with shas and edits: `agent/PROVENANCE.md` §6. Tool outputs are in this
+Ledger with shas and edits: `tools/README.md`, "The 2026-08-31 readiness tooling port". Tool outputs are in this
 session's scratch; the load-bearing lines are reproduced here.
 
 | tool | port | run against this tree — result |
@@ -54,7 +54,7 @@ session's scratch; the load-bearing lines are reproduced here.
 | `pack_predict.py` | content prefix | 12 files would pack; `*/tools/*` now excludes 21 (was 8 at launch prep) — `ignore_files` still covers it |
 | `pack_list.py`, `flpk_extract.py` | verbatim | not run — need a built `.fpk` (post-upload check) |
 | `l2_reload_sim.py` | **rewritten for this repo** (donor's is DataPatch-fixture-bound; no `Opt_*` calls DataPatch) | **PASS**: all 8 register exactly once across a simulated `ReloadLua`, 1 verdict line per id per load, 0 files dead. **Control REPRODUCED**: the pre-guard `00_Core.lua` (`git show 2cedf7d~1`) yields 16 order entries, every id twice — the 2026-08-17 "NoHomeless, NoHomeless" dialog's mechanism. This is the desk half of the boot check STATE owes; the in-game half is still owed |
-| `l3_save_footprint.py` | both prefixes, label fix | §3 NAMED STATE reads **exactly the five persisted names of PROVENANCE §2** plus the two framework globals; §4 GAMEVARS: none; §6 no SaveGame hooks (as designed — no layer-1 tear-down needed); §7 one "foreign" field `update_suspect` — an over-report: `entry` is `SMROptInPack.fixes[id]` (mod table, never persisted) |
+| `l3_save_footprint.py` | both prefixes, label fix | §3 NAMED STATE reads **exactly the five persisted names in `FIX_POLICY.md` §3** plus the two framework globals; §4 GAMEVARS: none; §6 no SaveGame hooks (as designed — no layer-1 tear-down needed); §7 one "foreign" field `update_suspect` — an over-report: `entry` is `SMROptInPack.fixes[id]` (mod table, never persisted) |
 | `l4_player_surfaces.py` | namespace | 17 `Untranslated` sites (Core dialog, D03/D12 rollovers), 22 log sites, 48 verdict strings of which 31 match `UpdateSuspects`' substrings and **17 reach the dialog unmatched** — informational; same shape the donor's L4 adjudicated |
 | `l5_containment.py` | namespace | 106 file-scope statements (10 calls, 36 to read); entry-point census runs. Adjudication of rows: not done in this pass — it is a lens sweep's job, and this pass ported the instrument, not the sweep |
 | `l6_promise_map.py` | namespace + `Opt_` prefix | census 1 identity: 8/8 ids match filenames; census 2 package: metadata == items == disk, order equal; census 4: every module has a bugs entry; census 5 (site fix list): N/A while the mod's passages are parked |

@@ -19,7 +19,6 @@ docs/
                           Byte-capped; the door is prompts/STATE_EVICTION.md
     WORKFLOW.md           process rules — commits, probe hygiene, todo discipline
     FIX_POLICY.md         what may be built, and how
-    PROVENANCE.md         what came from where, at which sha — the port ledger
     bugs/                 defect/design truth — one file per entry
     facts/                engine behaviour — one file per fact
     reports/              reports, plans, specs, audits, surveys — NOT authority
@@ -87,7 +86,7 @@ Decision routing is canonical in `CLAUDE.md`'s `Must_Read_Header`.
 
 This is the one place the split deliberately leaves a question unanswerable
 from this repo alone. It is named rather than hidden: nothing about *build
-state, policy, module records, the suite, the bans, or provenance* — the
+state, policy, module records, the suite, the bans, or cross-repo drift* — the
 questions a fresh session actually has to answer — lives in those two files.
 
 ## The two split folders
@@ -102,7 +101,7 @@ fix pack @ `33d69f5` on 2026-08-12 and re-synced from it @ `bec2e06` (68 files,
 2026-08-31) and @ `e6ec192` (107 files, 2026-09-17)**. Count them with
 `python tools/doccheck.py`; the figures here are historical sync receipts. Engine facts describe the GAME,
 so both mods need all of them; the two copies **diverge between syncs** — see
-`_preamble.md` and `agent/PROVENANCE.md`. ⛔ **`EF-` ids are allocated by the
+`_preamble.md` and `tools/sync_from_fixpack.py`. ⛔ **`EF-` ids are allocated by the
 fix pack** (`agent/WORKFLOW.md`, reading path 2): file a new fact there first,
 mirror it here at the same id. `INDEX.md` is **generated**.
 

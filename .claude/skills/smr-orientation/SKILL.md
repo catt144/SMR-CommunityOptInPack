@@ -14,7 +14,7 @@ Pack and identically without it. ⛔ **NOT PUBLISHED.**
 ## 1 · The two bans
 
 The canonical duties are in `CLAUDE.md`'s `Must_Read_Header`. The persisted-name inventory is
-`docs/agent/PROVENANCE.md` §2. Surviving `SMRFixPack` tokens in `Code/` are inventory strings, not
+`docs/agent/FIX_POLICY.md` §3. Surviving `SMRFixPack` tokens in `Code/` are inventory strings, not
 executable references; that distinction is the reason both bans coexist.
 
 **MODULE FREEZE status:** the kernel rule applies. Drones were unfrozen 2026-08-31, and the
@@ -41,7 +41,7 @@ both directions, so a new file at `docs/` root is a red build until the map name
 | module · defect truth | `docs/agent/bugs/` — one file per entry, **generated** `INDEX.md` |
 | engine behaviour | `docs/agent/facts/` — `EF-NNN`, **generated** `INDEX.md` |
 | process · code rules | `docs/agent/WORKFLOW.md` · `docs/agent/FIX_POLICY.md` |
-| what came from where | `docs/agent/PROVENANCE.md` — the port ledger |
+| cross-repo drift | `tools/sync_from_fixpack.py` — declared adaptations and last donor sync |
 | prompts | `docs/agent/prompts/` — `WORK_PROMPT.md` starts ordinary work; the map routes the rest |
 | owner decisions | `docs/DECISIONS_OWED.md` (this mod's) |
 

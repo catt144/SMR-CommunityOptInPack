@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """L2 (lifecycle & idempotency) — two-Lua-load simulator for the registry.
 
 WHY THIS EXISTS

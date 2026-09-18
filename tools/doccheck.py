@@ -20,8 +20,8 @@ GENERAL_USE_PROMPT.md's line cap is kept but N/A — that prompt is
 single-sourced in the fix pack (docs/README.md).
 
 v4 (split-optins prompt 3, 2026-08-12): PORTED to SMR-OptInPack from
-SMR-BugFixPack @ 33d69f5. Four deliberate differences, each recorded in
-docs/agent/PROVENANCE.md: (1) the registered-module needle is
+SMR-BugFixPack @ 33d69f5. Four deliberate differences, now recorded in the
+readiness tooling port in tools/README.md: (1) the registered-module needle is
 `SMROptInPack.Register(`; (2) the optional-module count is the ANCHORED
 def-field form and `default_active = modules - optional` — the donor's
 hard-coded `- 7` and its substring `optional = true` count were BOTH wrong
@@ -790,7 +790,7 @@ def counts_block(counts):
 # ---------------------------------------------------------------------------
 # AGENTS.md — the Codex byte copy of CLAUDE.md.
 #
-# Carried from SMR-BugFixPack 2026-09-17 (PROVENANCE §6). Two vendors read this
+# Carried from SMR-BugFixPack 2026-09-17. Two vendors read this
 # tree and only one of them reads CLAUDE.md, so the entry file is mirrored
 # rather than forked: a fork is a second set of house rules that drifts in
 # silence. It is GENERATED — edit CLAUDE.md and run --regen.
@@ -808,7 +808,7 @@ REGEN_CURE = ("  → regenerate with `python tools/doccheck.py --regen` (never b
 # re-included by .gitignore because it is project material, not scratch.
 # Codex reads `.agents/`, so the same bodies are mirrored there byte-for-byte:
 # a fork would be two vendors working this tree under different instructions.
-# Carried from SMR-BugFixPack 2026-09-17 (PROVENANCE §8).
+# Carried from SMR-BugFixPack 2026-09-17.
 #
 # Size is REPORTED, not gated — a skill body is PULL (loaded only on invoke),
 # and this file's PUSH_SET comment says the budget belongs on the push set "as
@@ -1233,7 +1233,7 @@ TOOL_GROUPS = (
      "Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner "
      "has changed the main pack and wants to know what lands here. ⛔ Read-only "
      "in BOTH repos, and it decides nothing — its `LOCAL_ADAPTATIONS` and "
-     "`LAST_SYNC` constants are the former `PROVENANCE.md` port ledger in the "
+     "`LAST_SYNC` constants are the retired prose port ledger in the "
      "only form that cannot go stale, because the thing that reads them is the "
      "thing that checks them.",
      ("sync_from_fixpack.py",)),
@@ -1677,7 +1677,7 @@ def _rule_text(rel):
 def _rule_block(lines):
     """Return the sole well-formed rule-block span, or None.
 
-    Trap: a document may MENTION the markers in prose (PROVENANCE §8 and the
+    Trap: a document may MENTION the markers in prose (the retired port ledger and the
     efficiency survey both quote them inside backticks). Requiring exactly one
     of each, in order, is what keeps a quotation from reading as a second block.
     """

@@ -707,7 +707,7 @@ repo.** Until then, this section is its home.
 
 D12 wrote `SMRFixPack_no_homeless` as a **real field** onto `Dome` / `MicroGHabitatBase` objects,
 through `TogglePolicy`, in any save where the policy was switched on. It is row 3 of the
-persisted-name inventory (`../PROVENANCE.md` §2) and **stays there with its exact bytes**: retiring
+persisted-name inventory (`../FIX_POLICY.md` §3) and **stays there with its exact bytes**: retiring
 a module does not retire save contract, and the inventory is history as well as contract.
 
 Scope: this mod is **UNPUBLISHED**, so the only saves that can carry the field are the owner's own

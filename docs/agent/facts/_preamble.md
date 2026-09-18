@@ -14,7 +14,8 @@ the generated `INDEX.md`, byte-for-byte. Engine facts describe the GAME, so
 both mods need every one of them. **The two copies diverge from that date
 on** (chain rule 7): a fact learned in one repo does not appear in the other
 until someone carries it across, and `updated:`/`verified:` dates older than
-2026-08-12 belong to the donor's history. Provenance: `docs/agent/PROVENANCE.md`.
+2026-08-12 belong to the donor's history. Declared local adaptations and the
+last donor sync are in `tools/sync_from_fixpack.py`.
 
 ⚠️ **RE-SYNCED @ `bec2e06` (68 files, 2026-08-31) and @ `e6ec192` (107 files,
 2026-09-17).** A re-sync is a **straight overwrite** of every `EF-*.md` from the fix
@@ -33,4 +34,3 @@ installed game build.
 3.2, 2026-07-29 — additions go HERE, with a date). Read this before writing or
 reviewing any fix: several of these behaviors are the opposite of what the
 code suggests.
-

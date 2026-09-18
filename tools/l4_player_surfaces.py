@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """L4 — census of every surface a PLAYER can see or read, over the shipped tree.
 
 Lens L4 (player experience) instrument. The question

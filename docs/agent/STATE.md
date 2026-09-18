@@ -2,7 +2,6 @@
 
 Current only; history is newest-first in `docs/archive/SESSION_LOG.md`.
 Module truth `agent/bugs/INDEX.md` · engine facts `agent/facts/INDEX.md` · doc map `docs/README.md`.
-Authoring `agent/WORKFLOW.md` · code `agent/FIX_POLICY.md` · provenance `agent/PROVENANCE.md`.
 Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
 
 ## Now

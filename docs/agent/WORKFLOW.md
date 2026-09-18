@@ -12,7 +12,7 @@
 > 1. **Layout and install:** this repo, its `SMR-OptInPack` junction, its title and
 >    `SMROptInPack.ListFixes()` replace the donor's. The TestKit is shared, not copied.
 > 2. **Namespace:** `SMRFixPack.*` becomes `SMROptInPack.*`, but persisted `SMRFixPack_*` field and
->    modifier-id strings keep their exact bytes (`PROVENANCE.md` §2).
+>    modifier-id strings keep their exact bytes (`FIX_POLICY.md` §3).
 > 3. **Reading path:** the human playtest file lives in the fix pack; facts and emitted counts are
 >    this repo's. `PLAYTEST_HELP.md` was dissolved there on 2026-09-15.
 > 4. **Both mods loaded:** the standing rule below is this repo's twin of the donor's clause.
@@ -43,7 +43,7 @@ are the skills in `.claude/skills/`. Situational binding protocol lives in `supp
   `C:\Dev\SMR-SrcArchive\<version>\Src`. Never modify the game folder.
 - Mod install point: `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack`, a junction to this
   repo, so the checked-out tree is live. The fix pack has a separate junction beside it.
-- Tools: `tools/`; `tools/README.md` and `PROVENANCE.md` §6 say what each instrument proves. Audit
+- Tools: `tools/`; `tools/README.md` says what each instrument proves. Audit
   instruments over-report by design: adjudicate a row from its source, never from the tally.
 - Shared TestKit, local-only and never shipped: `C:\Dev\SMR-BugFixPack-TestKit`. Change a shared
   probe once there. `SMRTest.OptMissing` SKIPs when this mod is not installed.
@@ -250,7 +250,7 @@ The launch session owns this list; this mod is not published. Before upload:
    or without the Relaunched Fix Pack and tells Drone Stat Dials users to return both dials to base
    before uninstalling.
 2. Walk the fix pack's `docs/agent/reports/PARKED_OPTIN_REFERENCES.md` restore checklist on publish
-   day, not earlier; re-read the display-name sites in `PROVENANCE.md` §3.
+   day, not earlier; re-read the display-name sites in the current shipped files.
 3. Update `metadata.lua`'s `version_major`/`version_minor` and `last_changes` without changing
    `lua_revision`. Any add/remove/reorder of `Code/` files changes `metadata.lua` `code` and the
    `items.lua` `ModItemCode` list together, in the same order and commit.

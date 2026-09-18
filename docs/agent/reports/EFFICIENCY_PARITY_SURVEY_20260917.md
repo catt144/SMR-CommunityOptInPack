@@ -3,7 +3,7 @@
 **Status: PARTIAL. The measurements below are taken and reusable; the central question is
 UNANSWERED and the analysis that would answer it was stopped mid-run by the owner.**
 
-Written at HEAD `0c52767`, after the day's harness port (`PROVENANCE.md` §8). The owner asked what
+Written at HEAD `0c52767`, after the day's harness port (donor @ `e6ec192`). The owner asked what
 it would cost to bring this repo to the documentation efficiency the fix pack reached in the
 fortnight after 2026-09-01 — "the rules structure, the minimal, what does an agent need to know".
 
@@ -62,7 +62,7 @@ correct rules to be compressed and the compression broke four of them (donor `39
 **(c) Gates replacing prose** — 32 named checks against this repo's 16. A duty a machine catches is
 cited, not restated. Gate 3 of the admission door is exactly this rule.
 
-**(d) Skills as pull-loaded knowledge** — already ported here (`PROVENANCE.md` §8).
+**(d) Skills as pull-loaded knowledge** — already ported here (donor @ `e6ec192`).
 
 ## 3 · ⛔ The correction that changes the estimate
 
@@ -144,7 +144,7 @@ deliberately does not pretend to find one. The one-time census and owner adjudic
 semantic half."* Classifying ~215 sentences into global / doc-local / redundant / dead / task-local
 is judgement, and **`redundant` and `dead` are owner rulings** — that is what the donor's
 `[A3: pass]` tags record. ⛔ Those tags were deliberately NOT copied into this repo's `CLAUDE.md`
-(`PROVENANCE.md` §8): that audit ran on the donor's text, not ours.
+at that port: the audit ran on the donor's text, not ours.
 
 **Prose — NOT ESTIMABLE until §5 is answered.** Whether it is two sessions or six depends entirely
 on the bucket split.

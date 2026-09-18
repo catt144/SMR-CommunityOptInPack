@@ -59,7 +59,8 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 
 **What this unblocks, and in what order.** The donor's sequence is baseline → entrance gate → prune
 behind the gate → generated indexes → rules machinery → a terminal **attended** audit that no agent
-declares finished. The baseline and the gates landed 2026-09-17 (`PROVENANCE.md` §9); the prune is
+declares finished. The baseline and the gates landed 2026-09-17 (`tools/doccheck.py` and
+`tools/README.md`); the prune is
 the next unit and is larger than one session, so it wants a chain (`reports/CHAIN_METHOD.md`) rather
 than an opportunistic start.
 
@@ -74,7 +75,7 @@ lines were one table row per classified grep hit. **Not archived; deleted**, per
 `git log -S` and `git show 76a63b1:docs/agent/reports/CONTAMINATION_AUDIT_20260901.md` hold it.
 
 **Every finding was confirmed at its home first, body not heading:** the verdict is in `STATE.md`
-and `PROVENANCE.md` §2 with the AST command that **re-proves it in about a second** (re-run
+and `FIX_POLICY.md` §3 with the AST command that **re-proves it in about a second** (re-run
 2026-09-17: 0 `Name` nodes); its three owner items are 88 (fix pack), 89 and 90 (here); its eight
 fixes are in the tree; Pass B found `ORPHAN: 0`, so there was nothing to carry. Its §7 method — the
 token list a future sweep must include, and the `\bC[0-9]{2}\b` over-report — moved into
@@ -90,7 +91,7 @@ token list a future sweep must include, and the `\bC[0-9]{2}\b` over-report — 
 > Raised by your port note `C:\Dev\SMR-BugFixPack\.claude\OPTIN_OVERHAUL_PORT.md`, whose closing
 > line is *"One thing to ask your owner early"*. The fix pack ruled this for itself; this repo has
 > no equivalent line. ⛔ **Nothing has been pruned here.** The gates that port note lists are now
-> in (`PROVENANCE.md` §9) — this is the ask that unblocks the prose half, and the port deliberately
+> in (`tools/doccheck.py` and `tools/README.md`) — this is the ask that unblocks the prose half, and the port deliberately
 > stopped at it.
 
 OI-09. **Draw the line between documents an AGENT reads and documents YOU read — and say whether
@@ -106,7 +107,7 @@ OI-09. **Draw the line between documents an AGENT reads and documents YOU read �
 
     | agent-facing (cut hard) | yours (cut only with your line) |
     |---|---|
-    | `docs/agent/WORKFLOW.md`, `FIX_POLICY.md`, `PROVENANCE.md`, `STATE.md` | `docs/DECISIONS_OWED.md` — this file; you are its reader |
+    | `docs/agent/WORKFLOW.md`, `FIX_POLICY.md`, the retired provenance ledger, `STATE.md` | `docs/DECISIONS_OWED.md` — this file; you are its reader |
     | `docs/agent/prompts/**`, `docs/agent/reports/**` | `docs/FUTURE_IDEAS.md` — your parking lot |
     | `CLAUDE.md` / `AGENTS.md` (the kernel) | `docs/README.md` — the map, read by both |
     | `docs/agent/bugs/**`, `facts/**` (entries are truth; they are not prose) | ⚠️ the two PLAYTEST files are **not here** — they are single-sourced in the fix pack, so its ruling already governs them |
@@ -170,7 +171,7 @@ OI-08. **Flip `STATE.md` from push to pull, as the fix pack did?**
     flip safe rather than merely cheap.
 
     ⭐ **2026-09-17 UPDATE — half of (b) is DONE and the ask is now cheaper.** `check_state_admission`
-    and `state_added_lines` are ported and live (`PROVENANCE.md` §9); doccheck now prints every line
+    and `state_added_lines` are ported and live (`tools/doccheck.py`); doccheck now prints every line
     a commit ADDS to `STATE.md` beside the four questions. Verified by positive control: silent on a
     clean tree, opens on an added line. ⛔ **The remaining half of (b) is not done** — no eviction has
     been run under the door, so this repo's live 1.1.0 holds still sit in `STATE.md` and the caveat

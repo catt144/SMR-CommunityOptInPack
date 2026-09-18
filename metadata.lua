@@ -1,7 +1,7 @@
 return PlaceObj('ModDef', {
 	-- ✅ DISPLAY NAME DECIDED (owner, 2026-08-13): family-prefixed so the two
 	-- mods sort together in mod lists. Swept everywhere the same day
-	-- (docs/agent/PROVENANCE.md §3).
+	-- (the current shipped title; its settled history remains in git).
 	-- ⭐ FAMILY RENAMED (owner, 2026-08-17, fix-pack checklist 36): "Community
 	-- Fix Pack" → "Relaunched Fix Pack" across the whole set, before any upload;
 	-- owner ruled the sibling titles move NOW, then widened the license the
@@ -15,7 +15,7 @@ return PlaceObj('ModDef', {
 	'short_description', "Eight opt-in gameplay modules, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Relaunched Fix Pack.",
 	-- Split out of the Community Fix Pack on 2026-08-12: these eight modules
 	-- shipped there as `optional = true` files and moved here whole, behaviour
-	-- unchanged and persisted names unchanged (docs/agent/PROVENANCE.md).
+	-- unchanged and persisted names unchanged (docs/agent/FIX_POLICY.md §3).
 	'last_changes', "Initial release: the eight optional modules, split out of the Relaunched Fix Pack into their own mod.",
 	'id', "SMR_CommunityOptInPack",
 	'author', "catt144",
@@ -64,7 +64,7 @@ return PlaceObj('ModDef', {
 	-- entries are ModItemOptionChoice values — base STRINGS, byte-identical
 	-- to items.lua's ChoiceList and Opt_DroneStatDials.lua's maps, not false.
 	-- ⛔ ALL NINE KEYS AND VALUES ARE LIFTED FROM THE FIX PACK BYTE-FOR-BYTE
-	-- (docs/agent/PROVENANCE.md §2, rows 6-9). Do not retype them.
+	-- (docs/agent/FIX_POLICY.md §3, persisted-name inventory rows 6-9). Do not retype them.
 	'default_options', {
 		ClassicRockets = false,
 		AcknowledgedWarnings = false,

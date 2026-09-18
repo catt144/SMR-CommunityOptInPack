@@ -23,7 +23,7 @@ Standing rules, binding on every job you are given:
 - **Verbatim means byte-for-byte.** When moving binding protocol text, do not reword, reflow,
   re-indent or renumber anything. Prove it with a byte tally that balances.
 - **Never touch a persisted name.** Any `SMRFixPack_*` string is save contract and keeps its exact
-  bytes even inside prose that merely quotes it (`docs/agent/PROVENANCE.md` §2).
+  bytes even inside prose that merely quotes it (`docs/agent/FIX_POLICY.md` §3).
 - **`docs/archive/` is append-only.** Never rewrite or delete what is archived there.
 - **Stop and report rather than repair.** doccheck RED, a tally that will not balance, or
   `git status` showing a file you do not own are all stop conditions, not puzzles to solve.

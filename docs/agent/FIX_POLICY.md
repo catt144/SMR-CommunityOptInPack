@@ -26,7 +26,7 @@ compatibility with other mods and future game patches, zero edits to game files.
 > 2. **The namespace is renamed throughout** — `SMRFixPack.*` → `SMROptInPack.*`,
 >    `SMRFixPack_Disabled` → `SMROptInPack_Disabled`. ⛔ **§3's `SMRFixPack_*`
 >    field-naming rule is NOT renamed**: the fields this mod already writes are
->    save contract and keep the donor's prefix forever (`agent/PROVENANCE.md` §2).
+>    save contract and keep the donor's prefix forever (§3, "The persisted-name inventory").
 > 3. **§4a (vanilla only), §5 (optional modules), §8 (release hygiene) carry
 >    short marked notes** where the wording assumed one mod. Nothing is deleted.
 > 4. §1, §2, §3, §3a, §6, §7 are **unchanged and fully binding** — they are
@@ -216,8 +216,8 @@ Every fix goes through `SMROptInPack.Register(id, {title, apply})` (Code/00_Core
   to match this mod** (marked 2026-08-12, split): the persisted fields and modifier
   ids these modules already write went into players' saves under it, and a save
   contract outranks a tidy namespace. A NEW persisted name in this repo may use
-  either prefix, but must then be added to `agent/PROVENANCE.md` §2, where it
-  becomes equally unrenameable. See also `agent/facts/`, and the whole of §3a.
+  either prefix, but must then be added to the inventory below, where it becomes
+  equally unrenameable. See also `agent/facts/`, and the whole of §3a.
 - Fixes must be sane on existing saves. If a bug left corrupt state behind
   (e.g. F03's leaked modifiers), the cleanup is a **separate, clearly marked
   one-shot `OnMsg.LoadGame` sweep**, conservative by default.
@@ -231,6 +231,100 @@ Every fix goes through `SMROptInPack.Register(id, {title, apply})` (Code/00_Core
   design question: **`agent/bugs/D13.md`**; plan: `F86_EXECUTION_PLAN.md` Phase 5.
   ⛔ The artifact is **specced only after Tiers 1+2 land and verify** — its
   target list is their output, never today's leak set. `[FAQ]`
+
+### ⛔ The persisted-name inventory — SAVE CONTRACT, verbatim
+
+⚠️ **WHICH NAMES STILL HAVE A LIVE WRITER (2026-09-17).** Four of the five
+`SMRFixPack_*` rows are written by shipping code; **row 3
+`SMRFixPack_no_homeless` has NO writer** — its only one was `Opt_NoHomeless.lua`
+(D12), deleted 2026-09-17. ⛔ **All five remain contract. A deleted writer is not
+a release** — the field is still in players' saves, so the name can never be
+reused for anything else, and nothing may "restore" a writer to make a count
+match. Likewise rows 8–9 keep the three retired modules' Mod-Options keys.
+⇒ `tools/l3_save_footprint.py` §3 therefore reports **four**, not five. That is
+correct, not a breach. Records written before 09-17 say "exactly those five".
+
+⛔ **Re-derive, never trust these numbers** — that is why they live here and not
+in `STATE.md`, whose own rule is that a stored count goes stale in silence (it
+did: STATE carried "5 definitions, 6 comments" for the `Code/` tokens until
+2026-09-17, when the truth was 4 and 3):
+
+```sh
+python tools/l3_save_footprint.py --src C:\Dev\SMR-SrcArchive\1.1.0.403908\Src   # §3 = the live writers
+grep -n SMRFixPack Code/*.lua                                                    # the tokens themselves
+```
+
+⛔ **Ban 2 is proved by an AST walk, never by that grep** — the grep is the
+inventory, the AST is the evidence. Zero `Name` nodes may carry the token
+(measured 2026-09-17: 6 files, 8 raw tokens, **0** `Name` nodes; first proved
+2026-09-01 over 817 classified hits, 0 contamination):
+
+```py
+from luaparser import ast, astnodes
+[n for n in ast.walk(ast.parse(src)) if isinstance(n, astnodes.Name) and "SMRFixPack" in (n.id or "")]
+```
+
+**Every string below has entered savegames or account storage. It keeps its
+EXACT bytes forever, `SMRFixPack_` prefix and all.** They were written by these
+modules while they lived in the fix pack; a rename would orphan live state in
+every existing save (a policy row silently resetting, a drone boost stranded
+under an id nothing removes). Renaming one is FORBIDDEN in this repo without a
+migration heal, which is not built and is out of scope here.
+
+| # | exact bytes | kind | written at | read at |
+|---|---|---|---|---|
+| 1 | `SMRFixPack_ack_notworking` | field on `Building` objects | `Opt_AcknowledgedWarnings.lua` (`obj[FLAG] = true`), cleared on recovery | same file |
+| 2 | `SMRFixPack_closed_to_new_residents` | field on `Dome`/`MicroGHabitatBase` | `Opt_ResidencyControl.lua` via `building:TogglePolicy(FLAG, broadcast)` → shipped `Community:SetPolicyState` | same file |
+| 3 | `SMRFixPack_no_homeless` | field on `Dome`/`MicroGHabitatBase` | `Opt_NoHomeless.lua` (`TogglePolicy`, and its bespoke `SetPolicyState` broadcast) | same file |
+| 4 | `SMRFixPack_DroneSpeedDial` | **label-modifier id** in `UIColony.label_modifiers["Drone"]`, holding a vanilla `Modifier` object | `Opt_DroneStatDials.lua` | same id (replace/remove) |
+| 5 | `SMRFixPack_DroneCarryDial` | as above, label `Consts` | `Opt_DroneStatDials.lua` | same |
+| 6 | `"1x (base)"` `"2x"` `"3x"` `"5x"` | dial choice values | `metadata.lua` `default_options`, `items.lua` `ChoiceList`, the module's own map | the module's decode map |
+| 7 | `"+0 (base)"` `"+1"` `"+2"` | as above | as above | as above |
+| 8 | `ClassicRockets` `AcknowledgedWarnings` `ResidencyControl` `MultipleSuns` `DroneOverhaul` `CohortHousing` `NoHomeless` | Mod-Options toggle keys **and** `Register` ids | `metadata.lua`, `items.lua`, each module's `Register` | `SMROptInPack.OptionEnabled` |
+| 9 | `DroneSpeedDial` `DroneCarryDial` | Mod-Options choice keys (**not** `Register` ids) | `metadata.lua`, `items.lua` | the module, directly |
+
+Rows 6–9 are keyed under the **mod id**, and the mod id DID change
+(`SMR_CommunityFixPack` → `SMR_CommunityOptInPack`), so the player's saved
+values do not carry across: every toggle comes up OFF and both dials at base
+once, and the owner re-ticks their preferences in one visit to Mod Options.
+Rows 6–9 keep their bytes anyway — every doc, probe and console line names
+them, and there is nothing to buy by churning them.
+
+**Provably never persisted, so the rename was safe:** `SMRFixPack_Optional` /
+`SMRFixPack_Disabled` (now `SMROptInPack_*`) — plain `_G` tables built with
+`rawget(_G,…) or {}` at load, never written onto an object, never in
+`PersistableGlobals`. `Opt_DroneOverhaul`'s caches (module locals, weak keys).
+`Opt_MultipleSuns`' file locals and its `build_once` preset write (presets are
+rebuilt from data every load). The `rawset(self, "ProcessToggle", …)` in both
+UI rows (an `InfopanelActiveSection` **window** instance, not a game object).
+**No named threads. No GameVars.**
+
+⛔ **2026-09-17 — THREE OF THESE NAMES NOW BELONG TO MODULES THAT NO LONGER SHIP,
+AND NOT ONE ROW LEAVES THIS TABLE.** The owner retired `Opt_DroneOverhaul` (D06,
+PARKED), `Opt_CohortHousing` (D07, DEAD) and `Opt_NoHomeless` (D12, DEAD); the files,
+their `items.lua` entries and their `metadata.lua` keys are deleted. The strings are
+**save contract and history**, and deleting a row would teach the next session that a
+name is renameable once its writer is gone. It is not. Specifically:
+
+- **Row 3, `SMRFixPack_no_homeless`, is a REAL FIELD already written onto `Dome` /
+  `MicroGHabitatBase` objects** in every save where the policy was switched on. This mod
+  is UNPUBLISHED, so the only such saves are the owner's own test saves; the fix pack's
+  Save Rescue (its `D13`) already targets these keys. With the module gone nothing reads
+  the field, so the residue is **inert** — stated, not assumed
+  (`reports/MODULE_REVALIDATION_1_1_0.md` §10.2).
+- **Row 8** still lists `DroneOverhaul`, `CohortHousing` and `NoHomeless` as Mod-Options
+  toggle keys and `Register` ids. Their keys linger in `AccountStorage.ModOptions` and are
+  **read by nothing** — the engine never clears a removed key and the UI does not render
+  it, so no crash and no reset of the player's other toggles (§10.1 of the same report;
+  it wants an `EF-` fact, which the FIX PACK allocates).
+- Rows 1, 2, 4, 5 belong to modules that still ship. Nothing else changed.
+
+Code for the three: ⛔ **git is the record** — restore sha **`cc846e4`**.
+
+⚠️ `Opt_MultipleSuns` DOES leave persisted state on `SolarPanelBase` objects —
+the **vanilla** `artificial_sun` member, written through the shipped
+`SetArtificialSun` with a vanilla value. Not ours, not renameable, not our
+footprint. Its header's "Savegame footprint: none" means "no NEW names".
 
 ### 3a. SAVE SAFETY — design so the save carries as little of us as possible, and the exit cleans the rest (HARD RULE, owner, 2026-07-31; framing set by the owner 2026-08-01)
 

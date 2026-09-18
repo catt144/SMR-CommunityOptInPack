@@ -21,7 +21,7 @@ Three passes, each answering one question:
                 hold what we are missing?
 
 WHY THE DECLARED CONSTANTS BELOW MATTER. `LOCAL_ADAPTATIONS` and `LAST_SYNC`
-replace the port-ledger sections of the retired `docs/agent/PROVENANCE.md`. A
+replace the retired prose port ledger. A
 ledger written as prose goes stale in silence; these cannot, because the thing
 that reads them is the thing that checks them. Add a row when you deliberately
 diverge from the donor, and move `LAST_SYNC` when you finish a sync.
@@ -45,8 +45,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DONOR = os.environ.get("SMR_FIXPACK", r"C:\Dev\SMR-BugFixPack")
 
 # ---------------------------------------------------------------------------
-# THE DECLARED LEDGER. This is what `PROVENANCE.md`'s 15,599 B of port-ledger
-# narrative reduced to, once measured: on 2026-09-17 the fact mirror differed
+# THE DECLARED LEDGER. This is what 15,599 B of port-ledger narrative reduced
+# to, once measured: on 2026-09-17 the fact mirror differed
 # from the donor's in exactly these three files and nothing else.
 #
 # A row here is a PROMISE that the difference is deliberate. Anything differing
@@ -56,7 +56,8 @@ LOCAL_ADAPTATIONS = {
                  "(the only CONTENT adaptation in the mirror)",
     "INDEX.md": "GENERATED here from local front matter by tools/split_facts.py; "
                 "never copied from the donor",
-    "_preamble.md": "carries this repo's dated copy note on top of the donor's text",
+    "_preamble.md": "carries this repo's dated copy note and sync-tool pointer "
+                    "on top of the donor's text",
 }
 
 # The last donor sha this repo synced from. Move it when a sync completes, in

@@ -8,7 +8,7 @@
 
 This mod split out of the Relaunched Fix Pack (`C:\Dev\SMR-BugFixPack`) on 2026-08-12 and has had
 two ports since — the 2026-08-31 readiness pass and a one-file repair on 2026-09-12
-(`agent/PROVENANCE.md` §6, §7). Ports move what someone *noticed* was missing. Nobody has asked the
+(donor @ `bec2e06` and `85d95cb`). Ports move what someone *noticed* was missing. Nobody has asked the
 mechanical question:
 
 > **Does this repo contain everything it cites?**
@@ -29,7 +29,7 @@ python tools/sync_from_fixpack.py          # all three passes, read-only in both
 It answers, by measurement rather than by reading:
 
 - **`--facts`** — is the fact mirror still a mirror, apart from the adaptations we DECLARE? Its
-  `LOCAL_ADAPTATIONS` constant is the former `PROVENANCE.md` port ledger in the only form that
+  `LOCAL_ADAPTATIONS` constant is the retired prose port ledger in the only form that
   cannot go stale, because the thing that reads it is the thing that checks it.
 - **`--donor-log`** — what changed on a shared donor surface since `LAST_SYNC`. ⛔ Move `LAST_SYNC`
   in the same commit that lands a sync, or the next run re-reports everything.
@@ -99,9 +99,9 @@ Cheap checks, report-only:
 
 - **Write only in this repo.** `C:\Dev\SMR-BugFixPack` is read-only from here. If something needs to
   change there, put it in the report and say so; a human carries it across.
-- **Copy verbatim or not at all.** A ported file is byte-identical and gets a `PROVENANCE.md` row
-  with its donor sha and md5 (§7 is the worked example). Two identical copies is the intended state;
-  an edited copy is a fork nobody will notice.
+- **Copy verbatim or not at all.** A ported file is byte-identical; record its donor sha and md5 in
+  the commit message, and move `LAST_SYNC` in that commit when a sync completes. Two identical
+  copies is the intended state; an edited copy is a fork nobody will notice.
 - The kernel's donor-name, archive, documentation-check and commit rules apply.
 
 ## 5 · Report

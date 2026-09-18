@@ -22,7 +22,7 @@ actual destination passages, not a topic match or a fresh GREEN.
   slot under a stated cap. Do not defend cuts line by line.
 - ⚖️ **Owner ruling 2026-09-17 (OI-09): agent-facing documents MAY be machine-tuned hard; the
   owner's may not.** Agent-facing is `docs/agent/**` (including `WORKFLOW.md`, `FIX_POLICY.md`,
-  `PROVENANCE.md`, `prompts/**`, `reports/**`), `CLAUDE.md` / `AGENTS.md`, and `tools/README.md`.
+  `prompts/**`, `reports/**`), `CLAUDE.md` / `AGENTS.md`, and `tools/README.md`.
   The owner's are `docs/DECISIONS_OWED.md` and `docs/FUTURE_IDEAS.md`; `docs/README.md` is read by
   both and is cut only with a line from the owner. ⚠️ The two PLAYTEST files are not in this repo —
   the fix pack's ruling governs them.

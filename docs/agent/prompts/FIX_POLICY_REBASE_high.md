@@ -1,8 +1,8 @@
 # Rebase `docs/agent/FIX_POLICY.md` on the fix pack's, and cut it to what it requires
 
-**Authored 2026-09-17 at `cdce060`** by the fix-pack coordinator seat. Fire **after**
-`PROVENANCE_DISSOLVE_high.md` has landed (its file and map row are gone), because that job lands
-PROVENANCE §2 in this file's §3.
+**Authored 2026-09-17 at `cdce060`** by the fix-pack coordinator seat. The provenance dissolution
+has landed: its source file and prompt-map row are gone, and its persisted-name inventory is now
+in this file's §3.
 
 ```sh
 git log --oneline -8 && git pull && python tools/doccheck.py | tail -1
@@ -35,7 +35,7 @@ prune, and it also lacks the fix pack's §2a (branch guards) and §2b (pinned-de
    a clause the fix pack lacks and it is general, it is a proposal to the fix pack: list it in your
    report and cut it here.
 2. **What is genuinely about this mod stays, pruned:** §4 (what may be BUILT here), §4a's
-   who-benefits test, `Opt_*` module policy, and PROVENANCE §2's persisted-name rows in §3 —
+   who-benefits test, `Opt_*` module policy, and the persisted-name rows already in §3 —
    ⛔ those rows are save contract and move **byte-identical** (prove it with a diff against the
    commit that landed them).
 3. **§4-donor is refreshed, verbatim, to the fix pack's current §4.** A header rule here protects it

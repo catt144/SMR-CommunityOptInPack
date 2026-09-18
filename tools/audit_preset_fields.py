@@ -1,4 +1,4 @@
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 # Terminal-audit instrument (2026-08-19): preset-FIELD write census over Code/.
 #
 # WHY THIS EXISTS: three lenses named preset-field patches as unswept territory

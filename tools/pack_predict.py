@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """Predict the file list DbgPackMod will put into ModContent.fpk.
 
 Mirrors GedModEditor.lua:716-732 exactly:

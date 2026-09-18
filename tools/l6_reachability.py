@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """L6 — dead-coded targets. Does the shipped game still CALL what we patch?
 
 The L6 lens question: "Dead-coded targets: is F85 the only one? Its

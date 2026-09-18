@@ -6,7 +6,7 @@ Rule: Keep `docs/agent/prompts/` to mapped prompts, its README map, mapped live-
 <!-- /RULES -->
 
 Structure carried from the fix pack's `prompts/README.md` on 2026-09-17
-(`agent/PROVENANCE.md` §8); its own map was reorganised 2026-09-11 by owner ask.
+(donor @ `e6ec192`); its own map was reorganised 2026-09-11 by owner ask.
 
 **Rule-placement answer — a guard.** `tools/doccheck.py`'s **PROMPT MAP** gate checks the declared
 class and both directions of the mapped structure. It cannot decide whether prose actually makes a
@@ -38,8 +38,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | prompt | declared class | state |
 |---|---|---|
-| `PROVENANCE_DISSOLVE_high.md` | `prompt` | ⛔ **LIVE, FIRE NEXT.** Its rules-census precondition is satisfied. Dissolve `agent/PROVENANCE.md` (owner, 2026-09-17: *"I would honestly like it to just go away"*). Destinations use the fix pack's names (owner standardisation, 2026-09-17): §2 save contract to `FIX_POLICY.md` §3, §6 to `tools/README.md`, §4 to a new `tools/TESTKIT.md`; the port ledger reduces to `tools/sync_from_fixpack.py`'s declared constants. Fire before the `FIX_POLICY` rework. ⚠️ Carries a stop: `items.lua` and `metadata.lua` cite §2 as save-contract authority and they ship |
-| `FIX_POLICY_REBASE_high.md` | `prompt` | **LIVE, fire after `PROVENANCE_DISSOLVE_high.md` lands.** Rebase `agent/FIX_POLICY.md` on the fix pack's current file (owner standardisation, 2026-09-17): shared sections take the fix pack's text verbatim, this mod's own sections are pruned, persisted-name rows move byte-identical; inventory first, blind grader after |
+| `FIX_POLICY_REBASE_high.md` | `prompt` | **LIVE, FIRE NEXT.** Rebase `agent/FIX_POLICY.md` on the fix pack's current file (owner standardisation, 2026-09-17): shared sections take the fix pack's text verbatim, this mod's own sections are pruned, persisted-name rows stay byte-identical; inventory first, blind grader after |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before `DECISIONS_OWED` 94 then 92 can even be ruled on. Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders

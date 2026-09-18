@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Provenance: carried from the fix pack 2026-08-31 — docs/agent/PROVENANCE.md §6.
+# Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port.
 """L5 — census of every route by which pack code can THROW, and what catches it.
 
 Lens L5 (failure & containment) instrument. The

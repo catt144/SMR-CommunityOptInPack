@@ -29,7 +29,7 @@
 --     reconciliation activates/deactivates the module live); the tooltips
 --     stay behavior-only.
 --   * ⛔ THESE NINE OPTION NAMES AND EVERY CHOICE STRING ARE ACCOUNT/SAVE
---     CONTRACT and keep their exact bytes (docs/agent/PROVENANCE.md §2).
+--     CONTRACT and keep their exact bytes (docs/agent/FIX_POLICY.md §3).
 --
 -- ModItemCode entries (audit 2026-07-29, A3): the Mod Editor's SaveDef
 -- regenerates metadata.lua's `code` list SOLELY from these items

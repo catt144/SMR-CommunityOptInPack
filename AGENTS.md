@@ -22,7 +22,7 @@ Rule: Record the executed model from the transcript at close-out. [A3: pass]
 Rule: Attribute shared-tree work by commit and diff rather than author identity. [A3: pass]
 Rule: Recheck shared paths before writing; commit with a pathspec unless partial hunks of a peer-shared file are staged, which a pathspec would discard. [A3: pass]
 Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here. [A3: pass]
-Rule: Preserve the exact bytes of every persisted name listed in `docs/agent/PROVENANCE.md` §"The persisted-name inventory". [A3: pass]
+Rule: Preserve the exact bytes of every persisted name listed in `docs/agent/FIX_POLICY.md` §"The persisted-name inventory". [A3: pass]
 Rule: Keep executable code free of `SMRFixPack` references; persisted-name strings are data and exempt. [A3: pass]
 Rule: Change a shipping module's behaviour only under an owner ruling recorded for this mod. [A3: pass]
 <!-- /RULES -->
@@ -37,7 +37,7 @@ Relaunched Fix Pack installed, and identically without it. ⛔ **NOT PUBLISHED.*
 **The two bans are canonical rules in the header above.** Their scope is:
 
 1. **Persisted names are save contract.** This includes every `SMRFixPack_*` field and modifier id
-   this mod still writes; the inventory and reason are in `docs/agent/PROVENANCE.md`
+   this mod still writes; the inventory and reason are in `docs/agent/FIX_POLICY.md`
    §"The persisted-name inventory".
 2. **Executable references are absent.** The framework is this mod's own copy under
    `SMROptInPack`; persisted strings from item 1 are data, not references.
@@ -57,13 +57,13 @@ written before then cite a tree that is not installed. Both trees are archived a
 Modules"). Earlier records retain the older names and pre-split paths.
 
 > **Split out of `SMR-BugFixPack` @ `33d69f5` on 2026-08-12** (chain `split-optins`). Policies,
-> engine facts, tooling and doc conventions came with it — `docs/agent/PROVENANCE.md` says what came
-> from where, at which sha, and what was adapted. Pre-split records in the fix pack cite
+> engine facts, tooling and doc conventions came with it; declared local fact adaptations and the
+> last donor sync live in `tools/sync_from_fixpack.py`. Pre-split records in the fix pack cite
 > `Code/Opt_*.lua` paths in THAT repo and the `SMRFixPack` namespace.
 
 **Folder contract** (doccheck enforces it, in both directions). `docs/` root holds only
 `DECISIONS_OWED.md`, `FUTURE_IDEAS.md`, `README.md`, `agent/` and `archive/`. Agent material is
-`docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`, STATE/WORKFLOW/FIX_POLICY/PROVENANCE).
+`docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`, STATE/WORKFLOW/FIX_POLICY).
 `support/` holds BINDING protocol pulled out of a routing document — authority, unlike `reports/`.
 Prompts: the map is `docs/agent/prompts/README.md`, reusable ones live in `prompts/perma/`, and
 one-offs live at the prompt root until consumed. The prompt map and generated-file duties are in

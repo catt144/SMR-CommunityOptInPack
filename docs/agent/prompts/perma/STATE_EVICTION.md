@@ -43,7 +43,7 @@ Everything else is pull: `SESSION_LOG` (history), `agent/reports/` (evidence),
 ## The admission door — every section, all four tests
 
 Carried from the fix pack's `prompts/perma/STATE_EVICTION.md` on 2026-09-17 (owner ruling there,
-2026-09-15; `agent/PROVENANCE.md` §8). It **replaces** the per-line hazard test in section 2 above
+2026-09-15; donor @ `e6ec192`). It **replaces** the per-line hazard test in section 2 above
 and extends to every section: a section name grants no admission.
 
 **A line enters STATE only by passing ALL FOUR tests. AND-ed, never OR-ed. One failure is enough.**

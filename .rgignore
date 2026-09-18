@@ -5,6 +5,6 @@
 #     rg <term> docs/archive/     search the archive by naming it
 #     rg --no-ignore <term>       search live + archive in one pass
 # `grep -r` and `git log/grep` ignore this file entirely and always see everything.
-# Carried from SMR-BugFixPack 2026-09-17 (docs/agent/PROVENANCE.md §6).
+# Carried from SMR-BugFixPack 2026-09-17 (donor @ e6ec192).
 # Full note: docs/README.md -> "The archive boundary".
 docs/archive/
