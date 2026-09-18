@@ -330,8 +330,8 @@ def render_index(model):
     dated = len([r for r in rows if r["verified"] != "—"])
     out = [
         GENERATED_BANNER,
-        "<!-- regenerate: python tools/split_facts.py --write "
-        "(migration) / verify: python tools/doccheck.py -->",
+        "<!-- split_facts.py --write is the one-time MIGRATION from the retired "
+        "pre-split doc, never a regeneration; verify: python tools/doccheck.py -->",
         "",
         "# Engine facts index — %d facts" % len(rows),
         "",

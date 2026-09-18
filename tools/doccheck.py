@@ -50,6 +50,7 @@ the 2026-08-03 QA session that hand-ran these checks. Do not "simplify" them.
 """
 
 import argparse
+import ast
 import glob
 import os
 import re
@@ -642,24 +643,74 @@ def temporary_sweep(out):
     return not hits
 
 
+# `git rev-parse --local-env-vars` (git 2.x): the variables that pin a git
+# process to ONE repository. A hook inherits some of them from the commit that
+# runs it, so any git call aimed at ANOTHER repo must drop them (testkit_tree).
+GIT_LOCAL_ENV = frozenset((
+    "GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_CONFIG", "GIT_CONFIG_PARAMETERS",
+    "GIT_CONFIG_COUNT", "GIT_OBJECT_DIRECTORY", "GIT_DIR", "GIT_WORK_TREE",
+    "GIT_IMPLICIT_WORK_TREE", "GIT_GRAFT_FILE", "GIT_INDEX_FILE",
+    "GIT_NO_REPLACE_OBJECTS", "GIT_REPLACE_REF_BASE", "GIT_PREFIX",
+    "GIT_SHALLOW_FILE", "GIT_COMMON_DIR"))
+
+
 def testkit_tree(out):
     """REPORT-ONLY (owner GO, 2026-08-04): a dirty TestKit working tree is how
     a true, verified record sat stranded unseen for a day — no gate checked
     that repo. This says so on every run; it deliberately does NOT block, so
     TestKit work-in-progress never jams a pack commit. A reported line is
-    routed or committed, never `git restore`d (uncommitted work has no reflog)."""
+    routed or committed, never `git restore`d (uncommitted work has no reflog).
+
+    Re-synced 2026-09-18 from SMR-BugFixPack @ 558ad51 (and the 09-09 WARN
+    before it). The dated history below is the donor's; the hook, the kit and
+    the pathspec-commit rule are the same in this repo, so the defect was too.
+
+    ⚠️ Two kinds of "not checked", and they are NOT the same (2026-09-09).
+    No repo at all is *not applicable* — the kit is local-only by design, so a
+    fresh clone has none, and that line is quiet on purpose. But once `.git`
+    exists, a failure to run means the check produced **no information**, and
+    the docstring's own promise ("says so on every run") went unmet. That path
+    now also emits a WARN line, because a run that says NOTHING about the kit
+    tree must not read like a run that found it clean — `not checked` is one
+    word away from `clean` in a 17-line report whose summary still says GREEN.
+    Seen live 2026-09-09: `not checked (git exited 128)` inside an otherwise
+    green run, on the eve of link 07, whose entire subject is that repo — then
+    blamed on "a transient git lock in the kit's tree".
+
+    ⛔ RE-DIAGNOSED 2026-09-10 — it was not a lock, it was THE HOOK. Git exports
+    `GIT_INDEX_FILE` to a pre-commit hook, and the `git commit -F msg -- <paths>`
+    form the shared index requires sets it to the ABSOLUTE path of
+    this repo's temporary index (`.git/next-index-<pid>.lock`). A child `git -C
+    <kit>` still obeys it, reads blobs the kit's object store does not hold, and
+    dies `fatal: unable to read <sha>` / 128 — on EVERY pathspec commit, while a
+    standalone run reads clean (vanillahunt 03 hit it on all its commits).
+    Reproduced in a throwaway repo: bare commit (relative `.git/index`, which
+    under -C lands on the kit's OWN index by luck) exit 0, pathspec commit 128,
+    same hook with `GIT_LOCAL_ENV` stripped 0. A relative temporary index would
+    be worse — the kit reads a missing index and reports every file DELETED, a
+    false dirty. Hence the stripped env below. Still report-only, still never a
+    block — the owner's 2026-08-04 GO is untouched."""
     if not os.path.isdir(os.path.join(TESTKIT, ".git")):
         out.append("TESTKIT TREE: not checked (no repo at %s)" % TESTKIT)
         return True
+
+    def did_not_run(why):
+        out.append("TESTKIT TREE: not checked (%s) — the repo EXISTS and the "
+                   "check did not run, so this run says nothing about the kit "
+                   "tree" % why)
+        out.append("  WARN kit-tree state is UNKNOWN on this run — re-run "
+                   "doccheck before trusting a clean kit tree")
+        return True
+
+    env = {k: v for k, v in os.environ.items() if k not in GIT_LOCAL_ENV}
     try:
         res = subprocess.run(["git", "-C", TESTKIT, "status", "--porcelain"],
-                             capture_output=True, text=True, timeout=30)
+                             capture_output=True, text=True, timeout=30,
+                             env=env)
     except OSError as exc:
-        out.append("TESTKIT TREE: not checked (%s)" % exc)
-        return True
+        return did_not_run(exc)
     if res.returncode != 0:
-        out.append("TESTKIT TREE: not checked (git exited %d)" % res.returncode)
-        return True
+        return did_not_run("git exited %d" % res.returncode)
     lines = [ln for ln in res.stdout.splitlines() if ln.strip()]
     if not lines:
         out.append("TESTKIT TREE: clean")
@@ -1225,7 +1276,7 @@ TOOL_GROUPS = (
     ("This mod's own code gates",
      "Run by `doccheck` as well as by hand; the allowlists live beside the "
      "detectors, with a source citation per entry (`FIX_POLICY` §2).",
-     ("harvest_wrap_targets.py",)),
+     ("harvest_wrap_targets.py", "parsecheck.py")),
     ("Reading the shipped game by hand",
      "⛔ Cite a line only with the build it was read on, from the archived tree "
      "for that build (`C:\\Dev\\SMR-SrcArchive`). The game moved to 1.1.0 on "
@@ -1420,7 +1471,9 @@ def check_tools_catalog(out):
 
 
 # ---------------------------------------------------------------------------
-# Line endings (ported from SMR-BugFixPack @ ac4e4d3).
+# Line endings (ported from SMR-BugFixPack @ ac4e4d3; the whole-CRLF listing and
+# the --fix-eol-then-check flow re-synced to the donor 2026-09-18, once this tree
+# went LF in a37d017: `* text=auto eol=lf`, local core.autocrlf=false).
 #
 # `.gitattributes` governs what a CHECKOUT writes; it does not stop a tool from
 # writing CRLF into the working tree afterwards. A MIXED file is the hazard: git
@@ -1506,21 +1559,13 @@ def eol_report(out):
             c, l = _eol_counts(rel)
             out.append("  RED  %-58s crlf=%d lf=%d" % (rel, c, l))
     if crlf:
-        # ⛔ ADAPTED FROM THE DONOR, deliberately. Its tree is LF everywhere by
-        # owner ruling 2026-09-16 (`* text=auto eol=lf`), so a whole-CRLF file
-        # there is out of step and it lists each one. THIS repo is a CRLF
-        # checkout BY DESIGN — `core.autocrlf = true` and `.gitattributes` pins
-        # only `tools/hooks/*`, because a CRLF shebang kills a hook — so
-        # whole-CRLF is the EXPECTED state of most files here. Listing them
-        # would put ~24 correct files under a WARN on every run, which is how a
-        # gate teaches people to ignore it. The count still prints, because the
-        # population that can BECOME mixed is worth knowing.
-        # Adopting the donor's LF-everywhere .gitattributes is an owner call: it
-        # rewrites every tracked file's worktree bytes. Not taken here.
-        out.append("EOL: %d tracked file(s) whole-CRLF — expected in this tree "
-                   "(core.autocrlf=true; only tools/hooks/* is pinned LF). Not a "
-                   "defect: every line agrees. They are the files a stray LF "
-                   "write could make MIXED." % len(crlf))
+        out.append("EOL: %d tracked file(s) whole-CRLF in an LF tree — not RED, every "
+                   "line agrees; the next LF write makes one mixed. `--fix-eol` converts "
+                   "them" % len(crlf))
+        for rel in crlf[:10]:
+            out.append("  WARN " + rel)
+        if len(crlf) > 10:
+            out.append("  WARN ... and %d more" % (len(crlf) - 10))
     return not mixed
 
 
@@ -1710,6 +1755,227 @@ def flpk_selftest(out):
     return False
 
 
+# --- MODULE SETS + tools/upload_preflight.py: the three lists that decide what ships
+#
+# Ported 2026-09-18 from SMR-BugFixPack @ 29b7a68, unchanged: this mod ships
+# by the same SaveDef rule, from the same three lists. The dated incident below
+# is the donor's.
+#
+# ⛔ WHY THIS IS RED AND NOT A WARN. `Code/*.lua` is what exists, `items.lua` is
+# the Mod Editor's item list, and `metadata.lua`'s `code` list is the load
+# order. Both portals FORCE a `SaveDef` on upload, and `SaveDef` rebuilds the
+# `code` list SOLELY from `items.lua` (`Mod.lua:816-840`, `:973`) -- Steam's
+# before packing. So these three disagreeing does not merely lint badly: it
+# DECIDES WHAT SHIPS. A module present in Code/ but absent from items.lua ships
+# absent, and the player gets a pack quietly missing a fix.
+#
+# This gate exists because doccheck reported GREEN through exactly that state
+# (hotfix2 link 02, 2026-09-08): 36 modules had been deleted, `items.lua` held
+# 45 entries and `metadata.lua`'s `code` list still held 81. The only reason it
+# was caught is that a human happened to read the LOAD ORDER line's file count
+# against the number they expected. doccheck already computed both numbers and
+# simply never compared them to each other.
+#
+# ⚠️ The comparison is by NAME and reports the SYMMETRIC DIFFERENCE. A count
+# check would have passed a same-size swap, and a count is also what nearly let
+# the 2026-09-08 state through.
+
+CODE_IN_ITEMS = re.compile(r"'CodeFileName',\s*\"(Code/[^\"]+\.lua)\"")
+
+
+def _metadata_code_list(text):
+    """The `code` list, read as a list rather than as every Code/ string in the
+    file -- a description or a comment could mention one."""
+    m = re.search(r"'code',\s*\{", text)
+    if not m:
+        return None
+    depth, i = 1, m.end()
+    while i < len(text) and depth:
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+        i += 1
+    return re.findall(r"\"(Code/[^\"]+\.lua)\"", text[m.end():i])
+
+
+def module_set_agreement(out):
+    """Code/*.lua == items.lua == metadata.lua's `code` list, by name (MODULE SETS + tools/upload_preflight.py)."""
+    names = lua_files(CODE)
+    if names is None:
+        out.append("MODULE SETS: not checked (Code/ not readable)")
+        return True
+    on_disk = {"Code/" + n for n in names}
+
+    sets = {"Code/": on_disk}
+    for label, rel, extract in (
+            ("items.lua", "items.lua", lambda t: CODE_IN_ITEMS.findall(t)),
+            ("metadata.lua 'code'", "metadata.lua", _metadata_code_list)):
+        try:
+            with open(os.path.join(REPO, rel), encoding="utf-8-sig",
+                      errors="replace") as fh:
+                found = extract(fh.read())
+        except OSError as exc:
+            out.append("MODULE SETS: not checked (%s)" % exc)
+            return True
+        if found is None:
+            out.append("  RED  module sets: no `code` list found in %s -- a "
+                       "SaveDef would rebuild it from items.lua and this gate "
+                       "cannot see what would ship" % rel)
+            return False
+        sets[label] = set(found)
+
+    ok = True
+    labels = list(sets)
+    for i, a in enumerate(labels):
+        for b in labels[i + 1:]:
+            only_a = sorted(sets[a] - sets[b])
+            only_b = sorted(sets[b] - sets[a])
+            if not only_a and not only_b:
+                continue
+            ok = False
+            out.append("  RED  module sets DISAGREE: %s vs %s (MODULE SETS + tools/upload_preflight.py -- a "
+                       "SaveDef rebuilds metadata.lua's code list from "
+                       "items.lua on upload, so this decides what ships)"
+                       % (a, b))
+            for n in only_a:
+                out.append("         only in %-20s %s" % (a, n))
+            for n in only_b:
+                out.append("         only in %-20s %s" % (b, n))
+    out.append("MODULE SETS: %d file(s) in Code/, items.lua and metadata.lua's "
+               "code list %s" % (len(on_disk), "agree by name" if ok
+                                 else "DISAGREE -- see above"))
+    return ok
+
+
+def parse_gate(out):
+    """Every Code/*.lua must parse (tools/parsecheck.py).
+
+    Ported 2026-09-18 from SMR-BugFixPack @ 8754e00, unchanged; the chain
+    history below is the donor's. parsecheck_selftest() below runs the
+    parser's own falsifier, which the donor leaves manual.
+
+    Three consecutive chain links hand-rolled a Lua block-balance checker to
+    stand in for a syntax check, and two of them silently accused
+    byte-identical files -- 01's flagged one, 02's flagged sixteen. There is a
+    real parser on this rig; parsecheck.py uses it, ships with its own
+    falsifier (01's condition), and this is the gate that stops a fourth
+    session writing a fourth counter.
+
+    ⚠️ Syntax ONLY, and weaker than every other gate here. The Test Kit is
+    reported, never gated -- same standing as testkit_tree, by the owner's
+    2026-08-04 decision that the kit does not block the pack.
+    """
+    tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), "parsecheck.py")
+    if not os.path.isfile(tool):
+        out.append("PARSE: not checked (tools/parsecheck.py absent)")
+        return True
+    ok = True
+    for label, path, gates in (("Code/", CODE, True),
+                               ("TestKit", os.path.join(TESTKIT, "Code"), False)):
+        if not os.path.isdir(path):
+            continue
+        try:
+            p = subprocess.run([sys.executable, tool, "--dir", path],
+                               capture_output=True, text=True, encoding="utf-8",
+                               errors="replace", timeout=300)
+        except Exception as exc:              # a tool bug must report, not crash
+            out.append("PARSE (%s): not checked (%s)" % (label, exc))
+            continue
+        lines = (p.stdout or "").strip().splitlines()
+        summary = lines[-1] if lines else "no output"
+        out.append("%s%s" % (summary, "" if gates else "  (report-only)"))
+        if p.returncode and gates:
+            for line in lines[:-1]:
+                out.append("  RED  %s" % line)
+            ok = False
+    return ok
+
+
+def parsecheck_selftest(out):
+    """Run parsecheck.py's falsifier as a gate, so PARSE is trusted only while
+    it still rejects the six broken shapes and accepts the nasty-but-valid one.
+
+    Not in the donor, whose parse gate leaves `--selftest` manual; added here
+    under the 2026-09-17 standardisation ruling that a gate is not trusted
+    until shown to fire on a known-bad case. A missing parser is exit 2 and is
+    REPORTED, not red -- the same standing parse_gate() gives it -- because a
+    rig without `lupa` must still be able to run doccheck. A failing leg is RED.
+    """
+    tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), "parsecheck.py")
+    if not os.path.isfile(tool):
+        out.append("PARSECHECK SELFTEST: RED — tools/parsecheck.py is absent "
+                   "(the PARSE gate runs it)")
+        return False
+    try:
+        p = subprocess.run([sys.executable, tool, "--selftest"],
+                           capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", timeout=120)
+    except (OSError, subprocess.SubprocessError) as exc:
+        out.append("PARSECHECK SELFTEST: RED — could not run (%s)" % exc)
+        return False
+    if p.returncode == 2:
+        out.append("PARSECHECK SELFTEST: not run (%s)"
+                   % ((p.stdout or "").strip().splitlines() or ["no parser"])[-1])
+        return True
+    if p.returncode == 0:
+        out.append("PARSECHECK SELFTEST: PASS (valid shapes parse, six broken "
+                   "shapes are rejected)")
+        return True
+    out.append("PARSECHECK SELFTEST: RED — parsecheck --selftest FAILED (exit %d) "
+               "-- the PARSE line cannot be trusted until it is green. Full output:"
+               % p.returncode)
+    out.extend("         " + line for stream in (p.stdout, p.stderr)
+               for line in (stream or "").splitlines())
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Pack-ignore parity (ported 2026-09-18 from SMR-BugFixPack @ 03fc504, unchanged).
+#
+# ⛔ DEFINED BUT NOT YET CALLED FROM main(). Its falsifier legs run every time,
+# in repair_pass_selftest.py. The call waits on the owner's edit to this repo's
+# metadata.lua `ignore_files` (it lacks the donor's `*/.agents/*`, `*AGENTS.md`
+# and `*.rgignore`, so those files ship today), and pack_predict.py's IGNORE
+# must change in the same commit as metadata.lua. Uncomment the call in main()
+# with that commit.
+
+def pack_ignore_parity(out):
+    """The shipped filters and prediction must agree, including precedence."""
+    try:
+        with open(os.path.join(REPO, "metadata.lua"), encoding="utf-8-sig") as fh:
+            lua = re.sub(r"--[^\n]*", "", fh.read())
+        hit = re.search(r"['\"]ignore_files['\"]\s*,\s*\{([^}]*)\}", lua, re.S)
+        if not hit:
+            raise ValueError("metadata.lua ignore_files list missing")
+        body = hit.group(1)
+        token = r'''(?:"[^"\\]*(?:\\.[^"\\]*)*"|'[^'\\]*(?:\\.[^'\\]*)*')'''
+        if not re.fullmatch(r"\s*(?:" + token + r"\s*,\s*)*", body):
+            raise ValueError("metadata.lua ignore_files list is not literal strings")
+        shipped = [ast.literal_eval(s) for s in re.findall(token, body)]
+        with open(os.path.join(REPO, "tools", "pack_predict.py"), encoding="utf-8-sig") as fh:
+            tree = ast.parse(fh.read())
+        assignments = [node for node in tree.body if isinstance(node, ast.Assign)
+                       and any(isinstance(t, ast.Name) and t.id == "IGNORE"
+                               for t in node.targets)]
+        if len(assignments) != 1:
+            raise ValueError("pack_predict.py must define one literal IGNORE list")
+        predicted = ast.literal_eval(assignments[0].value)
+        if not isinstance(predicted, list) or not all(isinstance(p, str) for p in predicted):
+            raise ValueError("pack_predict.py IGNORE must be a string list")
+        if shipped != predicted:
+            out.append("PACK IGNORE PARITY: RED — metadata.lua ignore_files and "
+                       "pack_predict.py IGNORE differ in membership or order")
+            out.append("  shipped: %r\n  predicted: %r" % (shipped, predicted))
+            return False
+    except (OSError, ValueError, SyntaxError) as exc:
+        out.append("PACK IGNORE PARITY: RED — %s" % exc)
+        return False
+    out.append("PACK IGNORE PARITY: PASS — %d filters agree in order" % len(shipped))
+    return True
+
+
+
 def _rule_text(rel):
     """Read one Markdown file with line endings normalized for byte checks."""
     with open(os.path.join(REPO, *rel.split("/")), encoding="utf-8-sig",
@@ -1879,9 +2145,9 @@ def main():
                          "tools/README.md's tool rows and AGENTS.md) from its "
                          "source, then check")
     ap.add_argument("--fix-eol", nargs="*", metavar="PATH", dest="fix_eol",
-                    help="convert CRLF to LF in every tracked text file that "
-                         "carries any, or only in the PATHs given. The stored "
-                         "blob is already LF, so git sees no content change")
+                    help="convert CRLF to LF in every tracked text file that has any "
+                         "(mixed or whole-CRLF), or only the PATHs given, then run the "
+                         "checks. The blob is already LF, so git sees no change")
     ap.add_argument("--verify-split", nargs="?", const="HEAD~1", metavar="REV",
                     help="N/A in this repo (kept from the donor): re-runs the "
                          "BUGS split accounting against REV's docs/BUGS.md, "
@@ -1903,17 +2169,16 @@ def main():
     out = []
     sb = splitter()
     sf = facts_splitter()
-    if args.fix_eol is not None:
-        fixed = []
-        eol_fix(args.fix_eol, fixed)
-        print("\n".join(fixed) or "FIX-EOL: nothing to convert")
-        return 0
     if args.regen:
         try:
             regen(out)
         except Exception as exc:                      # noqa: BLE001 — report, don't crash
             print("doccheck: RED — --regen failed: %s" % exc)
             return 1
+    if args.fix_eol is not None:
+        # The donor's order: convert, then run every check below, so the
+        # run that fixed the endings also shows the tree it left.
+        eol_fix(args.fix_eol, out)
     try:
         model = sb.load_from_dir()
         ok = check_entries(model, out)
@@ -1944,6 +2209,10 @@ def main():
     ok = temporary_sweep(out) and ok
     ok = load_order(out) and ok
     ok = wrap_targets_check(out) and ok
+    ok = parse_gate(out) and ok
+    ok = parsecheck_selftest(out) and ok
+    ok = module_set_agreement(out) and ok
+    ok = pack_ignore_parity(out) and ok
     testkit_tree(out)  # report-only by owner decision (2026-08-04) — never gates
 
     if args.verify_split:

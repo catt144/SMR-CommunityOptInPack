@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*24 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*25 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -42,7 +42,7 @@ The pre-commit hook runs `doccheck.py`; the five `*_selftest.py` are required BY
 | [`ck170_selftest.py`](ck170_selftest.py) | Falsifier for doccheck's STATE byte budget, the standing-prompt line budget and the skills mirror, on disk copies. |
 | [`counts_selftest.py`](counts_selftest.py) | Falsifier for doccheck's --emit-counts block: counts follow the source, a RED run withholds the block, and --regen never writes STATE. |
 | [`prompt_map_selftest.py`](prompt_map_selftest.py) | Falsifier for doccheck's PROMPT MAP gate: one broken fixture per red it claims to raise. |
-| [`repair_pass_selftest.py`](repair_pass_selftest.py) | Falsifier for doccheck's --emit-fingerprint build routing, and home of the scratch-copy loader the other falsifiers import. |
+| [`repair_pass_selftest.py`](repair_pass_selftest.py) | Falsifier for doccheck's --emit-fingerprint build routing and pack-ignore parity, and home of the scratch-copy loader the other falsifiers import. |
 
 ### Generated-document machinery
 
@@ -75,6 +75,7 @@ Run by `doccheck` as well as by hand; the allowlists live beside the detectors, 
 | script | what its own header says |
 |---|---|
 | [`harvest_wrap_targets.py`](harvest_wrap_targets.py) | Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port. |
+| [`parsecheck.py`](parsecheck.py) | Provenance: ported from SMR-BugFixPack @ 8754e00 on 2026-09-18, unchanged; its dated history is the fix pack's. |
 
 ### Reading the shipped game by hand
 

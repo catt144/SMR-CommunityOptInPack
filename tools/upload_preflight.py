@@ -27,6 +27,8 @@ import os
 import re
 import sys
 
+from pack_predict import predict
+
 # The Windows console defaults to cp1252 here and this file speaks the same
 # ⛔/✅ vocabulary as the rest of the project's tooling; without this the run
 # dies on its own summary line rather than on any finding.
@@ -40,6 +42,9 @@ STEAM_MAX_IMAGE = 1 * 1024 * 1024   # SteamWorkshop.lua:85
 PDX_MAX_IMAGE = 2 * 1024 * 1024     # recorded limit; PDX enforces server-side
 MOD_REQUIRED_LUA_REVISION = 350453  # Mod.lua:19
 MOD_CONTENT_PATH = "Mod/"           # Mod.lua:6
+# The whole shipped pack is ~0.6 MB. A pack an order of magnitude past that is
+# carrying something that is not the mod (2026-09-16: 1.2 GB of transcripts).
+PACK_MAX_BYTES = 5 * 1024 * 1024
 
 
 def parse_metadata(path):
@@ -163,9 +168,37 @@ def main():
 
     # ── packaging: what actually ships ───────────────────────────────────────
     ignore = md.get("ignore_files", [])
-    for pat in ("*/docs/*", "*/tools/*", "*CLAUDE.md", "*.git/*"):
+    for pat in ("*/docs/*", "*/tools/*", "*CLAUDE.md", "*AGENTS.md", "*.git/*"):
         check(pat in ignore, "ignore_files carries %s" % pat, "present",
               "MISSING — that content would ship inside the player's download")
+
+    # ⛔ 2026-09-16: a junction to the user's Claude projects folder sat in the
+    # mod folder, outside every ignore pattern. The packer walks through
+    # junctions, so ~1.2 GB of private transcripts entered the pack list; the
+    # pack failed only because of its size, and nothing here looked. These
+    # three guards read what the packer will COLLECT, with the live patterns.
+    packed, _ignored, links = predict(mod_dir, ignore)
+    live_links = [rel for rel, pat in links if not pat]
+    check(not live_links,
+          "no junction/symlink whose contents would be packed",
+          "%d link(s), all under an ignore pattern" % len(links) if links else "none",
+          "%s — the packer walks through it; move it out of the mod folder or add "
+          "an ignore_files pattern" % live_links)
+    image_name = os.path.basename(md.get("image") or "")
+    stray = [rel for rel, _ in packed
+             if not ((rel.startswith("Code/") and rel.endswith(".lua"))
+                     or rel in ("metadata.lua", "items.lua", "LICENSE", image_name))]
+    check(not stray,
+          "predicted pack holds only shipping files",
+          "%d files: Code/*.lua, metadata.lua, items.lua, LICENSE, %s"
+          % (len(packed), image_name or "(no image)"),
+          "%d NON-SHIPPING file(s) would upload to both stores, e.g. %s"
+          % (len(stray), stray[:5]))
+    pack_bytes = sum(size for _, size in packed)
+    check(pack_bytes <= PACK_MAX_BYTES,
+          "predicted pack size <= %d MB" % (PACK_MAX_BYTES // (1024 * 1024)),
+          "%s bytes" % format(pack_bytes, ","),
+          "%s bytes — something other than the mod is in the folder" % format(pack_bytes, ","))
 
     code = md.get("code", [])
     on_disk = sorted(
