@@ -178,6 +178,12 @@ object lacks is REFUSED naming the field, and 08b item 9's unrun leg then arms o
 field it HAS and fires; no console log overlay appears at boot. **Record each as
 witnessed or NOT RUN, by name.**
 
+Partial record, 2026-09-18 (the opt-in train-tests sitting, TestKit `8c69aff`–`adfe3ee`, after
+`f5fa650`). **Field editor: NOT MET, from two owner screenshots only, not a log.** The Selected
+page's box showed the `command` hint as white text on a light box. Depot fill/empty `before`/`after`,
+the missing-field refusal and the boot overlay: NOT RUN. All four stay owed for a deliberate
+sitting.
+
 ## Probe preflight
 
 If probes are needed, run the exact desktop stale-probe sweep — the procedure is
