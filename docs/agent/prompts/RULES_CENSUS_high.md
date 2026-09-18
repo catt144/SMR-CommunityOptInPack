@@ -86,23 +86,17 @@ denominator.
 ⚖️ **Owner, 2026-09-17: "all rules need to pass the rules test, or they get purged."** Purged
 means DELETED, under OI-09, not archived and not softened into a note.
 
-The test is the donor's `docs/agent/reports/RULE_PLACEMENT_TEST.md` (owner design session,
-2026-09-14). ⛔ **Read it in full before classifying anything.** One question, asked of every
-rule-shaped sentence:
+⛔ **The test now lives in the `doc-editing` skill** — invoke it; it is loaded before every
+documentation edit and carries the question, the six dispositions, the four shapes, the (b) incident
+check and the duplicates-by-meaning rule. This brief does not restate them, per the kernel's own
+rule that prose cites a rule rather than restating it. The worked reasoning and the calibration
+warning are in the FIX PACK's `docs/agent/reports/RULE_PLACEMENT_TEST.md` (not in this repo — read
+it at `C:\Dev\SMR-BugFixPack`). ⛔ Read that report in full before classifying anything; the skill
+is the checklist, the report is the argument.
 
-> ## What actually stops this, if not the reader's memory?
+The one line to keep in your head while you work:
 
-⛔ **Not "is this important?"** — importance is why the documents grew. The answer places the rule,
-and usually deletes it.
-
-| what actually stops it | disposition |
-|---|---|
-| **Structure** — the reader cannot perform the action at all | **delete the rule** |
-| **A guard** — a machine already catches it | **one-line pointer to the gate**, never a restatement |
-| **Nothing, and it has been violated in practice** | ⛔ **it was never a rule. It is a wish** — DEAD |
-| **Nothing, and it binds exactly one job** | that job's **skill or brief** |
-| **Already a recorded fact with a canonical home** | delete the prose, **keep the fact** |
-| **Nothing, binds every session, no guard is possible** | tier 1 — ⚠️ this list should be very short |
+> ### What actually stops this, if not the reader's memory?
 
 ⭐ **The finding that justifies the whole job**, in the donor's words: *an unenforced rule is
 indistinguishable from a deleted one, except that it still costs every agent that reads it.* Its
@@ -110,39 +104,16 @@ worked case: a rule sat in a document for six weeks, was broken in the most impo
 project had run, the breaking was **correct**, and no agent ever flagged it — because nothing was
 ever going to check.
 
-### The four shapes that should not be rules — and they do NOT share a disposition
+### The evidence a purge owes
 
-| shape | meaning | disposition |
-|---|---|---|
-| **(a) CANNOT** | structurally impossible for the reader | **delete** |
-| **(b) WOULD NOT** | possible, but contrary to how an agent operates | ⛔ **incident check REQUIRED — see below** |
-| **(c) WRONG READER** | the actor is not this document's audience | **move it, do not delete** |
-| **(d) NOT A RULE** | information in the imperative; requires no action | engine fact → file it as an `EF-` **in the fix pack first**; lesson → pull-only reference. Never tier 1 |
+The owner's delegation (§1) removes the approval queue, not the burden of proof. Every purge is
+recorded in the commit message with what the test found: for `redundant`, both locations quoted and
+the shared duty stated in your own words; for `dead`, the incident check that was run and the proof
+nothing reaches it. **A purge recorded without its evidence is indistinguishable from a deletion by
+preference.**
 
-### ⛔ (b) is the branch that can delete an EARNED rule — run its falsifier
-
-The discriminator is **not** "would a well-behaved agent do this?" It is **"has this actually
-happened?"** A rule can look exactly like something no careful agent would ever do, and exist
-precisely because one did. The donor's counter-case: *"never `git checkout --` as a restore"* reads
-as gratuitous, and an agent there did it and destroyed an uncommitted rewrite. Cutting it would
-have deleted a receipt.
-
-- **A recorded incident exists → KEEP**, and keep the incident attached to it.
-- **No incident and no guard → cut.**
-
-⇒ **Mechanical first pass:** every rule carrying neither an incident nor a guard is a *candidate* —
-not a verdict.
-
-⚠️ **The (b) yield is expected to be small, and you may not report a small yield as a measured
-one.** The donor's two keyword passes over this genre returned one hit, and it says plainly that
-two greps do not bound a class defined by meaning. **Read for this; do not grep for it.**
-
-### ⛔ Duplicates are found by MEANING, not by string
-
-Cluster by **what the rule requires of the reader**, not by its wording, its name or the artifact
-it mentions. Two rules naming different files, in different documents, under different headings,
-can impose the same duty — and a grep cannot see it. The donor's inventory found only near-verbatim
-pairs precisely because semantic duplication was never sought.
+⚠️ The (b) incident check binds hardest now that nobody downstream will catch a wrong cut. A
+recorded incident means KEEP, and the incident stays attached to the rule.
 
 ### ⭐ This applies to the rules already in the headers
 
