@@ -82,16 +82,15 @@ unique repo-wide; `doccheck`'s RULES HEADERS gate reds on the rest.
 
 ## The things this repo will not let you rewrite
 
-- **Persisted names** (`SMRFixPack_*` fields and modifier ids) are save contract even inside prose
-  that merely quotes them — a doc edit that "fixes the naming" teaches the next session to rename
-  the real thing. `docs/agent/PROVENANCE.md` §2.
-- **Pre-split and pre-rename records** cite `Code/Opt_*.lua` paths in the fix pack, the `SMRFixPack`
-  namespace, and older family names. Translate mentally; **do not edit the records**.
-- **`docs/archive/`** is append-only. Never rewrite or delete what is archived there.
+The persisted-name, donor-name and archive duties are canonical in `CLAUDE.md`'s
+`Must_Read_Header`. They cover names quoted in prose as well as code: a cosmetic rename in a doc
+can teach a later session to rename the save contract. Pre-split records retain their old paths,
+namespace and family names.
 
 ## Keep regeneration within the edit
 
-`python tools/doccheck.py --regen` reads every entry on disk, including peers' unfinished work.
+The kernel's generated-source rule applies. `python tools/doccheck.py --regen` reads every entry on
+disk, including peers' unfinished work.
 Before choosing it, inspect changes under both `docs/agent/bugs/` and `docs/agent/facts/` and
 compare them with your edit's inputs. Review the resulting diff: fresh generated output can still
 contain work outside your change. The same applies to `AGENTS.md`, regenerated from `CLAUDE.md`.
@@ -107,7 +106,5 @@ contain work outside your change. The same applies to `AGENTS.md`, regenerated f
   work and conditions; remove the moved instruction from its source in the same change. Do not
   substitute a size target for this check, or restore temporarily suspended caps without the
   owner's ruling.
-
-Run `python tools/doccheck.py` before committing; red blocks.
 
 This skill supplies judgment checks. It does not verify that an agent invoked it.

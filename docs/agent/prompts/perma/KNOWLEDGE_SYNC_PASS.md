@@ -102,10 +102,7 @@ Cheap checks, report-only:
 - **Copy verbatim or not at all.** A ported file is byte-identical and gets a `PROVENANCE.md` row
   with its donor sha and md5 (§7 is the worked example). Two identical copies is the intended state;
   an edited copy is a fork nobody will notice.
-- **Never edit a record** (`docs/archive/`, dated log lines) — translate mentally.
-- Commit by pathspec: `git add <exact paths>` then `git commit -F <msgfile> -- <same paths>`.
-  Never `-a`; never a bare `-m` (PowerShell 5.1 splits it on embedded quotes).
-- doccheck GREEN before any commit.
+- The kernel's donor-name, archive, documentation-check and commit rules apply.
 
 ## 5 · Report
 

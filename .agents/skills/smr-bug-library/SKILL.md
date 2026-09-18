@@ -5,8 +5,8 @@ description: Read or file a module record, defect entry or engine fact in the Op
 
 # The module/bug library — reading and filing
 
-`docs/agent/bugs/` holds this mod's **module records** — nine `D` entries today, one per shipped
-module plus the Mod Options enable surface. `docs/agent/facts/` holds the engine facts
+`docs/agent/bugs/` holds this mod's **module records**, including retired modules and the Mod
+Options enable surface. `docs/agent/facts/` holds the engine facts
 (`EF-NNN`), mirrored from the fix pack. Both carry a **generated** `INDEX.md`.
 
 ⛔ **`EF-` ids are ALLOCATED BY THE FIX PACK** (`docs/agent/WORKFLOW.md`, reading path 2). File a
@@ -18,12 +18,12 @@ Minting an `EF-` number in this repo alone is what caused the 2026-08-16 collisi
 0. **Ours-or-vanilla check:** `rg -l -F -- <keyword> Code/` searches this mod's runtime code
    first. Hits inspect ours; an empty literal search is a cheap vanilla lead and does **not** rule
    out aliases or indirect effects.
-1. **`docs/agent/bugs/INDEX.md`** — small (9 rows). One row usually answers "is this known, and
+1. **`docs/agent/bugs/INDEX.md`** — small. One row usually answers "is this known, and
    what is its status". Read the row, not the entry.
-2. **The entry's own section, by heading.** Never read a whole entry for a narrow question, and
-   **never read a file to prove a negative** — one grep settles absence; a read never does.
-3. `docs/agent/facts/INDEX.md` is 31 KB — **grep it, never read it whole**. To ask whether a fact
-   still holds, use §3 rather than opening the fact at all.
+2. **The entry's own section, by heading.** A narrow question needs only that section. The kernel's
+   absence-proof rule governs negative searches.
+3. **`docs/agent/facts/INDEX.md`** — grep it for a narrow question. To ask whether a fact still
+   holds, use §3 rather than opening the fact at all.
 
 ## 2 · Front matter — load-bearing or not
 
@@ -65,7 +65,7 @@ No scaffold command exists — copy the shape of a recent same-letter entry.
 3. `python tools/doccheck.py --regen`, then `python tools/doccheck.py` until GREEN. `--regen`
    builds `INDEX.md` from **every entry on disk**, a peer's uncommitted ones included — check
    `git status docs/agent/` first and commit only your own paths.
-4. `git add <exact paths>` then `git commit -F <msgfile> -- <same paths>`. Never `-a`.
+4. Commit under the kernel's shared-tree and pathspec rules.
 
 ## 5 · What you may not do
 
@@ -74,5 +74,5 @@ Never move an entry's status to record your own opinion — a status word is evi
 bare `tested`. "Vanilla fixed it" is a claim: trace the replacement body in the archived tree for
 the build you are comparing against before acting on it, because a rename reads as a deletion.
 
-⛔ A module record's **behaviour** is under MODULE FREEZE. Recording a finding is always allowed;
-changing what a module does needs an owner ruling in `docs/DECISIONS_OWED.md`.
+The kernel's MODULE FREEZE rule governs behaviour changes. Recording a finding does not change a
+module's behaviour.

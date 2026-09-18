@@ -7,22 +7,19 @@ description: Orient at the start of a session in the Relaunched Fix Pack Opt-In 
 
 An **opt-in behaviour mod** for *Surviving Mars: Relaunched*: a small set of modules that change
 how the game plays, each **off (or at its base setting) until the player turns it on** in Options →
-Mod Options. ⛔ Never hand-type how many — three were RETIRED 2026-09-17 (owner). Patched at
+Mod Options. Three were RETIRED 2026-09-17 (owner); live counts come from doccheck. Patched at
 runtime; no game files are modified. A **TRUE STANDALONE** — it works beside the Relaunched Fix
 Pack and identically without it. ⛔ **NOT PUBLISHED.**
 
-## 1 · The two bans, before you touch anything
+## 1 · The two bans
 
-1. **PERSISTED NAMES ARE SAVE CONTRACT.** Every string that ever entered a savegame keeps its
-   EXACT bytes — including the five `SMRFixPack_*` fields and modifier ids this mod still writes.
-   Renaming one is FORBIDDEN. Inventory: `docs/agent/PROVENANCE.md` §2.
-2. **ZERO `SMRFixPack` references in executable code.** The framework is this mod's own copy under
-   `SMROptInPack`. The surviving tokens in `Code/` are the persisted STRINGS of ban 1 — data, not
-   references. That distinction is the whole rule.
+The canonical duties are in `CLAUDE.md`'s `Must_Read_Header`. The persisted-name inventory is
+`docs/agent/PROVENANCE.md` §2. Surviving `SMRFixPack` tokens in `Code/` are inventory strings, not
+executable references; that distinction is the reason both bans coexist.
 
-⛔ **MODULE FREEZE:** no behaviour change to any module without an owner ruling. Drones were unfrozen
-2026-08-31, and the 2026-09-17 ruling lifted it for `D06`/`D07`/`D12` only — all three are now
-RETIRED, so `D09` is the only live drone module; everything else is still frozen.
+**MODULE FREEZE status:** the kernel rule applies. Drones were unfrozen 2026-08-31, and the
+2026-09-17 ruling lifted it for `D06`/`D07`/`D12` only — all three are now RETIRED, so `D09` is the
+only live unfrozen module.
 
 ## 2 · Where the project stands
 
@@ -30,9 +27,9 @@ RETIRED, so `D09` is the only live drone module; everything else is still frozen
   question, or when a task, a prompt or the owner calls for it. Its gates and holds bind you.
 - **`docs/DECISIONS_OWED.md`** — this mod's own owner-decision list. Read it before asking the
   owner anything. ⚠️ Most of it was written before the game shipped 1.1.0; re-read citations.
-- **Never hand-type a count.** `python tools/doccheck.py --emit-counts` prints them.
-- **Never hand-type the game build.** `python tools/doccheck.py --emit-fingerprint` reads the
-  installed build from the Steam `.acf` and says which fact groups still describe what is on disk.
+- Count source: `python tools/doccheck.py --emit-counts`.
+- Installed-build and fact-group source: `python tools/doccheck.py --emit-fingerprint`, backed by
+  the Steam `.acf`.
 
 ## 3 · Where things live
 
@@ -45,11 +42,11 @@ both directions, so a new file at `docs/` root is a red build until the map name
 | engine behaviour | `docs/agent/facts/` — `EF-NNN`, **generated** `INDEX.md` |
 | process · code rules | `docs/agent/WORKFLOW.md` · `docs/agent/FIX_POLICY.md` |
 | what came from where | `docs/agent/PROVENANCE.md` — the port ledger |
-| prompts | `docs/agent/prompts/` — `WORK_PROMPT.md` starts any work; one-offs delete themselves |
+| prompts | `docs/agent/prompts/` — `WORK_PROMPT.md` starts ordinary work; the map routes the rest |
 | owner decisions | `docs/DECISIONS_OWED.md` (this mod's) |
 
-A `GENERATED` banner on line 1 means **edit the source, never the file**. doccheck is RED if a
-generated file drifted. `AGENTS.md` is a byte copy of `CLAUDE.md` for Codex — never edit it.
+A `GENERATED` banner on line 1 identifies an output governed by the kernel's generated-source rule.
+Doccheck is RED if one drifts. `AGENTS.md` is the Codex byte copy of `CLAUDE.md`.
 
 ⚠️ **The human playtest file lives in the FIX PACK repo.** `docs/PLAYTEST_CHECKLIST.md` is
 single-sourced in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays ONE game with BOTH mods
@@ -82,17 +79,13 @@ trees are archived: `C:\Dev\SMR-SrcArchive\1.0.7.396349\Src` and `…\1.1.0.4039
 `--emit-fingerprint` says which `derived_at:` groups HOLD and which MOVED; re-derive only what
 moved, against the tree the entry names.
 
-⛔ **`EF-` ids are ALLOCATED BY THE FIX PACK.** File a new fact there first, mirror it here at the
-same id, and say so in both. Never mint an `EF-` number in this repo alone.
+`EF-` ids are allocated by the fix pack. The filing procedure lives in `smr-bug-library`.
 
 ## 6 · Harness, peers, commits
 
-`CLAUDE.md` is the edited entry file; `AGENTS.md` is its byte copy for Codex. Both vendors work
-this tree, sometimes at once: re-check `git log` and `git status` before a shared write, and
-identify a peer's work by sha and diff, never by author (there is one git identity). Stage exact
-paths and commit with a pathspec — `git commit -F <msgfile> -- <paths>` — never `-a`, never a bare
-`-m` (PowerShell 5.1 splits `-m` on embedded quotes). doccheck must be GREEN; a hook enforces it
-(`git config core.hooksPath tools/hooks`, once per clone).
+`CLAUDE.md` is the edited entry file; `AGENTS.md` is its generated Codex copy. The shared-tree,
+commit and documentation-check duties are canonical in its header. The hook setup is
+`git config core.hooksPath tools/hooks` once per clone.
 
 ⚠️ **CHEATS ENABLED** on the rig and **BOTH MODS LOADED** is the standing config (owner rule,
 `docs/agent/WORKFLOW.md`). Grep logs with the FULL token `[CommunityOptInPack]`.

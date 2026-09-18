@@ -10,8 +10,8 @@ Preserve evidence and next steps within the session's scope.
 ## Recover
 
 Record HEAD and `git status --short`. Review the conversation, diffs, working files and relevant
-report sections in full. Identify commits by sha and diff, not the shared author. If context is
-partial, start from the task and STATE's live pointers; state that limit.
+report sections in full. The kernel's shared-tree attribution rule applies. If context is partial,
+start from the task and STATE's live pointers; state that limit.
 
 Before polishing prose, inventory findings and every block of the handoff being updated:
 
@@ -74,7 +74,7 @@ Reconcile each row: filed, verified present, resolved with basis, or unresolved 
 changed destinations and links for usable evidence and next steps. Review the diff for lost
 obligations and unintended changes.
 
-Run `python tools/doccheck.py` for doc changes, and `--regen` first if an entry or fact changed.
+The kernel's documentation-check rule applies; `--regen` comes first if an entry or fact changed.
 Report destinations, unresolved routing, uncommitted work and any handoff launch/byte delta. For
 handoff removals report traced/total and unhomed content dropped (must be zero). Bound completeness
 to sources reviewed. If nothing needs filing, say so briefly; no new document is needed.

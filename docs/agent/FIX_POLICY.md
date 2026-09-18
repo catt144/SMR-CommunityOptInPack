@@ -212,7 +212,7 @@ Every fix goes through `SMROptInPack.Register(id, {title, apply})` (Code/00_Core
   `SMRFixPack_*` and tolerate their absence (loading a save made with the mod,
   after the mod is removed, must not break).
   ⛔ **YES, `SMRFixPack_` — that prefix is not a typo here and is not renamed
-  to match this mod** (marked 2026-08-12, split): the five fields and modifier
+  to match this mod** (marked 2026-08-12, split): the persisted fields and modifier
   ids these modules already write went into players' saves under it, and a save
   contract outranks a tidy namespace. A NEW persisted name in this repo may use
   either prefix, but must then be added to `agent/PROVENANCE.md` §2, where it

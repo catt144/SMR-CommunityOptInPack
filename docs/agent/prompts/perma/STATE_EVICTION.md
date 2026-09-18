@@ -1,4 +1,4 @@
-# STATE_EVICTION — standing cleanup prompt (reusable; do not delete after a run)
+# STATE_EVICTION — standing cleanup prompt
 
 Carried 2026-08-31 from the fix pack's `prompts/STATE_EVICTION.md` (designed
 2026-08-18 with the owner, checklist 42). Fired by the owner whenever doccheck
@@ -107,5 +107,4 @@ Passing volatility alone does not admit anything.
 - The eviction is judged by what a fresh session NEEDS at boot, not by what
   past sessions were proud of. When in doubt whether something is still
   load-bearing, it stays one more cycle and gets flagged in the report.
-- Owner-facing asks always live in the fix pack's checklist, never only here
-  or in STATE.
+- Owner-facing asks follow `CLAUDE.md`'s canonical route and never live only in STATE.

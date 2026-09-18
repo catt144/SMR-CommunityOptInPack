@@ -74,11 +74,13 @@ matches both.
 
 ## Records and rulings
 
+- A proposed cause is filed only after a control pins it; until then, record symptom and hypothesis
+  separately. A claimed player route is walked on the surface the player actually uses.
 - Every console line, lever or command printed in a human doc carries `[RAN <date>, log <name>]` or
   `[NEVER RUN]`.
 - Load-bearing claims in entries, specs and briefs are tagged MEASURED / SOURCE / INFERRED /
   INHERITED / GUESS per row, never once over a table. Tag the route sentence separately from its
-  citations.
+  citations, and re-check that route rather than only its cited lines.
 - Routed work names its prompt and takeable precondition. A situation-dependent item goes directly
   to the owner's checklist as a rider, not through a prompt that will forward it again.
 - A log cited by a status flip is copied into `docs/archive/` in the same commit with `git add -f`;

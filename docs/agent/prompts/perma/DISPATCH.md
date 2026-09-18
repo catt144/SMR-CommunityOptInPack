@@ -1,137 +1,67 @@
-# Dispatch — live-issue triage (model-agnostic) — written 2026-08-31
+# Dispatch — live-issue triage
 
-Adapted from the fix pack's `prompts/DISPATCH.md` (2026-08-29) for THIS repo.
-⚖️ **Scope (owner, 2026-08-31): this prompt is for ISSUES ONCE THE MOD IS LIVE** —
-a player report, a field bug, a triage of something the owner noticed in play.
-**For ordinary development work — design, build, docs, tooling, investigation,
-launch prep — use `prompts/WORK_PROMPT.md` instead; it is the start-here.**
-Paste this one into a fresh Claude Code session for a live issue. **Any model;
-the owner picks per task.**
-**Start with `git log --oneline -10` + `git pull`** — the tree moves and this
-file, like every record, goes stale the moment another session commits.
-Staleness anchor: **written 2026-08-31**; verify against `git log` before trusting
-any specific it names.
+Standing prompt, adapted from the fix pack on 2026-08-31. Owner scope: issues after this mod is
+live — a player report, field bug, or something noticed in play. This mod is not published; ordinary
+development uses `WORK_PROMPT.md`. Written at `6f002cb`; start with `git log --oneline -10` and
+`git pull` before trusting a named status.
 
-> ⛔ **THIS IS AN ORIENTATION, NOT A LOGBOOK.** It carries no result, no status,
-> no entry ID — those live in the entries, the checklist and `STATE.md`. The only
-> edits it takes are corrections to its own instructions. A sitting's lesson goes
-> to its proper home (see §3), never here.
+This is an orientation, not a logbook. Results and status belong in entries, STATE and the owner
+decision register. A task with a dedicated prompt switches to that prompt.
 
-> 🧭 **THIS IS THE CATCH-ALL. If the task has a dedicated prompt, SWITCH TO IT** —
-> this one only orients and routes. The dedicated ones (§4): a **live playtest**,
-> this mod's **launch**, a **multi-session effort**, a **STATE eviction**.
-> Everything else — one question, one module, one report — is dispatch, and
-> stays here.
+## Context and authority
 
-You are doing focused, self-contained work in an **opt-in behaviour mod** for
-Surviving Mars: Relaunched — a small set of modules that change how the game plays,
-each OFF (or at base) until the player enables it in Options → Mod Options (never
-hand-type how many: `python tools/doccheck.py --emit-counts`); patched at
-runtime; a **true standalone** beside the Relaunched Fix Pack. The map is
-`docs/README.md`; `CLAUDE.md` (auto-loaded) carries the two bans.
+This is an opt-in behaviour mod for Surviving Mars: Relaunched, standalone beside the Relaunched
+Fix Pack. `CLAUDE.md` supplies the always-loaded rules and two bans. `docs/README.md` maps the tree;
+`FIX_POLICY.md` governs code; `WORKFLOW.md` governs testing, records and releases.
 
-## 0 · Orient (before you touch anything)
+## Orient
 
-1. `git log --oneline -10` + `git pull` — know what landed since this file's date.
-2. **Read `docs/agent/STATE.md`** — the mandatory current-state kernel (gates,
-   holds, counts, the launch obligation). Every session reads it.
-3. Scan `docs/agent/bugs/INDEX.md` (the nine D-entries) and `docs/agent/facts/INDEX.md`
-   — one-line rows, so you know what already exists (several engine behaviours are
-   the opposite of what the code suggests). Open only the files the task touches.
-4. ⚠️ **If — and only if — the task launches the retail game for a reading**, the
-   STALE-PROBE GATE binds first: `grep -rln "TEMPORARY" Code/ ../SMR-BugFixPack-TestKit/Code/`,
-   put it in your todo list, and CLEAN = zero hits (or every hit declared by this
-   session's design). A pure investigation or a doc change launches nothing and
-   skips this. The rig's NORMAL config is BOTH mods loaded (`WORKFLOW.md`).
+1. Invoke `smr-orientation` and read `docs/agent/STATE.md`.
+2. Invoke `smr-bug-library`; scan the bugs index and grep the facts index before opening a record.
+3. If the job will launch the retail game, apply `WORKFLOW.md` "Probe hygiene" before any test.
+4. Create the live work list at commit-and-verify granularity.
 
-## 1 · The bindings that never bend
+## Triage loop
 
-- ⛔ **The two bans** (`CLAUDE.md`): persisted names are SAVE CONTRACT — every
-  `SMRFixPack_*` field and modifier id this mod writes keeps its exact bytes
-  (`agent/PROVENANCE.md` §2); and ZERO `SMRFixPack` references in executable
-  code — the framework is this mod's own copy under `SMROptInPack`.
-- **Never modify the game directory** (`A:\SteamLibrary\steamapps\common\Project
-  Spark`). `ModTools\Src` is **read-only truth** for line numbers — cite it, never
-  edit it. Check `Mars.exe` is NOT running (`tasklist`) before touching loadable
-  code, in a separate step from the edit.
-- **Any code you write is `FIX_POLICY.md`'s** — §4 what may be BUILT here (and
-  §4-donor for why these modules are `Opt_`), §4a who-benefits, §3a save-safety,
-  §2 enable-path / declaring-class / the F107 wrap rule / the F110 runtime-global
-  rule, §1 fix-shape — and **judged by enumeration, never by an entry's own words.**
-- ⛔ **Module freeze:** no behaviour change to any module without an owner ruling
-  — `STATE.md` says which are lifted (drones unfrozen 2026-08-31). A mechanical
-  repair needs a re-verified A/B in the same commit.
-- **Parse-sweep every Lua change** before you trust it: `python` + `luaparser`
-  (`from luaparser import ast; ast.parse(open(f, encoding="utf-8-sig").read())`).
-- **`python tools/doccheck.py` must be GREEN before any doc commit** (red blocks;
-  set up once: `git config core.hooksPath tools/hooks`). It also enforces the
-  STATE byte budget, `metadata.lua` load order and the F107 wrap check. Counts
-  come from `doccheck.py --emit-counts`, **never hand-typed**.
-- **Desk instruments before a launch:** `tools/l2_reload_sim.py --strict` (every
-  module registers once across a ReloadLua), `tools/l8_hostile_input.py --strict`,
-  `tools/l3_save_footprint.py --src <Src>` (the persisted-name census must still
-  read exactly PROVENANCE §2's five names). Inventory: `agent/PROVENANCE.md` §6.
-- **Commits:** `git commit -F <file>` (embedded quotes split under PS 5.1),
-  project author config, then **push** — `WORKFLOW.md` "Layout": push what you
-  commit, the same as the fix pack. ⛔ TestKit is local-only BY DESIGN.
-- **Account state and counts: READ them, never assume** — the live
-  `opt-in pack present: N/8 modules active` line and `SMROptInPack.ListFixes()`
-  are the only valid reads.
+1. Preserve the reported symptom, conditions and build separately from the proposed cause.
+2. Search this mod's runtime code first, then the relevant entry and facts. Game-source citations
+   use the archived tree for their named build under `C:\Dev\SMR-SrcArchive`.
+3. Apply `WORKFLOW.md` "Records and rulings", "Testing checklist per module" and "Log review" to
+   the proposed cause, route, controls, logs and negative results.
+4. File the result through `smr-bug-library` or the destinations in `docs/README.md`. Out-of-scope
+   findings are filed with their evidence and left unbuilt.
 
-## 2 · The judgment rules (the ones the project has been burned on)
+## If the issue requires a code change
 
-- **Challenge the cause before filing.** The owner expects a *control*, not a
-  plausible story; state the root cause only when a check pins it.
-- **Recorded facts are claims too** — re-derive the ROUTE, not just the citations.
-- **Never silently discount a log line.** "Not caused by our leg" is an attribution
-  verdict, not a dismissal — report unexplained lines VERBATIM with their age.
-  ⛔ Grep with the FULL bracketed token `[CommunityOptInPack]` — `Pack]` matches
-  both mods.
-- **"You can X" needs a route check** — verify a real user can walk the steps on
-  each surface; a citation proving the mechanism exists is a different check.
-- **Close cases completely.** "Refuted" requires the condition was SAMPLED, not
-  that a count happened to be zero.
-- **Design-flavoured calls go to the OWNER, not into an agent doc.** This mod's
-  whole product is opinionated behaviour, so "should it do X?" is the owner's —
-  route it to **`docs/DECISIONS_OWED.md`**, this mod's own list (owner, 2026-09-12);
-  only the shared TestKit, the `EF-` id rule and fix-pack features go to its
-  `docs/PLAYTEST_CHECKLIST.md`. Anything too big for
-  the session gets FILED, never half-started. Ideas go to `docs/FUTURE_IDEAS.md`
-  — a parking lot, NOT a backlog.
+- Module-freeze status comes from STATE; the ruling must exist before behaviour changes.
+- Read the module, entry and cited facts in full. Apply `FIX_POLICY.md` §1–§7, including the
+  enable path, declaring class, wrapper, save-safety and veto rules.
+- Follow `WORKFLOW.md` "Per-module discipline", "Probe hygiene" and "Testing checklist per module".
+  The parse sweep covers every edited Lua file; the TestKit A/B reaches production code, computes
+  its expectation independently, and includes a vanilla control.
+- Status vocabulary remains `tested-attended` or `tested-unattended`; a desk pass is
+  `desk-verified`. The shipping claim of standalone behaviour requires both configurations.
 
-## 3 · Filing — where a result goes (`docs/README.md` "Where new things go")
+## Route table
 
-- A **defect or module record** → `agent/bugs/<ID>.md` (`D##`). Derive the next id
-  from the files (`seq = max(seq)+1`, `row = max(row)+1`), then **regenerate the
-  INDEX** — GENERATED, never hand-edited: `split_bugs.load_from_dir()` +
-  `render_index()` (mind the trailing newline), then `doccheck`.
-- An **engine fact** → ⛔ numbered by the FIX PACK: file it there first (or reserve
-  the next id there), mirror it here at the SAME id, regenerate the facts INDEX.
-- A **report, plan, spec, audit, survey** → `agent/reports/`. Reports are NOT
-  authority — when a report and an entry/fact disagree, the entry/fact wins.
-- A **rule that binds future work** → `WORKFLOW.md` (process) or `FIX_POLICY.md`
-  (code), never buried in a report.
-- A **decision the owner must make** → the fix pack's checklist, never only here.
-- A **session leg** → `archive/SESSION_LOG.md` (append-only, newest first).
-
-## 4 · Route table — hand the task to its own prompt
-
-| the task is really… | switch to |
+| task | destination |
 |---|---|
-| ordinary development work (design, build, docs, tooling, investigation, launch prep) | `prompts/WORK_PROMPT.md` — the start-here |
-| a LIVE playtest at the keyboard (both mods) | fix pack `prompts/GENERAL_USE_PROMPT.md` (single-sourced there) |
-| this mod's LAUNCH — the whole thing | `agent/STATE.md` launch obligation → fix pack `reports/PARKED_OPTIN_REFERENCES.md` restore checklist, then the fix pack's `prompts/RELEASE.md` shape adapted (`WORKFLOW.md` "Release marking" + "Release steps") |
-| the owner's mechanical pack+upload only | fix pack `docs/UPLOAD_WORKFLOW.md` (+ `reports/RELEASE_PORTAL_PREP.md`) — after `tools/upload_preflight.py` reports 0 FAIL |
-| the drone system (D06 / D09 / the seed-logistics case) | `reports/DRONE_OVERHAUL_OPTIONS.md` + `reports/SEED_LOGISTICS_HANDOFF.md`; ⛔ parked per `FUTURE_IDEAS.md` #7 |
-| an effort larger than ~2 sessions | `reports/CHAIN_METHOD.md` (propose a chain; commit the folder before link 1) |
-| STATE is over its byte cap | `prompts/STATE_EVICTION.md` |
+| ordinary development, docs, tooling or launch prep | `WORK_PROMPT.md` |
+| live attended playtest with both mods | fix pack `prompts/perma/GENERAL_USE_PROMPT.md` |
+| whole-mod launch | STATE launch list, `WORKFLOW.md` release sections, fix-pack parked-reference restore |
+| owner's mechanical pack/upload | fix pack `docs/UPLOAD_WORKFLOW.md`, after upload preflight |
+| drone system | `DRONE_OVERHAUL_OPTIONS.md` and `SEED_LOGISTICS_HANDOFF.md`; currently parked |
+| effort over about two sessions | `reports/CHAIN_METHOD.md` |
+| STATE size warning | `STATE_EVICTION.md` |
 
-## 5 · End of session
+## Stops
 
-Update `agent/STATE.md` **only if the current-state kernel actually changed** —
-it is BYTE-capped by doccheck (warn 9 KiB / hard 18 KiB / 200 B per line), so
-adding a line means evicting a resolved one to `archive/SESSION_LOG.md` in the
-same commit; a doccheck WARN is copied VERBATIM into the owner summary; never
-evict open gates, holds, owner decisions or the counts block. Route the session's
-lesson to its §3 home. Then commit, push, summarize — and if work was FILED rather
-than finished, say where.
+- An owner ruling or attended observation is the next evidence.
+- The next edit would touch a persisted name, contract identifier, frozen module or unavailable
+  fixture.
+- The effort exceeds one context; propose a chain.
+
+## Close
+
+Invoke `smr-session-close`. STATE changes only when current status changes and still passes its
+admission door. Apply the kernel checks, push committed work, and name where filed work remains.

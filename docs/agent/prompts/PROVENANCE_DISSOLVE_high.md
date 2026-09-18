@@ -11,13 +11,12 @@ Empty diff ⇒ every measurement here holds. Non-empty ⇒ re-run the two comman
 
 ---
 
-## 0 · ⛔ SEQUENCING — run `RULES_CENSUS_high.md` FIRST
+## 0 · Sequencing precondition — satisfied
 
 ⚖️ Owner, 2026-09-17: the census runs before this job, *"because i think alot of that will touch
-those surfaces"*. It is right — this job folds §2 into `FIX_POLICY` §3 and repoints citations in
-`STATE.md`, and the census rewrites both. Firing this first means working against a moving target.
-
-⛔ If the census has not landed, stop and say so.
+those surfaces"*. That predecessor is now consumed: its file and map row are absent, and the
+rules-header and STATE migrations have landed. A fresh run verifies those conditions with
+`git log`, `git status` and `python tools/doccheck.py` before trusting this brief.
 
 ---
 

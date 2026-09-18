@@ -59,8 +59,8 @@ judgement, and cut every line a named skill or the worker's own judgement alread
   first, and a blind check that sees only the new text and the inventory.
 - **A build brief for a state players cannot reach.** A defect that lives only in a save Steam and
   console cannot load stops before the brief and goes to the owner.
-- **A brief that cites a line number without its build.** The game moved to 1.1.0 on 2026-09-08;
-  name the tree (`C:\Dev\SMR-SrcArchive\<build>\Src`) or the citation is unusable.
+- **A brief that violates the kernel's build-citation rule.** The archived trees are under
+  `C:\Dev\SMR-SrcArchive\<build>\Src`.
 
 ## Test and playtest briefs
 

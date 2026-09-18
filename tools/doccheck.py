@@ -108,12 +108,11 @@ GENERAL_USE_MAX_LINES = 220
 # ⛔ ONE DELIBERATE DIFFERENCE FROM THE DONOR, recorded in PROVENANCE §8.
 # The donor's style regex requires a trailing `[A3: pass]` tag — the marker its
 # one-time census left on each rule its owner adjudicated. That audit ran on
-# ITS text, not ours, and the tags were deliberately NOT copied here. Requiring
-# the tag now would either red the repo permanently or invite an agent to paste
-# an adjudication nobody performed. So this port enforces the STRUCTURAL half
-# (placement, uniqueness, style, caps) and omits the semantic tag until a
-# census actually runs here. When it does, add `\ \[A3: pass\]` back to
-# RULE_STYLE_RE and the duty group in RULE_DUTY_RE stays as it is.
+# ITS text, not ours, and the tags were deliberately NOT copied here. This
+# repo's census ran on 2026-09-17, but its brief reserved adoption of the tag
+# for a separate owner answer. Until that answer, enforce the structural half
+# (placement, uniqueness, style and caps) without manufacturing the tag. If
+# adopted, add `\ \[A3: pass\]` to RULE_STYLE_RE; RULE_DUTY_RE stays as it is.
 #
 # ⚠️ The list is the documents that carry a header TODAY, not an aspiration.
 # Adding a file here forces it to grow a block, so a name lands here only when
