@@ -23,8 +23,6 @@ Rule: Record the executed model from the transcript at close-out. [A3: pass]
 Rule: Attribute shared-tree work by commit and diff rather than author identity. [A3: pass]
 Rule: Recheck shared paths before writing; commit with a pathspec unless partial hunks of a peer-shared file are staged, which a pathspec would discard. [A3: pass]
 Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here. [A3: pass]
-Rule: Preserve the exact bytes of every persisted name listed in `docs/agent/FIX_POLICY.md` §"The persisted-name inventory". [A3: pass]
-Rule: Keep executable code free of `SMRFixPack` references; persisted-name strings are data and exempt. [A3: pass]
 Rule: Change a shipping module's behaviour only under an owner ruling recorded for this mod. [A3: pass]
 <!-- /RULES -->
 
@@ -36,7 +34,8 @@ Patched at runtime; no game files are modified. It is a **TRUE STANDALONE** — 
 Relaunched Fix Pack installed, and identically without it. ⛔ **NOT PUBLISHED.** The tree map is
 `docs/README.md`.
 
-**The two bans are canonical rules in the header above.** Their scope is:
+**The two bans are canonical rules in `docs/agent/FIX_POLICY.md`'s header**, read before any code
+change. Their scope is:
 
 1. **Persisted names are save contract.** This includes every `SMRFixPack_*` field and modifier id
    this mod still writes; the inventory and reason are in `docs/agent/FIX_POLICY.md`
