@@ -146,3 +146,33 @@ Predictions 1 and 3–8 stand as written; slot 2's line gains fields. New lines:
   per line; abort `<<PENDING-RUN>>` six minutes.
 
 **Sitting 2 result:** `<<PENDING-RUN>>`.
+
+### Sitting 2 amendment, written before the cargo leg ran (orchestrator, 2026-09-18)
+
+**Fixture, as built by the owner.** Save `Japan Sol 490.savegame.sav`, map `BlankBig_04`, sol
+497. It is a large, populated colony, chosen by the owner for realism and kept as a test save for
+later rechecks. It is never the owner's played game. Log `Mars.exe-20260918-18.41.47-6a91a190.log`.
+H is `SMRTrainHubPrototype(8922)`, and the log prints its radii as `d0..d5 = 5 6 5 4 4 4`.
+
+**Legs measured so far.** Slot 2 read `connectors=6 in_footprint=6 direction_free=6
+valid_elements=6 connected_tracks=6 marker_tiles=24 marker_arrows=6 routes=3 errors=0` (id 150).
+The log has no `LUA ERROR`. Slot 1 (ids 169–176) shows three routes through H:
+- Line A: `9190 > H > 10099`, 2 trains.
+- Line B: `1878 > 1867 > H > 6165`, 1 train.
+- Line C: `9822 > H > 6150`, 2 trains.
+
+A fourth route, `4782 > 4724`, does not touch H. Slot 1 reports `hubs=0` and leaves H out of its
+station list. That is a TestKit counting gap, not a hub fault. Not recorded: whether the ghost
+was moved over existing track, which is the only condition in which R2-a's error path runs.
+
+**The confound, and the control that replaces isolation.** The owner reports that every end
+station is inside drone range and H is outside it. The drone-range isolation the fixture above
+asked for therefore does not hold. §7.2 T1 measured no drone deliveries into a
+default-policy station in drone range: the stations' total held at 60. Drones can remove Metals,
+which only slows the witness. The added control is conservation. Take a slot 1 read after setup
+and before unpausing, then another after slot 6 fires. Read H's Metals last with slot 4, whose
+`before=` is the read. **Pass:** B and C are both positive, and the Metals total across the seven
+route stations, H and the trains does not exceed the post-setup total. **A rise in that total
+voids the leg**, because drones fed Metals in and the leg cannot show a crossing through H. It
+then has to be rerun with end stations outside drone range. Source: one line A end. B: a line B
+end. C: a line C end. Every other route station and H are cleared first.
