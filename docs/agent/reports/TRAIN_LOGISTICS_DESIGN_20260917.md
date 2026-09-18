@@ -103,6 +103,9 @@ Task priorities are `ttPrioBalance = 0`, `ttPrioForbidden = 1`, `ttPrioShortage 
 either build** — a dead priority lane the sorter already honours. Train capacity is a
 shared pool (`max_shared_storage`), not per-resource.
 
+**Measured 2026-09-18 (§7.2 T2):** per-route balancing composes through a shared station, and
+a two-route network settled at network-wide capacity shares.
+
 **Ceiling without owning the scheduler:** per resource × per station × per route. Out of
 reach: per-train, per-direction, inter-resource priority, time-based rules.
 
@@ -143,15 +146,20 @@ two-state `ToggleAcceptResource`.
 
 **But it is consumed by live code.** `Station:GetTrainTransportPolicy` (`:1078-1082`)
 returns `"send"` for any disabled resource — so disabling a resource already routes
-through the export branch in normal play today. See §7.1.
+through the export branch in normal play today. A disabled resource is emptied by the
+*forbidden* branch, whatever the policy says (§7's correction; T1 measured it, §7.2).
+
+**Measured 2026-09-18 (§7.2 T3):** the unwired `send` works when driven by hand, making the
+station a drone-fed export pump. `accept` showed no drone effect in a fixture with no
+Metals consumer in range, and is unconfirmed.
 
 ### 4.3 Design → mechanism
 
 | Element | Vanilla status | Work |
 |---|---|---|
 | import/export per resource | `transport_policy[res]` exists, consumed, no UI | **UI only** |
-| import: drones drain to zero | `supply desired = 0` — the `accept` branch | **none** |
-| export: drones fill to max | `supply desired = max` — the `send` branch | **none** |
+| import: drones drain to zero | `supply desired = 0` — the `accept` branch; **UNCONFIRMED** 2026-09-18 (§7.2) | **none**, if a later fixture with a Metals consumer confirms it |
+| export: drones fill to max | `supply desired = max` — the `send` branch; **MEASURED** 2026-09-18 (§7.2) | **none** |
 | import **up to N** | amount hardcoded to 0/max in both branches; the slider reaches only the `default` branch | small — make `SetDesiredAmount` per-resource-aware; the absolute cap falls out of per-resource capacity, since `load_amount` is already clamped by `dest.demand[res]:GetTargetAmount()` |
 | export **down to floor N** | **MISSING** — the train reads `available = Min(supply:GetTargetAmount(), supply:GetActualAmount())` and never subtracts a floor; only `needed`, a proportional share, is held back | **the one genuinely new thing** — requires intervening in `Train:TransferCargo` |
 
@@ -172,9 +180,9 @@ Our values must survive all of them:
 | Site | Fires when |
 |---|---|
 | `Station:SetDesiredAmount` (`:964`) | the flatten loop |
-| `Station:SetAcceptResourceState` (`:1038-1045`) | **every accept/export/disable click** |
+| `Station:SetAcceptResourceState` (`:1038-1045`) | **every accept/export/disable click**; the re-enable click MEASURED 2026-09-18 (§7.2) |
 | `MultiResourceDepotBase:UpdateRequestCapacity` (`MultiResourceDepot.lua:221-222`) | capacity change |
-| `MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:225-240`), through `UpdateRequestCapacity` | the **Expanded Warehousing** upgrade, which doubles `max_storage_per_resource` (`upgrade1_mul_value_1 = 100`, `Data/BuildingTemplate/StationSmall.lua`, and likewise `StationBig`; tech `StationsStorage`) and then rewrites every resource from the dial, whatever the policy |
+| `MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:225-240`), through `UpdateRequestCapacity` | the **Expanded Warehousing** upgrade, which doubles `max_storage_per_resource` (`upgrade1_mul_value_1 = 100`, `Data/BuildingTemplate/StationSmall.lua`, and likewise `StationBig`; tech `StationsStorage`) and then rewrites every resource from the dial, whatever the policy; MEASURED 2026-09-18 (§7.2 P3b) |
 | `MultiResourceDepotBase:RecalculateAfterResourceListChange` (`MultiResourceDepot.lua:379-397`) | a storable resource is added, removed or unlocked (`:322`, `:376`, `:459`) |
 | `SavegameFixups.RevertStationDesiredAmount` (`Station.lua:1744`) | once, on old saves |
 
@@ -248,9 +256,11 @@ meet and join. The train equivalent is a building where multiple **straight-thro
 cross**, with cargo interchanging through its storage. Each connector pair remains its own
 ordinary linear route, so **no route-model rewrite is required.**
 
-A `Station` using all four connectors is already two crossing lines on two routes sharing
-one member — a 2-way interchange with today's art and today's code. Whether cargo actually
-flows through it is **untested** (§7.2). Six connectors would be three crossing lines.
+A `Station` using all four connectors is two lines on two routes sharing one member, a 2-way
+interchange with today's art and today's code. **Measured 2026-09-18 (§7.2 T2), one colony:**
+cargo flows through it. On a large station the two lines are **parallel**, not crossing (owner
+screenshot). A track straight through one line's two ends makes a single through-route, so each
+route must use its own line. Six connectors would be three lines.
 
 `Train:AssignToTrack` (`Train.lua:220-228`) is a clean existing primitive that moves a
 train between tracks, should a later phase want route-switching.
@@ -376,7 +386,8 @@ single-route restriction on colonists is a real, verifiable gap — but it shoul
 ## 7 · Falsifiers — what must be tested before any of this is believed
 
 Every claim in this spec is desk-read. These are the checks that would prove it wrong, in
-the order they should be run. ⛔ None has been run: `<<PENDING-RUN>>`.
+the order they should be run. **T1–T3 and P3b RAN 2026-09-18** (§7.2); T4 and items 5–7 have
+not, and stay `<<PENDING-RUN>>`.
 
 **Correction, 2026-09-18.** Item 1 below used to say that disabling a resource tests the
 `transport_policy` export branch. It does not. A disabled resource is evacuated by
@@ -420,6 +431,9 @@ needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human d
         SelectedObj:GetTrainTransportPolicy("Metals")
         *r SelectedObj:SetDesiredAmount(SelectedObj.desired_amount + const.ResourceScale)
 
+   `[NEVER RUN]` as typed lines: slot 5 made the same calls (§7.1), `[RAN 2026-09-18, log
+   train_tests_Mars.exe-20260918-12.27.51]`.
+
    The first toggle moves the policy from `"default"` to `"send"`, and the third line should
    then read `send`. The fourth line is required: `ToggleTransportResource` only writes the policy, and
    `SetDesiredAmount` returns early on an unchanged value (`Station.lua:964-965`), so it must be
@@ -432,7 +446,7 @@ needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human d
    `self.desired_amount` and ignores the policy (`:1038-1045`), so the policy effect should
    vanish. Seeing that confirms §4.5's second path.
 4. **T4 (optional): does the station-wide dial still bite?** With the policy at `"default"`, run
-   `*r SelectedObj:SetDesiredAmount(20 * const.ResourceScale)` with a few multipliers and compare
+   `*r SelectedObj:SetDesiredAmount(20 * const.ResourceScale)` `[NEVER RUN]` with a few multipliers and compare
    drone filling against
    a second station. This only matters to the parity-restore route, which §2 recommends against.
 5. **What breaks when `GetMaxStorage(res)` stops being uniform?** It also drives visual cube
@@ -514,6 +528,52 @@ the drone half of T1 and T3 is read from `stored` in the DUMP.
 
 Stop on unexpected taint, a Lua error, or a DUMP read of `read=FAILED`. Do not rerun a test to get
 a preferred verdict.
+
+### 7.2 Results, 2026-09-18 (MEASURED; one colony; tests of vanilla behaviour)
+
+Log `docs/archive/train_tests_Mars.exe-20260918-12.27.51-6a91a190.log`, retail 1.1.0.403908, save `train1` at sol 71, 0 Lua errors in 2,888 lines. The
+standing rig had both mods and the TestKit loaded. Neither mod touches trains, so the rig
+does not intersect these tests. Ids are the log's `id=`. **Fixture:** X =
+`StationSmall(2360)`, H = `StationBig(2281)` and P = `StationSmall(2843)`, none upgraded.
+Route A is X > H on one of H's two parallel lines and route B is P > H on the other (slot 1
+route DUMP, ids 68–69), with two trains each. X is inside a drone controller's range; P is
+outside every one (the game's "Too far from working Drone controller"). Station distance was
+not measured. Base save: Metals 0 at all three stations.
+
+- **T1: PASS** (ids 300–476). Control on `default`: X 15, H 30, P 15, holding across two
+  windows. Then Metals was switched off at X. The act was the owner's hand click on the row,
+  not slot 4, so the act itself is unlogged; the reads either side show `en` on (id 344) and
+  then off with `pol=send` (id 355). In the next window X went to **0**: train
+  `2000000933` carried 11 to H, and drones took 4 to a depot (the stations lost 4 while
+  `colony_total` held at 556). X stayed at 0 for about two sols with no drone deliveries
+  back (ids 401, 467). ⇒ Vanilla already exports down to zero, and Module A's new work is
+  the non-zero floor (§4.3).
+- **T2: PASS** (ids 225–283). Seen during T1's control phase, which was T2's exact setup:
+  Metals only at X, enabled everywhere. Train `2000002696` on route B carried 10 from H to P,
+  which only route B serves, and P went 0 → 14. ⇒ A large station whose two lines carry two
+  routes is a working two-way interchange in vanilla, in this colony. **Also measured:**
+  balancing composes across the interchange to network-wide capacity shares. X : H : P
+  settled at 14 : 29 : 14 = ¼ : ½ : ¼ of 60 : 120 : 60 (ids 267–269).
+- **T3 acts: all as predicted** (ids 582, 641, 718, 749). The toggle alone changes no
+  request amount (`after_toggle`), and the re-apply is what sets them.
+- **T3 `send`: PASS** (ids 597–633). X filled to max (60) within one window. Over two windows
+  trains carried 127 out of it, and the stations' total rose 40 → 143 as drones fed X from the
+  depots. ⇒ `send` makes a station a drone-fed export pump. T1's `default` control is the
+  contrast: the stations' total never moved off 60.
+- **T3 `accept`: NOT CONFIRMED in this fixture.** In the clean leg (ids 1013–1142), set with
+  no game time on `send`, X went 40 → 4 → 10 → 10. The stations' total held at 40 and
+  `colony_total` at 536, so drones did nothing either way, and X sat at its capacity share.
+  INFERRED: drones haul only toward a demand, and nothing in X's drone range wants Metals.
+  This fixture cannot discriminate. The first `accept` window (ids 641–707) followed `send`
+  and is confounded by deliveries still in flight.
+- **Clobber: CONFIRMED** (ids 749–791). On `send` (`sdes=60 ddes=0`), the 1st row click
+  disabled Metals and left the amounts alone. The 2nd click rewrote them to `sdes=14 ddes=46`
+  (dial, and max minus dial) while `raw=send` stayed. §4.5 row 2.
+- **P3b upgrade: CONFIRMED** (ids 867–914). On `send`, Expanded Warehousing took `max` 60 → 120
+  and reset to `sdes=11 ddes=109` (dial, and max minus dial) with `raw=send` kept. §4.5 row 4.
+
+The slot DUMP printed `en=unavailable` for a disabled resource. That was an and/or slip in the
+slot code, and `pol=send` beside it confirms the resource was off.
 
 ---
 
@@ -604,9 +664,10 @@ runs the in-game checks. ⛔ The build itself needs **OI-10** ruled, at least to
 only (5a). A `Station` subclass whose template references `entity = "PassageHub"` by name, with
 the palette moved to the train family and connector positions computed in Lua. It must be a
 `Station`: interchange needs storage and the balancer, and a bare `TrackConnectedObjBase`, like
-the tunnel, only passes trains through. If T2 passes, the prototype's question narrows to "does
-a PassageHub-shaped hub with more than four connectors work". If T2 fails, re-scope OPTION 5
-before building anything. PassageHub's hex footprint, including how many edge hexes it has, is
+the tunnel, only passes trains through. **T2 passed 2026-09-18 (§7.2), one colony:** vanilla's
+large station already carries two-route interchange. The prototype's question therefore narrows
+to "does a PassageHub-shaped hub with **more than four** connectors (three or more routes)
+work". OPTION 5 stays at 5a. PassageHub's hex footprint, including how many edge hexes it has, is
 not readable from Lua and is discovered during the prototype.
 
 **Step 0 is a spike:** override `GetSpotBeginIndex` and `GetSpotPos` on the class (§7 item 6).
