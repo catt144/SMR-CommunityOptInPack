@@ -472,6 +472,12 @@ variable: normal is two round trips of the train that serves the station, abort 
   capacity (§3), so with Metals enabled X settles near its capacity share (about ⅓ of the
   route-A total, with neither station upgraded). T1 therefore runs a **control phase first**:
   X stocked, Metals enabled, two watch windows, the settled share read.
+- **Route check before the base save.** Trains are a colony pool (`ColonyGetPrefabs("Train")`),
+  but each one is assigned to one route. A route's cap is its number of distinct stations
+  (`TrainTransport.lua:506-523`), and a station's Trains rollover sums the caps of its connected
+  routes (`Station.lua:1270-1290`). With A and B separate routes, the rollover reads `…/2` at X,
+  `…/4` at H and `…/2` at P, with one train per route. `…/3` at X means X, H and P form **one**
+  through-route on the same track pair, and T2 would then test nothing.
 - **P1 (T1, slot 4 on X, after the control):** `en=false`, `pol=send` (`Station.lua:1079-1081`).
   X's `stored` then goes to **zero**, below its settled share, which is the forbidden branch
   and not balancing. H gains the difference plus or minus `in_trains`, and `colony_total` does
