@@ -479,8 +479,9 @@ the drone half of T1 and T3 is read from `stored` in the DUMP.
   Every station has track points 1–4 (`Station.lua:61-62`, no template override). The regular
   station holds 60 per resource and the large one 120 (`StationBig.lua:33`), and Expanded
   Warehousing doubles both. ⛔ **Balancing alone moves Metals.** Trains share a resource by
-  capacity (§3), so with Metals enabled X settles near its capacity share (about ⅓ of the
-  route-A total, with neither station upgraded). T1 therefore runs a **control phase first**:
+  capacity (§3), so with Metals enabled X settles near its capacity share: about ⅓ of the
+  total on a two-station X–H route, and about ¼ on the owner's as-built X–H–P through-route
+  (60 / (60+120+60)), with nothing upgraded. T1 therefore runs a **control phase first**:
   X stocked, Metals enabled, two watch windows, the settled share read.
 - **Route check before the base save.** A route is a linear chain. A train continues through a
   station only when the next track leaves from the connector directly opposite the one it came in
