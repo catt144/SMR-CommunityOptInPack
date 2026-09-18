@@ -34,7 +34,7 @@ It answers, by measurement rather than by reading:
 - **`--donor-log`** — what changed on a shared donor surface since `LAST_SYNC`. ⛔ Move `LAST_SYNC`
   in the same commit that lands a sync, or the next run re-reports everything.
 - **`--citations`** — §1's sweep, mechanised, with the presence control §1 demands already built in.
-  Donor-owned names (WORKFLOW clause 6), shipped-game source and the placeholder examples in this
+  Donor-owned names (WORKFLOW "Donor names"), shipped-game source and the placeholder examples in this
   prompt are counted, not listed.
 
 ⛔ **The helper finds CANDIDATES. It decides nothing** — it never writes, stages or copies, because

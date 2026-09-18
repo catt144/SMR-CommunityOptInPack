@@ -81,7 +81,7 @@ CITE_PATH = re.compile(r"`([A-Za-z0-9_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))`")
 CITE_ID = re.compile(r"\b(EF-\d{3}|D\d{2}|F\d{2,3}|C\d{2,3})\b")
 
 # ---------------------------------------------------------------------------
-# EXPECTED donor-owned citations — `WORKFLOW.md` banner clause 6, as data.
+# EXPECTED donor-owned citations — `WORKFLOW.md` "Donor names", as data.
 #
 # ⛔ WITHOUT THIS THE CITATION PASS IS USELESS. Clause 6 says bare `F##`/`C##`
 # ids, the donor's `Fix_*.lua`, and a named list of its documents resolve under
@@ -94,7 +94,7 @@ CITE_ID = re.compile(r"\b(EF-\d{3}|D\d{2}|F\d{2,3}|C\d{2,3})\b")
 # the actual action list.
 DONOR_ID = re.compile(r"^(?:[FC]\d{2,3}|D1[0-3])$")   # F/C entries + D10-D13 are the donor's
 DONOR_OWNED_FILES = {
-    # clause 6's named list
+    # "Donor names"' named list
     "AUDIT_FINDINGS.md", "BUG_LIST_AUDIT.md", "PRIOR_ART_SURVEY.md",
     "DRONE_RESEARCH_BRIEF.md", "CORUN_RIG_SPEC.md", "MOD_DESCRIPTION.md",
     "F86_EXECUTION_PLAN.md", "PLAYTEST_ARCHIVE.md",
@@ -334,7 +334,7 @@ def pass_citations(out):
 
     out.append("  %d distinct citation(s) checked across docs/ (archive excluded)"
                % len(cites))
-    out.append("  %d expected donor-owned (WORKFLOW clause 6) — counted, not listed"
+    out.append("  %d expected donor-owned (WORKFLOW 'Donor names') — counted, not listed"
                % len(expected))
     out.append("  %d shipped-game source file(s) under %s — counted, not listed"
                % (len(game), SRC_ARCHIVE))

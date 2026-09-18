@@ -4,7 +4,7 @@ The map of this repo's instruments. **Route from here; read the script's own hea
 quote it.**
 
 ⛔ **Every instrument is an over-reporter.** Adjudicate a row by reading the source line it cites,
-never by its count (`WORKFLOW.md` "Layout" and the readiness tooling ledger below). A tool that finds 30 hits has found
+never by its count (the readiness tooling ledger below). A tool that finds 30 hits has found
 30 candidates, not 30 defects.
 
 ⛔ **A desk PASS is "desk-verified", never "verified."** Nothing in this folder launches the retail
