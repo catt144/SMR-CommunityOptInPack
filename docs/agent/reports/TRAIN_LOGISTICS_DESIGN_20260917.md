@@ -680,8 +680,8 @@ discriminating questions are scripted Blender and whether a mod can reference a 
 ## 10 · The prototype, the next build (authorised 2026-09-18)
 
 **Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
-vanilla body may be reused. The owner wants a go/no-go before investing in an asset. The brief is
-`docs/agent/prompts/TRAIN_HUB_PROTOTYPE_high.md`, and its done-condition is **three lines** (six
+vanilla body may be reused. The owner wants a go/no-go before investing in an asset. The brief,
+now retired, had the done-condition **three lines** (six
 connectors), matching the owner's routing target (§6 OPTION 5).
 
 **Round 1 (`dfb8052`, sitting 1, 2026-09-18): the spot overrides held on the placed object;
@@ -690,6 +690,17 @@ elements. Placement raised a Lua error because vanilla `CanBuildOver` reads spot
 construction cursor, and the owner could not see where to attach track. Evidence:
 `TRAIN_HUB_PROTOTYPE_20260918.md` §Result. **Owner, 2026-09-18:** rebuild round 2 with both fixed,
 then rerun the sitting (the same brief, rewritten). No go/no-go yet.
+
+**Round 2 (`625053c`, sitting 2, 2026-09-18): QUALIFIED GO (owner).** One colony, `Japan Sol
+490`. The results:
+- Six connectors on the footprint edge, all attached.
+- Three routes through the hub, with trains stopping at it.
+- Placement over open ground and vanilla salvage both raised 0 Lua errors.
+- A save of the colony with the hub removed reloads cleanly.
+
+Cargo crossing was not directly witnessed: drones confounded it, and the case rests on §7.2 T2's
+shared station storage. The five must-pass checks for the next hub build are listed in
+`TRAIN_HUB_PROTOTYPE_20260918.md` §"Sitting 2 teardown and reload, and the verdict".
 
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).

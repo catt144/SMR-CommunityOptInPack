@@ -206,3 +206,27 @@ Same log, lines 1040–1334.
   different route from the one it arrived on.
 - **Still standing from sitting 2:** R2-a over open ground, R2-b and R2-c all pass. So do three
   routes through H with trains, with 0 Lua errors. Teardown and reload are NOT RUN.
+
+### Sitting 2 teardown and reload, and the verdict
+
+- **Teardown: PASS, as a proof of concept.** Tracks and trains were attached. The TestKit logged
+  `selected_destroy method=CheatDestroy ... valid_after=true` (id 482), which leaves a wreck. The
+  owner then cleared it with the vanilla salvage action, and the log does not record that action
+  itself. The owner's screenshot shows H gone, its stock left on the ground as stockpiles, and
+  the six lines ending cleanly with no visible track stub at H. The whole log holds 0 `LUA ERROR`
+  and no assert (`grep -c "LUA ERROR"` = 0; `grep -i assert` = no match). Invisible orphan
+  connector elements were not read.
+- **Reload: PASS for a colony whose hub was removed.** The owner saved after the salvage, at a
+  game time later than id 482, and reloaded. The load lists the prototype mod and raises no error
+  (lines 1343–1431). A reload of a *working* hub was not run.
+
+**Verdict: QUALIFIED GO (owner, 2026-09-18).** The owner asked for *"a proof of concept"* and
+did not need *"perfection before we move to the next phase"*. Proved in one colony: six
+connectors, all attached; three routes through H with trains stopping at it; placement and
+removal with 0 Lua errors; a clean reload after removal. **Carried into the next hub build as
+must-pass checks:**
+1. A direct cargo witness: a Metals unit unloaded at H by one route and loaded by another.
+2. A save and reload with a working hub.
+3. Why H read Metals `enabled=false` in attempt 1.
+4. Placement across existing track, the R2-a path that was not exercised.
+5. A slot 1 that lists H.

@@ -15,6 +15,14 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-15 · opened 2026-09-18
+The hub prototype is a qualified GO. Should your hub asset have six connectors or eight?
+- Six connectors means three lines through the hub, and that is what the prototype proved.
+- Eight means four lines, which is the top of your routing target (every hub meets three or four
+  lines). The code side is the same method with one more pair, and it is not yet tested.
+- Say "six", "eight", or "both sizes". Once you answer, the real hub build is briefed.
+Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
+
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
 - This mod's `Code/` has 10 `Untranslated(` sites: rollover titles, policy rows, the stand-down dialog.
