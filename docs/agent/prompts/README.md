@@ -33,6 +33,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 | `DISPATCH.md` | `prompt` | live-issue triage: a player report, a field bug, something the owner noticed in play. ⚠️ Scope is issues **once the mod is live**, and it is not (owner, 2026-08-31) |
 | `STATE_EVICTION.md` | `prompt` | requested STATE cleanup or a doccheck size warning; apply the complete four-part admission door (harm · reach · gate · volatility, AND-ed) to every section and verify refused content's homes |
 | `KNOWLEDGE_SYNC_PASS.md` | `prompt` | does this repo hold what it cites, and what it needs? A re-runnable cross-repo sweep against the fix pack, not a one-off |
+| `TRAIN_ORCHESTRATOR.md` | `prompt` | the train logistics project's standing lead: review build agents' reports, keep the spec current, brief the next build. ⛔ **Temporary:** purge it when the trains project is complete and tested (owner, 2026-09-18) |
 
 ## Root — live one-offs
 
