@@ -14,6 +14,9 @@ tests the re-implementation.
 
     python tools/rule_headers_selftest.py          # exit 0 = every case fired
 
+It also carries the legs for `check_checklist`, the gate on the owner's list
+under its own Must_Read_Header; the donor has no falsifier for that gate.
+
 Nothing here touches the live tree: every fixture is written under a temporary
 directory that is removed on the way out.
 """
@@ -230,6 +233,85 @@ def main():
     stray["docs/agent/WORKFLOW.md"] = "# Workflow\n\nRule: A stray duty in prose. [A3: pass]\n"
     case("Rule line outside any header is WARNed, not RED", stray, False,
          "RULE PLACEMENT: WARN")
+
+    # ---- CHECKLIST gate (docs/PLAYTEST_CHECKLIST.md) ------------------------
+    # The donor has no falsifier for its check_checklist, so its legs live here.
+    # Each leg commits a list at a chosen date into a scratch repo, so the gate's
+    # git pin reads real history, then optionally rewrites the working copy.
+    import datetime
+    today = datetime.date.today()
+
+    def day(offset):
+        return (today + datetime.timedelta(days=offset)).isoformat()
+
+    def checklist(heading):
+        return ("# List\n\n## Must_Read_Header\n<!-- RULES -->\n"
+                "Rule: Admit only the owner's next actions. [A3: pass]\n"
+                "<!-- /RULES -->\n\nIntro.\n\n## Decide\n\n"
+                "%s\nIs this the question?\n- one bullet\n"
+                "Home: `docs/agent/bugs/D01.md`\n" % heading)
+
+    def list_case(name, committed, commit_day, working, want_red, needle):
+        tmp = tempfile.mkdtemp(prefix="checklist_")
+        env = clean_git_env()
+        try:
+            repo = build(tmp, {"docs/agent/bugs/D01.md": "# D01\n"})
+            path = os.path.join(repo, "docs", "PLAYTEST_CHECKLIST.md")
+            # A base commit, so a leg with nothing committed still reads a real
+            # (empty) history rather than failing on "git history unread".
+            benv = dict(env, GIT_AUTHOR_DATE="%sT12:00:00" % day(-60),
+                        GIT_COMMITTER_DATE="%sT12:00:00" % day(-60))
+            subprocess.run(["git", "-C", repo, "-c", "user.name=t", "-c", "user.email=t@t",
+                            "commit", "-q", "-m", "base"],
+                           check=True, capture_output=True, env=benv)
+            if committed is not None:
+                with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                    fh.write(committed)
+                stamp = "%sT12:00:00" % commit_day
+                cenv = dict(env, GIT_AUTHOR_DATE=stamp, GIT_COMMITTER_DATE=stamp)
+                subprocess.run(["git", "-C", repo, "add", "-A"], check=True,
+                               capture_output=True, env=cenv)
+                subprocess.run(["git", "-C", repo, "-c", "user.name=t",
+                                "-c", "user.email=t@t", "commit", "-q", "-m", "x"],
+                               check=True, capture_output=True, env=cenv)
+            if working is not None:
+                with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                    fh.write(working)
+            saved = doccheck.REPO
+            try:
+                doccheck.REPO = repo
+                out = []
+                ok = doccheck.check_checklist(out)
+            finally:
+                doccheck.REPO = saved
+            text = "\n".join(out)
+            passed = (((not ok) if want_red else ok) and needle in text
+                      and "history unread" not in text)
+            results.append((name, passed, text.replace("\n", " | ")))
+            if not passed:
+                failures.append("%s: wanted %s containing %r, got ok=%s\n    %s"
+                                % (name, "RED" if want_red else "GREEN", needle, ok, text))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    good = checklist("### OI-01 · opened %s" % day(0))
+    list_case("checklist negative control (well-formed item passes)",
+              good, day(0), None, False, "CHECKLIST: PASS")
+    list_case("checklist — malformed heading", good, day(0),
+              checklist("### OI-1 opened %s" % day(0)), True, "an item heading is")
+    list_case("checklist — fix pack ck id is not this list's id", None, None,
+              checklist("### ck01 · opened %s" % day(0)), True, "an item heading is")
+    old = checklist("### OI-01 · opened %s" % day(-40))
+    list_case("checklist — >30-day item without launch", old, day(-40), None,
+              True, "days old")
+    old_launch = checklist("### OI-01 · opened %s · launch" % day(-40))
+    list_case("checklist — >30-day launch item passes", old_launch, day(-40), None,
+              False, "CHECKLIST: PASS")
+    pinned = checklist("### OI-01 · opened %s" % day(-5))
+    list_case("checklist — committed item back-dated", pinned, day(-5),
+              checklist("### OI-01 · opened %s" % day(-10)), True, "differs from")
+    list_case("checklist — new item back-dated", None, None,
+              checklist("### OI-02 · opened %s" % day(-10)), True, "is new")
 
     width = max(len(n) for n, _, _ in results)
     for name, passed, _text in results:

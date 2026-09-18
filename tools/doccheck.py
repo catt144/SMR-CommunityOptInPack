@@ -117,6 +117,7 @@ GENERAL_USE_MAX_LINES = 220
 # runs over every tracked Markdown file regardless.
 RULE_HEADER_DOCS = (
     "CLAUDE.md",
+    "docs/PLAYTEST_CHECKLIST.md",
     "docs/agent/FIX_POLICY.md",
     "docs/agent/prompts/README.md",
 )
@@ -490,6 +491,168 @@ def check_root(out):
         out.append("  RED  the README map declares docs/%s and it is not there" % name)
     out.append("ROOT: RED  %d undeclared, %d declared-but-absent"
                % (len(extra), len(missing)))
+    return False
+
+
+# The owner's list, ported from SMR-BugFixPack @ 2ec1c62 (its check_checklist)
+# when docs/DECISIONS_OWED.md became docs/PLAYTEST_CHECKLIST.md (owner,
+# 2026-09-17: same name and rules as the fix pack's list). Two adaptations:
+# ids are `OI-<n>`, never the fix pack's `ck<n>`, so the two lists cannot
+# collide; and the 30-day age exempts a heading ending ` · launch` (owner,
+# 2026-09-18), because this list holds launch obligations and launch is
+# unscheduled.
+#
+# The FORMAT is the gate's measurable half: an item is a `### OI-<n> · opened
+# <date>[ · launch]` heading, one ask line (Decide: a question; Run: "When ..."),
+# at most six bullet lines, and a `Home:` line naming existing pull-only paths.
+# Nothing else may sit in a section, so a ruling, a history or an agent note has
+# no shape to take. AGE is by the opened date, never by last edit. The opened
+# date is pinned to the date the id first entered git in this list (under either
+# name), so re-dating, or deleting and re-adding an id, cannot reset the clock.
+CHECKLIST_REL = "docs/PLAYTEST_CHECKLIST.md"
+CHECKLIST_HISTORY = ("docs/PLAYTEST_CHECKLIST.md", "docs/DECISIONS_OWED.md")
+CHECKLIST_MAX_LINES = 600
+CHECKLIST_MAX_WIDTH = 120
+CHECKLIST_MAX_BULLET_LINES = 6
+CHECKLIST_MAX_AGE_DAYS = 30
+CHECKLIST_SECTIONS = ("## Must_Read_Header", "## Decide", "## Run")
+CHECKLIST_ITEM_RE = re.compile(
+    r"^### (OI-(\d+)) · opened (\d{4}-\d{2}-\d{2})( · launch)?$")
+CHECKLIST_ID_RE = re.compile(r"\bOI-(\d+)\b")
+CHECKLIST_HOME_RE = re.compile(r"^Home: (`[^`]+`)(, `[^`]+`)*$")
+CHECKLIST_HOME_ROOTS = ("docs/agent/", "docs/archive/")
+
+
+def checklist_first_stamps():
+    """-> {id number: date string} from the first commit that added a line naming it."""
+    try:
+        log = subprocess.check_output(
+            ["git", "log", "--reverse", "--format=format:@%ad", "--date=short",
+             "-p", "--"] + list(CHECKLIST_HISTORY),
+            cwd=REPO, stderr=subprocess.PIPE)
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    first, date = {}, None
+    for line in log.decode("utf-8", "replace").split("\n"):
+        if line.startswith("@") and re.fullmatch(r"@\d{4}-\d{2}-\d{2}", line):
+            date = line[1:]
+        elif line.startswith("+") and not line.startswith("+++") and date:
+            for m in CHECKLIST_ID_RE.finditer(line):
+                first.setdefault(int(m.group(1)), date)
+    return first
+
+
+def checklist_shape(lines, today, first_stamps):
+    """-> list of violations of the list's entrance-gate format and age."""
+    import datetime
+    bad = []
+    if len(lines) > CHECKLIST_MAX_LINES:
+        bad.append("%d lines, cap %d" % (len(lines), CHECKLIST_MAX_LINES))
+    section, in_rules, item = None, False, None
+    seen = set()
+
+    def close(item):
+        if item is None:
+            return
+        n, cid, body = item
+        if len(body) < 2 or not CHECKLIST_HOME_RE.match(body[-1]):
+            bad.append("%s (line %d) must end with a `Home:` line of backticked paths" % (cid, n))
+        else:
+            for path in re.findall(r"`([^`]+)`", body[-1]):
+                if not path.startswith(CHECKLIST_HOME_ROOTS):
+                    bad.append("%s home %s is not a pull-only path" % (cid, path))
+                elif not os.path.exists(os.path.join(REPO, path)):
+                    bad.append("%s home %s does not exist" % (cid, path))
+        ask = body[0] if body else ""
+        if section == "## Decide" and not (ask and not ask.startswith("- ") and ask.endswith("?")):
+            bad.append("%s (line %d): a Decide item's first line is the question, ending in ?" % (cid, n))
+        if section == "## Run" and not ask.startswith("When "):
+            bad.append("%s (line %d): a Run item's first line starts with \"When \"" % (cid, n))
+        bullets = body[1:-1]
+        if len(bullets) > CHECKLIST_MAX_BULLET_LINES:
+            bad.append("%s (line %d) has %d bullet lines, cap %d"
+                       % (cid, n, len(bullets), CHECKLIST_MAX_BULLET_LINES))
+        for b in bullets:
+            if not (b.startswith("- ") or b.startswith("  ")):
+                bad.append("%s (line %d): between the ask and Home only bullets may sit" % (cid, n))
+                break
+
+    for n, line in enumerate(lines, 1):
+        if line == RULE_START:
+            in_rules = True
+            continue
+        if line == RULE_END:
+            in_rules = False
+            continue
+        if in_rules:
+            continue
+        if len(line) > CHECKLIST_MAX_WIDTH:
+            bad.append("line %d is %d characters, cap %d" % (n, len(line), CHECKLIST_MAX_WIDTH))
+        if "<!--" in line or "<details" in line.lower():
+            bad.append("line %d hides text in a comment or <details>" % n)
+        if line.startswith("## "):
+            close(item)
+            item = None
+            section = line.rstrip()
+            if section not in CHECKLIST_SECTIONS:
+                bad.append("line %d: section %r is not one of %s"
+                           % (n, section, ", ".join(CHECKLIST_SECTIONS)))
+            continue
+        if line.startswith("#") and section in ("## Decide", "## Run"):
+            close(item)
+            item = None
+            m = CHECKLIST_ITEM_RE.match(line)
+            if not m:
+                bad.append("line %d: an item heading is `### OI-<n> · opened YYYY-MM-DD`, "
+                           "optionally ending ` · launch`" % n)
+                continue
+            cid, num, stamp, launch = m.group(1), int(m.group(2)), m.group(3), m.group(4)
+            if num in seen:
+                bad.append("line %d: %s appears twice" % (n, cid))
+            seen.add(num)
+            opened = datetime.date.fromisoformat(stamp)
+            pinned = (first_stamps or {}).get(num)
+            if pinned and pinned != stamp:
+                bad.append("%s opened date %s differs from %s, the date it entered git with; "
+                           "the opened date never changes" % (cid, stamp, pinned))
+            elif not pinned and abs((opened - today).days) > 1:
+                bad.append("%s is new, so its opened date is today, not %s" % (cid, stamp))
+            age = (today - opened).days
+            if age >= CHECKLIST_MAX_AGE_DAYS and not launch:
+                bad.append("%s is %d days old: purge or archive it (the file's "
+                           "Must_Read_Header)" % (cid, age))
+            item = (n, cid, [])
+            continue
+        if section in ("## Decide", "## Run") and line.strip():
+            if item is None:
+                bad.append("line %d: text outside an item in %s" % (n, section))
+            else:
+                item[2].append(line)
+    close(item)
+    return bad
+
+
+def check_checklist(out):
+    import datetime
+    path = os.path.join(REPO, *CHECKLIST_REL.split("/"))
+    if not os.path.exists(path):
+        out.append("CHECKLIST: RED  %s is missing" % CHECKLIST_REL)
+        return False
+    lines = read(path)
+    first = checklist_first_stamps()
+    bad = checklist_shape(lines, datetime.date.today(), first)
+    if first is None:
+        # A pin that cannot read history is a dead gate; say so loudly.
+        bad.append("git history unread, so opened dates cannot be pinned")
+    if not bad:
+        out.append("CHECKLIST: PASS — %d lines, format and %d-day age hold "
+                   "(launch obligations exempt from age)"
+                   % (len(lines), CHECKLIST_MAX_AGE_DAYS))
+        return True
+    for b in bad:
+        out.append("  RED  " + b)
+    out.append("CHECKLIST: RED  %d violation(s); the gate is the file's Must_Read_Header"
+               % len(bad))
     return False
 
 
@@ -1293,7 +1456,7 @@ TOOL_GROUPS = (
      ("sync_from_fixpack.py",)),
     ("Launch",
      "⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the "
-     "missing preview art (owner, `DECISIONS_OWED.md` 85).",
+     "missing preview art (owner, `PLAYTEST_CHECKLIST.md` OI-12).",
      ("upload_preflight.py", "pack_predict.py")),
 )
 TOOLS_UNGROUPED = (
@@ -1658,8 +1821,8 @@ def check_state_admission(out):
 
     Ported from SMR-BugFixPack @ ac4e4d3. The door's full text was already here
     (`prompts/perma/STATE_EVICTION.md`); only its gate was missing — which is
-    what `DECISIONS_OWED.md` OI-08 option (b) asks for before STATE's framing
-    flips from push to pull.
+    what the owner ask OI-08 option (b) asked for before STATE's framing
+    flipped from push to pull.
     """
     added, note = state_added_lines()
     if note:
@@ -2190,6 +2353,7 @@ def main():
         print("doccheck: RED — %s" % exc)
         return 1
     ok = check_root(out) and ok
+    ok = check_checklist(out) and ok
     ok = check_agents_mirror(out) and ok
     ok = check_skills(out) and ok
     ok = check_prompt_map(out) and ok

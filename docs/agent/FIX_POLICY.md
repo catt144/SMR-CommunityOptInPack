@@ -345,7 +345,7 @@ module's own maps.
     citable as localisation precedent.
   - To add to existing localised text, concatenate `shipped_T .. Untranslated("...")`; concat
     cannot delete, so correcting a wrong sentence still means replacing the whole string.
-- The fix pack's future `ModItemLocTable` decision does not bind this mod; OI-90 remains open.
+- The fix pack's future `ModItemLocTable` decision does not bind this mod; OI-14 remains open.
 - Logging goes through `SMROptInPack.Log`, which escapes `%` for ModLog's second format pass; a
   direct `ModLog` call must escape it itself (`msg:gsub("%%", "%%%%")`).
 

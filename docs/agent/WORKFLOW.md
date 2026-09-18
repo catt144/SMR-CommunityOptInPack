@@ -224,7 +224,10 @@ exit, both configurations). Before upload:
    works with or without the Relaunched Fix Pack and tells Drone Stat Dials users to return both
    dials to base before uninstalling.
 2. Walk the fix pack's `docs/agent/reports/PARKED_OPTIN_REFERENCES.md` restore checklist on publish
-   day, not earlier; re-read the display-name sites in the current shipped files.
+   day, not earlier; re-read the display-name sites in the current shipped files. Its P38
+   `description` still says the mod "stands down if an official patch changes what it was written
+   for", a promise the fix pack retired on 2026-09-12: write the description per step 1 and never
+   paste P38 back verbatim.
 3. Update `metadata.lua`'s `version_major`/`version_minor` and `last_changes` without changing
    `lua_revision`. The Mod Editor sets the patch `version` on save; an agent never hand-sets it.
 4. Run `python tools/upload_preflight.py` to zero FAIL before opening the Mod Editor, inspect

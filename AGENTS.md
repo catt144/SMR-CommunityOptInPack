@@ -7,12 +7,12 @@ Rule: Invoke the `doc-editing` skill before editing a document. [A3: pass]
 Rule: Append to `docs/archive/` only; never rewrite or delete what is archived there. [A3: pass]
 Rule: Edit a generated file's source and regenerate it, never the output. [A3: pass]
 Rule: Run `python tools/doccheck.py` before committing documentation changes. [A3: pass]
-Rule: Ask the owner for a decision in `docs/DECISIONS_OWED.md` and record the ruling where the role that obeys it reads it. [A3: pass]
+Rule: Ask the owner for a decision in `docs/PLAYTEST_CHECKLIST.md` and record the ruling where the role that obeys it reads it. [A3: pass]
 Rule: Treat the owner's instruction as authority that agent detection cannot override. [A3: pass]
 Rule: Verify command output carrying its command and HEAD or build identifier once without rereading its sources. [A3: pass]
 Rule: Treat any authored artifact or message other than the owner's instruction as a claim, cleared by one check rather than a re-derivation. [A3: pass]
 Rule: Read volatile external values with a command every time. [A3: pass]
-Rule: Read `docs/agent/STATE.md` and `docs/DECISIONS_OWED.md` only when a task, a prompt or the owner calls for them; current work is pull, never session-start reading. [A3: pass]
+Rule: Read `docs/agent/STATE.md` and `docs/PLAYTEST_CHECKLIST.md` only when a task, a prompt or the owner calls for them; current work is pull, never session-start reading. [A3: pass]
 Rule: Verify durable structural facts by fingerprint and rederive only groups that moved. [A3: pass]
 Rule: Cite a game source line with the build it was read on, from that build's archived tree. [A3: pass]
 Rule: Prove absence with a grep after decoding compressed inputs and count the presence side. [A3: pass]
@@ -53,7 +53,7 @@ nothing else is unfrozen.
 Modules"). Earlier records retain the older names and pre-split paths.
 
 **Folder contract** (doccheck enforces it, in both directions). `docs/` root holds only
-`DECISIONS_OWED.md`, `FUTURE_IDEAS.md`, `README.md`, `agent/` and `archive/`. Agent material is
+`PLAYTEST_CHECKLIST.md`, `FUTURE_IDEAS.md`, `README.md`, `agent/` and `archive/`. Agent material is
 `docs/agent/` (`bugs/`, `facts/`, `reports/`, `prompts/`, `support/`, STATE/WORKFLOW/FIX_POLICY).
 Prompts: the map is `docs/agent/prompts/README.md`, whose own gate carries the prompt-map duty;
 reusable ones live in `prompts/perma/`, and one-offs live at the prompt root until consumed.
@@ -63,10 +63,9 @@ reusable ones live in `prompts/perma/`, and one-offs live at the prompt root unt
 > last donor sync live in `tools/sync_from_fixpack.py`. Pre-split records in the fix pack cite
 > `Code/Opt_*.lua` paths in THAT repo and the `SMRFixPack` namespace.
 
-⚠️ **The human playtest file lives in the FIX PACK repo.** `PLAYTEST_CHECKLIST.md` is single-sourced
-in `C:\Dev\SMR-BugFixPack\docs\` because the owner plays ONE game with BOTH mods loaded;
-`docs/README.md` says why. A decision that binds the fix pack goes there too; this mod's own owner
-decisions live here, in `docs/DECISIONS_OWED.md` (owner, 2026-09-12).
+⚠️ **Each mod has its own owner's list.** This mod's is `docs/PLAYTEST_CHECKLIST.md` (owner,
+2026-09-12; the fix pack's name and rules since 2026-09-17). What binds the fix pack goes on
+`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`; `docs/README.md` says which classes.
 
 Hook setup, once per clone: `git config core.hooksPath tools/hooks`. `python tools/doccheck.py
 --regen` performs regeneration. Authoring `docs/agent/WORKFLOW.md` · code `docs/agent/FIX_POLICY.md`

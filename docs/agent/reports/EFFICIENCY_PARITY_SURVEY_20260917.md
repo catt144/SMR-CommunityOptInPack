@@ -136,7 +136,7 @@ must name these as protected before it cuts.
 helper) and the rules-header pair (~190 lines) is about one session; four gates were ported this way
 on 2026-09-17 without incident. The donor's checklist-shaped gates (`WAITING`, `STILL OPEN`,
 `CHECKLIST` 30-day staleness) need adapting from its `PLAYTEST_CHECKLIST.md` to this repo's
-`DECISIONS_OWED.md` — call it a second session.
+`PLAYTEST_CHECKLIST.md` — call it a second session.
 
 **Census — the irreducible part, and it is the owner's.** The donor's gate says why in its own
 docstring: *"An untagged sentence cannot be classified reliably by syntax, so this check

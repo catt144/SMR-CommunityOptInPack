@@ -9,9 +9,8 @@ list below is an allowlist checked in BOTH directions, so a new file at
 
 ```
 docs/
-  DECISIONS_OWED.md       this mod's OWN owner-decision list — moved here from the fix
-                          pack 2026-09-12 (its checklist 167). Launch obligations; nothing
-                          is owed while this mod is not launching. ⚠️ written pre-1.1.0
+  PLAYTEST_CHECKLIST.md   this mod's OWN owner's list — rulings and tests only the owner
+                          gives or runs; format and age gated by doccheck
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
   README.md               this map
   agent/
@@ -63,10 +62,11 @@ everything. If a default search comes back empty on something you are sure this
 project once knew, that is the boundary working — re-run with one of the two forms
 above before concluding it was never here. It is not a bug and not a missing file.
 
-## ⚠️ The human playtest file lives in the FIX PACK repo
+## ⚠️ Two owner's lists, one per mod
 
-`PLAYTEST_CHECKLIST.md` (the owner's test queue and the reporting protocol) is
-**single-sourced in `C:\Dev\SMR-BugFixPack\docs\`** and is NOT duplicated here.
+`PLAYTEST_CHECKLIST.md` here is this mod's owner's list. The fix pack keeps its own under the
+same name in `C:\Dev\SMR-BugFixPack\docs\`, and the two lists share their rules (owner,
+2026-09-17); ids here are `OI-<n>`, there `ck<n>`.
 
 ⛔ **Its companion `PLAYTEST_HELP.md` no longer exists.** It was DISSOLVED in the
 fix pack on 2026-09-15 (`c91310f`, "Dissolve PLAYTEST_HELP and consume its
@@ -76,21 +76,11 @@ here, so this repo carried a dead pointer in nine live places for two days,
 including its own kernel. Corrected 2026-09-17. **Route console and fixture
 questions to the fix pack's live docs, not to a filename.**
 
-**Why, decided at design time and sustained by the chain's QA gate:** the owner
-plays ONE game with BOTH mods loaded (`agent/WORKFLOW.md`, "BOTH MODS
-LOADED"), so two checklists would split one queue across two files and cost the
-owner exactly the overhead the co-run model exists to remove.
-
-⭐ **Decisions split on 2026-09-12** (owner, that checklist's item 167): this mod's
-own owner decisions moved to `DECISIONS_OWED.md` here. Only three classes stayed
-on the fix pack's checklist, because they bind IT — the **shared TestKit**, the
-**`EF-` id allocation rule**, and a **fix-pack feature** parked there by analogy.
-Decision routing is canonical in `CLAUDE.md`'s `Must_Read_Header`.
-
-This is the one place the split deliberately leaves a question unanswerable
-from this repo alone. It is named rather than hidden: nothing about *build
-state, policy, module records, the suite, the bans, or cross-repo drift* — the
-questions a fresh session actually has to answer — lives in those two files.
+⭐ **Decisions split on 2026-09-12** (owner, the fix pack's checklist item 167): this
+mod's own owner items live here. Only three classes stay on the fix pack's list,
+because they bind IT — the **shared TestKit**, the **`EF-` id allocation rule**, and
+a **fix-pack feature** parked there by analogy. Decision routing is canonical in
+`CLAUDE.md`'s `Must_Read_Header`.
 
 ## The two split folders
 
@@ -127,7 +117,7 @@ difference. Generated files say so on line 1.
 - A **supporting document used by a prompt** → `agent/support/`; keep the prompt's pointer and
   update `agent/support/README.md` when the document lands.
 - A **session leg** → `archive/SESSION_LOG.md` (append-only, newest first).
-- A **decision the owner must make** → `DECISIONS_OWED.md`, this mod's own list
+- A **decision the owner must make** → `PLAYTEST_CHECKLIST.md`, this mod's own list
   (owner, 2026-09-12). The ruling, once made, goes to the doc of the role that obeys it,
   never only to an agent's memory. Only three classes stayed on the FIX PACK's
   `docs/PLAYTEST_CHECKLIST.md`: the shared TestKit, the `EF-` id allocation rule,

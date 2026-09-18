@@ -18,7 +18,7 @@ tested before any of it is believed.
 exists yet.
 
 ⚠️ Reports are not authority. Where this disagrees with `agent/bugs/`, `agent/facts/`,
-`WORKFLOW.md` or `FIX_POLICY.md`, those win. The owner asks are `DECISIONS_OWED.md`
+`WORKFLOW.md` or `FIX_POLICY.md`, those win. The owner asks are `PLAYTEST_CHECKLIST.md`
 **OI-10**.
 
 ---
@@ -259,7 +259,7 @@ computed. This is what makes a code-only hub plausible — see OPTION 3.
 ## 6 · Open questions, as options with a recommendation
 
 Nothing in this section is settled. Each states the options considered and the one
-recommended. ⛔ None is an owner ruling; the asks are `DECISIONS_OWED.md` **OI-10**.
+recommended. ⛔ None is an owner ruling; the asks are `PLAYTEST_CHECKLIST.md` **OI-10**.
 
 ### OPTION 1 — Which module is built first
 

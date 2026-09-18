@@ -98,7 +98,7 @@ Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has ch
 
 ### Launch
 
-⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the missing preview art (owner, `DECISIONS_OWED.md` 85).
+⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the missing preview art (owner, `PLAYTEST_CHECKLIST.md` OI-12).
 
 | script | what its own header says |
 |---|---|

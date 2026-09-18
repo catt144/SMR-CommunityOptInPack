@@ -2,7 +2,7 @@
 
 **Question asked (owner, 2026-09-17):** *have the opt-in modules been overtaken by the
 game?* `ClassicRockets` (D01) was answered on 2026-09-17 and is `OVERTAKEN` — the record
-is D01's final section and the ask is `docs/DECISIONS_OWED.md` **OI-01**. This report
+is D01's final section and the ask is `docs/PLAYTEST_CHECKLIST.md` **OI-01**. This report
 answers the same question for the other seven.
 
 **Method.** Desk only. Every claim below is read off the two archived source trees —
@@ -15,7 +15,7 @@ can move again.
 **No code was changed.** MODULE FREEZE holds; no `status:` word and no heading tag was
 touched, because nothing here was tested. Findings that belong to a module's own record
 were appended to its `docs/agent/bugs/D##.md` entry; the owner-facing asks are
-`DECISIONS_OWED.md` **OI-03 … OI-07**.
+`PLAYTEST_CHECKLIST.md` **OI-03 … OI-07**.
 
 ⚠️ Reports are not authority. Where this disagrees with `agent/bugs/`, `agent/facts/`,
 `WORKFLOW.md` or `FIX_POLICY.md`, those win.
@@ -191,7 +191,7 @@ for tourists too.** The module's own rollover text still promises the opposite:
 *"Manual relocation and Tourists are unaffected"* (`Code/Opt_ResidencyControl.lua:159`).
 
 This is a behaviour change to a frozen module and needs the owner's line — the ask is
-`DECISIONS_OWED.md` **OI-03**. The fix is one line (`traits.traits and traits.traits.Tourist`,
+`PLAYTEST_CHECKLIST.md` **OI-03**. The fix is one line (`traits.traits and traits.traits.Tourist`,
 tolerant of both shapes), but it is still a module edit.
 
 **A second reach the module never claimed.** `CanAcceptNewColonists` had exactly one caller
@@ -271,7 +271,7 @@ and the module's only sweep is `OnMsg.LoadGame` (`Code/Opt_MultipleSuns.lua:196-
 1.1.0 the module's own feature has a hole its 1.0.7 design could not have had, because on
 1.0.7 two suns could not coexist without a third-party mod and `Done` did not unbind. This is
 the same *shape* as D01's parked limitation (state that nothing re-evaluates), not a new
-defect class. It is recorded in D04's entry; whether to close it is `DECISIONS_OWED.md` **OI-04**.
+defect class. It is recorded in D04's entry; whether to close it is `PLAYTEST_CHECKLIST.md` **OI-04**.
 
 `effect_range` also became `modifiable = true` (`ArtificialSun.lua:7`), which is what the new
 `OnModifiableValueChanged` hook exists for — no interaction with the module.
@@ -376,7 +376,7 @@ both its reach tests, so on an underground map it under-states drone reach by a 
 overtaken; but three of its four load-bearing assumptions were re-based and its instrument is
 broken. Nothing here can be settled by reading. The owner ask is `DECISIONS_OWED.md` **OI-05**,
 and it matters more than the others because the D06 **rebuild spec**
-(`reports/DRONE_REBUILD_DESIGN_20260901.md`, ratification gated on checklist item 94) was
+(`reports/DRONE_REBUILD_DESIGN_20260901.md`, ratification parked with D06, `../bugs/D06.md`) was
 written entirely against 1.0.7.
 
 **Falsifier.** On 1.1.0 with the module ON and telemetry patched or replaced: park idle drones
@@ -647,9 +647,9 @@ farms, restaurants and food storage — no new `Community` subclass, no new `Res
 drone carrier, no new solar building. It does, however, add a large number of
 `ServiceWorkplace` buildings with a Food demand (Bakery, BaristaCafe, PanoramicRestaurant,
 GourmetRestaurant, FastFoodRestaurant, FoodStand, Replicator, …). That is a direct input to the
-**parked** `DECISIONS_OWED.md` item **95** ("food-service default priority 3 … exactly four
+**parked** D06 rebuild spec's §9 ask 2 ("food-service default priority 3 … exactly four
 buildings — Diner, Mega Mall, Grocer, Small Grocer"). That enumeration is no longer four.
-Recorded here; item 95 is not reopened by this pass.
+Recorded here; that ask is not reopened by this pass.
 
 **Citations in older records.** Nothing in this report edits an existing entry's text. Where a
 module header or an entry cites a 1.0.7 line, that citation is still correct **for 1.0.7** and
@@ -663,7 +663,7 @@ should be read that way; the 1.1.0 equivalents are all given above with their bu
 archived as PARKED**, **`Opt_CohortHousing` (D07) and `Opt_NoHomeless` (D12) archived as DEAD**,
 **`Opt_DroneStatDials` (D09) kept**. That lifted MODULE FREEZE for exactly those three and for
 nothing else. ⛔ **OI-01 (`ClassicRockets`), OI-03 (D03's dead tourist guard) and OI-04 (D04's
-sun-removal gap) were NOT ruled on and stay open** in `docs/DECISIONS_OWED.md`.
+sun-removal gap) were NOT ruled on and stay open** in `docs/PLAYTEST_CHECKLIST.md`.
 
 All three modules were **deleted** — file, `items.lua` `ModItemCode` + `ModItemOptionToggle`, and
 `metadata.lua` `code` entry + `default_options` key. Counts after: **6 `Code/*.lua` files,

@@ -6,9 +6,9 @@ owner picks. **Start with `git log --oneline -10` + `git pull` in BOTH repos**
 (`C:\Dev\SMR-BugFixPack-TestKit`). Staleness anchor: written 2026-09-01 at opt-in `870c3e0`
 / fix pack `3e224a7`; verify against `git log` before trusting any specific.
 
-> ⛔⛔ **DO NOT START UNTIL THE OWNER HAS RATIFIED THE SPEC.** Fix-pack
-> `docs/PLAYTEST_CHECKLIST.md` item **91** must carry a ruling line. Its body is
-> `reports/DRONE_REBUILD_DESIGN_20260901.md` §9 ask 1. If item 91 is still open, **stop and
+> ⛔⛔ **DO NOT START UNTIL THE OWNER HAS RATIFIED THE SPEC.** The ratification is
+> `reports/DRONE_REBUILD_DESIGN_20260901.md` §9 ask 1, and it goes to the owner only after the
+> 1.1.0 re-base (`agent/bugs/D06.md`). If no ruling line exists, **stop and
 > say so** — that is the whole answer for this session. Nothing here is a prototype exception.
 
 > ⚖️ **THE SPEC IS THE SINGLE DESIGN AUTHORITY.** `agent/reports/DRONE_REBUILD_DESIGN_20260901.md`
@@ -113,7 +113,7 @@ carve-out of spec §2b rule 5, and it is the half that would hang a colony if it
 | + E-4(ii) reads call-time | **V-b** permitted (spec §3.4 row 1). One C call instead of three; **owner-optional, not automatic** — V-a is the ratified default and V-b changes the const at runtime, so take it only if the owner wants it |
 | E-4(iii) **fails** | **P** — finder pre-emption (spec §3.4 row 2). E-8 still governs |
 | E-8 **fails** too | **2-S** — table surgery at band 3 (spec §3.4 row 3). R10 fails by definition; the disclaimer narrows to the one-band claim; **no experiment is owed to ship it** |
-| checklist 92 says "none yet" | **STOP AND REPORT.** Do not build V on an unmeasured matcher, and do not quietly downgrade to 2-S without the owner — that is a product decision (spec §3.4's last row is item 91's question (a)) |
+| the owner says "none yet" to E-4/E-8 (spec §9 ask 4) | **STOP AND REPORT.** Do not build V on an unmeasured matcher, and do not quietly downgrade to 2-S without the owner — that is a product decision (spec §3.4's last row is the bands report §7's requirement-or-preference question) |
 
 ⛔ **If a result CONTRADICTS a prediction, the measurement wins.** Correct the spec's affected
 cells and the bands report's affected cells **in the same commit**, and say so loudly in the
@@ -143,7 +143,7 @@ spec §9 ask 3**; `DroneReport()` kept and extended with tier depths and the new
   `Cities` are `rawget` reads inside handlers (F110). `Drone.Idle` is **not** in the block.
 - **The two `Opt_DroneOverhaul` rows leave `tools/harvest_wrap_targets.py`'s allowlist in the
   same commit.** `harvest_wrap_targets.py --check` GREEN with two fewer rows is the receipt, and
-  it answers checklist 84 by construction — say so.
+  it answers the D06 half of the old wrap-pair ask by construction — say so.
 - **`OnMsg.LoadGame` runs inline**, never in a spawned thread (`EF-029`).
 - **No class-level `GetPriorityForRequest` override anywhere** (`EF-069`). If a design pressure
   points at one, that is a stop condition.

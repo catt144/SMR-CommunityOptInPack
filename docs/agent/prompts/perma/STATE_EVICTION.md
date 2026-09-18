@@ -65,7 +65,7 @@ not. Passing volatility alone does not admit it.
 
 For admitted content, keep governing pointers to one dated line linked to the
 ruling's body; open owner decisions use item ids and five-word gists, with
-the ask itself in `docs/DECISIONS_OWED.md`, in that file's format.
+the ask itself in `docs/PLAYTEST_CHECKLIST.md`, in that file's format.
 These formats do not exempt either category from the door.
 
 ### Authority preserved here
@@ -95,7 +95,7 @@ the same change as the cut. No line stays merely because it has no home.
   `rg -n` lookup in the respective `INDEX.md`, then read the actual passage.
 - Closed efforts and dated evidence belong in their report or
   `docs/archive/SESSION_LOG.md`. Chain findings stay in the chain's own record.
-- Owner decisions belong in `docs/DECISIONS_OWED.md`, in that file's format.
+- Owner decisions belong in `docs/PLAYTEST_CHECKLIST.md`, in that file's format.
 - A purged file needs no tombstone: `git log -S` retains its history.
 
 A sweep may elevate a rule into its proper home, never retire one. Cutting
@@ -148,7 +148,7 @@ suite, not only the formerly failing check.
 5. Verify: `python tools/doccheck.py` GREEN (it enforces the warn/hard byte
    caps and the per-line cap); every retained status line in every section
    passes all four tests; structural/parser exceptions are identified; no
-   "superseded" chains remain; open decisions match `docs/DECISIONS_OWED.md`.
+   "superseded" chains remain; open decisions match `docs/PLAYTEST_CHECKLIST.md`.
 6. Measure the clean file in bytes and put the before/after numbers in the
    report to the owner.
 7. Commit (boring subject) and push.
@@ -157,4 +157,4 @@ Report what left, its verified homes, what stayed and why. Do not claim "STATE
 is clean" or "GREEN therefore admitted": doccheck checks structure and bytes,
 not whether prose passes this door. A homeless line is unresolved work, never
 a successful disposition or a reason to admit it. Owner-facing asks live in
-`docs/DECISIONS_OWED.md`, never only here or in STATE.
+`docs/PLAYTEST_CHECKLIST.md`, never only here or in STATE.

@@ -26,8 +26,8 @@ Read each destination's actual passage, including subitems. Match the finding, n
 its topic or an "already filed" pointer. Search by meaning and identifier; check archive
 and ignored paths explicitly before concluding an expected record is missing.
 
-- Owner calls about THIS mod: `docs/DECISIONS_OWED.md`. Add the question to the
-  matching item, or create one; keep independently answerable parts, ruling conditions and
+- Owner calls about THIS mod: `docs/PLAYTEST_CHECKLIST.md`, through its entrance gate. Add the
+  question to the matching item, or create one; keep independently answerable parts, ruling conditions and
   pull-only scope. Evidence goes to a pull-only home first, linked from the item.
 - Owner calls that bind the FIX PACK (the shared TestKit, `EF-` id allocation, a fix-pack
   feature): the fix pack's `docs/PLAYTEST_CHECKLIST.md`, through its entrance gate.

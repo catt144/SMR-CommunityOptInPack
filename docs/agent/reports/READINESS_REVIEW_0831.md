@@ -49,7 +49,7 @@ session's scratch; the load-bearing lines are reproduced here.
 | tool | port | run against this tree — result |
 |---|---|---|
 | `doccheck.py` v5 | 4 checks carried | GREEN after STATE reflow; **LOAD ORDER: 2 constraints checked** (CohortHousing<NoHomeless on `Colonist:FindEmigrationDome`, ResidencyControl<NoHomeless on `ChooseDome` — the two orders `metadata.lua` had only as a comment); **WRAP CHECK: 0 outside Require, 3 allowlisted** |
-| `harvest_wrap_targets.py` | namespace, allowlist emptied then refilled | 24 declared entries / 17 pairs / 8 classes. **3 capture+install sites with no Require pair**: `Opt_DroneOverhaul` → `Drone.CleanUnreachables` (declared Drone.lua:879), `TaskRequestHub.FindTask` (_TaskRequest.lua:72); `Opt_MultipleSuns` → `SolarPanelBase.GameInit` (SolarPanel.lua:8). Each captured class DECLARES the method → `prev` is real → benign; allowlisted with citations (the donor's own pre-rule precedent). Naming the pairs in Require blocks = code edit to frozen modules → owner (checklist 84) |
+| `harvest_wrap_targets.py` | namespace, allowlist emptied then refilled | 24 declared entries / 17 pairs / 8 classes. **3 capture+install sites with no Require pair**: `Opt_DroneOverhaul` → `Drone.CleanUnreachables` (declared Drone.lua:879), `TaskRequestHub.FindTask` (_TaskRequest.lua:72); `Opt_MultipleSuns` → `SolarPanelBase.GameInit` (SolarPanel.lua:8). Each captured class DECLARES the method → `prev` is real → benign; allowlisted with citations (the donor's own pre-rule precedent). Naming the pairs in Require blocks = code edit to frozen modules → owner (OI-11) |
 | `upload_preflight.py` | verbatim | 16 checked · **1 FAIL (image)** · 1 UNCHECKABLE (PDX login). Everything else passes incl. `code` == disk and `items.lua` order |
 | `pack_predict.py` | content prefix | 12 files would pack; `*/tools/*` now excludes 21 (was 8 at launch prep) — `ignore_files` still covers it |
 | `pack_list.py`, `flpk_extract.py` | verbatim | not run — need a built `.fpk` (post-upload check) |
@@ -110,7 +110,7 @@ here — an unverified change to the shared kit is a change to both mods' suites
 
 1. Walk the restore checklist — fix pack `reports/PARKED_OPTIN_REFERENCES.md`
    (~46 passages; the fix pack's `metadata.lua` change = its version bump).
-2. Preview art → `preview.png` + `'image'` in `metadata.lua` (owner, checklist 85);
+2. Preview art → `preview.png` + `'image'` in `metadata.lua` (owner, OI-12);
    `upload_preflight.py` must then report 0 FAIL.
 3. The in-game half of the reload check: eight `applied`/`inactive` lines once each
    after a Mod-Manager `ReloadLua` (the desk half PASSED here; `l2_reload_sim.py`).
@@ -120,6 +120,6 @@ here — an unverified change to the shared kit is a change to both mods' suites
 
 ## 7 · Owner decisions raised (mirrored on the fix pack's checklist, R10)
 
-83 TestKit edits for this mod's coverage · 84 name the three allowlisted wrap pairs
-in Require blocks (frozen-module code edits, need an A/B) · 85 preview art ·
+83 TestKit edits for this mod's coverage · OI-11 name the allowlisted wrap pairs
+in Require blocks (frozen-module code edits, need an A/B) · OI-12 preview art ·
 86 ratify the EF-id allocation rule.

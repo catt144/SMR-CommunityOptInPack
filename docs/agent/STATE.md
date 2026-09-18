@@ -11,7 +11,7 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
   launch. D01 is `tested-attended`; D02/D03/D04/D09 passed pre-split; D06/D07/D12 are retired.
 - Every shipping module still owes the `FIX_POLICY` §8 both-configuration test on the shipping
   build. Launch order and evidence: `agent/reports/READINESS_REVIEW_0831.md` §6. That plan predates
-  1.1.0 and lacks a re-verification step. Upload preflight currently fails on preview art (OI-85).
+  1.1.0 and lacks a re-verification step. Upload preflight currently fails on preview art (OI-12).
 
 ## Build state — pulled, not stored
 
@@ -28,7 +28,6 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 
 ## Open owner decisions
 
-Bodies are in `docs/DECISIONS_OWED.md`. Open: OI-01, OI-03, OI-04, 84, 85 and 89–97. Items 94 and
-92 remain gated on a 1.1.0 rebase. The launch items are dormant while this mod is not launching,
-and their source citations predate 1.1.0. Shared TestKit, EF-id allocation and a fix-pack feature
-remain in the fix pack's checklist because they bind that repo.
+Bodies are in `docs/PLAYTEST_CHECKLIST.md`. Open: OI-01, OI-03, OI-04, OI-10; launch: OI-11–OI-14.
+Shared TestKit, EF-id allocation and a fix-pack feature remain in the fix pack's checklist
+because they bind that repo.
