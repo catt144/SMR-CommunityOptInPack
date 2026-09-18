@@ -10,7 +10,8 @@ list below is an allowlist checked in BOTH directions, so a new file at
 ```
 docs/
   PLAYTEST_CHECKLIST.md   this mod's OWN owner's list — rulings and tests only the owner
-                          gives or runs; format and age gated by doccheck
+                          gives or runs, except live playtest runs (fix pack's list);
+                          format and age gated by doccheck
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
   README.md               this map
   agent/
@@ -119,9 +120,10 @@ difference. Generated files say so on line 1.
 - A **session leg** → `archive/SESSION_LOG.md` (append-only, newest first).
 - A **decision the owner must make** → `PLAYTEST_CHECKLIST.md`, this mod's own list
   (owner, 2026-09-12). The ruling, once made, goes to the doc of the role that obeys it,
-  never only to an agent's memory. Only three classes stayed on the FIX PACK's
+  never only to an agent's memory. Four classes go on the FIX PACK's
   `docs/PLAYTEST_CHECKLIST.md`: the shared TestKit, the `EF-` id allocation rule,
-  and a fix-pack feature parked here by analogy.
+  a fix-pack feature parked here by analogy, and live playtest runs of this mod's
+  modules, because the owner plays one game with both mods loaded (owner, 2026-09-18).
 - **Spent** anything → `archive/`, which is append-only and never edited.
 
 ⚠️ **Reports are not authority.** When a report disagrees with `agent/bugs/` or

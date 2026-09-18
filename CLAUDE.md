@@ -65,7 +65,9 @@ reusable ones live in `prompts/perma/`, and one-offs live at the prompt root unt
 
 ⚠️ **Each mod has its own owner's list.** This mod's is `docs/PLAYTEST_CHECKLIST.md` (owner,
 2026-09-12; the fix pack's name and rules since 2026-09-17). What binds the fix pack goes on
-`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`; `docs/README.md` says which classes.
+`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`; `docs/README.md` says which classes. Live
+playtest runs of this mod's modules go there too, because the owner plays ONE game with BOTH
+mods loaded (owner, 2026-09-18).
 
 Hook setup, once per clone: `git config core.hooksPath tools/hooks`. `python tools/doccheck.py
 --regen` performs regeneration. Authoring `docs/agent/WORKFLOW.md` · code `docs/agent/FIX_POLICY.md`
