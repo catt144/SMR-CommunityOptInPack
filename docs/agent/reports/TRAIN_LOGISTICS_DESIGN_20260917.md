@@ -375,11 +375,32 @@ on a first version. 4c preserves it while leaving a route open.
 | **5a** | Interchange only — multiple straight-through lines crossing at one building, cargo transferring through its storage. No route-model change |
 | **5b** | 5a plus colonist interchange — a two-hop `work_route` through a shared station |
 | **5c** | Full route-switching — trains driving through the junction. Requires a graph layer |
+| **5d** | Cargo routing, not train routing — every hub-to-hub segment stays its own linear route with its own trains, and a routing layer sends each load toward the hub next on the path to where it is wanted (per-hop forwarding in `TransferCargo`, through the dead `ttPrioShortage` lane, §3/§4.4). No route-model change |
 
 ⭐ **Recommended: 5a first, then reassess.** It is the `PassageHub` pattern applied
 faithfully and it needs no graph. 5b is the most defensible *feature* of the three — the
 single-route restriction on colonists is a real, verifiable gap — but it should follow 5a.
 5c is large and grows; hold it in reserve.
+
+**Owner direction, 2026-09-18:** the hub is for **player usability and routing**. The target is
+a network like the owner's diagram: six hubs, four around a loop and two on a spur, with end
+stations hanging off them, and every hub meeting three or four lines. Read against that target:
+
+- **It fits the track rules.** Branches happen only at hubs, never on open track (§5.1).
+- **Vanilla cannot build it.** A station hub carries two routes, one per line (§7.2 T2), and these
+  hubs need three or four. That is the more-than-four-connector hub (§10), 6–8 connectors each.
+- **5a** makes it buildable, and cargo then spreads hop by hop to capacity shares across the
+  whole network (§7.2 T2). But nothing is *sent* from A to F, every hub holds stock, every
+  segment needs its own train, and colonists cannot cross a hub.
+- **5d** adds the "routing" to 5a without touching the route model: loads move toward where
+  they are wanted. It is a scheduler change, the spec's deepest patch exposure (§4.4 Reserve).
+- **5c** is literal trains running A → H1 → H3 → H4 → C. It needs the route model rewritten
+  (§5.2's three blockers), pathfinding over a graph with a loop, and reservation at hubs so
+  trains on shared segments do not deadlock. It is the largest option by far.
+
+INFERRED sequencing, not a ruling: 5a with the more-than-four-connector hub is step 1 for every
+variant, so the §10 prototype stays the first build. 5d or 5c is chosen after that network has
+been played.
 
 ---
 
