@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*25 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*26 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -90,11 +90,12 @@ Run by `doccheck` as well as by hand; the allowlists live beside the detectors, 
 
 ### Cross-repo sync with the fix pack
 
-Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has changed the main pack and wants to know what lands here. ⛔ Read-only in BOTH repos, and it decides nothing — its `LOCAL_ADAPTATIONS` and `LAST_SYNC` constants are the retired prose port ledger in the only form that cannot go stale, because the thing that reads them is the thing that checks them.
+Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has changed the main pack and wants to know what lands here. ⛔ Read-only in BOTH repos, and it decides nothing — its declared constants (`LOCAL_ADAPTATIONS`, the `TOOLS_*` tables, `MIRRORED_DOCS`, `LAST_SYNC`) are the retired prose port ledger in the only form that cannot go stale, because the thing that reads them is the thing that checks them. Its falsifier is required by `doccheck`.
 
 | script | what its own header says |
 |---|---|
 | [`sync_from_fixpack.py`](sync_from_fixpack.py) | Cross-repo sync helper: what has the fix pack got that this repo needs? |
+| [`sync_from_fixpack_selftest.py`](sync_from_fixpack_selftest.py) | Falsifier for sync_from_fixpack's --tools pass and kit-doc mirror check. |
 
 ### Launch
 

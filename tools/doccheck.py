@@ -1449,11 +1449,12 @@ TOOL_GROUPS = (
     ("Cross-repo sync with the fix pack",
      "Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner "
      "has changed the main pack and wants to know what lands here. ⛔ Read-only "
-     "in BOTH repos, and it decides nothing — its `LOCAL_ADAPTATIONS` and "
-     "`LAST_SYNC` constants are the retired prose port ledger in the "
+     "in BOTH repos, and it decides nothing — its declared constants "
+     "(`LOCAL_ADAPTATIONS`, the `TOOLS_*` tables, `MIRRORED_DOCS`, `LAST_SYNC`) "
+     "are the retired prose port ledger in the "
      "only form that cannot go stale, because the thing that reads them is the "
-     "thing that checks them.",
-     ("sync_from_fixpack.py",)),
+     "thing that checks them. Its falsifier is required by `doccheck`.",
+     ("sync_from_fixpack.py", "sync_from_fixpack_selftest.py")),
     ("Launch",
      "⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the "
      "missing preview art (owner, `PLAYTEST_CHECKLIST.md` OI-12).",
@@ -2363,6 +2364,7 @@ def main():
     ok = required_selftest("prompt_map_selftest.py", out) and ok
     ok = required_selftest("repair_pass_selftest.py", out) and ok
     ok = required_selftest("counts_selftest.py", out) and ok
+    ok = required_selftest("sync_from_fixpack_selftest.py", out) and ok
     ok = flpk_selftest(out) and ok
     ok = check_tools_catalog(out) and ok
     ok = eol_report(out) and ok

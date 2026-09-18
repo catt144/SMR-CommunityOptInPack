@@ -11,7 +11,7 @@ anything and never touches the donor at all beyond `git log` and reading bytes.
 Copying a file across is a human act with a commit message, because "should this
 land here" is a judgement and judgements are not scriptable.
 
-Three passes, each answering one question:
+Four passes, each answering one question:
 
   --facts       is the fact mirror still a mirror, apart from what we DECLARE
                 is locally adapted?
@@ -19,15 +19,21 @@ Three passes, each answering one question:
                 recorded sync?
   --citations   does this repo contain everything it cites, and does the donor
                 hold what we are missing?
+  --tools       which donor tools (tools/*.py, tools/hooks/*) are new, differ
+                or exist only here, apart from what we DECLARE — and are the
+                kit docs (`MIRRORED_DOCS`) still byte-identical mirrors?
 
-WHY THE DECLARED CONSTANTS BELOW MATTER. `LOCAL_ADAPTATIONS` and `LAST_SYNC`
-replace the retired prose port ledger. A
+WHY THE DECLARED CONSTANTS BELOW MATTER. `LOCAL_ADAPTATIONS`, the `TOOLS_*`
+tables, `MIRRORED_DOCS` and `LAST_SYNC` replace the retired prose port ledger. A
 ledger written as prose goes stale in silence; these cannot, because the thing
 that reads them is the thing that checks them. Add a row when you deliberately
 diverge from the donor, and move `LAST_SYNC` when you finish a sync.
+`tools/sync_from_fixpack_selftest.py` proves the --tools pass fires on each
+undeclared shape; doccheck requires it.
 
-    python tools/sync_from_fixpack.py                 # all three passes
+    python tools/sync_from_fixpack.py                 # all four passes
     python tools/sync_from_fixpack.py --facts
+    python tools/sync_from_fixpack.py --tools         # tools + kit-doc mirror
     python tools/sync_from_fixpack.py --strict        # exit 1 on an UNEXPECTED finding
 """
 import argparse
@@ -73,6 +79,95 @@ SHARED_SURFACES = [
     ".claude/skills/",
     "CLAUDE.md",
 ]
+
+# ---------------------------------------------------------------------------
+# THE TOOLS LEDGER, measured 2026-09-18 against donor 869ce8d: every shared
+# tool diffed after LF normalisation, and every donor-only tool's header read.
+# Keys are paths under tools/. A row is a PROMISE; an undeclared difference is
+# the finding. ⛔ Never declare an UNPORTED DONOR FIX here — a row would hide
+# exactly what this pass exists to show. Port it, then declare what is left.
+
+# Donor tools this repo deliberately lacks. A donor tool absent here and NOT
+# listed is reported as NEW THERE — a candidate to port.
+_DONOR_CASEWORK = ("the fix pack's own case work: a desk harness or receipt for "
+                   "its F/C entries, modules or chains, not a reusable instrument")
+TOOLS_NOT_PORTED = {
+    **{name: _DONOR_CASEWORK for name in (
+        "c90_scratch_verify.py", "seam_coverage.py",
+        "desk_c104_political_animal.py", "desk_c105_water_reclamation.py",
+        "desk_c74_hit_moment_fx.py", "desk_c83_arrivals.py", "desk_c85_clogged.py",
+        "desk_c86_scan_downgrade.py", "desk_c88_prefab.py", "desk_c89_faction_gate.py",
+        "desk_c90_datapatch.py", "desk_c92_achievement.py", "desk_c93_open_pasture.py",
+        "desk_c95_habitat_draft.py", "desk_c95_return_home.py",
+        "desk_c96_rover_subclass.py", "desk_caller_seam.py",
+        "desk_ck53_hostile_globals.py", "desk_f117_argshape.py",
+        "desk_f117_kitprobe.py", "desk_f117_recipe.py", "desk_f119_trade_fuel.py",
+        "desk_f59_expedition.py", "desk_f59_interact.py",
+        "desk_migration_cluster.py", "desk_migration_observations.py",
+        "desk_mystery_tech_migration.py", "desk_probes_f67_f59.py",
+        "desk_progress_seam.py", "desk_seam_food.py", "desk_shelter_reflex.py")},
+    "bodycheck.py": "pins manifest headers this repo's Opt_ modules do not carry "
+                    "(FIX_POLICY's adaptation note omits §2b)",
+    "l8_deference_map.py": "quarantined in the donor (terminal audit TA-3: misses "
+                           "`local orig = Name` captures) and unrepaired there",
+}
+
+# Shared tools that differ from the donor ON PURPOSE. Silent while they differ;
+# a NOTE when a row stops differing; RECHECK when the donor's copy changed since
+# LAST_SYNC, because a fix there may not have been received here.
+_GUARD = "cp1252 console guard (ac47380)"
+TOOLS_ADAPTED = {
+    "audit_preset_fields.py": "provenance line, " + _GUARD + ", SMROptInPack in its fixture",
+    "blocking_analysis.py": _GUARD + " only — the donor lacks it: propose there",
+    "ck170_selftest.py": "legs only for gates live here (STATE bytes, skills mirror); "
+                         "no marker/owner-register legs — this doccheck has neither gate",
+    "counts_selftest.py": "this mod's Register needle, anchored optional-field trap, "
+                          "shared-kit probe label and this main()'s gate list",
+    "doccheck.py": "this repo's gate set, paths and module token (check_agents_mirror "
+                   "is the donor's check_entry_mirror; no bodycheck/alias gates)",
+    "flpk_extract.py": "the donor's reader (341550f) plus only the " + _GUARD,
+    "harvest_wrap_targets.py": "SMROptInPack.Require needle, this mod's allowlist, "
+                               "SMRFixPack kept out of _NOT_CLASSES (ban 2)",
+    "hooks/pre-commit": "its header comment names this repo; the body is the donor's",
+    "l2_reload_sim.py": "REWRITTEN: loads this mod's whole code list twice; the "
+                        "donor's is bound to its own DataPatch fixtures",
+    "l3_save_footprint.py": "token rename; NAMED_STATE matches both prefixes "
+                            "(persisted names keep SMRFixPack_); " + _GUARD,
+    "l4_player_surfaces.py": "provenance line, token rename, " + _GUARD,
+    "l5_containment.py": "provenance line, token rename, " + _GUARD,
+    "l6_promise_map.py": "token rename, Opt_ filename derivation, " + _GUARD,
+    "l6_reachability.py": "provenance line, token rename, " + _GUARD,
+    "l7_env_map.py": "'this mod' wording, " + _GUARD,
+    "l8_hostile_input.py": "token rename and this mod's module trio "
+                           "(ClassicRockets, DroneStatDials, NoHomeless)",
+    "pack_list.py": _GUARD + " only — the donor lacks it: propose there",
+    "pack_predict.py": "this repo's ignore_files and CONTENT_PREFIX; keeps PATS, which "
+                       "pack_list --tree imports (the donor dropped it in 9d15550: "
+                       "propose there)",
+    "parsecheck.py": "provenance line only",
+    "prompt_map_selftest.py": "this prompt map's classes: no ledger-exception row "
+                              "or migration allowance",
+    "repair_pass_selftest.py": "no marker-integrity legs (no such gate here); parity "
+                               "legs drift this repo's own ignore list",
+    "split_bugs.py": "N/A-migration note and this repo's INDEX header prose",
+    "split_facts.py": "port note: the migration half is N/A here",
+}
+
+# Tools only this repo has. Anything else only here is reported as ONLY HERE.
+TOOLS_LOCAL_ONLY = {
+    "rule_headers_selftest.py": "falsifier for the RULES HEADERS gate, which the "
+                                "donor runs without one: propose there",
+    "sync_from_fixpack.py": "this repo's side of the sync; the donor pulls from nobody",
+    "sync_from_fixpack_selftest.py": "the falsifier for this file's --tools pass",
+}
+
+# Owner, 2026-09-18 ("Mirror them"): one TestKit serves every mod, so the kit
+# docs are the donor's BYTES. No adaptation row exists for these on purpose: a
+# change that belongs here belongs in the donor first.
+MIRRORED_DOCS = {
+    "tools/TESTKIT.md": "the kit's verdict semantics and per-mod registry table",
+    "tools/SMRTK.md": "the in-game toolkit and sitting preload",
+}
 
 # Citation shapes, from KNOWLEDGE_SYNC_PASS section 1.
 CITE_PATH = re.compile(r"`([A-Za-z0-9_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))`")
@@ -157,6 +252,13 @@ def donor_ok(out):
     return True
 
 
+def git_env():
+    """os.environ without GIT_*: under the pre-commit hook (doccheck runs the
+    selftest that runs this) GIT_DIR/GIT_INDEX_FILE would point `git -C DONOR`
+    at THIS repo's commit-in-progress (tools/README.md, top)."""
+    return {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+
+
 # ---------------------------------------------------------------------------
 def pass_facts(out):
     """Is the fact mirror still a mirror, apart from the declared adaptations?"""
@@ -211,7 +313,8 @@ def pass_donor_log(out):
         return None
     try:
         subprocess.check_output(["git", "-C", DONOR, "cat-file", "-e",
-                                 LAST_SYNC + "^{commit}"], stderr=subprocess.PIPE)
+                                 LAST_SYNC + "^{commit}"], stderr=subprocess.PIPE,
+                                env=git_env())
     except (OSError, subprocess.CalledProcessError):
         out.append("  SKIPPED - %s is not a commit in the donor. Its history may "
                    "have been rewritten, or LAST_SYNC is wrong." % LAST_SYNC)
@@ -219,15 +322,15 @@ def pass_donor_log(out):
     try:
         head = subprocess.check_output(
             ["git", "-C", DONOR, "rev-parse", "--short", "HEAD"],
-            text=True, encoding="utf-8", errors="replace").strip()
+            text=True, encoding="utf-8", errors="replace", env=git_env()).strip()
         log = subprocess.check_output(
             ["git", "-C", DONOR, "log", "--oneline", "%s..HEAD" % LAST_SYNC, "--"]
             + SHARED_SURFACES,
-            text=True, encoding="utf-8", errors="replace").splitlines()
+            text=True, encoding="utf-8", errors="replace", env=git_env()).splitlines()
         stat = subprocess.check_output(
             ["git", "-C", DONOR, "diff", "--stat", "%s..HEAD" % LAST_SYNC, "--"]
             + SHARED_SURFACES,
-            text=True, encoding="utf-8", errors="replace").splitlines()
+            text=True, encoding="utf-8", errors="replace", env=git_env()).splitlines()
     except (OSError, subprocess.CalledProcessError) as exc:
         out.append("  SKIPPED - git failed in the donor (%s)" % exc)
         return None
@@ -352,16 +455,152 @@ def pass_citations(out):
     return bool(donor_has or nowhere)
 
 
+# ---------------------------------------------------------------------------
+def tool_set(root):
+    """{path under tools/} for every tools/*.py and tools/hooks/* file."""
+    tools = os.path.join(root, "tools")
+    found = set()
+    if os.path.isdir(tools):
+        found.update(n for n in os.listdir(tools)
+                     if n.endswith(".py") and os.path.isfile(os.path.join(tools, n)))
+    hooks = os.path.join(tools, "hooks")
+    if os.path.isdir(hooks):
+        found.update("hooks/" + n for n in os.listdir(hooks)
+                     if os.path.isfile(os.path.join(hooks, n)))
+    return found
+
+
+def donor_tools_changed():
+    """{path under tools/} the donor changed since LAST_SYNC, or None if git failed."""
+    try:
+        names = subprocess.check_output(
+            ["git", "-C", DONOR, "diff", "--name-only", LAST_SYNC, "HEAD", "--", "tools/"],
+            text=True, encoding="utf-8", errors="replace", stderr=subprocess.PIPE,
+            env=git_env()).splitlines()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {n[len("tools/"):] for n in names if n.startswith("tools/")}
+
+
+def pass_tools(out):
+    """Which donor tools are new, differ, or exist only here — beyond the declared?"""
+    out.append("")
+    out.append("== TOOLS (tools/*.py, tools/hooks/*) ==")
+    if not donor_ok(out):
+        return None
+    here, there = tool_set(REPO), tool_set(DONOR)
+    if not there:
+        out.append("  SKIPPED - the donor has no tools/*.py")
+        return None
+
+    new_there, only_here, both = there - here, here - there, here & there
+    same, adapted, differing = [], [], []
+    for name in sorted(both):
+        a = lf(os.path.join(REPO, "tools", *name.split("/")))
+        b = lf(os.path.join(DONOR, "tools", *name.split("/")))
+        if a == b:
+            same.append(name)
+        else:
+            (adapted if name in TOOLS_ADAPTED else differing).append(name)
+    new_undeclared = sorted(new_there - set(TOOLS_NOT_PORTED))
+    only_undeclared = sorted(only_here - set(TOOLS_LOCAL_ONLY))
+
+    out.append("  %d tool(s) here, %d there: %d identical, %d declared adapted, "
+               "%d declared not ported, %d declared local-only — silent"
+               % (len(here), len(there), len(same), len(adapted),
+                  len(new_there & set(TOOLS_NOT_PORTED)),
+                  len(only_here & set(TOOLS_LOCAL_ONLY))))
+
+    # Declarations that no longer describe the tree. NOTE, as the facts pass does.
+    for name in sorted(set(TOOLS_ADAPTED) & set(same)):
+        out.append("  NOTE      %-30s declared adapted but does NOT differ — the "
+                   "row may be obsolete" % name)
+    for name in sorted(set(TOOLS_ADAPTED) - both):
+        out.append("  NOTE      %-30s declared adapted but not present in both "
+                   "repos — the row may be obsolete" % name)
+    for name in sorted(set(TOOLS_NOT_PORTED) - new_there):
+        out.append("  NOTE      %-30s declared not ported but %s — the row may be "
+                   "obsolete" % (name, "present here" if name in here
+                                 else "the donor no longer has it"))
+    for name in sorted(set(TOOLS_LOCAL_ONLY) - only_here):
+        out.append("  NOTE      %-30s declared local-only but %s — the row may be "
+                   "obsolete" % (name, "the donor has it too" if name in there
+                                 else "absent here"))
+
+    recheck = []
+    changed = donor_tools_changed() if adapted else set()
+    if changed is None:
+        out.append("  ⚠️ RECHECK not run: `git diff %s HEAD` failed in the donor, so a "
+                   "fix landing there in a declared-adapted tool would go unseen"
+                   % LAST_SYNC)
+    else:
+        recheck = [n for n in adapted if n in changed]
+
+    for name in differing:
+        out.append("  DIFFERS   %-30s differs and is NOT declared — a donor fix not "
+                   "received, or an adaptation: port it, or add a TOOLS_ADAPTED row"
+                   % name)
+    for name in recheck:
+        out.append("  RECHECK   %-30s declared adapted, and the donor changed it since "
+                   "%s — carry the change, then keep the row" % (name, LAST_SYNC))
+    for name in new_undeclared:
+        out.append("  NEW THERE %-30s a donor tool this repo lacks — port it, or add a "
+                   "TOOLS_NOT_PORTED row" % name)
+    for name in only_undeclared:
+        out.append("  ONLY HERE %-30s not in the donor — propose it there, or add a "
+                   "TOOLS_LOCAL_ONLY row" % name)
+    found = bool(differing or recheck or new_undeclared or only_undeclared)
+    if not found:
+        out.append("  PASS - nothing undeclared")
+    if changed is None:
+        return True if found else None
+    return found
+
+
+def pass_mirror(out):
+    """Are the mirrored kit docs still the donor's bytes?"""
+    out.append("")
+    out.append("== MIRRORED DOCS (byte-identical by owner decision, 2026-09-18) ==")
+    if not donor_ok(out):
+        return None
+    bad = []
+    for rel in sorted(MIRRORED_DOCS):
+        mine = os.path.join(REPO, *rel.split("/"))
+        theirs = os.path.join(DONOR, *rel.split("/"))
+        if not os.path.isfile(theirs):
+            bad.append("  GONE THERE %-18s the donor no longer has it — drop the mirror "
+                       "or find where it moved" % rel)
+        elif not os.path.isfile(mine):
+            bad.append("  MISSING   %-18s mirrored by decision but absent here — copy "
+                       "the donor's bytes" % rel)
+        else:
+            with open(mine, "rb") as fh:
+                a = fh.read()
+            with open(theirs, "rb") as fh:
+                b = fh.read()
+            if a != b:
+                bad.append("  DRIFT     %-18s differs from the donor — a mirror takes no "
+                           "local edit: copy the donor's bytes, and make a change that "
+                           "belongs in both THERE first" % rel)
+    out.extend(bad)
+    if not bad:
+        out.append("  PASS - %d mirrored doc(s) match the donor byte for byte"
+                   % len(MIRRORED_DOCS))
+    return bool(bad)
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Read-only cross-repo sync report (SMR-OptInPack <- SMR-BugFixPack)")
     ap.add_argument("--facts", action="store_true", help="fact-mirror drift only")
     ap.add_argument("--donor-log", action="store_true", help="donor changes since LAST_SYNC")
     ap.add_argument("--citations", action="store_true", help="dangling-citation sweep only")
+    ap.add_argument("--tools", action="store_true",
+                    help="tools/ drift against the TOOLS_* ledger, plus the kit-doc mirror")
     ap.add_argument("--strict", action="store_true",
                     help="exit 1 when a pass reports something to adjudicate")
     args = ap.parse_args()
-    run_all = not (args.facts or args.donor_log or args.citations)
+    run_all = not (args.facts or args.donor_log or args.citations or args.tools)
 
     out = ["SYNC REPORT — this repo <- %s" % DONOR,
            "⛔ READ-ONLY. Nothing here was written, staged or copied. Every line "
@@ -373,6 +612,9 @@ def main():
         findings.append(pass_donor_log(out))
     if run_all or args.citations:
         findings.append(pass_citations(out))
+    if run_all or args.tools:
+        findings.append(pass_tools(out))
+        findings.append(pass_mirror(out))
 
     out.append("")
     if any(f is None for f in findings):

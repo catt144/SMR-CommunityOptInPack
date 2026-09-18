@@ -23,7 +23,7 @@ is a derived fact · everything else authored — this prompt included — is a 
 ## 0.5 · Run the helper FIRST — it does the mechanical half
 
 ```sh
-python tools/sync_from_fixpack.py          # all three passes, read-only in both repos
+python tools/sync_from_fixpack.py          # --facts, --donor-log, --citations, --tools; read-only in both repos
 ```
 
 It answers, by measurement rather than by reading:
@@ -36,6 +36,8 @@ It answers, by measurement rather than by reading:
 - **`--citations`** — §1's sweep, mechanised, with the presence control §1 demands already built in.
   Donor-owned names (WORKFLOW "Donor names"), shipped-game source and the placeholder examples in this
   prompt are counted, not listed.
+- **`--tools`** — which donor tools are new, differ or exist only here, apart from what its `TOOLS_*`
+  tables DECLARE, and whether the mirrored kit docs are still the donor's bytes. §2.5 adjudicates it.
 
 ⛔ **The helper finds CANDIDATES. It decides nothing** — it never writes, stages or copies, because
 "does this subject apply to this mod" is judgement. Everything below is how you adjudicate what it
@@ -85,6 +87,33 @@ the donor. Report only genuine gaps. Known and deliberately NOT gaps:
   purpose. **Flag them for the launch checklist; do not pull them now** — this mod is NOT PUBLISHED
   (`metadata.lua` version 0, `agent/STATE.md`), and a store draft pulled early goes stale.
 
+## 2.5 · Tools: what the donor built or fixed since (the helper's `--tools` pass, adjudicated)
+
+The owner, 2026-09-18: the sync covers tools too, "since we are often adding new tools".
+
+```sh
+python tools/sync_from_fixpack.py --tools   # tools/*.py + tools/hooks/*, then the kit-doc mirror
+```
+
+Give each finding one decision, in the commit that acts on it:
+- **Port.** Copy the donor's file, then change only what is repo-specific: the module token, paths,
+  this repo's lists. Whatever still differs gets a `TOOLS_ADAPTED` row saying why. A new tool's
+  header first line becomes its `tools/README.md` catalog row (`python tools/doccheck.py --regen`).
+- **Declare.** A donor tool this mod has no use for is a `TOOLS_NOT_PORTED` row with its reason; a
+  deliberate local difference is a `TOOLS_ADAPTED` row. ⛔ Never declare an unported donor fix: the
+  row would silence exactly what this pass exists to show.
+- **Propose to the donor.** A fix or tool that belongs in both (an `ONLY HERE`, or a row reading
+  "propose there") goes in the report; the donor is read-only from here.
+
+`NEW THERE` is a donor tool not here. `DIFFERS` is a shared tool differing with no row: a donor fix
+not received until shown otherwise. `RECHECK` is a declared adaptation the donor changed since
+`LAST_SYNC`: carry the change, keep the row. `NOTE` is a row that no longer matches the tree.
+`DRIFT`/`MISSING` concern `tools/TESTKIT.md` and `tools/SMRTK.md`, which are the donor's bytes by
+the owner's decision (2026-09-18, one kit serves every mod): re-copy them, and make a change that
+belongs in them in the donor first.
+
+⛔ When the sync completes, move `LAST_SYNC` to the donor HEAD you synced against, in that commit.
+
 ## 3 · Structure pass (only after §1 and §2)
 
 Cheap checks, report-only:
@@ -101,7 +130,8 @@ Cheap checks, report-only:
   change there, put it in the report and say so; a human carries it across.
 - **Copy verbatim or not at all.** A ported file is byte-identical; record its donor sha and md5 in
   the commit message, and move `LAST_SYNC` in that commit when a sync completes. Two identical
-  copies is the intended state; an edited copy is a fork nobody will notice.
+  copies is the intended state; an edited copy is a fork nobody will notice. A tool is the one
+  exception, and only through a declared `TOOLS_ADAPTED` row (§2.5).
 - The kernel's donor-name, archive, documentation-check and commit rules apply.
 
 ## 5 · Report
@@ -109,6 +139,7 @@ Cheap checks, report-only:
 1. §1 counts: citations checked · RESOLVES · **DANGLING-DONOR-HAS-IT** · DANGLING-NOWHERE · STALE.
 2. The DANGLING-DONOR-HAS-IT list, each with its citer and whether that citer is live work.
 3. §2 genuine gaps only, with the evidence that they are absent here.
+3a. §2.5 `--tools` findings, each with its decision: port, declare or propose to the donor.
 4. §3 findings, as proposals.
 5. Your presence-control from §1's warning — the check that proves your "not found"s mean something.
 6. What you could not determine. Say it plainly rather than rounding it to done.

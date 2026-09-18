@@ -30,6 +30,7 @@ Pack and identically without it. ⛔ **NOT PUBLISHED.**
 | engine behaviour | `docs/agent/facts/` — `EF-NNN`, **generated** `INDEX.md` |
 | process · code rules | `docs/agent/WORKFLOW.md` · `docs/agent/FIX_POLICY.md` |
 | cross-repo drift | `tools/sync_from_fixpack.py` — declared adaptations and last donor sync |
+| TestKit · SMRTK | `tools/TESTKIT.md` · `tools/SMRTK.md` — the fix pack's bytes, mirrored (one kit, every mod) |
 | prompts | `docs/agent/prompts/` — `perma/` standing, root = live one-offs |
 | human docs | `docs/` root only — never add a file there without the map row |
 

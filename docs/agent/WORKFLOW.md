@@ -19,8 +19,9 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
   none.
 - TestKit, never shipped and local-only by decision, shared with the fix pack:
   `C:\Dev\SMR-BugFixPack-TestKit`; a shared probe is changed once, there. Its README is the kit's
-  own build-state document; this mod's view is `tools/TESTKIT.md`, and the SMR Tool Kit plus its
-  sitting slots are the fix pack's `tools/SMRTK.md`.
+  own build-state document; the durable pack-side view is `tools/TESTKIT.md`, and the SMR Tool Kit
+  plus its sitting slots are `tools/SMRTK.md`. Both are the fix pack's bytes, mirrored (owner,
+  2026-09-18) and checked by `python tools/sync_from_fixpack.py --tools`: change them there first.
 - Sibling mods: the Relaunched Fix Pack `C:\Dev\SMR-BugFixPack` (its own docs) and the save-rescue
   tool `C:\Dev\SMR-CommunitySaveRescue` (design and status in the fix pack's `bugs/D13.md`;
   unpublished, held as a contingency).
@@ -293,6 +294,6 @@ fingerprint and re-derive only what moved; zero-trust re-derivation is the termi
 "The pack" means this mod unless the Relaunched Fix Pack is named. This file is the fix pack's
 WORKFLOW with this repo's names; a donor name left in it (a bare `F##`/`C##`/`PT-##`/`ck###`/`D13`,
 a `Fix_*.lua`, `PRIOR_ART_SURVEY.md`, `RELEASE_PORTAL_PREP.md`, `PARKED_OPTIN_REFERENCES.md`,
-`UPLOAD_WORKFLOW.md`, `SMRTK.md`) resolves in `C:\Dev\SMR-BugFixPack`. A cross-mod sweep searches
+`UPLOAD_WORKFLOW.md`) resolves in `C:\Dev\SMR-BugFixPack`. A cross-mod sweep searches
 those names as well as `SMRFixPack`/`Community`; `\bC[0-9]{2}\b` over-reports co-run corrections
 and audit ids, so it cannot supply a count by itself.
