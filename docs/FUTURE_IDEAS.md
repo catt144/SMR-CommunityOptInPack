@@ -509,3 +509,20 @@ read is an inference. ⚖️ **Fix pack ruling 2026-08-23 (owner):** naming the 
 when answering a reporter is fair and is not slander — protecting an
 unmaintained mod is not our job. That ruling covers issue replies; it is not a
 decision to build anything.
+
+## 11. Train stations that maintain themselves — a built-in short-range drone controller — parked 2026-09-18
+
+**What.** Give a train station its own drone controller with a short range, like the
+Commander's, so a station built far from the colony can service itself.
+
+**Why it is a good idea.** The owner, 2026-09-18, while building the train-test fixture: *"trains
+need to have a drone controller in range because they have no way of doing there own maintence.
+I think it might be useful to build in its own drone controller, with a short range similar to the
+commander."* A remote station shows "Too far from working Drone controller". The point of a train
+line is to reach places the drone network does not, and stations accumulate maintenance
+(`accumulate_maintenance_points = true`, `Lua/Buildings/Station.lua` on 1.1.0.403908).
+
+**Why it is parked.** Owner: note it, don't work on it now. Nothing is scoped or costed.
+
+**Where the material lives.** The train logistics spec,
+`docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`, whose tests surfaced it.
