@@ -449,7 +449,8 @@ in the log, so a slot replaces the typed T3 console lines above. Those lines sta
 The slots are **1** Read stations + trains (read-only, every `Station` and `Train` on the map);
 **2** Setup: +20 Metals here; **3** Setup: clear Metals here; **4** Act: click Metals row
 (`ToggleAcceptResource`, what the row calls, `sectionStorageRow.lua:42`); **5** Act: policy step
-+ reapply; **6** T4 dial 0/20/40/60; and **Scratch** Boot status (console, taint, eligibility).
++ reapply; **6** Run: 2 arrivals here (the watch); and **Scratch** Boot status (console, taint,
+eligibility). T4 has no slot. It uses item 4's console line.
 Pin X as A, H as B and P as C, so the DUMP lines tag them.
 
 **Procedure correction.** T3's clobber check needs **two** row clicks, not one. From enabled, a
@@ -458,8 +459,17 @@ click takes `SetAcceptResourceState`'s `"disabled"` branch, which only suspends 
 (`:1034-1039`) is the second click.
 
 Predictions. `sdes` is the supply request's desired amount, `ddes` the demand's, and `max` is
-`GetMaxStorageForAnyOneResource`. Every figure comes from slot 1's DUMP. The watch window is a
-variable: normal is two round trips of the train that serves the station, abort at 3×.
+`GetMaxStorageForAnyOneResource`. Every figure comes from slot 1's DUMP.
+
+**The watch unit is train arrivals, not human timing** (owner, 2026-09-18). Slot 6 arms a
+read-only Run trigger on the selected **end** station (X or P, never H) together with
+`run_until`, which runs the game fast and pauses when the trigger fires. Every 500 game-ms it
+polls every train and logs each arrival (`at_station` false → true, `Station.lua:1119`) and
+departure (true → false, `Train.lua:358`), with game-ms since arming and the Metals carried. It
+fires on the **second arrival at that station**, which is two round trips of a two-station
+route. The fired record also carries the pinned stations' state lines. One press is one
+window. Abort after three presses with no movement. Drones cannot be watched at that speed, so
+the drone half of T1 and T3 is read from `stored` in the DUMP.
 
 - **P0 (first screen):** the log carries `SMRTK_SLOTS sitting=train_tests_20260918`, and
   Scratch returns `taint` and `eligibility` read as separate dispatches.
@@ -492,8 +502,7 @@ variable: normal is two round trips of the train that serves the station, abort 
   policy to `send` with slot 5, then apply Expanded Warehousing with the Selected page's
   **Upgrade 1**. Predicted: `max` doubles, and `sdes=dial ddes=max−dial` returns while `raw`
   stays `send` (`MultiResourceDepot.lua:217-240`). This is §4.5's upgrade path.
-- **P4 (T4, slot 6):** the dial steps in quarters of the live `max`, with
-  `sdes=dial ddes=max−dial` at each step.
+- **P4 (T4, console, optional):** after item 4's `SetDesiredAmount`, `sdes=dial ddes=max−dial`.
 
 Stop on unexpected taint, a Lua error, or a DUMP read of `read=FAILED`. Do not rerun a test to get
 a preferred verdict.
