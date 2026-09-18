@@ -724,7 +724,6 @@ pack and confirm no `[CommunityOptInPack]` line and no `[LUA ERROR]` mentions th
 (`:892-901`) names all three of `DroneOverhaul`, `CohortHousing` and `NoHomeless` — so that probe
 will assert toggles the pack no longer declares. D06 never had a probe of its own.
 
-⛔ **The kit is SHARED with the fix pack and kit edits are owner-gated** — fix pack checklist item
-**83**, which deliberately stayed on the fix pack's list because kit changes land in ITS tree
-(`docs/DECISIONS_OWED.md`, the table at the top). Nothing in the kit was touched. **This is the
-owner's call and it is the one piece of fallout from the ruling that is still outstanding.**
+The kit is **SHARED** with the fix pack; kit work follows `tools/TESTKIT.md` and `tools/SMRTK.md`
+(the fix pack's permissions), and the kit is never committed from a pack lane. Nothing in the kit
+was touched. Removing these three orphaned probes is kit-lane work, not an owner decision.
