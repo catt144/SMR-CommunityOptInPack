@@ -19,7 +19,7 @@ judgement, and cut every line a named skill or the worker's own judgement alread
   named files, scope, checks, and a clear focus.
 - Unsure which: it is an investigation if the answer is not known when the brief is written.
 - **An effort over about two sessions** is a chain of briefs: read
-  `docs/agent/reports/CHAIN_METHOD.md` before splitting it.
+  `docs/agent/support/CHAIN_METHOD.md` before splitting it.
 
 ## Every brief
 

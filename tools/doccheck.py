@@ -105,14 +105,9 @@ GENERAL_USE_MAX_LINES = 220
 # authority mechanism: it makes "where does this rule live" a question with an
 # answer, and it is what stops rules breeding in prose.
 #
-# ⛔ ONE DELIBERATE DIFFERENCE FROM THE DONOR, recorded in PROVENANCE §8.
-# The donor's style regex requires a trailing `[A3: pass]` tag — the marker its
-# one-time census left on each rule its owner adjudicated. That audit ran on
-# ITS text, not ours, and the tags were deliberately NOT copied here. This
-# repo's census ran on 2026-09-17, but its brief reserved adoption of the tag
-# for a separate owner answer. Until that answer, enforce the structural half
-# (placement, uniqueness, style and caps) without manufacturing the tag. If
-# adopted, add `\ \[A3: pass\]` to RULE_STYLE_RE; RULE_DUTY_RE stays as it is.
+# Every rule carries the donor's trailing `[A3: pass]` tag, adopted by owner
+# ruling 2026-09-17 because this repo's own census (cdce060) is the pass it
+# records. RULE_STYLE_RE and RULE_DUTY_RE are the donor's forms.
 #
 # ⚠️ The list is the documents that carry a header TODAY, not an aspiration.
 # Adding a file here forces it to grow a block, so a name lands here only when
@@ -135,12 +130,12 @@ KERNEL_HEADER_FILE = "CLAUDE.md"
 RULE_START = "<!-- RULES -->"
 RULE_END = "<!-- /RULES -->"
 RULE_HEADING = "## Must_Read_Header"
-# A canonical rule is a plain imperative sentence ending in a period. No bold,
-# no emoji, and none of MUST/NEVER/ALWAYS: a rule that has to shout is a rule
-# that has not been written precisely enough, and the shouting does not survive
-# being quoted somewhere else.
-RULE_STYLE_RE = re.compile(r"^Rule: \S.*\.$")
-RULE_DUTY_RE = re.compile(r"^Rule: (.+)\.$")
+# A canonical rule is a plain imperative sentence ending in a period, then the
+# tag. No bold, no emoji, and none of MUST/NEVER/ALWAYS: a rule that has to
+# shout is a rule that has not been written precisely enough, and the shouting
+# does not survive being quoted somewhere else.
+RULE_STYLE_RE = re.compile(r"^Rule: \S.*\. \[A3: pass\]$")
+RULE_DUTY_RE = re.compile(r"^Rule: (.+) \[A3: pass\]$")
 RULE_EMOJI_RE = re.compile("[☀-➿️\U0001f000-\U0001faff]")
 RULE_FORBIDDEN = {
     "AGENTS.md",  # generated mirror of CLAUDE.md, not a second surface

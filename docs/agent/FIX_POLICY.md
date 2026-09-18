@@ -2,8 +2,9 @@
 
 ## Must_Read_Header
 <!-- RULES -->
-Rule: Keep §4-donor verbatim and unedited; it is the fix pack's text and it is what decides whether a proposal belongs in that mod rather than this one.
-Rule: Read §4 as inverted for this mod, whose product is opinionated behaviour, and apply §1, §2, §3, §3a, §6 and §7 as the donor wrote them.
+Rule: Keep §4-donor verbatim and unedited; it is the fix pack's text and it is what decides whether a proposal belongs in that mod rather than this one. [A3: pass]
+Rule: Read §4 as inverted for this mod, whose product is opinionated behaviour, and apply §1, §2, §3, §3a, §6 and §7 as the donor wrote them. [A3: pass]
+Rule: Do not build a fix for a version players cannot play; a defect that lives only in a save Steam and console cannot load stops before the build brief. [A3: pass]
 <!-- /RULES -->
 
 Rules for every module in this mod, in priority order. The goal: maximum

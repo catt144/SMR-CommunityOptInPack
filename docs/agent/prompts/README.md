@@ -2,7 +2,7 @@
 
 ## Must_Read_Header
 <!-- RULES -->
-Rule: Keep `docs/agent/prompts/` to mapped prompts, its README map, and mapped live-chain evidence and README files; put supporting documents in `docs/agent/reports/`.
+Rule: Keep `docs/agent/prompts/` to mapped prompts, its README map, mapped live-chain evidence and README files; put supporting documents in `docs/agent/support/`. [A3: pass]
 <!-- /RULES -->
 
 Structure carried from the fix pack's `prompts/README.md` on 2026-09-17
@@ -16,7 +16,7 @@ session do a job: the human classification and map-description review remain.
 |---|---|---|
 | **`perma/`** | reusable standing prompts | `prompt-authoring` |
 | root `*.md` | live one-off prompts, not yet fired or kept by an owner ruling | `prompt-authoring` |
-| chain folders | live multi-link efforts; mapped evidence and README files may stay while live | `reports/CHAIN_METHOD.md` |
+| chain folders | live multi-link efforts; mapped evidence and README files may stay while live | `support/CHAIN_METHOD.md` |
 
 **This map lists live prompts only.** A fired one-off leaves no tombstone; its outcome already
 lives in its report or entry, and the grave is available through
@@ -45,7 +45,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 ## Chain folders
 
 *None live.* A chain folder appears here while its links are live and leaves `prompts/` when the
-effort closes (`agent/reports/CHAIN_METHOD.md` is the method for an effort over about two sessions).
+effort closes (`agent/support/CHAIN_METHOD.md` is the method for an effort over about two sessions).
 
 ## Authoring
 

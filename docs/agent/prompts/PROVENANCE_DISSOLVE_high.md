@@ -155,6 +155,10 @@ Add one line pointing at the new tool for the part now mechanical.
 fact mirror. Editing it widens the drift your own new tool measures. Either declare the edit in
 `LOCAL_ADAPTATIONS` in the same commit, or leave the citation and say why.
 
+⚠️ **A kernel rule names it**: `CLAUDE.md`'s *"Preserve the exact bytes of every persisted name
+listed in `docs/agent/PROVENANCE.md` §…"* — repoint its path to the §2 block's new home in the
+commit that moves §2. That path is the only change licensed on a rule line.
+
 ⚠️ **Skills and the kernel cite it**: `CLAUDE.md`/`AGENTS.md`, `smr-orientation`, `doc-editing`,
 `doc-surgeon`, all four perma prompts. `AGENTS.md` and `.agents/skills/` are GENERATED — edit the
 source and `--regen`, never the mirror.

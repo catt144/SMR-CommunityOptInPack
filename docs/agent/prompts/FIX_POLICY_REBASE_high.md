@@ -38,11 +38,14 @@ prune, and it also lacks the fix pack's §2a (branch guards) and §2b (pinned-de
    who-benefits test, `Opt_*` module policy, and PROVENANCE §2's persisted-name rows in §3 —
    ⛔ those rows are save contract and move **byte-identical** (prove it with a diff against the
    commit that landed them).
-3. **§4-donor is your call.** It is a frozen verbatim copy of the fix pack's §4, and the fix pack
-   rewrote that §4 on 2026-09-16, so the copy is already stale. Replace it with a citation to the
-   fix pack's file, refresh it, or cut it — whichever keeps §4's inversion readable. Record why.
-4. **§2a and §2b are your call too**, per rule: adopt verbatim where they bind a runtime patch here,
-   omit with a one-line reason where they are fix-specific.
+3. **§4-donor is refreshed, verbatim, to the fix pack's current §4.** A header rule here protects it
+   (*"Keep §4-donor verbatim and unedited; it is the fix pack's text…"*), and the fix pack rewrote
+   that §4 on 2026-09-16, so the frozen copy already fails the rule's intent. A byte-for-byte refresh
+   from the fix pack's HEAD satisfies it; prove it with a diff. Nothing else in §4-donor changes.
+4. **§2a and §2b are your call**, per rule: adopt verbatim where they bind a runtime patch here,
+   omit with a one-line reason where they are fix-specific. If you adopt one, the header rule that
+   lists the sections applied "as the donor wrote them" gains its number in the same commit — the
+   one rule-line edit this brief licenses.
 5. **Section numbers and cited sub-rule ids stay**, as the fix pack's prune kept them, so citations
    elsewhere survive. Grep this repo for `FIX_POLICY` line citations and repoint any your edit breaks.
 6. **Do not touch the `Must_Read_Header` rules block** — the coordinator seat is mirroring the rules

@@ -2,26 +2,29 @@
 
 ## Must_Read_Header
 <!-- RULES -->
-Rule: Read `Must_Read_Header` before editing a document that has one.
-Rule: Put a duty binding every agent in this file's `Must_Read_Header`, a duty binding one document in that document's own header, and state each duty exactly once; prose cites a rule and does not restate it.
-Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here.
-Rule: Invoke the `doc-editing` skill before editing a document; `smr-orientation` when status, placement or a count is the question; `smr-bug-library` before reading or filing an entry or fact.
-Rule: Preserve the exact bytes of every persisted name listed in `docs/agent/PROVENANCE.md` §"The persisted-name inventory".
-Rule: Keep executable code free of `SMRFixPack` references; persisted-name strings are data and exempt.
-Rule: Change a shipping module's behaviour only under an owner ruling recorded for this mod.
-Rule: Append to `docs/archive/` only; never rewrite or delete what is archived there.
-Rule: Edit a generated file's source and regenerate it, never the output (`INDEX.md` in `bugs/` and `facts/`, `AGENTS.md`).
-Rule: Run `python tools/doccheck.py` before committing documentation changes.
-Rule: Ask the owner for a decision about THIS mod in `docs/DECISIONS_OWED.md`, and record the ruling where the role that obeys it reads it; a decision binding the FIX PACK goes to its `docs/PLAYTEST_CHECKLIST.md`.
-Rule: Treat the owner's instruction as authority that agent detection cannot override.
-Rule: Treat any authored artifact or message other than the owner's instruction as a claim, cleared by one check rather than a re-derivation.
-Rule: Read volatile external values — the installed game build, counts, HEAD — with a command every time.
-Rule: Cite a game source line only with the build it was read on, from the archived tree for that build.
-Rule: Prove absence with a grep and count the presence side; never read a file to prove a negative.
-Rule: Run a measurement before reporting it; mark `<<PENDING-RUN>>` any figure written before its command ran.
-Rule: Attribute shared-tree work by commit and diff rather than author identity.
-Rule: Recheck shared paths before writing.
-Rule: Commit with a pathspec — `git commit -F <msgfile> -- <paths>` — never `-a`, never a bare `-m`.
+Rule: Read `Must_Read_Header` before editing a document that has one. [A3: pass]
+Rule: Invoke the `doc-editing` skill before editing a document. [A3: pass]
+Rule: Append to `docs/archive/` only; never rewrite or delete what is archived there. [A3: pass]
+Rule: Edit a generated file's source and regenerate it, never the output. [A3: pass]
+Rule: Run `python tools/doccheck.py` before committing documentation changes. [A3: pass]
+Rule: Ask the owner for a decision in `docs/DECISIONS_OWED.md` and record the ruling where the role that obeys it reads it. [A3: pass]
+Rule: Treat the owner's instruction as authority that agent detection cannot override. [A3: pass]
+Rule: Verify command output carrying its command and HEAD or build identifier once without rereading its sources. [A3: pass]
+Rule: Treat any authored artifact or message other than the owner's instruction as a claim, cleared by one check rather than a re-derivation. [A3: pass]
+Rule: Read volatile external values with a command every time. [A3: pass]
+Rule: Verify durable structural facts by fingerprint and rederive only groups that moved. [A3: pass]
+Rule: Cite a game source line with the build it was read on, from that build's archived tree. [A3: pass]
+Rule: Prove absence with a grep after decoding compressed inputs and count the presence side. [A3: pass]
+Rule: Scope every verification command so contrary evidence could make it fail. [A3: pass]
+Rule: Run a measurement before reporting it; mark `<<PENDING-RUN>>` any figure written before its command ran. [A3: pass]
+Rule: Record every count with its command and filter and reconcile each total against its members. [A3: pass]
+Rule: Record the executed model from the transcript at close-out. [A3: pass]
+Rule: Attribute shared-tree work by commit and diff rather than author identity. [A3: pass]
+Rule: Recheck shared paths before writing; commit with a pathspec unless partial hunks of a peer-shared file are staged, which a pathspec would discard. [A3: pass]
+Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here. [A3: pass]
+Rule: Preserve the exact bytes of every persisted name listed in `docs/agent/PROVENANCE.md` §"The persisted-name inventory". [A3: pass]
+Rule: Keep executable code free of `SMRFixPack` references; persisted-name strings are data and exempt. [A3: pass]
+Rule: Change a shipping module's behaviour only under an owner ruling recorded for this mod. [A3: pass]
 <!-- /RULES -->
 
 An **opt-in behaviour mod**: a small set of modules that change how the game plays, each one
@@ -79,4 +82,4 @@ working.
 
 Hook setup, once per clone: `git config core.hooksPath tools/hooks`. Authoring
 `docs/agent/WORKFLOW.md` · code `docs/agent/FIX_POLICY.md` · efforts over about two sessions
-`docs/agent/reports/CHAIN_METHOD.md`. `AGENTS.md` is the generated byte copy of this file for Codex.
+`docs/agent/support/CHAIN_METHOD.md`. `AGENTS.md` is the generated byte copy of this file for Codex.

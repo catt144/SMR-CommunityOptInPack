@@ -32,7 +32,7 @@ current status and holds.
 | prompt or brief | `prompt-authoring` |
 | tooling | `tools/README.md`; provenance ledger until its queued dissolution |
 | launch preparation | STATE launch list, `WORKFLOW.md` release sections, upload preflight, fix-pack parked-reference restore |
-| effort over about two sessions | `reports/CHAIN_METHOD.md` |
+| effort over about two sessions | `support/CHAIN_METHOD.md` |
 | STATE size warning | `STATE_EVICTION.md` |
 
 ## Owner boundary

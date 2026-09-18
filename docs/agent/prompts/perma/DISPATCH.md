@@ -51,7 +51,7 @@ Fix Pack. `CLAUDE.md` supplies the always-loaded rules and two bans. `docs/READM
 | whole-mod launch | STATE launch list, `WORKFLOW.md` release sections, fix-pack parked-reference restore |
 | owner's mechanical pack/upload | fix pack `docs/UPLOAD_WORKFLOW.md`, after upload preflight |
 | drone system | `DRONE_OVERHAUL_OPTIONS.md` and `SEED_LOGISTICS_HANDOFF.md`; currently parked |
-| effort over about two sessions | `reports/CHAIN_METHOD.md` |
+| effort over about two sessions | `support/CHAIN_METHOD.md` |
 | STATE size warning | `STATE_EVICTION.md` |
 
 ## Stops

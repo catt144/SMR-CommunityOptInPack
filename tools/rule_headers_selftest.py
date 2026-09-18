@@ -47,8 +47,8 @@ CLEAN_KERNEL = """# Scratch kernel
 
 ## Must_Read_Header
 <!-- RULES -->
-Rule: Read the header before editing a document that has one.
-Rule: Run the checker before committing.
+Rule: Read the header before editing a document that has one. [A3: pass]
+Rule: Run the checker before committing. [A3: pass]
 <!-- /RULES -->
 
 Prose that states no duty.
@@ -58,9 +58,13 @@ CLEAN_MAP = """# Prompt map
 
 ## Must_Read_Header
 <!-- RULES -->
-Rule: Keep every prompt reachable from this map.
+Rule: Keep every prompt reachable from this map. [A3: pass]
 <!-- /RULES -->
 """
+
+# Every fixture Rule: line carries the tag, so each case below plants exactly
+# one defect; `untagged` plants the missing tag itself.
+CHECKER = "Rule: Run the checker before committing. [A3: pass]"
 
 
 def clean_git_env():
@@ -154,61 +158,66 @@ def main():
 
     two_blocks = dict(base)
     two_blocks["CLAUDE.md"] = CLEAN_KERNEL + "\n## Must_Read_Header\n" \
-        "<!-- RULES -->\nRule: A second block is not allowed.\n<!-- /RULES -->\n"
+        "<!-- RULES -->\nRule: A second block is not allowed. [A3: pass]\n" \
+        "<!-- /RULES -->\n"
     case("two header blocks in one doc", two_blocks, True,
          "must contain exactly one ordered")
 
     state = dict(base)
-    state["docs/agent/STATE.md"] = "# State\n\nRule: Status is not law.\n"
+    state["docs/agent/STATE.md"] = "# State\n\nRule: Status is not law. [A3: pass]\n"
     case("Rule line in STATE.md", state, True,
          "STATE.md must contain zero Rule lines")
 
     archived = dict(base)
-    archived["docs/archive/SESSION_LOG.md"] = "# Log\n\nRule: History is not law.\n"
+    archived["docs/archive/SESSION_LOG.md"] = \
+        "# Log\n\nRule: History is not law. [A3: pass]\n"
     case("Rule line on an archived surface", archived, True,
          "forbidden on generated or archived surfaces")
 
     generated = dict(base)
-    generated["docs/agent/bugs/INDEX.md"] = "GENERATED\n\nRule: Not here either.\n"
+    generated["docs/agent/bugs/INDEX.md"] = \
+        "GENERATED\n\nRule: Not here either. [A3: pass]\n"
     case("Rule line on a generated index", generated, True,
          "forbidden on generated or archived surfaces")
 
     shouty = dict(base)
     shouty["CLAUDE.md"] = CLEAN_KERNEL.replace(
-        "Rule: Run the checker before committing.",
-        "Rule: You MUST run the checker before committing.")
+        CHECKER, "Rule: You MUST run the checker before committing. [A3: pass]")
     case("malformed — shouting (MUST)", shouty, True, "malformed canonical Rule")
 
     bolded = dict(base)
     bolded["CLAUDE.md"] = CLEAN_KERNEL.replace(
-        "Rule: Run the checker before committing.",
-        "Rule: **Run** the checker before committing.")
+        CHECKER, "Rule: **Run** the checker before committing. [A3: pass]")
     case("malformed — bold", bolded, True, "malformed canonical Rule")
 
     emoji = dict(base)
     emoji["CLAUDE.md"] = CLEAN_KERNEL.replace(
-        "Rule: Run the checker before committing.",
-        "Rule: ⛔ Run the checker before committing.")
+        CHECKER, "Rule: ⛔ Run the checker before committing. [A3: pass]")
     case("malformed — emoji", emoji, True, "malformed canonical Rule")
 
     nofullstop = dict(base)
     nofullstop["CLAUDE.md"] = CLEAN_KERNEL.replace(
-        "Rule: Run the checker before committing.",
-        "Rule: Run the checker before committing")
+        CHECKER, "Rule: Run the checker before committing [A3: pass]")
     case("malformed — no terminating period", nofullstop, True,
+         "malformed canonical Rule")
+
+    untagged = dict(base)
+    untagged["CLAUDE.md"] = CLEAN_KERNEL.replace(
+        CHECKER, "Rule: Run the checker before committing.")
+    case("malformed — no [A3: pass] tag", untagged, True,
          "malformed canonical Rule")
 
     dupe = dict(base)
     dupe["docs/agent/prompts/README.md"] = CLEAN_MAP.replace(
-        "Rule: Keep every prompt reachable from this map.",
-        "Rule: Run   the checker   before committing.")
+        "Rule: Keep every prompt reachable from this map. [A3: pass]",
+        "Rule: Run   the checker   before committing. [A3: pass]")
     case("duplicate duty across two headers (whitespace/case folded)", dupe,
          True, "duplicate canonical duties")
 
     oversize = dict(base)
     filler = "\n".join(
-        "Rule: Pad the header past its hard cap with sentence number %d." % i
-        for i in range(120))
+        "Rule: Pad the header past its hard cap with sentence number %d. [A3: pass]"
+        % i for i in range(120))
     oversize["CLAUDE.md"] = CLEAN_KERNEL.replace("<!-- /RULES -->",
                                                  filler + "\n<!-- /RULES -->")
     case("kernel header over its hard byte cap", oversize, True,
@@ -218,7 +227,7 @@ def main():
     # line appears rather than asserting failure. Proving the distinction is
     # the point: a misplaced rule is reported without blocking a commit.
     stray = dict(base)
-    stray["docs/agent/WORKFLOW.md"] = "# Workflow\n\nRule: A stray duty in prose.\n"
+    stray["docs/agent/WORKFLOW.md"] = "# Workflow\n\nRule: A stray duty in prose. [A3: pass]\n"
     case("Rule line outside any header is WARNed, not RED", stray, False,
          "RULE PLACEMENT: WARN")
 
