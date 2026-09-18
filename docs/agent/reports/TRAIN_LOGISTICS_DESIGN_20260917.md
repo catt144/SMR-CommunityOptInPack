@@ -678,7 +678,7 @@ game the owner plays is Relaunched, at `A:\SteamLibrary\steamapps\common\Project
 - The spot and footprint data sit in the binary `BinAssets.fpk:entities.dat`, which has not
   been decoded.
 - Reference images and the asset's layout requirements for the owner are outside both repos,
-  at `C:\Dev\SMR-TrainHubAssetseference\` (game art, local only).
+  at `C:\Dev\SMR-TrainHubAssets\reference\` (game art, local only).
 
 **Unknowns this pipeline leaves open, each decisive for OPTION 3:**
 - Can a mod's `.ent` reference a mesh that exists only inside `Packs\Meshes.hpk`? This decides
