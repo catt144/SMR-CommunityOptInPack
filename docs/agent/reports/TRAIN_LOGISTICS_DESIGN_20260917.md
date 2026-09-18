@@ -423,6 +423,43 @@ needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human d
 7. **Paradox patch notes / dev diaries** on the 1.1.0 station change — external, not checked.
    Would settle §1's intent inference.
 
+### 7.1 The SMRTK sitting for T1–T4 (predictions written before boot, 2026-09-18)
+
+The slots are preloaded in the TestKit's `Code/80_AgentSlots.lua` (owner ruling 2026-09-18,
+that file only), on TestKit `382c667` plus that rewrite and pack `56a77e8`. Every leaf was read on
+1.1.0.403908 (`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src`). Each press is MARK → act → DUMP → MARK
+in the log, so a slot replaces the typed T3 console lines above. Those lines stay as the fallback.
+The slots are **1** Read stations + trains (read-only, every `Station` and `Train` on the map);
+**2** Setup: +20 Metals here; **3** Setup: clear Metals here; **4** Act: click Metals row
+(`ToggleAcceptResource`, what the row calls, `sectionStorageRow.lua:42`); **5** Act: policy step
++ reapply; **6** T4 dial 0/20/40/60; and **Scratch** Boot status (console, taint, eligibility).
+Pin X as A, H as B and P as C, so the DUMP lines tag them.
+
+**Procedure correction.** T3's clobber check needs **two** row clicks, not one. From enabled, a
+click takes `SetAcceptResourceState`'s `"disabled"` branch, which only suspends the request
+(`Station.lua:1046-1050`). The `"store"` branch that rewrites both desired amounts from the dial
+(`:1034-1039`) is the second click.
+
+Predictions. `sdes` is the supply request's desired amount, `ddes` the demand's, and `max` is
+`GetMaxStorageForAnyOneResource`. Every figure comes from slot 1's DUMP. The watch window is a
+variable: normal is two round trips of the train that serves the station, abort at 3×.
+
+- **P0 (first screen):** the log carries `SMRTK_SLOTS sitting=train_tests_20260918`, and
+  Scratch returns `taint` and `eligibility` read as separate dispatches.
+- **P1 (T1, slot 4 on X):** `en=false`, `pol=send` (`Station.lua:1079-1081`). Over the window,
+  X's `stored` falls and Y's rises by the same amount plus or minus `in_trains`, and
+  `colony_total` does not change. No drone delivers Metals to X.
+- **P2 (T2, slot 3 on every station but X, slot 2 on X):** P or Q `stored > 0` within the window.
+  The cross-or-parallel layout of H's connectors is a screenshot, not a DUMP.
+- **P3 (T3, slot 5 on a station on `default`):** the 1st press gives `pol=send sdes=max ddes=0`,
+  the 2nd `pol=accept sdes=0 ddes=max`, and the 3rd `pol=default sdes=dial ddes=max−dial`
+  (`Station.lua:964-994`). Behaviour is as in item 3. **Clobber:** slot 4 twice leaves `raw`
+  unchanged but resets `sdes=dial ddes=max−dial`.
+- **P4 (T4, slot 6):** `sdes=dial ddes=max−dial` at each step.
+
+Stop on unexpected taint, a Lua error, or a DUMP read of `read=FAILED`. Do not rerun a test to get
+a preferred verdict.
+
 ---
 
 ## 8 · Binding constraints for whoever builds this
