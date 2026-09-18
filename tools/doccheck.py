@@ -1670,6 +1670,46 @@ def required_selftest(filename, out):
     return False
 
 
+def flpk_selftest(out):
+    """Run flpk_extract.py's falsifier as a gate, for the reason it exists.
+
+    The pack reader had no fixture, and its nested-directory defect read 56
+    entries out of a 54-entry pack for a day. The two phantom names were
+    blamed on packaging, `STATE.md` recorded an "UNEXPLAINED" gap, and a
+    session concluded the only way to settle it was re-downloading the pack --
+    all from a parser bug a 40-line fixture catches. Needs no game tree: the
+    arenas are built in memory, so there is no "cannot run" case.
+    ⇒ An instrument whose output is used to SKIP evidence gets a fixture.
+
+    Ported from SMR-BugFixPack @ 6cda0ac with this repo's discipline: absent
+    or unrunnable is RED, not "not checked" -- `pack_list.py` imports the
+    parser, and only a spawn failure is caught, so a coding error here raises.
+    """
+    tool = os.path.join(REPO, "tools", "flpk_extract.py")
+    if not os.path.isfile(tool):
+        out.append("FLPK SELFTEST: RED — tools/flpk_extract.py is absent "
+                   "(pack_list.py imports its parser)")
+        return False
+    try:
+        p = subprocess.run([sys.executable, tool, "--selftest"],
+                           capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", timeout=60)
+    except (OSError, subprocess.SubprocessError) as exc:
+        out.append("FLPK SELFTEST: RED — could not run (%s)" % exc)
+        return False
+    if p.returncode == 0:
+        out.append("FLPK SELFTEST: PASS (nested + shallow; the pack reader "
+                   "owns every descendant span)")
+        return True
+    out.append("FLPK SELFTEST: RED — flpk_extract --selftest FAILED (exit %d) "
+               "-- every pack listing, entry count and alias claim read through "
+               "this parser is untrustworthy until it is green. Full output:"
+               % p.returncode)
+    out.extend("         " + line for stream in (p.stdout, p.stderr)
+               for line in (stream or "").splitlines())
+    return False
+
+
 def _rule_text(rel):
     """Read one Markdown file with line endings normalized for byte checks."""
     with open(os.path.join(REPO, *rel.split("/")), encoding="utf-8-sig",
@@ -1894,6 +1934,7 @@ def main():
     ok = required_selftest("prompt_map_selftest.py", out) and ok
     ok = required_selftest("repair_pass_selftest.py", out) and ok
     ok = required_selftest("counts_selftest.py", out) and ok
+    ok = flpk_selftest(out) and ok
     ok = check_tools_catalog(out) and ok
     ok = eol_report(out) and ok
     ok = check_state(out) and ok

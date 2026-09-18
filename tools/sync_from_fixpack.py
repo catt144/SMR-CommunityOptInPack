@@ -197,7 +197,7 @@ def pass_facts(out):
                    "(EF ids are allocated there — this is the normal direction)" % name)
     for name in only_here:
         out.append("  ONLY HERE %-16s not in the donor — it should be filed "
-                   "THERE first (WORKFLOW reading path 2)" % name)
+                   "THERE first (the smr-bug-library skill)" % name)
     if not (differing or new_there or only_here):
         out.append("  PASS - the mirror matches, apart from %d declared adaptation(s)"
                    % len(expected))

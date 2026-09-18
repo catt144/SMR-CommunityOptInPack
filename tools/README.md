@@ -133,9 +133,9 @@ Donor sha for every row: `SMR-BugFixPack` @ `bec2e06d` (v5 closed, 2026-08-30).
 | `tools/l6_promise_map.py` | ADAPTED | token rename + `Opt_` added to the filename derivation; census 5 (site fix list) N/A while parked |
 | `tools/l8_hostile_input.py` | ADAPTED | token rename; module trio = `Opt_ClassicRockets`, `Opt_DroneStatDials`, `Opt_NoHomeless`; control case vetoes `ClassicRockets` |
 | `tools/l8_deference_map.py` | NOT PORTED | quarantined in the donor (TA-3) until repaired there |
-| `docs/agent/reports/CHAIN_METHOD.md` | VERBATIM (re-sync) | method, not content — §5a and the commit-the-folder rule arrive |
-| `docs/agent/facts/` | VERBATIM (re-sync) | 7 donor-updated shared facts taken whole (EF-008/023/039/051/054/055/056); EF-057…068 added; this repo's old EF-057/058 are now EF-061/062 (their donor ids). ⛔ ids are allocated by the fix pack from here on (`WORKFLOW.md` reading path 2) |
-| `docs/agent/prompts/DISPATCH.md`, `STATE_EVICTION.md` | ADAPTED | this repo's paths, bans, route table; the playtest prompt stays single-sourced in the fix pack |
+| `docs/agent/support/CHAIN_METHOD.md` | VERBATIM (re-sync) | method, not content — §5a and the commit-the-folder rule arrive |
+| `docs/agent/facts/` | VERBATIM (re-sync) | 7 donor-updated shared facts taken whole (EF-008/023/039/051/054/055/056); EF-057…068 added; this repo's old EF-057/058 are now EF-061/062 (their donor ids). ⛔ ids are allocated by the fix pack from here on (the `smr-bug-library` skill) |
+| `docs/agent/prompts/perma/DISPATCH.md`, `STATE_EVICTION.md` | ADAPTED | this repo's paths, bans, route table; the playtest prompt stays single-sourced in the fix pack |
 | `docs/agent/WORKFLOW.md`, `FIX_POLICY.md` | ADAPTED | rules carried, each marked with its donor date and this repo's state at adoption (listed in the report §4) |
 | `.claude/settings.json` | ADAPTED | the donor's read-only git allowances, plus this repo's |
 

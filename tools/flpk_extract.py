@@ -13,7 +13,6 @@ ZSTD wrapper: 'ZSTD' | u32 decompressedSize | u32 chunkSize (0x400) |
 """
 import io, os, struct, sys
 import zstandard
-import sys
 
 # The Windows console defaults to cp1252 and this tool prints the project's
 # non-ASCII vocabulary; without this it dies on its own output.
@@ -22,13 +21,23 @@ try:
 except (AttributeError, OSError):
     pass
 
-
 ZMAGIC = b"\x28\xb5\x2f\xfd"
 
 def parse_table(buf, table_off, table_size, dir_off, prefix, out):
+    """-> every table span this table's SUBTREE occupies, so the caller can
+    skip all of it.
+
+    ⛔ A child's declared `size` does not always cover its own descendants'
+    bytes. Claiming only the immediate child let the parent's scan resume
+    INSIDE a grandchild table and read those records again under the parent's
+    prefix — v10's pack read 56 entries where 54 shipped, and the two phantoms
+    were blamed on packaging for a day (`reports/DOC_OVERHAUL_AUDIT.md` §1).
+    Falsifier: `tools/flpk_nested_selftest.py` (a nested fixture must NOT
+    yield the shallow name, and the shallow control must still pass).
+    """
     p = table_off
     end = table_off + table_size
-    skip = []  # child-table ranges claimed by dir entries in THIS table
+    skip = []  # table ranges claimed by THIS table's subtree, descendants included
     while p + 12 <= end:
         if any(a <= p < b for a, b in skip):
             p += 1
@@ -42,10 +51,12 @@ def parse_table(buf, table_off, table_size, dir_off, prefix, out):
         if flags == 0x01:
             child = dir_off + off
             skip.append((child, child + size))
-            parse_table(buf, child, size, dir_off, prefix + name + "/", out)
+            skip.extend(parse_table(buf, child, size, dir_off,
+                                    prefix + name + "/", out))
         else:
             out.append((prefix + name, flags, off, size))
         p += 16 + namelen
+    return skip
 
 def extract(fpk_path, out_root):
     buf = open(fpk_path, "rb").read()
@@ -87,7 +98,50 @@ def extract(fpk_path, out_root):
             f.write(data)
         print(f"  {relpath}  ({len(data)} bytes)")
 
+def _selftest():
+    """The falsifier for parse_table's descendant-span ownership.
+
+    Two hand-built directory arenas. SHALLOW is the control — it passed while
+    the defect was live, so a fixture that only runs it tests nothing. NESTED
+    is the demand: a grandchild table lying OUTSIDE its parent's declared
+    `size` must be claimed by the subtree, never re-read under the parent's
+    prefix. Record layout: u32 off | u32 packed | u32 size | name | u32 extra,
+    packed = (nameLen << 24) | (flags << 16); dir offsets are dir_off-relative.
+    """
+    def rec(name, flags, off, size):
+        nb = name.encode()
+        return (struct.pack("<III", off, (len(nb) << 24) | (flags << 16), size)
+                + nb + b"\0\0\0\0")
+
+    def shallow():                      # root -> dir a -> file x
+        a_tbl = rec("x", 0x10, 0xDEAD, 7)
+        root = rec("a", 0x01, len(rec("a", 0x01, 0, 0)), len(a_tbl))
+        return root + a_tbl, ["a/x"]
+
+    def nested():                       # root -> dir a -> dir b -> file x,
+        root0 = rec("a", 0x01, 0, 0)    # with b's table AFTER a's own span
+        a_off = len(root0)
+        b_off = a_off + len(rec("b", 0x01, 0, 0))
+        b_tbl = rec("x", 0x10, 0xBEEF, 7)
+        a_tbl = rec("b", 0x01, b_off, len(b_tbl))
+        return (rec("a", 0x01, a_off, len(a_tbl)) + a_tbl + b_tbl), ["a/b/x"]
+
+    ok = True
+    for label, build in (("shallow (control)", shallow), ("nested (demand)", nested)):
+        buf, expect = build()
+        out = []
+        parse_table(buf, 0, len(buf), 0, "", out)
+        got = sorted(n for n, *_ in out)
+        good = got == sorted(expect)
+        ok = ok and good
+        print("  %-4s %-20s got %s" % ("PASS" if good else "FAIL", label, got))
+    return ok
+
+
 if __name__ == "__main__":
+    if "--selftest" in sys.argv[1:]:
+        print("flpk_extract --selftest: parse_table descendant-span ownership")
+        sys.exit(0 if _selftest() else 1)
     src_root, out_base = sys.argv[1], sys.argv[2]
     for item in sorted(os.listdir(src_root)):
         fpk = os.path.join(src_root, item, "ModContent.fpk")
