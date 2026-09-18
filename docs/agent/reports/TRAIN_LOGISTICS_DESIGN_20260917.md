@@ -463,11 +463,21 @@ variable: normal is two round trips of the train that serves the station, abort 
 
 - **P0 (first screen):** the log carries `SMRTK_SLOTS sitting=train_tests_20260918`, and
   Scratch returns `taint` and `eligibility` read as separate dispatches.
-- **P1 (T1, slot 4 on X):** `en=false`, `pol=send` (`Station.lua:1079-1081`). Over the window,
-  X's `stored` falls and Y's rises by the same amount plus or minus `in_trains`, and
-  `colony_total` does not change. No drone delivers Metals to X.
-- **P2 (T2, slot 3 on every station but X, slot 2 on X):** P or Q `stored > 0` within the window.
-  The cross-or-parallel layout of H's connectors is a screenshot, not a DUMP.
+- **Fixture (owner, 2026-09-18):** the owner's colony has a regular station connected to a
+  large one. That pair is route A: X is the regular station and H the large one, so T1's Y is H.
+  One new regular station P, on H's **other** track pair, makes route B, and T2 needs no Q.
+  Every station has track points 1–4 (`Station.lua:61-62`, no template override). The regular
+  station holds 60 per resource and the large one 120 (`StationBig.lua:33`), and Expanded
+  Warehousing doubles both. ⛔ **Balancing alone moves Metals.** Trains share a resource by
+  capacity (§3), so with Metals enabled X settles near its capacity share (about ⅓ of the
+  route-A total, with neither station upgraded). T1 therefore runs a **control phase first**:
+  X stocked, Metals enabled, two watch windows, the settled share read.
+- **P1 (T1, slot 4 on X, after the control):** `en=false`, `pol=send` (`Station.lua:1079-1081`).
+  X's `stored` then goes to **zero**, below its settled share, which is the forbidden branch
+  and not balancing. H gains the difference plus or minus `in_trains`, and `colony_total` does
+  not change. No drone delivers Metals to X.
+- **P2 (T2, slot 3 on H and P, slot 2 on X):** P's `stored > 0` within the window. Only route B
+  serves P. The cross-or-parallel layout of H's connectors is a screenshot, not a DUMP.
 - **P3 (T3, slot 5 on a station on `default`):** the 1st press gives `pol=send sdes=max ddes=0`,
   the 2nd `pol=accept sdes=0 ddes=max`, and the 3rd `pol=default sdes=dial ddes=max−dial`
   (`Station.lua:964-994`). Behaviour is as in item 3. **Clobber:** slot 4 twice leaves `raw`
