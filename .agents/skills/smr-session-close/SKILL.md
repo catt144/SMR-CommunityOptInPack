@@ -60,8 +60,10 @@ successor launch, assign each old block and new finding:
    Hand off the remaining filing decision and link, not the findings.
 
 File dormant mechanisms with their reopening conditions; once homed, remove them from the handoff.
-Do not keep reminders solely to prevent rediscovery. Link only what the next action needs. Remove
-duplicate tellings and settled split/absence notices once existing routes suffice; preserve any live
+Do not keep reminders solely to prevent rediscovery. Use the gated `docs/agent/prompts/README.md`
+map instead of a hand-kept prompt list, and existing fact and owner sources instead of repeating
+their summaries. Link only what the next action needs. Remove duplicate tellings and settled
+split/absence notices once existing routes suffice; preserve any live
 obligation or owner-required notice.
 
 Use plain headings, short paragraphs and clickable Markdown links. Avoid decorative emojis and

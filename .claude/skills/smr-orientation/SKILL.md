@@ -1,6 +1,6 @@
 ---
 name: smr-orientation
-description: Orient at the start of a session in the Relaunched Fix Pack Opt-In Modules repo — where the mod stands, where things live, the two bans, how to search the archive on purpose, and which numbers must be emitted rather than typed. Use when starting work here, picking up a handoff, or before quoting a count, build id, or status.
+description: Orient at the start of a session in the Relaunched Fix Pack: Opt-In Modules repo — where the mod stands, where things live, the two bans, how to search the archive on purpose, and which numbers must be emitted rather than typed. Use when starting work here, picking up a handoff, or before quoting a count, build id, or status.
 ---
 
 # Orientation — Relaunched Fix Pack: Opt-In Modules
