@@ -1,11 +1,15 @@
 # Dissolve `docs/agent/PROVENANCE.md` — rehome what is live, script what is mechanical, delete the rest
 
-**Authored 2026-09-17 at `1ae0d85`.** Staleness check before trusting a figure below:
+**Authored 2026-09-17 at `1ae0d85`; destinations revised at `cdce060` for the standardisation
+ruling.** Staleness check before trusting a figure below:
 
 ```sh
 git log --oneline -5 && git pull
-git diff --stat 1ae0d85..HEAD -- docs/agent/PROVENANCE.md docs/agent/facts/ tools/ items.lua metadata.lua
+git diff --stat cdce060..HEAD -- docs/agent/PROVENANCE.md docs/agent/facts/ tools/ items.lua metadata.lua
 ```
+
+A rules-mirror commit from the fix-pack seat (canonical `Rule:` lines restyled with `[A3: pass]`)
+may land before you fire; it touches headers, not PROVENANCE, and does not invalidate this brief.
 
 Empty diff ⇒ every measurement here holds. Non-empty ⇒ re-run the two commands in §2 first.
 
@@ -32,6 +36,14 @@ agent-facing.
 
 ⛔ **The file is going away. That is decided.** What is open is only *where each live piece lands*
 and *what the sync tool checks* — both yours to decide as you go, recorded in the commit message.
+
+⚖️ **Owner, 2026-09-17 — this repo standardises on the fix pack.** *"Same folder names, same file
+names wherever possible. The only things that should be different are the repo specific things."*
+This repo is a fork of the fix pack, so every destination below is the name the fix pack uses for
+the same function. Do not coin a file or folder name; where the fix pack has no home for a piece,
+stop and report rather than inventing one. It also means PROVENANCE's other job — recording which
+parts came from the fix pack — needs no successor: the default answer is now "the frame did", and
+`LOCAL_ADAPTATIONS` in the sync tool holds the exceptions.
 
 ⛔ **MODULE FREEZE is not in play** — but see stop 1: two SHIPPING files cite this document.
 
@@ -72,12 +84,12 @@ Section sizes measured 2026-09-17. **Everything not listed here is deleted, not 
 |---|---|---|
 | **§2** persisted-name inventory | 6,543 | ⛔ **`FIX_POLICY.md` §3 "Savegame discipline"** — ⚠️ CHANGED 2026-09-17, do not use the old `support/SAVE_CONTRACT.md` plan. The donor's `support/` is defined by its own README as *prompt-supporting documents* — procedures a prompt consumes — and a frozen table of strings is not one. §3 already delegates to this inventory at `FIX_POLICY.md:212` (*"must then be added to…"*), so the rule and its data simply stop being in two files. Highest-stakes move in the job — see stop 1 |
 | **§6** the tooling ledger | 3,988 | → `tools/README.md` (exists since `4eaf9ae`; its prose is hand-authored, its rows generated). **Repoint the ~10 script headers that cite `PROVENANCE §6`** — they are why `tools/README.md` echoes that string ten times |
-| **§4** how to run the suite | 1,503 | → `docs/agent/support/` or WORKFLOW's testing section. Your call. It is the only home for `SMRTest.OptStatus`/`OptMissing`/`FromOptInPack`, the SKIP-not-FAIL rule, the two gate lines and the full-token grep rule |
+| **§4** how to run the suite | 1,503 | → **`tools/TESTKIT.md`**, created here. That is the fix pack's name for exactly this function — *"the pack-side view of the companion mod that measures the pack"*, one kit serving every mod (`C:\Dev\SMR-BugFixPack\tools\TESTKIT.md`, "One kit, three mods"). Take that file's shape; carry only this mod's side. §4 is the only home for `SMRTest.OptStatus`/`OptMissing`/`FromOptInPack`, the SKIP-not-FAIL rule, the two gate lines and the full-token grep rule. `tools/README.md`'s catalog is generated from `tools/*.py` only, so a `.md` there needs no row |
 | §1, §5, §7, §8, §9 | 15,599 | the port ledger → **§4 of this brief** (a tool + a gate), then DELETE |
 | **§3** display-name sweep | 1,617 | DELETE. Settled 2026-08-13, the strings were swept the same day and no longer exist, one of them in `Opt_NoHomeless.lua` which was deleted 2026-09-17. It also carries a `~~strikethrough~~` tombstone of exactly the kind this repo bans elsewhere |
 
-⛔ **`support/` not `reports/`** — reports are explicitly not authority (`WORK_PROMPT.md` §5) and
-save contract is. The test is in `docs/README.md` "Where new things go".
+§2 lands in the section the fix pack names for it; a separate `FIX_POLICY` rework brief follows this
+one and is told to keep §2's rows verbatim, so land them as one contiguous block it can find.
 
 ---
 
@@ -168,9 +180,9 @@ four times in one day; §5 is 39 chances to repeat it.
 
 ## 7 · Scope
 
-**In:** `docs/agent/PROVENANCE.md`; new files under `docs/agent/support/`; `tools/README.md`,
-`tools/sync_facts.py`, its selftest, and the script headers citing §6; `docs/README.md` and
-`CLAUDE.md` where they name the file; every citation in §5.
+**In:** `docs/agent/PROVENANCE.md`; `FIX_POLICY.md` §3 (landing §2 only); a new `tools/TESTKIT.md`;
+`tools/README.md`, `tools/sync_from_fixpack.py`, its selftest, and the script headers citing §6;
+`docs/README.md` and `CLAUDE.md` where they name the file; every citation in §5.
 
 **Out:** module behaviour, persisted-name VALUES, `docs/agent/bugs/` and `facts/` content beyond
 the citation repoints, and `KNOWLEDGE_SYNC_PASS.md`'s own sweep.
