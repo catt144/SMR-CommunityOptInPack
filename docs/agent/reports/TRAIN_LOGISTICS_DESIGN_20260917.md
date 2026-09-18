@@ -667,6 +667,19 @@ headless with the shipped exporter looks feasible. That is programming, not mode
 has not been tried. A capability comparison with Codex was drafted for the owner to run. Its
 discriminating questions are scripted Blender and whether a mod can reference a packed mesh.
 
+**Relaunched correction, read 2026-09-18.** Everything above describes the classic install. The
+game the owner plays is Relaunched, at `A:\SteamLibrary\steamapps\common\Project Spark`.
+- Its packs are `.fpk`, which `tools/flpk_extract.py` reads.
+- Its meshes are `.hgrm`.
+- Its `ModTools\Docs\ModItemEntity.md.html` imports **FBX from Blender** through the Mod
+  Editor's ArtSpec item.
+- The station textures are `Station_*`. The passage hub body uses `NewDomes_*` and its glass
+  `DomeGlass_*` (`Materials.fpk`).
+- The spot and footprint data sit in the binary `BinAssets.fpk:entities.dat`, which has not
+  been decoded.
+- Reference images and the asset's layout requirements for the owner are outside both repos,
+  at `C:\Dev\SMR-TrainHubAssetseference\` (game art, local only).
+
 **Unknowns this pipeline leaves open, each decisive for OPTION 3:**
 - Can a mod's `.ent` reference a mesh that exists only inside `Packs\Meshes.hpk`? This decides
   whether 3b is possible.
