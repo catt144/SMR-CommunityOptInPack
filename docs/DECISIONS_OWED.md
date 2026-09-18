@@ -45,6 +45,46 @@ two lists can never collide no matter how far the fix pack's numbering runs.
 
 ---
 
+### 2026-09-17 — OI-10 OPEN: two new train modules — build them, and on what terms?
+
+> Raised by the owner, 2026-09-17, after asking what it would take to restore the station
+> resource sliders 1.1.0 removed. The full spec is
+> `agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`; everything in it is **desk-read, game
+> never launched**. Nothing was built and no module exists. MODULE FREEZE holds.
+
+OI-10. **Do we build a per-resource station logistics module and a train junction hub?**
+
+    **What was found.** 1.1.0 did not delete the station slider — it gated it off for stations
+    alone, behind one condition, and force-flushed the stored value with a savegame fixup. More
+    usefully: the owner's own import/export design is **already written into the game and never
+    wired up**. `transport_policy[res]` (default/send/accept) exists per resource, is consumed by
+    live code, and its two branches carry vanilla comments describing exactly the owner's design —
+    but its cycler has no callers, and a third state on a neighbouring function is never passed.
+    Separately, a junction on open track is architecturally closed (track hexes are degree-≤2), but
+    a junction at a *building* is not — and 1.1.0 shipped `PassageHub` as the developers' own
+    precedent for exactly that shape.
+
+    **Five decisions, each with options and a recommendation in the spec's §6:**
+    (1) which module first — **recommend A phase 1** (per-resource import), the half that rides
+    existing mechanism; (2) where its values persist — **recommend** vanilla `transport_policy` for
+    direction plus **one** new field for amounts; (3) the hub's model — ⛔ **left UNKNOWN by the
+    owner**, options run from a pure code mod referencing `PassageHub`'s art by name, through a new
+    `.ent`, to shipping a mesh; **recommend the code-only route**; (4) asset posture — **recommend
+    staying a pure runtime patch**, with a separate mod as the escape hatch; (5) hub scope —
+    **recommend interchange only**, no route-model change.
+
+    ⚠️ **The counter-argument, which the spec does not dismiss.** Nothing in this repo is
+    re-verified on 1.1.0, D01 is overtaken with **OI-01** still open, **OI-03**/**OI-04** are open,
+    and the shared TestKit carries orphaned probes from the 09-17 retirement. Two new modules grow
+    an untested set. "Park both until the seven survivors are re-verified" is a live option.
+
+    ⭐ **Two cheap tests come before any build, and neither needs code.** Disabling a resource at a
+    station already routes through the export branch, and a station using both connector pairs may
+    already interchange cargo between two routes. Either result changes the scope. Spec §7.
+
+    ⛔ **Ban 1 bites here:** any new persisted field name is permanent from the first save that sees
+    it. That naming is part of this decision, not of the build.
+
 ### 2026-09-17 — ⚖️ RULED BY THE OWNER: OI-09 — agent docs may be cut hard; deleted, not re-archived
 
 > **The ruling, 2026-09-17 (owner), on option (a).** Agent-facing documents may be machine-tuned
