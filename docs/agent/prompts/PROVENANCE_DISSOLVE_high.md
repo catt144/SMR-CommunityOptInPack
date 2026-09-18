@@ -11,6 +11,16 @@ Empty diff ⇒ every measurement here holds. Non-empty ⇒ re-run the two comman
 
 ---
 
+## 0 · ⛔ SEQUENCING — run `RULES_CENSUS_high.md` FIRST
+
+⚖️ Owner, 2026-09-17: the census runs before this job, *"because i think alot of that will touch
+those surfaces"*. It is right — this job folds §2 into `FIX_POLICY` §3 and repoints citations in
+`STATE.md`, and the census rewrites both. Firing this first means working against a moving target.
+
+⛔ If the census has not landed, stop and say so.
+
+---
+
 ## 1 · Authority — settled, do not re-argue
 
 ⚖️ **Owner, 2026-09-17, verbatim:** *"I would honestly like it to just go away. If it has usual
@@ -61,7 +71,7 @@ Section sizes measured 2026-09-17. **Everything not listed here is deleted, not 
 
 | section | B | disposition |
 |---|---|---|
-| **§2** persisted-name inventory | 6,543 | ⛔ **`docs/agent/support/SAVE_CONTRACT.md`.** Highest-stakes move in the job — see stop 1 |
+| **§2** persisted-name inventory | 6,543 | ⛔ **`FIX_POLICY.md` §3 "Savegame discipline"** — ⚠️ CHANGED 2026-09-17, do not use the old `support/SAVE_CONTRACT.md` plan. The donor's `support/` is defined by its own README as *prompt-supporting documents* — procedures a prompt consumes — and a frozen table of strings is not one. §3 already delegates to this inventory at `FIX_POLICY.md:212` (*"must then be added to…"*), so the rule and its data simply stop being in two files. Highest-stakes move in the job — see stop 1 |
 | **§6** the tooling ledger | 3,988 | → `tools/README.md` (exists since `4eaf9ae`; its prose is hand-authored, its rows generated). **Repoint the ~10 script headers that cite `PROVENANCE §6`** — they are why `tools/README.md` echoes that string ten times |
 | **§4** how to run the suite | 1,503 | → `docs/agent/support/` or WORKFLOW's testing section. Your call. It is the only home for `SMRTest.OptStatus`/`OptMissing`/`FromOptInPack`, the SKIP-not-FAIL rule, the two gate lines and the full-token grep rule |
 | §1, §5, §7, §8, §9 | 15,599 | the port ledger → **§4 of this brief** (a tool + a gate), then DELETE |
