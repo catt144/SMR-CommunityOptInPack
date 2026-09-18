@@ -122,6 +122,7 @@ GENERAL_USE_MAX_LINES = 220
 # runs over every tracked Markdown file regardless.
 RULE_HEADER_DOCS = (
     "CLAUDE.md",
+    "docs/agent/FIX_POLICY.md",
     "docs/agent/prompts/README.md",
 )
 RULE_HEADER_WARN_BYTES = 1024

@@ -3,6 +3,8 @@
 ## Must_Read_Header
 <!-- RULES -->
 Rule: Read `Must_Read_Header` before editing a document that has one.
+Rule: Put a duty binding every agent in this file's `Must_Read_Header`, a duty binding one document in that document's own header, and state each duty exactly once; prose cites a rule and does not restate it.
+Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here.
 Rule: Invoke the `doc-editing` skill before editing a document; `smr-orientation` when status, placement or a count is the question; `smr-bug-library` before reading or filing an entry or fact.
 Rule: Append to `docs/archive/` only; never rewrite or delete what is archived there.
 Rule: Edit a generated file's source and regenerate it, never the output (`INDEX.md` in `bugs/` and `facts/`, `AGENTS.md`).

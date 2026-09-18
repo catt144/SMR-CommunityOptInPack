@@ -17,12 +17,12 @@
 >    this repo's. `PLAYTEST_HELP.md` was dissolved there on 2026-09-15.
 > 4. **Both mods loaded:** the standing rule below is this repo's twin of the donor's clause.
 > 5. **Release:** use this document's opt-in-specific release duties, not the donor's release list.
-> 6. **Donor names and figures:** bare `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`,
+> 6. **Donor names and figures in this document** are `BUG_LIST_AUDIT.md`, `PLAYTEST_ARCHIVE.md`,
 >    `AUDIT_FINDINGS.md`, `PRIOR_ART_SURVEY.md`, `DRONE_RESEARCH_BRIEF.md`, `CORUN_RIG_SPEC.md`,
 >    `MOD_DESCRIPTION.md`, `F86_EXECUTION_PLAN.md`, every `F##`/`C##`/`D13`, `Fix_*.lua`, and donor
->    site/module counts resolve under `C:\Dev\SMR-BugFixPack`, never here. A future cross-mod sweep
->    searches those names as well as `SMRFixPack`/`Community`; `\bC[0-9]{2}\b` over-reports co-run
->    corrections and audit ids, so it cannot supply a count by itself.
+>    site/module counts. Where they resolve is the kernel's rule, not restated here. A future
+>    cross-mod sweep searches those names as well as `SMRFixPack`/`Community`; `\bC[0-9]{2}\b`
+>    over-reports co-run corrections and audit ids, so it cannot supply a count by itself.
 >
 > “The pack” means this mod unless the Relaunched Fix Pack is named explicitly. Pre-split records
 > use older names; translate them mentally and do not edit them.

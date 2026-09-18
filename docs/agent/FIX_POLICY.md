@@ -1,5 +1,11 @@
 # Fix Policy — how we patch
 
+## Must_Read_Header
+<!-- RULES -->
+Rule: Keep §4-donor verbatim and unedited; it is the fix pack's text and it is what decides whether a proposal belongs in that mod rather than this one.
+Rule: Read §4 as inverted for this mod, whose product is opinionated behaviour, and apply §1, §2, §3, §3a, §6 and §7 as the donor wrote them.
+<!-- /RULES -->
+
 Rules for every module in this mod, in priority order. The goal: maximum
 compatibility with other mods and future game patches, zero edits to game files.
 
@@ -25,13 +31,13 @@ compatibility with other mods and future game patches, zero edits to game files.
 > 4. §1, §2, §3, §3a, §6, §7 are **unchanged and fully binding** — they are
 >    about the engine and about save safety, and this mod patches the same
 >    engine and writes into the same saves.
-> 5. **Bare names inside donor clauses are the FIX PACK's** (marked 2026-09-01 by a
->    contamination audit; report deleted 2026-09-17, findings homed — `git log -S`):
->    every `Fix_*.lua`, every `F##`/`C##` id, `D13`, `F86_ADJUDICATION.md`,
->    `F86_EXECUTION_PLAN.md`, `SAVE_SAFETY_REDESIGN.md`, `PRIOR_ART_SURVEY.md`,
->    `REACHABILITY_AUDIT.md` resolve under `C:\Dev\SMR-BugFixPack` — this repo
->    holds none of them. They are cited as the LESSONS that produced a rule, and
->    the rules bind here; the files are read there.
+> 5. **The donor names appearing in these clauses** (marked 2026-09-01 by a
+>    contamination audit; report deleted 2026-09-17, findings homed — `git log -S`)
+>    are every `Fix_*.lua`, every `F##`/`C##` id, `D13`, `F86_ADJUDICATION.md`,
+>    `F86_EXECUTION_PLAN.md`, `SAVE_SAFETY_REDESIGN.md`, `PRIOR_ART_SURVEY.md`
+>    and `REACHABILITY_AUDIT.md`. They are cited as the LESSONS that produced a
+>    rule, and the rules bind here; the files are read there. Where they resolve
+>    is the kernel's rule, not restated here.
 
 ## 1. Choose the least invasive technique that works
 
