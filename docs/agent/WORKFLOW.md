@@ -76,6 +76,13 @@ invisible to the runtime self-checks.
 1. Re-extract `Packs\Lua.fpk` (`tools/flpk_extract.py`) and diff it against the new Src tree.
 2. This repo has none of the fix pack's body, arity or tree-diff instruments (`FIX_POLICY.md`'s
    adaptation note): every module target is re-read in both trees' bodies.
+3. The 1.0.7 → 1.1.0 diff is already analysed in the fix pack, under
+   `C:\Dev\SMR-BugFixPack\docs\agent\reports\`: `GAME_1_1_0_AUDIT.md` and `GAME_1_1_0_IMPACT.md`
+   (what the patch changed), `VANILLA_DIFF_DISPOSITION.md`, `PACK_1_1_0_REVERIFICATION.md`, and the
+   precomputed `vanillahunt\*.tsv` tables (files, function inventory, callers, presets). Read those
+   before sweeping either tree; a bare `reports/GAME_1_1_0_*` or `PACK_1_1_0_*` citation in a
+   mirrored fact resolves there.
+   This repo's own module re-read is `reports/MODULE_REVALIDATION_1_1_0.md`.
 
 What an instrument licenses. On its output alone you may state exactly four things: a pinned body's
 bytes did or did not change; a named arity did or did not change; a stated regex is or is not
