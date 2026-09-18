@@ -702,6 +702,19 @@ Cargo crossing was not directly witnessed: drones confounded it, and the case re
 shared station storage. The five must-pass checks for the next hub build are listed in
 `TRAIN_HUB_PROTOTYPE_20260918.md` §"Sitting 2 teardown and reload, and the verdict".
 
+**Owner ruling, 2026-09-18 (OI-15): the asset has six connectors (three lines).** Eventually
+the owner would also like to offer a **four-connector (two-line) asset** "if it's easy". Design
+consequences for the real hub build:
+- Connector count and line geometry live in one shared base, and each size is a thin subclass
+  with its own template. A four-connector hub is then additive. It needs no migration and no
+  change to the six's names.
+- Class and template names become save contract once a kept save sees them (ban 1). Name both
+  sizes up front, even if only the six ships first.
+- Each asset's footprint must reach the last hex along each of its lines, because a connector
+  must sit inside the footprint (`Tracks.lua:19-24`). On a hex grid, two lines cross at 60°.
+- The four differs from vanilla's large station, whose two lines run parallel, by being a
+  crossing. Each size owes its own sitting and its own ship test (`FIX_POLICY` §8).
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 
