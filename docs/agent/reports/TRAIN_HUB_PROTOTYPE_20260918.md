@@ -176,3 +176,33 @@ route stations, H and the trains does not exceed the post-setup total. **A rise 
 voids the leg**, because drones fed Metals in and the leg cannot show a crossing through H. It
 then has to be rerun with end stations outside drone range. Source: one line A end. B: a line B
 end. C: a line C end. Every other route station and H are cleared first.
+
+### Sitting 2 cargo leg: INCONCLUSIVE (orchestrator read, 2026-09-18)
+
+Same log, lines 1040–1334.
+
+- **Attempt 1 is void.** Slot 6 armed at `t=360360670` with every route station at 0 and the
+  source at 60 (ids 349–413). A save cancelled both the witness and Run Until at `t=361375966`
+  (`DISARM reason=SaveGameStart`, ids 414–415), and the witness never fired. H also read
+  `enabled=false` for Metals at both of its reads (ids 250 and 419), so no Metals could have
+  crossed H in that attempt. The log does not show who switched it off. For roughly two game
+  sols in this period, the owner's console switched every drone hub and shuttle hub off. That
+  was a setup mutation; the owner reversed it when colonists began to starve. The console lines
+  themselves are not logged.
+- **Attempt 2 fired, but its reading does not discriminate.** Metals was on at H (id 476). The
+  owner restocked the source `StationSmall(10099)` from 0 to 60 (id 432), and slot 6 armed with
+  `b_before=0 c_before=0` (id 436). The trigger fired after **24000 game-ms** at sol 504:
+  `b_after=1 c_after=4` (id 440). **No pre-arm station read exists for this attempt.** The clear
+  command's `[HUBTEST]` line is absent, and slot 1 did not run before arming. After the fire
+  (ids 448–479), the seven route stations held 43 in total: source 32, the two middle stations on
+  line B 2 and 4, B 1, C 4, and the line A and C far ends 0 each. H held 0 and every train
+  carried 0. The off-hub `StationSmall(4782)` had risen from 0 (id 352) to 6. Drones were on.
+- **Why it does not count.** The pre-registered conservation control catches drones adding
+  Metals. It does **not** catch drones moving Metals from one station to another inside the
+  fixture, and that path is open here. Every end station is in drone range, 17 of the source's 28
+  departed units are missing from stations and trains, an off-network station gained 6, and H,
+  the one station out of drone range, held 0 at the read. INFERRED, not measured: drones filled
+  B and C directly from the source. Nothing in this log shows a Metals unit leaving H on a
+  different route from the one it arrived on.
+- **Still standing from sitting 2:** R2-a over open ground, R2-b and R2-c all pass. So do three
+  routes through H with trains, with 0 Lua errors. Teardown and reload are NOT RUN.
