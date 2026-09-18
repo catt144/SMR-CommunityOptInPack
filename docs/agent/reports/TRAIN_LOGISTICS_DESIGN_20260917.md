@@ -439,8 +439,8 @@ needs `[RAN <date>, log <name>]` (`WORKFLOW.md`) before it goes into any human d
   in-place `ReloadLua`.
 - **F110** — no per-game runtime global in a `Require` block.
 - **FIX_POLICY §8** — the both-configuration ship test is owed at ship for every module.
-- ⚠️ The shared TestKit is **DO NOT EDIT** (fix pack checklist 83) and already carries
-  orphaned probes from the 09-17 retirement.
+- ⚠️ The shared TestKit follows the fix pack's permissions (`tools/TESTKIT.md`, `tools/SMRTK.md`)
+  and already carries orphaned probes from the 09-17 retirement.
 
 ---
 

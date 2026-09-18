@@ -183,9 +183,9 @@ collision; `DroneControl.AddBuilding/RemoveBuilding` BLOCKS is the tool's closur
    restart + load-clean) and 8 (both-configuration, `FIX_POLICY` §8) are the ones that turn the
    disclaimer's two gated sentences (spec §7) from designed into witnessed. **Until they run,
    those two sentences do not ship.**
-4. **The D06 `RunAll` probe** — designed in spec §8a, **built only if checklist 83 authorises a
-   TestKit edit** (the kit is SHARED with the fix pack). Its vanilla-control clause is mandatory
-   and D12's is the model. If 83 is unruled, file the design and move on; do not touch the kit.
+4. **The D06 `RunAll` probe** — designed in spec §8a, **built only within the TestKit permissions
+   in `tools/TESTKIT.md` and `tools/SMRTK.md`** (the kit is SHARED with the fix pack). Its vanilla-control clause is mandatory
+   and D12's is the model. If those files do not allow it, file the design and move on; do not touch the kit.
 5. **PT-52's archival** — spec §7 gives the edit; it is the owner's checklist to apply. **Propose
    it, do not apply it.**
 
@@ -199,7 +199,7 @@ and the two allowlist retirements, the D06 entry, the disclaimer text into
 **design**.
 **OUT:** D08 · D09 · F77 · seed logistics (`FUTURE_IDEAS.md` #7, `DRONE_OVERHAUL_OPTIONS.md`
 §I/§K) · any second module · sub-toggles of any kind (ONE TOGGLE, ALL OR NOTHING — settled
-07-31) · TestKit edits without checklist 83 · applying PT-52's archival · the
+07-31) · TestKit edits beyond `tools/TESTKIT.md` and `tools/SMRTK.md` · applying PT-52's archival · the
 `blocking_analysis.py` closure-blindness fix (filed, spec §11) · re-designing anything the spec
 settled. **Found something interesting out of scope → file it, stop.**
 
@@ -249,7 +249,7 @@ result commit; `MOD_DESCRIPTION.md` disclaimer landed with the owner's wording;
 `STATE.md` kernel line updated (byte cap — **evict, do not compress**);
 `archive/SESSION_LOG.md` leg (newest first, `tags:`); any new checklist asks filed on the fix
 pack with their numbers on `STATE.md`'s open-decisions line; `doccheck` GREEN in **both** repos;
-push both (and the TestKit if it was touched with checklist 83's go); **`git rm` THIS file in
+push both (never the TestKit: it has no remote and is never committed from a pack lane); **`git rm` THIS file in
 the close-out commit and name the grave**
 (`git show <sha>:docs/agent/prompts/DRONE_REBUILD_BUILD.md`).
 The summary to the owner ends with what is still owed — the playtest steps not yet run, the

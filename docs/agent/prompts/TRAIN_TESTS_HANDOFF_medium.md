@@ -46,14 +46,15 @@ call in the commit message.
 ## Scope
 
 In: running and recording §7 T1–T4, and amending the spec and OI-10 to match.
-Out: any `Code/` edit, the shared TestKit (DO NOT EDIT, fix pack checklist 83), and the Codex
+Out: any `Code/` edit, shared-TestKit work beyond what `tools/TESTKIT.md` and `tools/SMRTK.md` allow (the fix pack's permissions), and the Codex
 capability comparison, which is the owner's own action (see Loose ends).
 
 ## Stops
 
 - A console line fails in the sandbox: record it and report. Do not route around it with mod code.
 - T2 fails: stop before any prototype work, and put the re-scope to the owner.
-- Anything needs a `Code/` or TestKit edit: stop. That is an owner call.
+- Anything needs a `Code/` edit, or TestKit work those two files do not allow: stop. That is an
+  owner call.
 
 ## Do not claim
 
