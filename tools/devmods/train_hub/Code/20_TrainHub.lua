@@ -29,7 +29,7 @@
 local Floor = SMROptInTrainFloor
 
 DefineClass.SMROptInTrainHubBase = {
-	__parents = { "Station", "DroneControl" },
+	__parents = { "Station", "DroneControl", "ElectricityProducer" },
 
 	-- Geometry. `hub_connector_directions[i]` is connector i's local hex
 	-- direction 0..5. Pair order is load-bearing: (1,2), (3,4), (5,6) are the
@@ -49,10 +49,13 @@ DefineClass.SMROptInTrainHubBase = {
 	OnPinClicked = DroneControl.OnPinClicked,
 	starting_drones = 2,
 	show_service_area = true,
+	show_range = true,
 	service_area_min = 10,
 	service_area_max = 20,
 	work_radius = 10,
 	charging_stations = false,
+	electricity_consumption = 10000,
+	electricity_production = 70000,
 
 	-- Maintenance reserve: this many maintenances' worth of the maintenance
 	-- resource is held back from trains and drones (10_TrainFloor.lua).
@@ -60,14 +63,55 @@ DefineClass.SMROptInTrainHubBase = {
 }
 
 -- `sectionCustom` looks up an XTemplate named for the template's object_class.
--- This is the vanilla Drone Hub status section, narrowed to the two rows that
--- apply here: drone count in the title and load in the body. The service-area
--- section and its slider are already supplied by ipBuilding when
--- `show_service_area` is true.
-if XTemplates and not XTemplates.customSMROptInTrainHub6Base then
+-- Reuse the vanilla Drone Hub's prefab controls and status presentation. The
+-- inherited DroneControl methods perform the actual unpack/pack operations;
+-- this template adds no state and no persisted name. The service-area section
+-- and slider are supplied by ipBuilding, while `show_range` makes the selected
+-- building use vanilla's RangeHexRadius overlay.
+local function ensure_hub_infopanel()
+	if not XTemplates or XTemplates.customSMROptInTrainHub6Base then return end
 	PlaceObj("XTemplate", {
 		group = "Infopanel Sections",
 		id = "customSMROptInTrainHub6Base",
+		PlaceObj("XTemplateWindow", {
+			"__class", "InfopanelButton",
+			"RolloverText", T(8460, "Unpack an existing Drone Prefab to build a new Drone. Drone Prefabs can be created from existing Drones or in a Drone Assembler (requires research). This action can be used to quickly reassign Drones between controllers.<newline><newline>Available Drone Prefabs:<right><drone(available_drone_prefabs)>"),
+			"RolloverTitle", T(349, "Unpack Drone"),
+			"RolloverHint", T(8461, "<left_click> Unpack Drone <em>Ctrl + <left_click></em> Unpack five Drones"),
+			"RolloverHintGamepad", T(830531229840, "<ButtonA> Unpack Drone <ButtonY> Unpack five Drones"),
+			"OnContextUpdate", function(self, context)
+				self:SetEnabled(ColonyGetAvailableDronePrefabs(UICity) > 0 and context:CanHaveMoreDrones())
+			end,
+			"OnPressParam", "UseDronePrefab",
+			"OnPress", function(self, gamepad)
+				self.context:UseDronePrefab(not gamepad and IsMassUIModifierPressed())
+			end,
+			"AltPress", true,
+			"OnAltPress", function(self, gamepad)
+				if gamepad then self.context:UseDronePrefab(true) end
+			end,
+			"Icon", "UI/IconsRemaster/IPButtons/drone_assemble.png",
+		}),
+		PlaceObj("XTemplateWindow", {
+			"__class", "InfopanelButton",
+			"RolloverText", T(8665, "Recalls a Drone and packs it into a Drone Prefab. Can be used to reassign Drones between controllers."),
+			"RolloverDisabledText", T(8666, "No available Drones."),
+			"RolloverTitle", T(8667, "Pack Drone for Reassignment"),
+			"RolloverHint", T(8668, "<left_click> Pack Drone for reassignment <em>Ctrl + <left_click></em> Pack five Drones"),
+			"RolloverHintGamepad", T(943040205774, "<ButtonA> Pack Drone for reassignment <ButtonY> Pack five Drones"),
+			"OnContextUpdate", function(self, context)
+				self:SetEnabled(not not context:FindDroneToConvertToPrefab())
+			end,
+			"OnPressParam", "ConvertDroneToPrefab",
+			"OnPress", function(self, gamepad)
+				self.context:ConvertDroneToPrefab(not gamepad and IsMassUIModifierPressed())
+			end,
+			"AltPress", true,
+			"OnAltPress", function(self, gamepad)
+				if gamepad then self.context:ConvertDroneToPrefab(true) end
+			end,
+			"Icon", "UI/IconsRemaster/IPButtons/drone_dismantle.png",
+		}),
 		PlaceObj("XTemplateWindow", {
 			"__class", "InfopanelSection",
 			"RolloverText", T(359011926905, "<UISectionDroneHubRollover>"),
@@ -88,6 +132,8 @@ if XTemplates and not XTemplates.customSMROptInTrainHub6Base then
 		}),
 	})
 end
+
+ensure_hub_infopanel()
 
 -- ===========================================================================
 -- Geometry (the prototype's, proven in sitting 2: six connectors attached,
@@ -517,6 +563,10 @@ function SMROptInTrainHubBase:GetUISectionDroneHubRollover()
 	}, "<newline><left>")
 end
 
+function SMROptInTrainHubBase:ShouldShowAvailableDronePrefabInfo()
+	return true
+end
+
 -- DroneControl:SpawnDrone is an empty "override me" (DroneControl.lua:725).
 -- Drones appear around the body the way DroneControl:SpawnDronesAround places
 -- them (:244-255), because the stand-in has no drone entrance to walk out of.
@@ -542,17 +592,28 @@ end
 -- The charging point. A body with RechargeStationPlatform auto-attaches gets
 -- vanilla's chargers on them, exactly as a drone hub does
 -- (AttachedRechargeStations.lua:2-29). A body without one gets a platform on the
--- first hex outside the footprint, midway between two lines, where a drone can
--- always stand.
+-- q=1,r=1 footprint hex between two arms. Unlike build 2's first-outside hex,
+-- the building footprint now protects the pad from construction overlap.
 local function charger_offset(self)
-	local radii = line_radii(self:GetEntity())
-	local inside = radii.inside
-	local q, r = 1, 1 -- local direction "between d0 and d1"
-	local step = 1
-	while step < 30 and inside[(q * step) * 1000 + r * step] do step = step + 1 end
 	local x0, y0 = HexToWorld(0, 0)
-	local x, y = HexToWorld(q * step, r * step)
+	local x, y = HexToWorld(1, 1)
 	return point(x - x0, y - y0, 0)
+end
+
+-- A train station is normally only an ElectricityConsumer. This hub is both a
+-- 70-power producer and a 10-power consumer on one grid element, so its stated
+-- output covers itself plus six 10-power large stations. SupplyGridElement and
+-- SupplyGridFragment natively support an element appearing in both lists
+-- (SupplyGrid.lua:12-34, :537-553; build 1.1.0.403908).
+function SMROptInTrainHubBase:CreateElectricityElement()
+	self.electricity = SupplyGridElement:new({
+		building = self,
+		production = 0,
+		throttled_production = 0,
+		consumption = 0,
+	})
+	self.electricity:SetProduction(self.working and self:GetPerformanceModifiedElectricityProduction() or 0)
+	self.electricity:SetConsumption(self.electricity_consumption)
 end
 
 function SMROptInTrainHubBase:InitHubChargers()
@@ -744,10 +805,33 @@ DefineClass.SMROptInTrainHub6Base = {
 -- authoritative and now names the imported entity; this postprocess keeps the
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
+	ensure_hub_infopanel()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
-	if class then class.entity = "SMROptInTrainHub6" end
+	if class then
+		class.entity = "SMROptInTrainHub6"
+		class.construction_cost_Concrete = 60000
+		class.construction_cost_Metals = 40000
+		class.construction_cost_MachineParts = 10000
+		class.construction_cost_Electronics = 15000
+		class.maintenance_resource_type = "Electronics"
+		class.maintenance_resource_amount = 2000
+		class.electricity_consumption = 10000
+		class.electricity_production = 70000
+		class.description = T(909018002004, "A <em>Station</em> where three straight lines cross, so cargo can change routes. It powers itself and six large stations, has its own small <em>Drone</em> crew, and keeps back enough Electronics to maintain itself.")
+	end
 	local template = BuildingTemplates and BuildingTemplates.SMROptInTrainHub6
-	if template then template.entity = "SMROptInTrainHub6" end
+	if template then
+		template.entity = "SMROptInTrainHub6"
+		template.construction_cost_Concrete = 60000
+		template.construction_cost_Metals = 40000
+		template.construction_cost_MachineParts = 10000
+		template.construction_cost_Electronics = 15000
+		template.maintenance_resource_type = "Electronics"
+		template.maintenance_resource_amount = 2000
+		template.electricity_consumption = 10000
+		template.electricity_production = 70000
+		template.description = T(909018002004, "A <em>Station</em> where three straight lines cross, so cargo can change routes. It powers itself and six large stations, has its own small <em>Drone</em> crew, and keeps back enough Electronics to maintain itself.")
+	end
 end
 
 -- RESERVED, NOT BUILT (owner, OI-15): the four-connector hub, two lines crossing
