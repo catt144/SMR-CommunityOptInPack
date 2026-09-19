@@ -1,4 +1,4 @@
-# Train hub build 4: the repair vehicle
+# Train hub build 4: repair drones
 
 ⛔ **HELD until build 3's smoke test is recorded** (`TRAIN_HUB_BUILD3_high.md`). It changes the hub's
 economy, so it builds on build 3's power, cost and storage numbers, not build 2's.
@@ -12,18 +12,35 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   after a travel time; the train is a **cosmetic vehicle**, not a unit, with a **distinct repair
   livery** (a recolour) as a nice-to-have. Not a drone: drone range, batteries and material
   sourcing are not to be touched.
-- **Owner, same day: it is never a train.** The hub dispatches a dedicated vehicle for a task.
-  It has its own class, never a subclass of vanilla's train classes; it is never in a station's
-  train list or counts, carries no passengers, and no UI text calls it a train. The vehicle is
-  unsaved, so its class name is not save contract.
-- **Owner, same day: the look is the vanilla Wasp, reused, made ours.** Use the Wasp drone's
-  model (`FlyingDrone`, entity `DroneJapanFlying`, `FlyingDrone.lua:11-21`) on our prop, recoloured
-  to our look, **hovering over the track**. It is a track vehicle, never a drone: it follows the
-  track's element positions and never drone pathing, so it cannot cut across open ground; it has
-  no battery and never recharges; it is in no drone list. At the break it plays the vanilla
-  repair work: the Wasp model's work animation state and the effects actions a drone's repair
-  plays (find the exact names on the `DroneWork` path, `Drone.lua:983-1021`, and the effects
-  presets); no new art. It is dispatched out of the hub and returns to it.
+- **Owner, same day: the hub's repair drones (supersedes the earlier cosmetic-vehicle design).**
+  They are **vanilla Wasp drones** (`FlyingDrone`, entity `DroneJapanFlying`, `FlyingDrone.lua:11-21`)
+  whose controller is the train hub, made ours by per-drone data: display name "Repair Drone", our
+  recolour, a large `battery_max` topped up by the hub so they **never charge** (`Drone.lua:10`).
+  No subclass: a repair drone is identified live as a Wasp whose `command_center` is a train hub,
+  so nothing sweeps other Wasps (Japan sponsor colonies), saves hold only vanilla Wasps, and on
+  removal they are ordinary Wasps.
+  - **A constant 30, launched on demand** (owner): the hub spawns them when it has work and removes
+    them when they return idle. A destroyed repair drone is simply gone; the hub can always put up
+    to 30 out, so losses never shrink it. No prefabs, no prefab controls, no charger.
+  - **Inside a fixed 15-hex radius** (owner; build 3 cuts the slider) they do **anything a drone
+    does**, through vanilla's own drone AI.
+  - **Beyond it, track work only:** the same drone follows the track's element positions, hovering
+    over the track, never drone pathing, so it cannot cut across open ground; it plays the vanilla
+    repair work at the break (the Wasp's work animation state and the effects actions of the
+    `DroneWork` path, `Drone.lua:983-1021`; find the exact names). **Orchestrator's reading, for the
+    owner to confirm:** "track work" includes maintaining stations on the connected network.
+  - **Save guard for track mode:** our follow-the-track command would be saved mid-step, so at
+    `SaveGameStart` every drone in track mode is removed, and after the save and on load the hub
+    respawns it where its persisted deadline puts it (`FIX_POLICY` §3a layer 1; re-arm from the
+    deadline, never restart it). Idle drones near the hub are also recalled at save; busy ones stay
+    in the save as vanilla Wasps, so a carried cube is never lost.
+  - **No free-drone leak:** wrap `Drone:CanBeControlled` (`Drone.lua:2171`, chained per
+    `FIX_POLICY` §1) to return false for drones whose controller is a train hub, which greys out
+    both reassign buttons (`Drone.lua:1988-1991`, `:2016-2019`). Backstop: a repair drone whose
+    controller is ever not a train hub, or whose hub is gone, is removed. Drones have no
+    pack-into-prefab action of their own.
+  - **Never a train:** not in any train list or count, no passengers, no UI text says train.
+  - The panel shows one line, "Repair drones: N out / 30" (wording yours).
 - `FIX_POLICY` §0 sets this mod's risk standard (owner, 2026-09-19): content may stay in a save
   on removal, and disabling stops new dispatches.
 - Both bans in `FIX_POLICY.md` bind. **This build adds persisted state** (the pending-repair list):
@@ -41,7 +58,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   run while `#repair_cgs > 0` (`Track.lua:372-384`).
 - **A train on a broken element is destroyed** and its passengers roll for death, 80% or 20%
   with SafeTransport (`TrainDisasterHandling.lua:1-28`). A real unit driving to the break fights
-  this; the cosmetic vehicle never becomes a train.
+  this; the repair drone flies above the track and is never a train.
 - **Completion is vanilla's own path:** `ConstructionSite:Complete()` (`ConstructionSite.lua:1675`),
   not the cheat branch. The hub is a Station and stores every resource, so it can pay the site's
   cost from stock.
@@ -55,7 +72,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    or not that tech is researched** (owner, 2026-09-19: the hub is a perk, not a penalty; a
    repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
    (distance along the track from the hub at the repair speed), and notify:
-   "Repair vehicle dispatched, ETA N h" (wording yours; never "train"). If stock is short, sign the hub and retry when stock lands.
+   "Repair drone dispatched, ETA N h" (wording yours; never "train"). If stock is short, sign the hub and retry when stock lands.
    **Reachability (owner, 2026-09-19):** anything the dispatch vehicle could physically reach:
    every track on the network connected to the hub through its stations, however far; never a
    track on an isolated network the hub does not touch. **Speed (owner, same day):** faster than a
@@ -71,26 +88,28 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    completion path, sequentially from the connected end. Give the list a kind field now so build 5
    adds no second persisted name; ship only the repair kind here.
 2. **Completion.** At the deadline, `Complete()` the site through vanilla's path. The timer is the
-   only authority: it is persisted; the vehicle is not.
+   only authority: it is persisted; the drone's position is rebuilt from it.
    **Drones are never limited** (owner, 2026-09-19): a break in any drone's range is repaired by
    drones exactly as today, the hub works the same site alongside them, and whichever finishes
    first wins. So the hub charges a site's **outstanding** cost at the moment it completes it,
    never the full cost, and drops a pending repair silently when drones complete the site first.
    Deduct at completion, not at dispatch, so nothing is paid twice.
-3. **The vehicle.** An unsaved prop moving along the track's element positions to the break and
-   back, rebuilt from the deadline on load, so a reload can move the picture but never lose or
-   double a repair. **Tunnels (observed by the owner, 2026-09-19):** a vanilla train vanishes when
+3. **Track mode.** The repair drone moves along the track's element positions to the break and
+   back; a save or reload can move it but never lose or double a repair (the save guard above). **Tunnels (observed by the owner, 2026-09-19):** a vanilla train vanishes when
    its nose reaches the black backdrop just inside a tunnel mouth; the portal arch has ample
    clearance above the rail. Do the same: drive into the backdrop, hide, advance on the timer,
    show at the far mouth. Tunnels are in scope. **Ride position (owner, 2026-09-19): hovering
    over the track**, clear of the side-hanging trains; keep the height one value, and check
-   clearance at stations, the hub's hoods and tunnel arches. Livery: our recolour of the Wasp (above). Cargo cubes for
-   the paid load if cheap. Drop the livery first, then the vehicle, never the repair.
-4. **Player controls.** A toggle on the hub's infopanel; a stock reserve the repair may not dip
+   clearance at stations, the hub's hoods and tunnel arches. Recolour: ours (above). Drop the recolour first, never the
+   repair or the save guard.
+4. **Player controls.** A toggle on the hub's infopanel for track repair; a stock reserve the repair may not dip
    below is your call.
 5. **Smoke with the owner:** break a far element with the TestKit (`Track.lua:618`
    `CanGetDamagedBy`; a meteor at click), watch the dispatch, save and reload mid-trip, watch the
-   completion and trains run again; a break with the hub short of stock; hub toggle off.
+   completion and trains run again; a break with the hub short of stock; hub toggle off; a
+   repair drone near the hub doing ordinary drone work, never charging; the reassign buttons
+   greyed on a repair drone; more than 30 jobs queued with 30 out; one destroyed and the hub
+   still able to put 30 out; an autosave mid-trip.
 6. **Record** in the hub report and spec §10; persisted names in the inventory.
 
 **Done means:** a break outside every drone's range on the hub's network is repaired from the hub's
@@ -99,7 +118,7 @@ stock without player action, survives a reload mid-trip, and the toggle stops it
 ## Scope
 
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
-Out: drone logic, real train pathing, Module A, routing.
+Out: vanilla drone AI changes beyond the scoped wrap above, real train pathing, Module A, routing.
 
 ## Stops
 

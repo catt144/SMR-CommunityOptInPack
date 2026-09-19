@@ -9,7 +9,9 @@
   actually do"*; the vanilla drone hub shows its hex range and a Drones section (count, load).
   **Owner, same sitting:** the hub shows no drone count and has no prefab plus or minus, so a
   destroyed drone can never be replaced. Drone replacement from prefabs is wanted, as the vanilla
-  drone hub does it; this **reverses build 2's omission** of the prefab controls.
+  drone hub does it. **Owner, later the same day: reversed.** The hub's drones will become
+  on-demand repair drones in build 4 (`TRAIN_HUB_REPAIR_high.md`), so there are no prefab controls;
+  see end-state item 3.
 - **Owner, same day, design:** the hub **generates its own power**, enough for itself plus its
   maximum six stations (tracks merge station grids, `TrackBase:ConnectToGrids`, `Track.lua:97-122`),
   with **no workers**, and its **build cost and maintenance go up** to match. **The look,
@@ -38,9 +40,9 @@
   "to block pathfinding units") is why the disc exists. Your call: shape the surface, or drop
   `PassabilityMask` where drones should pass; either rides the same re-import, and the owner's
   Importer steps must name the setting; keep
-  `hex_shape` whole so nothing can be built over. The charger stays inside the ring, where the
-  owner liked it. Prove it with a drained drone charging, and note whether outside rovers or
-  colonists now path through the hub. **And cut the raised platforms** (`PLATFORMS = False` in
+  `hex_shape` whole so nothing can be built over. The charger is removed (item 3: the hub's drones
+  never charge). The passable underside still stands; note whether outside rovers or colonists now
+  path through the hub. **And cut the raised platforms** (`PLATFORMS = False` in
   `hub_skeleton.py`; cosmetic, and they read as the station look the owner ruled out); it rides
   the same re-import.
   Settled: fix all of it. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
@@ -82,16 +84,16 @@ Facts, each with a command that could falsify it:
    FBX carries **both** the footprint and the finished texture (the texture pass is done there;
    its README has the owner's steps). Prove the spots and geometry did not move, as that pass did.
    Your call how, and whether the importer needs anything different for un-welded faces.
-2. **The service-area overlay** on the map when the hub is selected, at the slider's radius and
-   following the slider. Your call: reuse vanilla's or build our own.
-3. **The drone section** on the infopanel at the vanilla look: drone count against the hub's
-   capacity, load, available prefabs, and the prefab plus and minus that order a replacement, so a
-   destroyed drone can be replaced from the colony's prefab stock. Your call whether to reuse the
-   vanilla Drone Hub's machinery or build the smallest equivalent; it must not need a new persisted
-   name (ban 1), and if it does, report that instead.
-   **Owner, 2026-09-19, in the sitting after `8230d6f`: the prefab plus and minus buttons are
-   still not on the panel** (and slot 1 still reads `custom_section=missing`). Find why the section
-   does not show and prove the buttons in game. **Also remove the "Power grid" section from the
+2. **The service-area overlay** on the map when the hub is selected. **Owner, 2026-09-19: cut the
+   slider; the radius is fixed at 15.** Remove the slider; a hub saved at any other radius reads 15
+   on load through vanilla `work_radius`, with no new persisted name; the overlay shows 15.
+3. **Drones: stop the prefab chase (owner, 2026-09-19).** Build 4 replaces the hub's drones with
+   on-demand repair drones (a constant 30, no charging, no prefab controls). Here: remove the
+   prefab section attempts (your call whether any drone count stays), keep the current drones as
+   a stopgap, and stop them needing a charger: give each drone the hub controls a large per-drone
+   `battery_max` and top it up (`Drone.lua:10`; no change to vanilla's battery code); then
+   remove the charger and its pad.
+   **Also remove the "Power grid" section from the
    hub's infopanel** (owner: the UI is getting tight, and Module A's per-resource controls will need
    the room); keep the hub's own Production and Consumption rows. Do it with a condition scoped to
    the hub's class; if it needs a vanilla XTemplate replaced wholesale, that is the brief's stop.
@@ -111,28 +113,24 @@ Facts, each with a command that could falsify it:
    the rest of `hex_shape`, or the 85-hex rounding comes back; re-read the outline count and the six
    line radii after the re-import;
    (d) if not, attach the advanced Stirling model inside the ring (likely `StirlingGeneratorCP3`,
-   the `StirlingGenerator` template's sponsor entity; check `IsValidEntity`). Move the charger onto a
-   footprint hex drones can reach, as vanilla's hub does (`AttachedRechargeStations.lua`); your
-   call whether by offset in Lua or a charger spot in `hub_skeleton.py`. Prove the lines merge
+   the `StirlingGenerator` template's sponsor entity; check `IsValidEntity`). Prove the lines merge
    grids with one end station on a separate grid, and say in the report where the surplus goes
    when stations also touch the colony's cables.
 5. **The height.** Measure the vanilla track element's z against the connector's z 800 (spec §9's
    unverified item) with a slot dump. Fix in Lua if the code is wrong, in Blender if the asset is.
 6. **Smoke with the owner**, about five steps at a time, one colony: attach six lines, trains stop
-   at the hub, the power reading and a station fed through a line, the charger inside the
-   footprint and not buildable over, overlay and drone section read right at the slider's ends, destroy one drone and
-   order a replacement from prefabs (the count returns and the stock drops), then the three-batch
+   at the hub, the power reading and a station fed through a line, the overlay at 15, a hub drone
+   working with no charger and its battery staying up, then the three-batch
    script's Batches 2 and 3 from `TRAIN_HUB_BUILD_20260918.md` §"Build 2". Also settle
    `resource_types` 19 against 21.
 7. **Record** it in that report and spec §10; put the owner's re-import and anything else owed on
    `docs/PLAYTEST_CHECKLIST.md`.
 
 **Done means:** a hub placed after the owner's re-import reads 61 hexes and radius 4 on all six
-lines, attaches all six tracks without "Blocking objects", shows the overlay and the drone section,
-and smoke-tests clean, and a destroyed drone can be replaced from prefabs, the hub powers itself and
-its stations, and the charger sits inside the footprint. If time runs out, drop the
+lines, attaches all six tracks without "Blocking objects", shows the overlay at a fixed 15, powers
+itself and its stations, and smoke-tests clean with its drones working without a charger. If time runs out, drop the
 `resource_types` check, then the height (report the measurement only), then the overlay, then the
-generator model (keep the power). Never drop the footprint, drone replacement, or reload and
+generator model (keep the power). Never drop the footprint, or reload and
 salvage.
 
 ## Scope
