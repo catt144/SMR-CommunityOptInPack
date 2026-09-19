@@ -370,6 +370,12 @@ deliberate rather than bespoke.
 no-files-modified identity is load-bearing in its own description and is not worth spending
 on a first version. 4c preserves it while leaving a route open.
 
+**Owner ruling, 2026-09-18 (OI-16): 4b.** The hub asset ships in this mod. The owner's reasoning:
+the module is opt-in, so an asset is fine. The case for 4b over 4c: a second mod can be
+unsubscribed while a save still holds hubs, and that leaves hubs without their model. Its
+costs: the description drops "code only"; the building stays out of the build menu while the
+module is off; and the packaging checks must admit an entity folder.
+
 ### OPTION 5 — How module B is scoped
 
 | | |

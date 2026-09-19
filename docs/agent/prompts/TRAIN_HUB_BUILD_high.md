@@ -103,9 +103,9 @@ shipping modules D02, D03, D04 and D09.
 
 ## Stops
 
-- **Where the hub ships is the owner's call, and it is open.** Spec §6 OPTION 4 asks whether
-  assets go in this mod (4b) or in a separate mod (4c). If your structure depends on the
-  answer, stop and put the question on the checklist.
+- **The hub ships in this mod** (owner, 2026-09-18, OI-16 = 4b; spec §6 OPTION 4). The
+  building stays out of the build menu while the module is off. If the release packaging or
+  checks refuse an entity folder, stop and report the tool and the rule.
 - **What happens to built hubs when a player turns the module off** is a save-safety design
   question. Propose an answer in the report. If no answer keeps saves loadable, stop and ask.
 - **The drone-controller spike fails:** report it, ship the hub without drones, and ask the

@@ -15,15 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-16 · opened 2026-09-18
-Your hub asset needs a home. Should it ship inside this mod, or in a separate mod?
-- This mod says "no game files are modified". A shipped model does not modify game files, but it is no longer code only.
-- (4b) in this mod: one download, and the hub module carries its own art.
-- (4c) a separate asset mod that this mod requires when the hub module is on: keeps this mod code only.
-- The build can start either way; the answer decides where the hub module finally ships.
-- Say "4b" or "4c". Spec §6 OPTION 4 has the full options.
-Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
-
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
 - This mod's `Code/` has 10 `Untranslated(` sites: rollover titles, policy rows, the stand-down dialog.
