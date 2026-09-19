@@ -53,6 +53,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      re-import;
    - fire `TRAIN_HUB_REPAIR_high.md` (build 4, the repair train; owner, 2026-09-19) once build 3's
      smoke is recorded, and play its smoke with the owner;
+   - fire `TRAIN_HUB_BUILDTRACK_high.md` (build 5, the hub builds track; owner, 2026-09-19) once
+     build 4's smoke is recorded, and play its smoke with the owner;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone

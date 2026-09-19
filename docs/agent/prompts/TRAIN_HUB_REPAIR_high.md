@@ -52,6 +52,10 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    floor on responsiveness, not a balance knob. Report it with the smoke's measured ETAs. The route to a break may itself cross an
    earlier break; your call whether the vehicle queues repairs nearest-first or in break order,
    recorded in the report.
+   **Design the pending list for two kinds, repair and build** (owner, 2026-09-19): build 5,
+   `TRAIN_HUB_BUILDTRACK_high.md`, will have the hub construct new track through the same
+   completion path, sequentially from the connected end. Give the list a kind field now so build 5
+   adds no second persisted name; ship only the repair kind here.
 2. **Completion.** At the deadline, `Complete()` the site through vanilla's path. The timer is the
    only authority: it is persisted; the vehicle is not.
 3. **The vehicle.** An unsaved prop moving along the track's element positions to the break and
