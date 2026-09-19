@@ -693,7 +693,7 @@ game. The concept art was iterated with an image AI and meshed in Tripo (Smart M
 topology, about 15,000 polygons, untextured, FBX with the Blender preset). Its output is
 `C:\Dev\SMR-Optin-Assets\circular industrial platform 3d model.fbx`: binary FBX 7400, 15,229
 vertices and 281 loose parts. The Blender 5.2 pipeline lives outside both repos in
-`C:\Dev\SMR-TrainHubAssetslender\`, and its `README.md` gives the steps:
+`C:\Dev\SMR-TrainHubAssets\blender\`, and its `README.md` gives the steps:
 - `hub_skeleton.py` builds everything that must be exact: `Origin`, the `hex_shape` footprint
   (61 hexes, 4 hexes of radius) and the free ring beyond it, `Collision`, `Selection`, three beams
   60° apart, every pillar with its foot on the ground, the platforms on posts, the ring wall as a
