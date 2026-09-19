@@ -37,7 +37,9 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
 ## End state
 
 1. **Dispatch.** On `TrackBroken` for a track on the hub's network, if the hub is working and
-   holds the site's cost, deduct it, record a pending repair with its **deadline in game time**
+   holds the site's cost, deduct it **at the cheaper rate, the SafeTransport-halved cost, whether
+   or not that tech is researched** (owner, 2026-09-19: the hub is a perk, not a penalty; a
+   repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
    (distance along the track from the hub at a repair speed you choose, a dial), and notify:
    "Repair train dispatched, ETA N h". If stock is short, sign the hub and retry when stock lands.
    **Reachability, orchestrator's call pending the owner:** any track reachable from the hub
