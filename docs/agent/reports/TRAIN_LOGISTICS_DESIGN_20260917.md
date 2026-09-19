@@ -762,15 +762,17 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   question, to be compared in the game view.
 - **In game, the textured import (owner, 2026-09-19 evening):** the white and red and the hex tiles read.
   Three things owed, as one look pass and one re-import: (1) **night lighting like the vanilla
-  station**: light spots (`-L;` names, ModItemEntity "Metadata in Scenes") and a self-illumination
-  map (the GFXMaterial has an `SI` slot) for the red trim; (2) **the glass**, out of the export while
+  station**: light spots (`-L;` names, ModItemEntity "Metadata in Scenes"); the vanilla station's
+  night look is pole lights pooling on its floor and the ground. A glow map for the red trim (the
+  GFXMaterial has an `SI` slot) is the orchestrator's option, not ruled; (2) **the glass**, out of the export while
   `INCLUDE_GLASS = False` because the default material is opaque; it needs its own mesh and a blended
   material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab about
   2.5 times the track's width with a hex top, where vanilla is a narrow deck with side rails. It
   is restyled to the vanilla profile together with the height fix (build 3 measures, the
   orchestrator models). **Owner, same evening:** keep our red; the stub carries a **red centre
   stripe where the vanilla track has its blue one**, so the hand-over from hub to vanilla track
-  is visible; at night it glows, as the vanilla track's blue pads do. **Floor (owner, same evening):**
+  is visible (vanilla's blue strip is dark conveyor segments between white rails; it does not
+  glow, and the blue dots seen on a selected station are its selection outline). **Floor (owner, same evening):**
   a floor plate under the ring interior, modelled on the vanilla station's platform (near-white,
   faint hex relief, a dark trim border, a coloured edge strip). The hex pattern moves onto it, off
   the beams and the stub. Colour adjustments are fine, but never so dark that the slate storage
