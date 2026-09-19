@@ -768,7 +768,9 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab about
   2.5 times the track's width with a hex top, where vanilla is a narrow deck with side rails. It
   is restyled to the vanilla profile together with the height fix (build 3 measures, the
-  orchestrator models).
+  orchestrator models). **Owner, same evening:** keep our red; the stub carries a **red centre
+  stripe where the vanilla track has its blue one**, so the hand-over from hub to vanilla track
+  is visible. The hex tiles then stay inside the ring, not on the stub.
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
