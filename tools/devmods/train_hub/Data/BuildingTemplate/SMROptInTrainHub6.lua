@@ -12,8 +12,8 @@ PlaceObj('ModItemBuildingTemplate', {
 	'build_points', 5000,
 	'is_tall', true,
 	'dome_forbidden', true,
-	'can_refab', false,
 	'use_demolished_state', true,
+	'can_refab', false,
 	'maintenance_resource_type', "Metals",
 	'maintenance_resource_amount', 5000,
 	'display_name', T(909018002001, --[[ModItemBuildingTemplate SMROptInTrainHub6 display_name]] "Train Hub"),
@@ -36,3 +36,4 @@ PlaceObj('ModItemBuildingTemplate', {
 	'desired_amount', 10000,
 	'max_storage_per_resource', 240000,
 })
+

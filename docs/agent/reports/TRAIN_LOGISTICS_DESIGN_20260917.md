@@ -717,9 +717,20 @@ round, its supports float 0.4 to 1.6 m above the ground, and its pallet decks ar
   Each bed takes the 12 × 5 grid. Its `-Box` spot is the centre of the first cube, with columns
   along the spot's +X and rows along its +Y, as `GetCubePosRelative` reads it.
 
+**Imported 2026-09-19** (owner, Mod Editor, into the dev mod; `export_prep.py` makes the FBX).
+- **The axis mapping, MEASURED:** the importer maps Blender (x, y) m to game (−y, −x) × 100.
+  This was read from the first import's `Entities/SMROptInTrainHub6.entjson`. It put the lines
+  at 30°, 90° and 150°, 30° off the game's hex rows, which run along world X (`MapGrids.lua:67`).
+  `export_prep.py` turns the model 30° (`TURN_DEG`). On the re-import, the six connectors read
+  0°, 60°, … 300° at 4,000 units and z 800, and all 61 footprint hexes fall on the lattice. The
+  lattice check found 60 of 61 off for the unturned model.
+- **What the importer needs:** Origin > one mesh > spots and surfaces; **one material per mesh**
+  ("Contains multi-materials. Not supported yet."); spots that share a name via `.001`
+  suffixes. The entity file is written only when the Art Spec is saved
+  (`ArtSpecEditor.lua:1006-1028`), so saving comes before a successful import.
+
 **Unverified:**
-- the Blender-to-game axis mapping (a 90° turn would put the lines off the hex axes);
-- the vanilla track deck height, which the stub ends must match;
+- the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
 - how the asset's pallets feed the cube display: which way the grid runs from a `-Box` spot
   once the Blender empty becomes a game spot. The build's asset branch has never run.
 

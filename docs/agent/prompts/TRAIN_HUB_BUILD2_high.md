@@ -32,9 +32,13 @@ is empty, the facts below hold. Put the end state in the todo tool before any wr
   mattered in the sitting: end stations 10+ hexes out got no maintenance and wore out in about
   seven sols at ultra speed.
 - The asset pipeline and its outputs are outside both repos, at `C:\Dev\SMR-TrainHubAssets\blender\`
-  (`README.md`). `export_prep.py` wrote `export\SMROptInTrainHub6.fbx` on 2026-09-19 for the
-  owner to import. Checked by re-importing it into Blender: `Origin` > mesh `SMROptInTrainHub6` >
-  25 spots and 3 surfaces, spot positions equal to the work file's. What the import carries:
+  (`README.md`). **The owner imported it on 2026-09-19**; the entity, mesh, Art Spec and import
+  item are committed in the dev mod (`Entities/`, `Meshes/`, `SourceData/`,
+  `Code/_EntityData.generated.lua`). So end-state item 3's condition is met. The Mod Editor save
+  renamed the Code items to `10_TrainFloor` / `20_TrainHub`, because it derives a code file's
+  path from the item name. The code list in `metadata.lua` is unchanged apart from
+  `_EntityData.generated.lua`. The connectors are measured on the grid (spec §9, "Imported
+  2026-09-19"). What the import carries:
   - **Entity `SMROptInTrainHub6`**, the template's id. Treat it as permanent once a kept save
     sees a hub.
   - Spots: `Trackconnector1..6`, `Trackdirection1..6`, `Top`, six `Box1` (one range, as

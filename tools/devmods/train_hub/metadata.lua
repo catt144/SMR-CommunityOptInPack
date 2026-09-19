@@ -4,23 +4,29 @@ return PlaceObj('ModDef', {
 	'short_description', "DEV ONLY: six-connector train hub with its own drones and a maintenance reserve.",
 	'id', "SMR_TrainHubDev_20260918",
 	'author', "catt144",
-	'version', 1,
+	'version', 4,
 	'lua_revision', 350453,
 	'saved_with_revision', 403908,
 	'optional_mod', true,
+	'entities', {
+		"SMROptInTrainHub6",
+	},
 	'code', {
 		"Code/10_TrainFloor.lua",
 		"Code/20_TrainHub.lua",
 		"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+		"Code/_EntityData.generated.lua",
 	},
 	'has_data', true,
+	'saved', 1789801378,
+	'code_hash', 1526357101791162688,
 	'affected_resources', {
 		PlaceObj('ModResourcePreset', {
 			'Class', "BuildingTemplate",
 			'Id', "SMROptInTrainHub6",
-			'ClassDisplayName', "BuildingTemplate",
+			'ClassDisplayName', "Building Template",
 		}),
 	},
-	'TagBuildings', true,
 	'TagGameplay', true,
+	'TagBuildings', true,
 })

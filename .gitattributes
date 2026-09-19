@@ -8,6 +8,7 @@
 * text=auto eol=lf
 *.png binary
 *.jpg binary
+*.hgrm binary
 
 # Shell hooks must stay LF; a CRLF shebang dies silently on a fresh clone
 # (`/bin/sh^M: bad interpreter`). Redundant with the line above, kept explicit.

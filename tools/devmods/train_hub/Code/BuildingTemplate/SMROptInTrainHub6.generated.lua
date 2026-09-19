@@ -5,6 +5,7 @@ DefineClass.SMROptInTrainHub6 = {
 	__parents = { "SMROptInTrainHub6Base" },
 	__generated_by_class = "ModItemBuildingTemplate",
 
+
 	mod_handle = 1,
 	object_class = "SMROptInTrainHub6Base",
 	construction_cost_Concrete = 50000,
@@ -13,8 +14,8 @@ DefineClass.SMROptInTrainHub6 = {
 	build_points = 5000,
 	is_tall = true,
 	dome_forbidden = true,
-	can_refab = false,
 	use_demolished_state = true,
+	can_refab = false,
 	maintenance_resource_type = "Metals",
 	maintenance_resource_amount = 5000,
 	display_name = T(909018002001, --[[ModItemBuildingTemplate SMROptInTrainHub6 display_name]] "Train Hub"),
