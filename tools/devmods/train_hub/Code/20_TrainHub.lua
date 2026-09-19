@@ -26,6 +26,9 @@
 --   * cargo pallets: attached `StorageDepotFood` sub-models win (the stand-in);
 --     a body with its own `Box1` spots uses those (the owner's asset).
 
+-- Load order is not guaranteed (the Mod Editor reorders code items on save), so
+-- both files create the shared table if it is not there yet.
+SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
