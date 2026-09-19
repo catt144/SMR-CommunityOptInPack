@@ -130,6 +130,12 @@ Facts, each with a command that could falsify it:
    working with no charger and its battery staying up, then the three-batch
    script's Batches 2 and 3 from `TRAIN_HUB_BUILD_20260918.md` §"Build 2". Also settle
    `resource_types` 19 against 21.
+   **Storage (owner, 2026-09-19, after a fill-all test where the stacks clipped the beams and the
+   trains):** set `max_storage_per_resource` to **150000** (was 240000) in the template source
+   `Data/BuildingTemplate/SMROptInTrainHub6.lua`, and regenerate the `.generated.lua`, never edit it.
+   With 360 columns, 19 types gives 18 columns and `max_z` 9 (17 columns for 21 types, also 9),
+   under the ten the beams and the trains' clearance were designed for. Confirm `max_z=9` from a
+   slot readout and that a fill-all no longer clips the beams or a train at a portal.
 7. **Record** it in that report and spec §10; put the owner's re-import and anything else owed on
    `docs/PLAYTEST_CHECKLIST.md`.
 
