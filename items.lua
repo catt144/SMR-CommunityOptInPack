@@ -1,5 +1,6 @@
--- Mod Options — the in-game enable surface for the eight modules
--- (Options → Mod Options → Relaunched Fix Pack: Opt-In Modules). Moved here from the
+-- Mod Options — the in-game enable surface for this mod's modules
+-- (Options → Mod Options → Relaunched Fix Pack: Opt-In Modules; live count:
+-- `python tools/doccheck.py --emit-counts`). Moved here from the
 -- Community Fix Pack on 2026-08-12 with the split; the entries below are
 -- BYTE-IDENTICAL to the ones that shipped there.
 --
@@ -37,16 +38,12 @@
 -- round-trip (and the editor upload flow, which saves-if-dirty) would write
 -- `code = false` and publish a mod that loads NO code at all. ORDER IS
 -- LOAD-BEARING: the entries below must stay in exactly metadata.lua's
--- current `code` order (00_Core first, then the eight Opt_ in their current
--- order), or a round-trip reorders the load sequence.
+-- current `code` order (00_Core first, then this mod's Opt_ files in their
+-- current order), or a round-trip reorders the load sequence.
 return {
 	PlaceObj('ModItemCode', {
 		'name', "00_Core",
 		'CodeFileName', "Code/00_Core.lua",
-	}),
-	PlaceObj('ModItemCode', {
-		'name', "Opt_ClassicRockets",
-		'CodeFileName', "Code/Opt_ClassicRockets.lua",
 	}),
 	PlaceObj('ModItemCode', {
 		'name', "Opt_AcknowledgedWarnings",
@@ -63,12 +60,6 @@ return {
 	PlaceObj('ModItemCode', {
 		'name', "Opt_DroneStatDials",
 		'CodeFileName', "Code/Opt_DroneStatDials.lua",
-	}),
-	PlaceObj('ModItemOptionToggle', {
-		'name', "ClassicRockets",
-		'DisplayName', "Classic rockets — refuel while parked",
-		'Help', "A player-controlled rocket parked at your colony keeps its launch fuel requested even with no destination selected, so drones keep it fueled while it waits — the original game's behavior.",
-		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionToggle', {
 		'name', "AcknowledgedWarnings",

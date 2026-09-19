@@ -55,15 +55,6 @@ Home: `docs/agent/bugs/D04.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md
 - Desk-read only. Falsifier: close a dome and land a Tourist it is the only choice for; if they check in, this is wrong.
 Home: `docs/agent/bugs/D03.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
 
-### OI-01 · opened 2026-09-17
-`ClassicRockets` (D01) is overtaken by 1.1.0 and now points the other way. Retire it, narrow it, or leave it?
-- 1.1.0 refuels a player rocket parked with no destination, which was the module's whole feature.
-- What it still reaches is Trade, TradePad and Rival rockets, which 1.1.0 excludes on purpose.
-- (a) retire it, D01 stays the record; (b) add a guard so it never fires on 1.1.0; (c) leave it as it is.
-- Recommended: (a). A removed toggle's leftover Mod Options key is inert (revalidation report §10.1).
-- Desk-read only, and off by default. Falsifier: with it on, park a player rocket, then a Trade rocket.
-Home: `docs/agent/bugs/D01.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
-
 ## Run
 
 ### OI-12 · opened 2026-09-18 · launch

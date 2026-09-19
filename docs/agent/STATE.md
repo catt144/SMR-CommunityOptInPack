@@ -8,7 +8,7 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
 
 - NOT PUBLISHED. The owner launched the fix pack alone on 2026-08-17 ("its not ready imo").
 - Owner 2026-09-01, verbatim: "the opt in modules has not fully tested yet." Testing precedes
-  launch. D01 is `tested-attended`; D02/D03/D04/D09 passed pre-split; D06/D07/D12 are retired.
+  launch. D02/D03/D04/D09 passed pre-split; D01/D06/D07/D12 are retired.
 - Every shipping module still owes the `FIX_POLICY` §8 both-configuration test on the shipping
   build. Launch order and evidence: `agent/reports/READINESS_REVIEW_0831.md` §6. That plan predates
   1.1.0 and lacks a re-verification step. Upload preflight currently fails on preview art (OI-12).
@@ -30,6 +30,6 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 
 ## Open owner decisions
 
-Bodies are in `docs/PLAYTEST_CHECKLIST.md`. Open: OI-01, OI-03, OI-04, OI-10; launch: OI-11–OI-14.
+Bodies are in `docs/PLAYTEST_CHECKLIST.md`. Open: OI-03, OI-04, OI-10; launch: OI-11–OI-14.
 Shared TestKit, EF-id allocation and a fix-pack feature remain in the fix pack's checklist
 because they bind that repo.

@@ -11,7 +11,7 @@ matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matte
 
 | seq | id | title | status | priority | evidence | entry |
 |----|----|-------|--------|----------|----------|-------|
-| 1 | D01 | Rockets don't auto-refuel/auto-export rare metals | tested-attended | dsgn | high | [D01.md](D01.md) |
+| 1 | D01 | Rockets don't auto-refuel/auto-export rare metals — ⚖️ RETIRED 2026-09-18 (OVERTAKEN), module no longer ships | tested-attended | dsgn | high | [D01.md](D01.md) |
 | 2 | D02 | Dismissed "not working" warnings re-nag every 4 game h | tested | dsgn | med | [D02.md](D02.md) |
 | 3 | D03 | No way to block dome move-ins short of full quarantine | tested | dsgn | med | [D03.md](D03.md) |
 | 4 | D04 | Artificial Sun is build-once; second-sun support unused | tested | dsgn | low | [D04.md](D04.md) |
