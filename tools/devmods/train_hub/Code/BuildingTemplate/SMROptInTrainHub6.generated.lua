@@ -36,7 +36,7 @@ DefineClass.SMROptInTrainHub6 = {
 	electricity_consumption = 10000,
 	desire_slider_max = 120,
 	desired_amount = 10000,
-	max_storage_per_resource = 240000,
+	max_storage_per_resource = 150000,
 	persist_baseclass = "SMROptInTrainHub6Base",
 }
 
