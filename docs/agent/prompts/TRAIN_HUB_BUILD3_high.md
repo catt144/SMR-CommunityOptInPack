@@ -21,12 +21,18 @@
   **charger moves inside the hub's footprint**: today it sits on the first hex outside
   (`charger_offset`), about a hex out, and players can build over it.
   **Owner, same day, mid-sitting:** a drained drone will not path to the pad at
-  `HexToWorld(1, 1)` inside the ring. Every `hex_shape` hex is occupied for pathing whatever the
-  geometry above it, so the open underside does not help. Required: a pad on a reserved hex that
-  drones reach from outside. Your call: the pad on the outermost footprint hex between two arms
-  with its charging position on the rim (read vanilla `DroneHub` to confirm that is its pattern),
-  or a real vanilla recharge station building placed by the hub just outside, removed with it.
-  Prove it with a drained drone charging. **And cut the raised platforms** (`PLATFORMS = False` in
+  `HexToWorld(1, 1)` inside the ring. **The owner's model: the underside is open and should be
+  passable, like a dome** — its footprint blocks building but units move inside it. Reserving
+  and passability are separate in this engine: `hex_shape` blocks building; the entity's
+  `Collision` surface is what units treat as solid (`EntitySurfaces.Collision`,
+  `BuildableGrid.lua:12`), and domes and other enterable buildings set `efWalkable = true`
+  (`Dome.lua:476`, `Residence.lua:525`). INFERRED, not tested: our `Collision` is one solid disc
+  over almost the whole footprint (`hub_skeleton.py`, `foot_radius - 1.0`, 1 m up), which blocks
+  the underside. Required: shrink `Collision` to the parts that are really solid (ring wall,
+  pillars) so the ground between opens, and add `efWalkable` if that alone is not enough; keep
+  `hex_shape` whole so nothing can be built over. The charger stays inside the ring, where the
+  owner liked it. Prove it with a drained drone charging, and note whether outside rovers or
+  colonists now path through the hub. **And cut the raised platforms** (`PLATFORMS = False` in
   `hub_skeleton.py`; cosmetic, and they read as the station look the owner ruled out); it rides
   the same re-import.
   Settled: fix all of it. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
