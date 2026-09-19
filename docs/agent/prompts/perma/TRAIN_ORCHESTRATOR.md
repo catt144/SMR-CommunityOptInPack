@@ -39,15 +39,13 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
-   - **start here: the Tripo texture pass** (owner, 2026-09-19, on their Tripo trial). The
-     owner textures `C:\Dev\SMR-TrainHubAssets\blender\export\SMROptInTrainHub6_body_for_tripo.glb`
-     in Tripo Studio. That's texture only, with no remesh, using the prompt in spec §9. They export
-     it to `C:\Dev\SMR-TrainHubAssets\tripo_textured\`. Check that folder first. Then, in Blender,
-     give the export mesh `SMROptInTrainHub6` a UV map, bake Tripo's maps onto it
-     (selected-to-active, so Tripo's geometry never ships), write TGA maps, and walk the owner
-     through one GFXMaterial item plus a re-import. Judge the result against the owner's look
-     direction. If it is muddy or inconsistent, fall back to our own procedural textures (spec
-     §9, "The look");
+   - **start here: the Blender texture pass** (owner, 2026-09-19: the Tripo pass was tried and
+     dropped). The brief is `TRAIN_HUB_TEXTURE_high.md`. When its worker returns, treat the
+     report as a claim: check the previews against the owner's look direction and the geometry
+     proof against the FBX. Then, once build 2 has committed (the dev mod is shared), walk the
+     owner through the GFXMaterial item and the re-import from the steps in
+     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Fold the result into spec §9, replacing its
+     Tripo route paragraph;
    - OI-18 and OI-19 on the owner's list;
    - fire `TRAIN_HUB_BUILD2_high.md` (the radius and drone-section rulings, and the swap to the
      imported asset) and play its smoke test with the owner;
