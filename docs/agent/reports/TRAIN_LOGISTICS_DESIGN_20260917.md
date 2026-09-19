@@ -767,6 +767,11 @@ consequences for the real hub build:
   `transportable = false` on it, unlike the grid and player resources (`:343-413`), and a
   station stores every transportable resource except Seeds (`Station.lua:110-114`).
 
+**The build, 2026-09-18 (pack `886926b`): UNVERIFIED, sitting not yet run.** Design record,
+pre-boot predictions and the sitting script are in `TRAIN_HUB_BUILD_20260918.md`. The export floor
+turned out not to need an edit inside `Train:TransferCargo`: a claim the station holds on its own
+supply request lowers the target every hauler reads, so §4.3's "MISSING" row is a wrapper.
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 
