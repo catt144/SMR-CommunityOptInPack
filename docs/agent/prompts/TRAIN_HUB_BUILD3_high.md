@@ -89,6 +89,12 @@ Facts, each with a command that could falsify it:
    destroyed drone can be replaced from the colony's prefab stock. Your call whether to reuse the
    vanilla Drone Hub's machinery or build the smallest equivalent; it must not need a new persisted
    name (ban 1), and if it does, report that instead.
+   **Owner, 2026-09-19, in the sitting after `8230d6f`: the prefab plus and minus buttons are
+   still not on the panel** (and slot 1 still reads `custom_section=missing`). Find why the section
+   does not show and prove the buttons in game. **Also remove the "Power grid" section from the
+   hub's infopanel** (owner: the UI is getting tight, and Module A's per-resource controls will need
+   the room); keep the hub's own Production and Consumption rows. Do it with a condition scoped to
+   the hub's class; if it needs a vanilla XTemplate replaced wholesale, that is the brief's stop.
 4. **Power, cost and the charger.** Starting values, proposed by the orchestrator and tunable by
    the owner in the smoke: **+70** (the hub's 10 plus six big stations at 10; vanilla
    `StationBig` draws 10, `StationSmall` 5, `FusionReactor` makes 200 with 8 workers); build
