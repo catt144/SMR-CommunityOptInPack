@@ -48,7 +48,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      both-configuration ship test and the toggle test as §0 defines it for content, which the
      smokes do not cover; the
      spec §10 and hub report agreeing with the code; the `resource_types` 19 against 21 question;
-     and that each fired brief and its map row were deleted at its lifecycle;
+     and that each fired brief and its map row were deleted at its lifecycle; and that every owner ruling listed in the sitting report's §6
+     landed in build 3's code or report, since most reached it mid-run;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
      The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
      `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Fold the result into spec §9, replacing its

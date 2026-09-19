@@ -87,13 +87,52 @@ diagnosis): a geometry question, not a texture one. **Not checked:** the look in
 Editor steps run, the normal map's handedness (the worker says unvalidated). The owner's
 GFXMaterial item and re-import ride build 3's footprint fix so one re-import carries both.
 
-## 6. State at close
+## 6. Build 3's sitting, later the same day (orchestrator's reading)
 
-HEAD at this section's writing: `b6a8587` ("Train hub build 2: imported body and service-area smoke"),
-committed by another session after `98a362a`; its message says Batches 2 and 3 remain for Build 3.
-That is build 3's first step, so **build 3 has started** (`git log`, 15:11 on 2026-09-19; the session's
-identity is not recorded). The tree was clean after that commit. Unfiled: spec §9's Tripo paragraph still
-needs replacing (build 3 may be editing the spec; leave it to the audit or a quiet tree); which vanilla building the owner's
-"that's it scale in game" screenshots show was assumed, not verified, and build 3 must confirm the
-entity name. Executed models, from the transcript: Sonnet 5, then Opus 5 (1M), then Fable 5.1,
-then Sonnet 5.
+Logs `Mars.exe-20260919-15.48.44-6a91a190.log` (slot 1 id 52) and `Mars.exe-20260919-16.22.23-6a91a190.log`
+(slot 1 id 60), both on build 3's working tree after `8230d6f`.
+
+- **Observed, id 52:** `outline_hexes=61`, radii `4,4,4,4,4,4`, `connected_tracks=6` on build 3's
+  `entjson` shrink probe (uncommitted); the owner saw all six lines attach. Power `70000` produced,
+  `10000` consumed, all six station grids `merged=true`; the network grid read `grid_production=140000`,
+  `grid_consumption=55000`, `grid_waste=85000` (the source of the rest is build 3's to explain). 4
+  drones, 7 prefabs available, `range_overlays=1`, `custom_section=missing`, `fusion_outline_hexes=7`.
+  Height row: stub `10800`, vanilla `TrackPillarCCP3` element at `10000` with bbox z `-1726..1069`,
+  which is consistent with the owner's eye (track higher than our 8 m stub) only if the bbox top is
+  the running surface: **inferred, unconfirmed**.
+- **Observed, id 60:** slot 1 `status=ERROR` from the TestKit's own readout, `80_AgentSlots.lua:224`
+  `track_height_fields`, a nil at connector 1 on `train_hub_base.save` with `connected_tracks=2`. Two
+  `SelectedObj` errors before it were the owner's console lines run with nothing selected.
+- **Corrected by the owner:** the orchestrator first claimed every footprint hex blocks pathing. The
+  owner pointed to domes. Source: `hex_shape` blocks building; units treat the `Collision` surface as
+  solid (`BuildableGrid.lua:12`); enterable buildings set `efWalkable` (`Dome.lua:476`). The Importer
+  has per-node `ColliderKind` and `ColliderMask` with `PassabilityMask` (`SceneImport.lua:3495-3515`,
+  `:2008-2011`), and the ModTools doc's 1 m disc exists "to block pathfinding units". A drained drone
+  would not reach the charger inside the ring: observed.
+- **Not ours:** the ring on a selected vanilla station is vanilla's 20-hex passenger range
+  (`show_range_all`, `StationSmall`/`StationBig` templates; `DefaultOutsideWorkplacesRadius = 20`,
+  `__const.lua:1921-1923`). The hub replaced its own ring with the drone ring
+  (`GetSelectionRadiusScale`, `20_TrainHub.lua:545`), so a player cannot see the hub's passenger
+  range; offered to the owner as a note, **not ruled**.
+- **Observed by the owner:** a vanilla train vanishes when its nose reaches the black backdrop inside
+  a tunnel mouth; the arch clears the rail with room above.
+
+**Owner rulings in this stretch, each written into the brief that obeys it (commit in brackets).**
+Build 3: the underside passable like a dome, charger stays inside the ring (`cef8e93`, `62b3f5c`);
+cut the raised platforms (`cae7604`); reactor at 75% at the current offset, footprint extended only
+by the hexes it covers, with the same inset (`51a8e06`); prefab buttons still missing, and drop the
+Power grid section from the hub's panel only (`3dfb3b5`). Builds 4 and 5: the vehicle is never a
+train (`c251fb1`); tunnels in scope by hide and show (`650d0c9`); the vehicle is the vanilla Wasp
+model, recoloured, hovering over the track, moved along track elements with no drone pathing or
+battery, playing vanilla repair work (`b1a1ecd`). Policy: `FIX_POLICY` §0, this mod's risk standard
+as a content mod, never the fix pack's (`c251fb1`). **Build 3 was mid-run for most of these**; the
+owner pasted each to it, but whether it acted on them is the audit's to check.
+
+## 7. State at close
+
+HEAD `b1a1ecd` at this update. Build 3 is still running: its `20_TrainHub.lua`, `entjson` and
+`shrink_footprint_probe.py` are uncommitted in the tree and are its, not the orchestrator's.
+Earlier: build 2's work was committed as `b6a8587`, and build 3 began with `57ab747`. Unfiled:
+spec §9's Tripo paragraph still needs replacing (build 3 may be editing the spec); the
+passenger-ring note above awaits an owner call. Executed models, from the transcript: Sonnet 5,
+Opus 5 (1M), Fable 5.1, Sonnet 5, then Opus 5 (1M).
