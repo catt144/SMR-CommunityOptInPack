@@ -777,6 +777,11 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   faint hex relief, a dark trim border, a coloured edge strip). The hex pattern moves onto it, off
   the beams and the stub. Colour adjustments are fine, but never so dark that the slate storage
   plates blend in. No collider on the plate; the cargo beds rise by its thickness.
+  **Lights and pillars (owner, same evening):** the night lighting is a flood light facing down into
+  the hub from the top, where the dome ribs meet, plus subtle lighting around the six tunnel
+  entrances. The pillars are thinned: cut the inner ring of six (10 m out on each line, set by
+  `PILLAR_AT` in `hub_skeleton.py`) and keep the centre pillar, the middle ring (20 m) and the outer
+  ring supports, so the hub reads open and less cluttered.
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
