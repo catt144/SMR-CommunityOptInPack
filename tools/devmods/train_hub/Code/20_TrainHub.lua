@@ -63,6 +63,13 @@ DefineClass.SMROptInTrainHubBase = {
 	hub_reserve_maintenances = 2,
 }
 
+-- Owner ruling 2026-09-19: keep this building's own Production/Consumption
+-- presentation, but omit the shared-grid summary to leave panel room for the
+-- train controls. ipBuilding gates only sectionPowerGrid through this method.
+function SMROptInTrainHubBase:ShowUISectionElectricityGrid()
+	return false
+end
+
 -- `sectionCustom` looks up an XTemplate named for the template's object_class.
 -- Reuse the vanilla Drone Hub's prefab controls and status presentation. The
 -- inherited DroneControl methods perform the actual unpack/pack operations;
@@ -837,7 +844,14 @@ local function heal_after_load(hub)
 end
 
 function OnMsg.LoadGame()
+	-- XTemplates is populated after the earlier class-processing callbacks in
+	-- this build. Register at the first lifecycle point that can open a panel.
+	ensure_hub_infopanel()
 	AllMapsForEach("map", "SMROptInTrainHubBase", heal_after_load)
+end
+
+function OnMsg.CityStart()
+	ensure_hub_infopanel()
 end
 
 -- ===========================================================================
