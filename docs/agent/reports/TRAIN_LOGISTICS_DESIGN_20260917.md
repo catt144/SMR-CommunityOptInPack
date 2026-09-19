@@ -731,7 +731,9 @@ round, its supports float 0.4 to 1.6 m above the ground, and its pallet decks ar
 
 **Owner direction for the look, 2026-09-19:** the vanilla station's colour scheme (clean white
 and red, the hex-pattern floor), but *"more clean / modern / high tech"*; **not** the brushed
-metal or the slatted look of the station's older parts. The charger stays the game's own pad,
+metal or the slatted look of the station's older parts. No colonist entrances and no station
+building: *"its meant to be a hub not a true station"*. The model has no `-Door` path, so
+colonists cannot board at the hub; whether passengers should transfer there is open. The charger stays the game's own pad,
 placed by the code (no charger spot in the model). The lead being tested: the vanilla material
 `TrainStationBig_T1` (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in
 `Materials.fpk` / `Textures3.fpk`), with the model's UVs picking only the clean white, the red
