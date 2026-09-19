@@ -5,7 +5,8 @@
 **Status: UNVERIFIED.** Pack `886926b`, TestKit `adda373`. Parse-checked only
 (`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` → 2 files, 0 errors; TestKit 33
 files, 0 errors). Nothing below has run in game. Every source line was read on 1.1.0.403908
-(`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src`). The sitting result is `<<PENDING-RUN>>`.
+(`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src`). **Smoke-tested 2026-09-19** with the owner; see
+§"Sitting result". The full battery was cut to a smoke test by owner ruling (spec §10).
 
 ## Where the code lives, and why
 
@@ -227,6 +228,37 @@ armed unless the step says so.
 20. Run one sol. Pass: trains still stop at the hub; error count unchanged.
 21. Salvage the hub with everything attached. Pass: prediction 12. Send back: a screenshot.
 22. Sitting → Flush + copy; Read taint; Read eligibility.
+
+## Sitting result, 2026-09-19 (MEASURED; one colony)
+
+Log `Mars.exe-20260918-23.44.18-6a91a190.log`; game 403908, pack `886926b`, TestKit source
+`7cd3504`; save `SpaceY Sol 20` (all research done), sols 22–46; mods: fix pack, TestKit, this
+mod, the dev hub (prototype off). The owner placed and wired the hub before the sitting, onto an
+existing network: two routes, not three, one of which passes the hub twice.
+
+| # | result |
+|---|---|
+| 1 | PASS: both `[TrainHubDev]` lines; Scratch `status=OK hub_class_loaded=true floor_core_loaded=true` |
+| 2 | PASS on the owner's screenshot: three line markers follow the ghost; no `GetSpotBeginIndex` in the log |
+| 3 | PASS: `connectors=6 in_footprint=6 direction_free=6 valid_elements=6 connected_tracks=6 in_station_label=true work_radius=8 valid_chargers=1 drones=2 serves_itself=true errors=0`, `depot_submodels=10 max_z=8`. `floor=7`, not 10: Building Codes' 30% cut makes a maintenance 3.5 Metals (owner's screenshot); the prediction's fixed 10 was wrong |
+| 4 | PASS: `Metals=… en=true` unclicked |
+| 5 | PASS: slot 3 `cubes_before=117 cubes_after=177`; slot 4 `177 → 0`, `held=0 offered=0` |
+| 6 | PASS for `hubs=1 stations_missing_from_label=0`; 2 routes, from the network's layout |
+| 7 | NOT PROVED by the witness; see below. The ledger shows R2 `train_out=4`, `train_in=0` |
+| 8, 9 | not run (smoke test) |
+| 10 | SEEN unprompted: `last_serviced` moved to 31723108, points to 2200, hub stock fell by exactly 3.5 unexplained, `reserve_took_by_train=0`. The ledger's `maintenance_paid` stayed 0: it missed the phase change |
+| 11 | PASS: after Save A / Load A, slot 2 identical to before the save |
+| 12 | PASS for `hubs=0 errors=0`, six end stations intact. `trains` fell 4 → 1: the three docked at the hub went with it. Unknown whether vanilla does the same for a docked station |
+
+**Findings for the next build:**
+- **The crossing witness cannot prove a crossing here** (TestKit, not the hub). In a gap-free
+  run (`blind_ms=0`) it still booked `other_in=74` Metals against `train_in R1=71`, so R2's 4 out
+  never exceeded it. It appears to miss train unloads at ultra speed. Autosaves, which the game
+  cannot turn off, add more unexplained stock. It needs fixing before the final build's battery.
+- **Drones showing "Controlled by: None" near the hub**: unresolved. The hub kept
+  `drones=2` throughout; the owner had cheat-deleted `DroneHub(1986)` just before, orphaning its
+  drones. Check on the next build.
+- Idle trains park at the hub once the network balances; three sat there at once.
 
 ## Not claimed
 

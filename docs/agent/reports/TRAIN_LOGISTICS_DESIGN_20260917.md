@@ -808,10 +808,26 @@ consequences for the real hub build:
   `transportable = false` on it, unlike the grid and player resources (`:343-413`), and a
   station stores every transportable resource except Seeds (`Station.lua:110-114`).
 
-**The build, 2026-09-18 (pack `886926b`): UNVERIFIED, sitting not yet run.** Design record,
-pre-boot predictions and the sitting script are in `TRAIN_HUB_BUILD_20260918.md`. The export floor
-turned out not to need an edit inside `Train:TransferCargo`: a claim the station holds on its own
-supply request lowers the target every hauler reads, so §4.3's "MISSING" row is a wrapper.
+**The build, 2026-09-18 (pack `886926b`): smoke-tested 2026-09-19, one colony (`SpaceY Sol
+20`, 1.1.0.403908).** Design record, predictions and the per-step result are in
+`TRAIN_HUB_BUILD_20260918.md` §"Sitting result". Boot, placement, six attached connectors, the
+built-in controller, the cube display, reload and salvage passed with 0 Lua errors; Metals left
+the hub on a route that delivered none, and the hub paid one maintenance from its own stock. The
+export floor turned out not to need an edit inside `Train:TransferCargo`: a claim the station
+holds on its own supply request lowers the target every hauler reads, so §4.3's "MISSING" row is
+a wrapper.
+
+**Owner rulings, 2026-09-19, from the sitting.**
+- **Testing depth:** *"we just need to be doing the bare minimum testing before we do the real
+  model we can do in-depth testing when we have a final build and revise around that, I don't
+  want to do multi hour battery of test each design pass."* A design pass gets a smoke test
+  (boot, place, attach, trains through it, reload, salvage, 0 errors); the full prediction
+  battery runs once, on the final build with the asset.
+- **Drone radius:** default **10**, and *"maybe"* a slider up to **20** (the slider is
+  tentative). The infopanel needs the vanilla drone hub's section: drone count, load and service
+  area. The build shipped a fixed radius of 8 and no drone section. Reason seen in the sitting:
+  end stations placed 10+ hexes out get no maintenance from a radius-8 hub, and at ultra speed
+  they wear out within about seven sols.
 
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).

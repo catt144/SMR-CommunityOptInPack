@@ -77,7 +77,7 @@ Train hub: after the sitting, accept the build's proposed defaults, or name chan
 - Module off: no new hubs, built hubs keep working (as MultipleSuns). Removing the mod with hubs standing is unsafe.
 - Cost 50 Concrete, 30 Metals, 10 Machine Parts; 10 power (the template's values).
 - A 10-Metals reserve (two maintenances) that trains and drones leave alone.
-- 2 starting drones, work radius = longest line + 2 hexes, and it commands drones while malfunctioning.
+- 2 starting drones, and it commands drones while malfunctioning.
 - 240 storage per resource, so cube stacks stand about twice a large station's.
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
