@@ -130,8 +130,9 @@ owner pasted each to it, but whether it acted on them is the audit's to check.
 
 ## 7. State at close
 
-HEAD `b1a1ecd` at this update. Build 3 is still running: its `20_TrainHub.lua`, `entjson` and
-`shrink_footprint_probe.py` are uncommitted in the tree and are its, not the orchestrator's.
+HEAD `38cb637` at this update; build 3's latest is `abf8a22` ("register controls after template
+load", likely its answer to the missing prefab section). Build 3 is still running: its `entjson`
+and `shrink_footprint_probe.py` are uncommitted in the tree and are its, not the orchestrator's.
 Earlier: build 2's work was committed as `b6a8587`, and build 3 began with `57ab747`. Unfiled:
 spec §9's Tripo paragraph still needs replacing (build 3 may be editing the spec); the
 passenger-ring note above awaits an owner call. Executed models, from the transcript: Sonnet 5,
