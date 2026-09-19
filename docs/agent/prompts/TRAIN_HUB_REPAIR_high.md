@@ -27,7 +27,10 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   - **Beyond it, track work only:** the same drone follows the track's element positions, hovering
     over the track, never drone pathing, so it cannot cut across open ground; it plays the vanilla
     repair work at the break (the Wasp's work animation state and the effects actions of the
-    `DroneWork` path, `Drone.lua:983-1021`; find the exact names). **Orchestrator's reading, for the
+    `DroneWork` path, `Drone.lua:983-1021`; find the exact names). **It charges from the track**
+    (owner, 2026-09-19, for very long lines): in track mode the hub holds its battery at full the
+    whole time, since tracks carry power; our track command never calls `Drone:UseBattery`
+    (`Drone.lua:1760`), so this is a guard, not the mechanism. **Orchestrator's reading, for the
     owner to confirm:** "track work" includes maintaining stations on the connected network.
   - **Save guard for track mode:** our follow-the-track command would be saved mid-step, so at
     `SaveGameStart` every drone in track mode is removed, and after the save and on load the hub
