@@ -98,7 +98,12 @@ Facts, each with a command that could falsify it:
    about 3 to 5 hexes; (b) attach it in Lua, outside the ring between two arms, and have the owner
    judge the look in game, including its working FX; (c) if the owner approves, add a lobe to
    `hex_shape` in `hub_skeleton.py` under it, keeping every line's approach and the hexes beyond
-   the connectors free, and let it ride the same re-import as the footprint fix and the texture;
+   the connectors free, and let it ride the same re-import as the footprint fix and the texture.
+   **Owner, 2026-09-19, after trying 50% and 60% in game: keep 75% at the current offset
+   (`point(3897, 2250, 0)`), and extend the footprint only by the whole hexes the reactor sits over
+   outside it** (estimated 3 to 5; compute the exact set). The lobe's hexes get the same inset as
+   the rest of `hex_shape`, or the 85-hex rounding comes back; re-read the outline count and the six
+   line radii after the re-import;
    (d) if not, attach the advanced Stirling model inside the ring (likely `StirlingGeneratorCP3`,
    the `StirlingGenerator` template's sponsor entity; check `IsValidEntity`). Move the charger onto a
    footprint hex drones can reach, as vanilla's hub does (`AttachedRechargeStations.lua`); your
