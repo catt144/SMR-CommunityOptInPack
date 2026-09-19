@@ -140,6 +140,6 @@ owner pasted each to it, but whether it acted on them is the audit's to check.
 HEAD `c4bb738` at this update. The owner **paused build 3** to discuss the drone redesign; its
 `20_TrainHub.lua`, `entjson`, `shrink_footprint_probe.py` and the TestKit's `80_AgentSlots.lua` are
 uncommitted and are its. On resuming, the owner pastes build 3 the paused rulings (brief at
-`6eb8903`). Builds 4 and 5 stay held. Unfiled: spec §9's Tripo paragraph; the hub's passenger-range
+`6eb8903`). Builds 4 and 5 stay held. Unfiled: the hub's passenger-range
 ring note awaits an owner call. Executed models, from the transcript: Sonnet 5, Opus 5 (1M),
 Fable 5.1, Sonnet 5, then Opus 5 (1M).

@@ -740,27 +740,30 @@ outside-work radius (`Station.lua:320-337`, `LinkToStation`), and the hub's dron
 door either** (owner, 2026-09-19: *"we can always revisit later as a v2"*). The charger stays the game's own pad,
 placed by the code (no charger spot in the model).
 
-**The look: routes, 2026-09-19.** The model has no UVs yet and imports with `Default`.
+**The look: our own Blender textures (owner, 2026-09-19: Tripo texturing dropped).** The untextured import
+used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py` calling `texture_hub.py`.
 - **Vanilla material: ruled out as a pick.** The Importer's Material dropdown lists only
   `Default` and mod materials (owner, 2026-09-19). The station's material is `TrainStationBig_T1`
   (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in `Materials.fpk` /
   `Textures3.fpk`). Patching its path into the entjson after import probably resolves, since
   `Materials/Default.mtljson` is itself a game path. But every re-import overwrites the patch,
   and the atlas carries the aged look the owner rejected. Fallback only.
-- **Tripo AI texturing: next, the owner's choice** (Tripo texture-only on an uploaded mesh,
-  `tripo_body_export.py`). Prompt: *"clean modern high-tech sci-fi rail hub, glossy white panels
-  with thin red accent stripes, light grey hexagon-pattern floor on the platforms, dark
-  slate-blue storage pads, no rust, no brushed metal, no grime, no weathering"*. Bake the result
-  onto our mesh; Tripo's geometry never ships. Risks: baked shading or grime, six sides that
-  differ, a smeared hex floor, and fixed colours with no colony colorization unless a mask is
-  made by hand.
-- **Our own textures: the fallback.** Generated flat white, red and slate plus a procedural hex
-  floor with relief, and a colorization mask. The body and the decks become two mesh nodes, each
-  with a GFXMaterial; the importer allows one material per node, not per import
-  (`SceneImport.lua:1877-1885`, `:4018-4024`).
+- **Chosen: procedural textures, made in Blender.** `texture_hub.py` bakes white enamel, red trim rings,
+  a light-grey hex floor with relief and slate-blue pads into three 4096² uncompressed TGAs in
+  `C:\Dev\SMR-TrainHubAssets\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
+  (tangent-space normal) and `TrainHub_RM` (roughness R/G, metal B). The body is one mesh with one
+  material, as the importer requires (`SceneImport.lua:3548`, `:4023`); no colorization mask was
+  made, so the colours are fixed. Checked 2026-09-19 by the orchestrator: geometry exactly equal to the
+  untextured baseline, 0 zero-UV faces, the previews match the look direction. The owner's steps
+  (a GFXMaterial item, the three maps, the Material choice on the body mesh, re-import) are in that folder's
+  `README.md`; they ride build 3's footprint fix so one re-import carries both.
+  Not checked: the look in game, the Mod Editor steps run, the normal map's handedness. Blender
+  renders a black patch at the central beam crossing even with every map disconnected: a geometry
+  question, to be compared in the game view.
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
+- the textured look in game, and whether the crossing's black patch shows (see the look paragraph above);
 - how the asset's pallets feed the cube display: which way the grid runs from a `-Box` spot
   once the Blender empty becomes a game spot. The build's asset branch has never run.
 

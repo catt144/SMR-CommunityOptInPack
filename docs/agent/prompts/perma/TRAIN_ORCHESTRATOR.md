@@ -56,8 +56,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      landed in build 3's code or report, since most reached it mid-run;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
      The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
-     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Fold the result into spec §9, replacing its
-     Tripo route paragraph (still owed; §5 of the sitting report says what was and was not checked);
+     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Spec §9 records the result and what was
+     not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
    - builds 3, 4 and 5 (`TRAIN_HUB_BUILD3_high.md`, `TRAIN_HUB_REPAIR_high.md`,
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
