@@ -729,6 +729,15 @@ round, its supports float 0.4 to 1.6 m above the ground, and its pallet decks ar
   suffixes. The entity file is written only when the Art Spec is saved
   (`ArtSpecEditor.lua:1006-1028`), so saving comes before a successful import.
 
+**Owner direction for the look, 2026-09-19:** the vanilla station's colour scheme (clean white
+and red, the hex-pattern floor), but *"more clean / modern / high tech"*; **not** the brushed
+metal or the slatted look of the station's older parts. The charger stays the game's own pad,
+placed by the code (no charger spot in the model). The lead being tested: the vanilla material
+`TrainStationBig_T1` (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in
+`Materials.fpk` / `Textures3.fpk`), with the model's UVs picking only the clean white, the red
+band, the hex floor and the slate regions. That keeps one mesh with one material, ships no game
+textures, and follows the colony colour scheme.
+
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
 - how the asset's pallets feed the cube display: which way the grid runs from a `-Box` spot
