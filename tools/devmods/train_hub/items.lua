@@ -1,12 +1,13 @@
 return {
 	PlaceObj('ModItemCode', {
-		'name', "10_TrainFloor",
-		'CodeFileName', "Code/10_TrainFloor.lua",
-	}),
-	PlaceObj('ModItemCode', {
 		'name', "20_TrainHub",
 		'CodeFileName', "Code/20_TrainHub.lua",
 	}),
+	PlaceObj('ModItemCode', {
+		'name', "10_TrainFloor",
+		'CodeFileName', "Code/10_TrainFloor.lua",
+	}),
 	PlaceObj('ModItemRef', {1} --[[SMROptInTrainHub6 SMROptInTrainHub6Base]]),
 	PlaceObj('ModItemRef', {2} --[[SMROptInTrainHub6]]),
+	PlaceObj('ModItemRef', {3} --[[SMROptInTrainHub6 refs: none]]),
 }

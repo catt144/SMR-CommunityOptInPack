@@ -8,8 +8,8 @@ PlaceObj('ModItemBuildingTemplate', {
 	'object_class', "SMROptInTrainHub6Base",
 	'construction_cost_Concrete', 60000,
 	'construction_cost_Metals', 40000,
-	'construction_cost_MachineParts', 10000,
 	'construction_cost_Electronics', 15000,
+	'construction_cost_MachineParts', 10000,
 	'build_points', 5000,
 	'is_tall', true,
 	'dome_forbidden', true,
@@ -32,9 +32,8 @@ PlaceObj('ModItemBuildingTemplate', {
 	'demolish_tilt_angle', range(900, 1500),
 	'demolish_debris', 85,
 	'disabled_in_environment', set( "Asteroid" ),
-	'electricity_consumption', 10000,
-	'electricity_production', 70000,
 	'desire_slider_max', 120,
 	'desired_amount', 10000,
 	'max_storage_per_resource', 150000,
 })
+
