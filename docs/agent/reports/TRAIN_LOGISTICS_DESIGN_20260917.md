@@ -736,7 +736,8 @@ building: *"its meant to be a hub not a true station"*. Owner, same day: it must
 colonists who use it as a station, but without the door look. INFERRED from source, not run: no
 door is needed. A station boards passengers through the domes whose entrances lie within its
 outside-work radius (`Station.lua:320-337`, `LinkToStation`), and the hub's drones work from its
-`WorkDrone` spots and never enter. The next smoke test checks a dome in range. The charger stays the game's own pad,
+`WorkDrone` spots and never enter. The next smoke test checks a dome in range. **No decorative
+door either** (owner, 2026-09-19: *"we can always revisit later as a v2"*). The charger stays the game's own pad,
 placed by the code (no charger spot in the model). The lead being tested: the vanilla material
 `TrainStationBig_T1` (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in
 `Materials.fpk` / `Textures3.fpk`), with the model's UVs picking only the clean white, the red
