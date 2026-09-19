@@ -71,7 +71,9 @@ is empty, the facts below hold. Put the end state in the todo tool before any wr
    boot, place, attach six lines, trains stop at the hub, the drone section reads right at 10 and
    at the slider's ends, save and reload, salvage, 0 Lua errors. Two open questions from the last
    sitting ride along: whether drones near the hub say "Controlled by: Train Hub", and whether
-   salvaging a **vanilla** station with trains docked also removes them (the hub's did).
+   salvaging a **vanilla** station with trains docked also removes them (the hub's did). One new
+   check: a dome within range links to the hub and its colonists can ride from it. The owner
+   wants colonists served, with no door on the model (spec §9).
 5. **Record** the result in `TRAIN_HUB_BUILD_20260918.md` (or a new report, your call) and spec
    §10; put anything owed by the owner on `docs/PLAYTEST_CHECKLIST.md`.
 
