@@ -118,7 +118,13 @@ Facts, each with a command that could falsify it:
    grids with one end station on a separate grid, and say in the report where the surplus goes
    when stations also touch the colony's cables.
 5. **The height.** Measure the vanilla track element's z against the connector's z 800 (spec §9's
-   unverified item) with a slot dump. Fix in Lua if the code is wrong, in Blender if the asset is.
+   unverified item) with a slot dump. **Owner, 2026-09-19, from two screenshots (stub beam against
+   the vanilla track, and top-down at a portal): the fault is the asset's** (the stub sits off the
+   track's level, and its slab is wider than the track). So **measure and report only**: the
+   vanilla track's running-surface z (not its bbox top), the connector's z as the game reads it,
+   and the stub's top z, as numbers. Change no Lua for it; the orchestrator corrects the stub in
+   Blender (`hub_skeleton.py` `DECK_Z`, now 10.69 m, the bbox top) and it rides the re-import. If
+   the numbers show the Lua places the track wrongly, report that instead of fixing it.
 6. **Smoke with the owner**, about five steps at a time, one colony: attach six lines, trains stop
    at the hub, the power reading and a station fed through a line, the overlay at 15, a hub drone
    working with no charger and its battery staying up, then the three-batch
