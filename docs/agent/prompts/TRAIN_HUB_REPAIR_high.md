@@ -40,10 +40,15 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    holds the site's cost, deduct it **at the cheaper rate, the SafeTransport-halved cost, whether
    or not that tech is researched** (owner, 2026-09-19: the hub is a perk, not a penalty; a
    repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
-   (distance along the track from the hub at a repair speed you choose, a dial), and notify:
+   (distance along the track from the hub at the repair speed), and notify:
    "Repair train dispatched, ETA N h". If stock is short, sign the hub and retry when stock lands.
-   **Reachability, orchestrator's call pending the owner:** any track reachable from the hub
-   through connected stations; narrow it if the owner rules so.
+   **Reachability (owner, 2026-09-19):** anything the dispatch vehicle could physically reach:
+   every track on the network connected to the hub through its stations, however far; never a
+   track on an isolated network the hub does not touch. **Speed (owner, same day):** faster than a
+   normal train, an emergency vehicle, because the network can be big. Pick the multiplier as a
+   dial and report it with the smoke's measured ETAs. The route to a break may itself cross an
+   earlier break; your call whether the vehicle queues repairs nearest-first or in break order,
+   recorded in the report.
 2. **Completion.** At the deadline, `Complete()` the site through vanilla's path. The timer is the
    only authority: it is persisted; the vehicle is not.
 3. **The vehicle.** An unsaved prop moving along the track's element positions to the break and
