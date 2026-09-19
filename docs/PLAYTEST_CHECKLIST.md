@@ -46,6 +46,15 @@ Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 - Desk-read only. Falsifier: two overlapping suns, demolish one; if the survivor's panels stay lit, nothing to decide.
 Home: `docs/agent/bugs/D04.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
 
+### OI-17 · opened 2026-09-18
+`AcknowledgedWarnings` (D02): 1.1.0 split its one notification id into at least eight. Widen it now, or wait?
+- The whole-id 4-game-hour window is byte-unchanged; only the id's SCOPE narrowed to one case.
+- It now covers one of ~8 ids sharing that window: `NotWorkingBuildings` + the 7 `ReasonNotification` targets.
+- Same wrapped globals (Suppress/Add/RemoveObjectFromNotification) either way — more ids, not a new mechanism.
+- (a) widen `ID` to that set now; (b) wait for launch-day re-verification; (c) leave it permanently.
+- Recommended: (a). Falsifier: break a building unfixably, dismiss it, confirm the window still reaches it.
+Home: `docs/agent/bugs/D02.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
+
 ### OI-03 · opened 2026-09-17
 `ResidencyControl` (D03): its tourist exemption is dead on 1.1.0. Repair it, or accept that tourists are refused?
 - `ChooseDome` now takes the colonist, not a traits table, so the module's Tourist guard is always false.

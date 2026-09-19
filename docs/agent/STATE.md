@@ -30,6 +30,6 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 
 ## Open owner decisions
 
-Bodies are in `docs/PLAYTEST_CHECKLIST.md`. Open: OI-03, OI-04, OI-10; launch: OI-11–OI-14.
+Bodies are in `docs/PLAYTEST_CHECKLIST.md`. Open: OI-03, OI-04, OI-10, OI-17; launch: OI-11–OI-14.
 Shared TestKit, EF-id allocation and a fix-pack feature remain in the fix pack's checklist
 because they bind that repo.
