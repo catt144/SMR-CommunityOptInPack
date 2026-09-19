@@ -12,7 +12,8 @@ mechanism with a second trigger and a fixed order, on the pending list build 4 d
   from a station the hub cannot reach waits, and starts the moment the network grows to touch that
   station. Cost is the normal element cost; there is no vanilla cheaper rate to match.
 - The repair train's rulings carry over: cheap version, cosmetic vehicle, emergency speed, and the
-  principle that the feature must not replace one pain point with another. Both bans bind; no new
+  principle that the feature must not replace one pain point with another, and the vehicle's
+  identity: a dedicated hub vehicle for a task, never a train (build 4's brief). Both bans bind; no new
   persisted name if build 4's list carries the kind, and if it does not, stop and report.
 - Testing depth (owner): a smoke test only.
 

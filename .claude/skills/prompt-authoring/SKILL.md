@@ -65,6 +65,8 @@ judgement, and cut every line a named skill or the worker's own judgement alread
   at the next playtest (ck184), never a reason to refuse work.
 - **Every module owes a BOTH-CONFIGURATION test at ship** — with the fix pack installed and with it
   absent (`FIX_POLICY` §8), naming the version. A brief that tests one configuration is incomplete.
+- For a content module, what the disable direction must do is set by `FIX_POLICY` §0 (it stops
+  offering new instances; placed content may stay).
 - A module's test must cover **both toggle directions**, including a mid-session enable and a
   mid-session disable, because that is the only surface a player has.
 - Before asking the owner to build a fixture, have the worker look for an existing save that has it.

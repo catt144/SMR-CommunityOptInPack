@@ -45,7 +45,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      owner calls for it and changes the model themselves): treat every build
      report as a claim and check it against its commits and logs. Cover: the persisted-name
      inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
-     both-configuration and both-toggle-direction ship test, which the smokes do not cover; the
+     both-configuration ship test and the toggle test as §0 defines it for content, which the
+     smokes do not cover; the
      spec §10 and hub report agreeing with the code; the `resource_types` 19 against 21 question;
      and that each fired brief and its map row were deleted at its lifecycle;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.

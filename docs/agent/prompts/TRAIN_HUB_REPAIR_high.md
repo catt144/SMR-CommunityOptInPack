@@ -1,4 +1,4 @@
-# Train hub build 4: the repair train
+# Train hub build 4: the repair vehicle
 
 ⛔ **HELD until build 3's smoke test is recorded** (`TRAIN_HUB_BUILD3_high.md`). It changes the hub's
 economy, so it builds on build 3's power, cost and storage numbers, not build 2's.
@@ -12,6 +12,14 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   after a travel time; the train is a **cosmetic vehicle**, not a unit, with a **distinct repair
   livery** (a recolour) as a nice-to-have. Not a drone: drone range, batteries and material
   sourcing are not to be touched.
+- **Owner, same day: it is never a train.** The hub dispatches a dedicated vehicle for a task.
+  It has its own class, never a subclass of vanilla's train classes; it is never in a station's
+  train list or counts, carries no passengers, and no UI text calls it a train. Its model will
+  be our own (not briefed yet); until then use a recoloured vanilla train entity as a
+  placeholder, and report if that entity misbehaves as a moved prop. The vehicle is unsaved, so
+  its class name is not save contract.
+- `FIX_POLICY` §0 sets this mod's risk standard (owner, 2026-09-19): content may stay in a save
+  on removal, and disabling stops new dispatches.
 - Both bans in `FIX_POLICY.md` bind. **This build adds persisted state** (the pending-repair list):
   name it once, permanently, and add it to the persisted-name inventory in the same commit.
 - Testing depth (owner): a smoke test only.
@@ -41,7 +49,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    or not that tech is researched** (owner, 2026-09-19: the hub is a perk, not a penalty; a
    repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
    (distance along the track from the hub at the repair speed), and notify:
-   "Repair train dispatched, ETA N h". If stock is short, sign the hub and retry when stock lands.
+   "Repair vehicle dispatched, ETA N h" (wording yours; never "train"). If stock is short, sign the hub and retry when stock lands.
    **Reachability (owner, 2026-09-19):** anything the dispatch vehicle could physically reach:
    every track on the network connected to the hub through its stations, however far; never a
    track on an isolated network the hub does not touch. **Speed (owner, same day):** faster than a
@@ -71,7 +79,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    below is your call.
 5. **Smoke with the owner:** break a far element with the TestKit (`Track.lua:618`
    `CanGetDamagedBy`; a meteor at click), watch the dispatch, save and reload mid-trip, watch the
-   completion and the train run again; a break with the hub short of stock; hub toggle off.
+   completion and trains run again; a break with the hub short of stock; hub toggle off.
 6. **Record** in the hub report and spec §10; persisted names in the inventory.
 
 **Done means:** a break outside every drone's range on the hub's network is repaired from the hub's

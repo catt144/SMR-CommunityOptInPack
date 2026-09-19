@@ -15,8 +15,34 @@ mods and future game patches, zero edits to game files.
 > **Adapted from the Relaunched Fix Pack.** Shared sections follow the donor's current policy;
 > executable framework names use this repo's `SMROptInPack` namespace, while persisted names keep
 > their exact historical bytes. §4 is inverted, and §4a, §5 and §8 state this mod's product rules.
+> §0, the risk standard, exists only here and never applies to the fix pack.
 > Donor §2a is omitted because this core has `Require.test`, not the donor's `probe` API. Donor
 > §2b is omitted because this repo has neither its manifest headers nor `bodycheck.py`/`luafn.py`.
+
+## 0. Risk standard: a content mod, not a fix mod (owner ruling, 2026-09-19)
+
+⛔ **This section applies to the Opt-In Modules mod ONLY. It never applies to the Relaunched Fix
+Pack**, whose players expect it to exist cleanly and remove cleanly. Do not port it to the fix
+pack, cite it there, or read the fix pack's standards through it.
+
+The owner, 2026-09-19: this is an opt-in content mod, and a player installing content accepts a
+different risk surface than one installing a bug fix. We strive to be as clean as possible, but
+we are not limited to it the way the fix pack is. It covers **every module in this mod** (owner),
+the behaviour modules as well as content such as the train hub.
+
+- **Clean removal is an aim, not a gate.** §3a's tiers remain the design order. A module may leave
+  its content in a save when removed (placed buildings, their persisted state) where that is the
+  cost of the feature; say so in the module's description.
+- **Disabling a content module** mid-session stops it offering new instances; existing placed
+  content may stay. §8's both-configuration run, with the fix pack installed and absent, still
+  binds.
+- **The two bans in the header still bind an agent's own work.** Where something is truly only
+  achievable by crossing one, or by accepting a residual, an agent may **offer** that option to
+  the owner with its risk scope stated; it never adopts it itself. The owner decides, and the
+  ruling is recorded where the obeying role reads it.
+- **Choosing between options:** if a safe option is as good as an unsafe one, the safe one always
+  wins. An unsafe option may be considered only when it gives a much better product, or does
+  something the safe option cannot. The aim is the best product for the player.
 
 ## 1. Choose the least invasive technique that works
 
