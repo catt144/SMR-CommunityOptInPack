@@ -45,6 +45,13 @@ is empty, the facts below hold. Put the end state in the todo tool before any wr
     `hub_skeleton.py`.
   - No UVs anywhere, so the default material; the glass is left out, because an opaque dome
     would hide the cargo. Texturing is a later pass.
+  - **The hub stores 21 resource types**, not the ~15 the cube display was sized for: the
+    sitting's CheatFill on a station filled `resources=21` (log id 172), and the source agrees
+    (13 physical in `Data/Resource.lua` plus the Norman DLC's eight `ResourceIngredient` foods,
+    `DLC/norman/Presets/Resource.lua`). Six beds share out 360 columns, which gives about 17
+    columns per resource. `max_z` then comes to about 15, against the 10 the beds' placement
+    assumed. In the smoke test, fill one hub with every resource and check the stacks against
+    the ring and hoods. Also worth a look: whether food spoils in station storage (`Spoilage.lua`).
 
 ## End state
 
