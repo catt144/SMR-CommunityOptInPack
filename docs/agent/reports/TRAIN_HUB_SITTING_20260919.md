@@ -89,11 +89,11 @@ GFXMaterial item and re-import ride build 3's footprint fix so one re-import car
 
 ## 6. State at close
 
-HEAD `98a362a`. Build 2's work is **uncommitted** in the tree (dev mod Lua, template, `metadata.lua`,
-its report section, a spec §10 paragraph, a checklist edit). A `.codex-build2-commit-message.txt`
-appeared at 15:11 saying Batches 2 and 3 remain for Build 3: that matches build 3's first step, so
-build 3 has probably started; **inferred, not confirmed**. Unfiled: spec §9's Tripo paragraph still
-needs replacing (spec has the peer's uncommitted edits); which vanilla building the owner's
+HEAD at this section's writing: `b6a8587` ("Train hub build 2: imported body and service-area smoke"),
+committed by another session after `98a362a`; its message says Batches 2 and 3 remain for Build 3.
+That is build 3's first step, so **build 3 has started** (`git log`, 15:11 on 2026-09-19; the session's
+identity is not recorded). The tree was clean after that commit. Unfiled: spec §9's Tripo paragraph still
+needs replacing (build 3 may be editing the spec; leave it to the audit or a quiet tree); which vanilla building the owner's
 "that's it scale in game" screenshots show was assumed, not verified, and build 3 must confirm the
 entity name. Executed models, from the transcript: Sonnet 5, then Opus 5 (1M), then Fable 5.1,
 then Sonnet 5.
