@@ -40,7 +40,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
    - **start here: the Blender texture pass** (owner, 2026-09-19: the Tripo pass was tried and
-     dropped). Its worker has returned (`TRAIN_HUB_TEXTURE_high.md`, outputs in
+     dropped). Its worker has returned (the brief is retired; outputs in
      `C:\Dev\SMR-TrainHubAssets\blender\`). Treat its report as a claim: check the previews against
      the owner's look direction and the geometry proof against the FBX. The owner's
      GFXMaterial item and re-import wait for build 3's footprint fix so that one re-import carries

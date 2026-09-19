@@ -122,6 +122,5 @@ Out: Module A, routing, the four-connector hub, OI-18's packaging tool, and the 
 
 ## Lifecycle
 
-One-off. Delete this file, `TRAIN_HUB_BUILD2_high.md` and their rows in
-`docs/agent/prompts/README.md` once the smoke test is recorded, and delete
-`TRAIN_HUB_TEXTURE_high.md` and its row once the owner's re-import is done.
+One-off. Delete this file and its row in `docs/agent/prompts/README.md` once the smoke test is
+recorded.
