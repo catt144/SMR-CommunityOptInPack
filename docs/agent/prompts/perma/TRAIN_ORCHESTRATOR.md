@@ -41,8 +41,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
-   - **start here once builds 3, 4 and 5 are done: the audit sweep** (owner, 2026-09-19; the
-     owner calls for it and changes the model themselves): treat every build
+   - **On launch, stand by** (owner, 2026-09-19). Builds 3, 4 and 5 are still being built out and
+     the owner may bring design questions, rulings or sitting help first. Do not start the audit
+     or assume it is due: orient from `docs/agent/reports/TRAIN_HUB_SITTING_20260919.md` §6-7 and
+     wait for the owner;
+   - **the audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner, 2026-09-19;
+     the owner changes the model themselves): treat every build
      report as a claim and check it against its commits and logs. Cover: the persisted-name
      inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
      both-configuration ship test and the toggle test as §0 defines it for content, which the

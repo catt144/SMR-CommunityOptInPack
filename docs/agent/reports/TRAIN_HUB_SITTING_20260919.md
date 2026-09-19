@@ -125,15 +125,21 @@ Power grid section from the hub's panel only (`3dfb3b5`). Builds 4 and 5: the ve
 train (`c251fb1`); tunnels in scope by hide and show (`650d0c9`); the vehicle is the vanilla Wasp
 model, recoloured, hovering over the track, moved along track elements with no drone pathing or
 battery, playing vanilla repair work (`b1a1ecd`). Policy: `FIX_POLICY` §0, this mod's risk standard
-as a content mod, never the fix pack's (`c251fb1`). **Build 3 was mid-run for most of these**; the
+as a content mod, never the fix pack's (`c251fb1`). **Then the owner replaced the hub's drones**
+(`91dc2c1`, `024bdcd`, `102db53`, `6eb8903`, `c4bb738`): build 3 dropped the prefab-button chase and
+cut the slider to a fixed 15; build 4's repair drones are vanilla Wasps under the hub, identified by
+their controller, a constant 30 launched from a recoloured recharge-pad model inside the ring,
+never charging (per-drone battery topped up in every hub state, held full in track mode), anything
+a drone does within 15 hexes and track work beyond it, with a track-mode save guard and a scoped
+`Drone:CanBeControlled` wrap against reassignment. Not ruled: whether "track work" includes station
+maintenance (build 4 marks it the orchestrator's reading). **Build 3 was mid-run for most of these**; the
 owner pasted each to it, but whether it acted on them is the audit's to check.
 
 ## 7. State at close
 
-HEAD `38cb637` at this update; build 3's latest is `abf8a22` ("register controls after template
-load", likely its answer to the missing prefab section). Build 3 is still running: its `entjson`
-and `shrink_footprint_probe.py` are uncommitted in the tree and are its, not the orchestrator's.
-Earlier: build 2's work was committed as `b6a8587`, and build 3 began with `57ab747`. Unfiled:
-spec §9's Tripo paragraph still needs replacing (build 3 may be editing the spec); the
-passenger-ring note above awaits an owner call. Executed models, from the transcript: Sonnet 5,
-Opus 5 (1M), Fable 5.1, Sonnet 5, then Opus 5 (1M).
+HEAD `c4bb738` at this update. The owner **paused build 3** to discuss the drone redesign; its
+`20_TrainHub.lua`, `entjson`, `shrink_footprint_probe.py` and the TestKit's `80_AgentSlots.lua` are
+uncommitted and are its. On resuming, the owner pastes build 3 the paused rulings (brief at
+`6eb8903`). Builds 4 and 5 stay held. Unfiled: spec §9's Tripo paragraph; the hub's passenger-range
+ring note awaits an owner call. Executed models, from the transcript: Sonnet 5, Opus 5 (1M),
+Fable 5.1, Sonnet 5, then Opus 5 (1M).
