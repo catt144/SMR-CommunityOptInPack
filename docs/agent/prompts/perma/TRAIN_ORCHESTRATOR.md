@@ -55,6 +55,13 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      smoke is recorded, and play its smoke with the owner;
    - fire `TRAIN_HUB_BUILDTRACK_high.md` (build 5, the hub builds track; owner, 2026-09-19) once
      build 4's smoke is recorded, and play its smoke with the owner;
+   - **audit sweep of builds 3, 4 and 5** (owner, 2026-09-19), once all three smokes are recorded
+     and when the owner asks for it (they will change the model themselves): treat every build
+     report as a claim and check it against its commits and logs. Cover: the persisted-name
+     inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
+     both-configuration and both-toggle-direction ship test, which the smokes do not cover; the
+     spec §10 and hub report agreeing with the code; the `resource_types` 19 against 21 question;
+     and that each fired brief and its map row were deleted at its lifecycle;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
