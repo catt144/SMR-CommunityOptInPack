@@ -40,15 +40,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
    - **start here: the Blender texture pass** (owner, 2026-09-19: the Tripo pass was tried and
-     dropped). The brief is `TRAIN_HUB_TEXTURE_high.md`. When its worker returns, treat the
-     report as a claim: check the previews against the owner's look direction and the geometry
-     proof against the FBX. Then, once build 2 has committed (the dev mod is shared), walk the
-     owner through the GFXMaterial item and the re-import from the steps in
-     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Fold the result into spec §9, replacing its
+     dropped). Its worker has returned (`TRAIN_HUB_TEXTURE_high.md`, outputs in
+     `C:\Dev\SMR-TrainHubAssets\blender\`). Treat its report as a claim: check the previews against
+     the owner's look direction and the geometry proof against the FBX. The owner's
+     GFXMaterial item and re-import wait for build 3's footprint fix so that one re-import carries
+     both, from the steps in that folder's `README.md`. Fold the result into spec §9, replacing its
      Tripo route paragraph;
    - OI-18 and OI-19 on the owner's list;
-   - fire `TRAIN_HUB_BUILD2_high.md` (the radius and drone-section rulings, and the swap to the
-     imported asset) and play its smoke test with the owner;
+   - fire `TRAIN_HUB_BUILD3_high.md` (the footprint the game reads as 85 hexes, the overlay, drone
+     replacement from prefabs, the track height; it also takes over build 2's uncommitted work) and
+     play its smoke test with the owner. The footprint fix and the texture ride one Mod Editor
+     re-import;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
