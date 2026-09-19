@@ -26,6 +26,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
   Its smoke test was played with the owner on 2026-09-19 (the report's §"Sitting result").
   Its owner decisions are OI-18 and OI-19 in `docs/PLAYTEST_CHECKLIST.md`; the radius was ruled
   in the sitting (spec §10).
+- The 2026-09-19 sitting, its measurements, source facts and the owner's rulings behind builds 3 to 5:
+  `docs/agent/reports/TRAIN_HUB_SITTING_20260919.md`.
 - The owner's asset: the shape was approved on 2026-09-18 and imported into the dev mod on
   2026-09-19, on the hex grid (`06b5a62`). Spec §9 holds the pipeline, the measured axis mapping,
   the owner's look direction and what only the game can answer. The Blender and Mod Editor
@@ -39,29 +41,23 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
-   - **start here: the Blender texture pass** (owner, 2026-09-19: the Tripo pass was tried and
-     dropped). Its worker has returned (the brief is retired; outputs in
-     `C:\Dev\SMR-TrainHubAssets\blender\`). Treat its report as a claim: check the previews against
-     the owner's look direction and the geometry proof against the FBX. The owner's
-     GFXMaterial item and re-import wait for build 3's footprint fix so that one re-import carries
-     both, from the steps in that folder's `README.md`. Fold the result into spec §9, replacing its
-     Tripo route paragraph;
-   - OI-18 and OI-19 on the owner's list;
-   - fire `TRAIN_HUB_BUILD3_high.md` (the footprint the game reads as 85 hexes, the overlay, drone
-     replacement from prefabs, the track height; it also takes over build 2's uncommitted work) and
-     play its smoke test with the owner. The footprint fix and the texture ride one Mod Editor
-     re-import;
-   - fire `TRAIN_HUB_REPAIR_high.md` (build 4, the repair train; owner, 2026-09-19) once build 3's
-     smoke is recorded, and play its smoke with the owner;
-   - fire `TRAIN_HUB_BUILDTRACK_high.md` (build 5, the hub builds track; owner, 2026-09-19) once
-     build 4's smoke is recorded, and play its smoke with the owner;
-   - **audit sweep of builds 3, 4 and 5** (owner, 2026-09-19), once all three smokes are recorded
-     and when the owner asks for it (they will change the model themselves): treat every build
+   - **start here once builds 3, 4 and 5 are done: the audit sweep** (owner, 2026-09-19; the
+     owner calls for it and changes the model themselves): treat every build
      report as a claim and check it against its commits and logs. Cover: the persisted-name
      inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
      both-configuration and both-toggle-direction ship test, which the smokes do not cover; the
      spec §10 and hub report agreeing with the code; the `resource_types` 19 against 21 question;
      and that each fired brief and its map row were deleted at its lifecycle;
+   - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
+     The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
+     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Fold the result into spec §9, replacing its
+     Tripo route paragraph (still owed; §5 of the sitting report says what was and was not checked);
+   - OI-18 and OI-19 on the owner's list;
+   - builds 3, 4 and 5 (`TRAIN_HUB_BUILD3_high.md`, `TRAIN_HUB_REPAIR_high.md`,
+     `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
+     after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
+     in the map has not finished; the footprint fix and the texture ride one Mod Editor
+     re-import at the end of build 3;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
