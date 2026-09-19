@@ -14,10 +14,16 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   sourcing are not to be touched.
 - **Owner, same day: it is never a train.** The hub dispatches a dedicated vehicle for a task.
   It has its own class, never a subclass of vanilla's train classes; it is never in a station's
-  train list or counts, carries no passengers, and no UI text calls it a train. Its model will
-  be our own (not briefed yet); until then use a recoloured vanilla train entity as a
-  placeholder, and report if that entity misbehaves as a moved prop. The vehicle is unsaved, so
-  its class name is not save contract.
+  train list or counts, carries no passengers, and no UI text calls it a train. The vehicle is
+  unsaved, so its class name is not save contract.
+- **Owner, same day: the look is the vanilla Wasp, reused, made ours.** Use the Wasp drone's
+  model (`FlyingDrone`, entity `DroneJapanFlying`, `FlyingDrone.lua:11-21`) on our prop, recoloured
+  to our look, **hovering over the track**. It is a track vehicle, never a drone: it follows the
+  track's element positions and never drone pathing, so it cannot cut across open ground; it has
+  no battery and never recharges; it is in no drone list. At the break it plays the vanilla
+  repair work: the Wasp model's work animation state and the effects actions a drone's repair
+  plays (find the exact names on the `DroneWork` path, `Drone.lua:983-1021`, and the effects
+  presets); no new art. It is dispatched out of the hub and returns to it.
 - `FIX_POLICY` §0 sets this mod's risk standard (owner, 2026-09-19): content may stay in a save
   on removal, and disabling stops new dispatches.
 - Both bans in `FIX_POLICY.md` bind. **This build adds persisted state** (the pending-repair list):
@@ -76,10 +82,9 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    double a repair. **Tunnels (observed by the owner, 2026-09-19):** a vanilla train vanishes when
    its nose reaches the black backdrop just inside a tunnel mouth; the portal arch has ample
    clearance above the rail. Do the same: drive into the backdrop, hide, advance on the timer,
-   show at the far mouth. Tunnels are in scope. **Ride position is open (owner considering):**
-   hanging on the side like a train, or on top of the beam for distinction and to never overlap
-   a real train; build it so the offset is one value, and check clearance at stations and the
-   hub's hoods if it rides on top. Livery: a distinct palette, colony colours with a red accent. Cargo cubes for
+   show at the far mouth. Tunnels are in scope. **Ride position (owner, 2026-09-19): hovering
+   over the track**, clear of the side-hanging trains; keep the height one value, and check
+   clearance at stations, the hub's hoods and tunnel arches. Livery: our recolour of the Wasp (above). Cargo cubes for
    the paid load if cheap. Drop the livery first, then the vehicle, never the repair.
 4. **Player controls.** A toggle on the hub's infopanel; a stock reserve the repair may not dip
    below is your call.
