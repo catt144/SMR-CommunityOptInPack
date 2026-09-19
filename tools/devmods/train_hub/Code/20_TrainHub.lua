@@ -30,6 +30,7 @@ local Floor = SMROptInTrainFloor
 
 DefineClass.SMROptInTrainHubBase = {
 	__parents = { "Station", "DroneControl", "ElectricityProducer" },
+	flags = { cfConstructible = true, efWalkable = true },
 
 	-- Geometry. `hub_connector_directions[i]` is connector i's local hex
 	-- direction 0..5. Pair order is load-bearing: (1,2), (3,4), (5,6) are the
@@ -70,9 +71,10 @@ DefineClass.SMROptInTrainHubBase = {
 -- building use vanilla's RangeHexRadius overlay.
 local function ensure_hub_infopanel()
 	if not XTemplates or XTemplates.customSMROptInTrainHub6Base then return end
-	PlaceObj("XTemplate", {
+	local template = PlaceObj("XTemplate", {
 		group = "Infopanel Sections",
 		id = "customSMROptInTrainHub6Base",
+	}, {
 		PlaceObj("XTemplateWindow", {
 			"__class", "InfopanelButton",
 			"RolloverText", T(8460, "Unpack an existing Drone Prefab to build a new Drone. Drone Prefabs can be created from existing Drones or in a Drone Assembler (requires research). This action can be used to quickly reassign Drones between controllers.<newline><newline>Available Drone Prefabs:<right><drone(available_drone_prefabs)>"),
@@ -131,6 +133,9 @@ local function ensure_hub_infopanel()
 			}),
 		}),
 	})
+	-- Runtime-created presets are not inserted in their GlobalMap by PlaceObj.
+	-- sectionCustom reads this exact map; the id is UI-only and never saved.
+	XTemplates.customSMROptInTrainHub6Base = template
 end
 
 ensure_hub_infopanel()
@@ -600,6 +605,47 @@ local function charger_offset(self)
 	return point(x - x0, y - y0, 0)
 end
 
+-- A visual-only reactor: the hub remains the sole grid object and producer.
+-- Use the engine's existing shapeshifter class rather than introducing another
+-- persisted class name. DeleteOnLoadGame removes the helper after save load and
+-- heal_after_load recreates it. Seven vanilla outline hexes scaled by sqrt(4/7)
+-- gives 75.6%, so 75% targets the owner's three-to-five-hex look.
+local reactor_entity = "FusionReactor"
+local reactor_scale = 75
+local reactor_offset = point(3897, 2250, 0) -- 45 m out, local angle 30 degrees
+
+local function is_hub_reactor(obj)
+	return IsValid(obj) and IsKindOf(obj, "ShapeshifterAutoAttach")
+		and obj:GetEntity() == reactor_entity
+end
+
+local function set_hub_reactor_working(self, working)
+	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+		if is_hub_reactor(visual) then
+			local state = working and "working" or "idle"
+			if visual:HasState(state) then visual:SetState(state) end
+			PlayFX("Working", working and "start" or "end", visual)
+		end
+	end
+end
+
+function SMROptInTrainHubBase:InitHubReactorVisual()
+	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+		if is_hub_reactor(visual) then DoneObject(visual) end
+	end
+	if not IsValidEntity(reactor_entity) then return end
+	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
+	visual:ChangeEntity(reactor_entity)
+	visual.fx_actor_class = reactor_entity
+	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	self:Attach(visual, self:GetSpotBeginIndex("Origin"))
+	visual:SetAttachOffset(reactor_offset)
+	visual:SetAttachAngle(210 * 60) -- face the hub centre
+	visual:SetScale(reactor_scale)
+	DeleteOnLoadGame(visual)
+	set_hub_reactor_working(self, self.working)
+end
+
 -- A train station is normally only an ElectricityConsumer. This hub is both a
 -- 70-power producer and a 10-power consumer on one grid element, so its stated
 -- output covers itself plus six 10-power large stations. SupplyGridElement and
@@ -637,6 +683,7 @@ function SMROptInTrainHubBase:GameInit()
 	self.work_radius = 10
 	self.UIWorkRadius = self.work_radius
 	self:InitHubChargers()
+	self:InitHubReactorVisual()
 	self:GatherOrphanedDrones()
 	place_hub_markers(self)
 	Floor.Reconcile(self)
@@ -650,6 +697,7 @@ function SMROptInTrainHubBase:OnSetWorking(working)
 	self:NotifyWorkingChanged(self.connected_task_requesters)
 	-- like a drone hub: no power, no charging (DroneHub.lua:85-94)
 	AttachedRechargeStations.SetWorking(self.charging_stations, working)
+	set_hub_reactor_working(self, working)
 end
 
 -- Done is combined. TrackConnectedObjBase's body removes connectors 0..4
@@ -784,6 +832,7 @@ local function heal_after_load(hub)
 	if not (IsValid(charger) and IsValid(charger.platform)) then
 		hub:InitHubChargers()
 	end
+	hub:InitHubReactorVisual()
 	Floor.Reconcile(hub)
 end
 
