@@ -23,7 +23,7 @@ PlaceObj('ModItemBuildingTemplate', {
 	'build_category', "Stations",
 	'display_icon', "UI/IconsRemaster/Buildings/large_train_station.png",
 	'build_pos', 19,
-	'entity', "TrainStationLargeCCP3",
+	'entity', "SMROptInTrainHub6",
 	'label1', "OutsideBuildings",
 	'label2', "OutsideBuildingsTargets",
 	'palette_color1', "outside_TrainStation",
@@ -36,4 +36,3 @@ PlaceObj('ModItemBuildingTemplate', {
 	'desired_amount', 10000,
 	'max_storage_per_resource', 240000,
 })
-

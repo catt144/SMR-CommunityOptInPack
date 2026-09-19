@@ -1,6 +1,6 @@
 return PlaceObj('ModDef', {
 	'title', "DEV ONLY - Train Hub (Module B build)",
-	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, a built-in drone controller and a Metals maintenance reserve, on a stand-in body. Test colonies only until it ships inside the Opt-In Modules mod.",
+	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, the imported hub body, a built-in drone controller and a Metals maintenance reserve. Test colonies only until it ships inside the Opt-In Modules mod.",
 	'short_description', "DEV ONLY: six-connector train hub with its own drones and a maintenance reserve.",
 	'id', "SMR_TrainHubDev_20260918",
 	'author', "catt144",

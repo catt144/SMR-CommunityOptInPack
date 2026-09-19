@@ -83,6 +83,14 @@ Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ## Run
 
+### OI-20 · opened 2026-09-19
+When you are ready, run the train hub build-2 one-colony smoke with the attending agent in three short batches.
+- Fresh hub: imported body, six lines, trains stop; drone count/load/service-area UI reads 10 and 20.
+- Fill every resource and inspect cubes against the ring/hoods; a linked dome's colonist can ride.
+- Check a nearby drone says `Controlled by: Train Hub`; save/reload; vanilla-station salvage witness.
+- Salvage the hub with trains docked; six end stations remain; finish with 0 Lua errors.
+Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
+
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.
 - Paradox rejects a mod with no `image` / `preview.png` before packing.

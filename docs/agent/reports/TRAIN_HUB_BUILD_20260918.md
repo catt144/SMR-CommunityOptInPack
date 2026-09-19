@@ -263,6 +263,76 @@ existing network: two routes, not three, one of which passes the hub twice.
   `[LUA ERROR] Failed to load items.lua for mod Community Fix Pack — Test Kit` (the Mod Editor
   session). The TestKit is the fix pack's; told to the owner 2026-09-19, not filed there.
 
+## Build 2, 2026-09-19 (PRE-BOOT)
+
+**Authority.** The owner's 2026-09-19 sitting rulings in spec §10: radius 10; build the tentative
+slider to 20 if it needs no unjustified persisted field; show drone count, load and service area;
+smoke-test this design pass. The imported `SMROptInTrainHub6` asset is present.
+
+**Build calls.** The slider is built, from 10 through 20. It uses vanilla `work_radius`, already a
+persisted `DroneNode` template property, and vanilla's non-saving `UIWorkRadius` mirror; it adds no
+persisted name. A hub saved by build 1 at radius 8 is raised to the new minimum 10 on load. Later
+slider choices inside 10–20 survive through `work_radius`.
+
+The infopanel keeps vanilla's `sectionServiceArea` and slider by setting `show_service_area = true`.
+Its custom section reuses the vanilla Drone Hub translations and presentation for count and load;
+it omits prefab controls and ordered-drone text, which this hub does not implement.
+
+The editable BuildingTemplate source now names entity `SMROptInTrainHub6`. Its generated companion
+still names the stand-in until the next Mod Editor save, so a `ClassesPostprocess` bridge applies the
+source value in this dev build without editing generated output. The asset's six connector and six
+direction spots win individually. `Ramparrive`, `Stop`, `Spawn` and `Rampdepart`, which the import
+lacks, stay synthetic; construction `Sign` spots stay absent. The six body `Box1` spots select the
+previously unrun body-pallet cube branch. The charger remains the code-created vanilla pad.
+
+**Desktop gates, MEASURED before boot.** `python tools/parsecheck.py --dir
+tools/devmods/train_hub/Code` read 3 listed Lua files and returned 0 errors. `python
+C:/Dev/SMR-OptInPack/tools/parsecheck.py --dir Code`, from the TestKit repo, read 33 listed Lua
+files and returned 0 errors. The stale-probe command
+`C:\Program Files\Git\usr\bin\grep.exe -rln TEMPORARY Code/
+../SMR-BugFixPack-TestKit/Code/ tools/devmods/train_hub/Code/` returned 0 hits, exit 1. TestKit
+`80_AgentSlots.lua` now carries only this smoke: asset/tracks/trains, drone UI/radius, fill and empty
+every live station resource, a staged vanilla-station salvage witness, the dome link, and boot.
+
+The decoded `Entities/SMROptInTrainHub6.entjson` spot sweep was also measured. `rg -n
+'Ramparrive|Rampdepart|Stop|Spawn|Sign'` returned 0 hits, exit 1. The positive-side `rg -o` filter
+for `idle|Box1|Top|Trackconnector[1-6]|Trackdirection[1-6]|Workdrone` returned 26 hits, reconciled
+as 1 idle + 6 Box1 + 1 Top + 6 connectors + 6 directions + 6 Workdrone = 26. This proves what the
+Lua must source from the body and what it must continue to synthesize; it does not prove the spots'
+runtime alignment.
+
+### Build 2 smoke — predictions and sitting script
+
+Stop on the first Lua error. Stop the asset swap if its connector axes or deck height do not meet
+the tracks. Times below are operator limits, not measurements.
+
+**Batch 1 — boot, place, UI (about five steps).** Start one colony of the owner's choice with both
+packs, TestKit and the dev hub enabled. Scratch: both dev-mod load lines, both class flags true,
+eligibility `UNAVAILABLE:sandbox`, and no Lua error (10 s normal, 30 s abort). Place and complete a
+fresh hub: imported body, six portals on the hex axes, track deck meeting each stub. Select it and
+run slot 1: entity `SMROptInTrainHub6`, six real connectors and directions, 24 synthetic operating
+spots, six `Box1` spots, radius 10, two drones, 0 errors. The infopanel visibly shows drone count,
+load and service area; a nearby drone visibly says `Controlled by: Train Hub`. Move the slider to
+20, run slot 2, then return it to 10 and run slot 2 again; `work_radius`, `UIWorkRadius` and the
+selection ring agree (5 s normal, 15 s abort at each end).
+
+**Batch 2 — six lines, cargo and dome.** Attach all six ends to six vanilla end stations and put a
+train on every line. Let trains stop at the hub, then slot 1 reads six connected tracks, at least
+one train at the hub and no error. Slot 3 fills every resource the station exposes; send a
+screenshot and inspect every bed against the ring and hoods. Slot 4 empties it; the cubes disappear.
+Place or use a populated dome inside station range, select it and run slot 6: reciprocal hub link
+and at least one hub route. Watch one colonist board from that dome; the model has no door by owner
+ruling (10 s normal, 30 s abort for each slot).
+
+**Batch 3 — reload and teardown.** Put the slider at 20, save and reload. Scratch then slots 1 and 2:
+the asset, six connections, trains, drones and radius 20 remain, with no error; return the slider to
+10. With a train stopped at a vanilla station, run slot 5, salvage that station through vanilla UI,
+then run slot 5 again: station invalid, every snapshotted docked train invalid, error delta 0. With
+trains stopped at the hub, salvage the hub: trains at it disappear, six end stations remain, 0 Lua
+errors. End with Flush + copy, Read taint and Read eligibility.
+
+**Status:** READY FOR OWNER SMOKE. Nothing in this section claims an in-game pass yet.
+
 ## Not claimed
 
 "Routing works" is never the claim; the claim is N routes exchanging cargo through one hub in

@@ -19,8 +19,8 @@
 --
 -- THE ASSET SWAP IS ONE CHANGE: the template's `entity`. Everything that reads
 -- the body asks the body first and computes only what it lacks:
---   * connector/stop/spawn spots: real `Trackconnector<n>` … spots win; a body
---     without them gets the computed ones (the prototype's proven geometry);
+--   * each real connector/direction spot wins; the asset lacks the train
+--     operating spots, so those remain computed from the proven geometry;
 --   * the charging point: `RechargeStationPlatform` auto-attaches win; a body
 --     without one gets a computed platform;
 --   * cargo pallets: attached `StorageDepotFood` sub-models win (the stand-in);
@@ -48,14 +48,46 @@ DefineClass.SMROptInTrainHubBase = {
 	auto_connect_requesters_at_start = true,
 	OnPinClicked = DroneControl.OnPinClicked,
 	starting_drones = 2,
-	show_service_area = false, -- no range slider: the radius is fixed and small
-	hub_drone_reach = 2,       -- work radius = longest line + this many hexes
+	show_service_area = true,
+	service_area_min = 10,
+	service_area_max = 20,
+	work_radius = 10,
 	charging_stations = false,
 
 	-- Maintenance reserve: this many maintenances' worth of the maintenance
 	-- resource is held back from trains and drones (10_TrainFloor.lua).
 	hub_reserve_maintenances = 2,
 }
+
+-- `sectionCustom` looks up an XTemplate named for the template's object_class.
+-- This is the vanilla Drone Hub status section, narrowed to the two rows that
+-- apply here: drone count in the title and load in the body. The service-area
+-- section and its slider are already supplied by ipBuilding when
+-- `show_service_area` is true.
+if XTemplates and not XTemplates.customSMROptInTrainHub6Base then
+	PlaceObj("XTemplate", {
+		group = "Infopanel Sections",
+		id = "customSMROptInTrainHub6Base",
+		PlaceObj("XTemplateWindow", {
+			"__class", "InfopanelSection",
+			"RolloverText", T(359011926905, "<UISectionDroneHubRollover>"),
+			"RolloverTitle", T(167050805716, "Drones Status"),
+			"Title", T(732959546527, "Drones"),
+			"TitleRight", T(745904750458, "<drone(DronesCount,MaxDronesCount)>"),
+			"Icon", "UI/IconsRemaster/Sections/drone.png",
+			"TitleHAlign", "stretch",
+		}, {
+			PlaceObj("XTemplateCode", {
+				"run", function(self, parent, context)
+					local content = InfopanelSection.__content(parent, context)
+					return InfopanelText:new({
+						Text = T(935141416350, "<DronesStatusText>"),
+					}, content, context)
+				end,
+			}),
+		}),
+	})
+end
 
 -- ===========================================================================
 -- Geometry (the prototype's, proven in sitting 2: six connectors attached,
@@ -178,7 +210,7 @@ end
 
 function SMROptInTrainHubBase:GetSpotBeginIndex(state, type_id)
 	local name = type_id == nil and state or type_id
-	if not uses_body_spots(self) then
+	if not uses_body_spots(self) or not CObject.HasSpot(self, name) then
 		local synthetic = parse_synthetic_name(self, name)
 		if synthetic then return synthetic end
 	end
@@ -190,6 +222,12 @@ end
 -- to every `Sign<i>` spot. The stand-in's four point along vanilla's platforms.
 function SMROptInTrainHubBase:HasSpot(name, ...)
 	if not uses_body_spots(self) and type(name) == "string" and name:match("^Sign%d+$") then return false end
+	if type(name) == "string" and not name:match("^Sign%d+$")
+		and parse_synthetic_name(self, name)
+		and (not uses_body_spots(self) or not CObject.HasSpot(self, name))
+	then
+		return true
+	end
 	return CObject.HasSpot(self, name, ...)
 end
 
@@ -471,6 +509,14 @@ function SMROptInTrainHubBase:GetDronesStatusText()
 	return DroneControl.GetDronesStatusText(self)
 end
 
+function SMROptInTrainHubBase:GetUISectionDroneHubRollover()
+	return table.concat({
+		T{293, "Low Battery<right><drone(DischargedDronesCount)>", self},
+		T{294, "Broken<right><drone(BrokenDronesCount)>", self},
+		T{295, "Idle<right><drone(IdleDronesCount)>", self},
+	}, "<newline><left>")
+end
+
 -- DroneControl:SpawnDrone is an empty "override me" (DroneControl.lua:725).
 -- Drones appear around the body the way DroneControl:SpawnDronesAround places
 -- them (:244-255), because the stand-in has no drone entrance to walk out of.
@@ -481,7 +527,7 @@ function SMROptInTrainHubBase:SpawnDrone()
 	local map = self:GetMap()
 	local centre = self:GetPos()
 	local inner = longest_line(self) * const.GridSpacing
-	local outer = inner + self.hub_drone_reach * const.GridSpacing
+	local outer = self.work_radius * const.GridSpacing
 	local pos = GetRandomPassableAroundOnMap(map, centre, outer, inner)
 		or GetRandomPassableAroundOnMap(map, centre, outer)
 		or centre
@@ -527,7 +573,7 @@ function SMROptInTrainHubBase:GameInit()
 	-- Runs after Station's and DroneControl's bodies, and before the Notify'd
 	-- SpawnDrones and ConnectTaskRequesters (DroneControl.lua:230-236,
 	-- TaskRequest.lua:260-266), which need the radius.
-	self.work_radius = longest_line(self) + self.hub_drone_reach
+	self.work_radius = 10
 	self.UIWorkRadius = self.work_radius
 	self:InitHubChargers()
 	self:GatherOrphanedDrones()
@@ -665,6 +711,13 @@ end
 -- ===========================================================================
 
 local function heal_after_load(hub)
+	-- The first build wrote radius 8. Upgrade that legacy value to the owner's
+	-- new minimum, preserve later slider choices, and keep the non-saving UI
+	-- mirror aligned with the vanilla persisted `work_radius` property.
+	local radius = type(hub.work_radius) == "number" and hub.work_radius or 10
+	radius = Clamp(radius, hub.service_area_min, hub.service_area_max)
+	hub.UIWorkRadius = radius
+	hub:SetWorkRadius(radius)
 	place_hub_markers(hub)
 	local charger = hub.charging_stations and hub.charging_stations[1]
 	if not (IsValid(charger) and IsValid(charger.platform)) then
@@ -686,6 +739,16 @@ DefineClass.SMROptInTrainHub6Base = {
 	last_connector_idx = 6,
 	hub_connector_directions = { 0, 3, 1, 4, 2, 5 }, -- three lines, 60° apart
 }
+
+-- The BuildingTemplate companion is Mod-Editor generated. Its Data/ source is
+-- authoritative and now names the imported entity; this postprocess keeps the
+-- dev build runnable until the next editor save regenerates the companion.
+function OnMsg.ClassesPostprocess()
+	local class = g_Classes and g_Classes.SMROptInTrainHub6
+	if class then class.entity = "SMROptInTrainHub6" end
+	local template = BuildingTemplates and BuildingTemplates.SMROptInTrainHub6
+	if template then template.entity = "SMROptInTrainHub6" end
+end
 
 -- RESERVED, NOT BUILT (owner, OI-15): the four-connector hub, two lines crossing
 -- at 60°. When it is built it is exactly this, plus its own template

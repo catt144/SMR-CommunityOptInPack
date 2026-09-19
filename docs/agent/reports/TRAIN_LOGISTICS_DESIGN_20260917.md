@@ -870,6 +870,15 @@ a wrapper.
   end stations placed 10+ hexes out get no maintenance from a radius-8 hub, and at ultra speed
   they wear out within about seven sols.
 
+**Build 2, 2026-09-19 (pre-boot).** The tentative slider was built because vanilla's persisted
+`work_radius` and non-saving `UIWorkRadius` supply the whole mechanism: no new persisted name. Its
+range is 10–20; fresh hubs start at 10 and build-1 radius-8 hubs rise to 10 on load. The infopanel
+uses vanilla's service-area section and a small custom section with the vanilla Drone Hub count/load
+presentation. The imported `SMROptInTrainHub6` entity is selected by the editable template source;
+its connector, direction and `Box1` spots win, while its missing train operating spots remain
+computed. Build record, desktop gates and the three-batch smoke are in
+`TRAIN_HUB_BUILD_20260918.md` §"Build 2". Status is PRE-BOOT; no asset or UI pass is claimed.
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 
