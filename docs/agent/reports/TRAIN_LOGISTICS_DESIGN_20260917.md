@@ -760,6 +760,15 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   Not checked: the look in game, the Mod Editor steps run, the normal map's handedness. Blender
   renders a black patch at the central beam crossing even with every map disconnected: a geometry
   question, to be compared in the game view.
+- **In game, the textured import (owner, 2026-09-19 evening):** the white and red and the hex tiles read.
+  Three things owed, as one look pass and one re-import: (1) **night lighting like the vanilla
+  station**: light spots (`-L;` names, ModItemEntity "Metadata in Scenes") and a self-illumination
+  map (the GFXMaterial has an `SI` slot) for the red trim; (2) **the glass**, out of the export while
+  `INCLUDE_GLASS = False` because the default material is opaque; it needs its own mesh and a blended
+  material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab about
+  2.5 times the track's width with a hex top, where vanilla is a narrow deck with side rails. It
+  is restyled to the vanilla profile together with the height fix (build 3 measures, the
+  orchestrator models).
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
