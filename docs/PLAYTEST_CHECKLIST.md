@@ -15,6 +15,13 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-21 · opened 2026-09-19 · launch
+When this mod publishes, do its store tools come from the fix pack or get ported here?
+- `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
+- The fix pack holds this mod's listing drafts: `RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`.
+- Say "run from the fix pack" or "port at launch".
+Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`
+
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
 - This mod's `Code/` has 10 `Untranslated(` sites: rollover titles, policy rows, the stand-down dialog.

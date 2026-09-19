@@ -46,8 +46,9 @@ change. Their scope is:
 **MODULE FREEZE status:** the header rule applies. `D09` `DroneStatDials` was unfrozen first
 (owner, 2026-08-31); `D06` was too and is now RETIRED/PARKED with `D07` + `D12` (owner,
 2026-09-17). **Owner ruling 2026-09-18: the freeze is lifted on every remaining shipping
-module** — `D01` `ClassicRockets`, `D02` `AcknowledgedWarnings`, `D03` `ResidencyControl`,
-`D04` `MultipleSuns`. Nothing in this mod is frozen. The header rule itself still applies: a
+module** — `D02` `AcknowledgedWarnings`, `D03` `ResidencyControl`, `D04` `MultipleSuns`
+(`D01` `ClassicRockets` was named too; it is RETIRED, OVERTAKEN, owner 2026-09-18). Nothing in
+this mod is frozen. The header rule itself still applies: a
 behaviour change still wants an owner ruling recorded for this mod — this lifts the freeze
 gate, not the record-the-ruling duty.
 

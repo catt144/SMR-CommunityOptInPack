@@ -74,8 +74,11 @@ invisible to the runtime self-checks.
    `MANIFEST.sha256` before the update lands, and whenever an unarchived version is on disk. Steam
    updates and branch switches overwrite the tree in place and unasked (`EF-075`).
 1. Re-extract `Packs\Lua.fpk` (`tools/flpk_extract.py`) and diff it against the new Src tree.
-2. This repo has none of the fix pack's body, arity or tree-diff instruments (`FIX_POLICY.md`'s
-   adaptation note): every module target is re-read in both trees' bodies.
+2. The fix pack's `GAME_PATCH_PROMPT.md` runs first and leaves this mod's entry in
+   `prompts/perma/gamepatch/`; its `patchcheck.py` is not ported, it runs from the fix pack against
+   this `Code/`. Here `python tools/sigcheck.py` checks the arity of the `SetGlobal` replacements.
+   This repo has no body or tree-diff instrument (`FIX_POLICY.md`'s adaptation note): every other
+   module target is re-read in both trees' bodies.
 3. The 1.0.7 → 1.1.0 diff is already analysed in the fix pack, under
    `C:\Dev\SMR-BugFixPack\docs\agent\reports\`: `GAME_1_1_0_AUDIT.md` and `GAME_1_1_0_IMPACT.md`
    (what the patch changed), `VANILLA_DIFF_DISPOSITION.md`, `PACK_1_1_0_REVERIFICATION.md`, and the
