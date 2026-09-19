@@ -1,4 +1,4 @@
-# Train hub build 3: the footprint, the drone section and the service-area overlay
+# Train hub build 3: footprint, drones, overlay, power and charger
 
 ## Authority
 
@@ -9,8 +9,15 @@
   actually do"*; the vanilla drone hub shows its hex range and a Drones section (count, load).
   **Owner, same sitting:** the hub shows no drone count and has no prefab plus or minus, so a
   destroyed drone can never be replaced. Drone replacement from prefabs is wanted, as the vanilla
-  drone hub does it; this **reverses build 2's omission** of the prefab controls. Settled: fix all
-  four. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
+  drone hub does it; this **reverses build 2's omission** of the prefab controls.
+- **Owner, same day, design:** the hub **generates its own power**, enough for itself plus its
+  maximum six stations (tracks merge station grids, `TrackBase:ConnectToGrids`, `Track.lua:97-122`),
+  with **no workers**, and its **build cost and maintenance go up** to match. The look is the
+  vanilla advanced Stirling generator model (owner's in-game screenshot: about one hex, so it
+  sits inside the hub unscaled); a Stirling's own +10 is only the look, not the output. The
+  **charger moves inside the hub's footprint**: today it sits on the first hex outside
+  (`charger_offset`), about a hex out, and players can build over it.
+  Settled: fix all of it. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
   and so does spec §8 (`docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`).
 - **Testing depth (owner):** a smoke test only, never the prediction battery before the final build.
 - **The owner does the Mod Editor steps** (one re-import); you do not drive it.
@@ -37,7 +44,7 @@ Facts, each with a command that could falsify it:
 - **Slot 1 also showed:** `custom_section=missing` (no drone count or load on the panel),
   `show_service_area=true` (the slider is present), `resource_types=19` where the notes say 21.
 - **Vanilla's reference look:** the DroneHub panel reads "Drones 8/120", "Drones load", "Available
-  Prefabs" (this hub has no prefabs; omit) and draws the service hexes on the map when selected.
+  Prefabs" with prefab plus and minus, and draws the service hexes on the map when selected.
 
 ## End state
 
@@ -56,21 +63,35 @@ Facts, each with a command that could falsify it:
    destroyed drone can be replaced from the colony's prefab stock. Your call whether to reuse the
    vanilla Drone Hub's machinery or build the smallest equivalent; it must not need a new persisted
    name (ban 1), and if it does, report that instead.
-4. **The height.** Measure the vanilla track element's z against the connector's z 800 (spec §9's
+4. **Power, cost and the charger.** Starting values, proposed by the orchestrator and tunable by
+   the owner in the smoke: **+70** (the hub's 10 plus six big stations at 10; vanilla
+   `StationBig` draws 10, `StationSmall` 5, `FusionReactor` makes 200 with 8 workers); build
+   cost about 60 Concrete, 40 Metals, 10 MachineParts, 15 Electronics; upkeep about 2
+   Electronics. Attach the advanced Stirling model (likely `StirlingGeneratorCP3`, the
+   `StirlingGenerator` template's sponsor entity; check `IsValidEntity` and fall back to a scaled
+   `FusionReactor` if it is absent) where it fits inside the ring. Move the charger onto a
+   footprint hex drones can reach, as vanilla's hub does (`AttachedRechargeStations.lua`); your
+   call whether by offset in Lua or a charger spot in `hub_skeleton.py`. Prove the lines merge
+   grids with one end station on a separate grid, and say in the report where the surplus goes
+   when stations also touch the colony's cables.
+5. **The height.** Measure the vanilla track element's z against the connector's z 800 (spec §9's
    unverified item) with a slot dump. Fix in Lua if the code is wrong, in Blender if the asset is.
-5. **Smoke with the owner**, about five steps at a time, one colony: attach six lines, trains stop
-   at the hub, overlay and drone section read right at the slider's ends, destroy one drone and
+6. **Smoke with the owner**, about five steps at a time, one colony: attach six lines, trains stop
+   at the hub, the power reading and a station fed through a line, the charger inside the
+   footprint and not buildable over, overlay and drone section read right at the slider's ends, destroy one drone and
    order a replacement from prefabs (the count returns and the stock drops), then the three-batch
    script's Batches 2 and 3 from `TRAIN_HUB_BUILD_20260918.md` §"Build 2". Also settle
    `resource_types` 19 against 21.
-6. **Record** it in that report and spec §10; put the owner's re-import and anything else owed on
+7. **Record** it in that report and spec §10; put the owner's re-import and anything else owed on
    `docs/PLAYTEST_CHECKLIST.md`.
 
 **Done means:** a hub placed after the owner's re-import reads 61 hexes and radius 4 on all six
 lines, attaches all six tracks without "Blocking objects", shows the overlay and the drone section,
-and smoke-tests clean, and a destroyed drone can be replaced from prefabs. If time runs out, drop
-the `resource_types` check, then the height (report the measurement only), then the overlay. Never
-drop the footprint, drone replacement, or reload and salvage.
+and smoke-tests clean, and a destroyed drone can be replaced from prefabs, the hub powers itself and
+its stations, and the charger sits inside the footprint. If time runs out, drop the
+`resource_types` check, then the height (report the measurement only), then the overlay, then the
+generator model (keep the power). Never drop the footprint, drone replacement, or reload and
+salvage.
 
 ## Scope
 
