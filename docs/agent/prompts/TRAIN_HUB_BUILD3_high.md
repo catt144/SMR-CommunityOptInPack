@@ -40,8 +40,8 @@
   "to block pathfinding units") is why the disc exists. Your call: shape the surface, or drop
   `PassabilityMask` where drones should pass; either rides the same re-import, and the owner's
   Importer steps must name the setting; keep
-  `hex_shape` whole so nothing can be built over. The charger is removed (item 3: the hub's drones
-  never charge). The passable underside still stands; note whether outside rovers or colonists now
+  `hex_shape` whole so nothing can be built over. The charger stops charging (item 3: the hub's drones
+  never charge); its pad model stays, as build 4's launch pad. The passable underside still stands; note whether outside rovers or colonists now
   path through the hub. **And cut the raised platforms** (`PLATFORMS = False` in
   `hub_skeleton.py`; cosmetic, and they read as the station look the owner ruled out); it rides
   the same re-import.
@@ -92,7 +92,8 @@ Facts, each with a command that could falsify it:
    prefab section attempts (your call whether any drone count stays), keep the current drones as
    a stopgap, and stop them needing a charger: give each drone the hub controls a large per-drone
    `battery_max` and top it up (`Drone.lua:10`; no change to vanilla's battery code); then
-   remove the charger and its pad.
+   remove the working charger but **keep its pad model where it is**, inside the ring: build 4
+   uses it as the drones' launch pad (owner, 2026-09-19).
    **Also remove the "Power grid" section from the
    hub's infopanel** (owner: the UI is getting tight, and Module A's per-resource controls will need
    the room); keep the hub's own Production and Consumption rows. Do it with a condition scoped to

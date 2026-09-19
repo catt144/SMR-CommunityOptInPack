@@ -22,8 +22,13 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   No subclass: a repair drone is identified live as a Wasp whose `command_center` is a train hub,
   so nothing sweeps other Wasps (Japan sponsor colonies), saves hold only vanilla Wasps, and on
   removal they are ordinary Wasps.
-  - **A constant 30, launched on demand** (owner): the hub spawns them when it has work and removes
-    them when they return idle. A destroyed repair drone is simply gone; the hub can always put up
+  - **A constant 30, launched on demand** (owner): the hub launches them when it has work and
+    removes them when they return idle. **They launch from and return to a pad, never from
+    nothing** (owner, 2026-09-19): the vanilla recharge pad model (`RechargeStationPlatform` /
+    `RechargeStation` entity) inside the ring, where build 3 leaves it, recoloured to our look
+    (vanilla colours pads with `Building.SetPalette`, `AttachedRechargeStations.lua:24-26`). A drone
+    appears on the pad and lifts off; a returning drone flies back, lands and is removed. The pad
+    is a plain model, not a working charger; it may play its working effect on launch. A destroyed repair drone is simply gone; the hub can always put up
     to 30 out, so losses never shrink it. No prefabs, no prefab controls, no charger.
   - **Inside a fixed 15-hex radius** (owner; build 3 cuts the slider) they do **anything a drone
     does**, through vanilla's own drone AI.
