@@ -58,6 +58,10 @@ commit-and-verify unit.
    its own drones must not haul below it. For trains, this is the export floor spec §4 marks as
    the one missing mechanism (`Train:TransferCargo`). Build it so Module A can generalise it
    to per-resource floors later.
+   **Cargo display:** stock visibly builds up and draws down *inside* the hub (owner). Put the
+   vanilla cube-stack visuals (`Station.lua:1240-1260`, `Box1` spot) on pallets inside the
+   body, and size the grid for 240 per resource. On the stand-in body, prove that the stacks
+   grow and shrink with stock. The asset then supplies the pallet beds.
 4. **The prototype's five carried checks, plus one new one:**
    - A **direct cargo-crossing witness**: a unit unloaded at the hub by one route and loaded
      by another, read from the train side. It must hold even though the hub now has drones.

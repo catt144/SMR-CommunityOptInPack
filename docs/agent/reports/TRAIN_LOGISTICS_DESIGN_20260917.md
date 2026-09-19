@@ -756,6 +756,13 @@ consequences for the real hub build:
   balancer settles at capacity shares, a hub with twice the capacity holds twice the share of
   network stock. That fits a distribution buffer, but a player will see it. Per-resource control
   is Module A's.
+- **Players watch the storage build up and draw down inside the hub** (owner, 2026-09-18: *"I
+  would love the concept of them seeing the storage build up and draw down inside"*). Vanilla
+  already draws a station's stock as cube stacks on its pallet sub-models from a `Box1` spot,
+  on a grid set in code (1.1.0.403908 `Station.lua:1240-1260`). So the asset models empty
+  pallet beds inside the dome with no baked cargo, and the code sizes the grid to show 240 per
+  resource. Separate storage depots cannot replace this storage, because trains load and unload
+  only a station's own storage.
 - **INFERRED, not tested: trains can carry Waste Rock.** `Resource.lua:417-434` sets no
   `transportable = false` on it, unlike the grid and player resources (`:343-413`), and a
   station stores every transportable resource except Seeds (`Station.lua:110-114`).
