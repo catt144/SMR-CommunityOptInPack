@@ -29,7 +29,15 @@
   (`Dome.lua:476`, `Residence.lua:525`). INFERRED, not tested: our `Collision` is one solid disc
   over almost the whole footprint (`hub_skeleton.py`, `foot_radius - 1.0`, 1 m up), which blocks
   the underside. Required: shrink `Collision` to the parts that are really solid (ring wall,
-  pillars) so the ground between opens, and add `efWalkable` if that alone is not enough; keep
+  pillars) so the ground between opens, and add `efWalkable` if that alone is not enough. The
+  owner recalls pathing options in the Importer, and the source has them: each mesh node has a
+  Collider section, `ColliderKind` (none, box, sphere, convex up to 16 pieces) and `ColliderMask`,
+  whose layers include `PassabilityMask`, `ObstructionMask`, `TerrainMask` and `VisibilityMask`
+  ("controls which systems — passability, selection, placement — interact with it";
+  `SceneImport.lua:3495-3515`, `:2008-2011`). The ModTools doc's `Collision` advice (a disc 1 m up
+  "to block pathfinding units") is why the disc exists. Your call: shape the surface, or drop
+  `PassabilityMask` where drones should pass; either rides the same re-import, and the owner's
+  Importer steps must name the setting; keep
   `hex_shape` whole so nothing can be built over. The charger stays inside the ring, where the
   owner liked it. Prove it with a drained drone charging, and note whether outside rovers or
   colonists now path through the hub. **And cut the raised platforms** (`PLATFORMS = False` in
