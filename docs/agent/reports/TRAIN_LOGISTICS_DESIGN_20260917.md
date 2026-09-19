@@ -770,7 +770,11 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   is restyled to the vanilla profile together with the height fix (build 3 measures, the
   orchestrator models). **Owner, same evening:** keep our red; the stub carries a **red centre
   stripe where the vanilla track has its blue one**, so the hand-over from hub to vanilla track
-  is visible. The hex tiles then stay inside the ring, not on the stub.
+  is visible; at night it glows, as the vanilla track's blue pads do. **Floor (owner, same evening):**
+  a floor plate under the ring interior, modelled on the vanilla station's platform (near-white,
+  faint hex relief, a dark trim border, a coloured edge strip). The hex pattern moves onto it, off
+  the beams and the stub. Colour adjustments are fine, but never so dark that the slate storage
+  plates blend in. No collider on the plate; the cargo beds rise by its thickness.
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
