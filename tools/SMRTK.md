@@ -23,15 +23,15 @@ object's infopanel, and the Selected page is its fallback.
 Seven pages, grouped by task. Tabs share a scrolling body; status and evidence
 controls stay visible when the body collapses.
 
-| page | controls |
+| tab (page id) | controls |
 |---|---|
-| Sitting | Read taint, Read eligibility; MARK, Flush + copy, Clear screen, Screenshot + Mark, Stop disaster; the speed ladder and Cancel target stay in the top rows |
+| Sitting | Read taint, Read eligibility; MARK, Flush + copy, Clear screen, Verbose, Screenshot + Mark, Stop disaster; the speed ladder and Cancel target stay in the top rows. **Verbose** shows or hides the game's on-screen console log, which every result line already reaches through `ConsolePrint`; it lights green while that log is visible and reads the real state, so opening the console lights it too. Off at boot on purpose (EF-097) |
 | Run | target sol, the four triggers (sol, first Lua error, selected field, next rocket), Run until / cancel, shared field watch |
-| Selected | curated methods, grouped More Cheat / AsyncCheat methods, field watch, colonist traits, dump and pins |
-| Agent | six numbered slots plus Scratch, note, pin A/B/C readout |
+| Selected | curated methods led by Quick build on a construction site, grouped More Cheat / AsyncCheat methods, field watch, colonist traits, dump and pins |
+| Slots & notes (`Agent`) | six numbered slots plus Scratch, note, pin A/B/C readout |
 | World | disasters and cursor-armed meteors, quiet, fix / malfunction all, completion, rocket transit skip, supplies, people, research, domes |
 | Saves | Save / Load / Override load A/B/C; process session and loaded provenance |
-| Kit | gated probes (alphabetical picker), logger toggles, print tap, console, fingerprint, snapshot / diff, log tail |
+| Probes & logs (`Kit`) | gated probes (alphabetical picker), logger toggles, print tap, console, fingerprint, snapshot / diff, log tail |
 
 Selected has source-name capacity **106/106**: 22 curated names and 84 More names
 (72 `Cheat`, 12 `AsyncCheat`). ⛔ **That is not 106 simultaneous buttons and not a
@@ -182,7 +182,27 @@ Partial record, 2026-09-18 (the opt-in train-tests sitting, TestKit `8c69aff`–
 `f5fa650`). **Field editor: NOT MET, from two owner screenshots only, not a log.** The Selected
 page's box showed the `command` hint as white text on a light box. Depot fill/empty `before`/`after`,
 the missing-field refusal and the boot overlay: NOT RUN. All four stay owed for a deliberate
-sitting.
+sitting. Owner's words 2026-09-18, not a boot witness: *"nothing showing when i click things like it is
+now"* — consistent with no overlay at boot; the item stays owed.
+
+📌 **Still owed, from the 2026-09-17/18 maintenance round** (TestKit `82d4577`, `382c667`, `6b7edad`,
+desk-only; the reasoning is in each leaf's comment block). **Record each as witnessed or NOT RUN, by name.**
+
+- `open_domes` returns `terraforming = N parameter(s) set to 100%` and `law = Policy_OpenDomes
+  activated`, and the domes open. ⚠️ Glass that stays shut while `law` reads activated is
+  `Dome:UpdateOpenCloseState`'s `GetOpenAirBuildings` gate (`Dome.lua:1770-1780`) — a finding, not a
+  dead leaf. During an active cold wave, *"It's too cold"* charges should stop ([EF-108](../docs/agent/facts/EF-108.md);
+  how soon is untraced).
+- `close_domes` returns the law deactivated and every parameter reduced by 10 points.
+- `fill_storages` on a colony with a rocket returns `filled`, `skipped_rockets` of at least 1 and
+  `failed`, and does not abort.
+- Quick build on a pipe or cable run, and on a dome, where two presses may be needed. The leaf's comment
+  block in `73_SMRTK_Infopanel.lua` says why each differs from the colony-wide cheat.
+- **Verbose** lights green and shows the on-screen log, and its own press shows a `verbose=on` line;
+  opening the console lights it too; `[_]` at the right end of the top row still shows whole.
+
+Witnessed 2026-09-17, owner's words: `breakthroughs_reveal_all`, the tech point leaves, and Quick build
+on an ordinary construction site.
 
 ## Probe preflight
 
@@ -218,7 +238,7 @@ commit with `-F` plus a pathspec (shared hunks follow `CLAUDE.md`'s header). The
 TestKit has no remote; push pack docs if they changed. Quote doccheck WARNs
 verbatim in the handoff.
 
-Then give the owner **one line**: *"start the game; the Agent tab is loaded"*.
+Then give the owner **one line**: *"start the game; the Slots & notes tab is loaded"*.
 Relay the slot labels, the predictions path and both HEADs to the attending agent;
 that agent reads and logs results and archives evidence. ⛔ **Do not ask the owner
 to paste commands already provisioned in slots.**

@@ -58,6 +58,7 @@ import re
 import subprocess
 import sys
 import time
+import warnings
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ONE kit serves both mods (split-optins, 2026-08-12): the probe count below
@@ -1616,7 +1617,7 @@ TOOL_GROUPS = (
      "for that build (`C:\\Dev\\SMR-SrcArchive`). The game moved to 1.1.0 on "
      "2026-09-08 and overwrote `ModTools\\Src`.",
      ("flpk_extract.py", "pack_list.py", "audit_preset_fields.py",
-      "blocking_analysis.py")),
+      "blocking_analysis.py", "sigcheck.py")),
     ("Cross-repo sync with the fix pack",
      "Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner "
      "has changed the main pack and wants to know what lands here. ⛔ Read-only "
@@ -2275,6 +2276,44 @@ def parsecheck_selftest(out):
 # must change in the same commit as metadata.lua. Uncomment the call in main()
 # with that commit.
 
+def tools_compile(out):
+    """Every tools/*.py must byte-compile.
+
+    Ported from SMR-BugFixPack @ 5bb1b44, unchanged. Nothing else here
+    compiles the tools: a script with a syntax error left doccheck GREEN, and
+    the first to notice was whoever ran it next. Compiled in memory with
+    `compile()`, so no `.pyc` lands in the tree; warnings are not failures.
+    Falsifier: `repair_pass_selftest.py` (a planted syntax error in a scratch
+    copy of the tools goes RED; the clean copy passes).
+    """
+    names = tool_scripts()
+    bad = []
+    for name in names:
+        path = os.path.join(TOOLS_DIR, name)
+        try:
+            with open(path, "rb") as fh:
+                source = fh.read()
+        except OSError as exc:
+            bad.append("tools/%s: unreadable (%s)" % (name, exc))
+            continue
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                compile(source, path, "exec", dont_inherit=True)
+        except SyntaxError as exc:
+            bad.append("tools/%s:%s: %s: %s" % (name, exc.lineno,
+                                                 type(exc).__name__, exc.msg))
+        except ValueError as exc:        # null bytes, on older interpreters
+            bad.append("tools/%s: %s" % (name, exc))
+    if not bad:
+        out.append("TOOLS COMPILE: PASS (%d tools/*.py byte-compile)" % len(names))
+        return True
+    out.append("TOOLS COMPILE: RED — %d of %d tools/*.py do not compile"
+               % (len(bad), len(names)))
+    out.extend("  RED  " + line for line in bad)
+    return False
+
+
 def pack_ignore_parity(out):
     """The shipped filters and prediction must agree, including precedence."""
     try:
@@ -2549,6 +2588,7 @@ def main():
     ok = wrap_targets_check(out) and ok
     ok = parse_gate(out) and ok
     ok = parsecheck_selftest(out) and ok
+    ok = tools_compile(out) and ok
     ok = module_set_agreement(out) and ok
     ok = pack_ignore_parity(out) and ok
     testkit_tree(out)  # report-only by owner decision (2026-08-04) — never gates

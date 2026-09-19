@@ -90,12 +90,15 @@ def main():
     if a.tree:
         sys.path.insert(0, HERE)
         import pack_predict as predict_pack  # noqa
+        # Built from the names predict() itself reads, so the predictor cannot
+        # drop them without breaking its own run.
+        pats = [predict_pack.to_regex(p) for p in predict_pack.IGNORE]
         want = set()
         for dirpath, _dn, fns in os.walk(a.tree):
             for fn in fns:
                 rel = os.path.relpath(os.path.join(dirpath, fn), a.tree).replace(os.sep, "/")
                 full = predict_pack.CONTENT_PREFIX + rel
-                if not any(rx.match(full) for _p, rx in predict_pack.PATS):
+                if not any(rx.match(full) for rx in pats):
                     want.add(rel)
         have = {n for n, _f, _o, _s in files}
         print(f"\nRECONCILE against {a.tree}")

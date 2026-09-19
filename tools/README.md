@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*26 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*27 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -87,6 +87,7 @@ Run by `doccheck` as well as by hand; the allowlists live beside the detectors, 
 | [`pack_list.py`](pack_list.py) | List a Surviving Mars .fpk WITHOUT extracting it, and reconcile it against the tree it was supposed to be built from. |
 | [`audit_preset_fields.py`](audit_preset_fields.py) | Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port. |
 | [`blocking_analysis.py`](blocking_analysis.py) | Blocking analysis, v2 -- v1 was useless: bare-name resolution marked half the codebase blocking (IsValid, SetText, Random all collided with some unrelated blocking method). |
+| [`sigcheck.py`](sigcheck.py) | Compare every function this pack replaces against the SHIPPED signature. |
 
 ### Cross-repo sync with the fix pack
 

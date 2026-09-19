@@ -100,7 +100,7 @@ def cli_cases(m, root):
                  "check_rule_headers", "required_selftest", "check_tools_catalog",
                  "eol_report", "check_state", "check_state_admission",
                  "temporary_sweep", "load_order", "wrap_targets_check", "flpk_selftest",
-                 "parse_gate", "parsecheck_selftest", "module_set_agreement",
+                 "parse_gate", "parsecheck_selftest", "tools_compile", "module_set_agreement",
                  "pack_ignore_parity"):
         setattr(m, name, lambda *args: True)
     for name in ("push_set_report", "testkit_tree"):

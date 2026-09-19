@@ -66,7 +66,7 @@ LOCAL_ADAPTATIONS = {
 
 # The last donor sha this repo synced from. Move it when a sync completes, in
 # the same commit that lands the sync.
-LAST_SYNC = "2ec1c62"
+LAST_SYNC = "eaff679"
 
 # Donor paths whose changes could matter here. Deliberately NOT the whole tree:
 # its Fix_*.lua modules, its playtest checklist and its store drafts are its own
@@ -95,6 +95,7 @@ TOOLS_NOT_PORTED = {
     **{name: _DONOR_CASEWORK for name in (
         "c90_scratch_verify.py", "seam_coverage.py",
         "desk_c104_political_animal.py", "desk_c105_water_reclamation.py",
+        "desk_c107_dry_farming.py", "desk_c108_wildfire_cure.py",
         "desk_c74_hit_moment_fx.py", "desk_c83_arrivals.py", "desk_c85_clogged.py",
         "desk_c86_scan_downgrade.py", "desk_c88_prefab.py", "desk_c89_faction_gate.py",
         "desk_c90_datapatch.py", "desk_c92_achievement.py", "desk_c93_open_pasture.py",
@@ -110,6 +111,28 @@ TOOLS_NOT_PORTED = {
                     "(FIX_POLICY's adaptation note omits §2b)",
     "l8_deference_map.py": "quarantined in the donor (terminal audit TA-3: misses "
                            "`local orig = Name` captures) and unrepaired there",
+    # Adjudicated 2026-09-19 (knowledge sync vs donor eaff679); c7b7a00 left
+    # these nine open for this pass.
+    "aliascheck.py": "gates the shared TestKit's probe files, which live in the kit's "
+                     "own repo and serve every mod: run the donor's copy",
+    "deskbench.py": "bound to the donor's Register shape and the shared kit; no desk "
+                    "harness here uses it",
+    "fact_provenance.py": "facts are allocated and dated in the donor; this repo holds "
+                          "a byte mirror, so provenance is read there",
+    "logscan.py": "the donor's copy already tags this mod's [CommunityOptInPack] lines "
+                  "in the one shared log (its TAGGED pattern); only its heal-shape table "
+                  "reads the donor's Code/ alone. Reading this repo's Code/ too: "
+                  "propose there",
+    "luafn.py": "FIX_POLICY omits §2b here: no SRC: pins or manifest headers for it to "
+                "hash; for a game-source read, run the donor's copy",
+    "presetdiff.py": "a game-tree instrument whose answer does not depend on the repo "
+                     "it runs from: run the donor's copy",
+    "treediff.py": "a game-tree instrument whose answer does not depend on the repo; "
+                   "its SRC: pin cross-check has no pins here: run the donor's copy",
+    "paradox_card.py": "a store-page tool, and this mod is NOT PUBLISHED: revisit on "
+                       "the launch checklist",
+    "store_screenshots.py": "a store-gallery tool, and this mod is NOT PUBLISHED: "
+                            "revisit on the launch checklist",
 }
 
 # Shared tools that differ from the donor ON PURPOSE. Silent while they differ;
@@ -148,7 +171,10 @@ TOOLS_ADAPTED = {
     "prompt_map_selftest.py": "this prompt map's classes: no ledger-exception row "
                               "or migration allowance",
     "repair_pass_selftest.py": "no marker-integrity legs (no such gate here); parity "
-                               "legs drift this repo's own ignore list",
+                               "legs drift this repo's own ignore list; C1/C2 "
+                               "mutants end at the next def",
+    "sigcheck.py": "provenance line and the SMROptInPack token; its forward-declared-"
+                   "local blind spot (a false ABSENT on Opt_MultipleSuns): propose there",
     "split_bugs.py": "N/A-migration note and this repo's INDEX header prose",
     "split_facts.py": "port note: the migration half is N/A here",
 }

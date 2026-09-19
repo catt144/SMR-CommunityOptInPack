@@ -1,12 +1,12 @@
 <!-- GENERATED — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 <!-- split_facts.py --write is the one-time MIGRATION from the retired pre-split doc, never a regeneration; verify: python tools/doccheck.py -->
 
-# Engine facts index — 107 facts
+# Engine facts index — 109 facts
 
 One file per top-level bullet of the old `docs/agent/ENGINE_FACTS.md`, in
 source order; ids are stable. `updated` is git's last touch of the fact's
 own lines. `verified` is the first date the fact's TEXT presents as an
-observation (66 of 107 state one) — a mechanical extraction, not an
+observation (68 of 109 state one) — a mechanical extraction, not an
 adjudication: read the fact for what was actually measured, several of
 which carry their own ⚖️ "what is measured and what is not" paragraph.
 The preamble that opened the old file is `_preamble.md`.
@@ -120,4 +120,6 @@ The preamble that opened the old file is `_preamble.md`.
 | EF-105 | ⛔ STEAM'S PER-BRANCH WORKSHOP DELIVERY IS OFF FOR SURVIVING MARS: RELAUNCHED, AND "REVERT TO THIS VERSION" IS NOT A SUBSTITUTE. Workshop Item Versioning would serve a player on an old game branch the matching mod version from one listing, but it needs the developer to tick "Enable Game Branch Versions". The author-side controls that would show it are absent in both places Valve's documentation names (the item's Change Notes list, and Edit Change Note). "Revert to this version" makes that version live for ALL subscribers. ⇒ an old-branch build ships only as a manual download, and the player must unsubscribe first: Workshop, Paradox and AppData/Mods feed one dedup keyed on mod id where the higher version wins. | 2026-09-08 | 2026-09-16 | 24 | [EF-105.md](EF-105.md) |
 | EF-106 | ANY ENABLED MOD BLOCKS ALL ACHIEVEMENTS ON EXACTLY PLAYSTATION, XBOX AND THE MICROSOFT STORE, and this pack can neither cause nor avoid it | 2026-09-16 | 2026-09-16 | 21 | [EF-106.md](EF-106.md) |
 | EF-107 | A HABITAT COPIES EVERY WORKPLACE WITHIN ITS WORK RANGE ONTO ITS OWN LIST WHEN IT IS BUILT, NEIGHBOURING DOMES' INTERIORS INCLUDED, AND A FREE SLOT IN ANY OF THEM PINS ITS RESIDENTS: the emigration scorer counts it as a job at home, the job picker refuses it | 2026-09-16 | 2026-09-16 | 52 | [EF-107.md](EF-107.md) |
+| EF-108 | 'IT'S TOO COLD' IS A COLD-WAVE FEAR CHARGE, NOT A DOME TEMPERATURE: during an active Cold Wave every colonist whose dome's CENTRE point reads below the dome's freeze threshold on the OUTSIDE heat grid loses sanity every hour; the dome itself contributes no heat, and 50% Temperature ends cold waves for good | 2026-09-17 | 2026-09-18 | 42 | [EF-108.md](EF-108.md) |
+| EF-109 | BuildingTemplates IS THE WRONG TABLE FOR A DATA PATCH: on a cold boot it is EMPTY at DataLoaded (filled only on ClassesBuilt and DataChanged), and its values are id-less class proxies, so `.id` is nil. Read presence from BuildingTemplates_Raw and labels from g_Classes[id] | 2026-09-18 | 2026-09-18 | 17 | [EF-109.md](EF-109.md) |
 

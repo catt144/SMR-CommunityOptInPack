@@ -32,8 +32,9 @@ def parse_table(buf, table_off, table_size, dir_off, prefix, out):
     INSIDE a grandchild table and read those records again under the parent's
     prefix — v10's pack read 56 entries where 54 shipped, and the two phantoms
     were blamed on packaging for a day (`reports/DOC_OVERHAUL_AUDIT.md` §1).
-    Falsifier: `tools/flpk_nested_selftest.py` (a nested fixture must NOT
-    yield the shallow name, and the shallow control must still pass).
+    Falsifier: `python tools/flpk_extract.py --selftest` (`_selftest()` below;
+    a nested fixture must NOT yield the shallow name, and the shallow control
+    must still pass). doccheck runs it as the FLPK SELFTEST gate.
     """
     p = table_off
     end = table_off + table_size
