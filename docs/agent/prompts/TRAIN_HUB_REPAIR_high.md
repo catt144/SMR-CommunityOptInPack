@@ -7,12 +7,10 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
 
 - **Owner, 2026-09-19.** Trains should be long-range transport that does not need drone coverage
   across the whole map, but a disaster breaks track wherever it lands and outside drone range it
-  stays broken. The hub **auto-dispatches a repair train** to breaks on its network. The owner
-  chose the **cheap version**: the hub pays the repair from its own stock and completes the site
-  after a travel time; the train is a **cosmetic vehicle**, not a unit, with a **distinct repair
-  livery** (a recolour) as a nice-to-have. Not a drone: drone range, batteries and material
-  sourcing are not to be touched.
-- **Owner, same day: the hub's repair drones (supersedes the earlier cosmetic-vehicle design).**
+  stays broken. The hub **auto-dispatches its repair drones** to breaks on its network. The
+  owner chose the **cheap version**: the hub pays the repair from its own stock and completes the
+  site after a travel time on a persisted deadline.
+- **Owner, same day: the hub's repair drones.**
   They are **vanilla Wasp drones** (`FlyingDrone`, entity `DroneJapanFlying`, `FlyingDrone.lua:11-21`)
   whose controller is the train hub, made ours by per-drone data: display name "Repair Drone", our
   recolour, a large `battery_max` topped up by the hub so they **never charge** (`Drone.lua:10`).
@@ -84,7 +82,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
    (distance along the track from the hub at the repair speed), and notify:
    "Repair drone dispatched, ETA N h" (wording yours; never "train"). If stock is short, sign the hub and retry when stock lands.
-   **Reachability (owner, 2026-09-19):** anything the dispatch vehicle could physically reach:
+   **Reachability (owner, 2026-09-19):** anything a repair drone following the track could reach:
    every track on the network connected to the hub through its stations, however far; never a
    track on an isolated network the hub does not touch. **Speed (owner, same day):** faster than a
    normal train, an emergency vehicle, because the network can be big. **The principle (owner):
@@ -92,7 +90,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    nuisance the player notices, never a wait they plan around: pick the multiplier so that the
    farthest break on a large network repairs within a fraction of a sol, and treat the dial as a
    floor on responsiveness, not a balance knob. Report it with the smoke's measured ETAs. The route to a break may itself cross an
-   earlier break; your call whether the vehicle queues repairs nearest-first or in break order,
+   earlier break; your call whether the drones queue repairs nearest-first or in break order,
    recorded in the report.
    **Design the pending list for two kinds, repair and build** (owner, 2026-09-19): build 5,
    `TRAIN_HUB_BUILDTRACK_high.md`, will have the hub construct new track through the same
