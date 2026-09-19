@@ -738,11 +738,26 @@ door is needed. A station boards passengers through the domes whose entrances li
 outside-work radius (`Station.lua:320-337`, `LinkToStation`), and the hub's drones work from its
 `WorkDrone` spots and never enter. The next smoke test checks a dome in range. **No decorative
 door either** (owner, 2026-09-19: *"we can always revisit later as a v2"*). The charger stays the game's own pad,
-placed by the code (no charger spot in the model). The lead being tested: the vanilla material
-`TrainStationBig_T1` (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in
-`Materials.fpk` / `Textures3.fpk`), with the model's UVs picking only the clean white, the red
-band, the hex floor and the slate regions. That keeps one mesh with one material, ships no game
-textures, and follows the colony colour scheme.
+placed by the code (no charger spot in the model).
+
+**The look: routes, 2026-09-19.** The model has no UVs yet and imports with `Default`.
+- **Vanilla material: ruled out as a pick.** The Importer's Material dropdown lists only
+  `Default` and mod materials (owner, 2026-09-19). The station's material is `TrainStationBig_T1`
+  (atlas `Station_BC.dds`, colorization `Station_CM.dds`, 3 colours, in `Materials.fpk` /
+  `Textures3.fpk`). Patching its path into the entjson after import probably resolves, since
+  `Materials/Default.mtljson` is itself a game path. But every re-import overwrites the patch,
+  and the atlas carries the aged look the owner rejected. Fallback only.
+- **Tripo AI texturing: next, the owner's choice** (Tripo texture-only on an uploaded mesh,
+  `tripo_body_export.py`). Prompt: *"clean modern high-tech sci-fi rail hub, glossy white panels
+  with thin red accent stripes, light grey hexagon-pattern floor on the platforms, dark
+  slate-blue storage pads, no rust, no brushed metal, no grime, no weathering"*. Bake the result
+  onto our mesh; Tripo's geometry never ships. Risks: baked shading or grime, six sides that
+  differ, a smeared hex floor, and fixed colours with no colony colorization unless a mask is
+  made by hand.
+- **Our own textures: the fallback.** Generated flat white, red and slate plus a procedural hex
+  floor with relief, and a colorization mask. The body and the decks become two mesh nodes, each
+  with a GFXMaterial; the importer allows one material per node, not per import
+  (`SceneImport.lua:1877-1885`, `:4018-4024`).
 
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);

@@ -26,9 +26,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
   Its smoke test was played with the owner on 2026-09-19 (the report's §"Sitting result").
   Its owner decisions are OI-18 and OI-19 in `docs/PLAYTEST_CHECKLIST.md`; the radius was ruled
   in the sitting (spec §10).
-- The owner's asset: the shape was approved by the owner on 2026-09-18, after the orchestrator
-  rebuilt it in Blender. Spec §9, "The owner's asset", records the pipeline, the measurements and
-  what only the game can answer.
+- The owner's asset: the shape was approved on 2026-09-18 and imported into the dev mod on
+  2026-09-19, on the hex grid (`06b5a62`). Spec §9 holds the pipeline, the measured axis mapping,
+  the owner's look direction and what only the game can answer. The Blender and Mod Editor
+  steps are in `C:\Dev\SMR-TrainHubAssets\blender\README.md`.
 
 ## Each run
 
@@ -38,12 +39,18 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
+   - **start here: the Tripo texture pass** (owner, 2026-09-19, on their Tripo trial). The
+     owner textures `C:\Dev\SMR-TrainHubAssets\blender\export\SMROptInTrainHub6_body_for_tripo.glb`
+     in Tripo Studio. That's texture only, with no remesh, using the prompt in spec §9. They export
+     it to `C:\Dev\SMR-TrainHubAssets\tripo_textured\`. Check that folder first. Then, in Blender,
+     give the export mesh `SMROptInTrainHub6` a UV map, bake Tripo's maps onto it
+     (selected-to-active, so Tripo's geometry never ships), write TGA maps, and walk the owner
+     through one GFXMaterial item plus a re-import. Judge the result against the owner's look
+     direction. If it is muddy or inconsistent, fall back to our own procedural textures (spec
+     §9, "The look");
    - OI-18 and OI-19 on the owner's list;
-   - the owner imports the asset through the Relaunched Mod Editor. That one import answers
-     §9's unverified list: the axis mapping, the vanilla track height, and which way the cube
-     grid runs from a `-Box` spot. Station textures go on at the same step;
-   - fire `TRAIN_HUB_BUILD2_high.md` (the radius and drone-section rulings; the asset swap
-     once the import has landed) and play its smoke test with the owner;
+   - fire `TRAIN_HUB_BUILD2_high.md` (the radius and drone-section rulings, and the swap to the
+     imported asset) and play its smoke test with the owner;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone

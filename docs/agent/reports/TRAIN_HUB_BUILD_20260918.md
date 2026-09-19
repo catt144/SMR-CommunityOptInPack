@@ -259,6 +259,9 @@ existing network: two routes, not three, one of which passes the hub twice.
   `drones=2` throughout; the owner had cheat-deleted `DroneHub(1986)` just before, orphaning its
   drones. Check on the next build.
 - Idle trains park at the hub once the network balances; three sat there at once.
+- Seen in passing, not this mod's: `MarsDebug.exe-20260919-02.26.52-6a91a1cb.log:189`
+  `[LUA ERROR] Failed to load items.lua for mod Community Fix Pack — Test Kit` (the Mod Editor
+  session). The TestKit is the fix pack's; told to the owner 2026-09-19, not filed there.
 
 ## Not claimed
 
