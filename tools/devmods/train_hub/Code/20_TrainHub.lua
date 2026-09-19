@@ -27,6 +27,8 @@
 --     a body with its own `Box1` spots uses those (the owner's asset).
 
 local Floor = SMROptInTrainFloor
+local hub_work_radius = 15
+local hub_drone_battery_max = 100 * const.DroneBatteryMax
 
 DefineClass.SMROptInTrainHubBase = {
 	__parents = { "Station", "DroneControl", "ElectricityProducer" },
@@ -49,11 +51,11 @@ DefineClass.SMROptInTrainHubBase = {
 	auto_connect_requesters_at_start = true,
 	OnPinClicked = DroneControl.OnPinClicked,
 	starting_drones = 2,
-	show_service_area = true,
+	show_service_area = false,
 	show_range = true,
-	service_area_min = 10,
-	service_area_max = 20,
-	work_radius = 10,
+	service_area_min = hub_work_radius,
+	service_area_max = hub_work_radius,
+	work_radius = hub_work_radius,
 	charging_stations = false,
 	electricity_consumption = 10000,
 	electricity_production = 70000,
@@ -69,83 +71,6 @@ DefineClass.SMROptInTrainHubBase = {
 function SMROptInTrainHubBase:ShowUISectionElectricityGrid()
 	return false
 end
-
--- `sectionCustom` looks up an XTemplate named for the template's object_class.
--- Reuse the vanilla Drone Hub's prefab controls and status presentation. The
--- inherited DroneControl methods perform the actual unpack/pack operations;
--- this template adds no state and no persisted name. The service-area section
--- and slider are supplied by ipBuilding, while `show_range` makes the selected
--- building use vanilla's RangeHexRadius overlay.
-local function ensure_hub_infopanel()
-	if not XTemplates or XTemplates.customSMROptInTrainHub6Base then return end
-	local template = PlaceObj("XTemplate", {
-		group = "Infopanel Sections",
-		id = "customSMROptInTrainHub6Base",
-	}, {
-		PlaceObj("XTemplateWindow", {
-			"__class", "InfopanelButton",
-			"RolloverText", T(8460, "Unpack an existing Drone Prefab to build a new Drone. Drone Prefabs can be created from existing Drones or in a Drone Assembler (requires research). This action can be used to quickly reassign Drones between controllers.<newline><newline>Available Drone Prefabs:<right><drone(available_drone_prefabs)>"),
-			"RolloverTitle", T(349, "Unpack Drone"),
-			"RolloverHint", T(8461, "<left_click> Unpack Drone <em>Ctrl + <left_click></em> Unpack five Drones"),
-			"RolloverHintGamepad", T(830531229840, "<ButtonA> Unpack Drone <ButtonY> Unpack five Drones"),
-			"OnContextUpdate", function(self, context)
-				self:SetEnabled(ColonyGetAvailableDronePrefabs(UICity) > 0 and context:CanHaveMoreDrones())
-			end,
-			"OnPressParam", "UseDronePrefab",
-			"OnPress", function(self, gamepad)
-				self.context:UseDronePrefab(not gamepad and IsMassUIModifierPressed())
-			end,
-			"AltPress", true,
-			"OnAltPress", function(self, gamepad)
-				if gamepad then self.context:UseDronePrefab(true) end
-			end,
-			"Icon", "UI/IconsRemaster/IPButtons/drone_assemble.png",
-		}),
-		PlaceObj("XTemplateWindow", {
-			"__class", "InfopanelButton",
-			"RolloverText", T(8665, "Recalls a Drone and packs it into a Drone Prefab. Can be used to reassign Drones between controllers."),
-			"RolloverDisabledText", T(8666, "No available Drones."),
-			"RolloverTitle", T(8667, "Pack Drone for Reassignment"),
-			"RolloverHint", T(8668, "<left_click> Pack Drone for reassignment <em>Ctrl + <left_click></em> Pack five Drones"),
-			"RolloverHintGamepad", T(943040205774, "<ButtonA> Pack Drone for reassignment <ButtonY> Pack five Drones"),
-			"OnContextUpdate", function(self, context)
-				self:SetEnabled(not not context:FindDroneToConvertToPrefab())
-			end,
-			"OnPressParam", "ConvertDroneToPrefab",
-			"OnPress", function(self, gamepad)
-				self.context:ConvertDroneToPrefab(not gamepad and IsMassUIModifierPressed())
-			end,
-			"AltPress", true,
-			"OnAltPress", function(self, gamepad)
-				if gamepad then self.context:ConvertDroneToPrefab(true) end
-			end,
-			"Icon", "UI/IconsRemaster/IPButtons/drone_dismantle.png",
-		}),
-		PlaceObj("XTemplateWindow", {
-			"__class", "InfopanelSection",
-			"RolloverText", T(359011926905, "<UISectionDroneHubRollover>"),
-			"RolloverTitle", T(167050805716, "Drones Status"),
-			"Title", T(732959546527, "Drones"),
-			"TitleRight", T(745904750458, "<drone(DronesCount,MaxDronesCount)>"),
-			"Icon", "UI/IconsRemaster/Sections/drone.png",
-			"TitleHAlign", "stretch",
-		}, {
-			PlaceObj("XTemplateCode", {
-				"run", function(self, parent, context)
-					local content = InfopanelSection.__content(parent, context)
-					return InfopanelText:new({
-						Text = T(935141416350, "<DronesStatusText>"),
-					}, content, context)
-				end,
-			}),
-		}),
-	})
-	-- Runtime-created presets are not inserted in their GlobalMap by PlaceObj.
-	-- sectionCustom reads this exact map; the id is UI-only and never saved.
-	XTemplates.customSMROptInTrainHub6Base = template
-end
-
-ensure_hub_infopanel()
 
 -- ===========================================================================
 -- Geometry (the prototype's, proven in sitting 2: six connectors attached,
@@ -575,10 +500,6 @@ function SMROptInTrainHubBase:GetUISectionDroneHubRollover()
 	}, "<newline><left>")
 end
 
-function SMROptInTrainHubBase:ShouldShowAvailableDronePrefabInfo()
-	return true
-end
-
 -- DroneControl:SpawnDrone is an empty "override me" (DroneControl.lua:725).
 -- Drones appear around the body the way DroneControl:SpawnDronesAround places
 -- them (:244-255), because the stand-in has no drone entrance to walk out of.
@@ -586,6 +507,8 @@ function SMROptInTrainHubBase:SpawnDrone()
 	if #self.drones >= self:GetMaxDrones() then return false end
 	local drone = self.city:CreateDrone()
 	drone:SetCommandCenter(self)
+	drone.battery_max = hub_drone_battery_max
+	drone.battery = hub_drone_battery_max
 	local map = self:GetMap()
 	local centre = self:GetPos()
 	local inner = longest_line(self) * const.GridSpacing
@@ -601,12 +524,11 @@ function SMROptInTrainHubBase:CheatSpawnDrone()
 	self:SpawnDrone()
 end
 
--- The charging point. A body with RechargeStationPlatform auto-attaches gets
--- vanilla's chargers on them, exactly as a drone hub does
--- (AttachedRechargeStations.lua:2-29). A body without one gets a platform on the
--- q=1,r=1 footprint hex between two arms. Unlike build 2's first-outside hex,
--- the building footprint now protects the pad from construction overlap.
-local function charger_offset(self)
+-- Visual launch pad for build 4's repair drones. It occupies q=1,r=1 inside
+-- the ring but deliberately has no NotBuildingRechargeStation behind it, so it
+-- cannot charge. Existing saves may still carry the old charger object; the
+-- initializer removes that object and retains its platform model.
+local function launch_pad_offset()
 	local x0, y0 = HexToWorld(0, 0)
 	local x, y = HexToWorld(1, 1)
 	return point(x - x0, y - y0, 0)
@@ -669,29 +591,58 @@ function SMROptInTrainHubBase:CreateElectricityElement()
 	self.electricity:SetConsumption(self.electricity_consumption)
 end
 
-function SMROptInTrainHubBase:InitHubChargers()
+function SMROptInTrainHubBase:InitHubLaunchPad()
+	AttachedRechargeStations.SetWorking(self.charging_stations or empty_table, false)
 	for _, station in ipairs(self.charging_stations or empty_table) do
 		if IsValid(station) then DoneObject(station) end
 	end
 	self.charging_stations = {}
-	if #(self:GetAttaches("RechargeStationPlatform") or empty_table) == 0 then
+	-- Backstop old saves whose helper survived but whose saved list did not.
+	for _, station in ipairs(self:GetAttaches("NotBuildingRechargeStation") or empty_table) do
+		if IsValid(station) then DoneObject(station) end
+	end
+	local platforms = self:GetAttaches("RechargeStationPlatform") or empty_table
+	if #platforms == 0 then
 		local platform = PlaceObjectIn("RechargeStationPlatform", self:GetMap())
 		self:Attach(platform, self:GetSpotBeginIndex("Origin"))
-		platform:SetAttachOffset(charger_offset(self))
+		platform:SetAttachOffset(launch_pad_offset())
+		platforms = { platform }
 	end
-	AttachedRechargeStations.Init(self)
-	AttachedRechargeStations.SetWorking(self.charging_stations, self.working)
+	local template = BuildingTemplates.RechargeStation
+	local ccs = GetCurrentColonyColorScheme()
+	local cm1, cm2, cm3, cm4 = GetBuildingColors(ccs, template)
+	for _, platform in ipairs(platforms) do
+		platform:ClearEnumFlags(const.efSelectable)
+		if platform:HasState("idle") then platform:SetState("idle") end
+		if cm1 then Building.SetPalette(platform, cm1, cm2, cm3, cm4) end
+	end
+end
+
+local function top_up_hub_drones(self)
+	for _, drone in ipairs(self.drones or empty_table) do
+		if IsValid(drone) and drone.command_center == self then
+			drone.battery_max = hub_drone_battery_max
+			drone.battery = hub_drone_battery_max
+			if drone.command == "EmergencyPower" or drone.command == "NoBattery" or drone.command == "Charge" then
+				drone:SetCommand("Idle")
+			end
+		end
+	end
 end
 
 function SMROptInTrainHubBase:GameInit()
 	-- Runs after Station's and DroneControl's bodies, and before the Notify'd
 	-- SpawnDrones and ConnectTaskRequesters (DroneControl.lua:230-236,
 	-- TaskRequest.lua:260-266), which need the radius.
-	self.work_radius = 10
-	self.UIWorkRadius = self.work_radius
-	self:InitHubChargers()
+	self.work_radius = hub_work_radius
+	self.UIWorkRadius = hub_work_radius
+	self.show_service_area = false
+	self.service_area_min = hub_work_radius
+	self.service_area_max = hub_work_radius
+	self:InitHubLaunchPad()
 	self:InitHubReactorVisual()
 	self:GatherOrphanedDrones()
+	top_up_hub_drones(self)
 	place_hub_markers(self)
 	Floor.Reconcile(self)
 end
@@ -699,16 +650,16 @@ end
 function SMROptInTrainHubBase:OnSetWorking(working)
 	if working then
 		self:GatherOrphanedDrones()
+		top_up_hub_drones(self)
 		self:SetWaitingDronesIdle()
 	end
 	self:NotifyWorkingChanged(self.connected_task_requesters)
-	-- like a drone hub: no power, no charging (DroneHub.lua:85-94)
-	AttachedRechargeStations.SetWorking(self.charging_stations, working)
 	set_hub_reactor_working(self, working)
 end
 
 -- Done is combined. TrackConnectedObjBase's body removes connectors 0..4
--- (TrainTransport.lua:14-37); this one removes the rest, then the chargers.
+-- (TrainTransport.lua:14-37); this one removes the rest. Attached platform
+-- visuals are removed with their parent.
 function SMROptInTrainHubBase:Done(done_map)
 	delete_markers(hub_markers[self])
 	hub_markers[self] = nil
@@ -762,6 +713,9 @@ end
 -- asking for its resource, hand the reserve back, let vanilla's SelfService pay
 -- from it, and take the hold again. No yield in between.
 function SMROptInTrainHubBase:BuildingUpdate()
+	-- Owner ruling 2026-09-19: these stopgap drones never need a charger. This
+	-- runs in every hub state, including malfunction and no power.
+	top_up_hub_drones(self)
 	if self.maintenance_phase == "demand" then
 		Floor.ReleaseAll(self)
 		self:SelfService()
@@ -823,35 +777,25 @@ function SMROptInTrainHubBase:GetCubePosRelative(idx, placement_offset, resource
 end
 
 -- ===========================================================================
--- Load. Markers are unsaved. Chargers are rebuilt only if the save lost them.
+-- Load. Markers and the reactor helper are unsaved. Radius 15 is authoritative
+-- over every saved slider value, and an old working charger becomes a plain pad.
 -- ===========================================================================
 
 local function heal_after_load(hub)
-	-- The first build wrote radius 8. Upgrade that legacy value to the owner's
-	-- new minimum, preserve later slider choices, and keep the non-saving UI
-	-- mirror aligned with the vanilla persisted `work_radius` property.
-	local radius = type(hub.work_radius) == "number" and hub.work_radius or 10
-	radius = Clamp(radius, hub.service_area_min, hub.service_area_max)
-	hub.UIWorkRadius = radius
-	hub:SetWorkRadius(radius)
+	hub.UIWorkRadius = hub_work_radius
+	hub.show_service_area = false
+	hub.service_area_min = hub_work_radius
+	hub.service_area_max = hub_work_radius
+	hub:SetWorkRadius(hub_work_radius)
 	place_hub_markers(hub)
-	local charger = hub.charging_stations and hub.charging_stations[1]
-	if not (IsValid(charger) and IsValid(charger.platform)) then
-		hub:InitHubChargers()
-	end
+	hub:InitHubLaunchPad()
+	top_up_hub_drones(hub)
 	hub:InitHubReactorVisual()
 	Floor.Reconcile(hub)
 end
 
 function OnMsg.LoadGame()
-	-- XTemplates is populated after the earlier class-processing callbacks in
-	-- this build. Register at the first lifecycle point that can open a panel.
-	ensure_hub_infopanel()
 	AllMapsForEach("map", "SMROptInTrainHubBase", heal_after_load)
-end
-
-function OnMsg.CityStart()
-	ensure_hub_infopanel()
 end
 
 -- ===========================================================================
@@ -868,7 +812,6 @@ DefineClass.SMROptInTrainHub6Base = {
 -- authoritative and now names the imported entity; this postprocess keeps the
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
-	ensure_hub_infopanel()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
 		class.entity = "SMROptInTrainHub6"
