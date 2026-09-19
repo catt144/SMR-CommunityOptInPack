@@ -37,7 +37,7 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
 ## End state
 
 1. **Dispatch.** On `TrackBroken` for a track on the hub's network, if the hub is working and
-   holds the site's cost, deduct it **at the cheaper rate, the SafeTransport-halved cost, whether
+   holds the site's cost, reserve it **at the cheaper rate, the SafeTransport-halved cost, whether
    or not that tech is researched** (owner, 2026-09-19: the hub is a perk, not a penalty; a
    repair through the hub never costs more than a drone repair would), record a pending repair with its **deadline in game time**
    (distance along the track from the hub at the repair speed), and notify:
@@ -58,6 +58,11 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    adds no second persisted name; ship only the repair kind here.
 2. **Completion.** At the deadline, `Complete()` the site through vanilla's path. The timer is the
    only authority: it is persisted; the vehicle is not.
+   **Drones are never limited** (owner, 2026-09-19): a break in any drone's range is repaired by
+   drones exactly as today, the hub works the same site alongside them, and whichever finishes
+   first wins. So the hub charges a site's **outstanding** cost at the moment it completes it,
+   never the full cost, and drops a pending repair silently when drones complete the site first.
+   Deduct at completion, not at dispatch, so nothing is paid twice.
 3. **The vehicle.** An unsaved prop moving along the track's element positions to the break and
    back, rebuilt from the deadline on load, so a reload can move the picture but never lose or
    double a repair. Livery: a distinct palette, colony colours with a red accent. Cargo cubes for

@@ -37,6 +37,11 @@ Build 4's brief and report. Facts from the 1.1.0.403908 source, with the line th
 2. **Order.** Elements complete sequentially from the connected end outward, so the vehicle always
    rides built track to the next site; pay each element from stock as it completes, at the normal
    cost. If stock runs out, pause at the last built element, sign the hub, resume when stock lands.
+   **Drones are never limited** (owner, 2026-09-19): any section in a drone's range is built by
+   drones exactly as today, at the same time as the hub works the line from its end, and an
+   element drones finish is skipped by the vehicle. The hub pays only an element's
+   **outstanding** cost when it completes it, so a site drones have part-supplied is never paid
+   twice. The smoke has one line with a drone hub covering its middle.
 3. **Time.** Per element at the emergency speed plus a build time per element, a dial: a long line
    visibly takes longer than a repair, but never long enough to be the pain point again. Report
    the smoke's measured times per element and per line.
