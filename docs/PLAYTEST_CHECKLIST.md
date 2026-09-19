@@ -64,6 +64,23 @@ Home: `docs/agent/bugs/D02.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md
 - Desk-read only. Falsifier: close a dome and land a Tourist it is the only choice for; if they check in, this is wrong.
 Home: `docs/agent/bugs/D03.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
 
+### OI-18 · opened 2026-09-18
+Train hub: widen `tools/upload_preflight.py` so the hub's template and model can ship in this mod (your OI-16 = 4b)?
+- `:188-196` admits only `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview image.
+- That refuses `Data/BuildingTemplate/*.lua` and any entity folder; `:203-211` lists `Code/` non-recursively too.
+- It does not block the sitting or the model import test: the dev mod carries both.
+- Say "widen it" (an agent edits the tool) or "keep the hub a separate mod".
+Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
+
+### OI-19 · opened 2026-09-18
+Train hub: after the sitting, accept the build's proposed defaults, or name changes?
+- Module off: no new hubs, built hubs keep working (as MultipleSuns). Removing the mod with hubs standing is unsafe.
+- Cost 50 Concrete, 30 Metals, 10 Machine Parts; 10 power (the template's values).
+- A 10-Metals reserve (two maintenances) that trains and drones leave alone.
+- 2 starting drones, work radius = longest line + 2 hexes, and it commands drones while malfunctioning.
+- 240 storage per resource, so cube stacks stand about twice a large station's.
+Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
+
 ## Run
 
 ### OI-12 · opened 2026-09-18 · launch
