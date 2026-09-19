@@ -43,9 +43,13 @@ change. Their scope is:
 2. **Executable references are absent.** The framework is this mod's own copy under
    `SMROptInPack`; persisted strings from item 1 are data, not references.
 
-**MODULE FREEZE status:** the header rule applies. `D09` `DroneStatDials` is unfrozen (owner,
-2026-08-31). `D06` was too and is now RETIRED/PARKED with `D07` + `D12` (owner, 2026-09-17);
-nothing else is unfrozen.
+**MODULE FREEZE status:** the header rule applies. `D09` `DroneStatDials` was unfrozen first
+(owner, 2026-08-31); `D06` was too and is now RETIRED/PARKED with `D07` + `D12` (owner,
+2026-09-17). **Owner ruling 2026-09-18: the freeze is lifted on every remaining shipping
+module** — `D01` `ClassicRockets`, `D02` `AcknowledgedWarnings`, `D03` `ResidencyControl`,
+`D04` `MultipleSuns`. Nothing in this mod is frozen. The header rule itself still applies: a
+behaviour change still wants an owner ruling recorded for this mod — this lifts the freeze
+gate, not the record-the-ruling duty.
 
 **Names that are contract, not display.** The mod id `SMR_CommunityOptInPack`, the global
 `SMROptInPack` and the log prefix `[CommunityOptInPack]` are UNCHANGED across both family renames

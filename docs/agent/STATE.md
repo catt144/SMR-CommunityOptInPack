@@ -21,7 +21,9 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 ## Holds
 
 - The two bans are in `FIX_POLICY.md`'s header; module freeze and measurement, in `CLAUDE.md`'s.
-  D09 `DroneStatDials` is the sole live unfrozen module.
+  Nothing in this mod is frozen (owner ruling 2026-09-18).
+- The fix pack's kit-edit gate (checklist item 83) is dissolved (owner ruling 2026-09-18);
+  `60_Probes_Opt.lua` needs no separate fix-pack sign-off. That gate's own record stays theirs.
 - The game moved to 1.1.0 + DLC, build 24995074, on 2026-09-08. Archived trees are under
   `C:\Dev\SMR-SrcArchive`; fingerprint routing is `EF-083`. No module, probe, gate or test result
   in this repo has been re-verified on 1.1.0.
