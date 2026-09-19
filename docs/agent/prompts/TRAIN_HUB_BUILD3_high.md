@@ -20,6 +20,15 @@
   change. Either model is only the look; the hub's class makes the power. The
   **charger moves inside the hub's footprint**: today it sits on the first hex outside
   (`charger_offset`), about a hex out, and players can build over it.
+  **Owner, same day, mid-sitting:** a drained drone will not path to the pad at
+  `HexToWorld(1, 1)` inside the ring. Every `hex_shape` hex is occupied for pathing whatever the
+  geometry above it, so the open underside does not help. Required: a pad on a reserved hex that
+  drones reach from outside. Your call: the pad on the outermost footprint hex between two arms
+  with its charging position on the rim (read vanilla `DroneHub` to confirm that is its pattern),
+  or a real vanilla recharge station building placed by the hub just outside, removed with it.
+  Prove it with a drained drone charging. **And cut the raised platforms** (`PLATFORMS = False` in
+  `hub_skeleton.py`; cosmetic, and they read as the station look the owner ruled out); it rides
+  the same re-import.
   Settled: fix all of it. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
   and so does spec §8 (`docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`).
 - **Testing depth (owner):** a smoke test only, never the prediction battery before the final build.
