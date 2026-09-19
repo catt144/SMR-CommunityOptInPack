@@ -21,8 +21,11 @@ The trains are Module A (per-resource station import/export) and Module B (the t
   results, §6 the options and the owner's direction (the routing target in OPTION 5), and §10 the
   prototype.
 - The live briefs in `docs/agent/prompts/README.md`. The hub prototype returned a **qualified
-  GO** (owner, 2026-09-18), recorded with its five carried checks in
-  `docs/agent/reports/TRAIN_HUB_PROTOTYPE_20260918.md`.
+  GO** (owner, 2026-09-18). The real hub build (`TRAIN_HUB_BUILD_high.md`) committed its dev mod
+  and design record (`886926b`, `d9be297`, `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`).
+  Its owner sitting was pending when the 2026-09-18 orchestrator session closed.
+- The owner's asset is in progress in Blender, outside the repos. Spec §9, "The owner's asset",
+  records the pipeline, the measurements and what is unverified.
 
 ## Each run
 
@@ -31,9 +34,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 2. Treat each report as a claim. Confirm each result against its log and commits with one check
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
-   order: the real hub build on the owner's asset, which must pass the prototype's five carried
-   checks; after that, routing 5d or 5c once the 5a network has been played; and Module A phase
-   A1, whose `accept` half needs a retest with a Metals consumer in drone range (§4.3).
+   order:
+   - review the hub build's sitting result against its report's predictions;
+   - help the owner land the asset: the axis-mapping test and the vanilla track height first;
+   - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
+     range (§4.3);
+   - routing 5d or 5c, once the owner has played the 5a network.
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
 

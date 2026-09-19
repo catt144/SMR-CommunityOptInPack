@@ -687,6 +687,42 @@ game the owner plays is Relaunched, at `A:\SteamLibrary\steamapps\common\Project
 - Reference images and the asset's layout requirements for the owner are outside both repos,
   at `C:\Dev\SMR-TrainHubAssets\reference\` (game art, local only).
 
+**The owner's asset, in progress 2026-09-18 (OI-15 = six, OI-16 = 4b).** The concept art was
+iterated with an image AI and meshed in Tripo (Smart Mesh, quad topology, about 15,000 polygons,
+untextured, FBX with the Blender preset). Its output is
+`C:\Dev\SMR-Optin-Assets\circular industrial platform 3d model.fbx`: binary FBX 7400, 15,229
+vertices and 281 loose parts. The Blender 5.2 pipeline lives outside both repos in
+`C:\Dev\SMR-TrainHubAssets\blender\`, and its `README.md` gives the steps:
+- `hub_skeleton.py` builds the exact frame:
+  - `Origin` and the `hex_shape` footprint (61 hexes, 4 hexes of radius) with the free ring
+    beyond it;
+  - `Collision` and `Selection`;
+  - three beams 60° apart, with pillars and optional platforms;
+  - a glass dome cut open along each line, and ribs between the portals;
+  - `-Trackconnector1..6`, `-Trackdirection1..6`, `-Box1..6`, `-Top` and `-WorkDrone1..6`.
+- `tripo_cleanup.py` keeps the ring, portals and stubs as `Hub_Shell`, moves each wedge's
+  pallet onto its `-Box` spot, and deletes Tripo's misaligned interior.
+- `build_workfile.py` runs the whole chain and saves `TrainHub_work.blend`.
+
+All three scripts were run headless in Blender 5.2 on 2026-09-18, and the resulting renders were
+checked. **Measured on the Tripo mesh, scaled to 90 m end to end:**
+- the ring wall runs from about 31 to 35.5 m out and tops out at 9–10 m;
+- the track beam's top is about 8 m high;
+- the portals reach about 10.5 m, 36–42 m out.
+
+The skeleton's values are set to match: `DECK_Z` 8, `DOME_BASE_Z` 10 and `DOME_R` 35.5.
+
+**Unverified:**
+- the Blender-to-game axis mapping (a 90° turn would put the lines off the hex axes);
+- the vanilla track deck height, which the stub ends must match;
+- how the asset's pallets feed the cube display. The build reads `Box1` spots on the body
+  (`TRAIN_HUB_BUILD_20260918.md`).
+
+**Lessons:**
+- Image AIs and Tripo do not hold three lines exactly 60° apart, so build the geometry in the
+  Blender skeleton and use Tripo for pieces only.
+- FBX is loaded with File → Import, not File → Open.
+
 **Unknowns this pipeline leaves open, each decisive for OPTION 3:**
 - Can a mod's `.ent` reference a mesh that exists only inside `Packs\Meshes.hpk`? This decides
   whether 3b is possible.
