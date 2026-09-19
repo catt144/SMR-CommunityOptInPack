@@ -16,6 +16,9 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
   They are **vanilla Wasp drones** (`FlyingDrone`, entity `DroneJapanFlying`, `FlyingDrone.lua:11-21`)
   whose controller is the train hub, made ours by per-drone data: display name "Repair Drone", our
   recolour, a large `battery_max` topped up by the hub so they **never charge** (`Drone.lua:10`).
+  Near the hub, vanilla's AI seeks a charger only at about twice the emergency level
+  (`Drone.lua:629`, `:697`), so the top-up keeps them well clear of it. The top-up runs whatever the
+  hub's state, including malfunction and no power, because its drones exist to repair it.
   No subclass: a repair drone is identified live as a Wasp whose `command_center` is a train hub,
   so nothing sweeps other Wasps (Japan sponsor colonies), saves hold only vanilla Wasps, and on
   removal they are ordinary Wasps.
