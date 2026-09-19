@@ -12,9 +12,12 @@
   drone hub does it; this **reverses build 2's omission** of the prefab controls.
 - **Owner, same day, design:** the hub **generates its own power**, enough for itself plus its
   maximum six stations (tracks merge station grids, `TrackBase:ConnectToGrids`, `Track.lua:97-122`),
-  with **no workers**, and its **build cost and maintenance go up** to match. The look is the
-  vanilla advanced Stirling generator model (owner's in-game screenshot: about one hex, so it
-  sits inside the hub unscaled); a Stirling's own +10 is only the look, not the output. The
+  with **no workers**, and its **build cost and maintenance go up** to match. **The look,
+  preferred: a scaled-down vanilla fusion reactor** (owner: it fits the theme better), covering
+  about 3 to 5 hexes, **if it still looks good at that scale**; the owner then accepts
+  **extending the hub's footprint** under it. **Fallback:** the vanilla advanced Stirling model
+  inside the ring, unscaled (about one hex, from the owner's screenshot), with no footprint
+  change. Either model is only the look; the hub's class makes the power. The
   **charger moves inside the hub's footprint**: today it sits on the first hex outside
   (`charger_offset`), about a hex out, and players can build over it.
   Settled: fix all of it. Nothing here is frozen (`CLAUDE.md`); both bans in `FIX_POLICY.md` bind,
@@ -67,9 +70,14 @@ Facts, each with a command that could falsify it:
    the owner in the smoke: **+70** (the hub's 10 plus six big stations at 10; vanilla
    `StationBig` draws 10, `StationSmall` 5, `FusionReactor` makes 200 with 8 workers); build
    cost about 60 Concrete, 40 Metals, 10 MachineParts, 15 Electronics; upkeep about 2
-   Electronics. Attach the advanced Stirling model (likely `StirlingGeneratorCP3`, the
-   `StirlingGenerator` template's sponsor entity; check `IsValidEntity` and fall back to a scaled
-   `FusionReactor` if it is absent) where it fits inside the ring. Move the charger onto a
+   Electronics. **The reactor, in this order, so there is one re-import:** (a) measure the vanilla
+   `FusionReactor` footprint (`#GetEntityOutlineShape`) and pick a `SetScale` that brings it to
+   about 3 to 5 hexes; (b) attach it in Lua, outside the ring between two arms, and have the owner
+   judge the look in game, including its working FX; (c) if the owner approves, add a lobe to
+   `hex_shape` in `hub_skeleton.py` under it, keeping every line's approach and the hexes beyond
+   the connectors free, and let it ride the same re-import as the footprint fix and the texture;
+   (d) if not, attach the advanced Stirling model inside the ring (likely `StirlingGeneratorCP3`,
+   the `StirlingGenerator` template's sponsor entity; check `IsValidEntity`). Move the charger onto a
    footprint hex drones can reach, as vanilla's hub does (`AttachedRechargeStations.lua`); your
    call whether by offset in Lua or a charger spot in `hub_skeleton.py`. Prove the lines merge
    grids with one end station on a separate grid, and say in the report where the surplus goes
