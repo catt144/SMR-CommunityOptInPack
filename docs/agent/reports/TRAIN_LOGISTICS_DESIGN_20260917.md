@@ -748,9 +748,14 @@ consequences for the real hub build:
   export floor in its smallest form (Metals only, one fixed amount), so build it so that Module
   A can generalise it. The large station's maintenance is 5 Metals
   (1.1.0.403908 `StationBig.generated.lua:29-30`).
-- **Storage stays vanilla:** a per-resource pool balanced network-wide by capacity share
-  (§7.2 T2). The owner's reading, "overflow and distribution", matches that. Per-resource
-  control is Module A's.
+- **Storage is vanilla in mechanism but bigger** (owner, 2026-09-18: *"I think we need bigger
+  storage hubs"*). It is a per-resource pool balanced network-wide by capacity share (§7.2 T2),
+  which matches the owner's reading, "overflow and distribution". The large station holds 120
+  per resource (`StationBig.generated.lua:52`, `max_storage_per_resource = 120000`). The hub
+  starts at **240, proposed and the owner may change it**, as one template value. Because the
+  balancer settles at capacity shares, a hub with twice the capacity holds twice the share of
+  network stock. That fits a distribution buffer, but a player will see it. Per-resource control
+  is Module A's.
 - **INFERRED, not tested: trains can carry Waste Rock.** `Resource.lua:417-434` sets no
   `transportable = false` on it, unlike the grid and player resources (`:343-413`), and a
   station stores every transportable resource except Seeds (`Station.lua:110-114`).

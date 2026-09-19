@@ -9,7 +9,8 @@
   - Six connectors, with a four-connector variant later.
   - A built-in, small-radius drone controller whose drones serve anything in range.
   - A Metals maintenance reserve that trains and drones do not take.
-  - Vanilla storage.
+  - Vanilla storage mechanics, with bigger capacity: 240 per resource proposed, against the
+    large station's 120.
 - MODULE FREEZE is lifted (`CLAUDE.md`). Both bans in `FIX_POLICY.md` bind, as do spec §8's
   constraints.
 - **The owner is making the asset.** Their reference pack and its layout requirements are at
