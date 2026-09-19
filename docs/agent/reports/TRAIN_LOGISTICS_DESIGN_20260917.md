@@ -602,8 +602,9 @@ slot code, and `pol=send` beside it confirms the resource was off.
 
 ## 8 · Binding constraints for whoever builds this
 
-- ⛔ **Both modules are NEW.** The 2026-08-31 drone unfreeze does not cover them, and the
-  2026-09-17 ruling unfroze only D06/D07/D12 — all three now retired. MODULE FREEZE applies.
+- **Both modules are NEW.** The owner lifted MODULE FREEZE on every module on 2026-09-18
+  (`CLAUDE.md`). A behaviour still needs an owner ruling recorded for this mod, and §10 holds
+  Module B's.
 - ⛔ **Ban 1** — a new persisted field name is permanent from the first save that sees it.
 - ⛔ **Ban 2** — zero `SMRFixPack` references in executable code.
 - **F107** — every `(class, method)` pair installed on or captured from must appear in the
@@ -727,6 +728,26 @@ consequences for the real hub build:
   must sit inside the footprint (`Tracks.lua:19-24`). On a hex grid, two lines cross at 60°.
 - The four differs from vanilla's large station, whose two lines run parallel, by being a
   crossing. Each size owes its own sitting and its own ship test (`FIX_POLICY` §8).
+
+**Owner rulings, 2026-09-18, for the real hub build.** The brief is
+`docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
+- **Build the real six-connector hub** on the prototype body as a stand-in until the owner's
+  asset lands. Reserve the four-connector's name.
+- **A built-in drone controller with a small work radius**, so the hub maintains itself. Its
+  drones serve **anything** inside that radius (owner: *"keep it simple plus people might find
+  other use cases like if they have a bunch of waste rock to dump by it and then have it
+  transport out"*).
+- **A maintenance reserve.** The hub *"holds a minimal stock back for its own maintenance"*.
+  Neither trains nor its own drones take Metals below the reserve. This is §4.3's missing
+  export floor in its smallest form (Metals only, one fixed amount), so build it so that Module
+  A can generalise it. The large station's maintenance is 5 Metals
+  (1.1.0.403908 `StationBig.generated.lua:29-30`).
+- **Storage stays vanilla:** a per-resource pool balanced network-wide by capacity share
+  (§7.2 T2). The owner's reading, "overflow and distribution", matches that. Per-resource
+  control is Module A's.
+- **INFERRED, not tested: trains can carry Waste Rock.** `Resource.lua:417-434` sets no
+  `transportable = false` on it, unlike the grid and player resources (`:343-413`), and a
+  station stores every transportable resource except Seeds (`Station.lua:110-114`).
 
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
