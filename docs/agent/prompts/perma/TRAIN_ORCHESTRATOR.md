@@ -21,7 +21,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
   results, §6 the options and the owner's direction (the routing target in OPTION 5), and §10 the
   prototype.
 - The live briefs in `docs/agent/prompts/README.md`. The hub prototype returned a **qualified
-  GO** (owner, 2026-09-18). The real hub build (`TRAIN_HUB_BUILD_high.md`) committed its dev mod
+  GO** (owner, 2026-09-18). The real hub build (fired and retired) committed its dev mod
   and design record (`886926b`, `d9be297`, `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`).
   Its smoke test was played with the owner on 2026-09-19 (the report's §"Sitting result").
   Its owner decisions are OI-18 and OI-19 in `docs/PLAYTEST_CHECKLIST.md`; the radius was ruled
@@ -42,8 +42,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - the owner imports the asset through the Relaunched Mod Editor. That one import answers
      §9's unverified list: the axis mapping, the vanilla track height, and which way the cube
      grid runs from a `-Box` spot. Station textures go on at the same step;
-   - then brief a build agent to swap the stand-in body for the asset, with the owner's
-     radius and drone-section ruling (spec §10);
+   - fire `TRAIN_HUB_BUILD2_high.md` (the radius and drone-section rulings; the asset swap
+     once the import has landed) and play its smoke test with the owner;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
