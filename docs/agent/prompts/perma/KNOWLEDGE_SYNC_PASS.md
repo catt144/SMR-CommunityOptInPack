@@ -1,6 +1,6 @@
 # KNOWLEDGE SYNC PASS — does this repo hold what it cites, and what it needs?
 
-**Fire with:** `task docs/agent/prompts/KNOWLEDGE_SYNC_PASS.md` in a fresh session rooted at
+**Fire with:** `task docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` in a fresh session rooted at
 `C:\Dev\SMR-OptInPack`. Any model. Re-runnable — it is a sweep, not a one-off.
 **Written 2026-09-12 from the fix-pack side**, after a cross-repo inventory found one live gap here.
 
@@ -68,6 +68,18 @@ For each citation, classify:
 ⚠️ A "not found" is a claim. Before reporting anything DANGLING, prove your search would have found
 it if present: run the same method against a file you know exists and show the hit.
 
+**Fix the instrument, not the list.** The 2026-09-19 run found most of 78 NOWHERE rows were resolver
+misses, and all 54 DONOR-HAS-IT rows were cited on purpose. Each run pays for that again until the
+helper learns it, so both are this pass's job, with no ask needed (it is this repo's own tool):
+- **A miss class that repeats extends the resolver.** Known places it did not search: the TestKit repo
+  (`C:\Dev\SMR-BugFixPack-TestKit`), subfolders of the archived game source
+  (`C:\Dev\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `C:\Dev\SMR-TrainHubAssets\`, and git history
+  (`git log --all -- <path>` for consumed prompts). Fix-pack ids (`C##`, `F##`) are donor names.
+- **A citation that is intentional by class gets a declared row**, with its reason, in the same shape
+  as `TOOLS_*` (fact-mirror citations, WORKFLOW's pointers into the donor's 1.1.0 reports, live
+  prompts citing what they build, deliberate-absence rows). The next run then lists only new ones.
+- Prove each resolver change on a row it now resolves *and* on a genuinely gone one it still reports.
+
 ## 2 · The reverse question: what does the donor hold that this repo needs?
 
 Narrower and judgement-heavy, so keep it bounded. In `C:\Dev\SMR-BugFixPack` (**read-only — never
@@ -116,13 +128,13 @@ belongs in them in the donor first.
 
 ## 3 · Structure pass (only after §1 and §2)
 
-Cheap checks, report-only:
+Cheap checks; findings become §5 recommendations, never edits in this step:
 - `python tools/doccheck.py` — GREEN? Copy any WARN line verbatim.
 - Does `docs/README.md`'s map match what is actually on disk, both directions?
 - Any file in `docs/agent/reports/` that nothing cites and that records no decision — candidate to
   retire. ⛔ **"Nobody reads it" is NOT "nothing points at it."** The donor learned this the
   expensive way: of 57 files it proposed archiving on read-counts, **43 turned out to be cited**.
-  Cite-check before proposing any move, and propose — never move — in this pass.
+  Cite-check before proposing any move; move only on the owner's yes (§5).
 
 ## 4 · Rules
 
@@ -132,14 +144,29 @@ Cheap checks, report-only:
   the commit message, and move `LAST_SYNC` in that commit when a sync completes. Two identical
   copies is the intended state; an edited copy is a fork nobody will notice. A tool is the one
   exception, and only through a declared `TOOLS_ADAPTED` row (§2.5).
-- The kernel's donor-name, archive, documentation-check and commit rules apply.
+- The kernel's donor-name, archive, documentation-check and commit rules apply. Push after each commit.
 
-## 5 · Report
+## 5 · Recommend, then act on the owner's yes
 
-1. §1 counts: citations checked · RESOLVES · **DANGLING-DONOR-HAS-IT** · DANGLING-NOWHERE · STALE.
-2. The DANGLING-DONOR-HAS-IT list, each with its citer and whether that citer is live work.
-3. §2 genuine gaps only, with the evidence that they are absent here.
-3a. §2.5 `--tools` findings, each with its decision: port, declare or propose to the donor.
-4. §3 findings, as proposals.
-5. Your presence-control from §1's warning — the check that proves your "not found"s mean something.
-6. What you could not determine. Say it plainly rather than rounding it to done.
+The pass has two halves in one session.
+
+**Done without asking, committed before you write to the owner:** everything §1–§2.5 already
+decides — ports, declared rows, the resolver work, the kit-doc re-copy, `LAST_SYNC`.
+
+**Then one message to the owner**, led by the recommendations, not the counts:
+
+1. **Recommendations, numbered.** Each is one line of what you will do and one line of why, with the
+   evidence it rests on: a retirement, a stale line in `CLAUDE.md` or another live doc, a donor
+   store draft for the launch checklist, a gap from §2. Order them by value. Say which you would
+   skip, and why.
+2. **For the fix pack** (read-only from here): what to carry across, each as a one-line change the
+   fix pack's coordinator can act on.
+3. **What was done**, in a few lines: the commit, and the §1 counts as the helper printed them
+   (checked · resolves · donor-has-it · nowhere · stale), with before-and-after numbers when the
+   resolver changed.
+4. **Not determined**, plainly.
+
+Then stop and wait. The owner answers in their own words ("yes", "1 and 3", "all but 2"). Carry out
+exactly what they agreed, one commit per item or a single commit naming each item, then doccheck,
+push, and reply with the shas. An item they did not answer stays a recommendation for the next run;
+do not ask twice in one session.
