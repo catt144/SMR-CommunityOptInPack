@@ -58,7 +58,7 @@ connected end, survives a reload mid-line, and a line placed before connection s
 ## Scope
 
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
-Out: building stations, tunnels (report if they break the walk), drone logic, Module A, routing.
+Out: building stations, drone logic, Module A, routing. Tunnels follow build 4's hide-and-show rule.
 
 ## Stops
 

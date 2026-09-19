@@ -73,7 +73,13 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    Deduct at completion, not at dispatch, so nothing is paid twice.
 3. **The vehicle.** An unsaved prop moving along the track's element positions to the break and
    back, rebuilt from the deadline on load, so a reload can move the picture but never lose or
-   double a repair. Livery: a distinct palette, colony colours with a red accent. Cargo cubes for
+   double a repair. **Tunnels (observed by the owner, 2026-09-19):** a vanilla train vanishes when
+   its nose reaches the black backdrop just inside a tunnel mouth; the portal arch has ample
+   clearance above the rail. Do the same: drive into the backdrop, hide, advance on the timer,
+   show at the far mouth. Tunnels are in scope. **Ride position is open (owner considering):**
+   hanging on the side like a train, or on top of the beam for distinction and to never overlap
+   a real train; build it so the offset is one value, and check clearance at stations and the
+   hub's hoods if it rides on top. Livery: a distinct palette, colony colours with a red accent. Cargo cubes for
    the paid load if cheap. Drop the livery first, then the vehicle, never the repair.
 4. **Player controls.** A toggle on the hub's infopanel; a stock reserve the repair may not dip
    below is your call.
@@ -88,7 +94,7 @@ stock without player action, survives a reload mid-trip, and the toggle stops it
 ## Scope
 
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
-Out: drone logic, real train pathing, Module A, routing, tunnels (report if they break the walk).
+Out: drone logic, real train pathing, Module A, routing.
 
 ## Stops
 
