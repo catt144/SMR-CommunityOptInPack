@@ -236,33 +236,176 @@ def donor_owned(c):
     if DONOR_ID.fullmatch(c):
         return True
     base = c.rsplit("/", 1)[-1]
+    # `C47.md`, `agent/bugs/F104.md`: the entry FILE of a donor id is as much the
+    # donor's as the bare id (2026-09-19: 8 such rows were listed as actions).
+    if base.endswith(".md") and DONOR_ID.fullmatch(base[:-3]):
+        return True
     return base in DONOR_OWNED_FILES or base.startswith("Fix_")
+
+
+# ---------------------------------------------------------------------------
+# CITATIONS DONOR-HAS-IT ON PURPOSE, by class -- the same shape as the TOOLS_*
+# tables: a row is a PROMISE that the citation is meant to point into the
+# donor, and the reason is what a later reader checks. Consulted only for a
+# citation the donor HAS; a NOWHERE row is never hidden by any of these.
+# Measured 2026-09-19 (donor eaff679): the DONOR-HAS-IT rows were all cited on
+# purpose.
+#
+# By CITER: a citer whose citations of donor files are its purpose. Prefix
+# match on the citing file's repo-relative path.
+CITERS_BY_DESIGN = {
+    "docs/agent/facts/": "the fact mirror is the donor's bytes (facts are allocated "
+                         "there), so its citations are the donor's own paths",
+    "docs/agent/WORKFLOW.md": "its 'Donor names' and 1.1.0-report pointers name the "
+                              "fix pack's documents on purpose",
+}
+# By CITATION (bare file name; the directory a citer spells is not compared).
+_RELEASE = ("the release system this repo will build on the donor's "
+            "(prompts/RELEASE_SYSTEM_high.md, a live prompt); a pull now goes stale")
+_RECORD = ("a dated record cites evidence that lives in the donor; a record is not "
+           "rewritten, and the donor's copy is its home")
+_GAMEPATCH = ("prompts/perma/gamepatch/ is the outbox for the fix pack's game-patch "
+              "job, which runs FROM the fix pack first (owner, 2026-09-18)")
+CITATIONS_BY_DESIGN = {
+    **{name: _RELEASE for name in (
+        "RELEASE_HISTORY.md", "RELEASE_OUTBOX.md", "RELEASE_SURFACES.md",
+        "release_prompt.md", "POST_UPLOAD_CLOSE.md", "LIVE_SITE_READ.md",
+        "STORE_CARD_LIVE.md")},
+    **{name: _RECORD for name in (
+        "L3_SAVE_FOOTPRINT.md", "MEMORY.md", "RULES_HEADERS_INVENTORY.json",
+        "SWEEP_FINDINGS.md")},
+    **{name: _GAMEPATCH for name in ("GAME_PATCH_PROMPT.md", "patchcheck.py")},
+}
+
+
+# Citations that resolve NOWHERE on purpose: the citer's own sentence says the
+# thing is external, temporary or retired. Keyed by the exact citation text; the
+# reason is what was read on 2026-09-19 (this repo eaff679-era docs). A row the
+# citer stops making is inert, a row that starts to resolve is never reached.
+CITATIONS_ABSENT = {
+    "97_OptInLeg.lua": "D05: a TEMPORARY flag file, deleted after the leg it enabled",
+    "BlenderExport.py": "TRAIN_LOGISTICS_DESIGN: a file inside the game's ModTools "
+                        "distribution, read from the install, not a repo file",
+    "D08": "D06 and the drone briefs: a retired drone layer whose entry was folded "
+           "into D06 and never filed as a file",
+    "_LuaRevision.lua": "EF-014, EF-085: the game's fpk-only file, not in any archived "
+                        "Src tree (the mirrored fact says so)",
+    "Lua/Config/_LuaRevision.lua": "EF-085: as _LuaRevision.lua",
+    "for-modders.md": "EF-054: a doc the donor names as unchanged, absent from every "
+                      "tree here (the mirrored fact's own words)",
+}
+
+
+def by_design(c, citers):
+    """The declared reason a DONOR-HAS-IT citation is intentional, or None.
+
+    A citation is declared when its file name has a CITATIONS_BY_DESIGN row, its
+    name is a tool declared not ported (TOOLS_NOT_PORTED -- the deliberate
+    absence), or EVERY citing file falls under a CITERS_BY_DESIGN prefix. One
+    citer outside every class keeps the row listed."""
+    base = c.rsplit("/", 1)[-1]
+    if base in CITATIONS_BY_DESIGN:
+        return CITATIONS_BY_DESIGN[base]
+    if base in TOOLS_NOT_PORTED:
+        return "a donor tool declared not ported: " + TOOLS_NOT_PORTED[base]
+    reasons = []
+    for citer in citers:
+        hit = [r for pre, r in CITERS_BY_DESIGN.items() if citer.startswith(pre)]
+        if not hit:
+            return None
+        reasons.append(hit[0])
+    return reasons[0] if reasons else None
 
 
 # Illustrative placeholders in the prompts that TEACH the citation shapes. They
 # are not citations of anything and must not be reported as broken.
 PLACEHOLDERS = {"X.md", "y.py", "tools/y.py", "agent/reports/X.md",
-                "docs/agent/facts/EF-0NN.md", "Opt_Z.lua", "X.py"}
+                "docs/agent/facts/EF-0NN.md", "Opt_Z.lua", "X.py",
+                "docs/agent/bugs/Dxx.md"}
 
 # The GAME's own source, cited constantly by facts. It lives in neither repo —
 # it is read from the archived tree for the build the fact was derived on
 # (CLAUDE.md: cite a line only with the build it was read on).
 SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"C:\Dev\SMR-SrcArchive")
-_src_index = None
+
+# Places a citation may resolve that are neither this repo's docs/ nor the donor
+# (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):
+TESTKIT = os.environ.get("SMR_TESTKIT", r"C:\Dev\SMR-BugFixPack-TestKit")
+TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"C:\Dev\SMR-TrainHubAssets")
+_SKIP_DIRS = (".git", "__pycache__", "node_modules")
+_indexes = {}
+
+
+def _suffixes(rel, into):
+    """Add REL and every suffix of it that starts at a `/` boundary."""
+    parts = rel.split("/")
+    for i in range(len(parts)):
+        into.add("/".join(parts[i:]))
+
+
+def _tree_index(root):
+    """{every `/`-boundary suffix of every file under ROOT}, built once per root.
+    A suffix index makes `Lua/Buildings/Station.lua`, `Station.lua` and
+    `1.1.0.403908/Src/Lua/Buildings/Station.lua` (after _hit drops the build
+    prefix) all hit the same file."""
+    if root not in _indexes:
+        idx = set()
+        if root and os.path.isdir(root):
+            for dirpath, dirnames, filenames in os.walk(root):
+                dirnames[:] = [d for d in dirnames if d not in _SKIP_DIRS]
+                for fn in filenames:
+                    rel = os.path.relpath(os.path.join(dirpath, fn), root)
+                    _suffixes(rel.replace(os.sep, "/"), idx)
+        _indexes[root] = idx
+    return _indexes[root]
+
+
+def _hit(c, idx):
+    """True when citation C names a file in IDX. A leading `TestKit/` or a
+    `<build>/Src/` the citer spelled is dropped before the suffix test."""
+    c = re.sub(r"^(?:TestKit/|[0-9][0-9.]*/Src/)", "", c)
+    return c in idx
 
 
 def game_owned(c):
-    """True when a citation names a shipped game file, not a repo file."""
-    global _src_index
-    if "/" in c or not c.endswith((".lua", ".md")):
+    """True when a citation names a shipped game file, not a repo file. A
+    subfolder path (`CommonLua/Classes/Mod.lua`, `1.1.0.403908/Src/...`)
+    resolves as well as the bare name."""
+    if not c.endswith((".lua", ".md")) or ("/" in c and c.endswith(".md")):
         return False
-    if _src_index is None:
-        _src_index = set()
-        if os.path.isdir(SRC_ARCHIVE):
-            for dirpath, dirnames, filenames in os.walk(SRC_ARCHIVE):
-                dirnames[:] = [d for d in dirnames if d != ".git"]
-                _src_index.update(filenames)
-    return c in _src_index
+    return _hit(c, _tree_index(SRC_ARCHIVE))
+
+
+def sibling_owned(c):
+    """The kit repo, this repo's dev mods, or the train asset repo hold it."""
+    for root in (TESTKIT, os.path.join(REPO, "tools", "devmods"), TRAIN_ASSETS):
+        if _hit(c, _tree_index(root)):
+            return True
+    return False
+
+
+def history_owned(c, root=None):
+    """True when the repo at ROOT (default: this one) once tracked a file of that
+    name and it is gone now: a consumed prompt or a retired module, cited by the
+    record that used it. (`git log --all --name-only`, once per repo.) Only
+    reached after every live place failed, so a file still on disk is never
+    reported as history."""
+    root = root or REPO
+    key = ("history", root)
+    if key not in _indexes:
+        idx = set()
+        try:
+            names = subprocess.check_output(
+                ["git", "-C", root, "log", "--all", "--name-only", "--pretty=format:"],
+                text=True, encoding="utf-8", errors="replace",
+                stderr=subprocess.PIPE, env=git_env()).splitlines()
+        except (OSError, subprocess.CalledProcessError):
+            names = []
+        for n in names:
+            if n.strip():
+                _suffixes(n.strip(), idx)
+        _indexes[key] = idx
+    return _hit(c, _indexes[key])
 
 
 def lf(path):
@@ -415,6 +558,19 @@ def _resolves_here(c):
     return False
 
 
+def moved_here(c):
+    """A path citation whose exact path is gone but whose file name is here: an
+    older record's pre-split path (`docs/reports/X.md`, now `docs/agent/reports/`)."""
+    if "/" not in c:
+        return False
+    base = c.rsplit("/", 1)[-1]
+    for dirpath, dirnames, filenames in os.walk(REPO):
+        dirnames[:] = [d for d in dirnames if d not in (".git", "__pycache__")]
+        if base in filenames:
+            return True
+    return False
+
+
 def _resolves_donor(c):
     if not os.path.isdir(DONOR):
         return False
@@ -448,6 +604,8 @@ def pass_citations(out):
                "something" % control)
 
     donor_has, nowhere, expected, game = [], [], [], []
+    designed, sibling, moved, history, other_history = [], [], [], [], []
+    absent = []
     for c in sorted(cites):
         if c in PLACEHOLDERS or _resolves_here(c):
             continue
@@ -457,7 +615,26 @@ def pass_citations(out):
         if game_owned(c):
             game.append(c)
             continue
-        (donor_has if _resolves_donor(c) else nowhere).append(c)
+        if sibling_owned(c):
+            sibling.append(c)
+            continue
+        if moved_here(c):
+            moved.append(c)
+            continue
+        if _resolves_donor(c):
+            if by_design(c, cites[c]):
+                designed.append(c)
+            else:
+                donor_has.append(c)
+            continue
+        if history_owned(c):
+            history.append(c)
+        elif any(history_owned(c, r) for r in (DONOR, TESTKIT)):
+            other_history.append(c)
+        elif c in CITATIONS_ABSENT:
+            absent.append(c)
+        else:
+            nowhere.append(c)
 
     out.append("  %d distinct citation(s) checked across docs/ (archive excluded)"
                % len(cites))
@@ -465,6 +642,19 @@ def pass_citations(out):
                % len(expected))
     out.append("  %d shipped-game source file(s) under %s — counted, not listed"
                % (len(game), SRC_ARCHIVE))
+    out.append("  %d in a sibling repo (TestKit, tools/devmods, train assets) — "
+               "counted, not listed" % len(sibling))
+    out.append("  %d at another path here (moved since the record was written) — "
+               "counted, not listed" % len(moved))
+    out.append("  %d in the donor ON PURPOSE (CITERS_/CITATIONS_BY_DESIGN, each with "
+               "a reason) — counted, not listed" % len(designed))
+    out.append("  %d only in this repo's git history (consumed prompt, retired "
+               "module) — counted, not listed" % len(history))
+    out.append("  %d only in the donor's or the TestKit's git history (a mirrored "
+               "fact citing what the donor retired) — counted, not listed"
+               % len(other_history))
+    out.append("  %d resolve nowhere ON PURPOSE (CITATIONS_ABSENT, each with a "
+               "reason) — counted, not listed" % len(absent))
     for c in donor_has:
         out.append("  DONOR HAS %-38s cited by %s" % (c, ", ".join(cites[c][:3])))
     for c in nowhere:

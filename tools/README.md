@@ -96,7 +96,7 @@ Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has ch
 | script | what its own header says |
 |---|---|
 | [`sync_from_fixpack.py`](sync_from_fixpack.py) | Cross-repo sync helper: what has the fix pack got that this repo needs? |
-| [`sync_from_fixpack_selftest.py`](sync_from_fixpack_selftest.py) | Falsifier for sync_from_fixpack's --tools pass and kit-doc mirror check. |
+| [`sync_from_fixpack_selftest.py`](sync_from_fixpack_selftest.py) | Falsifier for sync_from_fixpack's --tools pass, kit-doc mirror check and citation resolver. |
 
 ### Launch
 

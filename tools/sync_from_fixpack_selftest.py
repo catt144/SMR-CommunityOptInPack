@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Falsifier for sync_from_fixpack's --tools pass and kit-doc mirror check.
+"""Falsifier for sync_from_fixpack's --tools pass, kit-doc mirror check and citation resolver.
 
 WHY THIS EXISTS. The --tools pass is silent by design: a declared row hides its
 tool. A pass that is silent because it works and one that is silent because it
@@ -18,7 +18,12 @@ declared-local-only and a CRLF-only difference all silent); an undeclared new
 donor tool; an undeclared differing tool; an undeclared tool only here; a
 declared adaptation that stops differing; a donor change to a declared
 adaptation since LAST_SYNC (a scratch git donor); and each mirrored kit doc
-drifting or missing. Nothing touches the live tree or the donor: every fixture
+drifting or missing. Citation legs (`citation_legs`): every place the resolver
+looks (TestKit, game-source subfolders, tools/devmods, the train asset repo, a
+moved path, this repo's git history, the donor's history) is proved on one
+citation it now resolves AND one genuinely gone that it still reports; each
+declared table (CITERS_/CITATIONS_BY_DESIGN, CITATIONS_ABSENT) hides its own row
+and only that row. Nothing touches the live tree or the donor: every fixture
 lives under a temporary directory removed on the way out.
 """
 import os
@@ -153,6 +158,110 @@ def leg(name, tools, needle, subject=None, mirrors=None, git_donor=True, after=N
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+CITE_TABLES = ("REPO", "DONOR", "SRC_ARCHIVE", "TESTKIT", "TRAIN_ASSETS",
+               "CITERS_BY_DESIGN", "CITATIONS_BY_DESIGN", "CITATIONS_ABSENT",
+               "TOOLS_NOT_PORTED", "DONOR_OWNED_FILES")
+
+
+def citation_legs():
+    """Plant every place a citation can resolve, plus a gone twin of each, and read
+    the REAL pass_citations output. Each pair: the present name must leave the
+    listing (and be counted), the gone name must still be reported."""
+    tmp = tempfile.mkdtemp(prefix="syncself_cite_")
+    saved = {k: getattr(sync, k) for k in CITE_TABLES}
+    try:
+        here, there = os.path.join(tmp, "here"), os.path.join(tmp, "there")
+        kit, src, assets = (os.path.join(tmp, n) for n in ("kit", "src", "assets"))
+        cites = [
+            "kit_probe.lua", "kit_gone.lua",                    # TestKit
+            "Sub/Mod.lua", "Sub/Missing.lua",                   # game subfolder
+            "Code/dev_entity.lua", "Code/dev_missing.lua",      # tools/devmods
+            "asset_tool.py", "asset_missing.py",                # train assets
+            "used_up.md", "never_existed.md",                   # this repo's history
+            "donor_used_up.md", "donor_never.md",               # the donor's history
+            "docs/old/moved.md", "docs/old/nowhere.md",         # moved by name
+            "declared_donor.md", "undeclared_donor.md",         # CITATIONS_BY_DESIGN
+            "fact_donor.md", "mixed_donor.md",                  # CITERS_BY_DESIGN
+            "absent_ok.md", "absent_gone.md",                   # CITATIONS_ABSENT
+            "C47.md",                                           # a donor id's file
+        ]
+        body = "\n".join("`%s`" % c for c in cites if c != "fact_donor.md")
+        write(here, "docs/agent/WORKFLOW.md", b"# w\n")
+        write(here, "docs/agent/moved.md", b"# moved here\n")
+        write(here, "docs/README.md", body.encode())
+        write(here, "docs/agent/facts/EF-900.md",
+              b"`fact_donor.md` `mixed_donor.md`\n")
+        write(here, "tools/devmods/m/Code/dev_entity.lua", b"x\n")
+        write(kit, "Code/kit_probe.lua", b"x\n")
+        write(src, "1.1.0.1/Src/Sub/Mod.lua", b"x\n")
+        write(assets, "blender/asset_tool.py", b"x\n")
+        for name in ("declared_donor.md", "undeclared_donor.md", "fact_donor.md",
+                     "mixed_donor.md", "donor_used_up.md"):
+            write(there, "docs/" + name, b"x\n")
+        # history: a file committed here and deleted, and one in the donor
+        write(here, "docs/agent/prompts/used_up.md", b"x\n")
+        for repo, gone in ((here, "docs/agent/prompts/used_up.md"),
+                           (there, "docs/donor_used_up.md")):
+            if repo is there:
+                write(there, gone, b"x\n")
+            subprocess.run(["git", "init", "-q", repo], check=True, capture_output=True)
+            git(repo, "add", "-A")
+            git(repo, "commit", "-q", "-m", "base")
+            os.remove(os.path.join(repo, *gone.split("/")))
+            git(repo, "add", "-A")
+            git(repo, "commit", "-q", "-m", "used up")
+        sync.REPO, sync.DONOR = here, there
+        sync.SRC_ARCHIVE, sync.TESTKIT, sync.TRAIN_ASSETS = src, kit, assets
+        sync.CITERS_BY_DESIGN = {"docs/agent/facts/": "scratch"}
+        sync.CITATIONS_BY_DESIGN = {"declared_donor.md": "scratch"}
+        sync.CITATIONS_ABSENT = {"absent_ok.md": "scratch"}
+        sync.TOOLS_NOT_PORTED = {}
+        sync._indexes.clear()
+        out = []
+        sync.pass_citations(out)
+        text = "\n".join(out)
+
+        def listed(name, kind):
+            return any(ln.strip().startswith(kind) and (" %s " % name) in ln + " "
+                       for ln in out)
+
+        def check(label, ok):
+            results.append((label, bool(ok)))
+            if not ok:
+                failures.append("%s\n%s" % (label, text))
+
+        for present, gone, place in (
+                ("kit_probe.lua", "kit_gone.lua", "TestKit"),
+                ("Sub/Mod.lua", "Sub/Missing.lua", "game-source subfolder"),
+                ("Code/dev_entity.lua", "Code/dev_missing.lua", "tools/devmods"),
+                ("asset_tool.py", "asset_missing.py", "train asset repo"),
+                ("used_up.md", "never_existed.md", "this repo's git history"),
+                ("donor_used_up.md", "donor_never.md", "the donor's git history"),
+                ("docs/old/moved.md", "docs/old/nowhere.md", "a moved path")):
+            check("citation resolver: %s resolves %s" % (place, present),
+                  not listed(present, "NOWHERE") and not listed(present, "DONOR HAS"))
+            check("citation resolver: %s still reports the gone %s" % (place, gone),
+                  listed(gone, "NOWHERE"))
+        check("declared CITATIONS_BY_DESIGN row hides its own row",
+              not listed("declared_donor.md", "DONOR HAS"))
+        check("an undeclared donor-has-it row is still listed",
+              listed("undeclared_donor.md", "DONOR HAS"))
+        check("CITERS_BY_DESIGN hides a citation cited only by the declared citer",
+              not listed("fact_donor.md", "DONOR HAS"))
+        check("CITERS_BY_DESIGN never hides a citation with a citer outside the class",
+              listed("mixed_donor.md", "DONOR HAS"))
+        check("declared CITATIONS_ABSENT row hides its own row",
+              not listed("absent_ok.md", "NOWHERE"))
+        check("an undeclared absent row is still reported", listed("absent_gone.md", "NOWHERE"))
+        check("a donor id's entry file is donor-owned, not listed",
+              not listed("C47.md", "DONOR HAS") and not listed("C47.md", "NOWHERE"))
+    finally:
+        for k, v in saved.items():
+            setattr(sync, k, v)
+        sync._indexes.clear()
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def with_(**changes):
     tools = dict(BASE)
     for k, v in changes.items():
@@ -202,6 +311,8 @@ def main():
         gone[rel] = (None, b"kit\n")
         leg("mirrored %s missing here is reported" % rel, BASE, "MISSING", rel,
             mirrors=gone)
+
+    citation_legs()
 
     width = max(len(n) for n, _ in results)
     for name, ok in results:
