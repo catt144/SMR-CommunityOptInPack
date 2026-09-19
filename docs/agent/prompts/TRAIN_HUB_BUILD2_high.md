@@ -32,7 +32,19 @@ is empty, the facts below hold. Put the end state in the todo tool before any wr
   mattered in the sitting: end stations 10+ hexes out got no maintenance and wore out in about
   seven sols at ultra speed.
 - The asset pipeline and its outputs are outside both repos, at `C:\Dev\SMR-TrainHubAssets\blender\`
-  (`README.md`). As of this brief there is no exported FBX and no entity folder in the dev mod.
+  (`README.md`). `export_prep.py` wrote `export\SMROptInTrainHub6.fbx` on 2026-09-19 for the
+  owner to import. Checked by re-importing it into Blender: `Origin` > mesh `SMROptInTrainHub6` >
+  25 spots and 3 surfaces, spot positions equal to the work file's. What the import carries:
+  - **Entity `SMROptInTrainHub6`**, the template's id. Treat it as permanent once a kept save
+    sees a hub.
+  - Spots: `Trackconnector1..6`, `Trackdirection1..6`, `Top`, six `Box1` (one range, as
+    `own_pallets` reads it) and six `WorkDrone`. Surfaces: `hex_shape`, `Collision`, `Selection`.
+  - **Not carried:** `Ramparrive`, `Stop`, `Spawn`, `Rampdepart`, `Sign`. Once the body has
+    `Trackconnector1`, `uses_body_spots` turns off every synthetic spot in `code_kind`, including
+    these. Your call: keep computing them on the asset, or have the owner add them to
+    `hub_skeleton.py`.
+  - No UVs anywhere, so the default material; the glass is left out, because an opaque dome
+    would hide the cargo. Texturing is a later pass.
 
 ## End state
 
