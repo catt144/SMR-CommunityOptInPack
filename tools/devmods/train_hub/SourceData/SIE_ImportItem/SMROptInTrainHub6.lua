@@ -14,6 +14,7 @@ PlaceObj('SIE_ImportItem_Mesh', {
 			PlaceObj('SIE_ImportItemSelector', {
 				'name', "SMROptInTrainHub6",
 				'ImportMesh', true,
+				'Material', "SMROptInTrainHub6",
 			}, {
 				PlaceObj('SIE_ImportItemSelector', {
 					'name', "-Box1",

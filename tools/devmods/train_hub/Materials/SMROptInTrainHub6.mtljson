@@ -1,0 +1,13 @@
+{
+	"$persist_version": 0,
+	"$value": [{
+			"BaseColor": "Mod/SMR_TrainHubDev_20260918/Textures/TrainHub_BC.dds",
+			"BaseColorChannel": 0,
+			"Name": "SMROptInTrainHub6",
+			"Normal": "Mod/SMR_TrainHubDev_20260918/Textures/TrainHub_NM.dds",
+			"NormalChannel": 0,
+			"RM": "Mod/SMR_TrainHubDev_20260918/Textures/TrainHub_RM.dds",
+			"RMChannel": 0,
+			"VertexColorUsages": []
+		}]
+}

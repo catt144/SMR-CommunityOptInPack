@@ -9,5 +9,5 @@ return {
 	}),
 	PlaceObj('ModItemRef', {1} --[[SMROptInTrainHub6 SMROptInTrainHub6Base]]),
 	PlaceObj('ModItemRef', {2} --[[SMROptInTrainHub6]]),
-	PlaceObj('ModItemRef', {3} --[[SMROptInTrainHub6 refs: none]]),
+	PlaceObj('ModItemRef', {3} --[[SMROptInTrainHub6 refs: 1]]),
 }
