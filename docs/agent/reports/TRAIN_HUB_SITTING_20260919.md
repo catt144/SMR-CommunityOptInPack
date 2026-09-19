@@ -131,8 +131,8 @@ cut the slider to a fixed 15; build 4's repair drones are vanilla Wasps under th
 their controller, a constant 30 launched from a recoloured recharge-pad model inside the ring,
 never charging (per-drone battery topped up in every hub state, held full in track mode), anything
 a drone does within 15 hexes and track work beyond it, with a track-mode save guard and a scoped
-`Drone:CanBeControlled` wrap against reassignment. Not ruled: whether "track work" includes station
-maintenance (build 4 marks it the orchestrator's reading). **Build 3 was mid-run for most of these**; the
+`Drone:CanBeControlled` wrap against reassignment. Then ruled: "track work" includes the stations on the
+connected network (build 4's brief). **Build 3 was mid-run for most of these**; the
 owner pasted each to it, but whether it acted on them is the audit's to check.
 
 ## 7. State at close
