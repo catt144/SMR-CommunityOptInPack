@@ -39,6 +39,14 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    the last orchestrator commit that touched the spec.
 2. Treat each report as a claim. Confirm each result against its log and commits with one check
    before believing it.
+   **Take the cheap direct measurement before anything rests on a derived one** (owner,
+   2026-09-20). In this game that is a **superimposed build cursor, which makes the 10 m hex grid
+   visible** — the owner sized a train that way in seconds. It cost a gated build, an owner
+   checklist item and about six hours of costed redesign options to learn: all of it stood on a
+   41.5 m train length from one `GetEntityBBox()` call on an entity with no mesh of its own
+   (report §13). Distrust any dimension read off an entity whose `mesh_bbox` is null or that
+   auto-attaches parts, and when an owner observation disagrees with an agent-derived figure, the
+   observation governs.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
