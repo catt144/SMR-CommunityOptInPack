@@ -883,6 +883,28 @@ sit inside the centre hex row or the rows beside it, since the stand-ins sit a r
 open: the exclusion zone is the footprint's hex set, and the centre row past the connector must stay
 outside it while the stub hexes and the platform hexes are inside; a trial import, with a track laid
 to it on a scratch save, is the test the mock cannot replace.
+**Owner direction, same sitting: what the transition is (this corrects the orchestrator's two earlier
+readings, "the train stays on its lane throughout" and "the platform is a ramp to ground level").**
+Trains never go to ground level. On vanilla track a train rides along the **side** of the rail; on
+our track it rides **on top, down the centre**, and the visuals must look correct and designed. The
+vanilla track brings the arriving train to a platform that sits right under it, beside the rail; the
+train moves forward and then **over onto the centre of our track in one smooth move, which must look
+right at various speeds**; it rides the centre through the hub; on exit it leaves the tunnel on the
+centre, moves over onto the platform beside the vanilla track, and rides the vanilla track as normal.
+So there is one platform each side of the line: arrivals use one, departures the other. **No lift is
+needed** (owner: *"our platform height already is very close to the bottom of the train"*).
+Consequences, read from the code and not run. (1) **This re-scopes build 3b's lanes:** inside the hub
+the train rides the centreline, not the 289-unit lanes of brief item 3, so the park position, the
+turn point and the reverse's lane join are judged again on the centre; 3b's smoke of the lane build
+is not an acceptance of this. It needs the owner's go as a change to 3b or as a build after it. (2)
+The move exists already in kind: the reverse's lane join (`HubRouteTrain`, `20_TrainHub.lua:462-479`)
+is an eight-step smoothstep in **distance**, with the yaw following the path, so its shape does not
+change with speed; the transition would be the same construction over 289 units, not 578, run
+outside the portal. (3) A platform under a train that rides 289 units off the line lies inside the
+**centre hex row**, the row the vanilla track's own elements occupy, not the rows beside it where
+the stand-ins were placed. The footprint cannot take those hexes (the connector is the last footprint
+hex on that row), so the platform would be mesh overhanging hexes outside the footprint, above or
+beside vanilla track pillars. Untested: whether that is allowed and how it looks against the pillars.
 
 ---
 
