@@ -156,12 +156,20 @@ local function line_hex(hub, body, connector_idx, extra)
 	return q + dq, r + dr, (local_direction + building_direction) % 6
 end
 
+-- Trains run on the deck, never on the ground. Vanilla's station model has a ramp that takes an
+-- arriving train down to its Stop spot; this hub has no ramp, so a Stop spot at ground level made
+-- every train drop through the beam onto the floor (owner, build 3 smoke, 2026-09-19). These four
+-- kinds are lifted to the deck height, read from the model's own connector spot.
+local deck_kinds = { Ramparrive = true, Stop = true, Spawn = true, Rampdepart = true }
+local train_deck_height
+
 local function synthetic_spot_pos(self, kind, idx)
 	local sevenths = kind_sevenths[kind]
 	local connector_idx = kind == "Spawn" and opposite(idx) or idx
 	local q, r, direction = line_hex(self, self, connector_idx, kind == "Trackdirection" and 1 or 0)
 	local x, y = HexToWorld(q, r)
 	local cx, cy, z = self:GetPosXYZ()
+	if deck_kinds[kind] then z = z + train_deck_height(self) end
 	if sevenths then
 		x = cx + MulDivRound(x - cx, sevenths, 7)
 		y = cy + MulDivRound(y - cy, sevenths, 7)
@@ -192,6 +200,19 @@ local function uses_body_spots(self)
 		print(string.format("[TrainHubDev] %s connector spots: %s", tostring(entity), known and "from the body" or "computed"))
 	end
 	return known
+end
+
+-- Height of the deck above the hub's origin: the body's own Trackconnector1 spot when it carries
+-- one (the asset puts every connector on the beam top), else 8 m, which is the vanilla track's.
+train_deck_height = function(self)
+	if uses_body_spots(self) then
+		local spot = CObject.GetSpotBeginIndex(self, "Trackconnector1")
+		if spot and spot >= 0 then
+			local _, _, base_z = self:GetPosXYZ()
+			return CObject.GetSpotPos(self, spot):z() - base_z
+		end
+	end
+	return 8 * guim
 end
 
 function SMROptInTrainHubBase:GetSpotBeginIndex(state, type_id)
