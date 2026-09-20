@@ -123,7 +123,19 @@ economy, so it builds on build 3's power, cost and storage numbers, not build 2'
    repair drone near the hub doing ordinary drone work, never charging; the reassign buttons
    greyed on a repair drone; more than 30 jobs queued with 30 out; one destroyed and the hub
    still able to put 30 out; an autosave mid-trip.
-6. **Record** in the hub report and spec §10; persisted names in the inventory.
+6. **Train construction needs a drone (owner, 2026-09-19).** The owner found that a station cannot
+   build a train without drones, although the build itself is internal: `Station:UpdateTrainConstruction`
+   (`Station.lua:541`) only advances a counter, the drones seen are the `ConstructingDrones` effect
+   (`:526`), and the Metals and Machine Parts arrive through demand requests
+   (`:462-470`, `SelfService` `:503`). **Test it on the hub with no repair drone out:** stock it with
+   Metals and Machine Parts, queue a train, and report whether it builds and, if not, what the
+   hub is waiting for (read the request that stays open). **Owner ruling: if a drone is the missing
+   piece, the hub may dispatch a repair drone just to acknowledge the call.** The drone need not
+   move or work, since the build is internal; a launch from the pad and a return is enough. Count
+   train construction as work for the on-demand launch, so the hub is never left with no drone to
+   answer it. Report whether stations elsewhere on the network are held up by the same thing;
+   build the acknowledgement for them only if it is the same mechanism and costs a line or two.
+7. **Record** in the hub report and spec §10; persisted names in the inventory.
 
 **Done means:** a break outside every drone's range on the hub's network is repaired from the hub's
 stock without player action, survives a reload mid-trip, and the toggle stops it.
