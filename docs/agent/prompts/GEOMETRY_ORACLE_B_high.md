@@ -37,17 +37,12 @@ a rule with the worker that produced it.
 
 ## Work list (one commit-and-verify unit each)
 
-1. **The decoder's return.** An Opus agent was decoding vanilla `BinAssets.fpk:entities.dat`
-   (scratch `…\scratchpad\entdecode\` of run A's session; the extracted pack is in
-   `…\scratchpad\packs\BinAssets\`; re-extract with `tools/flpk_extract.py`'s `extract()` if the
-   scratch is gone). If `C:\Dev\SMR-Assets\_shared\geometry\entities_dat.py` exists or the agent's
-   findings are recoverable, judge them against the anchors before anything uses them:
-   `TrackPillarCCP3` bbox 1000×204, z −1726..1069; its `Enter1`/`Enter2` at (0, ±289, 800) in the
-   element frame (measured, slot 6); `TrainStationLargeCCP3` outline 95 hexes and line radii
-   5 6 5 4 4 4; `FusionReactor` outline 7; `TrackPillarCCP3` outline 1. A decode that passes gives
-   R-LANE and R-FOOT their vanilla-file second derivation: run the oracle's R-FOOT rule on the
-   vanilla hex_shape triangles and compare with 95 / 7 / 1. Commit in SMR-Assets with its anchors
-   in the message; if it fails, say what decoded and what did not, and stop there.
+1. **The decoder landed and passed its anchors** (report §9; SMR-Assets commit "entities_dat.py",
+   with `hexcover.py`, the agent's area rasteriser). What remains: fold the R-FOOT refinement into
+   `hub_oracle.py`'s rule text and `corpus/EXPECTED.json` (the game includes partially covered
+   hexes; centre rule = lower bound); add a corpus row for `TrainStationLargeCCP3` (95 hexes,
+   radii 5 6 5 4 4 4, slot 6 log) read through `entities_dat.py`, and one for `FusionReactor` (7);
+   re-run `--corpus` and `--selftest`; commit in SMR-Assets.
 2. **LANE verdict with the measured offset.** Run
    `python hub_oracle.py --entity corpus/current_5002a49.entjson --lua corpus/lua_current_6123ae7.lua --element-spots <json> --workfile-snapshot ../../trainhub/blender/export/lookpass_workfile_geometry.json`
    with `{"Enter1": [0, 289, 0], "Enter2": [0, -289, 0]}` (read the oracle's `--element-spots`

@@ -138,3 +138,20 @@ archived log.
 
 Fable 5.1 (this session, judge); Opus (oracle build; entity decode); Sonnet (blind footprint and
 cargo check); GPT-5.4 via Codex (three blind derivations).
+
+## 9. Addendum, late in run A: the vanilla entity table decoded
+
+An Opus agent decoded `BinAssets.fpk:entities.dat` (`C:\Dev\SMR-Assets\_shared\geometry\entities_dat.py`,
+SMR-Assets commit "entities_dat.py"). Judged by this session against anchors set before the decode:
+`TrackPillarCCP3` bbox 1000 x 204, z -1726..1069 PASS; its `Enter1`/`Enter2` at (0, +-289, 800) PASS,
+equal to slot 6's in-game read, so **R-LANE now has two derivations of different kind** (vanilla file,
+in-game read) and is CONFIRMED at 289 units; `FusionReactor` 7 hexes PASS. **R-FOOT refined:** the
+large station's eight hex_shape triangles cover 85 hex centres, but the game read 95 tonight with radii
+5 6 5 4 4 4 (slot 6), and the agent's area rasteriser reproduces those radii with the extra hexes
+covered 15 to 26 percent. The game therefore includes partially covered hexes: the centre rule is a
+lower bound, the touch union an upper bound, and only near-zero overlaps (shared corners) are
+undetermined. The hub's inset file has no partially covered hex (nearest non-certain hex 49.999 units
+away), so every hub verdict above stands; the oracle's rule text and `EXPECTED.json` wording should
+carry the refinement (run B). **R-TRAIN, one file derivation:** `TrainEngine` bbox 873 x 416 x 431
+units, `TrainCar` 868 x 379 x 286; `TrainCCP3` (the Train class's entity) has no bbox of its own, so
+the in-game read is still owed. Not decoded: the mesh/skeleton blob, LOD distances.
