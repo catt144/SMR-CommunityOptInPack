@@ -2,11 +2,13 @@
 
 **Authority.** Owner rulings 2026-09-18, spec §10
 (`TRAIN_LOGISTICS_DESIGN_20260917.md`); brief `docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
-**Status: UNVERIFIED.** Pack `886926b`, TestKit `adda373`. Parse-checked only
+**Status: BUILD 3 SMOKE PASS.** The following original prediction block began at pack `886926b`,
+TestKit `adda373`, parse-checked only
 (`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` → 2 files, 0 errors; TestKit 33
-files, 0 errors). Nothing below has run in game. Every source line was read on 1.1.0.403908
-(`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src`). **Smoke-tested 2026-09-19** with the owner; see
-§"Sitting result". The full battery was cut to a smoke test by owner ruling (spec §10).
+files, 0 errors). Every source line was read on 1.1.0.403908
+(`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src`). Builds 1 and 3 were smoke-tested 2026-09-19 with
+the owner; see §"Sitting result" and §"Build 3". The full battery was cut to a smoke test by
+owner ruling (spec §10).
 
 ## Where the code lives, and why
 
@@ -17,7 +19,6 @@ A separate dev mod, `tools/devmods/train_hub/` (mod id `SMR_TrainHubDev_20260918
   as NON-SHIPPING. Its next guard, `:203-211`, lists `Code/` non-recursively, so a
   `Code/BuildingTemplate/*.generated.lua` named in `metadata.lua` fails as "listed but absent".
   The tool was not changed. **Owner decision owed** before the hub moves into the shipping mod.
-- `items.lua` and `metadata.lua` carry another session's uncommitted work.
 - The module-off answer below is a proposal, not a ruling.
 
 The class and field names are already the permanent ones, so the move is a file move plus
@@ -332,6 +333,73 @@ trains stopped at the hub, salvage the hub: trains at it disappear, six end stat
 errors. End with Flush + copy, Read taint and Read eligibility.
 
 **Status:** READY FOR OWNER SMOKE. Nothing in this section claims an in-game pass yet.
+
+## Build 3, 2026-09-19 (SMOKE PASS; one colony)
+
+**Rig and evidence.** Game 1.1.0.403908, save `SpaceY Sol 23`, with the opt-in mod, fix pack,
+TestKit and train-hub dev mod loaded. The closing evidence is
+`Mars.exe-20260919-20.33.45-6a91a190.log`, slot 1 ids 116/121 and slot 2 ids 124/127 after the
+save/load at lines 504-554. The only Lua error in the process was the already-known Mod Editor
+boot error at `CommonLua/Editor/ArtSpecEditor.lua:573`; the hub slots reported `errors=0`.
+
+**Asset and attachment.** The final import is `5002a49`, on the textured import `d07a457`: 66
+outline hexes (61 for the ring and five for the reactor lobe), a 0.9 inset, the inner pillar ring
+cut, and cargo spots aimed onto the six beds. All six live line radii were 4; after the owner
+reconnected one incomplete track, `connected_tracks=6`, `grid_connected_stations=6` and
+`grid_mismatches=0`. The obsolete untracked `shrink_footprint_probe.py` was deleted. `Textures/`
+and `Fallbacks/` remain deliberately ignored and were not committed.
+
+**Height and width, measured only:**
+
+| measurement | game units |
+|---|---:|
+| vanilla running-surface z | 10800 |
+| connector z | 10800 |
+| stub top z | 10800 |
+| vanilla element x width | 1000 |
+| vanilla element y width | 204 |
+
+These track/stub measurements caused no Lua change. `6123ae7` was the separate, already-committed
+synthetic train-spot deck correction.
+
+**Power.** The regenerated template no longer contains duplicate electricity declarations, while
+`20_TrainHub.lua` still supplied `power_production=70000` and `power_consumption=10000`. The merged
+fixture grid read 140000 produced, 55000 consumed and 85000 wasted. Its other production was seven
+Stirling Generators at 10000 each. It contained no cable elements (`grid_reaches_cables=false`),
+so this sitting proves the hub's surplus reaches the six merged station grids, not colony cables.
+If one of those merged grids also contains a cable element, the same shared grid carries the
+surplus to it; that conditional was not exercised here.
+
+**Drones and UI.** The prefab-button/custom-section attempt and the radius slider were removed.
+The hub held a fixed work, UI and selection radius of 15 with one range overlay; its Power grid
+section was absent. Two hub-controlled drones worked for the owner with no charger, and each read
+`battery_max=8000000`, `battery=8000000`. The only object on the old charging spot was one
+non-selectable `RechargeStationPlatform`, two hexes away, retained as build 4's launch-pad model.
+The 75% `FusionReactor` visual remained at offset `(3897,2250,0)`; it is visual only, while the hub
+is the grid producer.
+
+**Storage and the 19/21 count.** The source and editor-generated template both use
+`max_storage_per_resource=150000`. Slot 3 filled 19 request-backed resources from 1879 to 2850
+cubes, 150 per resource, with `max_z=9`; the owner reported no beam or portal-train clipping. The
+21 count is the nominal `storable_resources`/`TransportableResourceIds` list. `BlackCube` and
+`MysteryResource` were the two absent request types. Vanilla creates requests only for a resource
+whose preset is enabled (`MultiResourceDepot.lua:409-412`, game build 1.1.0.403908), so 19 is the
+live storage contract for this colony and 21 is the candidate list, not a conflicting cube count.
+
+**Reload.** With the hub full, save/load preserved 66 hexes, six connections, all six merged
+station grids, the 2850 cubes, +70/-10 hub power, two full hub drones, no charger, the launch-pad
+model, fixed radius 15 and one overlay. The owner visually cleared the overlay, drone work and
+full-stack clearance. No fresh salvage leg was run in build 3. Train arrival/departure behaviour is
+deliberately not fixed here. The four established current cases transfer unchanged to build 3b:
+
+- arrival/load uses the exposed synthetic interior move;
+- straight-through departure crosses the open interior;
+- another-line departure visibly slides or shifts toward that portal;
+- same-arrival-track departure jumps to the far side, then floats back.
+
+The owner moved their full rework to `TRAIN_HUB_TRAINS_high.md` (build 3b).
+
+**Verdict:** build 3's smoke passed. Build 3b is released; build 4 remains held behind it.
 
 ## Not claimed
 

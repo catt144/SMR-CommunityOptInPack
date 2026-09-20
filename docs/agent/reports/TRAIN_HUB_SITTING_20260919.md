@@ -2,7 +2,7 @@
 
 **Authority.** The owner's sitting and rulings of 2026-09-19 (spec §10,
 `TRAIN_LOGISTICS_DESIGN_20260917.md`). This is the durable home for what the orchestrator
-measured and read that day, so it survives the briefs it fed: `TRAIN_HUB_BUILD3_high.md`,
+measured and read that day, so it survives the now-consumed build-3 brief,
 `TRAIN_HUB_REPAIR_high.md` and `TRAIN_HUB_BUILDTRACK_high.md` (deleted at their lifecycles).
 Labels: **observed** (a log or capture), **measured** (a command), **read** (source), **inferred**,
 **untested**, **owner-ruled**. Game build 1.1.0.403908, Steam 24995074.
@@ -87,59 +87,73 @@ diagnosis): a geometry question, not a texture one. **Not checked:** the look in
 Editor steps run, the normal map's handedness (the worker says unvalidated). The owner's
 GFXMaterial item and re-import ride build 3's footprint fix so one re-import carries both.
 
-## 6. Build 3's sitting, later the same day (orchestrator's reading)
+## 6. Build 3's sitting, later the same day (build agent's audit)
 
-Logs `Mars.exe-20260919-15.48.44-6a91a190.log` (slot 1 id 52) and `Mars.exe-20260919-16.22.23-6a91a190.log`
-(slot 1 id 60), both on build 3's working tree after `8230d6f`.
+The early probe logs remain useful history, but the closing evidence is
+`Mars.exe-20260919-20.33.45-6a91a190.log`, game 403908, save `SpaceY Sol 23`. Slot 1 ids 116/121
+and slot 2 ids 124/127 were run after the save/load at lines 504-554. This is what I did about
+each ruling from the sitting:
 
-- **Observed, id 52:** `outline_hexes=61`, radii `4,4,4,4,4,4`, `connected_tracks=6` on build 3's
-  `entjson` shrink probe (uncommitted); the owner saw all six lines attach. Power `70000` produced,
-  `10000` consumed, all six station grids `merged=true`; the network grid read `grid_production=140000`,
-  `grid_consumption=55000`, `grid_waste=85000` (the source of the rest is build 3's to explain). 4
-  drones, 7 prefabs available, `range_overlays=1`, `custom_section=missing`, `fusion_outline_hexes=7`.
-  Height row: stub `10800`, vanilla `TrackPillarCCP3` element at `10000` with bbox z `-1726..1069`,
-  which is consistent with the owner's eye (track higher than our 8 m stub) only if the bbox top is
-  the running surface: **inferred, unconfirmed**.
-- **Observed, id 60:** slot 1 `status=ERROR` from the TestKit's own readout, `80_AgentSlots.lua:224`
-  `track_height_fields`, a nil at connector 1 on `train_hub_base.save` with `connected_tracks=2`. Two
-  `SelectedObj` errors before it were the owner's console lines run with nothing selected.
-- **Corrected by the owner:** the orchestrator first claimed every footprint hex blocks pathing. The
-  owner pointed to domes. Source: `hex_shape` blocks building; units treat the `Collision` surface as
-  solid (`BuildableGrid.lua:12`); enterable buildings set `efWalkable` (`Dome.lua:476`). The Importer
-  has per-node `ColliderKind` and `ColliderMask` with `PassabilityMask` (`SceneImport.lua:3495-3515`,
-  `:2008-2011`), and the ModTools doc's 1 m disc exists "to block pathfinding units". A drained drone
-  would not reach the charger inside the ring: observed.
-- **Not ours:** the ring on a selected vanilla station is vanilla's 20-hex passenger range
-  (`show_range_all`, `StationSmall`/`StationBig` templates; `DefaultOutsideWorkplacesRadius = 20`,
-  `__const.lua:1921-1923`). The hub replaced its own ring with the drone ring
-  (`GetSelectionRadiusScale`, `20_TrainHub.lua:545`), so a player cannot see the hub's passenger
-  range; offered to the owner as a note, **not ruled**.
-- **Observed by the owner:** a vanilla train vanishes when its nose reaches the black backdrop inside
-  a tunnel mouth; the arch clears the rail with room above.
+- **Footprint and lines:** I verified the durable shrink from `d07a457` and final re-import
+  `5002a49`, rather than relying on the temporary `entjson` probe. They produced 66 outline hexes:
+  the 61-hex ring plus the reactor's five-hex lobe, all with the 0.9 inset. The six line radii read
+  `4,4,4,4,4,4`. One track piece was physically incomplete; after the owner reconnected it, the
+  post-reload read was six tracks, six merged station grids and zero grid mismatches. I deleted the
+  obsolete untracked `shrink_footprint_probe.py`.
+- **Open underside, platforms and collision:** the final collision/passability pass and inner-pillar
+  cut left the underside usable for the owner's drone-work check. The raised platforms were cut
+  (`PLATFORMS = False`). The owner cleared the final work and visual checks. I do **not** claim the
+  original drained-drone-to-charger proof: the later charger ruling made that leg obsolete before
+  it passed.
+- **Reactor and UI:** I kept the reactor at 75% and offset `(3897,2250,0)`; only its five covered
+  hexes extend the footprint. I stopped the missing-prefab-button chase, removed its section
+  attempts, hid only this hub's Power grid section, removed the slider and fixed work/UI/selection
+  radius at 15. After reload the probe read one overlay and all four radius values at 15; the owner
+  accepted the overlay visually.
+- **Current drones and pad:** the later ruling superseded "charger stays inside". I removed the
+  functional charger and kept one non-selectable `RechargeStationPlatform` two hexes from the hub
+  centre as build 4's launch-pad model. The hub tops its current stopgap drones up instead: two
+  controlled drones survived reload at `battery=battery_max=8000000`, and the owner saw them work.
+  None of build 4's 30-Wasp, track-mode or reassignment design was implemented here.
+- **Power:** after the Mod Editor save removed the template's duplicate electricity declarations
+  (`f71a3c2`), `20_TrainHub.lua` still supplied +70000/-10000. The merged fixture grid was
+  +140000/-55000 with 85000 waste. Seven Stirling Generators supplied the other 70000. This colony
+  had zero cable elements, so the hub's surplus reached the six merged station grids but not colony
+  cables; it reaches cables only when that connected grid actually includes them.
+- **Height and width:** the track/stub measurements caused no Lua change. Game units: running
+  surface `10800`; connector `10800`; stub top `10800`; vanilla element x width `1000`; y width
+  `204`. The nil-safe TestKit readout replaced the earlier formatter failure. `6123ae7` was the
+  separate, already-committed synthetic train-spot deck correction; I did not re-derive or edit it.
+- **Storage and resources:** the source cap is 150000 (`3b4f73b`) and the editor-generated file
+  matches (`c35f58b`). Fill-all ended at 2850 cubes, 19 live resource requests times 150, with
+  `max_z=9`; the owner saw no beam or portal-train clipping, and the full state survived reload.
+  The apparent 19/21 discrepancy is two different sets: 21 nominal candidate ids, versus 19
+  enabled request-backed resources in this colony. `BlackCube` and `MysteryResource` were the two
+  without requests. The shared TestKit was updated in `e838d4f` to classify this as an expected
+  enabled subset; that classifier was not rerun in this sitting.
+- **Texture, beds and load order:** I used the already-imported textured body (`d07a457`) and the
+  final pillar/cargo pass (`5002a49`); the owner accepted the in-game look and full-bed clearance.
+  I did not rerun or edit the now-external Blender pipeline at
+  `C:\Dev\SMR-Assets\trainhub\blender`. `266191d` makes `20_TrainHub.lua` create the shared Floor
+  table itself, so the Mod Editor's item reorder cannot leave it nil.
+- **Mod Editor procedure:** no further owner pass was needed. The completed pass confirmed that
+  saving regenerates the generated template. Ctrl+Alt+B creates a new BuildingTemplate item; it is
+  never a regeneration instruction.
+- **Train movement:** I changed no train spot, `TrainDepart`, occupancy or `synthetic_spot_pos`
+  logic after the owner's stop. Arrival/departure behaviour and the known floor-drop/floating cases
+  moved intact to `TRAIN_HUB_TRAINS_high.md` (build 3b, `9b3ddda`).
+- **Later builds:** the Wasp vehicle, tunnel hide/show, constant 30 repair drones, connected-network
+  track work and track construction remain rulings for builds 4 and 5, not build-3 work.
 
-**Owner rulings in this stretch, each written into the brief that obeys it (commit in brackets).**
-Build 3: the underside passable like a dome, charger stays inside the ring (`cef8e93`, `62b3f5c`);
-cut the raised platforms (`cae7604`); reactor at 75% at the current offset, footprint extended only
-by the hexes it covers, with the same inset (`51a8e06`); prefab buttons still missing, and drop the
-Power grid section from the hub's panel only (`3dfb3b5`). Builds 4 and 5: the vehicle is never a
-train (`c251fb1`); tunnels in scope by hide and show (`650d0c9`); the vehicle is the vanilla Wasp
-model, recoloured, hovering over the track, moved along track elements with no drone pathing or
-battery, playing vanilla repair work (`b1a1ecd`). Policy: `FIX_POLICY` §0, this mod's risk standard
-as a content mod, never the fix pack's (`c251fb1`). **Then the owner replaced the hub's drones**
-(`91dc2c1`, `024bdcd`, `102db53`, `6eb8903`, `c4bb738`): build 3 dropped the prefab-button chase and
-cut the slider to a fixed 15; build 4's repair drones are vanilla Wasps under the hub, identified by
-their controller, a constant 30 launched from a recoloured recharge-pad model inside the ring,
-never charging (per-drone battery topped up in every hub state, held full in track mode), anything
-a drone does within 15 hexes and track work beyond it, with a track-mode save guard and a scoped
-`Drone:CanBeControlled` wrap against reassignment. Then ruled: "track work" is any upkeep of
-anything on the track or joined to it by a connector, on the connected network (build 4's brief). **Build 3 was mid-run for most of these**; the
-owner pasted each to it, but whether it acted on them is the audit's to check.
+The selected vanilla station's 20-hex passenger ring remains a separate vanilla presentation fact;
+build 3 claims only the hub's fixed 15-hex drone overlay.
 
 ## 7. State at close
 
-HEAD `c4bb738` at this update. The owner **paused build 3** to discuss the drone redesign; its
-`20_TrainHub.lua`, `entjson`, `shrink_footprint_probe.py` and the TestKit's `80_AgentSlots.lua` are
-uncommitted and are its. On resuming, the owner pastes build 3 the paused rulings (brief at
-`6eb8903`). Builds 4 and 5 stay held. Unfiled: the hub's passenger-range
-ring note awaits an owner call. Executed models, from the transcript: Sonnet 5, Opus 5 (1M),
-Fable 5.1, Sonnet 5, then Opus 5 (1M).
+Build 3's smoke passed. After reload the hub retained 66 outline hexes, all six connections, all six
+merged station grids, +70/-10 hub power, 2850 cubes at `max_z=9`, two full stopgap drones, no
+charger, the launch-pad model, fixed radius 15 and one overlay. The only Lua error in the process
+was the known `ArtSpecEditor.lua:573` Mod Editor boot error; the hub slots reported zero errors.
+`Textures/` and `Fallbacks/` are intentionally gitignored and were not committed. Build 3b is now
+the live train-movement task; build 4 stays held behind its smoke. Executed models, from the
+transcript: Sonnet 5, Opus 5 (1M), Fable 5.1, Sonnet 5, Opus 5 (1M), GPT-5.

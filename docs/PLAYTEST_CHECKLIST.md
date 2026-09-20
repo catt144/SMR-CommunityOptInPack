@@ -80,23 +80,15 @@ Train hub: widen `tools/upload_preflight.py` so the hub's template and model can
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ### OI-19 · opened 2026-09-18
-Train hub: after the sitting, accept the build's proposed defaults, or name changes?
+Train hub: accept the remaining economic/module-off defaults, or name changes?
 - Module off: no new hubs, built hubs keep working (as MultipleSuns). Removing the mod with hubs standing is unsafe.
-- Cost 50 Concrete, 30 Metals, 10 Machine Parts; 10 power (the template's values).
-- A 10-Metals reserve (two maintenances) that trains and drones leave alone.
-- 2 starting drones, and it commands drones while malfunctioning.
-- 240 storage per resource, so cube stacks stand about twice a large station's.
+- Cost 60 Concrete, 40 Metals, 10 Machine Parts and 15 Electronics.
+- Maintenance is 2 Electronics; the reserve is two maintenances, 4 Electronics, which trains and drones leave alone.
+- Radius 15, two stopgap drones and 150 storage per resource were separately ruled and smoke-tested in build 3.
+- Say "accept" or name changes to the module-off rule, cost, maintenance or reserve.
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ## Run
-
-### OI-20 · opened 2026-09-19
-When you are ready, run the train hub build-2 one-colony smoke with the attending agent in three short batches.
-- Fresh hub: imported body, six lines, trains stop; drone count/load/service-area UI reads 10 and 20.
-- Fill every resource and inspect cubes against the ring/hoods; a linked dome's colonist can ride.
-- Check a nearby drone says `Controlled by: Train Hub`; save/reload; vanilla-station salvage witness.
-- Salvage the hub with trains docked; six end stations remain; finish with 0 Lua errors.
-Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.

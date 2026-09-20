@@ -1,9 +1,8 @@
 # Train hub build 3b: trains at the hub
 
-⛔ **HELD until build 3's smoke is recorded** (`TRAIN_HUB_BUILD3_high.md`). It changes the same file
-build 3 owns (`tools/devmods/train_hub/Code/20_TrainHub.lua`); two agents in it at once is the stop.
-Build 4 (`TRAIN_HUB_REPAIR_high.md`) is held behind this one: a hub whose trains float is not
-smokeable for repairs.
+**READY: build 3's smoke is recorded.** This task now owns
+`tools/devmods/train_hub/Code/20_TrainHub.lua`. Build 4 (`TRAIN_HUB_REPAIR_high.md`) remains held
+behind it: a hub whose trains float is not smokeable for repairs.
 
 ## Authority
 

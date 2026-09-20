@@ -910,6 +910,31 @@ its connector, direction and `Box1` spots win, while its missing train operating
 computed. Build record, desktop gates and the three-batch smoke are in
 `TRAIN_HUB_BUILD_20260918.md` §"Build 2". Status is PRE-BOOT; no asset or UI pass is claimed.
 
+**Build 3, 2026-09-19: SMOKE PASS.** The owner replaced build 2's tentative controls with a fixed
+15-hex drone radius, no slider and no prefab buttons. The working charger was removed; its pad
+model remains inside the ring for build 4, while the hub tops its two current drones up to a large
+battery maximum. The hub is the single +70/-10 power-grid object and carries a 75% Fusion Reactor
+as a visual. The final import has 66 outline hexes (61 ring plus the five-hex reactor lobe), radius
+4 on each of six lines, the inner pillars cut and six cargo beds correctly aimed. Six tracks and
+six station grids attached with zero grid mismatches.
+
+Measured z/width values, game units: running surface `10800`; connector `10800`; stub top `10800`;
+track x width `1000`; track y width `204`. These measurements caused no Lua change; `6123ae7` was
+the separate, already-committed synthetic train-spot deck correction.
+
+Storage is 150000 per live resource and produces `max_z=9`. A fill-all made 2850 cubes: 19 current
+request-backed resources at 150 each, with no clipping by the owner's inspection. The nominal
+station/transportable list has 21 entries; `BlackCube` and `MysteryResource` were the two absent
+request types. Vanilla creates requests only for enabled presets (`MultiResourceDepot.lua:409-412`,
+game build 1.1.0.403908), so 19 is this colony's request-backed set and 21 is its candidate list.
+Save/load preserved the full storage, six connections, power, radius/overlay, drones, launch-pad
+model and absence of a charger. Details and the log fingerprint are in
+`TRAIN_HUB_BUILD_20260918.md` §"Build 3".
+
+Train movement across the hub is not a build-3 claim. The owner ruled the observed floor drop and
+floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b and is now ready to fire.
+Build 4 remains held until build 3b's smoke is recorded.
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 

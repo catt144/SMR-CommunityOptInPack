@@ -51,19 +51,19 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
      both-configuration ship test and the toggle test as §0 defines it for content, which the
      smokes do not cover; the
-     spec §10 and hub report agreeing with the code; the `resource_types` 19 against 21 question;
-     and that each fired brief and its map row were deleted at its lifecycle; and that every owner ruling listed in the sitting report's §6
-     landed in build 3's code or report, since most reached it mid-run;
+     spec §10 and hub report agreeing with the code; the settled 19 request-backed resources
+     against 21 nominal candidates; and that each fired brief and its map row were deleted at its
+     lifecycle; build 3's sitting-report §6 audit records how every mid-run ruling landed;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
      The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
      `C:\Dev\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
      not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
-   - builds 3, 4 and 5 (`TRAIN_HUB_BUILD3_high.md`, `TRAIN_HUB_REPAIR_high.md`,
+   - builds 3b, 4 and 5 (`TRAIN_HUB_TRAINS_high.md`, `TRAIN_HUB_REPAIR_high.md`,
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
-     in the map has not finished; the footprint fix and the texture ride one Mod Editor
-     re-import at the end of build 3;
+     in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
+     its one-off brief is deleted;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
