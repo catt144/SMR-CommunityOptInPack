@@ -854,13 +854,23 @@ portal the deck ends square beside the first vanilla element and the two never j
 direction: build a deck **on either side of the stub**, one under each lane, matching the transition
 of the train coming off the vanilla track onto ours, so the hand-over reads as intended. **The
 owner's constraint:** the stub is too short for a whole train to be on it before it enters the
-tunnel. Unmeasured, each by the owner's build-cursor method: the stub's length against a train
-(about two hexes by the owner's measurement, R-TRAIN disputed); the portal opening against two
-lanes (two lanes plus a train's width is about one hex if the disputed 4.16 m width holds). Not
-proposed: lengthening the stub, because the connector sits at the footprint edge and moving it is
-a footprint change, the family of the withdrawn `FOOTPRINT_R = 5`. Untested: whether a decorative
-deck may extend past the connector over the first vanilla element. This is the look pass (above); it
-waits for the owner's ruling on the measurements and follows the junction fix.
+tunnel. **The owner then measured it with the build cursor (2026-09-20): the stub is exactly one hex,
+and the direction is to bring the stubs out exactly one more hex, two in all, matching a train of
+about two hexes.** This overrides the earlier "not proposed: lengthening the stub" reasoning, which
+took a longer stub for the withdrawn `FOOTPRINT_R = 5` family; the withdrawal rested on the disputed
+41.5 m, this rests on the owner's measurement. The mechanism as read from the code, not run: the hub
+takes each line's radius from the model's own outline (`line_radii`, `20_TrainHub.lua:115`) and a
+connector must be the last footprint hex on its line (`Tracks.lua:19-24`), so the change is six
+more outline hexes, one per line, and connectors moved out by one hex, then re-imported with the
+lane decks. `Floor.HubParkDistance` is a distance from the hub's centre, so the 13 m does not move
+with it. What it costs, for the look-pass brief to price: the Mod Editor re-import (blocked on the
+stale `C:\Dev\SMR-TrainHubAssets` junction), the ramp spots (5/7 of the radius) and the oracle's
+tables and the desktop traffic check re-run at the new radius, and the fixture saves. On
+`train_hub_base`, `train_hub_base_agent` and `SpaceY Sol 21` the six laid tracks end at today's
+connectors, so each line's end element must be shortened by a hex, and a hub already built at the
+old radius (`SpaceY Sol 21`, the agent fixture) would have to be replaced (inferred, not tested). Untested: whether a decorative deck may
+instead extend past the connector over the first vanilla element. This is the look pass (above); it
+follows build 3b's smoke and the junction fix, and needs the owner's go before it is briefed.
 
 ---
 
