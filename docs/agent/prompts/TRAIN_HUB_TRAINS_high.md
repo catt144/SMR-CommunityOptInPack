@@ -8,6 +8,12 @@ smokeable for repairs.
 Authoring sha: SMR-OptInPack `6019492`. `git diff --stat 6019492..HEAD --
 tools/devmods/train_hub/` empty means this brief's facts hold.
 
+⛔ **STEP 0 IS A GATE. SETTLE IT BEFORE YOU WRITE ANY CODE.** A stopped train may not fit its line
+without a tail a player would notice, and the owner will not accept that on this asset. If it
+cannot be solved, the project goes back for a redesign pass and everything below step 0 is wasted
+work. **Do not build your way to that discovery.** The gate is in "End state" item 0, and the
+owner's bar is in the Authority section under the quality-bar block.
+
 ## Authority
 
 **Owner, 2026-09-19, from build 3's smoke — the end state, settled; do not re-argue it.** Trains
@@ -101,6 +107,23 @@ carries the exact command with `--element-spots` and `--connector-directions`.
 
 ## End state (the owner's decisions; the mechanism is yours)
 
+0. ⛔ **THE GATE: can a stopped train sit on this hub without a tail a player would notice?**
+   Settle this **first, on paper and with the oracle, before you write a line of code.** Get the
+   real clearance and tail figures; read where vanilla actually parks its own stopped train; work
+   through the leads in the quality-bar block and whatever you think of that beats them. Then say
+   plainly which it is:
+   - **It clears the bar.** Say by how much and how, and carry on to item 1.
+   - **It does not, and no option reachable in code will.** **Stop there and tell the owner.**
+     Report every option you costed, including the asset ones, with the number each leaves on the
+     table. **This is a successful outcome of this brief, not a failure** — the owner has already
+     said it means a redesign pass, and they would far rather hear it now than after the rest is
+     built on an assumption that does not hold. Do not soften it, do not build "most of it
+     anyway", and do not run the smoke.
+
+   You may still land the table correction alone if you stop here — `hub_connector_directions` is
+   a plain mismatch between the table and the imported body and is right under any redesign — but
+   build nothing that assumes where a train stops.
+
 1. **The line is the platform.** A train arriving on line `k` stops along line `k` and loads there;
    it never slides into the interior to load. The distance out is the owner's 2026-09-20 ruling
    above, verified with the oracle.
@@ -149,10 +172,12 @@ editing the oracle beyond running it, and the hub's economy (spec §10, the owne
 
 ## Stops
 
-- **No option you can reach in code clears the owner's quality bar** — every one leaves a tail a
-  player would notice, or makes something worse than the overlap it cures. Report the options with
-  the oracle's numbers for each, name the asset change you would want, and stop. The named fallback
-  is one stopped train at a time; the bar itself is the owner's to relax, not yours.
+- **The step 0 gate fails** — no option reachable in code clears the owner's quality bar, every one
+  leaving a tail a player would notice or something worse than the overlap it cures. Report the
+  options with the oracle's numbers for each, name the asset change you would want, and stop
+  **before building anything that assumes where a train stops**. Expected and wanted; the owner has
+  said it means a redesign pass. The named fallback is one stopped train at a time; the bar itself
+  is the owner's to relax, not yours.
 - **Vanilla's occupancy call sites cannot be satisfied without wrapping `Train.lua`**, or moving
   Stop breaks the reservation validation in a way you cannot repair in our Lua: report the wrap or
   the break.
