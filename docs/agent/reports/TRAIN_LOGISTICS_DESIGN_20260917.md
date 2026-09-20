@@ -1065,8 +1065,11 @@ read. Its content as described:
 - The lines are joined in a mix. Some stations connect to each other and to the hub; one station
   is reached only through a station that is connected to the hub. The map's large station has one
   line to the hub and its other line to a station that is connected to the hub.
-- Unresolved in the account: whether the large station is one of the seven, and whether "trains"
-  in the third bullet's source sentence meant stations.
+- The large station is one of the seven (owner, 2026-09-20), and every "connected" above means
+  stations connected.
+- `train_hub_base` is the only save the owner has used for testing lately. The exception is a test
+  that needs stations actually connected and running inside a large, complex colony, for which
+  `train1` (sol 71, §7.2) remains the save.
 
 **In progress, 2026-09-20 (owner):** a fuller variant of the save, so trains need not be built each
 sitting: hubs placed, several trains built at each station, and the train yards' own storage pads
