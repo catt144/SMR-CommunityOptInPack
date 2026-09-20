@@ -870,6 +870,7 @@ connectors, so each line's end element must be shortened by a hex, and a hub alr
 old radius (`SpaceY Sol 21`, the agent fixture) would have to be replaced (inferred, not tested). Untested: whether a decorative deck may
 instead extend past the connector over the first vanilla element. This is the look pass (above); it
 follows build 3b's smoke and the junction fix, and needs the owner's go before it is briefed.
+⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub
 (*"can we still link the train up in between the platform to meet our stub in between them. So we

@@ -100,16 +100,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `C:\Dev\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
      not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
-   - builds 3b, 4 and 5 (`TRAIN_HUB_TRAINS_high.md`, `TRAIN_HUB_REPAIR_high.md`,
-     `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
+   - the movement prototype, then builds 4 and 5 (`TRAIN_HUB_MOVE_high.md`,
+     `TRAIN_HUB_REPAIR_high.md`, `TRAIN_HUB_BUILDTRACK_high.md`): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
      in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
      its one-off brief is deleted. **Build 3b is HELD (2026-09-20):** its unattended smoke passed, the
      owner ran sitting steps 1-3 and then redirected trains onto the centre of our track with a
-     transition on a longer stub (spec §9; hub report §"Build 3b"). **Next is
-     `TRAIN_HUB_MODEL_high.md`, then a short movement prototype brief written after the owner has
-     inspected the model; that brief takes over `20_TrainHub.lua` and retires 3b's on the owner's
-     word.** The cold-start power fix (spec §10) rides the same file and goes in with it;
+     transition on a longer stub (spec §9; hub report §"Build 3b"). The model brief was fired and the
+     longer stubs and transition arms are imported and accepted in game (untextured). **Next is
+     `TRAIN_HUB_MOVE_high.md`, which owns `20_TrainHub.lua`, carries the cold-start power fix and
+     retires 3b. ⛔ No texture pass until the owner greens transition, enter, load, exit and the
+     transition back (owner, 2026-09-20);**
    - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
      to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
      §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).

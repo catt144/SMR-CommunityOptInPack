@@ -174,8 +174,8 @@ Rows 6–9 remain byte contract even though the mod-id change reset the owner's 
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
 receives the §3/§3a analysis.
 
-Row 10 is the build-3b dev hub's crossing lock, authorised by
-`prompts/TRAIN_HUB_TRAINS_high.md` (owner, 2026-09-20). An interrupted but valid train retains
+Row 10 is the build-3b dev hub's crossing lock (owner, 2026-09-20; its brief is retired into
+`prompts/TRAIN_HUB_MOVE_high.md`, which now owns the file). An interrupted but valid train retains
 the lock until the existing train cleanup removes it: interruption is not physical clearance.
 The hub's bounded movement frames are a content residual under §0; removing a mod with placed
 hubs remains unsupported. `SMROptInTrainFloor.HubParkDistance` is a load-time tunable, not a
