@@ -60,6 +60,36 @@ assertclose(through.pos.xx,dest.xx); assertclose(through.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain())
 assert(#through.turns>0,'other-line path missed its pivot')
 
+-- Exit-contact regression: vanilla permits this track because its train is
+-- parked. The hub must reject both through admission and crossing acquisition.
+-- A same-line reverse by the blocker must remain possible, then the follower
+-- waits until that departing train also clears vanilla's outgoing track.
+local qh=newhub(0,true)
+local blocker=atstop(qh,3)
+blocker.command='LoadTrain'
+local follower=newtrain(qh,1)
+assert(qh.tracks[3]:IsTrackFreeFor(follower,qh),'fixture must reproduce vanilla parked exemption')
+assert(not qh:HubExitClear(follower,qh.tracks[3]),'parked exit train ignored')
+assert(not qh:CanTrainTraverse(follower,qh.tracks[1],qh.tracks[3]),'through train admitted into parked exit')
+assert(qh:HubExitClear(blocker,qh.tracks[3]),'own-line reverse incorrectly blocked')
+local start=follower:GetPos()
+local waits=0
+function WaitMsg()
+ waits=waits+1; assert(waits==1,'crossing failed to wake after exit cleared')
+ assert(not qh:HubCrossingTrain(),'waiting follower owns crossing')
+ assertclose(follower.pos.xx,start.xx); assertclose(follower.pos.yy,start.yy)
+ blocker.command='GotoStation'; blocker:AssignToTrack(qh.tracks[3])
+ qh:TrainDepart(blocker,qh.tracks[3])
+ assert(not qh:HubExitClear(follower,qh.tracks[3]),'departing train lost vanilla track exclusion')
+ -- Simulate completion of vanilla Traverse/arrival at the far station.
+ blocker.current_station=false; blocker.at_station=true
+ table.remove_value(qh.tracks[3].assigned_vehicles,blocker)
+ assert(qh:HubExitClear(follower,qh.tracks[3]))
+end
+assert(qh:HubAcquireCrossing(follower,qh.tracks[3]))
+assert(waits==1 and qh:HubCrossingTrain()==follower)
+qh:RemoveOccupyingTrain(follower)
+
 SupplyGridElement={new=function(_,element)
  function element:SetProduction(value) self.production=value end
  function element:SetConsumption(value) self.consumption=value end
@@ -83,5 +113,5 @@ h.electricity.production=0; h:OnModifiableValueChanged('electricity_production')
 assert(h.electricity.production==70000)
 ''')
 print("HEAD", subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
-print("PASS: mocked arrival/queue/reservation, reverse exit, other-line traversal, cold-start/off/malfunction.")
+print("PASS: mocked movement/reservations, occupied-exit exclusion, same-line reverse/release, power gating.")
 print("Owner visual smoke and native cold-start/save-load checks remain pending; no oracle run.")

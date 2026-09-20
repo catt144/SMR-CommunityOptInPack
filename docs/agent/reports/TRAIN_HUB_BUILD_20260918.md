@@ -635,6 +635,42 @@ This is a tunable trial, not a measured correction or accepted tail-clearance po
 The current game's value can be moved with slot 5 while pause tuning is selected; slot 1
 reads the actual value. Park remains 13 m. This also moves the mirrored exit slide outward.
 
+**Exit contact and scope ruling, 2026-09-20:** the owner supplied screenshots of trains
+driving into each other on exit and requested waiting outside when the intended exit lane
+is occupied, while permitting a train to load and return along its own line. After the
+loading-direction question, the owner instructed: "continue with your movement based work,
+and wrap it up the best you can. Then I am going to make some changes for the next pass for
+loading / queueing". Full queueing/loading policy is therefore deferred to that owner pass.
+
+**Movement guard implemented:** `HubExitClear` checks the hub's own-line reservation as well
+as vanilla's outgoing-track exclusion. Both through admission and crossing acquisition use
+it. A train's own reservation permits a same-line reverse; a different parked train blocks
+the exit. Through trains wait at vanilla's outside endpoint before hub movement, not at a
+new queue position on the arm. Already-loaded departures wait at their existing park.
+This is an occupied-exit guard, not FIFO scheduling or a loading-intent decision. No new
+saved queue or `Train.lua` wrap is installed. SOURCE: archived 1.1.0.403908,
+`Lua/Buildings/Track.lua:357-365` deliberately excludes parked trains; `Lua/Units/Train.lua:238-261`
+chooses a stopping train's onward/reverse work during loading. INFERRED limitation: mutually
+blocked loaded departures can remain waiting; how to resolve them belongs to the next policy pass.
+
+**Flushed evidence:** copied the live file (partial, game still running) to
+[`train_hub_move_queue_partial_20260920_183901.log`](../../archive/train_hub_move_queue_partial_20260920_183901.log)
+using `Copy-Item` from `%APPDATA%/Surviving Mars Relaunched/logs/Mars.exe-20260920-18.39.01-6a91a190.log`.
+`Get-FileHash` SHA-256: `74EB003DB1D79DE907B3B74BEE050A8970F013E6D9C6E86C758ECC11CF9C78EA`.
+The `SMRTK_FINGERPRINT` at id 109 names game 403908, `train_hub_base`, both packs and the kit/dev hub.
+The last successful tuning record, id 124, sets pause to 3700; id 129 records the successful flush.
+Thus the live session had not yet reached the 45 m trial. The earlier tuning refusals explicitly
+say the crossing was occupied. The log's traffic dump predates the screenshot report and does not
+identify the colliding pair; the owner's screenshots and report are the visual evidence.
+
+**RAN with the guard diff on HEAD `a657e6447067bc0261caaaac9ebee3634f87a824`:**
+`python tools/devmods/train_hub/tests/move_smoke.py` passes the existing movement/power checks
+and the regression reproducing vanilla's parked exemption, blocked through admission, waiting
+without moving or claiming the crossing, the blocker's own-line reverse, continued exclusion
+while it is on the outgoing track, and release when that track clears.
+`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` passes. Native visual acceptance
+of this guard is still owed; the test uses mocked movement and simulates the far-end arrival.
+
 **Still owed:** owner acceptance of those movements and both distances; subsequent slot-3
 60°/120°/reverse departures; two-train outside waiting; a save/reload with one train parked
 and one crossing (slot 4 watches a crossing, autosave disarms it); cold start with the

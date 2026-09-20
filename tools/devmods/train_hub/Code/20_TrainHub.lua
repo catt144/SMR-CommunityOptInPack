@@ -401,11 +401,24 @@ function SMROptInTrainHubBase:HubIncomingTrain(except)
 	end
 end
 
+-- Owner's exit-contact report, 2026-09-20. Vanilla deliberately ignores a
+-- parked train in TrackBase:IsTrackFreeFor (archived 1.1.0.403908,
+-- Track.lua:357-365). Our interior rail is shared, so its parked reservation
+-- must clear too. Returning along one's own line remains eligible.
+-- Loading policy and ordered platform queueing are the owner's next pass.
+function SMROptInTrainHubBase:HubExitClear(train, departure_track)
+	if not IsValid(departure_track) then return false end
+	local idx = self:GetConnectionSpot(departure_track)
+	if not idx then return false end
+	local occupant = self:HubReservations()[idx]
+	return (not occupant or occupant == train) and departure_track:IsTrackFreeFor(train, self)
+end
+
 function SMROptInTrainHubBase:CanTrainTraverse(train, arrival_track, departure_track)
 	local lock = self:HubCrossingTrain()
 	local busy = self:HubReservations()[self:GetConnectionSpot(arrival_track)]
 	return (not lock or lock == train) and (not busy or busy == train)
-		and not self:HubIncomingTrain(train) and departure_track:IsTrackFreeFor(train, self)
+		and not self:HubIncomingTrain(train) and self:HubExitClear(train, departure_track)
 end
 
 function SMROptInTrainHubBase:HubAcquireCrossing(train, departure_track)
@@ -413,7 +426,7 @@ function SMROptInTrainHubBase:HubAcquireCrossing(train, departure_track)
 		and (not departure_track or IsValid(departure_track)) do
 		local other = self:HubCrossingTrain()
 		if (not other or other == train) and not self:HubIncomingTrain(train)
-			and (not departure_track or departure_track:IsTrackFreeFor(train, self)) then
+			and (not departure_track or self:HubExitClear(train, departure_track)) then
 			self.SMROptIn_hub_crossing = train
 			return true
 		end

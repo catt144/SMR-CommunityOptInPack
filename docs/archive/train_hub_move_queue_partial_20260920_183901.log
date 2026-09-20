@@ -1,0 +1,554 @@
+					Render 0:00:00:008
+*** executable info
+Timestamp:     	6a91a190
+Date:          	Fri Aug 28 10:56:16 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	63%
+Disk Free      	800889 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:099
+Steam initialized (AppId 3215050)
+					Render 0:00:00:103
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:603
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:749
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:986
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:932
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:02:933
+Lua revision: 403908
+Assets revision: 33006
+Steam AppID: 3215050
+Build version: 1.1.0.403908
+Build branch:  Release
+						Lua 0:00:16:436
+Account storage loaded successfully in 2 ms
+						Lua 0:00:16:437
+DLC norman loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:16:438
+DLC thomas loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:16:442
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-010) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+						Lua 0:00:16:837
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+						Lua 0:00:16:838
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:16:844
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+						Lua 0:00:16:847
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 pause/park,scratch boot" t=12293 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 pause/park,scratch boot" t=12293 id=2
+						Lua 0:00:16:848
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:16:849
+[mod] [CommunityFixPack] NightShiftWork: applied
+[mod] [CommunityFixPack] WispRewards: applied
+[mod] [CommunityFixPack] TrainsToVoid: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+						Lua 0:00:16:850
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] BrokenTrackSalvage: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] TradeRocketFuelRefresh: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:16:851
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DomeOverviewHighlight: applied
+[mod] [CommunityFixPack] TrainCargoDumping: applied
+[mod] [CommunityFixPack] DestroyedTunnels: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] GeneForging: applied
+						Lua 0:00:16:852
+[mod] [CommunityFixPack] MirrorSphereSite: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:16:853
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+						Lua 0:00:16:854
+[mod] [CommunityFixPack] GraphConsumedCaption: applied
+[mod] [CommunityFixPack] TrainWaitTime: applied
+[mod] [CommunityFixPack] FounderTraitNotification: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+						Lua 0:00:16:855
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] SinkholeIndestructible: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+						Lua 0:00:16:856
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] BuildingCodesPrefab: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:16:857
+[mod] [CommunityFixPack] OpenPastureStockpiles: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:16:858
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:17:635
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+[mod] [CommunityFixPack] SinkholeIndestructible: the St. Elmo's Fire sinkhole is now indestructible, like every other mystery set-piece
+						Lua 0:00:17:728
+Reloading done in 1286 ms
+						Lua 0:00:17:730
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:776
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=3
+						Lua 0:00:18:181
+[preset] Preset postprocess took 172 ms.
+						Lua 0:00:18:241
+482 / 482 particle streams loaded in 53 ms.
+						Lua 0:00:18:242
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:18:243
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:18:244
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: added 4 water entr(y/ies) at -50% to DryFarming (0 adopted, 4 of 4 farms loaded)
+						Lua 0:00:18:450
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:543
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=4
+						Lua 0:00:18:576
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=5
+						Lua 0:00:18:589
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2502):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+[mod] Loaded mod items for: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918
+						Lua 0:00:18:841
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:938
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=6
+						Lua 0:00:19:652
+[PdxSDK] Started up. Took 1344
+						Lua 0:00:20:062
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:305
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:56:144
+Load Game: 
+	lua_revision: 403908 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+						Lua 0:00:56:152
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:59:427
+*** Assets reloaded in 3.3 s, read 359.3 MB, read speed 109.7 MB/s, average read 8137 bytes.
+						Lua 0:01:00:422
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=48668 id=7
+						Lua 0:01:01:168
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=48668 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=48668 id=8
+						Lua 0:01:01:855
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-009), which is loaded with a different version 0.00-010
+						Lua 0:01:03:275
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:03:279
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:01:03:301
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, Brazil, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:03:356
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 7213 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=419 last=selected_delete last_id=447 present=true session=1789920167:3551591989:2139786078:117354262 t=19386195 id=9
+[SMRTK] SMRTK_PROVENANCE actions=419 last=selected_delete last_id=447 present=true session=1789920167:3551591989:2139786078:117354262 t=19386195 id=9
+						Lua 0:01:03:366
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19386195 id=10
+						Lua 0:01:03:381
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=19386195 id=11
+						Lua 0:01:03:387
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:03:498
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19386195 id=12
+						Lua 0:01:04:053
+Game loaded on map BlankBig_01 in 8043 ms
+						Lua 0:01:06:899
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6291) status=OK t=19386195 id=13
+						Lua 0:01:09:256
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6292) status=OK t=19386195 id=14
+						Lua 0:01:10:737
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6293) status=OK t=19386195 id=15
+						Lua 0:01:12:193
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6298) status=OK t=19386195 id=16
+						Lua 0:01:13:831
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(3493) status=OK t=19386195 id=17
+						Lua 0:01:16:218
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(6321) status=OK t=19386195 id=18
+						Lua 0:01:18:506
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6321) status=OK valid_after=false t=19386195 id=19
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6321) status=OK valid_after=false t=19386195 id=19
+						Lua 0:01:25:708
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(6323) status=OK t=19386195 id=20
+						Lua 0:01:26:895
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6323) status=OK valid_after=false t=19386195 id=21
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6323) status=OK valid_after=false t=19386195 id=21
+						Lua 0:01:27:558
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(6324) status=OK t=19386195 id=22
+						Lua 0:01:28:382
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6324) status=OK valid_after=false t=19386195 id=23
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6324) status=OK valid_after=false t=19386195 id=23
+						Lua 0:01:29:144
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(6322) status=OK t=19386195 id=24						Lua 0:01:29:145
+
+						Lua 0:01:29:982
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6322) status=OK valid_after=false t=19386195 id=25
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StirlingGenerator(6322) status=OK valid_after=false t=19386195 id=25
+						Lua 0:01:31:572
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(3488) status=OK t=19386195 id=26
+						Lua 0:01:32:684
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(3488) status=OK valid_after=false t=19386195 id=27
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(3488) status=OK valid_after=false t=19386195 id=27
+						Lua 0:01:33:311
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(3533) status=OK t=19386195 id=28
+						Lua 0:01:35:432
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(3533) status=OK valid_after=false t=19386195 id=29
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(3533) status=OK valid_after=false t=19386195 id=29
+						Lua 0:01:36:150
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(3564) status=OK t=19386195 id=30
+						Lua 0:01:37:341
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipResourcePile object=ResourceStockpileLR(2000001809) status=OK t=19386195 id=31
+						Lua 0:01:38:417
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001809) status=OK valid_after=false t=19386195 id=32
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001809) status=OK valid_after=false t=19386195 id=32
+						Lua 0:01:39:033
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipResourcePile object=ResourceStockpileLR(2000001810) status=OK t=19386195 id=33
+						Lua 0:01:39:866
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001810) status=OK valid_after=false t=19386195 id=34
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001810) status=OK valid_after=false t=19386195 id=34
+						Lua 0:01:40:509
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipResourcePile object=ResourceStockpileLR(2000001811) status=OK t=19386195 id=35
+						Lua 0:01:41:421
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001811) status=OK valid_after=false t=19386195 id=36
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001811) status=OK valid_after=false t=19386195 id=36
+						Lua 0:01:42:665
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipResourcePile object=ResourceStockpileLR(2000001812) status=OK t=19386195 id=37
+						Lua 0:01:43:494
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001812) status=OK valid_after=false t=19386195 id=38						Lua 0:01:43:495
+
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ResourceStockpileLR(2000001812) status=OK valid_after=false t=19386195 id=38
+						Lua 0:01:44:229
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipDrone object=Drone(2000001783) status=OK t=19386195 id=39
+						Lua 0:01:45:353
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=Drone(2000001783) status=OK valid_after=false t=19386195 id=40
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=Drone(2000001783) status=OK valid_after=false t=19386195 id=40
+						Lua 0:01:49:383
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 5 5 5 5 5 5
+						Lua 0:01:49:392
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19386195 id=41
+						Lua 0:01:59:141
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19386195 id=42
+						Lua 0:02:12:969
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(6363) status=OK t=19386195 id=43
+						Lua 0:02:14:722
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ConstructionSite(6363) status=OK valid_after=false t=19386195 id=44
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=ConstructionSite(6363) status=OK valid_after=false t=19386195 id=44
+						Lua 0:02:16:693
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=19386195 id=45
+						Lua 0:02:19:732
+[mod] [SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=19386195 id=46
+[SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=19386195 id=46
+
+!!! Quick Build !!!
+						Lua 0:02:24:032
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=19386195 id=47
+						Lua 0:02:38:078
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19386195 id=48
+						Lua 0:02:39:591
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19386195 id=49
+						Lua 0:02:43:867
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(6400) status=OK t=19386195 id=50
+						Lua 0:02:44:835
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:02:44:844
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInTrainHub6 completed=true group_members=0 leader=ConstructionSite(6400) leader_valid_after=false object=ConstructionSite(6400) selected_valid_after=false status=OK t=19386195 id=51
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInTrainHub6 completed=true group_members=0 leader=ConstructionSite(6400) leader_valid_after=false object=ConstructionSite(6400) selected_valid_after=false status=OK t=19386195 id=51
+						Lua 0:02:44:956
+
+!!! Quick Build !!!
+						Lua 0:02:44:967
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6401) status=OK t=19386195 id=52
+						Lua 0:02:52:512
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipDrone object=Drone(2000001822) status=OK t=19386195 id=53
+						Lua 0:02:54:314
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6401) status=OK t=19386195 id=54
+						Lua 0:02:57:654
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2008) status=OK t=19386195 id=55
+						Lua 0:03:05:383
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2007) status=OK t=19386195 id=56
+						Lua 0:03:10:524
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19386195 id=57
+						Lua 0:03:19:429
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2012) status=OK t=19386195 id=58
+						Lua 0:03:23:648
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(6243) status=OK t=19386195 id=59
+						Lua 0:03:29:054
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2011) status=OK t=19386195 id=60
+						Lua 0:03:36:604
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationBig(2009) status=OK t=19386195 id=61
+						Lua 0:03:43:895
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2011) status=OK t=19386195 id=62
+						Lua 0:03:53:338
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6401) status=OK t=19386195 id=63
+						Lua 0:03:55:269
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=2850000 before=0 method=CheatFill object=SMROptInTrainHub6(6401) resource=multiple resources=21 status=OK valid_after=true t=19386195 id=64
+[SMRTK] SMRTK_ACTION action=selected_fill after=2850000 before=0 method=CheatFill object=SMROptInTrainHub6(6401) resource=multiple resources=21 status=OK valid_after=true t=19386195 id=64
+						Lua 0:03:56:850
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2008) status=OK t=19386195 id=65
+						Lua 0:03:57:893
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=1140000 before=0 method=CheatFill object=StationSmall(2008) resource=multiple resources=21 status=OK valid_after=true t=19386195 id=66
+[SMRTK] SMRTK_ACTION action=selected_fill after=1140000 before=0 method=CheatFill object=StationSmall(2008) resource=multiple resources=21 status=OK valid_after=true t=19386195 id=66
+						Lua 0:04:55:718
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19406116 id=67
+						Lua 0:06:13:653
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19406116 id=68
+						Lua 0:07:06:163
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6401) status=OK t=19406116 id=69
+						Lua 0:07:08:338
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=19406116 id=70
+						Lua 0:07:10:158
+[mod] [SMRTK] SMRTK_TAB action=tab_Agent page=Agent status=OK t=19406116 id=71
+						Lua 0:07:19:958
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 park=1300 pause=3000 status=OK tuning=park t=19406116 id=72
+[SMRTK] SMRTK_ACTION action=slot_6 park=1300 pause=3000 status=OK tuning=park t=19406116 id=72
+						Lua 0:07:25:076
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 park=1300 pause=3000 status=OK tuning=pause t=19406116 id=73
+[SMRTK] SMRTK_ACTION action=slot_6 park=1300 pause=3000 status=OK tuning=pause t=19406116 id=73
+						Lua 0:07:31:484
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=74
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=74
+						Lua 0:07:31:981
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=75
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=75
+						Lua 0:07:32:583
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=76
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=76
+						Lua 0:07:33:678
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrain object=Train(2000001823) status=OK t=19406116 id=77
+						Lua 0:07:34:826
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=78
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=78
+						Lua 0:07:40:386
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=79
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=79
+						Lua 0:07:40:722
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=80
+[SMRTK] SMRTK_ACTION action=slot_5 reason="crossing is occupied" status=REFUSED t=19406116 id=80
+						Lua 0:07:42:087
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 reason="crossing is occupied" status=REFUSED t=19406116 id=81
+[SMRTK] SMRTK_ACTION action=slot_2 reason="crossing is occupied" status=REFUSED t=19406116 id=81
+						Lua 0:07:59:998
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=3000 t=19415179 id=82
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=3000 t=19415179 id=82
+						Lua 0:07:59:999
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=3000 status=OK t=19415179 id=83
+[SMRTK] SMRTK_ACTION action=slot_2 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=3000 status=OK t=19415179 id=83
+						Lua 0:08:00:517
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2800 old=2900 t=19415179 id=84
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2800 old=2900 t=19415179 id=84
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2800 old=2900 status=OK t=19415179 id=85
+[SMRTK] SMRTK_ACTION action=slot_2 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2800 old=2900 status=OK t=19415179 id=85
+						Lua 0:08:02:795
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=2800 t=19415179 id=86
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=2800 t=19415179 id=86
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=2800 status=OK t=19415179 id=87
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=2900 old=2800 status=OK t=19415179 id=87
+						Lua 0:08:07:656
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3000 old=2900 t=19415179 id=88
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3000 old=2900 t=19415179 id=88
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3000 old=2900 status=OK t=19415179 id=89
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3000 old=2900 status=OK t=19415179 id=89
+						Lua 0:08:25:674
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=100 status=OK t=19415179 id=90
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=100 status=OK t=19415179 id=90
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=28 status=OK t=19415179 id=91
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=28 status=OK t=19415179 id=91
+[mod] [SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6401) leg=hub3b malfunction=false park=1300 pause=3000 pos=280000,166272,10000 production=70000 switched_on=true tuning=pause working=true t=19415179 id=92
+[SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6401) leg=hub3b malfunction=false park=1300 pause=3000 pos=280000,166272,10000 production=70000 switched_on=true tuning=pause working=true t=19415179 id=92
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278750,163529,10800@3600 Rampdepart=278250,163817,10800@14400 Spawn=279350,165146,10800@14400 Stop=279350,165146,10800@3600 Trackconnector=277500,161942,10800@19800 leg=hub3b_line line=1 reserved=Train(2000001823) t=19415179 id=93
+[SMRTK] SMRTK_DUMP Ramparrive=278750,163529,10800@3600 Rampdepart=278250,163817,10800@14400 Spawn=279350,165146,10800@14400 Stop=279350,165146,10800@3600 Trackconnector=277500,161942,10800@19800 leg=hub3b_line line=1 reserved=Train(2000001823) t=19415179 id=93
+						Lua 0:08:25:675
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281250,169016,10800@14400 Rampdepart=281750,168727,10800@3600 Spawn=280650,167398,10800@3600 Stop=280650,167398,10800@14400 Trackconnector=282500,170602,10800@9000 leg=hub3b_line line=2 reserved=none t=19415179 id=94
+[SMRTK] SMRTK_DUMP Ramparrive=281250,169016,10800@14400 Rampdepart=281750,168727,10800@3600 Spawn=280650,167398,10800@3600 Stop=280650,167398,10800@14400 Trackconnector=282500,170602,10800@9000 leg=hub3b_line line=2 reserved=none t=19415179 id=94
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=277000,165983,10800@0 Rampdepart=277000,166561,10800@10800 Spawn=278700,166272,10800@10800 Stop=278700,166272,10800@0 Trackconnector=275000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=19415179 id=95
+[SMRTK] SMRTK_DUMP Ramparrive=277000,165983,10800@0 Rampdepart=277000,166561,10800@10800 Spawn=278700,166272,10800@10800 Stop=278700,166272,10800@0 Trackconnector=275000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=19415179 id=95
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=283000,166561,10800@10800 Rampdepart=283000,165983,10800@0 Spawn=281300,166272,10800@0 Stop=281300,166272,10800@10800 Trackconnector=285000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=19415179 id=96
+[SMRTK] SMRTK_DUMP Ramparrive=283000,166561,10800@10800 Rampdepart=283000,165983,10800@0 Spawn=281300,166272,10800@0 Stop=281300,166272,10800@10800 Trackconnector=285000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=19415179 id=96
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278250,168727,10800@18000 Rampdepart=278750,169016,10800@7200 Spawn=279350,167398,10800@7200 Stop=279350,167398,10800@18000 Trackconnector=277500,170602,10800@12600 leg=hub3b_line line=5 reserved=none t=19415179 id=97
+[SMRTK] SMRTK_DUMP Ramparrive=278250,168727,10800@18000 Rampdepart=278750,169016,10800@7200 Spawn=279350,167398,10800@7200 Stop=279350,167398,10800@18000 Trackconnector=277500,170602,10800@12600 leg=hub3b_line line=5 reserved=none t=19415179 id=97
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281750,163817,10800@7200 Rampdepart=281250,163529,10800@18000 Spawn=280650,165146,10800@18000 Stop=280650,165146,10800@7200 Trackconnector=282500,161942,10800@1800 leg=hub3b_line line=6 reserved=none t=19415179 id=98
+[SMRTK] SMRTK_DUMP Ramparrive=281750,163817,10800@7200 Rampdepart=281250,163529,10800@18000 Spawn=280650,165146,10800@18000 Stop=280650,165146,10800@7200 Trackconnector=282500,161942,10800@1800 leg=hub3b_line line=6 reserved=none t=19415179 id=98
+[mod] [SMRTK] SMRTK_DUMP arrival=4 at_station=true command=LoadTrain leg=hub3b_train pos=174980,156429,10000 station=StationBig(2009) track=TrackBase(4458) train=Train(2000001652) visual=174980,156429,10000 visual_yaw=0 yaw=0 t=19415179 id=99
+[SMRTK] SMRTK_DUMP arrival=4 at_station=true command=LoadTrain leg=hub3b_train pos=174980,156429,10000 station=StationBig(2009) track=TrackBase(4458) train=Train(2000001652) visual=174980,156429,10000 visual_yaw=0 yaw=0 t=19415179 id=99
+[mod] [SMRTK] SMRTK_DUMP arrival=1 at_station=true command=LoadTrain leg=hub3b_train pos=279350,165146,10800 station=SMROptInTrainHub6(6401) track=TrackBase(6369) train=Train(2000001823) visual=279350,165146,10800 visual_yaw=3600 yaw=3600 t=19415179 id=100
+[SMRTK] SMRTK_DUMP arrival=1 at_station=true command=LoadTrain leg=hub3b_train pos=279350,165146,10800 station=SMROptInTrainHub6(6401) track=TrackBase(6369) train=Train(2000001823) visual=279350,165146,10800 visual_yaw=3600 yaw=3600 t=19415179 id=100
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=391250,160932,10800 station=StationSmall(2007) track=TrackBase(2396) train=Train(2000001824) visual=391223,160885,10800 visual_yaw=3600 yaw=3600 t=19415179 id=101
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=391250,160932,10800 station=StationSmall(2007) track=TrackBase(2396) train=Train(2000001824) visual=391223,160885,10800 visual_yaw=3600 yaw=3600 t=19415179 id=101
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=322963,163097,10800 station=StationSmall(1994) track=TrackBase(6385) train=Train(2000001825) visual=324207,162930,10800 visual_yaw=7831 yaw=8172 t=19415179 id=102
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=322963,163097,10800 station=StationSmall(1994) track=TrackBase(6385) train=Train(2000001825) visual=324207,162930,10800 visual_yaw=7831 yaw=8172 t=19415179 id=102
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=248500,203221,10800 station=StationSmall(2012) track=TrackBase(6381) train=Train(2000001826) visual=247820,203221,10800 visual_yaw=0 yaw=0 t=19415179 id=103
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=248500,203221,10800 station=StationSmall(2012) track=TrackBase(6381) train=Train(2000001826) visual=247820,203221,10800 visual_yaw=0 yaw=0 t=19415179 id=103
+[mod] [SMRTK] SMRTK_DUMP arrival=2 at_station=true command=UnloadTrain leg=hub3b_train pos=197493,214488,10000 station=StationSmall(2012) track=TrackBase(5509) train=Train(2000001827) visual=197493,214488,10000 visual_yaw=14400 yaw=14400 t=19415179 id=104
+[SMRTK] SMRTK_DUMP arrival=2 at_station=true command=UnloadTrain leg=hub3b_train pos=197493,214488,10000 station=StationSmall(2012) track=TrackBase(5509) train=Train(2000001827) visual=197493,214488,10000 visual_yaw=14400 yaw=14400 t=19415179 id=104
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=164750,147942,10800 station=StationSmall(2011) track=TrackBase(4458) train=Train(2000001828) visual=164255,147084,10800 visual_yaw=3600 yaw=3600 t=19415179 id=105
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=164750,147942,10800 station=StationSmall(2011) track=TrackBase(4458) train=Train(2000001828) visual=164255,147084,10800 visual_yaw=3600 yaw=3600 t=19415179 id=105
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=252000,165983,10800 station=StationBig(2009) track=TrackBase(6373) train=Train(2000001829) visual=251946,165983,10800 visual_yaw=0 yaw=0 t=19415179 id=106
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=252000,165983,10800 station=StationBig(2009) track=TrackBase(6373) train=Train(2000001829) visual=251946,165983,10800 visual_yaw=0 yaw=0 t=19415179 id=106
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=195250,184314,10800 station=StationSmall(2011) track=TrackBase(6378) train=Train(2000001830) visual=194797,185098,10800 visual_yaw=18000 yaw=18000 t=19415179 id=107
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=195250,184314,10800 station=StationSmall(2011) track=TrackBase(6378) train=Train(2000001830) visual=194797,185098,10800 visual_yaw=18000 yaw=18000 t=19415179 id=107
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=118 status=OK t=19415179 id=108
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=118 status=OK t=19415179 id=108
+						Lua 0:08:25:676
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=28 status=OK t=19415179 id=109
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=28 status=OK t=19415179 id=109
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6401) park=1300 status=OK t=19415179 id=110
+[SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6401) park=1300 status=OK t=19415179 id=110
+						Lua 0:08:36:267
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3100 old=3000 t=19415179 id=111
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3100 old=3000 t=19415179 id=111
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3100 old=3000 status=OK t=19415179 id=112
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3100 old=3000 status=OK t=19415179 id=112
+						Lua 0:08:36:500
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3200 old=3100 t=19415179 id=113
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3200 old=3100 t=19415179 id=113
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3200 old=3100 status=OK t=19415179 id=114
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3200 old=3100 status=OK t=19415179 id=114
+						Lua 0:08:37:184
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3300 old=3200 t=19415179 id=115
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3300 old=3200 t=19415179 id=115
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3300 old=3200 status=OK t=19415179 id=116
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3300 old=3200 status=OK t=19415179 id=116
+						Lua 0:08:37:382
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3400 old=3300 t=19415179 id=117
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3400 old=3300 t=19415179 id=117
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3400 old=3300 status=OK t=19415179 id=118
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3400 old=3300 status=OK t=19415179 id=118
+						Lua 0:08:37:557
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3500 old=3400 t=19415179 id=119
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3500 old=3400 t=19415179 id=119
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3500 old=3400 status=OK t=19415179 id=120
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3500 old=3400 status=OK t=19415179 id=120
+						Lua 0:08:37:719
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3600 old=3500 t=19415179 id=121
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3600 old=3500 t=19415179 id=121
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3600 old=3500 status=OK t=19415179 id=122
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3600 old=3500 status=OK t=19415179 id=122
+						Lua 0:08:37:904
+[mod] [SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3700 old=3600 t=19415179 id=123
+[SMRTK] SMRTK_DUMP leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3700 old=3600 t=19415179 id=123
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3700 old=3600 status=OK t=19415179 id=124
+[SMRTK] SMRTK_ACTION action=slot_5 leg=transition_setup mutation="tune next arrival/departure; no train repositioned" new=3700 old=3600 status=OK t=19415179 id=124
+						Lua 0:09:17:040
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrain object=Train(2000001830) status=OK t=19437613 id=125
+						Lua 0:11:13:669
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrain object=Train(2000001830) status=OK t=19445182 id=126
+						Lua 0:11:18:602
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=Agent t=19445182 id=127
+						Lua 0:13:07:804
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=Agent t=19445182 id=128
+						Lua 0:13:09:324
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=118 lines=21 status=OK truncated=false t=19445182 id=129
+[SMRTK] SMRTK_COPY action=copy flushed=true from=118 lines=21 status=OK truncated=false t=19445182 id=129

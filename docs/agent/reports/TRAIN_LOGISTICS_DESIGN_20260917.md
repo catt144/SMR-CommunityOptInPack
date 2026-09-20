@@ -1116,6 +1116,15 @@ The current TestKit controls and first owner batch are in `TRAIN_HUB_BUILD_20260
 §"Centre/transition prototype". Remaining: the owner-view cycle at every speed, turns, queue,
 parked-plus-crossing reload and the isolated-power check above. Build 4 and texture work stay held.
 
+**Owner close-out direction, 2026-09-20, after exit contact:** finish the movement pass; the
+owner will change loading/queueing in the next pass. The movement guard now checks for a
+parked train on the intended exit line, which vanilla's track-free test excludes. Own-line
+reversal remains permitted; through trains wait outside at vanilla's endpoint, while loaded
+departures wait at their park. No ordered platform queue or loading-policy change is included.
+The mocked regression passes; native acceptance and mutually blocked departure policy remain
+open. The owner witness, partial flushed log and precise limits are in the build report's
+"Exit contact and scope ruling" passage. The log's last pause tuning was 37 m, not 45 m.
+
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
 Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
 **5 Metals** maintenance as the large station's (`StationBig.lua:31-32`), and it draws 10. Mini-reactor
