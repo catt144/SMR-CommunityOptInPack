@@ -1019,6 +1019,8 @@ must count while the hub is unpowered and stop only for malfunction or switched 
 starts on its own output. Open, not yet ruled: what else must work with no drones and no grid, such
 as the maintenance the hub pays from its own stock, the crew that only exists at a working hub, and
 where the start-up stock comes from. The 20-power base direction above depends on this fix.
+**A cold-start test runs with the seven Stirling Generators removed from the fixture**, or the
+hub's own production is never the only supply.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
 Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
@@ -1071,7 +1073,10 @@ T1–T3 results are recorded in §7.
 **The standing test save, `train_hub_base` (owner, 2026-09-20).** The save the owner loads every
 round. Recorded from the owner's account; the save file and the build it was made on have not been
 read. Its content as described:
-- Seven stations prebuilt, all with empty bays, no power and no drone hubs.
+- Seven stations prebuilt, all with empty bays, no power and no drone hubs. **Since the owner's
+  2026-09-20 setup work the save the owner is using carries seven Stirling Generators**, which
+  mask the cold start below; they must be removed to test it (owner, 2026-09-20). Not yet
+  recorded: whether they sit in `train_hub_base` itself or in the fuller variant.
 - Six lines already set, their tracks laid, to connect to a hub at the centre. **Only the hub is
   built each round.** The centre site is bare ground with the six track ends stopping short of it,
   one from each direction: two diagonals from the upper left and upper right, two horizontals from
