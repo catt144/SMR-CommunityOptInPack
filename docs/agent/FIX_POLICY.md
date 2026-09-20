@@ -168,10 +168,18 @@ contract. New persisted names join this table.
 | 7 | `"+0 (base)"` `"+1"` `"+2"` | as above | as above | as above |
 | 8 | `ClassicRockets` `AcknowledgedWarnings` `ResidencyControl` `MultipleSuns` `DroneOverhaul` `CohortHousing` `NoHomeless` | Mod-Options toggle keys **and** `Register` ids | `metadata.lua`, `items.lua`, each module's `Register` | `SMROptInPack.OptionEnabled` |
 | 9 | `DroneSpeedDial` `DroneCarryDial` | Mod-Options choice keys (**not** `Register` ids) | `metadata.lua`, `items.lua` | the module, directly |
+| 10 | `SMROptIn_hub_crossing` | Train reference (or false) on a dev hub; survives a mid-crossing save | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `HubAcquireCrossing` / `RemoveOccupyingTrain` | same file, `HubCrossingTrain`; TestKit smoke reads it |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
 receives the §3/§3a analysis.
+
+Row 10 is the build-3b dev hub's crossing lock, authorised by
+`prompts/TRAIN_HUB_TRAINS_high.md` (owner, 2026-09-20). An interrupted but valid train retains
+the lock until the existing train cleanup removes it: interruption is not physical clearance.
+The hub's bounded movement frames are a content residual under §0; removing a mod with placed
+hubs remains unsupported. `SMROptInTrainFloor.HubParkDistance` is a load-time tunable, not a
+GameVar or saved object field. The code header records why a blocking route is needed.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 

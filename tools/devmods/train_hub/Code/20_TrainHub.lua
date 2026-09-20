@@ -30,6 +30,12 @@
 -- both files create the shared table if it is not there yet.
 SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
+-- Owner 2026-09-20: tune by eye, in metres from the hub centre. This is the
+-- single live control (TestKit may change it). Started at 17 m near the old
+-- 3/7, then compared 17/20/23 m in game: 20 leaves more crossing room without
+-- hiding the cargo tail behind the portal. Owner's final visual verdict owed.
+-- Not persisted: a boot always starts from this value.
+Floor.HubParkDistance = 20 * guim
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
 
@@ -43,6 +49,7 @@ DefineClass.SMROptInTrainHubBase = {
 	first_connector_idx = 1,
 	last_connector_idx = 0,
 	hub_connector_directions = false,
+	SMROptIn_hub_crossing = false, -- Train reference; save contract, FIX_POLICY inventory
 
 	-- Drone controller. Members both parents declare are pinned here, so the
 	-- result never depends on parent order: Station.lua:87 vs DroneControl.lua:96
@@ -103,10 +110,6 @@ local function decode_synthetic_spot(spot)
 	if kind and idx >= 1 then return kind, idx end
 end
 
-local function opposite(idx)
-	return idx % 2 == 1 and idx + 1 or idx - 1
-end
-
 -- A connector must sit inside the footprint (Tracks.lua:19-24), so each one is
 -- the LAST footprint hex along its line and its direction hex the first outside.
 local line_radius_cache = {}
@@ -142,8 +145,8 @@ local function longest_line(self)
 	return longest
 end
 
--- Sevenths of the way from the centre to the connector; nil is a whole hex.
-local kind_sevenths = { Ramparrive = 5, Rampdepart = 5, Stop = 3, Spawn = 3 }
+-- Ramps retain their old radius. Stop and Spawn share HubParkDistance.
+local kind_sevenths = { Ramparrive = 5, Rampdepart = 5 }
 
 -- `body` is the hub or its construction cursor; `hub` supplies the class data.
 local function line_hex(hub, body, connector_idx, extra)
@@ -163,10 +166,33 @@ end
 local deck_kinds = { Ramparrive = true, Stop = true, Spawn = true, Rampdepart = true }
 local train_deck_height
 
+-- Ask the connected track for its step. Enter1 is NOT always the arrival lane.
+-- SOURCE: 1.1.0.403908, Train.lua:650-665, Station.lua:1200-1205.
+local function lane_offset(self, idx, arrival)
+	local el = self:GetConnectorElement(idx)
+	local track = IsValid(el) and el.track_obj
+	if IsValid(track) then
+		local is_start = track:GetStartStation() == self
+		local step = (arrival and not is_start or not arrival and is_start) and 1 or -1
+		local spot = el:GetSpotBeginIndex(step == 1 and "Enter1" or "Enter2")
+		if spot and spot >= 0 then
+			local p, c = el:GetSpotPos(spot), el:GetPos()
+			return p:x() - c:x(), p:y() - c:y()
+		end
+	end
+	-- An unconnected construction cursor has no track. Measured R-LANESIDE:
+	-- arrival is +289 along the outward vector's left normal, departure -289.
+	local q, r = line_hex(self, self, idx)
+	local x, y = HexToWorld(q, r)
+	local cx, cy = self:GetPosXYZ()
+	local length = self:GetDist2D(point(x, y))
+	local side = arrival and 289 or -289
+	return MulDivRound(cy - y, side, length), MulDivRound(x - cx, side, length)
+end
+
 local function synthetic_spot_pos(self, kind, idx)
 	local sevenths = kind_sevenths[kind]
-	local connector_idx = kind == "Spawn" and opposite(idx) or idx
-	local q, r, direction = line_hex(self, self, connector_idx, kind == "Trackdirection" and 1 or 0)
+	local q, r, direction = line_hex(self, self, idx, kind == "Trackdirection" and 1 or 0)
 	local x, y = HexToWorld(q, r)
 	local cx, cy, z = self:GetPosXYZ()
 	if deck_kinds[kind] then z = z + train_deck_height(self) end
@@ -174,11 +200,23 @@ local function synthetic_spot_pos(self, kind, idx)
 		x = cx + MulDivRound(x - cx, sevenths, 7)
 		y = cy + MulDivRound(y - cy, sevenths, 7)
 	end
+	if kind == "Stop" or kind == "Spawn" then
+		local radius = self:GetDist2D(point(x, y))
+		x = cx + MulDivRound(x - cx, Floor.HubParkDistance, radius)
+		y = cy + MulDivRound(y - cy, Floor.HubParkDistance, radius)
+	end
+	if deck_kinds[kind] then
+		-- Spawn stays exactly at Stop for an in-place reverse. The departure
+		-- path joins the other lane with a curve, never a lateral teleport.
+		local ox, oy = lane_offset(self, idx, kind ~= "Rampdepart")
+		x, y = x + ox, y + oy
+	end
 	return point(x, y, z), direction
 end
 
 local function synthetic_spot_angle(self, kind, idx)
-	local pos = synthetic_spot_pos(self, kind, idx)
+	local q, r = line_hex(self, self, idx)
+	local pos = point(HexToWorld(q, r))
 	local center = self:GetPos()
 	if kind == "Stop" or kind == "Ramparrive" then
 		return CalcOrientation(pos, center)
@@ -266,6 +304,231 @@ function SMROptInTrainHubBase:GetSpotAxisAngle(spot)
 	local kind, idx = decode_synthetic_spot(spot)
 	if kind then return axis_z, synthetic_spot_angle(self, kind, idx) end
 	return CObject.GetSpotAxisAngle(self, spot)
+end
+
+-- ===========================================================================
+-- Hub-local traffic. Reconstruction of Station.lua:1085-1211 and
+-- TrainTransport.lua:39-51 (1.1.0.403908 archived tree), because vanilla's
+-- opposite-platform reservations and single hidden slide cannot express this
+-- open crossing. No Train method is replaced. track_busy keeps its vanilla
+-- table type, but positive keys are this hub's OWN connector indices.
+--
+-- Save discipline: content residual under FIX_POLICY section 0. Layers 3/2
+-- cannot insert waypoints and timed turns into GotoSpot's one blocking slide.
+-- These bounded command frames and SMROptIn_hub_crossing ride the save; no
+-- detached thread or saved callback is created. Every wake checks the dev
+-- mod's own namespace (SMROptInTrainFloor, independent of either fix pack).
+-- Removing a placed hub's content mod remains unsupported, as before.
+-- ===========================================================================
+
+function SMROptInTrainHubBase:HubCrossingTrain()
+	local lock = self.SMROptIn_hub_crossing
+	-- An interrupted train still occupies the crossing. Keep it blocked until
+	-- vanilla's Start/Done cleanup removes it; a dead thread is not clearance.
+	if IsValid(lock) then return lock end
+	self.SMROptIn_hub_crossing = false
+	-- A build-3 save may be sleeping inside vanilla TrainPassThrough. Its
+	-- saved frame owns trains_traversing until it finishes; do not overlap it
+	-- with a new crossing or copy it into a lock that frame cannot release.
+	for _, train in pairs(self.trains_traversing or empty_table) do
+		if IsValid(train) then return train end
+	end
+end
+
+function SMROptInTrainHubBase:HubReservations()
+	local busy = {}
+	for _, train in pairs(self.track_busy or empty_table) do
+		if IsValid(train) then
+			-- Also migrates build-3's opposite-key reservations without moving
+			-- a train or losing an inbound reservation. Never validate by radius.
+			local idx = train.current_station == self and train.station_arrival_track
+				or IsValid(train.track) and self:GetConnectionSpot(train.track)
+			if idx then busy[idx] = train end
+		end
+	end
+	self.track_busy = busy
+	return busy
+end
+
+function SMROptInTrainHubBase:AddOccupyingTrain(train, platform, arrival)
+	platform = platform or train.track
+	local idx = IsValid(platform) and self:GetConnectionSpot(platform) or platform
+	if idx then self:HubReservations()[idx] = train end
+end
+
+function SMROptInTrainHubBase:GetOccupyingTrain(track, arrival)
+	local idx = IsValid(track) and self:GetConnectionSpot(track) or track
+	local occupant = self:HubReservations()[idx]
+	local crossing = self:HubCrossingTrain()
+	if arrival and crossing then return crossing end
+	-- LoadTrain:258 asks if the REVERSE platform is free. With our own-line
+	-- keys it finds itself: exempt only that train's own LoadTrain command.
+	-- TrackBase:AssignTrain's separate thread still sees the occupied spawn.
+	if not arrival and occupant and occupant.command == "LoadTrain"
+		and CurrentThread() == occupant.command_thread then return nil end
+	return occupant or crossing
+end
+
+function SMROptInTrainHubBase:RemoveOccupyingTrain(train)
+	Station.RemoveOccupyingTrain(self, train)
+	if self.SMROptIn_hub_crossing == train then self.SMROptIn_hub_crossing = false end
+	for track, traversing in pairs(self.trains_traversing or empty_table) do
+		if traversing == train then self.trains_traversing[track] = nil end
+	end
+	Msg("TrainLeave", train, self)
+end
+
+function SMROptInTrainHubBase:HubRestoreParkedTrains()
+	-- Load-time migration, before the colony is shown. Existing stopped trains
+	-- otherwise retain build-3's wrong synthetic position until their next trip.
+	for _, train in ipairs(self.city.labels.Train or empty_table) do
+		if train.current_station == self and (train.at_station or train.at_spawn_track)
+			and train ~= self:HubCrossingTrain() then
+			local idx = train.station_arrival_track or self:GetConnectionSpot(train.track)
+			if idx then
+				local kind = train.at_spawn_track and not train.station_arrival_track and "Spawn" or "Stop"
+				train:StopInterpolation()
+				train:SetPos((synthetic_spot_pos(self, kind, idx)))
+				train:SetAngle(synthetic_spot_angle(self, kind, idx))
+			end
+		end
+	end
+	self:HubReservations()
+end
+
+function SMROptInTrainHubBase:HubIncomingTrain(except)
+	for _, train in pairs(self:HubReservations()) do
+		if train ~= except and train.current_station ~= self then return train end
+	end
+end
+
+function SMROptInTrainHubBase:CanTrainTraverse(train, arrival_track, departure_track)
+	local lock = self:HubCrossingTrain()
+	local busy = self:HubReservations()[self:GetConnectionSpot(arrival_track)]
+	return (not lock or lock == train) and (not busy or busy == train)
+		and not self:HubIncomingTrain(train) and departure_track:IsTrackFreeFor(train, self)
+end
+
+function SMROptInTrainHubBase:HubAcquireCrossing(train, departure_track)
+	while IsValid(self) and not self.destroyed and IsValid(train)
+		and (not departure_track or IsValid(departure_track)) do
+		local other = self:HubCrossingTrain()
+		if (not other or other == train) and not self:HubIncomingTrain(train)
+			and (not departure_track or departure_track:IsTrackFreeFor(train, self)) then
+			self.SMROptIn_hub_crossing = train
+			return true
+		end
+		train:StopInterpolation()
+		WaitMsg("TrainLeave", 500)
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+	end
+end
+
+function SMROptInTrainHubBase:HubMoveTrain(train, pos, final_speed, yaw)
+	if not IsValid(train) or not IsValid(self) then return end
+	local accel, time = train:GetAccelerationAndTime(pos, final_speed, pf.GetSpeed(train))
+	if yaw then train:SetAngle(yaw, time) end
+	train:SetPos(pos, time)
+	train:SetAcceleration(accel)
+	Sleep(time)
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	return IsValid(train) and IsValid(self) and not self.destroyed
+end
+
+-- Intersection of the two lane centrelines: the turn stays at the crossing,
+-- with no centreline/lane dogleg. Straight-through lanes are already collinear.
+function SMROptInTrainHubBase:HubTurnPoint(arrival_idx, departure_idx)
+	local a = synthetic_spot_pos(self, "Stop", arrival_idx)
+	local b = synthetic_spot_pos(self, "Rampdepart", departure_idx)
+	local aq, ar = line_hex(self, self, arrival_idx)
+	local bq, br = line_hex(self, self, departure_idx)
+	local ax, ay = HexToWorld(aq, ar)
+	local bx, by = HexToWorld(bq, br)
+	local cx, cy = self:GetPosXYZ()
+	local ux, uy, vx, vy = cx - ax, cy - ay, bx - cx, by - cy
+	local det = ux * vy - uy * vx
+	if det == 0 then return end
+	local numerator = (b:x() - a:x()) * vy - (b:y() - a:y()) * vx
+	return point(a:x() + MulDivRound(ux, numerator, det),
+		a:y() + MulDivRound(uy, numerator, det), a:z())
+end
+
+function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, departure_track, reverse)
+	local el = self:GetConnectorElement(departure_idx)
+	if not IsValid(el) then return end
+	local speed = train:GetNominalMoveSpeed() / 3
+	local ramp = synthetic_spot_pos(self, "Rampdepart", departure_idx)
+	local outward = synthetic_spot_angle(self, "Rampdepart", departure_idx)
+	if reverse then
+		-- Owner's same-position flip, followed by a smooth lane join. Spawn
+		-- and Stop coincide; shifting Spawn to DEPART would teleport 5.78 m.
+		local start = train:GetPos()
+		train:SetAngle(outward)
+		local offset_x, offset_y = lane_offset(self, departure_idx, false)
+		local arrive_x, arrive_y = lane_offset(self, departure_idx, true)
+		local lateral = point(offset_x - arrive_x, offset_y - arrive_y, 0)
+		local along = ramp - start - lateral
+		-- Smoothstep lateral displacement, zero lateral slope at both ends.
+		for i = 1, 8 do
+			local f = MulDivRound(i * i * (24 - 2 * i), 1000, 512)
+			local pos = start + MulDivRound(along, i, 8) + MulDivRound(lateral, f, 1000)
+			local tangent = along + MulDivRound(lateral, 6 * i * (8 - i), 64)
+			if not self:HubMoveTrain(train, pos, speed, CalcOrientation(point(0, 0), tangent)) then return end
+			if not rawget(_G, "SMROptInTrainFloor") then return end
+		end
+	else
+		local turn = self:HubTurnPoint(arrival_idx, departure_idx)
+		if turn then
+			if not self:HubMoveTrain(train, turn, 0) then return end
+			if not rawget(_G, "SMROptInTrainFloor") then return end
+			train:SetAngle(outward, 1000)
+			Sleep(1000)
+			if not rawget(_G, "SMROptInTrainFloor") then return end
+			if not IsValid(train) or not IsValid(self) or self.destroyed then return end
+		end
+		if not self:HubMoveTrain(train, ramp, speed) then return end
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+	end
+	local step = self == departure_track:GetStartStation() and 1 or -1
+	train:GotoSpot(el, step == 1 and "Enter1" or "Enter2", speed, nil, 0)
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	return IsValid(train) and IsValid(self) and not self.destroyed
+end
+
+function SMROptInTrainHubBase:TrainDepart(train, departure_track)
+	local idx = self:GetConnectionSpot(departure_track)
+	if not idx then return end
+	-- GotoStation assigned the outgoing track and set at_station=false before
+	-- calling us. While waiting on the deck, remain parked so we cannot take
+	-- a track from a train already crossing towards that exit (Track.lua:357).
+	train.at_station = true
+	if not self:HubAcquireCrossing(train, departure_track) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	train.at_station = false
+	local arrival_idx = train.station_arrival_track or idx
+	if not self:HubRouteTrain(train, arrival_idx, idx, departure_track, arrival_idx == idx) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	train.station_arrival_track = nil
+	train.at_station = false
+	train.at_spawn_track = false
+	self:RemoveOccupyingTrain(train)
+end
+
+function SMROptInTrainHubBase:TrainPassThrough(train, arrival_track, departure_track)
+	local arrival_idx, idx = self:GetConnectionSpot(arrival_track), self:GetConnectionSpot(departure_track)
+	if not arrival_idx or not idx then return end
+	if not self:HubAcquireCrossing(train, departure_track) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	-- Reserve the outgoing track before the first movement yield. Vanilla
+	-- normally does this only AFTER TrainPassThrough returns, allowing a
+	-- parked train to claim that track while a through train is crossing.
+	train:AssignToTrack(departure_track)
+	train.current_station = self
+	if not self:HubRouteTrain(train, arrival_idx, idx, departure_track, false) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	train.current_station = self
+	table.remove_value(arrival_track.assigned_vehicles, train)
+	self:RemoveOccupyingTrain(train)
 end
 
 -- Vanilla creates only indices 0..4 (TrainTransport.lua). Same body, class bounds.
@@ -806,6 +1069,7 @@ end
 -- ===========================================================================
 
 local function heal_after_load(hub)
+	hub:HubRestoreParkedTrains()
 	hub.UIWorkRadius = hub_work_radius
 	hub.show_service_area = false
 	hub.service_area_min = hub_work_radius
@@ -829,7 +1093,7 @@ end
 DefineClass.SMROptInTrainHub6Base = {
 	__parents = { "SMROptInTrainHubBase" },
 	last_connector_idx = 6,
-	hub_connector_directions = { 0, 3, 1, 4, 2, 5 }, -- three lines, 60° apart
+	hub_connector_directions = { 4, 1, 3, 0, 2, 5 }, -- imported body's connector order
 }
 
 -- The BuildingTemplate companion is Mod-Editor generated. Its Data/ source is

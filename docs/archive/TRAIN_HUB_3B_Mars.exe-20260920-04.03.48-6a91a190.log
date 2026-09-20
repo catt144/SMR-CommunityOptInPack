@@ -1,0 +1,683 @@
+					Render 0:00:00:009
+*** executable info
+Timestamp:     	6a91a190
+Date:          	Fri Aug 28 10:56:16 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	59%
+Disk Free      	801696 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:099
+Steam initialized (AppId 3215050)
+					Render 0:00:00:119
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:526
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:672
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:904
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:864
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:02:865
+Lua revision: 403908
+Assets revision: 33006
+Steam AppID: 3215050
+Build version: 1.1.0.403908
+Build branch:  Release
+						Lua 0:00:16:368
+Account storage loaded successfully in 1 ms
+						Lua 0:00:16:369
+DLC norman loaded, lua revision 403908, assets revision 33006
+DLC thomas loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:16:373
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-009) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+						Lua 0:00:16:774
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+						Lua 0:00:16:775
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:16:780
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12295 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12295 id=1
+						Lua 0:00:16:784
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: build 3b" sitting=train_hub_3b slots="1 traffic,2 inward,3 departure,4 crossing watch,5 outward,6 parts,scratch boot" t=12295 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: build 3b" sitting=train_hub_3b slots="1 traffic,2 inward,3 departure,4 crossing watch,5 outward,6 parts,scratch boot" t=12295 id=2
+						Lua 0:00:16:785
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityFixPack] NightShiftWork: applied
+[mod] [CommunityFixPack] WispRewards: applied
+						Lua 0:00:16:786
+[mod] [CommunityFixPack] TrainsToVoid: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] BrokenTrackSalvage: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] TradeRocketFuelRefresh: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:16:787
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DomeOverviewHighlight: applied
+[mod] [CommunityFixPack] TrainCargoDumping: applied
+[mod] [CommunityFixPack] DestroyedTunnels: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] GeneForging: applied
+						Lua 0:00:16:788
+[mod] [CommunityFixPack] MirrorSphereSite: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:16:789
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] GraphConsumedCaption: applied
+						Lua 0:00:16:790
+[mod] [CommunityFixPack] TrainWaitTime: applied
+[mod] [CommunityFixPack] FounderTraitNotification: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:16:791
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] SinkholeIndestructible: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:16:792
+[mod] [CommunityFixPack] BuildingCodesPrefab: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] OpenPastureStockpiles: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:16:793
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:16:794
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:17:593
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+[mod] [CommunityFixPack] SinkholeIndestructible: the St. Elmo's Fire sinkhole is now indestructible, like every other mystery set-piece
+						Lua 0:00:17:683
+Reloading done in 1310 ms
+						Lua 0:00:17:685
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:729
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12295 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12295 id=3
+						Lua 0:00:18:107
+[preset] Preset postprocess took 153 ms.
+						Lua 0:00:18:157
+482 / 482 particle streams loaded in 43 ms.
+						Lua 0:00:18:158
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:18:159
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:18:160
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: added 4 water entr(y/ies) at -50% to DryFarming (0 adopted, 4 of 4 farms loaded)
+						Lua 0:00:18:375
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:18:376
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:466
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=4
+						Lua 0:00:18:499
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=5
+						Lua 0:00:18:513
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2502):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+[mod] Loaded mod items for: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918
+						Lua 0:00:18:768
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:866
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=6
+						Lua 0:00:19:334
+[PdxSDK] Started up. Took 1103
+						Lua 0:00:19:742
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:19:884
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:21:473
+Load Game: 
+	lua_revision: 403908 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+						Lua 0:00:21:478
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:23:228
+*** Assets reloaded in 1.8 s, read 359.3 MB, read speed 205.3 MB/s, average read 8137 bytes.
+						Lua 0:00:24:105
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14311 id=7
+						Lua 0:00:24:850
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14311 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14311 id=8
+						Lua 0:00:26:949
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:26:954
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:26:955
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:00:26:975
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, paradox, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:27:026
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 5554 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=21 last=section_attach last_id=32 present=true session=1789888806:3520230763:1184987819:1655584288 t=14919135 id=9
+[SMRTK] SMRTK_PROVENANCE actions=21 last=section_attach last_id=32 present=true session=1789888806:3520230763:1184987819:1655584288 t=14919135 id=9
+						Lua 0:00:27:036
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=10
+						Lua 0:00:27:049
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=14919135 id=11
+						Lua 0:00:27:052
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:27:160
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=12
+						Lua 0:00:27:698
+Game loaded on map BlankBig_01 in 6356 ms
+						Lua 0:00:29:699
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_BOOT mark=22 status=OK t=14919135 id=13
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_BOOT mark=22 status=OK t=14919135 id=13
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=14
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=14
+						Lua 0:00:29:709
+[mod] [SMRTK] SMRTK_SHORTCUT console=false key=Ctrl-Shift-F11 t=14919135 id=15
+						Lua 0:00:29:718
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=control t=14919135 id=16
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=control t=14919135 id=16
+						Lua 0:00:29:728
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=17
+						Lua 0:00:29:737
+[mod] [SMRTK] SMRTK_CONSOLE_CONTROL action=console_control discriminates=true negative=false positive=true status=OK t=14919135 id=18
+[SMRTK] SMRTK_CONSOLE_CONTROL action=console_control discriminates=true negative=false positive=true status=OK t=14919135 id=18
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=14919135 id=19
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=14919135 id=19
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=14919135 id=20
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=14919135 id=20
+[mod] [SMRTK] SMRTK_ACTION action=slot_scratch errors=0 hub=SMROptInTrainHub6(6252) park=1700 sitting=train_hub_3b status=OK sweep="run desktop sweep before each boot" t=14919135 id=21
+[SMRTK] SMRTK_ACTION action=slot_scratch errors=0 hub=SMROptInTrainHub6(6252) park=1700 sitting=train_hub_3b status=OK sweep="run desktop sweep before each boot" t=14919135 id=21
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=31 status=OK t=14919135 id=22
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=31 status=OK t=14919135 id=22
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=23
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=23
+[mod] [SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6252) leg=hub3b park=1700 pos=280000,166272,10000 t=14919135 id=24
+[SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6252) leg=hub3b park=1700 pos=280000,166272,10000 t=14919135 id=24
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278821,163654,10800@3600 Rampdepart=278321,163942,10800@14400 Spawn=279400,164655,10800@14400 Stop=279400,164655,10800@3600 Trackconnector=278000,162808,10800@19800 leg=hub3b_line line=1 reserved=Train(2000001576) t=14919135 id=25
+[SMRTK] SMRTK_DUMP Ramparrive=278821,163654,10800@3600 Rampdepart=278321,163942,10800@14400 Spawn=279400,164655,10800@14400 Stop=279400,164655,10800@3600 Trackconnector=278000,162808,10800@19800 leg=hub3b_line line=1 reserved=Train(2000001576) t=14919135 id=25
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281179,168891,10800@14400 Rampdepart=281679,168602,10800@3600 Spawn=280600,167890,10800@3600 Stop=280600,167890,10800@14400 Trackconnector=282000,169736,10800@9000 leg=hub3b_line line=2 reserved=none t=14919135 id=26
+[SMRTK] SMRTK_DUMP Ramparrive=281179,168891,10800@14400 Rampdepart=281679,168602,10800@3600 Spawn=280600,167890,10800@3600 Stop=280600,167890,10800@14400 Trackconnector=282000,169736,10800@9000 leg=hub3b_line line=2 reserved=none t=14919135 id=26
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=277143,165983,10800@0 Rampdepart=277143,166561,10800@10800 Spawn=278300,165983,10800@10800 Stop=278300,165983,10800@0 Trackconnector=276000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=14919135 id=27
+[SMRTK] SMRTK_DUMP Ramparrive=277143,165983,10800@0 Rampdepart=277143,166561,10800@10800 Spawn=278300,165983,10800@10800 Stop=278300,165983,10800@0 Trackconnector=276000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=14919135 id=27
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=282857,166561,10800@10800 Rampdepart=282857,165983,10800@0 Spawn=281700,166561,10800@0 Stop=281700,166561,10800@10800 Trackconnector=284000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=14919135 id=28
+[SMRTK] SMRTK_DUMP Ramparrive=282857,166561,10800@10800 Rampdepart=282857,165983,10800@0 Spawn=281700,166561,10800@0 Stop=281700,166561,10800@10800 Trackconnector=284000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=14919135 id=28
+						Lua 0:00:29:738
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278321,168602,10800@18000 Rampdepart=278821,168891,10800@7200 Spawn=278900,167601,10800@7200 Stop=278900,167601,10800@18000 Trackconnector=278000,169736,10800@12600 leg=hub3b_line line=5 reserved=none t=14919135 id=29
+[SMRTK] SMRTK_DUMP Ramparrive=278321,168602,10800@18000 Rampdepart=278821,168891,10800@7200 Spawn=278900,167601,10800@7200 Stop=278900,167601,10800@18000 Trackconnector=278000,169736,10800@12600 leg=hub3b_line line=5 reserved=none t=14919135 id=29
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281679,163942,10800@7200 Rampdepart=281179,163654,10800@18000 Spawn=281100,164943,10800@18000 Stop=281100,164943,10800@7200 Trackconnector=282000,162808,10800@1800 leg=hub3b_line line=6 reserved=none t=14919135 id=30
+[SMRTK] SMRTK_DUMP Ramparrive=281679,163942,10800@7200 Rampdepart=281179,163654,10800@18000 Spawn=281100,164943,10800@18000 Stop=281100,164943,10800@7200 Trackconnector=282000,162808,10800@1800 leg=hub3b_line line=6 reserved=none t=14919135 id=30
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=282250,169592,10800 station=StationSmall(2008) track=TrackBase(3621) train=Train(2000001571) visual=279743,165249,10800 visual_yaw=3600 yaw=3600 t=14919135 id=31
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=282250,169592,10800 station=StationSmall(2008) track=TrackBase(3621) train=Train(2000001571) visual=279743,165249,10800 visual_yaw=3600 yaw=3600 t=14919135 id=31
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=189250,200190,10800 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001573) visual=189363,200385,10800 visual_yaw=14400 yaw=14400 t=14919135 id=32
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=189250,200190,10800 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001573) visual=189363,200385,10800 visual_yaw=14400 yaw=14400 t=14919135 id=32
+[mod] [SMRTK] SMRTK_DUMP arrival=1 at_station=true command=UnloadTrain leg=hub3b_train pos=198539,215033,10000 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001575) visual=198539,215033,10000 visual_yaw=3600 yaw=3600 t=14919135 id=33
+[SMRTK] SMRTK_DUMP arrival=1 at_station=true command=UnloadTrain leg=hub3b_train pos=198539,215033,10000 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001575) visual=198539,215033,10000 visual_yaw=3600 yaw=3600 t=14919135 id=33
+[mod] [SMRTK] SMRTK_DUMP arrival=2 at_station=true command=LoadTrain leg=hub3b_train pos=278286,166272,10800 station=SMROptInTrainHub6(6252) track=TrackBase(6272) train=Train(2000001576) visual=278286,166272,10800 visual_yaw=14400 yaw=14400 t=14919135 id=34
+[SMRTK] SMRTK_DUMP arrival=2 at_station=true command=LoadTrain leg=hub3b_train pos=278286,166272,10800 station=SMROptInTrainHub6(6252) track=TrackBase(6272) train=Train(2000001576) visual=278286,166272,10800 visual_yaw=14400 yaw=14400 t=14919135 id=34
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=44 status=OK t=14919135 id=35
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=44 status=OK t=14919135 id=35
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=36
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=36
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6252) park=1700 status=OK t=14919135 id=37
+[SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6252) park=1700 status=OK t=14919135 id=37
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_PARTS_BEGIN mark=47 status=OK t=14919135 id=38
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_PARTS_BEGIN mark=47 status=OK t=14919135 id=38
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=39
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=39
+[mod] [SMRTK] SMRTK_DUMP bbox_max=2818,209,436 bbox_min=-1332,-207,4 entity=TrainCCP3 leg=train_part object=Train(2000001576) path=train pos=278286,166272,10800 scale=100 state=moveWalk visual=278286,166272,10800 yaw=14400 t=14919135 id=40
+[SMRTK] SMRTK_DUMP bbox_max=2818,209,436 bbox_min=-1332,-207,4 entity=TrainCCP3 leg=train_part object=Train(2000001576) path=train pos=278286,166272,10800 scale=100 state=moveWalk visual=278286,166272,10800 yaw=14400 t=14919135 id=40
+[mod] [SMRTK] SMRTK_DUMP bbox_max=45,46,123 bbox_min=-46,-46,-40 entity=PointLight leg=train_part object=NightLightSpotLight(5423892486) path=train/1 pos=278286,166272,10800 scale=100 state=idle visual=277961,165715,11195 yaw=14400 t=14919135 id=41
+[SMRTK] SMRTK_DUMP bbox_max=45,46,123 bbox_min=-46,-46,-40 entity=PointLight leg=train_part object=NightLightSpotLight(5423892486) path=train/1 pos=278286,166272,10800 scale=100 state=idle visual=277961,165715,11195 yaw=14400 t=14919135 id=41
+[mod] [SMRTK] SMRTK_DUMP bbox_max=45,46,123 bbox_min=-46,-46,-40 entity=PointLight leg=train_part object=NightLightSpotLight(5598006878) path=train/2 pos=278286,166272,10800 scale=100 state=idle visual=277819,165514,10774 yaw=14400 t=14919135 id=42
+[SMRTK] SMRTK_DUMP bbox_max=45,46,123 bbox_min=-46,-46,-40 entity=PointLight leg=train_part object=NightLightSpotLight(5598006878) path=train/2 pos=278286,166272,10800 scale=100 state=idle visual=277819,165514,10774 yaw=14400 t=14919135 id=42
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(6022028743) path=train/3 pos=279002,166120,11002 scale=100 state=idle visual=278676,166736,11152 yaw=14400 t=14919135 id=43
+[SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(6022028743) path=train/3 pos=279002,166120,11002 scale=100 state=idle visual=278676,166736,11152 yaw=14400 t=14919135 id=43
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(5656071965) path=train/4 pos=278945,166022,11002 scale=100 state=idle visual=278588,166787,11152 yaw=14400 t=14919135 id=44
+[SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(5656071965) path=train/4 pos=278945,166022,11002 scale=100 state=idle visual=278588,166787,11152 yaw=14400 t=14919135 id=44
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(5475063981) path=train/5 pos=278889,165924,11002 scale=100 state=idle visual=278499,166838,11152 yaw=14400 t=14919135 id=45
+[SMRTK] SMRTK_DUMP bbox_max=49,50,100 bbox_min=-49,-50,0 entity=ResourceCheese leg=train_part object=ResourceStockpileBox(5475063981) path=train/5 pos=278889,165924,11002 scale=100 state=idle visual=278499,166838,11152 yaw=14400 t=14919135 id=45
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6006242911) path=train/6 pos=278901,166178,11002 scale=100 state=idle visual=278728,166826,11152 yaw=14400 t=14919135 id=46
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6006242911) path=train/6 pos=278901,166178,11002 scale=100 state=idle visual=278728,166826,11152 yaw=14400 t=14919135 id=46
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5818777371) path=train/7 pos=278845,166080,11002 scale=100 state=idle visual=278640,166877,11152 yaw=14400 t=14919135 id=47
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5818777371) path=train/7 pos=278845,166080,11002 scale=100 state=idle visual=278640,166877,11152 yaw=14400 t=14919135 id=47
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5503238834) path=train/8 pos=278788,165982,11002 scale=100 state=idle visual=278552,166928,11152 yaw=14400 t=14919135 id=48
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5503238834) path=train/8 pos=278788,165982,11002 scale=100 state=idle visual=278552,166928,11152 yaw=14400 t=14919135 id=48
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5328000498) path=train/9 pos=278801,166236,11002 scale=100 state=idle visual=278780,166917,11152 yaw=14400 t=14919135 id=49
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5328000498) path=train/9 pos=278801,166236,11002 scale=100 state=idle visual=278780,166917,11152 yaw=14400 t=14919135 id=49
+						Lua 0:00:29:739
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5348812938) path=train/10 pos=278744,166138,11002 scale=100 state=idle visual=278692,166968,11152 yaw=14400 t=14919135 id=50
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5348812938) path=train/10 pos=278744,166138,11002 scale=100 state=idle visual=278692,166968,11152 yaw=14400 t=14919135 id=50
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6143370010) path=train/11 pos=278688,166040,11002 scale=100 state=idle visual=278604,167019,11152 yaw=14400 t=14919135 id=51
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6143370010) path=train/11 pos=278688,166040,11002 scale=100 state=idle visual=278604,167019,11152 yaw=14400 t=14919135 id=51
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5525256013) path=train/12 pos=278700,166294,11002 scale=100 state=idle visual=278832,167007,11152 yaw=14400 t=14919135 id=52
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5525256013) path=train/12 pos=278700,166294,11002 scale=100 state=idle visual=278832,167007,11152 yaw=14400 t=14919135 id=52
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5860429359) path=train/13 pos=278644,166196,11002 scale=100 state=idle visual=278744,167058,11152 yaw=14400 t=14919135 id=53
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5860429359) path=train/13 pos=278644,166196,11002 scale=100 state=idle visual=278744,167058,11152 yaw=14400 t=14919135 id=53
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5687264392) path=train/14 pos=278587,166098,11002 scale=100 state=idle visual=278656,167109,11152 yaw=14400 t=14919135 id=54
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5687264392) path=train/14 pos=278587,166098,11002 scale=100 state=idle visual=278656,167109,11152 yaw=14400 t=14919135 id=54
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6004959204) path=train/15 pos=278600,166352,11002 scale=100 state=idle visual=278884,167098,11152 yaw=14400 t=14919135 id=55
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6004959204) path=train/15 pos=278600,166352,11002 scale=100 state=idle visual=278884,167098,11152 yaw=14400 t=14919135 id=55
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6130989452) path=train/16 pos=278543,166254,11002 scale=100 state=idle visual=278796,167149,11152 yaw=14400 t=14919135 id=56
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6130989452) path=train/16 pos=278543,166254,11002 scale=100 state=idle visual=278796,167149,11152 yaw=14400 t=14919135 id=56
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6107524330) path=train/17 pos=278487,166156,11002 scale=100 state=idle visual=278708,167199,11152 yaw=14400 t=14919135 id=57
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(6107524330) path=train/17 pos=278487,166156,11002 scale=100 state=idle visual=278708,167199,11152 yaw=14400 t=14919135 id=57
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5810363853) path=train/18 pos=278499,166410,11002 scale=100 state=idle visual=278936,167188,11152 yaw=14400 t=14919135 id=58
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5810363853) path=train/18 pos=278499,166410,11002 scale=100 state=idle visual=278936,167188,11152 yaw=14400 t=14919135 id=58
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5521088843) path=train/19 pos=278443,166312,11002 scale=100 state=idle visual=278848,167239,11152 yaw=14400 t=14919135 id=59
+[SMRTK] SMRTK_DUMP bbox_max=47,48,114 bbox_min=-51,-49,0 entity=ResourceFuel leg=train_part object=ResourceStockpileBox(5521088843) path=train/19 pos=278443,166312,11002 scale=100 state=idle visual=278848,167239,11152 yaw=14400 t=14919135 id=59
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5654493518) path=train/20 pos=278386,166214,11002 scale=100 state=idle visual=278760,167290,11152 yaw=14400 t=14919135 id=60
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5654493518) path=train/20 pos=278386,166214,11002 scale=100 state=idle visual=278760,167290,11152 yaw=14400 t=14919135 id=60
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5444518419) path=train/21 pos=278399,166468,11002 scale=100 state=idle visual=278989,167279,11152 yaw=14400 t=14919135 id=61
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5444518419) path=train/21 pos=278399,166468,11002 scale=100 state=idle visual=278989,167279,11152 yaw=14400 t=14919135 id=61
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5417979958) path=train/22 pos=278342,166370,11002 scale=100 state=idle visual=278901,167329,11152 yaw=14400 t=14919135 id=62
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5417979958) path=train/22 pos=278342,166370,11002 scale=100 state=idle visual=278901,167329,11152 yaw=14400 t=14919135 id=62
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5725791430) path=train/23 pos=278286,166272,11002 scale=100 state=idle visual=278812,167380,11152 yaw=14400 t=14919135 id=63
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5725791430) path=train/23 pos=278286,166272,11002 scale=100 state=idle visual=278812,167380,11152 yaw=14400 t=14919135 id=63
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5553452234) path=train/24 pos=279002,166120,10901 scale=100 state=idle visual=278676,166736,11061 yaw=14400 t=14919135 id=64
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5553452234) path=train/24 pos=279002,166120,10901 scale=100 state=idle visual=278676,166736,11061 yaw=14400 t=14919135 id=64
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(6090375769) path=train/25 pos=278945,166022,10901 scale=100 state=idle visual=278588,166787,11061 yaw=14400 t=14919135 id=65
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(6090375769) path=train/25 pos=278945,166022,10901 scale=100 state=idle visual=278588,166787,11061 yaw=14400 t=14919135 id=65
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5665613763) path=train/26 pos=278889,165924,10901 scale=100 state=idle visual=278500,166838,11061 yaw=14400 t=14919135 id=66
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5665613763) path=train/26 pos=278889,165924,10901 scale=100 state=idle visual=278500,166838,11061 yaw=14400 t=14919135 id=66
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5708642586) path=train/27 pos=278901,166178,10901 scale=100 state=idle visual=278728,166826,11061 yaw=14400 t=14919135 id=67
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5708642586) path=train/27 pos=278901,166178,10901 scale=100 state=idle visual=278728,166826,11061 yaw=14400 t=14919135 id=67
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5801920214) path=train/28 pos=278845,166080,10901 scale=100 state=idle visual=278640,166877,11061 yaw=14400 t=14919135 id=68
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5801920214) path=train/28 pos=278845,166080,10901 scale=100 state=idle visual=278640,166877,11061 yaw=14400 t=14919135 id=68
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5749095783) path=train/29 pos=278788,165982,10901 scale=100 state=idle visual=278552,166928,11061 yaw=14400 t=14919135 id=69
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5749095783) path=train/29 pos=278788,165982,10901 scale=100 state=idle visual=278552,166928,11061 yaw=14400 t=14919135 id=69
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5596742023) path=train/30 pos=278801,166236,10901 scale=100 state=idle visual=278780,166917,11061 yaw=14400 t=14919135 id=70
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5596742023) path=train/30 pos=278801,166236,10901 scale=100 state=idle visual=278780,166917,11061 yaw=14400 t=14919135 id=70
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5821163920) path=train/31 pos=278744,166138,10901 scale=100 state=idle visual=278692,166968,11061 yaw=14400 t=14919135 id=71
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5821163920) path=train/31 pos=278744,166138,10901 scale=100 state=idle visual=278692,166968,11061 yaw=14400 t=14919135 id=71
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(6009216656) path=train/32 pos=278688,166040,10901 scale=100 state=idle visual=278604,167018,11061 yaw=14400 t=14919135 id=72
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(6009216656) path=train/32 pos=278688,166040,10901 scale=100 state=idle visual=278604,167018,11061 yaw=14400 t=14919135 id=72
+						Lua 0:00:29:740
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5919339204) path=train/33 pos=278700,166294,10901 scale=100 state=idle visual=278832,167007,11061 yaw=14400 t=14919135 id=73
+[SMRTK] SMRTK_DUMP bbox_max=49,51,100 bbox_min=-49,-49,0 entity=ResourceCoffe leg=train_part object=ResourceStockpileBox(5919339204) path=train/33 pos=278700,166294,10901 scale=100 state=idle visual=278832,167007,11061 yaw=14400 t=14919135 id=73
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5772027199) path=train/34 pos=278644,166196,10901 scale=100 state=idle visual=278744,167058,11061 yaw=14400 t=14919135 id=74
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5772027199) path=train/34 pos=278644,166196,10901 scale=100 state=idle visual=278744,167058,11061 yaw=14400 t=14919135 id=74
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5300549017) path=train/35 pos=278587,166098,10901 scale=100 state=idle visual=278656,167109,11061 yaw=14400 t=14919135 id=75
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5300549017) path=train/35 pos=278587,166098,10901 scale=100 state=idle visual=278656,167109,11061 yaw=14400 t=14919135 id=75
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5673620031) path=train/36 pos=278600,166352,10901 scale=100 state=idle visual=278884,167098,11061 yaw=14400 t=14919135 id=76
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5673620031) path=train/36 pos=278600,166352,10901 scale=100 state=idle visual=278884,167098,11061 yaw=14400 t=14919135 id=76
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5894904835) path=train/37 pos=278543,166254,10901 scale=100 state=idle visual=278796,167149,11061 yaw=14400 t=14919135 id=77
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5894904835) path=train/37 pos=278543,166254,10901 scale=100 state=idle visual=278796,167149,11061 yaw=14400 t=14919135 id=77
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5819671843) path=train/38 pos=278487,166156,10901 scale=100 state=idle visual=278708,167199,11061 yaw=14400 t=14919135 id=78
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5819671843) path=train/38 pos=278487,166156,10901 scale=100 state=idle visual=278708,167199,11061 yaw=14400 t=14919135 id=78
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5885205594) path=train/39 pos=278499,166410,10901 scale=100 state=idle visual=278937,167188,11061 yaw=14400 t=14919135 id=79
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5885205594) path=train/39 pos=278499,166410,10901 scale=100 state=idle visual=278937,167188,11061 yaw=14400 t=14919135 id=79
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5505838280) path=train/40 pos=278443,166312,10901 scale=100 state=idle visual=278848,167239,11061 yaw=14400 t=14919135 id=80
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5505838280) path=train/40 pos=278443,166312,10901 scale=100 state=idle visual=278848,167239,11061 yaw=14400 t=14919135 id=80
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6025709891) path=train/41 pos=278386,166214,10901 scale=100 state=idle visual=278760,167290,11061 yaw=14400 t=14919135 id=81
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6025709891) path=train/41 pos=278386,166214,10901 scale=100 state=idle visual=278760,167290,11061 yaw=14400 t=14919135 id=81
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5586126274) path=train/42 pos=278399,166468,10901 scale=100 state=idle visual=278989,167279,11061 yaw=14400 t=14919135 id=82
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5586126274) path=train/42 pos=278399,166468,10901 scale=100 state=idle visual=278989,167279,11061 yaw=14400 t=14919135 id=82
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5806704068) path=train/43 pos=278342,166370,10901 scale=100 state=idle visual=278901,167329,11061 yaw=14400 t=14919135 id=83
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5806704068) path=train/43 pos=278342,166370,10901 scale=100 state=idle visual=278901,167329,11061 yaw=14400 t=14919135 id=83
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6055680494) path=train/44 pos=278286,166272,10901 scale=100 state=idle visual=278813,167380,11061 yaw=14400 t=14919135 id=84
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6055680494) path=train/44 pos=278286,166272,10901 scale=100 state=idle visual=278813,167380,11061 yaw=14400 t=14919135 id=84
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5584535705) path=train/45 pos=279002,166120,10800 scale=100 state=idle visual=278676,166736,10970 yaw=14400 t=14919135 id=85
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5584535705) path=train/45 pos=279002,166120,10800 scale=100 state=idle visual=278676,166736,10970 yaw=14400 t=14919135 id=85
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5839237337) path=train/46 pos=278945,166022,10800 scale=100 state=idle visual=278588,166787,10970 yaw=14400 t=14919135 id=86
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5839237337) path=train/46 pos=278945,166022,10800 scale=100 state=idle visual=278588,166787,10970 yaw=14400 t=14919135 id=86
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5895137628) path=train/47 pos=278889,165924,10800 scale=100 state=idle visual=278500,166838,10970 yaw=14400 t=14919135 id=87
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5895137628) path=train/47 pos=278889,165924,10800 scale=100 state=idle visual=278500,166838,10970 yaw=14400 t=14919135 id=87
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5501833635) path=train/48 pos=278901,166178,10800 scale=100 state=idle visual=278728,166826,10970 yaw=14400 t=14919135 id=88
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(5501833635) path=train/48 pos=278901,166178,10800 scale=100 state=idle visual=278728,166826,10970 yaw=14400 t=14919135 id=88
+[mod] [SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6091213841) path=train/49 pos=278845,166080,10800 scale=100 state=idle visual=278640,166877,10970 yaw=14400 t=14919135 id=89
+[SMRTK] SMRTK_DUMP bbox_max=49,49,102 bbox_min=-49,-49,1 entity=ResourceMeat leg=train_part object=ResourceStockpileBox(6091213841) path=train/49 pos=278845,166080,10800 scale=100 state=idle visual=278640,166877,10970 yaw=14400 t=14919135 id=89
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(6052591975) path=train/50 pos=278788,165982,10800 scale=100 state=idle visual=278552,166928,10970 yaw=14400 t=14919135 id=90
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(6052591975) path=train/50 pos=278788,165982,10800 scale=100 state=idle visual=278552,166928,10970 yaw=14400 t=14919135 id=90
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5803675911) path=train/51 pos=278801,166236,10800 scale=100 state=idle visual=278780,166917,10970 yaw=14400 t=14919135 id=91
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5803675911) path=train/51 pos=278801,166236,10800 scale=100 state=idle visual=278780,166917,10970 yaw=14400 t=14919135 id=91
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5816447252) path=train/52 pos=278744,166138,10800 scale=100 state=idle visual=278692,166968,10970 yaw=14400 t=14919135 id=92
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5816447252) path=train/52 pos=278744,166138,10800 scale=100 state=idle visual=278692,166968,10970 yaw=14400 t=14919135 id=92
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5451449773) path=train/53 pos=278688,166040,10800 scale=100 state=idle visual=278604,167018,10970 yaw=14400 t=14919135 id=93
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5451449773) path=train/53 pos=278688,166040,10800 scale=100 state=idle visual=278604,167018,10970 yaw=14400 t=14919135 id=93
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5498908901) path=train/54 pos=278700,166294,10800 scale=100 state=idle visual=278832,167007,10970 yaw=14400 t=14919135 id=94
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5498908901) path=train/54 pos=278700,166294,10800 scale=100 state=idle visual=278832,167007,10970 yaw=14400 t=14919135 id=94
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5411991699) path=train/55 pos=278644,166196,10800 scale=100 state=idle visual=278744,167058,10970 yaw=14400 t=14919135 id=95
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5411991699) path=train/55 pos=278644,166196,10800 scale=100 state=idle visual=278744,167058,10970 yaw=14400 t=14919135 id=95
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(6005956684) path=train/56 pos=278587,166098,10800 scale=100 state=idle visual=278656,167109,10970 yaw=14400 t=14919135 id=96						Lua 0:00:29:741
+
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(6005956684) path=train/56 pos=278587,166098,10800 scale=100 state=idle visual=278656,167109,10970 yaw=14400 t=14919135 id=96
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5580580669) path=train/57 pos=278600,166352,10800 scale=100 state=idle visual=278884,167098,10970 yaw=14400 t=14919135 id=97
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5580580669) path=train/57 pos=278600,166352,10800 scale=100 state=idle visual=278884,167098,10970 yaw=14400 t=14919135 id=97
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5973962601) path=train/58 pos=278543,166254,10800 scale=100 state=idle visual=278796,167148,10970 yaw=14400 t=14919135 id=98
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5973962601) path=train/58 pos=278543,166254,10800 scale=100 state=idle visual=278796,167148,10970 yaw=14400 t=14919135 id=98
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5319362219) path=train/59 pos=278487,166156,10800 scale=100 state=idle visual=278708,167199,10970 yaw=14400 t=14919135 id=99
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5319362219) path=train/59 pos=278487,166156,10800 scale=100 state=idle visual=278708,167199,10970 yaw=14400 t=14919135 id=99
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5879124315) path=train/60 pos=278499,166410,10800 scale=100 state=idle visual=278937,167188,10970 yaw=14400 t=14919135 id=100
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5879124315) path=train/60 pos=278499,166410,10800 scale=100 state=idle visual=278937,167188,10970 yaw=14400 t=14919135 id=100
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5357132298) path=train/61 pos=278443,166312,10800 scale=100 state=idle visual=278849,167239,10970 yaw=14400 t=14919135 id=101
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5357132298) path=train/61 pos=278443,166312,10800 scale=100 state=idle visual=278849,167239,10970 yaw=14400 t=14919135 id=101
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5935138420) path=train/62 pos=278386,166214,10800 scale=100 state=idle visual=278760,167290,10970 yaw=14400 t=14919135 id=102
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5935138420) path=train/62 pos=278386,166214,10800 scale=100 state=idle visual=278760,167290,10970 yaw=14400 t=14919135 id=102
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5540151126) path=train/63 pos=278399,166468,10800 scale=100 state=idle visual=278989,167279,10970 yaw=14400 t=14919135 id=103
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5540151126) path=train/63 pos=278399,166468,10800 scale=100 state=idle visual=278989,167279,10970 yaw=14400 t=14919135 id=103
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5525798385) path=train/64 pos=278342,166370,10800 scale=100 state=idle visual=278901,167329,10970 yaw=14400 t=14919135 id=104
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5525798385) path=train/64 pos=278342,166370,10800 scale=100 state=idle visual=278901,167329,10970 yaw=14400 t=14919135 id=104
+[mod] [SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5581922021) path=train/65 pos=278286,166272,10800 scale=100 state=idle visual=278813,167380,10970 yaw=14400 t=14919135 id=105
+[SMRTK] SMRTK_DUMP bbox_max=47,51,100 bbox_min=-53,-50,3 entity=ResourceMachineParts leg=train_part object=ResourceStockpileBox(5581922021) path=train/65 pos=278286,166272,10800 scale=100 state=idle visual=278813,167380,10970 yaw=14400 t=14919135 id=105
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_PARTS_END mark=115 status=OK t=14919135 id=106
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_PARTS_END mark=115 status=OK t=14919135 id=106
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=107
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=107
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 length_verdict="DISPUTED: compare visible train to hex grid" status=OK train=Train(2000001576) t=14919135 id=108
+[SMRTK] SMRTK_ACTION action=slot_6 length_verdict="DISPUTED: compare visible train to hex grid" status=OK train=Train(2000001576) t=14919135 id=108
+						Lua 0:00:31:875
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0020 fallback=false label="Hub3b old saved positions before tuning" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0020.png status=OK t=14919135 id=109
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0020 fallback=false label="Hub3b old saved positions before tuning" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0020.png status=OK t=14919135 id=109
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=110
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=110
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_BEGIN mark=121 status=OK t=14919135 id=111
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_BEGIN mark=121 status=OK t=14919135 id=111
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=112
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=112
+[mod] [SMRTK] SMRTK_DUMP leg=park_setup moved=1 mutation="reposition paused parked trains" new=1800 old=1700 t=14919135 id=113
+[SMRTK] SMRTK_DUMP leg=park_setup moved=1 mutation="reposition paused parked trains" new=1800 old=1700 t=14919135 id=113
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_END mark=124 status=OK t=14919135 id=114
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_END mark=124 status=OK t=14919135 id=114
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=115
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=115
+						Lua 0:00:31:876
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 leg=park_setup moved=1 mutation="reposition paused parked trains" new=1800 old=1700 status=OK t=14919135 id=116
+[SMRTK] SMRTK_ACTION action=slot_5 leg=park_setup moved=1 mutation="reposition paused parked trains" new=1800 old=1700 status=OK t=14919135 id=116
+[mod] [HUB3BSMOKE] TUNE outward true nil
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_BEGIN mark=127 status=OK t=14919135 id=117
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_BEGIN mark=127 status=OK t=14919135 id=117
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=118
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=118
+[mod] [SMRTK] SMRTK_DUMP leg=park_setup moved=1 mutation="reposition paused parked trains" new=1700 old=1800 t=14919135 id=119
+[SMRTK] SMRTK_DUMP leg=park_setup moved=1 mutation="reposition paused parked trains" new=1700 old=1800 t=14919135 id=119
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_END mark=130 status=OK t=14919135 id=120
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_TUNE_END mark=130 status=OK t=14919135 id=120
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=121
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=121
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 leg=park_setup moved=1 mutation="reposition paused parked trains" new=1700 old=1800 status=OK t=14919135 id=122
+[SMRTK] SMRTK_ACTION action=slot_2 leg=park_setup moved=1 mutation="reposition paused parked trains" new=1700 old=1800 status=OK t=14919135 id=122
+						Lua 0:00:34:070
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0021 fallback=false label="Hub3b 17 m own-line parking with hex grid" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0021.png status=OK t=14919135 id=123
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0021 fallback=false label="Hub3b 17 m own-line parking with hex grid" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0021.png status=OK t=14919135 id=123
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=124
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=124
+						Lua 0:00:35:069
+[mod] [HUB3BSMOKE] POSE natural 4 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=false at=false arrival=false cmd=GotoStation pos=(281991, 169144, 10800) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(189185, 196551, 10800) yaw=18000 visual_yaw=18000
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=UnloadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=true arrival=2 cmd=LoadTrain pos=(280600, 167890, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:36:068
+[mod] [HUB3BSMOKE] POSE natural 8 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(284243, 173044, 10800) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(192968, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=UnloadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=true arrival=2 cmd=LoadTrain pos=(280600, 167890, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:37:068
+[mod] [HUB3BSMOKE] POSE natural 12 lock=2000001576
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(286495, 176945, 10800) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(197473, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=2 cmd=GotoStation pos=(279267, 165580, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:38:069
+[mod] [HUB3BSMOKE] POSE natural 16 lock=2000001576
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(288748, 180846, 10800) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(201977, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=2 cmd=GotoStation pos=(278353, 163997, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:39:068
+[mod] [HUB3BSMOKE] POSE natural 20 lock=2000001576
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(289682, 184720, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(206482, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=2 cmd=GotoStation pos=(278097, 163554, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:40:068
+[mod] [HUB3BSMOKE] POSE natural 24 lock=2000001576
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(287430, 188621, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(210987, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=2 cmd=GotoStation pos=(277847, 163120, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:41:069
+[mod] [HUB3BSMOKE] POSE natural 28 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(285180, 192517, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(215486, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(276374, 160570, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:42:068
+[mod] [HUB3BSMOKE] POSE natural 32 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(282926, 196422, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(219996, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=true arrival=1 cmd=LoadTrain pos=(198539, 215033, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(274119, 156664, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:43:069
+[mod] [HUB3BSMOKE] POSE natural 36 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(279712, 198603, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(224500, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=1 cmd=GotoStation pos=(198598, 215138, 10000) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(271867, 152763, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:44:069
+[mod] [HUB3BSMOKE] POSE natural 40 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(276957, 201564, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(229005, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=1 cmd=GotoStation pos=(199096, 216023, 10176) yaw=3625 visual_yaw=3624
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(269615, 148863, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:45:068
+[mod] [HUB3BSMOKE] POSE natural 44 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(273775, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(233509, 195427, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=1 cmd=GotoStation pos=(199707, 217116, 10507) yaw=3643 visual_yaw=3644						Lua 0:00:45:069
+
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(267363, 144961, 10800) yaw=14400 visual_yaw=14400
+						Lua 0:00:46:069
+[mod] [HUB3BSMOKE] POSE natural 48 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(269270, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(237571, 196141, 10800) yaw=2918 visual_yaw=2675
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(200585, 219514, 10800) yaw=5545 visual_yaw=5535
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(267187, 141123, 10800) yaw=18000 visual_yaw=18000
+						Lua 0:00:47:068
+[mod] [HUB3BSMOKE] POSE natural 52 lock=false
+						Lua 0:00:47:069
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(264770, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(239804, 199996, 10800) yaw=3600 visual_yaw=3600
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(198399, 223316, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(269437, 137226, 10800) yaw=18000 visual_yaw=18000
+						Lua 0:00:48:068
+[mod] [HUB3BSMOKE] POSE natural 56 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(260261, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(242447, 203221, 10800) yaw=681 visual_yaw=982
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(196144, 227220, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(271691, 133321, 10800) yaw=18000 visual_yaw=18000
+						Lua 0:00:49:068
+[mod] [HUB3BSMOKE] POSE natural 60 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(255757, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(246923, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(193892, 231121, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(273796, 129627, 10350) yaw=17828 visual_yaw=17821
+						Lua 0:00:50:068
+[mod] [HUB3BSMOKE] POSE natural 64 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(251252, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(251428, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(191640, 235022, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(275055, 127466, 10079) yaw=17988 visual_yaw=17985
+						Lua 0:00:51:069
+[mod] [HUB3BSMOKE] POSE natural 68 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(246748, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(255932, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(189387, 238923, 10800) yaw=7200 visual_yaw=7200
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=true at=false arrival=false cmd=GotoStation pos=(275489, 126723, 10000) yaw=18000 visual_yaw=18000
+						Lua 0:00:52:069
+[mod] [HUB3BSMOKE] POSE natural 72 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(242243, 203799, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(260437, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(186135, 241037, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=false at=true arrival=2 cmd=UnloadTrain pos=(275489, 126723, 10000) yaw=18000 visual_yaw=18000
+						Lua 0:00:53:068
+[mod] [HUB3BSMOKE] POSE natural 76 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(239552, 200713, 10800) yaw=14400 visual_yaw=14400
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(264941, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(181635, 241075, 10800) yaw=10800 visual_yaw=10800
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=false at=true arrival=2 cmd=UnloadTrain pos=(275489, 126723, 10000) yaw=18000 visual_yaw=18000
+						Lua 0:00:54:068
+[mod] [HUB3BSMOKE] POSE natural 80 lock=false
+[mod] [HUB3BSMOKE] TRAIN h=2000001571 hub=true at=false arrival=false cmd=GotoStation pos=(237302, 196816, 10800) yaw=14400 visual_yaw=14400
+[mod] [HUB3BSMOKE] TRAIN h=2000001573 hub=false at=false arrival=false cmd=GotoStation pos=(269441, 203221, 10800) yaw=0 visual_yaw=0
+[mod] [HUB3BSMOKE] TRAIN h=2000001575 hub=false at=false arrival=false cmd=GotoStation pos=(178685, 243633, 10800) yaw=10605 visual_yaw=10283
+[mod] [HUB3BSMOKE] TRAIN h=2000001576 hub=false at=true arrival=2 cmd=UnloadTrain pos=(275489, 126723, 10000) yaw=18000 visual_yaw=18000
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=135 status=OK t=14939133 id=125
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_BEGIN mark=135 status=OK t=14939133 id=125
+						Lua 0:00:54:069
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=126
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=126
+[mod] [SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6252) leg=hub3b park=1700 pos=280000,166272,10000 t=14939133 id=127
+[SMRTK] SMRTK_DUMP angle=0 crossing=none errors=0 hub=SMROptInTrainHub6(6252) leg=hub3b park=1700 pos=280000,166272,10000 t=14939133 id=127
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278821,163654,10800@3600 Rampdepart=278321,163942,10800@14400 Spawn=279400,164655,10800@14400 Stop=279400,164655,10800@3600 Trackconnector=278000,162808,10800@19800 leg=hub3b_line line=1 reserved=none t=14939133 id=128
+[SMRTK] SMRTK_DUMP Ramparrive=278821,163654,10800@3600 Rampdepart=278321,163942,10800@14400 Spawn=279400,164655,10800@14400 Stop=279400,164655,10800@3600 Trackconnector=278000,162808,10800@19800 leg=hub3b_line line=1 reserved=none t=14939133 id=128
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281179,168891,10800@14400 Rampdepart=281679,168602,10800@3600 Spawn=280600,167890,10800@3600 Stop=280600,167890,10800@14400 Trackconnector=282000,169736,10800@9000 leg=hub3b_line line=2 reserved=none t=14939133 id=129
+[SMRTK] SMRTK_DUMP Ramparrive=281179,168891,10800@14400 Rampdepart=281679,168602,10800@3600 Spawn=280600,167890,10800@3600 Stop=280600,167890,10800@14400 Trackconnector=282000,169736,10800@9000 leg=hub3b_line line=2 reserved=none t=14939133 id=129
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=277143,165983,10800@0 Rampdepart=277143,166561,10800@10800 Spawn=278300,165983,10800@10800 Stop=278300,165983,10800@0 Trackconnector=276000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=14939133 id=130
+[SMRTK] SMRTK_DUMP Ramparrive=277143,165983,10800@0 Rampdepart=277143,166561,10800@10800 Spawn=278300,165983,10800@10800 Stop=278300,165983,10800@0 Trackconnector=276000,166272,10800@16200 leg=hub3b_line line=3 reserved=none t=14939133 id=130
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=282857,166561,10800@10800 Rampdepart=282857,165983,10800@0 Spawn=281700,166561,10800@0 Stop=281700,166561,10800@10800 Trackconnector=284000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=14939133 id=131
+[SMRTK] SMRTK_DUMP Ramparrive=282857,166561,10800@10800 Rampdepart=282857,165983,10800@0 Spawn=281700,166561,10800@0 Stop=281700,166561,10800@10800 Trackconnector=284000,166272,10800@5400 leg=hub3b_line line=4 reserved=none t=14939133 id=131
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=278321,168602,10800@18000 Rampdepart=278821,168891,10800@7200 Spawn=278900,167601,10800@7200 Stop=278900,167601,10800@18000 Trackconnector=278000,169736,10800@12600 leg=hub3b_line line=5 reserved=none t=14939133 id=132
+[SMRTK] SMRTK_DUMP Ramparrive=278321,168602,10800@18000 Rampdepart=278821,168891,10800@7200 Spawn=278900,167601,10800@7200 Stop=278900,167601,10800@18000 Trackconnector=278000,169736,10800@12600 leg=hub3b_line line=5 reserved=none t=14939133 id=132
+[mod] [SMRTK] SMRTK_DUMP Ramparrive=281679,163942,10800@7200 Rampdepart=281179,163654,10800@18000 Spawn=281100,164943,10800@18000 Stop=281100,164943,10800@7200 Trackconnector=282000,162808,10800@1800 leg=hub3b_line line=6 reserved=none t=14939133 id=133
+[SMRTK] SMRTK_DUMP Ramparrive=281679,163942,10800@7200 Rampdepart=281179,163654,10800@18000 Spawn=281100,164943,10800@18000 Stop=281100,164943,10800@7200 Trackconnector=282000,162808,10800@1800 leg=hub3b_line line=6 reserved=none t=14939133 id=133
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=237250,196726,10800 station=SMROptInTrainHub6(6252) track=TrackBase(6272) train=Train(2000001571) visual=237302,196816,10800 visual_yaw=14400 yaw=14400 t=14939133 id=134
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=237250,196726,10800 station=SMROptInTrainHub6(6252) track=TrackBase(6272) train=Train(2000001571) visual=237302,196816,10800 visual_yaw=14400 yaw=14400 t=14939133 id=134
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=269500,203221,10800 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001573) visual=269441,203221,10800 visual_yaw=0 yaw=0 t=14939133 id=135
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=269500,203221,10800 station=StationSmall(2012) track=TrackBase(6272) train=Train(2000001573) visual=269441,203221,10800 visual_yaw=0 yaw=0 t=14939133 id=135
+[mod] [SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=178463,243635,10800 station=StationSmall(2012) track=TrackBase(5509) train=Train(2000001575) visual=178685,243633,10800 visual_yaw=10283 yaw=10605 t=14939133 id=136
+[SMRTK] SMRTK_DUMP arrival=false at_station=false command=GotoStation leg=hub3b_train pos=178463,243635,10800 station=StationSmall(2012) track=TrackBase(5509) train=Train(2000001575) visual=178685,243633,10800 visual_yaw=10283 yaw=10605 t=14939133 id=136
+						Lua 0:00:54:070
+[mod] [SMRTK] SMRTK_DUMP arrival=2 at_station=true command=UnloadTrain leg=hub3b_train pos=275489,126723,10000 station=StationSmall(2008) track=TrackBase(3621) train=Train(2000001576) visual=275489,126723,10000 visual_yaw=18000 yaw=18000 t=14939133 id=137
+[SMRTK] SMRTK_DUMP arrival=2 at_station=true command=UnloadTrain leg=hub3b_train pos=275489,126723,10000 station=StationSmall(2008) track=TrackBase(3621) train=Train(2000001576) visual=275489,126723,10000 visual_yaw=18000 yaw=18000 t=14939133 id=137
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=148 status=OK t=14939133 id=138
+[SMRTK] SMRTK_MARK action=mark label=HUB3B_READ_END mark=148 status=OK t=14939133 id=138
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=139
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=139
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6252) park=1700 status=OK t=14939133 id=140
+[SMRTK] SMRTK_ACTION action=slot_1 errors=0 hub=SMROptInTrainHub6(6252) park=1700 status=OK t=14939133 id=140
+						Lua 0:00:56:249
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0022 fallback=false label="Hub3b after natural traffic" mark=151 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0022.png status=OK t=14939133 id=141
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0022 fallback=false label="Hub3b after natural traffic" mark=151 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0022.png status=OK t=14939133 id=141
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=142
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14939133 id=142
+[mod] [HUB3BSMOKE] NO_PARKED_TRAIN for forced turn
+[mod] [HUB3BSMOKE] RESULT ok=true result=nil
+						Lua 0:00:57:249
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:00:57:250
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:00:57:568
+
+
+*** Debug::Done()
+Time (ms)	57568
+
+

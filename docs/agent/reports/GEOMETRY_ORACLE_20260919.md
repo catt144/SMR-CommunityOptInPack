@@ -539,3 +539,51 @@ downstream of the disputed figure. Build 3b carries the tunable and owes the cle
 a hex-grid read of a stopped train, and the engine's own bbox plus each auto-attached part read
 separately rather than the assembly's.
 
+### Build 3b clean read, 2026-09-20: still DISPUTED
+
+RAN in retail 1.1.0.403908 on the newest owner manual save, `SpaceY Sol 21.savegame.sav`,
+with both packs and the dev hub. Slot 6 recursively read `GetAttaches()` from a stopped
+`TrainCCP3`, logging each object's entity, state, scale and native bbox separately. Evidence:
+[04.22.55 log](../../archive/TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log), first
+`HUB3B_PARTS_BEGIN`/`END` block, train `2000001576`, game time `14919135`.
+
+| entity | objects | bbox min → max (native units), all scale 100 |
+|---|---:|---|
+| TrainCCP3, parent | 1 | -1332,-207,4 → 2818,209,436 |
+| PointLight | 2 | -46,-46,-40 → 45,46,123 |
+| ResourceCheese | 3 | -49,-50,0 → 49,50,100 |
+| ResourceCoffe | 14 | -49,-49,0 → 49,51,100 |
+| ResourceFuel | 14 | -51,-49,0 → 47,48,114 |
+| ResourceMachineParts | 16 | -53,-50,3 → 47,51,100 |
+| ResourceMeat | 16 | -49,-49,1 → 49,49,102 |
+
+66 objects = one parent + 65 attachments (2 lights + 63 resource boxes). No separate train-body
+attachment appeared in this enumeration. That is an observation about `GetAttaches()`, not proof
+that the native renderer has no internal parts. The parent still spans 4150 units along X.
+
+Count/reconciliation command, RAN at Opt-In HEAD `3071a9a` with the native manifest's code hash;
+filters the first complete block and the `[mod]` copy to avoid the TestKit's duplicate tee:
+
+```python
+from pathlib import Path
+import re, collections
+p = Path('docs/archive/TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log')
+b = p.read_text(encoding='utf-8').split('SMRTK_MARK action=mark label=HUB3B_PARTS_BEGIN', 1)[1].split('SMRTK_MARK action=mark label=HUB3B_PARTS_END', 1)[0]
+rows = [x for x in b.splitlines() if x.startswith('[mod]') and 'leg=train_part' in x]
+c = collections.Counter(tuple(re.search(k+r'=(\S+)', x)[1] for k in ('entity', 'bbox_min', 'bbox_max', 'scale')) for x in rows)
+for key, count in sorted(c.items()): print(count, *key)
+assert len(rows) == sum(c.values()) == 66
+```
+
+**Visual read:** native screenshots `SMRTK_0054.png`/`0055.png`/`0056.png` under
+`C:/Dev/SMR-ScreenCaptures/` compare parked distances 17/20/23 m with the game's hex grid.
+The upper-left stopped train visibly occupies roughly two hexes; the oblique projection and
+portal occlusion do not support a more precise length. The 20 m position is the provisional
+choice: more centre room than 17 m, less cargo hidden under the portal than 23 m. Labels, paths
+and hashes are in [the native evidence manifest](../../archive/TRAIN_HUB_3B_NATIVE_20260920.json).
+
+**R-TRAIN remains DISPUTED.** Reading every exposed attachment did not explain the discrepancy
+between the parent's bbox and the visible train. The owner's hex measurement still governs;
+no size/mesh change follows. Build 3b's actual route-width rerun is in
+[`TRAIN_HUB_BUILD_20260918.md`, Build 3b](TRAIN_HUB_BUILD_20260918.md#build-3b-2026-09-20):
+it uses no train length and is not a new clearance verdict.

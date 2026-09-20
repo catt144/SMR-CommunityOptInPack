@@ -1,0 +1,15 @@
+{
+  "leg": "train-hub-3b-smoke",
+  "kit": "C:\\Dev\\SMR-BugFixPack-TestKit",
+  "park": "C:\\Dev\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests",
+  "stripPattern": "Code/98_TrainHub3bSmoke",
+  "anchorAfter": "99_FixtureCarry.lua",
+  "bootSymbol": "Hub3bSmoke.Boot",
+  "symbolNamespace": "Hub3bSmoke",
+  "permanent": ["Code/80_AgentSlots.lua"],
+  "mustNotBeListed": ["Code/96_AutoRunFlag.lua", "Code/97_ForceInactive.lua", "Code/98_TrainHub3bRead.lua"],
+  "mustNotBeListedWhy": "No other driver may race the smoke.",
+  "bannedPatterns": ["AchievementUnlock\\s*\\(", "SetScale\\s*\\("],
+  "requiredPresent": ["SpaceY Sol 21.savegame.sav", "slot_3", "SaveGame", "Hub3bSmoke_MID", "setup mutations"],
+  "payloads": [{"src": "98_TrainHub3bSmoke.lua.txt", "dst": "98_TrainHub3bSmoke.lua", "selfDrives": true}]
+}

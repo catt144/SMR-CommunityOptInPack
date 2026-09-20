@@ -1,0 +1,698 @@
+{
+  "command": "python tools/devmods/train_hub/tests/record_evidence.py",
+  "head": "3071a9a38f8052d230e11ea72f7f1828798693d7",
+  "game": "1.1.0.403908",
+  "inputs": {
+    "tools\\devmods\\train_hub\\Code\\10_TrainFloor.lua": "3768f17060d47103bacb8af73934b8bbdf1655b7b2d9346e9ce6fbdabb914669",
+    "tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "a42dfe2c1288a7c64b311d2b7da15eff9ae7018820d52a3d98a532c7890311e3",
+    "tools\\devmods\\train_hub\\Code\\_EntityData.generated.lua": "883e16e4d5e138e50544b2a5dcd8dbe88dea95500d30c90a31db83e022059d30",
+    "tools\\devmods\\train_hub\\Code\\BuildingTemplate\\SMROptInTrainHub6.generated.lua": "54aad2d02aa88b9d442cff634e4333ba45be676cb833ba150cbdb78a0c00aa4e",
+    "tools\\devmods\\train_hub\\Data\\BuildingTemplate\\SMROptInTrainHub6.lua": "36d237eb83565cee25422963e7f0117c5cb0e5ed0ca285a971b5d62a7153f292",
+    "tools\\devmods\\train_hub\\items.lua": "45522d072b765f841c554f2e9fbea039fcf671b6a69705e937bdb9fcadf587bf",
+    "tools\\devmods\\train_hub\\metadata.lua": "afbb6efd4c3192a88d201ca44cb1237179320df53378e2a0fd7f6f9eb175dd38",
+    "tools\\devmods\\train_hub\\SourceData\\ArtSpec-mod.lua": "1d1fd4ce17ef91c52dade765d09ce66f3af44146876c00d79605b7d51767fed6",
+    "tools\\devmods\\train_hub\\SourceData\\GFXMaterial\\SMROptInTrainHub6.lua": "3a38ac6b39af12694ff9c23f5505f1391473ee3c1ee4330378e3b3a918a6f639",
+    "tools\\devmods\\train_hub\\SourceData\\SIE_ImportItem\\SMROptInTrainHub6.lua": "8b9a9d24ccecdbde6928824ef8a9b674ff44c0aab639a2496b8aa55dd73f871b",
+    "tools\\devmods\\train_hub\\tests\\80_AgentSlots.lua.txt": "0c2e56763d507d00002894b7f462486faeea03652bfb96805724e6508aa85f2c",
+    "tools\\devmods\\train_hub\\tests\\98_TrainHub3bRead.lua.txt": "03daee3d24964a9a93a54db6315334d6588b4c95361c3bcd4bd16ef8ee69d401",
+    "tools\\devmods\\train_hub\\tests\\98_TrainHub3bSmoke.lua.txt": "225e3ea99b0acefe6183fd55ec7cb5ab9730739967b694ea22294e29a1e1964b",
+    "tools\\devmods\\train_hub\\tests\\read_leg.json": "d72af5363f98608ad97f5f8a0f8c0f6640d498e8232284af2f7fe19f3d33315e",
+    "tools\\devmods\\train_hub\\tests\\record_evidence.py": "3448ae5caed05a9596c3bb8697e79718a8857c6cce68f2f236a814e5eccc911b",
+    "tools\\devmods\\train_hub\\tests\\smoke_leg.json": "62fcfeb262e0f6658a2ee5befa07a23e66b6b3c38cbcaba0abf362ba923bc93b",
+    "tools\\devmods\\train_hub\\tests\\traffic_smoke.py": "a020123ab44490489fc07978afa37a7a918438d0fedfd5a4d63eda51c84e9a3d"
+  },
+  "original_saves": [
+    {
+      "name": "Autosave Sol 21(4).savegame.sav",
+      "sha256": "d774cd1cb71e191015103e5059f78fabc33b6f1bdd67335b00da8917841b0e3e"
+    },
+    {
+      "name": "Autosave Sol 21(5).savegame.sav",
+      "sha256": "a271b4dcbf75f240d1798fcc0dce27d4c2a87d2be93ca77d1a402347b23034d3"
+    },
+    {
+      "name": "Blue Sun Corporation Sol 14.savegame.sav",
+      "sha256": "7fdeccfb3ffe575fa2bcd588e23c4d3782cca67ad36c24ef90a526ab353c2447"
+    },
+    {
+      "name": "BUG.savegame.sav",
+      "sha256": "d844afeb5679323576f445bb9e9adf234591bd7d5443a69a5fbcee8ccf4e970f"
+    },
+    {
+      "name": "C95BUILD.savegame.sav",
+      "sha256": "6a7abf8aab0fc2a44309b1c3b7f453279795e2f394ea3994b15c98297796a8e3"
+    },
+    {
+      "name": "C95EXPLORE.savegame.sav",
+      "sha256": "6a7abf8aab0fc2a44309b1c3b7f453279795e2f394ea3994b15c98297796a8e3"
+    },
+    {
+      "name": "C95MID.savegame.sav",
+      "sha256": "84691211e7aca7da7c37f3acde8b9d5134582bd8f028519638f0ee70de170ad0"
+    },
+    {
+      "name": "C95PLACE.savegame.sav",
+      "sha256": "d844afeb5679323576f445bb9e9adf234591bd7d5443a69a5fbcee8ccf4e970f"
+    },
+    {
+      "name": "C95PLACEMID.savegame.sav",
+      "sha256": "b5f46c2e046c63e27c00006ac16e19828009b63a47b300e941bae4b7c47be141"
+    },
+    {
+      "name": "C96 SEEKER TEST.savegame.sav",
+      "sha256": "443ba48aa1f06a47e64698cb753f158921473234c52cd561e4433f80329a461f"
+    },
+    {
+      "name": "Europe Sol 19.savegame.sav",
+      "sha256": "a2589331988c7b895a346b7c0810200d5fa09b7b113dbf765d6518eaa6442398"
+    },
+    {
+      "name": "F119stuck.savegame.sav",
+      "sha256": "9eea61d1fd9e323574901ea7c525c6d7eb5d38178a2495b57db839c5a96a74b6"
+    },
+    {
+      "name": "Hab test A return.savegame.sav",
+      "sha256": "6a4b79683d857add4d867d25f99b8f763b88dc981ad3c3417339677b99df6bf4"
+    },
+    {
+      "name": "hab test A.savegame.sav",
+      "sha256": "6a7abf8aab0fc2a44309b1c3b7f453279795e2f394ea3994b15c98297796a8e3"
+    },
+    {
+      "name": "Japan Sol 490 test.savegame.sav",
+      "sha256": "04abb3ab9a760297378cedd4006e52f7932ba44b8dafb5b35eeb950d8cb90ee9"
+    },
+    {
+      "name": "Japan Sol 490.savegame.sav",
+      "sha256": "daf7531dbd3e2900704938e79fccd722626bd336dfc551e66f027805510f884e"
+    },
+    {
+      "name": "My game.savegame.sav",
+      "sha256": "b0ca97b847db7649b9f933f78a86c8419ce79bcf1da472c34432bd5c7a51a3ec"
+    },
+    {
+      "name": "Mygame2.savegame.sav",
+      "sha256": "e10bc05b9812034d19e41ac0f954e67ddb12311f1117a58229a1df3ffa77eab6"
+    },
+    {
+      "name": "SMRFIX 1.1 Testing backup.savegame.sav",
+      "sha256": "fa0f957e87586c2949b11ae8f29f22c20b34c64012289fe4bcd21b94d19f0089"
+    },
+    {
+      "name": "SMRFIX 1.1 testing.savegame.sav",
+      "sha256": "020291f0fdeba0cbc3fd0ff1f467635eefd0ebee1db92b596c2a7c9ef4efe4b8"
+    },
+    {
+      "name": "SMRTK.Mark('roundtrip').savegame.sav",
+      "sha256": "12b10c1a9d8f70e3f2f39d9b942d06a5736d3ee37485f620fd841b745dc52d38"
+    },
+    {
+      "name": "SMRTK_490.savegame.sav",
+      "sha256": "e0f8b7a4e0fdc0e4f99353e4f951a31261f72fcb04d6a3a22be6773dba070675"
+    },
+    {
+      "name": "SMRTK_A.sav",
+      "sha256": "8e4b93944004d4d2784546b8a267a161525b16cf46d22587d03a96248583d47e"
+    },
+    {
+      "name": "SMRTK_BASELINE_CLEAN.savegame.sav",
+      "sha256": "f4fde3ba3cf3056a349e966371d7182b0c51cc00cb2e21df115257f986ada2f4"
+    },
+    {
+      "name": "Sol 327, 81_2,000.savegame.sav",
+      "sha256": "3cb5e69053c77a4390cc42fd9459262ac0ea32f322f21369716d71eb7ed51c92"
+    },
+    {
+      "name": "SpaceY Sol 1.savegame.sav",
+      "sha256": "0ca0df92d6efa80d39eb3c29534b179e00171c4939c396cc54ebcbf4b1e734f4"
+    },
+    {
+      "name": "SpaceY Sol 20.savegame.sav",
+      "sha256": "6b308302cc725b86cb2fd7347454b48034b571b36482bd8e3fef8002ea132a0e"
+    },
+    {
+      "name": "SpaceY Sol 21.savegame.sav",
+      "sha256": "96aed5b19413eb2b8a71960477088654ce7c653db9bda8a0a33dc3cd3325ab43"
+    },
+    {
+      "name": "SpaceY Sol 23.savegame.sav",
+      "sha256": "094ae67f8aa3bfffb0e4bf849b36ad99577d264f66652fa7189e3416e4a3535c"
+    },
+    {
+      "name": "SpaceY Sol 7.savegame.sav",
+      "sha256": "a455667897e9af0eba2e8cd4cf8a44075408422d473732946be420049ed8d2af"
+    },
+    {
+      "name": "SpaceY Sol 8.savegame.sav",
+      "sha256": "9e49cc473688ab55f2d0fa552e6c2ad5aea63729bcbee5f2e4643bc293402160"
+    },
+    {
+      "name": "Terraforming Initiative Sol 4 Backup.savegame.sav",
+      "sha256": "a2ff42976fb99e4f78d47a4d7efbd6d8d82ca842f0bdb3e928376097e1737874"
+    },
+    {
+      "name": "Terraforming Initiative Sol 4.savegame.sav",
+      "sha256": "dfed347d8be63051b4183791faa7c7ea9d9d9d26e105834a9890933c0155c211"
+    },
+    {
+      "name": "Terraforming Initiative Sol 5.savegame.sav",
+      "sha256": "278175c237e8e4010f221775acb4623ce568f3a9a8937f29363f76a9bcfa07c8"
+    },
+    {
+      "name": "track test.savegame.sav",
+      "sha256": "12cc598f9a0c6cdd92387c609d375de28661765986439ce2d77f17a7519bca0d"
+    },
+    {
+      "name": "train test B.savegame.sav",
+      "sha256": "647e2c1fc1917c2bbe3c9654fa472c1dbc76e595ccc4be1c3cecc50e093a2510"
+    },
+    {
+      "name": "train1.savegame.sav",
+      "sha256": "da37965df4c64895b2a39753a4dfe6bfab964fc2e270cdfaf7f8e06505bb013b"
+    },
+    {
+      "name": "train_hub_base.savegame.sav",
+      "sha256": "3b0fb6b278599a434e4f237f8e0f079da4769689165e19c66e404c84e72189f8"
+    },
+    {
+      "name": "trainhubtest destory.savegame.sav",
+      "sha256": "9a06070e07255b2ed3a59e2a0bc4b94d7e1e728c72fa781b958278918c4704d0"
+    },
+    {
+      "name": "trainhubtest phase 1.savegame.sav",
+      "sha256": "8a4dac25258aac58da8f29f1758c08c7fef4102fe7b305d1dfad117442bc7a1e"
+    },
+    {
+      "name": "USA Sol 18.savegame.sav",
+      "sha256": "eff8a6f96c99e34d2fba685cd3ce9389df4daf9b375a582a42ab40c3d4bcbb5f"
+    },
+    {
+      "name": "USA Sol 22.savegame.sav",
+      "sha256": "4523ca246686a5c4315c1053709e478f830694b17cec1925feeef68ecfd0f918"
+    },
+    {
+      "name": "USA Sol 31.savegame.sav",
+      "sha256": "98c1797facbcba4f03c0ea28d682904b3672125c2f918c11870a4c3790ec68af"
+    },
+    {
+      "name": "USA Sol 315.savegame.sav",
+      "sha256": "91219baaa0973c52e6e9fc5d86bcc3306981bc30282b077afe4b52760a65e41a"
+    },
+    {
+      "name": "USA Sol 32.savegame.sav",
+      "sha256": "183dc4743fe399a38f44e40513deac16c330856ce4cb21272f13e9f164b1f65f"
+    },
+    {
+      "name": "USA Sol 35.savegame.sav",
+      "sha256": "344db6d2490816740097ab6a73e5e44f2750f9777238a1f1e40a9950cd4134b4"
+    },
+    {
+      "name": "USA Sol 47 (2).savegame.sav",
+      "sha256": "62e210101e4337cda3c5e31373a293512255a192f02bd2ae4abbfe8830bd6ab2"
+    },
+    {
+      "name": "USA Sol 47.savegame.sav",
+      "sha256": "6baf0e8db9e10afb3518c30fe25bb5dfe0c566dba36081397fdb850546905d3c"
+    },
+    {
+      "name": "USA Sol 56.savegame.sav",
+      "sha256": "0efba9f639e20ca9039e96d7f560573f1ec4463255523a27230043b46c4683d9"
+    },
+    {
+      "name": "USA Sol 58.savegame.sav",
+      "sha256": "107126533f7b62f3174f77606f897798ff3c5d6bd572ede0a5c1f933bd541efc"
+    },
+    {
+      "name": "USA Sol 71.savegame.sav",
+      "sha256": "80b5017e7de1dfb344496526bb26a6589b873da8a866019c49ef0cce685cf116"
+    },
+    {
+      "name": "USA Sol 76.savegame.sav",
+      "sha256": "d2be268a4d8ed999a0ace6045489e434de9e5a964a730db6910fd2ff9ca66d41"
+    },
+    {
+      "name": "WF test.savegame.sav",
+      "sha256": "13d3dc47f7a3463a18c142510c6179e1905d74a7f9fdf0bc47ef3c3f308d6fac"
+    },
+    {
+      "name": "wildfire B.savegame.sav",
+      "sha256": "a966c0dca48c6659492bb519f721175dd140ea348f47e061b56655b6c9d631e2"
+    },
+    {
+      "name": "wildfire b1.savegame.sav",
+      "sha256": "667754397651356bc034cd3bcdfdf3162c7b290b30486589a5cd54d09d8e1d77"
+    },
+    {
+      "name": "wildfire fire reveal.savegame.sav",
+      "sha256": "c3f89344b72053c80ba2258d5ddf5fe4353a030b4c700b886378d903ad25ad7e"
+    }
+  ],
+  "logs": [
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-03.57.39-6a91a190.log",
+      "sha256": "27f07e9a93334affab3952b4579739308aaff2e7fc92f325c7be58025c64ce87",
+      "lua_error_count": 3,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')",
+        "[LUA ERROR] string.format: bad argument #4 to '?' (number expected, got nil)",
+        "[LUA ERROR] string.format: bad argument #4 to '?' (number expected, got nil)"
+      ],
+      "markers": []
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.03.48-6a91a190.log",
+      "sha256": "e598f1593e5fb8fd70b50941f4f935336d13fce01e287694b785629f15b52e9d",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] RESULT ok=true result=nil"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.05.50-6a91a190.log",
+      "sha256": "8949432872d78eca9b48cb75356bd70106876db8e0de2e824e4664ff9c911f45",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] SAVED Hub3bSmoke_MID_1789891585.savegame.sav lock=2000001576",
+        "[mod] [HUB3BSMOKE] RELOAD_LOCK_OK 2000001576",
+        "[mod] [HUB3BSMOKE] RESULT ok=false result=Lua/HexGridRender.lua:44: attempt to index a boolean value (field 'Material')"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "sha256": "50f8156841af2c8e65c124d3cab477160c60636dff847481428657d681b4160e",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] SAVED Hub3bSmoke_MID_1789891737.savegame.sav lock=2000001576",
+        "[mod] [HUB3BSMOKE] RELOAD_LOCK_OK 2000001576",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=2 arrival=2 departure=5 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=2 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=3 arrival=2 departure=3 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=3 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=4 arrival=2 departure=2 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=4 ok=true result=nil"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "sha256": "dbfdee5a5c53b8579e07d4e0aa61724fc16ebe73709ff7da2f4a8f80e90ff81f",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] SAVED Hub3bSmoke_MID_1789892063.savegame.sav lock=2000001576",
+        "[mod] [HUB3BSMOKE] RELOAD_LOCK_OK 2000001576",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=2 arrival=2 departure=5 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=2 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=3 arrival=2 departure=3 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=3 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=4 arrival=2 departure=2 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=4 ok=true result=nil"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "sha256": "e8350fac6a89725077567158072ca703e364b8dd79e0ca4ec667d6effaeefef4",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] RESULT stage=0 ok=true result=nil"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "sha256": "ef96d04e472a2deb98490d294eb85bdfe82422d3e1e100909f7043dba51af97e",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] SPARE_PARKED 2000001577",
+        "[mod] [HUB3BSMOKE] SAVED Hub3bSmoke_MID_1789892612.savegame.sav lock=2000001576",
+        "[mod] [HUB3BSMOKE] RELOAD_LOCK_OK 2000001576",
+        "[mod] [HUB3BSMOKE] RELOAD_PARKED_OK 2000001577",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=2 arrival=2 departure=5 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=2 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=3 arrival=2 departure=3 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=3 ok=true result=nil",
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=4 arrival=2 departure=2 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=4 ok=true result=nil"
+      ]
+    },
+    {
+      "archive": "TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log",
+      "sha256": "e2edf9e60fc9d3bdddc815ab0409dede08fcc0bd93c5f3b06b4905d9b17a0704",
+      "lua_error_count": 1,
+      "lua_errors": [
+        "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+      ],
+      "markers": [
+        "[mod] [HUB3BSMOKE] STAGE_COMPLETE stage=1 arrival=2 departure=1 train=2000001576",
+        "[mod] [HUB3BSMOKE] RESULT stage=1 ok=true result=nil"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0019.png",
+      "sha256": "02ceaa555a3477708fbfc424f8a014ed99ad98166ea4fb3f7d829b779fc099ef",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-03.57.39-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0019 fallback=false label=\"Hub3b baseline before tuning\" mark=44 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0019.png status=OK t=14919135 id=34"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0020.png",
+      "sha256": "5d56a18117b33c65df6bfdd74a86ea31a490abbf60583bcd5f1407bd4f7aaa29",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.03.48-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0020 fallback=false label=\"Hub3b old saved positions before tuning\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0020.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0021.png",
+      "sha256": "5988acfa81fa991ca899e648ec4a9346bafd0fe5c82f0fe1cee3e0bd373f7ca6",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.03.48-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0021 fallback=false label=\"Hub3b 17 m own-line parking with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0021.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0022.png",
+      "sha256": "4e858a5c07b3af79339ef1a37c042855854722afe4966fc44c23754e02110541",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.03.48-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0022 fallback=false label=\"Hub3b after natural traffic\" mark=151 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0022.png status=OK t=14939133 id=141"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0023.png",
+      "sha256": "8314f20620bdb7968f0779a81d5ad37afe6d7dfda3d0e8a32c2132ce18e6650f",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.05.50-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0023 fallback=false label=\"Hub3b old saved positions before tuning\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0023.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0024.png",
+      "sha256": "0335fa3fc7c92147ccb19c0bd44e6ecc32af9bc139cb01c0e643396bd3ea3c6d",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.05.50-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0024 fallback=false label=\"Hub3b 17 m own-line parking with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0024.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0025.png",
+      "sha256": "cea0e186d6605f443f1be37243ef89a0ff7765bd0d96c560277df159f7be7cf3",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.05.50-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0025 fallback=false label=\"Hub3b crossing before save\" mark=142 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0025.png status=OK t=14919234 id=132"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0026.png",
+      "sha256": "33581f518462665e9af06a53f144e3afc63616530723498752297a68ddc7085e",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0026 fallback=false label=\"Hub3b stage 2 old saved positions\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0026.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0027.png",
+      "sha256": "13a12f61702c41463ff99dfab02b9f2b50ade4924706c1d5b15efa3a6ab4b693",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0027 fallback=false label=\"Hub3b stage 2 17 m own-line parking with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0027.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0028.png",
+      "sha256": "3a519c6434f1dcabe15c5b071f98d2e82522fa30c4692b8ebb110718c1819818",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0028 fallback=false label=\"Hub3b crossing before save\" mark=142 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0028.png status=OK t=14919234 id=132"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0029.png",
+      "sha256": "06ca19c17f5beee23f79a308bed3a0f520d310b90da6a7158ecdcc4ea9884743",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0029 fallback=false label=\"Hub3b stage 2 movement sample\" mark=157 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0029.png status=OK t=14920333 id=144"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0030.png",
+      "sha256": "fd319d191f87c6b5a0a08344dea27a2204f5956711aaf553b87ef3f3eb244042",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0030 fallback=false label=\"Hub3b stage 2 after departure\" mark=175 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0030.png status=OK t=14931132 id=162"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0031.png",
+      "sha256": "6c34b66a3ff12ff2e9430cd4042bc71d3bd15d4de2e85fbd000727c9ac8de613",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0031 fallback=false label=\"Hub3b stage 3 old saved positions\" mark=285 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0031.png status=OK t=14919135 id=269"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0032.png",
+      "sha256": "0aa2fcaa53ce301a2b7350ec9e2b9fb02c019b3a09e138d7a2ec016a7806d468",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0032 fallback=false label=\"Hub3b stage 3 17 m own-line parking with hex grid\" mark=299 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0032.png status=OK t=14919135 id=283"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0033.png",
+      "sha256": "64cb98d44cbaa6c9316b5f6c4efe80ec5e5200f09645cd28c4990c73c6a67307",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0033 fallback=false label=\"Hub3b stage 3 movement sample\" mark=308 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0033.png status=OK t=14920334 id=292"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0034.png",
+      "sha256": "a738ab85890c127040c23246daa98ebb3ef5c38bd4ea13b2af6e1a812b61d161",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0034 fallback=false label=\"Hub3b stage 3 after departure\" mark=326 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0034.png status=OK t=14931133 id=310"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0035.png",
+      "sha256": "6d37e9b0f1a3d089a279d45c5ada41e81f769ea8e4d433c39c5bfc2952d0798b",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0035 fallback=false label=\"Hub3b stage 4 old saved positions\" mark=436 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0035.png status=OK t=14919135 id=417"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0036.png",
+      "sha256": "3853760783315aa84a4a37a71a450347815cf36cd64107b0984cd664122eb858",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0036 fallback=false label=\"Hub3b stage 4 17 m own-line parking with hex grid\" mark=450 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0036.png status=OK t=14919135 id=431"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0037.png",
+      "sha256": "efd0055ab46e27eb114a3ebea5e9ce0ae98d6794ce5e5886702e7f16044bf1f2",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0037 fallback=false label=\"Hub3b stage 4 movement sample\" mark=459 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0037.png status=OK t=14920334 id=440"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0038.png",
+      "sha256": "dd9a50b4706aeb72081d68874b98435aab03f600ec1c31eda2da8b764ed3db56",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.08.20-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0038 fallback=false label=\"Hub3b stage 4 after departure\" mark=477 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0038.png status=OK t=14931132 id=458"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0039.png",
+      "sha256": "52a8a3b724a71bdcdbda6abd9c5aa344b797332c54e622fc9deef20cd15757bd",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0039 fallback=false label=\"Hub3b stage 2 old saved positions\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0039.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0040.png",
+      "sha256": "47c807ae48bd573079d76e90666b38669644a2f031499989b4f6c94ebcb73a30",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0040 fallback=false label=\"Hub3b stage 2 17 m own-line parking with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0040.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0041.png",
+      "sha256": "74db2f52b5011b33b591597575ed5b24dab8c5f859ff9578b1b672a322df933b",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0041 fallback=false label=\"Hub3b stage 2 movement sample\" mark=142 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0041.png status=OK t=14920332 id=132"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0042.png",
+      "sha256": "f953f0f47a3a22f1b975e642b9e39bd9e360f036ea45505b8f7cf50f73d4b117",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0042 fallback=false label=\"Hub3b crossing before save\" mark=144 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0042.png status=OK t=14920332 id=134"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0043.png",
+      "sha256": "3a595698bf0c98313598fe92c86301292455595139e447746c675480cfcfcd26",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0043 fallback=false label=\"Hub3b stage 2 after departure\" mark=175 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0043.png status=OK t=14931130 id=162"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0044.png",
+      "sha256": "c1adbf649daf606556cbd53e88e68e1d20f8d058a2b23ed908d1c1a91e3cc032",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0044 fallback=false label=\"Hub3b stage 3 old saved positions\" mark=285 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0044.png status=OK t=14919135 id=269"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0045.png",
+      "sha256": "76f8dff0feba12f0f8f3ba60c908660eacd74e67c40d4c376a2f986a8b9bc559",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0045 fallback=false label=\"Hub3b stage 3 17 m own-line parking with hex grid\" mark=299 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0045.png status=OK t=14919135 id=283"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0046.png",
+      "sha256": "298398ad828993f279d6f5dd58a07c31c706e44b849c129781900acad492a444",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0046 fallback=false label=\"Hub3b stage 3 movement sample\" mark=308 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0046.png status=OK t=14920334 id=292"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0047.png",
+      "sha256": "2d2516e44d9b95b5a5d0b7f82e953c66ea8dfb80ca6e982ea92b8cb99f1ad84a",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0047 fallback=false label=\"Hub3b stage 3 after departure\" mark=326 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0047.png status=OK t=14931133 id=310"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0048.png",
+      "sha256": "3e245169b5b86c572f273293865e55355d210ea29f4e5c96b95f42e06dd4ba87",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0048 fallback=false label=\"Hub3b stage 4 old saved positions\" mark=436 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0048.png status=OK t=14919135 id=417"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0049.png",
+      "sha256": "87493c0fca46061cb8f320d666c06a46ae935db812165b01053e1bbba5d28ac4",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0049 fallback=false label=\"Hub3b stage 4 17 m own-line parking with hex grid\" mark=450 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0049.png status=OK t=14919135 id=431"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0050.png",
+      "sha256": "c3ccfe6d8986c964f4da10d193efe6cac73c72889423ed9e7820bf8037e537d7",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0050 fallback=false label=\"Hub3b stage 4 movement sample\" mark=459 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0050.png status=OK t=14920334 id=440"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0051.png",
+      "sha256": "4e74cd2b31ef65d80ed2d9454fccffebea71433489a14ea6f9ddf658018e51a0",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.13.44-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0051 fallback=false label=\"Hub3b stage 4 after departure\" mark=477 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0051.png status=OK t=14931133 id=458"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0052.png",
+      "sha256": "e39b8751602c3f78311947c8092666c3c99a2ad4ff3af2ae3b48269321169fdf",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0052 fallback=false label=\"Hub3b stage 0 loaded parked migration\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0052.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0053.png",
+      "sha256": "70dbcdd52513087b7de6bc24612cccb1ef359e0df62c1fefa662efd9a918377a",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0053 fallback=false label=\"Hub3b stage 0 park 1700 with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0053.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0054.png",
+      "sha256": "285f6f682d8be1814da5182ee14f70e2601a75553b992be9193de75e265051f9",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0054 fallback=false label=\"Hub3b park comparison 1700\" mark=151 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0054.png status=OK t=14919135 id=141"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0055.png",
+      "sha256": "86d7d6b767a4e968ef47aa8a2d905d794fd0a06751c3c2520533af7da2d38de9",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0055 fallback=false label=\"Hub3b park comparison 2000\" mark=187 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0055.png status=OK t=14919135 id=177"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0056.png",
+      "sha256": "753f2e26a269dffede20b4292e274f8e65b613ff9e8497c733227dc05d7a9392",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.16.37-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0056 fallback=false label=\"Hub3b park comparison 2300\" mark=223 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0056.png status=OK t=14919135 id=213"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0057.png",
+      "sha256": "b5bc616716bf68ba26dfa7b2c65bd142d29446409e5057df46e8716082b1d3ac",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0057 fallback=false label=\"Hub3b stage 2 loaded parked migration\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0057.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0058.png",
+      "sha256": "1f64ed0e1e53ec9ca4a6c437cf7bb541e83026266541fac9e35a4b601e441af4",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0058 fallback=false label=\"Hub3b stage 2 park 2000 with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0058.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0059.png",
+      "sha256": "19d89112c5464a96f1f2460fdca741161a769b07e7a784aca1df4c1145d23cf0",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0059 fallback=false label=\"Hub3b crossing before save\" mark=145 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0059.png status=OK t=14920484 id=135"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0060.png",
+      "sha256": "1df6dc4a6e2fa29b6a6db5cc32ce205bde8d063fd17fa4eaa3c26889bafa6225",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0060 fallback=false label=\"Hub3b stage 2 movement sample\" mark=160 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0060.png status=OK t=14921582 id=147"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0061.png",
+      "sha256": "de4bbcdcb6e3800de1bc5a7178ca30a8104e8dd47d894e3d27e763b29636d6a2",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0061 fallback=false label=\"Hub3b stage 2 after departure\" mark=179 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0061.png status=OK t=14925281 id=166"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0062.png",
+      "sha256": "d2b0fb646ef90160ff9fa8f9e3394ae21eb948a3016df598b4bb0557aaf59fe3",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0062 fallback=false label=\"Hub3b stage 3 loaded parked migration\" mark=289 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0062.png status=OK t=14919135 id=273"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0063.png",
+      "sha256": "024aac178929e9692eaaa11beed5f324ea782b69bda31e815e42d8e2a7da9789",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0063 fallback=false label=\"Hub3b stage 3 park 2000 with hex grid\" mark=303 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0063.png status=OK t=14919135 id=287"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0064.png",
+      "sha256": "8952293802b5524a19337356deb3409740ab49f9da0d6d53aa0712913525eaf7",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0064 fallback=false label=\"Hub3b stage 3 movement sample\" mark=312 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0064.png status=OK t=14920333 id=296"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0065.png",
+      "sha256": "e424dc0a8e64c1a086806107924160a72548c1f0972090f57e6386964555469e",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0065 fallback=false label=\"Hub3b stage 3 after departure\" mark=330 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0065.png status=OK t=14925431 id=314"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0066.png",
+      "sha256": "d439239ddc51023dcb1a4d98a6429c6b870f904e1d3bc617728ba6ac2515f2ce",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0066 fallback=false label=\"Hub3b stage 4 loaded parked migration\" mark=440 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0066.png status=OK t=14919135 id=421"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0067.png",
+      "sha256": "68031b7a811b4ff8f384ad8781841a70dfc55f42c6ab768e56edc264ba165cc7",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0067 fallback=false label=\"Hub3b stage 4 park 2000 with hex grid\" mark=454 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0067.png status=OK t=14919135 id=435"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0068.png",
+      "sha256": "074d1a01ba6d698a4b868a45d8f919d6ab9e2dcdb965feeaf0434bf9ca5b3694",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0068 fallback=false label=\"Hub3b stage 4 movement sample\" mark=463 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0068.png status=OK t=14920334 id=444"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0069.png",
+      "sha256": "88b21f966de384c1a1f65975212ee4cf7733e08c427703d0fc7cefa61a9469d6",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0069 fallback=false label=\"Hub3b stage 4 after departure\" mark=481 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0069.png status=OK t=14959233 id=462"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0070.png",
+      "sha256": "50272e571998631645d23f9975d37b04ac5733190030b0f519d31c4858b595bb",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0070 fallback=false label=\"Hub3b stage 1 loaded parked migration\" mark=119 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0070.png status=OK t=14919135 id=109"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0071.png",
+      "sha256": "64df275463e9470e60df5dd6aa98d870018da6b1a3a7fd503acdb0124394d068",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0071 fallback=false label=\"Hub3b stage 1 park 2000 with hex grid\" mark=133 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0071.png status=OK t=14919135 id=123"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0072.png",
+      "sha256": "18ee9042c1f39d2185b2000df56f7c8e86a6478a2a48b5ad6224cfe759e135fb",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0072 fallback=false label=\"Hub3b stage 1 movement sample\" mark=142 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0072.png status=OK t=14920333 id=132"
+    },
+    {
+      "path": "C:\\Dev\\SMR-ScreenCaptures\\SMRTK_0073.png",
+      "sha256": "f025598a81684ebe16db72d59dbb37b37e9aed5494d32d1d08cb96a27468f0b7",
+      "log": "TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log",
+      "marker": "[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture=\"native accepted\" capture_id=0073 fallback=false label=\"Hub3b stage 1 after departure\" mark=160 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0073.png status=OK t=14924532 id=150"
+    }
+  ]
+}

@@ -1,6 +1,12 @@
 # Train hub build 3b: trains at the hub
 
-**LIVE, fire when ready.** Re-scoped 2026-09-20 after the owner set aside the step-0 gate. This
+**LIVE, owner visual sitting next.** Implementation and unattended smoke are recorded in
+[`TRAIN_HUB_BUILD_20260918.md`, Build 3b](../reports/TRAIN_HUB_BUILD_20260918.md#build-3b-2026-09-20).
+That section carries the tested 20 m build, exact evidence and remaining first batch; do not
+repeat the implementation below as new work. The native save/reload test passed; visual
+acceptance, including the timed turn and queue, remains open. Shared TestKit slots are prepared.
+
+Re-scoped 2026-09-20 after the owner set aside the step-0 gate. This
 task owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Build 4 (`TRAIN_HUB_REPAIR_high.md`)
 remains held behind it: a hub whose trains float is not smokeable for repairs.
 

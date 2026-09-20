@@ -1,0 +1,67 @@
+-- TEMPORARY train-hub 3b read, owner authorized unattended save load 2026-09-20.
+-- Prediction: read parent AND every attached entity bbox/scale/world location;
+-- no length verdict from the parent assembly. Stop movement with SetGameSpeed(0).
+-- Load existing save; no explicit save, asset mutation, scaling or cargo mutation.
+-- Back up autosaves before launch. All results carry the loaded entity/handle.
+Hub3bRead = {}
+
+function Hub3bRead.Say(s)
+    ModLog("[HUB3BREAD] " .. tostring(s):gsub("%%", "%%%%"))
+end
+
+function Hub3bRead.Parts(obj, path, seen)
+    if seen[obj] then return end
+    seen[obj] = true
+    local b = obj:GetEntityBBox()
+    Hub3bRead.Say(string.format("PART path=%s entity=%s handle=%s scale=%s pos=%s visual=%s angle=%s bbox=%s,%s,%s:%s,%s,%s",
+        path, obj:GetEntity(), tostring(obj.handle), tostring(obj:GetScale()), tostring(obj:GetPos()),
+        tostring(obj:GetVisualPos()), tostring(obj:GetAngle()), tostring(b:minx()), tostring(b:miny()),
+        tostring(b:minz()), tostring(b:maxx()), tostring(b:maxy()), tostring(b:maxz())))
+    for i, child in ipairs(obj:GetAttaches() or empty_table) do
+        Hub3bRead.Parts(child, path .. "/" .. i, seen)
+    end
+end
+
+function Hub3bRead.Read()
+    Hub3bRead.Say("BUILD LuaRevision=" .. tostring(LuaRevision))
+    for _, mod in ipairs(ModsLoaded or empty_table) do Hub3bRead.Say("MOD " .. tostring(type(mod)=="table" and mod.id or mod)) end
+    SMRTK.Run("slot_scratch")
+    SMRTK.Run("slot_6")
+    local city = UICity or MainCity
+    local hub
+    for _, obj in ipairs(city.labels.Station or empty_table) do
+        if IsKindOf(obj, "SMROptInTrainHubBase") then hub=obj; break end
+    end
+    if not hub then error("no hub in loaded save") end
+    ViewObject(hub, 100 * guim, 0)
+    for i, train in ipairs(city.labels.Train or empty_table) do
+        Hub3bRead.Say("TRAIN i=" .. i .. " station=" .. tostring(train.current_station) .. " at_station=" ..
+            tostring(train.at_station) .. " arrival=" .. tostring(train.station_arrival_track) .. " command=" .. tostring(train.command))
+        Hub3bRead.Parts(train, "train" .. i, {})
+    end
+    SMRTK.Run("screenshot_mark", "Hub3b baseline before tuning")
+    FlushLogFile()
+end
+
+function Hub3bRead.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        local deadline = RealTime() + 300000
+        while not GetPreGameMainMenu() do
+            if RealTime() > deadline then Hub3bRead.Say("TIMEOUT menu"); quit(); return end
+            Sleep(500)
+        end
+        Sleep(2000)
+        local err = LoadGame("SpaceY Sol 21.savegame.sav", {})
+        if err then Hub3bRead.Say("LOADERR " .. tostring(err)); quit(); return end
+        SetGameSpeed(0)
+        Sleep(2000)
+        local ok, result = pcall(Hub3bRead.Read)
+        Hub3bRead.Say("READ ok=" .. tostring(ok) .. " result=" .. tostring(result))
+        Hub3bRead.Say("DONE")
+        Sleep(1000)
+        quit()
+    end)
+end
+
+Hub3bRead.Boot()

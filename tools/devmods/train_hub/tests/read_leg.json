@@ -1,0 +1,15 @@
+{
+  "leg": "train-hub-3b-read",
+  "kit": "C:\\Dev\\SMR-BugFixPack-TestKit",
+  "park": "C:\\Dev\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests",
+  "stripPattern": "Code/98_TrainHub3bRead",
+  "anchorAfter": "99_FixtureCarry.lua",
+  "bootSymbol": "Hub3bRead.Boot",
+  "symbolNamespace": "Hub3bRead",
+  "permanent": ["Code/80_AgentSlots.lua"],
+  "mustNotBeListed": ["Code/96_AutoRunFlag.lua", "Code/97_ForceInactive.lua"],
+  "mustNotBeListedWhy": "Other drivers must not race this save load.",
+  "bannedPatterns": ["SaveGame\\s*\\(", "AchievementUnlock\\s*\\(", "SetScale\\s*\\("],
+  "requiredPresent": ["SpaceY Sol 21.savegame.sav", "GetEntityBBox", "GetAttaches", "SetGameSpeed(0)"],
+  "payloads": [{"src": "98_TrainHub3bRead.lua.txt", "dst": "98_TrainHub3bRead.lua", "selfDrives": true}]
+}

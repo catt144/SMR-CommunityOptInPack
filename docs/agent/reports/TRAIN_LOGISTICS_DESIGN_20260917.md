@@ -977,8 +977,9 @@ model and absence of a charger. Details and the log fingerprint are in
 `TRAIN_HUB_BUILD_20260918.md` §"Build 3".
 
 Train movement across the hub is not a build-3 claim. The owner ruled the observed floor drop and
-floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, now held at its step-0
-fit gate (2026-09-20, oracle report §12; OI-22). No build-3b implementation or smoke ran.
+floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b. Its implementation
+and unattended smoke are recorded in `TRAIN_HUB_BUILD_20260918.md` §"Build 3b"; the owner's
+visual acceptance is still pending.
 
 **Owner correction, 2026-09-20: the train-length figure is DISPUTED and the redesign is off.**
 The owner measured a train against the game's hex grid at about two hexes (~20 m) with three hexes
@@ -992,16 +993,16 @@ smoke. The asset options costed the same day (runtime `SetScale`, three alternat
 tunnel hood, `FOOTPRINT_R = 5`, resizing the dome) are withdrawn. The look standard stands: an
 unnoticeable result is required, and it is met by tuning the number, not by changing the body.
 
-**MEASURED prediction, step 0 completed 2026-09-20:** report §12 and its archived oracle-importing
-experiment confirm 5.09689 m centreline tail, reduced to 3.43990 m on ARRIVE, with 31.61990 m
-overlap against the vanilla connector waiter. Vanilla parks 44.96 m inward of its connector;
-its corresponding queue gap is 3.46 m. The current portal upper envelope does not cover the
-hub tail. Same-origin reversal additionally shifts the measured box by 14.86 m. **INFERRED:
-the current combined constraints fail the gate.** OI-22 asks for a redesign choice; the report
-costs tunnel/approach changes and reduced-capacity options, including three alternating lines
-at about 11.44 cm tail, and the zero-tail one-stop/opposite-pair alternatives. All still need
-queue treatment. These are proposals, not revised owner rulings. Resume only after the choice
-is incorporated into the parking, queue and reverse design in the held brief.
+**Build 3b implementation, 2026-09-20:** park distance is the live
+`SMROptInTrainFloor.HubParkDistance` control, provisionally **20 m** after the 17/20/23 m visual
+comparison. Own-line reservations survive retuning; the saved crossing lock serialises movements
+through the centre.
+Other-line departures follow their lanes to a timed centre turn; a same-line reverse retains
+Stop's position and then joins the outward lane on a curve. TestKit controls and native smoke
+evidence are in the build report: straight, 60°, 120°, reverse and a parked-plus-crossing reload
+passed unattended; turn/portal appearance and queue clearance still need the owner. The body,
+train scale and economy are untouched. The withdrawn gate's calculations remain in oracle
+report §12 and do not gate this implementation.
 Build 4 remains held until build 3b's smoke is recorded.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the

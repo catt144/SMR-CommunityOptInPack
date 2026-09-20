@@ -1,0 +1,581 @@
+					Render 0:00:00:008
+*** executable info
+					Render 0:00:00:009
+Timestamp:     	6a91a190
+Date:          	Fri Aug 28 10:56:16 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	62%
+Disk Free      	801716 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:083
+Steam initialized (AppId 3215050)
+					Render 0:00:00:085
+Drive type for game installation: SSD, savegames: SSD
+					Render 0:00:00:086
+Language: English
+					Render 0:00:01:633
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:780
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:013
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:023
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+Lua revision: 403908
+Assets revision: 33006
+Steam AppID: 3215050
+Build version: 1.1.0.403908
+Build branch:  Release
+						Lua 0:00:16:530
+Account storage loaded successfully in 1 ms
+						Lua 0:00:16:531
+DLC norman loaded, lua revision 403908, assets revision 33006
+DLC thomas loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:16:535
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-009) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+						Lua 0:00:16:947
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+						Lua 0:00:16:948
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:16:953
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12295 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12295 id=1
+						Lua 0:00:16:956
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=12295 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=12295 id=2
+						Lua 0:00:16:958
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityFixPack] NightShiftWork: applied
+						Lua 0:00:16:959
+[mod] [CommunityFixPack] WispRewards: applied
+[mod] [CommunityFixPack] TrainsToVoid: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] BrokenTrackSalvage: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] TradeRocketFuelRefresh: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied						Lua 0:00:16:960
+
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DomeOverviewHighlight: applied
+[mod] [CommunityFixPack] TrainCargoDumping: applied
+						Lua 0:00:16:961
+[mod] [CommunityFixPack] DestroyedTunnels: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] GeneForging: applied
+[mod] [CommunityFixPack] MirrorSphereSite: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:16:962
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:16:963
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] GraphConsumedCaption: applied
+[mod] [CommunityFixPack] TrainWaitTime: applied
+[mod] [CommunityFixPack] FounderTraitNotification: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:16:964
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] SinkholeIndestructible: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:16:965
+[mod] [CommunityFixPack] BuildingCodesPrefab: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] OpenPastureStockpiles: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:16:966
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:16:967
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:17:808
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+[mod] [CommunityFixPack] SinkholeIndestructible: the St. Elmo's Fire sinkhole is now indestructible, like every other mystery set-piece
+						Lua 0:00:17:900
+Reloading done in 1365 ms
+						Lua 0:00:17:901
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:949
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12295 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12295 id=3
+						Lua 0:00:18:341
+[preset] Preset postprocess took 160 ms.
+						Lua 0:00:18:391
+482 / 482 particle streams loaded in 43 ms.
+5 / 5 particle streams loaded in 0 ms.
+						Lua 0:00:18:393
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: added 4 water entr(y/ies) at -50% to DryFarming (0 adopted, 4 of 4 farms loaded)
+						Lua 0:00:18:606
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:697
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=4
+						Lua 0:00:18:730
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=5
+						Lua 0:00:18:744
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2502):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+[mod] Loaded mod items for: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918
+						Lua 0:00:19:003
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:19:099
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12295 id=6
+						Lua 0:00:19:620
+[PdxSDK] Started up. Took 1157
+						Lua 0:00:20:034
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:202
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:21:705
+Load Game: 
+	lua_revision: 403908 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+						Lua 0:00:21:708
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:23:476
+*** Assets reloaded in 1.8 s, read 359.3 MB, read speed 203.2 MB/s, average read 8137 bytes.
+						Lua 0:00:24:370
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14261 id=7
+						Lua 0:00:25:109
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14261 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14261 id=8
+						Lua 0:00:27:198
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+						Lua 0:00:27:200
+[LUA ERROR] string.format: bad argument #4 to '?' (number expected, got nil)
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):   <>
+  [C](-1):  global pcall
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(676):   <>
+  [C](-1):  global procall
+  CommonLua/Core/cthreads.lua(20):  global Msg
+  CommonLua/Savegame.lua(808):   <>
+  CommonLua/SavegameMetadata.lua(288):  upvalue old_func
+  CommonLua/X/XVideo.lua(254):  local load_callback
+  CommonLua/Savegame.lua(405):   <>
+        --- end of stack
+Locals:
+	                   p |    point (278000, 162808)
+	              scalar | function 0x00000266CE0D7938
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(676):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(808):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=14919135 id=9
+[SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(676):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(808):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=14919135 id=9
+						Lua 0:00:27:203
+[mod] [SMRTK] SMRTK_DUMP arrive1=278821,163654,10800 arrive2=281179,168891,10800 arrive3=277143,165983,10800 arrive4=282857,166561,10800 arrive5=278321,168602,10800 arrive6=281679,163942,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=278321,163942,10800 depart2=281679,168602,10800 depart3=277143,166561,10800 depart4=282857,165983,10800 depart5=278821,168891,10800 depart6=281179,163654,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6252) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads_on_load spawn1=279400,164655,10800 spawn2=280600,167890,10800 spawn3=278300,165983,10800 spawn4=281700,166561,10800 spawn5=278900,167601,10800 spawn6=281100,164943,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=279400,164655,10800 stop2=280600,167890,10800 stop3=278300,165983,10800 stop4=281700,166561,10800 stop5=278900,167601,10800 stop6=281100,164943,10800 track_outline=1 train=TrainCCP3:pos=282250,169592,10800:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14919135 id=10
+[SMRTK] SMRTK_DUMP arrive1=278821,163654,10800 arrive2=281179,168891,10800 arrive3=277143,165983,10800 arrive4=282857,166561,10800 arrive5=278321,168602,10800 arrive6=281679,163942,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=278321,163942,10800 depart2=281679,168602,10800 depart3=277143,166561,10800 depart4=282857,165983,10800 depart5=278821,168891,10800 depart6=281179,163654,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6252) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads_on_load spawn1=279400,164655,10800 spawn2=280600,167890,10800 spawn3=278300,165983,10800 spawn4=281700,166561,10800 spawn5=278900,167601,10800 spawn6=281100,164943,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=279400,164655,10800 stop2=280600,167890,10800 stop3=278300,165983,10800 stop4=281700,166561,10800 stop5=278900,167601,10800 stop6=281100,164943,10800 track_outline=1 train=TrainCCP3:pos=282250,169592,10800:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14919135 id=10
+						Lua 0:00:27:207
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:27:227
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, Brazil, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:27:279
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 5575 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=21 last=section_attach last_id=32 present=true session=1789888806:3520230763:1184987819:1655584288 t=14919135 id=11
+[SMRTK] SMRTK_PROVENANCE actions=21 last=section_attach last_id=32 present=true session=1789888806:3520230763:1184987819:1655584288 t=14919135 id=11
+						Lua 0:00:27:289
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=12
+						Lua 0:00:27:299
+[mod] Error in mod Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) from appdata
+						Lua 0:00:27:304
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=14919135 id=13
+						Lua 0:00:27:307
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:27:421
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=14
+						Lua 0:00:28:018
+Game loaded on map BlankBig_01 in 6442 ms
+						Lua 0:00:30:016
+[mod] [HUB3BREAD] BUILD LuaRevision=403908
+[mod] [HUB3BREAD] MOD SMR_CommunityOptInPack
+[mod] [HUB3BREAD] MOD SMR_CommunityFixPackTestKit
+[mod] [HUB3BREAD] MOD SMR_CommunityFixPack
+[mod] [HUB3BREAD] MOD SMR_TrainHubDev_20260918
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB2_SCRATCH_BEGIN mark=25 status=OK t=14919135 id=15
+[SMRTK] SMRTK_MARK action=mark label=HUB2_SCRATCH_BEGIN mark=25 status=OK t=14919135 id=15
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=16
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=16
+						Lua 0:00:30:027
+[mod] [SMRTK] SMRTK_SHORTCUT console=false key=Ctrl-Shift-F11 t=14919135 id=17
+						Lua 0:00:30:036
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=control t=14919135 id=18
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=control t=14919135 id=18
+						Lua 0:00:30:047
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14919135 id=19
+						Lua 0:00:30:057
+[mod] [SMRTK] SMRTK_CONSOLE_CONTROL action=console_control discriminates=true negative=false positive=true status=OK t=14919135 id=20
+[SMRTK] SMRTK_CONSOLE_CONTROL action=console_control discriminates=true negative=false positive=true status=OK t=14919135 id=20
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=14919135 id=21
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=14919135 id=21
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=14919135 id=22
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=14919135 id=22
+[mod] [SMRTK] SMRTK_DUMP armed_count=0 console_status=OK eligibility_reason=UNAVAILABLE:sandbox eligibility_status=OK errors=1 floor_core_loaded=true game=403908 hub=SMROptInTrainHub6(6252) hub_class_loaded=true kit_base_head=457b21c leg=boot_status map=[table] pack_base_head=b6a8587 session=1789891076:3522500461:87778667:1707986853 sitting=train_hub_build3_20260919 sol=21 sweep_check=2026-09-19 sweep_command="C:\\Program Files\\Git\\usr\\bin\\grep.exe -rln TEMPORARY Code/ ../SMR-BugFixPack-TestKit/Code/ tools/devmods/train_hub/Code/" sweep_exit=1 sweep_output=<none> taint_status=OK taint_used=false trains=4 t=14919135 id=23
+[SMRTK] SMRTK_DUMP armed_count=0 console_status=OK eligibility_reason=UNAVAILABLE:sandbox eligibility_status=OK errors=1 floor_core_loaded=true game=403908 hub=SMROptInTrainHub6(6252) hub_class_loaded=true kit_base_head=457b21c leg=boot_status map=[table] pack_base_head=b6a8587 session=1789891076:3522500461:87778667:1707986853 sitting=train_hub_build3_20260919 sol=21 sweep_check=2026-09-19 sweep_command="C:\\Program Files\\Git\\usr\\bin\\grep.exe -rln TEMPORARY Code/ ../SMR-BugFixPack-TestKit/Code/ tools/devmods/train_hub/Code/" sweep_exit=1 sweep_output=<none> taint_status=OK taint_used=false trains=4 t=14919135 id=23
+[mod] [SMRTK] SMRTK_MARK action=mark label=HUB2_SCRATCH_END mark=34 status=OK t=14919135 id=24
+[SMRTK] SMRTK_MARK action=mark label=HUB2_SCRATCH_END mark=34 status=OK t=14919135 id=24
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=25
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=25
+[mod] [SMRTK] SMRTK_ACTION action=slot_scratch eligibility=UNAVAILABLE:sandbox errors=1 floor_core_loaded=true hub_class_loaded=true status=OK sweep_exit=1 taint=false t=14919135 id=26
+[SMRTK] SMRTK_ACTION action=slot_scratch eligibility=UNAVAILABLE:sandbox errors=1 floor_core_loaded=true hub_class_loaded=true status=OK sweep_exit=1 taint=false t=14919135 id=26
+						Lua 0:00:30:058
+[LUA ERROR] string.format: bad argument #4 to '?' (number expected, got nil)
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>
+  [C](-1):  global pcall
+  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>
+  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(29):   <>
+  [C](-1):  global pcall
+  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(59):   <>
+        --- end of stack
+Locals:
+	                   p |    point (278000, 162808)
+	              scalar | function 0x00000266CE0D7938
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>\n  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(29):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(59):   <>\n        --- end of stack" t=14919135 id=27
+[SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>\n  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(29):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/98_TrainHub3bRead.lua(59):   <>\n        --- end of stack" t=14919135 id=27
+						Lua 0:00:30:062
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=38 status=OK t=14919135 id=28
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=38 status=OK t=14919135 id=28
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=29
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=29
+[mod] [SMRTK] SMRTK_DUMP arrive1=278821,163654,10800 arrive2=281179,168891,10800 arrive3=277143,165983,10800 arrive4=282857,166561,10800 arrive5=278321,168602,10800 arrive6=281679,163942,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=278321,163942,10800 depart2=281679,168602,10800 depart3=277143,166561,10800 depart4=282857,165983,10800 depart5=278821,168891,10800 depart6=281179,163654,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6252) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=279400,164655,10800 spawn2=280600,167890,10800 spawn3=278300,165983,10800 spawn4=281700,166561,10800 spawn5=278900,167601,10800 spawn6=281100,164943,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=279400,164655,10800 stop2=280600,167890,10800 stop3=278300,165983,10800 stop4=281700,166561,10800 stop5=278900,167601,10800 stop6=281100,164943,10800 track_outline=1 train=TrainCCP3:pos=282250,169592,10800:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14919135 id=30
+[SMRTK] SMRTK_DUMP arrive1=278821,163654,10800 arrive2=281179,168891,10800 arrive3=277143,165983,10800 arrive4=282857,166561,10800 arrive5=278321,168602,10800 arrive6=281679,163942,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=278321,163942,10800 depart2=281679,168602,10800 depart3=277143,166561,10800 depart4=282857,165983,10800 depart5=278821,168891,10800 depart6=281179,163654,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6252) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=279400,164655,10800 spawn2=280600,167890,10800 spawn3=278300,165983,10800 spawn4=281700,166561,10800 spawn5=278900,167601,10800 spawn6=281100,164943,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=279400,164655,10800 stop2=280600,167890,10800 stop3=278300,165983,10800 stop4=281700,166561,10800 stop5=278900,167601,10800 stop6=281100,164943,10800 track_outline=1 train=TrainCCP3:pos=282250,169592,10800:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14919135 id=30
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=41 status=OK t=14919135 id=31
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=41 status=OK t=14919135 id=31
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=32
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=32
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 reason="engine error reported" status=ERROR t=14919135 id=33
+[SMRTK] SMRTK_ACTION action=slot_6 reason="engine error reported" status=ERROR t=14919135 id=33
+[mod] [HUB3BREAD] TRAIN i=1 station=table: 00000266CC5CACD8 at_station=false arrival=false command=GotoStation
+[mod] [HUB3BREAD] PART path=train1 entity=TrainCCP3 handle=2000001571 scale=100 pos=(282250, 169592, 10800) visual=(279743, 165249, 10800) angle=3600 bbox=-1332,-207,4:2818,209,436
+[mod] [HUB3BREAD] PART path=train1/1 entity=PointLight handle=5476897592 scale=100 pos=(279743, 165249, 10800) visual=(280068, 165806, 11195) angle=3600 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train1/2 entity=PointLight handle=5693226288 scale=100 pos=(279743, 165249, 10800) visual=(280209, 166007, 10774) angle=3600 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train1/3 entity=ResourcePreciousMinerals handle=5473817347 scale=100 pos=(277534, 162816, 11002) visual=(279353, 164785, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/4 entity=ResourcePreciousMinerals handle=5694776110 scale=100 pos=(277591, 162914, 11002) visual=(279441, 164734, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/5 entity=ResourcePreciousMinerals handle=5435554694 scale=100 pos=(277647, 163012, 11002) visual=(279529, 164683, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/6 entity=ResourcePreciousMinerals handle=5647277445 scale=100 pos=(277635, 162758, 11002) visual=(279301, 164695, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/7 entity=ResourcePreciousMinerals handle=6104600896 scale=100 pos=(277691, 162856, 11002) visual=(279389, 164644, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/8 entity=ResourcePreciousMinerals handle=5740284411 scale=100 pos=(277748, 162954, 11002) visual=(279477, 164593, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/9 entity=ResourcePreciousMinerals handle=5708624155 scale=100 pos=(277735, 162700, 11002) visual=(279249, 164604, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/10 entity=ResourcePreciousMinerals handle=5724421133 scale=100 pos=(277792, 162798, 11002) visual=(279337, 164553, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/11 entity=ResourcePreciousMinerals handle=6033069268 scale=100 pos=(277848, 162896, 11002) visual=(279425, 164503, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/12 entity=ResourcePreciousMinerals handle=5722663731 scale=100 pos=(277836, 162642, 11002) visual=(279196, 164514, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+						Lua 0:00:30:063
+[mod] [HUB3BREAD] PART path=train1/13 entity=ResourcePreciousMinerals handle=5929274023 scale=100 pos=(277892, 162740, 11002) visual=(279285, 164463, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/14 entity=ResourcePreciousMinerals handle=6183398986 scale=100 pos=(277949, 162838, 11002) visual=(279373, 164412, 11152) angle=3600 bbox=-51,-51,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/15 entity=ResourceSpices handle=5365592455 scale=100 pos=(277936, 162584, 11002) visual=(279144, 164423, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/16 entity=ResourceSpices handle=5786911497 scale=100 pos=(277993, 162682, 11002) visual=(279232, 164373, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/17 entity=ResourceSpices handle=6173553687 scale=100 pos=(278049, 162780, 11002) visual=(279320, 164322, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/18 entity=ResourceSpices handle=5942193810 scale=100 pos=(278037, 162526, 11002) visual=(279092, 164333, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/19 entity=ResourceSpices handle=5387316232 scale=100 pos=(278093, 162624, 11002) visual=(279180, 164282, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/20 entity=ResourceSpices handle=6033846421 scale=100 pos=(278150, 162722, 11002) visual=(279268, 164231, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/21 entity=ResourceSpices handle=5319256474 scale=100 pos=(278137, 162468, 11002) visual=(279040, 164243, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/22 entity=ResourceSpices handle=5511430531 scale=100 pos=(278194, 162566, 11002) visual=(279128, 164192, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/23 entity=ResourceSpices handle=5997082741 scale=100 pos=(278250, 162664, 11002) visual=(279216, 164141, 11152) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/24 entity=ResourceSpices handle=5588301372 scale=100 pos=(277534, 162816, 10901) visual=(279353, 164785, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/25 entity=ResourceSpices handle=5544373062 scale=100 pos=(277591, 162914, 10901) visual=(279441, 164734, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/26 entity=ResourceSpices handle=5474545676 scale=100 pos=(277647, 163012, 10901) visual=(279529, 164684, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/27 entity=ResourceSpices handle=5613834219 scale=100 pos=(277635, 162758, 10901) visual=(279301, 164695, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/28 entity=ResourceSpices handle=6181651790 scale=100 pos=(277691, 162856, 10901) visual=(279389, 164644, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/29 entity=ResourceSpices handle=5859554394 scale=100 pos=(277748, 162954, 10901) visual=(279477, 164593, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/30 entity=ResourceSpices handle=5941208241 scale=100 pos=(277735, 162700, 10901) visual=(279249, 164604, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/31 entity=ResourceSpices handle=5991833866 scale=100 pos=(277792, 162798, 10901) visual=(279337, 164553, 11061) angle=3600 bbox=-49,-49,0:49,49,100
+[mod] [HUB3BREAD] PART path=train1/32 entity=ResourceMetal handle=5994373116 scale=100 pos=(277848, 162896, 10901) visual=(279425, 164503, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/33 entity=ResourceMetal handle=5836494132 scale=100 pos=(277836, 162642, 10901) visual=(279196, 164514, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/34 entity=ResourceMetal handle=5938869731 scale=100 pos=(277892, 162740, 10901) visual=(279284, 164463, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/35 entity=ResourceMetal handle=5676577843 scale=100 pos=(277949, 162838, 10901) visual=(279373, 164412, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/36 entity=ResourceMetal handle=5801428821 scale=100 pos=(277936, 162584, 10901) visual=(279144, 164423, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/37 entity=ResourceMetal handle=5320511023 scale=100 pos=(277993, 162682, 10901) visual=(279232, 164373, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/38 entity=ResourceMetal handle=6035170365 scale=100 pos=(278049, 162780, 10901) visual=(279320, 164322, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/39 entity=ResourceMetal handle=5369516166 scale=100 pos=(278037, 162526, 10901) visual=(279092, 164333, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/40 entity=ResourceMetal handle=5432855269 scale=100 pos=(278093, 162624, 10901) visual=(279180, 164282, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/41 entity=ResourceMetal handle=5705024917 scale=100 pos=(278150, 162722, 10901) visual=(279268, 164231, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/42 entity=ResourceMetal handle=5525909284 scale=100 pos=(278137, 162468, 10901) visual=(279040, 164243, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/43 entity=ResourceMetal handle=5389125643 scale=100 pos=(278194, 162566, 10901) visual=(279128, 164192, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/44 entity=ResourceMetal handle=5852056016 scale=100 pos=(278250, 162664, 10901) visual=(279216, 164141, 11061) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/45 entity=ResourceMetal handle=5461482065 scale=100 pos=(277534, 162816, 10800) visual=(279353, 164785, 10970) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/46 entity=ResourceMetal handle=5778122071 scale=100 pos=(277591, 162914, 10800) visual=(279441, 164734, 10970) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/47 entity=ResourceMetal handle=5677407882 scale=100 pos=(277647, 163012, 10800) visual=(279529, 164684, 10970) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/48 entity=ResourceMetal handle=6093621642 scale=100 pos=(277635, 162758, 10800) visual=(279301, 164695, 10970) angle=3600 bbox=-50,-50,0:51,51,101
+[mod] [HUB3BREAD] PART path=train1/49 entity=ResourceHerbs handle=5615532262 scale=100 pos=(277691, 162856, 10800) visual=(279389, 164644, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/50 entity=ResourceHerbs handle=5348375620 scale=100 pos=(277748, 162954, 10800) visual=(279477, 164593, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/51 entity=ResourceHerbs handle=5866501627 scale=100 pos=(277735, 162700, 10800) visual=(279248, 164604, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/52 entity=ResourceHerbs handle=5917737723 scale=100 pos=(277792, 162798, 10800) visual=(279337, 164554, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/53 entity=ResourceHerbs handle=5823239656 scale=100 pos=(277848, 162896, 10800) visual=(279425, 164503, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/54 entity=ResourceHerbs handle=5857573660 scale=100 pos=(277836, 162642, 10800) visual=(279196, 164514, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/55 entity=ResourceHerbs handle=5414752330 scale=100 pos=(277892, 162740, 10800) visual=(279284, 164463, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/56 entity=ResourceHerbs handle=5920514745 scale=100 pos=(277949, 162838, 10800) visual=(279372, 164412, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/57 entity=ResourceHerbs handle=6129864320 scale=100 pos=(277936, 162584, 10800) visual=(279144, 164424, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/58 entity=ResourceHerbs handle=5686725655 scale=100 pos=(277993, 162682, 10800) visual=(279232, 164373, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/59 entity=ResourceHerbs handle=5675285840 scale=100 pos=(278049, 162780, 10800) visual=(279320, 164322, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/60 entity=ResourceHerbs handle=5718420184 scale=100 pos=(278037, 162526, 10800) visual=(279092, 164333, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/61 entity=ResourceHerbs handle=5649397142 scale=100 pos=(278093, 162624, 10800) visual=(279180, 164282, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/62 entity=ResourceHerbs handle=5455455024 scale=100 pos=(278150, 162722, 10800) visual=(279268, 164231, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/63 entity=ResourceHerbs handle=5843644191 scale=100 pos=(278137, 162468, 10800) visual=(279040, 164243, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/64 entity=ResourceHerbs handle=5405471871 scale=100 pos=(278194, 162566, 10800) visual=(279128, 164192, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] PART path=train1/65 entity=ResourceHerbs handle=5400476504 scale=100 pos=(278250, 162664, 10800) visual=(279216, 164141, 10970) angle=3600 bbox=-49,-50,-2:49,50,98
+[mod] [HUB3BREAD] TRAIN i=2 station=table: 00000266CBD0D940 at_station=false arrival=false command=GotoStation
+[mod] [HUB3BREAD] PART path=train2 entity=TrainCCP3 handle=2000001573 scale=100 pos=(189250, 200190, 10800) visual=(189363, 200385, 10800) angle=14400 bbox=-1332,-207,4:2818,209,436
+[mod] [HUB3BREAD] PART path=train2/1 entity=PointLight handle=5341075760 scale=100 pos=(189363, 200385, 10800) visual=(188896, 199627, 10774) angle=14400 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train2/2 entity=PointLight handle=5348005213 scale=100 pos=(189363, 200385, 10800) visual=(189038, 199828, 11195) angle=14400 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] TRAIN i=3 station=table: 00000266CBD0D940 at_station=true arrival=1 command=UnloadTrain
+[mod] [HUB3BREAD] PART path=train3 entity=TrainCCP3 handle=2000001575 scale=100 pos=(198539, 215033, 10000) visual=(198539, 215033, 10000) angle=3600 bbox=-1332,-207,4:2818,209,436
+[mod] [HUB3BREAD] PART path=train3/1 entity=PointLight handle=6121397348 scale=100 pos=(198539, 215033, 10000) visual=(199006, 215791, 9974) angle=3600 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train3/2 entity=PointLight handle=6037786740 scale=100 pos=(198539, 215033, 10000) visual=(198864, 215590, 10395) angle=3600 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train3/3 entity=ResourceSeeds handle=5585740118 scale=100 pos=(197823, 215185, 10202) visual=(198149, 214568, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/4 entity=ResourceSeeds handle=5874241204 scale=100 pos=(197880, 215283, 10202) visual=(198237, 214517, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/5 entity=ResourceSeeds handle=5707493967 scale=100 pos=(197936, 215381, 10202) visual=(198325, 214466, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+						Lua 0:00:30:064
+[mod] [HUB3BREAD] PART path=train3/6 entity=ResourceSeeds handle=5783310844 scale=100 pos=(197924, 215127, 10202) visual=(198097, 214478, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/7 entity=ResourceSeeds handle=5542094160 scale=100 pos=(197980, 215225, 10202) visual=(198185, 214427, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/8 entity=ResourceSeeds handle=5426155408 scale=100 pos=(198037, 215323, 10202) visual=(198273, 214376, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/9 entity=ResourceSeeds handle=5653620911 scale=100 pos=(198024, 215069, 10202) visual=(198045, 214387, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/10 entity=ResourceSeeds handle=6008227682 scale=100 pos=(198081, 215167, 10202) visual=(198133, 214336, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/11 entity=ResourceSeeds handle=5951369566 scale=100 pos=(198137, 215265, 10202) visual=(198221, 214286, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/12 entity=ResourceSeeds handle=5373394168 scale=100 pos=(198125, 215011, 10202) visual=(197992, 214297, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/13 entity=ResourceSeeds handle=5789825938 scale=100 pos=(198181, 215109, 10202) visual=(198080, 214246, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/14 entity=ResourceSeeds handle=5822174898 scale=100 pos=(198238, 215207, 10202) visual=(198169, 214195, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/15 entity=ResourceSeeds handle=5941714791 scale=100 pos=(198225, 214953, 10202) visual=(197940, 214206, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/16 entity=ResourceSeeds handle=5296474773 scale=100 pos=(198282, 215051, 10202) visual=(198028, 214156, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/17 entity=ResourceSeeds handle=5984627598 scale=100 pos=(198338, 215149, 10202) visual=(198116, 214105, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/18 entity=ResourceSeeds handle=6112679848 scale=100 pos=(198326, 214895, 10202) visual=(197888, 214116, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/19 entity=ResourceSeeds handle=5685287395 scale=100 pos=(198382, 214993, 10202) visual=(197976, 214065, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/20 entity=ResourceSeeds handle=5513726237 scale=100 pos=(198439, 215091, 10202) visual=(198064, 214014, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/21 entity=ResourceSeeds handle=5346519176 scale=100 pos=(198426, 214837, 10202) visual=(197836, 214026, 10352) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/22 entity=ResourceWasteRock_03 handle=6115066085 scale=140 pos=(198483, 214935, 10202) visual=(197924, 213975, 10352) angle=9449 bbox=-41,-41,-2:52,50,79
+[mod] [HUB3BREAD] PART path=train3/23 entity=ResourceWasteRock_01 handle=5845807192 scale=140 pos=(198539, 215033, 10202) visual=(198012, 213924, 10352) angle=592 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/24 entity=ResourceWasteRock_02 handle=6006386171 scale=140 pos=(197823, 215185, 10101) visual=(198149, 214568, 10261) angle=10318 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/25 entity=ResourceWasteRock_02 handle=6069581026 scale=140 pos=(197880, 215283, 10101) visual=(198237, 214517, 10261) angle=743 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/26 entity=ResourceWasteRock_02 handle=5897154235 scale=140 pos=(197936, 215381, 10101) visual=(198325, 214467, 10261) angle=3149 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/27 entity=ResourceWasteRock_01 handle=6149072806 scale=140 pos=(197924, 215127, 10101) visual=(198097, 214478, 10261) angle=9566 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/28 entity=ResourceWasteRock_03 handle=5866973030 scale=140 pos=(197980, 215225, 10101) visual=(198185, 214427, 10261) angle=4704 bbox=-41,-41,-2:52,50,79
+[mod] [HUB3BREAD] PART path=train3/29 entity=ResourceWasteRock_01 handle=5347704286 scale=140 pos=(198037, 215323, 10101) visual=(198273, 214376, 10261) angle=6755 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/30 entity=ResourceWasteRock_03 handle=5746013021 scale=140 pos=(198024, 215069, 10101) visual=(198044, 214387, 10261) angle=15735 bbox=-41,-41,-2:52,50,79
+[mod] [HUB3BREAD] PART path=train3/31 entity=ResourceWasteRock_03 handle=5494537204 scale=140 pos=(198081, 215167, 10101) visual=(198133, 214336, 10261) angle=10670 bbox=-41,-41,-2:52,50,79
+[mod] [HUB3BREAD] PART path=train3/32 entity=ResourceWasteRock_03 handle=5564009244 scale=140 pos=(198137, 215265, 10101) visual=(198221, 214286, 10261) angle=11716 bbox=-41,-41,-2:52,50,79
+[mod] [HUB3BREAD] PART path=train3/33 entity=ResourceWasteRock_02 handle=5601998766 scale=140 pos=(198125, 215011, 10101) visual=(197992, 214297, 10261) angle=14762 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/34 entity=ResourceWasteRock_02 handle=5898392827 scale=140 pos=(198181, 215109, 10101) visual=(198080, 214246, 10261) angle=16553 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/35 entity=ResourceWasteRock_01 handle=5911591275 scale=140 pos=(198238, 215207, 10101) visual=(198168, 214195, 10261) angle=16170 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/36 entity=ResourceWasteRock_01 handle=5527732305 scale=140 pos=(198225, 214953, 10101) visual=(197940, 214206, 10261) angle=2310 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/37 entity=ResourceWasteRock_02 handle=5945761556 scale=140 pos=(198282, 215051, 10101) visual=(198028, 214156, 10261) angle=8845 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/38 entity=ResourceWasteRock_01 handle=5480221596 scale=140 pos=(198338, 215149, 10101) visual=(198116, 214105, 10261) angle=2490 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/39 entity=ResourceWasteRock_02 handle=5952192327 scale=140 pos=(198326, 214895, 10101) visual=(197888, 214116, 10261) angle=1316 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/40 entity=ResourceWasteRock_01 handle=6098510908 scale=140 pos=(198382, 214993, 10101) visual=(197976, 214065, 10261) angle=15838 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/41 entity=ResourceWasteRock_01 handle=6119157262 scale=140 pos=(198439, 215091, 10101) visual=(198064, 214014, 10261) angle=1191 bbox=-46,-48,-4:43,45,85
+[mod] [HUB3BREAD] PART path=train3/42 entity=ResourceWasteRock_02 handle=5430432958 scale=140 pos=(198426, 214837, 10101) visual=(197836, 214026, 10261) angle=21017 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/43 entity=ResourceWasteRock_02 handle=5893262649 scale=140 pos=(198483, 214935, 10101) visual=(197924, 213975, 10261) angle=13080 bbox=-44,-38,-2:49,53,62
+[mod] [HUB3BREAD] PART path=train3/44 entity=ResourceSeeds handle=5882548351 scale=100 pos=(198539, 215033, 10101) visual=(198012, 213924, 10261) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/45 entity=ResourceSeeds handle=6016458901 scale=100 pos=(197823, 215185, 10000) visual=(198149, 214568, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/46 entity=ResourceSeeds handle=5728218910 scale=100 pos=(197880, 215283, 10000) visual=(198237, 214517, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/47 entity=ResourceSeeds handle=6012672414 scale=100 pos=(197936, 215381, 10000) visual=(198325, 214467, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/48 entity=ResourceSeeds handle=5520130742 scale=100 pos=(197924, 215127, 10000) visual=(198097, 214478, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/49 entity=ResourceSeeds handle=5785659631 scale=100 pos=(197980, 215225, 10000) visual=(198185, 214427, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/50 entity=ResourceSeeds handle=5953604945 scale=100 pos=(198037, 215323, 10000) visual=(198273, 214376, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/51 entity=ResourceSeeds handle=5744348936 scale=100 pos=(198024, 215069, 10000) visual=(198044, 214387, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/52 entity=ResourceSeeds handle=5925532005 scale=100 pos=(198081, 215167, 10000) visual=(198132, 214337, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/53 entity=ResourceSeeds handle=5961148754 scale=100 pos=(198137, 215265, 10000) visual=(198221, 214286, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/54 entity=ResourceSeeds handle=5470777059 scale=100 pos=(198125, 215011, 10000) visual=(197992, 214297, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/55 entity=ResourceSeeds handle=5954598575 scale=100 pos=(198181, 215109, 10000) visual=(198080, 214246, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/56 entity=ResourceSeeds handle=5441903463 scale=100 pos=(198238, 215207, 10000) visual=(198168, 214195, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/57 entity=ResourceSeeds handle=5564272833 scale=100 pos=(198225, 214953, 10000) visual=(197940, 214206, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/58 entity=ResourceSeeds handle=5797466894 scale=100 pos=(198282, 215051, 10000) visual=(198028, 214156, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/59 entity=ResourceSeeds handle=5330514489 scale=100 pos=(198338, 215149, 10000) visual=(198116, 214105, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/60 entity=ResourceSeeds handle=5820265642 scale=100 pos=(198326, 214895, 10000) visual=(197888, 214116, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/61 entity=ResourceSeeds handle=5420169244 scale=100 pos=(198382, 214993, 10000) visual=(197976, 214065, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/62 entity=ResourceSeeds handle=5431391191 scale=100 pos=(198439, 215091, 10000) visual=(198064, 214014, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/63 entity=ResourceSeeds handle=5657659709 scale=100 pos=(198426, 214837, 10000) visual=(197836, 214026, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/64 entity=ResourceSeeds handle=5504868114 scale=100 pos=(198483, 214935, 10000) visual=(197924, 213975, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] PART path=train3/65 entity=ResourceSeeds handle=6186298734 scale=100 pos=(198539, 215033, 10000) visual=(198012, 213924, 10170) angle=3600 bbox=-50,-49,0:50,51,100
+[mod] [HUB3BREAD] TRAIN i=4 station=table: 00000266CABD6F18 at_station=true arrival=2 command=LoadTrain
+[mod] [HUB3BREAD] PART path=train4 entity=TrainCCP3 handle=2000001576 scale=100 pos=(278286, 166272, 10800) visual=(278286, 166272, 10800) angle=14400 bbox=-1332,-207,4:2818,209,436
+[mod] [HUB3BREAD] PART path=train4/1 entity=PointLight handle=5578859896 scale=100 pos=(278286, 166272, 10800) visual=(277961, 165715, 11195) angle=14400 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train4/2 entity=PointLight handle=6184111689 scale=100 pos=(278286, 166272, 10800) visual=(277819, 165514, 10774) angle=14400 bbox=-46,-46,-40:45,46,123
+[mod] [HUB3BREAD] PART path=train4/3 entity=ResourceCheese handle=6022028743 scale=100 pos=(279002, 166120, 11002) visual=(278676, 166736, 11152) angle=14400 bbox=-49,-50,0:49,50,100
+						Lua 0:00:30:065
+[mod] [HUB3BREAD] PART path=train4/4 entity=ResourceCheese handle=5656071965 scale=100 pos=(278945, 166022, 11002) visual=(278588, 166787, 11152) angle=14400 bbox=-49,-50,0:49,50,100
+[mod] [HUB3BREAD] PART path=train4/5 entity=ResourceCheese handle=5475063981 scale=100 pos=(278889, 165924, 11002) visual=(278499, 166838, 11152) angle=14400 bbox=-49,-50,0:49,50,100
+[mod] [HUB3BREAD] PART path=train4/6 entity=ResourceFuel handle=6006242911 scale=100 pos=(278901, 166178, 11002) visual=(278728, 166826, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/7 entity=ResourceFuel handle=5818777371 scale=100 pos=(278845, 166080, 11002) visual=(278640, 166877, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/8 entity=ResourceFuel handle=5503238834 scale=100 pos=(278788, 165982, 11002) visual=(278552, 166928, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/9 entity=ResourceFuel handle=5328000498 scale=100 pos=(278801, 166236, 11002) visual=(278780, 166917, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/10 entity=ResourceFuel handle=5348812938 scale=100 pos=(278744, 166138, 11002) visual=(278692, 166968, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/11 entity=ResourceFuel handle=6143370010 scale=100 pos=(278688, 166040, 11002) visual=(278604, 167019, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/12 entity=ResourceFuel handle=5525256013 scale=100 pos=(278700, 166294, 11002) visual=(278832, 167007, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/13 entity=ResourceFuel handle=5860429359 scale=100 pos=(278644, 166196, 11002) visual=(278744, 167058, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/14 entity=ResourceFuel handle=5687264392 scale=100 pos=(278587, 166098, 11002) visual=(278656, 167109, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/15 entity=ResourceFuel handle=6004959204 scale=100 pos=(278600, 166352, 11002) visual=(278884, 167098, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/16 entity=ResourceFuel handle=6130989452 scale=100 pos=(278543, 166254, 11002) visual=(278796, 167149, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/17 entity=ResourceFuel handle=6107524330 scale=100 pos=(278487, 166156, 11002) visual=(278708, 167199, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/18 entity=ResourceFuel handle=5810363853 scale=100 pos=(278499, 166410, 11002) visual=(278936, 167188, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/19 entity=ResourceFuel handle=5521088843 scale=100 pos=(278443, 166312, 11002) visual=(278848, 167239, 11152) angle=14400 bbox=-51,-49,0:47,48,114
+[mod] [HUB3BREAD] PART path=train4/20 entity=ResourceCoffe handle=5654493518 scale=100 pos=(278386, 166214, 11002) visual=(278760, 167290, 11152) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/21 entity=ResourceCoffe handle=5444518419 scale=100 pos=(278399, 166468, 11002) visual=(278989, 167279, 11152) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/22 entity=ResourceCoffe handle=5417979958 scale=100 pos=(278342, 166370, 11002) visual=(278901, 167329, 11152) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/23 entity=ResourceCoffe handle=5725791430 scale=100 pos=(278286, 166272, 11002) visual=(278812, 167380, 11152) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/24 entity=ResourceCoffe handle=5553452234 scale=100 pos=(279002, 166120, 10901) visual=(278676, 166736, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/25 entity=ResourceCoffe handle=6090375769 scale=100 pos=(278945, 166022, 10901) visual=(278588, 166787, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/26 entity=ResourceCoffe handle=5665613763 scale=100 pos=(278889, 165924, 10901) visual=(278500, 166838, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/27 entity=ResourceCoffe handle=5708642586 scale=100 pos=(278901, 166178, 10901) visual=(278728, 166826, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/28 entity=ResourceCoffe handle=5801920214 scale=100 pos=(278845, 166080, 10901) visual=(278640, 166877, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/29 entity=ResourceCoffe handle=5749095783 scale=100 pos=(278788, 165982, 10901) visual=(278552, 166928, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/30 entity=ResourceCoffe handle=5596742023 scale=100 pos=(278801, 166236, 10901) visual=(278780, 166917, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/31 entity=ResourceCoffe handle=5821163920 scale=100 pos=(278744, 166138, 10901) visual=(278692, 166968, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/32 entity=ResourceCoffe handle=6009216656 scale=100 pos=(278688, 166040, 10901) visual=(278604, 167018, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/33 entity=ResourceCoffe handle=5919339204 scale=100 pos=(278700, 166294, 10901) visual=(278832, 167007, 11061) angle=14400 bbox=-49,-49,0:49,51,100
+[mod] [HUB3BREAD] PART path=train4/34 entity=ResourceMeat handle=5772027199 scale=100 pos=(278644, 166196, 10901) visual=(278744, 167058, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/35 entity=ResourceMeat handle=5300549017 scale=100 pos=(278587, 166098, 10901) visual=(278656, 167109, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/36 entity=ResourceMeat handle=5673620031 scale=100 pos=(278600, 166352, 10901) visual=(278884, 167098, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/37 entity=ResourceMeat handle=5894904835 scale=100 pos=(278543, 166254, 10901) visual=(278796, 167149, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/38 entity=ResourceMeat handle=5819671843 scale=100 pos=(278487, 166156, 10901) visual=(278708, 167199, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/39 entity=ResourceMeat handle=5885205594 scale=100 pos=(278499, 166410, 10901) visual=(278937, 167188, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/40 entity=ResourceMeat handle=5505838280 scale=100 pos=(278443, 166312, 10901) visual=(278848, 167239, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/41 entity=ResourceMeat handle=6025709891 scale=100 pos=(278386, 166214, 10901) visual=(278760, 167290, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/42 entity=ResourceMeat handle=5586126274 scale=100 pos=(278399, 166468, 10901) visual=(278989, 167279, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/43 entity=ResourceMeat handle=5806704068 scale=100 pos=(278342, 166370, 10901) visual=(278901, 167329, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/44 entity=ResourceMeat handle=6055680494 scale=100 pos=(278286, 166272, 10901) visual=(278813, 167380, 11061) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/45 entity=ResourceMeat handle=5584535705 scale=100 pos=(279002, 166120, 10800) visual=(278676, 166736, 10970) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/46 entity=ResourceMeat handle=5839237337 scale=100 pos=(278945, 166022, 10800) visual=(278588, 166787, 10970) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/47 entity=ResourceMeat handle=5895137628 scale=100 pos=(278889, 165924, 10800) visual=(278500, 166838, 10970) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/48 entity=ResourceMeat handle=5501833635 scale=100 pos=(278901, 166178, 10800) visual=(278728, 166826, 10970) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/49 entity=ResourceMeat handle=6091213841 scale=100 pos=(278845, 166080, 10800) visual=(278640, 166877, 10970) angle=14400 bbox=-49,-49,1:49,49,102
+[mod] [HUB3BREAD] PART path=train4/50 entity=ResourceMachineParts handle=6052591975 scale=100 pos=(278788, 165982, 10800) visual=(278552, 166928, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/51 entity=ResourceMachineParts handle=5803675911 scale=100 pos=(278801, 166236, 10800) visual=(278780, 166917, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/52 entity=ResourceMachineParts handle=5816447252 scale=100 pos=(278744, 166138, 10800) visual=(278692, 166968, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/53 entity=ResourceMachineParts handle=5451449773 scale=100 pos=(278688, 166040, 10800) visual=(278604, 167018, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/54 entity=ResourceMachineParts handle=5498908901 scale=100 pos=(278700, 166294, 10800) visual=(278832, 167007, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/55 entity=ResourceMachineParts handle=5411991699 scale=100 pos=(278644, 166196, 10800) visual=(278744, 167058, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/56 entity=ResourceMachineParts handle=6005956684 scale=100 pos=(278587, 166098, 10800) visual=(278656, 167109, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/57 entity=ResourceMachineParts handle=5580580669 scale=100 pos=(278600, 166352, 10800) visual=(278884, 167098, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/58 entity=ResourceMachineParts handle=5973962601 scale=100 pos=(278543, 166254, 10800) visual=(278796, 167148, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/59 entity=ResourceMachineParts handle=5319362219 scale=100 pos=(278487, 166156, 10800) visual=(278708, 167199, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/60 entity=ResourceMachineParts handle=5879124315 scale=100 pos=(278499, 166410, 10800) visual=(278937, 167188, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/61 entity=ResourceMachineParts handle=5357132298 scale=100 pos=(278443, 166312, 10800) visual=(278849, 167239, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/62 entity=ResourceMachineParts handle=5935138420 scale=100 pos=(278386, 166214, 10800) visual=(278760, 167290, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/63 entity=ResourceMachineParts handle=5540151126 scale=100 pos=(278399, 166468, 10800) visual=(278989, 167279, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/64 entity=ResourceMachineParts handle=5525798385 scale=100 pos=(278342, 166370, 10800) visual=(278901, 167329, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+[mod] [HUB3BREAD] PART path=train4/65 entity=ResourceMachineParts handle=5581922021 scale=100 pos=(278286, 166272, 10800) visual=(278813, 167380, 10970) angle=14400 bbox=-53,-50,3:47,51,100
+						Lua 0:00:31:090
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0019 fallback=false label="Hub3b baseline before tuning" mark=44 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0019.png status=OK t=14919135 id=34
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0019 fallback=false label="Hub3b baseline before tuning" mark=44 path=C:/Dev/SMR-ScreenCaptures/SMRTK_0019.png status=OK t=14919135 id=34
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=35
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save="SpaceY Sol 21.savegame.sav" sol=21 status=OK t=14919135 id=35
+[mod] [HUB3BREAD] READ ok=true result=nil
+[mod] [HUB3BREAD] DONE
+						Lua 0:00:32:090
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:00:32:095
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:00:32:402
+
+
+*** Debug::Done()
+Time (ms)	32402
+
+

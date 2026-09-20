@@ -1,0 +1,166 @@
+-- Sitting-owned: train hub build 3b, 2026-09-20. Smoke, not final battery.
+-- Record: Opt-In Modules docs/agent/reports/TRAIN_HUB_BUILD_20260918.md.
+-- Predictions: 1 reads reservations/poses; 2/5 move the parked train 1 m;
+-- 3 sends a selected parked train by straight/60/120/reverse in that order;
+-- 4 pauses during an acquired crossing; 6 reads each attached part separately.
+-- Nothing arms or mutates at load. All setup mutations use the dispatcher.
+local T = SMRTK
+local route_stage = 0
+local function name(o) return IsValid(o) and tostring(o.class).."("..tostring(o.handle)..")" or "none" end
+local function pt(p)
+    return IsPoint(p) and tostring(p:x())..","..tostring(p:y())..","..tostring(p:z()) or tostring(p)
+end
+local function city() return rawget(_G,"UICity") or rawget(_G,"MainCity") end
+local function is_hub(o) return IsValid(o) and IsKindOf(o,"SMROptInTrainHubBase") end
+local function hub_here()
+    local c=city()
+    for _,h in ipairs(c and c.labels.Station or empty_table) do if is_hub(h) then return h end end
+end
+local function selected_train(ctx)
+    if IsValid(ctx.sel) and IsKindOf(ctx.sel,"Train") then return ctx.sel end
+    local c=city()
+    for _,t in ipairs(c and c.labels.Train or empty_table) do
+        if is_hub(t.current_station) and t.at_station then return t end
+    end
+end
+local function traffic(ctx)
+    local h=hub_here()
+    if not h then return false,"no hub on current map" end
+    ctx.mark("HUB3B_READ_BEGIN")
+    ctx.log("DUMP",{leg="hub3b",hub=name(h),park=SMROptInTrainFloor.HubParkDistance,
+        crossing=name(h.SMROptIn_hub_crossing),pos=pt(h:GetPos()),angle=h:GetAngle(),errors=T.error_count})
+    for i=h.first_connector_idx,h.last_connector_idx do
+        local fields={leg="hub3b_line",line=i,reserved=name((h.track_busy or empty_table)[i])}
+        for _,kind in ipairs({"Trackconnector","Ramparrive","Stop","Spawn","Rampdepart"}) do
+            local s=h:GetSpotBeginIndex(kind..i)
+            local _,a=h:GetSpotAxisAngle(s)
+            fields[kind]=pt(h:GetSpotPos(s)).."@"..tostring(a)
+        end
+        ctx.log("DUMP",fields)
+    end
+    for _,t in ipairs(city().labels.Train or empty_table) do
+        ctx.log("DUMP",{leg="hub3b_train",train=name(t),station=name(t.current_station),track=name(t.track),
+            arrival=tostring(t.station_arrival_track),at_station=tostring(t.at_station),command=tostring(t.command),
+            pos=pt(t:GetPos()),visual=pt(t:GetVisualPos()),yaw=t:GetAngle(),visual_yaw=t:GetVisualAngle()})
+    end
+    ctx.mark("HUB3B_READ_END")
+    return {hub=name(h),park=SMROptInTrainFloor.HubParkDistance,errors=T.error_count}
+end
+T.Bind(1,"Read hub traffic and lanes",traffic,{mode="once"})
+
+local function tune(ctx,delta)
+    if GetTimeFactor()~=0 then return false,"pause before changing park distance" end
+    local h=hub_here()
+    if not h then return false,"no hub on current map" end
+    for _,s in ipairs(city().labels.Station or empty_table) do
+        if is_hub(s) and s~=h then return false,"this tuning fixture requires a single hub" end
+    end
+    if IsValid(h.SMROptIn_hub_crossing) then return false,"crossing is occupied" end
+    local parked={}
+    for _,t in ipairs(city().labels.Train or empty_table) do
+        if t.current_station==h then
+            if t.at_station or t.at_spawn_track then parked[#parked+1]=t
+            elseif t:GetDist2D(h)<50*guim then return false,"a train is leaving the hub; let it finish first" end
+        end
+    end
+    if #parked==0 then return false,"no parked hub train to judge" end
+    local old=SMROptInTrainFloor.HubParkDistance
+    local new=old+delta*guim
+    if new<8*guim or new>27*guim then return false,"tuning range is 8 to 27 m, inside the ramp" end
+    ctx.mark("HUB3B_TUNE_BEGIN")
+    SMROptInTrainFloor.HubParkDistance=new
+    for _,t in ipairs(parked) do
+        local idx=t.station_arrival_track or h:GetConnectionSpot(t.track)
+        local s=h:GetSpotBeginIndex((t.at_spawn_track and not t.station_arrival_track and "Spawn" or "Stop")..idx)
+        local _,a=h:GetSpotAxisAngle(s)
+        t:StopInterpolation(); t:SetPos(h:GetSpotPos(s)); t:SetAngle(a)
+    end
+    local fields={leg="park_setup",old=old,new=new,moved=#parked,mutation="reposition paused parked trains"}
+    ctx.log("DUMP",fields); ctx.mark("HUB3B_TUNE_END")
+    return fields
+end
+T.Bind(2,"Park 1 m inward",function(ctx) return tune(ctx,-1) end,{mode="once"})
+T.Bind(5,"Park 1 m outward",function(ctx) return tune(ctx,1) end,{mode="once"})
+
+-- Fixture setup only: retain the arrival connector while assigning the requested
+-- outgoing track. at_spawn_track makes vanilla GetArrivalTrack choose that track
+-- (Train.lua:208-220, 1.1.0.403908); GotoStation owns the whole movement thread.
+-- No Train method or route graph is patched and no detached thread is created.
+T.Bind(3,"Depart: straight / 60 / 120 / reverse",function(ctx,requested)
+    local t=selected_train(ctx)
+    if not t or not t.at_station or not is_hub(t.current_station) then return false,"select a train parked at the hub" end
+    local h=t.current_station
+    local k=t.station_arrival_track or h:GetConnectionSpot(t.track)
+    if not k then return false,"arrival connector unavailable" end
+    local stage=requested or route_stage+1
+    if stage<1 or stage>4 then stage=1 end
+    local offsets={3,1,2,0}
+    local desired=(h.hub_connector_directions[k]+offsets[stage])%6
+    local idx
+    for i,d in ipairs(h.hub_connector_directions) do if d==desired then idx=i; break end end
+    local el=idx and h:GetConnectorElement(idx)
+    local track=IsValid(el) and el.track_obj
+    local dest=IsValid(track) and track:GetDestStation(h)
+    if not IsValid(dest) or not IsKindOf(dest,"Station") then return false,"requested line has no completed station" end
+    if not track:IsTrackFreeFor(t,h) then return false,"requested outgoing track is busy" end
+    if IsValid(h.SMROptIn_hub_crossing) then return false,"crossing is occupied" end
+    ctx.mark("HUB3B_DEPART_BEGIN")
+    t:AssignToTrack(track)
+    t.station_arrival_track=k
+    t.at_spawn_track=true
+    t:SetCommand("GotoStation",dest,false)
+    route_stage=stage
+    local fields={leg="departure_setup",train=name(t),arrival=k,departure=idx,stage=stage,
+        kind=({"straight","60","120","reverse"})[stage],destination=name(dest),
+        mutation="assign outgoing track and start vanilla GotoStation"}
+    ctx.log("DUMP",fields); ctx.mark("HUB3B_DEPART_END")
+    return fields
+end,{mode="once"})
+
+T.Trigger{id="hub3b_crossing",label="Hub train is crossing",cadence=50,once=true,
+    prepare=function(ctx)
+        local h=hub_here()
+        if not h then return false,"no hub on current map" end
+        ctx.state.hub=h
+        return {hub=name(h)}
+    end,
+    when=function(ctx)
+        local h=ctx.state.hub
+        if not IsValid(h) then return false end
+        local t=h.SMROptIn_hub_crossing
+        return IsValid(t),{hub=name(h),crossing=name(t),visual=IsValid(t) and pt(t:GetVisualPos()) or "nil"}
+    end,["do"]={mark=true,pause=true,screenshot=true,sound=false}}
+T.Bind(4,"Pause on next crossing (re-arm after save)",function(ctx)
+    if T.armed.hub3b_crossing then return false,"crossing watch is already armed" end
+    local ok,result=T.Arm("hub3b_crossing")
+    if not ok then return false,result.reason end
+    return {watch="hub3b_crossing",cadence=50}
+end,{mode="once"})
+
+local function parts(ctx,obj,path,seen)
+    if seen[obj] then return end
+    seen[obj]=true
+    local b=obj:GetEntityBBox()
+    ctx.log("DUMP",{leg="train_part",path=path,object=name(obj),entity=obj:GetEntity(),state=obj:GetStateText(),
+        scale=obj:GetScale(),pos=pt(obj:GetPos()),visual=pt(obj:GetVisualPos()),yaw=obj:GetAngle(),
+        bbox_min=tostring(b:minx())..","..tostring(b:miny())..","..tostring(b:minz()),
+        bbox_max=tostring(b:maxx())..","..tostring(b:maxy())..","..tostring(b:maxz())})
+    for i,child in ipairs(obj:GetAttaches() or empty_table) do parts(ctx,child,path.."/"..i,seen) end
+end
+T.Bind(6,"Read selected train and attached-part bounds",function(ctx)
+    local t=selected_train(ctx)
+    if not t then return false,"select a train (or wait for one parked at the hub)" end
+    ctx.mark("HUB3B_PARTS_BEGIN"); parts(ctx,t,"train",{}); ctx.mark("HUB3B_PARTS_END")
+    return {train=name(t),length_verdict="DISPUTED: compare visible train to hex grid"}
+end,{mode="once"})
+T.BindScratch("Boot, taint and eligibility",function(ctx)
+    ctx.mark("HUB3B_BOOT")
+    T.ConsoleControl()
+    T.TaintRead()
+    T.Run("eligibility")
+    return {sitting="train_hub_3b",errors=T.error_count,park=SMROptInTrainFloor.HubParkDistance,
+        sweep="run desktop sweep before each boot",hub=name(hub_here())}
+end,{mode="once"})
+function OnMsg.LoadGame() route_stage=0 end
+T.Log("SLOTS",{sitting="train_hub_3b",slots="1 traffic,2 inward,3 departure,4 crossing watch,5 outward,6 parts,scratch boot",
+    armed_at_load=T.ArmedCount(),predictions="TRAIN_HUB_BUILD_20260918.md: build 3b"})

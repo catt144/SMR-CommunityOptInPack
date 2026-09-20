@@ -2,9 +2,8 @@
 
 **Authority.** Owner rulings 2026-09-18, spec §10
 (`TRAIN_LOGISTICS_DESIGN_20260917.md`); brief `docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
-**Build 3b, 2026-09-20: HELD at its fit gate.** `GEOMETRY_ORACLE_20260919.md` §12 records
-clearance, vanilla parking, queue overlap, reverse-envelope shift and costed redesign options.
-OI-22 is the next owner decision; no train code or asset changed and no new smoke ran.
+**Build 3b, 2026-09-20: implemented; unattended smoke passed, owner visual acceptance pending.** The owner withdrew
+the fit gate and OI-22; `GEOMETRY_ORACLE_20260919.md` §13 governs. See §"Build 3b" below.
 **Status: BUILD 3 SMOKE PASS.** The following original prediction block began at pack `886926b`,
 TestKit `adda373`, parse-checked only
 (`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` → 2 files, 0 errors; TestKit 33
@@ -403,6 +402,155 @@ deliberately not fixed here. The four established current cases transfer unchang
 The owner moved their full rework to `TRAIN_HUB_TRAINS_high.md` (build 3b).
 
 **Verdict:** build 3's smoke passed. Build 3b is released; build 4 remains held behind it.
+
+## Build 3b, 2026-09-20
+
+**Authority:** `TRAIN_HUB_TRAINS_high.md`; the owner additionally authorised unattended game
+launches and save loads in this session, then specified the newest manual save because older
+fixtures contain an incompatible mesh. Baseline: `SpaceY Sol 21.savegame.sav`, modified
+2026-09-20 03:27:33 local, selected with `Get-ChildItem` on the fix pack's `saves/game/` junction,
+sorted by `LastWriteTime`. Task-created mid-crossing saves are separate files. Existing saves
+were copied before launch to `%TEMP%/SMRTrainHub3b-20260920-035736/`.
+
+**Implemented, not an owner's visual acceptance:** corrected connector table `{4,1,3,0,2,5}`;
+`SMROptInTrainFloor.HubParkDistance` is **20 m**; track-step-derived
+arrival/departure lanes; own-line reservations; a saved crossing owner; lane-intersection
+waypoints with a timed centre turn. Same-line Spawn equals Stop and faces outward; reversal
+then follows a smooth lateral join to the departure lane instead of teleporting between lanes.
+That short lane join and the centre pivot still need the owner's judgement. No mesh or scaling
+change, no Train method replacement, no routing-graph or economy change.
+
+**Parking choice (visual, provisional):** compared 17, 20 and 23 m with the native hex overlay,
+paused on the same stopped train. At 17 m its nose sat closer to the crossing; 23 m hid more of
+the cargo tail behind the portal. Chose 20 m for the owner's review. Native screenshots
+`C:/Dev/SMR-ScreenCaptures/SMRTK_0054.png`, `0055.png`, `0056.png` show those positions;
+the adjusted train is upper-left, not the legacy traversal paused lower-right. Their hashes,
+labels and source logs are in the native evidence manifest below. R-TRAIN stays disputed;
+the clean parts/grid read is in `GEOMETRY_ORACLE_20260919.md` §13.
+
+**Reservation contract (SOURCE, archived 1.1.0.403908):** `Train.lua:258` must see its own
+reverse platform free, so only its own `LoadTrain` thread is exempted from its reservation.
+`Track.lua:433,453` still blocks spawning on an occupied Stop/Spawn. Arrival checks at
+`Train.lua:621` and recovery at `Tracks.lua:995,1017` see the own-line reservation. Cleanup at
+`Train.lua:95,136` reaches the hub override. `Train.lua:823-835` declares `ChangePlatform`;
+`rg -n 'ChangePlatform\(' C:/Dev/SMR-SrcArchive/1.1.0.403908/Src -g '*.lua'` returned that
+declaration alone (RAN this session). Old opposite-key reservations are rebuilt from the train's
+arrival connector, not checked against a moved Spawn position. The crossing waits for an
+in-progress arrival and blocks new arrivals while occupied. A stopped train on the incoming
+lane also blocks a pass-through; if the owner's fixture exposes that stop condition, the brief's
+through-waits-versus-moving-the-stop decision remains theirs.
+
+Load migration moves only genuinely parked trains to the new Stop/Spawn before showing the
+colony. It recognises `trains_traversing` from saved vanilla frames and waits for their existing
+release. A departing parked train remains `at_station` while waiting for the crossing and its
+outgoing track. A new pass-through assigns its outgoing track before its first movement yield;
+otherwise a parked departure could take that exit while the through train was crossing.
+
+**Save contract:** `SMROptIn_hub_crossing`, a Train reference, is in `FIX_POLICY`'s inventory.
+An interrupted valid train keeps the lock until existing cleanup removes it; an interrupted
+thread does not prove an empty crossing. The bounded movement frames are a content residual;
+removal with hubs standing remains unsupported. The tunable resets at boot; choose its lasting
+value in Lua after the visual sitting.
+
+**Desktop check:** `python tools/devmods/train_hub/tests/traffic_smoke.py` executes the actual
+hub methods and archived vanilla arrival/GotoSpot bodies against mocked native geometry and
+time. It checks rotated hubs, both track start/end orders, arrival lanes, reverse eligibility,
+spawn exclusion, old reservation keys, park retuning, exclusive acquisition, interruption,
+release and invalid-object cleanup. Its route records feed the unchanged oracle's `_two_train`
+method. This is a width-only spatial prediction; the oracle CLI still models the old single
+slide and cannot interpret these routes. No claim of native interpolation, mesh clearance,
+train length or a physical save test follows from this desktop check.
+
+**RAN:** `python tools/devmods/train_hub/tests/traffic_smoke.py --output
+docs/archive/TRAIN_HUB_3B_TRAFFIC_20260920.json` at HEAD `3071a9a` plus the recorded source
+hashes. [Result and members](../../archive/TRAIN_HUB_3B_TRAFFIC_20260920.json): 72 lane/reservation
+cases (6 rotations × 2 start/end orders × 6 connectors), 66 executed routes (36 departures +
+30 pass-throughs), concurrency assertions passed. TWO-TRAIN compared 1995 eligible route pairs:
+1320 within the 416-unit width + 675 clear. Each pair is enumerated; same-arrival alternatives
+are excluded as in the unchanged oracle. This establishes why the lock matters, not that two
+physical meshes never touch. No disputed train length enters this calculation.
+
+**Native smoke, game 1.1.0.403908, both packs loaded, final 20 m code:**
+
+| case | evidence | result |
+|---|---|---|
+| straight, connector 2 → 1 | [04.27.01 log](../../archive/TRAIN_HUB_3B_Mars.exe-20260920-04.27.01-6a91a190.log), stage 1 | departure completes; correct outgoing track; lock released |
+| 60° line, connector 2 → 5 | [04.22.55 log](../../archive/TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log), stage 2 | departure completes after crossing save/reload |
+| 120° line, connector 2 → 3 | same log, stage 3 | departure completes; correct outgoing track; lock released |
+| reverse, connector 2 → 2 | same log, stage 4 | waits for prior traffic, then completes; lock released |
+| parked + crossing save/reload | same log, `RELOAD_LOCK_OK`, `RELOAD_PARKED_OK` | crossing train `2000001576` and parked train `2000001577` preserved; crossing resumes and releases |
+
+These are forced native-command geometry fixtures: slot 3 assigns an outgoing track and starts
+vanilla `GotoStation`. The save leg also holds a parked train in native `Idle` and uses native
+`AssignTrain` to create a spare on a free hub line (one prefab supplied only if needed). Those
+setup mutations are logged; they do not establish automatic destination choice or throughput.
+The old-save traverser is allowed to finish before that spare setup. Every leg reloads the
+newest owner manual save; the save test writes `Hub3bSmoke_MID_1789892612.savegame.sav` separately.
+The earlier 17 m natural-traffic leg observed an arrival and straight departure; it is historical
+evidence, not a final-20-m visual pass. Other connectors have desktop coverage only.
+
+**Evidence and cleanup:** `python tools/devmods/train_hub/tests/record_evidence.py` ran after
+exit, at HEAD `3071a9a`, and produced the [native manifest](../../archive/TRAIN_HUB_3B_NATIVE_20260920.json).
+It archives 8 logs (members and SHA-256s listed), hashes 55 native screenshots (local originals,
+not checked-in binaries), and compares every backed-up original `*.sav`: **56/56 unchanged**.
+The final two logs each contain only the already-known startup `ArtSpecEditor.lua:573` error;
+no new runtime error, and every final stage's `RESULT` is true. Earlier diagnostic failures are
+retained: nil-Z formatting in the first slot read; a caught `HexGridRender.lua:44` failure after
+loading a save while a procedural grid was still active. The slots now format nil Z; the driver
+restores the grid after each screenshot. These were diagnostic failures, not passing legs.
+The manifest's error list counts `[LUA ERROR]` lines; caught driver failures remain in `RESULT`.
+
+Temporary drivers are disarmed with `arm_leg.ps1 -Mode disarm`; shared TestKit metadata is
+restored exactly. Only its prepared `80_AgentSlots.lua` remains changed, matching the inert
+source under `tools/devmods/train_hub/tests/`. No TestKit commit was made from this pack lane.
+The parked smoke driver currently runs stage 1; the final other-line/save leg used `{2,3,4}`
+in its Boot loop, with the same hub code. Drivers remain inert outside an explicitly armed run.
+
+Final desktop gates: dev-hub parse, shipping parse and shared-TestKit parse passed; doccheck
+GREEN in both repos. `rg -n 'TEMPORARY' Code C:/Dev/SMR-BugFixPack-TestKit/Code
+tools/devmods/train_hub/Code` returned no matches with those installed source paths present.
+The unchanged whole-CRLF archive warnings remain; archives are append-only. The prepared slots
+remain intentionally uncommitted in the shared TestKit, with their source committed here.
+Opt-In doccheck warnings after staging, verbatim (the new manifest also retains Windows EOL):
+
+```text
+  WARN docs/archive/TRAIN_HUB_3B_NATIVE_20260920.json
+  WARN docs/archive/train_hub_gate_20260920.json
+  WARN docs/archive/train_hub_gate_baseline_20260920.json
+  WARN  M Code/80_AgentSlots.lua
+```
+
+Raw log whitespace is retained. Manifest SHA-256s describe the original log bytes; Git's text
+attributes normalise CRLF on storage. `git diff --cached --check` is clean for authored code
+and documents when raw `docs/archive/*.log` evidence is excluded.
+
+**Owner controls, installed in the shared TestKit's `80_AgentSlots.lua`:** 1 reads lanes and
+traffic; 2 moves parked trains 1 m inward; 5 moves them 1 m outward; 3 sends the selected parked
+train straight / by a 60° line / by a 120° line / back along its incoming line on successive
+successful presses; 4 arms a pause at the next crossing; 6 reads the selected train and every
+attached part; Scratch reads boot, taint and eligibility. Parking setup requires pause and a
+single hub; it explicitly repositions parked trains. Departure setup assigns the requested
+outgoing track and starts vanilla `GotoStation`. It is a geometry fixture, not an economy or
+route-balancing test. Autosave disarms the crossing watch; re-press slot 4 afterwards.
+
+**Owner sitting, first batch:** start the game and load the newest owner manual save, not a
+task-created `Hub3bSmoke_MID` save. The Slots & notes tab is ready.
+
+1. Pause, select the hub and run Scratch, then slot 1. Inspect the stopped train at 20 m.
+2. Use 2/5 to tune inward/outward if needed; judge the train against the hex grid, then slot 6.
+3. Run slot 3 for straight departure; watch the deck and portal join from ground level.
+4. With a parked train ready, successive slot-3 runs cover 60° and 120° exits; judge whether the
+   timed pivot reads as a train turning. Then try the reverse and its short lane join.
+5. Watch two arrivals/through trains together and the outside queue. Slot 4 pauses on the next
+   crossing; re-arm after autosave. Record visible contact, crabbing or a blocked-through case.
+
+**Remaining:** the owner's parked position, turn/portal judgement and queue appearance. The
+parked-plus-crossing save/load is mechanically passed above; revisit it if visual work changes
+the movement. A source/offline pass does not meet the brief's visual done-condition. The
+fix-pack owner list carries this sitting; Build 4 stays held.
+The one-off prompt stays live until that smoke is recorded. Executed model: GPT-6 (Codex), as
+identified by this session's instructions; no more specific runtime model id is supplied.
+No subagents were used.
 
 ## Not claimed
 

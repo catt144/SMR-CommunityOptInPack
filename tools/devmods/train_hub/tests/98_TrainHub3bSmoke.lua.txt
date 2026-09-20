@@ -1,0 +1,188 @@
+-- TEMPORARY build 3b smoke. Owner authorized unattended newest manual save.
+-- Predicted: no new hub error; own-line arrivals, lock excludes another mover;
+-- native departure finishes on requested line; mid-crossing save retains owner.
+-- Explicit setup mutations: slot_2/5 reposition paused parked trains by 1 m;
+-- slot_3 assigns a requested outgoing track and starts vanilla GotoStation.
+-- Stage 2 also holds parked trains with vanilla Idle and adds a spare through
+-- TrackBase:AssignTrain (one prefab supplied only if needed), in this test copy.
+-- Grid/camera changes are presentation only. Saves use a new task-specific name.
+-- The live visual bar remains the owner's. No asset, scaling or economy change.
+Hub3bSmoke = {}
+SMRTK.Action{id="hub3b_hold",label="Hold parked smoke train",run=function(ctx,train)
+    if not IsValid(train) or not train.at_station then return false,"train is not parked" end
+    train:SetCommand("Idle")
+    return {train=train.handle,mutation="vanilla Idle on parked train"}
+end}
+SMRTK.Action{id="hub3b_spare",label="Add smoke spare at hub",run=function(ctx,hub,idx)
+    local el=hub:GetConnectorElement(idx)
+    local track=IsValid(el) and el.track_obj
+    if not IsValid(track) or not track:CanAddVehicle() or hub:GetOccupyingTrain(track) then return false,"spare platform unavailable" end
+    local before=ColonyGetPrefabs("Train",hub.city)
+    if before<1 then ColonyAddPrefabs("Train",1,nil,hub.city) end
+    track:AssignTrain(hub)
+    return {line=idx,prefabs_before=before,mutation="native AssignTrain; supply prefab if absent"}
+end}
+function Hub3bSmoke.Say(s) ModLog("[HUB3BSMOKE] "..tostring(s):gsub("%%","%%%%")) end
+function Hub3bSmoke.Hub()
+    for _,s in ipairs(UICity.labels.Station or empty_table) do
+        if IsKindOf(s,"SMROptInTrainHubBase") then return s end
+    end
+end
+function Hub3bSmoke.Shot(label)
+    local h=Hub3bSmoke.Hub()
+    local p=h:GetPos()
+    SetCamera(p+point(0,-6000,10000),p,"Max")
+    HexGridActivate(true,130*guim)
+    ShowNearbyHexGrid(p)
+    Sleep(500)
+    SMRTK.Run("screenshot_mark",label)
+    -- The grid's procedural render object must not survive a map reload.
+    HexGridRestore()
+end
+function Hub3bSmoke.Poses(label)
+    local h=Hub3bSmoke.Hub()
+    local lock=h and h.SMROptIn_hub_crossing
+    Hub3bSmoke.Say("POSE "..label.." lock="..tostring(IsValid(lock) and lock.handle or false))
+    for _,t in ipairs(UICity.labels.Train or empty_table) do
+        Hub3bSmoke.Say(string.format("TRAIN h=%s hub=%s at=%s arrival=%s cmd=%s pos=%s yaw=%s visual_yaw=%s",
+            tostring(t.handle),tostring(t.current_station==h),tostring(t.at_station),tostring(t.station_arrival_track),
+            tostring(t.command),tostring(t:GetVisualPos()),tostring(t:GetAngle()),tostring(t:GetVisualAngle())))
+    end
+end
+function Hub3bSmoke.Spare(h,train)
+    local held,result=SMRTK.Run("hub3b_hold",train)
+    assert(held,tostring(result.reason))
+    SetGameSpeed(1)
+    local deadline=RealTime()+15000
+    while h:HubCrossingTrain() do
+        assert(RealTime()<deadline,"legacy traversal did not finish")
+        Sleep(100)
+    end
+    SetGameSpeed(0)
+    local before={}
+    for _,t in ipairs(UICity.labels.Train) do before[t]=true end
+    local queued=false
+    for _,idx in ipairs({4,6,3,5}) do
+        local el=h:GetConnectorElement(idx)
+        if IsValid(el) and el.track_obj:CanAddVehicle() and not h:GetOccupyingTrain(el.track_obj) then
+            queued=SMRTK.Run("hub3b_spare",h,idx)
+            if queued then break end
+        end
+    end
+    assert(queued,"no spare train capacity")
+    SetGameSpeed(1)
+    deadline=RealTime()+5000
+    while RealTime()<deadline do
+        Sleep(50)
+        for _,t in ipairs(UICity.labels.Train) do
+            if not before[t] and t.current_station==h and t.at_station then
+                SetGameSpeed(0)
+                held,result=SMRTK.Run("hub3b_hold",t)
+                assert(held,tostring(result.reason))
+                Hub3bSmoke.Say("SPARE_PARKED "..t.handle)
+                return t.handle
+            end
+        end
+    end
+    error("native spare did not spawn")
+end
+function Hub3bSmoke.Run(stage)
+    local h=Hub3bSmoke.Hub()
+    assert(h,"newest manual save contains no hub")
+    SMRTK.Run("slot_scratch"); SMRTK.Run("slot_1"); SMRTK.Run("slot_6")
+    Hub3bSmoke.Shot("Hub3b stage "..stage.." loaded parked migration")
+    local ok,why=SMRTK.Run("slot_5")
+    Hub3bSmoke.Say("TUNE outward "..tostring(ok).." "..tostring(why.reason))
+    if ok then SMRTK.Run("slot_2") end
+    Hub3bSmoke.Shot("Hub3b stage "..stage.." park "..SMROptInTrainFloor.HubParkDistance.." with hex grid")
+    if stage==0 then
+        for _,target in ipairs({1700,2000,2300}) do
+            while SMROptInTrainFloor.HubParkDistance~=target do
+                local action=SMROptInTrainFloor.HubParkDistance<target and "slot_5" or "slot_2"
+                local moved,result=SMRTK.Run(action)
+                assert(moved,tostring(result.reason))
+            end
+            SMRTK.Run("slot_1")
+            Hub3bSmoke.Shot("Hub3b park comparison "..target)
+        end
+        return
+    end
+    -- Natural traffic was read in the preceding boot. Drive the parked train
+    -- before it leaves on its own; sample visual positions, not SetPos targets.
+    local baseline=SMRTK.error_count
+    -- Pick a parked train, then drive an other-line departure through native code.
+    local train
+    for _,t in ipairs(UICity.labels.Train or empty_table) do
+        if t.current_station==h and t.at_station then train=t; break end
+    end
+    assert(train,"NO_PARKED_TRAIN for forced turn")
+    local handle=train.handle
+    local spare=stage==2 and Hub3bSmoke.Spare(h,train)
+    SelectObj(train)
+    local started,fields=SMRTK.Run("slot_3",stage)
+    Hub3bSmoke.Say("DEPART started="..tostring(started).." reason="..tostring(fields.reason))
+    assert(started,tostring(fields.reason))
+    local saved=stage~=2
+    local turn_shot=false
+    SetGameSpeed(1)
+    for i=1,3000 do
+        Sleep(100)
+        if i%5==0 and IsValid(h.SMROptIn_hub_crossing) or i%50==0 then Hub3bSmoke.Poses("turn "..i) end
+        if i==12 and not turn_shot then
+            SetGameSpeed(0); Hub3bSmoke.Shot("Hub3b stage "..stage.." movement sample"); SetGameSpeed(1)
+            turn_shot=true
+        end
+        if not saved and IsValid(h.SMROptIn_hub_crossing) then
+            SetGameSpeed(0)
+            Hub3bSmoke.Shot("Hub3b crossing before save")
+            local handle=h.SMROptIn_hub_crossing.handle
+            local parked=spare and HandleToObject[spare]
+            assert(IsValid(parked) and parked.current_station==h and parked.at_station,"spare is not parked at save")
+            local filename="Hub3bSmoke_MID_"..tostring(os.time())..".savegame.sav"
+            local err=SaveGame(filename,{savename=filename,silent=true,no_screenshot=true})
+            assert(not err,tostring(err))
+            Hub3bSmoke.Say("SAVED "..filename.." lock="..handle)
+            err=LoadGame(filename,{})
+            assert(not err,tostring(err))
+            h=Hub3bSmoke.Hub()
+            assert(IsValid(h.SMROptIn_hub_crossing) and h.SMROptIn_hub_crossing.handle==handle,"crossing lock lost on reload")
+            parked=HandleToObject[spare]
+            assert(IsValid(parked) and parked.current_station==h and parked.at_station,"parked train lost on reload")
+            Hub3bSmoke.Say("RELOAD_LOCK_OK "..handle)
+            Hub3bSmoke.Say("RELOAD_PARKED_OK "..spare)
+            saved=true
+            SetGameSpeed(1)
+        end
+        if SMRTK.error_count>baseline then error("new Lua error during turn/save leg") end
+        local moving=HandleToObject[handle]
+        if i>=20 and IsValid(moving) and not moving.station_arrival_track and h.SMROptIn_hub_crossing~=moving then break end
+    end
+    SetGameSpeed(0); SMRTK.Run("slot_1")
+    train=HandleToObject[handle]
+    assert(IsValid(train) and not train.station_arrival_track,"departure did not finish")
+    assert(train.track==h:GetConnectorElement(fields.departure).track_obj,"wrong departure track")
+    assert(h.SMROptIn_hub_crossing~=train,"crossing lock leaked after departure")
+    Hub3bSmoke.Say("STAGE_COMPLETE stage="..stage.." arrival="..fields.arrival.." departure="..fields.departure.." train="..handle)
+    Hub3bSmoke.Shot("Hub3b stage "..stage.." after departure")
+end
+function Hub3bSmoke.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        local deadline=RealTime()+300000
+        while not GetPreGameMainMenu() do
+            if RealTime()>deadline then Hub3bSmoke.Say("TIMEOUT menu"); quit(); return end
+            Sleep(500)
+        end
+        Sleep(2000)
+        for _,stage in ipairs({1}) do
+            local err=LoadGame("SpaceY Sol 21.savegame.sav",{})
+            if err then Hub3bSmoke.Say("LOADERR "..tostring(err)); quit(); return end
+            SetGameSpeed(0); Sleep(2000)
+            local ok,result=pcall(Hub3bSmoke.Run,stage)
+            Hub3bSmoke.Say("RESULT stage="..stage.." ok="..tostring(ok).." result="..tostring(result))
+            if not ok then break end
+        end
+        FlushLogFile(); Sleep(1000); quit()
+    end)
+end
+Hub3bSmoke.Boot()
