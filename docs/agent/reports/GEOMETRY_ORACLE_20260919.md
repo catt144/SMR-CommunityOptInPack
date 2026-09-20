@@ -527,7 +527,7 @@ passenger does **not** spawn an extra car, so whatever the length is, it is fixe
 every clearance, CLEARANCE-sweep and stopped-train figure derived from it inherits the doubt
 (TWO-TRAIN's width-only results do not). **§12's gate verdict is set aside** — its method was sound
 and its arithmetic reproduces, but its input is in doubt, so its "redesign before implementation"
-conclusion is not to be acted on. **OI-22 is withdrawn** before reaching the owner's list.
+conclusion is not to be acted on. **OI-22 is withdrawn** from the owner's list, where the gate run had filed it.
 
 **The resolution, owner 2026-09-20: park position is a tunable in our own Lua.** Stop, Spawn and the
 ramps are synthetic spots this mod computes (`synthetic_spot_pos`, `kind_sevenths`), so where a

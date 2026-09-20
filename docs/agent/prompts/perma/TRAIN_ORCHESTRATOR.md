@@ -55,11 +55,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      found that a track element's `Enter1`/`Enter2` side depends on the track's angle and the
      train's direction of travel. The paths run (report §11, 2026-09-20) folded that into the
      oracle and re-ran it under the corrected table: §11's numbered list is what 3b still has to
-     solve, it lifted §10's "not to be used" from the three path verdicts, and its item 6 (a
-     stopped train is longer than a half-line) was ruled by the owner on 2026-09-20 — move Stop
-     outward and verify it with the oracle, fallback one stopped train at a time. **3b is re-scoped
-     on all of this and is live.** The oracle is the check instrument for any later spot change:
-     re-run it rather than re-deriving it;
+     solve and it lifted §10's "not to be used" from the three path verdicts. ⛔ **But its item 6
+     (a stopped train is longer than a half-line) rested on a train length the owner has since
+     DISPUTED** (report §13, owner 2026-09-20): a hex-grid measurement gives about two hexes
+     (~20 m) against §10's 41.5 m, and `TrainCCP3` has no mesh of its own, so the `GetEntityBBox`
+     read was taken on an assembly. R-TRAIN is disputed, §12's gate verdict is set aside and OI-22
+     was withdrawn from the owner's list. **The resolution: park position is a tunable in our own
+     Lua**, tuned by eye and judged in the smoke — no asset change. 3b is re-scoped on that, is
+     live, and owes the clean length measurement. ⛔ Do not revive the withdrawn options
+     (`SetScale`, alternating lines, a tunnel hood, `FOOTPRINT_R = 5`, resizing the dome): every
+     one was generated downstream of the disputed figure. The oracle stays the check instrument for
+     spot changes, but its `--train-length-m` default inherits the doubt;
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
      `C:\Dev\SMR-Assets\README.md` §"The old path";

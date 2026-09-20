@@ -950,8 +950,8 @@ The owner measured a train against the game's hex grid at about two hexes (~20 m
 of margin, against the 41.5 m that §11 and the build-3b gate rested on; the hex measurement governs
 and R-TRAIN is disputed (oracle report §13). `TrainCCP3` has no mesh of its own and `Train` is an
 `AutoAttachObject`, so the `GetEntityBBox` read was taken on an assembly and its span is not
-established. The step-0 gate verdict is set aside and OI-22 is withdrawn before reaching the owner's
-list. **The resolution is that park position is a tunable in our own Lua** — Stop, Spawn and the
+established. The step-0 gate verdict is set aside and OI-22 is withdrawn from the owner's list, where the gate
+run had filed it. **The resolution is that park position is a tunable in our own Lua** — Stop, Spawn and the
 ramps are synthetic spots this mod computes, so the distance is tuned by eye and judged in the
 smoke. The asset options costed the same day (runtime `SetScale`, three alternating lines, a new
 tunnel hood, `FOOTPRINT_R = 5`, resizing the dome) are withdrawn. The look standard stands: an
