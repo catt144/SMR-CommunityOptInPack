@@ -876,9 +876,10 @@ hexes long as in the owner's screenshots, with the track linking between them to
 (*"can we still link the train up in between the platform to meet our stub in between them. So we
 will need to carefully setup the exclusion zone"*). **Three hexes is the minimum and the starting
 length; four may be needed, judged by eye.** The deck is authored asset geometry (`10_TrainFloor.lua`
-is the storage floor, not the deck), so each length tried costs a re-import. Open, the orchestrator's
-reading and the owner's to confirm: what the screenshot's translucent pieces were, and whether the
-lanes (289 units either side of the line) sit inside the centre hex row or the rows beside it. Also
+is the storage floor, not the deck), so each length tried costs a re-import. The screenshot's translucent pieces are
+vanilla train tracks the owner placed as stand-ins, to show how the platform would be laid out and
+its length in hexes (owner, 2026-09-20). Open: whether the lanes (289 units either side of the line)
+sit inside the centre hex row or the rows beside it, since the stand-ins sit a row apart. Also
 open: the exclusion zone is the footprint's hex set, and the centre row past the connector must stay
 outside it while the stub hexes and the platform hexes are inside; a trial import, with a track laid
 to it on a scratch save, is the test the mock cannot replace.
