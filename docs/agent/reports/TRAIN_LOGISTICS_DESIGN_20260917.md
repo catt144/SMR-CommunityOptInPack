@@ -753,7 +753,11 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   `C:\Dev\SMR-TrainHubAssets\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
   (tangent-space normal) and `TrainHub_RM` (roughness R/G, metal B). The body is one mesh with one
   material, as the importer requires (`SceneImport.lua:3548`, `:4023`); no colorization mask was
-  made, so the colours are fixed. Checked 2026-09-19 by the orchestrator: geometry exactly equal to the
+  made, so the colours are fixed. **Size, MEASURED 2026-09-19:** the imported DDS come to 44 MB
+  (43 MB of it textures), against `PACK_MAX_BYTES = 5 MB` at `upload_preflight.py:47` — so the hub
+  cannot ship at this resolution whatever OI-18 rules on the file allowlist. The maps are baked by
+  `texture_hub.py`, so re-baking at 2048 lands near 11 MB and at 1024 near 2.7 MB; whether the hub
+  still reads right at those is a look-pass judgement and is untested. Checked 2026-09-19 by the orchestrator: geometry exactly equal to the
   untextured baseline, 0 zero-UV faces, the previews match the look direction. The owner's steps
   (a GFXMaterial item, the three maps, the Material choice on the body mesh, re-import) are in that folder's
   `README.md`; they ride build 3's footprint fix so one re-import carries both.

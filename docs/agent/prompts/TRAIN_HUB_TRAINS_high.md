@@ -4,6 +4,30 @@
 `tools/devmods/train_hub/Code/20_TrainHub.lua`. Build 4 (`TRAIN_HUB_REPAIR_high.md`) remains held
 behind it: a hub whose trains float is not smokeable for repairs.
 
+⛔ **HOLD: this brief's premise is contradicted by a measured finding. Read the geometry oracle's
+report before acting on anything below** (`GEOMETRY_ORACLE_high.md`, running 2026-09-19 evening).
+
+The brief below assumes the trains misbehave because `Train:GotoSpot` slides are exposed in an 80 m
+building, and prescribes stubs-as-platforms, reverse-in-place and centre routing. That premise is at
+least partly wrong. `hub_connector_directions = {0,3,1,4,2,5}` in `20_TrainHub.lua` does not match
+the imported body: the body's connectors lie on hex directions `[4,1,3,0,2,5]`, so indices **1 to 4
+are wrong** and 5 and 6 are right. Connectors resolve from the body and are correctly placed (boot
+log, `connector spots: from the body`), but every synthetic `Ramparrive`/`Stop`/`Spawn`/`Rampdepart`
+goes through that table, so on four of six lines they are computed on a **different line from their
+own track**. Connector-to-Ramparrive is then 59.7 m on lines 1-4 against 11.4 m on 5-6 — and
+`Station.lua:1105` replaces the slide with an instant `SetPos` teleport beyond 50 m. That retrodicts
+both the far-side jump and the sideways drift into the portal legs.
+
+Derived independently three times from files (the oracle, GPT-5.4 blind via Codex, and the
+orchestrator from `Entities/SMROptInTrainHub6.entjson`), each agreeing; a constant hex-convention
+offset cannot explain it, because the required offsets differ (0, 2, 4). **Not yet measured in
+game** — TestKit slot 6 `geometry_reads` (TestKit `bd32d30`) takes that reading with no selection.
+
+Consequence: much of what this brief asks for may be a one-line table correction rather than a
+redesign, and the remainder may be only end state 1, stopping on the stub instead of inside the
+ring. Re-scope against the oracle's report before building; the owner expects that re-scope, not
+fidelity to the text below.
+
 ## Authority
 
 **Owner, 2026-09-19, from build 3's smoke.** Trains arriving at the hub dropped through the beam to
