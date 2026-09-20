@@ -905,6 +905,27 @@ outside the portal. (3) A platform under a train that rides 289 units off the li
 the stand-ins were placed. The footprint cannot take those hexes (the connector is the last footprint
 hex on that row), so the platform would be mesh overhanging hexes outside the footprint, above or
 beside vanilla track pillars. Untested: whether that is allowed and how it looks against the pillars.
+**The layout, as the owner then fixed it (2026-09-20, two screenshots of a train beside the rail at
+the stub).** Our stub goes out one more hex, two in all. The platform **wraps round the stub's two
+side hexes and runs two hexes further out past the stub's end**, one arm each side, **leaving a
+one-hex path between the arms for the vanilla track to reach the stub**. The stub's height is already
+very close to the train's underside. The owner's look idea, not yet a ruling: a futuristic maglev
+feel, the train passing from the vanilla monorail onto our track, with our track's top retextured to
+suit (this would replace §9's red centre stripe if ruled). **Where the merge runs (orchestrator, from
+source, not run):** the hub controls a train only from `TrainArrive` (`Train.lua:390`); outside the
+connector vanilla's `WaitTraverseElement` moves it, and changing that means wrapping `Train.lua`. So
+the train rides over the platform arms under vanilla's control, beside the rail as always, and the
+sideways move onto the centre happens **on the two-hex stub**, about 12 degrees of yaw at most for
+289 units over 20 m, on a rigid body (vanilla bends the train with a `turnLeft`/`turnRight` animation
+on its curves, `Train.lua:539-553`; ours cannot). What the arms give for free: their footprint hexes
+flank the centre row, so a player cannot curve the track inside the last two hexes and every train
+arrives straight; and a train queueing outside waits over a deck. Geometry to settle by eye on a
+render: a train 289 units off the line straddles the zig-zag edge between the centre row and the
+flank hexes, so the arms' inner edge overhangs the track's own hexes and must clear the vanilla
+pillar under the rail. **Gate before any of this is briefed (owner asked for a straight verdict,
+2026-09-20):** watch build 3b's existing reverse lane join, the same smoothstep at 578 units, at
+normal, fast and fastest speed; then a code-only trial of centre riding and the merge on today's
+one-hex stub. The asset is touched only after the motion passes by eye.
 
 ---
 
