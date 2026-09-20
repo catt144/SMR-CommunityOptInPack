@@ -945,6 +945,26 @@ Train movement across the hub is not a build-3 claim. The owner ruled the observ
 floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b and is now ready to fire.
 Build 4 remains held until build 3b's smoke is recorded.
 
+**Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
+Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
+**5 Metals** maintenance as the large station's (`StationBig.lua:31-32`), and it draws 10. Mini-reactor
+upgrade: **+80 power, 100 in all** (half a fusion reactor's 200, `FusionReactor.lua:19`), still 5 Metals,
+plus **1 Electronics** upkeep. Owner reasoning: 2 Electronics for 70 power and a two-drone crew is
+dearer per unit of power than a fusion reactor (3 Electronics for 200), in the scarcest early
+resource, and a drone hub's 1 Electronics is often researched away early. The owner's Polymers idea
+(1 Polymers, as half an Advanced Stirling's 2 Polymers for 40 power, `AdvancedStirlingGenerator.lua:16-25`)
+is dropped: `maintenance_resource_type` is one string per building (`RequiresMaintenance.lua:22`, one
+demand request at `:80`), so 5 Metals + Polymers would need a code-side second request, which is
+unverified and adds persisted state (ban 1). Mechanism, read from `Building.lua:1131-1235`
+(1.1.0.403908), not run: an upgrade's modifiers change numbers only, so the +80 `electricity_production`
+is a modifier, and the Electronics is the upgrade's own upkeep (`CreateUpgradeUpkeepObject`;
+`AutomaticMetalsExtractor.lua:40-42` is the vanilla precedent). Consequence: the base hub powers itself
+and one large station (20 - 10 = 10), and the other five need grid power; upgraded, 100 covers the hub
+and six stations (70) with 30 spare. Build 3's smoke tested the old +70/-10. Open, the owner's: the
+Electronics upkeep amount; what unlocks the upgrade (a tech, or always available; whether a mod can
+add either is untested). It touches `20_TrainHub.lua`, so it would follow build 3b's smoke and
+precede build 4.
+
 **Owner direction, 2026-09-18:** run §7's T1–T3 **before** the prototype build, and the owner
 runs the in-game checks. Done (§7.2), and the build is ruled (above).
 
