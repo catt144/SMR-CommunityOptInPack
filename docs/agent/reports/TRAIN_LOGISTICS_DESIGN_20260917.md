@@ -942,7 +942,17 @@ model and absence of a charger. Details and the log fingerprint are in
 `TRAIN_HUB_BUILD_20260918.md` §"Build 3".
 
 Train movement across the hub is not a build-3 claim. The owner ruled the observed floor drop and
-floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b and is now ready to fire.
+floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, re-scoped 2026-09-20 on
+the oracle's paths run (report §11) and live.
+
+**Owner ruling, 2026-09-20: move Stop outward, then re-check.** A stopped train is 4150 units and a
+half-line is 4000, so at today's Stop the train runs 1103 units past the hub centre and all 15 pairs
+of stopped trains overlap (§11 item 6). The owner chose to slide Stop outward so each train's inner
+end sits near the centre and its outer end overhangs its own connector by about 150 units, onto its
+own approach track — an 11 m overlap traded for a ~1.5 m overhang. It is to be verified with the
+oracle before it is built, because the measured box is not centred on its origin and two radial
+trains at 60° may still clip near the centre; the owner's named fallback is one stopped train at a
+time, hub-wide. Build 3b carries the ruling and owes the verification.
 Build 4 remains held until build 3b's smoke is recorded.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the

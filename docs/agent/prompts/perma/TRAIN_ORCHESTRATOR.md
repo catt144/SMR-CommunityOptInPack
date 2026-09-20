@@ -50,13 +50,16 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `_shared/IMPORTER_FACTS.md`, its game reads TestKit slot 6 `geometry_reads`). Read it before
      any hub geometry or train work: it found `hub_connector_directions` wrong for indices 1-4
      against the imported body, which puts four of six lines' train spots on another line and past
-     `Station.lua:1105`'s 50 m teleport. Build 3b's brief is on HOLD for that reason and wants
-     re-scoping, not obeying. Its run B (report §10) measured a whole train at 41.5 m by 4.16 m,
-     four times the length and twice the width every earlier clearance figure assumed, and found
-     that a track element's `Enter1`/`Enter2` side depends on the track's angle and the train's
-     direction of travel. The paths run (report §11, 2026-09-20) folded that into the oracle and
-     re-ran it under the corrected table: §11's numbered list is what 3b still has to solve, and
-     its item 6 (a stopped train is longer than a half-line) is an owner call;
+     `Station.lua:1105`'s 50 m teleport. Its run B (report §10) measured a whole train at 41.5 m by
+     4.16 m, four times the length and twice the width every earlier clearance figure assumed, and
+     found that a track element's `Enter1`/`Enter2` side depends on the track's angle and the
+     train's direction of travel. The paths run (report §11, 2026-09-20) folded that into the
+     oracle and re-ran it under the corrected table: §11's numbered list is what 3b still has to
+     solve, it lifted §10's "not to be used" from the three path verdicts, and its item 6 (a
+     stopped train is longer than a half-line) was ruled by the owner on 2026-09-20 — move Stop
+     outward and verify it with the oracle, fallback one stopped train at a time. **3b is re-scoped
+     on all of this and is live.** The oracle is the check instrument for any later spot change:
+     re-run it rather than re-deriving it;
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
      `C:\Dev\SMR-Assets\README.md` §"The old path";
@@ -81,7 +84,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
      in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
-     its one-off brief is deleted; 3b is held on the oracle's finding above;
+     its one-off brief is deleted; 3b was re-scoped 2026-09-20 and is live;
    - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
      to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
      §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).
