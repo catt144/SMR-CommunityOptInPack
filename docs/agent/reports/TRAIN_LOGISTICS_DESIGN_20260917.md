@@ -957,6 +957,19 @@ The measured box is not centred on its origin, so the offset is not the clearanc
 is unmodelled and 3b owes it back through the orchestrator: the further Stop moves out, the closer
 a stopped train's tail comes to where the next train waits on that track. The owner's named
 fallback is one stopped train at a time, hub-wide.
+
+**Owner, 2026-09-20 — the quality bar on this, and it is not yet met.** An unnoticeable overhang is
+acceptable; a train visibly half out of the station is not, because the asset's premium look is the
+reason for most of the design choices around it and a visible tail reads as unfixed maths. An
+orchestrator estimate puts the clearance at 3.6 m and the tail at about 5.1 m past the connector
+(scratch, 60° pairs governing, to be confirmed by the oracle) — at that size the Stop-outward
+ruling does not clear the bar on its own. Options nobody has costed yet, seeded to 3b as leads:
+where vanilla actually parks a stopped train relative to its own body (§3's 4496 from the
+connector, direction unsettled); staggering adjacent lines' stop distances, since the clearance
+figure assumes all six inner ends at one radius; using the outer of the two lanes; and extending
+the portals outward into real tunnels, six local extrusions against the +25% (one hex ring, 40 m to
+50 m half-line) that full containment would need. An asset answer is legitimate and comes back
+through the orchestrator.
 Build 4 remains held until build 3b's smoke is recorded.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the

@@ -37,6 +37,29 @@ track (`ShouldStopOnTrack`, the occupancy queue above). If the tail reaches the 
 so — that is the trade the owner has not been asked about yet, and it goes back through the
 orchestrator. The fallback the owner already named is one stopped train at a time, hub-wide.
 
+**Owner, 2026-09-20 — the quality bar, and an instruction to think wider than the options on the
+table.** *"I will accept an unnoticeable overhang, but I am not gonna build an ultra premium 4k
+asset that a lot of our design choices are eye candy and then have people look at a train half
+sticking out of a station. That just makes people wonder why someone bothered with all this work
+and didn't fix the math."* So the test an answer has to pass is **how it looks to a player**, not
+whether the number is defensible. An orchestrator estimate puts the clearance at 3.6 m and the
+resulting tail at about **5.1 m past the connector** — get the real figure from the oracle, but at
+that size this is not an unnoticeable overhang and the ruling above does not yet clear the bar.
+
+**Find options nobody in this project has named yet, and report them with their costs before you
+commit to one.** Some leads, offered as leads and not as the route — you are expected to beat them:
+*where does vanilla actually park a stopped train relative to its station body?* (§3 measured the
+large station's Stop at 4496 from the connector, and which way that runs is not settled here; if
+vanilla parks trains at or outside its edge, a train standing on its own track is simply what a
+station looks like, and the whole framing changes); *stagger adjacent lines' stop distances*, since
+the clearance figure above assumes all six inner ends sit at one radius and two boxes at different
+radii can both pass the centre without meeting; *use the lane offset*, since ARRIVE and DEPART sit
+289 units either side and the outer one buys clearance for free; *extend the portal outward into a
+real tunnel deep enough to swallow the tail*, which is six local extrusions rather than the 25%
+bigger body that full containment would need. **An asset answer is a legitimate answer** — it is
+out of your scope to build, so report it to the orchestrator with what it would take, rather than
+bending the code around a body that cannot do the job.
+
 **Testing depth: a smoke test only** (owner, 2026-09-19); the full prediction battery runs once, on
 the final build. `FIX_POLICY` §0 sets this mod's risk standard and both bans bind. This build adds
 no persisted state unless the crossing lock must survive a save, in which case name it once and add
@@ -126,8 +149,10 @@ editing the oracle beyond running it, and the hub's economy (spec §10, the owne
 
 ## Stops
 
-- **The owner's Stop-outward ruling makes something worse** than the overlap it cures: report the
-  oracle's numbers for both and stop. The named fallback is one stopped train at a time.
+- **No option you can reach in code clears the owner's quality bar** — every one leaves a tail a
+  player would notice, or makes something worse than the overlap it cures. Report the options with
+  the oracle's numbers for each, name the asset change you would want, and stop. The named fallback
+  is one stopped train at a time; the bar itself is the owner's to relax, not yours.
 - **Vanilla's occupancy call sites cannot be satisfied without wrapping `Train.lua`**, or moving
   Stop breaks the reservation validation in a way you cannot repair in our Lua: report the wrap or
   the break.
