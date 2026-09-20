@@ -1107,7 +1107,8 @@ hub's own production is never the only supply.
 **Centre/transition implementation, 2026-09-20 (owner acceptance pending):**
 `TRAIN_HUB_MOVE_high.md` now has a hub-local arrival and mirrored exit: stop on the arm,
 smoothstep sideways, then run on the centre. The live pause distance starts provisionally
-at 30 m from centre; parking starts at the owner's previous 13 m for a new centreline judgement.
+at 45 m from centre after the owner reported the initial 30 m stop about 1.5-2 hexes too late;
+45 m is the next visual trial. Parking starts at the owner's previous 13 m for a new judgement.
 Neither uses the disputed train length. The cold-start gate is implemented at creation,
 load, working-state updates and production-modifier changes; it no longer depends on receiving
 grid power. A small mocked contract smoke and Lua parsing passed, not a native or visual test.

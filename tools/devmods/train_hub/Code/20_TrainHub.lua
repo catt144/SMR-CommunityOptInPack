@@ -32,9 +32,10 @@ SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
 -- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
 -- outward from the hub centre. Neither is derived from the disputed length.
--- Pause is a provisional starting point; park starts at the owner's lane-era
+-- Pause moved outward after the owner saw the stop 1.5-2 hexes too late;
+-- 45 m is the next visual trial. Park starts at the owner's lane-era
 -- 13 m and needs judging again on the centre. Both reset on a full restart.
-Floor.HubTransitionPauseDistance = 30 * guim
+Floor.HubTransitionPauseDistance = 45 * guim
 Floor.HubParkDistance = 13 * guim
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax

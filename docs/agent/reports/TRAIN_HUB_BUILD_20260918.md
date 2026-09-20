@@ -574,7 +574,7 @@ HEAD `293f92c674e1964429ca6aa00d7e0ff6bfd69bb8`. The entity, mesh and dev metada
 modified at task start; this change does not author or commit them. The installed dev-mod
 link resolves to this workspace. No oracle or prediction battery was run.
 
-**Implemented, not visually accepted:** `HubTransitionPauseDistance = 30 * guim` is a
+**Implemented, not visually accepted:** `HubTransitionPauseDistance = 45 * guim` is a
 provisional distance from the centre, not a train-length calculation. `HubParkDistance =
 13 * guim` carries the owner's lane-era starting value onto the centre for a new judgement.
 Both reset at a full restart. `Ramparrive` and `Rampdepart` remain on the connected vanilla
@@ -611,7 +611,7 @@ show native interpolation, cargo loading, serialization or visual clearance. The
 `python tools/doccheck.py` is GREEN in both pack repositories. The fix-pack owner item ck206
 and its sitting pointer now lead to this prototype and preserve the remaining native checks.
 
-**Prepared owner smoke, first batch (NOT RUN):** restart the game with the dev hub and shared
+**Prepared owner smoke, first batch (in progress):** restart the game with the dev hub and shared
 TestKit enabled; use the current owner fixture, not a `Hub3bSmoke_MID` save. The manual saves
 `train_hub_base` and `train_hub_base_agent` were present in `C:/Dev/SMR-BugFixPack/saves/game`
 when listed by modification time this session. Shared `80_AgentSlots.lua` matches the source
@@ -628,11 +628,19 @@ in the TestKit, as before. All setup actions are logged.
    Watch its centre run, outward slide and return to vanilla's lane.
 5. Repeat the cycle at fast and fastest. Report the visible result before the next batch.
 
+**Owner visual feedback, 2026-09-20:** the owner reports the movement stops about 1.5-2 hexes
+too late and supplied a screenshot showing the train at the portal. The initial 30 m pause
+is rejected by eye; the next trial moves the pause outward to 45 m (15 m earlier on arrival).
+This is a tunable trial, not a measured correction or accepted tail-clearance position.
+The current game's value can be moved with slot 5 while pause tuning is selected; slot 1
+reads the actual value. Park remains 13 m. This also moves the mirrored exit slide outward.
+
 **Still owed:** owner acceptance of those movements and both distances; subsequent slot-3
 60°/120°/reverse departures; two-train outside waiting; a save/reload with one train parked
 and one crossing (slot 4 watches a crossing, autosave disarms it); cold start with the
 Stirling supply removed or disabled. Build 4 and textures remain held. Keep the MOVE prompt
-and its map row until the owner's smoke is recorded. No game smoke was run this session.
+and its map row until the owner's smoke is recorded. The owner feedback above is the first
+visual result; the remaining smoke has not been reported.
 
 Executed model: GPT-6 (Codex), as identified by the session instructions; the transcript
 provides no more specific runtime id. No subagents were used.
