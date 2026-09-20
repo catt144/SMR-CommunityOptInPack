@@ -845,6 +845,23 @@ rule all 60 cubes of a bed land on it. A bed holds 12 x 5 = 60 columns, as a van
 - Can a Lua class override native `CObject` spot methods? This is §7 item 6, and 3a depends
   on it.
 
+
+**Deck under the lanes (owner direction, 2026-09-20, from build 3b's sitting; a candidate, not
+briefed).** By eye, with a train parked at 13 m: trains ride 289 units off the connector centreline
+(`lane_offset`, `20_TrainHub.lua:171`, read from the vanilla element's own `Enter1`/`Enter2`), but
+the hub's hex deck and stub sit on the centreline, so the train hangs mostly off the strip. At the
+portal the deck ends square beside the first vanilla element and the two never join. The owner's
+direction: build a deck **on either side of the stub**, one under each lane, matching the transition
+of the train coming off the vanilla track onto ours, so the hand-over reads as intended. **The
+owner's constraint:** the stub is too short for a whole train to be on it before it enters the
+tunnel. Unmeasured, each by the owner's build-cursor method: the stub's length against a train
+(about two hexes by the owner's measurement, R-TRAIN disputed); the portal opening against two
+lanes (two lanes plus a train's width is about one hex if the disputed 4.16 m width holds). Not
+proposed: lengthening the stub, because the connector sits at the footprint edge and moving it is
+a footprint change, the family of the withdrawn `FOOTPRINT_R = 5`. Untested: whether a decorative
+deck may extend past the connector over the first vanilla element. This is the look pass (above); it
+waits for the owner's ruling on the measurements and follows the junction fix.
+
 ---
 
 ## 10 · The prototype, the next build (authorised 2026-09-18)
