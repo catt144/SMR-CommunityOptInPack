@@ -143,6 +143,8 @@ stock without player action, survives a reload mid-trip, and the toggle stops it
 
 ## Scope
 
+**Test save (owner, 2026-09-20):** sittings load `train_hub_base`, which has the stations, tracks and lines prebuilt; only the hub is built each round. Spec §10, "The standing test save". Do not build trains or lines each sitting.
+
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
 Out: vanilla drone AI changes beyond the scoped wrap above, real train pathing, Module A, routing.
 

@@ -58,6 +58,8 @@ connected end, survives a reload mid-line, and a line placed before connection s
 
 ## Scope
 
+**Test save (owner, 2026-09-20):** sittings load `train_hub_base`, which has the stations, tracks and lines prebuilt; only the hub is built each round. Spec §10, "The standing test save". Do not build trains or lines each sitting.
+
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
 Out: building stations, drone logic, Module A, routing. Tunnels follow build 4's hide-and-show rule.
 

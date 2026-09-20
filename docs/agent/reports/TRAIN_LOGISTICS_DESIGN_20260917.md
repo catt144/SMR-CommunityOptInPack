@@ -1052,3 +1052,28 @@ that, ban 1 makes them permanent.
 
 **The build prompt** is authored with the `prompt-authoring` skill as a root one-off, only after
 T1–T3 results are recorded in §7.
+
+**The standing test save, `train_hub_base` (owner, 2026-09-20).** The save the owner loads every
+round. Recorded from the owner's account; the save file and the build it was made on have not been
+read. Its content as described:
+- Seven stations prebuilt, all with empty bays, no power and no drone hubs.
+- Six lines already set, their tracks laid, to connect to a hub at the centre. **Only the hub is
+  built each round.**
+- The lines are joined in a mix. Some stations connect to each other and to the hub; one station
+  is reached only through a station that is connected to the hub. The map's large station has one
+  line to the hub and its other line to a station that is connected to the hub.
+- Unresolved in the account: whether the large station is one of the seven, and whether "trains"
+  in the third bullet's source sentence meant stations.
+
+**In progress, 2026-09-20 (owner):** a fuller variant of the save, so trains need not be built each
+sitting: hubs placed, several trains built at each station, and the train yards' own storage pads
+filled. Not yet recorded: its save name, or whether it replaces `train_hub_base`.
+
+**Owner observation, 2026-09-20, from building that variant.** With train construction as the only
+task, drones do haul the materials from the train yard's storage pad to the train under
+construction. The owner had missed it earlier because of high game speed and how close the drones
+fly to the track. It shows a construction site supplied from a building's own pad. **It does not
+show** that drones draw a hub's or ordinary station's stock for a nearby site; build 1's
+prediction 9 (the Metals reserve against a construction site in the hub's radius) is still
+untested. For §4.3's owed `accept` retest, a train-yard site in drone range is a Metals consumer
+whose supply may be the yard pad and not the station, so the fixture must keep the two apart.
