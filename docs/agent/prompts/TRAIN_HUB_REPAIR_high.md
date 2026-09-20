@@ -1,6 +1,7 @@
 # Train hub build 4: repair drones
 
-⛔ **HELD until build 3's smoke test is recorded** (`TRAIN_HUB_BUILD3_high.md`). It changes the hub's
+⛔ **HELD until build 3b's smoke test is recorded** (`TRAIN_HUB_TRAINS_high.md`, after build 3's,
+`TRAIN_HUB_BUILD3_high.md`): a hub whose trains float is not smokeable for repairs. It changes the hub's
 economy, so it builds on build 3's power, cost and storage numbers, not build 2's.
 
 ## Authority
