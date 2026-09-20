@@ -17,15 +17,25 @@ shift sideways into the portal legs. The owner **keeps the open-ring design** an
 Lua whatever the body looks like. **Trains wait outside the hub for their turn** — vanilla already
 does this, keep it.
 
-**Owner, 2026-09-20: move Stop outward, then re-check.** A stopped train is 4150 units and a
-half-line is 4000, so at today's Stop the train runs 1103 units past the hub centre and all 15 pairs
-of stopped trains overlap (report §11 item 6). The owner's call is to slide Stop outward so each
-train's inner end sits near the centre and its outer end overhangs its own connector by about 150
-units, onto its own approach track — trading an 11 m overlap for a ~1.5 m overhang. **It is a
-ruling to verify, not a number to obey:** the measured box is not centred on its origin (-1332 to
-+2818), and two radial trains at 60° may still clip near the centre. Run the oracle, report what it
-says, and if the overhang or the residual clip is worse than the overlap, say so and stop — the
-fallback the owner named is one stopped train at a time, hub-wide.
+**Owner, 2026-09-20: move Stop outward, and put the overhang in the tunnel rather than at the
+centre.** A stopped train is 4150 units and a half-line is 4000, so at today's Stop the train runs
+1103 units past the hub centre and all 15 pairs of stopped trains overlap (report §11 item 6). The
+owner ruled the tail should overhang **outward through the portal, onto the train's own approach
+track** — *"that way we don't have trains clipping into each other"*. **Trains not clipping is the
+goal; the overhang is the price, and the owner has said which way to pay it.**
+
+So it is not enough to slide the inner end back to the centre: two radial trains at 60° whose inner
+ends both reach the centre still clip, because the box is 416 wide. **Compute the minimum
+inner-end clearance from the centre at which no two stopped trains intersect** — the worst case is
+the 60° pair — and move Stop out by at least that. Remember the measured box is not centred on its
+origin (-1332 to +2818), so the offset is not the clearance. Run the oracle for the figure; do not
+estimate it.
+
+**Then check what the extra overhang runs into**, which the oracle has not modelled: the further
+Stop moves out, the closer a stopped train's tail comes to where the *next* train waits on that
+track (`ShouldStopOnTrack`, the occupancy queue above). If the tail reaches the waiting train, say
+so — that is the trade the owner has not been asked about yet, and it goes back through the
+orchestrator. The fallback the owner already named is one stopped train at a time, hub-wide.
 
 **Testing depth: a smoke test only** (owner, 2026-09-19); the full prediction battery runs once, on
 the final build. `FIX_POLICY` §0 sets this mod's risk standard and both bans bind. This build adds

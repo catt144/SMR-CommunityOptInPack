@@ -945,14 +945,18 @@ Train movement across the hub is not a build-3 claim. The owner ruled the observ
 floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, re-scoped 2026-09-20 on
 the oracle's paths run (report §11) and live.
 
-**Owner ruling, 2026-09-20: move Stop outward, then re-check.** A stopped train is 4150 units and a
-half-line is 4000, so at today's Stop the train runs 1103 units past the hub centre and all 15 pairs
-of stopped trains overlap (§11 item 6). The owner chose to slide Stop outward so each train's inner
-end sits near the centre and its outer end overhangs its own connector by about 150 units, onto its
-own approach track — an 11 m overlap traded for a ~1.5 m overhang. It is to be verified with the
-oracle before it is built, because the measured box is not centred on its origin and two radial
-trains at 60° may still clip near the centre; the owner's named fallback is one stopped train at a
-time, hub-wide. Build 3b carries the ruling and owes the verification.
+**Owner ruling, 2026-09-20: move Stop outward, and put the overhang in the tunnel rather than at the
+centre.** A stopped train is 4150 units and a half-line is 4000, so at today's Stop the train runs
+1103 units past the hub centre and all 15 pairs of stopped trains overlap (§11 item 6). The owner
+ruled the tail should overhang **outward through the portal onto the train's own approach track**
+(*"that way we don't have trains clipping into each other"*): trains not clipping is the goal and
+the overhang is the price. Sliding the inner end back to the centre is therefore not enough, since
+two radial trains at 60° whose inner ends both reach the centre still clip at 416 units of width;
+3b computes the minimum inner-end clearance with the oracle and moves Stop out by at least that.
+The measured box is not centred on its origin, so the offset is not the clearance. One consequence
+is unmodelled and 3b owes it back through the orchestrator: the further Stop moves out, the closer
+a stopped train's tail comes to where the next train waits on that track. The owner's named
+fallback is one stopped train at a time, hub-wide.
 Build 4 remains held until build 3b's smoke is recorded.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
