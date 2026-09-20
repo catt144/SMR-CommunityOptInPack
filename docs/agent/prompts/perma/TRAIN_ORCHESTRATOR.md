@@ -31,7 +31,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 - The owner's asset: the shape was approved on 2026-09-18 and imported into the dev mod on
   2026-09-19, on the hex grid (`06b5a62`). Spec §9 holds the pipeline, the measured axis mapping,
   the owner's look direction and what only the game can answer. The Blender and Mod Editor
-  steps are in `C:\Dev\SMR-TrainHubAssets\blender\README.md`.
+  steps are in `C:\Dev\SMR-Assets\trainhub\blender\README.md`.
 
 ## Each run
 
@@ -56,7 +56,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      landed in build 3's code or report, since most reached it mid-run;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
      The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
-     `C:\Dev\SMR-TrainHubAssets\blender\README.md`. Spec §9 records the result and what was
+     `C:\Dev\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
      not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
    - builds 3, 4 and 5 (`TRAIN_HUB_BUILD3_high.md`, `TRAIN_HUB_REPAIR_high.md`,

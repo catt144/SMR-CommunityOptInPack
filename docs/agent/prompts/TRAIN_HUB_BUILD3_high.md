@@ -79,7 +79,7 @@ Facts, each with a command that could falsify it:
 1. **The footprint reads 61 hexes and 4 on all six lines.** Cheapest test first: script a shrink
    of each `eHexShape` triangle about its own hex centre (about 90% of the circumradius) in the dev
    mod's `entjson`, reload, and read the count and the radii. If they hold, make the durable fix
-   in `C:\Dev\SMR-TrainHubAssets\blender\hub_skeleton.py` (`add_hex_face` takes a `shrink`; the
+   in `C:\Dev\SMR-Assets\trainhub\blender\hub_skeleton.py` (`add_hex_face` takes a `shrink`; the
    `hex_shape` call passes none and welds with `remove_doubles`), then re-run the pipeline so the
    FBX carries **both** the footprint and the finished texture (the texture pass is done there;
    its README has the owner's steps). Prove the spots and geometry did not move, as that pass did.
@@ -148,7 +148,7 @@ salvage.
 
 ## Scope
 
-In: the dev mod, the Blender pipeline in `C:\Dev\SMR-TrainHubAssets\blender\`, TestKit slots in
+In: the dev mod, the Blender pipeline in `C:\Dev\SMR-Assets\trainhub\blender\`, TestKit slots in
 `80_AgentSlots.lua` (standing permission, `tools/SMRTK.md`), the sitting, the records.
 Out: Module A, routing, the four-connector hub, OI-18's packaging tool, and the art itself.
 
