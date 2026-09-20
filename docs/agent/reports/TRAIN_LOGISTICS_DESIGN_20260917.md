@@ -945,31 +945,17 @@ Train movement across the hub is not a build-3 claim. The owner ruled the observ
 floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, now held at its step-0
 fit gate (2026-09-20, oracle report §12; OI-22). No build-3b implementation or smoke ran.
 
-**Owner ruling, 2026-09-20: move Stop outward, and put the overhang in the tunnel rather than at the
-centre.** A stopped train is 4150 units and a half-line is 4000, so at today's Stop the train runs
-1103 units past the hub centre and all 15 pairs of stopped trains overlap (§11 item 6). The owner
-ruled the tail should overhang **outward through the portal onto the train's own approach track**
-(*"that way we don't have trains clipping into each other"*): trains not clipping is the goal and
-the overhang is the price. Sliding the inner end back to the centre is therefore not enough, since
-two radial trains at 60° whose inner ends both reach the centre still clip at 416 units of width;
-3b computes the minimum inner-end clearance with the oracle and moves Stop out by at least that.
-The measured box is not centred on its origin, so the offset is not the clearance. One consequence
-was unmodelled when ruled: the further Stop moves out, the closer a stopped train's tail comes
-to where the next train waits on that track. The owner's named
-fallback is one stopped train at a time, hub-wide.
-
-**Owner, 2026-09-20 — the quality bar on this, and it is not yet met.** An unnoticeable overhang is
-acceptable; a train visibly half out of the station is not, because the asset's premium look is the
-reason for most of the design choices around it and a visible tail reads as unfixed maths. An
-orchestrator estimate puts the clearance at 3.6 m and the tail at about 5.1 m past the connector
-(scratch, 60° pairs governing, to be confirmed by the oracle) — at that size the Stop-outward
-ruling does not clear the bar on its own. Options nobody has costed yet, seeded to 3b as leads:
-where vanilla actually parks a stopped train relative to its own body (§3's 4496 from the
-connector, direction unsettled); staggering adjacent lines' stop distances, since the clearance
-figure assumes all six inner ends at one radius; using the outer of the two lanes; and extending
-the portals outward into real tunnels, six local extrusions against the +25% (one hex ring, 40 m to
-50 m half-line) that full containment would need. An asset answer is legitimate and comes back
-through the orchestrator.
+**Owner correction, 2026-09-20: the train-length figure is DISPUTED and the redesign is off.**
+The owner measured a train against the game's hex grid at about two hexes (~20 m) with three hexes
+of margin, against the 41.5 m that §11 and the build-3b gate rested on; the hex measurement governs
+and R-TRAIN is disputed (oracle report §13). `TrainCCP3` has no mesh of its own and `Train` is an
+`AutoAttachObject`, so the `GetEntityBBox` read was taken on an assembly and its span is not
+established. The step-0 gate verdict is set aside and OI-22 is withdrawn before reaching the owner's
+list. **The resolution is that park position is a tunable in our own Lua** — Stop, Spawn and the
+ramps are synthetic spots this mod computes, so the distance is tuned by eye and judged in the
+smoke. The asset options costed the same day (runtime `SetScale`, three alternating lines, a new
+tunnel hood, `FOOTPRINT_R = 5`, resizing the dome) are withdrawn. The look standard stands: an
+unnoticeable result is required, and it is met by tuning the number, not by changing the body.
 
 **MEASURED prediction, step 0 completed 2026-09-20:** report §12 and its archived oracle-importing
 experiment confirm 5.09689 m centreline tail, reduced to 3.43990 m on ARRIVE, with 31.61990 m

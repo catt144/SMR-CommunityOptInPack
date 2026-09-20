@@ -503,3 +503,39 @@ desired reverse-in-place appearance.
 build brief. Retain that brief until its smoke-recorded lifecycle condition is met. Executed
 model: GPT-6 (Codex), as identified by this session's instructions; the transcript provides no
 more specific runtime model id. No subagents were used.
+
+## 13. Owner correction, 2026-09-20: R-TRAIN is DISPUTED and the §12 gate verdict is set aside
+
+**The owner measured a train against the game's own hex grid** — a build cursor superimposed to make
+the grid show, in and out of the hub — and read **about two hexes, ~20 m, with three hexes of
+comfortable margin** (owner, 2026-09-20, from in-game screenshots). §10's 4150 units / 41.5 m
+disagrees by roughly a factor of two. **Where they disagree, the hex measurement governs**: a 10 m
+hex is an unambiguous ruler and needs no interpretation.
+
+**Why the 41.5 m is suspect, not merely outvoted.** It came from `train:GetEntityBBox()`. `Train` is
+an `AutoAttachObject` (`Train.lua:16`) and `TrainCCP3` has **no mesh of its own** — `mesh_bbox` is
+null in `entities.dat` (decoded 2026-09-20 via `entities_dat.py` on the pack-extracted file; the
+same decode returns `TrainStationLargeCCP3` at 89.94 x 90.95 m, which confirms 100 units = 1 m, so
+this is not a scale error). The call was therefore made on an assembly, and what it spanned is not
+established: it may cover auto-attached parts or the 42-cube cargo grid (`max_x = 7, max_y = 3,
+max_z = 2`, `Train.lua:31-33`). §10 recorded the weakness at the time — the file agreed on width and
+height, and *the length had the in-game read alone* — and the reading of it as "a whole train" was
+an interpretation that later work treated as settled. The owner also confirmed (2026-09-20) that a
+passenger does **not** spawn an extra car, so whatever the length is, it is fixed.
+
+**Consequences.** R-TRAIN is **DISPUTED**; the oracle's `--train-length-m` default rests on it, and
+every clearance, CLEARANCE-sweep and stopped-train figure derived from it inherits the doubt
+(TWO-TRAIN's width-only results do not). **§12's gate verdict is set aside** — its method was sound
+and its arithmetic reproduces, but its input is in doubt, so its "redesign before implementation"
+conclusion is not to be acted on. **OI-22 is withdrawn** before reaching the owner's list.
+
+**The resolution, owner 2026-09-20: park position is a tunable in our own Lua.** Stop, Spawn and the
+ramps are synthetic spots this mod computes (`synthetic_spot_pos`, `kind_sevenths`), so where a
+train parks is a number we own and tune by eye — *"easier than resizing the mesh, building a tunnel
+onto the mesh, or runtime scaling the train"*. The alternatives costed earlier in the day (runtime
+`SetScale`, three alternating lines, a new tunnel hood, `FOOTPRINT_R = 5` with the connectors at
+50 m, resizing the dome to the footprint edge) are **withdrawn**, all having been generated
+downstream of the disputed figure. Build 3b carries the tunable and owes the clean measurement:
+a hex-grid read of a stopped train, and the engine's own bbox plus each auto-attached part read
+separately rather than the assembly's.
+

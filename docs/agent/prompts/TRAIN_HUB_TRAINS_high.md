@@ -1,23 +1,17 @@
 # Train hub build 3b: trains at the hub
 
-**HELD at step 0, 2026-09-20; redesign decision OI-22 before further implementation.**
-Gate outcome and costed alternatives: `GEOMETRY_ORACLE_20260919.md` §12. Six ARRIVE-lane stops
-leave 3.43990 m past the connector and overlap a connector waiter by 31.61990 m. Three alternating
-lines offer about 11.44 cm of tail, but change capacity and still need a queue redesign. A
-same-origin reverse shifts the measured train envelope by 14.86 m. No Lua or asset changed; no
-smoke ran. Resume after the owner's design choice is incorporated into this brief's parking,
-queue and reverse geometry. This task owns `tools/devmods/train_hub/Code/20_TrainHub.lua`.
-Build 4 (`TRAIN_HUB_REPAIR_high.md`) remains held behind it: a hub whose trains float is not
-smokeable for repairs.
+**LIVE, fire when ready.** Re-scoped 2026-09-20 after the owner set aside the step-0 gate. This
+task owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Build 4 (`TRAIN_HUB_REPAIR_high.md`)
+remains held behind it: a hub whose trains float is not smokeable for repairs.
 
 Authoring sha: SMR-OptInPack `6019492`. `git diff --stat 6019492..HEAD --
 tools/devmods/train_hub/` empty means this brief's facts hold.
 
-⛔ **STEP 0 IS A GATE. SETTLE IT BEFORE YOU WRITE ANY CODE.** A stopped train may not fit its line
-without a tail a player would notice, and the owner will not accept that on this asset. If it
-cannot be solved, the project goes back for a redesign pass and everything below step 0 is wasted
-work. **Do not build your way to that discovery.** The gate is in "End state" item 0, and the
-owner's bar is in the Authority section under the quality-bar block.
+⛔ **DO NOT DESIGN AROUND A TRAIN LENGTH OF 41.5 m.** That figure is **DISPUTED** (report §13). The
+owner measured a train against the game's own hex grid with a superimposed build cursor at **about
+two hexes, ~20 m, with three hexes of comfortable margin**. Where the two disagree the hex
+measurement governs. Park position is a tunable in our own Lua, so it is tuned to what looks right
+and judged by eye, not solved from a number.
 
 ## Authority
 
@@ -28,48 +22,23 @@ shift sideways into the portal legs. The owner **keeps the open-ring design** an
 Lua whatever the body looks like. **Trains wait outside the hub for their turn** — vanilla already
 does this, keep it.
 
-**Owner, 2026-09-20: move Stop outward, and put the overhang in the tunnel rather than at the
-centre.** A stopped train is 4150 units and a half-line is 4000, so at today's Stop the train runs
-1103 units past the hub centre and all 15 pairs of stopped trains overlap (report §11 item 6). The
-owner ruled the tail should overhang **outward through the portal, onto the train's own approach
-track** — *"that way we don't have trains clipping into each other"*. **Trains not clipping is the
-goal; the overhang is the price, and the owner has said which way to pay it.**
+**Owner, 2026-09-20 — park position is a tunable, and that is the whole answer.** The hub's Stop,
+Spawn, Ramparrive and Rampdepart are **synthetic spots computed in our own Lua**
+(`synthetic_spot_pos`, `kind_sevenths`; Stop and Spawn currently at 3/7 of the way to a connector,
+ramps at 5/7). Where a train parks is therefore a number we own. The owner's ruling:
+*"We should be able to manipulate where its parked, that's got to be easier than resizing the mesh,
+building a tunnel onto the mesh, or runtime scaling the train."*
 
-So it is not enough to slide the inner end back to the centre: two radial trains at 60° whose inner
-ends both reach the centre still clip, because the box is 416 wide. **Compute the minimum
-inner-end clearance from the centre at which no two stopped trains intersect** — the worst case is
-the 60° pair — and move Stop out by at least that. Remember the measured box is not centred on its
-origin (-1332 to +2818), so the offset is not the clearance. Run the oracle for the figure; do not
-estimate it.
+**So expose the park distance as one clearly named tunable and tune it by eye.** The owner judges it
+in the smoke and may move it live. No asset change, no mesh work, no `SetScale`, no redesign. A
+whole session of alternatives — runtime shrinking, three alternating lines, a new tunnel hood,
+`FOOTPRINT_R = 5`, resizing the dome — was generated downstream of the disputed 41.5 m and is
+**withdrawn**. Do not revive any of it.
 
-**Then check what the extra overhang runs into**, which the oracle has not modelled: the further
-Stop moves out, the closer a stopped train's tail comes to where the *next* train waits on that
-track (`ShouldStopOnTrack`, the occupancy queue above). If the tail reaches the waiting train, say
-so — that is the trade the owner has not been asked about yet, and it goes back through the
-orchestrator. The fallback the owner already named is one stopped train at a time, hub-wide.
-
-**Owner, 2026-09-20 — the quality bar, and an instruction to think wider than the options on the
-table.** *"I will accept an unnoticeable overhang, but I am not gonna build an ultra premium 4k
-asset that a lot of our design choices are eye candy and then have people look at a train half
-sticking out of a station. That just makes people wonder why someone bothered with all this work
-and didn't fix the math."* So the test an answer has to pass is **how it looks to a player**, not
-whether the number is defensible. An orchestrator estimate puts the clearance at 3.6 m and the
-resulting tail at about **5.1 m past the connector** — get the real figure from the oracle, but at
-that size this is not an unnoticeable overhang and the ruling above does not yet clear the bar.
-
-**Find options nobody in this project has named yet, and report them with their costs before you
-commit to one.** Some leads, offered as leads and not as the route — you are expected to beat them:
-*where does vanilla actually park a stopped train relative to its station body?* (§3 measured the
-large station's Stop at 4496 from the connector, and which way that runs is not settled here; if
-vanilla parks trains at or outside its edge, a train standing on its own track is simply what a
-station looks like, and the whole framing changes); *stagger adjacent lines' stop distances*, since
-the clearance figure above assumes all six inner ends sit at one radius and two boxes at different
-radii can both pass the centre without meeting; *use the lane offset*, since ARRIVE and DEPART sit
-289 units either side and the outer one buys clearance for free; *extend the portal outward into a
-real tunnel deep enough to swallow the tail*, which is six local extrusions rather than the 25%
-bigger body that full containment would need. **An asset answer is a legitimate answer** — it is
-out of your scope to build, so report it to the orchestrator with what it would take, rather than
-bending the code around a body that cannot do the job.
+The earlier same-day rulings it replaces, for the record: the tail was to overhang outward through
+the portal rather than at the centre, and an unnoticeable overhang was acceptable while a train
+visibly half out of the station was not. **The look standard still stands** — it is now met by
+tuning the number rather than by changing the body.
 
 **Testing depth: a smoke test only** (owner, 2026-09-19); the full prediction battery runs once, on
 the final build. `FIX_POLICY` §0 sets this mod's risk standard and both bans bind. This build adds
@@ -112,26 +81,17 @@ carries the exact command with `--element-spots` and `--connector-directions`.
 
 ## End state (the owner's decisions; the mechanism is yours)
 
-0. ⛔ **THE GATE: can a stopped train sit on this hub without a tail a player would notice?**
-   Settle this **first, on paper and with the oracle, before you write a line of code.** Get the
-   real clearance and tail figures; read where vanilla actually parks its own stopped train; work
-   through the leads in the quality-bar block and whatever you think of that beats them. Then say
-   plainly which it is:
-   - **It clears the bar.** Say by how much and how, and carry on to item 1.
-   - **It does not, and no option reachable in code will.** **Stop there and tell the owner.**
-     Report every option you costed, including the asset ones, with the number each leaves on the
-     table. **This is a successful outcome of this brief, not a failure** — the owner has already
-     said it means a redesign pass, and they would far rather hear it now than after the rest is
-     built on an assumption that does not hold. Do not soften it, do not build "most of it
-     anyway", and do not run the smoke.
-
-   You may still land the table correction alone if you stop here — `hub_connector_directions` is
-   a plain mismatch between the table and the imported body and is right under any redesign — but
-   build nothing that assumes where a train stops.
+0. **Make the park distance a tunable, and tune it.** One clearly named constant, not a magic
+   fraction buried in `kind_sevenths`. Start from what the current 3/7 puts on screen, move it until
+   the train sits well on its line, and bring it to the smoke for the owner to judge and adjust.
+   Report where you landed and why. **While you are in there, settle the length**: measure a
+   stopped train against the hex grid and, separately, read the engine's own bbox and each
+   auto-attached part rather than the assembly's. `TrainCCP3` has no mesh of its own and `Train` is
+   an `AutoAttachObject` (`Train.lua:16`), which is why the assembly read is in doubt. Record the
+   result in report §13 and mark R-TRAIN resolved or still disputed.
 
 1. **The line is the platform.** A train arriving on line `k` stops along line `k` and loads there;
-   it never slides into the interior to load. The distance out is the owner's 2026-09-20 ruling
-   above, verified with the oracle.
+   it never slides into the interior to load. The distance out is item 0's tunable.
 2. **Reverse in place.** `Spawn<k>` at `Stop<k>`'s position **facing out along its own connector**,
    so vanilla's teleport becomes an invisible 180° flip where the train stands. This is what kills
    §11 item 2: today the hub computes a Spawn angle as centre-to-spot and puts the spot on the
@@ -177,12 +137,9 @@ editing the oracle beyond running it, and the hub's economy (spec §10, the owne
 
 ## Stops
 
-- **The step 0 gate fails** — no option reachable in code clears the owner's quality bar, every one
-  leaving a tail a player would notice or something worse than the overlap it cures. Report the
-  options with the oracle's numbers for each, name the asset change you would want, and stop
-  **before building anything that assumes where a train stops**. Expected and wanted; the owner has
-  said it means a redesign pass. The named fallback is one stopped train at a time; the bar itself
-  is the owner's to relax, not yours.
+- **No park distance looks right on this body.** If tuning the number cannot produce a train that
+  sits well — not because of a figure, but because you have looked at it — report what you tried
+  with what each looked like, and stop before any asset proposal. That is the owner's call.
 - **Vanilla's occupancy call sites cannot be satisfied without wrapping `Train.lua`**, or moving
   Stop breaks the reservation validation in a way you cannot repair in our Lua: report the wrap or
   the break.
