@@ -1058,7 +1058,10 @@ round. Recorded from the owner's account; the save file and the build it was mad
 read. Its content as described:
 - Seven stations prebuilt, all with empty bays, no power and no drone hubs.
 - Six lines already set, their tracks laid, to connect to a hub at the centre. **Only the hub is
-  built each round.**
+  built each round.** The centre site is bare ground with the six track ends stopping short of it,
+  one from each direction: two diagonals from the upper left and upper right, two horizontals from
+  the left and right, and two diagonals from the lower left and lower right (owner's screenshot,
+  2026-09-20, read by eye; no gap was measured). Dropping a fresh hub on it is the whole setup.
 - The lines are joined in a mix. Some stations connect to each other and to the hub; one station
   is reached only through a station that is connected to the hub. The map's large station has one
   line to the hub and its other line to a station that is connected to the hub.
