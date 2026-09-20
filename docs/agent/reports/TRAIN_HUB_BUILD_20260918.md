@@ -552,6 +552,19 @@ The one-off prompt stays live until that smoke is recorded. Executed model: GPT-
 identified by this session's instructions; no more specific runtime model id is supplied.
 No subagents were used.
 
+**Owner sitting, 2026-09-20 (first batch, steps 1-3 only; orchestrator's read of a live, partial
+log).** `Mars.exe-20260920-12.02.29-6a91a190.log`, save `SpaceY Sol 21` at sol 22, game 403908, both
+packs, the TestKit and the dev mod; one Lua error, the known startup `ArtSpecEditor.lua:573`. Slot 2
+was pressed seven times and slot 5 never: park distance 2000 to 1300, so **13 m by the owner's eye**
+(*"that seems about right to me?"*), a runtime value that resets at boot. Slot 6 on
+`Train(2000001573)` read `TrainCCP3` bbox x -1332 to 2818 with two `PointLight` attaches only;
+its verdict stayed DISPUTED and the owner's hex measurement governs. **By eye the parked train was
+"technically on the line but most of it hanging off the line"**: it rides the 289-unit lane and the
+deck is on the centreline. Steps 4-5 (departures, turns, reverse, queue) were **not run**: the owner
+redirected the design to centre riding with a transition at the stub (spec §9) and ruled the method
+quick and iterative. The lane build is therefore mechanically passed and visually unaccepted, and
+13 m is a lane-era figure to be judged again on the centre.
+
 ## Not claimed
 
 "Routing works" is never the claim; the claim is N routes exchanging cargo through one hub in

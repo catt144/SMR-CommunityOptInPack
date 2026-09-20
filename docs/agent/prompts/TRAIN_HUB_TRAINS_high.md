@@ -1,6 +1,11 @@
 # Train hub build 3b: trains at the hub
 
-**LIVE, owner visual sitting next.** Implementation and unattended smoke are recorded in
+⛔ **HELD, 2026-09-20.** The owner ran the first batch's steps 1-3 (report §"Build 3b", "Owner
+sitting, 2026-09-20") and then redirected: trains ride the **centre** of our track and merge from
+beside the vanilla rail on a longer stub (spec §9). Do not set a park distance or continue the lane
+smoke; the model brief `TRAIN_HUB_MODEL_high.md` runs first and a short movement prototype follows.
+
+**Was: LIVE, owner visual sitting next.** Implementation and unattended smoke are recorded in
 [`TRAIN_HUB_BUILD_20260918.md`, Build 3b](../reports/TRAIN_HUB_BUILD_20260918.md#build-3b-2026-09-20).
 That section carries the tested 20 m build, exact evidence and remaining first batch; do not
 repeat the implementation below as new work. The native save/reload test passed; visual

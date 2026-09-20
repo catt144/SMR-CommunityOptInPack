@@ -71,8 +71,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      was withdrawn from the owner's list. **The resolution: park position is a tunable in our own
      Lua**, tuned by eye and judged in the smoke — no asset change. 3b is re-scoped on that, is
      live, and owes the clean length measurement. ⛔ Do not revive the withdrawn options
-     (`SetScale`, alternating lines, a tunnel hood, `FOOTPRINT_R = 5`, resizing the dome): every
-     one was generated downstream of the disputed figure. The oracle stays the check instrument for
+     (`SetScale`, alternating lines, a tunnel hood, resizing the dome): every one was generated
+     downstream of the disputed figure. **The longer stub is not one of them**: the owner measured
+     the stub at one hex on 2026-09-20 and directed one more (spec §9), which moves the connectors
+     to radius 5 on the owner's own measurement. The oracle stays the check instrument for
      spot changes, but its `--train-length-m` default inherits the doubt;
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
@@ -101,10 +103,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
      in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
-     its one-off brief is deleted. **Build 3b was re-scoped and FIRED on 2026-09-20 and is working
-     in this tree — it owns `tools/devmods/train_hub/Code/20_TrainHub.lua`, so do not touch that
-     file and commit with a pathspec.** The owner plays its smoke on 2026-09-21 and will bring the
-     results; read them as a claim like any other;
+     its one-off brief is deleted. **Build 3b is HELD (2026-09-20):** its unattended smoke passed, the
+     owner ran sitting steps 1-3 and then redirected trains onto the centre of our track with a
+     transition on a longer stub (spec §9; hub report §"Build 3b"). **Next is
+     `TRAIN_HUB_MODEL_high.md`, then a short movement prototype brief written after the owner has
+     inspected the model; that brief takes over `20_TrainHub.lua` and retires 3b's on the owner's
+     word.** The cold-start power fix (spec §10) rides the same file and goes in with it;
    - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
      to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
      §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).
@@ -116,6 +120,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - routing 5d or 5c, once the owner has played the 5a network.
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
+
+**Method (owner, 2026-09-20): quick and iterative, never "try to be perfect".** *"Right now we are
+doing extremely heavy builds each pass and then having to rewrite all the steps, and then do another
+heavy try-to-be-perfect build, and we just keep repeating every time we learn something new."* Brief
+small: get the model done, the owner inspects it, a quick prototype of the actions, then dial in by
+eye. No gate, battery or analysis run stands between the owner and a rough thing they can look at.
 
 In live in-game sittings, give the owner about five steps at a time. **Testing depth** (owner,
 2026-09-19): a design pass gets a smoke test only; the full prediction battery runs once, on the
