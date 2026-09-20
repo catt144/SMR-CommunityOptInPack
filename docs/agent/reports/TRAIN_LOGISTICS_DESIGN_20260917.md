@@ -754,10 +754,37 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   (tangent-space normal) and `TrainHub_RM` (roughness R/G, metal B). The body is one mesh with one
   material, as the importer requires (`SceneImport.lua:3548`, `:4023`); no colorization mask was
   made, so the colours are fixed. **Size, MEASURED 2026-09-19:** the imported DDS come to 44 MB
-  (43 MB of it textures), against `PACK_MAX_BYTES = 5 MB` at `upload_preflight.py:47` — so the hub
-  cannot ship at this resolution whatever OI-18 rules on the file allowlist. The maps are baked by
-  `texture_hub.py`, so re-baking at 2048 lands near 11 MB and at 1024 near 2.7 MB; whether the hub
-  still reads right at those is a look-pass judgement and is untested. Checked 2026-09-19 by the orchestrator: geometry exactly equal to the
+  (43 MB of it textures), against `PACK_MAX_BYTES = 5 MB` at `upload_preflight.py:47`. The maps are
+  baked by `texture_hub.py`, so re-baking at 2048 lands near 11 MB and at 1024 near 2.7 MB; whether
+  the hub still reads right at those is a look-pass judgement and is untested.
+
+  **The 5 MB is OUR OWN GUARD, not a platform limit** (MEASURED 2026-09-20; an earlier draft of this
+  passage said the hub "cannot ship at this resolution whatever OI-18 rules", which overstated it).
+  `upload_preflight.py:44-47`'s own comment gives its reason — the shipped pack is about 0.6 MB and
+  the constant exists to catch a pack "carrying something that is not the mod". Read-only decode of
+  the installed packs (build `24995074`; `flpk_extract.py` + DDS headers; `TrainStationLargeCCP3`
+  decodes at 89.94 x 90.95 m, confirming 100 units = 1 m):
+
+  - **Vanilla's own resolution is 2048.** Of 5087 texture DDS, 3024 are 2048² and only 55 are 4096²
+    — wonders, terrain, decals, and one building exception, `StationBig T1_DM`. Every ordinary
+    building checked (MachinePartsFactory, DomeMediumConstruction, ApartmentsCP3, PassageHub) is
+    2048². The train station binds `Station_BC/CM/NM/RM/EM` at 2048² plus that 4096² DM.
+  - **Our three maps are 4096², above vanilla's norm**, at 44.7 MB raw: BC1_SRGB 11.18 MB, BC5
+    22.37 MB, BC1 11.18 MB. The **format** choices match vanilla exactly; only resolution differs.
+  - **Packs are zstd-compressed**, so raw size is not shipped size: vanilla stores `Station_BC` at
+    418 KB against 2.80 MB raw. Our three compress to **4.52 MB** (deflate-6) or **3.31 MB**
+    (zstd-19) — the maps are largely flat procedural surfaces.
+  - **The importer picks the DDS format and does not resize** (`GFXMaterial:ImportMap`,
+    `CommonLua/Libs/DevToolsPublic/GFXMaterial.lua:1098`, `:1101-1139`, called from
+    `SceneImport.lua:1922`): BC1 sRGB for BaseColor, BC5 for Normal, BC1 for RM. Source resolution
+    is the modder's choice; output size follows it.
+  - **Steam accepts far larger Surviving Mars mods** (owner, 2026-09-20): the Red Horizon Buildings
+    & Techs Pack listing shows 103.5 MB, about 2.4x our unpacked hub.
+
+  **Not determined:** whether the shipped mod is compressed in transit; any Paradox Mods or Steam
+  Workshop total-size cap; whether the hub maps were authored at 4096 or upscaled; and the VRAM or
+  performance cost of 4096 against 2048. A test pack built from the dev mod would settle the first,
+  and nothing packed has ever been loaded (OI-18). Checked 2026-09-19 by the orchestrator: geometry exactly equal to the
   untextured baseline, 0 zero-UV faces, the previews match the look direction. The owner's steps
   (a GFXMaterial item, the three maps, the Material choice on the body mesh, re-import) are in that folder's
   `README.md`; they ride build 3's footprint fix so one re-import carries both.

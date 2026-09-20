@@ -77,9 +77,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
      `C:\Dev\SMR-Assets\README.md` §"The old path";
-   - **The hub cannot ship as built** (OI-18, and spec §9): 44 MB of assets against a 5 MB
-     `PACK_MAX_BYTES`, and `upload_preflight.py` admits no asset file types at all. It is the one
-     open risk that can invalidate the rest, and it is gated on nothing but the owner's ruling;
+   - **The hub's ship size** (OI-18, and spec §9): `upload_preflight.py` admits no asset file types
+     at all, and the hub is 44 MB against a 5 MB `PACK_MAX_BYTES`. MEASURED 2026-09-20: **that 5 MB
+     is our own constant, not a platform limit** — vanilla buildings use 2048 maps where ours are
+     4096, packs are zstd-compressed and our three maps compress to about 3.3 MB, and Steam carries
+     Surviving Mars mods at 103 MB. Spec §9 holds the decode and what is still undetermined. The
+     owner was researching this on 2026-09-20; it is their ruling, not an agent's;
    - **the audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner, 2026-09-19;
      the owner changes the model themselves): treat every build
      report as a claim and check it against its commits and logs. Cover: the persisted-name
@@ -98,7 +101,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
      in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
-     its one-off brief is deleted; 3b was re-scoped 2026-09-20 and is live;
+     its one-off brief is deleted. **Build 3b was re-scoped and FIRED on 2026-09-20 and is working
+     in this tree — it owns `tools/devmods/train_hub/Code/20_TrainHub.lua`, so do not touch that
+     file and commit with a pathspec.** The owner plays its smoke on 2026-09-21 and will bring the
+     results; read them as a claim like any other;
    - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
      to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
      §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).
