@@ -95,6 +95,14 @@ Provenance for each: `C:\Dev\SMR-Assets\_shared\IMPORTER_FACTS.md`.
 - **Track element**: `bbox_xy=1000x204`, `bbox_z=-1726..1069`; vanilla's train level and ours are
   equal, `stub=10800:running=10800` on all six lines (build 3's `track_height_rows`).
 
+- **The hub's geometry exists as named parameters, not only as triangles**: `hub_skeleton.py`
+  in `C:\Dev\SMR-Assets\trainhub\blender\` holds `RING_PROFILE`, `RING_PILLAR_R`, `PILLAR_AT`,
+  `PILLAR_R`, `BEAM_W`, `BEAM_H`, `DECK_Z`, `BAY_D/LEN/DEPTH`, `FOOTPRINT_R`, `HEX`. The ring is a
+  turned profile, the pillars are discs at computed angles, the beams are boxes — so anything you
+  want to test against them can be analytic rather than a mesh intersection, if that serves you.
+  Falsifier: a parameter that disagrees with the exported mesh (`verify_look_pass.py` compares
+  the built scene against a preserved baseline and would have caught it).
+
 **The seed.** Three scripts that already did this and were right:
 `C:\Dev\SMR-Assets\_shared\geometry\` — footprint and cargo predicted from the entity file before
 an import, and the cargo rule fitted from five observed cubes. Its `README.md` says what each one
