@@ -1091,6 +1091,10 @@ read. Its content as described:
   that needs stations actually connected and running inside a large, complex colony, for which
   `train1` (sol 71, §7.2) remains the save.
 
+`SpaceY Sol 21` (file dated 2026-09-20 03:27, the save build 3b's agent ran on) is the same base with a hub
+built and powered, saved by the owner before bed; it is not a separate fixture (owner, 2026-09-20).
+Its hub predates the agent fixture, which was built later that day.
+
 The owner's 2026-09-20 setup work (several trains built at each station from filled train-yard
 pads, so trains need not be built each sitting) is what put the prebuilt trains into the saves.
 
