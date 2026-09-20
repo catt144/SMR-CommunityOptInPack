@@ -857,6 +857,14 @@ consequences for the real hub build:
   must sit inside the footprint (`Tracks.lua:19-24`). On a hex grid, two lines cross at 60°.
 - The four differs from vanilla's large station, whose two lines run parallel, by being a
   crossing. Each size owes its own sitting and its own ship test (`FIX_POLICY` §8).
+- ⛔ **The four cannot be much smaller than the six** (owner, 2026-09-20). Footprint radius is
+  driven by **where a train has to park**, not by how many lines cross: a two-line hub parks the
+  same train on the same length of arm as a three-line one. Fewer connectors buys fewer *stops*,
+  not a shorter arm. The principle holds whatever the train's parking length settles at, so it is
+  independent of the R-TRAIN dispute (`GEOMETRY_ORACLE_20260919.md` §13) — but the four's arm
+  length must be set from the *measured* figure, not scaled down from the six's because it looks
+  like a smaller building. Expect a similar footprint with two arms fewer, and price the asset work
+  accordingly rather than assuming "the small one is easy".
 
 **Owner rulings, 2026-09-18, for the real hub build.** The brief is
 `docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
