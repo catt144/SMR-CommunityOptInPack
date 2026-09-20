@@ -786,8 +786,14 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
 **Unverified:**
 - the vanilla track deck height, which the stub ends must match (the spots sit at z 800);
 - the textured look in game, and whether the crossing's black patch shows (see the look paragraph above);
-- how the asset's pallets feed the cube display: which way the grid runs from a `-Box` spot
-  once the Blender empty becomes a game spot. The build's asset branch has never run.
+
+**Cargo grid, MEASURED 2026-09-19 (console dump of one filled hub, then confirmed by the owner in game).**
+The importer writes a Blender spot's `rot_z` as the game angle `330 - rot_z`; the hub's
+`GetCubePosRelative` lays a bed's columns along that angle and its rows 90 degrees on. Spot positions
+map exactly (`(x, y)` Blender m to `(-y, -x)` x 100 after the 30 degree turn). So each `-Box` spot
+is turned 90 degrees from its bed's long axis and starts on the bed's inner long edge; under that
+rule all 60 cubes of a bed land on it. A bed holds 12 x 5 = 60 columns, as a vanilla depot does
+(`Station.lua:99-100`); layers are 1.01 m, so 9 layers is about 9.1 m.
 
 **Lessons:**
 - Image AIs and Tripo do not hold three lines exactly 60° apart, so build the geometry in the
