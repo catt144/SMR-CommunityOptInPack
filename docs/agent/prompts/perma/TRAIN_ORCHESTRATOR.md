@@ -111,6 +111,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `TRAIN_HUB_MOVE_high.md`, which owns `20_TrainHub.lua`, carries the cold-start power fix and
      retires 3b. ⛔ No texture pass until the owner greens transition, enter, load, exit and the
      transition back (owner, 2026-09-20);**
+   - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
+     cruise at the same units per game second, and the train's best samples beat the shuttle's.
+     ⛔ **Never compare `move_speed` constants across unit types** — a shuttle is a `FlyingObject`
+     with no `Movable` and no `GetSpeed`, so its constant feeds another system; reading the
+     constants alone produced two wrong orchestrator tables that the owner's eye overturned. What
+     costs a train time is stops, track path and braking, which is what Module B is for. The cold
+     x1/3 fires **only in a cold wave**. Not measured: door-to-door trip time, the number a player
+     feels;
+   - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
+     upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
+     wave. Spec §10 holds the open questions. Decide after the movement prototype;
    - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
      to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
      §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).

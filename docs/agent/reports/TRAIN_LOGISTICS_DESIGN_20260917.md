@@ -1125,6 +1125,52 @@ The mocked regression passes; native acceptance and mutually blocked departure p
 open. The owner witness, partial flushed log and precise limits are in the build report's
 "Exit contact and scope ruling" passage. The log's last pause tuning was 37 m, not 45 m.
 
+**MEASURED 2026-09-20: a train and a shuttle cruise at the same speed. Trains are not slow.**
+Log `docs/archive/train_speed_Mars.exe-20260920-18.39.01-6a91a190.log`, save `train_hub_base` sol 28,
+game 1.1.0.403908, both packs + TestKit + the dev hub. Method: one game-time console line sampled
+every `CargoShuttle` and every `Train` in `UICity.labels`, slept 1000 ms of game time, and reported
+the furthest each type moved; 15 samples. Game-time sleep, so the speed slider does not affect it.
+
+| | per game second |
+|---|---|
+| Shuttle | 3,939 - 4,898, steady (typically ~4,800) |
+| Train, cruising | 2,682 - 5,409 |
+| Train, stopped at a station | 0 |
+
+The train's best samples (5,409 and 5,215) **beat** the shuttle's best (4,898). ⛔ **The template
+constants are not the currency anything moves in and must not be compared across unit types**:
+`Train.move_speed = 1000` (`Train.lua:28`) against `CargoShuttle` `move_speed = 30*guim`
+(`ShuttleHub.lua:476`) predicts a 30x gap that does not exist. `Shuttle.__parents` is
+`{ "FlyingObject", ... }` (`ShuttleHub.lua:459`) with no `Movable`, so a shuttle has no `GetSpeed`
+at all and its constant feeds a different flight system; `Train` reaches `Movable` through
+`Vehicle`, and even there the live `GetSpeed` read 4502 against a computed nominal ceiling of 1995.
+An orchestrator read of the constants alone produced two wrong tables before the owner's eye and
+this measurement overturned them (owner, 2026-09-20: shuttles are visibly faster but nowhere near
+that much). **Bias to state with the numbers:** the line takes the fastest unit of each type, so
+with several shuttles it always catches one cruising and never one hovering, landing or loading,
+while the single train's profile includes its stops. The shuttle figure is a best case.
+
+**So the trains problem is not speed.** At equal cruise speed what costs a train its time is
+stopping at every station on the route, following track where a shuttle flies straight, and
+braking and accelerating between elements (the 0 and 2,682 samples). That is routing and stops,
+which is what Module B is for. Not yet measured: door-to-door trip time for the same cargo by each
+method, which is the number a player actually feels.
+
+**The train speed chain, for reference** (`Train:GetNominalMoveSpeed`, `Train.lua:592-613`): without
+Faster Trains x0.70, with it x1.00; Vacuum Rail Systems x1.50; the Train Track Standards law x1.33;
+and **during a cold wave only** x1/3, or x2/3 with Safe Transport. The cold branch reads
+`GetHeatAt(...) <= 90`, and the heat grid is created filled with `MaxHeat` (`Heat.lua:39`), so it
+does not fire in normal weather (owner confirmed in play, 2026-09-20; `Drone.lua:286` shows the same
+`HasColdWave` gate). An earlier orchestrator claim that trains always run at a third speed was wrong.
+
+**Candidate, the owner's, 2026-09-20 (thinking about it; not briefed and not a ruling): a heated
+track upgrade.** Cold waves cut the speed of everything, and the train branch above is a x1/3 during
+one. Track connected to our hub would get a heated bonus, so a hub network keeps moving through a
+cold wave. Open: whether it warms the heat grid (the hub would act as a `heater`, `Heat.lua`
+`heaters`) or wraps the speed for trains on our network; what it costs; and whether it also helps
+drones and rovers in range, which take their own cold penalties. Decide it after the movement
+prototype, not before.
+
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
 Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
 **5 Metals** maintenance as the large station's (`StationBig.lua:31-32`), and it draws 10. Mini-reactor
