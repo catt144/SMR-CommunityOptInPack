@@ -242,3 +242,12 @@ Then give the owner **one line**: *"start the game; the Slots & notes tab is loa
 Relay the slot labels, the predictions path and both HEADs to the attending agent;
 that agent reads and logs results and archives evidence. ⛔ **Do not ask the owner
 to paste commands already provisioned in slots.**
+
+⚖️ **An agent may launch the game itself, for any reason, and the owner is not a
+required participant in a run** (owner, 2026-09-19). The one line above is for a
+sitting the owner is playing, not a permission boundary: where a read is cheaper
+taken directly, arm it and take it rather than queueing a request. What does not
+change is that a measurement is a claim like any other — taking it yourself makes
+a second, independent derivation cheaper, not unnecessary. If an agent-launched
+run cannot reach the state a read needs, that bound is itself worth reporting,
+because it decides what later measurements can be self-service about.
