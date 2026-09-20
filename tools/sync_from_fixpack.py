@@ -335,7 +335,7 @@ SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"C:\Dev\SMR-SrcArchive")
 # Places a citation may resolve that are neither this repo's docs/ nor the donor
 # (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):
 TESTKIT = os.environ.get("SMR_TESTKIT", r"C:\Dev\SMR-BugFixPack-TestKit")
-TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"C:\Dev\SMR-TrainHubAssets")
+TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"C:\Dev\SMR-Assets\trainhub")
 _SKIP_DIRS = (".git", "__pycache__", "node_modules")
 _indexes = {}
 

@@ -685,7 +685,7 @@ game the owner plays is Relaunched, at `A:\SteamLibrary\steamapps\common\Project
 - The spot and footprint data sit in the binary `BinAssets.fpk:entities.dat`, which has not
   been decoded.
 - Reference images and the asset's layout requirements for the owner are outside both repos,
-  at `C:\Dev\SMR-TrainHubAssets\reference\` (game art, local only).
+  at `C:\Dev\SMR-Assets\trainhub\reference\` (game art, local only).
 
 **The owner's asset: shape approved by the owner 2026-09-18 (OI-15 = six, OI-16 = 4b).** The
 owner, after the rebuild: "I actually think that turned out perfect", and the rest waits on the
@@ -693,7 +693,7 @@ game. The concept art was iterated with an image AI and meshed in Tripo (Smart M
 topology, about 15,000 polygons, untextured, FBX with the Blender preset). Its output is
 `C:\Dev\SMR-Optin-Assets\circular industrial platform 3d model.fbx`: binary FBX 7400, 15,229
 vertices and 281 loose parts. The Blender 5.2 pipeline lives outside both repos in
-`C:\Dev\SMR-TrainHubAssets\blender\`, and its `README.md` gives the steps:
+`C:\Dev\SMR-Assets\trainhub\blender\`, and its `README.md` gives the steps:
 - `hub_skeleton.py` builds everything that must be exact: `Origin`, the `hex_shape` footprint
   (61 hexes, 4 hexes of radius) and the free ring beyond it, `Collision`, `Selection`, three beams
   60° apart, every pillar with its foot on the ground, the platforms on posts, the ring wall as a
@@ -750,7 +750,7 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   and the atlas carries the aged look the owner rejected. Fallback only.
 - **Chosen: procedural textures, made in Blender.** `texture_hub.py` bakes white enamel, red trim rings,
   a light-grey hex floor with relief and slate-blue pads into three 4096² uncompressed TGAs in
-  `C:\Dev\SMR-TrainHubAssets\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
+  `C:\Dev\SMR-Assets\trainhub\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
   (tangent-space normal) and `TrainHub_RM` (roughness R/G, metal B). The body is one mesh with one
   material, as the importer requires (`SceneImport.lua:3548`, `:4023`); no colorization mask was
   made, so the colours are fixed. **Size, MEASURED 2026-09-19:** the imported DDS come to 44 MB
@@ -863,8 +863,7 @@ takes each line's radius from the model's own outline (`line_radii`, `20_TrainHu
 connector must be the last footprint hex on its line (`Tracks.lua:19-24`), so the change is six
 more outline hexes, one per line, and connectors moved out by one hex, then re-imported with the
 lane decks. `Floor.HubParkDistance` is a distance from the hub's centre, so the 13 m does not move
-with it. What it costs, for the look-pass brief to price: the Mod Editor re-import (blocked on the
-stale `C:\Dev\SMR-TrainHubAssets` junction), the ramp spots (5/7 of the radius) and the oracle's
+with it. What it costs, for the look-pass brief to price: the Mod Editor re-import, the ramp spots (5/7 of the radius) and the oracle's
 tables and the desktop traffic check re-run at the new radius, and the fixture saves. On
 `train_hub_base`, `train_hub_base_agent` and `SpaceY Sol 21` the six laid tracks end at today's
 connectors, so each line's end element must be shortened by a hex, and a hub already built at the

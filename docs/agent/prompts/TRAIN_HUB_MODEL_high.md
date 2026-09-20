@@ -51,9 +51,9 @@ it is short). Trains ride beside the vanilla rail and on top of the centre of ou
    and the footprint drawn on it, one line's end from above and from ground level, and the whole hub.
    Put a box of about 20 m by 4 m where a train rides, beside the path and on the stub, so the fit is
    visible. Stop here and hand the renders to the owner.
-3. **After the owner's go:** make `C:\Dev\SMR-TrainHubAssets` a junction (it is still a stale copy,
-   checked 2026-09-20; steps in `C:\Dev\SMR-Assets\README.md` §"The old path"; game and Mod Editor
-   closed), export, and give the owner the Mod Editor re-import steps from `blender\README.md`.
+3. **After the owner's go:** export, and give the owner the Mod Editor re-import steps from
+   `blender\README.md`. The old assets path is already a junction to `C:\Dev\SMR-Assets\trainhub`
+   (the orchestrator did it 2026-09-20, owner's order); work at the real path, never the old name.
 4. **One in-game look, not a test:** the hub places, and a vanilla track laid down a path between two
    arms attaches to the stub. `20_TrainHub.lua` belongs to build 3b: touch it only if placement or
    attachment fails, the smallest change that works, and say so. Trains will still ride the old
