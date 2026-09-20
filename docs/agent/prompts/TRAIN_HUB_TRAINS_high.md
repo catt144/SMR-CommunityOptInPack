@@ -5,7 +5,7 @@
 behind it: a hub whose trains float is not smokeable for repairs.
 
 ⛔ **HOLD: this brief's premise is contradicted by a measured finding. Read the geometry oracle's
-report before acting on anything below** (`GEOMETRY_ORACLE_high.md`, running 2026-09-19 evening).
+report before acting on anything below** (`docs/agent/reports/GEOMETRY_ORACLE_20260919.md`; the brief is consumed).
 
 The brief below assumes the trains misbehave because `Train:GotoSpot` slides are exposed in an 80 m
 building, and prescribes stubs-as-platforms, reverse-in-place and centre routing. That premise is at
@@ -20,8 +20,13 @@ both the far-side jump and the sideways drift into the portal legs.
 
 Derived independently three times from files (the oracle, GPT-5.4 blind via Codex, and the
 orchestrator from `Entities/SMROptInTrainHub6.entjson`), each agreeing; a constant hex-convention
-offset cannot explain it, because the required offsets differ (0, 2, 4). **Not yet measured in
-game** — TestKit slot 6 `geometry_reads` (TestKit `bd32d30`) takes that reading with no selection.
+offset cannot explain it, because the required offsets differ (0, 2, 4). **MEASURED in game
+2026-09-19**: the owner's console read and TestKit slot 6 `geometry_reads` (kit `bd32d30`) returned
+all 24 synthetic spots and six connectors with zero delta from the file-side prediction
+(`docs/archive/geometry_oracle_slot6_Mars.exe-20260919-23.01.18-6a91a190.log`). The same read
+measured the lane: each element's `Enter1`/`Enter2` sit 289 units (HexSize/2) left and right of
+the track centreline at the connector hex centre, so end state 3's offset is known; the report's
+§3 has the per-line paths and what a corrected table leaves for this build.
 
 Consequence: much of what this brief asks for may be a one-line table correction rather than a
 redesign, and the remainder may be only end state 1, stopping on the stub instead of inside the

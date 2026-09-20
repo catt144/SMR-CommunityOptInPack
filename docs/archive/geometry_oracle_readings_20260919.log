@@ -1,0 +1,9 @@
+Owner console read, 2026-09-19 (game 1.1.0.403908, hub SMROptInTrainHub6(6265) selected, TestKit panel tap), line 1 of the geometry oracle's requests:
+> *r local h=SelectedObj for i=1,6 do local c=h:GetSpotBeginIndex("Trackconnector"..i) local s=h:GetSpotBeginIndex("Stop"..i) local a=h:GetSpotBeginIndex("Ramparrive"..i) print("GEO", i, tostring(h:GetSpotPos(c)), tostring(h:GetSpotPos(s)), tostring(h:GetSpotPos(a)), tostring(h:GetPos()), tostring(h:GetAngle())) end
+GEO 1 (278000, 162808, 10800) (281714, 166272, 10800) (282857, 166272, 10800) (280000, 166272, 10000) 0
+GEO 2 (282000, 169736, 10800) (278286, 166272, 10800) (277143, 166272, 10800) (280000, 166272, 10000) 0
+GEO 3 (276000, 166272, 10800) (280857, 167757, 10800) (281429, 168746, 10800) (280000, 166272, 10000) 0
+GEO 4 (284000, 166272, 10800) (279143, 164787, 10800) (278571, 163798, 10800) (280000, 166272, 10000) 0
+GEO 5 (278000, 169736, 10800) (279143, 167757, 10800) (278571, 168746, 10800) (280000, 166272, 10000) 0
+GEO 6 (282000, 162808, 10800) (280857, 164787, 10800) (281429, 163798, 10800) (280000, 166272, 10000) 0
+Also in the same tap: [TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4 ; [TrainHubDev] SMROptInTrainHub6 connector spots: from the body ; SMRTK_SLOTS armed_at_load=0 slots="...6 dome_link..." (kit HEAD before bd32d30).

@@ -1,0 +1,337 @@
+					Render 0:00:00:009
+*** executable info
+Timestamp:     	6a91a190
+Date:          	Fri Aug 28 10:56:16 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	69%
+					Render 0:00:00:010
+Disk Free      	803497 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:100
+Steam initialized (AppId 3215050)
+					Render 0:00:00:103
+Drive type for game installation: SSD, savegames: SSD
+					Render 0:00:00:104
+Language: English
+					Render 0:00:01:498
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:651
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:886
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:821
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+						Lua 0:00:02:822
+Lua revision: 403908
+Assets revision: 33006
+Steam AppID: 3215050
+Build version: 1.1.0.403908
+Build branch:  Release
+						Lua 0:00:06:079
+Account storage loaded successfully in 2 ms
+DLC norman loaded, lua revision 403908, assets revision 33006
+DLC thomas loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:06:083
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-009) unpacked from appdata
+						Lua 0:00:06:462
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+						Lua 0:00:06:463
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:06:464
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:06:468
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=2045 id=1						Lua 0:00:06:469
+
+[SMRTK] SMRTK_CORE loaded=true tee=false t=2045 id=1
+						Lua 0:00:06:472
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=2045 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=2045 id=2
+						Lua 0:00:06:473
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityFixPack] NightShiftWork: applied
+						Lua 0:00:06:474
+[mod] [CommunityFixPack] WispRewards: applied
+[mod] [CommunityFixPack] TrainsToVoid: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] BrokenTrackSalvage: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] TradeRocketFuelRefresh: applied
+						Lua 0:00:06:475
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DomeOverviewHighlight: applied
+[mod] [CommunityFixPack] TrainCargoDumping: applied
+						Lua 0:00:06:476
+[mod] [CommunityFixPack] DestroyedTunnels: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] GeneForging: applied
+[mod] [CommunityFixPack] MirrorSphereSite: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:06:477
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:06:478
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] GraphConsumedCaption: applied
+[mod] [CommunityFixPack] TrainWaitTime: applied
+[mod] [CommunityFixPack] FounderTraitNotification: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:06:479
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] SinkholeIndestructible: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:06:480
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] BuildingCodesPrefab: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] OpenPastureStockpiles: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:06:481
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:06:482
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:07:245
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+[mod] [CommunityFixPack] SinkholeIndestructible: the St. Elmo's Fire sinkhole is now indestructible, like every other mystery set-piece
+						Lua 0:00:07:338
+Reloading done in 1255 ms
+						Lua 0:00:07:340
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:07:383
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=2045 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=2045 id=3
+						Lua 0:00:07:759
+[preset] Preset postprocess took 157 ms.
+						Lua 0:00:07:806
+482 / 482 particle streams loaded in 40 ms.
+5 / 5 particle streams loaded in 0 ms.
+						Lua 0:00:07:807
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:07:808
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: added 4 water entr(y/ies) at -50% to DryFarming (0 adopted, 4 of 4 farms loaded)
+						Lua 0:00:08:011
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:08:097
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=2045 id=4
+						Lua 0:00:08:130
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=2045 id=5
+						Lua 0:00:08:144
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2502):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+[mod] Loaded mod items for: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918
+						Lua 0:00:08:394
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:08:485
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=2045 id=6
+						Lua 0:00:08:945
+[PdxSDK] Started up. Took 1070
+						Lua 0:00:09:353
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:09:469
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:12:999
+Load Game: 
+	lua_revision: 403908 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+						Lua 0:00:13:002
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:14:877
+*** Assets reloaded in 1.9 s, read 359.3 MB, read speed 191.6 MB/s, average read 8138 bytes.
+						Lua 0:00:15:818
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=5976 id=7
+						Lua 0:00:16:549
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=5976 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=5976 id=8
+						Lua 0:00:17:206
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-004), which is loaded with a different version 0.00-009
+						Lua 0:00:18:655
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:18:658
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:18:679
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, NASA, paradox
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:18:731
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 5732 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=168 last=selected_delete last_id=182 present=true session=1789840078:3471504654:1612938580:683508198 t=14360383 id=9
+[SMRTK] SMRTK_PROVENANCE actions=168 last=selected_delete last_id=182 present=true session=1789840078:3471504654:1612938580:683508198 t=14360383 id=9
+						Lua 0:00:18:742
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14360383 id=10
+						Lua 0:00:18:755
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=14360383 id=11
+						Lua 0:00:18:759
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:18:877
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14360383 id=12
+						Lua 0:00:19:368
+Game loaded on map BlankBig_01 in 6500 ms
+						Lua 0:00:19:675
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=World t=14360383 id=13
+						Lua 0:00:26:640
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+						Lua 0:00:26:645
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=14360383 id=14
+						Lua 0:00:29:298
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=14360383 id=15
+						Lua 0:00:39:696
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:00:39:733
+[mod] [SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=14360383 id=16
+[SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=14360383 id=16
+
+!!! Quick Build !!!
+						Lua 0:00:41:784
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6265) status=OK t=14360383 id=17
+						Lua 0:00:44:886
+[mod] [SMRTK] SMRTK_TAB action=tab_Agent page=Agent status=OK t=14360383 id=18
+						Lua 0:00:47:193
+[LUA ERROR] string.format: bad argument #4 to '?' (number expected, got nil)
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields
+  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>
+  [C](-1):  global pcall
+  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>
+  Mod/SMR_CommunityFixPackTestKit/Code/74_SMRTK_Agent.lua(362):   <>
+        --- end of stack
+Locals:
+	                   p |    point (278000, 162808)
+	              scalar | function 0x0000025CF7AF5800
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>\n  Mod/SMR_CommunityFixPackTestKit/Code/74_SMRTK_Agent.lua(362):   <>\n        --- end of stack" t=14360383 id=19
+[SMRTK] SMRTK_ERROR kind=lua message="string.format: bad argument #4 to '?' (number expected, got nil)" stack="  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(548):  upvalue pt\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(590):  upvalue geometry_fields\n  Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua(630):   <>\n  [C](-1):  global pcall\n  Mod/SMR_CommunityFixPackTestKit/Code/70_SMRTK_Core.lua(180):   <>\n  Mod/SMR_CommunityFixPackTestKit/Code/74_SMRTK_Agent.lua(362):   <>\n        --- end of stack" t=14360383 id=19
+						Lua 0:00:47:199
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=30 status=OK t=14360383 id=20
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=30 status=OK t=14360383 id=20
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14360383 id=21
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14360383 id=21
+[mod] [SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6265) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=nil van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14360383 id=22
+[SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6265) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=nil van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14360383 id=22
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=33 status=OK t=14360383 id=23
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=33 status=OK t=14360383 id=23
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14360383 id=24
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14360383 id=24
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 reason="engine error reported" status=ERROR t=14360383 id=25
+[SMRTK] SMRTK_ACTION action=slot_6 reason="engine error reported" status=ERROR t=14360383 id=25
+[mod] Error in mod Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) from appdata
+						Lua 0:00:52:395
+[mod] [SMRTK] SMRTK_VERBOSE action=verbose status=OK verbose=on t=14360383 id=26
+[SMRTK] SMRTK_VERBOSE action=verbose status=OK verbose=on t=14360383 id=26
+						Lua 0:00:53:659
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=33 lines=4 status=OK truncated=false t=14360383 id=27
+[SMRTK] SMRTK_COPY action=copy flushed=true from=33 lines=4 status=OK truncated=false t=14360383 id=27
+						Lua 0:01:35:409
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:01:35:724
+
+
+*** Debug::Done()
+Time (ms)	95724
+
+
