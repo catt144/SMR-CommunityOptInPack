@@ -1005,6 +1005,21 @@ train scale and economy are untouched. The withdrawn gate's calculations remain 
 report §12 and do not gate this implementation.
 Build 4 remains held until build 3b's smoke is recorded.
 
+**Owner requirement, 2026-09-20: the hub must start in a remote, droneless area with little except
+what a person brought to build it.** Found in the sitting on `train_hub_base` (no power, no drone
+hubs): a fresh hub read production 0, consumption 10 and "Not enough Power". The code cause, read
+statically and not yet run: `20_TrainHub.lua:877` (`CreateElectricityElement`) sets production to
+the 70000 only while `self.working`, and a hub with no other supply is never working, so it cannot
+start itself. Build 3's smoke passed only because seven Stirling generators were already on the
+merged grid, and the build report's placement step tells testers to use `NoConsumption` to get
+round it. The "powers itself" line in §10 and in the hub's description is therefore untrue on a
+cold start. Last night's commit `b02db74` changed no power line; the values are still +70/-10.
+Owed, before build 4 (it touches `20_TrainHub.lua`, which build 3b owns until its smoke): production
+must count while the hub is unpowered and stop only for malfunction or switched off, so a lone hub
+starts on its own output. Open, not yet ruled: what else must work with no drones and no grid, such
+as the maintenance the hub pays from its own stock, the crew that only exists at a working hub, and
+where the start-up stock comes from. The 20-power base direction above depends on this fix.
+
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
 Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
 **5 Metals** maintenance as the large station's (`StationBig.lua:31-32`), and it draws 10. Mini-reactor

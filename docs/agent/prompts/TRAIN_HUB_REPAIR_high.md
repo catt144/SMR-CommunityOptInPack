@@ -145,6 +145,8 @@ stock without player action, survives a reload mid-trip, and the toggle stops it
 
 **Test save (owner, 2026-09-20):** sittings load `train_hub_base`, which has the stations, tracks and lines prebuilt; only the hub is built each round. Spec §10, "The standing test save". Do not build trains or lines each sitting.
 
+**Cold start (owner, 2026-09-20):** the hub must start in a remote, droneless area with no grid and only what a person brought. A hub with no other power never starts today, because its production counts only while working (`20_TrainHub.lua:877`). Fix that first, in this build or ahead of it; spec §10, "Owner requirement, 2026-09-20".
+
 In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
 Out: vanilla drone AI changes beyond the scoped wrap above, real train pathing, Module A, routing.
 
