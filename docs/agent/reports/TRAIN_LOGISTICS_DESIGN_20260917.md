@@ -1073,10 +1073,10 @@ T1–T3 results are recorded in §7.
 **The standing test save, `train_hub_base` (owner, 2026-09-20).** The save the owner loads every
 round. Recorded from the owner's account; the save file and the build it was made on have not been
 read. Its content as described:
-- Seven stations prebuilt, all with empty bays, no power and no drone hubs. **Since the owner's
-  2026-09-20 setup work the save the owner is using carries seven Stirling Generators**, which
-  mask the cold start below; they must be removed to test it (owner, 2026-09-20). Not yet
-  recorded: whether they sit in `train_hub_base` itself or in the fuller variant.
+- Seven stations prebuilt, all with empty bays and no drone hubs, and **prebuilt trains** (owner,
+  2026-09-20). Both this save and `train_hub_base_agent` carry **seven Stirling Generators**, which
+  mask the cold start below; they must be removed to test it. Neither save is a cold-start
+  fixture as it stands.
 - Six lines already set, their tracks laid, to connect to a hub at the centre. **Only the hub is
   built each round.** The centre site is bare ground with the six track ends stopping short of it,
   one from each direction: two diagonals from the upper left and upper right, two horizontals from
@@ -1091,16 +1091,15 @@ read. Its content as described:
   that needs stations actually connected and running inside a large, complex colony, for which
   `train1` (sol 71, §7.2) remains the save.
 
-**In progress, 2026-09-20 (owner):** a fuller variant of the save, so trains need not be built each
-sitting: hubs placed, several trains built at each station, and the train yards' own storage pads
-filled. Not yet recorded: its save name, or whether it replaces `train_hub_base`.
+The owner's 2026-09-20 setup work (several trains built at each station from filled train-yard
+pads, so trains need not be built each sitting) is what put the prebuilt trains into the saves.
 
 **The agent fixture, `train_hub_base_agent` (owner, 2026-09-20).** For unattended work, when an
 agent launches the game and tests on its own. "The exact same setup" as `train_hub_base` except:
 the hub is prebuilt and full of resources, `StationSmall(2008)` is full of resources, and every
 other station is empty. **The hub is powered off**, to keep trains from firing at once, so an
-unattended leg must switch it on itself. Not yet recorded: whether the seven Stirling Generators
-are in it, and the save's build and mods.
+unattended leg must switch it on itself. Both saves are otherwise identical: the same stations,
+trains and Stirlings (owner, 2026-09-20). Not yet recorded: the saves' build and mods.
 
 **Owner observation, 2026-09-20, from building that variant.** With train construction as the only
 task, drones do haul the materials from the train yard's storage pad to the train under
