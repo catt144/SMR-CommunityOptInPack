@@ -107,9 +107,13 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      its one-off brief is deleted. **Build 3b is HELD (2026-09-20):** its unattended smoke passed, the
      owner ran sitting steps 1-3 and then redirected trains onto the centre of our track with a
      transition on a longer stub (spec §9; hub report §"Build 3b"). The model brief was fired and the
-     longer stubs and transition arms are imported and accepted in game (untextured). **Next is
-     `TRAIN_HUB_MOVE_high.md`, which owns `20_TrainHub.lua`, carries the cold-start power fix and
-     retires 3b. ⛔ No texture pass until the owner greens transition, enter, load, exit and the
+     longer stubs and transition arms are imported and accepted in game (untextured). **`TRAIN_HUB_MOVE_high.md` was
+     FIRED once (2026-09-20: `3ec2f0b`, `a657e64`, `2606719`)** — centreline entry and mirrored exit,
+     the cold-start fix, an occupied-exit guard; pause 45 m and park 13 m in Lua; no owner eye on it
+     yet. It hit the blocked-exit question, which the owner answered with six loading sidings (spec §9);
+     loading policy and queueing are deferred to the owner's next pass. **Next, in order:** the model
+     brief's Pass 2 (the sidings, which bakes the owner's platform offset first), then the MOVE brief
+     fired again. ⛔ **The owner has an addition for the next MOVE firing — take it before firing.** ⛔ No texture pass until the owner greens transition, enter, load, exit and the
      transition back (owner, 2026-09-20);**
    - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
      cruise at the same units per game second, and the train's best samples beat the shuttle's.

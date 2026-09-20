@@ -1123,9 +1123,9 @@ start itself. Build 3's smoke passed only because seven Stirling generators were
 merged grid, and the build report's placement step tells testers to use `NoConsumption` to get
 round it. The "powers itself" line in §10 and in the hub's description is therefore untrue on a
 cold start. Last night's commit `b02db74` changed no power line; the values are still +70/-10.
-Owed, before build 4 (it touches `20_TrainHub.lua`, which build 3b owns until its smoke): production
-must count while the hub is unpowered and stop only for malfunction or switched off, so a lone hub
-starts on its own output. Open, not yet ruled: what else must work with no drones and no grid, such
+**BUILT in `3ec2f0b`, not yet checked in game** (`TRAIN_HUB_MOVE_high.md`): `HubUpdateProduction`
+now keys production off `ui_working`, malfunction and destruction rather than `working`, so a lone
+hub should start on its own output. The in-game check needs the seven Stirlings removed (below). Open, not yet ruled: what else must work with no drones and no grid, such
 as the maintenance the hub pays from its own stock, the crew that only exists at a working hub, and
 where the start-up stock comes from. The 20-power base direction above depends on this fix.
 **A cold-start test runs with the seven Stirling Generators removed from the fixture**, or the

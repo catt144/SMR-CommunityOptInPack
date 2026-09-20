@@ -44,6 +44,32 @@ must either sit there blocking its own line and the crossing, or reverse out int
 arrival needs. A siding removes the choice: the train loads and waits off the running line, and a
 through train can pass while it does.
 
+⛔ **Bake the owner's platform offset into the generator FIRST, before any regenerate** (verified
+2026-09-20 by the orchestrator). The pass-1 arms overlapped the track beam: a deck centred on the lane
+at 2.89 m and 3.4 m wide has its inner edge at 1.19 m, inside the beam's 1.75 m edge. The owner moved
+all twelve 0.573 m outward across their own line, so the inner edge is flush with the beam, and that
+is what was exported and imported. **It lives only in `TrainHub_work.blend` as object locations on
+`Platform_1..12`; `hub_skeleton.py:344` still reads `off = PLATFORM_LANE_OFFSET`.** Regenerating as
+it stands puts every arm back into the beam. Replace that line with
+`off = BEAM_W / 2.0 + PLATFORM_W / 2.0` (3.45 m, 13 mm inside the owner's 3.463) and keep
+`PLATFORM_LANE_OFFSET = 2.89` as the documented lane position; after the rebuild the locations return
+to zero. Two consequences are deliberate — do not "fix" them: the deck is no longer centred under the
+train (the beam carries its inner side), and past the connector a strip of deck overhangs cells
+outside the footprint, which does not block a track because placement reads `hex_shape`.
+
+Also known, not yours to chase: `verify_build3_source.py` fails naming `Pillar_8..13`. It fails on
+the committed blend too; it is a stale build-2 guard from before the owner's 2026-09-19 inner-ring
+cut. `TrainHub_work_Owner_edit.blend` (untracked) is an earlier owner save with no platform moves —
+build from `TrainHub_work.blend` and leave the owner's file where it is.
+
+**Pass 1 is uncommitted and goes in with your step 5:** in SMR-Assets `hub_skeleton.py`,
+`verify_look_pass.py`, `export/look_pass_source_proof.json`, `TrainHub_work.blend` and the new
+`render_transition_previews.py`; in SMR-OptInPack the three files the owner's import rewrote,
+`tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson`,
+`Meshes/SMROptInTrainHub6_mesh.sub_0.hgrm` and `metadata.lua`. The orchestrator ran the untextured
+export (`export_prep_untextured.py`) and the owner imported it: `importer_result.log` Result OK, 25
+spots, 0 colliders, 724 surfaces.
+
 **Build six loading sidings, one per internal spur.**
 - **Placement:** beside each spur, all with the **same rotational handedness** (all clockwise of
   their own spur), so the two sidings of a through line land on opposite sides of it and the Lua is
