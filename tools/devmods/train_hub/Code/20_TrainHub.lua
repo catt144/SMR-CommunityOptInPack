@@ -30,12 +30,12 @@
 -- both files create the shared table if it is not there yet.
 SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
--- Owner 2026-09-20: tune by eye, in metres from the hub centre. This is the
--- single live control (TestKit may change it). Started at 17 m near the old
--- 3/7, then compared 17/20/23 m in game: 20 leaves more crossing room without
--- hiding the cargo tail behind the portal. Owner's final visual verdict owed.
--- Not persisted: a boot always starts from this value.
-Floor.HubParkDistance = 20 * guim
+-- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
+-- outward from the hub centre. Neither is derived from the disputed length.
+-- Pause is a provisional starting point; park starts at the owner's lane-era
+-- 13 m and needs judging again on the centre. Both reset on a full restart.
+Floor.HubTransitionPauseDistance = 30 * guim
+Floor.HubParkDistance = 13 * guim
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
 
@@ -145,9 +145,6 @@ local function longest_line(self)
 	return longest
 end
 
--- Ramps retain their old radius. Stop and Spawn share HubParkDistance.
-local kind_sevenths = { Ramparrive = 5, Rampdepart = 5 }
-
 -- `body` is the hub or its construction cursor; `hub` supplies the class data.
 local function line_hex(hub, body, connector_idx, extra)
 	local local_direction = hub.hub_connector_directions[connector_idx]
@@ -191,23 +188,20 @@ local function lane_offset(self, idx, arrival)
 end
 
 local function synthetic_spot_pos(self, kind, idx)
-	local sevenths = kind_sevenths[kind]
 	local q, r, direction = line_hex(self, self, idx, kind == "Trackdirection" and 1 or 0)
 	local x, y = HexToWorld(q, r)
 	local cx, cy, z = self:GetPosXYZ()
 	if deck_kinds[kind] then z = z + train_deck_height(self) end
-	if sevenths then
-		x = cx + MulDivRound(x - cx, sevenths, 7)
-		y = cy + MulDivRound(y - cy, sevenths, 7)
-	end
-	if kind == "Stop" or kind == "Spawn" then
-		local radius = self:GetDist2D(point(x, y))
-		x = cx + MulDivRound(x - cx, Floor.HubParkDistance, radius)
-		y = cy + MulDivRound(y - cy, Floor.HubParkDistance, radius)
-	end
 	if deck_kinds[kind] then
-		-- Spawn stays exactly at Stop for an in-place reverse. The departure
-		-- path joins the other lane with a curve, never a lateral teleport.
+		local distance = (kind == "Stop" or kind == "Spawn")
+			and Floor.HubParkDistance or Floor.HubTransitionPauseDistance
+		local radius = self:GetDist2D(point(x, y))
+		x = cx + MulDivRound(x - cx, distance, radius)
+		y = cy + MulDivRound(y - cy, distance, radius)
+	end
+	if kind == "Ramparrive" or kind == "Rampdepart" then
+		-- Only the transition's outer end is on vanilla's lane. Stop/Spawn
+		-- and every interior waypoint are on our rail's centreline.
 		local ox, oy = lane_offset(self, idx, kind ~= "Rampdepart")
 		x, y = x + ox, y + oy
 	end
@@ -360,7 +354,11 @@ function SMROptInTrainHubBase:GetOccupyingTrain(track, arrival)
 	local idx = IsValid(track) and self:GetConnectionSpot(track) or track
 	local occupant = self:HubReservations()[idx]
 	local crossing = self:HubCrossingTrain()
-	if arrival and crossing then return crossing end
+	if arrival then
+		if crossing then return crossing end
+		local incoming = self:HubIncomingTrain()
+		if incoming then return incoming end
+	end
 	-- LoadTrain:258 asks if the REVERSE platform is free. With our own-line
 	-- keys it finds itself: exempt only that train's own LoadTrain command.
 	-- TrackBase:AssignTrain's separate thread still sees the occupied spawn.
@@ -426,7 +424,17 @@ end
 
 function SMROptInTrainHubBase:HubMoveTrain(train, pos, final_speed, yaw)
 	if not IsValid(train) or not IsValid(self) then return end
-	local accel, time = train:GetAccelerationAndTime(pos, final_speed, pf.GetSpeed(train))
+	local start_speed = pf.GetSpeed(train)
+	-- A stop-to-stop run needs an acceleration leg before braking; asking
+	-- the native constant-acceleration solver for zero at both ends cannot
+	-- express it. This midpoint controls speed, never either tuned position.
+	if final_speed == 0 and start_speed <= 0 and train:GetDist2D(pos) > 1 then
+		local middle = train:GetPos() + MulDivRound(pos - train:GetPos(), 1, 2)
+		start_speed = train:GetNominalMoveSpeed() / 3
+		if not self:HubMoveTrain(train, middle, start_speed, yaw) then return end
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+	end
+	local accel, time = train:GetAccelerationAndTime(pos, final_speed, start_speed)
 	if yaw then train:SetAngle(yaw, time) end
 	train:SetPos(pos, time)
 	train:SetAcceleration(accel)
@@ -435,22 +443,58 @@ function SMROptInTrainHubBase:HubMoveTrain(train, pos, final_speed, yaw)
 	return IsValid(train) and IsValid(self) and not self.destroyed
 end
 
--- Intersection of the two lane centrelines: the turn stays at the crossing,
--- with no centreline/lane dogleg. Straight-through lanes are already collinear.
+-- Every interior line meets at the hub centre. Opposite lines need no pivot.
 function SMROptInTrainHubBase:HubTurnPoint(arrival_idx, departure_idx)
-	local a = synthetic_spot_pos(self, "Stop", arrival_idx)
-	local b = synthetic_spot_pos(self, "Rampdepart", departure_idx)
-	local aq, ar = line_hex(self, self, arrival_idx)
-	local bq, br = line_hex(self, self, departure_idx)
-	local ax, ay = HexToWorld(aq, ar)
-	local bx, by = HexToWorld(bq, br)
-	local cx, cy = self:GetPosXYZ()
-	local ux, uy, vx, vy = cx - ax, cy - ay, bx - cx, by - cy
-	local det = ux * vy - uy * vx
-	if det == 0 then return end
-	local numerator = (b:x() - a:x()) * vy - (b:y() - a:y()) * vx
-	return point(a:x() + MulDivRound(ux, numerator, det),
-		a:y() + MulDivRound(uy, numerator, det), a:z())
+	local a, b = self.hub_connector_directions[arrival_idx], self.hub_connector_directions[departure_idx]
+	if (a - b) % 3 == 0 then return end
+	local x, y, z = self:GetPosXYZ()
+	return point(x, y, z + train_deck_height(self))
+end
+
+-- Reuse 3b's normalized smoothstep, now for a pure sideways transfer after
+-- stopping. Keep the nose aimed down the rail. Game-time interpolation keeps
+-- the same path at normal/fast/fastest; no realtime callback or Train wrapper.
+function SMROptInTrainHubBase:HubSlideTrain(train, destination)
+	local start = train:GetPos()
+	train:StopInterpolation()
+	for i = 1, 8 do
+		local f = MulDivRound(i * i * (24 - 2 * i), 1000, 512)
+		train:SetPos(start + MulDivRound(destination - start, f, 1000), 150)
+		train:SetAcceleration(0)
+		Sleep(150)
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+		if not IsValid(train) or not IsValid(self) or self.destroyed then return end
+	end
+	train:StopInterpolation()
+	return true
+end
+
+function SMROptInTrainHubBase:HubEnterTrain(train, idx)
+	local ramp = synthetic_spot_pos(self, "Ramparrive", idx)
+	local ox, oy = lane_offset(self, idx, true)
+	-- Unlike Station.lua:1105 (archived 1.1.0.403908), never teleport a long
+	-- arrival. Stop on the arm, then slide in before travelling into the tunnel.
+	if not self:HubMoveTrain(train, ramp, 0) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	return self:HubSlideTrain(train, ramp - point(ox, oy, 0))
+end
+
+function SMROptInTrainHubBase:TrainArrive(train, arrival_track)
+	local idx = self:GetConnectionSpot(arrival_track)
+	if not idx or not self:HubAcquireCrossing(train) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	if not self:HubEnterTrain(train, idx) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	if not self:HubMoveTrain(train, synthetic_spot_pos(self, "Stop", idx), 0) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	train:StopInterpolation()
+	train.current_station = self
+	train.station_arrival_track = idx
+	train.at_station = true
+	table.remove_value(arrival_track.assigned_vehicles, train)
+	-- Keep its own-line parking reservation, release only the moving lock.
+	self.SMROptIn_hub_crossing = false
+	Msg("TrainLeave", train, self)
 end
 
 function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, departure_track, reverse)
@@ -460,22 +504,8 @@ function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, d
 	local ramp = synthetic_spot_pos(self, "Rampdepart", departure_idx)
 	local outward = synthetic_spot_angle(self, "Rampdepart", departure_idx)
 	if reverse then
-		-- Owner's same-position flip, followed by a smooth lane join. Spawn
-		-- and Stop coincide; shifting Spawn to DEPART would teleport 5.78 m.
-		local start = train:GetPos()
+		-- Owner's same-position flip; it stays centred until the outer slide.
 		train:SetAngle(outward)
-		local offset_x, offset_y = lane_offset(self, departure_idx, false)
-		local arrive_x, arrive_y = lane_offset(self, departure_idx, true)
-		local lateral = point(offset_x - arrive_x, offset_y - arrive_y, 0)
-		local along = ramp - start - lateral
-		-- Smoothstep lateral displacement, zero lateral slope at both ends.
-		for i = 1, 8 do
-			local f = MulDivRound(i * i * (24 - 2 * i), 1000, 512)
-			local pos = start + MulDivRound(along, i, 8) + MulDivRound(lateral, f, 1000)
-			local tangent = along + MulDivRound(lateral, 6 * i * (8 - i), 64)
-			if not self:HubMoveTrain(train, pos, speed, CalcOrientation(point(0, 0), tangent)) then return end
-			if not rawget(_G, "SMROptInTrainFloor") then return end
-		end
 	else
 		local turn = self:HubTurnPoint(arrival_idx, departure_idx)
 		if turn then
@@ -486,9 +516,12 @@ function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, d
 			if not rawget(_G, "SMROptInTrainFloor") then return end
 			if not IsValid(train) or not IsValid(self) or self.destroyed then return end
 		end
-		if not self:HubMoveTrain(train, ramp, speed) then return end
-		if not rawget(_G, "SMROptInTrainFloor") then return end
 	end
+	local ox, oy = lane_offset(self, departure_idx, false)
+	if not self:HubMoveTrain(train, ramp - point(ox, oy, 0), 0) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	if not self:HubSlideTrain(train, ramp) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
 	local step = self == departure_track:GetStartStation() and 1 or -1
 	train:GotoSpot(el, step == 1 and "Enter1" or "Enter2", speed, nil, 0)
 	if not rawget(_G, "SMROptInTrainFloor") then return end
@@ -524,6 +557,8 @@ function SMROptInTrainHubBase:TrainPassThrough(train, arrival_track, departure_t
 	-- parked train to claim that track while a through train is crossing.
 	train:AssignToTrack(departure_track)
 	train.current_station = self
+	if not self:HubEnterTrain(train, arrival_idx) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
 	if not self:HubRouteTrain(train, arrival_idx, idx, departure_track, false) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	train.current_station = self
@@ -874,8 +909,31 @@ function SMROptInTrainHubBase:CreateElectricityElement()
 		throttled_production = 0,
 		consumption = 0,
 	})
-	self.electricity:SetProduction(self.working and self:GetPerformanceModifiedElectricityProduction() or 0)
+	self:HubUpdateProduction()
 	self.electricity:SetConsumption(self.electricity_consumption)
+end
+
+-- Owner's cold-start ruling: lack of grid power must not disable our source.
+-- No saved flag and no vanilla wrap. SetWorking also runs when the boolean
+-- stays false, so switching off or malfunction while unpowered is observed.
+function SMROptInTrainHubBase:HubUpdateProduction()
+	if self.electricity then
+		local enabled = self.ui_working and not self.is_malfunctioned and not self.destroyed
+		self.electricity:SetProduction(enabled and self:GetPerformanceModifiedElectricityProduction() or 0)
+	end
+end
+
+function SMROptInTrainHubBase:SetWorking(working)
+	BaseBuilding.SetWorking(self, working)
+	-- After the combined OnSetWorking callbacks, including ElectricityProducer.
+	self:HubUpdateProduction()
+end
+
+function SMROptInTrainHubBase:OnModifiableValueChanged(prop)
+	-- Modifiers.lua:20-26 (archived 1.1.0.403908): parents run first.
+	if prop == "electricity_production" or prop == "performance" then
+		self:HubUpdateProduction()
+	end
 end
 
 function SMROptInTrainHubBase:InitHubLaunchPad()
@@ -1069,6 +1127,7 @@ end
 -- ===========================================================================
 
 local function heal_after_load(hub)
+	hub:HubUpdateProduction()
 	hub:HubRestoreParkedTrains()
 	hub.UIWorkRadius = hub_work_radius
 	hub.show_service_area = false

@@ -1,11 +1,12 @@
--- Sitting-owned: train hub build 3b, 2026-09-20. Smoke, not final battery.
+-- Sitting-owned: train hub centre/transition prototype, 2026-09-20.
 -- Record: Opt-In Modules docs/agent/reports/TRAIN_HUB_BUILD_20260918.md.
--- Predictions: 1 reads reservations/poses; 2/5 move the parked train 1 m;
+-- 1 reads reservations/poses/power; 2/5 tune pause or park by 1 m;
 -- 3 sends a selected parked train by straight/60/120/reverse in that order;
--- 4 pauses during an acquired crossing; 6 reads each attached part separately.
+-- 4 pauses during an acquired crossing; 6 switches the tuning target.
 -- Nothing arms or mutates at load. All setup mutations use the dispatcher.
 local T = SMRTK
 local route_stage = 0
+local tune_pause = true
 local function name(o) return IsValid(o) and tostring(o.class).."("..tostring(o.handle)..")" or "none" end
 local function pt(p)
     return IsPoint(p) and tostring(p:x())..","..tostring(p:y())..","..tostring(p:z()) or tostring(p)
@@ -28,6 +29,9 @@ local function traffic(ctx)
     if not h then return false,"no hub on current map" end
     ctx.mark("HUB3B_READ_BEGIN")
     ctx.log("DUMP",{leg="hub3b",hub=name(h),park=SMROptInTrainFloor.HubParkDistance,
+        pause=SMROptInTrainFloor.HubTransitionPauseDistance,tuning=tune_pause and "pause" or "park",
+        production=h.electricity and h.electricity.production,working=tostring(h.working),
+        switched_on=tostring(h.ui_working),malfunction=tostring(h.is_malfunctioned),
         crossing=name(h.SMROptIn_hub_crossing),pos=pt(h:GetPos()),angle=h:GetAngle(),errors=T.error_count})
     for i=h.first_connector_idx,h.last_connector_idx do
         local fields={leg="hub3b_line",line=i,reserved=name((h.track_busy or empty_table)[i])}
@@ -46,16 +50,29 @@ local function traffic(ctx)
     ctx.mark("HUB3B_READ_END")
     return {hub=name(h),park=SMROptInTrainFloor.HubParkDistance,errors=T.error_count}
 end
-T.Bind(1,"Read hub traffic and lanes",traffic,{mode="once"})
+T.Bind(1,"Read hub movement, tunables and power",traffic,{mode="once"})
 
 local function tune(ctx,delta)
-    if GetTimeFactor()~=0 then return false,"pause before changing park distance" end
+    if GetTimeFactor()~=0 then return false,"pause before tuning" end
     local h=hub_here()
     if not h then return false,"no hub on current map" end
     for _,s in ipairs(city().labels.Station or empty_table) do
         if is_hub(s) and s~=h then return false,"this tuning fixture requires a single hub" end
     end
     if IsValid(h.SMROptIn_hub_crossing) then return false,"crossing is occupied" end
+    if h:HubIncomingTrain() then return false,"a train is arriving; let it park first" end
+    if tune_pause then
+        local old=SMROptInTrainFloor.HubTransitionPauseDistance
+        local new=old+delta*guim
+        local limit=h:GetDist2D(h:GetSpotPos(h:GetSpotBeginIndex("Trackconnector1")))
+        if new<=SMROptInTrainFloor.HubParkDistance or new>=limit then
+            return false,"pause must lie between the park position and connector"
+        end
+        SMROptInTrainFloor.HubTransitionPauseDistance=new
+        local fields={leg="transition_setup",old=old,new=new,mutation="tune next arrival/departure; no train repositioned"}
+        ctx.log("DUMP",fields)
+        return fields
+    end
     local parked={}
     for _,t in ipairs(city().labels.Train or empty_table) do
         if t.current_station==h then
@@ -66,7 +83,9 @@ local function tune(ctx,delta)
     if #parked==0 then return false,"no parked hub train to judge" end
     local old=SMROptInTrainFloor.HubParkDistance
     local new=old+delta*guim
-    if new<8*guim or new>27*guim then return false,"tuning range is 8 to 27 m, inside the ramp" end
+    if new<8*guim or new>=SMROptInTrainFloor.HubTransitionPauseDistance then
+        return false,"park must be at least 8 m and inside the transition pause"
+    end
     ctx.mark("HUB3B_TUNE_BEGIN")
     SMROptInTrainFloor.HubParkDistance=new
     for _,t in ipairs(parked) do
@@ -79,8 +98,8 @@ local function tune(ctx,delta)
     ctx.log("DUMP",fields); ctx.mark("HUB3B_TUNE_END")
     return fields
 end
-T.Bind(2,"Park 1 m inward",function(ctx) return tune(ctx,-1) end,{mode="once"})
-T.Bind(5,"Park 1 m outward",function(ctx) return tune(ctx,1) end,{mode="once"})
+T.Bind(2,"Tune 1 m inward (6 selects pause/park)",function(ctx) return tune(ctx,-1) end,{mode="once"})
+T.Bind(5,"Tune 1 m outward (6 selects pause/park)",function(ctx) return tune(ctx,1) end,{mode="once"})
 
 -- Fixture setup only: retain the arrival connector while assigning the requested
 -- outgoing track. at_spawn_track makes vanilla GetArrivalTrack choose that track
@@ -137,30 +156,19 @@ T.Bind(4,"Pause on next crossing (re-arm after save)",function(ctx)
     return {watch="hub3b_crossing",cadence=50}
 end,{mode="once"})
 
-local function parts(ctx,obj,path,seen)
-    if seen[obj] then return end
-    seen[obj]=true
-    local b=obj:GetEntityBBox()
-    ctx.log("DUMP",{leg="train_part",path=path,object=name(obj),entity=obj:GetEntity(),state=obj:GetStateText(),
-        scale=obj:GetScale(),pos=pt(obj:GetPos()),visual=pt(obj:GetVisualPos()),yaw=obj:GetAngle(),
-        bbox_min=tostring(b:minx())..","..tostring(b:miny())..","..tostring(b:minz()),
-        bbox_max=tostring(b:maxx())..","..tostring(b:maxy())..","..tostring(b:maxz())})
-    for i,child in ipairs(obj:GetAttaches() or empty_table) do parts(ctx,child,path.."/"..i,seen) end
-end
-T.Bind(6,"Read selected train and attached-part bounds",function(ctx)
-    local t=selected_train(ctx)
-    if not t then return false,"select a train (or wait for one parked at the hub)" end
-    ctx.mark("HUB3B_PARTS_BEGIN"); parts(ctx,t,"train",{}); ctx.mark("HUB3B_PARTS_END")
-    return {train=name(t),length_verdict="DISPUTED: compare visible train to hex grid"}
+T.Bind(6,"Switch tuning: pause / park (starts on pause)",function(ctx)
+    tune_pause=not tune_pause
+    return {tuning=tune_pause and "pause" or "park",pause=SMROptInTrainFloor.HubTransitionPauseDistance,
+        park=SMROptInTrainFloor.HubParkDistance}
 end,{mode="once"})
 T.BindScratch("Boot, taint and eligibility",function(ctx)
     ctx.mark("HUB3B_BOOT")
     T.ConsoleControl()
     T.TaintRead()
     T.Run("eligibility")
-    return {sitting="train_hub_3b",errors=T.error_count,park=SMROptInTrainFloor.HubParkDistance,
-        sweep="run desktop sweep before each boot",hub=name(hub_here())}
+    return {sitting="train_hub_move",errors=T.error_count,park=SMROptInTrainFloor.HubParkDistance,
+        pause=SMROptInTrainFloor.HubTransitionPauseDistance,tuning=tune_pause and "pause" or "park",hub=name(hub_here())}
 end,{mode="once"})
-function OnMsg.LoadGame() route_stage=0 end
-T.Log("SLOTS",{sitting="train_hub_3b",slots="1 traffic,2 inward,3 departure,4 crossing watch,5 outward,6 parts,scratch boot",
-    armed_at_load=T.ArmedCount(),predictions="TRAIN_HUB_BUILD_20260918.md: build 3b"})
+function OnMsg.LoadGame() route_stage=0; tune_pause=true end
+T.Log("SLOTS",{sitting="train_hub_move",slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 pause/park,scratch boot",
+    armed_at_load=T.ArmedCount(),predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype"})

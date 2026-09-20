@@ -1104,6 +1104,17 @@ where the start-up stock comes from. The 20-power base direction above depends o
 **A cold-start test runs with the seven Stirling Generators removed from the fixture**, or the
 hub's own production is never the only supply.
 
+**Centre/transition implementation, 2026-09-20 (owner acceptance pending):**
+`TRAIN_HUB_MOVE_high.md` now has a hub-local arrival and mirrored exit: stop on the arm,
+smoothstep sideways, then run on the centre. The live pause distance starts provisionally
+at 30 m from centre; parking starts at the owner's previous 13 m for a new centreline judgement.
+Neither uses the disputed train length. The cold-start gate is implemented at creation,
+load, working-state updates and production-modifier changes; it no longer depends on receiving
+grid power. A small mocked contract smoke and Lua parsing passed, not a native or visual test.
+The current TestKit controls and first owner batch are in `TRAIN_HUB_BUILD_20260918.md`
+§"Centre/transition prototype". Remaining: the owner-view cycle at every speed, turns, queue,
+parked-plus-crossing reload and the isolated-power check above. Build 4 and texture work stay held.
+
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the
 Electronics amount is pending the owner's OI-19 research).** Base hub: **20 power** generated,
 **5 Metals** maintenance as the large station's (`StationBig.lua:31-32`), and it draws 10. Mini-reactor

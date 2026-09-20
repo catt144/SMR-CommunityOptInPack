@@ -2,8 +2,9 @@
 
 **Authority.** Owner rulings 2026-09-18, spec §10
 (`TRAIN_LOGISTICS_DESIGN_20260917.md`); brief `docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
-**Build 3b, 2026-09-20: implemented; unattended smoke passed, owner visual acceptance pending.** The owner withdrew
-the fit gate and OI-22; `GEOMETRY_ORACLE_20260919.md` §13 governs. See §"Build 3b" below.
+**Centre/transition prototype, 2026-09-20: implemented; owner smoke pending.**
+`TRAIN_HUB_MOVE_high.md` owns the current movement. The lane-era build 3b results below are
+historical; they do not validate this prototype. See §"Centre/transition prototype" below.
 **Status: BUILD 3 SMOKE PASS.** The following original prediction block began at pack `886926b`,
 TestKit `adda373`, parse-checked only
 (`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` → 2 files, 0 errors; TestKit 33
@@ -564,6 +565,77 @@ deck is on the centreline. Steps 4-5 (departures, turns, reverse, queue) were **
 redirected the design to centre riding with a transition at the stub (spec §9) and ruled the method
 quick and iterative. The lane build is therefore mechanically passed and visually unaccepted, and
 13 m is a lane-era figure to be judged again on the centre.
+
+## Centre/transition prototype, 2026-09-20
+
+**Authority:** `TRAIN_HUB_MOVE_high.md`, owner 2026-09-20: function before texture, centre
+riding inside, stop on the arm then slide sideways, mirror on exit, tune by eye. Started from
+HEAD `293f92c674e1964429ca6aa00d7e0ff6bfd69bb8`. The entity, mesh and dev metadata were already
+modified at task start; this change does not author or commit them. The installed dev-mod
+link resolves to this workspace. No oracle or prediction battery was run.
+
+**Implemented, not visually accepted:** `HubTransitionPauseDistance = 30 * guim` is a
+provisional distance from the centre, not a train-length calculation. `HubParkDistance =
+13 * guim` carries the owner's lane-era starting value onto the centre for a new judgement.
+Both reset at a full restart. `Ramparrive` and `Rampdepart` remain on the connected vanilla
+lane; `Stop`, `Spawn`, the interior run and pivot are centred. Hub-local `TrainArrive` stops
+on the arm, follows the previous normalized smoothstep sideways with fixed rail-facing yaw,
+then runs to Stop. Departure reverses that sequence. Through trains use the same transitions.
+Stop-to-stop runs accelerate to an intermediate point and brake to their destination; they
+do not ask the constant-acceleration solver to move between two zero velocities. The slide
+uses game-time interpolation. No `Train.lua` wrap or additional persisted state was added.
+
+**Reservations:** arrival owns the existing crossing lock until parked. A pending inbound
+reservation also keeps another arrival outside; parking retains its own-line reservation.
+The existing own-LoadTrain-thread exemption and spawn exclusion remain. Other-line motion
+pivots at the centre; the same-line reverse flips in place. Saved movement frames remain the
+previously accepted content residual. A stopped-plus-crossing reload of this version is owed.
+
+**Cold start:** creation, load and the hub's `SetWorking` synchronize production from
+`ui_working`, malfunction and destruction, independently of grid availability. Calling the
+base setter first preserves all combined callbacks; synchronizing even when working stays
+false observes switching off and malfunction while unpowered. The modifiable-value callback
+also restores this gate after the parent's update. SOURCE: archived 1.1.0.403908,
+`Lua/Buildings/BaseBuilding.lua:434-467`, `Lua/ElectricityProducer.lua:27-28,64-67`,
+`Lua/Modifiers.lua:20-26`. Output and consumption amounts are unchanged. Native cold start
+without the fixture's Stirling supply has not been run.
+
+**RAN at the authoring HEAD above, with the working diff:**
+`python tools/devmods/train_hub/tests/move_smoke.py` passed mocked arrival/queue/reservation,
+reverse exit, other-line traversal and cold-start/off/malfunction control flow. It reuses the
+old smoke's engine stubs at the current connector radius without invoking its oracle or
+case sweep. `python tools/parsecheck.py --dir tools/devmods/train_hub/Code` and
+`python tools/parsecheck.py --dir C:/Dev/SMR-BugFixPack-TestKit/Code` passed. These checks do not
+show native interpolation, cargo loading, serialization or visual clearance. The old
+`traffic_smoke.py` executable checks lane-era expectations and is not this version's gate.
+`python tools/doccheck.py` is GREEN in both pack repositories. The fix-pack owner item ck206
+and its sitting pointer now lead to this prototype and preserve the remaining native checks.
+
+**Prepared owner smoke, first batch (NOT RUN):** restart the game with the dev hub and shared
+TestKit enabled; use the current owner fixture, not a `Hub3bSmoke_MID` save. The manual saves
+`train_hub_base` and `train_hub_base_agent` were present in `C:/Dev/SMR-BugFixPack/saves/game`
+when listed by modification time this session. Shared `80_AgentSlots.lua` matches the source
+in this repo's tests folder; no driver is armed at load. The shared file remains uncommitted
+in the TestKit, as before. All setup actions are logged.
+
+1. Pause, select the hub, run Scratch and slot 1; inspect the centreline park at 13 m.
+2. Slot 6 switches the tuning target between pause and park (starts on pause). Slots 2/5
+   subtract/add 1 m. Park tuning repositions parked trains; pause tuning affects the next
+   trip. Tune only while paused with no arriving or crossing train.
+3. Watch an arrival at normal speed: tail clears vanilla, stop, sideways slide, inward run.
+   Report the pause distance and whether the tail clears too early or too late.
+4. Watch loading at Stop, then slot 3's first successful press sends a straight departure.
+   Watch its centre run, outward slide and return to vanilla's lane.
+5. Repeat the cycle at fast and fastest. Report the visible result before the next batch.
+
+**Still owed:** owner acceptance of those movements and both distances; subsequent slot-3
+60°/120°/reverse departures; two-train outside waiting; a save/reload with one train parked
+and one crossing (slot 4 watches a crossing, autosave disarms it); cold start with the
+Stirling supply removed or disabled. Build 4 and textures remain held. Keep the MOVE prompt
+and its map row until the owner's smoke is recorded. No game smoke was run this session.
+
+Executed model: GPT-6 (Codex), as identified by the session instructions; the transcript
+provides no more specific runtime id. No subagents were used.
 
 ## Not claimed
 
