@@ -41,10 +41,23 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    before believing it.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
-   - **On launch, stand by** (owner, 2026-09-19). Builds 3, 4 and 5 are still being built out and
-     the owner may bring design questions, rulings or sitting help first. Do not start the audit
-     or assume it is due: orient from `docs/agent/reports/TRAIN_HUB_SITTING_20260919.md` §6-7 and
-     wait for the owner;
+   - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
+     sitting help first. Do not start the audit or assume it is due. Orient from
+     `docs/agent/reports/TRAIN_HUB_SITTING_20260919.md` §6-7, then from the three live holds below;
+   - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
+     `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
+     `C:\Dev\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
+     `_shared/IMPORTER_FACTS.md`, its game reads TestKit slot 6 `geometry_reads`). Read it before
+     any hub geometry or train work: it found `hub_connector_directions` wrong for indices 1-4
+     against the imported body, which puts four of six lines' train spots on another line and past
+     `Station.lua:1105`'s 50 m teleport. Build 3b's brief is on HOLD for that reason and wants
+     re-scoping, not obeying;
+   - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
+     Mod Editor re-import, or the editor writes into a dead folder. Steps in
+     `C:\Dev\SMR-Assets\README.md` §"The old path";
+   - **The hub cannot ship as built** (OI-18, and spec §9): 44 MB of assets against a 5 MB
+     `PACK_MAX_BYTES`, and `upload_preflight.py` admits no asset file types at all. It is the one
+     open risk that can invalidate the rest, and it is gated on nothing but the owner's ruling;
    - **the audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner, 2026-09-19;
      the owner changes the model themselves): treat every build
      report as a claim and check it against its commits and logs. Cover: the persisted-name
@@ -63,7 +76,11 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `TRAIN_HUB_BUILDTRACK_high.md`; briefs written 2026-09-19): the owner fires them in order, each
      after the previous smoke is recorded, and plays each smoke with you when asked. A brief still
      in the map has not finished. Build 3's footprint/texture re-import and smoke are recorded and
-     its one-off brief is deleted;
+     its one-off brief is deleted; 3b is held on the oracle's finding above;
+   - the look pass, unbriefed: a floor plate modelled on the vanilla station's, the stub narrowed
+     to vanilla's profile with a red centre strip, the glass, and the night lighting — all in spec
+     §9, all waiting on 3b's lane number and one Mod Editor re-import (so: the junction first).
+     Texture resolution rides it, because of the ship-size bar above;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
