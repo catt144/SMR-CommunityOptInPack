@@ -15,7 +15,8 @@ without either mod repo; SMR-Assets commit of 2026-09-19 "Geometry oracle"). It 
 file, the hub Lua (parsed, not re-typed) and the Blender skeleton, and prints a verdict per
 invariant with the rule each rests on, its provenance and CONFIRMED/UNCONFIRMED; `--json` for
 machines; exit 1 on any FAIL. `--corpus` replays the five failures from git-extracted fixtures
-(`corpus/`, truths and log lines in `EXPECTED.json`): **17 of 17 truths reproduced**.
+(`corpus/`, truths and log lines in `EXPECTED.json`): **17 of 17 truths reproduced** (24 of 24
+since run B added two vanilla shapes, §10).
 `--selftest` breaks each invariant and asserts only that one flips: **6 of 6**. Both MEASURED by
 this session on the committed file (`python hub_oracle.py --corpus`, `--selftest`).
 
@@ -61,9 +62,9 @@ derivation: its output was checked against this session's reference computation 
 | R-SYNTH: the Lua's synthetic spots (sevenths, opposite, deck lift, `hub_connector_directions`) | this session and Codex (blind), identical tables | MEASURED in game, 24 spots, zero delta | CONFIRMED |
 | R-CHOREO: arrive → Ramparrive (teleport if > 50 m, else slide) → Stop; same track: teleport to Spawn, slide to Rampdepart, to the element; other track: Stop → Rampdepart_j → element; pass-through: one slide element to element; all slides straight | SOURCE `Station.lua:1085-1118`, `:1184-1207`, `Train.lua:507-519` | Codex blind on the same excerpts: same sequence; it surfaced the 50 m branch and the pass-through path this session had missed | CONFIRMED (source); the owner's three observations agree qualitatively |
 | R-ELEMENT: the connector element sits on the connector hex; its Enter1/Enter2 are 289 units left and right of the track's centreline (HexSize/2 = 288.7), same z | SOURCE `TrainTransport.lua:116-150` | MEASURED slot 6: Enter midpoint = the hex centre on all six; lateral ±288.5…289, along 0.0…0.6 | CONFIRMED |
-| R-FOOT: a hex whose centre is inside the hex_shape union is in; a hex only touched within 0.5 units at its boundary is undetermined by the file | this session: 61/30/91 and 66/0/66 | Sonnet (own code): union 91 and vertex distances 577.35 / 519.615; its strict-interior "certain" count was wrong for a reason it diagnosed itself (the fan diagonal through the hex centre), which the oracle's inclusive test avoids | CONFIRMED as stated; the game's tie-break is not modelled |
+| R-FOOT: the centre rule is a lower bound on the game's reading and the touch union (any hex within 0.5 units of the shape) an upper bound; between them neither the file nor the covered area decides (§10) | this session, exact clipping: hub 61/30/91 and 66/0/66; large station 85 centres, 10 more covered 15.4 to 48.9 percent, union 95; FusionReactor 7 centres, 6 more covered 11.9 percent each, union 13 | run A, Sonnet (own code) on the hub: union 91 and vertex distances 577.35 / 519.615; run B, `gpt-5.6-sol` blind through Codex (own clipping code) on the two vanilla shapes: identical to four decimals | CONFIRMED as a band. The game read 85 (inside), 66 (single number), 95 (the top) and 7 (the bottom); no rule places a reading inside a band |
 | R-STRUCT: the skeleton's constants describe the mesh | the oracle against `lookpass_workfile_geometry.json` (headless snapshot of the current work file): bays, ring radii, 12 ring pillars, 7 line pillars, all residual 0 | `verify_look_pass.py`'s proof (13 → 7 pillars) | CONFIRMED; beam width and train size UNCONFIRMED |
-| R-TRAIN: the train's size | none (no train in tonight's colony; `train=nil`) | — | UNCONFIRMED: `print(GetEntityBBox("TrainCCP3"))` (`Train.lua:38`) |
+| R-TRAIN: the train's box is 4150 x 416 x 432 units (41.5 m long, 4.16 m wide), x -1332..2818, y -207..209, z 4..436 in its own frame, so not centred on its origin along its length | MEASURED slot 6, `train:GetEntityBBox()` on `TrainCCP3`: four reads at four positions and three headings, identical (`docs/archive/geometry_oracle_slot6_train_Mars.exe-20260919-23.34.07-6a91a190.log`) | file, width and height only: `TrainEngine` bbox 416 wide, 431 high (`entities_dat.py`); `TrainCCP3` carries no file bbox (the train is assembled at run time), so the length has the in-game read alone | CONFIRMED (§10); the oracle had assumed 10 m by 2.04 m |
 
 ## 3. Build 3b's geometry questions
 
@@ -72,8 +73,8 @@ derivation: its output was checked against this session's reference computation 
   running direction (`GetTrackAngle`), so a train uses Enter1 when facing against that angle and
   Enter2 when facing with it: trains keep to the right of the centreline in their direction of
   travel. MEASURED slot 6 on all six elements. The vanilla element's bbox y of 204 is not the deck
-  width; the spots lie outside it. A second, vanilla-file derivation waits on the `entities.dat`
-  decode (below).
+  width; the spots lie outside it. The vanilla file gives the same ±289 (§9); the oracle's own LANE
+  run, and why its paths do not yet use the offset, is §10.
 - **Where a train goes today, per line and departure kind** (hub-local units, deck z 800; from
   the oracle's CHOREOGRAPHY, equal to this session's reference computation): lines 1–4: teleport
   5966 from the portal to a spot 2857 out on the wrong axis, slide 1143 to Stop at 1714; lines 5–6:
@@ -104,14 +105,15 @@ derivation: its output was checked against this session's reference computation 
    validation holds today because Stop_k coincides with Spawn_opposite(k) (0 units, all six).
 3. To 3b: pass-through trains between adjacent lines cut through the ring wall band.
 4. To the look pass: the beam width is a guess (`BEAM_W`); cube stacks clip the glass at max_z 14.
-5. Slot 6 prints `pos=` empty for elements (`GetPos` on a `TrackGridElement`); the Enter
-   midpoint supplies it. Fix when the slot is next touched.
+5. Slot 6 printed `pos=` empty for elements in the 23.01.18 log (`GetPos` on a `TrackGridElement`)
+   and printed it on all four runs of the 23.34.07 log (`pos=278000,162808,10000`, the hex centre
+   at ground z), same kit HEAD `bd32d30`, clean tree. The cause of the empty read is not known; the
+   Enter midpoint supplies the position either way.
 
 ## 5. What only the game can still confirm
 
-- `print(GetEntityBBox("TrainCCP3"))` with any train present (or slot 6 with a train on the map).
-- The hex tie-break, only if a hex_shape ever needs boundary vertices: dump
-  `GetEntityOutlineShape` and compare with the band; the rule of thumb is never to need it.
+- Where inside its band the game reads a hex_shape, only if one ever has a partly covered or touched
+  hex: dump `GetEntityOutlineShape` and compare with the band; the rule of thumb is never to need it.
 
 ## 6. Deviations from the sketch
 
@@ -129,9 +131,9 @@ derivation: its output was checked against this session's reference computation 
 
 ## 7. Not claimed
 
-Not "the hub's geometry is correct". Not the train's size, the beam's right width, nor the game's
-corner tie-break. The choreography numbers are predictions from measured spots under source-read
-rules; no train movement was watched tonight. The five-cube observation behind R-CARGO has no
+Not "the hub's geometry is correct". Not the beam's right width, nor where inside its band the game
+reads a partly covered hex_shape. The choreography numbers are predictions from measured spots
+under source-read rules; no train movement was watched tonight. The five-cube observation behind R-CARGO has no
 archived log.
 
 ## 8. Executed models
@@ -145,13 +147,93 @@ An Opus agent decoded `BinAssets.fpk:entities.dat` (`C:\Dev\SMR-Assets\_shared\g
 SMR-Assets commit "entities_dat.py"). Judged by this session against anchors set before the decode:
 `TrackPillarCCP3` bbox 1000 x 204, z -1726..1069 PASS; its `Enter1`/`Enter2` at (0, +-289, 800) PASS,
 equal to slot 6's in-game read, so **R-LANE now has two derivations of different kind** (vanilla file,
-in-game read) and is CONFIRMED at 289 units; `FusionReactor` 7 hexes PASS. **R-FOOT refined:** the
-large station's eight hex_shape triangles cover 85 hex centres, but the game read 95 tonight with radii
-5 6 5 4 4 4 (slot 6), and the agent's area rasteriser reproduces those radii with the extra hexes
-covered 15 to 26 percent. The game therefore includes partially covered hexes: the centre rule is a
-lower bound, the touch union an upper bound, and only near-zero overlaps (shared corners) are
-undetermined. The hub's inset file has no partially covered hex (nearest non-certain hex 49.999 units
-away), so every hub verdict above stands; the oracle's rule text and `EXPECTED.json` wording should
-carry the refinement (run B). **R-TRAIN, one file derivation:** `TrainEngine` bbox 873 x 416 x 431
-units, `TrainCar` 868 x 379 x 286; `TrainCCP3` (the Train class's entity) has no bbox of its own, so
-the in-game read is still owed. Not decoded: the mesh/skeleton blob, LOD distances.
+in-game read) and is CONFIRMED at 289 units; `FusionReactor` 7 hex centres PASS. **R-FOOT:** the
+large station's eight hex_shape triangles cover 85 hex centres, but the game read 95 tonight
+(slot 6) with radii 5 6 5 4 4 4 (the dev mod's `line_radii()` log lines of 2026-09-18), so the centre
+rule is a lower bound and the touch union an upper bound. Run A went further here and wrote that
+the game includes partly covered hexes; run B's exact computation refutes that on the FusionReactor
+and found the rasteriser behind it defective (§10). The hub's inset file has no partly covered hex
+(nearest non-certain hex 49.999 units away), so every hub verdict above stands.
+**R-TRAIN, one file derivation:** `TrainEngine` bbox 873 x 416 x 431
+units, `TrainCar` 868 x 379 x 286; `TrainCCP3` (the Train class's entity) has no bbox of its own; the
+in-game read is in §10. Not decoded: the mesh/skeleton blob, LOD distances.
+
+## 10. Addendum, run B (2026-09-19, late): the footprint rule corrected, the lane run, the train measured
+
+Run B is `GEOMETRY_ORACLE_B_high.md` (consumed by this addendum); its instrument changes are
+SMR-Assets `015bc64`. Method as run A's: an Opus subagent built, this session judged, and the one
+new derivation that a rule rests on was taken blind from another model family.
+
+**R-FOOT is a band, and covered area does not settle it.** Run A's §9 concluded from the large
+station that the game includes partly covered hexes. The FusionReactor refutes it. Exact polygon
+clipping of each vanilla hex_shape against the lattice (file side read through `entities_dat.py`,
+`entities.dat` sha256 `121afd89…9056`, 14,168,326 bytes, AssetsRevision 33006):
+
+| entity | centres inside | partly covered, not centre | touch union | the game reads |
+|---|---|---|---|---|
+| `TrainStationLargeCCP3` | 85, radii 4 6 5 3 4 4 | 10, covered 15.4 to 48.9 percent | 95, radii 5 6 5 4 4 4 | 95 (slot 6), radii 5 6 5 4 4 4: all 10 in |
+| `FusionReactor` | 7 | 6, covered 11.9 percent each | 13 | 7 (slot 6): none of the 6 in |
+| hub, pre-inset | 61 | 30 touching at shared corners, area 0 | 91 | 85, radii 5 5 5 5 4 4 |
+| hub, inset (current) | 66 | 0 | 66 | 66 |
+
+Two derivations, identical to four decimals on both vanilla shapes: this session's reference
+(Sutherland-Hodgman clip, scratch) and `gpt-5.6-sol` through Codex, blind (given only the
+triangles and the lattice; it wrote its own clipping code). An area threshold between 11.9 and
+15.4 percent would fit the two vanilla cases; it is two points with no source behind it and is
+not adopted. Distance does not order them either: the station's thinnest included hex has its
+centre 306 units from the shape, the reactor's excluded ones 232. The rule of thumb stands and is
+now stronger: a hex_shape is predictable only when its band is a single number, which the hub's
+is. Three corrections to run A's record follow from this: `hexcover.py` (the decode agent's area
+rasteriser) had the two coefficients of its slanted hex edge swapped, so its "15 to 26 percent"
+was wrong, and it returns 13 for the reactor at its own default threshold, which "7 by both rules"
+had not checked; it is deleted, the oracle now clips exactly. The station's radii 5 6 5 4 4 4 are
+not a slot 6 read (slot 6 gives only the count) but the dev mod's `line_radii()` log lines of
+2026-09-18 (`Mars.exe-20260918-23.44.18-6a91a190.log` line 326, and two more logs). The oracle's
+R-FOOT text, `corpus/EXPECTED.json` and `_shared/IMPORTER_FACTS.md` carry the corrected rule; the
+corpus gains the two vanilla shapes as footprint-only cases (`entities_dat.py --hexshape` writes
+the fixtures). MEASURED by this session on the builder's tree before commit: `python hub_oracle.py
+--corpus` **24 of 24** (the 17 hub truths unchanged, 4 for the station, 3 for the reactor),
+`--selftest` **6 of 6**; both fixtures regenerate byte-identical from `entities.dat`.
+
+**R-TRAIN measured.** The owner put a train on the map and ran slot 6 four times
+(`docs/archive/geometry_oracle_slot6_train_Mars.exe-20260919-23.34.07-6a91a190.log`, game 403908,
+kit `bd32d30`): `train:GetEntityBBox()` on `TrainCCP3` read min (-1332, -207, 4), max
+(2818, 209, 436) on every run, at four positions and headings of 240, 240, 60 and 180 degrees, so
+the box is in the train's own frame: **4150 long, 416 wide, 432 high**, and it is not centred on
+the train's origin along its length (1332 one way, 2818 the other). The file agrees on width and
+height (`TrainEngine` 416 x 431); the length has the in-game read alone. The owner also took a
+console read a few minutes earlier; no console read of the box appears in the night's logs, so it
+is not among the evidence. The oracle's defaults were a guessed 10 m by 2.04 m and are now 41.5 by 4.16. Its sweep
+still centres the rectangle on the path point, so along-path clearance carries up to 743 units of
+error; lateral clearance and the two-train test depend on the width only. One verdict criterion
+changed with it: the same-track teleport check compared the jump with the train's length, which at
+41.5 m would have passed a 3428-unit jump the owner watched happen; it now fails anything over
+1 guim, the scale `GetOccupyingTrain` validates Spawn at. Re-run on the current fixtures
+(`current_5002a49.entjson`, `lua_current_6123ae7.lua`, the look-pass work-file snapshot, no
+`--element-spots`): no verdict's status moves. TWO-TRAIN: 1395 of 1995 path pairs come within one
+train width (416 units); the old guess (`--train-width-m 2.04 --train-length-m 10`) reproduces
+§3's 1391, so the two are comparable. CLEARANCE: the swept train touches 37 of 40 obstacles and the
+same 12 block it under both sizes (the six beds' cube stacks and six ring-wall sectors). The paths
+cross so much open floor that the train's size barely changes the count; §3's answers stand, with
+416 for 204.
+
+**LANE run, and why the paths do not use the offset yet (the brief's stop).** The brief's command,
+with `corpus/element_spots_measured_20260919.json` (`Enter1` (0, 289, 0), `Enter2` (0, -289, 0)):
+LANE **PASS**, lateral offset 289.0 units for `Enter1` and for `Enter2` on all six connectors, the
+third agreeing number beside the in-game read and the vanilla file. The magnitudes are all that
+run may be used for. The oracle applies the offsets in each connector's outward frame and routes
+every path through `Enter1`; the game does neither. MEASURED (slot 6, both logs): an element's
+angle is the track's, shared by both ends of a line (elements 1 and 2 at 60 degrees, 3 and 4 at
+180, 5 and 6 at 120), so `Enter1`, left of that angle, is on the left looking outward at
+connectors 2, 3 and 5 and on the right at 1, 4 and 6. SOURCE (`Train.lua:665`, 1.1.0.403908): a
+train takes `"Enter" .. ((step == 1) and "1" or "2")`, by its direction of travel along the track,
+so an arrival and a departure at one connector use different spots. To carry the offset into
+CHOREOGRAPHY, CLEARANCE and TWO-TRAIN the oracle needs the element-angle rule and the arrival or
+departure spot choice, which is more than the JSON; that was this brief's stop, so the path model
+is unchanged and the numbers those three verdicts print under `--element-spots` (1438 of 1995 in
+this run) are not to be used. The fixture file carries the same warning. It falls to whoever next
+runs the oracle for 3b's re-scope, after `hub_connector_directions` is corrected.
+
+**Executed models, run B:** Fable 5.1 (this session, judge, reference computation); Opus (the
+oracle build); `gpt-5.6-sol` through Codex v0.149.1 (one blind derivation). Run A's §2 and §8 name
+its Codex model as GPT-5.4; run B did not check that, and records only its own.

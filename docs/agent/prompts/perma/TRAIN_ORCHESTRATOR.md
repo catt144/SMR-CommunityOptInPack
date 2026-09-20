@@ -51,7 +51,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      any hub geometry or train work: it found `hub_connector_directions` wrong for indices 1-4
      against the imported body, which puts four of six lines' train spots on another line and past
      `Station.lua:1105`'s 50 m teleport. Build 3b's brief is on HOLD for that reason and wants
-     re-scoping, not obeying;
+     re-scoping, not obeying. Its run B (report §10) measured a whole train at 41.5 m by 4.16 m,
+     four times the length and twice the width every earlier clearance figure assumed, and found
+     that a track element's `Enter1`/`Enter2` side depends on the track's angle and the train's
+     direction of travel, which the oracle's paths do not model yet;
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
      `C:\Dev\SMR-Assets\README.md` §"The old path";

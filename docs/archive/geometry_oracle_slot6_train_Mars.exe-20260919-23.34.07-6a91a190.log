@@ -1,0 +1,404 @@
+					Render 0:00:00:009
+*** executable info
+Timestamp:     	6a91a190
+Date:          	Fri Aug 28 10:56:16 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	69%
+Disk Free      	803620 MBytes
+
+
+*** OS info
+					Render 0:00:00:010
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:076
+Steam initialized (AppId 3215050)
+					Render 0:00:00:080
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:698
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:865
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:138
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:431
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+Lua revision: 403908
+Assets revision: 33006
+Steam AppID: 3215050
+Build version: 1.1.0.403908
+Build branch:  Release
+						Lua 0:00:16:933
+Account storage loaded successfully in 2 ms
+DLC norman loaded, lua revision 403908, assets revision 33006
+DLC thomas loaded, lua revision 403908, assets revision 33006
+						Lua 0:00:16:937
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-009) unpacked from appdata
+						Lua 0:00:17:344
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+						Lua 0:00:17:345
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP						Lua 0:00:17:346
+
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:351
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+						Lua 0:00:17:355
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=12294 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=docs/agent/reports/TRAIN_HUB_BUILD_20260918.md sitting=train_hub_build3_20260919 slots="1 hub_asset_tracks,2 drone_ui_radius,3 fill_all,4 empty_all,5 vanilla_salvage_before_after,6 geometry_reads,scratch boot_sweep" t=12294 id=2
+						Lua 0:00:17:356
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityFixPack] NightShiftWork: applied
+[mod] [CommunityFixPack] WispRewards: applied
+[mod] [CommunityFixPack] TrainsToVoid: applied
+						Lua 0:00:17:357
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] BrokenTrackSalvage: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] TradeRocketFuelRefresh: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:17:358
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DomeOverviewHighlight: applied
+[mod] [CommunityFixPack] TrainCargoDumping: applied
+[mod] [CommunityFixPack] DestroyedTunnels: applied
+						Lua 0:00:17:359
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] GeneForging: applied
+[mod] [CommunityFixPack] MirrorSphereSite: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:17:360
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:17:361
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] GraphConsumedCaption: applied
+[mod] [CommunityFixPack] TrainWaitTime: applied
+[mod] [CommunityFixPack] FounderTraitNotification: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+						Lua 0:00:17:362
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] SinkholeIndestructible: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:17:363
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] BuildingCodesPrefab: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] OpenPastureStockpiles: applied
+						Lua 0:00:17:364
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:17:365
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:18:408
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+[mod] [CommunityFixPack] SinkholeIndestructible: the St. Elmo's Fire sinkhole is now indestructible, like every other mystery set-piece
+						Lua 0:00:18:530
+Reloading done in 1593 ms
+						Lua 0:00:18:532
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:18:591
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=3
+						Lua 0:00:19:050
+[preset] Preset postprocess took 211 ms.
+						Lua 0:00:19:106
+482 / 482 particle streams loaded in 48 ms.
+						Lua 0:00:19:107
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:19:109
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: added 4 water entr(y/ies) at -50% to DryFarming (0 adopted, 4 of 4 farms loaded)
+						Lua 0:00:19:343
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:19:438
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=4
+						Lua 0:00:19:473
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=5
+						Lua 0:00:19:490
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2502):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+[mod] Loaded mod items for: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918
+						Lua 0:00:19:772
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:19:870
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=6
+						Lua 0:00:20:292
+[PdxSDK] Started up. Took 1105
+						Lua 0:00:20:699
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:793
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:24:859
+Load Game: 
+	lua_revision: 403908 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+						Lua 0:00:24:860
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:27:042
+*** Assets reloaded in 2.2 s, read 359.3 MB, read speed 164.7 MB/s, average read 8138 bytes.
+						Lua 0:00:28:053
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=16739 id=7
+						Lua 0:00:28:898
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=16739 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=16739 id=8
+						Lua 0:00:29:582
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-004), which is loaded with a different version 0.00-009
+						Lua 0:00:31:033
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:31:037
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:31:058
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: NASA, Brazil, paradox
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:31:112
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 6253 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=168 last=selected_delete last_id=182 present=true session=1789840078:3471504654:1612938580:683508198 t=14360383 id=9
+[SMRTK] SMRTK_PROVENANCE actions=168 last=selected_delete last_id=182 present=true session=1789840078:3471504654:1612938580:683508198 t=14360383 id=9
+						Lua 0:00:31:122
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14360383 id=10
+						Lua 0:00:31:136
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=14360383 id=11
+						Lua 0:00:31:142
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:31:264
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14360383 id=12
+						Lua 0:00:31:829
+Game loaded on map BlankBig_01 in 7099 ms
+						Lua 0:00:32:138
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Agent t=14360383 id=13
+						Lua 0:00:43:024
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+						Lua 0:00:43:030
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=14360383 id=14
+						Lua 0:00:45:791
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=14360383 id=15
+						Lua 0:00:57:497
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2008) status=OK t=14360383 id=16
+						Lua 0:01:02:326
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=14360383 id=17
+						Lua 0:01:04:055
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(6264) status=OK t=14360383 id=18
+						Lua 0:01:05:466
+[mod] [CommunityFixPack] BuildingCodesPrefab: Building Codes applied to a prefab-deployed DroneHub
+						Lua 0:01:05:468
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=DroneHub completed=true group_members=0 leader=ConstructionSite(6264) leader_valid_after=false object=ConstructionSite(6264) selected_valid_after=false status=OK t=14360383 id=19
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=DroneHub completed=true group_members=0 leader=ConstructionSite(6264) leader_valid_after=false object=ConstructionSite(6264) selected_valid_after=false status=OK t=14360383 id=19
+						Lua 0:01:05:499
+
+!!! Quick Build !!!
+						Lua 0:01:05:506
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=DroneHub(6265) status=OK t=14360383 id=20
+						Lua 0:01:06:219
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2008) status=OK t=14360383 id=21
+						Lua 0:01:07:741
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=1140000 before=0 method=CheatFill object=StationSmall(2008) resource=multiple resources=21 status=OK valid_after=true t=14360383 id=22
+[SMRTK] SMRTK_ACTION action=selected_fill after=1140000 before=0 method=CheatFill object=StationSmall(2008) resource=multiple resources=21 status=OK valid_after=true t=14360383 id=22
+						Lua 0:01:14:954
+[mod] [SMRTK] SMRTK_TAB action=tab_World page=World status=OK t=14360383 id=23
+						Lua 0:01:16:423
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:01:16:460
+[mod] [SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=14360383 id=24
+[SMRTK] SMRTK_ACTION action=complete_constructions outcome=leaf_completed scope="current map" status=OK t=14360383 id=24
+
+!!! Quick Build !!!
+						Lua 0:01:20:231
+Stop sequence GenericAnomalies - Rare metals in meteor : FinishedStop sequence list GenericAnomalies						Lua 0:01:24:831
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=5000 factor=128000 requested=128 status=OK t=14391663 id=25
+[SMRTK] SMRTK_SPEED action=speed_ultra before=5000 factor=128000 requested=128 status=OK t=14391663 id=25
+						Lua 0:01:28:972
+[mod] [SMRTK] SMRTK_SPEED action=speed_fast before=128000 factor=5000 requested=5 status=OK t=14827247 id=26
+[SMRTK] SMRTK_SPEED action=speed_fast before=128000 factor=5000 requested=5 status=OK t=14827247 id=26
+						Lua 0:01:37:294
+[mod] [SMRTK] SMRTK_TAB action=tab_Selected page=Selected status=OK t=14868857 id=27
+						Lua 0:01:37:817
+[mod] [SMRTK] SMRTK_TAB action=tab_Run page=Run status=OK t=14871482 id=28
+						Lua 0:01:38:292
+[mod] [SMRTK] SMRTK_TAB action=tab_Sitting page=Sitting status=OK t=14873847 id=29
+						Lua 0:01:39:303
+[mod] [SMRTK] SMRTK_TAB action=tab_World page=World status=OK t=14878897 id=30
+						Lua 0:01:42:481
+[mod] [SMRTK] SMRTK_TAB action=tab_Agent page=Agent status=OK t=14894797 id=31
+						Lua 0:01:43:019
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6267) status=OK t=14897427 id=32
+						Lua 0:01:44:755
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=43 status=OK t=14906167 id=33
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=43 status=OK t=14906167 id=33
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14906167 id=34
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14906167 id=34
+[mod] [SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=278286,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14906167 id=35
+[SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=278286,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14906167 id=35
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=46 status=OK t=14906167 id=36
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=46 status=OK t=14906167 id=36
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14906167 id=37
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14906167 id=37
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=278286,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14906167 id=38
+[SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=278286,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14906167 id=38
+						Lua 0:01:46:543
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=49 status=OK t=14915107 id=39
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=49 status=OK t=14915107 id=39
+						Lua 0:01:46:544
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14915107 id=40
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14915107 id=40
+[mod] [SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=282857,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14915107 id=41
+[SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=282857,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14915107 id=41
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=52 status=OK t=14915107 id=42
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=52 status=OK t=14915107 id=42
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14915107 id=43
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=21 status=OK t=14915107 id=43
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=282857,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14915107 id=44
+[SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=282857,166272,10800:angle=14400:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=14915107 id=44
+						Lua 0:01:49:390
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=52 lines=3 status=OK truncated=false t=14929337 id=45
+[SMRTK] SMRTK_COPY action=copy flushed=true from=52 lines=3 status=OK truncated=false t=14929337 id=45
+						Lua 0:02:09:776
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=56 status=OK t=15031262 id=46
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=56 status=OK t=15031262 id=46
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15031262 id=47
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15031262 id=47
+[mod] [SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=198539,215033,10000:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15031262 id=48
+[SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=198539,215033,10000:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15031262 id=48
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=59 status=OK t=15031262 id=49
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=59 status=OK t=15031262 id=49
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15031262 id=50
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15031262 id=50
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=198539,215033,10000:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15031262 id=51
+						Lua 0:02:09:777
+[SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=198539,215033,10000:angle=3600:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15031262 id=51
+						Lua 0:02:11:916
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6267) status=OK t=15041917 id=52
+						Lua 0:02:12:930
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=63 status=OK t=15047042 id=53
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_BEGIN mark=63 status=OK t=15047042 id=53
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15047042 id=54
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15047042 id=54
+[mod] [SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=161500,243635,10800:angle=10800:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15047042 id=55
+[SMRTK] SMRTK_DUMP arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=161500,243635,10800:angle=10800:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15047042 id=55
+[mod] [SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=66 status=OK t=15047042 id=56
+[SMRTK] SMRTK_MARK action=mark label=GEO_S6_END mark=66 status=OK t=15047042 id=56
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15047042 id=57
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=52/52 game=403908 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_TrainHubDev_20260918 pack_version=19 read="live registry" save=train_hub_base.savegame.sav sol=22 status=OK t=15047042 id=57
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=161500,243635,10800:angle=10800:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15047042 id=58
+[SMRTK] SMRTK_ACTION action=slot_6 arrive1=282857,166272,10800 arrive2=277143,166272,10800 arrive3=281429,168746,10800 arrive4=278571,163798,10800 arrive5=278571,168746,10800 arrive6=281429,163798,10800 conn1=278000,162808,10800 conn2=282000,169736,10800 conn3=276000,166272,10800 conn4=284000,166272,10800 conn5=278000,169736,10800 conn6=282000,162808,10800 depart1=282857,166272,10800 depart2=277143,166272,10800 depart3=281429,168746,10800 depart4=278571,163798,10800 depart5=278571,168746,10800 depart6=281429,163798,10800 dir1=277500,161942,10800 dir2=282500,170602,10800 dir3=275000,166272,10800 dir4=285000,166272,10800 dir5=277500,170602,10800 dir6=282500,161942,10800 el1=TrackPillarCCP3:pos=278000,162808,10000:angle=3600:enter1=277750,162952,10800:enter2=278250,162664,10800 el2=TrackPillarCCP3:pos=282000,169736,10000:angle=3600:enter1=281750,169881,10800:enter2=282250,169592,10800 el3=TrackPillarCCP3:pos=276000,166272,10000:angle=10800:enter1=276000,165983,10800:enter2=276000,166561,10800 el4=TrackPillarCCP3:pos=284000,166272,10000:angle=10800:enter1=284000,165983,10800:enter2=284000,166561,10800 el5=TrackPillarCCP3:pos=278000,169736,10000:angle=7200:enter1=277750,169592,10800:enter2=278250,169881,10800 el6=TrackPillarCCP3:pos=282000,162808,10000:angle=7200:enter1=281750,162664,10800:enter2=282250,162952,10800 fusion_outline=7 hub=SMROptInTrainHub6(6267) hub_angle=0 hub_entity=SMROptInTrainHub6 hub_pos=280000,166272,10000 leg=geometry_reads spawn1=278286,166272,10800 spawn2=281714,166272,10800 spawn3=279143,164787,10800 spawn4=280857,167757,10800 spawn5=280857,164787,10800 spawn6=279143,167757,10800 station=StationBig(2009):TrainStationLargeCCP3:pos=175000,154148,10000:angle=10800 station_outline=95 status=OK stop1=281714,166272,10800 stop2=278286,166272,10800 stop3=280857,167757,10800 stop4=279143,164787,10800 stop5=279143,167757,10800 stop6=280857,164787,10800 track_outline=1 train=TrainCCP3:pos=161500,243635,10800:angle=10800:bbox_min=-1332,-207,4:bbox_max=2818,209,436 van_Ramparrive1=176551,153761,10000@0 van_Ramparrive2=172486,153033,10000@0 van_Ramparrive3=176551,157093,10000@0 van_Ramparrive4=172486,156416,10000@0 van_Rampdepart1=175501,153033,10000@0 van_Rampdepart2=173502,153698,10000@10800 van_Rampdepart3=175501,156468,10000@0 van_Rampdepart4=173502,157094,10000@10800 van_Spawn1=174970,153000,10000@0 van_Spawn2=173990,153580,10000@10800 van_Spawn3=174875,156527,10000@0 van_Spawn4=173981,157041,10000@10800 van_Stop1=173981,153576,10000@10800 van_Stop2=174980,152976,10000@0 van_Stop3=173981,157041,10000@10800 van_Stop4=174980,156429,10000@0 van_Trackconnector1=178477,153354,10000@0 van_Trackconnector2=170484,153354,10000@0 van_Trackconnector3=178477,156825,10000@0 van_Trackconnector4=170484,156825,10000@0 van_Trackdirection1=179476,153354,10000@0 van_Trackdirection2=169505,153283,10000@0 van_Trackdirection3=179476,156825,10000@0 van_Trackdirection4=169485,156825,10000@0 t=15047042 id=58
+						Lua 0:02:13:647
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=66 lines=3 status=OK truncated=false t=15050627 id=59
+[SMRTK] SMRTK_COPY action=copy flushed=true from=66 lines=3 status=OK truncated=false t=15050627 id=59
+						Lua 0:02:17:293
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=66 lines=4 status=OK truncated=false t=15068857 id=60
+[SMRTK] SMRTK_COPY action=copy flushed=true from=66 lines=4 status=OK truncated=false t=15068857 id=60
+						Lua 0:02:19:351
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:02:19:359
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:02:19:689
+
+
+*** Debug::Done()
+Time (ms)	139689
+
+
