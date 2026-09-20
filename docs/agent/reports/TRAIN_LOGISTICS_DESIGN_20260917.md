@@ -766,10 +766,16 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   night look is pole lights pooling on its floor and the ground. A glow map for the red trim (the
   GFXMaterial has an `SI` slot) is the orchestrator's option, not ruled; (2) **the glass**, out of the export while
   `INCLUDE_GLASS = False` because the default material is opaque; it needs its own mesh and a blended
-  material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab about
-  2.5 times the track's width with a hex top, where vanilla is a narrow deck with side rails. It
-  is restyled to the vanilla profile together with the height fix (build 3 measures, the
-  orchestrator models). **Owner, same evening:** keep our red; the stub carries a **red centre
+  material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab with a hex
+  top where vanilla is a narrow deck with side rails. **MEASURED, build 3's smoke, 2026-09-19:
+  there is no height error.** The probe reads the vanilla element's own `Enter1` spot, so the
+  comparison is the game's train level against ours: all six read `stub=10800:running=10800`,
+  exactly equal (`Mars.exe-20260919-20.33.45`, slot 1 `track_height_rows`). The owner's
+  2026-09-19 "the fault is the asset's" was by eye and holds only for the **width**: the vanilla
+  element measures `bbox_xy=1000x204`, so 2.04 m across (10 m along, one hex), against our 3.5 m
+  `BEAM_W` — about 1.7 times. The restyle therefore narrows the stub and gives it vanilla's side
+  rails; it does not move it vertically. The bbox covers the whole `TrackPillarCCP3` entity,
+  pillar included, so 2.04 m is an upper bound on the visible deck's width. **Owner, same evening:** keep our red; the stub carries a **red centre
   stripe where the vanilla track has its blue one**, so the hand-over from hub to vanilla track
   is visible (vanilla's blue strip is dark conveyor segments between white rails; it does not
   glow, and the blue dots seen on a selected station are its selection outline). **Floor (owner, same evening):**
