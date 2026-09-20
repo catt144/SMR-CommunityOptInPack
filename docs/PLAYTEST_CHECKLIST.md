@@ -15,6 +15,16 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-22 · opened 2026-09-20
+Train hub: which redesign should build 3b take after its train-fit gate failed?
+- Six arrival-lane stops leave a predicted 3.44 m tail past the connector; current portals do not hide it.
+- Vanilla's waiting position would overlap that train by 31.62 m, so the queue must move or wait upstream too.
+- Recommended: six stops, extended/wider tunnels, and revised approaches or upstream reservations together.
+- Alternative: three alternating lines, 11.44 cm tail; or one train/opposite pair, zero tail. Queue changes needed.
+- Same-origin reversal shifts the box by 14.86 m; the design must conceal or replace that manoeuvre.
+- Say "six with tunnels", "three alternating", "one at a time", or another direction. Desk predictions; no new smoke.
+Home: `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

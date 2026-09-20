@@ -1,7 +1,12 @@
 # Train hub build 3b: trains at the hub
 
-**LIVE, fire when ready.** Re-scoped 2026-09-20 by the orchestrator after the geometry oracle's
-paths run; the hold is lifted. This task owns `tools/devmods/train_hub/Code/20_TrainHub.lua`.
+**HELD at step 0, 2026-09-20; redesign decision OI-22 before further implementation.**
+Gate outcome and costed alternatives: `GEOMETRY_ORACLE_20260919.md` §12. Six ARRIVE-lane stops
+leave 3.43990 m past the connector and overlap a connector waiter by 31.61990 m. Three alternating
+lines offer about 11.44 cm of tail, but change capacity and still need a queue redesign. A
+same-origin reverse shifts the measured train envelope by 14.86 m. No Lua or asset changed; no
+smoke ran. Resume after the owner's design choice is incorporated into this brief's parking,
+queue and reverse geometry. This task owns `tools/devmods/train_hub/Code/20_TrainHub.lua`.
 Build 4 (`TRAIN_HUB_REPAIR_high.md`) remains held behind it: a hub whose trains float is not
 smokeable for repairs.
 

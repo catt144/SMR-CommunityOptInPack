@@ -942,8 +942,8 @@ model and absence of a charger. Details and the log fingerprint are in
 `TRAIN_HUB_BUILD_20260918.md` §"Build 3".
 
 Train movement across the hub is not a build-3 claim. The owner ruled the observed floor drop and
-floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, re-scoped 2026-09-20 on
-the oracle's paths run (report §11) and live.
+floating as a separate full rework; `TRAIN_HUB_TRAINS_high.md` is build 3b, now held at its step-0
+fit gate (2026-09-20, oracle report §12; OI-22). No build-3b implementation or smoke ran.
 
 **Owner ruling, 2026-09-20: move Stop outward, and put the overhang in the tunnel rather than at the
 centre.** A stopped train is 4150 units and a half-line is 4000, so at today's Stop the train runs
@@ -954,8 +954,8 @@ the overhang is the price. Sliding the inner end back to the centre is therefore
 two radial trains at 60° whose inner ends both reach the centre still clip at 416 units of width;
 3b computes the minimum inner-end clearance with the oracle and moves Stop out by at least that.
 The measured box is not centred on its origin, so the offset is not the clearance. One consequence
-is unmodelled and 3b owes it back through the orchestrator: the further Stop moves out, the closer
-a stopped train's tail comes to where the next train waits on that track. The owner's named
+was unmodelled when ruled: the further Stop moves out, the closer a stopped train's tail comes
+to where the next train waits on that track. The owner's named
 fallback is one stopped train at a time, hub-wide.
 
 **Owner, 2026-09-20 — the quality bar on this, and it is not yet met.** An unnoticeable overhang is
@@ -970,6 +970,17 @@ figure assumes all six inner ends at one radius; using the outer of the two lane
 the portals outward into real tunnels, six local extrusions against the +25% (one hex ring, 40 m to
 50 m half-line) that full containment would need. An asset answer is legitimate and comes back
 through the orchestrator.
+
+**MEASURED prediction, step 0 completed 2026-09-20:** report §12 and its archived oracle-importing
+experiment confirm 5.09689 m centreline tail, reduced to 3.43990 m on ARRIVE, with 31.61990 m
+overlap against the vanilla connector waiter. Vanilla parks 44.96 m inward of its connector;
+its corresponding queue gap is 3.46 m. The current portal upper envelope does not cover the
+hub tail. Same-origin reversal additionally shifts the measured box by 14.86 m. **INFERRED:
+the current combined constraints fail the gate.** OI-22 asks for a redesign choice; the report
+costs tunnel/approach changes and reduced-capacity options, including three alternating lines
+at about 11.44 cm tail, and the zero-tail one-stop/opposite-pair alternatives. All still need
+queue treatment. These are proposals, not revised owner rulings. Resume only after the choice
+is incorporated into the parking, queue and reverse design in the held brief.
 Build 4 remains held until build 3b's smoke is recorded.
 
 **Owner direction, 2026-09-20: the hub's economy becomes an upgrade (candidate, not briefed; the

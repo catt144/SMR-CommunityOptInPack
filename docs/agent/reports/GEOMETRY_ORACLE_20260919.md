@@ -373,3 +373,133 @@ mid-departure), which would turn R-YAW from source-confirmed to measured.
 reading, reference computation); Opus (the oracle build, requested through the Agent tool's model
 override; the completion notice carries no model id); `gpt-5.6-sol` through Codex v0.149.1 (two
 blind derivations, from the run headers).
+
+## 12. Build 3b step-0 gate, 2026-09-20: redesign before implementation
+
+**INFERRED verdict: the current asset, six independent radial stops and vanilla's connector
+queue do not clear the owner's bar together.** Stop here under `TRAIN_HUB_TRAINS_high.md` item 0.
+No mod Lua, TestKit slot or asset changed, including the optional table correction; no smoke ran.
+The alternatives below are proposals, not owner rulings. The open-ring choice and outward-tail
+preference stand. OI-22 holds the design call; build 4 remains behind build 3b's smoke.
+
+### Reproduction and limits
+
+**MEASURED computation, not observed movement:** pack `e671d77`, SMR-Assets `66240ae`, source
+`C:\Dev\SMR-SrcArchive\1.1.0.403908\Src` (installed build `24995074`, fingerprint HOLDS from
+`python tools/doccheck.py --emit-fingerprint`, run 2026-09-20). `git diff --stat 6019492..HEAD --
+tools/devmods/train_hub/` was empty. The §11 WHAT-IF CLI reproduced its six remaining SYNTHETIC
+failures and TWO-TRAIN 1224 conflicting + 771 clear = 1995 pairs; exact command, HEADs, hashed
+inputs and selected results are in
+[`baseline result`](../../archive/train_hub_gate_baseline_20260920.json). Exit 1 is the expected
+failing baseline, not a candidate-build pass.
+
+Run `python docs/archive/train_hub_gate_20260920.py` from this repo (RAN 2026-09-20). This
+[`experiment`](../../archive/train_hub_gate_20260920.py) imports the **unchanged** oracle's
+`box_corners_at`, `convex_hull`, `convex_separation` and snapshot transforms. It does not edit
+the oracle or pretend the existing moving-path CLI supports new stop parameters. It brackets
+each threshold, checks either side, verifies input revisions and records every compared pair.
+The [`result`](../../archive/train_hub_gate_20260920.json) carries its command, HEADs and hashes.
+Positive SAT gap means separate; zero means touching and is rejected. Axes 0..5 in this output
+are angular order, not connector ids. Exact 60° axes are used; a later game build needs margin
+for integer coordinate rounding. Thresholds are infima, not safe implementation positions.
+All counts below come from the script's named subsets, with members in the result.
+
+### Clearance and the actual envelope
+
+**MEASURED prediction.** Let `s` be the inward-facing train's inner end measured outward from
+the centre. Its origin is `s+2818`, its outer tail `s+4150`; the connector is at 4000. Thus tail
+beyond connector = `s+150`. The asymmetric y box is retained.
+
+| configuration | minimum s, units | Stop origin radius, units | tail beyond connector |
+|---|---:|---:|---:|
+| six, centreline | 359.689 | 3177.689 | 5.09689 m |
+| six, ARRIVE lane +289 | 193.990 | 3011.990 | 3.43990 m |
+| six, other lane -289 | 192.835 | 3010.835 | 3.42835 m |
+
+The 60° pair governs. Old centreline Stop (`12000/7`) intersects on 15/15 pairs. The integer
+ARRIVE example `s=195`, Stop 3013, tail 4345 yields 15 clear + 0 intersecting = 15 pairs at
+3.45 m overhang. The other lane saves only about 1.15 cm and requires a 5.78 m lane change.
+
+**MEASURED asset check.** The workfile's positive-X portal reaches x=45 m overall, but those far
+parts are below the train. Complete mesh faces that can reach deck z=8 m end at **35.98681 m**:
+579 selected faces, every face index and the spatial filter in the result. This tests complete
+faces, so a long triangle cannot be missed between vertex slices. Tail at 43.43990 m is outside
+that upper envelope by **7.45309 m**. The overall 45 m box therefore does not hide it. This is a
+conservative outer-envelope measurement, not a render or proof of a watertight tunnel. A new
+hood must clear train top z=12.36 m and the two-lane envelope of **9.96 m total width**, before
+wall thickness/margins. Existing skeleton constants (2.6 m hood half-opening, 3.5 m beam width)
+do not establish that clearance; the asset pass must measure actual openings and support.
+
+### Vanilla parks inside; its queue does not fit the hub
+
+**MEASURED prediction from OBSERVED spots.** Projecting vanilla Stop minus connector onto Stop's
+inward yaw in the archived slot-6 train log (script input) gives **4496 units inward on each of
+four platforms**, not outward. The stopped box occupies 3164..7314 inward from its arrival
+connector. The paired connector positions are 7993 units apart along each row, so the train
+fits between them. This settles parking direction, not the rendered wall boundary; vanilla
+offers no evidence here that a visible train tail outside its body is normal presentation.
+
+**SOURCE, 1.1.0.403908 archived tree:** `Lua/Units/Train.lua:645-672` traverses to the endpoint
+element; `:371-390` calls `WaitForTrackInBuilding` afterwards; `:313-326` stops interpolation
+and waits there until `CanEnter` permits entry. `:616-634` checks admission; `ShouldStopOnTrack`
+does not choose a waiting point further out. `:550-587` moves to the next element's Enter spot
+regardless of that flag's acceleration choice. The stable waiting origin is therefore the
+connector ARRIVE spot, same lane and yaw as the stopped arrival. No queue animation was observed.
+
+**MEASURED prediction:** the waiting nose reaches radius `4000-2818=1182`. Stopped tail reaches
+4343.990: **31.61990 m overlap** on the same lane. Vanilla's waiting nose reaches 2818 inward
+from its connector, versus parked near end 3164, leaving **3.46 m**. Stop-outward makes the hub
+queue conflict worse. To clear it, the waiting origin must be **beyond radius 7161.990 units**,
+over 31.61990 m outward of today's connector. Whole straight elements require **four extra
+10 m intervals**, radius 80 m. This is a level, straight lower bound; short/curved/sloped
+approaches need separate treatment.
+
+`TrackBase:IsTrackFreeFor` (`Lua/Buildings/Track.lua:357-365`) limits a following same-direction
+train on the track, but arrival removes the stopped train from that list
+(`Lua/Buildings/Station.lua:1113-1117`). A following train can then reach the connector.
+**INFERRED:** a hub-local occupancy override alone cannot move that waiter. Earlier stopping
+or upstream reservation needs a design and contract review; neither was built, and this study
+does not claim that a global `Train.lua` wrapper is necessary.
+
+### Options costed before choosing
+
+Numbers are **MEASURED predictions** from the experiment; costs and recommendations are
+**INFERRED design assessments**, not tested behaviour.
+
+| option | geometry left on the table | cost / disposition |
+|---|---|---|
+| Stop outward, centreline | 5.09689 m tail | Clears stopped pairs, fails the visual bar; queue remains a conflict. |
+| ARRIVE lane; try the other lane | 3.43990 m; 3.42835 m | Visible tail. ARRIVE leaves 31.61990 m queue overlap. Wrong-lane parking saves about 1.15 cm while adding a lane crossing. |
+| Stagger adjacent stops | alternating s=0 / 526.543 units gives tails 1.5 / 6.76543 m | Worse worst tail. Arbitrary staggering cannot improve the equal-radius maximum within own-half-line origin positions: each box contains a common inner rectangle already intersecting its neighbour below that bound. The script checks that subset witness; it does not claim this about arbitrary curved routes. |
+| **Three alternating lines** (new) | s > -138.564 units; tail > **0.11436 m**; integer-margin example 0.13 m, 3/3 pairs clear | Attractive small-tail option. Only one alternating set admitted at a time; a train may wait with its own line empty. Nose enters the crossing about 1.39 m. Capacity and through-traffic policy change, and queue still must move. Owner decision. |
+| **Opposite pair only** (new), or owner's one-stop fallback | s=-150: **zero tail**, inner end 1.5 m past centre; opposite pair 1/1 clear | Lower capacity; non-opposite through trains must wait for the crossing. Still **28.18 m queue overlap**, even with only one stopped train. Capacity lock alone is insufficient. |
+| **Move stopping lanes farther sideways** (new) | zero tail at offset >8.84808 m, another 5.95808 m beyond ARRIVE; corridor half-width >10.93808 m | Leaves current beam/portal corridor. Needs real sidings, wider openings and turns; a Lua slide would recreate the rejected floating/crabbing. Asset redesign. |
+| Extend portals into real tunnels | cover beyond 43.43990 m, >7.45309 m beyond measured upper envelope; includes 3.43990 m past connector | **Recommended asset basis for retaining six stops.** Widen/support both lanes, recheck hood joins, footprint and approach construction. Move queue or reserve upstream separately; hiding overlapping trains is insufficient. |
+| Grow full body/connector radius to 50 m | contains stopped tail by 6.56010 m at unchanged Stop | +25% radial size, asset/footprint/track consequences. Queue overlap remains **21.61990 m** at that Stop. Enlargement alone fails. |
+| **Extend only connector approaches to radius 80 m** (new) | four extra intervals meet straight-track waiting-origin bound >71.61990 m | Station-owned arms could move vanilla's waiter without growing the ring. Requires footprint/buildability/track-join redesign and existing-hub migration or rebuild. Parked tail still needs cover. |
+| **Shorter train/consist** (new) | length <=38.06010 m at unchanged width/lane: >=8.28891% shorter | New train asset/consist or visible resizing on entry, attachment/animation and capacity work. Not a silent scale change to vanilla trains. Queue still needs fixing. |
+| **Separate crossing decks vertically** (new) | >4.32 m deck separation for boxes alone, plus deck structure/margins | Major asset and slope/route redesign; separate levels can use centre space. Queue and transitions remain. Moving Lua spots above today's deck would float the trains. |
+
+**INFERRED recommendation:** keep the open ring and redesign local tunnel/approach geometry if
+six independent stops are essential. Specify parked and waiting envelopes together. If small
+tail matters more than independent capacity, take the alternating-three option to the owner
+before modelling, including through-traffic waits and the queue change. The one-stop fallback
+remains available but is not sufficient alone. There is no measured basis here to call 3.44 m
+unnoticeable; whether 11.44 cm is acceptable is the owner's visual judgement. No option was
+chosen on their behalf.
+
+### Another constraint for the eventual reverse
+
+**MEASURED prediction:** a 180° flip at the *same origin* shifts the radial box endpoints by
+**14.86 m** because the box is asymmetric. At the six-stop ARRIVE threshold the reversed box
+would overhang **18.29990 m**, not 3.43990 m. Preserving its longitudinal envelope requires the
+new outward-facing origin **14.86 m inward**. Switching to DEPART also moves it **5.78 m
+sideways**. These are envelope predictions, not animation observations. `Spawn=Stop` alone
+does not establish an invisible reverse: the redesign needs a turning route or concealed
+origin/lane transfer. This qualifies item 2's proposed mechanism while preserving the owner's
+desired reverse-in-place appearance.
+
+**End state:** gate failed under the current combined constraints; OI-22, then revise the held
+build brief. Retain that brief until its smoke-recorded lifecycle condition is met. Executed
+model: GPT-6 (Codex), as identified by this session's instructions; the transcript provides no
+more specific runtime model id. No subagents were used.

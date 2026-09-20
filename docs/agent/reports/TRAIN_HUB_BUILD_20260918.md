@@ -2,6 +2,9 @@
 
 **Authority.** Owner rulings 2026-09-18, spec §10
 (`TRAIN_LOGISTICS_DESIGN_20260917.md`); brief `docs/agent/prompts/TRAIN_HUB_BUILD_high.md`.
+**Build 3b, 2026-09-20: HELD at its fit gate.** `GEOMETRY_ORACLE_20260919.md` §12 records
+clearance, vanilla parking, queue overlap, reverse-envelope shift and costed redesign options.
+OI-22 is the next owner decision; no train code or asset changed and no new smoke ran.
 **Status: BUILD 3 SMOKE PASS.** The following original prediction block began at pack `886926b`,
 TestKit `adda373`, parse-checked only
 (`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` → 2 files, 0 errors; TestKit 33
