@@ -237,3 +237,139 @@ runs the oracle for 3b's re-scope, after `hub_connector_directions` is corrected
 **Executed models, run B:** Fable 5.1 (this session, judge, reference computation); Opus (the
 oracle build); `gpt-5.6-sol` through Codex v0.149.1 (one blind derivation). Run A's §2 and §8 name
 its Codex model as GPT-5.4; run B did not check that, and records only its own.
+
+## 11. Addendum, paths run (2026-09-20): the path model carries the lane side and the yaw; what 3b still has to solve
+
+The paths run is `GEOMETRY_ORACLE_PATHS_high.md` (consumed by this addendum); its instrument
+changes are SMR-Assets `66240ae`. Method as before: an Opus subagent built, this session judged
+against its own reference computation (scratch, independent of the oracle's path code), and each
+new rule took a blind second derivation from another model family. Every number below is a
+**prediction** from measured spots under source-read rules; no train movement has been watched
+since `6123ae7`. SOURCE lines are 1.1.0.403908, from `C:\Dev\SMR-SrcArchive\1.1.0.403908\Src\Lua`.
+
+**The element-angle rule as the brief carried it is one scene's state; the invariant is the side of
+travel (new rule R-LANESIDE, CONFIRMED).** SOURCE: a straight element's angle points along the
+track toward its start end, `elements[1]` (`Buildings/TrackElement.lua:80-122`), and the start is
+the end with the lower hex q, then the lower r (`Tracks.lua:626-631`), so at a hub connector the
+angle is the outward heading or its reverse depending on where the track's far end lies on the map.
+That is why slot 6 read 60, 60, 180, 180, 120, 120: each is its connector's axis, and the sign is
+that scene's tracks. The spot choice flips with the same state: `step` is +1 travelling start to
+end and the train takes `Enter1` on +1, `Enter2` on -1 (`Units/Train.lua:650,665`; the departure
+side at `Buildings/Station.lua:1089-1091` and `:1200-1205`). The two flips cancel. The oracle now
+computes the spot for both states at all twelve (connector, travel) pairs and checks they agree:
+max distance 0.0 units, and all twelve lie **right of the train's own heading**. So each connector
+has one ARRIVE spot and one DEPART spot, 578 units apart, whatever the map (hub-local units, z 800):
+
+| connector (outward) | ARRIVE | DEPART |
+|---|---|---|
+| 1 (240°) | -1749.7, -3608.6 | -2250.3, -3319.6 |
+| 2 (60°) | 1749.7, 3608.6 | 2250.3, 3319.6 |
+| 3 (180°) | -4000.0, -289.0 | -4000.0, 289.0 |
+| 4 (0°) | 4000.0, 289.0 | 4000.0, -289.0 |
+| 5 (120°) | -2250.3, 3319.6 | -1749.7, 3608.6 |
+| 6 (300°) | 2250.3, -3319.6 | 1749.7, -3608.6 |
+
+These are the same twelve points slot 6 read as `enter1`/`enter2` on the six elements. Derivations:
+this session's source reading; `gpt-5.6-sol` through Codex, blind on the excerpts alone, same
+conclusion at every step (`docs/archive/geometry_oracle_paths_codex_lane_20260920.md`); and one
+measured read, a train on open track at heading 180 standing 289 units to the right of its hex
+centre (`docs/archive/geometry_oracle_slot6_train_Mars.exe-20260919-23.34.07-6a91a190.log`, the
+fourth dump, train pos 161500,243635). Which spot *name* a train uses at a given connector stays
+per-map state; code that needs the spot should ask the track (`step`), never hard-code a name.
+
+**The train holds its arrival yaw through every station slide (new rule R-YAW, CONFIRMED from
+source).** `Train:GotoSpot` moves with `SetPos` and sets no yaw, and `WaitChangeDir` with a nil yaw
+keeps the current one (`Units/Train.lua:507-519`, `:470-476`); on the track the yaw is the travel
+heading (`:579-583`). The one exception is the same-track departure, which takes the Spawn spot's
+angle (`Buildings/Station.lua:1188-1193`). Derivations: this session and `gpt-5.6-sol` blind
+(`docs/archive/geometry_oracle_paths_codex_yaw_20260920.md`), agreeing on every question; the
+owner's "sideways into the legs" agrees in kind only, and no yaw was read in game during a slide.
+With it the work list's item 4 landed rather than being dropped: CLEARANCE now sweeps the measured
+box (x -1332 to 2818, so not centred) at the yaw the train holds, as the convex hull of the box at
+a segment's two ends, and each segment reports its crab angle (yaw against heading).
+
+**The instrument.** `--connector-directions 4,1,3,0,2,5` overrides the Lua's parsed table for one
+run and edits nothing. MEASURED by this session on `66240ae`: `python hub_oracle.py --corpus`
+**24 of 24**, `--selftest` **8 of 8** (new: swapping `Enter1`/`Enter2` flips only LANE's
+right-of-travel check; the override makes SYNTHETIC (a) pass 12 of 12 where the parsed table passes
+4). Without `--element-spots` the 66 paths are identical to `015bc64` (the builder's check against
+a HEAD copy, its claim); CLEARANCE's sweep changed for every run, by design. The judge's reference
+(`ref_paths.py`, scratch) and the oracle agree on the spots, the arrival and departure lengths and
+angles, the chords, and TWO-TRAIN exactly (1291 as-is, 1224 under the corrected table). One flag is
+stale and was left alone: R-ELEMENT is a static UNCONFIRMED in the oracle, so the three path
+verdicts still print "rests on UNCONFIRMED: R-ELEMENT" under the measured fixture, although §2
+holds it CONFIRMED.
+
+**The deliverable: what the model predicts under `{4,1,3,0,2,5}`, and what build 3b still has to
+solve.** Command, from `_shared/geometry/`: `python hub_oracle.py --entity
+corpus/current_5002a49.entjson --lua corpus/lua_current_6123ae7.lua --workfile-snapshot
+../../trainhub/blender/export/lookpass_workfile_geometry.json --element-spots
+corpus/element_spots_measured_20260919.json --connector-directions 4,1,3,0,2,5`; the as-is column is
+the same command without the last flag. Both exit 1.
+
+| | as-is `{0,3,1,4,2,5}` | what-if `{4,1,3,0,2,5}` |
+|---|---|---|
+| SYNTHETIC | FAIL, 14 of 37: (a) off the real line by 120° on connectors 1-4, (c) on all six | FAIL, 6 of 37: only (c) on all six |
+| arrival, element to Ramparrive | lines 1-4 teleport 5851.8 to 6091.7 (over 50 m); 5-6 slide 1178.8 | all six slide 1178.8 to 1179.1, no teleport |
+| that slide's angle to its line | 21.9° to 27.0° on 1-4 (the teleport's own line), 14.2° (5-6) | 14.2° on all six |
+| final approach into the departure element | 14.2° to 27.0° | 14.2° on all 36 |
+| same-track teleport, Stop to Spawn | 3428.0 / 3429.1 | 3428.0 / 3429.1 |
+| CHOREOGRAPHY | FAIL, 114 of 123 | FAIL, 114 of 127 |
+| CLEARANCE, blocking obstacles | 12: six ring-wall sectors, six beds' cube stacks | the same 12; per sector 16 stopping and 14 pass-through paths, per bed 10 and 10 |
+| TWO-TRAIN, pairs within 416 units | 1291 of 1995 | 1224 of 1995 |
+| max crab angle: arrive / depart / pass-through | 120.0° / 180° / 60° | 14.2° / 180° / 60° |
+| LANE | PASS | PASS |
+
+What the corrected table clears: the four 50 m arrival teleports, the 120° misplacement of every
+synthetic spot on connectors 1-4, and the approaches above 14.2°. What it leaves, in the order the
+model says they bite:
+
+1. **The lane dogleg (newly exposed).** The element spots sit 289 units right of the centreline
+   and the hub's Ramparrive, Stop, Spawn and Rampdepart sit on it, so every arrival starts and
+   every departure ends with a 1179-unit slide at 14.2° to its line, the train crabbing by the same
+   angle. Vanilla's station offsets its ramps and stops laterally (216 to 409 units, §3). 3b wants
+   the synthetic spots on the lanes, right of travel: arrival-side spots on the ARRIVE lane,
+   departure-side spots on the DEPART lane.
+2. **The same-track Spawn (§4 item 2, unchanged, and one thing worse).** Still a 3428-unit jump
+   to the far side and a 4571-unit slide back through the centre. Newly exposed by R-YAW: the hub
+   computes a Spawn spot's angle as centre-to-spot (`lua_current_6123ae7.lua:180-187`), and the
+   spot is on the opposite connector's side, so the train faces 180° away from the connector it
+   then leaves by and makes the whole departure backwards. Vanilla's Spawn spots face their own
+   connector (slot 6: `van_Spawn1` at 0° with connector 1 to the east, `van_Spawn2` at 180° with
+   connector 2 to the west). The occupancy coincidence of §4 item 2 still holds under the table.
+3. **Departures to another line still cross open floor, sideways.** Stop to Rampdepart of a 60°
+   line is 2491 units, of a 120° line 4000, across the floor, and the train holds its arrival yaw
+   the whole way (crab 60° or 120°) until the track re-aims it past the element. These are the
+   stopping paths that hit the ring wall and the cube stacks above. Nothing in the table touches
+   this; it is the route-through-the-centre-with-a-turn that 3b's brief already names, and the
+   turn has to set the yaw, because nothing in the game's station code will.
+4. **The ring-wall pass-through (§4 item 3, unchanged).** A pass-through is one straight slide
+   from the ARRIVE spot to the DEPART spot. Between adjacent lines it passes 3319.6 to 3608.6
+   units from the centre, inside or grazing the wall band (3165 to 3560); between 120° lines
+   1749.7 to 2250.3, across a bed; straight through it runs true, 289 off the centreline. All 14
+   pass-throughs that touch a sector are blocked there, at a 60° crab.
+5. **The crossing lock stays load-bearing.** 1224 of 1995 path pairs still come within a train
+   width; the table moved 67 pairs. Re-run after the spots are on the lanes and the routes turn at
+   the centre.
+6. **A stopped train does not fit its half-line (new; the brief's second stop, for the owner
+   through the orchestrator).** The measured box is 4150 long and a line is 4000 from centre to
+   connector. At Stop (1714 out, yaw inward) the box runs from 3047 out to 1103 units *past the
+   centre*; 15 of 15 pairs of stopped trains overlap, on any two lines. MEASURED by this session
+   (scratch, the oracle's `box_corners_at` on the reference Stop positions). Moving Stop outward
+   cannot cure it, since 4150 exceeds 4000 and 3b's stub platforms are shorter still. Trains have
+   no collision, so this is a look and a capacity question, not a crash: either one stopped train
+   at a time is the rule the occupancy model enforces, or the body grows, or the overlap is
+   accepted. That is an asset-or-design call, not 3b's to make, and not this run's.
+
+**What may now be used.** CHOREOGRAPHY, CLEARANCE and TWO-TRAIN under `--element-spots`, as
+predictions, for both tables; §10's "not to be used" is lifted by `66240ae`. The ARRIVE and DEPART
+spots above as the lane geometry. Not claimed: that trains behave, that the hub's geometry is
+correct, or that the corrected table fixes 3b. The narrow claim: under the corrected table and the
+measured lane rules the model predicts the table above, and it is unwatched. What only the game can
+still settle here: a yaw read during a slide (slot 6 already prints the train's angle; run it
+mid-departure), which would turn R-YAW from source-confirmed to measured.
+
+**Executed models, paths run:** Fable 5.1 (`claude-fable-5-1`, this session: judge, source
+reading, reference computation); Opus (the oracle build, requested through the Agent tool's model
+override; the completion notice carries no model id); `gpt-5.6-sol` through Codex v0.149.1 (two
+blind derivations, from the run headers).

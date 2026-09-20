@@ -54,7 +54,9 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      re-scoping, not obeying. Its run B (report §10) measured a whole train at 41.5 m by 4.16 m,
      four times the length and twice the width every earlier clearance figure assumed, and found
      that a track element's `Enter1`/`Enter2` side depends on the track's angle and the train's
-     direction of travel, which the oracle's paths do not model yet;
+     direction of travel. The paths run (report §11, 2026-09-20) folded that into the oracle and
+     re-ran it under the corrected table: §11's numbered list is what 3b still has to solve, and
+     its item 6 (a stopped train is longer than a half-line) is an owner call;
    - **⛔ `C:\Dev\SMR-TrainHubAssets` is a STALE COPY, not a junction** — make it one before any
      Mod Editor re-import, or the editor writes into a dead folder. Steps in
      `C:\Dev\SMR-Assets\README.md` §"The old path";
