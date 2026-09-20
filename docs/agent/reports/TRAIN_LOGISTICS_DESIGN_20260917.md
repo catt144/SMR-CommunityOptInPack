@@ -1095,6 +1095,13 @@ read. Its content as described:
 sitting: hubs placed, several trains built at each station, and the train yards' own storage pads
 filled. Not yet recorded: its save name, or whether it replaces `train_hub_base`.
 
+**The agent fixture, `train_hub_base_agent` (owner, 2026-09-20).** For unattended work, when an
+agent launches the game and tests on its own. "The exact same setup" as `train_hub_base` except:
+the hub is prebuilt and full of resources, `StationSmall(2008)` is full of resources, and every
+other station is empty. **The hub is powered off**, to keep trains from firing at once, so an
+unattended leg must switch it on itself. Not yet recorded: whether the seven Stirling Generators
+are in it, and the save's build and mods.
+
 **Owner observation, 2026-09-20, from building that variant.** With train construction as the only
 task, drones do haul the materials from the train yard's storage pad to the train under
 construction. The owner had missed it earlier because of high game speed and how close the drones
