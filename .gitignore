@@ -17,3 +17,7 @@ Desktop.ini
 # doccheck reds on drift; regenerate, never hand-edit.
 .claude/*
 !.claude/skills/
+
+# Train hub dev mod: the Mod Editor copies the textures in as DDS (44 MB); they regenerate on every import
+tools/devmods/train_hub/Textures/
+tools/devmods/train_hub/Fallbacks/
