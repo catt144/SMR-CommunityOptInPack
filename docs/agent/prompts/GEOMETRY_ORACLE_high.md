@@ -51,9 +51,18 @@ work exists to prevent, and it would be worse than no model at all.
 **2. A rule is triangulated, not derived once.** Every failure above came from a rule known from a
 single source. A rule is trusted only with **two independent derivations that agree** — the game
 source, the entity file, an in-game dump, a vanilla asset read the same way. Where they disagree,
-or only one exists, the rule is `UNCONFIRMED` and so is every verdict resting on it. Independent
-derivation by separate workers is worth more here than one worker checking twice; whether to fan
-out, how wide and along which cuts is yours.
+or only one exists, the rule is `UNCONFIRMED` and so is every verdict resting on it.
+
+**Correlated error is what this standard exists to catch**, so two derivations are independent
+only to the degree the things producing them differ — different evidence, and workers differing
+in kind rather than merely in instance. Two passes sharing a blind spot agree for the wrong
+reason, which is how a single-source rule came to be trusted in the first place.
+**Prefer to separate producing a derivation from clearing it.** The worker that built a rule is
+its worst judge, and the corpus above is deliberately a set of known answers so that clearing
+one costs a check rather than a re-derivation — a judge does not need to be able to do the work
+it is judging. Delegated work returns as a **claim**, never a result: confirm what a verdict
+rests on before it enters, and say in the report which derivations were independent of which,
+and how. Whether to fan out, how wide and along which cuts is yours.
 
 ## Where you may overrule us
 
