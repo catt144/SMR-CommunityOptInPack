@@ -870,6 +870,33 @@ connectors, so each line's end element must be shortened by a hex, and a hub alr
 old radius (`SpaceY Sol 21`, the agent fixture) would have to be replaced (inferred, not tested). Untested: whether a decorative deck may
 instead extend past the connector over the first vanilla element. This is the look pass (above); it
 follows build 3b's smoke and the junction fix, and needs the owner's go before it is briefed.
+**Owner design, 2026-09-20: six loading sidings, one per internal spur.** The problem it solves came
+out of the movement pass: vanilla picks a loading train's exit only **after** it has entered and
+loaded (`Station.lua`), so a blocked exit leaves only bad options — sit on the running line and block
+its own line and the crossing, or reverse out into the lane the next arrival needs. With a siding the
+train loads and waits **off** the running line and a through train passes while it does. The owner's
+words: *"a platform off to one side of each internal track... the train slides onto it while loading
+and waits for its track clearance to rejoin the track."*
+- **Six, not twelve** (orchestrator recommendation, owner accepted): vanilla enforces one train per
+  platform and queues the rest on their track outside (`Train:CanEnter`, `GetOccupyingTrain`), so a
+  second siding per spur would have nothing to hold. The overflow case — a loaded train waiting on the
+  siding while another arrives on that line — already has a home on the transition arm outside.
+- **Same rotational handedness** on all six, so a through line's two sidings fall on opposite sides of
+  it and the Lua is one sign flipped by connector index.
+- **Cantilevered off the track beam, no pillar** (owner), deck top at 8 m, long enough for a whole
+  train, and **inside about 23 m radius** so the cargo stacks do not grow through it (beds are centred
+  26.75 m out and span about 23.5 to 30 m radially).
+- **A clean glass deck with a metal border** (owner), no panel seams. It needs **its own mesh node**,
+  because one material per mesh is measured (`_shared/IMPORTER_FACTS.md`; `SceneImport.lua:4023`) and
+  that is why `INCLUDE_GLASS = False`. Vanilla's `DomeGlass_*` is tried first at import; if it works,
+  the hub's own dome can stop being opaque too.
+- **Movement:** the slide onto the siding folds into the braking and the rejoin into the
+  acceleration — one curved motion, never stop-then-slide-then-stop, because the hub already adds
+  transitions to every trip (owner). **Loading policy and full queueing are a later owner pass,
+  deferred 2026-09-20.**
+- **Method (owner):** *"not extreme effort in getting it exact... the focus is getting the models in,
+  I do the fine adjustments."* The owner eyes the gaps in game and supplies the movement parameters.
+
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub

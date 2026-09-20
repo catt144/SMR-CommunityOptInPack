@@ -37,6 +37,45 @@ it is short). Trains ride beside the vanilla rail and on top of the centre of ou
    289 units (2.89 m) off the line, to the right of its travel, so each arm's deck sits under that.
 4. The look the owner has in mind is a maglev feel. Not this brief: leave the materials as they are.
 
+## Pass 2 — the loading sidings (owner, 2026-09-20; pass 1's stubs and arms are imported and accepted)
+
+**Why.** A train that loads inside the hub occupies the running line, so when its exit is blocked it
+must either sit there blocking its own line and the crossing, or reverse out into the lane the next
+arrival needs. A siding removes the choice: the train loads and waits off the running line, and a
+through train can pass while it does.
+
+**Build six loading sidings, one per internal spur.**
+- **Placement:** beside each spur, all with the **same rotational handedness** (all clockwise of
+  their own spur), so the two sidings of a through line land on opposite sides of it and the Lua is
+  one sign flipped by connector index, not a per-line table.
+- **Attached to the track beam, cantilevered. No pillar under it** (owner): the interior is busy
+  already and it should read as part of the track.
+- **Deck top at 8 m**, level with the track, and long enough to hold a whole train (about two hexes
+  by the owner's hex measurement; R-TRAIN is DISPUTED, so size it by eye, never from 41.5 m).
+- **Keep it inside about 23 m radius.** The cargo beds are centred 26.75 m out on the wedge midline,
+  14.9 m by 6.6 m (`BAY_D`, `BAY_LEN`, `BAY_DEPTH`), so they span roughly 23.5 to 30 m radially and
+  their near corner comes within about 6.5 m of the line. The beds are on the ground because the cube
+  stacks are tall, and a deck at 8 m out there would have stacks growing through it.
+- **Look: a clean glass deck with a metal border** (owner). No panel seams — the owner compared
+  vanilla's big dome, which is ribbed and panelled, with the PassageHub's clean shell, and wants the
+  clean read here. Ribbed stays right for our own dome, which is a separate question and not this pass.
+- **The glass needs its own mesh node.** One material per mesh is measured
+  (`_shared/IMPORTER_FACTS.md`: *"Contains multi-materials. Not supported yet."*,
+  `SceneImport.lua:4023`), which is why `INCLUDE_GLASS = False` today. At import, first try vanilla's
+  **`DomeGlass`** in the material picker (spec §9 records PassageHub's glass as `DomeGlass_*` in
+  `Materials.fpk`); if it is not offered, make a GFXMaterial with blending on. Report which. **If it
+  works, say so** — `INCLUDE_GLASS` could then come back and the hub's own dome stops being opaque.
+
+⛔ **Rough is right, and this is the owner's instruction** (2026-09-20): *"not extreme effort in
+getting it exact since we know now I can human-eye any gaps and give you movement parameters. The
+focus is getting the models in, I do the fine adjustments."* Get the sidings in, exported and
+imported. Do not iterate on millimetres, do not re-render to compare options, and do not hold the
+import for a gap the owner can see and correct in one pass.
+
+Pass 2 then follows End state steps 3 to 5 below — export, the owner's import, one in-game look,
+record and commit. **It skips step 2's render gate**: the owner inspects it in the game, not in a
+render. The junction is already in place.
+
 ## End state
 
 1. **The generator** (`hub_skeleton.py`; `HEX`, `FOOTPRINT_R`, `BEAM_W`, `DECK_Z`, `PLATFORMS` are
@@ -55,9 +94,9 @@ it is short). Trains ride beside the vanilla rail and on top of the centre of ou
    `blender\README.md`. The old assets path is already a junction to `C:\Dev\SMR-Assets\trainhub`
    (the orchestrator did it 2026-09-20, owner's order); work at the real path, never the old name.
 4. **One in-game look, not a test:** the hub places, and a vanilla track laid down a path between two
-   arms attaches to the stub. `20_TrainHub.lua` belongs to build 3b: touch it only if placement or
-   attachment fails, the smallest change that works, and say so. Trains will still ride the old
-   lanes; that is the next brief's job, not a fault.
+   arms attaches to the stub. `20_TrainHub.lua` belongs to `TRAIN_HUB_MOVE_high.md`: touch it only if placement or
+   attachment fails, the smallest change that works, and say so. Trains will not use the sidings yet; that is
+   `TRAIN_HUB_MOVE_high.md`'s job, not a fault.
 5. **Record** what was built and what the owner said in spec §9, and commit both repos with
    pathspecs. `doc-editing` before the doc edit.
 

@@ -55,7 +55,18 @@ the hub places, a track attaches down that path, and a train parks on the deck a
    is defined by distance along the path, so its shape holds at any game speed.
 3. **The transition out mirrors it**, ending with the train beside the rail on the other arm, riding
    the vanilla track away as normal.
-4. **Loading happens at the stop position**, on the centre.
+4. **Loading happens on the siding, not on the centre** (owner, 2026-09-20; the model pass adds six,
+   one per spur). The train slides off the running line onto its siding, loads there, and waits there
+   until its exit is clear, then rejoins the centre. This is what answers the question build 3b's pass
+   hit and deferred: vanilla picks a loading train's exit only after it has loaded, and with a siding
+   a blocked exit no longer forces a choice between blocking the running line and reversing into the
+   arrival lane. ⛔ **Fold the slide into the braking and the rejoin into the acceleration** — one
+   curved motion, never stop-then-slide-then-stop. The hub already adds transitions to every trip and
+   the owner will not accept them costing time: *"I want the transition to be quick but smooth
+   because we are adding so many transitions."* The `Stop` spot moves onto the siding, so re-check the
+   reservation validation build 3b flagged. **Loading policy and full queueing are the owner's next
+   pass, deferred 2026-09-20; do not design them here.** The occupied-exit guard (`2606719`) stays.
+   **The owner supplies the movement parameters by eye in the sitting** — expose them, do not solve them.
 5. **The cold-start power fix** (spec §10, owner 2026-09-20): a hub must start in a remote, droneless
    place with no grid. Today `CreateElectricityElement` (`20_TrainHub.lua:877`) counts its production
    only while the hub is working, and a hub with no other supply never works. Make production count
