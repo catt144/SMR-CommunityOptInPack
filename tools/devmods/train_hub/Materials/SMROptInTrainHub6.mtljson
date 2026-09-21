@@ -6,7 +6,7 @@
 			"Name": "SMROptInTrainHub6",
 			"Normal": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6_NM.dds",
 			"NormalChannel": 0,
-			"RM": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6_B_BlackMirror_RM.dds",
+			"RM": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6_RM.dds",
 			"RMChannel": 0,
 			"SI": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6_SI.dds",
 			"SIChannel": 0,
