@@ -1,14 +1,17 @@
-# Train hub: look step 2 — the structure, premium at wonder scale
+# Train hub: look step 2 — the structure, its lighting, then the whole hub's GPU cost
 
 **LIVE, one-off. FIRE IT, THEN DELETE THIS FILE AND ITS MAP ROW in the fire commit.** Authoring
-shas: SMR-OptInPack `03bfd59`, SMR-Assets `8e2e380` (tag `hub-road-b-20260921` is restore point 1).
-An empty `git diff --stat hub-road-b-20260921..HEAD -- trainhub/` means the assets facts hold, or
-the lights agent's paint half has landed (see Order). Start with `git log`, `git pull` in both repos.
+state: tag `hub-lines-b2-lights-20260921` in both repos (restore point 3; its `RESTORE.md` is in
+`B:\Dev\SMR\SMR-Shared\SMR-HubBackups\`). Empty `git diff --stat hub-lines-b2-lights-20260921..HEAD
+-- trainhub/` (SMR-Assets) and `-- tools/devmods/train_hub/` (here) mean this brief's facts hold.
+Start with `git log`, `git pull` in both repos.
 
-**Order:** `TRAIN_HUB_LIGHTS_medium.md`'s paint half edits `paint_concept.py` and the same maps.
-Fire this **after** that agent has committed it and taken `hub-road-b-nostrips-20260921`
-(`snapshot_hub.py`). Its Lua half may run alongside: it owns `tools/devmods/train_hub/Code/`, you
-never touch it. If the tag is absent, stop and tell the owner.
+**Where the lights brief left it (fired and closed, spec §9 "Lights step" to "Restore point 3"):**
+the owner's hold "for the moment" is road finish B, thin deep blue (0,40,255) lines at SI 0.7 on
+every arm, the structure's glow lines recoloured and levelled to match (`STRUCTURE_LINES`,
+`ARM_LINE_WINNER = 5`, baked by `bake_thinlines.py`, delivered as `textures/thinlines_all/`), and
+72 Lua spots along the arm lines (`20_TrainHub.lua`, `hub_light_*`). Restore points 1 and 2
+(`hub-road-b-20260921`, `hub-road-b-nostrips-20260921`) stay the fallbacks.
 
 ## Authority
 
@@ -23,7 +26,11 @@ The owner, 2026-09-21, settled all of this (spec §9):
   soft.** Your call on any per-map change with a stated raw size. Vanilla spends 4096 on wonders.
 - **Keep the panel seams, and make them crisp.** The owner is fine with visible seams; the current
   ones are "jagged and blurry" everywhere.
-- **The road is done: variant B, held.** The strips and lights on it belong to the lights brief.
+- **The road is done: variant B, held,** with its deep blue lines and their lights as restore
+  point 3 holds them.
+- **Order (owner, 2026-09-21): "finish the model update and get its lighting done to test the gpu
+  part because right now we would just be testing the tracks."** The hub off/on cost is measured
+  once, on the whole hub, after the structure and its lights are in. No cost reading before that.
 - The model is FINAL and frozen at radius 6: no geometry, UV or spot change.
   `concept_guard.verify_scene()` before every bake.
 - The owner's handoff package (`C:\Users\stkot\Downloads\TrainHub_Visual_Handoff_v1\TrainHub_Visual_Handoff_v1`,
@@ -52,7 +59,22 @@ The owner, 2026-09-21, settled all of this (spec §9):
 5. **The owner looks in game**, at sector overview and close, day and night, and says what to change.
    Take a restore point (`snapshot_hub.py hub-structure-<step>-20260921`) when they say keep it.
 
-Done means: the owner looks at the hub and says it feels premium, or names what stops it.
+6. **The structure's lighting, after the owner keeps the maps:** real lights for the structure in
+   the owner's deep blue, following the arm lights' pattern in `20_TrainHub.lua` (vanilla
+   `PointLight`/`SpotLight` attached at Origin, positions computed in code, `DeleteOnLoadGame`,
+   recreated from `GameInit`, `heal_after_load` and `OnSetWorking`; **a stopped hub destroys
+   them, never dims them**; no spot, persisted class or saved field). Your call on where they sit
+   (ring, portals, ribs, supports) and how many; small and dim beside the painted lines is what
+   the owner chose on the arms, after rejecting lights that washed a platform. Extend
+   `tests/look_smoke.py` with the count.
+7. **The whole hub's cost, then and only then:** the owner's reading, same save, fixed camera, hub
+   on screen, no trains in view, hub on against off (a stopped hub also stops its trains).
+   `SMR-Assets\trainhub\blender\gpu_sample.ps1 -Label <on|off label> -Note '<save, camera>'` logs
+   GPU memory and 3D utilisation; the owner's 120 fps cap hides cost in the frame rate, so uncap
+   or read utilisation. Report the light count with it, and fill spec §9's `<<PENDING-RUN>>`.
+
+Done means: the owner looks at the hub and says it feels premium, or names what stops it, and the
+whole hub's off/on cost is recorded.
 
 ## Leads, not the route
 
@@ -69,24 +91,30 @@ Done means: the owner looks at the hub and says it feels premium, or names what 
   the band's base colour is the same blue (about RGB 46,121,244) in the old and new BaseColor, and the
   lights agent proved the glow is byte-identical off the road. Read, untested: a saturated blue at a
   high SI modulation clips toward white at night, and the band is about 4 texels wide on a thin tube
-  island, hence the jags. Diagnose (a night screenshot against the day one, the SI level) before
-  changing anything, then make the bands crisp and blue. This is inside this step: the ribs are
-  structure.
-- Leave the ring and portal glows exactly as they are unless the owner rules; their look is the
-  owner's call after they see the shell.
+  island, hence the jags. Since then the owner confirmed the clipping on the arm lines (SI 1.0 on
+  the cyan-leaning `BLUE` "to white"; saturated deep blue at 0.7 held its colour), and the ribs now
+  carry deep blue at 0.7 too; whether their jags survive is not yet looked at. Make the bands crisp.
+  This is inside this step: the ribs are structure.
+- The structure's glow colour and level are the owner's hold (deep blue, SI 0.7): keep them by
+  value unless the owner rules. Your resolution change re-bakes them; prove they did not move.
+- The spot light's aim in the arm lights assumes a spot shines along its own +X, turned a quarter
+  about Y to face down; the owner liked the result in game, which is the only evidence for it.
 
 ## Scope
 
-In: the structure's maps and the resolution change. Out: the road, the lights (Lua and the road
-paint), glass, reactor, dome, geometry, UVs, spots, the dev mod's Code. Out-of-scope findings go
-in the report.
+In: the structure's maps, the resolution change, the structure's lights block in
+`20_TrainHub.lua` with its mocked smoke, and the whole-hub cost reading. Out: the road and its
+lines and arm lights as held, glass, reactor, dome, geometry, UVs, spots, routing and movement
+code. Out-of-scope findings go in the report.
 
 ## Stops (report instead of pushing on)
 
 1. One material will not carry maps of different sizes, and all four at 4096 is not acceptable.
 2. The structure cannot be separated from the road and glow by an existing face test without a
    geometry or UV change.
-3. The importer or the game rejects the new sizes, or the frame rate visibly drops.
+3. The importer or the game rejects the new sizes, or the cost reading shows the lights visibly
+   cost frame rate on the owner's rig: report the count and the reading, and stop at the largest
+   count that holds.
 
 ## Do not claim
 

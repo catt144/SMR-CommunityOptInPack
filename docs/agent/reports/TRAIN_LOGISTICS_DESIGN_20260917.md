@@ -1579,6 +1579,10 @@ thin deep blue (0,40,255) lines at SI 0.7 on every arm, the structure's glow lin
 spots at intensity 130 along the lines. "Good for the moment" is the owner's hold, not a final
 acceptance; restore point 2 remains the clean fallback. Still owed: the hub off/on cost, a
 daylight look, and the both-configuration and toggle ship tests on the final build.
+**Owner, 2026-09-21, on the cost reading: "we should finish the model update and get its lighting
+done to test the gpu part because right now we would just be testing the tracks."** The hub off
+against on reading is DEFERRED to the whole hub: structure maps, then the structure's own lights,
+then one reading. `TRAIN_HUB_STRUCTURE_high.md` carries all three and starts from restore point 3.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
