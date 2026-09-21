@@ -3,10 +3,10 @@
 > ⛔ **PURGE WHEN THE TRAINS PROJECT IS COMPLETE AND TESTED** (owner, 2026-09-18). Complete
 > means every train module the owner keeps is built and has passed its ship test (`FIX_POLICY`
 > §8: both configurations, both toggle directions), or the owner has parked or killed the rest.
-> Then delete this file and its row in `docs/agent/prompts/README.md` in one commit. Unlike the
-> other perma prompts, it is temporary.
+> Then delete the whole `Train_Hub_Project/` folder and its row in `docs/agent/prompts/README.md`
+> in one commit.
 
-**Fire with:** `task docs/agent/prompts/perma/TRAIN_ORCHESTRATOR.md` in a fresh session rooted at
+**Fire with:** `task docs/agent/prompts/Train_Hub_Project/00_TRAIN_ORCHESTRATOR.md` in a fresh session rooted at
 `B:\Dev\SMR\SMR-OptInPack`. Re-runnable for as long as the project lives.
 
 ## Authority
@@ -58,20 +58,14 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      (owner ruling OI-24, held provisionally: reopened if glow lights spoil the reflections).
      The handoff package in Downloads is reference only. ⚖️ **The 5 MB guard does not bind this
      mod** (owner); resolution is a look decision, plan BaseColor 4096 supersampled and the rest
-     2048. **In flight when this closed:** the owner fired `TRAIN_HUB_LIGHTS_medium.md` (road paint
-     strips off, then six Lua-placed light variants, three red and three blue, one per arm; hub off
-     must remove the lights). Its uncommitted assets edits are its own: do not touch them. **Next:**
-     `TRAIN_HUB_STRUCTURE_high.md`, fired only after the lights agent has taken restore point
-     `hub-road-b-nostrips-20260921` (both edit `paint_concept.py`). The lights agent's Lua half has landed. Everything that edits
-     `20_TrainHub.lua` (`TRAIN_HUB_LOADERRORS_low.md`, `TRAIN_HUB_REPAIR_high.md`, the structure
-     lights) runs one at a time; the structure maps work is in SMR-Assets and can run beside them. Restore points, the snapshot tool and the GPU sampling plan are in spec §9.
-     The owner will fire this role when the lights agent is done: read its report, verify its
-     tag and commits with one check each, then the owner's choice among the six variants goes into
-     spec §9 and the structure brief. Still owed to the owner: OI-18 (widen `upload_preflight.py`,
+     2048. The lights step is DONE (restore point 3, `hub-lines-b2-lights-20260921`:
+     B2 deep blue lines and 72 arm lights). **The fire order is this folder's `README.md`**: keep it
+     current whenever a brief is fired, parked or added; the owner reads it to pick the next one.
+     Still owed to the owner: OI-18 (widen `upload_preflight.py`,
      or keep the hub a separate mod) and OI-19. The tree move record is
      `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. Read spec §9 "The first concept import in
      game" first for why the hub looked like flat paint and the five older restore tags.
-   - **Live, fire when the owner wants an agent spent:** `TRAIN_HUB_LOADERRORS_low.md`, two errors
+   - **Live, fire when the owner wants an agent spent:** `02_TRAIN_HUB_LOADERRORS_low.md`, two errors
      the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
@@ -123,12 +117,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      and mirrored exit, the six-siding transition and rejoin, the exit slide and vanilla handoff,
      the cold-start power fix (working for a long time) and the 6 s dwell. It may reopen once, at the
      final pre-launch test, if the owner wants some moves slightly tweaked.
-     `TRAIN_HUB_MOVE_high.md` is PARKED for that and is not fired before it; never treat it as a
+     `Parked/TRAIN_HUB_MOVE_high.md` is PARKED for that and is not fired before it; never treat it as a
      gate on anything. Do not re-derive a movement fault from an old report.
-   - **Build 4** (`TRAIN_HUB_REPAIR_high.md`) is unblocked but NOT next (owner, 2026-09-21): the
+   - **Build 4** (`03_TRAIN_HUB_DRONES_high.md`) is unblocked but NOT next (owner, 2026-09-21): the
      hub look comes first, and the drone system (deploy, movement, retextured storage) is unbuilt
      beyond a few test drones. **Build 5**
-     (`TRAIN_HUB_BUILDTRACK_high.md`) stays HELD until build 4's smoke is recorded. A brief still
+     (`04_TRAIN_HUB_BUILDTRACK_high.md`) stays HELD until build 4's smoke is recorded. A brief still
      in the map has not finished.
    - **Loading policy and full queueing** are the owner's own next pass, deferred 2026-09-20.
    - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
@@ -142,7 +136,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
      upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
      wave. Spec §10 holds the open questions. Decide after the movement prototype;
-   - **the look pass RESUMED, staged** (`TRAIN_HUB_LOOK_high.md`, the briefs named above). Settled, with citations in
+   - **the look pass RESUMED, staged** (`Parked/TRAIN_HUB_LOOK_high.md`, the briefs named above). Settled, with citations in
      spec §9: the SI glow map is a ONE-CHANNEL BC4 mask, so glow colour lives in the base colour;
      the hub's glow follows its working state and goes to **zero**, not dim, when it stops
      (`SetSIModulation` 200 / 0), ours to drive per siding later; glass CANNOT live in the hub's

@@ -92,11 +92,11 @@ load-time errors and only a real session log shows them gone. Not that the asser
 because the game kept running — it is an assert on a debug build, and its absence is the bar.
 
 ⛔ Note the offline smoke `tools/devmods/train_hub/tests/traffic_smoke.py` currently FAILS on this
-build for an unrelated reason recorded in `TRAIN_HUB_MOVE_high.md`; its `line_radii` print comes
+build for an unrelated reason recorded in `Parked/TRAIN_HUB_MOVE_high.md`; its `line_radii` print comes
 from stubbed geometry and is not the game's number. Do not use it as your pass signal, and do not
 "fix" it here.
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `docs/agent/prompts/README.md` when both errors are proven
+One-off. Delete this file and its row in `Train_Hub_Project/README.md` when both errors are proven
 gone in an owner session log.

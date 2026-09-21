@@ -109,7 +109,7 @@ whole hub's off/on cost is recorded.
 
 **File ownership (owner, 2026-09-21).** The maps work is in SMR-Assets and needs no Lua. Step 6
 edits `20_TrainHub.lua`: do not start it while another brief that edits that file is in flight
-(`TRAIN_HUB_LOADERRORS_low.md`); recheck `git log -- tools/devmods/train_hub/` first. Movement is
+(`02_TRAIN_HUB_LOADERRORS_low.md`); recheck `git log -- tools/devmods/train_hub/` first. Movement is
 finished (parked), and the drone builds come after the hub look.
 
 In: the structure's maps, the resolution change, the structure's lights block in
@@ -140,7 +140,7 @@ per-map raw sizes, the proofs, and what the owner's smoke showed.
    they tell you to split off into a B run, stop starting new work and finish only the
    commit-and-verify unit in progress, so both trees are committed and no bake or import is half
    done. Take a restore point if the owner has kept anything. Then write the B run's brief yourself,
-   with `prompt-authoring`, as a one-off at the prompt root with its map row: the todo list
+   with `prompt-authoring`, as a one-off in `Train_Hub_Project/` with its row in that folder's README: the todo list
    as it stands (done, in progress, not started), the commits and tags that hold the state, what the
    owner has kept or ruled since this brief, and any decision you have made that the next worker
    would otherwise re-derive. Record the same state in spec §9. Do not restate this brief in it:

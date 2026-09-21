@@ -1,6 +1,8 @@
 # Train hub model: longer stubs and the transition platforms
 
-**LIVE, fire when ready.** Asset work in `B:\Dev\SMR\SMR-Assets\trainhub\blender`. Authoring shas:
+**PARKED, do not fire** (owner, 2026-09-21: the model is FINAL at radius 6, tagged
+`hub-model-final-untextured`). Kept for the geometry it records and as the brief to reopen if the
+look pass ever needs the model to move. Asset work in `B:\Dev\SMR\SMR-Assets\trainhub\blender`. Authoring shas:
 SMR-OptInPack `3c79ddd`, SMR-Assets `66240ae` (its `README.md` carried a peer's uncommitted edit;
 leave it). An empty `git diff --stat <sha>..HEAD` on `trainhub/` and `tools/devmods/train_hub/`
 means these facts hold.
@@ -126,7 +128,7 @@ The owner's first cut, to be looked at and not defended — **the owner adjusts 
    is theirs to rule on with the overlap in front of them. If one is needed, it is small and lateral,
    never a redesign of the bays.
 
-**No Lua change, and do not open `20_TrainHub.lua`** — it belongs to `TRAIN_HUB_MOVE_high.md`, which
+**No Lua change, and do not open `20_TrainHub.lua`** — it belongs to `Parked/TRAIN_HUB_MOVE_high.md`, which
 is live. The bed positions are entity `Box1` spots that the import carries, and the hub reads the
 cube grid off the spot (`GetCubePosRelative`, 12 cubes along the spot's +X and 5 rows along its +Y),
 so moving the spot moves the stacks with it.
@@ -152,9 +154,9 @@ commit with pathspecs. Skip the render gate; the owner judges it in the game.
    `blender\README.md`. The old assets path is already a junction to `C:\Dev\SMR-Assets\trainhub`
    (the orchestrator did it 2026-09-20, owner's order); work at the real path, never the old name.
 4. **One in-game look, not a test:** the hub places, and a vanilla track laid down a path between two
-   arms attaches to the stub. `20_TrainHub.lua` belongs to `TRAIN_HUB_MOVE_high.md`: touch it only if placement or
+   arms attaches to the stub. `20_TrainHub.lua` belongs to `Parked/TRAIN_HUB_MOVE_high.md`: touch it only if placement or
    attachment fails, the smallest change that works, and say so. Trains will not use the sidings yet; that is
-   `TRAIN_HUB_MOVE_high.md`'s job, not a fault.
+   `Parked/TRAIN_HUB_MOVE_high.md`'s job, not a fault.
 5. **Record** what was built and what the owner said in spec §9, and commit both repos with
    pathspecs. `doc-editing` before the doc edit.
 
@@ -182,4 +184,4 @@ the renders show and, after import, that the hub placed and a track attached, on
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `docs/agent/prompts/README.md` when step 5 is committed.
+One-off. Delete this file and its row in `Train_Hub_Project/README.md` when step 5 is committed.

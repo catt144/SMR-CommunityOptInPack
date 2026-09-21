@@ -124,5 +124,5 @@ exit and show it green, or show the reversal is genuine. Do not delete the asser
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `docs/agent/prompts/README.md` when the owner's smoke is
+One-off. Delete this file and its row in `Train_Hub_Project/README.md` when the owner's smoke is
 recorded.

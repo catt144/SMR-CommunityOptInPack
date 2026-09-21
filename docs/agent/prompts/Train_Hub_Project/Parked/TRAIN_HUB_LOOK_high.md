@@ -1,6 +1,10 @@
 # Train hub: the look pass — the concept art, in game, first cut
 
-**LIVE, RESUMING STAGED (owner, 2026-09-21).** The rebuilt body and
+**PARKED as the look pass's umbrella record; do not fire it.** Its stages are fired as their own
+briefs: road and lights are done, the structure is `01_TRAIN_HUB_STRUCTURE_high.md`; fine normal,
+glass and the themed reactor are still deferred. The owner's acceptance of the look retires it.
+
+As written 2026-09-21: the rebuilt body and
 concept maps are imported (`7c3e74c`) and the owner has looked: glow works, but the hub reads as
 *"blue paint"* and blurry up close. Measured cause, spec §9 "The first concept import in game":
 the maps are correctly compiled at vanilla's own format and size but almost unpainted — normal
@@ -192,4 +196,4 @@ Claim what the owner saw, in which conditions, on which save.
 ## Lifecycle
 
 One-off, but it **survives its first firing**: the owner iterates on the look with the same brief.
-Delete it and its row in `docs/agent/prompts/README.md` when the owner accepts the look.
+Delete it and its row in `Train_Hub_Project/README.md` when the owner accepts the look.

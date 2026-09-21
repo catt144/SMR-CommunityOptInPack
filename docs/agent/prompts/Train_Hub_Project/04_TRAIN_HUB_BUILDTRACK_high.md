@@ -1,6 +1,6 @@
 # Train hub build 5: the hub builds track
 
-⛔ **HELD until build 4's smoke test is recorded** (`TRAIN_HUB_REPAIR_high.md`). It is build 4's
+⛔ **HELD until build 4's smoke test is recorded** (`03_TRAIN_HUB_DRONES_high.md`). It is build 4's
 mechanism with a second trigger and a fixed order, on the pending list build 4 designed for it.
 
 ## Authority
@@ -76,4 +76,4 @@ in that colony.
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `docs/agent/prompts/README.md` once its smoke is recorded.
+One-off. Delete this file and its row in `Train_Hub_Project/README.md` once its smoke is recorded.

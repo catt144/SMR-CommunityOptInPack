@@ -793,7 +793,7 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   wonders (55 of 5,087), and the hub's model is about 144 x 160 m against about 90 m for the large
   station. **Plan for the structure step:** BaseColor at 4096 supersampled, Normal, RM and SI at
   2048, Normal up to 4096 only if the seam relief stays soft, panel seams kept and made crisp
-  (`TRAIN_HUB_STRUCTURE_high.md`). Going to 4096 later is one constant per map in
+  (`Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md`). Going to 4096 later is one constant per map in
   `paint_concept.py` (`BODY_SIZE`, line 24) because the maps are drawn per texel from 3D position;
   pixel-based constants (the bleed `steps=4`) and `validate_pad.py`'s 2048 pins need updating.
 
@@ -1556,7 +1556,7 @@ the ring, portal, hood, siding, rib and base glow (`STRUCTURE_LINES`; BC and SI 
 shapes): `python validate_thinlines_all.py` against `textures/thinlines/`, mask = lit texels grown
 one texel outside the arm lines, 171,516 texels; BC changed 115,966, SI 115,872, NM and RM 0, 0
 outside the mask, SI ceiling 179. That set edits structure glow, which
-`TRAIN_HUB_STRUCTURE_high.md` also owns: whoever fires it starts from the owner's choice here.
+`Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md` also owns: whoever fires it starts from the owner's choice here.
 OptInPack `29101e8`: all six arms carry B3's light style, **234 lights = 6 × 39**, up from 142
 (the beads are the densest style). The pad and strips-off sets rebake unchanged.
 **Correction, owner, 2026-09-21: B3 "was the wrong blue, it was the other blue that i wanted",
@@ -1582,7 +1582,7 @@ daylight look, and the both-configuration and toggle ship tests on the final bui
 **Owner, 2026-09-21, on the cost reading: "we should finish the model update and get its lighting
 done to test the gpu part because right now we would just be testing the tracks."** The hub off
 against on reading is DEFERRED to the whole hub: structure maps, then the structure's own lights,
-then one reading. `TRAIN_HUB_STRUCTURE_high.md` carries all three and starts from restore point 3.
+then one reading. `Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md` carries all three and starts from restore point 3.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 

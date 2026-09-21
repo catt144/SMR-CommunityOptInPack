@@ -175,7 +175,7 @@ once. A vanilla field written by a module is not a new persisted name, but its s
 receives the §3/§3a analysis.
 
 Row 10 is the build-3b dev hub's crossing lock (owner, 2026-09-20; its brief is retired into
-`prompts/TRAIN_HUB_MOVE_high.md`, which now owns the file). An interrupted but valid train retains
+`prompts/Train_Hub_Project/Parked/TRAIN_HUB_MOVE_high.md`, parked since the owner declared the movement work finished on 2026-09-21). An interrupted but valid train retains
 the lock until the existing train cleanup removes it: interruption is not physical clearance.
 The hub's bounded movement frames are a content residual under §0; removing a mod with placed
 hubs remains unsupported. `SMROptInTrainFloor.HubParkDistance` is a load-time tunable, not a

@@ -1,4 +1,4 @@
-# Train hub build 4: repair drones
+# Train hub drones (build 4): the hub's repair drones
 
 **LIVE, but not next** (owner, 2026-09-21): the hub look comes first. Nothing holds this brief; the
 movement work is finished. The drone system it describes is unbuilt beyond a few test drones. It changes the hub's economy, so it builds on build 3's power, cost and storage numbers, not
@@ -98,7 +98,7 @@ build 2's.
    earlier break; your call whether the drones queue repairs nearest-first or in break order,
    recorded in the report.
    **Design the pending list for two kinds, repair and build** (owner, 2026-09-19): build 5,
-   `TRAIN_HUB_BUILDTRACK_high.md`, will have the hub construct new track through the same
+   `04_TRAIN_HUB_BUILDTRACK_high.md`, will have the hub construct new track through the same
    completion path, sequentially from the connected end. Give the list a kind field now so build 5
    adds no second persisted name; ship only the repair kind here.
 2. **Completion.** At the deadline, `Complete()` the site through vanilla's path. The timer is the
@@ -163,4 +163,4 @@ colony.
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `docs/agent/prompts/README.md` once its smoke is recorded.
+One-off. Delete this file and its row in `Train_Hub_Project/README.md` once its smoke is recorded.
