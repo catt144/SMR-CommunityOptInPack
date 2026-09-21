@@ -1377,3 +1377,18 @@ show** that drones draw a hub's or ordinary station's stock for a nearby site; b
 prediction 9 (the Metals reserve against a construction site in the hub's radius) is still
 untested. For §4.3's owed `accept` retest, a train-yard site in drone range is a Metals consumer
 whose supply may be the yard pad and not the station, so the fixture must keep the two apart.
+
+
+**MOVE implementation update, 2026-09-20 (SOURCE, visual smoke owed).** The dev hub now curves
+from the running centreline onto its loading siding while braking and rejoins while accelerating,
+only after the existing exit/crossing guard clears. Stop/Spawn move together onto the siding;
+reservation identity remains the connector. Pause, park, lateral offset, entry and both rejoin
+positions are live tunables, never solved from train length. Outer-slide and turn timing is
+unchanged. The hub-only dwell is implemented as a synchronous adjustment of the remaining
+`WaitWakeup` deadline, scoped to the parked hub train's LoadTrain/UnloadTrain command thread:
+6000 game ms from command start, preserving the 100 ms floor after long transfers. Vanilla
+stations retain their original input; no wakeup helper or Train command replacement is needed.
+The mocked smoke passes, including archived loading commands and vanilla control. Native
+appearance, timing, save/load and cold start remain owed; see the build report's
+"Siding movement and hub dwell prototype" for the prepared sitting. Loading policy/full
+queueing, textures and build 4 remain deferred under their existing gates.

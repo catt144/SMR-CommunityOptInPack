@@ -686,3 +686,71 @@ provides no more specific runtime id. No subagents were used.
 "Routing works" is never the claim; the claim is N routes exchanging cargo through one hub in
 the tested colony. "The reserve works" needs predictions 7, 9 and 10 together: the ledger's
 `reserve_took_by_train=0`, the waiting site, and the payment from stock.
+
+
+## Siding movement and hub dwell prototype, 2026-09-20
+
+**Authority:** the current `TRAIN_HUB_MOVE_high.md`, owner 2026-09-20. Authoring HEAD
+`8a97a1d9e764525d1f38ed6c0e2c871fb87e6ae0`. The existing model-prompt, entity, mesh and metadata
+working changes are outside this commit. No asset work, oracle or native unattended run.
+
+**Implemented, visual acceptance owed:** `HubMoveOntoSiding` reaches the entry point on the
+running centreline, then blends the lateral movement into braking to the siding's Stop.
+`HubRejoinFromSiding` blends the return into acceleration after the existing crossing/exit
+guards grant access. A blocked departure remains parked on its siding; it does not enter the
+running line while waiting. Through trains stay centred. Stop and Spawn share the siding
+position, so spawn exclusion, own-thread reverse eligibility and reservation reconstruction
+continue to use connector identity, never distance to a moved spot. Load migration places
+parked trains on the siding; native serialization remains untested for this revision.
+The occupied-exit guard is retained unchanged. Scheduling and mutually blocked departures
+remain the deferred loading/queueing pass; this is no claim that sidings solve that policy.
+
+**Provisional tunables (source defaults, not measured positions):** pause 45 m; park 13 m;
+siding offset 3.75 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 5 m;
+reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
+The outer slide and existing turns retain their prior timing. Sidings use distance-based
+smoothstep lateral interpolation and a braking/acceleration speed profile, with no extra stop.
+
+**Dwell mechanism:** `HubDwellTime = 6000` game ms per command. SOURCE: archived
+1.1.0.403908 `Lua/Units/Train.lua:281,450` supplies the remaining vanilla deadline to
+`WaitWakeup`. A chained input wrapper subtracts the difference between vanilla and hub dwell,
+then applies the 100 ms floor. It scopes by the current command thread, LoadTrain/UnloadTrain,
+parked state and ownership by a placed dev hub across loaded maps. Foreign stations and
+threads delegate unchanged. This uses the policy's synchronous-input layer instead of the
+brief's proposed Wakeup helper: no command replacement, wakeup timer, saved timestamp or
+boarding interruption. Tail delegation adds no post-yield work. The command bodies and cargo
+handling remain vanilla. Source defaults cap the live dial at vanilla's dwell.
+
+**RAN at the authoring HEAD plus working diff:**
+`python tools/devmods/train_hub/tests/move_smoke.py` passed. It executes the hub methods and
+archived vanilla loading commands with mocked native services: arrival braking without an
+intermediate siding stop, reservations, blocked departure held on the siding, reverse/other-line
+exit, parked-load repositioning, cold-start gates, hub deadline and floor after long transfers,
+vanilla-station control, foreign-thread exclusion and live dwell tuning. This establishes Lua
+control flow only; native interpolation, actual cargo/passengers, save/load and appearance
+are still owed. No oracle or prediction battery was run.
+`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` and the same command with
+`--dir C:/Dev/SMR-BugFixPack-TestKit/Code` passed. `python tools/doccheck.py` is GREEN in both
+pack repos after normalizing mixed endings introduced by the report append. Archive bytes
+were left intact. The shared TestKit slots match the prepared source here and remain
+uncommitted in that local-only repo; no action is armed at load.
+
+**Prepared owner smoke ? first batch [NEVER RUN for this revision]:** restart the game with the
+current dev hub and TestKit; load the owner's current fixture.
+
+1. Pause, select the hub, run Scratch then slot 1. Read the actual tunables and inspect the siding park.
+2. Slot 6 cycles pause, park, siding offset, entry, inward rejoin, reverse rejoin, dwell.
+   Slots 2/5 decrease/increase the selected value: 1 m for along-spur positions, 0.25 m for
+   lateral offset, 500 game ms for dwell. Tune paused with no arrival/crossing. Park/offset
+   changes reposition parked trains; other changes apply to the next movement or wait.
+3. Watch arrival: arm stop, outer slide, centred entry, curved braking onto the siding.
+4. Watch unload/load and departure: roughly 6 game seconds per hub command; curved rejoin
+   only once the exit clears. Slot 3 retains straight/60?/120?/reverse departure setup.
+5. Time one vanilla-station stop as the 12-game-second control, then repeat the visible cycle
+   at fast and fastest. Report the chosen tunables and any contact, clipping or abrupt movement.
+
+Next batch still owes two-train outside waiting, 60?/120?/reverse, parked-plus-crossing save/load
+(slot 4; re-arm after autosave), and cold start with Stirling supply disabled. The shared owner
+item ck206 points here. The MOVE prompt remains live; build 4 and textures remain held.
+Executed model: GPT-6 (Codex), as identified by this transcript; no more specific runtime id
+is supplied. No subagents were used.

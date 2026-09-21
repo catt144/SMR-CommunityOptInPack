@@ -34,9 +34,56 @@ local Floor = SMROptInTrainFloor
 -- outward from the hub centre. Neither is derived from the disputed length.
 -- Pause moved outward after the owner saw the stop 1.5-2 hexes too late;
 -- 45 m is the next visual trial. Park starts at the owner's lane-era
--- 13 m and needs judging again on the centre. Both reset on a full restart.
+-- 13 m and needs judging again on the siding. Both reset on a full restart.
 Floor.HubTransitionPauseDistance = 45 * guim
 Floor.HubParkDistance = 13 * guim
+-- Provisional owner-facing positions, never calculated from train length.
+-- Positive offset is clockwise of the outward spur (the imported siding hand).
+Floor.HubSidingOffset = 3.75 * guim
+Floor.HubSidingEntryDistance = 23 * guim
+Floor.HubSidingRejoinDistance = 5 * guim
+Floor.HubSidingReverseRejoinDistance = 23 * guim
+Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
+
+-- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
+-- issue exactly one WaitWakeup, after transfer/boarding, with the remaining
+-- portion of a 12-second deadline. Subtract the difference from that input:
+-- max(max(12000-elapsed,100)-6000,100) == max(6000-elapsed,100).
+-- Layer 3 input adjustment; tail delegation has no post-yield work. No new
+-- timer, saved timestamp, command replacement or early boarding wakeup.
+local function hub_dwell_train(hub, thread, result)
+	for _, train in ipairs(hub.city.labels.Train or empty_table) do
+		if train.current_station == hub and train.at_station
+			and train.command_thread == thread
+			and (train.command == "LoadTrain" or train.command == "UnloadTrain") then
+			result.train = train
+			return
+		end
+	end
+end
+
+local function install_hub_dwell()
+	if Floor.HubDwellInstalled then return end
+	local previous = rawget(_G, "WaitWakeup")
+	if type(previous) ~= "function" or type(AllMapsForEach) ~= "function" then
+		print("[TrainHubDev] hub dwell unavailable: wait/map API missing")
+		return
+	end
+	local wrapper = function(timeout, ...)
+		if rawget(_G, "SMROptInTrainFloor") and type(timeout) == "number"
+			and timeout >= 100 and timeout <= const.HourDuration / 5 then
+			local result = {}
+			AllMapsForEach("map", "SMROptInTrainHubBase", hub_dwell_train, CurrentThread(), result)
+			if result.train then
+				local dwell = Max(100, Min(SMROptInTrainFloor.HubDwellTime, const.HourDuration / 5))
+				timeout = Max(timeout - (const.HourDuration / 5 - dwell), 100)
+			end
+		end
+		return previous(timeout, ...)
+	end
+	_G.WaitWakeup = wrapper
+	Floor.HubDwellInstalled = rawget(_G, "WaitWakeup") == wrapper
+end
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
 
@@ -201,9 +248,14 @@ local function synthetic_spot_pos(self, kind, idx)
 		y = cy + MulDivRound(y - cy, distance, radius)
 	end
 	if kind == "Ramparrive" or kind == "Rampdepart" then
-		-- Only the transition's outer end is on vanilla's lane. Stop/Spawn
-		-- and every interior waypoint are on our rail's centreline.
+		-- Only the transition's outer end is on vanilla's lane.
 		local ox, oy = lane_offset(self, idx, kind ~= "Rampdepart")
+		x, y = x + ox, y + oy
+	end
+	if kind == "Stop" or kind == "Spawn" then
+		local radius = self:GetDist2D(point(x, y))
+		local ox = MulDivRound(y - cy, Floor.HubSidingOffset, radius)
+		local oy = MulDivRound(cx - x, Floor.HubSidingOffset, radius)
 		x, y = x + ox, y + oy
 	end
 	return point(x, y, z), direction
@@ -493,13 +545,62 @@ function SMROptInTrainHubBase:HubEnterTrain(train, idx)
 	return self:HubSlideTrain(train, ramp - point(ox, oy, 0))
 end
 
+function SMROptInTrainHubBase:HubCentrePosition(idx, distance)
+	local ramp = synthetic_spot_pos(self, "Ramparrive", idx)
+	local ox, oy = lane_offset(self, idx, true)
+	local cx, cy = self:GetPosXYZ()
+	local centre = point(cx, cy, ramp:z())
+	local radial = ramp - point(ox, oy, 0) - centre
+	return centre + MulDivRound(radial, distance, Floor.HubTransitionPauseDistance)
+end
+
+-- One longitudinal acceleration/braking profile, with a smoothstep lateral
+-- offset. Subdivision follows distance, not game speed. No sideways stop or
+-- extra dwell is inserted; yaw stays along the spur as on the outer slide.
+function SMROptInTrainHubBase:HubSidingCurve(train, destination, final_speed, idx)
+	local start = train:GetPos()
+	local cx, cy = self:GetPosXYZ()
+	local centre = point(cx, cy, start:z())
+	local axis = self:HubCentrePosition(idx, guim) - centre
+	local delta = destination - start
+	local along = MulDivRound(delta:x(), axis:x(), guim)
+		+ MulDivRound(delta:y(), axis:y(), guim)
+	local forward = MulDivRound(axis, along, guim)
+	local lateral = delta - forward
+	local initial_speed = pf.GetSpeed(train)
+	for i = 1, 8 do
+		local f = MulDivRound(i * i * (24 - 2 * i), 1000, 512)
+		local pos = start + MulDivRound(forward, i, 8) + MulDivRound(lateral, f, 1000)
+		-- v^2 varies linearly with distance under constant acceleration.
+		local speed = sqrt(Max(0, initial_speed * initial_speed
+			+ MulDivRound(final_speed * final_speed - initial_speed * initial_speed, i, 8)))
+		if not self:HubMoveTrain(train, pos, speed) then return end
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+	end
+	return true
+end
+
+function SMROptInTrainHubBase:HubMoveOntoSiding(train, idx)
+	if not self:HubMoveTrain(train, self:HubCentrePosition(idx, Floor.HubSidingEntryDistance),
+		train:GetNominalMoveSpeed() / 3) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	return self:HubSidingCurve(train, synthetic_spot_pos(self, "Stop", idx), 0, idx)
+end
+
+function SMROptInTrainHubBase:HubRejoinFromSiding(train, idx, reverse)
+	local distance = reverse and Floor.HubSidingReverseRejoinDistance or Floor.HubSidingRejoinDistance
+	if reverse then train:SetAngle(synthetic_spot_angle(self, "Rampdepart", idx)) end
+	return self:HubSidingCurve(train, self:HubCentrePosition(idx, distance),
+		train:GetNominalMoveSpeed() / 3, idx)
+end
+
 function SMROptInTrainHubBase:TrainArrive(train, arrival_track)
 	local idx = self:GetConnectionSpot(arrival_track)
 	if not idx or not self:HubAcquireCrossing(train) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	if not self:HubEnterTrain(train, idx) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
-	if not self:HubMoveTrain(train, synthetic_spot_pos(self, "Stop", idx), 0) then return end
+	if not self:HubMoveOntoSiding(train, idx) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	train:StopInterpolation()
 	train.current_station = self
@@ -553,6 +654,8 @@ function SMROptInTrainHubBase:TrainDepart(train, departure_track)
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	train.at_station = false
 	local arrival_idx = train.station_arrival_track or idx
+	if not self:HubRejoinFromSiding(train, arrival_idx, arrival_idx == idx) then return end
+	if not rawget(_G, "SMROptInTrainFloor") then return end
 	if not self:HubRouteTrain(train, arrival_idx, idx, departure_track, arrival_idx == idx) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	train.station_arrival_track = nil
@@ -1173,6 +1276,7 @@ DefineClass.SMROptInTrainHub6Base = {
 -- authoritative and now names the imported entity; this postprocess keeps the
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
+	install_hub_dwell()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
 		class.entity = "SMROptInTrainHub6"
