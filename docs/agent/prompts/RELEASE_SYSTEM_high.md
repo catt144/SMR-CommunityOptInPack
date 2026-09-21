@@ -5,7 +5,7 @@
 
 ```sh
 git log --oneline -8 && git pull && python tools/doccheck.py | tail -1
-git -C C:/Dev/SMR-BugFixPack log --oneline -5 -- docs/UPLOAD_WORKFLOW.md docs/agent/prompts/perma/release_prompt.md docs/agent/support/
+git -C B:/Dev/SMR/SMR-BugFixPack log --oneline -5 -- docs/UPLOAD_WORKFLOW.md docs/agent/prompts/perma/release_prompt.md docs/agent/support/
 ```
 
 ## Authority — settled
@@ -14,7 +14,7 @@ git -C C:/Dev/SMR-BugFixPack log --oneline -5 -- docs/UPLOAD_WORKFLOW.md docs/ag
 through github will be shared but it was pre designed that way so that shouldn't be to much of a
 prompt."*
 
-⚖️ **Owner, 2026-09-17:** this repo standardises on the fix pack (`C:\Dev\SMR-BugFixPack`), which it
+⚖️ **Owner, 2026-09-17:** this repo standardises on the fix pack (`B:\Dev\SMR\SMR-BugFixPack`), which it
 was forked from — same folder and file names wherever the function is the same, same rules and
 workflow; only repo-specific content differs. Where the fix pack has no name for something this
 repo needs, stop and report; do not coin one.

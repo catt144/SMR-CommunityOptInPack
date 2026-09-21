@@ -22,7 +22,7 @@ Rule: Record every count with its command and filter and reconcile each total ag
 Rule: Record the executed model from the transcript at close-out. [A3: pass]
 Rule: Attribute shared-tree work by commit and diff rather than author identity. [A3: pass]
 Rule: Recheck shared paths before writing; commit with a pathspec unless partial hunks of a peer-shared file are staged, which a pathspec would discard. [A3: pass]
-Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `C:\Dev\SMR-BugFixPack` and not here. [A3: pass]
+Rule: Read a bare donor file name, `F##`/`C##` id or `Fix_*.lua` inside an adapted clause as the fix pack's, resolving under `B:\Dev\SMR\SMR-BugFixPack` and not here. [A3: pass]
 Rule: Change a shipping module's behaviour only under an owner ruling recorded for this mod. [A3: pass]
 <!-- /RULES -->
 
@@ -71,7 +71,7 @@ reusable ones live in `prompts/perma/`, and one-offs live at the prompt root unt
 
 ⚠️ **Each mod has its own owner's list.** This mod's is `docs/PLAYTEST_CHECKLIST.md` (owner,
 2026-09-12; the fix pack's name and rules since 2026-09-17). What binds the fix pack goes on
-`C:\Dev\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`; `docs/README.md` says which classes. Live
+`B:\Dev\SMR\SMR-BugFixPack\docs\PLAYTEST_CHECKLIST.md`; `docs/README.md` says which classes. Live
 playtest runs of this mod's modules go there too, because the owner plays ONE game with BOTH
 mods loaded (owner, 2026-09-18).
 

@@ -9,7 +9,7 @@ description: Read or file a module record, defect entry or engine fact in the Op
 Mod Options enable surface; `docs/agent/facts/` holds the engine facts (`EF-NNN`), mirrored
 from the fix pack. Both carry a **generated** `INDEX.md`.
 
-⛔ **`EF-` ids are ALLOCATED BY THE FIX PACK.** File a new fact in `C:\Dev\SMR-BugFixPack`
+⛔ **`EF-` ids are ALLOCATED BY THE FIX PACK.** File a new fact in `B:\Dev\SMR\SMR-BugFixPack`
 first, then mirror it here at the same id and say so in both. Minting an `EF-` number in this
 repo alone is what caused the 2026-08-16 collision.
 

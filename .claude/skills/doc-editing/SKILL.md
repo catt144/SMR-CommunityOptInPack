@@ -67,7 +67,7 @@ the always-loaded set.
 
 Find duplicates by meaning, not by string. The worked reasoning, the owner's
 wording and the calibration warning are in the fix pack's
-`docs/agent/reports/RULE_PLACEMENT_TEST.md`, under `C:\Dev\SMR-BugFixPack`.
+`docs/agent/reports/RULE_PLACEMENT_TEST.md`, under `B:\Dev\SMR\SMR-BugFixPack`.
 
 ## Keep regeneration within the edit
 

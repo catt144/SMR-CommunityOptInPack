@@ -6,7 +6,7 @@
 
 ## 0 · Why this exists
 
-This mod split out of the Relaunched Fix Pack (`C:\Dev\SMR-BugFixPack`) on 2026-08-12 and has had
+This mod split out of the Relaunched Fix Pack (`B:\Dev\SMR\SMR-BugFixPack`) on 2026-08-12 and has had
 two ports since — the 2026-08-31 readiness pass and a one-file repair on 2026-09-12
 (donor @ `bec2e06` and `85d95cb`). Ports move what someone *noticed* was missing. Nobody has asked the
 mechanical question:
@@ -60,7 +60,7 @@ misses real references:
 
 For each citation, classify:
 - **RESOLVES** — the target is here. Nothing to do.
-- **DANGLING, DONOR HAS IT** — absent here, present in `C:\Dev\SMR-BugFixPack`. **This is the action
+- **DANGLING, DONOR HAS IT** — absent here, present in `B:\Dev\SMR\SMR-BugFixPack`. **This is the action
   list.** Say which file cites it, whether that citer is live work or a record, and the donor's size.
 - **DANGLING, NOWHERE** — absent in both. A broken reference; report it, do not invent a target.
 - **STALE-SHAPED** — resolves, but the citer names a section/line the target no longer has.
@@ -72,7 +72,7 @@ it if present: run the same method against a file you know exists and show the h
 misses, and all 54 DONOR-HAS-IT rows were cited on purpose. Each run pays for that again until the
 helper learns it, so both are this pass's job, with no ask needed (it is this repo's own tool):
 - **A miss class that repeats extends the resolver.** Known places it did not search: the TestKit repo
-  (`C:\Dev\SMR-BugFixPack-TestKit`), subfolders of the archived game source
+  (`B:\Dev\SMR\SMR-BugFixPack-TestKit`), subfolders of the archived game source
   (`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `B:\Dev\SMR\SMR-Assets\`, and git history
   (`git log --all -- <path>` for consumed prompts). Fix-pack ids (`C##`, `F##`) are donor names.
 - **A citation that is intentional by class gets a declared row**, with its reason, in the same shape
@@ -82,7 +82,7 @@ helper learns it, so both are this pass's job, with no ask needed (it is this re
 
 ## 2 · The reverse question: what does the donor hold that this repo needs?
 
-Narrower and judgement-heavy, so keep it bounded. In `C:\Dev\SMR-BugFixPack` (**read-only — never
+Narrower and judgement-heavy, so keep it bounded. In `B:\Dev\SMR\SMR-BugFixPack` (**read-only — never
 write to that repo**), look only for material whose *subject* is this mod:
 - anything naming `Opt_AcknowledgedWarnings`, `Opt_ClassicRockets`, `Opt_CohortHousing`,
   `Opt_DroneOverhaul`, `Opt_DroneStatDials`, `Opt_MultipleSuns`, `Opt_NoHomeless`,
@@ -138,7 +138,7 @@ Cheap checks; findings become §5 recommendations, never edits in this step:
 
 ## 4 · Rules
 
-- **Write only in this repo.** `C:\Dev\SMR-BugFixPack` is read-only from here. If something needs to
+- **Write only in this repo.** `B:\Dev\SMR\SMR-BugFixPack` is read-only from here. If something needs to
   change there, put it in the report and say so; a human carries it across.
 - **Copy verbatim or not at all.** A ported file is byte-identical; record its donor sha and md5 in
   the commit message, and move `LAST_SYNC` in that commit when a sync completes. Two identical

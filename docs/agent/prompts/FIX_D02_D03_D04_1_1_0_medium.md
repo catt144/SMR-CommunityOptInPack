@@ -32,7 +32,7 @@ All three findings are desk-read only, from the two archived trees
 (`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.0.7.396349\Src`, `…\1.1.0.403908\Src`) — none has been run in the actual
 game. Read each module's own bug entry before touching its file; each carries the exact citations
 this brief summarizes. The fix pack's own `F117`
-(`C:\Dev\SMR-BugFixPack\docs\agent\bugs\F117.md`) independently hit and *executed-fixed* the
+(`B:\Dev\SMR\SMR-BugFixPack\docs\agent\bugs\F117.md`) independently hit and *executed-fixed* the
 identical `ChooseDome` argument-shape change in a different module — read it before writing D03's
 guard; it confirms `colonist.traits.Tourist` is where the flag lives on 1.1.0, with a real Lua
 harness, not just a source read.
@@ -48,7 +48,7 @@ harness, not just a source read.
   small `is_tourist(traits)` helper is enough. No runtime probe needed: unlike F117, guessing wrong
   here has no throw/mis-score risk, just a wrong boolean. Your call on the exact helper shape.
 - Fix the probe that would otherwise keep passing regardless of the bug:
-  `C:\Dev\SMR-BugFixPack-TestKit\Code\60_Probes_Opt.lua:140` calls
+  `B:\Dev\SMR\SMR-BugFixPack-TestKit\Code\60_Probes_Opt.lua:140` calls
   `ChooseDome({ Tourist = true }, ...)` — the 1.0.7 shape. Change it to the 1.1.0 shape
   (`{ traits = { Tourist = true } }` or equivalent) so it actually exercises the regression.
   Confirm it FAILs against the unfixed wrapper before landing the code fix, then PASSes after —

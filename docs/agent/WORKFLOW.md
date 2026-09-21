@@ -18,11 +18,11 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
 - Saves: reach them through the fix pack's `saves/` folder (its WORKFLOW "Layout"); this repo has
   none.
 - TestKit, never shipped and local-only by decision, shared with the fix pack:
-  `C:\Dev\SMR-BugFixPack-TestKit`; a shared probe is changed once, there. Its README is the kit's
+  `B:\Dev\SMR\SMR-BugFixPack-TestKit`; a shared probe is changed once, there. Its README is the kit's
   own build-state document; the durable pack-side view is `tools/TESTKIT.md`, and the SMR Tool Kit
   plus its sitting slots are `tools/SMRTK.md`. Both are the fix pack's bytes, mirrored (owner,
   2026-09-18) and checked by `python tools/sync_from_fixpack.py --tools`: change them there first.
-- Sibling mods: the Relaunched Fix Pack `C:\Dev\SMR-BugFixPack` (its own docs) and the save-rescue
+- Sibling mods: the Relaunched Fix Pack `B:\Dev\SMR\SMR-BugFixPack` (its own docs) and the save-rescue
   tool `B:\Dev\SMR\SMR-CommunitySaveRescue` (design and status in the fix pack's `bugs/D13.md`;
   unpublished, held as a contingency).
 
@@ -80,7 +80,7 @@ invisible to the runtime self-checks.
    This repo has no body or tree-diff instrument (`FIX_POLICY.md`'s adaptation note): every other
    module target is re-read in both trees' bodies.
 3. The 1.0.7 → 1.1.0 diff is already analysed in the fix pack, under
-   `C:\Dev\SMR-BugFixPack\docs\agent\reports\`: `GAME_1_1_0_AUDIT.md` and `GAME_1_1_0_IMPACT.md`
+   `B:\Dev\SMR\SMR-BugFixPack\docs\agent\reports\`: `GAME_1_1_0_AUDIT.md` and `GAME_1_1_0_IMPACT.md`
    (what the patch changed), `VANILLA_DIFF_DISPOSITION.md`, `PACK_1_1_0_REVERIFICATION.md`, and the
    precomputed `vanillahunt\*.tsv` tables (files, function inventory, callers, presets). Read those
    before sweeping either tree; a bare `reports/GAME_1_1_0_*` or `PACK_1_1_0_*` citation in a
@@ -304,6 +304,6 @@ fingerprint and re-derive only what moved; zero-trust re-derivation is the termi
 "The pack" means this mod unless the Relaunched Fix Pack is named. This file is the fix pack's
 WORKFLOW with this repo's names; a donor name left in it (a bare `F##`/`C##`/`PT-##`/`ck###`/`D13`,
 a `Fix_*.lua`, `PRIOR_ART_SURVEY.md`, `RELEASE_PORTAL_PREP.md`, `PARKED_OPTIN_REFERENCES.md`,
-`UPLOAD_WORKFLOW.md`) resolves in `C:\Dev\SMR-BugFixPack`. A cross-mod sweep searches
+`UPLOAD_WORKFLOW.md`) resolves in `B:\Dev\SMR\SMR-BugFixPack`. A cross-mod sweep searches
 those names as well as `SMRFixPack`/`Community`; `\bC[0-9]{2}\b` over-reports co-run corrections
 and audit ids, so it cannot supply a count by itself.

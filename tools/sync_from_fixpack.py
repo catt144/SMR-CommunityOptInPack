@@ -2,7 +2,7 @@
 """Cross-repo sync helper: what has the fix pack got that this repo needs?
 
 Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has
-made significant changes in `C:\\Dev\\SMR-BugFixPack` and wants to know what
+made significant changes in `B:\\Dev\\SMR\\SMR-BugFixPack` and wants to know what
 lands here. It does the MECHANICAL half only and never decides anything: the
 session reads this report and adjudicates.
 
@@ -48,7 +48,8 @@ except (AttributeError, OSError):
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DONOR = os.environ.get("SMR_FIXPACK", r"C:\Dev\SMR-BugFixPack")
+# The donor is this repo's sibling; a sibling-relative default survives a tree move.
+DONOR = os.environ.get("SMR_FIXPACK", os.path.join(os.path.dirname(REPO), "SMR-BugFixPack"))
 
 # ---------------------------------------------------------------------------
 # THE DECLARED LEDGER. This is what 15,599 B of port-ledger narrative reduced
@@ -334,7 +335,8 @@ SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"B:\Dev\SMR\SMR-Shared\SMR-SrcAr
 
 # Places a citation may resolve that are neither this repo's docs/ nor the donor
 # (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):
-TESTKIT = os.environ.get("SMR_TESTKIT", r"C:\Dev\SMR-BugFixPack-TestKit")
+TESTKIT = os.environ.get("SMR_TESTKIT", os.path.join(os.path.dirname(REPO),
+                                                     "SMR-BugFixPack-TestKit"))
 TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"B:\Dev\SMR\SMR-Assets\trainhub")
 _SKIP_DIRS = (".git", "__pycache__", "node_modules")
 _indexes = {}
