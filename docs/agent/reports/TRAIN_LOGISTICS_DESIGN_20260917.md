@@ -1273,6 +1273,33 @@ next iteration is DEFERRED by the owner, 2026-09-21; the order when it resumes i
 first and alone, then RM metalness and roughness variation, then base-colour break-up, and texel
 density measured only if blur survives all three.
 
+**Restore points: five paired tags, and none carries a texture.** Both repos hold the same five,
+all 2026-09-21, in this order by SMR-Assets commit: `hub-model-final-untextured` (`54eb84d`, final
+geometry, before any look work) → `hub-prepaint-uv-frozen-20260921` (`69b23fc`, first UV freeze,
+no paint) → `hub-look-first-cut-20260921` (`35cda1a`) → `hub-centre-uv-frozen-20260921`
+(`381fb1c`, centre overlap removed, UVs refrozen) → `hub-centre-lights-20260921` (`09bd145`,
+the imported state). **The UV base for any repaint is `hub-centre-uv-frozen-20260921`**;
+`hub-prepaint-uv-frozen` says "no paint" but predates the centre fix and would bring the z-fight
+back. `git ls-files trainhub/blender/textures/` is empty in SMR-Assets, so a rollback restores
+geometry and UVs only: the TGAs in `textures/concept/` and the dev mod's DDS stay put and would
+then be painted against UVs that no longer exist, with no error.
+
+**An external AI texturing trial (owner, 2026-09-21).** The owner wants the concept painted onto
+the real model by a dedicated AI tool, **for comparison first** — a paint on our own UVs gives
+agents a truer reference than screenshots, even if none of it ships. `blender/export_for_texturing.py`
+(SMR-Assets `df9bb50`) gates on `concept_guard.verify_scene`, never saves the blend, and writes the
+body alone — spots, surfaces and our flat maps stripped — as GLB, OBJ and FBX to the gitignored
+`export/for_texturing/`, with `MODEL_FACTS.json` (12,778 vertices, 11,656 faces, 24,094
+triangles, one `UVMap`, about 144 × 160 × 21 m, Y up). Run once: the gate passed; checked outside
+Blender, the GLB carries `TEXCOORD_0` over all 24,094 triangles and all 11,656 OBJ faces reference
+a UV. A copy with the concept art and a README went to the owner's Desktop,
+`C:\Users\stkot\OneDrive\Desktop\TrainHub_for_texturing`. ⛔ **The one rule for the tool: it must
+paint onto the existing mesh's existing UVs.** A tool that generates a new mesh from an image
+(Tripo's category, dropped 2026-09-19) or offers to re-unwrap produces something that cannot be
+compared like for like. A result on our UVs can be dropped into the dev mod for an in-game
+side-by-side; it is not shippable as-is, since the game wants BaseColor, Normal, RM and a
+one-channel SI mask. The owner is bringing new reference images to the next session.
+
 ---
 
 ---

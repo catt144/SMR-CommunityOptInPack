@@ -51,23 +51,16 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, 2026-09-21.** The model is FINAL and the transitions are ACCEPTED
-     (owner: *"everything fits and nothing clips"*, *"transitions are 99%... they have convinced
-     me"*), so **the texture gate is LIFTED** (spec §9). Restore tags in BOTH repos:
-     `hub-model-final-untextured` (the greened model, unpainted) and `hub-centre-lights-20260921`.
-     The look pass (`TRAIN_HUB_LOOK_high.md`) is live and iterating: the owner imported the first
-     concept maps and saw them in game, the SI glow slot is CONFIRMED exposed by the Mod Editor, and
-     the rebuilt body — centre plate for the z-fight, relaid dash lights — is exported and awaiting
-     ONE import round and the owner's look. The glass and the themed reactor are DEFERRED by the
-     owner until after that.
-   - ⛔ **THE IMMEDIATE NEXT ACTION IS THE TREE MOVE, and part of it is yours.** Every SMR repo moves
-     to a new structure (owner, 2026-09-21); a doc orchestrator owns the move, and the boundary and
-     the full inventory are [`docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`](../../support/MOVE_PATH_INVENTORY_20260921.md).
-     **Yours after it lands:** the five editor-held paths, the game's five mod symlinks, the dev
-     mod's hard-coded test scripts, then the verification import with the owner. ⚠️ **The Mod Editor
-     STORES absolute paths and REASSERTS them over a drag** — a different FBX imports the old file
-     silently, with no error. Rewrite with the editor CLOSED and prove it by reading the Importer's
-     header before importing. Import the glass and reactor AFTER the move so they are born correct.
+   - **WHERE THE PROJECT STANDS, close of 2026-09-21.** The model is FINAL at radius 6 and
+     owner-accepted; the transitions are ACCEPTED. The tree move is DONE for this role: both
+     editor headers read `B:\Dev\SMR\SMR-Assets` and the owner imported the rebuilt body on them
+     (`7c3e74c`); the record is `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. ⛔ **Next
+     session: the owner is bringing new reference images** for an external AI texturing trial on
+     the bare exported model. Read spec §9 "The first concept import in game" first — it holds why
+     the hub looks like flat paint, the five restore tags, and the trial's one rule (the tool must
+     paint on our existing UVs). The look iteration itself is HELD by the owner.
+   - **Live, fire when the owner wants an agent spent:** `TRAIN_HUB_LOADERRORS_low.md`, two errors
+     the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
      `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
@@ -92,12 +85,6 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      the stub at one hex on 2026-09-20 and directed one more (spec §9), which moves the connectors
      to radius 5 on the owner's own measurement. The oracle stays the check instrument for
      spot changes, but its `--train-length-m` default inherits the doubt;
-   - **One assets folder: `B:\Dev\SMR\SMR-Assets`** (owner, 2026-09-20), and since 2026-09-21 the ONLY
-     path: the old name's junction is DELETED. The one thing still holding it was the dev mod's
-     `SIE_ImportItem` `ScenePath`, and ⚠️ **the Mod Editor reasserts that stored path over a drag** —
-     a different FBX dragged in appears to do nothing and the old file imports silently, which cost
-     the owner an import. Rewrite that file on disk with the editor closed, then reopen and check the
-     Importer's header (`B:\Dev\SMR\SMR-Assets\README.md` §"The old path");
    - **The hub's ship size** (OI-18, and spec §9): `upload_preflight.py` admits no asset file types
      at all. ⭐ MEASURED 2026-09-21, the bar fell on its own: the concept maps are 2048 where the old
      ones were 4096, and the dev mod's compiled textures are **14 MB, not 44** (three dead 4096 maps
@@ -122,11 +109,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - OI-18 and OI-19 on the owner's list;
    - **the movement work is DONE and owner-accepted** (2026-09-21): centreline entry and mirrored
      exit, the six-siding transition and rejoin, the exit slide and vanilla handoff, the cold-start
-     power fix, and the 6 s dwell. The last fault was the slide onto the siding: `HubMoveOntoSiding`
-     scaled approach speed by run length, so every owner request to move the onset came back as a
-     speed change until it was decoupled (`3722283`). `TRAIN_HUB_MOVE_high.md` stays live only until
-     its smoke is recorded; the owner calls it 99% with slight tuning before launch, and tuning is
-     constants in `20_TrainHub.lua`, which costs a texture bake nothing.
+     power fix, and the 6 s dwell. `TRAIN_HUB_MOVE_high.md` stays live only until its smoke is
+     recorded. ⚠️ That smoke must be played **at radius 6**: the motion was tuned before the
+     connectors moved 20 m out, and the brief names the three constants to suspect first. The
+     brief also owes a verdict on the offline smoke's 180° disagreement.
    - **Builds 4 and 5** (`TRAIN_HUB_REPAIR_high.md`, `TRAIN_HUB_BUILDTRACK_high.md`) stay HELD in
      order behind the movement smoke. A brief still in the map has not finished.
    - **Loading policy and full queueing** are the owner's own next pass, deferred 2026-09-20.
@@ -141,13 +127,13 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
      upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
      wave. Spec §10 holds the open questions. Decide after the movement prototype;
-   - **the look pass is LIVE and iterating** (`TRAIN_HUB_LOOK_high.md`), not unbriefed. Settled in
-     it, with citations in spec §9: the SI glow map is a ONE-CHANNEL BC4 mask, so glow colour lives
-     in the base colour; `SetSIModulation` already darkens a building's glow when it stops working,
-     free, and is ours to drive per siding later; glass CANNOT live in the hub's mesh (one material
-     per node, second node discarded silently) and goes as a separate attached entity, the way every
-     vanilla dome's glass does. Still owed: the owner's night look, the glass and reactor imports,
-     and whether the hub's glow actually darkens when it stops working.
+   - **the look pass is PAUSED by the owner** (`TRAIN_HUB_LOOK_high.md`). Settled, with citations in
+     spec §9: the SI glow map is a ONE-CHANNEL BC4 mask, so glow colour lives in the base colour;
+     the hub's glow follows its working state and goes to **zero**, not dim, when it stops
+     (`SetSIModulation` 200 / 0), ours to drive per siding later; glass CANNOT live in the hub's
+     mesh (one material per node) and goes as a separate attached entity, the way every vanilla
+     dome's glass does. Still owed: the resumed look, the owner's night look, the glass and
+     reactor imports.
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
