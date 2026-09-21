@@ -1101,25 +1101,28 @@ function SMROptInTrainHubBase:InitHubSidingGlass()
 end
 
 -- Real lights on the arms (owner 2026-09-21, spec §9): three reds and three blues, one variant
--- per arm, for the owner to choose from in game. Vanilla light classes attached to the hub, so
--- no new persisted class or field; DeleteOnLoadGame + recreation like the reactor. A stopped hub
--- DESTROYS its lights (the owner measures their cost by hub off against on), never dims them.
+-- per arm, for the owner to choose from in game. The painted lines are back, thin and in the arm's
+-- colour (SMR-Assets paint_concept.py, DECK_STRIPS = 'thin'), and these lights sit ALONG those
+-- lines, small and dim, so the glow spills onto the road beside a line and never washes a
+-- platform. Vanilla light classes attached to the hub, so no new persisted class or field;
+-- DeleteOnLoadGame + recreation like the reactor. A stopped hub DESTROYS its lights (the owner
+-- measures their cost by hub off against on), never dims them.
 -- Distances are centimetres in the arm's own frame: `u` outward from the centre, `v` sideways.
+-- A variant's colour is also painted: change one here and ARM_LINE_COLOUR there, then rebake.
 local hub_light_variants = {
 	R1 = { name = "Ember rail", class = "PointLight", color = RGB(255, 40, 20),
-		intensity = 120, radius = 6 * guim, spacing = 8 * guim, height = 60 },
+		intensity = 60, radius = 3 * guim, spacing = 6 * guim, height = 40 },
 	R2 = { name = "Crimson wash", class = "SpotLight", color = RGB(220, 0, 30),
-		intensity = 200, radius = 14 * guim, spacing = 16 * guim, height = 5 * guim, inner = 60, outer = 120 },
+		intensity = 100, radius = 5 * guim, spacing = 10 * guim, height = 2 * guim, inner = 50, outer = 100 },
 	R3 = { name = "Rose beads", class = "PointLight", color = RGB(255, 60, 90),
-		intensity = 255, radius = 3 * guim, spacing = 5 * guim, height = 30 },
+		intensity = 120, radius = 150, spacing = 3 * guim, height = 30 },
 	B1 = { name = "Ice rail", class = "PointLight", color = RGB(40, 160, 255),
-		intensity = 120, radius = 6 * guim, spacing = 8 * guim, height = 60 },
+		intensity = 60, radius = 3 * guim, spacing = 6 * guim, height = 40 },
 	B2 = { name = "Deep blue wash", class = "SpotLight", color = RGB(0, 40, 255),
-		intensity = 200, radius = 14 * guim, spacing = 16 * guim, height = 5 * guim, inner = 60, outer = 120 },
+		intensity = 100, radius = 5 * guim, spacing = 10 * guim, height = 2 * guim, inner = 50, outer = 100 },
 	B3 = { name = "Cobalt beads", class = "PointLight", color = RGB(90, 110, 255),
-		intensity = 255, radius = 3 * guim, spacing = 5 * guim, height = 30 },
-}
--- Reassign here: key = the arm's local hex direction, value = a variant above. The reactor stands
+		intensity = 120, radius = 150, spacing = 3 * guim, height = 30 },
+}-- Reassign here: key = the arm's local hex direction, value = a variant above. The reactor stands
 -- between arms 0 and 1, so every arm can be found in game without a compass.
 local hub_light_arms = {
 	[0] = "R1", -- flanks the reactor, the red flank
@@ -1134,12 +1137,15 @@ local hub_light_arm_names = {
 	[2] = "next to the blue flank", [3] = "opposite the red flank",
 	[4] = "opposite the blue flank", [5] = "next to the red flank",
 }
--- The model's own edges (hub_skeleton.py): the beam is 1.75 m half-wide and ends at 65 m, the
--- platforms' outer border is 5.16 m out and runs 40-80 m. Both sides of each.
-local hub_light_rows = {
-	{ v = 175, from = 8 * guim, to = 64 * guim },
-	{ v = 516, from = 40 * guim, to = 80 * guim },
-}
+-- The painted line's own path (paint_concept.py approach_light): one line on the arm's centre
+-- out to 40 m, then two that ease apart to the platform centres, 3.46 m out, by 60 m and run
+-- straight to 80 m. Inside the ring the two floor curves stay within 0.9 m of the centre line.
+local hub_line_first, hub_line_split, hub_line_apart, hub_line_last = 8 * guim, 40 * guim, 60 * guim, 80 * guim
+local hub_line_offset = 346
+local function hub_line_v(u)
+	local t = Clamp(MulDivRound(u - hub_line_split, 1000, hub_line_apart - hub_line_split), 0, 1000)
+	return MulDivRound(MulDivRound(MulDivRound(t, t, 1000), 3000 - 2 * t, 1000), hub_line_offset, 1000)
+end
 local hub_light_classes = { "PointLight", "SpotLight" }
 
 local function clear_hub_lights(self)
@@ -1185,14 +1191,13 @@ local function set_hub_lights_working(self, working)
 			local ax, ay = hx - x0, hy - y0 -- one hex outward, hub-local
 			local length = point(ax, ay):Len()
 			local count = 0
-			for _, row in ipairs(hub_light_rows) do
-				for u = row.from, row.to, variant.spacing do
-					for side = -1, 1, 2 do
-						local x = MulDivRound(ax, u, length) - MulDivRound(ay, side * row.v, length)
-						local y = MulDivRound(ay, u, length) + MulDivRound(ax, side * row.v, length)
-						place_hub_light(self, variant, x, y, deck + variant.height)
-						count = count + 1
-					end
+			for u = hub_line_first, hub_line_last, variant.spacing do
+				local v = hub_line_v(u)
+				for side = -1, v > 0 and 1 or -1, 2 do
+					local x = MulDivRound(ax, u, length) - MulDivRound(ay, side * v, length)
+					local y = MulDivRound(ay, u, length) + MulDivRound(ax, side * v, length)
+					place_hub_light(self, variant, x, y, deck + variant.height)
+					count = count + 1
 				end
 			end
 			total = total + count
