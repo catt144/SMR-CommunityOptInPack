@@ -1461,6 +1461,43 @@ standard names); the owner's five steps are `SMR-Assets/trainhub/blender/README.
 import". Out-of-scope finding: the reactor's `blue` sampling swatch is the median lit SI texel
 and moves with this set; the deferred reactor pass already has to regenerate its UVs.
 
+**Restore point 2: `hub-road-b-nostrips-20260921`** — paired tags at OptInPack `d0e5a37` (the
+owner's editor output from the 17:25 import, BC/NM/RM/SI DDS all stamped 17:25:32, the material
+pointing at `textures/nostrips/`) and assets `5dda4b6`; 54 files, 203.9 MB, in
+`B:\Dev\SMR\SMR-Shared\SMR-HubBackups\hub-road-b-nostrips-20260921`. Strips off, no lights.
+
+**Lights step, Lua half, 2026-09-21 — OptInPack `4e13ecb`; mocked lifecycle only, NOTHING SEEN IN
+GAME YET.** Executed agent: Claude Fable 5.1 (`claude-fable-5-1`). In `20_TrainHub.lua`, one
+block before `CreateElectricityElement`: `hub_light_variants` (the six looks),
+`hub_light_arms` (local hex direction → variant, the one line per arm to reassign) and
+`hub_light_rows` (the model's own edges from `hub_skeleton.py`: beam edge 1.75 m out from 8 to
+64 m, platform outer border 5.16 m out from 40 to 80 m, both sides). Vanilla `PointLight` /
+`SpotLight` (`CommonLua/Classes/Light.lua:11-120,278-304,456-476`, build 1.1.0.403908) attached
+at the hub's Origin with computed offsets; no spot, persisted class, saved field or thread;
+`DeleteOnLoadGame` and recreation from `GameInit`, `heal_after_load` and `OnSetWorking`, like the
+reactor. **A stopped hub destroys every light** (`DoneObject`), it does not dim them. Lights are
+set to detail class `Essential`, because a light's default, Eye Candy (`Light.lua:13-21`), can
+drop out at low detail.
+
+| Arm (local direction), found from the reactor | Variant | Class | RGB | Intensity | Radius | Spacing | Height | Lights |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| 0, flanks the reactor, red flank | R1 Ember rail | point | 255,40,20 | 120 | 6 m | 8 m | 0.6 m | 28 |
+| 1, flanks the reactor, blue flank | B1 Ice rail | point | 40,160,255 | 120 | 6 m | 8 m | 0.6 m | 28 |
+| 2, next to the blue flank | R2 Crimson wash | spot 60/120 | 220,0,30 | 200 | 14 m | 16 m | 5 m | 14 |
+| 3, opposite the red flank | B3 Cobalt beads | point | 90,110,255 | 255 | 3 m | 5 m | 0.3 m | 42 |
+| 4, opposite the blue flank | R3 Rose beads | point | 255,60,90 | 255 | 3 m | 5 m | 0.3 m | 42 |
+| 5, next to the red flank | B2 Deep blue wash | spot 60/120 | 0,40,255 | 200 | 14 m | 16 m | 5 m | 14 |
+
+Total **168 = 2 × (28 + 14 + 42)**, asserted by `python tools/devmods/train_hub/tests/look_smoke.py`
+(PASS at `d0e5a37` plus the working tree committed as `4e13ecb`; filter: the mocked visual
+lifecycle, which also asserts 0 lights after hub off, no duplicates on repeat and the reactor and
+foreign attachments untouched). The arms are named from the reactor, which stands between arms 0
+and 1, because no source line fixes which world axis is north; the game log prints one
+`[TrainHubDev] lights:` line per arm with the variant, count and engine bearing. UNVERIFIED and
+owed to the design smoke: that a mod-placed light renders at all, that blue saturates, the spot's
+aim (the code assumes a spot shines along its own +X and turns it a quarter about Y to face
+down), daylight visibility, and frame cost.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
