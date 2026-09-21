@@ -27,8 +27,9 @@ paragraph after it):
 
 ## End state
 
-1. **Paint half (SMR-Assets):** the road and platform glow strips, rim strips and floor curves
-   removed from the deck and platforms so they cannot clash with the lights; the road stays plain
+1. **Paint half (SMR-Assets):** the road and platform glow strips, platform rim strips and floor
+   curves removed from the deck and platforms so they cannot clash with the lights (the ring's and
+   portals' own glow stays, `TRAIN_HUB_STRUCTURE_high.md` and the owner decide it); the road stays plain
    polished black; every other texel unchanged, proven the way `validate_pad.py` proves it. The
    owner does one importer run (`_shared/IMPORTER_FACTS.md`, "Mod Editor pipeline": the importer
    compiles the DDS, saving the material does not). Give them about five steps.

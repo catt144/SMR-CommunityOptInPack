@@ -87,10 +87,10 @@ not a substitute for them.
   (`Lua/Buildings/Dome.lua:501`, `:3042-3075`). Its own entity means its own material, so its own
   transparency (`BlendType`) and its own SI. The hub already attaches visuals
   (`20_TrainHub.lua:1038-1057`), so the attach mechanism is in place.
-- **The import copies textures into the mod as DDS.** Three 4096 maps were 44 MB. `PACK_MAX_BYTES` is
-  5 MB and is **our own constant, not a platform limit** (spec §9), and the owner's ruling on ship
-  size (OI-18) is still open. **Choose the smallest resolution that carries the look**, say what you
-  chose and what it costs, and do not treat 4096 as the default.
+- **The import copies textures into the mod as DDS.** Three 4096 maps were 44 MB. **Owner ruling
+  2026-09-21: the 5 MB `PACK_MAX_BYTES` guard is the fix pack's and does not bind this mod**
+  (spec §9). **Choose the resolution the look needs**, per map if it helps, and say what you
+  chose and its raw size; 4096 is allowed where 2048 stays soft.
 
 ## End state
 

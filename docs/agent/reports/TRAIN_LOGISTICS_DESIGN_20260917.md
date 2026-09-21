@@ -781,6 +781,22 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   - **Steam accepts far larger Surviving Mars mods** (owner, 2026-09-20): the Red Horizon Buildings
     & Techs Pack listing shows 103.5 MB, about 2.4x our unpacked hub.
 
+  ⚖️ **Owner ruling, 2026-09-21: the 5 MB guard does not bind this mod.** It exists for the fix
+  pack, which is Lua only, has never carried assets and never will; the opt-in ships assets. So
+  `PACK_MAX_BYTES` is no ceiling on the hub's maps, and texture resolution is a **look decision**
+  (raw DDS sizes: BC 2.8 MB at 2048 and 11.2 MB at 4096; BC5 normal 5.6 and 22.4; the four maps
+  14 MB and 45 MB). The tool itself is not yet adapted: `upload_preflight.py:47` still applies it
+  and `:188-196` still admits no asset files (OI-18's remaining question). VRAM and download cost
+  stay unmeasured.
+
+  **Owner, 2026-09-21: the hub is wonder-sized and must feel premium.** Vanilla spends 4096 on
+  wonders (55 of 5,087), and the hub's model is about 144 x 160 m against about 90 m for the large
+  station. **Plan for the structure step:** BaseColor at 4096 supersampled, Normal, RM and SI at
+  2048, Normal up to 4096 only if the seam relief stays soft, panel seams kept and made crisp
+  (`TRAIN_HUB_STRUCTURE_high.md`). Going to 4096 later is one constant per map in
+  `paint_concept.py` (`BODY_SIZE`, line 24) because the maps are drawn per texel from 3D position;
+  pixel-based constants (the bleed `steps=4`) and `validate_pad.py`'s 2048 pins need updating.
+
   **Not determined:** whether the shipped mod is compressed in transit; any Paradox Mods or Steam
   Workshop total-size cap; whether the hub maps were authored at 4096 or upscaled; and the VRAM or
   performance cost of 4096 against 2048. A test pack built from the dev mod would settle the first,

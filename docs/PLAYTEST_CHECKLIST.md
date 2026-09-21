@@ -76,9 +76,9 @@ Train hub: widen `tools/upload_preflight.py` so the hub's template and model can
 - `:188-196` admits only `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview image.
 - That refuses `Data/BuildingTemplate/*.lua` and any entity folder; `:203-211` lists `Code/` non-recursively too.
 - It does not block the sitting or the model import test: the dev mod carries both.
-- MEASURED (spec §9): the 5 MB is OUR constant, not a platform cap; vanilla uses 2048 to our 4096; ours zstd to ~3.3 MB.
+- Ruled 2026-09-21: the 5 MB guard is the fix pack's and does not bind this mod, so it is no size ceiling here.
 - Untested: the dev mod loads UNPACKED; nothing proven PACKED, and no `FIX_POLICY` §8 run for the hub.
-- Say "widen it" (an agent edits the tool), "keep the hub a separate mod", or name a new size ceiling.
+- Say "widen it" (an agent edits the tool) or "keep the hub a separate mod".
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ### OI-19 · opened 2026-09-18
