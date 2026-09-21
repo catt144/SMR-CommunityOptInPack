@@ -983,6 +983,28 @@ before the pass is briefed, because each one decides how the art is authored.
   What is NOT cheap is moving geometry or UVs after a bake. Author the glow strips as clean shapes in
   the base colour so the mask can be cut from them later, and freeze the UVs at the bake.
 
+**Concept preflight, 2026-09-21 — stopped before asset changes (OI-23).** The owner's
+`reference/Concept.png` and `reference/overall.png` were viewed and match the brief's blue-lit
+maglev direction. At assets HEAD `54eb84d448bc6f5d74f6335711504e04fe4697a7`, run from
+`C:\Dev\SMR-Assets\trainhub\blender`:
+`blender --background export/TrainHub_export.blend --python-exit-code 1 --python preflight_concept.py`.
+The read-only command exited 1 on its UV gate. Filter: every polygon in `SMROptInTrainHub6`,
+first UV layer, absolute shoelace double-area below `1e-12`. It reconciled **11,678 faces =
+10,598 zero-area + 1,080 nonzero-area**; the former each have one distinct UV corner, the latter
+four. Loaded file SHA256: `d6967283887bce0c78bca7735d28e50e0261c88d577a690cf817685360aa5657`.
+The exported UV layer exists but cannot carry distinct surface detail on the collapsed faces.
+The old `texture_hub.py` would unwrap again; invoking it would violate the brief's UV freeze.
+
+The same HEAD's `hub_skeleton.py` siding block generates `SidingPanel_*` prisms and explicitly
+joins panels, borders and gussets into the body. Source inspection found the panel generator
+in place of the brief's claimed separate `SidingGlass`. Thus a transparent overlay leaves opaque
+panels underneath. Proposed exception: move those existing panel faces into the attached glass
+entity without reshaping or moving them, and create then freeze a usable body UV layout before
+the first concept bake. OI-23 holds the owner's decision; neither exception is assumed. No model,
+UV, texture, runtime code or imported entity was changed; no concept render or in-game look was
+produced. Executed model recorded from this session's developer transcript: GPT-6; no more
+specific runtime identifier was supplied.
+
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub

@@ -15,6 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-23 · opened 2026-09-21
+Train hub look pass: permit the first usable UV layout and separating the existing siding panels for glass?
+- The brief freezes body geometry and UVs, but the final export cannot carry the requested maps as it stands.
+- Read-only Blender preflight finds collapsed UVs; the generator joins opaque siding panels into the body.
+- Recommended: unwrap once and freeze; move panels to the glass entity with shape and position exact.
+- Keep every other body vertex, border, track alignment, spot and surface unchanged.
+- Say which exceptions are allowed; no asset has been changed pending your ruling.
+Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
