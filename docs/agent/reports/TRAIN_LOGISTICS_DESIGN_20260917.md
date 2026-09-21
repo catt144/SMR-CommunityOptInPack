@@ -1315,7 +1315,70 @@ shader reflects strongly enough for glass is not measured.
 **Staged (owner, 2026-09-21), the owner inspects in game after each step:** 1. every road surface
 (platforms, portal approaches, radial paths, centre) and nothing else; 2. the structure (shell,
 rails, trim); 3. the cyan lights (portal ring, then route lines); 4. fine normal detail.
-Step 1's first question for the build agent: how `texture_hub.py` separates pad faces today.
+
+**Step 1 delivery, 2026-09-21 — assets `ea82ef4`, desk-verified; game look UNTESTED.**
+Executed agent: Codex, GPT-6 as identified by the session instruction; an exact model variant
+was not exposed in the transcript. No game launch or import was performed by this agent.
+
+The current source is `paint_concept.py`, not the older `texture_hub.py`. Its imported-paint
+selection is upward `Track_A/B/C` and `CentrePlate`, plus upward `Platform_*` above z=7.
+That last predicate includes the support-post caps at z=7.4, so it is broader than the roads.
+The new finish additionally requires `abs(z-8)<0.0001`. The face-set check reconciles **19 road
+faces = 6 track tops + 12 outer platform tops + 1 centre top**; the track tops cover the portal
+approaches and radial paths. Trim and light weights are preserved, including their antialias
+blends; pure trim/lights, platform undersides, post caps and every other face are unchanged.
+The first broad candidate failed the expected-face-set check and was not delivered. The
+restriction uses existing face provenance, normals and elevation; no geometry/UV change.
+
+`bake_pad.py` regenerates the old paint and both variants; `concept_guard.verify_scene()` runs
+before and after each bake. UV SHA-256 remains
+`7cec91ae0c8e2a13189f7c848b9c9bd382deb1485fd339ed71db72ec108ddce4`.
+`validate_pad.py` compares the regenerated baseline against pinned pre-task hashes and the
+original concept maps, then checks every output texel before publishing `textures/pad/`.
+The pad influence mask has **129,815 texels = 127,955 covered + 1,860 island-padding texels**.
+The padding follows the painter's existing four-pixel bleed; it never crosses a covered face.
+
+Command: `python validate_pad.py`, run from `SMR-Assets/trainhub/blender` at `ea82ef4`.
+Filter: BC/NM/RM/SI of the body only; selected road pigment and its existing bleed, excluding
+pure trim/light coverage. Each row sums to the **4,194,304 texels** in its 2048-square map:
+
+| Map | A changed | A unchanged | B changed | B unchanged | Changed outside pad, A / B |
+|---|---:|---:|---:|---:|---:|
+| BC | 128,001 | 4,066,303 | 128,001 | 4,066,303 | 0 / 0 |
+| NM | 0 | 4,194,304 | 0 | 4,194,304 | 0 / 0 |
+| RM | 129,708 | 4,064,596 | 129,721 | 4,064,583 | 0 / 0 |
+| SI | 0 | 4,194,304 | 0 | 4,194,304 | 0 / 0 |
+
+The named knobs in `paint_concept.py` are `PAD_BASE` (#05080B), `PAD_ROUGHNESS` (0.06),
+`PAD_VARIANTS` (A_BlackGlass metalness 0.15; B_BlackMirror 0.95) and `PAD_DECK_Z` (8.0).
+Unmixed RM bytes are (15,15,38) for A and (15,15,242) for B; unmixed BC is (5,8,11), with the
+existing seam shading retained. Normal and SI are byte-identical to the pre-task originals.
+The variants share BC/NM/SI, so switching costs one RM map. Names describe intent, not acceptance.
+
+Compared both `export/pad/{A_BlackGlass,B_BlackMirror}/deck_day.png` and `deck_night.png`,
+rendered with `render_concept.py -- --pad-preview <variant>` on each variant's `preview.blend`.
+In this Blender lighting A has broader, lighter sheen; B stays darker with sharper surface
+breaks; the distinction is smaller at night. These previews do not establish game reflections.
+PowerShell reported Blender deprecation warnings as stderr errors; both renders wrote their
+day/night outputs and completed normally. No geometry, lights, shell or runtime code was changed.
+
+Owner handoff: `SMR-Assets/trainhub/blender/README.md`, **Owner import and comparison**, gives
+five steps. Open existing material `SMROptInTrainHub6`; from `textures/pad/` choose
+`SMROptInTrainHub6_BC.tga` in **BaseColor**, `_NM.tga` in **Normal**, `_SI.tga` in **SI**,
+and `SMROptInTrainHub6_A_BlackGlass_RM.tga` in **RM**. Save material/mod and reload the existing
+colony for day/night looks. Then change RM alone to `SMROptInTrainHub6_B_BlackMirror_RM.tga`
+and compare the same views. No body FBX re-import. The source maps and proof JSON are local,
+ignored, reproducible outputs; `bake_pad.py` then `validate_pad.py` regenerates the delivery.
+Next action: owner chooses the nearer pad finish and changes wanted (OI-24); structure, lights
+and fine normal remain later stages, and the full final-build battery remains owed.
+
+**Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
+`ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
+(110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
+The five-value count holds, but "metalness 0 everywhere" does not: 95,577 texels carry 31/255.
+The old platform predicate's hidden-cap painting is also an out-of-scope baseline finding;
+those texels retain their original values in this delivery. The earlier normal-first order is
+historical and is superseded by the owner's staged order above.
 
 ---
 

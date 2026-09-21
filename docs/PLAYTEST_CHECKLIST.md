@@ -15,6 +15,13 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-24 · opened 2026-09-21
+Train hub road finish: after your in-game comparison, is A or B nearer polished black glass, and what needs changing?
+- A_BlackGlass and B_BlackMirror share base #05080B and roughness 0.06; metalness is 0.15 / 0.95.
+- The assets README gives the map-only import; swap RM alone to compare the same day/night views.
+- Say which is nearer polished black glass and what to change before the structure pass.
+Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

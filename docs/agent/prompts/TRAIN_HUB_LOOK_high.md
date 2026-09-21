@@ -4,14 +4,19 @@
 concept maps are imported (`7c3e74c`) and the owner has looked: glow works, but the hub reads as
 *"blue paint"* and blurry up close. Measured cause, spec §9 "The first concept import in game":
 the maps are correctly compiled at vanilla's own format and size but almost unpainted — normal
-97.9% flat, base colour 84.2% one value, RM with no metalness. The owner's AI texturing trial found
-no usable tool and is closed; the look goes by bake onto our UVs. The owner's handoff package, the
+97.9% flat, base colour 84.2% one value. The earlier zero-metalness RM claim is corrected by
+the full histogram in spec §9. The owner's AI texturing trial found no usable tool and is closed; the look goes by bake onto our UVs. The owner's handoff package, the
 pad direction and the four steps are in spec §9. The order is now theirs: **road surfaces first,
 owner inspects, then structure, lights, fine normal.** Glass and the themed reactor stay deferred. Asset work in
 `B:\Dev\SMR\SMR-Assets\trainhub\blender`, plus the owner's Mod
 Editor import. Authoring shas: SMR-OptInPack `df6ef4c`, SMR-Assets `09bd145`. An empty
 `git diff --stat 09bd145..HEAD -- trainhub/` and `git diff --stat df6ef4c..HEAD --
 tools/devmods/train_hub/` mean this brief's facts hold.
+
+**Step 1 delivered, assets `ea82ef4`:** `textures/pad/` has shared BC/NM/SI and
+A_BlackGlass / B_BlackMirror RM variants. See spec §9 and the assets README's current handoff.
+Every non-pad texel is unchanged; geometry/UV guards pass. Next is the owner's in-game day/night
+comparison and pad ruling (OI-24), before any structure/light/fine-normal work. No body re-import.
 
 ## Authority
 
