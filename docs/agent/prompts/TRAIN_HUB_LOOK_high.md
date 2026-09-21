@@ -141,6 +141,15 @@ The body imported with all four maps and the owner looked at it. Two findings, b
    - **no dashes inside the ring**: the centre carries the radiating floor design of `Concept.png`
      instead. The centre plate above is its natural home.
 
+**Sequencing, owner 2026-09-21: the centre fix and the relaid lights FIRST, alone.** The glass and
+the themed reactor are **DEFERRED to a later session** — *"if the glass is harder we can focus on the
+center fix and another pass at the concept work and then deal with the other stuff."* Reason: the
+centre fix rebuilds and re-imports the body regardless, so anything imported now is imported twice,
+and the glass's one-time setup (a new Art Spec, a new material, and a blending option whose wording
+nobody has seen) is the step most likely to throw a surprise. Until the glass entity exists the
+sidings are bare frames, and until the reactor entity exists **the vanilla `FusionReactor` visual
+remains** — both expected, neither a fault. Hand the owner ONE import round: the rebuilt body.
+
 ## Scope
 
 In: the body's four maps, the glass entity, the themed generator entity, their materials, the
