@@ -1125,12 +1125,14 @@ local hub_light_variants = {
 }-- Reassign here: key = the arm's local hex direction, value = a variant above. The reactor stands
 -- between arms 0 and 1, so every arm can be found in game without a compass.
 local hub_light_arms = {
-	[0] = "R1", -- flanks the reactor, the red flank
-	[1] = "B1", -- flanks the reactor, the blue flank
-	[2] = "R2", -- next to the blue flank
-	[3] = "B3", -- opposite the red flank
-	[4] = "R3", -- opposite the blue flank
-	[5] = "B2", -- next to the red flank
+	-- Owner, 2026-09-21: B3 "might be the winner", on every arm for a look. The comparison was
+	-- R1, B1, R2, B3, R3, B2 for arms 0-5; the painted colour is ARM_LINE_WINNER in paint_concept.py.
+	[0] = "B3", -- flanks the reactor (was the red flank)
+	[1] = "B3", -- flanks the reactor (was the blue flank)
+	[2] = "B3", -- next to the blue flank
+	[3] = "B3", -- opposite the red flank, the arm the owner picked
+	[4] = "B3", -- opposite the blue flank
+	[5] = "B3", -- next to the red flank
 }
 local hub_light_arm_names = {
 	[0] = "flanks the reactor (red flank)", [1] = "flanks the reactor (blue flank)",
