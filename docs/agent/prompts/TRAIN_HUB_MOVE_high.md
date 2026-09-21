@@ -88,6 +88,22 @@ Not that the transition "works" from a desktop harness or a log: it is a look, a
 eye closes it. Not that the jerk is gone because the code is simpler — claim what the smoke showed,
 from the owner's view, at normal, fast and fastest speed.
 
+## The offline contract smoke disagrees with this build
+
+MEASURED 2026-09-21, by the orchestrator, while repointing paths after the tree move.
+`tools/devmods/train_hub/tests/traffic_smoke.py` **fails on the current `20_TrainHub.lua`** at
+`assertclose(delta,0,5)` with `delta = -10800` — a train's yaw is 180° from its direction of travel
+on the first case it reaches. Run against the Lua the smoke was written for (`b02db74`) it **passes**
+(72 lane/reservation cases, 66 executed routes), so this is a divergence introduced somewhere in the
+movement rewrite, not a move breakage: the repointed archive hashes identical to the pre-move copy.
+
+Treat it as a claim, not a verdict. The likeliest reading is that the smoke is simply stale — it has
+not been touched since `b02db74`, its own docstring says its oracle CLI "cannot model this build",
+and the mirrored exit deliberately reverses a train. But it is the only offline check this build has,
+and a real 180° error would look exactly like this too. **Before the owner's smoke closes this
+brief, decide which it is and say so with the run**: either update the smoke to model the mirrored
+exit and show it green, or show the reversal is genuine. Do not delete the assertion to pass.
+
 ## Lifecycle
 
 One-off. Delete this file and its row in `docs/agent/prompts/README.md` when the owner's smoke is

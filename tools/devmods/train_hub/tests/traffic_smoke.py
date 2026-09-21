@@ -9,6 +9,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -17,8 +18,12 @@ from lupa import LuaRuntime
 
 ROOT = Path(__file__).resolve().parents[4]
 SOURCE = ROOT / "tools/devmods/train_hub/Code/20_TrainHub.lua"
-ARCHIVE = Path("C:/Dev/SMR-SrcArchive/1.1.0.403908/Src")
-ORACLE = Path("C:/Dev/SMR-Assets/_shared/geometry/hub_oracle.py")
+ARCHIVE = Path(os.environ.get("SMR_SRCARCHIVE",
+                              r"B:\Dev\SMR\SMR-Shared\SMR-SrcArchive")) / "1.1.0.403908" / "Src"
+# The oracle sits beside the train assets, in the same SMR-Assets repo.
+ASSETS = Path(os.environ.get("SMR_TRAINASSETS",
+                             r"B:\Dev\SMR\SMR-Assets\trainhub")).parent
+ORACLE = ASSETS / "_shared" / "geometry" / "hub_oracle.py"
 
 STUBS = r'''
 guim=100; empty_table={}; axis_z={}; const={DroneBatteryMax=100}

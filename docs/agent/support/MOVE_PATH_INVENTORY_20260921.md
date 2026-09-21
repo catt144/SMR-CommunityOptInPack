@@ -23,44 +23,46 @@ files **on disk with the editor closed**, then reopen and read the Importer's he
 EDIT their contents.** Those are editor-generated and stamped "DO NOT EDIT MANUALLY"; they are
 repointed under the procedure above.
 
-## 1 · Editor-held (5) — rewrite with the editor closed, then verify in the Importer header
+## 1 · Editor-held (5) — REPOINTED, header read still owed
 
-All five point **outward into `SMR-Assets`**, so they survive a move of `SMR-OptInPack` alone and
-break only when the asset tree moves — which it now does.
+All five — `SIE_ImportItem/SMROptInTrainHub6.lua:6` (`ScenePath`, the body FBX) and
+`GFXMaterial/SMROptInTrainHub6.lua:4-7` (`BaseColor`, `Normal`, `RM`, `SI`) — were rewritten on disk
+with the editor closed, each in its own file's slash style, and every target resolves under
+`B:\Dev\SMR\SMR-Assets`. The diff is path-only. **The Importer header has NOT been read yet**: that
+is step 5 below and it is the proof, so nothing is imported until the owner runs it.
 
-- `tools/devmods/train_hub/SourceData/SIE_ImportItem/SMROptInTrainHub6.lua:6` — `ScenePath`, the body
-  FBX under `trainhub/blender/export/concept/`.
-- `tools/devmods/train_hub/SourceData/GFXMaterial/SMROptInTrainHub6.lua:4-7` — `BaseColor`, `Normal`,
-  `RM`, `SI`, the four maps under `trainhub/blender/textures/concept/`.
+Each new entity adds its own pair, so **the glass and the themed reactor will add up to ten more**.
+Import them after the move and they are born correct.
 
-Each new entity adds its own pair, so **the glass and the themed reactor will add up to ten more**
-once they are imported. Repoint after the move, or import them after it and they are born correct.
+## 2 · The game's mod symlinks — DONE
 
-## 2 · The game's mod symlinks — recreate all five
-
-`%APPDATA%\Surviving Mars Relaunched\Mods\` holds symlinks, not copies. After the move every one is
-dead and **the mod silently ceases to exist for the game**:
-`SMR-BugFixPack`, `SMR-BugFixPack-TestKit`, `SMR-OptInPack`,
-`SMR-TrainHubDev` → `…/tools/devmods/train_hub`, `SMR-TrainHubPrototype` → `…/tools/prototypes/train_hub`.
+`%APPDATA%\Surviving Mars Relaunched\Mods\` holds symlinks, not copies, so a dead one means **the mod
+silently ceases to exist for the game**. `SMR-OptInPack`, `SMR-TrainHubDev` and
+`SMR-TrainHubPrototype` were recreated against `B:\Dev\SMR\SMR-OptInPack`. `SMR-BugFixPack` and
+`SMR-BugFixPack-TestKit` still point at `C:\Dev\` and are CORRECT: those two repos have not moved.
 
 ## 3 · Scripts — the ones that resolve at run time
 
-- **Already parameterised, so they move for free if the variables are set:** `tools/doccheck.py:66`
-  (`SMR_TESTKIT`), `tools/sync_from_fixpack.py:51,333,337-338` (`SMR_FIXPACK`, `SMR_SRCARCHIVE`,
-  `SMR_TESTKIT`, `SMR_TRAINASSETS`). **Setting those environment variables to the new roots is the
-  cheapest single action in this whole list.**
-- **Hard-coded, need rewriting:** `tools/devmods/train_hub/tests/traffic_smoke.py:20-21`
-  (`SMR-SrcArchive`, the shared oracle), `tests/record_evidence.py:23` (the fix pack's saves),
-  `SMR-Assets/_shared/geometry/hub_oracle.py:2176-2178`, `_shared/geometry/patch_box_spots.py:2` and
-  `predict_from_entity.py:2` (both reach into the dev mod's entity file),
-  `SMR-Assets/trainhub/blender/build_workfile.py:16`.
+- **Parameterised, and every default now names the new root, so NO environment variable has to be
+  set** for them to resolve: `tools/doccheck.py:66` (`SMR_TESTKIT`),
+  `tools/sync_from_fixpack.py:51,333,337-338` (`SMR_FIXPACK`, `SMR_SRCARCHIVE`, `SMR_TESTKIT`,
+  `SMR_TRAINASSETS`). The two fix-pack defaults stay on `C:\Dev\` because that repo has not moved.
+- **Were hard-coded, now REWRITTEN:** `tools/devmods/train_hub/tests/traffic_smoke.py` takes
+  `SMR_SRCARCHIVE` and `SMR_TRAINASSETS` with new-root defaults, matching the pattern the
+  `SMR-Assets` scripts already use; `SMR-Assets/_shared/geometry/hub_oracle.py`,
+  `patch_box_spots.py`, `predict_from_entity.py` and `trainhub/blender/build_workfile.py` were done
+  in the asset tree's own pass. `tests/record_evidence.py:23` was LEFT: it names the fix pack's
+  saves, which have not moved.
+- ⛔ **`SMR-SrcArchive` did not land beside its siblings**: it is
+  `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`, not `B:\Dev\SMR\`. The archived `Train.lua` and
+  `Station.lua` hash identical to the pre-move copies, so the repoint is faithful.
 - **Fixed 2026-09-21 in passing, they pointed at the deleted junction and would have failed on next
   use:** `snap_baseline.py:4` (hard-coded, not a fallback) and `export_prep_untextured.py:22`.
 - **Left alone deliberately:** `_before_claude_pass2_20260918/` and `export/build_workfile_build3.py`
   are historical snapshots, and `C:\Dev\SMR-Optin-Assets\…fbx` in them is a donor that predates
   this tree.
 
-## 4 · Config (13)
+## 4 · Config (13) — DONE
 
 `.claude/settings.json:4-9` (six permission entries naming repo paths),
 `tools/devmods/train_hub/tests/{read,smoke}_leg.json` (`kit` and `park`), and three Blender proof
@@ -72,6 +74,10 @@ a past run and are not rewritten**; they record where it happened.
 1. Recreate the five symlinks; 2. set the environment variables; 3. rewrite the hard-coded scripts;
 4. rewrite the 5 editor-held paths with the editor closed; 5. open the Importer and read its header;
 6. only then import, with the owner. A wrong header at step 5 means stop, not proceed.
+
+**Steps 1, 3 and 4 are done and step 2 turned out to be unnecessary** (the defaults carry the new
+roots). ⛔ **Steps 5 and 6 are the owner's and are still owed**, and they gate the awaiting import
+round of the rebuilt body, the glass and the reactor.
 
 **Git carries no absolute paths**, so every commit and tag — `hub-model-final-untextured`,
 `hub-centre-lights-20260921` — restores correctly wherever the tree lives.

@@ -3,7 +3,7 @@
 PlaceObj('SIE_ImportItem_Mesh', {
 	Entity = "SMROptInTrainHub6",
 	Mesh = "mesh",
-	ScenePath = "C:/Dev/SMR-Assets/trainhub/blender/export/concept/SMROptInTrainHub6.fbx",
+	ScenePath = "B:/Dev/SMR/SMR-Assets/trainhub/blender/export/concept/SMROptInTrainHub6.fbx",
 	PlaceObj('SIE_ImportItemSelector', {
 		'name', "RootNode",
 	}, {
