@@ -1569,6 +1569,16 @@ colour, 0 outside the lines; structure set: BC 115,783 and SI 115,872 changed, N
 outside the mask, SI ceiling 179). OptInPack `bbfec1a`: all six arms carry B2's spots, intensity
 100 → 130 (R2 keeps 100), **72 lights = 6 × 12**, down from 234. The spot's aim is still the
 unverified +X assumption; the owner's look at B2's arm is the only evidence it lands on the deck.
+**Owner, 2026-09-21: "we are good here for the moment". Restore point 3:
+`hub-lines-b2-lights-20260921`** — paired tags at OptInPack `ea68b2c` (the owner's editor output,
+material pointing at `textures/thinlines_all/`; BC DDS 18:38, after the 18:35 B2 bake; NM, RM and
+SI DDS 18:32, from the cobalt import, whose NM, RM and SI do not depend on line colour) and assets
+`a93a143`; 62 files, 304.6 MB, in
+`B:\Dev\SMR\SMR-Shared\SMR-HubBackups\hub-lines-b2-lights-20260921`. State held: road finish B,
+thin deep blue (0,40,255) lines at SI 0.7 on every arm, the structure's glow lines matched, 72 B2
+spots at intensity 130 along the lines. "Good for the moment" is the owner's hold, not a final
+acceptance; restore point 2 remains the clean fallback. Still owed: the hub off/on cost, a
+daylight look, and the both-configuration and toggle ship tests on the final build.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
