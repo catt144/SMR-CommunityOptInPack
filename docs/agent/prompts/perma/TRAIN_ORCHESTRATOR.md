@@ -62,9 +62,9 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      strips off, then six Lua-placed light variants, three red and three blue, one per arm; hub off
      must remove the lights). Its uncommitted assets edits are its own: do not touch them. **Next:**
      `TRAIN_HUB_STRUCTURE_high.md`, fired only after the lights agent has taken restore point
-     `hub-road-b-nostrips-20260921` (both edit `paint_concept.py`). Keep `TRAIN_HUB_LOADERRORS_low.md`
-     and `TRAIN_HUB_MOVE_high.md` off until the lights agent's Lua half lands: all three edit
-     `20_TrainHub.lua`. Restore points, the snapshot tool and the GPU sampling plan are in spec §9.
+     `hub-road-b-nostrips-20260921` (both edit `paint_concept.py`). The lights agent's Lua half has landed. Everything that edits
+     `20_TrainHub.lua` (`TRAIN_HUB_LOADERRORS_low.md`, `TRAIN_HUB_REPAIR_high.md`, the structure
+     lights) runs one at a time; the structure maps work is in SMR-Assets and can run beside them. Restore points, the snapshot tool and the GPU sampling plan are in spec §9.
      The owner will fire this role when the lights agent is done: read its report, verify its
      tag and commits with one check each, then the owner's choice among the six variants goes into
      spec §9 and the structure brief. Still owed to the owner: OI-18 (widen `upload_preflight.py`,
@@ -119,14 +119,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `B:\Dev\SMR\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
      not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
-   - **the movement work is DONE and owner-accepted** (2026-09-21): centreline entry and mirrored
-     exit, the six-siding transition and rejoin, the exit slide and vanilla handoff, the cold-start
-     power fix, and the 6 s dwell. `TRAIN_HUB_MOVE_high.md` stays live only until its smoke is
-     recorded. ⚠️ That smoke must be played **at radius 6**: the motion was tuned before the
-     connectors moved 20 m out, and the brief names the three constants to suspect first. The
-     brief also owes a verdict on the offline smoke's 180° disagreement.
-   - **Builds 4 and 5** (`TRAIN_HUB_REPAIR_high.md`, `TRAIN_HUB_BUILDTRACK_high.md`) stay HELD in
-     order behind the movement smoke. A brief still in the map has not finished.
+   - **the movement work is FINISHED** (owner, 2026-09-21, restated 2026-09-21): centreline entry
+     and mirrored exit, the six-siding transition and rejoin, the exit slide and vanilla handoff,
+     the cold-start power fix (working for a long time) and the 6 s dwell. It may reopen once, at the
+     final pre-launch test, if the owner wants some moves slightly tweaked.
+     `TRAIN_HUB_MOVE_high.md` is PARKED for that and is not fired before it; never treat it as a
+     gate on anything. Do not re-derive a movement fault from an old report.
+   - **Build 4** (`TRAIN_HUB_REPAIR_high.md`) is unblocked but NOT next (owner, 2026-09-21): the
+     hub look comes first, and the drone system (deploy, movement, retextured storage) is unbuilt
+     beyond a few test drones. **Build 5**
+     (`TRAIN_HUB_BUILDTRACK_high.md`) stays HELD until build 4's smoke is recorded. A brief still
+     in the map has not finished.
    - **Loading policy and full queueing** are the owner's own next pass, deferred 2026-09-20.
    - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
      cruise at the same units per game second, and the train's best samples beat the shuttle's.

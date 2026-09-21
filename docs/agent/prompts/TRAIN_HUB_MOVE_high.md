@@ -1,6 +1,7 @@
 # Train hub: the last transition — the slide onto the loading siding
 
-**LIVE, fire when ready.** Owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Authoring sha:
+**PARKED, do not fire** (owner, 2026-09-21: the movement work is finished; it may reopen at the
+final pre-launch test if the owner wants moves slightly tweaked). Owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Authoring sha:
 SMR-OptInPack `d363aa8`. An empty `git diff --stat d363aa8..HEAD -- tools/devmods/train_hub/` means
 this brief's code facts hold; if it is not empty, read the diff before trusting the line numbers.
 

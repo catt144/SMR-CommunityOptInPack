@@ -47,7 +47,12 @@ The owner, 2026-09-21, settled all of this (spec §9):
    variety, not one flat colour. The blue-grey `HULL` that reads as paint is replaced.
 2. **Crisp seams:** supersample the bake (4x, downsample) and set seam widths to at least 2-3
    texels at the map's density with restrained contrast. Compare before and after at the close-up
-   the owner screenshotted (a ring seam, blue rim strip beside it).
+   the owner screenshotted (a ring seam, blue rim strip beside it). **Measure the blur's cause
+   first, cheaply, before the heavy bake:** texels per metre on the ring and ribs (the UVs are
+   frozen, so density is a ceiling supersampling cannot lift), and the compiled DDS against its
+   source PNG at that close-up (block compression softens thin lines). Say which limits the look;
+   it may change the per-map sizes. **Clarity at the sector overview:** seams and rib bands must
+   still read once mipped down, so "restrained contrast" is judged there too, not only close up.
 3. **The road untouched by value:** the deck's base colour and RM equal the road finish (`PAD_BASE`,
    B's metalness and roughness) at every road texel, proven per texel by value. A byte-hash proof
    cannot hold once BaseColor changes size: re-pin `validate_pad.py`'s baselines at the new size,
@@ -102,6 +107,11 @@ whole hub's off/on cost is recorded.
 
 ## Scope
 
+**File ownership (owner, 2026-09-21).** The maps work is in SMR-Assets and needs no Lua. Step 6
+edits `20_TrainHub.lua`: do not start it while another brief that edits that file is in flight
+(`TRAIN_HUB_LOADERRORS_low.md`); recheck `git log -- tools/devmods/train_hub/` first. Movement is
+finished (parked), and the drone builds come after the hub look.
+
 In: the structure's maps, the resolution change, the structure's lights block in
 `20_TrainHub.lua` with its mocked smoke, and the whole-hub cost reading. Out: the road and its
 lines and arm lights as held, glass, reactor, dome, geometry, UVs, spots, routing and movement
@@ -126,3 +136,12 @@ per-map raw sizes, the proofs, and what the owner's smoke showed.
 1. Todo list first, one item per commit-and-verify unit.
 2. Design smoke only. About five steps at a time.
 3. Record in spec §9 with `doc-editing`, commit both repos with pathspecs.
+4. **The B run (owner, 2026-09-21).** This is a long build, and the owner watches your context. If
+   they tell you to split off into a B run, stop starting new work and finish only the
+   commit-and-verify unit in progress, so both trees are committed and no bake or import is half
+   done. Take a restore point if the owner has kept anything. Then write the B run's brief yourself,
+   with `prompt-authoring`, as a one-off at the prompt root with its map row: the todo list
+   as it stands (done, in progress, not started), the commits and tags that hold the state, what the
+   owner has kept or ruled since this brief, and any decision you have made that the next worker
+   would otherwise re-derive. Record the same state in spec §9. Do not restate this brief in it:
+   point at it and at the spec. The B run starts from that brief's authoring sha, not from memory.
