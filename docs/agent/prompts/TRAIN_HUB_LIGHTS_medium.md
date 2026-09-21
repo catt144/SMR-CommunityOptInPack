@@ -1,9 +1,11 @@
 # Train hub: real lights on the tracks and borders — six variants, one per arm
 
 **LIVE, one-off. FIRE IT, THEN DELETE THIS FILE AND ITS MAP ROW in the fire commit.** Authoring
-shas: SMR-OptInPack `7de503b`, SMR-Assets `a029a49`. An empty `git diff --stat 7de503b..HEAD --
-tools/devmods/train_hub/Code/` and `git diff --stat a029a49..HEAD -- trainhub/` mean this brief's
-facts hold. Start with `git log`, `git pull` in both repos. The dev mod's `Materials/`,
+shas: SMR-OptInPack `57acb33`, SMR-Assets after `snapshot_hub.py` (tag `hub-road-b-20260921`). An empty
+`git diff --stat 57acb33..HEAD -- tools/devmods/train_hub/Code/` and `git diff --stat
+hub-road-b-20260921..HEAD -- trainhub/` mean this brief's facts hold.
+**Restore point 1 exists**: tags `hub-road-b-20260921` in both repos and the copy of the ignored
+maps and DDS in `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\hub-road-b-20260921` (its `RESTORE.md`). Start with `git log`, `git pull` in both repos. The dev mod's `Materials/`,
 `SourceData/` and `metadata.lua` carry the owner's uncommitted Mod Editor output: never revert or
 stage them for them.
 
@@ -29,6 +31,9 @@ paragraph after it):
    polished black; every other texel unchanged, proven the way `validate_pad.py` proves it. The
    owner does one importer run (`_shared/IMPORTER_FACTS.md`, "Mod Editor pipeline": the importer
    compiles the DDS, saving the material does not). Give them about five steps.
+   **Then, before any light code, take restore point 2** (owner, 2026-09-21): commit, have the
+   owner's import verified by the `Textures/` timestamps, and run `python snapshot_hub.py
+   hub-road-b-nostrips-20260921` from `SMR-Assets	rainhublender`. Report the tag and folder.
 2. **Lua half (the dev mod, `Code/20_TrainHub.lua`):** real `PointLight`/`SpotLight` objects
    attached to the hub and placed along each arm's track edges and platform borders, six variants
    in one table keyed by arm so the owner can reassign by editing one line. Your call on
