@@ -63,6 +63,15 @@ Done means: the owner looks at the hub and says it feels premium, or names what 
 - The island bleed `dilate(..., steps=4)` is in pixels: at 4096 it covers half the distance.
 - The painted seams' jaggedness is a diagnosis from the script, not measured. Confirm the seam
   positions in the screenshot match the script's spacing before you change anything.
+- **The owner's night screenshot (2026-09-21, after the strips-off import):** the dome ribs' glow bands
+  (`Rib_*`, `paint_concept.py`, `glow = .75*band(remainder(r,7)-3.5,.19,aa)`, one band every 7 units)
+  show as jagged white splotches that the owner remembers as blue. The maps did not change there:
+  the band's base colour is the same blue (about RGB 46,121,244) in the old and new BaseColor, and the
+  lights agent proved the glow is byte-identical off the road. Read, untested: a saturated blue at a
+  high SI modulation clips toward white at night, and the band is about 4 texels wide on a thin tube
+  island, hence the jags. Diagnose (a night screenshot against the day one, the SI level) before
+  changing anything, then make the bands crisp and blue. This is inside this step: the ribs are
+  structure.
 - Leave the ring and portal glows exactly as they are unless the owner rules; their look is the
   owner's call after they see the shell.
 
