@@ -1586,6 +1586,25 @@ then one reading. `Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md` carries all
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
+**Structure step, the blur measured before the bake, 2026-09-21 — assets `3be561d`.** Executed
+agent: Claude Fable 5.1 (`claude-fable-5-1`). Two read-only scripts in SMR-Assets
+`trainhub/blender`. `measure_density.py` (Blender, on `TrainHub_prepaint.blend`; filter: body loop
+triangles by provenance group, road tops split from sides) finds every group at **6.7-7.3 texels
+per metre** at 2048 (Ring 6.91, Rib 6.70, Hub_Portals 6.88, Hood 6.80, Track_top 7.34; worst-axis
+medians 6.5-7.3), so a texel is about 13.6 cm and the frozen atlas is **25.48% covered**
+(1,067,453 texels). `measure_dds.py` (Pillow, the DDS relabelled from DXGI 72 to 71 in memory)
+compares the dev mod's compiled DDS with `textures/thinlines_all/`: BC mean error on the ring
+0.99/255 with 6.2% of texels moved by more than 4; NM byte-equal in R and G to a mean 0.03; SI
+mean 0.22. **The ring seam, per image row inside the ring island with the lit strip excluded, is a
+4-texel-wide dip of median depth 33 on a hull luma of 193 (17%) in the source and 4 texels, depth
+32, in the compiled copy.** The script draws it 2 × 0.05/33.5 rad wide, about 0.09 m at the ring,
+under one texel, and the antialias term (0.55 of a texel's world size) spreads it into that soft
+band; the 25% core darkening is never reached. **Density limits the look, not block
+compression**; supersampling sharpens a seam's edge but cannot add texels to a face, so BaseColor
+goes to 4096 as the owner planned. The owner's seam screenshots are not on disk (they were pasted
+in chat), so the seam-spacing check against the script (the ring's period is 6/33.5 rad, 10.26°)
+is not done; the profile stands without it.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
