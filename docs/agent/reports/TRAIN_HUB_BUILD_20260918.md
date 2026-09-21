@@ -705,9 +705,16 @@ parked trains on the siding; native serialization remains untested for this revi
 The occupied-exit guard is retained unchanged. Scheduling and mutually blocked departures
 remain the deferred loading/queueing pass; this is no claim that sidings solve that policy.
 
-**Provisional tunables (source defaults, not measured positions):** pause 45 m; park 13 m;
-siding offset 3.75 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 5 m;
-reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
+**Provisional tunables (Pass 3 source defaults, not measured positions):** pause 45 m; park 14.5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 26.5 m; inward rejoin 5 m;
+reverse rejoin 26.5 m. These are eye-tuning starting values and use no train-length estimate.
+Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
+the exported FBX still awaits owner import. Use these defaults with that model, then try
+5.0 m lateral if the passing clearance still looks tight; the suggested park range is 13–15 m.
+Generator constants were checked at authoring HEAD `df33a02` with
+`rg -n 'SIDING_W =|SIDING_TO =|SIDING_ALONG_SHIFT =|SIDING_SIDE =' C:/Dev/SMR-Assets/trainhub/blender/hub_skeleton.py`.
+This checks the reported model inputs, not physical train fit. R-TRAIN remains DISPUTED;
+the reported cargo-bed corner overhang remains the owner's asset question.
 The outer slide and existing turns retain their prior timing. Sidings use distance-based
 smoothstep lateral interpolation and a braking/acceleration speed profile, with no extra stop.
 

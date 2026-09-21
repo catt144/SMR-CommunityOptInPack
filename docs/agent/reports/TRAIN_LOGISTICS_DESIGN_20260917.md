@@ -1392,3 +1392,10 @@ The mocked smoke passes, including archived loading commands and vanilla control
 appearance, timing, save/load and cold start remain owed; see the build report's
 "Siding movement and hub dwell prototype" for the prepared sitting. Loading policy/full
 queueing, textures and build 4 remain deferred under their existing gates.
+
+**Pass 3 movement trials, owner handoff 2026-09-20 (computed, not measured in game):**
+park 14.5 m, clockwise siding offset 4.5 m, entry and reverse rejoin 26.5 m; inward rejoin
+stays 5 m. These defaults require the Pass 3 model, whose owner import is pending in the
+handoff. Try 5.0 m lateral next if needed and judge park within 13–15 m. No width/length fit
+is established; R-TRAIN remains DISPUTED. The model's reported cargo-bed corner overhang
+is still an owner asset question. The build report carries the current sitting.

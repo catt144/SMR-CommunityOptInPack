@@ -33,16 +33,17 @@ local Floor = SMROptInTrainFloor
 -- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
 -- outward from the hub centre. Neither is derived from the disputed length.
 -- Pause moved outward after the owner saw the stop 1.5-2 hexes too late;
--- 45 m is the next visual trial. Park starts at the owner's lane-era
--- 13 m and needs judging again on the siding. Both reset on a full restart.
+-- 45 m is the next visual trial. Park and siding positions below are the
+-- owner's Pass 3 first trials (import pending), not in-game measurements.
+-- All tunables reset on a full restart.
 Floor.HubTransitionPauseDistance = 45 * guim
-Floor.HubParkDistance = 13 * guim
+Floor.HubParkDistance = 14.5 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
-Floor.HubSidingOffset = 3.75 * guim
-Floor.HubSidingEntryDistance = 23 * guim
+Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
+Floor.HubSidingEntryDistance = 26.5 * guim
 Floor.HubSidingRejoinDistance = 5 * guim
-Floor.HubSidingReverseRejoinDistance = 23 * guim
+Floor.HubSidingReverseRejoinDistance = 26.5 * guim
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 
 -- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
