@@ -148,7 +148,7 @@ and remove the staged copy during the normal close-out.
 
 Anything older than this summary is recovered from the founding spec, which was
 consumed at chain close and survives only in the fix pack's git:
-`git -C C:/Dev/SMR-BugFixPack show 93088ba:docs/agent/prompts/corun-rig/CORUN_RIG_SPEC.md`. Do not infer a
+`git -C B:/Dev/SMR/SMR-BugFixPack show 93088ba:docs/agent/prompts/corun-rig/CORUN_RIG_SPEC.md`. Do not infer a
 mechanism from this summary.
 
 Still unproven: the watchdog firing under a real wedge. Deliberately outside the
