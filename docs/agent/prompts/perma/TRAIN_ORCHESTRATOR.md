@@ -76,10 +76,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      the stub at one hex on 2026-09-20 and directed one more (spec §9), which moves the connectors
      to radius 5 on the owner's own measurement. The oracle stays the check instrument for
      spot changes, but its `--train-length-m` default inherits the doubt;
-   - **One assets folder: `C:\Dev\SMR-Assets`** (owner, 2026-09-20). The stale copy at
-     `C:\Dev\SMR-TrainHubAssets` was removed and its name is now a junction to
-     `SMR-Assets\trainhub`, kept only because the Mod Editor's generated import files still hold that
-     path; work and open files at the real path (`C:\Dev\SMR-Assets\README.md` §"The old path");
+   - **One assets folder: `C:\Dev\SMR-Assets`** (owner, 2026-09-20), and since 2026-09-21 the ONLY
+     path: the old name's junction is DELETED. The one thing still holding it was the dev mod's
+     `SIE_ImportItem` `ScenePath`, and ⚠️ **the Mod Editor reasserts that stored path over a drag** —
+     a different FBX dragged in appears to do nothing and the old file imports silently, which cost
+     the owner an import. Rewrite that file on disk with the editor closed, then reopen and check the
+     Importer's header (`C:\Dev\SMR-Assets\README.md` §"The old path");
    - **The hub's ship size** (OI-18, and spec §9): `upload_preflight.py` admits no asset file types
      at all, and the hub is 44 MB against a 5 MB `PACK_MAX_BYTES`. MEASURED 2026-09-20: **that 5 MB
      is our own constant, not a platform limit** — vanilla buildings use 2048 maps where ours are
