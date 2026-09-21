@@ -707,7 +707,7 @@ remain the deferred loading/queueing pass; this is no claim that sidings solve t
 
 **Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
 exit slide 50 m; park 11 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 1.5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 22.5 m; inward rejoin 1.5 m;
 reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
@@ -836,3 +836,11 @@ then passes corrected stopped/through handoffs in both track orders. Existing mo
 reservation, power and dwell assertions also pass. Geometry, time and engine services are
 mocked; this is not native clearance or visual acceptance. The next sitting must watch
 the arrowed joint after both a loading departure and a through train at each game speed.
+
+**Owner siding fine-tune, 2026-09-20:** loading-pad transition is "nearly perfect" and
+"lined up right", but starts a little early, with screenshot. Keep park at 11 m and
+lateral offset at 4.5 m. Trial entry at 22.5 m instead of 23 m: another 0.5 m of straight
+travel before the curve, leaving 11.5 m for the existing smoothstep/braking movement.
+This deliberately changes only onset now that the owner likes the alignment; rejoins
+and outer transitions stay fixed. The small shortening still needs a visual smoothness
+check and is not a claim that the earlier sharpness cannot recur.

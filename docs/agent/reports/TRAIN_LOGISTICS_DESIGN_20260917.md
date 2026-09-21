@@ -1449,3 +1449,9 @@ No Train replacement or new persisted state; slide positions/timing and normal-s
 remain. The mocked archived-body smoke reproduces the old jump and passes the corrected
 handoff for stopping/through departures in both track directions. Native visual acceptance
 at the arrowed joint is still owed; details and source lines are in the build report.
+
+**Owner siding fine-tune, 2026-09-20:** alignment is right and the transition nearly perfect;
+onset is a little early. Preserve park 11 m and lateral offset 4.5 m; trial entry 22.5 m
+instead of 23 m, delaying lateral onset by 0.5 m while retaining the same easing function.
+Rejoins and outer transitions stay fixed. Judge the slightly shorter curve's smoothness
+in the next sitting; the owner's alignment feedback does not close the remaining smoke.

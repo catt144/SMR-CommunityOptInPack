@@ -44,7 +44,7 @@ Floor.HubParkDistance = 11 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
 Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
-Floor.HubSidingEntryDistance = 23 * guim -- retain the original 12 m braking curve
+Floor.HubSidingEntryDistance = 22.5 * guim -- owner: alignment right; start the curve a little later
 Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward rejoin
 Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
