@@ -9,9 +9,9 @@ from lupa import LuaRuntime
 from traffic_smoke import ARCHIVE, ROOT, SOURCE, STUBS, between
 
 lua = LuaRuntime(unpack_returned_tuples=True)
-# Reuse the existing mocked engine, with this model's five-hex connector.
-lua.execute(STUBS.replace("for k=1,4 do", "for k=1,5 do")
-            .replace("s<200 and 4 or 5", "s<200 and 5 or 6"))
+# Reuse the existing mocked engine with the longer-stub six-hex connector.
+lua.execute(STUBS.replace("for k=1,4 do", "for k=1,6 do")
+            .replace("s<200 and 4 or 5", "s<200 and 6 or 7"))
 lua.execute("sqrt=math.sqrt; Min=math.min")
 code = SOURCE.read_text(encoding="utf-8")
 lua.execute(code[:code.index("-- Vanilla creates only indices 0..4")])
@@ -26,6 +26,11 @@ lua.execute(between(base, "function BaseBuilding:SetWorking(", "function BaseBui
 lua.execute(between(code, "function SMROptInTrainHubBase:CreateElectricityElement(", "function SMROptInTrainHubBase:InitHubLaunchPad("))
 lua.execute(r'''
 local h=newhub(1,false)
+assertclose(h:GetDist2D(h:GetSpotPos(h:GetSpotBeginIndex('Trackconnector1'))),60*guim)
+for _,distance in ipairs({SMROptInTrainFloor.HubSidingEntryDistance,
+ SMROptInTrainFloor.HubSidingRejoinDistance,SMROptInTrainFloor.HubSidingReverseRejoinDistance}) do
+ assertclose(h:GetDist2D(h:HubCentrePosition(1,distance)),distance)
+end
 local t=newtrain(h,1)
 local movement={}
 local move=h.HubMoveTrain

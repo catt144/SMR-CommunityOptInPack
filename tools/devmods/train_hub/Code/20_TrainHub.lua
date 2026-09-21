@@ -32,11 +32,11 @@ SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
 -- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
 -- outward from the hub centre. Neither is derived from the disputed length.
--- Pause moved outward after the owner saw the stop 1.5-2 hexes too late;
--- 45 m is the next visual trial. Park and siding positions below are the
--- owner's Pass 3 first trials (import pending), not in-game measurements.
+-- Longer-stub model handoff: try 48 m, then 47-49 m by eye after import.
+-- This is the owner's trial, not a solved train-length clearance. Park and
+-- siding positions remain the Pass 3 first trials, not in-game measurements.
 -- All tunables reset on a full restart.
-Floor.HubTransitionPauseDistance = 45 * guim
+Floor.HubTransitionPauseDistance = 48 * guim
 Floor.HubParkDistance = 14.5 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).

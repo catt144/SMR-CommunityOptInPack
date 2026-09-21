@@ -705,7 +705,7 @@ parked trains on the siding; native serialization remains untested for this revi
 The occupied-exit guard is retained unchanged. Scheduling and mutually blocked departures
 remain the deferred loading/queueing pass; this is no claim that sidings solve that policy.
 
-**Provisional tunables (Pass 3 source defaults, not measured positions):** pause 45 m; park 14.5 m;
+**Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** pause 48 m; park 14.5 m;
 siding offset 4.5 m clockwise of the outward spur; centreline entry 26.5 m; inward rejoin 5 m;
 reverse rejoin 26.5 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
@@ -715,6 +715,10 @@ Generator constants were checked at authoring HEAD `df33a02` with
 `rg -n 'SIDING_W =|SIDING_TO =|SIDING_ALONG_SHIFT =|SIDING_SIDE =' C:/Dev/SMR-Assets/trainhub/blender/hub_skeleton.py`.
 This checks the reported model inputs, not physical train fit. R-TRAIN remains DISPUTED;
 the reported cargo-bed corner overhang remains the owner's asset question.
+Longer-stub follow-up, authoring HEAD `15d6e19`: `python tools/devmods/train_hub/tests/move_smoke.py`
+passed with a mocked six-hex connector and unchanged absolute centreline waypoint distances
+at the 48 m pause. `python tools/parsecheck.py --dir tools/devmods/train_hub/Code` passed.
+These checks do not establish the imported outline, track attachment or visual clearance.
 The outer slide and existing turns retain their prior timing. Sidings use distance-based
 smoothstep lateral interpolation and a braking/acceleration speed profile, with no extra stop.
 
@@ -742,8 +746,11 @@ pack repos after normalizing mixed endings introduced by the report append. Arch
 were left intact. The shared TestKit slots match the prepared source here and remain
 uncommitted in that local-only repo; no action is armed at load.
 
-**Prepared owner smoke ? first batch [NEVER RUN for this revision]:** restart the game with the
-current dev hub and TestKit; load the owner's current fixture.
+**Prepared owner smoke — first batch [NEVER RUN for this revision]:** import the longer-stub
+FBX, then restart with the current dev hub and TestKit. Use a freshly placed hub until the
+owner removes the last element of each old 50 m track and saves the fixture under a new name.
+On the fresh hub, confirm the connector is 60 m from the centre and a track attaches down
+the path between the arms. The mocked six-hex outline is not proof of that native attachment.
 
 1. Pause, select the hub, run Scratch then slot 1. Read the actual tunables and inspect the siding park.
 2. Slot 6 cycles pause, park, siding offset, entry, inward rejoin, reverse rejoin, dwell.
@@ -751,6 +758,10 @@ current dev hub and TestKit; load the owner's current fixture.
    lateral offset, 500 game ms for dwell. Tune paused with no arrival/crossing. Park/offset
    changes reposition parked trains; other changes apply to the next movement or wait.
 3. Watch arrival: arm stop, outer slide, centred entry, curved braking onto the siding.
+   Start pause at 48 m; try 47–49 m. Watch both tail-to-connector and nose-to-portal clearance
+   on arrival and mirrored departure. If the proposed 46–50 m window has no good point,
+   report visible overlap in metres at the chosen pause for the model pass; do not add a
+   Lua workaround. The screenshot-based centre/length assumption does not resolve R-TRAIN.
 4. Watch unload/load and departure: roughly 6 game seconds per hub command; curved rejoin
    only once the exit clears. Slot 3 retains straight/60?/120?/reverse departure setup.
 5. Time one vanilla-station stop as the 12-game-second control, then repeat the visible cycle

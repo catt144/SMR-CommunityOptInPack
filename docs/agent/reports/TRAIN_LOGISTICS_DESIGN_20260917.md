@@ -1399,3 +1399,15 @@ stays 5 m. These defaults require the Pass 3 model, whose owner import is pendin
 handoff. Try 5.0 m lateral next if needed and judge park within 13–15 m. No width/length fit
 is established; R-TRAIN remains DISPUTED. The model's reported cargo-bed corner overhang
 is still an owner asset question. The build report carries the current sitting.
+
+**Longer-stub movement trial, owner handoff 2026-09-20 (import pending):** set pause to
+48 m, with 47–49 m for the owner's eye. The model session reports connector 60 m and arms
+40–80 m; generator `STUB_R = FOOTPRINT_R + 2` and `PLATFORM_ARM_HEXES = 4` were checked
+from `hub_skeleton.py` at Opt-In HEAD `15d6e19`. Siding tunables stay unchanged.
+The proposed 46–50 m clearance window assumes a centred, roughly 20 m train from screenshots;
+it is not a measurement or a resolution of R-TRAIN. Verify mirrored exit clearance too.
+Until the owner trims old tracks and saves a new fixture, use a freshly placed hub after
+import; confirm its 60 m connector and native track attachment. If no pause in the window
+looks right, report the overlap in metres to the model pass instead of compensating in Lua.
+The same FBX reportedly shifts the cargo beds and their Box spots together; the movement
+code continues reading those spots and makes no cargo-layout adjustment.
