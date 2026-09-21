@@ -63,7 +63,8 @@ import warnings
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ONE kit serves both mods (split-optins, 2026-08-12): the probe count below
 # is the SAME number the fix pack's doccheck emits, not a second suite.
-TESTKIT = os.environ.get("SMR_TESTKIT", r"C:\Dev\SMR-BugFixPack-TestKit")
+TESTKIT = os.environ.get("SMR_TESTKIT", os.path.join(os.path.dirname(REPO),
+                                                     "SMR-BugFixPack-TestKit"))
 
 DOCS = os.path.join(REPO, "docs")
 BUGS = os.path.join(DOCS, "BUGS.md")                  # a stub since 2026-08-03

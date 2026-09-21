@@ -9,7 +9,7 @@ The probe harness — `SMRTest.RunAll`, verdict semantics, the ways a probe lies
 is [`TESTKIT.md`](TESTKIT.md). The unattended arming harness is
 [`arming/README.md`](arming/README.md).
 
-It lives in `C:\Dev\SMR-BugFixPack-TestKit`, a separate repo with **no remote,
+It lives in `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no remote,
 local-only by design and settled**. Never raise a push there as owed. A pack lane
 does not commit in it.
 
@@ -196,6 +196,23 @@ desk-only; the reasoning is in each leaf's comment block). **Record each as witn
 - `close_domes` returns the law deactivated and every parameter reduced by 10 points.
 - `fill_storages` on a colony with a rocket returns `filled`, `skipped_rockets` of at least 1 and
   `failed`, and does not abort.
+- **Group actions on a box-drag selection** (added 2026-09-20 on the owner's ask, kit `3abab0a`).
+  Box-drag many units of one class; the Selected page then shows a `Group: <class> x<n>` section
+  instead of the per-object leaves. Press **Group read** first: it mutates nothing and returns the
+  member count, a `by_command` tally and the battery range. Then the mutating ones, each shown only
+  when a member supports it: Delete all, Drain batteries, Recharge batteries, Malfunction all,
+  Repair all, Dust all, Clean all. Expect `failed = 0`, and `skipped` above 0 only where a member
+  genuinely lacks the call. Delete clears the selection on purpose (the wrapper asserts on a group
+  of one). ⚠️ Recharge re-commands a drone left in `NoBattery`; if a drained drone stays down after
+  it, that is the finding. Reassign, Salvage, Priority and On/Off are vanilla's own buttons on the
+  multi-select panel and were deliberately not duplicated.
+- `empty_storages` (**added 2026-09-20 on the owner's ask**, World page, beside Fill all storages)
+  returns `emptied`, `skipped_rockets` and `failed = 0`, and the depots read empty. It is the fill
+  leaf mirrored: same sweep, same rocket exclusion, same per-object `pcall`. ⚠️ The rocket exclusion
+  here is **precautionary, not measured** — rockets do not override `CheatEmpty`, so they would run
+  `UniversalStorageDepotBase.ClearAllResources`, which guards the supply side and then indexes
+  `self.demand[resource]` unguarded (`StorageDepot.lua:735-751`, 1.1.0.403908): the same nil-demand
+  shape that aborted the fill sweep. A `failed` above 0 names a depot class that still throws.
 - Quick build on a pipe or cable run, and on a dome, where two presses may be needed. The leaf's comment
   block in `73_SMRTK_Infopanel.lua` says why each differs from the colony-wide cheat.
 - **Verbose** lights green and shows the on-screen log, and its own press shows a `verbose=on` line;
@@ -225,10 +242,10 @@ sweep's age, and none overrides the owner — a gate, not a hard rule.
 ## Gates, then the one line to the owner
 
 ```
-python tools/parsecheck.py --dir C:/Dev/SMR-BugFixPack-TestKit/Code --quiet
+python tools/parsecheck.py --dir B:/Dev/SMR/SMR-BugFixPack-TestKit/Code --quiet
 python tools/doccheck.py
-rg -n 'NetSyncEvent|LogCheatUsed' C:/Dev/SMR-BugFixPack-TestKit/Code -g '7*_SMRTK*.lua' -g '80_AgentSlots.lua'
-rg -n '^\s*print\(' C:/Dev/SMR-BugFixPack-TestKit/Code -g '7*_SMRTK*.lua' -g '80_AgentSlots.lua'
+rg -n 'NetSyncEvent|LogCheatUsed' B:/Dev/SMR/SMR-BugFixPack-TestKit/Code -g '7*_SMRTK*.lua' -g '80_AgentSlots.lua'
+rg -n '^\s*print\(' B:/Dev/SMR/SMR-BugFixPack-TestKit/Code -g '7*_SMRTK*.lua' -g '80_AgentSlots.lua'
 ```
 
 doccheck GREEN; both `rg` runs zero matched lines, exit 1. ⛔ **An error is not a
@@ -242,12 +259,3 @@ Then give the owner **one line**: *"start the game; the Slots & notes tab is loa
 Relay the slot labels, the predictions path and both HEADs to the attending agent;
 that agent reads and logs results and archives evidence. ⛔ **Do not ask the owner
 to paste commands already provisioned in slots.**
-
-⚖️ **An agent may launch the game itself, for any reason, and the owner is not a
-required participant in a run** (owner, 2026-09-19). The one line above is for a
-sitting the owner is playing, not a permission boundary: where a read is cheaper
-taken directly, arm it and take it rather than queueing a request. What does not
-change is that a measurement is a claim like any other — taking it yourself makes
-a second, independent derivation cheaper, not unnecessary. If an agent-launched
-run cannot reach the state a read needs, that bound is itself worth reporting,
-because it decides what later measurements can be self-service about.

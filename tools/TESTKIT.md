@@ -4,7 +4,7 @@
 companion mod that measures the pack. It tells you what to reach for, and — the
 part that costs sessions when it is missing — **what a verdict from it licenses.**
 
-The kit itself is `C:\Dev\SMR-BugFixPack-TestKit`, a separate repo with **no
+The kit itself is `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no
 remote, local-only by design and settled**. Never raise a push there as owed, and
 never commit in it from a pack lane. Its own `README.md` is the build-state
 document; this file is the durable part, and it is here because the kit is
@@ -18,7 +18,7 @@ Probe **hygiene** — the stale-probe sweep, the `TEMPORARY` marker, the
 restated here.
 
 ```
-mklink /J "%AppData%\Surviving Mars Relaunched\Mods\SMR-BugFixPack-TestKit" C:\Dev\SMR-BugFixPack-TestKit
+mklink /J "%AppData%\Surviving Mars Relaunched\Mods\SMR-BugFixPack-TestKit" B:\Dev\SMR\SMR-BugFixPack-TestKit
 ```
 
 Enable it in the Mod Manager alongside whichever packs the leg needs. Open the
