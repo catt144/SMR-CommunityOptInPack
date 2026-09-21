@@ -38,6 +38,17 @@ riding 289 units (2.89 m) off the line sits on it with the beam carrying its inn
 path between each pair of arms is where the vanilla track runs in. MEASURED by the owner in game:
 the hub places, a track attaches down that path, and a train parks on the deck at the right height.
 
+**The six loading sidings are in the model too** (imported and seen in game 2026-09-20; the
+generator constants are `SIDING_*` in `C:\Dev\SMR-Assets\trainhub\blender\hub_skeleton.py`, and spec
+§9 records the pass). One runs beside each interior spur, all six on the same hand — the owner
+confirmed the side in game. Each deck runs **from about 3.0 m to 22.7 m from the hub centre** along
+its spur, is **4.0 m wide** outward from the beam's edge, and its top is at **8 m**, level with the
+beam and the stub. Its inner end is cut parallel to the neighbouring spur so a train passing there is
+not clipped. The frame carries an opaque panel in the body mesh — real glass is the texture pass's
+question, gated. ⛔ **These are the dimensions to place the loading position against; do not solve it
+from a train length** (see the dispute above). Anything the sidings turn out to need is an asset
+change and therefore the owner's call, not this build's — report it, per the stops.
+
 ## End state (the owner's decisions; the mechanism is yours)
 
 1. **Inside the hub, a train is on the centreline** — arriving, stopped, loading, turning, crossing
@@ -55,10 +66,15 @@ the hub places, a track attaches down that path, and a train parks on the deck a
    is defined by distance along the path, so its shape holds at any game speed.
 3. **The transition out mirrors it**, ending with the train beside the rail on the other arm, riding
    the vanilla track away as normal.
-4. **Loading happens on the siding, not on the centre** (owner, 2026-09-20; the model pass adds six,
-   one per spur). The train slides off the running line onto its siding, loads there, and waits there
-   until its exit is clear, then rejoins the centre. This is what answers the question build 3b's pass
-   hit and deferred: vanilla picks a loading train's exit only after it has loaded, and with a siding
+4. **Loading happens on the siding, not on the centre** (owner, 2026-09-20; the model pass added six,
+   one per spur, and they are in the game — the geometry is above). ⚠️ **This is TWO more movements
+   than build 3b had, on top of the transition in and out, and they are the point of this item:**
+   **(a) off the running centreline onto the siding**, ending parked on the deck where it loads, and
+   **(b) back off the siding onto the centreline** once its exit is free, feeding into the departure.
+   Between them the train **waits on the siding for a free lane** — that wait is the whole reason the
+   sidings exist, and its duration is the traffic's, not a timer's. Name both movements and their
+   positions as tunables the owner moves live, the same way the pause and park distances are.
+   This is what answers the question build 3b's pass hit and deferred: vanilla picks a loading train's exit only after it has loaded, and with a siding
    a blocked exit no longer forces a choice between blocking the running line and reversing into the
    arrival lane. ⛔ **Fold the slide into the braking and the rejoin into the acceleration** — one
    curved motion, never stop-then-slide-then-stop. The hub already adds transitions to every trip and
