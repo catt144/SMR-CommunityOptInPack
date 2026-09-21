@@ -706,9 +706,9 @@ The occupied-exit guard is retained unchanged. Scheduling and mutually blocked d
 remain the deferred loading/queueing pass; this is no claim that sidings solve that policy.
 
 **Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
-exit slide 50 m; park 14.5 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 5 m;
-reverse rejoin 26.5 m. These are eye-tuning starting values and use no train-length estimate.
+exit slide 50 m; park 11 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 1.5 m;
+reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
 5.0 m lateral if the passing clearance still looks tight; the suggested park range is 13–15 m.
@@ -800,3 +800,15 @@ and its continuity onto vanilla track in the next owner smoke; native appearance
 loading-platform transition, "maybe 1/4 of a hex", with screenshot. Move the curve start
 another 2.5 m inward, from 25.5 to 23 m. Park, siding offset, rejoins and outer transitions
 stay fixed. This is the next visual trial, not a clearance measurement or acceptance.
+
+**Owner correction, 2026-09-20:** the transition has become sharper and jerky while the
+platform overhang stays the same. The entry-only adjustments were the wrong implementation:
+they shortened the curve from 12 m to 8.5 m without moving its destination. The owner wants
+the train farther along the track before it moves onto the loading platform. Keep entry at
+23 m and shift park from 14.5 to 11 m, restoring the original 12 m approach curve. Shift
+inward rejoin from 5 to 1.5 m and reverse rejoin from 26.5 to 23 m to retain their original
+travel lengths too. This translates the whole siding movement 3.5 m inward from the Pass 3
+trial instead of squeezing it. Those lengths are source arithmetic, not measured clearance.
+Outer entrance/exit positions, lateral offset and post-slide launch are unchanged. Judge
+the parked overhang, inner-end clearance and smoothness in the next sitting; no visual pass
+is claimed. The earlier fixed-park trials above record the rejected approach.

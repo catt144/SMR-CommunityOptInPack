@@ -1431,3 +1431,11 @@ also applies to through departures. The post-slide launch needs the owner's visu
 **Owner siding follow-up, 2026-09-20:** pull another quarter hex inward before starting the
 loading-platform transition. `HubSidingEntryDistance` changes from 25.5 to 23 m (2.5 m inward);
 park and every other movement setting remain fixed. Visual acceptance of this trial is owed.
+
+**Owner correction, 2026-09-20:** entry-only changes made the transition sharper/jerky and
+left parked overhang unchanged. Correct the implementation by translating the entire siding
+movement 3.5 m inward from the Pass 3 trial: entry 23 m, park 11 m, inward rejoin 1.5 m,
+reverse rejoin 23 m. This restores the original approach/rejoin lengths instead of shortening
+the curves against a fixed parking point. The fixed-park trials above are rejected. Lateral
+offset and outer transitions stay unchanged. Parked fit, inner clearance and smoothness need
+the owner's next visual check; the arithmetic does not settle train dimensions or clearance.

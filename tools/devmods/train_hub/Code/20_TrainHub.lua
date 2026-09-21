@@ -33,19 +33,20 @@ local Floor = SMROptInTrainFloor
 -- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
 -- outward from the hub centre. Neither is derived from the disputed length.
 -- Longer-stub model handoff: try 48 m, then 47-49 m by eye after import.
--- This is the owner's trial, not a solved train-length clearance. Park and
--- siding positions remain the Pass 3 first trials, not in-game measurements.
+-- These are owner-directed visual trials, not solved train-length clearances.
 -- All tunables reset on a full restart.
 Floor.HubTransitionPauseDistance = 48 * guim
 -- Owner: entrance looks good; exit slides too early. Separate outward trial.
 Floor.HubExitSlideDistance = 50 * guim
-Floor.HubParkDistance = 14.5 * guim
+-- Shift the whole siding movement 3.5 m inward from the Pass 3 trial.
+-- Moving entry alone shortened the curve without changing parked overhang.
+Floor.HubParkDistance = 11 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
 Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
-Floor.HubSidingEntryDistance = 23 * guim -- owner: another quarter hex inward before the siding curve
-Floor.HubSidingRejoinDistance = 5 * guim
-Floor.HubSidingReverseRejoinDistance = 26.5 * guim
+Floor.HubSidingEntryDistance = 23 * guim -- retain the original 12 m braking curve
+Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward rejoin
+Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 
 -- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
