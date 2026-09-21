@@ -1421,3 +1421,9 @@ The owner then clarified that the first screenshot's "pull up a little more" con
 interior move onto the loading platform. Its curve now starts at 25.5 m instead of 26.5 m,
 a 1 m farther-in trial with the parking point and both rejoins unchanged. This is independent
 of the entrance transition and exit slide; the owner must still judge both adjusted movements.
+
+**Owner exit-speed ruling, 2026-09-20:** after the exit slide, go immediately to normal travel
+speed. The hub now passes outgoing-element nominal speed as both start and finish of its
+final GotoSpot, replacing the one-third-speed acceleration leg. Vanilla's tech/heat/law speed
+calculation remains authoritative; slide timing and interior movement are unchanged. This
+also applies to through departures. The post-slide launch needs the owner's visual check.

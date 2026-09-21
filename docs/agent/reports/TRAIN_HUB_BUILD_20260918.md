@@ -785,3 +785,13 @@ The owner clarified that the earlier "pull up a little more before doing its sli
 was inside the hub, moving onto the loading platform. Start that curve 1 m farther inward:
 `HubSidingEntryDistance` 26.5 to 25.5 m, leaving park and both rejoin points fixed. This is a
 separate first trial from the outward exit adjustment; entrance remains unchanged.
+
+**Owner exit-speed feedback, 2026-09-20:** after the outward slide the train crawls;
+the owner wants it to go straight to normal travelling speed. The hub's last GotoSpot had
+requested one-third nominal speed with an implicit standstill start. It now supplies the
+outgoing connector's `GetNominalMoveSpeed(el)` as both starting and final speed, immediately
+after the unchanged slide. SOURCE: archived 1.1.0.403908 `Lua/Units/Train.lua:507-519,593-613`:
+GotoSpot forwards both speed inputs to the solver, and nominal speed retains vanilla tech,
+heat and law modifiers. Both stopped departures and through trains use this hub-local handoff.
+No vanilla movement function or outer-slide timing changes. Watch the launch after the slide
+and its continuity onto vanilla track in the next owner smoke; native appearance remains owed.

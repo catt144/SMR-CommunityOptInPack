@@ -619,7 +619,6 @@ end
 function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, departure_track, reverse)
 	local el = self:GetConnectorElement(departure_idx)
 	if not IsValid(el) then return end
-	local speed = train:GetNominalMoveSpeed() / 3
 	local ramp = synthetic_spot_pos(self, "Rampdepart", departure_idx)
 	local outward = synthetic_spot_angle(self, "Rampdepart", departure_idx)
 	if reverse then
@@ -642,7 +641,10 @@ function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, d
 	if not self:HubSlideTrain(train, ramp) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	local step = self == departure_track:GetStartStation() and 1 or -1
-	train:GotoSpot(el, step == 1 and "Enter1" or "Enter2", speed, nil, 0)
+	-- Owner: slide, then immediately travel normally, without a slow exit leg.
+	-- Use vanilla's outgoing-element speed (tech/heat/law modifiers included).
+	local speed = train:GetNominalMoveSpeed(el)
+	train:GotoSpot(el, step == 1 and "Enter1" or "Enter2", speed, speed, 0)
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	return IsValid(train) and IsValid(self) and not self.destroyed
 end

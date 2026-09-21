@@ -72,8 +72,16 @@ function h:HubSlideTrain(train,destination)
  return slide(self,train,destination)
 end
 t.command='GotoStation'; t:AssignToTrack(h.tracks[1]); t.at_station=false
+local acceleration=t.GetAccelerationAndTime
+local handoff_start,handoff_final
+function t:GetAccelerationAndTime(pos,final,start)
+ handoff_start,handoff_final=start,final
+ return acceleration(self,pos,final,start)
+end
 h:TrainDepart(t,h.tracks[1])
 assert(exit_checked,'departure missed outward slide')
+assert(handoff_start==t:GetNominalMoveSpeed(h.elements[1]) and handoff_final==handoff_start,
+ 'post-slide handoff must start and finish at outgoing nominal speed')
 h.HubSlideTrain=nil
 local unchanged_arrival=h:GetSpotPos(h:GetSpotBeginIndex('Ramparrive1'))
 assertclose(unchanged_arrival.xx,ramp.xx); assertclose(unchanged_arrival.yy,ramp.yy)
@@ -83,6 +91,7 @@ assert(not h:HubCrossingTrain() and not h:GetOccupyingTrain(h.tracks[1],false))
 -- One other-line through movement exercises entry, centre pivot, and exit.
 local through=newtrain(h,1)
 h:TrainPassThrough(through,h.tracks[1],h.tracks[3])
+assert(through.speed==through:GetNominalMoveSpeed(h.elements[3]),'through exit retains crawl speed')
 dest=h.elements[3]:GetSpotPos(2)
 assertclose(through.pos.xx,dest.xx); assertclose(through.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain())
