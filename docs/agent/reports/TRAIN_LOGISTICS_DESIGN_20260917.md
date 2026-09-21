@@ -1284,21 +1284,38 @@ back. `git ls-files trainhub/blender/textures/` is empty in SMR-Assets, so a rol
 geometry and UVs only: the TGAs in `textures/concept/` and the dev mod's DDS stay put and would
 then be painted against UVs that no longer exist, with no error.
 
-**An external AI texturing trial (owner, 2026-09-21).** The owner wants the concept painted onto
-the real model by a dedicated AI tool, **for comparison first** — a paint on our own UVs gives
-agents a truer reference than screenshots, even if none of it ships. `blender/export_for_texturing.py`
-(SMR-Assets `df9bb50`) gates on `concept_guard.verify_scene`, never saves the blend, and writes the
-body alone — spots, surfaces and our flat maps stripped — as GLB, OBJ and FBX to the gitignored
-`export/for_texturing/`, with `MODEL_FACTS.json` (12,778 vertices, 11,656 faces, 24,094
-triangles, one `UVMap`, about 144 × 160 × 21 m, Y up). Run once: the gate passed; checked outside
-Blender, the GLB carries `TEXCOORD_0` over all 24,094 triangles and all 11,656 OBJ faces reference
-a UV. A copy with the concept art and a README went to the owner's Desktop,
-`C:\Users\stkot\OneDrive\Desktop\TrainHub_for_texturing`. ⛔ **The one rule for the tool: it must
-paint onto the existing mesh's existing UVs.** A tool that generates a new mesh from an image
-(Tripo's category, dropped 2026-09-19) or offers to re-unwrap produces something that cannot be
-compared like for like. A result on our UVs can be dropped into the dev mod for an in-game
-side-by-side; it is not shippable as-is, since the game wants BaseColor, Normal, RM and a
-one-channel SI mask. The owner is bringing new reference images to the next session.
+**The AI texturing trial is CLOSED (owner, 2026-09-21).** The owner tried Tripo on the bare export
+(`blender/export_for_texturing.py`, SMR-Assets `df9bb50`; GLB, OBJ and FBX in the gitignored
+`export/for_texturing/`, with `MODEL_FACTS.json`) and it "gets confused and nothing useable comes
+out of it" — the model is too big. That is the mesh-generating category already dropped on
+2026-09-19; no tool was found. **The look goes by a scripted bake onto our own frozen UVs**
+(`texture_hub.py` and the concept bake in SMR-Assets), never a painted or generated mesh. The
+production source stays the tested `.blend` (`hub-centre-uv-frozen-20260921` for UVs); nothing
+from the handoff below is a production export.
+
+**The owner's visual handoff, 2026-09-21:** `C:\Users\stkot\Downloads\TrainHub_Visual_Handoff_v1\TrainHub_Visual_Handoff_v1`
+(five images, `MATERIAL_SPEC.md`, `STYLE_PARAMETERS.json`, `ROUTE_GEOMETRY_SPEC.json`, an
+implementation brief). The owner: it is *"better quality than the original ref concept"*.
+**Reference only.** Usable: the warm off-white shell, the dark portal insert with a cyan ring, the
+Y-merge route-light topology (two platform lines merge to one centred line at the portal),
+`01_HUB_LOOK_TARGET.png` as the target. Not usable as written: its Blender Principled-BSDF
+materials and clearcoat (the game takes BaseColor, Normal, RM and a one-channel SI mask on one
+material, with no clearcoat channel) and its `Hub_VisualOverlay` geometry (the model is final and
+frozen; the lights are painted into base colour and SI on the existing UVs). Its GLB is our own
+export flattened (26,266 vertices against our 12,778 is the same 24,094 triangles split at UV
+seams).
+
+**Pad direction (owner, 2026-09-21):** the transport surfaces are to be *"a highly polished
+metallic black, that's almost glass looking"*, not the package's gunmetal grey. The package's own
+`maglev_pad` (#111A21, metallic 0.82, roughness 0.16) is what reads as gunmetal. UNTESTED proposal
+for two variants to judge by eye: base about #05080B, roughness 0.04-0.08, and metalness 0-0.3
+(dielectric, Fresnel sheen at the oblique camera) against near 1.0 (mirror). Whether the game's
+shader reflects strongly enough for glass is not measured.
+
+**Staged (owner, 2026-09-21), the owner inspects in game after each step:** 1. every road surface
+(platforms, portal approaches, radial paths, centre) and nothing else; 2. the structure (shell,
+rails, trim); 3. the cyan lights (portal ring, then route lines); 4. fine normal detail.
+Step 1's first question for the build agent: how `texture_hub.py` separates pad faces today.
 
 ---
 

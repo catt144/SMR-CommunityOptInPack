@@ -54,11 +54,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **WHERE THE PROJECT STANDS, close of 2026-09-21.** The model is FINAL at radius 6 and
      owner-accepted; the transitions are ACCEPTED. The tree move is DONE for this role: both
      editor headers read `B:\Dev\SMR\SMR-Assets` and the owner imported the rebuilt body on them
-     (`7c3e74c`); the record is `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. ⛔ **Next
-     session: the owner is bringing new reference images** for an external AI texturing trial on
-     the bare exported model. Read spec §9 "The first concept import in game" first — it holds why
-     the hub looks like flat paint, the five restore tags, and the trial's one rule (the tool must
-     paint on our existing UVs). The look iteration itself is HELD by the owner.
+     (`7c3e74c`); the record is `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. ⛔ **The owner closed the AI
+     texturing trial** (no usable tool) **and brought a visual handoff package** (spec §9): reference
+     only, production stays our `.blend`. The look resumes staged, owner-inspected: road surfaces as
+     polished black glass first, then structure, lights, fine normal. Read spec §9 "The first
+     concept import in game" first — it holds why the hub looks like flat paint and the five
+     restore tags.
    - **Live, fire when the owner wants an agent spent:** `TRAIN_HUB_LOADERRORS_low.md`, two errors
      the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is

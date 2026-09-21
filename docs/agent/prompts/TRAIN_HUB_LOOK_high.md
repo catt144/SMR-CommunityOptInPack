@@ -1,14 +1,13 @@
 # Train hub: the look pass — the concept art, in game, first cut
 
-**LIVE, PAUSED BY THE OWNER after iteration 1's import (2026-09-21).** The rebuilt body and
+**LIVE, RESUMING STAGED (owner, 2026-09-21).** The rebuilt body and
 concept maps are imported (`7c3e74c`) and the owner has looked: glow works, but the hub reads as
 *"blue paint"* and blurry up close. Measured cause, spec §9 "The first concept import in game":
 the maps are correctly compiled at vanilla's own format and size but almost unpainted — normal
-97.9% flat, base colour 84.2% one value, RM with no metalness. **Hold the next iteration** (owner:
-*"hold off"*). The owner is instead trying an external AI texturing tool on the bare exported model
-and will bring new reference images; that trial and its one rule are in the same §9 passage.
-When the look resumes, the order in §9 applies: normal bake first and alone, in game for the
-owner's eye. Glass and the themed reactor stay deferred. Asset work in
+97.9% flat, base colour 84.2% one value, RM with no metalness. The owner's AI texturing trial found
+no usable tool and is closed; the look goes by bake onto our UVs. The owner's handoff package, the
+pad direction and the four steps are in spec §9. The order is now theirs: **road surfaces first,
+owner inspects, then structure, lights, fine normal.** Glass and the themed reactor stay deferred. Asset work in
 `B:\Dev\SMR\SMR-Assets\trainhub\blender`, plus the owner's Mod
 Editor import. Authoring shas: SMR-OptInPack `df6ef4c`, SMR-Assets `09bd145`. An empty
 `git diff --stat 09bd145..HEAD -- trainhub/` and `git diff --stat df6ef4c..HEAD --
