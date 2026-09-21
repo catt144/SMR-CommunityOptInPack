@@ -1559,6 +1559,16 @@ outside the mask, SI ceiling 179. That set edits structure glow, which
 `TRAIN_HUB_STRUCTURE_high.md` also owns: whoever fires it starts from the owner's choice here.
 OptInPack `29101e8`: all six arms carry B3's light style, **234 lights = 6 × 39**, up from 142
 (the beads are the densest style). The pad and strips-off sets rebake unchanged.
+**Correction, owner, 2026-09-21: B3 "was the wrong blue, it was the other blue that i wanted",
+with its "lighting intensity slightly bumped".** The inference above failed: the pixel test split
+B1 from the rest but could not split B2 from B3 once bloom and ambient lift a saturated line's
+red and green together; read the pick from the owner, not from a screenshot. "The other blue" is
+taken as **B2 Deep blue wash** (0,40,255), the only other blue the same pixels allow. Assets
+`a93a143`: `ARM_LINE_WINNER = 5`; both validators PASS again (arms: 3,595 core texels, one
+colour, 0 outside the lines; structure set: BC 115,783 and SI 115,872 changed, NM and RM 0, 0
+outside the mask, SI ceiling 179). OptInPack `bbfec1a`: all six arms carry B2's spots, intensity
+100 → 130 (R2 keeps 100), **72 lights = 6 × 12**, down from 234. The spot's aim is still the
+unverified +X assumption; the owner's look at B2's arm is the only evidence it lands on the deck.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
