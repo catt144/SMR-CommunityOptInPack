@@ -1427,3 +1427,7 @@ speed. The hub now passes outgoing-element nominal speed as both start and finis
 final GotoSpot, replacing the one-third-speed acceleration leg. Vanilla's tech/heat/law speed
 calculation remains authoritative; slide timing and interior movement are unchanged. This
 also applies to through departures. The post-slide launch needs the owner's visual check.
+
+**Owner siding follow-up, 2026-09-20:** pull another quarter hex inward before starting the
+loading-platform transition. `HubSidingEntryDistance` changes from 25.5 to 23 m (2.5 m inward);
+park and every other movement setting remain fixed. Visual acceptance of this trial is owed.

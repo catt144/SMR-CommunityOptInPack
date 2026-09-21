@@ -707,7 +707,7 @@ remain the deferred loading/queueing pass; this is no claim that sidings solve t
 
 **Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
 exit slide 50 m; park 14.5 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 25.5 m; inward rejoin 5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 23 m; inward rejoin 5 m;
 reverse rejoin 26.5 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
@@ -795,3 +795,8 @@ GotoSpot forwards both speed inputs to the solver, and nominal speed retains van
 heat and law modifiers. Both stopped departures and through trains use this hub-local handoff.
 No vanilla movement function or outer-slide timing changes. Watch the launch after the slide
 and its continuity onto vanilla track in the next owner smoke; native appearance remains owed.
+
+**Owner siding follow-up, 2026-09-20:** the train still needs to pull farther in before the
+loading-platform transition, "maybe 1/4 of a hex", with screenshot. Move the curve start
+another 2.5 m inward, from 25.5 to 23 m. Park, siding offset, rejoins and outer transitions
+stay fixed. This is the next visual trial, not a clearance measurement or acceptance.
