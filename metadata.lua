@@ -62,6 +62,12 @@ return PlaceObj('ModDef', {
 		"*.gitignore",
 		"*.rgignore",
 		"*.gitattributes",
+		-- 2026-09-21: durable in-tree material (local/) and agent/subagent
+		-- working space (scratch/) — both git-ignored, ported from the fix
+		-- pack's same-day ruling on where non-repo material lives; the
+		-- README gate for local/ is local/README.md. Never ship either.
+		"*/local/*",
+		"*/scratch/*",
 	},
 	-- Mod Options defaults (D05): must mirror items.lua's ModItemOptionToggle
 	-- names, all false. This field is what makes Options → Mod Options list the
@@ -86,12 +92,12 @@ return PlaceObj('ModDef', {
 	-- on 1.1.0 — all three removed from this list and from items.lua. Both wrap-order
 	-- constraints this comment used to record involved NoHomeless and left with it;
 	-- ResidencyControl now wraps ChooseDome alone. Archive + restore steps:
-	-- C:\Dev\SMR-OptInPack-archive\README.md; the record is git (bugs/D06, D07, D12).
+	-- local/retired-modules/README.md; the record is git (bugs/D06, D07, D12).
 	-- ⚖️ 2026-09-18 (owner): ClassicRockets RETIRED (OVERTAKEN) — vanilla 1.1.0's
 	-- GetFuelResourceRequest ships the fuel half natively; the module's residual
 	-- reach fought a new deliberate rule (zeroing Trade/TradePad/Rival rockets).
 	-- Removed from this list and from items.lua; restore sha `1716471`; record
-	-- is git + bugs/D01.md; archive copy at C:\Dev\SMR-OptInPack-archive\README.md.
+	-- is git + bugs/D01.md; archive copy at local/retired-modules/README.md.
 	'code', {
 		"Code/00_Core.lua",
 		"Code/Opt_AcknowledgedWarnings.lua",

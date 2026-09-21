@@ -21,3 +21,15 @@ Desktop.ini
 # Train hub dev mod: the Mod Editor copies the textures in as DDS (44 MB); they regenerate on every import
 tools/devmods/train_hub/Textures/
 tools/devmods/train_hub/Fallbacks/
+
+# Agent/subagent working space: write freely, never committed, never cited.
+# The eviction prompt sweeps files older than 14 days (STATE_EVICTION.md).
+scratch/*
+!scratch/README.md
+
+# Durable in-tree material that must not ship or be committed (large
+# binaries, logs, evidence a report links to). Never swept, unlike scratch/
+# above. Owner decision, 2026-09-21 (local/README.md is the entry gate),
+# ported from the fix pack the same day.
+local/*
+!local/README.md

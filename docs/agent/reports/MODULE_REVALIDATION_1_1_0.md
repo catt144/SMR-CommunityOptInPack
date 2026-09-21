@@ -676,8 +676,9 @@ Shipping modules are now `ClassicRockets` (D01), `AcknowledgedWarnings` (D02), `
 (D03), `MultipleSuns` (D04), `DroneStatDials` (D09). ⛔ **Git is the record** — restore sha
 **`cc846e4`**, the last commit in which all three still shipped
 (`git show cc846e4:Code/Opt_DroneOverhaul.lua`). The untracked convenience copies at
-`C:\Dev\SMR-OptInPack-archive\` sit deliberately OUTSIDE the mod root, so the Mod Editor cannot
-sweep a retired module into an upload pack and the junctioned game folder cannot see it.
+`local/retired-modules/` are git-ignored; `metadata.lua`'s `ignore_files` (`*/local/*`) is what
+keeps the Mod Editor from sweeping a retired module into an upload pack, held equal to
+`tools/pack_predict.py` by doccheck's PACK IGNORE PARITY gate.
 
 ### 10.1 · A stale Mod-Options key is INERT — removing a toggle is safe
 

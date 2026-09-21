@@ -101,9 +101,9 @@ def cli_cases(m, root):
                  "eol_report", "check_state", "check_state_admission",
                  "temporary_sweep", "load_order", "wrap_targets_check", "flpk_selftest",
                  "parse_gate", "parsecheck_selftest", "tools_compile", "module_set_agreement",
-                 "pack_ignore_parity"):
+                 "pack_ignore_parity", "check_local"):
         setattr(m, name, lambda *args: True)
-    for name in ("push_set_report", "testkit_tree"):
+    for name in ("push_set_report", "testkit_tree", "scratch_report"):
         setattr(m, name, lambda out: None)
     # A gate added to main() later and not stubbed above must fail loudly here,
     # not quietly shell out against the real tree.
