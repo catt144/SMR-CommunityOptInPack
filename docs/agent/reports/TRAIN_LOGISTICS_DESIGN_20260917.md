@@ -1536,6 +1536,13 @@ arm's centre from 8 to 40 m, then a pair easing apart to 3.46 m by 60 m and stra
 Total **142 = 2 × (20 + 12 + 39)**, asserted by `look_smoke.py` with the same lifecycle cases.
 A variant's colour now lives in two places (the Lua table and `ARM_LINE_COLOUR`); reassigning an
 arm's colour costs a rebake and an importer run, reassigning only its light style does not.
+**Owner's look at the thin lines, 2026-09-21 (two screenshots, a blue arm):** the old paint's
+"intensity is about right but its to white"; the thin set's "color it better but its intensity
+isn't quite there". Read: the old line was SI 1.0 on `BLUE` (2,97,255), whose green burns toward
+cyan-white; the thin line was SI 0.35 on a saturated arm colour. `THIN_SI` 0.35 → **0.7**, assets
+`abd9684`; only the SI map moves (BC, NM and RM byte-identical to `ac600ba`'s delivery, core SI
+byte 179, `validate_thinlines.py` PASS, 0 texels outside the lines). UNTESTED in game; whether the
+less saturated arms (B1, B3, R3) whiten at 0.7 is the owner's look. Lua unchanged.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
