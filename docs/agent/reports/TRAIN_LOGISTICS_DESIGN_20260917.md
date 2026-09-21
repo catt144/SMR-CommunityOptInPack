@@ -1125,6 +1125,45 @@ The model is frozen again; another geometry/UV edit needs a new owner ruling. Th
 not replace the owner's in-game centre and day/night lighting check. Commands, HEAD, filters and
 member lists are recorded in `export/concept/preparation_proof.json` and `verification.json`.
 
+**Body-only relighting baked, 2026-09-21.** Both prepaint tags were read back before this bake:
+assets `381fb1c`, OptInPack `df6ef4c`. From the assets blender folder,
+`blender --background export/concept/TrainHub_prepaint.blend --python-exit-code 1 --python paint_concept.py`
+at assets `381fb1c` plus the relighting implementation passed frozen geometry/UV guards before
+and after painting. The prepared scene's body-only flag restricts output to the body's maps;
+old glass maps/FBX and reactor output are not part of this delivery. The later reactor session
+must regenerate its material-sampling UVs against the changed body atlas before import.
+
+The same physical-coordinate approach path crosses both arms and the body track: paired outer
+dashes become continuous converging strips, merge into one, and end at the portal. The floor
+uses continuous radiating curves shared across the centre plate and adjoining tracks, with no
+interior floor dashes. Centre lines were widened and antialiasing increased after inspecting
+the first close preview. `render_concept.py` on `TrainHub_look.blend` produced day/night,
+approach and centre views; the final centre and night images were inspected. Deferred entities
+are hidden in these previews; there is no Blender stand-in for the vanilla reactor.
+
+`python validate_concept_maps.py --body-only` passed raw TGA dimensions/channels, RM R/G agreement,
+grey SI, blue BC alignment under lit SI and normal directions. Filter: body BC/NM/RM/SI only,
+each 2048 square, **50,333,804 = 4 × 12,583,451 source bytes**. Full-mip DDS estimate:
+**13,981,672 = 2,796,364 BC + 5,592,580 NM + 2,796,364 RM + 2,796,364 SI bytes**; this is not
+an imported-file or packed-mod measurement. Map hashes are in `paint_proof.json`, reconciled
+costs in `map_validation.json`. Re-running `export_prep.py -- --centre-candidate --body-only`
+on the tracked workfile at assets `381fb1c` was rejected with "centre exception already consumed"
+before export (`centre_closed_gate.log`). The earlier first-cut restore tags remain intact.
+
+The editor-generated `SourceData/GFXMaterial/SMROptInTrainHub6.lua`, read at OptInPack `48d2cea`
+plus the owner's pending import output, confirms BaseColor, Normal, RM and SI all point to the
+canonical concept TGA files. This confirms SI slot availability, recorded in assets
+`_shared/IMPORTER_FACTS.md`; it does not establish night-time glow acceptance. The owner next
+reloads these map inputs and re-imports only the body using `blender/README.md`, then checks the
+centre and lighting in their existing fixture. Their pending editor-generated files are
+preserved and excluded from these source/documentation commits. No movement Lua changed.
+Before the next import, the pending tracked dev-mod outputs plus every file under its Textures
+folder were copied to `.git/session-backups/hub-first-import-20260921/` in OptInPack. Every copy
+was SHA256-compared with its source; `manifest.json` records the source HEAD, filter, members,
+sizes and hashes. This preserves the first imported appearance as well as the source restore
+tags. The completed source/hand-off restore point is paired tag `hub-centre-lights-20260921`.
+Executed model from the developer transcript: GPT-6; no more specific identifier supplied.
+
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub

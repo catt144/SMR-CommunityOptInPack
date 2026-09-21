@@ -1,8 +1,10 @@
 # Train hub: the look pass — the concept art, in game, first cut
 
-**LIVE, fire when ready.** Asset work in `C:\Dev\SMR-Assets\trainhub\blender`, plus the owner's Mod
-Editor import. Authoring shas: SMR-OptInPack `17defc8`, SMR-Assets `54eb84d`. An empty
-`git diff --stat 54eb84d..HEAD -- trainhub/` and `git diff --stat 17defc8..HEAD --
+**LIVE, iteration 1 prepared: ONE rebuilt-body import and the owner's look next.**
+Glass and the themed reactor are deferred to a later session. Asset work in
+`C:\Dev\SMR-Assets\trainhub\blender`, plus the owner's Mod
+Editor import. Authoring shas: SMR-OptInPack `df6ef4c`, SMR-Assets `09bd145`. An empty
+`git diff --stat 09bd145..HEAD -- trainhub/` and `git diff --stat df6ef4c..HEAD --
 tools/devmods/train_hub/` mean this brief's facts hold.
 
 ## Authority
@@ -21,13 +23,16 @@ entities without baking. Use `concept_guard.verify_scene()` before every bake. T
 frozen again: further geometry or UV changes are a stop. Spec §9 and `blender/README.md` carry
 the commands and evidence.
 
-**First cut prepared, 2026-09-21:** body/glass BC, NM, RM and SI are baked in
-`textures/concept/`; the separate glass and themed reactor FBXs are in `export/concept/`.
-Body/glass fingerprints, FBX round trips and the mocked attachment lifecycle pass. The reactor
-shares the body material in Blender; Mod Editor sharing is still untested. The live work is
-the owner's material setup/import, confirming the SI slot and glass, then their day/night look
-and iterations. Start with `blender/README.md`'s first material step. This is not an in-game
-acceptance; the lifecycle below still holds.
+**Iteration 1 prepared, 2026-09-21:** the centre exception below is implemented as a single plate
+meeting six track legs. The prior geometry proof, exact unchanged-object hashes, crossing
+silhouette/overlap checks, repeated UV fingerprint and body FBX round trip pass. The new freeze
+is held at paired `hub-centre-uv-frozen-20260921` tags before rebaking. The body's maps in
+`textures/concept/` now carry the relaid approach lights and continuous radiating floor curves.
+The live work is one body re-import from `export/concept/SMROptInTrainHub6.fbx`, with the four
+updated maps, then the owner's centre/day/night look. Follow the body-only handoff in
+`blender/README.md`. The first import confirmed the SI slot; game glow acceptance remains open.
+The older glass/reactor outputs are deferred, not current delivery; a later reactor pass must
+regenerate its body-atlas sampling UVs. This is not in-game acceptance; the lifecycle still holds.
 
 **Owner, 2026-09-21 — what this pass is.** *"Give me a good pass at bringing the concept art to life
 and that we can see where we are. And iterate from there."* This is a **first cut to look at**, not a
@@ -79,11 +84,11 @@ not a substitute for them.
 1. **The body's maps bring the concept to life**: base colour, normal, roughness/metal, and the SI
    glow mask, built for the final geometry. The look is judged against the owner's references, not
    against vanilla.
-2. **Glass on the six loading platforms**, as its own attached entity with its own material, with
+2. **DEFERRED to a later session: glass on the six loading platforms**, as its own attached entity with its own material, with
    the border kept in the body and blue glow available in the glass, around it, or both. The glass
    geometry is the existing `SidingPanel_*` pieces, separated by the OI-23 exporter into
    `SMROptInTrainHub6Glass` with shape and position exact; reuse that frozen export.
-3. **The generator carries the theme too** (owner, 2026-09-21). The hub's reactor is a visual only:
+3. **DEFERRED to a later session: the generator carries the theme too** (owner, 2026-09-21). The hub's reactor is a visual only:
    vanilla's `FusionReactor` entity attached as a `ShapeshifterAutoAttach`, scaled 75%, 45 m out
    (`20_TrainHub.lua:1033-1066`). Left alone it is the one vanilla-styled object in a themed hub.
    ⛔ **Never restyle vanilla's own material to achieve this** — that repaints every fusion reactor
@@ -95,8 +100,8 @@ not a substitute for them.
    shared between entities, share the body's rather than adding a third set of maps, and say whether
    that worked — it is likely but unverified.
 4. ⛔ **No dome glass this pass** (owner). The dome stays as it is.
-5. ⛔ **No further geometry or UV change after the OI-23 restore point.** The glass split and first
-   scripted unwrap are complete; the generator is a new entity. The model is final and a mesh change spends the bake.
+5. ⛔ **No further geometry or UV change after the centre restore point.** The owner-approved
+   centre exception below is complete and refrozen; the generator is a new entity. The model is final and a mesh change spends the bake.
    If the look genuinely needs the model to move, that is a stop, not a decision.
 6. **Leave the art editable, and say how.** The generating script stays the source of truth with its
    knobs named — strip width, hull colour, glow shapes — and every map is regenerated from it. Never
@@ -104,10 +109,9 @@ not a substitute for them.
    (spec §9) in another form. **Your call whether the colour layer is also produced as a
    hand-editable source the owner can paint in an image editor**; the owner has asked what that would
    take, so if you judge it cheap, do it and say so.
-7. **Export, and give the owner the Mod Editor import steps** from `blender\README.md`, a few at a
-   time, naming the slot for each map. ⚠️ **Whether the editor exposes the SI slot for our material
-   type is unverified** — the format supports it; the UI is unconfirmed. Find out on this import and
-   record it in `_shared/IMPORTER_FACTS.md`.
+7. **Give the owner ONE body import** from `blender\README.md`, a few steps at a time, naming the
+   slot for each map. The first import confirmed BC, Normal, RM and SI in the editor-generated
+   material, recorded in `_shared/IMPORTER_FACTS.md`. Do not hand the owner glass steps this pass.
 8. **The owner looks in game, in day AND at night**, and directs the next round. Then iterate with
    them: small changes, one look each, until they say it is right.
 9. **Record** in spec §9 and commit both repos with pathspecs. `doc-editing` first.
@@ -152,18 +156,17 @@ remains** — both expected, neither a fault. Hand the owner ONE import round: t
 
 ## Scope
 
-In: the body's four maps, the glass entity, the themed generator entity, their materials, the
-export, the import steps, the owner's looks and the iterations that follow.
-Out: the dome's glass; the body's geometry and UVs; vanilla's own materials; the movement Lua and its tunables; per-siding glow logic;
+In now: the proved centre fix, relaid body lights, body export/maps and one import/look round.
+Deferred: the separate siding glass and themed reactor, their materials/imports and acceptance.
+Out: the dome's glass; further body geometry/UV changes; vanilla's own materials; the movement Lua and its tunables; per-siding glow logic;
 builds 4 and 5; the hub's economy; the ship-size ruling (OI-18 is the owner's).
 
 ## Stops
 
-- **The glass entity will not import or will not attach**: report what the importer said and what
+- **In the later glass session, the entity will not import or will not attach**: report what the importer said and what
   you tried. Do not fall back to putting the glass in the body mesh — that is the route already
   measured to fail.
-- **The Mod Editor offers no SI slot** for our material: report it with what the material panel
-  shows. The look then lands without glow this round, which is worth seeing on its own.
+- **The body re-import fails**: report the importer error and preserve the owner's existing setup.
 - **The look cannot be reached without moving geometry**: report what you tried and what each looked
   like, with a render. The model is the owner's.
 
