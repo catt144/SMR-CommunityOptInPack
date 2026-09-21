@@ -707,7 +707,7 @@ remain the deferred loading/queueing pass; this is no claim that sidings solve t
 
 **Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
 exit slide 50 m; park 11 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 20 m; inward rejoin 1.5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 19 m; inward rejoin 1.5 m;
 reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
@@ -854,3 +854,9 @@ speed, not the accepted full-speed outer exit. Native smoothness and onset remai
 The installed dev-mod junction resolves to this workspace; the latest inspected game log
 `Mars.exe-20260920-23.58.44-6a91a190.log` shows the dev mod loaded but contains no live entry
 tunable read. Slot 1 is still the way to confirm the active value during the sitting.
+
+**Owner onset follow-up, 2026-09-21:** "close but still to early", with screenshots;
+move farther along the track before sliding. Trial entry 19 m instead of 20 m, adding
+1 m of straight travel. Park, lateral offset, rejoins and outer transitions stay fixed;
+the existing run-based entry-speed compensation follows the shorter curve. Visual
+acceptance remains owed. Slot 1 should read `HubSidingEntryDistance=1900` after restart.

@@ -1461,3 +1461,7 @@ entry 20 m (another 2.5 m inward) with park 11 m and offset 4.5 m fixed. Scale t
 entry speed with its remaining run relative to the original 12 m approach to avoid
 compressing the lateral easing time as onset moves inward. Rejoins and outer transitions
 stay fixed. This is a new visual trial, not a measured clearance or accepted movement.
+
+**Owner next trial, 2026-09-21:** 20 m onset is close but still early. Set entry to 19 m
+for another metre of straight travel, retaining the fixed parking alignment and existing
+entry-speed compensation. Other settings stay fixed; the owner still judges the result.
