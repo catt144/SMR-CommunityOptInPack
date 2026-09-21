@@ -1030,13 +1030,16 @@ end
 -- persisted class name. DeleteOnLoadGame removes the helper after save load and
 -- heal_after_load recreates it. Seven vanilla outline hexes scaled by sqrt(4/7)
 -- gives 75.6%, so 75% targets the owner's three-to-five-hex look.
-local reactor_entity = "FusionReactor"
+-- Look pass (owner 2026-09-21, spec §9): our own themed entity; never restyle
+-- vanilla's material. Retain the old visual until the owner imports the new one.
+local reactor_entity = "SMROptInTrainHubReactor"
+local reactor_fallback_entity = "FusionReactor"
 local reactor_scale = 75
 local reactor_offset = point(3897, 2250, 0) -- 45 m out, local angle 30 degrees
 
 local function is_hub_reactor(obj)
 	return IsValid(obj) and IsKindOf(obj, "ShapeshifterAutoAttach")
-		and obj:GetEntity() == reactor_entity
+		and (obj:GetEntity() == reactor_entity or obj:GetEntity() == reactor_fallback_entity)
 end
 
 local function set_hub_reactor_working(self, working)
@@ -1045,6 +1048,9 @@ local function set_hub_reactor_working(self, working)
 			local state = working and "working" or "idle"
 			if visual:HasState(state) then visual:SetState(state) end
 			PlayFX("Working", working and "start" or "end", visual)
+			if visual:GetEntity() == reactor_entity then
+				visual:SetSIModulation(working and 200 or 0)
+			end
 		end
 	end
 end
@@ -1053,10 +1059,11 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
 		if is_hub_reactor(visual) then DoneObject(visual) end
 	end
-	if not IsValidEntity(reactor_entity) then return end
+	local entity = IsValidEntity(reactor_entity) and reactor_entity or reactor_fallback_entity
+	if not IsValidEntity(entity) then return end
 	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
-	visual:ChangeEntity(reactor_entity)
-	visual.fx_actor_class = reactor_entity
+	visual:ChangeEntity(entity)
+	visual.fx_actor_class = reactor_fallback_entity -- preserve the existing Working FX actor
 	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
 	self:Attach(visual, self:GetSpotBeginIndex("Origin"))
 	visual:SetAttachOffset(reactor_offset)
@@ -1064,6 +1071,33 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	visual:SetScale(reactor_scale)
 	DeleteOnLoadGame(visual)
 	set_hub_reactor_working(self, self.working)
+end
+
+-- The six original panel prisms, in one separately imported glass entity.
+-- No new persisted class/field or thread: same DeleteOnLoadGame + recreation
+-- lifecycle as the reactor, and no dome glass (owner 2026-09-21, OI-23).
+local siding_glass_entity = "SMROptInTrainHub6Glass"
+
+local function set_hub_glass_working(self, working)
+	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+		if IsValid(visual) and visual:GetEntity() == siding_glass_entity then
+			visual:SetSIModulation(working and 200 or 0)
+		end
+	end
+end
+
+function SMROptInTrainHubBase:InitHubSidingGlass()
+	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+		if IsValid(visual) and visual:GetEntity() == siding_glass_entity then DoneObject(visual) end
+	end
+	if not IsValidEntity(siding_glass_entity) then return end
+	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
+	visual:ChangeEntity(siding_glass_entity)
+	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	self:Attach(visual, self:GetSpotBeginIndex("Origin"))
+	visual:SetAttachOffset(point(0, 0, 0))
+	DeleteOnLoadGame(visual)
+	set_hub_glass_working(self, self.working)
 end
 
 -- A train station is normally only an ElectricityConsumer. This hub is both a
@@ -1155,6 +1189,7 @@ function SMROptInTrainHubBase:GameInit()
 	self.service_area_max = hub_work_radius
 	self:InitHubLaunchPad()
 	self:InitHubReactorVisual()
+	self:InitHubSidingGlass()
 	self:GatherOrphanedDrones()
 	top_up_hub_drones(self)
 	place_hub_markers(self)
@@ -1169,6 +1204,7 @@ function SMROptInTrainHubBase:OnSetWorking(working)
 	end
 	self:NotifyWorkingChanged(self.connected_task_requesters)
 	set_hub_reactor_working(self, working)
+	set_hub_glass_working(self, working)
 end
 
 -- Done is combined. TrackConnectedObjBase's body removes connectors 0..4
@@ -1307,6 +1343,7 @@ local function heal_after_load(hub)
 	hub:InitHubLaunchPad()
 	top_up_hub_drones(hub)
 	hub:InitHubReactorVisual()
+	hub:InitHubSidingGlass()
 	Floor.Reconcile(hub)
 end
 

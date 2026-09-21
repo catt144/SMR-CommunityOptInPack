@@ -1044,6 +1044,56 @@ glass/material acceptance. The prepaint exports are `export/concept/SMROptInTrai
 `SMROptInTrainHub6Glass.fbx`; no paint was baked before the restore point. Executed model from
 the developer transcript: GPT-6; no more specific runtime identifier was supplied.
 
+**First concept paint prepared, 2026-09-21 (owner: "As long as we have backup up your work you
+can proceed").** Both `hub-prepaint-uv-frozen-20260921` tags were checked before painting:
+assets `69b23fc`, OptInPack `5657136`. `paint_concept.py` now regenerates BC/NM/RM/SI directly
+on the frozen body and glass UVs, with before/after fingerprint checks. The owner's reference
+direction is expressed as off-white shells, near-black decks, blue centre dashes, flowing lines
+on the transition arms and glass, lit portal rims and body borders. Dome glass remains excluded.
+The Blender day/night and detail previews were inspected; the deck's initial excessive gloss
+was reduced in RM. This is a first cut for the owner's game view, not acceptance of the concept.
+
+The body uses **2048-square** maps and the platform glass **1024-square** maps. These are the
+first-pass choices for the visible line detail; no 4096 default. From the assets blender folder,
+`python validate_concept_maps.py` at base `69b23fc` plus this pass emitted **63,967,448 bytes** of
+TGA sources and **18,176,648 bytes** estimated DDS including mip chains. Its
+`export/concept/map_validation.json` lists each map and reconciles both sums. The DDS estimate
+uses the formats in archived 1.1.0.403908 `CommonLua/Libs/DevToolsPublic/GFXMaterial.lua:1098-1138`;
+it is not a measured import or a packed-mod size. OI-18 remains the owner's ship-size decision.
+`paint_source/README.md` explains a hand-editable RGBA BC overlay that survives regeneration;
+all glow geometry and palette knobs remain in the script so BC and SI can change together.
+
+`build_concept_reactor.py` produces `SMROptInTrainHubReactor`, a simple white housing around a
+dark core with blue rings, sampling the body's material. **Material sharing works in Blender
+and survives its FBX round trip; sharing in the Mod Editor remains untested.** It adds no map
+set and never edits a vanilla material. `20_TrainHub.lua` selects this new entity after import,
+otherwise retaining FusionReactor. It preserves the existing offset, scale and Working FX
+actor. `SMROptInTrainHub6Glass` is attached at Origin and follows the reactor's existing
+DeleteOnLoadGame/recreate lifecycle; both new visuals receive SI modulation from working state.
+No movement code/tunable, economy, persisted class or persisted field changed.
+
+Executed asset commands (Blender 5.2.2 LTS) are listed in `blender/README.md`: `paint_concept.py`
+on `export/concept/TrainHub_prepaint.blend`, `build_concept_reactor.py` and
+`verify_concept.py -- --with-reactor` on `TrainHub_look.blend`, then `validate_concept_maps.py`
+and `render_concept.py`. The paint and verification reports carry commands, HEADs and filters.
+The frozen body/glass checks and deliberate drift-rejection controls pass. The FBX verifier
+passes each exported node/parent/transform/face boundary/UV corner for body, glass and reactor;
+reactor material assignment survives. Source maps pass dimensions, raw TGA channels, RM R/G
+agreement, greyscale SI, blue BC alignment under lit SI, and transparent glass alpha.
+`python tools/devmods/train_hub/tests/look_smoke.py` at OptInPack base `5657136` plus this pass
+passes mocked missing-import fallback, replacement, repeat initialization, preservation of a
+foreign attachment, offset/scale/FX, working on/off SI and recreation after mocked load deletion.
+`python tools/parsecheck.py --dir tools/devmods/train_hub/Code --quiet` passes. Neither test is
+evidence of native rendering, importer acceptance or serialization.
+
+**Next is the owner's Mod Editor import**, a few steps at a time from the assets README.
+Use maps under `textures/concept/` and FBXs under `export/concept/`, not the older outputs.
+The existing GFXMaterial receives BC, Normal, RM and (if exposed) SI; then re-import the frozen
+body, followed by separate glass and reactor Art Specs. The editor's SI slot, glass blending
+dropdown, actual attachment and game glow remain unverified. Record observed importer results
+in `_shared/IMPORTER_FACTS.md`; no new importer fact is claimed yet. The owner's day/night look
+on a named save still closes the first-cut milestone and directs the next iteration.
+
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub

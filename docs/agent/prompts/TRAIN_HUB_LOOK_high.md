@@ -19,7 +19,15 @@ at the paired `hub-prepaint-uv-frozen-20260921` tags before any paint bake. Asse
 `concept_freeze.json` is the baseline; `export_prep.py` checks it and exports separate body/glass
 entities without baking. Use `concept_guard.verify_scene()` before every bake. The model is
 frozen again: further geometry or UV changes are a stop. Spec §9 and `blender/README.md` carry
-the commands and evidence. The live work is now maps, materials, reactor, attachment and import.
+the commands and evidence.
+
+**First cut prepared, 2026-09-21:** body/glass BC, NM, RM and SI are baked in
+`textures/concept/`; the separate glass and themed reactor FBXs are in `export/concept/`.
+Body/glass fingerprints, FBX round trips and the mocked attachment lifecycle pass. The reactor
+shares the body material in Blender; Mod Editor sharing is still untested. The live work is
+the owner's material setup/import, confirming the SI slot and glass, then their day/night look
+and iterations. Start with `blender/README.md`'s first material step. This is not an in-game
+acceptance; the lifecycle below still holds.
 
 **Owner, 2026-09-21 — what this pass is.** *"Give me a good pass at bringing the concept art to life
 and that we can see where we are. And iterate from there."* This is a **first cut to look at**, not a
