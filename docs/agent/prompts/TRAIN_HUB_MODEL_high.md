@@ -85,12 +85,9 @@ spots, 0 colliders, 724 surfaces.
 - **Look: a clean glass deck with a metal border** (owner). No panel seams — the owner compared
   vanilla's big dome, which is ribbed and panelled, with the PassageHub's clean shell, and wants the
   clean read here. Ribbed stays right for our own dome, which is a separate question and not this pass.
-- **The glass needs its own mesh node.** One material per mesh is measured
-  (`_shared/IMPORTER_FACTS.md`: *"Contains multi-materials. Not supported yet."*,
-  `SceneImport.lua:4023`), which is why `INCLUDE_GLASS = False` today. At import, first try vanilla's
-  **`DomeGlass`** in the material picker (spec §9 records PassageHub's glass as `DomeGlass_*` in
-  `Materials.fpk`); if it is not offered, make a GFXMaterial with blending on. Report which. **If it
-  works, say so** — `INCLUDE_GLASS` could then come back and the hub's own dome stops being opaque.
+- **The panel goes in the body mesh, opaque** (owner, 2026-09-20, after the first import): the importer
+  keeps one mesh node and silently discards any other (`_shared/IMPORTER_FACTS.md`), so the separate
+  glass node did not survive. Real glass is a texture-pass question, gated.
 
 ⛔ **Rough is right, and this is the owner's instruction** (2026-09-20): *"not extreme effort in
 getting it exact since we know now I can human-eye any gaps and give you movement parameters. The
@@ -101,6 +98,41 @@ import for a gap the owner can see and correct in one pass.
 Pass 2 then follows End state steps 3 to 5 below — export, the owner's import, one in-game look,
 record and commit. **It skips step 2's render gate**: the owner inspects it in the game, not in a
 render. The junction is already in place.
+
+## Pass 3 — the sidings are too small for a train, seen in game (owner, 2026-09-20)
+
+Pass 2 is imported and the owner looked at a train parked on a siding. Three faults, all theirs,
+all dimensions: **the car overhangs the deck's outer edge**; **the deck ends before the car does**;
+and **the cargo pallets are where the car and the deck want to be** — which is Pass 2's own
+"keep it inside about 23 m radius" note coming true, the bed stacks growing through the deck.
+
+⛔ **The inner end does not move. The owner tried it and ruled it out** (2026-09-20): *"extending
+out platform closer to the hub won't do it, its gonna just eat into either the track or the tunnel
+entrance."* Take the length outward instead. This also protects the inner end's clearance from the
+neighbouring spur, which an inward extension would have eaten.
+
+The owner's first cut, to be looked at and not defended — **the owner adjusts by eye afterwards**:
+1. **`SIDING_W` 4.0 → about 5.5 m**, outward, away from the spur. This fixes the overhang and buys
+   clearance from a train passing on the running line, because it parks the train further out. The
+   owner flagged that pass as *"really tight"*.
+2. **`SIDING_TO` 23.0 → about 25.5 m**, the owner's *"not by a lot"*.
+3. **The cargo beds stay where they are unless the deck actually reaches them.** ⛔ The owner
+   corrected an orchestrator proposal to move them (2026-09-20): *"this is what needs to extend
+   outward not the hub."* The deck grows; the hub does not. The beds are `BAY_D` = 26.75 m on the
+   wedge midline, `BAY_LEN` 14.9 m by `BAY_DEPTH` 6.6 m, spanning about 23.5 to 30 m radially with
+   their near corner about 6.5 m off the line, so a 25.5 m by 5.5 m deck does run into that zone and
+   the owner saw stacks and deck meeting. Report what overlaps after the deck is sized; the owner
+   raised *"shift the resource pallets slightly"* as a possibility, not an instruction, so a bed move
+   is theirs to rule on with the overlap in front of them. If one is needed, it is small and lateral,
+   never a redesign of the bays.
+
+**No Lua change, and do not open `20_TrainHub.lua`** — it belongs to `TRAIN_HUB_MOVE_high.md`, which
+is live. The bed positions are entity `Box1` spots that the import carries, and the hub reads the
+cube grid off the spot (`GetCubePosRelative`, 12 cubes along the spot's +X and 5 rows along its +Y),
+so moving the spot moves the stacks with it.
+
+Then the same tail as Pass 2: export, the owner's import, one in-game look, record in spec §9,
+commit with pathspecs. Skip the render gate; the owner judges it in the game.
 
 ## End state
 
