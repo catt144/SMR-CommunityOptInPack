@@ -10,7 +10,7 @@ and every rule carries two derivations and a status. Labels as in the hub report
 
 ## 0. Outcome
 
-**The instrument:** `C:\Dev\SMR-Assets\_shared\geometry\hub_oracle.py` (stdlib Python, runs
+**The instrument:** `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py` (stdlib Python, runs
 without either mod repo; SMR-Assets commit of 2026-09-19 "Geometry oracle"). It reads the entity
 file, the hub Lua (parsed, not re-typed) and the Blender skeleton, and prints a verdict per
 invariant with the rule each rests on, its provenance and CONFIRMED/UNCONFIRMED; `--json` for
@@ -143,7 +143,7 @@ cargo check); GPT-5.4 via Codex (three blind derivations).
 
 ## 9. Addendum, late in run A: the vanilla entity table decoded
 
-An Opus agent decoded `BinAssets.fpk:entities.dat` (`C:\Dev\SMR-Assets\_shared\geometry\entities_dat.py`,
+An Opus agent decoded `BinAssets.fpk:entities.dat` (`B:\Dev\SMR\SMR-Assets\_shared\geometry\entities_dat.py`,
 SMR-Assets commit "entities_dat.py"). Judged by this session against anchors set before the decode:
 `TrackPillarCCP3` bbox 1000 x 204, z -1726..1069 PASS; its `Enter1`/`Enter2` at (0, +-289, 800) PASS,
 equal to slot 6's in-game read, so **R-LANE now has two derivations of different kind** (vanilla file,

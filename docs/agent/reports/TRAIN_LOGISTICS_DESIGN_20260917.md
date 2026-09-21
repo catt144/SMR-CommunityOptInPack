@@ -685,7 +685,7 @@ game the owner plays is Relaunched, at `A:\SteamLibrary\steamapps\common\Project
 - The spot and footprint data sit in the binary `BinAssets.fpk:entities.dat`, which has not
   been decoded.
 - Reference images and the asset's layout requirements for the owner are outside both repos,
-  at `C:\Dev\SMR-Assets\trainhub\reference\` (game art, local only).
+  at `B:\Dev\SMR\SMR-Assets\trainhub\reference\` (game art, local only).
 
 **The owner's asset: shape approved by the owner 2026-09-18 (OI-15 = six, OI-16 = 4b).** The
 owner, after the rebuild: "I actually think that turned out perfect", and the rest waits on the
@@ -693,7 +693,7 @@ game. The concept art was iterated with an image AI and meshed in Tripo (Smart M
 topology, about 15,000 polygons, untextured, FBX with the Blender preset). Its output is
 `C:\Dev\SMR-Optin-Assets\circular industrial platform 3d model.fbx`: binary FBX 7400, 15,229
 vertices and 281 loose parts. The Blender 5.2 pipeline lives outside both repos in
-`C:\Dev\SMR-Assets\trainhub\blender\`, and its `README.md` gives the steps:
+`B:\Dev\SMR\SMR-Assets\trainhub\blender\`, and its `README.md` gives the steps:
 - `hub_skeleton.py` builds everything that must be exact: `Origin`, the `hex_shape` footprint
   (61 hexes, 4 hexes of radius) and the free ring beyond it, `Collision`, `Selection`, three beams
   60° apart, every pillar with its foot on the ground, the platforms on posts, the ring wall as a
@@ -750,7 +750,7 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   and the atlas carries the aged look the owner rejected. Fallback only.
 - **Chosen: procedural textures, made in Blender.** `texture_hub.py` bakes white enamel, red trim rings,
   a light-grey hex floor with relief and slate-blue pads into three 4096² uncompressed TGAs in
-  `C:\Dev\SMR-Assets\trainhub\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
+  `B:\Dev\SMR\SMR-Assets\trainhub\blender\textures\`: `TrainHub_BC` (sRGB base colour), `TrainHub_NM`
   (tangent-space normal) and `TrainHub_RM` (roughness R/G, metal B). The body is one mesh with one
   material, as the importer requires (`SceneImport.lua:3548`, `:4023`); no colorization mask was
   made, so the colours are fixed. **Size, MEASURED 2026-09-19:** the imported DDS come to 44 MB
@@ -986,7 +986,7 @@ before the pass is briefed, because each one decides how the art is authored.
 **Concept preflight, 2026-09-21 — stopped before asset changes (OI-23).** The owner's
 `reference/Concept.png` and `reference/overall.png` were viewed and match the brief's blue-lit
 maglev direction. At assets HEAD `54eb84d448bc6f5d74f6335711504e04fe4697a7`, run from
-`C:\Dev\SMR-Assets\trainhub\blender`:
+`B:\Dev\SMR\SMR-Assets\trainhub\blender`:
 `blender --background export/TrainHub_export.blend --python-exit-code 1 --python preflight_concept.py`.
 The read-only command exited 1 on its UV gate. Filter: every polygon in `SMROptInTrainHub6`,
 first UV layer, absolute shoelace double-area below `1e-12`. It reconciled **11,678 faces =

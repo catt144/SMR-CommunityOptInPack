@@ -6,7 +6,7 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
 
 ## Layout
 
-- Dev repo: `C:\Dev\SMR-OptInPack`, git-versioned, canonical. Public remote
+- Dev repo: `B:\Dev\SMR\SMR-OptInPack`, git-versioned, canonical. Public remote
   `github.com/catt144/SMR-CommunityOptInPack` (owner, 2026-08-13); push what you commit.
 - Game install: `A:\SteamLibrary\steamapps\common\Project Spark` ("Project Spark" is the Steam
   folder name). Shipped Lua source, read-only: `<game>\ModTools\Src` (`Lua\`, `CommonLua\`, `Data\`,
@@ -31,7 +31,7 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
 ```powershell
 New-Item -ItemType Directory -Force "$env:APPDATA\Surviving Mars Relaunched\Mods" | Out-Null
 New-Item -ItemType Junction -Path "$env:APPDATA\Surviving Mars Relaunched\Mods\SMR-OptInPack" `
-  -Target "C:\Dev\SMR-OptInPack"
+  -Target "B:\Dev\SMR\SMR-OptInPack"
 ```
 
 Enable "Relaunched Fix Pack: Opt-In Modules" in the game's Mod Manager; restart the game after

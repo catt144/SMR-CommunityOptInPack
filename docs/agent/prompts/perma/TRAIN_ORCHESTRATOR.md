@@ -7,7 +7,7 @@
 > other perma prompts, it is temporary.
 
 **Fire with:** `task docs/agent/prompts/perma/TRAIN_ORCHESTRATOR.md` in a fresh session rooted at
-`C:\Dev\SMR-OptInPack`. Re-runnable for as long as the project lives.
+`B:\Dev\SMR\SMR-OptInPack`. Re-runnable for as long as the project lives.
 
 ## Authority
 
@@ -31,7 +31,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 - The owner's asset: the shape was approved on 2026-09-18 and imported into the dev mod on
   2026-09-19, on the hex grid (`06b5a62`). Spec §9 holds the pipeline, the measured axis mapping,
   the owner's look direction and what only the game can answer. The Blender and Mod Editor
-  steps are in `C:\Dev\SMR-Assets\trainhub\blender\README.md`.
+  steps are in `B:\Dev\SMR\SMR-Assets\trainhub\blender\README.md`.
 
 ## Each run
 
@@ -70,7 +70,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      header before importing. Import the glass and reactor AFTER the move so they are born correct.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
-     `C:\Dev\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
+     `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
      `_shared/IMPORTER_FACTS.md`, its game reads TestKit slot 6 `geometry_reads`). Read it before
      any hub geometry or train work: it found `hub_connector_directions` wrong for indices 1-4
      against the imported body, which puts four of six lines' train spots on another line and past
@@ -92,12 +92,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      the stub at one hex on 2026-09-20 and directed one more (spec §9), which moves the connectors
      to radius 5 on the owner's own measurement. The oracle stays the check instrument for
      spot changes, but its `--train-length-m` default inherits the doubt;
-   - **One assets folder: `C:\Dev\SMR-Assets`** (owner, 2026-09-20), and since 2026-09-21 the ONLY
+   - **One assets folder: `B:\Dev\SMR\SMR-Assets`** (owner, 2026-09-20), and since 2026-09-21 the ONLY
      path: the old name's junction is DELETED. The one thing still holding it was the dev mod's
      `SIE_ImportItem` `ScenePath`, and ⚠️ **the Mod Editor reasserts that stored path over a drag** —
      a different FBX dragged in appears to do nothing and the old file imports silently, which cost
      the owner an import. Rewrite that file on disk with the editor closed, then reopen and check the
-     Importer's header (`C:\Dev\SMR-Assets\README.md` §"The old path");
+     Importer's header (`B:\Dev\SMR\SMR-Assets\README.md` §"The old path");
    - **The hub's ship size** (OI-18, and spec §9): `upload_preflight.py` admits no asset file types
      at all. ⭐ MEASURED 2026-09-21, the bar fell on its own: the concept maps are 2048 where the old
      ones were 4096, and the dev mod's compiled textures are **14 MB, not 44** (three dead 4096 maps
@@ -117,7 +117,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      lifecycle; build 3's sitting-report §6 audit records how every mid-run ruling landed;
    - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
      The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
-     `C:\Dev\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
+     `B:\Dev\SMR\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
      not checked (§5 of the sitting report);
    - OI-18 and OI-19 on the owner's list;
    - **the movement work is DONE and owner-accepted** (2026-09-21): centreline entry and mirrored

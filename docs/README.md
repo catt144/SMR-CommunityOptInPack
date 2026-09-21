@@ -145,7 +145,7 @@ Owner decision, 2026-09-21: material that belongs to ONE tree lives IN that
 tree (`local/` above, or the tree itself). These are the exceptions — things
 every SMR mod uses, so no one tree owns them:
 
-- `C:\Dev\SMR-Assets` — shared asset repo, its own git repo. The train hub's
+- `B:\Dev\SMR\SMR-Assets` — shared asset repo, its own git repo. The train hub's
   textures live in its `trainhub/` subfolder.
 - `C:\Dev\SMR-TrainHubAssets` — a JUNCTION to `SMR-Assets\trainhub`; four
   generated files under `tools/devmods/train_hub/SourceData/` hardcode the

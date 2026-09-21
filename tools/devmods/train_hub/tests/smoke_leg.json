@@ -1,7 +1,7 @@
 {
   "leg": "train-hub-3b-smoke",
   "kit": "C:\\Dev\\SMR-BugFixPack-TestKit",
-  "park": "C:\\Dev\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests",
+  "park": "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests",
   "stripPattern": "Code/98_TrainHub3bSmoke",
   "anchorAfter": "99_FixtureCarry.lua",
   "bootSymbol": "Hub3bSmoke.Boot",

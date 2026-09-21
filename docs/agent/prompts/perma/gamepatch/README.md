@@ -29,7 +29,7 @@ Stops: edit nothing outside this repo; boot the game only if the owner asks; que
 Build pair: old <version> (archive digest <16 hex>…) → new <version> (Steam <buildid>, digest <16 hex>…)
 Fix-pack commit the sweep ran at: <sha>
 Command (run in C:\Dev\SMR-BugFixPack):
-    python tools/patchcheck.py --old <old> --new <new> --code Code --code C:\Dev\SMR-OptInPack\Code
+    python tools/patchcheck.py --old <old> --new <new> --code Code --code B:\Dev\SMR\SMR-OptInPack\Code
 Fix-pack verdict: <none | scoped | full> — P <holds|broken|n/a> · T <n> · B <n>
 
 ## Per module

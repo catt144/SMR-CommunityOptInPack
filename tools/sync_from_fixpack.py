@@ -110,7 +110,7 @@ TOOLS_NOT_PORTED = {
     "bodycheck.py": "pins manifest headers this repo's Opt_ modules do not carry "
                     "(FIX_POLICY's adaptation note omits §2b)",
     "patchcheck.py": "the fix pack's game-patch job runs it FROM the fix pack against "
-                     "this Code/ (--code C:\Dev\SMR-OptInPack\Code) and leaves the "
+                     r"this Code/ (--code B:\Dev\SMR\SMR-OptInPack\Code) and leaves the "
                      "result in prompts/perma/gamepatch/; a copy here would fork the hash",
     "patchcheck_selftest.py": "the falsifier for patchcheck.py, which is not ported",
     "l8_deference_map.py": "quarantined in the donor (terminal audit TA-3: misses "
@@ -335,7 +335,7 @@ SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"C:\Dev\SMR-SrcArchive")
 # Places a citation may resolve that are neither this repo's docs/ nor the donor
 # (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):
 TESTKIT = os.environ.get("SMR_TESTKIT", r"C:\Dev\SMR-BugFixPack-TestKit")
-TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"C:\Dev\SMR-Assets\trainhub")
+TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"B:\Dev\SMR\SMR-Assets\trainhub")
 _SKIP_DIRS = (".git", "__pycache__", "node_modules")
 _indexes = {}
 

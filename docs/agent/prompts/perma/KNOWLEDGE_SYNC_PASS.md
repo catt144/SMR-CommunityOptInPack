@@ -1,7 +1,7 @@
 # KNOWLEDGE SYNC PASS — does this repo hold what it cites, and what it needs?
 
 **Fire with:** `task docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` in a fresh session rooted at
-`C:\Dev\SMR-OptInPack`. Any model. Re-runnable — it is a sweep, not a one-off.
+`B:\Dev\SMR\SMR-OptInPack`. Any model. Re-runnable — it is a sweep, not a one-off.
 **Written 2026-09-12 from the fix-pack side**, after a cross-repo inventory found one live gap here.
 
 ## 0 · Why this exists
@@ -73,7 +73,7 @@ misses, and all 54 DONOR-HAS-IT rows were cited on purpose. Each run pays for th
 helper learns it, so both are this pass's job, with no ask needed (it is this repo's own tool):
 - **A miss class that repeats extends the resolver.** Known places it did not search: the TestKit repo
   (`C:\Dev\SMR-BugFixPack-TestKit`), subfolders of the archived game source
-  (`C:\Dev\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `C:\Dev\SMR-Assets\`, and git history
+  (`C:\Dev\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `B:\Dev\SMR\SMR-Assets\`, and git history
   (`git log --all -- <path>` for consumed prompts). Fix-pack ids (`C##`, `F##`) are donor names.
 - **A citation that is intentional by class gets a declared row**, with its reason, in the same shape
   as `TOOLS_*` (fact-mirror citations, WORKFLOW's pointers into the donor's 1.1.0 reports, live

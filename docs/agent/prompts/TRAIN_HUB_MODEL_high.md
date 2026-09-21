@@ -1,6 +1,6 @@
 # Train hub model: longer stubs and the transition platforms
 
-**LIVE, fire when ready.** Asset work in `C:\Dev\SMR-Assets\trainhub\blender`. Authoring shas:
+**LIVE, fire when ready.** Asset work in `B:\Dev\SMR\SMR-Assets\trainhub\blender`. Authoring shas:
 SMR-OptInPack `3c79ddd`, SMR-Assets `66240ae` (its `README.md` carried a peer's uncommitted edit;
 leave it). An empty `git diff --stat <sha>..HEAD` on `trainhub/` and `tools/devmods/train_hub/`
 means these facts hold.

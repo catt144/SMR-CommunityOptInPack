@@ -2,7 +2,7 @@
 
 **LIVE, iteration 1 prepared: ONE rebuilt-body import and the owner's look next.**
 Glass and the themed reactor are deferred to a later session. Asset work in
-`C:\Dev\SMR-Assets\trainhub\blender`, plus the owner's Mod
+`B:\Dev\SMR\SMR-Assets\trainhub\blender`, plus the owner's Mod
 Editor import. Authoring shas: SMR-OptInPack `df6ef4c`, SMR-Assets `09bd145`. An empty
 `git diff --stat 09bd145..HEAD -- trainhub/` and `git diff --stat df6ef4c..HEAD --
 tools/devmods/train_hub/` mean this brief's facts hold.
@@ -45,7 +45,7 @@ glass or around it that would be nice."* And: **leave the dome's glass out for n
 the six siding platforms' glass only.
 
 **The concept is the owner's two reference images**, placed 2026-09-21 in
-`C:\Dev\SMR-Assets\trainhub\reference\`: **`Concept.png`** (a track close-up) and **`overall.png`**
+`B:\Dev\SMR\SMR-Assets\trainhub\reference\`: **`Concept.png`** (a track close-up) and **`overall.png`**
 (the whole hub). That folder is git-ignored and also holds the vanilla reference pack, whose
 `README.md` maps every file in it and names the vanilla materials. In words, so you can tell
 whether you have the right files: a **maglev read** — a near-black track deck carrying bright blue light strips down its

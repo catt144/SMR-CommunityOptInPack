@@ -2,7 +2,7 @@
 
 **One-off. Deletes itself in its close-out commit** (`git rm` this file). Any model; the
 owner picks. **Start with `git log --oneline -10` + `git pull` in BOTH repos**
-(`C:\Dev\SMR-OptInPack`, `C:\Dev\SMR-BugFixPack`) and in the TestKit
+(`B:\Dev\SMR\SMR-OptInPack`, `C:\Dev\SMR-BugFixPack`) and in the TestKit
 (`C:\Dev\SMR-BugFixPack-TestKit`). Staleness anchor: written 2026-09-01 at opt-in `870c3e0`
 / fix pack `3e224a7`; verify against `git log` before trusting any specific.
 
