@@ -1100,6 +1100,114 @@ function SMROptInTrainHubBase:InitHubSidingGlass()
 	set_hub_glass_working(self, self.working)
 end
 
+-- Real lights on the arms (owner 2026-09-21, spec §9): three reds and three blues, one variant
+-- per arm, for the owner to choose from in game. Vanilla light classes attached to the hub, so
+-- no new persisted class or field; DeleteOnLoadGame + recreation like the reactor. A stopped hub
+-- DESTROYS its lights (the owner measures their cost by hub off against on), never dims them.
+-- Distances are centimetres in the arm's own frame: `u` outward from the centre, `v` sideways.
+local hub_light_variants = {
+	R1 = { name = "Ember rail", class = "PointLight", color = RGB(255, 40, 20),
+		intensity = 120, radius = 6 * guim, spacing = 8 * guim, height = 60 },
+	R2 = { name = "Crimson wash", class = "SpotLight", color = RGB(220, 0, 30),
+		intensity = 200, radius = 14 * guim, spacing = 16 * guim, height = 5 * guim, inner = 60, outer = 120 },
+	R3 = { name = "Rose beads", class = "PointLight", color = RGB(255, 60, 90),
+		intensity = 255, radius = 3 * guim, spacing = 5 * guim, height = 30 },
+	B1 = { name = "Ice rail", class = "PointLight", color = RGB(40, 160, 255),
+		intensity = 120, radius = 6 * guim, spacing = 8 * guim, height = 60 },
+	B2 = { name = "Deep blue wash", class = "SpotLight", color = RGB(0, 40, 255),
+		intensity = 200, radius = 14 * guim, spacing = 16 * guim, height = 5 * guim, inner = 60, outer = 120 },
+	B3 = { name = "Cobalt beads", class = "PointLight", color = RGB(90, 110, 255),
+		intensity = 255, radius = 3 * guim, spacing = 5 * guim, height = 30 },
+}
+-- Reassign here: key = the arm's local hex direction, value = a variant above. The reactor stands
+-- between arms 0 and 1, so every arm can be found in game without a compass.
+local hub_light_arms = {
+	[0] = "R1", -- flanks the reactor, the red flank
+	[1] = "B1", -- flanks the reactor, the blue flank
+	[2] = "R2", -- next to the blue flank
+	[3] = "B3", -- opposite the red flank
+	[4] = "R3", -- opposite the blue flank
+	[5] = "B2", -- next to the red flank
+}
+local hub_light_arm_names = {
+	[0] = "flanks the reactor (red flank)", [1] = "flanks the reactor (blue flank)",
+	[2] = "next to the blue flank", [3] = "opposite the red flank",
+	[4] = "opposite the blue flank", [5] = "next to the red flank",
+}
+-- The model's own edges (hub_skeleton.py): the beam is 1.75 m half-wide and ends at 65 m, the
+-- platforms' outer border is 5.16 m out and runs 40-80 m. Both sides of each.
+local hub_light_rows = {
+	{ v = 175, from = 8 * guim, to = 64 * guim },
+	{ v = 516, from = 40 * guim, to = 80 * guim },
+}
+local hub_light_classes = { "PointLight", "SpotLight" }
+
+local function clear_hub_lights(self)
+	for _, class in ipairs(hub_light_classes) do
+		for _, light in ipairs(self:GetAttaches(class) or empty_table) do
+			if IsValid(light) then DoneObject(light) end
+		end
+	end
+end
+
+local function place_hub_light(self, variant, x, y, z)
+	local light = PlaceObjectIn(variant.class, self:GetMap())
+	light:SetDetailClass("Essential") -- a light's default, Eye Candy, drops out at low detail
+	light:SetColor(variant.color)
+	light:SetIntensity(variant.intensity)
+	light:SetAttenuationRadius(variant.radius)
+	if variant.class == "SpotLight" then
+		light:SetConeInnerAngle(variant.inner)
+		light:SetConeOuterAngle(variant.outer)
+	end
+	self:Attach(light, self:GetSpotBeginIndex("Origin"))
+	light:SetAttachOffset(point(x, y, z))
+	if variant.class == "SpotLight" then
+		-- UNVERIFIED: assumes a spot shines along its own +X; a quarter turn about Y aims it down.
+		light:SetAttachAxis(axis_y)
+		light:SetAttachAngle(90 * 60)
+	end
+	DeleteOnLoadGame(light)
+end
+
+local function set_hub_lights_working(self, working)
+	clear_hub_lights(self)
+	if not working then return end
+	local deck = train_deck_height(self)
+	local x0, y0 = HexToWorld(0, 0)
+	local total = 0
+	for direction = 0, 5 do
+		local key = hub_light_arms[direction]
+		local variant = hub_light_variants[key]
+		if variant then
+			local q, r = HexRotate(1, 0, direction)
+			local hx, hy = HexToWorld(q, r)
+			local ax, ay = hx - x0, hy - y0 -- one hex outward, hub-local
+			local length = point(ax, ay):Len()
+			local count = 0
+			for _, row in ipairs(hub_light_rows) do
+				for u = row.from, row.to, variant.spacing do
+					for side = -1, 1, 2 do
+						local x = MulDivRound(ax, u, length) - MulDivRound(ay, side * row.v, length)
+						local y = MulDivRound(ay, u, length) + MulDivRound(ax, side * row.v, length)
+						place_hub_light(self, variant, x, y, deck + variant.height)
+						count = count + 1
+					end
+				end
+			end
+			total = total + count
+			local bearing = (CalcOrientation(point(0, 0), point(ax, ay)) + self:GetAngle()) % (360 * 60) / 60
+			print(string.format("[TrainHubDev] lights: arm %d, %s = %s \"%s\" (%s), %d lights, engine bearing %d deg",
+				direction, hub_light_arm_names[direction], key, variant.name, variant.class, count, bearing))
+		end
+	end
+	print(string.format("[TrainHubDev] lights: %d placed; a stopped hub destroys them all", total))
+end
+
+function SMROptInTrainHubBase:InitHubLights()
+	set_hub_lights_working(self, self.working)
+end
+
 -- A train station is normally only an ElectricityConsumer. This hub is both a
 -- 70-power producer and a 10-power consumer on one grid element, so its stated
 -- output covers itself plus six 10-power large stations. SupplyGridElement and
@@ -1190,6 +1298,7 @@ function SMROptInTrainHubBase:GameInit()
 	self:InitHubLaunchPad()
 	self:InitHubReactorVisual()
 	self:InitHubSidingGlass()
+	self:InitHubLights()
 	self:GatherOrphanedDrones()
 	top_up_hub_drones(self)
 	place_hub_markers(self)
@@ -1205,6 +1314,7 @@ function SMROptInTrainHubBase:OnSetWorking(working)
 	self:NotifyWorkingChanged(self.connected_task_requesters)
 	set_hub_reactor_working(self, working)
 	set_hub_glass_working(self, working)
+	set_hub_lights_working(self, working)
 end
 
 -- Done is combined. TrackConnectedObjBase's body removes connectors 0..4
@@ -1344,6 +1454,7 @@ local function heal_after_load(hub)
 	top_up_hub_drones(hub)
 	hub:InitHubReactorVisual()
 	hub:InitHubSidingGlass()
+	hub:InitHubLights()
 	Floor.Reconcile(hub)
 end
 
