@@ -1221,6 +1221,48 @@ pillar under the rail. **Gate before any of this is briefed (owner asked for a s
 normal, fast and fastest speed; then a code-only trial of centre riding and the merge on today's
 one-hex stub. The asset is touched only after the motion passes by eye.
 
+### The first concept import in game, MEASURED 2026-09-21
+
+The owner's import of the rebuilt body and the first concept maps, read in a live session.
+
+**The footprint is at radius 6, not the 5 the stub direction priced.** The game printed
+`[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6`, and the connector spots in
+`Entities/SMROptInTrainHub6.entjson` measure 6,000 units from centre on all six lines, z 800.
+That is consistent at 1,000 units per hex against the 2026-09-19 reading of 4,000 units at
+radius 4 above, so the stubs went out **two** hexes where the direction above was one. ⛔ Everything
+that passage costed — the ramp spots at 5/7 of the radius, the oracle's tables, the desktop traffic
+check, and shortening each line's end element by a hex on `train_hub_base`, `train_hub_base_agent`
+and `SpaceY Sol 21` — was priced for radius 5 and must be re-read at 6. A connector must be the last
+footprint hex on its line (`Tracks.lua:19-24`), and the spots feed `Station.lua:1105`'s 50 m
+teleport check, so this is not cosmetic. **Owner's ruling owed:** keep radius 6, or bring it back to
+5. Falsify with `line_radii`'s own print in a fresh session; the offline smoke's copy of that number
+comes from stubbed geometry and is not the game's.
+
+**The glow works, and it goes to zero rather than dimming.** `Building:OnSetWorking` calls
+`WorkLightsOn()` → `SetSIModulation(200)` when working and `WorkLightsOff()` → `SetSIModulation(0)`
+when not (`Lua/Buildings/Building.lua:1395-1420`, build 1.1.0.403908). Only entities carrying an
+attach spot annotated `emissive` bypass this (`NightLightObjects.lua:512-518`), and the hub has
+none, so its glow follows the working state exactly. Confirmed in game: powered and serving a train,
+the SI lines are lit. This closes the open question of whether the hub's glow darkens when it stops
+working — it does not darken, it extinguishes.
+
+**The maps are correctly compiled and almost entirely unpainted.** The four DDS in the dev mod are
+2048², 12 mips: BC `BC1_UNORM_SRGB`, NM `BC5_UNORM`, RM `BC1_UNORM`, SI `BC4_UNORM` — the
+one-channel mask §9 already records. Vanilla's own `Station_BC`, `Station_CM` and `NewDomes_BC` in
+`trainhub/reference/raw/` are the same 2048² BC1_UNORM_SRGB at 2.80 MB, so **format and resolution
+match vanilla exactly and are not a limiter**. The content does not: sampling 42,025 points per
+source TGA, BaseColor is **84.2% a single colour** RGB(176,194,209) with 563 distinct values,
+Normal is **97.9% neutral** (128,128,255), RM holds **5 distinct values** with metalness 0
+everywhere, and SI is 95.9% black. By compressed-block endpoints, 77.5% of our base colour is one
+pair against 48.6% for vanilla's Station and 9% for NewDomes. The owner's read — *"this just looks
+like blue paint"*, *"blurry … more like the first rough draft of a design step"* (2026-09-21) — is
+what those numbers describe: a flat normal gives the lighting no surface to catch. The look pass's
+next iteration is DEFERRED by the owner, 2026-09-21; the order when it resumes is the normal bake
+first and alone, then RM metalness and roughness variation, then base-colour break-up, and texel
+density measured only if blur survives all three.
+
+---
+
 ---
 
 ## 10 · The prototype, the next build (authorised 2026-09-18)
