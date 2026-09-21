@@ -56,6 +56,11 @@ silently ceases to exist for the game**. `SMR-OptInPack`, `SMR-TrainHubDev` and
 - ⛔ **`SMR-SrcArchive` did not land beside its siblings**: it is
   `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`, not `B:\Dev\SMR\`. The archived `Train.lua` and
   `Station.lua` hash identical to the pre-move copies, so the repoint is faithful.
+- ⛔ **The inventory's own count missed one.** `tools/doccheck.py` was listed as parameterised on
+  the strength of line 66, but it held a SECOND hard-coded path further down — Claude's per-project
+  memory index, spelled `c--Dev-SMR-OptInPack`. It went on reporting the pre-move tree's stale copy
+  and only showed as `absent` once that copy was deleted. It now derives the key from `REPO`.
+  **The lesson for the rest of the sweep: one parameterised path in a file does not clear the file.**
 - **Fixed 2026-09-21 in passing, they pointed at the deleted junction and would have failed on next
   use:** `snap_baseline.py:4` (hard-coded, not a fallback) and `export_prep_untextured.py:22`.
 - **Left alone deliberately:** `_before_claude_pass2_20260918/` and `export/build_workfile_build3.py`

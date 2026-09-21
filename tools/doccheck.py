@@ -1449,15 +1449,26 @@ def check_agents_mirror(out):
 # PULL (read a section on demand, uncapped) or RECORD (written once, read
 # rarely, never capped). Report-only; it never gates.
 
+def _memory_project_key(repo):
+    """Claude keys its per-project memory by the absolute path, lowercased, with
+    every non-alphanumeric run replaced by a dash: B:\Dev\SMR\SMR-OptInPack
+    becomes b--Dev-SMR-SMR-OptInPack. Case is kept after the drive."""
+    drive, rest = os.path.splitdrive(os.path.abspath(repo))
+    parts = [q for q in rest.replace("\\", "/").split("/") if q]
+    return drive[:1].lower() + "--" + "-".join(parts)
+
+
 PUSH_SET = [
     ("CLAUDE.md", lambda: CLAUDE_MD),
     ("docs/agent/STATE.md", lambda: STATE),
     # Claude's own memory index: outside the repo, per-machine, and absent for
-    # any other vendor — reported when present, never required.
+    # any other vendor — reported when present, never required. The project key
+    # is derived from REPO, not spelled, so a tree move carries it: the 2026-09-21
+    # move left this reading the old tree's stale copy until that copy was deleted.
     ("MEMORY.md (Claude, outside the repo)",
      lambda: os.environ.get("SMR_MEMORY", os.path.join(
          os.path.expanduser("~"), ".claude", "projects",
-         "c--Dev-SMR-OptInPack", "memory", "MEMORY.md"))),
+         _memory_project_key(REPO), "memory", "MEMORY.md"))),
 ]
 PUSH_BUDGET = 24 * 1024
 PUSH_CHARS_PER_TOKEN = 2.17     # measured on the donor's own documents
