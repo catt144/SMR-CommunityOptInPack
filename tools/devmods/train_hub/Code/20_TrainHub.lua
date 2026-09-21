@@ -44,7 +44,7 @@ Floor.HubParkDistance = 11 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
 Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
-Floor.HubSidingEntryDistance = 19 * guim -- owner: another metre straight before lateral onset
+Floor.HubSidingEntryDistance = 17 * guim -- first decoupled-rate trial: 2 m farther straight
 Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward rejoin
 Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
@@ -585,16 +585,43 @@ function SMROptInTrainHubBase:HubSidingCurve(train, destination, final_speed, id
 	return true
 end
 
+-- Match the accepted outer slide's eight 150 ms lateral smoothstep samples while
+-- continuing forward. The Hermite forward term enters at the approach speed and
+-- reaches zero at Stop, so onset position cannot retime the sideways movement.
+function SMROptInTrainHubBase:HubSidingEntrySlide(train, destination, idx)
+	local start = train:GetPos()
+	local cx, cy = self:GetPosXYZ()
+	local centre = point(cx, cy, start:z())
+	local axis = self:HubCentrePosition(idx, guim) - centre
+	local delta = destination - start
+	local along = MulDivRound(delta:x(), axis:x(), guim)
+		+ MulDivRound(delta:y(), axis:y(), guim)
+	local forward = MulDivRound(axis, along, guim)
+	local lateral = delta - forward
+	local forward_distance = Max(1, train:GetDist2D(start + forward))
+	local lead_distance = MulDivRound(pf.GetSpeed(train), 1200, 1000)
+	local lead = MulDivRound(forward, lead_distance, forward_distance)
+	for i = 1, 8 do
+		local q = i * 125
+		local f = MulDivRound(i * i * (24 - 2 * i), 1000, 512)
+		local lead_f = MulDivRound(q * (1000 - q), 1000 - q, 1000000)
+		local pos = start + MulDivRound(forward + lateral, f, 1000)
+			+ MulDivRound(lead, lead_f, 1000)
+		train:SetPos(pos, 150)
+		train:SetAcceleration(0)
+		Sleep(150)
+		if not rawget(_G, "SMROptInTrainFloor") then return end
+		if not IsValid(train) or not IsValid(self) or self.destroyed then return end
+	end
+	train:StopInterpolation()
+	return true
+end
+
 function SMROptInTrainHubBase:HubMoveOntoSiding(train, idx)
-	-- Retain the lateral easing time of the original 12 m braking run when
-	-- the owner moves onset inward but keeps park fixed. Otherwise a shorter
-	-- run at the same entry speed compresses the sideways motion into a jerk.
-	local run = Max(guim, Floor.HubSidingEntryDistance - Floor.HubParkDistance)
-	local speed = MulDivRound(train:GetNominalMoveSpeed() / 3, Min(run, 12 * guim), 12 * guim)
 	if not self:HubMoveTrain(train, self:HubCentrePosition(idx, Floor.HubSidingEntryDistance),
-		speed) then return end
+		train:GetNominalMoveSpeed() / 3) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
-	return self:HubSidingCurve(train, synthetic_spot_pos(self, "Stop", idx), 0, idx)
+	return self:HubSidingEntrySlide(train, synthetic_spot_pos(self, "Stop", idx), idx)
 end
 
 function SMROptInTrainHubBase:HubRejoinFromSiding(train, idx, reverse)

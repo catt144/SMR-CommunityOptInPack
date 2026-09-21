@@ -91,10 +91,26 @@ end
 h:TrainArrive(t,h.tracks[1]); on_sleep=nil
 assert(watched and t.at_station and t.current_station==h)
 assert(not h:HubCrossingTrain())
--- The siding's braking curve must not introduce an intermediate stop.
-for i=#movement-7,#movement-1 do assert(movement[i].speed>0,'siding stopped before parking') end
-assert(movement[#movement].speed==0,'siding did not brake to rest')
+-- Entry speed is fixed, while the lateral move exactly matches the outer
+-- slide's eight 150 ms samples and reaches the parked point without a stop.
+assert(movement[#movement].speed==t:GetNominalMoveSpeed()/3,
+ 'siding approach speed depends on run length')
+local slide_start=point(t.segments[#t.segments-7].from[1],t.segments[#t.segments-7].from[2],
+ t.segments[#t.segments-7].from[3])
 local stop=h:GetSpotPos(h:GetSpotBeginIndex('Stop1'))
+local hub_centre=point(h.pos.xx,h.pos.yy,slide_start.zz)
+local axis=h:HubCentrePosition(1,guim)-hub_centre
+local total=stop-slide_start
+local lateral_total=MulDivRound(total.xx,axis.yy,guim)-MulDivRound(total.yy,axis.xx,guim)
+for i=#t.segments-7,#t.segments do
+ local segment=t.segments[i]
+ local n=i-(#t.segments-7)+1
+ local f=MulDivRound(n*n*(24-2*n),1000,512)
+ local p=point(segment.to[1],segment.to[2],segment.to[3])-slide_start
+ local lateral=MulDivRound(p.xx,axis.yy,guim)-MulDivRound(p.yy,axis.xx,guim)
+ assert(segment.time==150,'siding slide rate differs from outer slide')
+ assertclose(lateral,MulDivRound(lateral_total,f,1000),3)
+end
 assertclose(t.pos.xx,stop.xx); assertclose(t.pos.yy,stop.yy)
 local centre=h:HubCentrePosition(1,SMROptInTrainFloor.HubParkDistance)
 assertclose(t:GetDist2D(centre),SMROptInTrainFloor.HubSidingOffset)

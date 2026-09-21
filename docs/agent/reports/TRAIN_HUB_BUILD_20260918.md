@@ -860,3 +860,24 @@ move farther along the track before sliding. Trial entry 19 m instead of 20 m, a
 1 m of straight travel. Park, lateral offset, rejoins and outer transitions stay fixed;
 the existing run-based entry-speed compensation follows the shorter curve. Visual
 acceptance remains owed. Slot 1 should read `HubSidingEntryDistance=1900` after restart.
+
+**Siding-entry rate repair, 2026-09-21 (implemented; owner visual smoke owed):** the later
+owner instruction rejects the run-length speed compensation above. `HubMoveOntoSiding` now
+approaches every entry setting at one-third nominal speed. `HubSidingEntrySlide` gives the
+lateral component the accepted outer slide's same eight smoothstep samples at 150 game ms
+each. A simultaneous longitudinal Hermite component begins at the approach speed and reaches
+zero at Stop, so the train keeps rolling into the siding instead of stopping for a pure lateral
+slide. Moving the entry setting no longer changes the lateral profile or its 1.2 s duration.
+The first decoupled-rate trial is 17 m, 2 m inward from the 19 m trial; park remains 11 m and
+lateral offset remains 4.5 m. Rejoin, outer entrance/exit, dwell and handoff code are unchanged.
+
+**RAN at HEAD `e7e1dd636dfb2cedd8074b3d0ed1511c519aa977` plus working diff:**
+`python tools/devmods/train_hub/tests/move_smoke.py` passed. Its siding assertion now checks
+the fixed one-third nominal approach speed and every lateral sample against the outer slide's
+smoothstep fractions and 150 ms step time. This establishes mocked control flow and arithmetic,
+not appearance or native interpolation. `python tools/parsecheck.py --dir
+tools/devmods/train_hub/Code` passed 3 files with 0 errors. Owner smoke remains the close:
+watch an arrival run straight past the old onset, slide at the outer slide's rate, park, load
+and leave at normal, fast and fastest; autosave requires re-pressing an armed crossing watch.
+Slot 6 selects `HubSidingEntryDistance`, and slots 2/5 move it by 1 m while paused.
+Executed model: GPT-5 (Codex), as identified by the session instructions. No subagents were used.

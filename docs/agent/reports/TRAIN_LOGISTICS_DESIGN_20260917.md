@@ -1465,3 +1465,14 @@ stay fixed. This is a new visual trial, not a measured clearance or accepted mov
 **Owner next trial, 2026-09-21:** 20 m onset is close but still early. Set entry to 19 m
 for another metre of straight travel, retaining the fixed parking alignment and existing
 entry-speed compensation. Other settings stay fixed; the owner still judges the result.
+
+**Owner siding-entry correction, 2026-09-21 (implemented; visual acceptance owed):** remove
+the run-length entry-speed compensation: it changed speed when the requested change was position.
+The approach is fixed at one-third nominal speed. The siding entry now keeps moving forward while
+using the accepted outer slide's exact eight-step, 150 ms smoothstep for the lateral component;
+a longitudinal Hermite component carries the incoming speed to zero at the parked point. Thus the
+lateral rate and 1.2 s duration do not depend on the live onset setting. The first trial is 17 m,
+with park 11 m and offset 4.5 m unchanged. Rejoins, outer transitions, dwell and vanilla handoff
+remain as accepted. The mocked movement smoke checks the fixed approach speed and all eight
+lateral samples; only the owner's eye at normal, fast and fastest speed can close smoothness and
+rate matching. The build report carries the five-step sitting and live 1 m onset control.
