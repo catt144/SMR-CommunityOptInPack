@@ -5,9 +5,10 @@ shas: SMR-OptInPack `57acb33`, SMR-Assets after `snapshot_hub.py` (tag `hub-road
 `git diff --stat 57acb33..HEAD -- tools/devmods/train_hub/Code/` and `git diff --stat
 hub-road-b-20260921..HEAD -- trainhub/` mean this brief's facts hold.
 **Restore point 1 exists**: tags `hub-road-b-20260921` in both repos and the copy of the ignored
-maps and DDS in `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\hub-road-b-20260921` (its `RESTORE.md`). Start with `git log`, `git pull` in both repos. The dev mod's `Materials/`,
-`SourceData/` and `metadata.lua` carry the owner's uncommitted Mod Editor output: never revert or
-stage them for them.
+maps and DDS in `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\hub-road-b-20260921` (its `RESTORE.md`).
+Start with `git log`, `git pull` in both repos. The owner's Mod Editor output in the dev mod
+(`Materials/`, `SourceData/`, `metadata.lua`) was committed at `57acb33`; anything the owner
+imports after that is theirs: never revert it, and commit it only with a pathspec.
 
 ## Authority
 
@@ -33,7 +34,7 @@ paragraph after it):
    compiles the DDS, saving the material does not). Give them about five steps.
    **Then, before any light code, take restore point 2** (owner, 2026-09-21): commit, have the
    owner's import verified by the `Textures/` timestamps, and run `python snapshot_hub.py
-   hub-road-b-nostrips-20260921` from `SMR-Assets	rainhublender`. Report the tag and folder.
+   hub-road-b-nostrips-20260921` from `SMR-Assets\trainhub\blender`. Report the tag and folder.
 2. **Lua half (the dev mod, `Code/20_TrainHub.lua`):** real `PointLight`/`SpotLight` objects
    attached to the hub and placed along each arm's track edges and platform borders, six variants
    in one table keyed by arm so the owner can reassign by editing one line. Your call on
