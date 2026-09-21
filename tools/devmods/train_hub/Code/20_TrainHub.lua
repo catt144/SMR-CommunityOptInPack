@@ -647,6 +647,19 @@ function SMROptInTrainHubBase:HubRouteTrain(train, arrival_idx, departure_idx, d
 	local speed = train:GetNominalMoveSpeed(el)
 	train:GotoSpot(el, step == 1 and "Enter1" or "Enter2", speed, speed, 0)
 	if not rawget(_G, "SMROptInTrainFloor") then return end
+	if not IsValid(train) or not IsValid(self) or self.destroyed then return end
+	-- Vanilla LoadTrain/GotoStation requests teleport_to_next after a station
+	-- or through hub (archived 1.1.0.403908 Train.lua:286,411). Traverse then
+	-- snaps from the connector to the NEXT element's Enter spot (:649-682).
+	-- Travel that segment with vanilla's own checks/pitch/speed first. Its
+	-- later teleport lands at the position we have already reached, not ahead.
+	if not train:CheckValidDest(departure_track) then return end
+	local elements = departure_track.elements
+	local first = step == 1 and 1 or #elements
+	local reached = train:WaitTraverseElement(departure_track, elements, first, speed, step,
+		nil, false, step == 1 and "Enter1" or "Enter2", step == 1 and "Exit1" or "Exit2")
+	if not rawget(_G, "SMROptInTrainFloor") then return end
+	if not reached then return end
 	return IsValid(train) and IsValid(self) and not self.destroyed
 end
 

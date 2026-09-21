@@ -1439,3 +1439,13 @@ reverse rejoin 23 m. This restores the original approach/rejoin lengths instead 
 the curves against a fixed parking point. The fixed-park trials above are rejected. Lateral
 offset and outer transitions stay unchanged. Parked fit, inner clearance and smoothness need
 the owner's next visual check; the arithmetic does not settle train dimensions or clearance.
+
+**Owner exit-handoff report and repair, 2026-09-20:** visible jump at the stub/vanilla joint.
+SOURCE: archived 1.1.0.403908 Train.lua's LoadTrain/GotoStation requests a teleport on the
+first outgoing segment, which the previous hub handoff had not traversed. The hub now calls
+vanilla CheckValidDest and WaitTraverseElement with teleport disabled to travel that segment
+before returning control. Vanilla's subsequent teleport destination is already reached.
+No Train replacement or new persisted state; slide positions/timing and normal-speed launch
+remain. The mocked archived-body smoke reproduces the old jump and passes the corrected
+handoff for stopping/through departures in both track directions. Native visual acceptance
+at the arrowed joint is still owed; details and source lines are in the build report.

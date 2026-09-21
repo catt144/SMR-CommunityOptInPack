@@ -24,7 +24,51 @@ lua.execute(between(train, "function Train:GotoSpot(", "function Train:WaitTrave
 lua.execute(between(station, "function Station:RemoveOccupyingTrain(", "function Station:GetOccupyingTrain("))
 lua.execute(between(base, "function BaseBuilding:SetWorking(", "function BaseBuilding:Setexceptional_circumstances("))
 lua.execute(between(code, "function SMROptInTrainHubBase:CreateElectricityElement(", "function SMROptInTrainHubBase:InitHubLaunchPad("))
+lua.execute(between(train, "function Train:WaitTraverseElement(", "function Train:GetNominalMoveSpeed("))
+lua.execute(between(train, "function Train:Traverse(", "function Train:GetNextStationName("))
 lua.execute(r'''
+-- Extend the old fixture with real track ordering beyond each connector.
+local oldhub,oldtrain=newhub,newtrain
+function newhub(rotation,is_start)
+ local h=oldhub(rotation,is_start)
+ for i,tr in ipairs(h.tracks) do
+  local connector=h.elements[i]
+  connector.direction=0; connector.traverse_pitch=0
+  function connector:GetAngle() return CalcOrientation(h:GetPos(),self.pos) end
+  local radial=MulDivRound(connector.pos-h:GetPos(),1,6)
+  radial=point(radial:x(),radial:y(),0)
+  local function outside(n)
+   local e={valid=true,direction=0,traverse_pitch=0,pos=connector.pos+MulDivRound(radial,n,1)}
+   function e:GetPos() return self.pos end
+   function e:GetAngle() return connector:GetAngle() end
+   e.GetSpotBeginIndex=connector.GetSpotBeginIndex
+   function e:GetSpotPos(spot) return connector:GetSpotPos(spot)+MulDivRound(radial,n,1) end
+   return e
+  end
+  local near,far=outside(1),outside(2)
+  tr.elements=is_start and {connector,near,far} or {far,near,connector}
+  tr.first_outside=near
+ end
+ return h
+end
+function newtrain(h,k)
+ local t=oldtrain(h,k)
+ t.WaitTraverseElement=Train.WaitTraverseElement; t.Traverse=Train.Traverse
+ function t:GetDepartedStation() return self.current_station end
+ function t:CheckValidDest() return true end
+ function t:ShouldStopOnTrack() return false end
+ function t:SetMoveSpeed(speed) self.speed=speed end
+ function t:GetRollPitchYaw() return 0,0,self.yaw end
+ function t:SetRollPitchYaw(_,_,yaw) self.yaw=yaw end
+ function t:SetState() end
+ function t:DestroySilent() self.valid=false end
+ return t
+end
+function HandleTrainOnBrokenTrack() return false end
+local world_to_hex=WorldToHex
+function WorldToHex(p) return world_to_hex(p.pos or p) end
+function ResolveMap() return {object_hex_grid={}} end
+function IsPointStationTrackConnection() return nil end
 local h=newhub(1,false)
 assertclose(h:GetDist2D(h:GetSpotPos(h:GetSpotBeginIndex('Trackconnector1'))),60*guim)
 for _,distance in ipairs({SMROptInTrainFloor.HubSidingEntryDistance,
@@ -85,14 +129,14 @@ assert(handoff_start==t:GetNominalMoveSpeed(h.elements[1]) and handoff_final==ha
 h.HubSlideTrain=nil
 local unchanged_arrival=h:GetSpotPos(h:GetSpotBeginIndex('Ramparrive1'))
 assertclose(unchanged_arrival.xx,ramp.xx); assertclose(unchanged_arrival.yy,ramp.yy)
-local dest=h.elements[1]:GetSpotPos(2)
+local dest=h.tracks[1].first_outside:GetSpotPos(2)
 assertclose(t.pos.xx,dest.xx); assertclose(t.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain() and not h:GetOccupyingTrain(h.tracks[1],false))
 -- One other-line through movement exercises entry, centre pivot, and exit.
 local through=newtrain(h,1)
 h:TrainPassThrough(through,h.tracks[1],h.tracks[3])
 assert(through.speed==through:GetNominalMoveSpeed(h.elements[3]),'through exit retains crawl speed')
-dest=h.elements[3]:GetSpotPos(2)
+dest=h.tracks[3].first_outside:GetSpotPos(2)
 assertclose(through.pos.xx,dest.xx); assertclose(through.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain())
 assert(#through.turns>0,'other-line path missed its pivot')
@@ -148,6 +192,35 @@ qh:HubRestoreParkedTrains()
 local restored_stop=qh:GetSpotPos(qh:GetSpotBeginIndex('Stop2'))
 assertclose(restored.pos.xx,restored_stop.xx); assertclose(restored.pos.yy,restored_stop.yy)
 assert(qh:GetOccupyingTrain(qh.tracks[2],false)==restored)
+
+-- Reproduce the former native handoff snap, then check corrected departures
+-- and through paths in both track orders against the archived Traverse body.
+for _,is_start in ipairs({true,false}) do
+ local j=newhub(0,is_start)
+ local legacy=newtrain(j,1)
+ legacy.current_station=j
+ local spot=is_start and 1 or 2
+ legacy.pos=j.elements[1]:GetSpotPos(spot)
+ legacy:Traverse(j.tracks[1],true)
+ local first=legacy.segments[1]
+ assert(first.time==0 and (first.from[1]~=first.to[1] or first.from[2]~=first.to[2]),
+  'fixture failed to reproduce connector-to-next-element teleport')
+ for _,passing in ipairs({false,true}) do
+  local moving=passing and newtrain(j,1) or atstop(j,1)
+  if passing then j:TrainPassThrough(moving,j.tracks[1],j.tracks[3])
+  else j:TrainDepart(moving,j.tracks[1]) end
+  local track=j.tracks[passing and 3 or 1]
+  local before=#moving.segments
+  moving:Traverse(track,true)
+  for n=before+1,#moving.segments do
+   local segment=moving.segments[n]
+   if segment.time==0 then
+    assertclose(segment.from[1],segment.to[1]); assertclose(segment.from[2],segment.to[2])
+    assertclose(segment.from[3],segment.to[3])
+   end
+  end
+ end
+end
 
 SupplyGridElement={new=function(_,element)
  function element:SetProduction(value) self.production=value end
@@ -225,5 +298,5 @@ WaitWakeup(12000); assert(clock==5000,'live dwell tuning ignored')
 SMROptInTrainFloor.HubDwellTime=6000
 ''')
 print("HEAD", subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
-print("PASS: mocked movement/reservations, occupied-exit exclusion, same-line reverse/release, power gating, archived dwell commands and vanilla control.")
+print("PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, same-line reverse/release, power gating, archived dwell commands and vanilla control.")
 print("Owner visual smoke and native cold-start/save-load checks remain pending; no oracle run.")

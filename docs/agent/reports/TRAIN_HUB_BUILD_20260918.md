@@ -812,3 +812,27 @@ trial instead of squeezing it. Those lengths are source arithmetic, not measured
 Outer entrance/exit positions, lateral offset and post-slide launch are unchanged. Judge
 the parked overhang, inner-end clearance and smoothness in the next sitting; no visual pass
 is claimed. The earlier fixed-park trials above record the rejected approach.
+
+**Owner exit-handoff report, 2026-09-20:** the train jumps onto vanilla track near the
+arrow in the supplied screenshot. SOURCE, archived 1.1.0.403908 `Lua/Units/Train.lua`:
+LoadTrain starts GotoStation with `"teleport"` (:286); through traversal sets the same flag
+(:411). Traverse starts at the connector (:649-682), and WaitTraverseElement's teleport
+branch leaves move_time at zero before SetPos to the next element's Enter spot (:554-587).
+The hub previously animated only as far as the connector, leaving that next segment to snap.
+This source path matches the report; no native trace was captured in this follow-up.
+
+**Implemented:** after the existing full-speed connector approach, validate the destination
+and call vanilla WaitTraverseElement for the first segment with teleport disabled. This
+retains native broken-track handling, stopping checks, speed and pitch handling. Release
+the hub reservation/lock after that movement. When vanilla Traverse resumes with its
+teleport flag, its first destination is now the position already reached. No Train method
+is wrapped, no track array is edited, and no new saved state is introduced. The bounded
+hub movement frame remains the existing content residual. Slide positions and timing stay fixed.
+
+**RAN at HEAD `b77b59b` plus working diff:**
+`python tools/devmods/train_hub/tests/move_smoke.py` reproduces nonzero displacement at zero
+time from the old connector handoff using archived Traverse/WaitTraverseElement bodies,
+then passes corrected stopped/through handoffs in both track orders. Existing movement,
+reservation, power and dwell assertions also pass. Geometry, time and engine services are
+mocked; this is not native clearance or visual acceptance. The next sitting must watch
+the arrowed joint after both a loading departure and a through train at each game speed.
