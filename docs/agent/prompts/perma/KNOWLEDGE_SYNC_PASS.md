@@ -73,7 +73,7 @@ misses, and all 54 DONOR-HAS-IT rows were cited on purpose. Each run pays for th
 helper learns it, so both are this pass's job, with no ask needed (it is this repo's own tool):
 - **A miss class that repeats extends the resolver.** Known places it did not search: the TestKit repo
   (`C:\Dev\SMR-BugFixPack-TestKit`), subfolders of the archived game source
-  (`C:\Dev\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `B:\Dev\SMR\SMR-Assets\`, and git history
+  (`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\<build>\Src`), `tools/devmods/`, `B:\Dev\SMR\SMR-Assets\`, and git history
   (`git log --all -- <path>` for consumed prompts). Fix-pack ids (`C##`, `F##`) are donor names.
 - **A citation that is intentional by class gets a declared row**, with its reason, in the same shape
   as `TOOLS_*` (fact-mirror citations, WORKFLOW's pointers into the donor's 1.1.0 reports, live

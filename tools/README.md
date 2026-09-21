@@ -79,7 +79,7 @@ Run by `doccheck` as well as by hand; the allowlists live beside the detectors, 
 
 ### Reading the shipped game by hand
 
-⛔ Cite a line only with the build it was read on, from the archived tree for that build (`C:\Dev\SMR-SrcArchive`). The game moved to 1.1.0 on 2026-09-08 and overwrote `ModTools\Src`.
+⛔ Cite a line only with the build it was read on, from the archived tree for that build (`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`). The game moved to 1.1.0 on 2026-09-08 and overwrote `ModTools\Src`.
 
 | script | what its own header says |
 |---|---|

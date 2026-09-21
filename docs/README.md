@@ -151,11 +151,22 @@ every SMR mod uses, so no one tree owns them:
   generated files under `tools/devmods/train_hub/SourceData/` hardcode the
   old path, so the junction stays.
 - `C:\Dev\SMR-BugFixPack-TestKit` — shared test kit, its own repo.
-- `C:\Dev\SMR-SrcArchive` — both archived game trees.
-- `C:\Dev\workshop_fpk_archive` — third-party Workshop mods by Steam id, prior-art reference.
+- `B:\Dev\SMR\SMR-Shared` — one shared repo, pull-only, for long-term material both mods
+  reference; local-only, no remote. It holds `SMR-SrcArchive\` (both archived game trees) and
+  `workshop_fpk_archive\` (third-party Workshop mods by Steam id, prior-art reference).
 - `C:\Dev\SMR-ScreenCaptures` — the owner's screenshot drop folder.
 - `C:\Dev\SMR-BugFixPack` — the donor repo this mod is standardised on (owner, 2026-09-17).
 
 ⚠️ **Reports are not authority.** When a report disagrees with `agent/bugs/` or
 `agent/facts/`, the entry wins — or the report is wrong and is corrected in the
 same change that discovers it.
+
+## Path translation
+
+> 2026-09-21 (owner ask): the trees that sat directly under `C:\Dev` moved under `B:\Dev\SMR`, keeping
+> their own names. `C:\Dev\SMR-SrcArchive` and `C:\Dev\workshop_fpk_archive` →
+> `B:\Dev\SMR\SMR-Shared\<same name>` (one repo); `C:\Dev\SMR-CommunityMods` →
+> `B:\Dev\SMR\SMR-CommunityMods`; and, in the first pass, this repo and `C:\Dev\SMR-Assets` →
+> `B:\Dev\SMR\<same name>`. Live pointers were rewritten. Source-line citations in `agent/reports/`,
+> `agent/bugs/`, `agent/facts/` and the archive still name the `C:\Dev\SMR-SrcArchive` path: translate
+> them, the build named beside the path is what finds the file.

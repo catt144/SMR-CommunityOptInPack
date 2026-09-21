@@ -11,7 +11,7 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
 - Game install: `A:\SteamLibrary\steamapps\common\Project Spark` ("Project Spark" is the Steam
   folder name). Shipped Lua source, read-only: `<game>\ModTools\Src` (`Lua\`, `CommonLua\`, `Data\`,
   `DLC\`). Nothing under the game folder is ever modified.
-- Archived source trees, one per game version: `C:\Dev\SMR-SrcArchive\<version>\Src` with a
+- Archived source trees, one per game version: `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\<version>\Src` with a
   `MANIFEST.sha256`; that folder's README holds the archive rule.
 - Mod install point: `%AppData%\Surviving Mars Relaunched\Mods\SMR-OptInPack`, a junction into the
   dev repo, so the checked-out tree is the running mod.
@@ -23,7 +23,7 @@ Process rules for this repo. Code rules are `FIX_POLICY.md`; the global duties a
   plus its sitting slots are `tools/SMRTK.md`. Both are the fix pack's bytes, mirrored (owner,
   2026-09-18) and checked by `python tools/sync_from_fixpack.py --tools`: change them there first.
 - Sibling mods: the Relaunched Fix Pack `C:\Dev\SMR-BugFixPack` (its own docs) and the save-rescue
-  tool `C:\Dev\SMR-CommunitySaveRescue` (design and status in the fix pack's `bugs/D13.md`;
+  tool `B:\Dev\SMR\SMR-CommunitySaveRescue` (design and status in the fix pack's `bugs/D13.md`;
   unpublished, held as a contingency).
 
 ## Install for testing
@@ -70,7 +70,7 @@ executes `Packs\Lua.fpk` and `Data.fpk`. Parity was byte-identical for 1.1.0.403
 re-prove it after every update, since a same-named function edited under a full replacement is
 invisible to the runtime self-checks.
 
-0. Archive first. Copy `ModTools\Src` to `C:\Dev\SMR-SrcArchive\<version>\Src` with its
+0. Archive first. Copy `ModTools\Src` to `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\<version>\Src` with its
    `MANIFEST.sha256` before the update lands, and whenever an unarchived version is on disk. Steam
    updates and branch switches overwrite the tree in place and unasked (`EF-075`).
 1. Re-extract `Packs\Lua.fpk` (`tools/flpk_extract.py`) and diff it against the new Src tree.

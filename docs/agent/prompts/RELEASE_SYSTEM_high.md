@@ -34,7 +34,7 @@ The fix pack's release system, all read-only to you:
 | `docs/archive/RELEASE_HISTORY.md` | where released outbox entries go |
 | `docs/agent/support/RELEASE_SURFACES.md`, `POST_UPLOAD_CLOSE.md`, `LIVE_SITE_READ.md` | the surfaces a release touches, the close-out after an upload, and how to read a live store page |
 
-The shared site is `C:\Dev\SMR-CommunityMods` (MkDocs, `docs_dir: content`). Its README already
+The shared site is `B:\Dev\SMR\SMR-CommunityMods` (MkDocs, `docs_dir: content`). Its README already
 frames it as one site for every mod in the family, with a "The mods this site documents" table.
 Today it has no opt-in page. The fix pack's `RELEASE_SURFACES.md` §2 is the site procedure for a fix
 list; this mod's equivalent is a module list.
@@ -74,7 +74,7 @@ store body against the module set), and list it in your report. Do not edit it.
 
 **In:** the files named above in this repo, `docs/README.md`, WORKFLOW's two release sections,
 `tools/doccheck.py` wiring, and the prompt map.
-**Out:** `metadata.lua`, `items.lua`, `Code/`, and every file in `C:\Dev\SMR-CommunityMods`. The
+**Out:** `metadata.lua`, `items.lua`, `Code/`, and every file in `B:\Dev\SMR\SMR-CommunityMods`. The
 site repo has another person's uncommitted edits, and player-facing pages for an unpublished mod
 are the first release's job, not this build's. Read it; do not write it.
 

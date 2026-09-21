@@ -330,7 +330,7 @@ PLACEHOLDERS = {"X.md", "y.py", "tools/y.py", "agent/reports/X.md",
 # The GAME's own source, cited constantly by facts. It lives in neither repo —
 # it is read from the archived tree for the build the fact was derived on
 # (CLAUDE.md: cite a line only with the build it was read on).
-SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"C:\Dev\SMR-SrcArchive")
+SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"B:\Dev\SMR\SMR-Shared\SMR-SrcArchive")
 
 # Places a citation may resolve that are neither this repo's docs/ nor the donor
 # (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):

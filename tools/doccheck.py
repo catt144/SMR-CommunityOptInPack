@@ -1541,7 +1541,7 @@ def emit_fingerprints(out):
             else:
                 verdict = ("MOVED — installed is %s, so these line citations "
                            "describe a tree that is not on disk; re-derive "
-                           "against C:\\Dev\\SMR-SrcArchive (EF-083)" % build)
+                           "against B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive (EF-083)" % build)
             out.append("  %-30s %3d fact(s)%s  %s" % (bare, g["n"], note, verdict))
         elif re.match(r"^[0-9a-f]{7,40}$", bare):
             shas.append((bare, g))
@@ -1656,7 +1656,7 @@ TOOL_GROUPS = (
      ("harvest_wrap_targets.py", "parsecheck.py")),
     ("Reading the shipped game by hand",
      "⛔ Cite a line only with the build it was read on, from the archived tree "
-     "for that build (`C:\\Dev\\SMR-SrcArchive`). The game moved to 1.1.0 on "
+     "for that build (`B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive`). The game moved to 1.1.0 on "
      "2026-09-08 and overwrote `ModTools\\Src`.",
      ("flpk_extract.py", "pack_list.py", "audit_preset_fields.py",
       "blocking_analysis.py", "sigcheck.py")),

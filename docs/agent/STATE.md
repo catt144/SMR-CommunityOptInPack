@@ -25,7 +25,7 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
 - The fix pack's kit-edit gate (checklist item 83) is dissolved (owner ruling 2026-09-18);
   `60_Probes_Opt.lua` needs no separate fix-pack sign-off. That gate's own record stays theirs.
 - The game moved to 1.1.0 + DLC, build 24995074, on 2026-09-08. Archived trees are under
-  `C:\Dev\SMR-SrcArchive`; fingerprint routing is `EF-083`. No module, probe, gate or test result
+  `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`; fingerprint routing is `EF-083`. No module, probe, gate or test result
   in this repo has been re-verified on 1.1.0.
 
 ## Open owner decisions

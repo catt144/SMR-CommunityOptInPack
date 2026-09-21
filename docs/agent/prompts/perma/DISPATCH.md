@@ -26,7 +26,7 @@ and releases.
 
 1. Preserve the reported symptom, conditions and build separately from the proposed cause.
 2. Search this mod's runtime code first, then the relevant entry and facts. Game-source citations
-   use the archived tree for their named build under `C:\Dev\SMR-SrcArchive`.
+   use the archived tree for their named build under `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`.
 3. Apply `WORKFLOW.md` "Records and rulings", "Testing checklist per module" and "Log review" to
    the proposed cause, route, controls, logs and negative results.
 4. File the result through `smr-bug-library` or the destinations in `docs/README.md`. Out-of-scope

@@ -13,7 +13,7 @@ is the only route that sweep has to this repo.
 2. Run its command in the fix pack (`C:\Dev\SMR-BugFixPack`) and confirm the opt-in section
    reproduces. A mismatch is a finding: report it and stop.
 3. Act per the entry. For each flagged module, read the flagged rows in **both** archived trees
-   (`C:\Dev\SMR-SrcArchive\<version>\Src`) and file a FIX / REMOVE / KEEP verdict in this repo's
+   (`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\<version>\Src`) and file a FIX / REMOVE / KEEP verdict in this repo's
    `docs/agent/bugs/`. A REMOVE traces the replacement body (a rename reads as "gone", R-15). A
    clean module needs nothing.
 4. `git mv` the entry to `done/` in the commit that lands the verdicts.

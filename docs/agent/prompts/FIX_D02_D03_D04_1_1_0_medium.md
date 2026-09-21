@@ -29,7 +29,7 @@ in progress at a time.
 ## Where things stand
 
 All three findings are desk-read only, from the two archived trees
-(`C:\Dev\SMR-SrcArchive\1.0.7.396349\Src`, `…\1.1.0.403908\Src`) — none has been run in the actual
+(`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.0.7.396349\Src`, `…\1.1.0.403908\Src`) — none has been run in the actual
 game. Read each module's own bug entry before touching its file; each carries the exact citations
 this brief summarizes. The fix pack's own `F117`
 (`C:\Dev\SMR-BugFixPack\docs\agent\bugs\F117.md`) independently hit and *executed-fixed* the
