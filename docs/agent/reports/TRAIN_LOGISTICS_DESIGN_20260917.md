@@ -1086,13 +1086,44 @@ foreign attachment, offset/scale/FX, working on/off SI and recreation after mock
 `python tools/parsecheck.py --dir tools/devmods/train_hub/Code --quiet` passes. Neither test is
 evidence of native rendering, importer acceptance or serialization.
 
-**Next is the owner's Mod Editor import**, a few steps at a time from the assets README.
-Use maps under `textures/concept/` and FBXs under `export/concept/`, not the older outputs.
-The existing GFXMaterial receives BC, Normal, RM and (if exposed) SI; then re-import the frozen
-body, followed by separate glass and reactor Art Specs. The editor's SI slot, glass blending
-dropdown, actual attachment and game glow remain unverified. Record observed importer results
-in `_shared/IMPORTER_FACTS.md`; no new importer fact is claimed yet. The owner's day/night look
-on a named save still closes the first-cut milestone and directs the next iteration.
+**Iteration 1, owner 2026-09-21: centre fix and relaid lights alone.** The owner imported the body
+with BC, Normal, RM and SI and saw centre z-fighting. The owner approved a geometry exception:
+replace the overlapping crossing with a single centre plate, preserving shape and position
+everywhere else, then re-run the geometry/UV proofs, re-bake and re-freeze. Dashes belong on the
+outer transition arms; inward they converge into one line ending in the portal. Inside the ring
+the floor carries continuous radiating curves. Glass and the themed reactor are deferred to a
+later session. Bare siding frames and the vanilla FusionReactor visual are expected until those
+entities exist. The owner receives ONE import round, the rebuilt body, with no glass steps.
+
+**Centre preparation proof, before rebaking.** Assets base `97eaeeb` plus this implementation,
+Blender 5.2.2 LTS `d13f752e3b9c`: `build_workfile.py -- --check-rebuild`, then
+`export_prep.py -- --centre-candidate --body-only` on that rebuilt blend produced the candidate.
+After explicit promotion to `concept_freeze.json`, a fresh `build_workfile.py` and
+`export_prep.py -- --body-only` on `TrainHub_work.blend` reproduced the exact contract. The
+previous manifest is preserved as `concept_freeze_first_cut.json`; the centre candidate switch
+now rejects reuse. The paired `hub-centre-uv-frozen-20260921` tags preserve this state before paint.
+
+The existing `verify_look_pass.py` passes with only CentrePlate added to its allowed object set.
+`verify_centre.py`, called during preparation, compares every evaluated source mesh/empty against
+the first-cut manifest: **all 100 other objects retain exact shape and position** (members in
+`centre_proof.unchanged_members`). The replacement preserves the original track union outline and
+deck levels. Seven top faces reconcile as two per Track_A/B/C plus one CentrePlate. Across all
+21 pairs the largest intersection is `3.436146623982385e-07` square metres, below the `1e-5`
+roundoff tolerance; the original overlapping boxes give `14.145081595145864` square metres in
+the negative control. Original/new top union areas are `1333.1735664109221` /
+`1333.173662046942` square metres, within the `0.001` comparison tolerance. No new top polygon
+extends beyond the old union. Preparation preserves exact face boundaries through assembly,
+all spot/surface transforms, and geometry through the scripted unwrap.
+
+`verify_concept.py -- --body-only` on `TrainHub_prepaint.blend` passes all exported node/parent/
+transform/face/UV comparisons and rejects deliberate UV and vertex mutations. Maximum UV delta
+is zero; maximum geometry/transform component delta is `1.1920928955078125e-07`. Prepared faces
+reconcile as **11,692 = 11,656 body + 36 retained glass**; only the body FBX is written this pass.
+The new body UV fingerprint is `7cec91ae0c8e2a13189f7c848b9c9bd382deb1485fd339ed71db72ec108ddce4`;
+glass retains `45ec462e67b7073ca83ddbba8326c5a8572b925e90f274d8463b94b197597620`.
+The model is frozen again; another geometry/UV edit needs a new owner ruling. These proofs do
+not replace the owner's in-game centre and day/night lighting check. Commands, HEAD, filters and
+member lists are recorded in `export/concept/preparation_proof.json` and `verification.json`.
 
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
