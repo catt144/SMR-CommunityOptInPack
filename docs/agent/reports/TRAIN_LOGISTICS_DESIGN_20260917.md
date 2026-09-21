@@ -1543,6 +1543,22 @@ cyan-white; the thin line was SI 0.35 on a saturated arm colour. `THIN_SI` 0.35 
 `abd9684`; only the SI map moves (BC, NM and RM byte-identical to `ac600ba`'s delivery, core SI
 byte 179, `validate_thinlines.py` PASS, 0 texels outside the lines). UNTESTED in game; whether the
 less saturated arms (B1, B3, R3) whiten at 0.7 is the owner's look. Lua unchanged.
+**Owner, 2026-09-21, after importing SI 0.7 (SI DDS 18:05): "I think that might be the winner can
+you do that for all lines and let me take a look."** PROVISIONAL pick, not a ruling. Which arm:
+INFERRED as **B3 Cobalt beads** from the second screenshot — saturated line pixels (b > 220,
+r < 100, g < 110; 5,684 of them) have median RGB (58,77,225), r/g 0.75, against B3's 0.82, B1's
+0.25 and B2's 0; the shot shows no reactor beside the arm, which also rules out B1. If that read
+is wrong, `ARM_LINE_WINNER` and the six `hub_light_arms` lines are the fix. Assets `43eafe4`:
+`ARM_LINE_WINNER = 3` puts cobalt (90,110,255) at SI 0.7 on every arm (`validate_thinlines.py`
+PASS, 3,595 core texels, one colour, 0 outside the lines). Because "all lines" can stop at the
+arms or take in the structure, a second set `textures/thinlines_all/` also recolours and levels
+the ring, portal, hood, siding, rib and base glow (`STRUCTURE_LINES`; BC and SI only, same
+shapes): `python validate_thinlines_all.py` against `textures/thinlines/`, mask = lit texels grown
+one texel outside the arm lines, 171,516 texels; BC changed 115,966, SI 115,872, NM and RM 0, 0
+outside the mask, SI ceiling 179. That set edits structure glow, which
+`TRAIN_HUB_STRUCTURE_high.md` also owns: whoever fires it starts from the owner's choice here.
+OptInPack `29101e8`: all six arms carry B3's light style, **234 lights = 6 × 39**, up from 142
+(the beads are the densest style). The pad and strips-off sets rebake unchanged.
 **Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
 no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
 
