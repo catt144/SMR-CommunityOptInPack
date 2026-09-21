@@ -12,6 +12,15 @@ protected). The transitions convinced the owner and the model is final — *"eve
 nothing clips"* — and that final model is committed in both repos. Textures, materials and the
 glass are now open work.
 
+**OI-23, owner 2026-09-21: the first unwrap and panel separation are APPROVED.** Preserve every
+piece's exact shape and position. The unwrap is scripted and deterministic; UV fingerprints must
+fail on layout drift; the existing geometry proof must pass. The completed preparation is held
+at the paired `hub-prepaint-uv-frozen-20260921` tags before any paint bake. Assets
+`concept_freeze.json` is the baseline; `export_prep.py` checks it and exports separate body/glass
+entities without baking. Use `concept_guard.verify_scene()` before every bake. The model is
+frozen again: further geometry or UV changes are a stop. Spec §9 and `blender/README.md` carry
+the commands and evidence. The live work is now maps, materials, reactor, attachment and import.
+
 **Owner, 2026-09-21 — what this pass is.** *"Give me a good pass at bringing the concept art to life
 and that we can see where we are. And iterate from there."* This is a **first cut to look at**, not a
 finish. The owner will look at it in game and direct the next round. Do not polish past the point
@@ -64,8 +73,8 @@ not a substitute for them.
    against vanilla.
 2. **Glass on the six loading platforms**, as its own attached entity with its own material, with
    the border kept in the body and blue glow available in the glass, around it, or both. The glass
-   geometry already exists in the generator (`SidingGlass`), excluded from the body export — reuse
-   it rather than rebuilding it.
+   geometry is the existing `SidingPanel_*` pieces, separated by the OI-23 exporter into
+   `SMROptInTrainHub6Glass` with shape and position exact; reuse that frozen export.
 3. **The generator carries the theme too** (owner, 2026-09-21). The hub's reactor is a visual only:
    vanilla's `FusionReactor` entity attached as a `ShapeshifterAutoAttach`, scaled 75%, 45 m out
    (`20_TrainHub.lua:1033-1066`). Left alone it is the one vanilla-styled object in a themed hub.
@@ -78,7 +87,8 @@ not a substitute for them.
    shared between entities, share the body's rather than adding a third set of maps, and say whether
    that worked — it is likely but unverified.
 4. ⛔ **No dome glass this pass** (owner). The dome stays as it is.
-5. ⛔ **No geometry or UV change.** (The glass and the generator are new entities, not the body.) The model is final and a re-import of the mesh spends the bake.
+5. ⛔ **No further geometry or UV change after the OI-23 restore point.** The glass split and first
+   scripted unwrap are complete; the generator is a new entity. The model is final and a mesh change spends the bake.
    If the look genuinely needs the model to move, that is a stop, not a decision.
 6. **Leave the art editable, and say how.** The generating script stays the source of truth with its
    knobs named — strip width, hull colour, glow shapes — and every map is regenerated from it. Never

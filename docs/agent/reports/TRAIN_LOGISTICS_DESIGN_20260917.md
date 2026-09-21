@@ -1000,10 +1000,49 @@ joins panels, borders and gussets into the body. Source inspection found the pan
 in place of the brief's claimed separate `SidingGlass`. Thus a transparent overlay leaves opaque
 panels underneath. Proposed exception: move those existing panel faces into the attached glass
 entity without reshaping or moving them, and create then freeze a usable body UV layout before
-the first concept bake. OI-23 holds the owner's decision; neither exception is assumed. No model,
-UV, texture, runtime code or imported entity was changed; no concept render or in-game look was
-produced. Executed model recorded from this session's developer transcript: GPT-6; no more
-specific runtime identifier was supplied.
+the first concept bake. At that preflight stop no model, UV, texture, runtime code or imported
+entity was changed; no concept render or in-game look was produced.
+
+**OI-23 APPROVED, owner 2026-09-21: both changes, with three conditions.** Unwrap the body and
+separate the siding panels into the glass entity. The ban protected a bake that does not yet
+exist; collapsed UVs cannot carry textures, and the already-ruled glass needs a separate material.
+Preserve every piece's shape and position exactly: **"everything fits and nothing clips"** must
+survive. (1) The unwrap is scripted into the pipeline and deterministic: same input, same UVs,
+every run, never a downstream hand edit. (2) The verifier gains a UV fingerprint so layout drift
+fails loudly instead of scrambling the art. (3) The existing geometry proof passes and the report
+states it. After these proofs pass and the work lands, the model is frozen again and the ban
+resumes in full: from the first bake onward, a geometry or UV change spends the bake and is a
+stop, not a decision. The orchestrator tags this state in both repos before any paint is baked.
+
+**OI-23 preparation proof (Blender 5.2.2 LTS, build `d13f752e3b9c`).** Assets
+`export_prep.py` now calls `prepare_concept.py`, with no bake. The unchanged
+`verify_look_pass.py` passed on the approved workfile and the full generator rebuild. The new
+proof compares exact world-space face-boundary multisets through the panel split and geometry
+hashes through the unwrap: **shape and position unchanged**, including spots and surfaces.
+The evaluated source also fingerprints the converted ribs, which the older MESH/EMPTY proof
+alone did not cover. `concept_freeze.json` holds the source/export geometry and exact float32
+per-face/per-loop UV fingerprints, including topology. Normal exports reject any mismatch before
+writing deliverables; the legacy re-unwrapping baker and combined-panel exporter now stop.
+
+Executed from `C:\Dev\SMR-Assets\trainhub\blender`, against assets base `0717592` plus this
+implementation (the paired `hub-prepaint-uv-frozen-20260921` tags identify the landed source):
+`blender --background TrainHub_work.blend --python-exit-code 1 --python export_prep.py -- --freeze-candidate`,
+then `blender --background --factory-startup --python-exit-code 1 --python build_workfile.py -- --check-rebuild`,
+then `blender --background export/concept/TrainHub_rebuilt.blend --python-exit-code 1 --python export_prep.py`.
+The approved workfile and regenerated workfile produced identical fingerprints. Candidate mode
+closes once the baseline exists; no rebuild can silently replace it. Filter: every evaluated
+source face routed into body or glass. Reconciled **11,678 = 11,642 body + 36 glass faces**, with
+the panel source members listed in `concept_freeze.json`. Dome glass is excluded.
+
+`blender --background export/concept/TrainHub_prepaint.blend --python-exit-code 1 --python verify_concept.py`
+passed separate FBX round trips and deliberate UV-coordinate/vertex mutations for each entity.
+Filter: all exported nodes, parent links, transforms, ordered polygon boundaries and UV corners;
+results in `export/concept/verification.json`. Maximum UV delta was **0** for each entity;
+maximum geometry/transform component delta was **1.1920928955078125e-07** for the body and **0**
+for glass, below the verifier's `1e-4` FBX tolerance. These are Blender checks, not an in-game
+glass/material acceptance. The prepaint exports are `export/concept/SMROptInTrainHub6.fbx` and
+`SMROptInTrainHub6Glass.fbx`; no paint was baked before the restore point. Executed model from
+the developer transcript: GPT-6; no more specific runtime identifier was supplied.
 
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
