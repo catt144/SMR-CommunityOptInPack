@@ -1498,6 +1498,47 @@ owed to the design smoke: that a mod-placed light renders at all, that blue satu
 aim (the code assumes a spot shines along its own +X and turns it a quarter about Y to face
 down), daylight visibility, and frame cost.
 
+**Owner direction after the first look, 2026-09-21: "my painted lines back, but acting as light
+sources. Keep the six variants."** Thin emissive line paint restored on the tracks and platforms,
+one colour per arm to match its variant, at a lower SI level "so it doesn't burn to white at
+night"; the Lua lights small, low-intensity and spaced along the same line paths, "so the glow
+spills onto the road around the line and does not wash the whole platform"; working-state gating
+and hub-off removal kept; restore point 2 stays the clean fallback. The table above is the first
+cut the owner judged, superseded by this one. Assets `ac600ba`, OptInPack `134bedd`; desk
+and mock only, the owner's import and look are owed.
+
+Paint: `DECK_STRIPS = 'thin'` in `paint_concept.py` — tops only (approach lines and dashes, one
+pair of floor curves; side rims stay off), `THIN_WIDTH_SCALE` 0.65 of the old half-widths (0.5
+left almost no full-strength core at this atlas's texel size), `THIN_SI` 0.35, `ARM_LINE_COLOUR`
+keyed by the arm's game direction. Generator sector s is game arm (4 − s) mod 6, read off the
+`Trackconnector1..6` spots in `Entities/SMROptInTrainHub6.entjson` (entity angle = 240° − generator
+angle) with `hub_connector_directions`; the same spots put arm d at 60·d° in the hub's own frame,
+which is what places the reactor (30°) between arms 0 and 1. Command: `python
+validate_thinlines.py` from `SMR-Assets/trainhub/blender`, run on `5dda4b6` plus the working tree
+committed as `ac600ba`; filter: BC/NM/RM/SI against `textures/nostrips/`, line mask = thin glow
+> 0 plus bleed, **16,985 texels on the 19 road faces**, required inside the old strips' 66,653.
+Changed / unchanged / outside the lines, each row summing to 4,194,304: BC 16,961 / 4,177,343 / 0;
+NM 0 / 4,194,304 / 0; RM 15,155 / 4,179,149 / 0; SI 16,925 / 4,177,379 / 0. Core SI byte 89;
+core texels by arm colour 572 + 662 + 570 + 578 + 622 + 678 = 3,682, all six present. Before it,
+`validate_pad.py` and `validate_nostrips.py` passed again and the four `textures/nostrips/` hashes
+did not move, so `True` and `False` still reproduce. Delivery `textures/thinlines/`; the owner's
+five steps are the README's "Owner import".
+
+Lua: the lights follow the painted path (`hub_line_v`, the painter's own smoothstep): one on the
+arm's centre from 8 to 40 m, then a pair easing apart to 3.46 m by 60 m and straight to 80 m.
+
+| Variant (arms as above) | Class | Intensity | Radius | Spacing | Height | Lights per arm |
+|---|---|---:|---:|---:|---:|---:|
+| R1 Ember rail / B1 Ice rail | point | 60 | 3 m | 6 m | 0.4 m | 20 |
+| R2 Crimson wash / B2 Deep blue wash | spot 50/100 | 100 | 5 m | 10 m | 2 m | 12 |
+| R3 Rose beads / B3 Cobalt beads | point | 120 | 1.5 m | 3 m | 0.3 m | 39 |
+
+Total **142 = 2 × (20 + 12 + 39)**, asserted by `look_smoke.py` with the same lifecycle cases.
+A variant's colour now lives in two places (the Lua table and `ARM_LINE_COLOUR`); reassigning an
+arm's colour costs a rebake and an importer run, reassigning only its light style does not.
+**Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
+no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
