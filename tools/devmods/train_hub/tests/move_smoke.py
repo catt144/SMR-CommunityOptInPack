@@ -63,8 +63,20 @@ assert(not h:GetOccupyingTrain(h.tracks[1],false),'own load must be allowed')
 active_thread={}
 assert(h:GetOccupyingTrain(h.tracks[1],false)==t,'spawn must remain excluded')
 -- Reverse departure rejoins the track's own outgoing lane and releases.
+local slide=h.HubSlideTrain
+local exit_checked=false
+function h:HubSlideTrain(train,destination)
+ local expected=self:HubCentrePosition(1,SMROptInTrainFloor.HubExitSlideDistance)
+ assertclose(train.pos.xx,expected.xx); assertclose(train.pos.yy,expected.yy)
+ exit_checked=true
+ return slide(self,train,destination)
+end
 t.command='GotoStation'; t:AssignToTrack(h.tracks[1]); t.at_station=false
 h:TrainDepart(t,h.tracks[1])
+assert(exit_checked,'departure missed outward slide')
+h.HubSlideTrain=nil
+local unchanged_arrival=h:GetSpotPos(h:GetSpotBeginIndex('Ramparrive1'))
+assertclose(unchanged_arrival.xx,ramp.xx); assertclose(unchanged_arrival.yy,ramp.yy)
 local dest=h.elements[1]:GetSpotPos(2)
 assertclose(t.pos.xx,dest.xx); assertclose(t.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain() and not h:GetOccupyingTrain(h.tracks[1],false))

@@ -1411,3 +1411,13 @@ import; confirm its 60 m connector and native track attachment. If no pause in t
 looks right, report the overlap in metres to the model pass instead of compensating in Lua.
 The same FBX reportedly shifts the cargo beds and their Box spots together; the movement
 code continues reading those spots and makes no cargo-layout adjustment.
+
+**Owner visual ruling, 2026-09-20:** entrance was "very good"; exit slides too early.
+Keep arrival at its 48 m source setting and separate the exit slide distance. The implemented
+first outward trial is `HubExitSlideDistance = 50 * guim`, read only by Rampdepart and exposed
+in the live tuning slots. Siding geometry and centreline positions are unchanged. This is an
+eye-tuning trial; exit acceptance and the remaining native smoke are still owed.
+The owner then clarified that the first screenshot's "pull up a little more" concerns the
+interior move onto the loading platform. Its curve now starts at 25.5 m instead of 26.5 m,
+a 1 m farther-in trial with the parking point and both rejoins unchanged. This is independent
+of the entrance transition and exit slide; the owner must still judge both adjusted movements.

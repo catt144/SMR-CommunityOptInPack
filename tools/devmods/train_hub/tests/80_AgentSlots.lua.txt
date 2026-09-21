@@ -8,7 +8,8 @@ local T = SMRTK
 local route_stage = 0
 local tune_index = 1
 local tunables = {
-    {key="HubTransitionPauseDistance", label="pause", step=guim},
+    {key="HubTransitionPauseDistance", label="arrival pause", step=guim},
+    {key="HubExitSlideDistance", label="exit slide", step=guim},
     {key="HubParkDistance", label="park", step=guim},
     {key="HubSidingOffset", label="siding offset", step=guim/4},
     {key="HubSidingEntryDistance", label="siding entry", step=guim},
@@ -78,12 +79,13 @@ local function tune(ctx,delta)
     local f=SMROptInTrainFloor
     local park=item.key=="HubParkDistance" and new or f.HubParkDistance
     local pause=item.key=="HubTransitionPauseDistance" and new or f.HubTransitionPauseDistance
+    local exit=item.key=="HubExitSlideDistance" and new or f.HubExitSlideDistance
     local entry=item.key=="HubSidingEntryDistance" and new or f.HubSidingEntryDistance
     local rejoin=item.key=="HubSidingRejoinDistance" and new or f.HubSidingRejoinDistance
     local reverse=item.key=="HubSidingReverseRejoinDistance" and new or f.HubSidingReverseRejoinDistance
     local limit=h:GetDist2D(h:GetSpotPos(h:GetSpotBeginIndex("Trackconnector1")))
-    if new<=0 or not (rejoin<park and park<entry and entry<pause and park<reverse and reverse<pause and pause<limit) then
-        return false,"keep inward rejoin < park < entry/reverse rejoin < pause < connector"
+    if new<=0 or not (rejoin<park and park<entry and entry<pause and park<reverse and reverse<exit and pause<limit and exit<limit) then
+        return false,"keep rejoin < park < entry < arrival pause < connector; park < reverse rejoin < exit slide < connector"
     end
     if item.key=="HubDwellTime" and (new<100 or new>const.HourDuration/5) then
         return false,"dwell must be between 100 ms and vanilla's 12 game seconds"
@@ -154,7 +156,7 @@ T.Bind(4,"Pause on next crossing (re-arm after save)",function(ctx)
     return {watch="hub3b_crossing",cadence=50}
 end,{mode="once"})
 
-T.Bind(6,"Select pause / park / siding / entry / rejoins / dwell",function(ctx)
+T.Bind(6,"Select arrival / exit / park / siding / entry / rejoins / dwell",function(ctx)
     tune_index=tune_index%#tunables+1
     return {tuning=tuning().label,value=SMROptInTrainFloor[tuning().key],step=tuning().step,pause=SMROptInTrainFloor.HubTransitionPauseDistance,
         park=SMROptInTrainFloor.HubParkDistance}

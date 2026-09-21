@@ -37,11 +37,13 @@ local Floor = SMROptInTrainFloor
 -- siding positions remain the Pass 3 first trials, not in-game measurements.
 -- All tunables reset on a full restart.
 Floor.HubTransitionPauseDistance = 48 * guim
+-- Owner: entrance looks good; exit slides too early. Separate outward trial.
+Floor.HubExitSlideDistance = 50 * guim
 Floor.HubParkDistance = 14.5 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
 Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
-Floor.HubSidingEntryDistance = 26.5 * guim
+Floor.HubSidingEntryDistance = 25.5 * guim -- owner: pull farther in before curving onto siding
 Floor.HubSidingRejoinDistance = 5 * guim
 Floor.HubSidingReverseRejoinDistance = 26.5 * guim
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
@@ -243,7 +245,8 @@ local function synthetic_spot_pos(self, kind, idx)
 	if deck_kinds[kind] then z = z + train_deck_height(self) end
 	if deck_kinds[kind] then
 		local distance = (kind == "Stop" or kind == "Spawn")
-			and Floor.HubParkDistance or Floor.HubTransitionPauseDistance
+			and Floor.HubParkDistance or (kind == "Rampdepart"
+				and Floor.HubExitSlideDistance or Floor.HubTransitionPauseDistance)
 		local radius = self:GetDist2D(point(x, y))
 		x = cx + MulDivRound(x - cx, distance, radius)
 		y = cy + MulDivRound(y - cy, distance, radius)

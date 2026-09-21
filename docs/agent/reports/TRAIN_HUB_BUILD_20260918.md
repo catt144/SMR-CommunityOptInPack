@@ -705,8 +705,9 @@ parked trains on the siding; native serialization remains untested for this revi
 The occupied-exit guard is retained unchanged. Scheduling and mutually blocked departures
 remain the deferred loading/queueing pass; this is no claim that sidings solve that policy.
 
-**Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** pause 48 m; park 14.5 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 26.5 m; inward rejoin 5 m;
+**Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
+exit slide 50 m; park 14.5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 25.5 m; inward rejoin 5 m;
 reverse rejoin 26.5 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
@@ -753,13 +754,13 @@ On the fresh hub, confirm the connector is 60 m from the centre and a track atta
 the path between the arms. The mocked six-hex outline is not proof of that native attachment.
 
 1. Pause, select the hub, run Scratch then slot 1. Read the actual tunables and inspect the siding park.
-2. Slot 6 cycles pause, park, siding offset, entry, inward rejoin, reverse rejoin, dwell.
+2. Slot 6 cycles arrival pause, exit slide, park, siding offset, entry, inward rejoin, reverse rejoin, dwell.
    Slots 2/5 decrease/increase the selected value: 1 m for along-spur positions, 0.25 m for
    lateral offset, 500 game ms for dwell. Tune paused with no arrival/crossing. Park/offset
    changes reposition parked trains; other changes apply to the next movement or wait.
 3. Watch arrival: arm stop, outer slide, centred entry, curved braking onto the siding.
-   Start pause at 48 m; try 47–49 m. Watch both tail-to-connector and nose-to-portal clearance
-   on arrival and mirrored departure. If the proposed 46–50 m window has no good point,
+   Keep arrival at 48 m; the owner liked the entrance. Exit now starts at 50 m, independently
+   tunable: watch tail-to-connector and nose-to-portal clearance. If the proposed 46–50 m window has no good point,
    report visible overlap in metres at the chosen pause for the model pass; do not add a
    Lua workaround. The screenshot-based centre/length assumption does not resolve R-TRAIN.
 4. Watch unload/load and departure: roughly 6 game seconds per hub command; curved rejoin
@@ -772,3 +773,15 @@ Next batch still owes two-train outside waiting, 60?/120?/reverse, parked-plus-c
 item ck206 points here. The MOVE prompt remains live; build 4 and textures remain held.
 Executed model: GPT-6 (Codex), as identified by this transcript; no more specific runtime id
 is supplied. No subagents were used.
+
+**Owner visual feedback, 2026-09-20, after the longer-stub trial:** "on exit its doing the
+slide to early, the entrance was very good though", with screenshots. Preserve arrival's
+48 m source default and separate `HubExitSlideDistance`; its first trial is 50 m, chosen
+as a small outward adjustment, not a measured correction. Only Rampdepart reads it;
+Ramparrive and HubCentrePosition retain the arrival distance. Slot 6 exposes the separate
+exit control; 2/5 decrease/increase it by 1 m while paused. This records a favourable entrance
+observation, not acceptance at every speed or a completed smoke. Exit clearance remains owed.
+The owner clarified that the earlier "pull up a little more before doing its slide" screenshot
+was inside the hub, moving onto the loading platform. Start that curve 1 m farther inward:
+`HubSidingEntryDistance` 26.5 to 25.5 m, leaving park and both rejoin points fixed. This is a
+separate first trial from the outward exit adjustment; entrance remains unchanged.
