@@ -1605,6 +1605,33 @@ goes to 4096 as the owner planned. The owner's seam screenshots are not on disk 
 in chat), so the seam-spacing check against the script (the ring's period is 6/33.5 rad, 10.26°)
 is not done; the profile stands without it.
 
+**Structure step, maps delivered, 2026-09-21 — assets `a2b9727`, desk-verified; game look
+UNTESTED, the owner's import is owed.** Built by an Opus agent (`claude-opus-5`) on a brief from
+the orchestrator (Claude Fable 5.1), who reran every validator and compared the hashes.
+`paint_concept.py`: `MAP_SIZE` per map, `SUPERSAMPLE = 2` (four sub-texel samples per texel, the
+antialias term .55 → .30 of a texel), seam knobs in metres, `STRUCTURE_LOOK` (the handoff palette:
+shell `#D9D4CA` .31/.05 on ring, ribs, portals, hoods and hull sides; silver `#AEB9BE` .22/.90 on
+pillars, ring pillars, clamps and siding frames; insert `#071016` .20/.55 in the portal trim band;
+±2.5% per-panel tone, ring panel lines at z 7.40 and 8.30, ±.03 brushed roughness on the silver,
+no grime). Every knob defaults to legacy: `bake_pad.py`, `bake_thinlines.py` and their validators
+PASS and all 13 held TGAs are sha256-identical. `bake_structure.py` (57.8 s) bakes **BC 4096, NM,
+RM and SI 2048** into `export/structure/`; ring seam 0.20 m wide, 18% deep, groove 0.02 m; road
+seams keep their widths. `python validate_structure.py` PASS, 0 failures, publishes
+`textures/structure/`. Filter: the painter's own road mask (full pad and pigment weight). Road:
+at 4096, pad 516,184 = 450,348 finish + 12,860 seam + 52,976 partial, **0 finish texels off
+`PAD_BASE`**, 0 seam texels off the formula; at 2048, 135,162 = 107,384 + 4,212 + 23,566, **0 RM
+texels off (15,15,242)**, 0 lit. Against the held set the finish is 110,312 → 107,384, the 2,928
+lost all on its own one-texel boundary, none gained; on the common 107,384: BC 0, RM 0, SI 0, NM
+229 changed (a groove's slope reaching one texel). Glow: SI ceiling 179 held, 104,268 texels
+exactly (0,40,255), road lit 15,496 → 15,716; per-group SI sums within ±1% on ring, portals,
+hoods, sidings and road, +10% pillars, **Rib +33%** (`RIB_GLOW_LEVEL` .75 → 1.0 so the bands
+reach the line level: 0 → 370 core runs, median 4 texels). Crispness: ring seam dark run 4 texels
+at 2048 → 2 at 4096. Changed against the held set at 2048: BC 1,829,430, RM 1,596,139, SI
+90,832, NM 86,493 of 4,194,304; `Bay_*` re-antialiases (BC 28,177, NM 32,317) without redesign.
+Owner's five steps: `SMR-Assets/trainhub/blender/README.md`, "Current handoff: structure set";
+the compiled BC DDS grows to about 11 MB. Previews `export/structure/{day,night,deck_day,deck_night}.png`
+are Blender only.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
