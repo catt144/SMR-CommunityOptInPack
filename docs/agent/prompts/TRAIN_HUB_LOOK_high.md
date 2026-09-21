@@ -115,6 +115,32 @@ not a substitute for them.
 **Done means:** the owner can look at the hub in game and say the concept is on screen, and name
 what to change next.
 
+## Iteration 1 — the owner's first look in game (2026-09-21)
+
+The body imported with all four maps and the owner looked at it. Two findings, both theirs.
+
+1. ⛔ **Z-FIGHTING AT THE CENTRE CROSSING, and it is a geometry defect the paint exposed.** The
+   generator builds each of the three lines as one box spanning the hub (`hub_skeleton.py:343-350`),
+   so at the centre three boxes overlap with their top faces **all at `DECK_Z`** — coplanar, so the
+   renderer flips per pixel and the owner sees a crawling stippled band. Untextured it was invisible
+   because every surface was the same flat grey. No map can fix it.
+   **Owner ruling, 2026-09-21: APPROVED to change this geometry**, an exception to the freeze for a
+   defect, with shape and position preserved everywhere else and the geometry and UV proofs re-run.
+   **Your call between merging the three beams into one solid at the centre and stopping them short
+   of a single centre plate** — the plate is preferred if it can carry the centre floor design below,
+   which is what the owner will be looking at. Re-bake and re-freeze after; the paint is generated
+   from face identity, so a re-bake reproduces the look.
+2. **The lighting layout is redesigned** (owner, same look; the concept has no dashes in the
+   interior). In their words: *"have the dashes along the outer platform where the train meets up
+   with the old vanilla track, and then as it heads towards our center track the two platform dashes
+   merge together and ends in the tunnel, and then we have our floor design in the center."* So:
+   - **dashes on the transition arms**, where a train is still on the vanilla track, one line per
+     arm either side of the incoming track;
+   - **inward, the two lines converge and MERGE into one**;
+   - **the merged line runs into the tunnel portal and ENDS there**;
+   - **no dashes inside the ring**: the centre carries the radiating floor design of `Concept.png`
+     instead. The centre plate above is its natural home.
+
 ## Scope
 
 In: the body's four maps, the glass entity, the themed generator entity, their materials, the
