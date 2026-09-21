@@ -88,6 +88,23 @@ Not that the transition "works" from a desktop harness or a log: it is a look, a
 eye closes it. Not that the jerk is gone because the code is simpler — claim what the smoke showed,
 from the owner's view, at normal, fast and fastest speed.
 
+## ⚠️ The geometry moved after the motion was tuned — smoke at radius 6
+
+MEASURED 2026-09-21. The connectors moved from 4,000 to 6,000 units — radius 4 to 6, 20 m further
+out — at `d1beaba`, the owner's import of the final hub model, which they accepted in game. `3722283`,
+the last movement tuning in this brief's own work, is an **ancestor** of that import. The three
+approach distances are absolute from the hub's centre (`20_TrainHub.lua:38-43`), so they did not
+move with the radius: `HubParkDistance` 11 m, `HubTransitionPauseDistance` 48 m,
+`HubExitSlideDistance` 50 m.
+
+The concrete change: `Ramparrive` at 48 m used to sit **8 m outside** the connector; it now sits
+**12 m inside** it. The owner's *"99%, slight tuning before launch"* was a judgement on a run 20 m
+shorter than today's.
+
+So the smoke this brief owes is **not** a re-confirmation — play it at radius 6 and treat those
+three distances as the first suspects. Tuning them is constants in `20_TrainHub.lua` and costs the
+texture bake nothing. Do not change the model to suit the motion: it is FINAL and owner-accepted.
+
 ## The offline contract smoke disagrees with this build
 
 MEASURED 2026-09-21, by the orchestrator, while repointing paths after the tree move.

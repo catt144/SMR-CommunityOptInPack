@@ -1225,18 +1225,30 @@ one-hex stub. The asset is touched only after the motion passes by eye.
 
 The owner's import of the rebuilt body and the first concept maps, read in a live session.
 
-**The footprint is at radius 6, not the 5 the stub direction priced.** The game printed
+**The footprint is at radius 6, and that is the accepted state.** The game printed
 `[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6`, and the connector spots in
-`Entities/SMROptInTrainHub6.entjson` measure 6,000 units from centre on all six lines, z 800.
-That is consistent at 1,000 units per hex against the 2026-09-19 reading of 4,000 units at
-radius 4 above, so the stubs went out **two** hexes where the direction above was one. ⛔ Everything
-that passage costed — the ramp spots at 5/7 of the radius, the oracle's tables, the desktop traffic
-check, and shortening each line's end element by a hex on `train_hub_base`, `train_hub_base_agent`
-and `SpaceY Sol 21` — was priced for radius 5 and must be re-read at 6. A connector must be the last
-footprint hex on its line (`Tracks.lua:19-24`), and the spots feed `Station.lua:1105`'s 50 m
-teleport check, so this is not cosmetic. **Owner's ruling owed:** keep radius 6, or bring it back to
-5. Falsify with `line_radii`'s own print in a fresh session; the offline smoke's copy of that number
-comes from stubbed geometry and is not the game's.
+`Entities/SMROptInTrainHub6.entjson` measure 6,000 units from centre on all six lines, z 800 —
+consistent at 1,000 units per hex with the 4,000 units at radius 4 recorded on 2026-09-19. Tracing
+the entity file: the connectors moved 4,000 → 6,000 at `d1beaba`, *the owner's import of the final
+hub model*, which the owner accepted in game the same day (*"everything fits and nothing clips"*).
+**So the stub direction above, which priced one more hex to radius 5, is superseded by the owner's
+own acceptance of the final model at radius 6.** It is history, not an open item, and no ruling is
+owed. Nothing in our Lua needs to change with it: `line_radii` (`20_TrainHub.lua:168-188`) reads
+each line's radius from the model's own outline at runtime and `line_hex` places from that, so no
+radius literal exists to update. `Station.lua:1105`'s 50 m teleport check is comfortable: it
+measures the train against `Ramparrive`, not the connector.
+
+⛔ **But the movement tunables were dialled in BEFORE the connectors moved, and were not re-judged
+after.** `Floor.HubParkDistance` (11 m), `HubTransitionPauseDistance` (48 m) and
+`HubExitSlideDistance` (50 m) are absolute distances from the hub's centre
+(`20_TrainHub.lua:38-43,243-254`), so they did **not** follow the radius outward. `3722283`, the
+last movement tuning, is an ancestor of `d1beaba`. The consequence is concrete: `Ramparrive` at
+48 m used to sit **8 m outside** the connector at 40 m; it now sits **12 m inside** the connector at
+60 m, so the approach the owner called *"99%, slight tuning before launch"* was judged on a
+20 m-shorter run than the one that ships today. The movement smoke that `TRAIN_HUB_MOVE_high.md`
+still owes must therefore be played at radius 6, and those three distances are the first things to
+watch. MEASURED 2026-09-21; falsify with `git merge-base --is-ancestor 3722283 d1beaba` and the
+connector radius at each revision of the entity file.
 
 **The glow works, and it goes to zero rather than dimming.** `Building:OnSetWorking` calls
 `WorkLightsOn()` → `SetSIModulation(200)` when working and `WorkLightsOff()` → `SetSIModulation(0)`
