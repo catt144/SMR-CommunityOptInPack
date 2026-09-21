@@ -1119,20 +1119,22 @@ local hub_light_variants = {
 	B1 = { name = "Ice rail", class = "PointLight", color = RGB(40, 160, 255),
 		intensity = 60, radius = 3 * guim, spacing = 6 * guim, height = 40 },
 	B2 = { name = "Deep blue wash", class = "SpotLight", color = RGB(0, 40, 255),
-		intensity = 100, radius = 5 * guim, spacing = 10 * guim, height = 2 * guim, inner = 50, outer = 100 },
+		-- owner, 2026-09-21: intensity "slightly bumped" from 100, which R2 keeps
+		intensity = 130, radius = 5 * guim, spacing = 10 * guim, height = 2 * guim, inner = 50, outer = 100 },
 	B3 = { name = "Cobalt beads", class = "PointLight", color = RGB(90, 110, 255),
 		intensity = 120, radius = 150, spacing = 3 * guim, height = 30 },
 }-- Reassign here: key = the arm's local hex direction, value = a variant above. The reactor stands
 -- between arms 0 and 1, so every arm can be found in game without a compass.
 local hub_light_arms = {
-	-- Owner, 2026-09-21: B3 "might be the winner", on every arm for a look. The comparison was
-	-- R1, B1, R2, B3, R3, B2 for arms 0-5; the painted colour is ARM_LINE_WINNER in paint_concept.py.
-	[0] = "B3", -- flanks the reactor (was the red flank)
-	[1] = "B3", -- flanks the reactor (was the blue flank)
-	[2] = "B3", -- next to the blue flank
-	[3] = "B3", -- opposite the red flank, the arm the owner picked
-	[4] = "B3", -- opposite the blue flank
-	[5] = "B3", -- next to the red flank
+	-- Owner, 2026-09-21: B2 "might be the winner", on every arm for a look (B3, tried first on a
+	-- misread screenshot, was "the wrong blue"). The comparison was R1, B1, R2, B3, R3, B2 for arms
+	-- 0-5; the painted colour is ARM_LINE_WINNER in SMR-Assets bake_thinlines.py.
+	[0] = "B2", -- flanks the reactor (was the red flank)
+	[1] = "B2", -- flanks the reactor (was the blue flank)
+	[2] = "B2", -- next to the blue flank
+	[3] = "B2", -- opposite the red flank
+	[4] = "B2", -- opposite the blue flank
+	[5] = "B2", -- next to the red flank, the arm the owner picked
 }
 local hub_light_arm_names = {
 	[0] = "flanks the reactor (red flank)", [1] = "flanks the reactor (blue flank)",

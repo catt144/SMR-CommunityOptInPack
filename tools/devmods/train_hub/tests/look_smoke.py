@@ -105,25 +105,25 @@ assert(reactor.si==200 and glass.si==200 and reactor.fx_state=='start')
 DoneObject(reactor); DoneObject(glass); h:InitHubReactorVisual(); h:InitHubSidingGlass()
 assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass')==1)
 assert(IsValid(foreign))
--- Arm lights: 6*39 on (the owner's pick on every arm), along the painted line's path, destroyed (not dimmed) off, no duplicates on repeat, others untouched.
+-- Arm lights: 6*12 on (the owner's pick, B2 spots, on every arm), along the painted line's path, destroyed (not dimmed) off, no duplicates on repeat, others untouched.
 h:OnSetWorking(true); h:OnSetWorking(true)
-assert(#lights()==234, #lights())
+assert(#lights()==72, #lights())
 local spots,far=0,0
 for _,v in ipairs(lights()) do
- assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity>0 and v.offset.z>800)
+ assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==130 and v.offset.z>800)
  if v.class=='SpotLight' then spots=spots+1; assert(v.axis=='axis_y' and v.angle==90*60 and v.outer==100) end
  local d=math.sqrt(v.offset.x^2+v.offset.y^2); assert(d>=800 and d<=8100, d)
  if d>6000 then far=far+1 end
 end
-assert(spots==0)
+assert(spots==72)
 h:OnSetWorking(false)
 assert(#lights()==0 and IsValid(foreign) and #living('SMROptInTrainHubReactor')==1)
 h.working=false; h:InitHubLights(); assert(#lights()==0)
-h.working=true; h:InitHubLights(); assert(#lights()==234)
+h.working=true; h:InitHubLights(); assert(#lights()==72)
 ''')
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
     'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
     'status':'PASS: mocked visual lifecycle; native game behavior untested',
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
-             'arm lights: 234 on, destroyed off, idempotent, foreign attachment preserved']}))
+             'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved']}))
