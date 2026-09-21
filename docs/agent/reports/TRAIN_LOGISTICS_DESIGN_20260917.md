@@ -944,6 +944,45 @@ and waits for its track clearance to rejoin the track."*
   panel under the border so the border reads as a rim (0 restores flush, which the owner had asked
   for). Rebuilt and re-exported; that export is not yet imported.
 
+✅ **THE TEXTURE GATE IS LIFTED (owner, 2026-09-21).** Two rulings on the same day close it.
+The transitions: *"transitions are 99%, we might have some very slight tweaking before launch but
+they have convinced me."* The model: *"all of the model changes are done unless something truly
+unexpected comes up, everything fits and nothing clips."* The final model is committed
+(`d1beaba` here, SMR-Assets `54eb84d`) and a bake is baked against that.
+⚠️ **What the gate actually protected, so the remaining tweaks do not re-arm it:** a re-import
+throws away the bake, and only a MODEL change forces a re-import. The owner's "very slight tweaking"
+is movement tuning — pause, park, onset, slide rate, dwell — all constants in `20_TrainHub.lua`,
+which can move freely for as long as they like at no cost to a bake. If geometry or UVs move, the
+bake is spent and the gate is back; that is the one condition to watch.
+
+**The look pass's engine facts, read 2026-09-21 from the archived 1.1.0.403908 tree.** Settled
+before the pass is briefed, because each one decides how the art is authored.
+- **Self-illumination is a supported map** (`GFXMaterial.lua:137`, `MatMapToMatProps.SI`), alongside
+  base colour, normal, RM, AO, colorization and the rest. ⚠️ **It compresses to BC4, one channel**
+  (`:1100`), so it is a greyscale MASK of where a surface glows; the colour comes from the base
+  colour beneath it. Blue strips = blue in BC, white in SI along the same shapes.
+- **The game already drives that glow as a gameplay signal.** `Building:WorkLightsOn/Off` are
+  `SetSIModulation(200)` and `SetSIModulation(0)` (`Lua/Buildings/Building.lua:1413-1419`), run from
+  `OnSetWorking`, so a hub with an SI map goes dark when it stops working with no code from us. The
+  call is ours to drive too (a siding lit while a train loads on it, an inbound line lit). The engine
+  keeps `NightLightEmissiveEntites` for entities that glow only at night, so day-or-night is a choice.
+- **Glass cannot live in the hub's own mesh.** One material per mesh node — the importer's own words
+  are *"Contains multi-materials. Not supported yet."* (`SceneImport.lua:4023`) — and MEASURED
+  2026-09-20, a second mesh node is discarded silently (`_shared/IMPORTER_FACTS.md`).
+  ⭐ **The route is a separate attached entity, which is exactly how vanilla does every dome:**
+  `DomeBasic_Glass`, `DomeOval_Glass`, `DomeMega_Glass` are their own entities attached at the dome's
+  `Origin` (`Lua/Buildings/Dome.lua:501`, `:3042-3075`). A glass entity carries its own material, so
+  its own blending (`BlendType`) and its own SI, modulated independently of the body.
+- **Owner, 2026-09-21: the sidings keep their glass.** *"I still want the glass for the loading
+  platforms, the concept art is wrong about that part, but I like the border and if we can add any of
+  that blue glow into the glass or around it that would be nice."* So: border and its glow in the body
+  maps, glass as the attached entity, blue glow available in both and tunable against each other.
+- **Adding the glow later is cheap; changing the model later is not.** The entity points at a
+  material and the material at its maps, so an SI map can be added to an existing material without
+  re-importing the mesh (reasoned from the file structure, confirmed by one check the first time).
+  What is NOT cheap is moving geometry or UVs after a bake. Author the glow strips as clean shapes in
+  the base colour so the mask can be cut from them later, and freeze the UVs at the bake.
+
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
 hexes long as in the owner's screenshots, with the track linking between them to meet our stub
