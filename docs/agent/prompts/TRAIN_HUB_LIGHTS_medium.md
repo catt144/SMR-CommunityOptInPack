@@ -45,7 +45,13 @@ paragraph after it):
 3. **Lights follow the hub's working state and are on in the day as well as at night.** Off when
    the hub is off. Use the hub's own attach, recreate-after-load pattern
    (`20_TrainHub.lua` reactor visual, `set_hub_reactor_working`); the lights are visuals, not
-   saved state.
+   saved state. **Off must remove the lights' cost, not dim them** (owner, 2026-09-21: they will
+   compare the hub off against on, same save and camera, to measure what the lights cost): destroy
+   or hide the light objects when the hub stops working, and recreate them when it works again;
+   intensity 0 is not enough. Tell the owner how to read it: `gpu_sample.ps1` (in
+   `SMR-Assets	rainhublender`) logs the game's GPU memory, and the in-game frame rate at a
+   fixed camera is the better measure for lights. A stopped hub also stops its trains, so keep
+   none in view.
 4. **Tell the owner which arm carries which variant** in a way they can read in game (a log line
    naming each arm's compass direction and variant is enough), and how to reassign.
 
