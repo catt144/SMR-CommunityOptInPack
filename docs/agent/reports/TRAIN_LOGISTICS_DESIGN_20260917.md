@@ -1300,6 +1300,27 @@ back. `git ls-files trainhub/blender/textures/` is empty in SMR-Assets, so a rol
 geometry and UVs only: the TGAs in `textures/concept/` and the dev mod's DDS stay put and would
 then be painted against UVs that no longer exist, with no error.
 
+**Restore points now carry the textures (2026-09-21).** `snapshot_hub.py` (SMR-Assets
+`trainhub/blender`, `python snapshot_hub.py <name>`) makes the paired tags and also copies the
+git-ignored maps and the dev mod's compiled DDS, with a sha256 `MANIFEST.json` and a `RESTORE.md`,
+into `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\<name>`. Restore point 1 is `hub-road-b-20260921`
+(road finish B, painted strips still on; 50 files, 153.6 MB, all 50 hashes re-verified). Restore
+point 2, `hub-road-b-nostrips-20260921`, is taken by the lights agent after it strips the road
+paint and the owner's importer run is verified. Commit before a snapshot: a tag on a dirty tree
+holds nothing the owner meant to keep.
+
+**GPU cost, sampled 2026-09-21 (`gpu_sample.ps1`, SMR-Assets `trainhub/blender`; log
+`B:\Dev\SMR\SMR-Shared\SMR-HubBackups\vram_samples.jsonl`).** RTX 4080, the owner's monitor is
+capped at 120 fps in the NVIDIA panel, so frame rate hides small costs and the game's 3D-engine
+utilisation is logged too. Unconditioned readings (colony, camera and hub visibility not
+confirmed): game dedicated 5,755 MB and 466 MB shared, stable to the megabyte over 20 s, and 3D
+utilisation 87-88% at that view. **No real baseline exists yet.** The owner deferred it; the plan is
+before the lights, `lights-off` against `lights-on` (hub off against on, same save and camera;
+the lights brief makes off remove the lights), and again after the structure import, all from one
+fixed save and camera, ideally uncapped for the runs. Expected, not measured: BaseColor 2048 to
+4096 adds about 8 MB of raw DDS (2.8 to 11.2) against 5.7 GB, and lights cost frame time, not
+VRAM.
+
 **The AI texturing trial is CLOSED (owner, 2026-09-21).** The owner tried Tripo on the bare export
 (`blender/export_for_texturing.py`, SMR-Assets `df9bb50`; GLB, OBJ and FBX in the gitignored
 `export/for_texturing/`, with `MODEL_FACTS.json`) and it "gets confused and nothing useable comes
@@ -1407,6 +1428,38 @@ our own Lua take any colour with `SetColor` (`Mysteries/Fireflies.lua:85,109`;
 `UI/PlanetScene.lua:178`) and are not tied to night. The painted strips' colour is one constant,
 `BLUE` at `paint_concept.py:36`, and the SI mask carries no colour. The test: three reds and three
 blues, one variant per arm, the owner choosing in game (`TRAIN_HUB_LIGHTS_medium.md`).
+
+**Lights step, paint half, 2026-09-21 — assets `5dda4b6`, desk-verified; game look UNTESTED, the
+owner's import is owed.** Executed agent: Claude Fable 5.1 (`claude-fable-5-1`). The knob is
+`DECK_STRIPS` in `paint_concept.py`; `False` zeroes the glow on four face groups and nothing else:
+the upward `Track_*`/`CentrePlate` tops (approach lines and floor curves), the upward `Platform_*`
+tops (approach dashes), and the `Track_*` and `Platform_*` side rims (z 7.24 and 7.64). The brief
+names the platform rims; the track side rim is removed with them as a painted strip on the tracks
+(the owner's words), and is one line to bring back. Ring, portals, hoods, sidings, ribs and the
+base line keep their glow. On the road the freed texels take finish B, so the road is plain
+polished black. With the knob at `True`, `bake_pad.py` then `validate_pad.py` passed against the
+pinned hashes, and all 5 files of `textures/pad/` match restore point 1's `MANIFEST.json` by
+sha256 (0 of 5 differ), so the edit changes nothing that was delivered before.
+
+Command: `python validate_nostrips.py`, from `SMR-Assets/trainhub/blender`, run on `451e5d7` plus
+the working-tree edit committed unchanged as `5dda4b6`. Filter: BC/NM/RM/SI of the body against
+the delivered `textures/pad/` set with the B RM; strip mask = removed glow > 0 plus its four-pixel
+bleed, **66,653 texels** on **85 faces = 1 centre + 3 tracks × 8 + 12 platforms × 5**. Each row
+sums to the 4,194,304 texels of its map:
+
+| Map | Changed | Unchanged | Changed outside the strips |
+|---|---:|---:|---:|
+| BC | 66,627 | 4,127,677 | 0 |
+| NM | 0 | 4,194,304 | 0 |
+| RM | 25,421 | 4,168,883 | 0 |
+| SI | 66,627 | 4,127,677 | 0 |
+
+SI lit texels: 182,736 before = 116,109 kept + 66,627 removed; the validator also asserts no glow
+on any road or strip texel and byte-equal SI everywhere else. The 26 mask texels that did not
+change carried a glow too faint to move a byte. Delivery is `textures/nostrips/` (four maps,
+standard names); the owner's five steps are `SMR-Assets/trainhub/blender/README.md`, "Owner
+import". Out-of-scope finding: the reactor's `blue` sampling swatch is the median lit SI texel
+and moves with this set; the deferred reactor pass already has to regenerate its UVs.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;

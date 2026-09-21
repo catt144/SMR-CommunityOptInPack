@@ -51,15 +51,26 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, close of 2026-09-21.** The model is FINAL at radius 6 and
-     owner-accepted; the transitions are ACCEPTED. The tree move is DONE for this role: both
-     editor headers read `B:\Dev\SMR\SMR-Assets` and the owner imported the rebuilt body on them
-     (`7c3e74c`); the record is `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. ⛔ **The owner closed the AI
-     texturing trial** (no usable tool) **and brought a visual handoff package** (spec §9): reference
-     only, production stays our `.blend`. The look resumes staged, owner-inspected: road surfaces as
-     polished black glass first, then structure, lights, fine normal. Read spec §9 "The first
-     concept import in game" first — it holds why the hub looks like flat paint and the five
-     restore tags.
+   - **WHERE THE PROJECT STANDS, close of the 2026-09-21 orchestrator session (second).** The model
+     is FINAL at radius 6 and owner-accepted; the transitions are ACCEPTED. The AI texturing trial
+     is CLOSED (Tripo, nothing usable); the look goes by bake onto our UVs, staged, the owner
+     inspecting each step (spec §9). **Step 1 is DONE:** the road is variant B, black glass
+     (owner ruling OI-24, held provisionally: reopened if glow lights spoil the reflections).
+     The handoff package in Downloads is reference only. ⚖️ **The 5 MB guard does not bind this
+     mod** (owner); resolution is a look decision, plan BaseColor 4096 supersampled and the rest
+     2048. **In flight when this closed:** the owner fired `TRAIN_HUB_LIGHTS_medium.md` (road paint
+     strips off, then six Lua-placed light variants, three red and three blue, one per arm; hub off
+     must remove the lights). Its uncommitted assets edits are its own: do not touch them. **Next:**
+     `TRAIN_HUB_STRUCTURE_high.md`, fired only after the lights agent has taken restore point
+     `hub-road-b-nostrips-20260921` (both edit `paint_concept.py`). Keep `TRAIN_HUB_LOADERRORS_low.md`
+     and `TRAIN_HUB_MOVE_high.md` off until the lights agent's Lua half lands: all three edit
+     `20_TrainHub.lua`. Restore points, the snapshot tool and the GPU sampling plan are in spec §9.
+     The owner will fire this role when the lights agent is done: read its report, verify its
+     tag and commits with one check each, then the owner's choice among the six variants goes into
+     spec §9 and the structure brief. Still owed to the owner: OI-18 (widen `upload_preflight.py`,
+     or keep the hub a separate mod) and OI-19. The tree move record is
+     `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. Read spec §9 "The first concept import in
+     game" first for why the hub looked like flat paint and the five older restore tags.
    - **Live, fire when the owner wants an agent spent:** `TRAIN_HUB_LOADERRORS_low.md`, two errors
      the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
@@ -128,7 +139,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
      upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
      wave. Spec §10 holds the open questions. Decide after the movement prototype;
-   - **the look pass is PAUSED by the owner** (`TRAIN_HUB_LOOK_high.md`). Settled, with citations in
+   - **the look pass RESUMED, staged** (`TRAIN_HUB_LOOK_high.md`, the briefs named above). Settled, with citations in
      spec §9: the SI glow map is a ONE-CHANNEL BC4 mask, so glow colour lives in the base colour;
      the hub's glow follows its working state and goes to **zero**, not dim, when it stops
      (`SetSIModulation` 200 / 0), ours to drive per siding later; glass CANNOT live in the hub's
