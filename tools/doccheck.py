@@ -1450,7 +1450,7 @@ def check_agents_mirror(out):
 # rarely, never capped). Report-only; it never gates.
 
 def _memory_project_key(repo):
-    """Claude keys its per-project memory by the absolute path, lowercased, with
+    r"""Claude keys its per-project memory by the absolute path, lowercased, with
     every non-alphanumeric run replaced by a dash: B:\Dev\SMR\SMR-OptInPack
     becomes b--Dev-SMR-SMR-OptInPack. Case is kept after the drive."""
     drive, rest = os.path.splitdrive(os.path.abspath(repo))
