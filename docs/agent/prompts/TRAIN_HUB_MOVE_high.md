@@ -1,145 +1,92 @@
-# Train hub: the transition, and trains on the centre of our track
+# Train hub: the last transition — the slide onto the loading siding
 
-**LIVE, fire when ready.** Owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Authoring shas:
-SMR-OptInPack `<HEAD at fire>`, the imported model is SMR-Assets `TrainHub_work.blend` as exported
-2026-09-20 (untextured). Build 4 (`TRAIN_HUB_REPAIR_high.md`) stays held behind this.
+**LIVE, fire when ready.** Owns `tools/devmods/train_hub/Code/20_TrainHub.lua`. Authoring sha:
+SMR-OptInPack `d363aa8`. An empty `git diff --stat d363aa8..HEAD -- tools/devmods/train_hub/` means
+this brief's code facts hold; if it is not empty, read the diff before trusting the line numbers.
+
+⚠️ **This brief replaces a long-running one that the owner stopped** (2026-09-21). Everything else in
+the movement work is DONE and accepted by the owner in game — the transition in, the transition out,
+the exit slide and vanilla handoff, the six-siding rejoin, the 6 s dwell and the cold-start power
+fix. **One transition is left, and it is the whole job.** The dev mod's uncommitted model re-import
+is the owner's and not yours.
 
 ## Authority
 
-**Owner, 2026-09-20 — function before texture.** *"Just function, no textures until I fully green
-the function from transition, enter, load, exit and transition back on the vanilla track."* No
-texture pass, no bake, no material work, and no asset change unless a stop below forces one. A
-re-import throws away a bake, so the model is frozen only after the owner greens the whole cycle.
+**Owner, 2026-09-21, the fault, in their words.** *"I keep telling astra the train needs to go
+further along the track before it does the slide over, it instead keeps changing the speed of the
+slide over without moving it further up. So now jerking over after multiple attempts at fixing it
+and still hasn't moved past at all."* The owner attributes this to a previous agent's exhausted
+context, not to a hard problem. **Read the code before you believe any account of it, including
+this one.**
 
-**Owner, same day — the method.** Quick and iterative. Prototype the action, let the owner look,
-then dial it in by eye. No oracle run, no prediction battery, no redesign options. A smoke test only.
+**Owner, same day — what they want, in order.**
+1. **Undo the slide's speed damage first: the lateral move onto the siding must read at the same
+   rate as the outer slide**, the one a train already does coming in off the vanilla track, which
+   the owner accepted. That is the reference feel. Match it.
+2. **Then move the onset further along the train's travel** — it runs straight further before any
+   lateral motion begins.
 
-**Owner, same day — the action to build, in their words.** *"Getting the end of the train to stop as
-soon as it clears the vanilla portion and smoothly slide over onto our track and then move forward
-into the tunnel."* And the mirror on the way out, back onto the vanilla track.
+## What the code does now, and why the owner kept getting a speed change
 
-**Owner, same day — trains ride the CENTRE of our track inside the hub.** This replaces build 3b's
-two-lane interior: on vanilla track a train rides beside the rail, on ours it rides on top, down the
-middle. 3b's 13 m park distance was measured against a lane and is a starting number only — judge it
-again on the centre. Build 3b is retired into this brief; its implementation, its unattended smoke
-and the owner's sitting are recorded in `TRAIN_HUB_BUILD_20260918.md` §"Build 3b", and the geometry
-rules it was built on are `GEOMETRY_ORACLE_20260919.md` §11. Read both; do not redo them.
+Three functions, all in `20_TrainHub.lua`:
+- **`HubSlideTrain` (`:528`) is the accepted outer slide** and your reference: eight steps of 150 ms
+  on a smoothstep curve with `SetAcceleration(0)`, a purely lateral move at a fixed rate. It does
+  not consult distance, speed or run length.
+- **`HubSidingCurve` (`:565`) is the siding transition**: the same eight-step smoothstep, but
+  longitudinal, driven through `HubMoveTrain` with a computed speed per step.
+- ⛔ **`HubMoveOntoSiding` (`:588`) holds the defect.** It scales the approach speed by the run
+  length: `speed = GetNominalMoveSpeed() / 3 * Min(run, 12 m) / 12 m`, where
+  `run = HubSidingEntryDistance - HubParkDistance`. With today's 19 m and 11 m the run is 8 m, so
+  the train approaches at a **third of the intended speed**. Its comment says this preserves the
+  lateral easing time when the onset moves inward. That is the mechanism the owner has been fighting:
+  **every time they asked for the onset to move, the code answered by changing the speed instead**,
+  and the compounding left the jerk they see now.
 
-⛔ **The train's length is DISPUTED** (`GEOMETRY_ORACLE_20260919.md` §13). The owner measured about
-two hexes against the game's hex grid; a `GetEntityBBox` read said 41.5 m. **Do not solve any
-position from a train length.** Both new positions below are tunables, tuned by eye.
+**The geometry, so you do not invert it.** `HubCentrePosition(idx, distance)` (`:553`) measures
+**from the hub centre outward**. A train arrives from outside and travels inward, so a **smaller**
+`HubSidingEntryDistance` means the lateral motion starts **later** in the train's travel, which is
+what the owner is asking for. Today: pause 48 m, entry 19 m, park 11 m, lateral offset 4.5 m.
 
-## The model you are building against (imported and in game, 2026-09-20)
+## End state
 
-Each of the six lines now ends in a two-hex stub with its connector at **50 m** from the hub centre,
-and twelve **transition platform arms**, three hexes long, one either side of every line. Each arm's
-deck top is at **8 m**, level with the stub, and its centre is **3.45 m** off the line, so a train
-riding 289 units (2.89 m) off the line sits on it with the beam carrying its inner side. The one-hex
-path between each pair of arms is where the vanilla track runs in. MEASURED by the owner in game:
-the hub places, a track attaches down that path, and a train parks on the deck at the right height.
+1. **The lateral rate is the outer slide's, and it no longer depends on where the onset sits.**
+   Delete the run-length speed scaling. A change to the onset must move the position and nothing
+   else — that is the property the owner has been asking for and has not got.
+2. **The onset moves further along the travel**, as one named tunable the owner moves live. Give
+   them a starting value you believe, not today's.
+3. **No jerk at the join.** ⚠️ An earlier owner ruling (2026-09-20) said to fold the slide into the
+   braking, never stop-then-slide-then-stop. The owner's 2026-09-21 instruction above is later and
+   governs where they conflict: **the rate must match the outer slide.** Your call how — keep it
+   rolling if that can match the rate, or use the outer slide's own profile if it cannot. Say which
+   you chose and why in the commit message.
+4. **Nothing else changes.** The other transitions are accepted. Do not retune the pause, the exit
+   slide, the rejoin, the dwell or the park distance because the code reads better that way.
+5. **Smoke it with the owner**, about five steps: a train arrives, runs straight past the old onset,
+   slides on at the outer slide's rate, parks, loads, and leaves. Autosave disarms a crossing watch —
+   the owner re-presses the slot. The owner tunes the onset live; bring it ready to change.
+6. **Record** in the hub report and spec §10, and commit with pathspecs. `doc-editing` first.
 
-**The six loading sidings are in the model too** (imported and seen in game 2026-09-20; the
-generator constants are `SIDING_*` in `C:\Dev\SMR-Assets\trainhub\blender\hub_skeleton.py`, and spec
-§9 records the pass). One runs beside each interior spur, all six on the same hand — the owner
-confirmed the side in game. Each deck runs **from about 3.0 m to 22.7 m from the hub centre** along
-its spur, is **4.0 m wide** outward from the beam's edge, and its top is at **8 m**, level with the
-beam and the stub. Its inner end is cut parallel to the neighbouring spur so a train passing there is
-not clipped. The frame carries an opaque panel in the body mesh — real glass is the texture pass's
-question, gated. ⛔ **These are the dimensions to place the loading position against; do not solve it
-from a train length** (see the dispute above). Anything the sidings turn out to need is an asset
-change and therefore the owner's call, not this build's — report it, per the stops.
-
-## End state (the owner's decisions; the mechanism is yours)
-
-1. **Inside the hub, a train is on the centreline** — arriving, stopped, loading, turning, crossing
-   and departing. `lane_offset` (`20_TrainHub.lua:171`) stays as the reader of vanilla's own
-   `Enter1`/`Enter2`, because outside the connector the train is still vanilla's and still beside the
-   rail. What changes is where our synthetic spots put it once it is ours.
-2. **The transition in.** The train runs in beside the rail, over the arm, and **stops the moment its
-   tail clears the last vanilla element**; then one smooth lateral move onto the centre; then forward
-   into the tunnel to its stop position. Two clearly named tunables, not magic fractions: **where it
-   pauses before the slide**, and **the park distance**. Bring both to the smoke for the owner to
-   move live. Lead, not the route: vanilla's arrival is already two moves, `GotoSpot("Ramparrive")`
-   then `GotoSpot("Stop")` (`Station.lua:1097-1121`, 1.1.0.403908), and both spots are ours to place;
-   mind the 50 m teleport at `Station.lua:1105`. The smoothstep lateral join already in
-   `HubRouteTrain` (`20_TrainHub.lua:462-479`) is the same move at twice the distance — reuse it, it
-   is defined by distance along the path, so its shape holds at any game speed.
-3. **The transition out mirrors it**, ending with the train beside the rail on the other arm, riding
-   the vanilla track away as normal.
-4. **Loading happens on the siding, not on the centre** (owner, 2026-09-20; the model pass added six,
-   one per spur, and they are in the game — the geometry is above). ⚠️ **This is TWO more movements
-   than build 3b had, on top of the transition in and out, and they are the point of this item:**
-   **(a) off the running centreline onto the siding**, ending parked on the deck where it loads, and
-   **(b) back off the siding onto the centreline** once its exit is free, feeding into the departure.
-   Between them the train **waits on the siding for a free lane** — that wait is the whole reason the
-   sidings exist, and its duration is the traffic's, not a timer's. Name both movements and their
-   positions as tunables the owner moves live, the same way the pause and park distances are.
-   This is what answers the question build 3b's pass hit and deferred: vanilla picks a loading train's exit only after it has loaded, and with a siding
-   a blocked exit no longer forces a choice between blocking the running line and reversing into the
-   arrival lane. ⛔ **Fold the slide into the braking and the rejoin into the acceleration** — one
-   curved motion, never stop-then-slide-then-stop. The hub already adds transitions to every trip and
-   the owner will not accept them costing time: *"I want the transition to be quick but smooth
-   because we are adding so many transitions."* The `Stop` spot moves onto the siding, so re-check the
-   reservation validation build 3b flagged. **Loading policy and full queueing are the owner's next
-   pass, deferred 2026-09-20; do not design them here.** The occupied-exit guard (`2606719`) stays.
-   **The owner supplies the movement parameters by eye in the sitting** — expose them, do not solve them.
-5. **The cold-start power fix** (spec §10, owner 2026-09-20): a hub must start in a remote, droneless
-   place with no grid. Today `CreateElectricityElement` (`20_TrainHub.lua:877`) counts its production
-   only while the hub is working, and a hub with no other supply never works. Make production count
-   while it is merely unpowered, and stop only for malfunction or switched off. It is the same file,
-   so it goes in here. The fixtures carry seven Stirling Generators that mask this (spec §10), so the
-   owner removes or disables them for that one check.
-6. **Halve the loading dwell, for hub trains only** (owner ruling, 2026-09-20; spec §10 holds the
-   measurement and the source lines). A vanilla stop is a flat **12 game seconds** each way —
-   `Train:LoadTrain` and `Train:UnloadTrain` both end on
-   `WaitWakeup(Max(const.HourDuration / 5 - GameTime() + time_stamp, 100))` (`Train.lua:281`, `:450`,
-   1.1.0.403908) — so a train that unloads and loads stands for about 24 s. Vanilla never wakes a
-   train early, but `command_thread` is a public `CommandObject` field
-   (`CommonLua/Classes/CommandObject.lua:90`) and a `Wakeup` on it ends the stop at a moment we pick;
-   the cargo has already moved before the wait, so nothing is skipped. Owner's words: *"cut each in
-   half... 6s / 6s so the whole transfer can take a max of 12s if it has to do both."*
-   ⛔ **Only trains stopped at our hub.** The owner declined a colony-wide override: *"I would rather
-   not over ride it for all stations unless we can't find other ways to make it 'feel' good."* A
-   vanilla station's 12 s stays 12 s. Build it as a named constant the owner moves live in the smoke,
-   timed in **game time** so it scales with the speed slider as vanilla's does, as a deadline from the
-   start of the command with vanilla's 100 ms floor, not as an added delay. ⛔ **The slide and the
-   reversal turn are measured and DEFERRED** (spec §10: 1.2 s a slide, twice a visit; 1 s a turn).
-   The owner wants the halved dwell in front of their eye first and rules on those after. Do not
-   change either here.
-7. **Keep vanilla's occupancy and reservation contract satisfied.** The call sites and what build 3b
-   found about them are in the hub report §"Build 3b", "Reservation contract". Moving `Stop` breaks
-   the coincidence that makes reservation validation hold today — check it as you go.
-8. **Smoke with the owner**, about five steps at a time, one colony: a train arrives, pauses, slides
-   on and comes in; it loads; it leaves and transitions back onto the vanilla track; a 60° and a 120°
-   departure; two trains at once with the second waiting outside; a save and reload with one train
-   stopped and one crossing. Autosave disarms a crossing watch — the owner re-presses the slot.
-   Include the dwell: the owner watches one hub stop against the clock and says whether 6 s feels
-   right, and **one vanilla station stop is the control** — it must still take 12 s.
-9. **Record** in the hub report and spec §10, and commit with pathspecs. `doc-editing` first.
-
-**Done means:** the owner can watch a train come off the vanilla track, stop, slide onto our centre,
-run in, load, leave and slide back, and say it looks right — at normal, fast and fastest speed.
+**Done means:** the owner watches the slide onto the siding and says it looks like the outer one,
+and moving the onset moves where it happens without changing how fast it happens.
 
 ## Scope
 
-In: `20_TrainHub.lua`, TestKit slots, the sitting, the records, the cold-start fix.
-Out: textures, materials and any re-import; the asset (report what it should change); build 4's
-drones; routing; the hub's economy; the oracle; the four-connector hub.
+In: `20_TrainHub.lua`'s siding entry path, its tunables, the sitting, the records.
+Out: every other transition; the model and any re-import; textures; builds 4 and 5; the oracle.
 
 ## Stops
 
-- **The pause-and-slide cannot be done without wrapping `Train.lua`**, or the stop position breaks a
-  reservation you cannot repair in our Lua: report the wrap or the break, do not do it.
-- **No arm length or deck width makes the move look right** — not from a number, but because you have
-  looked at it: report what you tried with what each looked like. An asset change is the owner's call.
-- **The cold-start fix needs persisted state or a vanilla wrap:** report it; it is a small fix or it
-  is the owner's.
+- **The rate cannot match the outer slide while the train is still moving forward**, and matching it
+  needs the train to stop: report that with what each looked like, and let the owner choose. It is
+  a one-line difference to them and a design question to you.
+- **Removing the speed scaling breaks vanilla's reservation or occupancy contract** (hub report
+  §"Build 3b", "Reservation contract"): report the break, do not repair it by restoring the scaling.
 
 ## Do not claim
 
-Not "the transition works" from a desktop harness: it is a look, and only the owner's eye closes it.
-Not that trains behave like vanilla's — vanilla hides its slides inside a five-hex building and ours
-happen in the open. Claim what the smoke showed, per departure kind, from the owner's view.
+Not that the transition "works" from a desktop harness or a log: it is a look, and only the owner's
+eye closes it. Not that the jerk is gone because the code is simpler — claim what the smoke showed,
+from the owner's view, at normal, fast and fastest speed.
 
 ## Lifecycle
 
