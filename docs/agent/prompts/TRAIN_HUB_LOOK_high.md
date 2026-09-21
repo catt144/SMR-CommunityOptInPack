@@ -15,8 +15,10 @@ tools/devmods/train_hub/` mean this brief's facts hold.
 
 **Step 1 delivered, assets `ea82ef4`:** `textures/pad/` has shared BC/NM/SI and
 A_BlackGlass / B_BlackMirror RM variants. See spec §9 and the assets README's current handoff.
-Every non-pad texel is unchanged; geometry/UV guards pass. Next is the owner's in-game day/night
-comparison and pad ruling (OI-24), before any structure/light/fine-normal work. No body re-import.
+Every non-pad texel is unchanged; geometry/UV guards pass. **Owner, 2026-09-21: B is better, held
+provisionally** (spec §9): if the glow lights make the reflections act up the road surface is
+reopened, so the lights step judges glow lit at night on this surface. The map change needed the
+importer run, which compiles the DDS.
 
 ## Authority
 

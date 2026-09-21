@@ -1367,10 +1367,30 @@ five steps. Open existing material `SMROptInTrainHub6`; from `textures/pad/` cho
 `SMROptInTrainHub6_BC.tga` in **BaseColor**, `_NM.tga` in **Normal**, `_SI.tga` in **SI**,
 and `SMROptInTrainHub6_A_BlackGlass_RM.tga` in **RM**. Save material/mod and reload the existing
 colony for day/night looks. Then change RM alone to `SMROptInTrainHub6_B_BlackMirror_RM.tga`
-and compare the same views. No body FBX re-import. The source maps and proof JSON are local,
+and compare the same views. ⛔ The importer run compiles the DDS, so each variant needs one (the
+handoff's first text said no re-import; the owner's 16:07 import proved otherwise,
+`_shared/IMPORTER_FACTS.md`, "Mod Editor pipeline"). The source maps and proof JSON are local,
 ignored, reproducible outputs; `bake_pad.py` then `validate_pad.py` regenerates the delivery.
-Next action: owner chooses the nearer pad finish and changes wanted (OI-24); structure, lights
-and fine normal remain later stages, and the full final-build battery remains owed.
+**Owner ruling, 2026-09-21 (OI-24): B (`B_BlackMirror`, metalness 0.95) is better than A**, whose
+reflections were "very high". PROVISIONAL: the owner will revisit the road surface if the painted
+glow lights make the reflections act up. What is locked is little: the finish is two maps
+regenerated from `PAD_VARIANTS` in `paint_concept.py`, and a revisit costs one importer run.
+Predicted, not measured, from the values: with base `#05080B` a metal takes its reflection colour
+from a near-black base (about 0.2-0.3% head-on) where A's dielectric floor is 4%, so B is dimmer
+head-on, which fits what the owner saw. Lead for the lights step, untested: the light strips keep
+the deck's blends, so a bright base colour on metalness 0.95 would reflect that colour strongly;
+give the strips their own RM texels and judge with the glow lit at night. Structure, lights and
+fine normal remain later stages, and the full final-build battery remains owed.
+
+**Lighting direction (owner, 2026-09-21):** the owner does not like the painted glow strips on the
+tracks and platforms and wants **real lighting effects** there, in red or blue; the paint may be
+revisited on the hub structure later. Read 2026-09-21, not yet run on a hub: the annotation route
+takes only `warm`, `neutral`, `cool` (pale cyan), `orange` and `red` (`NightLightObjects.lua:14-20`)
+and only at night, gated on the hub's working state (`Building.lua:1371-1394`); lights placed from
+our own Lua take any colour with `SetColor` (`Mysteries/Fireflies.lua:85,109`;
+`UI/PlanetScene.lua:178`) and are not tied to night. The painted strips' colour is one constant,
+`BLUE` at `paint_concept.py:36`, and the SI mask carries no colour. The test: three reds and three
+blues, one variant per arm, the owner choosing in game (`TRAIN_HUB_LIGHTS_medium.md`).
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
