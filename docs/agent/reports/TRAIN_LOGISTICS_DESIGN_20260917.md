@@ -1455,3 +1455,9 @@ onset is a little early. Preserve park 11 m and lateral offset 4.5 m; trial entr
 instead of 23 m, delaying lateral onset by 0.5 m while retaining the same easing function.
 Rejoins and outer transitions stay fixed. Judge the slightly shorter curve's smoothness
 in the next sitting; the owner's alignment feedback does not close the remaining smoke.
+
+**Owner onset follow-up, 2026-09-21:** half-metre delay made no visible difference. Trial
+entry 20 m (another 2.5 m inward) with park 11 m and offset 4.5 m fixed. Scale the braking
+entry speed with its remaining run relative to the original 12 m approach to avoid
+compressing the lateral easing time as onset moves inward. Rejoins and outer transitions
+stay fixed. This is a new visual trial, not a measured clearance or accepted movement.

@@ -44,7 +44,7 @@ Floor.HubParkDistance = 11 * guim
 -- Provisional owner-facing positions, never calculated from train length.
 -- Positive offset is clockwise of the outward spur (the imported siding hand).
 Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
-Floor.HubSidingEntryDistance = 22.5 * guim -- owner: alignment right; start the curve a little later
+Floor.HubSidingEntryDistance = 20 * guim -- owner: clearly farther straight before lateral onset
 Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward rejoin
 Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
@@ -586,8 +586,13 @@ function SMROptInTrainHubBase:HubSidingCurve(train, destination, final_speed, id
 end
 
 function SMROptInTrainHubBase:HubMoveOntoSiding(train, idx)
+	-- Retain the lateral easing time of the original 12 m braking run when
+	-- the owner moves onset inward but keeps park fixed. Otherwise a shorter
+	-- run at the same entry speed compresses the sideways motion into a jerk.
+	local run = Max(guim, Floor.HubSidingEntryDistance - Floor.HubParkDistance)
+	local speed = MulDivRound(train:GetNominalMoveSpeed() / 3, Min(run, 12 * guim), 12 * guim)
 	if not self:HubMoveTrain(train, self:HubCentrePosition(idx, Floor.HubSidingEntryDistance),
-		train:GetNominalMoveSpeed() / 3) then return end
+		speed) then return end
 	if not rawget(_G, "SMROptInTrainFloor") then return end
 	return self:HubSidingCurve(train, synthetic_spot_pos(self, "Stop", idx), 0, idx)
 end

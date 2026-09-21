@@ -707,7 +707,7 @@ remain the deferred loading/queueing pass; this is no claim that sidings solve t
 
 **Provisional tunables (longer-stub/Pass 3 defaults, not measured positions):** arrival pause 48 m;
 exit slide 50 m; park 11 m;
-siding offset 4.5 m clockwise of the outward spur; centreline entry 22.5 m; inward rejoin 1.5 m;
+siding offset 4.5 m clockwise of the outward spur; centreline entry 20 m; inward rejoin 1.5 m;
 reverse rejoin 23 m. These are eye-tuning starting values and use no train-length estimate.
 Owner's model-session handoff, 2026-09-20: Pass 3 widens and lengthens the deck outward;
 the exported FBX still awaits owner import. Use these defaults with that model, then try
@@ -844,3 +844,13 @@ travel before the curve, leaving 11.5 m for the existing smoothstep/braking move
 This deliberately changes only onset now that the owner likes the alignment; rejoins
 and outer transitions stay fixed. The small shortening still needs a visual smoothness
 check and is not a claim that the earlier sharpness cannot recur.
+
+**Owner onset follow-up, 2026-09-21:** the half-metre trial made "no difference at all";
+the train needs more straight travel before sliding. Trial entry 20 m instead of 22.5 m,
+keeping park 11 m and lateral offset 4.5 m. Scale entry speed by the remaining longitudinal
+run relative to the original 12 m approach (capped at the previous speed), so moving onset
+inward does not also compress the lateral easing time. This changes the arrival approach
+speed, not the accepted full-speed outer exit. Native smoothness and onset remain owed.
+The installed dev-mod junction resolves to this workspace; the latest inspected game log
+`Mars.exe-20260920-23.58.44-6a91a190.log` shows the dev mod loaded but contains no live entry
+tunable read. Slot 1 is still the way to confirm the active value during the sitting.
