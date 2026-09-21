@@ -20,7 +20,7 @@ assert not re.search(r"\bMars\.exe\b", subprocess.check_output(
     ["tasklist", "/FI", "IMAGENAME eq Mars.exe"], text=True), re.I), "Exit game first"
 logs = Path(os.environ["APPDATA"]) / "Surviving Mars Relaunched/logs"
 backup = Path(os.environ["TEMP"]) / "SMRTrainHub3b-20260920-035736"
-saves = Path("C:/Dev/SMR-BugFixPack/saves/game")
+saves = Path("B:/Dev/SMR/SMR-BugFixPack/saves/game")
 archive = root / "docs/archive"
 record = {
     "command": subprocess.list2cmdline(["python", *sys.argv]),

@@ -38,21 +38,24 @@ Import them after the move and they are born correct.
 
 `%APPDATA%\Surviving Mars Relaunched\Mods\` holds symlinks, not copies, so a dead one means **the mod
 silently ceases to exist for the game**. `SMR-OptInPack`, `SMR-TrainHubDev` and
-`SMR-TrainHubPrototype` were recreated against `B:\Dev\SMR\SMR-OptInPack`. `SMR-BugFixPack` and
-`SMR-BugFixPack-TestKit` still point at `C:\Dev\` and are CORRECT: those two repos have not moved.
+`SMR-TrainHubPrototype` were recreated against `B:\Dev\SMR\SMR-OptInPack`. The fix pack and its TestKit
+moved to `B:\Dev\SMR\` at 13:35 the same day, and `SMR-BugFixPack` and `SMR-BugFixPack-TestKit` were
+recreated there; both read LIVE (each resolves to a `metadata.lua`).
 
 ## 3 · Scripts — the ones that resolve at run time
 
 - **Parameterised, and every default now names the new root, so NO environment variable has to be
   set** for them to resolve: `tools/doccheck.py:66` (`SMR_TESTKIT`),
   `tools/sync_from_fixpack.py:51,333,337-338` (`SMR_FIXPACK`, `SMR_SRCARCHIVE`, `SMR_TESTKIT`,
-  `SMR_TRAINASSETS`). The two fix-pack defaults stay on `C:\Dev\` because that repo has not moved.
+  `SMR_TRAINASSETS`). The fix-pack and TestKit defaults were repointed to `B:\Dev\SMR\` when that
+  repo moved (`f7ae2e4`, `4a5fd9b`).
 - **Were hard-coded, now REWRITTEN:** `tools/devmods/train_hub/tests/traffic_smoke.py` takes
   `SMR_SRCARCHIVE` and `SMR_TRAINASSETS` with new-root defaults, matching the pattern the
   `SMR-Assets` scripts already use; `SMR-Assets/_shared/geometry/hub_oracle.py`,
   `patch_box_spots.py`, `predict_from_entity.py` and `trainhub/blender/build_workfile.py` were done
-  in the asset tree's own pass. `tests/record_evidence.py:23` was LEFT: it names the fix pack's
-  saves, which have not moved.
+  in the asset tree's own pass. The fix pack's move then killed three more in the dev mod's tests —
+  `tests/record_evidence.py:23` (its saves) and the `kit` field of `tests/{read,smoke}_leg.json` —
+  now repointed to `B:\Dev\SMR\`.
 - ⛔ **`SMR-SrcArchive` did not land beside its siblings**: it is
   `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`, not `B:\Dev\SMR\`. The archived `Train.lua` and
   `Station.lua` hash identical to the pre-move copies, so the repoint is faithful.
