@@ -22,13 +22,14 @@ is wrong about that part, but I like the border and if we can add any of that bl
 glass or around it that would be nice."* And: **leave the dome's glass out for now** — this pass does
 the six siding platforms' glass only.
 
-**The concept is the owner's two reference images**, which the owner puts in
-`C:\Dev\SMR-Assets\trainhub\reference\` before firing. In words, so you can tell whether you have the
-right files: a **maglev read** — a near-black track deck carrying bright blue light strips down its
+**The concept is the owner's two reference images**, placed 2026-09-21 in
+`C:\Dev\SMR-Assets\trainhub\reference\`: **`Concept.png`** (a track close-up) and **`overall.png`**
+(the whole hub). That folder is git-ignored and also holds the vanilla reference pack, whose
+`README.md` maps every file in it and names the vanilla materials. In words, so you can tell
+whether you have the right files: a **maglev read** — a near-black track deck carrying bright blue light strips down its
 centre and flowing curved light lines across its surface, framed by clean off-white panels with blue
 rim lighting along their edges; portals as white arches with glowing inner rings; the whole thing
-reading bright and clean at distance, with the glow doing the work. ⛔ **Ask the owner if the folder
-is empty or ambiguous. Do not invent the concept from this paragraph** — it is a check on the files,
+reading bright and clean at distance, with the glow doing the work. ⛔ **Ask the owner if those two files are missing or do not match this. Do not invent the concept from this paragraph** — it is a check on the files,
 not a substitute for them.
 
 ## Facts that decide how you author this (read 2026-09-21; spec §9 carries them with citations)
@@ -36,7 +37,9 @@ not a substitute for them.
 - **Self-illum is a supported map but a ONE-CHANNEL BC4 mask** (`GFXMaterial.lua:137`, `:1100`,
   archived 1.1.0.403908). It says *where* a surface glows, never what colour. Blue strips are blue in
   the base colour with white in the SI mask along the same shapes. Author them as clean shapes in
-  both, because the shapes are what later passes and the glow logic both cut from.
+  both, because the shapes are what later passes and the glow logic both cut from. ⭐ Vanilla's own
+  stations ship an `EM` map beside `BC`/`CM`/`NM`/`RM` (the reference pack's `README.md`, read from
+  `Materials.fpk`), so the glowing-track look is the game's own, not something we are inventing.
 - **The game modulates that glow from the working state already.** `WorkLightsOn/Off` are
   `SetSIModulation(200)` / `(0)` (`Lua/Buildings/Building.lua:1413-1419`) from `OnSetWorking`, so the
   hub darkens when it stops working with no code from us. Driving it per-siding is a later pass, not
@@ -63,31 +66,42 @@ not a substitute for them.
    the border kept in the body and blue glow available in the glass, around it, or both. The glass
    geometry already exists in the generator (`SidingGlass`), excluded from the body export — reuse
    it rather than rebuilding it.
-3. ⛔ **No dome glass this pass** (owner). The dome stays as it is.
-4. ⛔ **No geometry or UV change.** The model is final and a re-import of the mesh spends the bake.
+3. **The generator carries the theme too** (owner, 2026-09-21). The hub's reactor is a visual only:
+   vanilla's `FusionReactor` entity attached as a `ShapeshifterAutoAttach`, scaled 75%, 45 m out
+   (`20_TrainHub.lua:1033-1066`). Left alone it is the one vanilla-styled object in a themed hub.
+   ⛔ **Never restyle vanilla's own material to achieve this** — that repaints every fusion reactor
+   in the player's colony. The route is our own entity, themed, attached in its place: the same
+   `ChangeEntity` call with our entity name, so the working-state FX and the offset logic are
+   untouched. It is new geometry in a NEW entity, which does not disturb the frozen body mesh — the
+   same shape of change as the glass. **Your call on how far to take it:** a simple themed form that
+   reads right at distance beats an elaborate one, and the owner iterates. If a material can be
+   shared between entities, share the body's rather than adding a third set of maps, and say whether
+   that worked — it is likely but unverified.
+4. ⛔ **No dome glass this pass** (owner). The dome stays as it is.
+5. ⛔ **No geometry or UV change.** (The glass and the generator are new entities, not the body.) The model is final and a re-import of the mesh spends the bake.
    If the look genuinely needs the model to move, that is a stop, not a decision.
-5. **Leave the art editable, and say how.** The generating script stays the source of truth with its
+6. **Leave the art editable, and say how.** The generating script stays the source of truth with its
    knobs named — strip width, hull colour, glow shapes — and every map is regenerated from it. Never
    hand-edit a baked file the next run overwrites: that is the 0.573 m platform-shift lesson
    (spec §9) in another form. **Your call whether the colour layer is also produced as a
    hand-editable source the owner can paint in an image editor**; the owner has asked what that would
    take, so if you judge it cheap, do it and say so.
-6. **Export, and give the owner the Mod Editor import steps** from `blender\README.md`, a few at a
+7. **Export, and give the owner the Mod Editor import steps** from `blender\README.md`, a few at a
    time, naming the slot for each map. ⚠️ **Whether the editor exposes the SI slot for our material
    type is unverified** — the format supports it; the UI is unconfirmed. Find out on this import and
    record it in `_shared/IMPORTER_FACTS.md`.
-7. **The owner looks in game, in day AND at night**, and directs the next round. Then iterate with
+8. **The owner looks in game, in day AND at night**, and directs the next round. Then iterate with
    them: small changes, one look each, until they say it is right.
-8. **Record** in spec §9 and commit both repos with pathspecs. `doc-editing` first.
+9. **Record** in spec §9 and commit both repos with pathspecs. `doc-editing` first.
 
 **Done means:** the owner can look at the hub in game and say the concept is on screen, and name
 what to change next.
 
 ## Scope
 
-In: the body's four maps, the glass entity and its material, the export, the import steps, the
-owner's looks and the iterations that follow.
-Out: the dome's glass; geometry and UVs; the movement Lua and its tunables; per-siding glow logic;
+In: the body's four maps, the glass entity, the themed generator entity, their materials, the
+export, the import steps, the owner's looks and the iterations that follow.
+Out: the dome's glass; the body's geometry and UVs; vanilla's own materials; the movement Lua and its tunables; per-siding glow logic;
 builds 4 and 5; the hub's economy; the ship-size ruling (OI-18 is the owner's).
 
 ## Stops
