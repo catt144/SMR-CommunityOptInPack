@@ -98,5 +98,4 @@ from stubbed geometry and is not the game's number. Do not use it as your pass s
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `Train_Hub_Project/README.md` when both errors are proven
-gone in an owner session log.
+Done when both errors are proven gone in an owner session log. Lifecycle: the orchestrator decides, once this is fired and done: park it in `Parked/` if it is kept for touch-up work, or delete it; either way its row in `README.md` follows (owner, 2026-09-21).

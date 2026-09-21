@@ -196,4 +196,4 @@ Claim what the owner saw, in which conditions, on which save.
 ## Lifecycle
 
 One-off, but it **survives its first firing**: the owner iterates on the look with the same brief.
-Delete it and its row in `Train_Hub_Project/README.md` when the owner accepts the look.
+Parked as a record; the orchestrator deletes it when the owner accepts the look (owner, 2026-09-21).

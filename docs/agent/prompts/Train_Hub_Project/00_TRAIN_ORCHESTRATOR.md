@@ -150,6 +150,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - routing 5d or 5c, once the owner has played the 5a network.
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
+5. **You own every brief's lifecycle** (owner, 2026-09-21). Once a fired brief's work is done,
+   decide: **park it** in `Parked/` if it is worth keeping for possible touch-up work, or **delete
+   it**. Move or delete its row in this folder's `README.md` in the same commit, and say which and
+   why in the commit message. Build agents do not delete or move their own brief.
 
 **Method (owner, 2026-09-20): quick and iterative, never "try to be perfect".** *"Right now we are
 doing extremely heavy builds each pass and then having to rewrite all the steps, and then do another

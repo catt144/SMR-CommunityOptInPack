@@ -124,5 +124,5 @@ exit and show it green, or show the reversal is genuine. Do not delete the asser
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `Train_Hub_Project/README.md` when the owner's smoke is
-recorded.
+Parked for touch-up at the final pre-launch test; the orchestrator deletes it when that test is done
+(owner, 2026-09-21).

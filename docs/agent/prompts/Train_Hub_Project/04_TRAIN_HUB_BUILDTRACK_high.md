@@ -76,4 +76,4 @@ in that colony.
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `Train_Hub_Project/README.md` once its smoke is recorded.
+Done when its smoke is recorded. Lifecycle: the orchestrator decides, once this is fired and done: park it in `Parked/` if it is kept for touch-up work, or delete it; either way its row in `README.md` follows (owner, 2026-09-21).

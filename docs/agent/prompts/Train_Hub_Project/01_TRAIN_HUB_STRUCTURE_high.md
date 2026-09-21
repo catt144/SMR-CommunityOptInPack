@@ -1,6 +1,7 @@
 # Train hub: look step 2 — the structure, its lighting, then the whole hub's GPU cost
 
-**LIVE, one-off. FIRE IT, THEN DELETE THIS FILE AND ITS MAP ROW in the fire commit.** Authoring
+**LIVE, one-off.** The owner fires it; the orchestrator parks or deletes it once done (owner,
+2026-09-21). Authoring
 state: tag `hub-lines-b2-lights-20260921` in both repos (restore point 3; its `RESTORE.md` is in
 `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\`). Empty `git diff --stat hub-lines-b2-lights-20260921..HEAD
 -- trainhub/` (SMR-Assets) and `-- tools/devmods/train_hub/` (here) mean this brief's facts hold.

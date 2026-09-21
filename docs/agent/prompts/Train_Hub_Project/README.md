@@ -1,7 +1,9 @@
 # Train_Hub_Project/ — the train hub's briefs, in fire order
 
 The numbers are the order. **Fire the lowest number that is not held.** `Parked/` is never fired
-unless the owner reopens it. Delete a brief and its row here when its lifecycle line says so.
+unless the owner reopens it. **Once a brief has fired and its work is done, the orchestrator
+decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible touch-up work, or
+delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
 `00` to `04` are live. Only one brief that edits `tools/devmods/train_hub/Code/20_TrainHub.lua` runs

@@ -184,4 +184,5 @@ the renders show and, after import, that the hub placed and a track attached, on
 
 ## Lifecycle
 
-One-off. Delete this file and its row in `Train_Hub_Project/README.md` when step 5 is committed.
+Parked for touch-up; the orchestrator deletes it when the owner says the model will not move again
+(owner, 2026-09-21).
