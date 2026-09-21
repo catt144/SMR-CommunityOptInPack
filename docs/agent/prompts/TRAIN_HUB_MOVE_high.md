@@ -73,14 +73,33 @@ the hub places, a track attaches down that path, and a train parks on the deck a
    while it is merely unpowered, and stop only for malfunction or switched off. It is the same file,
    so it goes in here. The fixtures carry seven Stirling Generators that mask this (spec §10), so the
    owner removes or disables them for that one check.
-6. **Keep vanilla's occupancy and reservation contract satisfied.** The call sites and what build 3b
+6. **Halve the loading dwell, for hub trains only** (owner ruling, 2026-09-20; spec §10 holds the
+   measurement and the source lines). A vanilla stop is a flat **12 game seconds** each way —
+   `Train:LoadTrain` and `Train:UnloadTrain` both end on
+   `WaitWakeup(Max(const.HourDuration / 5 - GameTime() + time_stamp, 100))` (`Train.lua:281`, `:450`,
+   1.1.0.403908) — so a train that unloads and loads stands for about 24 s. Vanilla never wakes a
+   train early, but `command_thread` is a public `CommandObject` field
+   (`CommonLua/Classes/CommandObject.lua:90`) and a `Wakeup` on it ends the stop at a moment we pick;
+   the cargo has already moved before the wait, so nothing is skipped. Owner's words: *"cut each in
+   half... 6s / 6s so the whole transfer can take a max of 12s if it has to do both."*
+   ⛔ **Only trains stopped at our hub.** The owner declined a colony-wide override: *"I would rather
+   not over ride it for all stations unless we can't find other ways to make it 'feel' good."* A
+   vanilla station's 12 s stays 12 s. Build it as a named constant the owner moves live in the smoke,
+   timed in **game time** so it scales with the speed slider as vanilla's does, as a deadline from the
+   start of the command with vanilla's 100 ms floor, not as an added delay. ⛔ **The slide and the
+   reversal turn are measured and DEFERRED** (spec §10: 1.2 s a slide, twice a visit; 1 s a turn).
+   The owner wants the halved dwell in front of their eye first and rules on those after. Do not
+   change either here.
+7. **Keep vanilla's occupancy and reservation contract satisfied.** The call sites and what build 3b
    found about them are in the hub report §"Build 3b", "Reservation contract". Moving `Stop` breaks
    the coincidence that makes reservation validation hold today — check it as you go.
-7. **Smoke with the owner**, about five steps at a time, one colony: a train arrives, pauses, slides
+8. **Smoke with the owner**, about five steps at a time, one colony: a train arrives, pauses, slides
    on and comes in; it loads; it leaves and transitions back onto the vanilla track; a 60° and a 120°
    departure; two trains at once with the second waiting outside; a save and reload with one train
    stopped and one crossing. Autosave disarms a crossing watch — the owner re-presses the slot.
-8. **Record** in the hub report and spec §10, and commit with pathspecs. `doc-editing` first.
+   Include the dwell: the owner watches one hub stop against the clock and says whether 6 s feels
+   right, and **one vanilla station stop is the control** — it must still take 12 s.
+9. **Record** in the hub report and spec §10, and commit with pathspecs. `doc-editing` first.
 
 **Done means:** the owner can watch a train come off the vanilla track, stop, slide onto our centre,
 run in, load, leave and slide back, and say it looks right — at normal, fast and fastest speed.

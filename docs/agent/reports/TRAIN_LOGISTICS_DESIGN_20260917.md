@@ -796,8 +796,8 @@ used `Default`; the textured model is UV-unwrapped and baked by `export_prep.py`
   station**: light spots (`-L;` names, ModItemEntity "Metadata in Scenes"); the vanilla station's
   night look is pole lights pooling on its floor and the ground. A glow map for the red trim (the
   GFXMaterial has an `SI` slot) is the orchestrator's option, not ruled; (2) **the glass**, out of the export while
-  `INCLUDE_GLASS = False` because the default material is opaque; it needs its own mesh and a blended
-  material, untested; (3) **the stub looks nothing like the vanilla track**: it is a slab with a hex
+  `INCLUDE_GLASS = False` because the default material is opaque; a second mesh node is not a route
+  (the importer keeps one, MEASURED 2026-09-20, "six loading sidings" below); (3) **the stub looks nothing like the vanilla track**: it is a slab with a hex
   top where vanilla is a narrow deck with side rails. **MEASURED, build 3's smoke, 2026-09-19:
   there is no height error.** The probe reads the vanilla element's own `Enter1` spot, so the
   comparison is the game's train level against ours: all six read `stub=10800:running=10800`,
@@ -886,16 +886,63 @@ and waits for its track clearance to rejoin the track."*
 - **Cantilevered off the track beam, no pillar** (owner), deck top at 8 m, long enough for a whole
   train, and **inside about 23 m radius** so the cargo stacks do not grow through it (beds are centred
   26.75 m out and span about 23.5 to 30 m radially).
-- **A clean glass deck with a metal border** (owner), no panel seams. It needs **its own mesh node**,
-  because one material per mesh is measured (`_shared/IMPORTER_FACTS.md`; `SceneImport.lua:4023`) and
-  that is why `INCLUDE_GLASS = False`. Vanilla's `DomeGlass_*` is tried first at import; if it works,
-  the hub's own dome can stop being opaque too.
+- **A clean glass deck with a metal border** (owner), no panel seams. **Real glass is a texture-pass
+  question, gated; the owner accepted opaque panels until then (2026-09-20).** A second mesh node is
+  not a route to it: the importer keeps one mesh node and silently discards any other (MEASURED
+  2026-09-20, below; `_shared/IMPORTER_FACTS.md`), which also closes that route for the hub's dome.
 - **Movement:** the slide onto the siding folds into the braking and the rejoin into the
   acceleration — one curved motion, never stop-then-slide-then-stop, because the hub already adds
   transitions to every trip (owner). **Loading policy and full queueing are a later owner pass,
   deferred 2026-09-20.**
 - **Method (owner):** *"not extreme effort in getting it exact... the focus is getting the models in,
   I do the fine adjustments."* The owner eyes the gaps in game and supplies the movement parameters.
+- **Built 2026-09-20** (`hub_skeleton.py`, constants `SIDING_*`; `build_workfile.py` then
+  `export_prep_untextured.py`, verifier `LOOK_PASS_PROOF` PASS with `sidings: 6`,
+  `siding_panels_in_body: 6`, `separate_mesh_nodes: 0`). Each deck runs along its beam's edge to
+  `SIDING_TO = 23.0` m before the along-spur shift below, `SIDING_W = 4.0` m wide, top at 8 m, its
+  inner end cut parallel to the neighbouring spur (`SIDING_CLEAR = 2.0` m from that centreline before
+  the shift): 19.7 m along the beam, 17.4 m along the outer edge. Three gussets under each, no
+  pillar. Border (`SIDING_BORDER = 0.35`), gussets and a flat panel flush with the deck top
+  (`SidingPanel_*`, from the border's inner outline) all join the body in the body's material.
+  **Handedness:** `SIDING_SIDE = 1` is counter-clockwise of the spur in Blender; the importer's map
+  is a reflection (`_shared/IMPORTER_FACTS.md`), so it is predicted clockwise in game.
+- **MEASURED 2026-09-20 (owner's import, seen in game; `SMROptInTrainHub6.entjson` after it holds 1
+  `"mesh"` and 1 `"material"`, `grep -c`): the importer takes one mesh node only.** The first export
+  carried the glass as a second mesh node, `SidingGlass`, a child of the body with its own material.
+  The importer discarded it silently and the sidings came in as open frames. The reading that
+  `SceneImport.lua:4023` ("Contains multi-materials. Not supported yet.") means a second look is a
+  second node was an inference and is wrong for this importer: `:4023` rejects several materials on
+  one mesh, and nothing offers a second mesh.
+- **The arms' hand shift is now in the generator.** The work file that was imported as pass 1 had all
+  twelve arms moved 0.573 m outward as object offsets, which the generator did not carry
+  (`Platform_1` lateral 1.76 to 5.16 m in the `.blend`, 1.19 to 4.59 m from the script), so a rebuild
+  would have undone it. It is `PLATFORM_DECK_SHIFT = 0.573`; the arm centre is 3.463 m off the line.
+  **Owner, 2026-09-20: the shift was intended** — an agent made it by hand to take the arms out of
+  the beam — *"Keep 0.573."*
+- **The sidings' along-spur shift is the owner's and is kept (owner, 2026-09-20).** In Blender the
+  owner moved `Siding_1` by -0.28 m on object X, along spur 1 toward the hub centre (no height or
+  lateral change wanted), and after the import a further -0.02 m to bury a hairline crease seen in
+  game where the siding's inner end face was coplanar with the beam's side wall. It is
+  `SIDING_ALONG_SHIFT = -0.30`, applied through each siding's own turn to all six frames, gussets and
+  panels; every object offset stays 0 and the verifier asserts both. The decks end 22.70 m out. For
+  the owner's eye, not a blocker: each inner corner is 0.26 m closer to the neighbouring spur's
+  centreline, 2.0 m down to about 1.74 m.
+- **Uniform sink (owner, 2026-09-20: *"a uniform pass of making sure both sides are slightly sunk into
+  the tracks to avoid another pass of blender work"*).** Where the crease came from, from the
+  geometry: the -0.28 m shift put each siding's cut inner end 1.76 m from the NEIGHBOURING spur's
+  centreline, a hair off that beam's side wall at 1.75 m; the long side was exactly on its own
+  beam's wall. Both faces now sit `SIDING_SINK = 0.05` m inside the beam wall they meet (1.70 m from
+  each centreline, which replaces the 1.74 above), and the deck top is `SIDING_TOP_DROP = 0.005` m
+  under the beam top so the sunk strip cannot z-fight it once textured. The outer end and the -0.30
+  shift are untouched. The verifier asserts both sinks and the drop. The transition arms were NOT
+  touched: their inner edge is 1.763 m out, 13 mm clear of the beam, by the owner's 0.573 ruling.
+  Imported by the owner 2026-09-20: no crease at either beam (owner's screenshot).
+- **Flush panels vanish into the track (owner's two screenshots, 2026-09-20).** With the panel flush
+  and in the body's one untextured material, a siding read as a wider piece of track; the import
+  before it, where the glass node had been discarded, read clearly as a frame because it was open.
+  Agent's response, the owner's ruling on it still owed: `SIDING_PANEL_RECESS = 0.10` m puts the
+  panel under the border so the border reads as a rim (0 restores flush, which the owner had asked
+  for). Rebuilt and re-exported; that export is not yet imported.
 
 ⛔ **Texture gate (owner, 2026-09-20):** *"Just function, no textures until I fully green the function from transition, enter, load, exit and transition back on the vanilla track."* The model was imported UNTEXTURED on 2026-09-20 and the owner accepted it in game as a prototype; a track attached down the path between two arms and a train parked on the deck at the right height. **No texture or material pass until the owner greens the whole cycle**, because a re-import throws away the bake and the movement prototype (`TRAIN_HUB_MOVE_high.md`) is what proves the geometry. The arm may need a fourth hex; that is one constant and the owner judges it by eye.
 **Owner direction, same sitting: the transition platform.** Two platforms, one each side, three
@@ -1182,6 +1229,47 @@ stopping at every station on the route, following track where a shuttle flies st
 braking and accelerating between elements (the 0 and 2,682 samples). That is routing and stops,
 which is what Module B is for. Not yet measured: door-to-door trip time for the same cargo by each
 method, which is the number a player actually feels.
+
+**A vanilla stop costs 12 game seconds each way, and nothing can end it early** (read 2026-09-20
+from the archived 1.1.0.403908 tree). `Train:LoadTrain` ends on
+`WaitWakeup(Max(const.HourDuration / 5 - GameTime() + time_stamp, 100))` (`Lua/Units/Train.lua:281`)
+and `Train:UnloadTrain` carries the identical line (`:450`). `const.HourDuration` is
+`const.Scale.h` (`Lua/_GameConst.lua:5`); a Sol is 1,440,000 ms over 24 hours (`EF-062`), so a game
+hour is 60,000 ms and a fifth of one is **12,000 ms of game time**. Three properties matter:
+- It is a **deadline, not an added delay** — `time_stamp` is taken at the top of the command and the
+  cargo transfer runs before the wait, so a stop is a flat 12 s whatever the transfer costs, with a
+  100 ms floor when the transfer has already spent the window.
+- **Unloading costs its own 12 s** and queues `LoadTrain` on the way out, so a train that both
+  unloads and loads stands for about **24 s**.
+- **Vanilla never wakes a train early.** `WaitWakeup` returns early only on a matching
+  `Wakeup(thread)`, and a grep of the whole `Lua/` tree finds no such call for a train — the
+  elevator's `Wakeup(queue[idx + 1].command_thread)` (`Lua/Buildings/BaseElevator.lua:62`) is the
+  game's own demonstration of the move on another class.
+⇒ **The dwell is ours to shorten without touching vanilla's code**: `command_thread` is a public
+field of every `CommandObject` (`CommonLua/Classes/CommandObject.lua:90`), so a `Wakeup` on it ends
+the stop at whatever moment we choose. The lever is one-directional — it can only make a stop
+shorter than 12 s, never longer, since a longer dwell would mean replacing the command.
+
+**Owner ruling, 2026-09-20: halve the dwell, hub trains only.** *"Can we cut each in half and see how
+that looks. 6s / 6s so the whole transfer can take a max of 12s if it has to do both."* Scope, the
+owner's, same exchange: **only trains in our hub**, NOT vanilla stations — *"I would rather not over
+ride it for all stations unless we can't find other ways to make it 'feel' good."* Whether it should
+ever apply colony-wide is a later question at the scale of the whole project, not this build's. The
+6 s is a named constant the owner dials by eye; it is a deadline like vanilla's, so it is measured
+from the start of the command, keeps the 100 ms floor, and must be timed in **game time** so it
+scales with the speed slider exactly as vanilla's wait does.
+
+**What our own transition costs today, for comparison** (read 2026-09-20 from
+`tools/devmods/train_hub/Code/20_TrainHub.lua`, as the MOVE prototype left it). `HubSlideTrain`
+(`:471-483`) is **1.2 s flat** — eight steps of 150 ms on a smoothstep curve, a fixed duration
+whatever the lateral distance — and it runs twice a visit, in and out, so **2.4 s**. A reversal that
+is not straight-through adds `SetAngle(outward, 1000)` with a matching `Sleep`, **1 s**
+(`:524-525`). The approach and park moves are distance-based through `GetAccelerationAndTime`
+(`:451`), governed by the owner's pause and park tunables, not by a timer. Halving the slide costs
+nothing in smoothness if the step shortens rather than the step count dropping (8 × 75 ms keeps all
+eight samples); below about six steps the easing reads as a stutter. **Owner, 2026-09-20: not yet.**
+They want the halved dwell in front of their eye first and will decide the slide and the turn after
+— *"at least I know it's an option."* Do not change either without that ruling.
 
 **The train speed chain, for reference** (`Train:GetNominalMoveSpeed`, `Train.lua:592-613`): without
 Faster Trains x0.70, with it x1.00; Vacuum Rail Systems x1.50; the Train Track Standards law x1.33;
