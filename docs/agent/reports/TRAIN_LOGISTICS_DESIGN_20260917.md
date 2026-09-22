@@ -1679,6 +1679,19 @@ the base-line groups, whose 0.15 m band lies along texel rows and converges with
 164,695 → 180,858 → 204,707 across held, pass 1, pass 2 at peak 71 throughout). Owner's steps:
 README "Current handoff: structure set"; one import, four slots.
 
+**Structure pass 2 in game, the owner's look, 2026-09-21, and the UV ruling.** Three close-ups: the
+portal insert edge and arch line jagged, blurry and asymmetric; rib and pillar bands torn; the
+black-glass road and its borders "seamless, nearly perfect", the quality wanted over the whole
+model. Read by the orchestrator (not measured in game): the road's borders are mesh edges and its
+lines run along the track island's texel rows; the structure's features are painted curves across
+the grid at 14 texels/m, about 14 px a texel at that zoom, on a 25.48%-covered atlas over a
+faceted Tripo surface (the analytic arch wanders against it). **Owner ruling, 2026-09-21: the UV
+freeze is lifted for one full, comprehensive pass — uniform quality over every bit of the model,
+"so we can texture, paint, light and zoom and it looks clean with no jagged edges or blurred
+pixels."** Geometry and spots stay frozen; the UV contract is re-frozen after the pass. Bounded for
+the owner: the target is the road's quality at the inspection zoom everywhere, not any zoom. The
+2048 held sets become historical at their tags. Brief: `01_TRAIN_HUB_STRUCTURE_high.md` §"Pass 3".
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.

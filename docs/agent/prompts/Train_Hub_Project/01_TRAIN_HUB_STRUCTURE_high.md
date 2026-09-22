@@ -116,6 +116,24 @@ lines and their level stay held by value, as before.
 
 Same close-ups again for the owner's second look. Report per point what changed and the raw sizes.
 
+## Pass 3 — the UV freeze is lifted (owner, 2026-09-21)
+
+Pass 2 (assets `cb60471`, imported) was looked at close: the portal insert edge and arch line are
+jagged, blurry and asymmetric, the rib and pillar bands torn. Diagnosis given to the owner: the
+road looks perfect because its borders are mesh edges and its lines run along the track island's
+texel rows; the structure's features are painted curves crossing the texel grid at 14 texels/m,
+about 14 px per texel at the owner's zoom, and the atlas is 25.48% covered. **Owner ruling: *"if we
+are opening the uv again, I want a full and comprehensive to make sure we have uniform quality
+over every bit of the model so we can texture, paint, light and zoom and it looks clean with no
+jagged edges or blurred pixels."*** The UV contract (`concept_freeze.json`) is re-frozen once by
+this pass; geometry and spots stay frozen. Target, as the orchestrator bounded it for the owner:
+the road's quality at the owner's inspection zoom, everywhere — uniform density at the atlas
+maximum, islands laid straight so painted features run along texel rows, edges drawn from the mesh
+where a mesh edge exists. A texture has finite texels; "any zoom" is a geometry property and is
+not promised. The held 2048 sets (`pad`, `nostrips`, `thinlines`, `thinlines_all`) become
+historical at their tags; only the structure set is rebaked and re-pinned. The mesh is re-exported
+and the owner's import re-imports it (same FBX path, same spots).
+
 ## Leads, not the route
 
 - `BODY_SIZE = 2048` (`paint_concept.py:24`) sizes every map; you need it per map.
