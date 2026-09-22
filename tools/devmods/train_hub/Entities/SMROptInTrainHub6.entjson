@@ -14,10 +14,10 @@
 								"mesh": "Mod/SMR_TrainHubDev_20260918/Meshes/SMROptInTrainHub6_mesh.sub_0.hgrm",
 								"material": "Mod/SMR_TrainHubDev_20260918/Materials/SMROptInTrainHub6.mtljson"
 							}],
-						"boxMin": [-8000.0, -7186.3525390625, -2040.0001220703126],
+						"boxMin": [-8000.0009765625, -7186.3525390625, -2040.0001220703126],
 						"boxMax": [8000.0009765625, 7186.353515625, 2074.98974609375],
-						"bsCenter": [-707.6670532226563, -265.3273010253906, 388.056640625],
-						"bsRadius": 8752.376953125
+						"bsCenter": [-142.91812133789063, 109.1607894897461, 374.42156982421877],
+						"bsRadius": 8198.01171875
 					}],
 				"attaches": [{
 						"name": "Box1",
