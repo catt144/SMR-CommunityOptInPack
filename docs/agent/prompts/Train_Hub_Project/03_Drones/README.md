@@ -7,7 +7,6 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 1 | `1_SURVEY_fanout_level_3.md` | fan-out 3 | no | Every "find the exact name" in `DESIGN.md`: the vanilla work kinds a drone can do out on track, the `DroneWork` action and animation names, the battery, palette and `CanBeControlled` surfaces, the network graph, and what the pit's spots give. Produces facts, not code |
 | 2 | `2_FLIGHT_medium.md` | medium | no | The flight prototype in its OWN file `Code/30_TrainHubDrones.lua`: launch from the pit, follow the track's elements, arrive, return, land, all driven by console calls. No dispatch, no hub economy, no `20_TrainHub.lua` |
 | 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | The owner tunes the flight by eye in game: hover height, speed, launch and landing, clearance at stations, hoods and tunnels. Records the values |
 | 4 | `4_HUB_high.md` | high | no | ⛔ Waits for the structure pass. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
@@ -23,9 +22,9 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 - **Route, never drop.** An out-of-scope finding goes to the link that owns it, to spec §10, or to
   `docs/PLAYTEST_CHECKLIST.md` as an owner ask with a recommendation. Defects go through
   `smr-bug-library`.
-- **Order.** 1 → 2 → 3 are independent of the structure pass and run now, in that order. 4 waits for
-  the structure pass to be out of `20_TrainHub.lua`. 5 follows 4. 6 is last, in fresh context, and
-  the owner runs it on a different model from the links it audits.
+- **Order.** 2 waits on OI-25; then 2 → 3 are independent of the structure pass. 4 waits for the
+  structure pass to be out of `20_TrainHub.lua`. 5 follows 4. 6 is last, in fresh context, and the
+  owner runs it on a different model from the links it audits.
 - **Self-split** at a clean commit boundary into a continuation link that is a full chain member,
   rather than running to the edge of a context window. Say so in the notes.
 - **Drift** (anything that went other than as briefed, however small) is appended to link 6's
@@ -35,4 +34,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 ## Open owner decision, needed before link 2
 
 The pit replaced the recharge pad. **Do the drones launch from and return to the pit floor?**
-Link 1 measures the pit and routes a recommendation; link 2 cannot start until the owner rules.
+L1 measured a clear column by offsetting both `Pitfloor` and `Pitrim` by entity-local
+`point(-310,180,0)`: minimum conservative Wasp margins 0.355809 m overhead and 0.400629 m to the
+shaft. Recommendation: approve the offset floor launch/return, scripted through the same column to
+local z +10 m. OI-25 carries the ask; link 2 cannot hard-code the launch until the owner rules.

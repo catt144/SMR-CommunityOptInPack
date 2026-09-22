@@ -2560,3 +2560,27 @@ with park 11 m and offset 4.5 m unchanged. Rejoins, outer transitions, dwell and
 remain as accepted. The mocked movement smoke checks the fixed approach speed and all eight
 lateral samples; only the owner's eye at normal, fast and fastest speed can close smoothness and
 rate matching. The build report carries the five-step sitting and live 1 m onset control.
+
+**Build 4 drones, link 1 survey, 2026-09-22 — SOURCE/MEASURED, no game run.** Evidence:
+`docs/agent/reports/drones_chain/L1_SURVEY_20260922.md`; verbatim lenses under its `agents/`;
+engine facts `EF-112`–`EF-115` (allocated Fix Pack `38022d1`, mirrored here `079a347`). Broken track is a
+construction group: its native visual is `constructStart` / `constructIdle` / `constructEnd`, FX
+`Construct`, and normal completion dispatch is group leader → `TrackConstructionSite:Complete`.
+Station maintenance material and `repair` work are separate; maintenance clears dust and no
+separate clean-work producer was found. Track connectivity does not grant automatic drone-task
+coverage.
+
+Reachability cannot use `ForEachConnectedTrack` as the authority: it is one-hop and its
+`GetDestStation` call rejects a track while the break's construction site is present. Build 4 needs
+a visited physical connector graph over `GetStartStation`/`GetEndStation` plus tunnel `linked_obj`
+edges, retaining existing broken tracks and excluding a truly isolated component. Save layer 1
+keeps only pending data + absolute deadline, gates respawn from `SaveGameStart` through
+`SaveGameDone`, and rebuilds from remaining time; `EF-070` makes that gate necessary on autosave.
+`CanBeControlled` is chained and returns false only for a Wasp whose live controller is the hub.
+
+Pit MEASURED: the 11.50 m mouth has a clear static launch column at entity-local offset
+`point(-310,180,0)` from both spots. At native scale the offset is 3.584690 m; against a conservative
+1.752370 m Wasp radius, minimum margins are 0.355809 m overhead and 0.400629 m to the shaft;
+13,248 sampled swept-box rays had 0 blocks. Recommended route: offset `Pitfloor` → offset `Pitrim`
+→ same XY at local z +10 m, and reverse for return. **Owner ruling OI-25 is open; link 2 does not
+hard-code launch until it is answered.**

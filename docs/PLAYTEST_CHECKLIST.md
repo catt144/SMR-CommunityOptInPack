@@ -15,6 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-25 · opened 2026-09-22
+Train-hub repair drones: approve the measured pit-floor launch and return column?
+- Proposal: offset both pit spots by entity-local `point(-310,180,0)`; use that column for lift/descent
+  to local z +10 m.
+- At scale 100 the offset is 3.584690 m; conservative Wasp clearance is 0.355809 m overhead and 0.400629 m to the shaft.
+- The centre is roofed; this offset passed 0 blocked rays in a 13,248-ray swept-box sample and needs no geometry change.
+- Say "approve the offset pit column" or name a different launch/return direction. Recommended: approve.
+Home: `docs/agent/prompts/Train_Hub_Project/03_Drones/README.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

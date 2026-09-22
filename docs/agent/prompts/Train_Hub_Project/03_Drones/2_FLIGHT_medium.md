@@ -64,8 +64,31 @@ the constants, the measured times, and what the owner still has to see.
 
 ## Notes from upstream
 
-*(link 1 appends here: work-kind names, `DroneWork` animation and effect names, battery thresholds,
-the pit's measured launch point and clearances)*
+- **Read first:** `docs/agent/reports/drones_chain/L1_SURVEY_20260922.md`; durable source facts are
+  `EF-112`, `EF-113` and `EF-115`. The verbatim source/measurement reports live beside it under
+  `docs/agent/reports/drones_chain/agents/`.
+- **Native broken-track visual:** work resource `construct`; states `constructStart` →
+  `constructIdle` → `constructEnd`; FX action `Construct`. Play it directly with `StartFX` /
+  `StopFX` cleanup. Do **not** call `Drone:Work` or `ContinuousTask` with a fake request: those
+  assign/fulfil/drain a real request and consume battery. `repairBuilding*` / `Repair` is building
+  maintenance, not the broken-track site's native visual.
+- **Battery:** default maximum 80,000 stored units; idle charge-seek is inclusive `<=12,000`,
+  emergency interruption inclusive `<=6,000`. They are absolute, not percentages of a raised
+  maximum. Hold the Wasp at its configured `battery_max`.
+- **Palette:** callable surface is `Building.SetPalette(drone, cm1, cm2, cm3, cm4)`. Source admits
+  the call but does not prove which Wasp materials respond; keep recolour behind a constant and
+  leave the visual verdict to link 3.
+- **Pit spots:** `Pitfloor=(-999.999634,-577.349792,-2000)` and matching `Pitrim` z `30.000002`,
+  entity-local engine units; use live spot transforms. Recommended offset from both spots is
+  `point(-310,180,0)`. At scale 100 it is 3.584690 m off-centre; conservative Wasp margins are
+  0.355809 m overhead and 0.400629 m to shaft, with 0/13,248 sampled swept-box rays blocked.
+  Prototype waypoints are offset floor, offset rim, then the same XY at local z +1000.
+- **HOLD:** OI-25 asks the owner to approve that pit-floor offset column. Do not hard-code launch
+  while it is open; the brief's existing behind-a-knob allowance remains available.
+- **Work boundary:** track connectivity does not grant vanilla task coverage. Broken track is
+  construction; station material supply and `repair` work are separate; dust cleaning is the
+  effect of maintenance, with no separate `clean` request producer. The flight prototype owns
+  presentation and movement only, not remote request accounting.
 
 ## Lifecycle
 

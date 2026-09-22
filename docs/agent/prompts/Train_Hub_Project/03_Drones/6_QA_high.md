@@ -51,7 +51,22 @@ each verdict.
 
 ## Notes from upstream
 
-*(every link appends drift instances and residue here)*
+- **L1 evidence commits:** verbatim reports `ac32389`; shared EF allocation Fix Pack `38022d1`;
+  Opt-In mirror `079a347`; synthesis/lifecycle commit is the one deleting link 1. Sample claims
+  against those commits, not chat.
+- **Open gate:** OI-25 must be ruled and recorded here/spec/link 2 before launch is hard-coded.
+- **Design drift:** `DESIGN.md` names generic `ConstructionSite:Complete`; source says the concrete
+  track path is `ConstructionGroupLeader:Complete` → `TrackConstructionSite:Complete` (`EF-112`).
+  The design reference was intentionally left unchanged.
+- **Source/runtime residue:** physical graph BFS, Wasp palette response, arbitrary-distance manual
+  approach, save teardown/race and pit flight are source or geometry conclusions only; later links'
+  native smokes must not promote them without the named probes.
+- **Command drift:** SMR-Assets has no remote, so its requested pull could not run. The pit report
+  pins Assets HEAD and input hashes; verify again if any fingerprinted file moves.
+- **Report drift:** `agents/drone_surfaces.md`'s `rg -F` exact-literal loop loses embedded quotes in
+  Windows PowerShell 5.1. Parent verification passed with `Select-String -SimpleMatch`; use that
+  equivalent when auditing, and keep the failed command as evidence rather than silently rewriting
+  the verbatim report.
 
 ## Lifecycle
 

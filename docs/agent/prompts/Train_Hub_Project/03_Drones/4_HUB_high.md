@@ -51,8 +51,37 @@ what link 5's sitting still has to show.
 
 ## Notes from upstream
 
-*(links 1, 2 and 3 append here: the network graph and save hooks, the flight file's API, the
-constants the owner settled)*
+- **Link-1 evidence:** `docs/agent/reports/drones_chain/L1_SURVEY_20260922.md`; engine facts
+  `EF-112`–`EF-115`; verbatim lenses under `docs/agent/reports/drones_chain/agents/`.
+- **Reachability:** `ForEachConnectedTrack` is one-hop and calls `GetDestStation`, which rejects a
+  track while `elements_under_construction` is nonempty. A break creates exactly such a site, so
+  that helper can hide the broken edge and everything beyond it. Build an explicit hub-rooted BFS
+  with visited station/tunnel nodes and visited tracks, using physical `GetStartStation` /
+  `GetEndStation` owners across existing broken tracks plus reciprocal tunnel `linked_obj` edges.
+  Cached routes, `CanTrainsRun` and a nil helper result are not repair reachability.
+- **Graph smoke owed:** component before/after a connecting break, far side still reachable for
+  repair, independent remote component excluded, then a tunnel and a station cycle. Log endpoint
+  owners, repair group, `elements_under_construction` and visited sets.
+- **Completion:** use the live repair construction-group leader's dynamic `Complete()` after
+  validating the site and outstanding cost. It dispatches to each `TrackConstructionSite:Complete`,
+  which restores/reconnects the broken element. `DESIGN.md`'s generic
+  `ConstructionSite:Complete()` citation is an imprecise body reference; do not call that base body
+  directly or synthesize a drone work request.
+- **Work/accounting boundary:** controller radius governs automatic request discovery; track graph
+  membership does not. Station maintenance material can self-fill, but the `repair` work request
+  still needs a worker; dust is cleared by maintenance and has no separate clean request. Ship only
+  the work kinds `DESIGN.md` authorizes and keep each material/work/completion path explicit.
+- **Save guard:** `EF-023`/`EF-027` establish by-value command-thread persistence;
+  `EF-024`/`EF-030` establish start/done hooks including autosave; `EF-070` establishes that game
+  time can run before the persist walk. Persist only pending data plus absolute deadline. Raise a
+  save gate, synchronously remove track visuals/commands, make every spawner honor the gate until
+  `SaveGameDone`, then re-arm from remaining deadline even after a failed save. Load validates and
+  does the same; never restart a full trip. Manual-save, autosave, reload, failed-save and long-soak
+  A/B remain owed.
+- **Control:** chain `Drone:CanBeControlled`; after calling the captured original, return false only
+  when the live `command_center` is a train hub and otherwise return the original result. That one
+  gate greys both reassign buttons. Keep the no-free-drone backstop separate.
+- Links 2 and 3 still owe the flight API and owner-tuned constants below this block.
 
 ## Lifecycle
 
