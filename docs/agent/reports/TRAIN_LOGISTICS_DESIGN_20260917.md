@@ -1951,6 +1951,50 @@ build stays reachable by knob. Portal option 1 ("flush rim": a rib-section colla
 mouth, flush with the glass, gatehouse and pocket gone, clear opening unchanged) is being built
 as a candidate with renders beside the current build, glass shown, for the owner's pick.
 
+**Portal candidate C, the flush rim, 2026-09-22 — assets `559e478`, desk-verified; owner's pick
+owed.** Built by an Opus agent; `--check-rebuild` rerun by the orchestrator (WORKFILE_PROOF PASS,
+135 objects, 91 identical against the pre-portal baseline, i.e. production byte for byte).
+`PORTAL_COLLAR` knob (`'shoulders'` production | `'bell'` | `'rim'`): the gatehouse, pocket,
+rebate and buttresses go; a 0.60 m tube (the ribs' `bevel_depth`, asserted equal) bends round the
+mouth laid on the dome so its centreline is the glass edge, the dome's cut read back off the same
+polyline; the hood stays as the hidden liner; the throat is two cheeks through the ring's gap;
+the thin sill. `C_rim_proof.json` (export/, gitignored): +6 `PortalRim_*`, −12 (`Portal_*`,
+`PortalShoulder_*`), 19 changed (`Glass`, `Hood_*`, `PortalThroat_*`, `PortalSill_*`), 110
+identical, 0 spots moved, floor untouched; rim radial extent 28.68-33.53 m (collar was
+33.0-35.5), z 7.30-14.32; glass edge buried everywhere (least 0.239 m, gap 0); clearance
+4.16 × 4.36 train +0.7475 (unchanged), 4.0 × 5.0 +0.125 (was +0.104); new portal faces 3,144
+against B's 4,938. Consequence for the owner: outboard of the dome nothing stands over the
+track (the ring's gap is cheeked to 9.10 m, open sky to the dome); `NOTES_C.md` §5 offers a
+second hoop on the ring's outer lip at 35.5 m and rim radii 0.45 / 0.80. Renders
+`export/portal_candidates/C_view1..5`, `C_portal_{front,close}{,_night}`, `B_glass_*` beside.
+
+**Edges onto geometry, 2026-09-22 — assets `332548e`, desk-verified.** Built
+by an Opus agent; `--check-rebuild` and `validate_edges.py` rerun by the orchestrator.
+`EDGE_GEOMETRY` knob, default legacy in `hub_skeleton.py` and `paint_concept.py`. On: arm lines
+(approach path, merge curve, dashes) `Line_Arm_1..6` ribbons 1,140 faces; floor curves
+`Line_Curve_1..6` + `Line_Centre_1` 847; rib bands `RibBand_1..30` sleeves 960 (12 mm proud,
+32 steps, inradius clearance 3.34 mm over the rib's 12-gon after a first render showed the
+ridges poking through at 6 mm); ring rim strip its own face loop (`RING_PROFILE` 14 → 18: four
+points, the inner wall is lit too); siding frame line a face loop; floor trim circle and edge
+strip concentric loops at r 30.75 / 30.60. Ribbon lift 8 mm, MEASURED (`zfight_proof.json`,
+Eevee, deck-wins fraction of 93,101 interior pixels: 3 mm 1.174%, 8 mm 0.0032%, the knee).
+`edges_proof.json`: 135 → 178 objects, 43 added, 8 changed (`Ring`, `FloorPlate`,
+`Siding_1..6`), 127 identical, 0 spots moved, plate rim 144 faces; identical under both
+`PORTAL_COLLAR` values; body 14,976 → 18,883 faces. Legacy reproduces: check-rebuild PASS, 135
+of 135 digests identical; 4 of 4 maps byte-identical between the HEAD painter and the new one
+with the knob off. UV (`uv_edges.json`): density 18.00 → 17.63 /m, spread 8.4%, coverage 53.69
+→ 51.94%, islands 2,021, overlap 0, `Line_Arm`/`Line_Curve` 100% straight, `RibBand` 96.8%.
+Bake at 2048 (AO off), `validate_edges.py` PASS: road lit texels 0/0/0, `Line_Arm` 7,607,
+`Line_Curve` 5,958, `RibBand` 4,026 texels every one at SI 179 and BC (0,40,255);
+`validate_structure.py`'s `EXPECTED_PEAK` re-pinned by value, gated on the mask carrying the new
+groups so held bakes still validate. Renders `export/edges/renders/{before,after}_{road_arc,
+ring_rim,rib_band,centre_cross,beam_strip}_{day,night}`. Open for the owner: the rib band stands
+12 mm proud (flush needs the ribs as meshes, a different pass); the road line now reads its full
+0.247 m width; the arm ribbon runs across a 13 mm slot between beam edge and platform edge near
+u 50 m. Incident: an early candidate run overwrote `TrainHub_work.blend` and two proofs; restored
+from git, regenerated, verified 135/135. Next: the owner's picks, then the production run
+(knobs on, one re-freeze, AO + structure bake at 4096, export, one import).
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
