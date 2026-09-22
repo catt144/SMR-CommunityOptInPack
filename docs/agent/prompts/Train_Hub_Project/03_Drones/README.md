@@ -7,7 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | **NEXT.** The owner tunes the under-deck flight by eye: heights, speed, launch, landing, work descent, a passing train, stations, hoods and tunnels. Records values and checks import survival |
+| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | ⛔ **BLOCKED.** The owner tunes the under-deck flight by eye: heights, speed, launch, landing, work descent, a passing train, stations, hoods and tunnels. Records values and checks import survival |
 | 4 | `4_HUB_high.md` | high | no | ⛔ Waits for the structure pass. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
 | 5 | `5_SMOKE_medium.md` | medium | **yes** | `DESIGN.md` §5's smoke with the owner, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
@@ -36,3 +36,14 @@ The owner approved the task's pending question: launch from and return to the pi
 offsetting both `Pitfloor` and `Pitrim` by entity-local `point(-310,180,0)`, then lifting through
 that column to local z +10 m. The approval adopts L1's measured column; live flight clearance
 still belongs to link 3.
+
+## Link 3 blocked again, 2026-09-22 (motion)
+
+L2R's under-deck route was flown and not objected to; the flight-look sitting stopped a second
+time under `3_FLIGHTLOOK_low.md`'s Stop #1 on how the drone moves, not which lane it uses. The
+owner: *"doesn't feel fluid... sharp straight up and down lines and jerk around... less fly on a
+wire."* No constant was judged. Full record, code citations and a pointer into the game's own
+flight code (`Flight.lua`'s `ComponentInterpolation`/`ComponentCurvature`/`FlightGoto`) for
+whoever rebuilds the flight driver: `docs/agent/reports/drones_chain/L3_FLIGHTLOOK_MOTION_20260922.md`.
+Link 3 stays in the chain, unfired again until a rebuilt link 2 settles motion and leaves fresh
+`## Notes from upstream`.
