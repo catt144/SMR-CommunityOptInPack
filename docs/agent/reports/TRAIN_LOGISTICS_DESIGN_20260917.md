@@ -2108,6 +2108,16 @@ own switch (`OnMsg.LightmodelChange` → `map.NightLightsState`, `Lua/NightLight
 :250-259` on 1.1.0.403908; no timer, no NightLight class); smoke 144 by day / 145 at night.
 Judged in game next: reach (the plate's far corner is 36.5 m from the lamp) and pool width.
 
+**Frame line yellow, dashes blue, 2026-09-22 — assets `a31ce1e`, texture-only, NOT imported.**
+The orchestrator had read "loading spots" as the road dashes; the owner meant the siding frames.
+`SIDING_LINE_COLOUR='bay'`, `PARK_DASH_COLOUR=None`: only BC moved (`bc47c0b9…`); Siding core
+30,442 texels exactly #E8B923, Line_Arm core 37,855 exactly (0,40,255); validate_structure PASS.
+**The crown light became a PointLight** (OptInPack `4b2c48b`, 150, radius 40 m): as a SpotLight
+it shone sideways along a rib in the owner's shot, so the arm spots' quarter-turn aim is measured
+wrong; the 72 arm spots still carry it. **C-run handoff written** in brief 01 §"Where this stands
+— the C run"; the owner's texture compile, restart and night look are next, then the whole-hub
+cost reading (step 7, `<<PENDING-RUN>>`).
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
