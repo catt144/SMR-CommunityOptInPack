@@ -82,6 +82,35 @@ The owner, 2026-09-21, settled all of this (spec §9):
 Done means: the owner looks at the hub and says it feels premium, or names what stops it, and the
 whole hub's off/on cost is recorded.
 
+## Pass 2 — the owner's look at pass 1 (2026-09-21)
+
+Pass 1 (assets `a2b9727`, imported in dev mod checkpoint `5f7ee27`) is in the game. The owner
+looked close up at the pillars, a rib, a portal and the ring, and said **yes to all four fixes
+below**. Pass 1 is not kept yet: take `snapshot_hub.py hub-structure-pass1-20260921` before you
+change anything, so it is one step to undo. The palette is right and stays; the road, the deep blue
+lines and their level stay held by value, as before.
+
+1. **Rib glow bands are still stair-stepped.** The glow is the SI map, still at 2048 on a thin tube
+   island, so the 4096 BC could not help. Take SI to 4096 and antialias the band's edge.
+2. **Ring seams are soft and read as a doubled hairline** (a light line beside a dark one). Take NM
+   to 4096 (the brief already allowed it) and make the groove one clean line. Lead, from the
+   owner's close-up: the blue line steps where it crosses a seam, so check whether a painted seam
+   sits on a UV island boundary and bleeds differently on each side.
+   **The owner's fallback, in their words:** *"can we design over them to make it less noticeable
+   if that doesn't work, put something there thats not a hairline seem."* If a crisp groove does
+   not hold at this density, stop fighting the hairline and **design a feature at each ring seam
+   position** that is readable at 7-14 texels per metre: your call among, for example, a wider
+   silver joint band, a raised trim strip with a bevel, or a recessed channel. It must sit on the
+   seam positions and read as deliberate. Keep the palette; a blue accent there is the owner's call,
+   so offer it, do not ship it.
+3. **Silver reads as a blurry chrome blob** (metalness .90, roughness .22 mirroring the terrain).
+   Make it brushed metal: rougher (about .35-.45) and/or less metallic, your call by eye.
+4. **Portal insert edge is ragged and hairy** against the white shell. Hard-edge it or widen the band
+   so it covers the fringe; check the island bleed there. The dark sawtooth shading along the arch's
+   facets may be the geometry, which is frozen: say so if it is, do not chase it with the maps.
+
+Same close-ups again for the owner's second look. Report per point what changed and the raw sizes.
+
 ## Leads, not the route
 
 - `BODY_SIZE = 2048` (`paint_concept.py:24`) sizes every map; you need it per map.

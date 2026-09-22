@@ -1632,6 +1632,17 @@ Owner's five steps: `SMR-Assets/trainhub/blender/README.md`, "Current handoff: s
 the compiled BC DDS grows to about 11 MB. Previews `export/structure/{day,night,deck_day,deck_night}.png`
 are Blender only.
 
+**Structure pass 1 in game, the owner's look, 2026-09-21.** The owner imported `a2b9727`
+(dev mod checkpoint `5f7ee27`: all four slots on `textures/structure/`, BC 4096 BC1 with 13 mips
+at 11,184,972 B, NM/RM/SI 2048, import log OK) and sent close-ups of the pillars, a rib, a portal and
+the ring. The palette reads as materials, not blue paint; the deep blue line is clean. **Owner
+ruling: yes to all four fixes** — SI to 4096 with antialiased rib bands, NM to 4096 for one clean
+ring groove, brushed rather than chrome silver, a hard portal insert edge — and on the ring seams:
+*"can we design over them to make it less noticeable if that doesn't work, put something there
+thats not a hairline seem."* Pass 1 is not kept; it is snapshotted as `hub-structure-pass1-20260921`
+before pass 2. The pass 2 brief is `prompts/Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md`
+§"Pass 2". Read from screenshots by the orchestrator, not measured.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
