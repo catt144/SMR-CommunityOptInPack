@@ -1196,7 +1196,7 @@ local hub_structure_lights = {
 	-- so that family is OFF by default and the two kept families start much lower.
 	portal = { on = true, name = "portal rims", class = "PointLight",
 		color = RGB(0, 40, 255), intensity = 4, radius = 350 }, -- owner, 2026-09-22: 15 was "a bit intense"
-	pit = { on = true, name = "drone pit kerb", class = "PointLight",
+	pit = { on = false, name = "drone pit kerb", class = "PointLight", -- owner, 2026-09-22: cut; other lighting covers the pit
 		color = RGB(0, 40, 255), intensity = 15, radius = 300 },
 	rim = { on = false, name = "ring rim strip", class = "PointLight",
 		color = RGB(0, 40, 255), intensity = 12, radius = 400, step = 10 },

@@ -141,9 +141,9 @@ for _,v in ipairs(set('arm')) do
 end
 assert(spots==72)
 -- Structure lights: portal and pit on, the ring rim and the floor edge off by default (owner, 2026-09-22).
-assert(n('portal')==30 and n('pit')==6 and n('rim')==0 and n('floor')==0)
-assert(#lights()==108, #lights())
-Floor.SetHubStructureLights{rim={on=true}}; assert(n('rim')==36 and #lights()==144)
+assert(n('portal')==30 and n('pit')==0 and n('rim')==0 and n('floor')==0)
+assert(#lights()==102, #lights())
+Floor.SetHubStructureLights{rim={on=true},pit={on=true}}; assert(n('rim')==36 and n('pit')==6 and #lights()==144)
 for _,v in ipairs(set('portal')) do
  assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==4)
  local d=math.sqrt(v.offset:x()^2+v.offset:y()^2)
@@ -197,6 +197,6 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
              'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved',
              'arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets',
-             'structure lights: portal 30 / pit 6 on the Pitrim spot; rim 36 and floor 24 off by default; 108 default, 144 with the rim',
+             'structure lights: portal 30 on by default; pit 6 (on the Pitrim spot), rim 36 and floor 24 off by default; 102 default, 144 with rim and pit',
              'structure lights: on the rim span, the kerb circle and the ring radius, at their z',
              'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on']}))
