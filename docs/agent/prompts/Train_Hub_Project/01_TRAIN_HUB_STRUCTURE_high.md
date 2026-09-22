@@ -144,9 +144,11 @@ the UV pass, then the structure rebake. Order: floor → UV → bake → one imp
 
 ## Where this stands — the C run (2026-09-22, evening; the orchestrator's context is spent again)
 
-**Start here.** Authoring sha: OptInPack = the commit whose message starts "Brief 01: the C-run
-handoff"; assets `a31ce1e`. Empty `git diff --stat <that sha>..HEAD -- tools/devmods/train_hub/`
-and `git diff --stat a31ce1e..HEAD -- trainhub/` mean this section holds. Restore points since the
+**Start here.** Authoring sha: OptInPack = the commit whose message starts "Train hub dev mod:
+checkpoint of the owner's texture compile" (`061d6cb`); assets `a31ce1e`. Empty `git diff --stat
+<that sha>..HEAD -- tools/devmods/train_hub/ ':!tools/devmods/train_hub/Code/30_TrainHubDrones.lua'`
+(that file is the drones chain's, in flight beside this brief) and `git diff --stat a31ce1e..HEAD
+-- trainhub/` mean this section holds. Restore points since the
 B run, oldest to newest: `hub-portal-pit-20260922`, `hub-rim-edges-20260922`, `hub-bays-20260922`
 (the last state the owner has kept). The record of every step, with its numbers, is spec §9 from
 "The owner's look at the portal/pit import" to "Crown lamp, yellow parking dashes, siding
@@ -172,9 +174,11 @@ fixture at the rib junction.
    sideways along a rib — the arm spots' quarter-turn aim is MEASURED WRONG, not merely
    unverified; the 72 arm spots still carry it and "looked fine" only because a 100° cone at 2 m
    hits the road whichever way it points); the frame line yellow + dashes blue (assets `a31ce1e`,
-   texture-only, NOT imported). NEXT: the owner's texture compile + restart, a night look at the
-   crown pool and the frames; on keep, `snapshot_hub.py hub-crown-20260922` and a checkpoint of
-   the editor output.
+   texture-only; its texture compile ran 19:18 and is checkpointed at `061d6cb`, BC only moved,
+   as a texture-only bake should). NEXT, the owner's: game restart, a night look at the crown pool
+   and the frames; on keep, `snapshot_hub.py hub-crown-20260922` (the checkpoint is already
+   taken). Every editor save drops `Code/30_TrainHubDrones.lua` from the metadata code list:
+   restore the line before committing the editor's output (twice now: `d48871e`, `061d6cb`).
 3. NOT STARTED — **step 7, the whole-hub cost reading**: owner's reading, same save, fixed camera,
    hub on against off (a stopped hub destroys all lights and its trains), `gpu_sample.ps1`,
    uncapped or utilisation (120 fps cap); light count with it (102 by day, 103 at night, from

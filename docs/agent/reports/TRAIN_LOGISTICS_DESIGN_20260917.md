@@ -2118,6 +2118,18 @@ wrong; the 72 arm spots still carry it. **C-run handoff written** in brief 01 §
 — the C run"; the owner's texture compile, restart and night look are next, then the whole-hub
 cost reading (step 7, `<<PENDING-RUN>>`).
 
+**The owner's texture compile of `a31ce1e`, 2026-09-22 19:18 — checkpoint OptInPack `061d6cb`;**
+the night look is still owed. Read from the dev mod's stamps, not a report: the editor's save
+(version 40, 19:19) recompiled BC only (`Textures/SMROptInTrainHub6_BC.dds` 19:18; NM, RM, SI
+unchanged at 18:54), which matches the texture-only bake (all four source TGAs 19:14). The same
+save dropped `Code/30_TrainHubDrones.lua` from the code list a second time (first `d48871e`,
+restored by `0ad2e3d`); restored in the checkpoint with the editor's version, stamp and hash kept.
+Every editor save owes that survival check while the drones chain runs. Reruns at `061d6cb`:
+`look_smoke.py` PASS (102 lights by day, 103 at night in the shipping defaults; 144/145 with the
+rim and pit families on), `validate_structure.py` PASS 0 failures. Next, all the owner's: game
+restart, the night look at the crown pool and the yellow frames; on keep
+`snapshot_hub.py hub-crown-20260922`; then the whole-hub cost reading.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
