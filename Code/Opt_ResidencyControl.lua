@@ -74,6 +74,13 @@ local function is_closed(dome)
 	return type(dome) == "table" and dome[FLAG] and true or false
 end
 
+local function is_tourist(colonist_or_traits)
+	if type(colonist_or_traits) ~= "table" then return false end
+	if colonist_or_traits.Tourist then return true end
+	local traits = colonist_or_traits.traits
+	return type(traits) == "table" and traits.Tourist and true or false
+end
+
 -- gate 1: voluntary resettlement (FindEmigrationDome's candidate filter).
 -- Installed at FILE SCOPE (audit A2, 2026-07-29) so the wrap is baked into the
 -- flattened Community subclasses; guarded by the same existence checks apply()
@@ -206,8 +213,8 @@ SMROptInPack.Register("ResidencyControl", {
 		-- safety_dome passes through untouched (last-resort survival), and
 		-- tourists keep the vanilla choice.
 		local orig_choose = ChooseDome
-		local function choose(traits, domes, safety_dome, dome_elevators, ...)
-			if module_active() and type(domes) == "table" and not (traits and traits.Tourist) then
+		local function choose(colonist_or_traits, domes, safety_dome, dome_elevators, ...)
+			if module_active() and type(domes) == "table" and not is_tourist(colonist_or_traits) then
 				local filtered
 				for i, dome in ipairs(domes) do
 					if is_closed(dome) then
@@ -223,7 +230,7 @@ SMROptInPack.Register("ResidencyControl", {
 				end
 				domes = filtered or domes
 			end
-			return orig_choose(traits, domes, safety_dome, dome_elevators, ...)
+			return orig_choose(colonist_or_traits, domes, safety_dome, dome_elevators, ...)
 		end
 		local err = SMROptInPack.SetGlobal("ChooseDome", choose,
 			"could not install the ChooseDome wrapper (sandbox change?)")

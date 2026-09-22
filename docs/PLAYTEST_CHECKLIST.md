@@ -62,15 +62,6 @@ Home: `docs/agent/bugs/D04.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md
 - Recommended: (a). Falsifier: break a building unfixably, dismiss it, confirm the window still reaches it.
 Home: `docs/agent/bugs/D02.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
 
-### OI-03 · opened 2026-09-17
-`ResidencyControl` (D03): its tourist exemption is dead on 1.1.0. Repair it, or accept that tourists are refused?
-- `ChooseDome` now takes the colonist, not a traits table, so the module's Tourist guard is always false.
-- Closed domes now refuse tourists too, while the row's rollover still says Tourists are unaffected.
-- (a) repair the guard, one line; (b) accept it and reword the rollover; (c) leave it for launch day.
-- Recommended: (a); the exemption was a deliberate call (hotel rooms are not residency). A frozen-module edit.
-- Desk-read only. Falsifier: close a dome and land a Tourist it is the only choice for; if they check in, this is wrong.
-Home: `docs/agent/bugs/D03.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
-
 ### OI-18 · opened 2026-09-18
 Train hub: widen `tools/upload_preflight.py` so the hub's template and model can ship in this mod (your OI-16 = 4b)?
 - `:188-196` admits only `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview image.
