@@ -184,8 +184,8 @@ record of every step, with its numbers, is spec §9 from "Structure step, the bl
 6e. DONE, NOT IMPORTED — floor strip islands + portal cheek inset (assets `5cbedc6`). NEXT: the
    owner's mesh-and-maps import (no new selector or spot), look, restore point on keep.
 6f. DONE — step 6, the structure lights + arm-light tuner (`ba1e0d7`); the owner tunes in game.
-7. NOT STARTED — the paint pass proper (first unit: the storage bays — gunmetal, yellow border,
-   the owner's decal) on the new atlas (panelisation, decals, roughness variety,
+7. IN PROGRESS — the paint pass proper. First unit DONE, NOT IMPORTED: the storage bays, candidate
+   A (assets `70b1ab9`), texture-only import. Rest of the exterior colouring: the owner's call. on the new atlas (panelisation, decals, roughness variety,
    small emissives; the trim-sheet material for the metal parts behind a test import) — after the
    owner's look; brief it as its own one-off if it outgrows this file.
 8. DONE — see 6f. The arm lights' pattern is the template; the pit rim and the portal lips are the

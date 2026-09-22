@@ -2062,6 +2062,19 @@ tuners for the owner's lavender-when-lit, read as overexposure) and the recharge
 removed (`51b89a5`). Owner's asks pending: storage bay restyle (gunmetal, yellow border, a decal
 the owner will supply) — paint only, after this import.
 
+**Storage bays, 2026-09-22 — owner picked candidate A; production bake at assets `70b1ab9`,
+desk-verified; texture-only import owed.** The owner's decal (three isometric yellow cubes,
+`trainhub/decals/storage_cubes_owner_ref.png`, assets `53a15b4`) redrawn as clean hexagon cubes
+at the reference's measured layout; gunmetal `#5A5F64` .28/.70 with 1.65 m panels and rivets,
+0.20 m `#E8B923` border inside the kerb, the mark 3.96 m tall centred on all six beds (mixed
+storage, one universal mark). Candidates rendered first (`a38c8da`, A vs B), A ruled. Bake 200 s,
+AO on; validate_structure PASS 0 failures; isolation 0 texels changed outside the bays on all
+four maps, SI byte-identical (bays carry no glow); `--legacy-bays` reproduces the previous set
+4 of 4. **Flagged, a published check re-pinned under the ruling:** the floor ≥ 8× bay-median
+luma proxy became unsatisfiable (bed median 13 → 91); with `BAY_LOOK` gunmetal the rule is floor
+p1 (179.3) > bay median (92.0); legacy sets keep 8×. Import: texture compile only (same four
+names, FBX and material unchanged), or the full body procedure, harmless.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
