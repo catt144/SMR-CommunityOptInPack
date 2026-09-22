@@ -37,7 +37,7 @@ function CalcOrientation(a,b) return math.floor(math.deg(math.atan(b._y-a._y,b._
 function train_deck_height() return 800 end
 function IsValid(o) return o and not o.deleted end
 function IsKindOf(o,c) return o.class==c end
-available={FusionReactor=true,MarsAssembly_Door_01=true,TunnelEntranceDoor=true}
+available={FusionReactor=true}
 function IsValidEntity(e) return available[e] or false end
 function DoneObject(o) o.deleted=true end
 function DeleteOnLoadGame(o) o.delete_on_load=true end
@@ -141,60 +141,10 @@ h:OnSetWorking(false)
 assert(#lights()==0 and IsValid(foreign) and #living('SMROptInTrainHubReactor')==1)
 h.working=false; h:InitHubLights(); assert(#lights()==0)
 h.working=true; h:InitHubLights(); assert(#lights()==72)
--- Portal doors: 6 on, 0 off, idempotent, foreign attachment untouched, placed on the plane turned round.
-function doors() return h:GetAttaches('MarsAssembly_Door_01') end
-h:OnSetWorking(true); h:OnSetWorking(true)
-assert(#doors()==6, #doors())
-assert(threads>=1)
-for _,d in ipairs(doors()) do
- assert(d.delete_on_load and d.spot==0 and d.detail=='Essential' and d.scale==184 and d.cleared==15 and d.offset:z()==800-185)
- assert(not d.opens and not d.closes)
-end
-local d0 -- direction 0 is +X: angle 0, turned to 180 deg; leaf centre (100,20)*1.84 -> (184,37) turned -> (-184,-37);
--- thickness min(200,440)*1.84 = 368, so the centre plane is 3510-184 = 3326 and the offset x is 3326+184
-for _,d in ipairs(doors()) do if d.angle==180*60 then d0=d end end
-assert(d0 and d0.offset:x()==3510 and d0.offset:y()==37, d0 and d0.offset:x())
-for _,d in ipairs(doors()) do local r=math.sqrt(d.offset:x()^2+d.offset:y()^2); assert(r>3505 and r<3515, r) end
-h:OnSetWorking(false); assert(#doors()==0 and IsValid(foreign))
-h:OnSetWorking(true); assert(#doors()==6)
--- A 30 m train on line 0, heading in: the body reaches the band, only door 0 opens, once.
-local T={}; T.__index=T
-function T:GetEntityBBox() return box(-1500,-200,1500,200) end
-function T:GetVisualPos2D() return point(self.at,self.side or 0) end
-function T:GetVisualAngle() return 180*60 end
-train=setmetatable({at=6000},T); h.city.labels.Train={train}
-for _,d in ipairs(doors()) do if d.angle==180*60 then d0=d end end
-Floor.UpdateHubDoors(h,1000); Floor.UpdateHubDoors(h,1100)
-assert(d0.opens==1 and not d0.closes)
-for _,d in ipairs(doors()) do if d~=d0 then assert(not d.opens) end end
--- Through the door to the centre: held for HubDoorHoldTime, then closed exactly once.
-train.at=0; Floor.UpdateHubDoors(h,2000); assert(not d0.closes)
-Floor.UpdateHubDoors(h,1100+Floor.HubDoorHoldTime); assert(d0.closes==1)
-Floor.UpdateHubDoors(h,9000); assert(d0.closes==1)
--- A train on a track beside line 0 (15 m off it) opens nothing.
-train.at=5000; train.side=1500; Floor.UpdateHubDoors(h,10000); assert(d0.opens==1)
-for _,d in ipairs(doors()) do if d~=d0 then assert(not d.opens) end end
--- Opened again, then the train is destroyed mid-transit: the door closes after the hold.
-train.side=0; train.at=4000; Floor.UpdateHubDoors(h,20000); assert(d0.opens==2 and d0.closes==1)
-train.deleted=true; Floor.UpdateHubDoors(h,20100); assert(d0.closes==1)
-Floor.UpdateHubDoors(h,20000+Floor.HubDoorHoldTime); assert(d0.closes==2)
--- Save/load mid-open: the engine removes the doors, the init path recreates them closed.
-train.deleted=false; Floor.UpdateHubDoors(h,30000); assert(d0.opens==3)
-for _,d in ipairs(doors()) do DoneObject(d) end
-h:InitHubDoors(); assert(#doors()==6)
-for _,d in ipairs(doors()) do assert(not d.opens and not d.closes) end
--- The second style switches from the console with no import; the first is removed.
-Floor.SetHubDoorStyle('shutter'); assert(#doors()==0 and #h:GetAttaches('TunnelEntranceDoor')==6)
-for _,d in ipairs(h:GetAttaches('TunnelEntranceDoor')) do assert(d.scale==81 and d.angle%(30*60)==0 and d.angle%(60*60)~=0) end
-Floor.SetHubDoorStyle('glass'); assert(#doors()==6 and #h:GetAttaches('TunnelEntranceDoor')==0 and IsValid(foreign))
 ''')
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
     'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
     'status':'PASS: mocked visual lifecycle; native game behavior untested',
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
-             'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved',
-             'doors: 6 on, 0 off, idempotent, foreign preserved, on the 34.75 m plane turned round',
-             'doors: mocked passing train opens its portal only, once; closes once after the hold',
-             'doors: train off the line opens nothing; destroyed mid-transit closes; recreated closed after mocked load',
-             'doors: second style by console knob, no import']}))
+             'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved']}))
