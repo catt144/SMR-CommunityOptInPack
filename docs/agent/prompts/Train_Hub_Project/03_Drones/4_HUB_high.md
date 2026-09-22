@@ -110,6 +110,18 @@ what link 5's sitting still has to show.
   deadline. Prove both in an offline check, and hand link 5 the two sitting cases: dispatch with the
   maintenance gauge full, and dispatch with the grid dead.
 
+- **Owner ruling, 2026-09-22 — a destroyed hub despawns its drones.** The owner asked whether we
+  have a despawn mechanism for drones that are out when the hub is destroyed, since vanilla would
+  leave them abandoned and ours are not reassignable while the hub lives. `DESIGN.md`'s backstop
+  line is the design and it is unbuilt; **build it here**: any repair drone whose hub is gone, or
+  whose controller is not a train hub, is **removed — in flight or idle** — and one carrying a
+  resource **drops its cube on the ground first**, so nothing is destroyed with it. Kill the
+  drone's command before removing it: nothing may go on executing a route owned by a building that
+  no longer exists. The hub's own destruction path is not enough on its own — **sweep on load too**,
+  so a save made between the two states self-heals. This closes the free-drone exploit (destroy the
+  hub, keep 30 Wasps): orphans are never handed to the colony. Link 5's sitting tests it: drones
+  out, hub destroyed, then save and reload.
+
 ## Lifecycle
 
 Append what the smoke must cover into link 5's notes, then **delete this file and strike its row in

@@ -16,10 +16,14 @@ owner re-presses the armed slot.
    break, save and reload mid-trip, completion and trains running again, a break with the hub short
    of stock, the hub toggled off, a drone near the hub doing ordinary drone work and never charging,
    the reassign buttons greyed, more than 30 jobs with 30 out, one destroyed, an autosave mid-trip.
-2. `DESIGN.md` §6: whether a station can build a train with no repair drone out, and what the hub
+2. **The owner's three 2026-09-22 cases**, which the design did not previously cover: dispatch with
+   the maintenance gauge full (the hub malfunctioned), dispatch with the grid dead, and the hub
+   **destroyed with drones out** — every orphan removed, a carried cube dropped rather than lost,
+   nothing left running a dead hub's command, and a save-and-reload across it.
+3. `DESIGN.md` §6: whether a station can build a train with no repair drone out, and what the hub
    waits for if it cannot — with the owner's ruling on the acknowledgement launch if a drone is the
    missing piece.
-3. The result recorded in the hub report and spec §10, and the owner's rulings where the role that
+4. The result recorded in the hub report and spec §10, and the owner's rulings where the role that
    obeys them reads them.
 
 **Both configurations** (`FIX_POLICY` §8) and both toggle directions belong to the module's ship

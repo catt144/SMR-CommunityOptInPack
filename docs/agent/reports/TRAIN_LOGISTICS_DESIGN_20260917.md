@@ -2115,6 +2115,18 @@ is working" therefore means the **player's switch** (`ui_working`) and not destr
 `IsWorking`. Only the switch stops new dispatches; a repair in flight always completes on its
 deadline. Link 4 builds it; link 5's sitting tests both cases.
 
+
+**Owner ruling, 2026-09-22 — a destroyed hub despawns its drones.** The owner asked what happens to
+drones that are out when the hub is destroyed: vanilla abandons them, and ours cannot be reassigned
+while the hub lives. `DESIGN.md`'s backstop line (a drone whose hub is gone is removed) was never
+built; link 4 builds it now. **Every orphan is removed, in flight or idle; a carried cube is dropped
+on the ground first; the drone's command is ended before removal; and a sweep runs on load** so a
+save taken between the states self-heals. The alternative — letting orphans revert to ordinary free
+Wasps — was declined: it would reward destroying the hub with 30 free drones. Note the interaction
+with the control wrap (link 1): `CanBeControlled` gates only while the live `command_center` is a
+train hub, so without this sweep the orphans would have become adoptable by the colony. Link 5's
+sitting tests drones out, hub destroyed, then save and reload.
+
 ## 10 · The prototype, the next build (authorised 2026-09-18)
 
 **Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
