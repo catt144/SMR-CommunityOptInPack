@@ -1720,6 +1720,34 @@ by angle on the curved parts (normals only; the owner's look says whether the en
 them), a baked AO/bevel layer in the structure rebake, and a two-atlas deck/structure split held
 back until the repack's density is seen.
 
+**UV pass delivered, 2026-09-22 — assets `3d5c11e`, desk-verified; game look UNTESTED, the
+owner's mesh-and-maps import is owed.** Built by an Opus agent; guards, validator and proofs
+rerun by the orchestrator. `reunwrap_hub.py`: per-group unwrap (ring and every tube unrolled
+straight, lids axis-aligned, floor top planar with a polar rim so the rim strip is one texel row,
+portals creased at 20°, the knee of a 60→12° sweep), a deterministic skyline packer replacing
+`uv.pack_islands` (which filled 22% and is not build-stable): one uniform scale, 90° turns only,
+2 texels between a part's own islands, 18 between blocks (an 8-texel bleed each side + 2), 128
+strip cuts, 155 blocks. Body atlas at 4096 (`measure_uv_quality.py`, `export/uv/before.json` →
+`after.json`): **density 13.76 → 19.17 texels/m**, spread 9.0% → **4.2%** (19.04-19.85),
+**coverage 27.68% → 53.66%**, overlap 0, islands 2,018 → 2,603; straightness within 2° of a UV
+axis: tracks, sidings, centre plate 100%, pillars/ring pillars 92 → 100%, clamps 84 → 100%, hoods
+60 → 81%, ring 37 → 74% (median 5.32° → 0.64°, max 6.56°, the lathe's own step), floor rim 0.00°;
+portals' worst-axis p01 1.21 → 18.85/m. Glass: own atlas, 65% covered, 100% straight. Two
+targets not met, measured: coverage < 75% (islands fill boxes 83%, boxes fill padded blocks 69%
+— the 18-texel margin — blocks fill the square 93.65%; the margin is the only lever and stays);
+ribs 9.9% straight because a band is a level set of world radius on an inclined tube (2.2-41.1°
+at the five band radii), unfixable by unwrapping. No face boundary exists at the portal opening
+(`probe_portal_opening.py`), so the arch line stays analytic. Smooth-by-angle 35° on portals,
+hoods, ring, ribs, pillars, clamps and the floor rim (10,256 of 12,970 faces); the painter's
+tangent frame uses face normals, so the bake is unaffected. Proofs: geometry digests 32 of 32
+unchanged (`verify_uv_pass.py`), FBX reimport 30 objects with zero vertex and transform drift,
+UVs and normals the only difference (`verify_fbx_reimport.py`, glass too), fingerprint
+`9eb1dc9a…` reproduced by a plain run and by a from-scratch rebuild, `validate_structure.py` PASS
+with no check weakened. `textures/pad|nostrips|thinlines*` are historical at
+`hub-structure-pass2-20260921`. Owner's steps: README "Current handoff: the comprehensive UV pass"
+— the material is unchanged; run the Body import procedure in full (the Importer re-reads the
+FBX and recompiles all four DDS), save, reload.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
