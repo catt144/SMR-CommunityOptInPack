@@ -1159,8 +1159,11 @@ local hub_light_classes = { "PointLight", "SpotLight" }
 -- Applies to B2 only, the variant every arm carries (hub_light_variants stays the defaults, and
 -- a variant that is not `tuned` ignores this table). Nothing here is saved; a restart resets it.
 Floor.HubLightTune = {
-	intensity = 130,
-	side = 0,            -- cm sideways off the painted line, outward on each mirror side
+	-- Owner, 2026-09-22 (second night look): the whole line went lavender with the spots on
+	-- (spacing 10 m, radius 5 m: every metre of line inside a cone). Intensity 130 -> 50 and the
+	-- spots 1.5 m off the line, so they wash the road beside it and the line keeps its navy.
+	intensity = 50,
+	side = 150,          -- cm sideways off the painted line, outward on each mirror side
 	height = 2 * guim,   -- above the deck
 	color = RGB(0, 40, 255),
 	radius = 5 * guim,
@@ -1189,12 +1192,14 @@ end
 --   SMROptInTrainFloor.SetHubStructureLights{ floor = { on = true } }
 --   SMROptInTrainFloor.SetHubStructureLights{ rim = { intensity = 50, step = 20 }, pit = { on = false } }
 local hub_structure_lights = {
+	-- Owner, 2026-09-22: the ring rim points (0.5 m off a wall) read as intense bleeding circles,
+	-- so that family is OFF by default and the two kept families start much lower.
 	portal = { on = true, name = "portal rims", class = "PointLight",
-		color = RGB(0, 40, 255), intensity = 40, radius = 350 },
+		color = RGB(0, 40, 255), intensity = 15, radius = 350 },
 	pit = { on = true, name = "drone pit kerb", class = "PointLight",
-		color = RGB(0, 40, 255), intensity = 40, radius = 300 },
-	rim = { on = true, name = "ring rim strip", class = "PointLight",
-		color = RGB(0, 40, 255), intensity = 35, radius = 400, step = 10 },
+		color = RGB(0, 40, 255), intensity = 15, radius = 300 },
+	rim = { on = false, name = "ring rim strip", class = "PointLight",
+		color = RGB(0, 40, 255), intensity = 12, radius = 400, step = 10 },
 	floor = { on = false, name = "floor edge strip", class = "PointLight",
 		color = RGB(0, 40, 255), intensity = 30, radius = 300, step = 15 },
 }
@@ -1222,6 +1227,7 @@ local function portal_rim_radius(z)
 end
 local pit_centre_distance, pit_centre_angle = 1155, 30 * 60 -- 11.547 m on the 30 degree midline
 local pit_kerb_radius, pit_kerb_z, pit_posts = 590, 60, 6   -- mouth r 5.75 m, kerb 0.30 x 0.60
+local pit_spot_z = 30                                        -- the Pitrim spot sits on the kerb top
 local ring_rim_radius, ring_rim_z = 3610, 690               -- 0.50 m outside the wall's 35.60 m
 local floor_edge_radius, floor_edge_z = 3060, 45            -- the blue strip just inside r 30.75
 
@@ -1233,7 +1239,7 @@ local function clear_hub_lights(self)
 	end
 end
 
-local function place_hub_light(self, variant, x, y, z)
+local function place_hub_light(self, variant, x, y, z, spot_name)
 	local light = PlaceObjectIn(variant.class, self:GetMap())
 	light:SetDetailClass("Essential") -- a light's default, Eye Candy, drops out at low detail
 	light:SetColor(variant.color)
@@ -1243,7 +1249,7 @@ local function place_hub_light(self, variant, x, y, z)
 		light:SetConeInnerAngle(variant.inner)
 		light:SetConeOuterAngle(variant.outer)
 	end
-	self:Attach(light, self:GetSpotBeginIndex("Origin"))
+	self:Attach(light, self:GetSpotBeginIndex(spot_name or "Origin"))
 	light:SetAttachOffset(point(x, y, z))
 	if variant.class == "SpotLight" then
 		-- UNVERIFIED: assumes a spot shines along its own +X; a quarter turn about Y aims it down.
@@ -1293,10 +1299,17 @@ local function place_hub_structure_lights(self, sets)
 					end
 				end
 			elseif key == "pit" then
-				local centre = Rotate(point(pit_centre_distance, 0), pit_centre_angle)
+				-- Owner, 2026-09-22: placed from the generator's 30-degree midline these landed on
+				-- plain floor (the generator's axes are turned against the entity's). The imported
+				-- Pitrim spot IS the mouth's centre at the kerb top, so the six hang on it; the
+				-- hexagon does not care about the spot's own 60-degree turn. A stand-in entity
+				-- without the spot keeps the computed centre.
+				local on_spot = self:HasSpot("Pitrim")
+				local centre = on_spot and point(0, 0) or Rotate(point(pit_centre_distance, 0), pit_centre_angle)
+				local z = on_spot and pit_kerb_z - pit_spot_z or pit_kerb_z
 				for i = 0, pit_posts - 1 do
 					local post = centre + Rotate(point(pit_kerb_radius, 0), (30 + MulDivRound(360, i, pit_posts)) * 60)
-					list[#list + 1] = place_hub_light(self, family, post:x(), post:y(), pit_kerb_z)
+					list[#list + 1] = place_hub_light(self, family, post:x(), post:y(), z, on_spot and "Pitrim" or nil)
 				end
 			else -- the two concentric rings, sparse points every `step` degrees
 				local radius = key == "rim" and ring_rim_radius or floor_edge_radius

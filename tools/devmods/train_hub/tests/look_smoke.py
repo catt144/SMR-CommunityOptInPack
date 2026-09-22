@@ -87,7 +87,8 @@ function lights()
   for _,v in ipairs(h:GetAttaches(c)) do list[#list+1]=v end
  end return list
 end
-function h:GetSpotBeginIndex(s) assert(s=='Origin'); return 0 end
+function h:GetSpotBeginIndex(s) assert(s=='Origin' or s=='Pitrim', s); return s=='Pitrim' and 27 or 0 end
+function h:HasSpot(s) return s=='Pitrim' end
 function h:Attach(v,spot) v.spot=spot; self.attached[#self.attached+1]=v end
 function h:GatherOrphanedDrones() end
 function h:SetWaitingDronesIdle() end
@@ -134,32 +135,33 @@ function n(k) return #set(k) end
 assert(n('arm')==72, n('arm'))
 local spots=0
 for _,v in ipairs(set('arm')) do
- assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==130 and v.radius==500 and v.offset:z()>800)
+ assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==50 and v.radius==500 and v.offset:z()>800)
  if v.class=='SpotLight' then spots=spots+1; assert(v.axis=='axis_y' and v.angle==90*60 and v.outer==100) end
  local d=math.sqrt(v.offset:x()^2+v.offset:y()^2); assert(d>=800 and d<=8100, d)
 end
 assert(spots==72)
--- Structure lights: the three on families and the off-by-default floor edge, on the model's own lines.
-assert(n('portal')==30 and n('pit')==6 and n('rim')==36 and n('floor')==0)
-assert(#lights()==144, #lights())
+-- Structure lights: portal and pit on, the ring rim and the floor edge off by default (owner, 2026-09-22).
+assert(n('portal')==30 and n('pit')==6 and n('rim')==0 and n('floor')==0)
+assert(#lights()==108, #lights())
+Floor.SetHubStructureLights{rim={on=true}}; assert(n('rim')==36 and #lights()==144)
 for _,v in ipairs(set('portal')) do
- assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==40)
+ assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==15)
  local d=math.sqrt(v.offset:x()^2+v.offset:y()^2)
  assert(d>=2868 and d<=3353, d)                      -- on the flush rim's radial span
  assert(v.offset:z()>=860 and v.offset:z()<=1272)    -- inside the mouth, 0.40 m under the crown
 end
 for _,v in ipairs(set('rim')) do
- assert(v.intensity==35 and v.offset:z()==690)
+ assert(v.intensity==12 and v.offset:z()==690)
  assert(math.abs(math.sqrt(v.offset:x()^2+v.offset:y()^2)-3610)<=1)
 end
-local pc=Rotate(point(1155,0),30*60)
+local pc=point(0,0) -- hung on the Pitrim spot, so the kerb circle is about the spot itself
 for _,v in ipairs(set('pit')) do
- assert(v.intensity==40 and v.offset:z()==60)
+ assert(v.intensity==15 and v.offset:z()==30 and v.spot==27)
  assert(math.abs(math.sqrt((v.offset:x()-pc:x())^2+(v.offset:y()-pc:y())^2)-590)<=1)
 end
 -- The live arm tune: same count, re-init, and every light moved by `side` and recoloured.
 local was={} for i,v in ipairs(set('arm')) do was[i]={v.offset:x(),v.offset:y()} end
-Floor.SetHubLightTune{side=150,intensity=80,radius=7*guim,color=RGB(0,0,200)}
+Floor.SetHubLightTune{side=300,intensity=80,radius=7*guim,color=RGB(0,0,200)}
 assert(n('arm')==72 and #lights()==144)
 local moved=0
 for i,v in ipairs(set('arm')) do
@@ -167,8 +169,8 @@ for i,v in ipairs(set('arm')) do
  if v.offset:x()~=was[i][1] or v.offset:y()~=was[i][2] then moved=moved+1 end
 end
 assert(moved==72, moved)
-Floor.SetHubLightTune('side',0); Floor.SetHubLightTune{intensity=130,radius=5*guim,color=RGB(0,40,255)}
-for i,v in ipairs(set('arm')) do assert(v.offset:x()==was[i][1] and v.offset:y()==was[i][2] and v.intensity==130) end
+Floor.SetHubLightTune('side',150); Floor.SetHubLightTune{intensity=50,radius=5*guim,color=RGB(0,40,255)}
+for i,v in ipairs(set('arm')) do assert(v.offset:x()==was[i][1] and v.offset:y()==was[i][2] and v.intensity==50) end
 -- Every structure family is off-able, and the floor edge strip is on-able, without an import.
 Floor.SetHubStructureLights{portal={on=false},pit={on=false},rim={on=false}}
 assert(n('portal')==0 and n('pit')==0 and n('rim')==0 and #lights()==72)
@@ -195,6 +197,6 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
              'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved',
              'arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets',
-             'structure lights: portal 30 / pit 6 / rim 36 / floor 0 (off by default), 144 with the arms',
+             'structure lights: portal 30 / pit 6 on the Pitrim spot; rim 36 and floor 24 off by default; 108 default, 144 with the rim',
              'structure lights: on the rim span, the kerb circle and the ring radius, at their z',
              'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on']}))
