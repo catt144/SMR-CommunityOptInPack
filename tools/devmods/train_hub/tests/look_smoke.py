@@ -145,7 +145,7 @@ assert(n('portal')==30 and n('pit')==6 and n('rim')==0 and n('floor')==0)
 assert(#lights()==108, #lights())
 Floor.SetHubStructureLights{rim={on=true}}; assert(n('rim')==36 and #lights()==144)
 for _,v in ipairs(set('portal')) do
- assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==15)
+ assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==4)
  local d=math.sqrt(v.offset:x()^2+v.offset:y()^2)
  assert(d>=2868 and d<=3353, d)                      -- on the flush rim's radial span
  assert(v.offset:z()>=860 and v.offset:z()<=1272)    -- inside the mouth, 0.40 m under the crown
