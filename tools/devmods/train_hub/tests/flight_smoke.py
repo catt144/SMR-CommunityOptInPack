@@ -4,6 +4,8 @@ No game/render/import/clearance evidence. Requires lupa, as the adjacent smokes 
 Only opens L2's own source; the hub implementation belongs to L4.
 """
 import json
+import argparse
+import hashlib
 from pathlib import Path
 import subprocess
 
@@ -61,8 +63,15 @@ function O:GetConnectorElement() return self.connectors[1] end
 function O:GetInnerTrackElement() return self.inner end
 function O:GetStartStation() return self.start_el.station end
 function O:GetEndStation() return self.end_el.station end
-function O:SetPos(p) self.pos=p end
+function O:SetPos(p,time) self.pos=p; self.pos_time=time or 0 end
 function O:SetAngle(a) self.angle=a end
+function O:GetAngle() return self.angle or 0 end
+function O:SetCurvature(value) assert(value==false); self.curvature=value end
+function O:SetAcceleration(value) assert(value==0) end
+function O:SetRollPitchYaw(roll,pitch,yaw,time)
+  assert(time>0 and pitch==0 and math.abs(roll)<=SMROptInHubFlight.BankAngle)
+  self.angle=yaw; self.roll=roll; self.turn_time=time
+end
 function O:SetState(s) self.state=s end
 function O:SetVisible(v) self.visible=v end
 function O:TakeOff() self:SetState('fly') end
@@ -143,7 +152,7 @@ drone=assert(SpawnHubDrone(h)); assert(created==1)
 assert(SpawnHubDrone(h)==drone and created==1)
 tick(1500); assert(drone.pos.Z>-2000 and drone.pos.Z<1000)
 assert(ReturnHubDrone()==drone); deadline=F.Status().removed
-assert(deadline==3000); assert(ReturnHubDrone()==drone)
+assert(deadline>3000); assert(ReturnHubDrone()==drone)
 tick(deadline); assert(not F.Status() and drone.deleted)
 -- Fresh full trip: exact deadline, direct work visuals, full battery, return cleanup.
 clock=10000; drone,status=SendHubDroneTo(cs,h)
@@ -160,6 +169,7 @@ tick(completed); assert(drone.state=='fly')
 assert(ReturnHubDrone()==drone and F.Status().removed==finished)
 tick(finished); assert(drone.deleted and not F.Status())
 measured_arrival=arrival-10000; measured_work=completed-10000; measured_total=finished-10000
+assert(measured_arrival==10981 and measured_work==16981 and measured_total==27962)
 -- Recall while beneath the deck must retrace the low lane before the pit column.
 clock=50000; drone,status=SendHubDroneTo(cs,h)
 local low_at
@@ -172,8 +182,9 @@ ReturnHubDrone(); local recalled=F.Status().removed
 for tm=low_at+20,recalled,20 do
   tick(tm)
   if F.Status() then
-    assert(drone.pos.X>=farthest)
-    if drone.pos.X < -1310 then assert(drone.pos.Z==F.UnderDeckHeight) end
+    -- Recall may first brake along the curve; its full path is the flown lane.
+    assert(drone.pos.X>=farthest-F.Speed*F.AccelTime/1000)
+    if drone.pos.X < -1310-F.TurnRadius then assert(drone.pos.Z==F.UnderDeckHeight) end
   end
 end
 tick(recalled); assert(drone.deleted and not F.Status())
@@ -239,15 +250,164 @@ OnMsg.SaveGameStart(); assert(r1.drone.deleted and r2.drone.deleted)
 assert(F.Create(h)==nil); OnMsg.SaveGameDone()
 assert(created==removed)
 ''')
+lua.execute(r'''
+-- A real corner has a continuous nonzero velocity; a reversal reaches its mark.
+function motion_plan(points,span)
+  local p={total=(#points-1)*span}
+  for i=2,#points do p[#p+1]={a=points[i-1],b=points[i],start=(i-2)*span,
+    finish=(i-1)*span,state='fly',hidden=false} end
+  return p
+end
+corner=motion_plan({point(0,0,0),point(6000,0,0),point(6000,6000,0)},1000)
+local mid=F.Position(corner,1000)
+assert(mid.X<6000 and mid.Y>0) -- genuinely curved, not an axis lerp
+local before,after=F.Position(corner,999),F.Position(corner,1001)
+assert(after.X>before.X and after.Y>before.Y)
+reverse=motion_plan({point(0,0,0),point(0,0,1000),point(0,0,0)},1000)
+assert(F.Position(reverse,1000).Z==1000)
+for t=0,2000 do local p=F.Position(reverse,t); assert(p.X==0 and p.Y==0 and p.Z<=1000 and p.Z>=0) end
+-- No AI/path entry point is needed. Throw if a new implementation hands over control.
+local forbidden=function() error('Vanilla command/pathing entered') end
+FlyingDrone.Goto=forbidden; FlyingDrone.FlightGoto=forbidden
+local base=clock+10000
+r=assert(F.Create(h,base)); r.drone.SetCommand=forbidden
+r.drone.Goto=forbidden; r.drone.FlightGoto=forbidden; r.drone.UseBattery=forbidden
+assert(F.Send(r,cs,true)); local previous_yaw=r.drone:GetAngle()
+max_yaw_step=0; timed_positions=0
+for now=base,r.removed-1,20 do
+  clock=now; assert(F.Update(r,now))
+  local yaw=r.drone:GetAngle()
+  local jump=math.abs((yaw-previous_yaw+10800)%21600-10800)
+  assert(jump<=515,'20-ms yaw jump exceeds filtered half-turn bound')
+  max_yaw_step=math.max(max_yaw_step,jump); previous_yaw=yaw
+  if r.drone.pos_time>0 then timed_positions=timed_positions+1 end
+  assert(not r.drone.curvature and not r.drone.command)
+  local pos=r.drone.pos; F.Update(r,now); assert(pos==r.drone.pos) -- pause
+end
+assert(timed_positions>0); F.Update(r,r.removed); assert(r.drone.deleted)
+-- Smoothness tuners cannot change authoritative arrival/work/removal offsets.
+r=F.Create(h,base); F.Send(r,cs,true)
+local expected={r.arrival,r.work_done,r.removed}
+for _,name in ipairs({'TurnRadius','BlendTime','AccelTime','HeadingTime','BankAngle'}) do
+  assert(SetHubDroneTune(name,F[name]))
+end
+F.TurnRadius=150; F.AccelTime=200; F.BlendTime=200
+q=F.Create(h,base); F.Send(q,cs,true)
+assert(q.arrival==expected[1] and q.work_done==expected[2] and q.removed==expected[3])
+F.TurnRadius=300; F.AccelTime=400; F.BlendTime=400
+-- Sparse/late sampling catches up instead of extending an economic deadline.
+assert(F.Update(q,q.arrival+100)); assert(q.drone.state=='constructStart')
+assert(q.drone.pos.Z==F.FixHeight)
+assert(not F.Update(q,q.removed+10000))
+r.drone.run_cmd_on_land='Malfunction'; assert(not F.Update(r,base+1))
+-- Recalling within a corner retraces the original curve, including the braking arc.
+clock=base+50000; drone,status=SendHubDroneTo(cs,h)
+tick(clock+F.LaunchTime+480); local recall_start=clock
+ReturnHubDrone(); local stop=F.Status().removed
+assert(ReturnHubDrone()==drone and F.Status().removed==stop)
+for now=recall_start,stop-1,20 do tick(now); assert(F.Status()) end
+tick(stop); assert(not F.Status())
+assert(SetHubDroneTune('BankAngle',0)); assert(not SetHubDroneTune('BankAngle',301))
+assert(SetHubDroneTune('BankAngle',180)); assert(created==removed)
+''')
+
+# Check C1 at every compiled seam, including unequal speeds and exact stops.
+def check_curves(curves):
+    previous = None
+    for c in curves.values():
+        p = [list(v.values()) for v in c.points.values()]
+        span = c.finish-c.start
+        first = [(p[1][k]-p[0][k])*(len(p)-1)/span for k in range(3)]
+        last = [(p[-1][k]-p[-2][k])*(len(p)-1)/span for k in range(3)]
+        if previous:
+            assert abs(previous[0]-c.start)<1e-7
+            assert max(abs(a-b) for a,b in zip(previous[1],p[0]))<1e-7
+            assert max(abs(a-b) for a,b in zip(previous[2],first))<1e-7
+        previous = (c.finish,p[-1],last)
+
+for plan in (lua.globals().corner, lua.globals().reverse, lua.globals().r.plan):
+    check_curves(lua.globals().F.PrepareMotion(plan))
+lua.execute('''
+local plan=r.plan
+for t=0,measured_arrival,37 do
+  local out=F.Position(plan,t); local back=F.Position(plan,plan.total-t)
+  assert(out:Dist(back)<=1,'Return must share the measured outward envelope')
+end
+''')
+
+# Actual archived FlightGoto, with a solver spy: the destination is a solver
+# request, not a waypoint-constrained interpolator. This is a source contract test.
+archive = Path('B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.0.403908/Src')
+flight = (archive/'Lua/Flight.lua').read_text(encoding='utf8')
+body = flight.split('function FlyingObject:FlightGoto(dest, dest_vector)',1)[1].split('\nfunction FlyingObject:FlightStop()',1)[0]
+native = LuaRuntime()
+native.execute('''FlyingObject={}; calls=0; Sleep=function() error('yield') end
+function Flight_Step(self,dest,vector) calls=calls+1; self.solver_dest=dest; self.pos='solver-owned'; return -1 end
+function IsValid() return true end
+''')
+native.execute('local fssFinished=-1; local fssRequestFailed=-9; local debug=false\nfunction FlyingObject:FlightGoto(dest,dest_vector)'+body)
+native.execute('''o=setmetatable({sync_path=true},{__index=FlyingObject})
+function o:GetFlying() return false end; function o:FlightStop() self.stopped=true end
+assert(o:FlightGoto('requested-waypoint')); assert(calls==1 and o.solver_dest=='requested-waypoint')
+assert(o.pos=='solver-owned' and o.stopped)
+''')
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--clearance-output',type=Path)
+args = parser.parse_args()
+if args.clearance_output:
+    entity_path=ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson'
+    entity=json.loads(entity_path.read_text())
+    spots={s['name']:s['spotPos'] for s in entity['$value']['meshDescriptions'][0]['attaches']}
+    lua.globals().spot_floor=lua.table_from(spots['Pitfloor'])
+    lua.globals().spot_rim=lua.table_from(spots['Pitrim'])
+    lua.execute('''function GetEntitySpotPos(_,idx)
+      local p=idx==0 and spot_floor or spot_rim; return point(p[1],p[2],p[3]) end''')
+    routes={}
+    for name,spot in spots.items():
+        if not name.startswith('Trackconnector'): continue
+        lua.globals().connector=lua.table_from(spot)
+        lua.execute('''mh=hub(); ms=obj(20000,0); local c=connector
+        mt=track(mh,ms,{{c[1],c[2],c[3]},{c[1]*4,c[2]*4,c[3]}})
+        mr=F.Create(mh,0); F.Send(mr,mt.elements[2],true)
+        export_plan={total=0}
+        for _,s in ipairs(mr.plan) do
+          if s.state~='fly' then break end
+          export_plan[#export_plan+1]=s; export_plan.total=s.finish
+        end
+        F.PrepareMotion(export_plan); F.Remove(mr)''')
+        plan=lua.globals().export_plan
+        check_curves(plan.motion)
+        routes[name]=[{'start':c.start,'finish':c.finish,
+                      'points':[list(p.values()) for p in c.points.values()]}
+                     for c in plan.motion.values()]
+    args.clearance_output.write_text(json.dumps({
+        'command':'python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output '+str(args.clearance_output),
+        'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+        'source_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+        'entity_sha256':hashlib.sha256(entity_path.read_bytes()).hexdigest(),
+        'bank_angle_minutes':lua.globals().F.BankAngle,'routes':routes},indent=2)+'\n')
 g = lua.globals()
+assert g.created==g.removed
+if not args.clearance_output:
+    receipt=json.loads((ROOT/'tools/devmods/train_hub/tests/motion_clearance_receipt.json').read_text())
+    assert receipt['source_sha256']==receipt['motion']['source_sha256']==hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    assert receipt['entity_sha256']==hashlib.sha256((ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson').read_bytes()).hexdigest()
+    assert receipt['blend_sha256']==hashlib.sha256(Path(receipt['blend']).read_bytes()).hexdigest()
+    assert receipt['leg_count']==len(receipt['legs'])==sum(len(v) for v in receipt['motion']['routes'].values())>0
+    assert receipt['triangle_total']==sum(receipt['object_triangles'].values())>0
+    assert all(v['margin_m']>0 for v in receipt['legs'].values())
 result = {
-    "command": "python tools/devmods/train_hub/tests/flight_smoke.py",
+    "command": "python tools/devmods/train_hub/tests/flight_smoke.py"+(" --clearance-output "+str(args.clearance_output) if args.clearance_output else ""),
     "head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
     "source_sha256": __import__("hashlib").sha256(SOURCE.read_bytes()).hexdigest(),
-    "scope": "mocked Lua only; no native flight, clearance, import or save serialization claim",
+    "scope": "mocked Lua / source contract; ordinary run also verifies mesh receipt; no native flight, import or serialization claim",
     "result": "PASS",
     "fixture_game_ms": {"arrival": g.measured_arrival, "work_done": g.measured_work, "removed": g.measured_total},
     "visuals_created": g.created,
     "visuals_removed": g.removed,
+    "max_20ms_heading_step_minutes": g.max_yaw_step,
+    "timed_position_calls": g.timed_positions,
+    "native_solver_contract": "archived FlightGoto executed with solver spy; solver owns path",
 }
 print(json.dumps(result, indent=2))

@@ -11,6 +11,8 @@ import json
 import math
 from pathlib import Path
 import subprocess
+import sys
+import argparse
 
 import bpy
 import numpy as np
@@ -36,14 +38,25 @@ def hull(points):
     return np.array(lower[:-1]+upper[:-1])
 
 
-def sweep(a, b, triangles):
-    # Horizontal or vertical extrusion; the polygon contains the full yaw cylinder.
-    assert a[2] == b[2] or a[:2] == b[:2]
-    radius = math.hypot(1.38, 1.08)/math.cos(math.pi/32)
+def sweep(a, b, triangles, controls=None, bank=0):
+    # Convex control hull + a yaw-independent Wasp envelope. Roll enlargement is
+    # conservative for any |bank| <= the configured cap; pitch remains zero.
+    if controls is None:
+        assert a[2] == b[2] or a[:2] == b[:2]
+        controls=[a,b]
+    lateral=math.hypot(1.38,1.08)
+    rounding=.005 if bank or len(controls)>2 else 0
+    radius = (lateral+1.83*math.sin(bank)+rounding)/math.cos(math.pi/32)
     circle = [(radius*math.cos(i*math.tau/32), radius*math.sin(i*math.tau/32)) for i in range(32)]
-    poly = hull([(p[0]+x, p[1]+y) for p in (a,b) for x,y in circle])
-    zlo, zhi = min(a[2],b[2])+.24, max(a[2],b[2])+1.83
+    poly = hull([(p[0]+x, p[1]+y) for p in controls for x,y in circle])
+    zlo = min(p[2] for p in controls)+.24*math.cos(bank)-lateral*math.sin(bank)-rounding
+    zhi = max(p[2] for p in controls)+1.83+lateral*math.sin(bank)+rounding
     vertices = np.array([(x,y,z) for z in (zlo,zhi) for x,y in poly])
+    broad=np.maximum(triangles.min(axis=1)-vertices.max(axis=0),
+                     vertices.min(axis=0)-triangles.max(axis=1)).max(axis=1)
+    nearby=broad<=2
+    if not nearby.any(): return broad
+    triangles=triangles[nearby]
     edges = np.column_stack((np.roll(poly,-1,axis=0)-poly, np.zeros(len(poly))))
     edges = np.vstack((edges, [0,0,1]))
     face_axes = np.vstack((np.cross(edges[:-1], [0,0,1]), [0,0,1]))
@@ -69,7 +82,8 @@ def sweep(a, b, triangles):
         pv=unit @ vertices.T
         gap=np.maximum(tv.min(axis=1)-pv.max(axis=1),pv.min(axis=1)-tv.max(axis=1))
         np.maximum(gaps,np.where(good,gap,-np.inf),out=gaps)
-    return gaps
+    broad[nearby]=gaps
+    return broad
 
 
 deps=bpy.context.evaluated_depsgraph_get()
@@ -90,6 +104,7 @@ entity=json.loads((ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entj
 # Read constants from the implemented source, so tuning invalidates this measurement.
 import re
 source=SOURCE.read_text()
+source_hash=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 def constant(name):
     return float(re.search(r'\b'+name+r'\s*=\s*(-?[\d.]+)',source).group(1))/100
 
@@ -109,6 +124,10 @@ out=generator((constant('ExitDirectionX')/10*constant('OutwardDistance'),
                constant('ExitDirectionY')/10*constant('OutwardDistance'),constant('UnderDeckHeight')))
 high=(*out[:2],constant('TransferHeight'))
 points=[floor,rim,crest,cruise,out,high]
+parser=argparse.ArgumentParser()
+parser.add_argument('--motion',type=Path)
+parser.add_argument('--receipt',type=Path)
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 names=['floor_to_rim','rim_to_crest','crest_to_cruise','under_deck_out','outside_climb']
 results={}
 legs=list(zip(names,points,points[1:]))
@@ -118,16 +137,74 @@ for name,spot in spots.items():
     ride=(*rail[:2],rail[2]+constant('OverTrackHeight')+constant('HoverHeight'))
     transfer=(*rail[:2],max(high[2],ride[2]))
     legs += [(name+'_transfer',high,transfer),(name+'_onto_rail',transfer,ride)]
+motion=None
+control_sets={}
+contexts={}
+bank=0
+if args.motion:
+    motion=json.loads(args.motion.read_text())
+    assert motion['source_sha256']==hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    assert motion['entity_sha256']==hashlib.sha256((ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson').read_bytes()).hexdigest()
+    bank=math.radians(motion['bank_angle_minutes']/60)
+    def split(control,u):
+        rows=[np.array(control,dtype=float)]
+        while len(rows[-1])>1: rows.append(rows[-1][:-1]*(1-u)+rows[-1][1:]*u)
+        return [r[0].tolist() for r in rows], [r[-1].tolist() for r in rows[::-1]]
+    def clip(c,lo,hi):
+        u0=max(0,(lo-c['start'])/(c['finish']-c['start']))
+        u1=min(1,(hi-c['start'])/(c['finish']-c['start']))
+        left,_=split(c['points'],u1)
+        return split(left,u0/u1)[1] if u0>0 else left
+    legs=[]
+    for name,curves in motion['routes'].items():
+        for i,c in enumerate(curves):
+            # Runtime chords span at most 100 game-ms; include clipped neighbour
+            # hulls so a chord straddling a curve seam is bounded too. Recall's
+            # source clock advances no faster than this forward clock.
+            lo,hi=c['start']-100,c['finish']+100
+            controls=[generator(tuple(v/100 for v in p)) for other in curves
+                      if other['finish']>lo and other['start']<hi
+                      for p in clip(other,lo,hi)]
+            label=f'{name}_curve_{i:02d}'
+            control_sets[label]=controls
+            contexts[label]=(curves,c['start'],c['finish'])
+            legs.append((label,controls[0],controls[-1]))
 # Positive/negative controls: intersecting and clearly separated triangles.
 assert sweep((0,0,0),(10,0,0),np.array([[[5,-1,1],[5,1,1],[5,0,2]]],dtype=float))[0]<=0
 assert sweep((0,0,0),(10,0,0),np.array([[[5,-1,10],[5,1,10],[5,0,11]]],dtype=float))[0]>0
+cache={}
 for name,a,b in legs:
     margins={}; worst_triangles={}
+    refinements={}
+    controls=control_sets.get(name)
+    cache_key=repr(controls or [a,b])
+    if cache_key in cache:
+        results[name]=cache[cache_key]
+        continue
     for ob,triangles in groups.items():
         # The bottom of the drone is .24 m above the floor; include floor and shaft.
-        gaps=sweep(a,b,triangles)
-        margins[ob]=float(gaps.min())
-        worst_triangles[ob]=triangles[int(gaps.argmin())].tolist()
+        gaps=sweep(a,b,triangles,controls,bank)
+        margin=float(gaps.min()); triangle=int(gaps.argmin())
+        if margin<=0 and name in contexts:
+            # A prism spreads one corner's height across a long straight. If it
+            # intersects, subdivide TIME (not the safety envelope) and require
+            # every smaller, still conservative prism to separate.
+            curves,t0,t1=contexts[name]
+            leaves=[]
+            def refine(lo,hi):
+                pts=[generator(tuple(v/100 for v in p)) for c in curves
+                     if c['finish']>lo-100 and c['start']<hi+100
+                     for p in clip(c,lo-100,hi+100)]
+                gs=sweep(pts[0],pts[-1],triangles,pts,bank)
+                value=float(gs.min()); index=int(gs.argmin())
+                if value<=0 and hi-lo>1:
+                    return min(refine(lo,(lo+hi)/2),refine((lo+hi)/2,hi))
+                leaves.append({'start':lo,'finish':hi,'margin_m':value,'controls':pts})
+                return value,index
+            margin,triangle=refine(t0,t1)
+            refinements[ob]=leaves
+        margins[ob]=margin
+        worst_triangles[ob]=triangles[triangle].tolist()
     worst=min(margins,key=margins.get)
     families={'deck':('Track_','CentrePlate','Siding_'), 'centre_pillars':('Pillar_',),
               'ring_pillars':('RingPillar_',), 'beds':('Bay_',), 'ring_wall':('Ring',),
@@ -139,7 +216,9 @@ for name,a,b in legs:
         member=min(members,key=members.get)
         nearest[family]={'object':member,'margin_m':members[member]}
     results[name]={'worst_object':worst,'margin_m':margins[worst],
-                  'worst_triangle_generator_m':worst_triangles[worst], 'families':nearest}
+                  'worst_triangle_generator_m':worst_triangles[worst], 'families':nearest,
+                  'refined_objects':refinements}
+    cache[cache_key]=results[name]
 result={'command':'blender -b <work.blend> --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py',
         'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'assets_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=BLEND.parents[2],text=True).strip(),
@@ -150,6 +229,18 @@ result={'command':'blender -b <work.blend> --python-exit-code 1 --python tools/d
         'triangle_total':sum(map(len,groups.values())),
         'excluded_names':sorted(EXCLUDED), 'generator_waypoints_m':points,
         'leg_count':len(legs),'legs':results}
-print('EXIT_CLEARANCE_JSON='+json.dumps(result))
+if motion:
+    result.update(motion=motion,bank_angle_minutes=motion['bank_angle_minutes'],
+                  interpolation_horizon_game_ms=100,control_hulls_generator_m=control_sets)
+    result['command']='blender -b '+str(BLEND)+' --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion '+str(args.motion)+' --receipt '+str(args.receipt)
 assert hashlib.sha256(BLEND.read_bytes()).hexdigest()==blend_hash, 'Shared geometry changed during measurement'
+assert hashlib.sha256(SOURCE.read_bytes()).hexdigest()==source_hash, 'Flight source changed during measurement'
+assert len(results)==len(legs)
+assert sum(len(t) for t in groups.values())==result['triangle_total']
+if args.receipt: args.receipt.write_text(json.dumps(result,indent=2)+'\n')
+worst=min(results,key=lambda n:results[n]['margin_m'])
+print('EXIT_CLEARANCE_SUMMARY='+json.dumps({'head':result['head'],'source_sha256':result['source_sha256'],
+      'objects':len(groups),'triangles':result['triangle_total'],'legs':len(legs),
+      'worst_leg':worst,**results[worst]}))
+if not args.receipt: print('EXIT_CLEARANCE_JSON='+json.dumps(result))
 assert all(v['margin_m']>0 for v in results.values()), 'Swept envelope overlaps geometry'

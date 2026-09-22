@@ -15,7 +15,7 @@ SMROptInHubFlight = {
   FixHeight = 100,          -- GUESS work origin above the target element, not cruise altitude
   UnderDeckHeight = 300,    -- entity-local z; native-scale mesh measured by exit_clearance.py
   OutwardDistance = 9000,   -- radius from hub origin before climbing, beyond arms/platforms
-  ClimbRate = 1500,         -- GUESS vertical units/game second, also used for site descent
+  ClimbRate = 1500,         -- GUESS nominal vertical rate for deadline budgeting
   TransferHeight = 2500,    -- entity-local z for crossing back above the hub after outside climb
   ExitDirectionX = -866, ExitDirectionY = -500, -- /1000; generator 30-degree pillar gap
   Speed = 6000,             -- engine units per game second; GUESS
@@ -26,6 +26,11 @@ SMROptInHubFlight = {
   BatteryMax = 800000,
   Palette = false,          -- optional array of four colours, L3 visual verdict
   SampleTime = 20,          -- real ms; position and deadlines use GameTime(), not wall time
+  TurnRadius = 300,         -- GUESS maximum corner trim, units (not lateral lane offset)
+  BlendTime = 400,          -- GUESS full velocity-blend window, game ms
+  AccelTime = 400,          -- GUESS start/stop easing window, game ms; deadlines win
+  HeadingTime = 400,        -- GUESS yaw/roll response time, game ms
+  BankAngle = 180,          -- GUESS maximum bank in angle minutes; 0 disables bank
 }
 
 local F = SMROptInHubFlight
@@ -193,7 +198,8 @@ function F.Route(hub, target)
 end
 
 local function duration(a, b)
-  -- Limit vertical motion as well as total speed; applies in both directions and recall.
+  -- Budget time by vertical and total distance. Eased starts/stops can peak at
+  -- 4/3 nominal speed within that fixed budget; these are not physics speed caps.
   return Max(Max(1, MulDivRound(a:Dist(b), 1000, F.Speed)),
     MulDivRound(math.abs(b:z()-a:z()), 1000, F.ClimbRate))
 end
@@ -233,6 +239,145 @@ local function pit_segments(plan, pit, landing)
   plan[#plan].pit = true
 end
 
+-- Deadline-owned curves, independent of the engine path solver. Ordinary corners
+-- use a quadratic Bezier with matching incoming/outgoing velocities. Reversals,
+-- work and visibility boundaries reach the exact waypoint with zero velocity.
+-- All control points lie on the original legs: the convex hull bounds clearance.
+local function mix(a, b, t)
+  return {a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t, a[3]+(b[3]-a[3])*t}
+end
+local function xyz(p) return {p:x(), p:y(), p:z()} end
+local function length(v) return math.sqrt(v[1]^2+v[2]^2+v[3]^2) end
+local function velocity(s)
+  local dt = s.finish-s.start
+  return {(s.b[1]-s.a[1])/dt, (s.b[2]-s.a[2])/dt, (s.b[3]-s.a[3])/dt}
+end
+local function offset(p, v, dt) return {p[1]+v[1]*dt,p[2]+v[2]*dt,p[3]+v[3]*dt} end
+
+function F.PrepareMotion(plan)
+  local edges, curves = {}, {}
+  local pending=0
+  for index, s in ipairs(plan) do
+    local previous = edges[#edges]
+    local following=plan[index+1]
+    -- Duplicate route vertices retain their milliseconds, without a spurious stop.
+    if s.state == "fly" and s.a:Dist(s.b) == 0 and previous
+      and s.finish-s.start==1 and following and following.state=="fly"
+      and previous.state == "fly" and previous.hidden == s.hidden
+      and following.hidden==s.hidden then
+      -- Share the duplicate's millisecond symmetrically: reverse uses the same
+      -- curve. A real hover wait remains a stationary edge with a full stop.
+      previous.finish=previous.finish+.5
+      pending=pending+.5
+    else
+      edges[#edges+1] = {a=xyz(s.a), b=xyz(s.b), start=s.start-pending, finish=s.finish,
+        state=s.state, hidden=s.hidden}
+      pending=0
+    end
+  end
+  local joins = {}
+  for i=1,#edges-1 do
+    local a,b = edges[i],edges[i+1]
+    local va,vb = velocity(a),velocity(b)
+    local la,lb = length(va),length(vb)
+    local dot = va[1]*vb[1]+va[2]*vb[2]+va[3]*vb[3]
+    if la>0 and lb>0 and a.hidden==b.hidden and dot > -.95*la*lb then
+      joins[i] = Min(F.BlendTime/2, (a.finish-a.start)/4, (b.finish-b.start)/4,
+        F.TurnRadius/Max(la,lb))
+    end
+  end
+  local function add(t0,t1,points)
+    if t1>t0 then curves[#curves+1]={start=t0,finish=t1,points=points} end
+  end
+  for i,s in ipairs(edges) do
+    local v=velocity(s)
+    local w0=joins[i-1] or Min(F.AccelTime,(s.finish-s.start)/4)
+    local w1=joins[i] or Min(F.AccelTime,(s.finish-s.start)/4)
+    local a,b=offset(s.a,v,w0),offset(s.b,v,-w1)
+    if not joins[i-1] then
+      add(s.start,s.start+w0,{s.a,s.a,offset(a,v,-w0/3),a})
+    end
+    add(s.start+w0,s.finish-w1,{a,b})
+    if joins[i] then
+      add(s.finish-w1,s.finish+w1,{b,s.b,offset(s.b,velocity(edges[i+1]),w1)})
+    else
+      add(s.finish-w1,s.finish,{b,offset(b,v,w1/3),s.b,s.b})
+    end
+  end
+  plan.motion=curves
+  return curves
+end
+
+-- Public pure sampler: tests/clearance and L4 reconstruction use the same curve.
+local function recall_time(plan,t)
+  local brake=plan.brake
+  if t<brake then return plan.turnaround-(brake-t)^2/(2*brake) end
+  t=t-brake
+  if t<brake then return plan.turnaround-t*t/(2*brake) end
+  return Max(0,plan.turnaround-t+brake/2)
+end
+function F.Position(plan, elapsed)
+  if plan.source then return F.Position(plan.source,recall_time(plan,elapsed)) end
+  local curves=plan.motion or F.PrepareMotion(plan)
+  local selected=curves[#curves]
+  for _,c in ipairs(curves) do if elapsed<c.finish then selected=c; break end end
+  if not selected then return nil end
+  local p=selected.points
+  local u=Clamp((elapsed-selected.start)/(selected.finish-selected.start),0,1)
+  local q={}
+  for i,v in ipairs(p) do q[i]=v end
+  for n=#q-1,1,-1 do for i=1,n do q[i]=mix(q[i],q[i+1],u) end end
+  return point(math.floor(q[1][1]+.5),math.floor(q[1][2]+.5),math.floor(q[1][3]+.5))
+end
+
+local function render(a, elapsed, step)
+  local drone=a.drone
+  if a.sampled==elapsed then return end -- pause: leave game-time interpolation alone
+  local dt=a.sampled and Clamp(elapsed-a.sampled,1,100) or F.SampleTime
+  local until_time=Min(elapsed+dt,step and step.finish or a.plan.total)
+  if a.plan.source then
+    until_time=Min(until_time,a.plan.total)
+    local function same_visibility(t)
+      local original=recall_time(a.plan,t)
+      for _,s in ipairs(a.plan.source) do
+        if original<s.finish then return s.hidden==(a.step and a.step.hidden or false) end
+      end
+      return true
+    end
+    -- Do not predict a visible chord beyond a tunnel's concealment boundary.
+    if not same_visibility(until_time) then
+      local lo,hi=elapsed,until_time
+      for _=1,12 do local mid=(lo+hi)/2
+        if same_visibility(mid) then lo=mid else hi=mid end
+      end
+      until_time=math.floor(lo)
+    end
+  end
+  local pos=F.Position(a.plan,elapsed)
+  -- First/rebuilt frame or a missed prediction catches up to absolute time.
+  -- Ordinary ticks start where the previous interpolation ended.
+  if a.predicted~=elapsed then drone:SetPos(pos) end
+  local target=F.Position(a.plan,until_time)
+  local direction=F.Position(a.plan,Min(a.plan.total,elapsed+F.HeadingTime))
+  local yaw=a.yaw or drone:GetAngle()
+  local delta=0
+  if direction:x()~=pos:x() or direction:y()~=pos:y() then
+    delta=(CalcOrientation(pos,direction)-yaw+10800)%21600-10800
+  end
+  local blend=dt/(F.HeadingTime+dt)
+  local turn=delta*blend
+  a.yaw=(yaw+turn)%21600
+  local bank=Clamp(-turn*1000/Max(1,dt),-F.BankAngle,F.BankAngle)
+  a.bank=(a.bank or 0)+(bank-(a.bank or 0))*blend
+  -- Build 24995074: GameObject.lua:707; Train.lua:495 uses timed
+  -- SetRollPitchYaw. ComponentInterpolation is used; curvature stays OFF
+  -- so the engine cannot bow the measured hull or choose another route.
+  local time=Max(0,until_time-elapsed)
+  drone:SetPos(target,time)
+  drone:SetRollPitchYaw(math.floor(a.bank+.5),0,math.floor(a.yaw+.5),Max(1,dt))
+  a.sampled,a.predicted=elapsed,until_time
+end
+
 function F.Remove(old)
   if old then visuals[old] = nil end
   if old and IsValid(old.drone) then
@@ -265,17 +410,22 @@ end
 function F.Update(a, now)
   if not a then return false end
   if save_gate or not hub_ok(a.hub) or not live(a.drone) or a.drone.command_center ~= a.hub
-    or a.drone.command then F.Remove(a); return false end
+    or a.drone.command or a.drone.run_cmd_on_land then F.Remove(a); return false end
   a.drone.battery = a.drone.battery_max
   local elapsed = Max(0, (now or GameTime()) - a.started)
+  local sampled_plan, sampled_time=a.plan,elapsed
+  if a.plan.source then
+    if elapsed>=a.plan.total then a.drone:LandingEnd(); F.Remove(a); return false end
+    sampled_plan,sampled_time=a.plan.source,recall_time(a.plan,elapsed)
+  end
   local step
-  for _, s in ipairs(a.plan) do
-    if elapsed < s.finish then step = s; break end
+  for _, s in ipairs(sampled_plan) do
+    if sampled_time < s.finish then step = s; break end
   end
   if not step then
     if a.remove then a.drone:LandingEnd(); F.Remove(a); return false end
     a.phase = "hover"
-    a.drone:SetPos(a.pit[3])
+    render(a, a.plan.total)
     return true
   end
   if step.owner and not live(step.owner) then F.Remove(a); return false end
@@ -288,13 +438,10 @@ function F.Update(a, now)
     if step.state == "constructStart" or step.state == "constructIdle" then
       a.drone:StartFX("Construct", live(a.target) and a.target or nil)
     end
-    if step.a:x() ~= step.b:x() or step.a:y() ~= step.b:y() then
-      a.drone:SetAngle(CalcOrientation(step.a, step.b))
-    end
   end
-  local t, span = Clamp(elapsed-step.start, 0, step.finish-step.start), step.finish-step.start
-  local function axis(x, y) return x + MulDivRound(y-x, t, span) end
-  a.drone:SetPos(point(axis(step.a:x(), step.b:x()), axis(step.a:y(), step.b:y()), axis(step.a:z(), step.b:z())))
+  -- A recalled flight reads visibility/owner from the original curve's time.
+  -- Its render horizon cannot use a forward trip's semantic timestamp.
+  if a.plan.source then render(a,elapsed) else render(a,elapsed,step) end
   return true
 end
 
@@ -325,6 +472,8 @@ function F.Create(hub, started)
   -- Keep the console visual out of controller dispatch lists; L4 owns fleet integration.
   drone:SetPos(pit[1])
   drone:TakeOff()
+  drone:SetCurvature(false)
+  drone:SetAcceleration(0)
   if F.Palette then Building.SetPalette(drone, table.unpack(F.Palette)) end
   local plan = {total = 0}
   pit_segments(plan, pit, false)
@@ -369,7 +518,7 @@ function F.Send(record, target, keep_start)
   pit_segments(plan, record.pit, true)
   record.plan, record.target, record.remove = plan, target, true
   record.arrival, record.work_done, record.removed = arrival, work_done, start + plan.total
-  record.step = false
+  record.step,record.predicted = false,false
   return record
 end
 
@@ -394,34 +543,28 @@ function ReturnHubDrone()
   -- Retrace only the actually traversed movement segments, including hidden tunnel legs.
   F.Sample()
   if not active then return true end
-  local a, plan, now = active, {total = 0}, GameTime()
+  local a, now = active, GameTime()
   if a.work_done and now >= a.work_done then
     a.returning = true
     return a.drone, F.Status()
   end
-  local elapsed = now-a.started
-  local movements = {}
-  for _, s in ipairs(a.plan) do
-    if s.start >= elapsed then break end
-    if s.state == "fly" then movements[#movements+1] = s end
-    if elapsed < s.finish then break end
-  end
-  local pos = a.drone:GetPos()
-  for i = #movements, 1, -1 do
-    local s = movements[i]
-    -- Reverse the full prefix, even if already inbound: no off-track shortcut.
-    local ms = duration(pos, s.a)
-    if s.pit then
-      local full_distance = Max(1, s.a:Dist(s.b))
-      ms = Max(1, MulDivRound(MulDivRound(s.finish-s.start, F.LandingTime, F.LaunchTime),
-        pos:Dist(s.a), full_distance))
+  local elapsed = Min(now-a.started,a.arrival and a.arrival-a.started or a.plan.total)
+  -- Brake along the same curve, then play its prefix backwards. No new chord
+  -- across the rounded corner. Never brake into work or across a visibility seam.
+  local limit=a.arrival and a.arrival-a.started or a.plan.total
+  for _,s in ipairs(a.plan) do
+    if s.finish>elapsed and s.hidden~=(a.step and a.step.hidden or false) then
+      limit=Min(limit,s.start); break
     end
-    segment(plan, pos, s.a, ms, "fly", s.hidden, s.owner)
-    pos = s.a
   end
+  local brake=Min(F.AccelTime,2*Max(0,limit-elapsed))
+  local turnaround=Min(limit,elapsed+brake/2)
+  local plan={source=a.plan,brake=brake,turnaround=turnaround,
+    total=math.ceil(turnaround+brake*1.5)}
   a.drone:StopFX()
   a.plan, a.started, a.remove, a.returning, a.step = plan, now, true, true, false
   a.arrival, a.work_done, a.removed = false, false, now+plan.total
+  a.sampled,a.predicted=false,false
   return a.drone, F.Status()
 end
 
@@ -429,9 +572,11 @@ function SetHubDroneTune(name, value)
   if active then return false, "Return the prototype before changing its constants" end
   local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
     UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
-    Speed = true, LaunchTime = true, LandingTime = true, WorkTime = true}
-  if not tuneable[name] or type(value) ~= "number" or value <= 0 or value ~= math.floor(value) then
-    return false, "Use a named flight constant and a positive integer" end
+    Speed = true, LaunchTime = true, LandingTime = true, WorkTime = true,
+    TurnRadius=true, BlendTime=true, AccelTime=true, HeadingTime=true, BankAngle=true}
+  if not tuneable[name] or type(value) ~= "number" or value < (name=="BankAngle" and 0 or 1)
+    or value ~= math.floor(value) or (name=="BankAngle" and value>300) then
+    return false, "Use a named positive integer; BankAngle allows 0..300 angle minutes" end
   F[name] = value
   return true
 end
