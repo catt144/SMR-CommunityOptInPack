@@ -1118,8 +1118,9 @@ local hub_light_variants = {
 		intensity = 120, radius = 150, spacing = 3 * guim, height = 30 },
 	B1 = { name = "Ice rail", class = "PointLight", color = RGB(40, 160, 255),
 		intensity = 60, radius = 3 * guim, spacing = 6 * guim, height = 40 },
-	B2 = { name = "Deep blue wash", class = "SpotLight", color = RGB(0, 40, 255),
+	B2 = { name = "Deep blue wash", class = "SpotLight", color = RGB(0, 40, 255), tuned = true,
 		-- owner, 2026-09-21: intensity "slightly bumped" from 100, which R2 keeps
+		-- `tuned`: Floor.HubLightTune below overrides these live, from the console (owner 2026-09-22)
 		intensity = 130, radius = 5 * guim, spacing = 10 * guim, height = 2 * guim, inner = 50, outer = 100 },
 	B3 = { name = "Cobalt beads", class = "PointLight", color = RGB(90, 110, 255),
 		intensity = 120, radius = 150, spacing = 3 * guim, height = 30 },
@@ -1152,6 +1153,85 @@ local function hub_line_v(u)
 end
 local hub_light_classes = { "PointLight", "SpotLight" }
 
+-- Owner, 2026-09-22, with screenshots: unlit the painted lines read as a light navy and the owner
+-- likes that; where an arm spot lands on one they go lavender/purple. Read (the orchestrator's,
+-- not measured): overexposure, not a wrong colour — the emissive line, the direct light and the
+-- mirror deck's reflection clip the blue channel and the tonemapper desaturates toward white.
+-- The owner wants "navy when lit, just brighter, without changing the colour", so the dials are
+-- LIVE, from the console, with no import and no bake: drop `intensity` and raise `radius` to
+-- spread the same light, and push the spot off the line with `side` so it grazes the road beside
+-- the line instead of burning the emissive strip itself:
+--   SMROptInTrainFloor.SetHubLightTune("side", 2 * guim)
+--   SMROptInTrainFloor.SetHubLightTune{ intensity = 80, radius = 7 * guim, side = 150 }
+-- Applies to B2 only, the variant every arm carries (hub_light_variants stays the defaults, and
+-- a variant that is not `tuned` ignores this table). Nothing here is saved; a restart resets it.
+Floor.HubLightTune = {
+	intensity = 130,
+	side = 0,            -- cm sideways off the painted line, outward on each mirror side
+	height = 2 * guim,   -- above the deck
+	color = RGB(0, 40, 255),
+	radius = 5 * guim,
+	inner = 50,
+	outer = 100,
+}
+
+-- The live tune layered over a variant's defaults; `spacing` is deliberately not tunable, so the
+-- arm count does not move under the owner while a look is being judged.
+local function tuned_variant(variant)
+	if not variant or not variant.tuned then return variant end
+	local merged = {}
+	for k, v in pairs(variant) do merged[k] = v end
+	for k, v in pairs(Floor.HubLightTune or empty_table) do merged[k] = v end
+	return merged
+end
+
+-- The structure's own lights (owner 2026-09-22, brief 01 step 6, spec §9), on the rim + edges
+-- build (assets 24a98b7): small, dim, deep blue points seated where the model's painted lines
+-- are. Same shape as the arm lights and the reactor — vanilla light classes attached at Origin,
+-- positions computed here, DeleteOnLoadGame and recreation from InitHubLights, heal_after_load
+-- and OnSetWorking, and a stopped hub DESTROYS them rather than dimming them. No spot, no new
+-- persisted class and no saved field: the per-hub lists live in a weak-keyed local table.
+-- They sit ON the emissive lines, which is where the lavender came from, so they start LOW.
+-- Each family is independently off-able from the console, with no import and no bake:
+--   SMROptInTrainFloor.SetHubStructureLights{ floor = { on = true } }
+--   SMROptInTrainFloor.SetHubStructureLights{ rim = { intensity = 50, step = 20 }, pit = { on = false } }
+local hub_structure_lights = {
+	portal = { on = true, name = "portal rims", class = "PointLight",
+		color = RGB(0, 40, 255), intensity = 40, radius = 350 },
+	pit = { on = true, name = "drone pit kerb", class = "PointLight",
+		color = RGB(0, 40, 255), intensity = 40, radius = 300 },
+	rim = { on = true, name = "ring rim strip", class = "PointLight",
+		color = RGB(0, 40, 255), intensity = 35, radius = 400, step = 10 },
+	floor = { on = false, name = "floor edge strip", class = "PointLight",
+		color = RGB(0, 40, 255), intensity = 30, radius = 300, step = 15 },
+}
+local hub_structure_order = { "portal", "pit", "rim", "floor" }
+
+-- Model numbers, hub-local centimetres, from the production run at assets `24a98b7` (spec §9).
+-- z is measured from the hub's base, NOT from the 8.00 m train deck the arm lights use.
+local portal_rim_z0, portal_rim_r0 = 730, 3353  -- the flush rim tube's foot, and
+local portal_rim_z1, portal_rim_r1 = 1432, 2868 -- its crown: the tube is laid on the dome, so
+                                                -- its radius falls as it rises (linear here, an
+                                                -- approximation of the dome's curve).
+local portal_crown, portal_half = 1312, 325     -- the clear opening: 13.125 m crown, 6.50 m wide
+local portal_inset = 40                         -- sit 0.40 m inside the rim line
+-- (v, z) round one mouth, v sideways off the portal's line: the crown, two shoulders, two jambs.
+local hub_portal_rim_points = {
+	{ v = 0, z = portal_crown - portal_inset },
+	{ v = portal_half - portal_inset, z = 1125 },
+	{ v = -(portal_half - portal_inset), z = 1125 },
+	{ v = portal_half - portal_inset, z = 860 },
+	{ v = -(portal_half - portal_inset), z = 860 },
+}
+local function portal_rim_radius(z)
+	local t = Clamp(z, portal_rim_z0, portal_rim_z1) - portal_rim_z0
+	return portal_rim_r0 + MulDivRound(t, portal_rim_r1 - portal_rim_r0, portal_rim_z1 - portal_rim_z0)
+end
+local pit_centre_distance, pit_centre_angle = 1155, 30 * 60 -- 11.547 m on the 30 degree midline
+local pit_kerb_radius, pit_kerb_z, pit_posts = 590, 60, 6   -- mouth r 5.75 m, kerb 0.30 x 0.60
+local ring_rim_radius, ring_rim_z = 3610, 690               -- 0.50 m outside the wall's 35.60 m
+local floor_edge_radius, floor_edge_z = 3060, 45            -- the blue strip just inside r 30.75
+
 local function clear_hub_lights(self)
 	for _, class in ipairs(hub_light_classes) do
 		for _, light in ipairs(self:GetAttaches(class) or empty_table) do
@@ -1178,29 +1258,92 @@ local function place_hub_light(self, variant, x, y, z)
 		light:SetAttachAngle(90 * 60)
 	end
 	DeleteOnLoadGame(light)
+	return light
+end
+
+-- hub -> { arm = {lights}, portal = {...}, pit = {...}, rim = {...}, floor = {...} }. A plain
+-- weak-keyed local: no field on the hub, nothing that can reach a save.
+local hub_light_sets = setmetatable({}, weak_keys_meta)
+
+-- Console/test read-out of what is standing right now.
+function Floor.HubLightSet(hub)
+	return hub_light_sets[hub]
+end
+
+-- One hex outward in the hub's own frame, and its length, for a hex direction.
+local function hub_arm_axis(direction)
+	local x0, y0 = HexToWorld(0, 0)
+	local q, r = HexRotate(1, 0, direction)
+	local hx, hy = HexToWorld(q, r)
+	local ax, ay = hx - x0, hy - y0
+	return ax, ay, point(ax, ay):Len()
+end
+
+-- u outward from the centre, v sideways, both in the arm's own frame.
+local function hub_arm_point(ax, ay, length, u, v)
+	return MulDivRound(ax, u, length) - MulDivRound(ay, v, length),
+		MulDivRound(ay, u, length) + MulDivRound(ax, v, length)
+end
+
+local function place_hub_structure_lights(self, sets)
+	local total = 0
+	for _, key in ipairs(hub_structure_order) do
+		local family = hub_structure_lights[key]
+		local list = {}
+		if family and family.on then
+			if key == "portal" then
+				for direction = 0, 5 do
+					local ax, ay, length = hub_arm_axis(direction)
+					for _, p in ipairs(hub_portal_rim_points) do
+						local x, y = hub_arm_point(ax, ay, length, portal_rim_radius(p.z), p.v)
+						list[#list + 1] = place_hub_light(self, family, x, y, p.z)
+					end
+				end
+			elseif key == "pit" then
+				local centre = Rotate(point(pit_centre_distance, 0), pit_centre_angle)
+				for i = 0, pit_posts - 1 do
+					local post = centre + Rotate(point(pit_kerb_radius, 0), (30 + MulDivRound(360, i, pit_posts)) * 60)
+					list[#list + 1] = place_hub_light(self, family, post:x(), post:y(), pit_kerb_z)
+				end
+			else -- the two concentric rings, sparse points every `step` degrees
+				local radius = key == "rim" and ring_rim_radius or floor_edge_radius
+				local z = key == "rim" and ring_rim_z or floor_edge_z
+				for angle = 0, 359, Max(1, family.step or 10) do
+					local p = Rotate(point(radius, 0), angle * 60)
+					list[#list + 1] = place_hub_light(self, family, p:x(), p:y(), z)
+				end
+			end
+		end
+		sets[key] = list
+		total = total + #list
+		print(string.format("[TrainHubDev] structure lights: %s %s, %d lights (intensity %d, radius %d cm)",
+			family.name, family.on and "ON" or "OFF", #list, family.intensity, family.radius))
+	end
+	return total
 end
 
 local function set_hub_lights_working(self, working)
 	clear_hub_lights(self)
+	hub_light_sets[self] = nil
 	if not working then return end
 	local deck = train_deck_height(self)
-	local x0, y0 = HexToWorld(0, 0)
+	local tune = Floor.HubLightTune or empty_table
+	local sets = { arm = {} }
 	local total = 0
 	for direction = 0, 5 do
 		local key = hub_light_arms[direction]
-		local variant = hub_light_variants[key]
+		local variant = tuned_variant(hub_light_variants[key])
 		if variant then
-			local q, r = HexRotate(1, 0, direction)
-			local hx, hy = HexToWorld(q, r)
-			local ax, ay = hx - x0, hy - y0 -- one hex outward, hub-local
-			local length = point(ax, ay):Len()
+			local ax, ay, length = hub_arm_axis(direction)
+			local off = variant.side or 0
 			local count = 0
 			for u = hub_line_first, hub_line_last, variant.spacing do
 				local v = hub_line_v(u)
 				for side = -1, v > 0 and 1 or -1, 2 do
-					local x = MulDivRound(ax, u, length) - MulDivRound(ay, side * v, length)
-					local y = MulDivRound(ay, u, length) + MulDivRound(ax, side * v, length)
-					place_hub_light(self, variant, x, y, deck + variant.height)
+					-- `side` pushes the light off the line: a pair moves apart, and the single
+					-- centre run (v == 0, inside 40 m) moves to one side, the -1 side.
+					local x, y = hub_arm_point(ax, ay, length, u, side * (v + off))
+					sets.arm[#sets.arm + 1] = place_hub_light(self, variant, x, y, deck + variant.height)
 					count = count + 1
 				end
 			end
@@ -1210,11 +1353,46 @@ local function set_hub_lights_working(self, working)
 				direction, hub_light_arm_names[direction], key, variant.name, variant.class, count, bearing))
 		end
 	end
-	print(string.format("[TrainHubDev] lights: %d placed; a stopped hub destroys them all", total))
+	local cr, cg, cb = 0, 0, 0
+	if type(GetRGB) == "function" then cr, cg, cb = GetRGB(tune.color) end
+	print(string.format("[TrainHubDev] lights: arm tune intensity %d, side %d cm, height %d cm, radius %d cm, cone %d/%d, colour %d,%d,%d",
+		tune.intensity or 0, tune.side or 0, tune.height or 0, tune.radius or 0, tune.inner or 0, tune.outer or 0,
+		cr or 0, cg or 0, cb or 0))
+	local structure = place_hub_structure_lights(self, sets)
+	hub_light_sets[self] = sets
+	print(string.format("[TrainHubDev] lights: %d placed (%d arm + %d structure); a stopped hub destroys them all",
+		total + structure, total, structure))
 end
 
 function SMROptInTrainHubBase:InitHubLights()
 	set_hub_lights_working(self, self.working)
+end
+
+local function reinit_hub_lights()
+	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub) hub:InitHubLights() end)
+end
+
+-- SMROptInTrainFloor.SetHubLightTune("intensity", 80) or SetHubLightTune{ side = 150, radius = 700 }.
+function Floor.SetHubLightTune(field, value)
+	if type(field) == "table" then
+		for k, v in pairs(field) do Floor.HubLightTune[k] = v end
+	elseif field ~= nil then
+		Floor.HubLightTune[field] = value
+	end
+	reinit_hub_lights()
+end
+
+-- SMROptInTrainFloor.SetHubStructureLights{ portal = { on = false }, rim = { intensity = 50 } }.
+function Floor.SetHubStructureLights(changes)
+	for family, fields in pairs(changes or empty_table) do
+		local entry = hub_structure_lights[family]
+		if entry then
+			for k, v in pairs(fields) do entry[k] = v end
+		else
+			print(string.format("[TrainHubDev] structure lights: no family \"%s\"", tostring(family)))
+		end
+	end
+	reinit_hub_lights()
 end
 
 -- A train station is normally only an ElectricityConsumer. This hub is both a

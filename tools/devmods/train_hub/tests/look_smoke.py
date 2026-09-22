@@ -29,6 +29,7 @@ threads=0; function CreateRealTimeThread() threads=threads+1; return {} end
 function AllMapsForEach(_,_,f) f(h) end
 guim=100; axis_y='axis_y'
 function RGB(r,g,b) return r*65536+g*256+b end
+function GetRGB(c) return math.floor(c/65536)%256, math.floor(c/256)%256, c%256 end
 function Clamp(v,a,b) return math.max(a,math.min(b,v)) end
 function MulDivRound(a,b,c) return math.floor(a*b/c+.5) end
 function HexRotate(q,r,d) for _=1,d do q,r=-r,q+r end return q,r end
@@ -128,23 +129,72 @@ assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass
 assert(IsValid(foreign))
 -- Arm lights: 6*12 on (the owner's pick, B2 spots, on every arm), along the painted line's path, destroyed (not dimmed) off, no duplicates on repeat, others untouched.
 h:OnSetWorking(true); h:OnSetWorking(true)
-assert(#lights()==72, #lights())
-local spots,far=0,0
-for _,v in ipairs(lights()) do
- assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==130 and v.offset:z()>800)
+function set(k) return Floor.HubLightSet(h)[k] end
+function n(k) return #set(k) end
+assert(n('arm')==72, n('arm'))
+local spots=0
+for _,v in ipairs(set('arm')) do
+ assert(v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==130 and v.radius==500 and v.offset:z()>800)
  if v.class=='SpotLight' then spots=spots+1; assert(v.axis=='axis_y' and v.angle==90*60 and v.outer==100) end
  local d=math.sqrt(v.offset:x()^2+v.offset:y()^2); assert(d>=800 and d<=8100, d)
- if d>6000 then far=far+1 end
 end
 assert(spots==72)
+-- Structure lights: the three on families and the off-by-default floor edge, on the model's own lines.
+assert(n('portal')==30 and n('pit')==6 and n('rim')==36 and n('floor')==0)
+assert(#lights()==144, #lights())
+for _,v in ipairs(set('portal')) do
+ assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential' and v.intensity==40)
+ local d=math.sqrt(v.offset:x()^2+v.offset:y()^2)
+ assert(d>=2868 and d<=3353, d)                      -- on the flush rim's radial span
+ assert(v.offset:z()>=860 and v.offset:z()<=1272)    -- inside the mouth, 0.40 m under the crown
+end
+for _,v in ipairs(set('rim')) do
+ assert(v.intensity==35 and v.offset:z()==690)
+ assert(math.abs(math.sqrt(v.offset:x()^2+v.offset:y()^2)-3610)<=1)
+end
+local pc=Rotate(point(1155,0),30*60)
+for _,v in ipairs(set('pit')) do
+ assert(v.intensity==40 and v.offset:z()==60)
+ assert(math.abs(math.sqrt((v.offset:x()-pc:x())^2+(v.offset:y()-pc:y())^2)-590)<=1)
+end
+-- The live arm tune: same count, re-init, and every light moved by `side` and recoloured.
+local was={} for i,v in ipairs(set('arm')) do was[i]={v.offset:x(),v.offset:y()} end
+Floor.SetHubLightTune{side=150,intensity=80,radius=7*guim,color=RGB(0,0,200)}
+assert(n('arm')==72 and #lights()==144)
+local moved=0
+for i,v in ipairs(set('arm')) do
+ assert(v.intensity==80 and v.radius==700 and v.color==RGB(0,0,200) and v.outer==100)
+ if v.offset:x()~=was[i][1] or v.offset:y()~=was[i][2] then moved=moved+1 end
+end
+assert(moved==72, moved)
+Floor.SetHubLightTune('side',0); Floor.SetHubLightTune{intensity=130,radius=5*guim,color=RGB(0,40,255)}
+for i,v in ipairs(set('arm')) do assert(v.offset:x()==was[i][1] and v.offset:y()==was[i][2] and v.intensity==130) end
+-- Every structure family is off-able, and the floor edge strip is on-able, without an import.
+Floor.SetHubStructureLights{portal={on=false},pit={on=false},rim={on=false}}
+assert(n('portal')==0 and n('pit')==0 and n('rim')==0 and #lights()==72)
+Floor.SetHubStructureLights{floor={on=true}}
+assert(n('floor')==24 and #lights()==96)
+for _,v in ipairs(set('floor')) do assert(v.intensity==30 and v.offset:z()==45) end
+Floor.SetHubStructureLights{portal={on=true},pit={on=true},rim={on=true},floor={on=false}}
+assert(#lights()==144 and n('floor')==0)
+-- Destroyed (not dimmed) when the hub stops, recreated on, idempotent, nothing else touched.
 h:OnSetWorking(false)
-assert(#lights()==0 and IsValid(foreign) and #living('SMROptInTrainHubReactor')==1)
+assert(#lights()==0 and Floor.HubLightSet(h)==nil and IsValid(foreign) and #living('SMROptInTrainHubReactor')==1)
 h.working=false; h:InitHubLights(); assert(#lights()==0)
-h.working=true; h:InitHubLights(); assert(#lights()==72)
+h.working=true; h:InitHubLights(); h:InitHubLights(); assert(#lights()==144, #lights())
+assert(n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
+assert(IsValid(foreign))
+counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),total=#lights()}
 ''')
+counts = {k: v for k, v in dict(lua.globals().counts).items()}
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
     'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
     'status':'PASS: mocked visual lifecycle; native game behavior untested',
+    'counts':counts,
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
-             'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved']}))
+             'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved',
+             'arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets',
+             'structure lights: portal 30 / pit 6 / rim 36 / floor 0 (off by default), 144 with the arms',
+             'structure lights: on the rim span, the kerb circle and the ring radius, at their z',
+             'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on']}))
