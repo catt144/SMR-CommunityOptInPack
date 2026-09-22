@@ -1844,6 +1844,20 @@ at any radius inside the beds. The shaft reads from above only from bearings 20-
 accept a hangar under the deck (drones fly out under 6 m of headroom; the mouth shows at a
 slant), or shorten a siding's inner end to open the wedge (siding geometry, parking length), or
 a smaller pit.
+**AO and bevel layer built, 2026-09-22 — assets `2fb01e7`, desk-verified.** Built by an Opus
+agent; validator rerun by the orchestrator (PASS, 0 failures). `bake_ao.py` (47 s on OPTIX):
+AO at 2.5 m / 192 rays, a 0.08 m bevel normal, a curvature map, to the atlas at 4096, 16-bit
+PNGs hashed with the UV fingerprint in `export/ao/ao_proof.json` (three runs give three sha256
+— OPTIX reduction order — so the layer is a recorded input, and the painter refuses one whose
+fingerprint does not match the blend). Composited on non-road, non-lit texels only: AO × .35 in
+linear light, edge light .06 (held off the portal inserts and floor trim by the painter's own
+trim weight), cavity roughness +.08 / edge −.04, bevel normal blended reoriented at 1.0; the
+tangent frame measured against an object-space control (mean error 0.0001, no flip). Proofs:
+with `AO_LAYER` off all eight structure TGAs reproduce their pre-change sha256; with it on SI is
+byte-identical (`30853f0966db0cca`) and 0 road or lit texels are reached; 9,972,166 eligible
+texels, mean AO 0.679, 3,650,654 darkened > 10%, 3,094,496 lightened by the edge. The ring
+one-line seam check subtracts the solid variant's bevel slopes (14,218) as its baseline: 1,957
+seam runs, 0 paired, still holds. Whether it reads as premium in game is untested.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
