@@ -2089,6 +2089,25 @@ assets run:** tan/gold stripes on the portal rims' hub-side crown (a bleed to di
 parking dashes on the sidings in the bays' yellow; siding glass frames outer rectangle only
 (optional, small). The owner has more lighting to give after that.
 
+**Crown lamp, yellow parking dashes, siding frames, 2026-09-22 — assets `253c180`, desk-verified;
+the owner's mesh-and-maps import is owed.** Owner asks of the same sitting, one Opus run, proofs
+rerun by the orchestrator (check-rebuild, previous production 135/135 by knob, validate_structure
+PASS 0 failures). The tan/gold bars the owner saw on a portal rim's hub-side crown are NOT in the
+maps: `verify_rim_bleed.py` on the published BC — PortalRim 182,382 texels = 6,973 line + 175,409
+shell + 0 other, 0 off-colour at the crown, 0 texels claimed by another island, the bay yellow
+reaches no other island at mips 0-6. No fix made; a wider owner screenshot with the camera is
+owed to find what draws there. Parking dashes: `PARK_DASH_COLOUR='bay'`, the `Line_Arm` dashes
+past 60 m in #E8B923 by position (0 faces cross the split; 11,640 yellow core texels; 10 blend
+texels at the join). Siding frames: `SIDING_GUSSETS=False`, 50 → 32 faces each, line loop
+intact. Crown lamp fixture (`CROWN_LAMP`): hex boss 2.70 m at z 19.35-20.15 under the rib
+junction, lens ring 1.20 m with the blue line on its wall, warm non-emissive lens at z 19.34; 81
+faces, no spot. Re-freeze once: 3 added, 6 changed, 172 identical, 27 spots 0 moved, 30 groups
+within ±4.5%, overlap 0. **The crown flood light** (OptInPack `0e9ec05`): one warm SpotLight at
+z 19.0 m aimed down, RGB(255,214,170), 60, radius 35 m, cone 50/90, night-only through vanilla's
+own switch (`OnMsg.LightmodelChange` → `map.NightLightsState`, `Lua/NightLightObjects.lua:22,
+:250-259` on 1.1.0.403908; no timer, no NightLight class); smoke 144 by day / 145 at night.
+Judged in game next: reach (the plate's far corner is 36.5 m from the lamp) and pool width.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
