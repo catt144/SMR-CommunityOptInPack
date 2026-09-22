@@ -1911,6 +1911,29 @@ notch if the ring shows in a pocket, and the doors driven by trains (`8aef5de`, 
 Still owed after the look: the structure's own lights (step 6, held while the doors brief has
 `20_TrainHub.lua`), the whole-hub cost reading (step 7), a restore point on keep.
 
+**The owner's look at the portal/pit import, 2026-09-22 11:02 — KEPT; restore point
+`hub-portal-pit-20260922`** (paired tags at OptInPack `8cbe3f2`, the import checkpoint with the
+`terrain_hole` selector, and assets `1020b65`; 66 files, 501.9 MB). The import: entity gains
+`Pitfloor`, `Pitrim` and the `eTerrainHole` surface, mesh re-read, four DDS recompiled; the
+selector was added in the editor as a sibling of `Collision`/`hex_shape`/`Selection` (a first
+try nested it under `Collision`, which would not match). Owner: the pit reads as a hole with depth
+from every angle, better at night, **the hangar under the deck is accepted**; the whole hub holds
+up close and far, *"I am fully happy with it."* **Owner ruling: the door operation is cut** —
+*"The doors I love, but I think we are going to have to cut them because of what we had to do to
+get them."* Reasoning given by the orchestrator first: the doors cannot slow the train network
+(positions only, a 100 ms watch, no train reads a door), but at six busy stations they sit open
+or flutter, a fast train outruns the 0.5 s opening, and they are invisible at the overview.
+**Owner ruling: the portals must fit the dome** — the 16 m squared gatehouse blocks *"give the
+opposite feel of dome"* and will look worse once the glass is in; *"I want the portals to
+seemlessly fit into the dome in general."* The owner's wish, thought impossible: no portal at
+all, a sliding glass door opening a "portal" in the glass. Read on the skeleton: the dome seats in
+the ring's channel at r 32.95, z 8.40 (`DOME_R`, `DOME_BASE_Z`), the mouth's crown 13.125 m sits
+4 m above the ring top (9.10), so every opening is already a cut in the glass with the hood as
+its frame; the gatehouse and pocket are `PORTAL_SHOULDERS` and the door constants, and the clear
+opening does not depend on them. The portal fit is the next design unit; the pending decisions
+(leaves hidden or visible, the ring notch) lapse with the doors. Brief 05 is done as far as it
+goes: its Lua block stays until the portal ruling says what replaces it.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.

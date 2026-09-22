@@ -164,16 +164,20 @@ record of every step, with its numbers, is spec §9 from "Structure step, the bl
    agreement (`2ef2bfb`); drone pit ruled (route 1, `eTerrainHole`, probed in game) and built
    (`4f86f1a`); AO/bevel layer (`2fb01e7`); production pipeline run, UVs re-frozen, structure set
    published as `seams` (`2f4b782`, `1020b65`). Both trees committed. **NOT imported, not seen.**
-6. NEXT — **the owner's import** (mesh + maps + one importer selector for `terrain_hole`;
-   `SMR-Assets/trainhub/blender/README.md` "Current handoff" and `export/final/IMPORTER_STEPS.md`)
-   and their look; then a dev mod checkpoint commit of the editor output and a restore point on
-   keep (`snapshot_hub.py hub-portal-pit-20260922`).
+6. DONE — the owner's import (11:02, checkpoint OptInPack `8cbe3f2`) and look: KEPT, restore
+   point `hub-portal-pit-20260922` (OptInPack `8cbe3f2`, assets `1020b65`). Owner: fully happy
+   close and far; the hangar under the deck accepted. **Rulings, owner 2026-09-22 (spec §9 "The
+   owner's look at the portal/pit import"): the door operation is CUT; the portals must fit the
+   dome** — the 16 m gatehouse blocks read against it. Leaves-hidden and ring-notch lapse.
+6b. NEXT — **the portal fit**: the collar redesigned to sit in the dome (the gatehouse and pocket
+   go; the clear opening 6.50 × 5.125 m stays; geometry, one UV re-freeze of the changed groups,
+   bake, one import). Options for the owner's pick first, renders before any export. The brief
+   05 door block in `20_TrainHub.lua` comes out when the portal ruling lands.
 7. NOT STARTED — the paint pass proper on the new atlas (panelisation, decals, roughness variety,
    small emissives; the trim-sheet material for the metal parts behind a test import) — after the
    owner's look; brief it as its own one-off if it outgrows this file.
-8. NOT STARTED — step 6, the structure's own lights in `20_TrainHub.lua` + `look_smoke.py`. HELD
-   while `05_TRAIN_HUB_DOORS_high.md` (a peer session) has that file; it releases at the owner's
-   door look. The arm lights' pattern is the template; the pit rim and the portal lips are the
+8. NOT STARTED — step 6, the structure's own lights in `20_TrainHub.lua` + `look_smoke.py`.
+   Released: the doors session has closed and the door operation is cut (owner, 2026-09-22). The arm lights' pattern is the template; the pit rim and the portal lips are the
    obvious seats.
 9. NOT STARTED — step 7, the whole-hub cost reading, `gpu_sample.ps1`, spec §9 `<<PENDING-RUN>>`.
 
