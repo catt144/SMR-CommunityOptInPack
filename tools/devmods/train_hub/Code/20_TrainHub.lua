@@ -1015,15 +1015,8 @@ function SMROptInTrainHubBase:CheatSpawnDrone()
 	self:SpawnDrone()
 end
 
--- Visual launch pad for build 4's repair drones. It occupies q=1,r=1 inside
--- the ring but deliberately has no NotBuildingRechargeStation behind it, so it
--- cannot charge. Existing saves may still carry the old charger object; the
--- initializer removes that object and retains its platform model.
-local function launch_pad_offset()
-	local x0, y0 = HexToWorld(0, 0)
-	local x, y = HexToWorld(1, 1)
-	return point(x - x0, y - y0, 0)
-end
+-- The old launch pad (a RechargeStationPlatform at q=1,r=1 with no charger behind it) is
+-- gone (owner, 2026-09-22): InitHubLaunchPad now only clears what old saves still carry.
 
 -- A visual-only reactor: the hub remains the sole grid object and producer.
 -- Use the engine's existing shapeshifter class rather than introducing another
@@ -1444,20 +1437,11 @@ function SMROptInTrainHubBase:InitHubLaunchPad()
 	for _, station in ipairs(self:GetAttaches("NotBuildingRechargeStation") or empty_table) do
 		if IsValid(station) then DoneObject(station) end
 	end
-	local platforms = self:GetAttaches("RechargeStationPlatform") or empty_table
-	if #platforms == 0 then
-		local platform = PlaceObjectIn("RechargeStationPlatform", self:GetMap())
-		self:Attach(platform, self:GetSpotBeginIndex("Origin"))
-		platform:SetAttachOffset(launch_pad_offset())
-		platforms = { platform }
-	end
-	local template = BuildingTemplates.RechargeStation
-	local ccs = GetCurrentColonyColorScheme()
-	local cm1, cm2, cm3, cm4 = GetBuildingColors(ccs, template)
-	for _, platform in ipairs(platforms) do
-		platform:ClearEnumFlags(const.efSelectable)
-		if platform:HasState("idle") then platform:SetState("idle") end
-		if cm1 then Building.SetPalette(platform, cm1, cm2, cm3, cm4) end
+	-- Owner, 2026-09-22: the pad's platform model goes too; the drone pit in the floor plate
+	-- is the launch and landing place now. Saves from before carry the platform attached, so
+	-- the initializer removes it instead of placing it.
+	for _, platform in ipairs(self:GetAttaches("RechargeStationPlatform") or empty_table) do
+		if IsValid(platform) then DoneObject(platform) end
 	end
 end
 
