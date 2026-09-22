@@ -1787,6 +1787,44 @@ launch from and land into, instead of a recoloured recharger; the tower unwanted
 1, a pit modelled into the hub's own floor plate**, built now so it lands in the same re-freeze
 and bake as the portal. Feasibility read owed: `SHUTTLE_HUB_PIT_20260922.md` (how the pit renders
 below ground, whether a mod entity can do the same, the Wasps' launch and land states).
+**Pit survey delivered (`bf468f3`) and probed in game, 2026-09-22 (owner's console, read from
+`Mars.exe-20260922-00.44.52` log lines 683-730):** no pit entity exists — `ShuttleHub`,
+`ShuttleHubCP3`, `JumperShuttleHub` are one mesh each (measured z −40.22 to +38.80 m, no
+animation files); the shaft renders because the entity carries an `eTerrainHole` surface. MEASURED:
+`const.SurfaceTypes` lists `terrain_hole`; `EntitySurfaces.TerrainHole = 64`; `HasAnySurfaces`
+with it is true for `ShuttleHub`, `ShuttleHubCP3`, `MetalsExtractor` and **false for `SolarPanel`**
+(the control). So our own pit, modelled into the floor plate with a `TerrainHole` surface node
+over the mouth, is the route (the entity already declares 796 surfaces in three types through the
+same importer). The survey's "Wasp shaft states 26.7 m down" is WRONG: in game `DroneMaintenance`
+and `DroneJapanFlying` both carry `metalMineEnter/Idle/Exit` (exit 2,533 ms) but the box is a
+15 m *sideways* run at ground level (`(-138,-121,25)-(1342,118,301)` for the Wasp) — a mine-mouth
+exit, not a descent. The drone's rise and descent are therefore scripted lifts (`SetPos` with a
+duration, as the generic shuttle lead-in does); vanilla flight and landing are pinned to the
+terrain height grid, so the hand-over to the drone AI is at the rim. Owner's pit spec: circular,
+about 11-12 m across ("fit in 3 hexes"), oversized to the Wasp for depth, in a clear wedge of the
+floor; built into the floor plate before the final re-freeze.
+**Portal doors built (brief 05, OptInPack `1a7381f`, by a peer session; mocked only):** the
+owner's five-minute look picked `MarsAssembly_Door_01`, a parting glass pair, at scale 184 on
+the rebuilt portal's door plane (34.75 m), reversed to read solid from outside; second style
+`shutter` (`TunnelEntranceDoor` at 81) by console. A door opens while a train body is within
+20 m outside / 5 m inside the plane on that portal's line and closes 1.5 s after the doorway
+empties; `look_smoke.py` PASS. The portal's mouth is being shaped to that pair by agreement
+between the two sessions for the owner's morning review.
+**Owner ruling, 2026-09-22 (via session 1d, the doors brief): "I would like the portals opening
+to not move, and the track … I would prefer it not get taller but it could get wider … it
+absolutely cannot get shorter (the opening)."** Agreement between sessions 2e (portal) and 1d
+(doors), 02:30: the clear opening stays 6.50 × 5.125 m over the deck; the glass pair (closed 7.40
+wide × 9.90 tall × 0.48 thick at scale 184; each leaf slides 3.1-3.4 m sideways and up to 1.67 m
+inward, no rise) hides inside the collar as a pocket door. Numbers, hub frame: **sink 1.85 m**
+(leaf z 6.15-16.18; collar top 16.50 unchanged), **leaf outer face x 35.10** (centre 34.86;
+`PORTAL_DOOR_X` 34.75 stays the plane's name), **pocket cavity** x 33.10-35.15, y ±7.50, z
+5.90-16.25 open to the mouth only behind the 0.30 lip, **collar shoulders** full height to |y| =
+8.00 (a ~16 m gatehouse block round the rounded-rect mouth, the bell only above and outside it),
+**sill** thickened to z 5.90 across the collar so the sunk leaves and the track beam are inside
+it. The shutter style (16.2 m wide, drops 5.07 m) is not designed for; it stays a dev-only
+console style. Leaves hidden in the pockets is both sessions' recommendation; **the owner's
+morning call: hidden or visible.** Constants to share by name: `PORTAL_DOOR_FACE_X`,
+`PORTAL_DOOR_SINK`, `PORTAL_POCKET_*`; a door rescale re-runs the portal parametrically.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
