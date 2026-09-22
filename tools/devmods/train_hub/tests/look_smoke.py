@@ -202,17 +202,16 @@ OnMsg.LightmodelChange(MAP,false,{night=true},0,{night=false})
 assert(n('crown')==1, n('crown'))
 assert(#lights()==145 and n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
 crown=set('crown')[1]
-assert(crown.class=='SpotLight' and crown.delete_on_load and crown.spot==0 and crown.detail=='Essential')
-assert(crown.color==RGB(255,214,170) and crown.intensity==60 and crown.radius==35*guim)
-assert(crown.inner==50 and crown.outer==90)
-assert(crown.axis=='axis_y' and crown.angle==90*60)          -- the arm spots' aim, reused: straight down
+assert(crown.class=='PointLight' and crown.delete_on_load and crown.spot==0 and crown.detail=='Essential')
+assert(crown.color==RGB(255,214,170) and crown.intensity==150 and crown.radius==40*guim)
+assert(crown.axis==nil and crown.angle==nil)                -- a point light: no aim to get wrong
 assert(crown.offset:x()==0 and crown.offset:y()==0 and crown.offset:z()==1900) -- the dome axis, 19.00 m
 -- Idempotent at night, and tunable/off-able through the existing console entry point.
 h:InitHubLights(); h:InitHubLights(); assert(n('crown')==1 and #lights()==145)
-Floor.SetHubStructureLights{crown={intensity=90,height=1850,color=RGB(255,200,150),outer=120}}
+Floor.SetHubStructureLights{crown={intensity=90,height=1850,color=RGB(255,200,150),radius=45*guim}}
 assert(n('crown')==1)
 crown=set('crown')[1]
-assert(crown.intensity==90 and crown.offset:z()==1850 and crown.color==RGB(255,200,150) and crown.outer==120)
+assert(crown.intensity==90 and crown.offset:z()==1850 and crown.color==RGB(255,200,150) and crown.radius==45*guim)
 Floor.SetHubStructureLights{crown={on=false}}; assert(n('crown')==0 and #lights()==144)
 Floor.SetHubStructureLights{crown={on=true,intensity=60,height=1900,color=RGB(255,214,170),outer=90}}
 assert(n('crown')==1 and #lights()==145)

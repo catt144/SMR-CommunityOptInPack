@@ -1215,9 +1215,11 @@ local hub_structure_lights = {
 	--   * `outer` 90 is the cone angle the arm spots use in the same units; if the engine reads it
 	--     as the FULL angle, the pool is about r 18.7 m of the 31.35 m plate. Raise `outer` (and
 	--     `inner` with it) to spill wider.
-	crown = { on = true, night = true, name = "crown floor light", class = "SpotLight",
-		color = RGB(255, 214, 170), intensity = 60, radius = 35 * guim,
-		inner = 50, outer = 90, height = 1900 },
+	-- Owner, 2026-09-22, in game: as a SpotLight this shone SIDEWAYS along a rib -- the arm spots'
+	-- quarter-turn aim (axis_y, 90 deg) is now measured wrong, not merely unverified. A flood
+	-- light needs no aim: a PointLight at the apex lights the floor and the dome from inside.
+	crown = { on = true, night = true, name = "crown floor light", class = "PointLight",
+		color = RGB(255, 214, 170), intensity = 150, radius = 40 * guim, height = 1900 },
 }
 local hub_structure_order = { "portal", "pit", "rim", "floor", "crown" }
 
