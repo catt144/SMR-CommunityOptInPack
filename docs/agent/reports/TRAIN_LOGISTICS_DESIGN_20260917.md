@@ -1877,6 +1877,39 @@ the owner: the ring wall stands inside the pocket's lowest 1.10 m** (26 vertices
 hub side; a notch in the ring's outer shoulder is the fix and needs a ruling. `prepare_concept`
 `SURFACES` gains `terrain_hole`; `reunwrap_hub.SMOOTH_PARTS` gains the pit and portal sweeps.
 Renders `export/portal_candidates/B_view1..5.png`, `B_doors_closed.png`, `B_doors_open.png`.
+**Production pipeline run, 2026-09-22 04:06 — assets `2f4b782` (+ `1020b65`), desk-verified;
+the owner's mesh-and-maps import is owed.** Built by an Opus agent; the guard, validator and
+proofs rerun by the orchestrator. Production knobs are the skeleton's defaults (`PORTAL_STYLE
+'B'`, `PORTAL_SHOULDERS`, `HOOD_BORE 'portal'`, `PIT_ON`), legacy reachable by `--legacy` and
+proved (99 of 99 byte-identical; `TrainHub_work_before_portal_pit.blend` kept). Work file 99 →
+135 objects: 8 changed (`Hub_Portals` 4,434 → 630 faces, `Hood_1..6`, `FloorPlate`), 36 added,
+91 identical, spots 25 → 27 with 0 moved (`verify_portal_pit_pass.py`, `portal_pit_baseline.json`).
+UVs re-frozen once more (`concept_freeze_uv1.json` kept; plain rerun passes `require_frozen`):
+density 18.00 texels/m (was 19.17: the same atlas now carries the 16 m portal blocks and the
+pit), spread 8.5% over 24 groups, coverage 53.69%, overlap 0, every new group within ±0.9% of
+the mean, `Hub_Portals` straightness 38.9 → 85.2%, glass atlas unchanged. FBX 30 → 33 nodes
+(`terrain_hole` as its own 48-face mesh, `-Pitfloor`, `-Pitrim`), body 14,976 faces,
+`Collision`/`hex_shape`/`Selection` byte-identical. AO rebaked on the new fingerprint (23 s);
+`bake_structure.py` 176 s; `validate_structure.py` PASS, 0 failures: every group's SI peak at its
+knob level (Portal 179 — the collar gained a paint branch with the line on its 0.15 m chamfer;
+PitShaft 89), the insert-edge test extended to the portal family (fringe median 1 texel), road
+0 and lit 0 texels reached by the layer. **The ring one-line check's light half misfired and
+published `solid`**: 0 of its 54,840 "light" texels were brightened by the seam step (all within
+1 byte of the no-relief variant; 21,755 of them the AO edge light), the seams' own darkening
+having pulled the ring's median from 205.3 to 200.7 under the 6%-over-median rule. The
+orchestrator gave the light half the same no-relief baseline the slope half already had (a
+light texel is one the seam brightened over the `solid` variant by 6% of the hull): 0 seam
+light runs, 1,835 seam slope runs, 0 paired, `seams` published to `textures/structure/`.
+Previews `export/final/previews/` (14 views incl. `portal_front`, `pit_close`, night pairs).
+Owner's steps: README "Current handoff: the portal collar and the drone pit" and
+`export/final/IMPORTER_STEPS.md` — the material is unchanged; **add one importer selector**
+(`'name', "terrain_hole", 'SurfaceType', "terrain_hole"`) beside `Collision`/`hex_shape`/
+`Selection`, run the Body import procedure, save, reload. **The owner decides in the morning:**
+portal B confirmed (A one knob away), leaves hidden in the pockets (recommended) or visible,
+the pit's roofing (accept the hangar under the deck / shorten a siding / smaller pit), the ring
+notch if the ring shows in a pocket, and the doors driven by trains (`8aef5de`, mocked only).
+Still owed after the look: the structure's own lights (step 6, held while the doors brief has
+`20_TrainHub.lua`), the whole-hub cost reading (step 7), a restore point on keep.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
