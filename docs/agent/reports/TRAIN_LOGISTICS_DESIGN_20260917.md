@@ -2150,8 +2150,14 @@ false`, `TwoSidedShading true`, no shadows, `TransparentDecal true` (139 `blendG
 `Materials.fpk`); **BlendType must be set before the maps compile** or BaseColor compiles `-bc1`
 and drops the alpha (`GFXMaterial.lua:889,:1128-1136` @1.1.0.403908). The Sunday glass maps
 (`textures/concept/…Glass_*`, 1024, alpha 61-255) were baked on the pre-UV-pass glass layout
-(`45ec462e…`; 144/144 loops moved, IoU 0.608): a glass rebake on the current UVs is in flight
-and lands before the owner's one import of the second entity. Order for the owner's sitting:
+(`45ec462e…`; 144/144 loops moved, IoU 0.608). **Rebaked, assets `83bf874`** (Opus build, the
+body BC `fb04d643…` rechecked unmoved by the orchestrator): `export_prep.py` then `paint_concept.py`,
+the bake's own proof recording glass UV `a0aa8955…`; BC `0f642731…` alpha 61-255 (pane 0.24, up
+to 133 along the lit line), pane #09384F, lit line #0453C1, SI peak 166, roughness 0.13, metal 0;
+44,237 lit texels, 590 outside an island and all within 3 texels (the old set had 8,269 outside).
+The body FBX was re-exported by the same command with 0 drift; only its timestamp differs. The
+concept-era 2048 body maps in `textures/concept/` moved too; the shipped atlas is
+`textures/structure/`. Order for the owner's sitting:
 texture compile (orange frames) → restart, night look (crown pool, frames) → glass entity import
 from the sheet → the whole-hub cost reading.
 
