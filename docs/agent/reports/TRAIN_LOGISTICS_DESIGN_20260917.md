@@ -1934,6 +1934,23 @@ opening does not depend on them. The portal fit is the next design unit; the pen
 (leaves hidden or visible, the ring notch) lapse with the doors. Brief 05 is done as far as it
 goes: its Lua block stays until the portal ruling says what replaces it.
 
+**Owner ruling, 2026-09-22, the jagged paint: hard-edged features go on geometry** — *"Then we
+need to implement this as well."* The owner's five close-ups: the road's curved blue lines and the
+centre-plate crossings stepped and soft, the ring's rim strip a sawtooth, a rib band a sawtooth,
+and, clean, the beam-edge strips. Read by the orchestrator (not measured in game): the clean strips
+are their own faces and islands, so their edges are mesh edges; every jagged feature is painted
+from 3D position across the texel grid (5.5 cm a texel at 4096 and 18 texels/m, 6-10 px at the
+owner's zoom): a curve stairs, the ring strip crosses the ring island's 0.64° median row tilt,
+the rib band is a level set of world radius on an inclined tube (spec §9 "UV pass delivered":
+ribs 9.9% straight, unfixable by unwrapping). The fix is the road's own technique: the ring rim
+strip and the rib bands become their own face loops and islands; the road arcs and the centre
+crossings become thin ribbon meshes on the deck, each a flat island, so the line's edge is a mesh
+edge and no texel size limits it. Cost stated: a few hundred faces, ribbons a few millimetres
+proud of the deck. Bundled with the portal fit into ONE re-freeze, bake and import; the current
+build stays reachable by knob. Portal option 1 ("flush rim": a rib-section collar bent round the
+mouth, flush with the glass, gatehouse and pocket gone, clear opening unchanged) is being built
+as a candidate with renders beside the current build, glass shown, for the owner's pick.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.

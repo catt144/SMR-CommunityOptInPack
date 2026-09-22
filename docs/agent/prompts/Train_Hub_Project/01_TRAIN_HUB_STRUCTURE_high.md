@@ -172,7 +172,11 @@ record of every step, with its numbers, is spec §9 from "Structure step, the bl
 6b. NEXT — **the portal fit**: the collar redesigned to sit in the dome (the gatehouse and pocket
    go; the clear opening 6.50 × 5.125 m stays; geometry, one UV re-freeze of the changed groups,
    bake, one import). Options for the owner's pick first, renders before any export. The brief
-   05 door block in `20_TrainHub.lua` comes out when the portal ruling lands.
+   05 door block in `20_TrainHub.lua` comes out when the portal ruling lands. Option 1 (flush
+   rim) is being built as candidate C with renders beside the current build.
+6c. NEXT, same re-freeze — **hard-edged paint onto geometry (owner ruling, 2026-09-22, spec §9
+   "the jagged paint")**: ring rim strip and rib bands as their own face loops/islands; road arcs
+   and centre crossings as ribbon meshes on the deck. The painter then fills those islands solid.
 7. NOT STARTED — the paint pass proper on the new atlas (panelisation, decals, roughness variety,
    small emissives; the trim-sheet material for the metal parts behind a test import) — after the
    owner's look; brief it as its own one-off if it outgrows this file.
