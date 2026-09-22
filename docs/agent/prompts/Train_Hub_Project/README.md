@@ -6,8 +6,10 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` to `05` are live. Only one brief that edits `tools/devmods/train_hub/Code/20_TrainHub.lua` runs
-at a time: `02`, `03`, `04`, `05`, and `01`'s structure lights step.
+`00` to `04` are live (`05`, the portal doors, was fired, built and then cut by the owner on
+2026-09-22; its survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at
+`8aef5de`). Only one brief that edits `tools/devmods/train_hub/Code/20_TrainHub.lua` runs
+at a time: `02`, `03`, `04`, and `01`'s structure lights step.
 
 | brief | what it is for | state |
 |---|---|---|
@@ -16,7 +18,6 @@ at a time: `02`, `03`, `04`, `05`, and `01`'s structure lights step.
 | `02_TRAIN_HUB_LOADERRORS_low.md` | Two errors that fire every time the dev hub loads. A small code fix with its cause already found. | Live, fire any time; Lua one-at-a-time |
 | `03_TRAIN_HUB_DRONES_high.md` | Build 4: the hub's drones. Vanilla Wasps launched from a pad under the hub, repairing broken track out on the network from the hub's stock. Unbuilt beyond a few test drones: deploy, movement, the retextured storage and pad, dispatch, the pending list. | Live, **after the look** |
 | `04_TRAIN_HUB_BUILDTRACK_high.md` | Build 5: the same drones build new track from the hub's stock, using `03`'s pending list. | Held until `03`'s smoke is recorded |
-| `05_TRAIN_HUB_DOORS_high.md` | **Portal doors from vanilla door entities** (owner, 2026-09-22): the owner's five-minute in-game look at the survey's candidates, then two or more door styles attached to the six portals in Lua, opened by an approaching train and closed behind it, with the door plane the portal rebuild must fit. Survey: `reports/VANILLA_DOOR_ENTITIES_20260922.md`. | Live, fire now; runs beside `01`'s portal rebuild; Lua one-at-a-time |
 
 ## `Parked/` — do not fire
 
