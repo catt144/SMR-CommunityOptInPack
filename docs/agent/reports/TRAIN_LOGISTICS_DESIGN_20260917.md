@@ -1644,6 +1644,41 @@ crisp groove does not hold, the designed feature offered beside it. Pass 1 is no
 before pass 2. The pass 2 brief is `prompts/Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md`
 §"Pass 2". Read from screenshots by the orchestrator, not measured.
 
+**Restore point pass 1: `hub-structure-pass1-20260921`** — paired tags at OptInPack `5f7ee27`
+and assets `c8f1847` (`snapshot_hub.py` now carries `textures/structure/`); 66 files, 401.0 MB.
+The material carried BC 4096 with NM/RM/SI 2048, so stop 1 (one material, mixed sizes) did not
+fire.
+
+**Structure pass 2, maps delivered, 2026-09-21 — assets `cb60471`, desk-verified; game look
+UNTESTED, the owner's import is owed.** Built by the same Opus agent; validators rerun and hashes
+compared by the orchestrator (`python validate_structure.py` PASS, 0 failures; the 13 held TGAs
+byte-identical). **BC, NM and SI at 4096, RM at 2048** (TGA 3 × 50,332,187 + 12,583,451 B; DDS
+expected about 11 + 22 + 11 + 2.8 MB). Per fix: (1) rib bands: `RIB_GLOW_SHARP` 2.0, edge ramp
+1.2 texels; on the Rib island 744 core runs, median 7 texels, 1,154 edge-ramp runs, median 4
+(pass 1: 370 / 4 and a 0.24-texel step). (2) Ring seams: relief is a one-sided 0.02 m plate step
+inside the 0.20 m seam (`SEAM_RELIEF_RING = 'step'`; `RING_SEAM_SECTORS = 36`, was 35.08, so
+plate parity closes on the branch cut; spacing 5.85 m); at 4096, ring texels with lit ones and two
+around excluded: 10,665 dark colour runs, median 2 texels, p90 depth 26 of hull 209; **0 light
+runs; 526 slope runs, 0 paired with an opposite slope, 525 on a dark run** — the one-line seam
+holds by the stated measure and ships as the default; a solid candidate (0 dark, 0 slope runs) is
+baked at `export/structure_solid/` for one import if the owner wants it. The owner's lead
+measured: 4,755 of 34,517 dark-line texels lie within 2 texels of a ring UV-island boundary and
+1,827 of the ring's 42,808 padding texels carry the seam's dark into the bleed, a real mechanism
+for the blue line's step at a seam under bilinear filtering; unchanged by this pass. The designed
+seam feature (a 0.45 m silver joint strap with a 0.20 m channel and the step at its leading edge,
+one `band()` per ring texel) is described, not built, for the owner's pick. (3) Silver roughness
+.22 → .40, metalness .90 → .75, brush ±.03 kept. (4) Portal insert edge one 4096 texel
+(`INSERT_EDGE` .0224 arch units), widened 0.15 m: fringe runs touching the insert median 1 texel,
+p90 2 (pass 1: 2 / 9); the insert and shell share an island, so no cross-island bleed. **The arch
+sawtooth is the frozen geometry**: Hood arches are 15-facet polylines (11.9° a facet), Hub_Portals'
+arch band is 201 Tripo faces at 159 distinct angles; the maps cannot remove it; left alone. Road:
+450,348 finish texels at 4096, 0 off `PAD_BASE`, 0 lit; 0 RM texels off (15,15,242); NM 298 road
+texels changed by a seam's slope. Line colour exact on 67,525 core texels, SI ceiling 179. Glow
+assert now checks each group's peak SI level (179; 71 base line) and its total within 15% (30% on
+the base-line groups, whose 0.15 m band lies along texel rows and converges with sampling: Pillar
+164,695 → 180,858 → 204,707 across held, pass 1, pass 2 at peak 71 throughout). Owner's steps:
+README "Current handoff: structure set"; one import, four slots.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
