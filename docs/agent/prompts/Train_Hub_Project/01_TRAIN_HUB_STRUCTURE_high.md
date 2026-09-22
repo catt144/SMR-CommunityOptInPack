@@ -142,6 +142,63 @@ beams and the stub, no collider, the cargo beds rise by its thickness) was never
 beds and their `Box1` spots rising by its thickness; every other object's digest unchanged. Then
 the UV pass, then the structure rebake. Order: floor → UV → bake → one import (mesh + maps).
 
+## Where this stands — the B run (2026-09-22, 04:30; the orchestrator's context is spent)
+
+**Start here.** Authoring sha: OptInPack `f180758`, assets `1020b65`. Restore points, oldest to
+newest: `hub-structure-pass1-20260921`, `hub-structure-pass2-20260921`, `hub-uv-refrozen-20260922`
+(the last state the owner has seen and kept: "much better"). Nothing since is imported. The
+record of every step, with its numbers, is spec §9 from "Structure step, the blur measured" to
+"Production pipeline run" — read that stretch, not this brief's older sections, for the facts.
+`git log` both repos; empty `git diff --stat f180758..HEAD -- tools/devmods/train_hub/` and
+`git diff --stat 1020b65..HEAD -- trainhub/` mean this section holds.
+
+**Todo list as it stands** (one item per commit-and-verify unit):
+
+1. DONE — measure the blur (assets `3be561d`): density, not compression, limits the look.
+2. DONE — bake infrastructure + structure look, pass 1 (`a2b9727`) and pass 2 (`cb60471`): per-map
+   sizes, supersampling, seams as a one-sided step, palette, insert edge, rib bands.
+3. DONE — owner rulings: UV freeze lifted for one comprehensive pass; floor plate first.
+4. DONE — floor plate (`e9e6f3c`), UV pass + smooth shading (`3d5c11e`), imported by the owner,
+   restore point `hub-uv-refrozen-20260922`. Owner: quality much better; the paint is what remains.
+5. DONE — portal redesign ruled and built: candidates (`74efbad`), B finalised to the door
+   agreement (`2ef2bfb`); drone pit ruled (route 1, `eTerrainHole`, probed in game) and built
+   (`4f86f1a`); AO/bevel layer (`2fb01e7`); production pipeline run, UVs re-frozen, structure set
+   published as `seams` (`2f4b782`, `1020b65`). Both trees committed. **NOT imported, not seen.**
+6. NEXT — **the owner's import** (mesh + maps + one importer selector for `terrain_hole`;
+   `SMR-Assets/trainhub/blender/README.md` "Current handoff" and `export/final/IMPORTER_STEPS.md`)
+   and their look; then a dev mod checkpoint commit of the editor output and a restore point on
+   keep (`snapshot_hub.py hub-portal-pit-20260922`).
+7. NOT STARTED — the paint pass proper on the new atlas (panelisation, decals, roughness variety,
+   small emissives; the trim-sheet material for the metal parts behind a test import) — after the
+   owner's look; brief it as its own one-off if it outgrows this file.
+8. NOT STARTED — step 6, the structure's own lights in `20_TrainHub.lua` + `look_smoke.py`. HELD
+   while `05_TRAIN_HUB_DOORS_high.md` (a peer session) has that file; it releases at the owner's
+   door look. The arm lights' pattern is the template; the pit rim and the portal lips are the
+   obvious seats.
+9. NOT STARTED — step 7, the whole-hub cost reading, `gpu_sample.ps1`, spec §9 `<<PENDING-RUN>>`.
+
+**The owner decides at the morning look** (recorded in spec §9 "Production pipeline run"): portal B
+confirmed (A is `PORTAL_STYLE='A'`); leaves hidden in the pockets (recommended) or visible; the
+pit's roofing (the deck covers ~74% of the mouth in every wedge — accept a hangar under the deck,
+shorten a siding's inner end, or a smaller pit; `PIT_R`, `PIT_D`, `PIT_WEDGE_K` are the knobs);
+a ring notch if the ring shows inside a pocket through the glass; the doors driven by trains
+(OptInPack `8aef5de`, mocked). The owner also said they have changes to make: take those first.
+
+**Decisions made that a fresh worker would otherwise re-derive** (all in spec §9 with numbers):
+production knobs are `hub_skeleton.py`'s defaults, legacy by `--legacy`; the packer is our own
+deterministic skyline packer (Blender's is not build-stable); the ring seam's light-run check uses
+the `solid` variant as its no-relief baseline (the AO edge light is not a seam highlight); the
+ring's rim strip is a straight row by a polar rim unwrap, the floor top planar; the Wasp's
+`metalMine*` states are sideways runs, so the pit launch is a scripted lift and the AI hand-over
+is at the rim; the shutter door style is dev-only; `PORTAL_DOOR_FACE_X` 35.10 / `PORTAL_DOOR_SINK`
+1.85 are shared by name with the Lua's `HubDoorFaceX` / `HubDoorSink`; the held 2048 sets are
+historical at `hub-structure-pass2-20260921`. Peer session for the doors: `smr-optinpack-1d`
+(ListAgents; it may have closed). Builds go to Opus agents; the orchestrator judges: every
+agent report is a claim cleared by rerunning its guard, validator or hash comparison.
+
+**Reports written this pass:** `reports/VANILLA_DOOR_ENTITIES_20260922.md`,
+`reports/SHUTTLE_HUB_PIT_20260922.md` (its Wasp-descent claim is corrected in spec §9).
+
 ## Leads, not the route
 
 - `BODY_SIZE = 2048` (`paint_concept.py:24`) sizes every map; you need it per map.
