@@ -2030,6 +2030,15 @@ material, no new selector or spot; Fill selectors, Body import procedure in full
 The doors' Lua came out at OptInPack `c1a8a50` (look_smoke 8 cases PASS); brief 05 deleted at
 `b3c1bba`. Next after the look: restore point on keep, then the structure lights (step 6).
 
+**The owner's look at the rim + edges import, 2026-09-22 13:21 — KEPT ("It all look great");
+restore point `hub-rim-edges-20260922`** (paired tags at OptInPack `62bd798`, the import
+checkpoint, and assets `24a98b7`; 66 files, 502.5 MB). Owner's open questions, answered in
+chat and recorded: the exterior colouring is a paint-only decision now (every hard edge is
+geometry and the UVs are frozen), so it never gates geometry, the lights or the cost reading;
+a track colour change is a knob (`PAD_BASE`/`PAD_VARIANT`, the line colour), a ~3-minute bake,
+a validator re-pin of the held road value under a ruling, and a texture-only import; the arm
+lights' colour is one Lua constant. Next: the structure lights (step 6), then the cost reading.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
