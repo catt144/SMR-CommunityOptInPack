@@ -1858,6 +1858,25 @@ byte-identical (`30853f0966db0cca`) and 0 road or lit texels are reached; 9,972,
 texels, mean AO 0.679, 3,650,654 darkened > 10%, 3,094,496 lightened by the edge. The ring
 one-line seam check subtracts the solid variant's bevel slopes (14,218) as its baseline: 1,957
 seam runs, 0 paired, still holds. Whether it reads as premium in game is untested.
+**Portal B finalised, 2026-09-22 — assets `2ef2bfb`, desk-verified.** Built by an Opus agent.
+Constants from the door at 184 (`PORTAL_DOOR_FACE_X` 35.10, `PORTAL_DOOR_SINK` 1.85, leaf 7.40 ×
+9.90 × 0.48, slide 3.40; `pocket_box`/`shoulder_box`/`leaf_boxes` derive every plane, so a
+rescale re-runs the pocket). `PORTAL_SHOULDERS`: a 16.00 × 16.50 × 2.50 m gatehouse block round
+the rounded-rect mouth with a 0.20 m front chamfer (the bell is inside it and is not built),
+pocket cavity x 33.10-35.15 / y ±7.50 / z 5.90-16.25, sill underside 5.80 (the ring's own),
+crown 16.50 asserted; `HOOD_BORE = 'portal'` rebores the hoods; the twelve buttresses go (the
+block subsumes them; the ring's rim dies on its flat wall). Changed: `Hub_Portals`, `Hood_1..6`,
+`FloorPlate`; 97 byte-identical; knobs off reproduce 104 of 104. Clearance through the whole
+tunnel: the measured 4.16 × 4.36 m train +0.748 m (was −0.118), a 4.0 × 5.0 m train +0.104 —
+the first build that clears it. Pocket containment measured by BVH: closed pair ≥ 0.05 m, open
+pair ≥ 0.05 m. The doors session corrected its inward figure: the open leaf's innermost x is
+33.19 (1.43 m inward of the closed inner face 34.62, measured in game from the opening-state
+box), 0.09 m inside the 33.10 back wall, so the pocket holds the whole envelope. **Finding for
+the owner: the ring wall stands inside the pocket's lowest 1.10 m** (26 vertices, up to z 9.10,
+|y| 7.01) — invisible from the mouth, possibly visible through the see-through glass from the
+hub side; a notch in the ring's outer shoulder is the fix and needs a ruling. `prepare_concept`
+`SURFACES` gains `terrain_hole`; `reunwrap_hub.SMOOTH_PARTS` gains the pit and portal sweeps.
+Renders `export/portal_candidates/B_view1..5.png`, `B_doors_closed.png`, `B_doors_open.png`.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
