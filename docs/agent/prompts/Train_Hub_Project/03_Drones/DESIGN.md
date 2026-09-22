@@ -1,8 +1,14 @@
-# Train hub drones (build 4): the hub's repair drones
+# Train hub drones (build 4) — THE DESIGN, not a brief
 
-**LIVE, but not next** (owner, 2026-09-21): the hub look comes first. Nothing holds this brief; the
-movement work is finished. The drone system it describes is unbuilt beyond a few test drones. It changes the hub's economy, so it builds on build 3's power, cost and storage numbers, not
-build 2's.
+⛔ **This file is the chain's settled design and reference. Do not fire it and do not edit its
+owner rulings.** The work is the numbered links beside it (`README.md` is the manifest). Every link
+reads this file for what the owner decided; a link that finds a ruling here overtaken by a later
+one records that in its own notes and in spec §10, and leaves this text alone.
+
+**Two rulings here are already overtaken** (owner, 2026-09-22, after the hub's look pass):
+the recharge-pad model inside the ring is REMOVED (`51b89a5`) and the **drone pit** built into the
+floor plate is the drones' place; the entity carries `Pitfloor` and `Pitrim` spots. Where this file
+says "pad", read the pit, and link 1 measures what the pit actually gives.
 
 ## Authority
 
