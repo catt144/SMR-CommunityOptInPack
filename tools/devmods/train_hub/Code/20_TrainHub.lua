@@ -1202,8 +1202,58 @@ local hub_structure_lights = {
 		color = RGB(0, 40, 255), intensity = 12, radius = 400, step = 10 },
 	floor = { on = false, name = "floor edge strip", class = "PointLight",
 		color = RGB(0, 40, 255), intensity = 30, radius = 300, step = 15 },
+	-- Owner, 2026-09-22: "one center floor light" — a single warm downlight hanging from the dome's
+	-- apex, where the six ribs meet at x = y = 0, and DOING NORMAL LIGHTING: it lights the floor
+	-- plate (top z 0.30 m, radius 31.35 m), it is not an accent. A fixture is being built in the
+	-- assets tree with its lens underside at about z 19.2 m, so the light hangs just below it at
+	-- `height` (19.00 m hub-local, tunable). Warm like the rovers' headlights, RGB(255, 214, 170),
+	-- also tunable. `night = true` puts it on the VANILLA night schedule (see hub_is_night below).
+	-- Numbers to judge in game, all live from the console:
+	--   * 19.00 m above the floor's top face, so `radius` 35 m reaches the plate's centre easily;
+	--     the plate's far edge is sqrt(18.70^2 + 31.35^2) = 36.5 m away, just past the default
+	--     attenuation, so widen `radius` if the rim stays dark.
+	--   * `outer` 90 is the cone angle the arm spots use in the same units; if the engine reads it
+	--     as the FULL angle, the pool is about r 18.7 m of the 31.35 m plate. Raise `outer` (and
+	--     `inner` with it) to spill wider.
+	crown = { on = true, night = true, name = "crown floor light", class = "SpotLight",
+		color = RGB(255, 214, 170), intensity = 60, radius = 35 * guim,
+		inner = 50, outer = 90, height = 1900 },
 }
-local hub_structure_order = { "portal", "pit", "rim", "floor" }
+local hub_structure_order = { "portal", "pit", "rim", "floor", "crown" }
+
+-- THE NIGHT SCHEDULE IS VANILLA'S, NOT A TIMER OF OURS. Read on build 1.1.0.403908 from that
+-- build's archived tree, `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src`:
+--   * The only dusk/dawn edge the game itself uses is `Msg("LightmodelChange", map, view, lm,
+--     time, prev_lm, ...)` (`CommonLua/Classes/Lightmodel.lua:1022`), whose handler in
+--     `Lua/NightLightObjects.lua:250-259` compares `prev_lm.night` to `lm.night` and calls
+--     `NightLightsOn` / `NightLightsOff`. We register an ADDITIVE handler on the same Msg
+--     (FIX_POLICY §1 technique 2), so this light switches with every other building's.
+--   * The day/night truth those two publish is the MapVar `map.NightLightsState`
+--     (`Lua/NightLightObjects.lua:22`, written at `:337` and `:388`, seeded at `:25-28`); it is
+--     what `NightLightObject:IsNightLightPossible` reads at `:91-93`, and what unrelated systems
+--     read directly (`Lua/AutoRemoveObj.lua:7`, `Lua/Mysteries/Fireflies.lua:655`). There is no
+--     `IsNightTime()` and no `night_light` property on Light/PointLight/SpotLight
+--     (`CommonLua/Classes/Light.lua:11,278,453`).
+--   * We deliberately read ONLY the map half of `:92`, not the per-object `gofNightLightsEnabled`
+--     flag: `Building` clears it at GameInit and re-derives it from `AreNightLightsAllowed`
+--     (`Lua/Buildings/Building.lua:507-511`, `:1371-1393`), so a hub whose flag happened to be
+--     clear would never show the light. A stopped hub already destroys its lights here anyway.
+--   * Vanilla's own per-light "night only" data is `NightLightSpecs[entity][state]`, parsed from
+--     `Autolight`/`L` SPOT ANNOTATIONS on the entity (`Lua/NightLightObjects.lua:430-542,:544-570`),
+--     not from Lua — our imported body carries none, so that route needs a bake we do not have.
+--     And `NightLightPointLight`/`NightLightSpotLight` (`:68-84`) are the wrong class to attach by
+--     hand: `NightLightsOn` starts by destroying every `NightLightLight` attach (`:335`, `:187-189`).
+--     So: vanilla classes, vanilla Msg, vanilla state — and no thread of our own.
+-- OnMsg is additive and the order between handlers is NOT guaranteed, so when our handler runs it
+-- passes the transition it was told rather than re-reading a MapVar vanilla may not have set yet.
+-- The Msg is per-map and the rebuild walks every map, so the override is keyed by the map it came
+-- from; a hub on any other map reads its own MapVar as usual.
+local hub_night_forced = nil -- { map = <the map the Msg named>, night = <bool> }, only while it runs
+local function hub_is_night(self)
+	local map = self.GetMap and self:GetMap() or nil
+	if hub_night_forced and hub_night_forced.map == map then return hub_night_forced.night end
+	return (type(map) == "table" and map.NightLightsState) and true or false
+end
 
 -- Model numbers, hub-local centimetres, from the production run at assets `24a98b7` (spec §9).
 -- z is measured from the hub's base, NOT from the 8.00 m train deck the arm lights use.
@@ -1286,11 +1336,20 @@ end
 
 local function place_hub_structure_lights(self, sets)
 	local total = 0
+	local night = hub_is_night(self)
 	for _, key in ipairs(hub_structure_order) do
 		local family = hub_structure_lights[key]
 		local list = {}
-		if family and family.on then
-			if key == "portal" then
+		-- A `night` family is simply NOT PLACED by day, and is built at dusk: the same
+		-- destroy-rather-than-dim idiom the rest of this block uses, and the same one vanilla
+		-- uses (`NightLightOffAttaches` destroys, NightLightObjects.lua:187-189).
+		if family and family.on and (not family.night or night) then
+			if key == "crown" then
+				-- One light, on the dome's axis: the six ribs meet at x = y = 0. place_hub_light
+				-- aims a SpotLight straight down with exactly the arm spots' assumption (+X turned
+				-- a quarter about Y), so this reuses that aim rather than making a second one.
+				list[#list + 1] = place_hub_light(self, family, 0, 0, family.height)
+			elseif key == "portal" then
 				for direction = 0, 5 do
 					local ax, ay, length = hub_arm_axis(direction)
 					for _, p in ipairs(hub_portal_rim_points) do
@@ -1324,6 +1383,13 @@ local function place_hub_structure_lights(self, sets)
 		total = total + #list
 		print(string.format("[TrainHubDev] structure lights: %s %s, %d lights (intensity %d, radius %d cm)",
 			family.name, family.on and "ON" or "OFF", #list, family.intensity, family.radius))
+		if family and family.night then
+			local cr, cg, cb = 0, 0, 0
+			if type(GetRGB) == "function" then cr, cg, cb = GetRGB(family.color) end
+			print(string.format("[TrainHubDev] structure lights: %s follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is %s now, so it is %s -- hanging at z %d cm, colour %d,%d,%d, cone %d/%d",
+				family.name, night and "NIGHT" or "DAY", night and "LIT" or "NOT PLACED",
+				family.height or 0, cr or 0, cg or 0, cb or 0, family.inner or 0, family.outer or 0))
+		end
 	end
 	return total
 end
@@ -1399,6 +1465,19 @@ function Floor.SetHubStructureLights(changes)
 		end
 	end
 	reinit_hub_lights()
+end
+
+-- Dusk and dawn. Additive, beside vanilla's own handler on the same Msg
+-- (NightLightObjects.lua:250-259, build 1.1.0.403908) and comparing the same two booleans, so the
+-- crown light comes on and goes off on exactly the game's edge. Only a real transition rebuilds,
+-- so a storm or any other lightmodel swap inside one phase costs nothing.
+function OnMsg.LightmodelChange(map, view, lm, time, prev_lm)
+	local was = prev_lm and prev_lm.night and true or false
+	local now = lm and lm.night and true or false
+	if was == now then return end
+	hub_night_forced = { map = map, night = now }
+	reinit_hub_lights()
+	hub_night_forced = nil
 end
 
 -- A train station is normally only an ElectricityConsumer. This hub is both a

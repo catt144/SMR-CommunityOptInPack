@@ -24,6 +24,10 @@ function point(x,y,z) return setmetatable({_x=x,_y=y,_z=z},P) end
 function Rotate(p,a) local r=math.rad(a/60); local c,s=math.cos(r),math.sin(r)
  return point(math.floor(p._x*c-p._y*s+.5), math.floor(p._x*s+p._y*c+.5)) end
 weak_keys_meta={__mode='k'}; Floor={}; abs=math.abs; Min=math.min; Max=math.max
+OnMsg={}
+-- The map object the hub reports; vanilla publishes day/night on it as the MapVar
+-- NightLightsState (Lua/NightLightObjects.lua:22,:337,:388, build 1.1.0.403908). Start by DAY.
+MAP={NightLightsState=false}
 function IsValidThread(t) return t and true or false end
 threads=0; function CreateRealTimeThread() threads=threads+1; return {} end
 function AllMapsForEach(_,_,f) f(h) end
@@ -77,7 +81,7 @@ function h:GetAttaches(c)
   if IsValid(v) and v.class==c then out[#out+1]=v end
  end return out
 end
-function h:GetMap() return 1 end
+function h:GetMap() return MAP end
 function h:GetAngle() return 0 end
 function h:GetPosXYZ() return 0,0,0 end
 h.city={labels={Train={}}}
@@ -186,7 +190,49 @@ h.working=false; h:InitHubLights(); assert(#lights()==0)
 h.working=true; h:InitHubLights(); h:InitHubLights(); assert(#lights()==144, #lights())
 assert(n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
 assert(IsValid(foreign))
-counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),total=#lights()}
+-- The crown floor light rides the VANILLA night schedule: our OnMsg.LightmodelChange handler sits
+-- beside the game's own (Lua/NightLightObjects.lua:250-259, build 1.1.0.403908) and compares the
+-- same two booleans. Everything above ran by DAY, so the crown was absent throughout.
+assert(n('crown')==0, n('crown'))
+OnMsg.LightmodelChange(MAP,false,{night=false},0,{night=false}) -- no transition: no rebuild
+assert(n('crown')==0 and #lights()==144)
+-- Dusk, fired the vanilla way.
+MAP.NightLightsState=true
+OnMsg.LightmodelChange(MAP,false,{night=true},0,{night=false})
+assert(n('crown')==1, n('crown'))
+assert(#lights()==145 and n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
+crown=set('crown')[1]
+assert(crown.class=='SpotLight' and crown.delete_on_load and crown.spot==0 and crown.detail=='Essential')
+assert(crown.color==RGB(255,214,170) and crown.intensity==60 and crown.radius==35*guim)
+assert(crown.inner==50 and crown.outer==90)
+assert(crown.axis=='axis_y' and crown.angle==90*60)          -- the arm spots' aim, reused: straight down
+assert(crown.offset:x()==0 and crown.offset:y()==0 and crown.offset:z()==1900) -- the dome axis, 19.00 m
+-- Idempotent at night, and tunable/off-able through the existing console entry point.
+h:InitHubLights(); h:InitHubLights(); assert(n('crown')==1 and #lights()==145)
+Floor.SetHubStructureLights{crown={intensity=90,height=1850,color=RGB(255,200,150),outer=120}}
+assert(n('crown')==1)
+crown=set('crown')[1]
+assert(crown.intensity==90 and crown.offset:z()==1850 and crown.color==RGB(255,200,150) and crown.outer==120)
+Floor.SetHubStructureLights{crown={on=false}}; assert(n('crown')==0 and #lights()==144)
+Floor.SetHubStructureLights{crown={on=true,intensity=60,height=1900,color=RGB(255,214,170),outer=90}}
+assert(n('crown')==1 and #lights()==145)
+-- A stopped hub destroys it with the rest; running again rebuilds it.
+h:OnSetWorking(false); assert(#lights()==0 and Floor.HubLightSet(h)==nil)
+h:OnSetWorking(true); assert(n('crown')==1 and #lights()==145)
+night_counts={crown=n('crown'),total=#lights()}
+-- Dawn, the same Msg the other way: the crown goes, nothing else moves.
+MAP.NightLightsState=false
+OnMsg.LightmodelChange(MAP,false,{night=false},0,{night=true})
+assert(n('crown')==0 and #lights()==144 and n('arm')==72 and n('portal')==30 and n('rim')==36)
+-- Another map's dusk/dawn does not switch this hub: the override is keyed by map, and a hub
+-- elsewhere falls back to its own MapVar.
+MAP.NightLightsState=true; h:InitHubLights(); assert(n('crown')==1)
+OnMsg.LightmodelChange({},false,{night=false},0,{night=true})
+assert(n('crown')==1, n('crown'))
+MAP.NightLightsState=false; h:InitHubLights(); assert(n('crown')==0 and #lights()==144)
+counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),
+        crown_day=n('crown'),crown_night=night_counts.crown,
+        total_day=#lights(),total_night=night_counts.total,total=#lights()}
 ''')
 counts = {k: v for k, v in dict(lua.globals().counts).items()}
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
@@ -199,4 +245,8 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
              'arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets',
              'structure lights: portal 30 on by default; pit 6 (on the Pitrim spot), rim 36 and floor 24 off by default; 102 default, 144 with rim and pit',
              'structure lights: on the rim span, the kerb circle and the ring radius, at their z',
-             'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on']}))
+             'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on',
+             'crown floor light: absent all through the day pass; 1 at night on the dome axis (0,0,1900), SpotLight aimed down like the arm spots, RGB(255,214,170), intensity 60, radius 3500 cm, cone 50/90',
+             'crown floor light: the vanilla night hook fired both ways -- Msg LightmodelChange day->night places it, night->day destroys it, a no-transition fire rebuilds nothing',
+             "crown floor light: another map's LightmodelChange does not switch this hub",
+             'crown floor light: idempotent at night, tunable and off-able via SetHubStructureLights, destroyed by OnSetWorking(false) and recreated by (true)']}))
