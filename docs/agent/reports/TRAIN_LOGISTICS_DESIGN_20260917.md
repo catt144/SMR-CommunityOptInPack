@@ -1691,6 +1691,12 @@ freeze is lifted for one full, comprehensive pass — uniform quality over every
 pixels."** Geometry and spots stay frozen; the UV contract is re-frozen after the pass. Bounded for
 the owner: the target is the road's quality at the inspection zoom everywhere, not any zoom. The
 2048 held sets become historical at their tags. Brief: `01_TRAIN_HUB_STRUCTURE_high.md` §"Pass 3".
+**Owner, same sitting: the floor plate goes in before the UV freeze** — the 2026-09-20 floor
+decision above was never built (`hub_skeleton.py` has no plate; the model freeze came after it).
+One geometry change: `FloorPlate`, the beds and `Box1` spots rising by its thickness, every
+other object's digest unchanged. Restore point `hub-structure-pass2-20260921` (OptInPack
+`d6d1a1f`, the pass 2 import checkpoint, assets `cb60471`; 66 files, 501.7 MB) holds
+the state before the floor and the UV pass.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;

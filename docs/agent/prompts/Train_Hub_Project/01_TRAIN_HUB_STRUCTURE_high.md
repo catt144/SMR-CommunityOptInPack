@@ -134,6 +134,14 @@ not promised. The held 2048 sets (`pad`, `nostrips`, `thinlines`, `thinlines_all
 historical at their tags; only the structure set is rebaked and re-pinned. The mesh is re-exported
 and the owner's import re-imports it (same FBX path, same spots).
 
+**The floor plate first (owner, 2026-09-21: "we need our floor before we freeze the uv. we never
+made it").** The 2026-09-20 floor decision (spec §9: a plate under the ring interior, near-white,
+faint hex relief, dark trim border, coloured edge strip, the hex pattern moved onto it off the
+beams and the stub, no collider, the cargo beds rise by its thickness) was never built —
+`hub_skeleton.py` has no plate. It is the one geometry change: a new `FloorPlate` object, the
+beds and their `Box1` spots rising by its thickness; every other object's digest unchanged. Then
+the UV pass, then the structure rebake. Order: floor → UV → bake → one import (mesh + maps).
+
 ## Leads, not the route
 
 - `BODY_SIZE = 2048` (`paint_concept.py:24`) sizes every map; you need it per map.
