@@ -1825,6 +1825,25 @@ it. The shutter style (16.2 m wide, drops 5.07 m) is not designed for; it stays 
 console style. Leaves hidden in the pockets is both sessions' recommendation; **the owner's
 morning call: hidden or visible.** Constants to share by name: `PORTAL_DOOR_FACE_X`,
 `PORTAL_DOOR_SINK`, `PORTAL_POCKET_*`; a door rescale re-runs the portal parametrically.
+The doors' side landed at OptInPack `8aef5de` (`Floor.HubDoorFaceX = 3510`, `HubDoorSink = 185`).
+**Pit built as a candidate, 2026-09-22 — assets `4f86f1a`, `PIT_ON` default off; desk-verified.**
+Built by an Opus agent. `PIT_R` 5.75 m (11.50 across, `HEX/√3`), `PIT_D` 11.547 m on the 30°
+midline (the three-hex corner of generator hexes (1,0)/(0,1)/(1,1), and the one radius where the
+centre pillar and the two 20 m line pillars are equidistant: 3.70 m at the mouth, 3.10 at the
+kerb — the ≥3.5 m asked for is met at the mouth, not the kerb, and 3.10 is the maximum for this
+size), `PIT_DEPTH` 20 m, kerb 0.30 × 0.60, three ledge bands, six posts, `terrain_hole` node r
+6.05 m at z 0, spots `-Pitfloor` (z −20) and `-Pitrim` (z 0.30). `FloorPlate` the only existing
+object changed (top area 2983.0757 m² = 144-gon minus mouth), 104 of 105 byte-identical; the
+importer needs one selector (`'name', "terrain_hole", 'SurfaceType', "terrain_hole"`), and
+`prepare_concept.py` `SURFACES` gains `'terrain_hole'` at export. **Finding for the owner: the
+deck roofs 73.6% of the mouth** (1,254 rays up: `SidingPanel_1` 532, `Siding_1` 142, `Track_A`
+132, `Track_B` 117; lowest roof 6.19 m over the kerb), and the wedge is six-fold symmetric, so no
+radius on a midline escapes: an 11.5 m mouth cannot fit the ~2.7 m gap between two siding decks
+at any radius inside the beds. The shaft reads from above only from bearings 20-90°
+(`export/pit_candidates/pit_top.png` against `pit_top_floor.png`). **Owner's morning call:**
+accept a hangar under the deck (drones fly out under 6 m of headroom; the mouth shows at a
+slant), or shorten a siding's inner end to open the wedge (siding geometry, parking length), or
+a smaller pit.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
