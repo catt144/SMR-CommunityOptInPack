@@ -94,6 +94,29 @@ in this link. Initial nonexistent-path / escaped-underscore / wildcard reads fai
 writes. Spent row removal follows the map gate instead of the brief's literal strikethrough.
 Review L3 for all native obligations and L4 for unchanged save/deadline authority.
 
+### L2M handoff, 2026-09-22
+
+Motion build `74b1e4a`; report `docs/agent/reports/drones_chain/L2M_MOTION_20260922.md` has the
+leg-by-leg decision, commands/hashes, tuners, measured clearance and complete drift table.
+The native claim is timed ComponentInterpolation only; native curvature/FlightGoto are unused.
+The archived FlightGoto body ran with a solver spy, not with C++ Flight_Step or in the game.
+Do not turn that source-contract test into native evidence. L3 still owns the visual verdict.
+
+Audit the drift: coarse-prism clearance first failed at RingClamp_1 (−0.053805 m); conservative
+time subdivision resolved the false-positive hull without changing safety allowances. Reverse
+sampling caught a duplicate-waypoint timing asymmetry, now shared equally. Old axis-only smoke
+expectations were replaced. Early recall necessarily changed to curved braking/retrace; normal
+deadlines remain asserted. The final receipt proves positive source-mesh bounds including bank
+and interpolation; its smallest is 0.123799 m at Ring, not a measured native closest distance.
+
+Scope extension is the existing clearance instrument and a new receipt, needed to measure the
+new motion. No art, hub implementation, dispatch or persisted state changed. Concurrent
+`08bca5b`, `061d6cb`, `63790bc` are separate diffs; `061d6cb` restores the flight code-list entry
+after another import. Import survival is still owed. Assets had no pull target. The report
+retains failed read/patch attempts, initial long-running-tool handling and discarded measurements.
+L2M deletes its spent file and removes its row together, and clears the parent map's block.
+Review the fresh L3 handoff for every native obligation, and L4 for economic/save integration.
+
 ## Lifecycle
 
 Your report is the chain's close-out. **Delete this file and strike its row in `README.md` in the

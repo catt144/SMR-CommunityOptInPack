@@ -86,6 +86,33 @@ Import warning is now observed: `d48871e` removed the flight code entry. L2R res
 metadata, but the next editor import still owes a survival check. If absent again, stop under
 this brief's existing import instruction. Save cancellation/relaunch and L4 resume duties stand.
 
+### L2M handoff, 2026-09-22
+
+Resume the attended sitting with motion build `74b1e4a`. Read
+`docs/agent/reports/drones_chain/L2M_MOTION_20260922.md`. The route and normal arrival/work/removal
+offsets stand. The motion now rounds ordinary corners with shared velocity, eases required
+reversals/stops, filters heading and bank, and uses native timed position/rotation interpolation.
+It does not use FlightGoto or ComponentCurvature. Early recall brakes along the curve and
+retraces it; its new removal deadline includes that braking. No native flight ran in L2M.
+
+All existing tuners remain; none was retired. New GUESS defaults: `TurnRadius=300` (maximum
+corner trim in engine units), `BlendTime=400`, `AccelTime=400`, `HeadingTime=400` (game ms),
+`BankAngle=180` (angle minutes, 3 degrees; 0 disables, maximum 300). Use the same
+`SetHubDroneTune` after landing. Speed/ClimbRate now set nominal deadline budgets; eased
+starts/stops can peak at 4/3 nominal rate. All defaults still need your visual verdict.
+
+MEASURED source-mesh bound including bank, rounding and up to 100-game-ms interpolation:
+**0.123799 m at Ring on the under-deck leg**, receipt `tests/motion_clearance_receipt.json`
+under the dev hub. Pit-floor bound is 0.142959 m; crest-side example is 0.247822 m at Siding_1.
+The report gives commands, hashes, filters and remaining geometry exclusions. This is a
+conservative hull result, not live clearance. Rerun it after changing path/bank constants or art.
+
+Still owed: judge fluidity/heading lag, bank direction, reversals and game-speed changes; the
+passing-train height check, full route through stations/hoods/portals/tunnels, work pose, worst
+live clearance/location, native command suppression, save cancellation/relaunch, and import
+survival. Another texture import removed the code-list entry; concurrent `061d6cb` restored it.
+Check the next import explicitly. L4 still owns persisted resume and economic deadlines.
+
 ## Lifecycle
 
 Append the settled values into link 4's notes, then **delete this file and strike its row in

@@ -2698,3 +2698,24 @@ All tunable guesses, measured static margins and their limits are in
 `docs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md`; its committed measurement receipt
 pins the current source geometry. Native clearance, train passage and import survival remain
 L3's attended checks. The flight metadata entry removed in `d48871e` is restored by L2R.
+
+### Drones L2M: motion layer (owner instruction, 2026-09-22)
+
+The owner asked for all actions to feel more fluid and "less fly on a wire" after the under-deck
+route was flown without objection. Motion build `74b1e4a` retains that topology and normal
+arrival/work/removal deadlines. Scripted bounded curves share velocity through ordinary corners,
+ease required reversals/stops, and supply filtered heading/bank to native timed interpolation.
+FlightGoto's solver and ComponentCurvature are not used; their unconstrained path/arc would not
+carry this route's clearance/deadline proof. Early recall brakes and retraces its current curve.
+
+SOURCE/MEASURED details, leg-by-leg verdict, retained/new tuners and commands are in
+`docs/agent/reports/drones_chain/L2M_MOTION_20260922.md`. New defaults are guesses:
+TurnRadius 300, BlendTime/AccelTime/HeadingTime 400 game ms, BankAngle 180 angle minutes.
+No existing constant is retired; Speed and ClimbRate are nominal deadline budgets, with eased
+start/stop peaks up to 4/3 nominal speed. Source-mesh clearance including bank, rounding and
+interpolation has a conservative minimum of 0.123799 m at Ring on the under-deck leg; the
+committed motion receipt pins inputs and full curve hulls. This is not a native clearance or
+fluidity verdict. L3 resumes for visual judgment, train passage, the full route/work pose, live
+clearance, import survival and save behavior. L4's persisted deadlines and integration remain
+its authority. Concurrent `061d6cb` restored registration after another texture import; the
+next import still owes its survival check.
