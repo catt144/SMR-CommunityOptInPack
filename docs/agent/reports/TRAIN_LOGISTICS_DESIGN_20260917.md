@@ -2087,6 +2087,19 @@ historical and is superseded by the owner's staged order above.
 
 ---
 
+
+**Owner ruling, 2026-09-22 — the drones' exit lane is UNDER THE DECK.** Link 3's flight-look sitting
+(`reports/drones_chain/L3_FLIGHTLOOK_20260922.md`) stopped before tuning any constant: the drone
+lifted out of the pit and the owner saw the open question, in their words — *"its either going to
+have to fly out of one of the portals where it risks hitting and clipping through a train. or it
+needs to come out and through the bottom of the hub before it heads to a track"*, with *"room all
+around"*, so no clearance defect. The ruling: **out under the deck, between the pillars, never
+through the train portals**; it is the space already accepted with the hangar, and it shares no lane
+with a train, so **no lane guard or train-awareness logic is built**. A portal exit is not a
+fallback: if the under-deck lane fails, the geometry is the owner's to move. The rebuild is
+`prompts/Train_Hub_Project/03_Drones/2R_EXITROUTE_medium.md`; link 3 resumes on its settled route.
+OI-25's pit column stands.
+
 ## 10 · The prototype, the next build (authorised 2026-09-18)
 
 **Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
