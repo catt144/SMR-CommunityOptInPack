@@ -39,18 +39,27 @@ save-start teardown. **This link changes the route, not the mechanism.**
    cruise height → outward between the pillars, clear of the hub's footprint → then the climb to
    the track hover height, outside the hub's envelope. The return is the reverse, and lands on the
    pit floor. The track-following half of `F.Route` is kept as it is.
-2. **Clearance measured, not assumed**, and reported with the worst case and where it was: the deck
+2. **The ride over the track, the owner's ruling of 2026-09-22:** the drone hovers **directly over
+   the track**, on its centreline, and **high enough to clear any train that may be coming the other
+   way** — it is never in a train's volume. At the work site it **descends to fix height and works
+   there**: it repairs at the element, not from high above it. The descent and the climb back are
+   part of the route, with their own constants.
+   ⚠️ **No trustworthy train height exists in our records** (the 41.5 m length was disputed and
+   withdrawn, spec §13). State the basis for the number you pick — a measured bbox, a spot, or a
+   stated guess — and hand link 3 the check: a train passing under the hovering drone, judged by
+   eye. Do not revive the disputed figures.
+3. **Clearance measured, not assumed**, and reported with the worst case and where it was: the deck
    underside, the gap the drone flies between (ring pillars, the seven centre pillars, the six cargo
    beds, the ring wall), and the outbound climb clear of the hoods and the portal arches. Spec §9's
    BVH numbers are a starting point, not your result: the mesh changed in `24ffa82`.
-3. **New constants at the top of the file, named for link 3 to tune by eye:** the under-deck cruise
-   height, the outward distance before the climb, and the climb rate, alongside link 2's existing
-   `HoverHeight`, `Speed`, `LaunchTime`, `LandingTime`, `WorkTime`. Defaults are your best guess and
-   say so.
-4. **The offline smoke updated** (`tools/devmods/train_hub/tests/flight_smoke.py`) so the route's
+4. **New constants at the top of the file, named for link 3 to tune by eye:** the under-deck cruise
+   height, the outward distance before the climb, the climb rate, the over-track cruise height and
+   the fix height at the site, alongside link 2's existing `HoverHeight`, `Speed`, `LaunchTime`,
+   `LandingTime`, `WorkTime`. Defaults are your best guess; say so.
+5. **The offline smoke updated** (`tools/devmods/train_hub/tests/flight_smoke.py`) so the route's
    waypoints and the no-portal rule are checked without the game, and say plainly what only the
    game can answer.
-5. A short report in `docs/agent/reports/drones_chain/`, and the ruling recorded in spec §10.
+6. A short report in `docs/agent/reports/drones_chain/`, and the ruling recorded in spec §10.
 
 ## Live work list
 

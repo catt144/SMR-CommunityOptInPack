@@ -97,6 +97,19 @@ what link 5's sitting still has to show.
 - OI-25 approved 2026-09-22; the column is settled. L3 still owes owner-tuned constants and
   actual clearance/import persistence; L2's mocked success is not a native verdict.
 
+- **Owner ruling, 2026-09-22 — malfunction and power loss never stop the repair work.** The owner
+  asked what happens when the maintenance gauge fills and the hub needs maintenance, and what
+  happens in a network power outage. Build 3 already answers both and this link keeps them:
+  `SMROptInTrainHubBase:CanCommandDrones` (`20_TrainHub.lua:972`) deliberately drops vanilla's
+  malfunction gate (`DroneHub.lua:150-153`) because the hub's drones exist to repair it and it may
+  stand far from any other controller; the hub is its own producer and the cold-start ruling keeps
+  its source alive without a grid. **So `DESIGN.md` §1's "if the hub is working" means the player's
+  switch (`ui_working`) and not destroyed — never `IsWorking`, which a malfunction or an unpowered
+  grid clears.** A malfunctioned or unpowered hub still dispatches and still completes; only the
+  player's switch stops NEW dispatches, and a repair already in flight always completes on its
+  deadline. Prove both in an offline check, and hand link 5 the two sitting cases: dispatch with the
+  maintenance gauge full, and dispatch with the grid dead.
+
 ## Lifecycle
 
 Append what the smoke must cover into link 5's notes, then **delete this file and strike its row in

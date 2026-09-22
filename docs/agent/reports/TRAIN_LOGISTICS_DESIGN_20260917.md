@@ -2100,6 +2100,21 @@ fallback: if the under-deck lane fails, the geometry is the owner's to move. The
 `prompts/Train_Hub_Project/03_Drones/2R_EXITROUTE_medium.md`; link 3 resumes on its settled route.
 OI-25's pit column stands.
 
+
+**Owner rulings, 2026-09-22 — the ride, and what a broken or unpowered hub does.** (a) The drone
+**hovers directly over the track**, on its centreline, **above any train that may be coming**, and
+**descends to fix height at the site**: it repairs at the element, never from high above it. The
+heights are constants link 2R builds and link 3 tunes by eye; no trustworthy train height exists in
+our records (§13's withdrawn figures), so 2R states its basis and link 3 checks it with a train
+passing under the drone. (b) The owner asked whether a full maintenance gauge or a network power
+outage disables the drones: **it does not, by build 3's design.**
+`SMROptInTrainHubBase:CanCommandDrones` (`20_TrainHub.lua:972`) drops vanilla's malfunction gate
+(`DroneHub.lua:150-153`) because the hub's drones exist to repair it, and the hub is its own
+producer under the cold-start ruling, so a dead grid does not stop it. `DESIGN.md` §1's "if the hub
+is working" therefore means the **player's switch** (`ui_working`) and not destroyed, never
+`IsWorking`. Only the switch stops new dispatches; a repair in flight always completes on its
+deadline. Link 4 builds it; link 5's sitting tests both cases.
+
 ## 10 · The prototype, the next build (authorised 2026-09-18)
 
 **Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
