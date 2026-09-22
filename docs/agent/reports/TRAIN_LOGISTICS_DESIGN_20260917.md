@@ -2130,6 +2130,31 @@ rim and pit families on), `validate_structure.py` PASS 0 failures. Next, all the
 restart, the night look at the crown pool and the yellow frames; on keep
 `snapshot_hub.py hub-crown-20260922`; then the whole-hub cost reading.
 
+**Owner asks, 2026-09-22 evening — the frame line orange-red; the glass into the loading spots.**
+(1) *"Can we change the parking spots for loading from this yellowish it an orange almost red"*:
+assets `9a1e2b9`, Opus build, guards rerun by the orchestrator (`validate_structure.py` PASS 0
+failures, BC `fb04d643…`). `SIDING_LINE_COLOUR` now takes a hex, default `#EB4619` (235,70,25), a
+prototype for the owner's eye; the validator's second core colour is per group from the proof's
+own knob. Only BC moved (NM `32aae399…`, RM `ccf8a11e…`, SI `20eb4c16…` identical); Siding core
+30,442 texels all exactly (235,70,25), Line_Arm core 37,776 all (0,40,255), the bays' border and
+decal 14,672 texels #E8B923 and 0 of either colour lit outside its group; 135/135 and 99/99
+rebuild proofs, `verify_crown_pass.py` PASS, `verify_rim_bleed.py` unchanged. Stale after this:
+`siding_isolation_production.py` (the yellow pass's one-shot proof, pins #E8B923) would now fail,
+and the `'bay'` frame state has no CLI flag (knob edit only; its BC `bc47c0b9…` is not on disk).
+Texture-only: the owner's compile is owed. (2) *"when can we get the glass into the loading
+spots"*: assets `40e7301`, `trainhub/blender/GLASS_IMPORT.md`. The glass FBX
+(`export/concept/SMROptInTrainHub6Glass.fbx`, 36 faces, 0 vertex/UV delta against the frozen
+contract `a0aa8955…`/`7a8fda30…`, 6 of 6 panels inside their frames) needs no re-export. The
+transparent material is vanilla's: `PassageHubGlass.mtljson` `BlendType blendGlass`, `DepthWrite
+false`, `TwoSidedShading true`, no shadows, `TransparentDecal true` (139 `blendGlass` materials in
+`Materials.fpk`); **BlendType must be set before the maps compile** or BaseColor compiles `-bc1`
+and drops the alpha (`GFXMaterial.lua:889,:1128-1136` @1.1.0.403908). The Sunday glass maps
+(`textures/concept/…Glass_*`, 1024, alpha 61-255) were baked on the pre-UV-pass glass layout
+(`45ec462e…`; 144/144 loops moved, IoU 0.608): a glass rebake on the current UVs is in flight
+and lands before the owner's one import of the second entity. Order for the owner's sitting:
+texture compile (orange frames) → restart, night look (crown pool, frames) → glass entity import
+from the sheet → the whole-hub cost reading.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
