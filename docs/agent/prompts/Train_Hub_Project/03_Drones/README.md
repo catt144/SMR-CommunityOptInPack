@@ -7,7 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | The owner tunes the flight by eye in game: hover height, speed, launch and landing, clearance at stations, hoods and tunnels. Records the values |
+| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | ⛔ **BLOCKED.** The owner tunes the flight by eye in game: hover height, speed, launch and landing, clearance at stations, hoods and tunnels. Records the values |
 | 4 | `4_HUB_high.md` | high | no | ⛔ Waits for the structure pass. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
 | 5 | `5_SMOKE_medium.md` | medium | **yes** | `DESIGN.md` §5's smoke with the owner, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
@@ -36,3 +36,13 @@ The owner approved the task's pending question: launch from and return to the pi
 offsetting both `Pitfloor` and `Pitrim` by entity-local `point(-310,180,0)`, then lifting through
 that column to local z +10 m. The approval adopts L1's measured column; live flight clearance
 still belongs to link 3.
+
+## Link 3 blocked, 2026-09-22
+
+The flight-look sitting stopped under `3_FLIGHTLOOK_low.md`'s own Stop #1 before any constant
+was judged: the owner's live read found the hub's exit is a route/mechanism question (a shared
+portal lane with trains, or a separate path under the hub deck), not a tunable value. Full
+record, owner's words and the open question for the rebuild:
+`docs/agent/reports/drones_chain/L3_FLIGHTLOOK_20260922.md`. Link 3 stays in the chain,
+unfired again until a rebuilt link 2 settles the route and leaves fresh
+`## Notes from upstream`.
