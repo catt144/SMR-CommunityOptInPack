@@ -2075,6 +2075,20 @@ luma proxy became unsatisfiable (bed median 13 → 91); with `BAY_LOOK` gunmetal
 p1 (179.3) > bay median (92.0); legacy sets keep 8×. Import: texture compile only (same four
 names, FBX and material unchanged), or the full body procedure, harmless.
 
+**Lights and glow settled "good enough", 2026-09-22 (owner: "still not navy, but we are hammering too
+much on this").** Sequence, all in game: the six floor circles were the pit kerb lights placed
+from the generator's frame (fixed: they hang on the imported `Pitrim` spot, OptInPack `c019ed5`);
+the ring rim points read as bleeding circles (family off by default); the arm spots dimmed
+130 → 50 and offset 1.5 m off the line; portal rim lights 40 → 15 → 4 (`3319d06`); the pit
+family cut (`e9c0a5c`; "other lighting will cover it"). The lavender itself was the EMISSIVE
+(navy with the hub stopped, periwinkle everywhere when working, while the real lights' wash read
+navy): `THIN_SI` .7 → .4 in production (assets `537b02e`, SI only; line cores 179 → 102; a .55
+fallback beside), imported 2026-09-22 (`metadata` checkpoint). Defaults now: arm 72 at 50,
+portal 30 at 4; rim, pit and floor families off; 102 lights. **New owner asks, same day, in one
+assets run:** tan/gold stripes on the portal rims' hub-side crown (a bleed to diagnose); the
+parking dashes on the sidings in the bays' yellow; siding glass frames outer rectangle only
+(optional, small). The owner has more lighting to give after that.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
