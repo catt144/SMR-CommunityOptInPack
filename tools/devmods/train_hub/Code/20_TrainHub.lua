@@ -1217,6 +1217,171 @@ function SMROptInTrainHubBase:InitHubLights()
 	set_hub_lights_working(self, self.working)
 end
 
+-- Portal doors (owner 2026-09-22, brief 05, spec §9): a vanilla door that already animates, one
+-- per portal, opening as a train comes through and closing behind it. The owner's pick is the
+-- Mars Assembly glass pair at 184, the smallest scale whose open leaves clear the whole 6.5 m
+-- opening, turned round so the glass reads solid from outside and see-through from inside.
+-- Vanilla door entities attached to the hub, so no new persisted class or field; DeleteOnLoadGame
+-- and recreation like the lights, and a recreated door is CLOSED. A stopped hub destroys them.
+-- The door plane is the rebuilt portal's rebate (SMR-Assets hub_skeleton.py PORTAL_DOOR_X); today's
+-- Tripo collar spans 30.1-35.5 m, so until that portal is imported the doors clip the old collar.
+-- Switch style from the console without an import: SMROptInTrainFloor.SetHubDoorStyle("shutter").
+local hub_door_styles = {
+	glass = { name = "Assembly glass pair", entity = "MarsAssembly_Door_01", scale = 184, reversed = true,
+		retracts = "two leaves slide sideways, clear of the opening (seen in game 2026-09-22)" },
+	shutter = { name = "Tunnel shutter", entity = "TunnelEntranceDoor", scale = 81, reversed = false,
+		retracts = "one slab drops about 5.1 m, below the deck (desk figure, not seen at this scale)" },
+}
+Floor.HubDoorStyle = "glass" -- false: no doors
+local hub_door_radius = 3475 -- PORTAL_DOOR_X, 34.75 m out from the hub centre
+-- The doorway band, along the portal's line from the door plane: a train body inside it holds
+-- the door open. Owner-facing trials, tune by eye.
+Floor.HubDoorBandOut = 20 * guim -- outside the door: how early it opens (the opening takes 0.5 s)
+Floor.HubDoorBandIn = 5 * guim   -- inside the door: how far past it a leaving body still holds it
+Floor.HubDoorBandSide = 8 * guim -- either side of the line; the lanes are 2.89 m out
+Floor.HubDoorHoldTime = 1500     -- game ms the doorway must stay empty before it closes
+
+local hub_doors = setmetatable({}, weak_keys_meta) -- hub -> { [direction] = { door, open, hold } }
+local door_watch = false
+
+local function hub_door_axis(direction)
+	local x0, y0 = HexToWorld(0, 0)
+	local hx, hy = HexToWorld(HexRotate(1, 0, direction))
+	return hx - x0, hy - y0 -- one hex outward, hub-local
+end
+
+local function clear_hub_doors(self)
+	for _, style in pairs(hub_door_styles) do
+		for _, door in ipairs(self:GetAttaches(style.entity) or empty_table) do
+			if IsValid(door) then DoneObject(door) end
+		end
+	end
+	hub_doors[self] = nil
+end
+
+local function place_hub_door(self, style, direction, deck)
+	local door = PlaceObjectIn(style.entity, self:GetMap())
+	door:SetDetailClass("Essential")
+	door:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	-- The closed box, entity-local and unscaled (GameObject.lua:403-407); vanilla door meshes sit
+	-- far off their own origin (27.7 m for the shutter), so the leaf's centre is put on the plane.
+	local centre = door:GetEntityBBox():Center()
+	local ax, ay = hub_door_axis(direction)
+	local angle = CalcOrientation(point(0, 0), point(ax, ay))
+	local turn = style.reversed and (angle + 180 * 60) % (360 * 60) or angle
+	local leaf = Rotate(point(MulDivRound(centre:x(), style.scale, 100), MulDivRound(centre:y(), style.scale, 100)), turn)
+	local plane = Rotate(point(hub_door_radius, 0), angle)
+	self:Attach(door, self:GetSpotBeginIndex("Origin"))
+	door:SetScale(style.scale)
+	door:SetAttachAngle(turn)
+	door:SetAttachOffset(point(plane:x() - leaf:x(), plane:y() - leaf:y(), deck))
+	DeleteOnLoadGame(door)
+	return door
+end
+
+-- Does any train's body reach this portal's doorway band? Positions only: no train, route or
+-- movement code is read or changed. The body is the train's own entity box laid along its heading,
+-- so a parked train that still overhangs the door keeps it open rather than being shut on.
+local function portal_has_train(cx, cy, ux, uy, length, trains)
+	local near, far = hub_door_radius - Floor.HubDoorBandIn, hub_door_radius + Floor.HubDoorBandOut
+	for _, train in ipairs(trains) do
+		if IsValid(train) then
+			local box = train:GetEntityBBox()
+			local a, b
+			if box:sizex() >= box:sizey() then
+				local my = (box:miny() + box:maxy()) / 2
+				a, b = point(box:minx(), my), point(box:maxx(), my)
+			else
+				local mx = (box:minx() + box:maxx()) / 2
+				a, b = point(mx, box:miny()), point(mx, box:maxy())
+			end
+			local pos, heading = train:GetVisualPos2D(), train:GetVisualAngle()
+			local ok = true
+			local lo, hi
+			for _, e in ipairs({ a, b }) do
+				local p = pos + Rotate(e, heading)
+				local dx, dy = p:x() - cx, p:y() - cy
+				local along = MulDivRound(dx, ux, length) + MulDivRound(dy, uy, length)
+				local side = MulDivRound(dy, ux, length) - MulDivRound(dx, uy, length)
+				if abs(side) > Floor.HubDoorBandSide then ok = false end
+				lo, hi = Min(lo or along, along), Max(hi or along, along)
+			end
+			if ok and hi >= near and lo <= far then return true end
+		end
+	end
+end
+
+-- One Open per opening and one Close per closing, from the same entry (Door.lua:15-36 counts
+-- them; DoorWithFX lets the count go negative). A train destroyed mid-transit empties the band.
+local function update_hub_doors(self, now)
+	local list = hub_doors[self]
+	if not list then return end
+	local trains = self.city and self.city.labels.Train or empty_table
+	local cx, cy = self:GetPosXYZ()
+	local hub_angle = self:GetAngle()
+	for direction, entry in pairs(list) do
+		if IsValid(entry.door) then
+			local ax, ay = hub_door_axis(direction)
+			local axis = Rotate(point(ax, ay), hub_angle)
+			if portal_has_train(cx, cy, axis:x(), axis:y(), point(ax, ay):Len(), trains) then
+				entry.hold = now + Floor.HubDoorHoldTime
+				if not entry.open then
+					entry.open = true
+					entry.door:Open()
+				end
+			elseif entry.open and now >= entry.hold then
+				entry.open = false
+				entry.door:Close()
+			end
+		end
+	end
+end
+Floor.UpdateHubDoors = update_hub_doors
+
+-- Real-time and unsaved, like the cursor markers' watch: it only reads positions and drives this
+-- file's own doors, and the doors animate on game time, so a paused game holds them still.
+local function start_door_watch()
+	if IsValidThread(door_watch) then return end
+	door_watch = CreateRealTimeThread(function()
+		while next(hub_doors) do
+			Sleep(100)
+			for hub in pairs(hub_doors) do
+				if IsValid(hub) and not hub.destroyed then
+					update_hub_doors(hub, GameTime())
+				else
+					hub_doors[hub] = nil
+				end
+			end
+		end
+		door_watch = false
+	end)
+end
+
+local function set_hub_doors_working(self, working)
+	clear_hub_doors(self)
+	local style = working and hub_door_styles[Floor.HubDoorStyle]
+	if not style or not IsValidEntity(style.entity) then return end
+	local deck = train_deck_height(self)
+	local list = {}
+	for direction = 0, 5 do
+		list[direction] = { door = place_hub_door(self, style, direction, deck), open = false, hold = 0 }
+	end
+	hub_doors[self] = list
+	print(string.format("[TrainHubDev] doors: 6 x %s \"%s\" (%s) at scale %d, %d.%02d m out%s; a stopped hub destroys them",
+		Floor.HubDoorStyle, style.name, style.entity, style.scale, hub_door_radius // guim, hub_door_radius % guim,
+		style.reversed and ", turned round" or ""))
+	start_door_watch()
+end
+
+function SMROptInTrainHubBase:InitHubDoors()
+	set_hub_doors_working(self, self.working)
+end
+
+function Floor.SetHubDoorStyle(key)
+	Floor.HubDoorStyle = key
+	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub) hub:InitHubDoors() end)
+end
+
 -- A train station is normally only an ElectricityConsumer. This hub is both a
 -- 70-power producer and a 10-power consumer on one grid element, so its stated
 -- output covers itself plus six 10-power large stations. SupplyGridElement and
@@ -1308,6 +1473,7 @@ function SMROptInTrainHubBase:GameInit()
 	self:InitHubReactorVisual()
 	self:InitHubSidingGlass()
 	self:InitHubLights()
+	self:InitHubDoors()
 	self:GatherOrphanedDrones()
 	top_up_hub_drones(self)
 	place_hub_markers(self)
@@ -1324,6 +1490,7 @@ function SMROptInTrainHubBase:OnSetWorking(working)
 	set_hub_reactor_working(self, working)
 	set_hub_glass_working(self, working)
 	set_hub_lights_working(self, working)
+	set_hub_doors_working(self, working)
 end
 
 -- Done is combined. TrackConnectedObjBase's body removes connectors 0..4
@@ -1464,6 +1631,7 @@ local function heal_after_load(hub)
 	hub:InitHubReactorVisual()
 	hub:InitHubSidingGlass()
 	hub:InitHubLights()
+	hub:InitHubDoors()
 	Floor.Reconcile(hub)
 end
 
