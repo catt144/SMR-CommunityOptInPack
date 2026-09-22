@@ -81,7 +81,21 @@ what link 5's sitting still has to show.
 - **Control:** chain `Drone:CanBeControlled`; after calling the captured original, return false only
   when the live `command_center` is a train hub and otherwise return the original result. That one
   gate greys both reassign buttons. Keep the no-free-drone backstop separate.
-- Links 2 and 3 still owe the flight API and owner-tuned constants below this block.
+- L2 API/report: `docs/agent/reports/drones_chain/L2_FLIGHT_20260922.md` and
+  `SMROptInHubFlight` in `Code/30_TrainHubDrones.lua`. `Create(hub, started)` returns an ephemeral
+  record; `Send(record, target, true)` retains that absolute start; `Update(record, now)` samples
+  it without economy; `Remove(record)` cleans it. Multiple independent records are supported.
+  `Route(hub,target)` uses physical connectors across broken tracks and reciprocal tunnels.
+- Persist no flight record or plan. You own pending data and the authoritative deadline; derive
+  the visual start from that deadline/plan offsets, sample elapsed time after rearm, and keep
+  that authority if tunables changed. `work_done` includes end animation, not just work dwell.
+  L2 clears every registered visual at save start and blocks creation until save done; it
+  deliberately does not reconstruct jobs. Native save/race/soak checks remain yours and L5's.
+- L2 never registers a prototype in the hub's drone dispatch list or invokes a work request.
+  You own the fleet integration, control wrapper, dispatch and completion. The console driver
+  samples only its own selected visual; drive your records through `Update` independently.
+- OI-25 approved 2026-09-22; the column is settled. L3 still owes owner-tuned constants and
+  actual clearance/import persistence; L2's mocked success is not a native verdict.
 
 ## Lifecycle
 

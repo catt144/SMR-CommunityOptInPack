@@ -41,7 +41,24 @@ Do not claim a value is the owner's unless they said so in the sitting; relay th
 
 ## Notes from upstream
 
-*(link 2 appends here: the constants, what each does, how to call the tuner)*
+- L2 implementation/report: `docs/agent/reports/drones_chain/L2_FLIGHT_20260922.md`.
+  OI-25 is approved: offset floor/rim column `point(-310,180,0)`, exit local z +1000.
+- Console [NEVER RUN in game]: select the hub, `SpawnHubDrone()`; select a track element/site,
+  `SendHubDroneTo(SelectedObj)`; `ReturnHubDrone()` lands/removes it. Read
+  `SMROptInHubFlight.Status()` for the absolute arrival/work/removal deadlines.
+- Tuner [NEVER RUN in game]: `SetHubDroneTune("HoverHeight", 300)` after landing. Other names:
+  `Speed=6000`, `LaunchTime=3000`, `LandingTime=3000`, `WorkTime=5000`. Height is engine units
+  above rail origins; speed units/game second; times game ms. These defaults are guesses.
+  `Palette=false` is deliberately untuned; the report explains the optional four-colour array.
+- Required native checks: station connector spans, hoods, pit, portals and a tunnel, with the
+  worst measured clearance/location recorded. L2 has no live clearance result. Mesh checkpoint
+  `24ffa82` changed L1's geometry input; do not promote the old margins to current clearance.
+  Tunnel concealment uses the deeper inner enter spot, an approximation to verify by eye.
+- After a Mod Editor import confirm metadata still lists `Code/30_TrainHubDrones.lua`. If not,
+  stop and provide that one-line registration fix; never merge its code into `20_TrainHub.lua`.
+  Concurrent commit `24ffa82` includes the line but is not import-survival evidence.
+- Saves cancel the console visual. Relaunch/re-send after autosave; L4 owns persisted resume.
+  Mocked smoke passed; native rendering, animation, AI suppression and palette remain untested.
 
 ## Lifecycle
 

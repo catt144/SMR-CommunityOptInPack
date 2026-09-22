@@ -2582,5 +2582,6 @@ Pit MEASURED: the 11.50 m mouth has a clear static launch column at entity-local
 `point(-310,180,0)` from both spots. At native scale the offset is 3.584690 m; against a conservative
 1.752370 m Wasp radius, minimum margins are 0.355809 m overhead and 0.400629 m to the shaft;
 13,248 sampled swept-box rays had 0 blocks. Recommended route: offset `Pitfloor` → offset `Pitrim`
-→ same XY at local z +10 m, and reverse for return. **Owner ruling OI-25 is open; link 2 does not
-hard-code launch until it is answered.**
+→ same XY at local z +10 m, and reverse for return. **Owner ruling OI-25, 2026-09-22:** the owner
+approved the task's pending question, adopting this offset floor launch/return column. Live
+flight clearance remains link 3's test.

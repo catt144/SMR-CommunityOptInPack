@@ -54,7 +54,8 @@ each verdict.
 - **L1 evidence commits:** verbatim reports `ac32389`; shared EF allocation Fix Pack `38022d1`;
   Opt-In mirror `079a347`; synthesis/lifecycle commit is the one deleting link 1. Sample claims
   against those commits, not chat.
-- **Open gate:** OI-25 must be ruled and recorded here/spec/link 2 before launch is hard-coded.
+- **OI-25:** approved by the owner on 2026-09-22; L2 records the offset floor/rim column in
+  this chain's README and spec §10, and removes the answered checklist item.
 - **Design drift:** `DESIGN.md` names generic `ConstructionSite:Complete`; source says the concrete
   track path is `ConstructionGroupLeader:Complete` → `TrackConstructionSite:Complete` (`EF-112`).
   The design reference was intentionally left unchanged.
@@ -67,6 +68,15 @@ each verdict.
   Windows PowerShell 5.1. Parent verification passed with `Select-String -SimpleMatch`; use that
   equivalent when auditing, and keep the failed command as evidence rather than silently rewriting
   the verbatim report.
+
+L2 evidence: `docs/agent/reports/drones_chain/L2_FLIGHT_20260922.md` and its drift inventory.
+Its actual Lua is exercised by `tools/devmods/train_hub/tests/flight_smoke.py`, with mocked
+objects/clock only. L3 owns live clearance and import survival; L4 owns persisted deadlines.
+The metadata registration line entered the shared history in `24ffa82` during this link,
+alongside a changed mesh, so L1's old margins do not certify the current geometry. No art was
+edited by L2. L2 removes its spent row rather than striking it because the map gate rejects
+tombstones. Read-command mistakes and initial mock expectation failures are preserved in the
+report; they are not native failures or successful flight evidence.
 
 ## Lifecycle
 
