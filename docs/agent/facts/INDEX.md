@@ -1,12 +1,12 @@
 <!-- GENERATED — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 <!-- split_facts.py --write is the one-time MIGRATION from the retired pre-split doc, never a regeneration; verify: python tools/doccheck.py -->
 
-# Engine facts index — 109 facts
+# Engine facts index — 115 facts
 
 One file per top-level bullet of the old `docs/agent/ENGINE_FACTS.md`, in
 source order; ids are stable. `updated` is git's last touch of the fact's
 own lines. `verified` is the first date the fact's TEXT presents as an
-observation (68 of 109 state one) — a mechanical extraction, not an
+observation (68 of 115 state one) — a mechanical extraction, not an
 adjudication: read the fact for what was actually measured, several of
 which carry their own ⚖️ "what is measured and what is not" paragraph.
 The preamble that opened the old file is `_preamble.md`.
@@ -122,4 +122,10 @@ The preamble that opened the old file is `_preamble.md`.
 | EF-107 | A HABITAT COPIES EVERY WORKPLACE WITHIN ITS WORK RANGE ONTO ITS OWN LIST WHEN IT IS BUILT, NEIGHBOURING DOMES' INTERIORS INCLUDED, AND A FREE SLOT IN ANY OF THEM PINS ITS RESIDENTS: the emigration scorer counts it as a job at home, the job picker refuses it | 2026-09-16 | 2026-09-16 | 52 | [EF-107.md](EF-107.md) |
 | EF-108 | 'IT'S TOO COLD' IS A COLD-WAVE FEAR CHARGE, NOT A DOME TEMPERATURE: during an active Cold Wave every colonist whose dome's CENTRE point reads below the dome's freeze threshold on the OUTSIDE heat grid loses sanity every hour; the dome itself contributes no heat, and 50% Temperature ends cold waves for good | 2026-09-17 | 2026-09-18 | 42 | [EF-108.md](EF-108.md) |
 | EF-109 | BuildingTemplates IS THE WRONG TABLE FOR A DATA PATCH: on a cold boot it is EMPTY at DataLoaded (filled only on ClassesBuilt and DataChanged), and its values are id-less class proxies, so `.id` is nil. Read presence from BuildingTemplates_Raw and labels from g_Classes[id] | 2026-09-18 | 2026-09-18 | 17 | [EF-109.md](EF-109.md) |
+| EF-110 | ⭐ SAVEGAME METADATA IS READABLE WITHOUT DECODING: a `.savegame.sav`'s first ~200 KB carries plain-text `map`/`mission_sponsor_id`/`orig_lua_revision`/`active_mods`/`platform.cheats`; match `orig_lua_revision`, not `lua_revision` (which repeats once per mod first); `platform.cheats` is a save-time hint, not the decoded `CheatsUsed` taint record (`EF-095`), and a short 3 KB read produces a false negative. The owner's real save folder is `C:\Users\stkot\Saved Games\Surviving Mars Relaunched\<steamid>`, exposed in-repo via junctions `saves/game` / `saves/backup` / `saves/reporters/`; `%APPDATA%\Surviving Mars\<steamid>` is an agent-backup/test decoy, not the owner's play history. Taint is a property of a colony's LINEAGE, not of one save | — | 2026-09-22 | 46 | [EF-110.md](EF-110.md) |
+| EF-111 | ⭐ METHOD for testing a 'missing sound/FX' defect live: ear A/B alone is not a reading, because sibling sounds on the same start/end moments play regardless and can be mistaken for the missing one. Learn the sound by hand-firing PlayFX next to the SELECTED object (a far one is inaudible and reads as missing), prove it fires with a log-only PlayFX hook, isolate a busy scene with SetAllVolumesReason plus a STRICT hook, A/B a preset fix by emptying its .Moments in place, and check the moment id and phase before calling a null result a refutation. Worked out in the 2026-09-10 sitting that produced C77 | — | 2026-09-22 | 35 | [EF-111.md](EF-111.md) |
+| EF-112 | BROKEN-TRACK DRONE WORK IS CONSTRUCTION: Drone:Work supplies the request protocol, while TrackConstructionSite delegates to ConstructionSite:DroneWork, whose visual states are constructStart/constructIdle/constructEnd with Construct FX; building maintenance instead uses repairBuilding*/Repair | — | 2026-09-22 | 28 | [EF-112.md](EF-112.md) |
+| EF-113 | DRONE WORK RADIUS GATES AUTOMATIC REQUEST DISCOVERY, NOT A UNIVERSAL PHYSICAL CAPABILITY: track connectivity creates no task coverage; manual Work can bypass FindTask but still needs request assignment/approach. Broken track is construction, station self-service fills maintenance material only, and dust cleaning is the effect of maintenance rather than a separate clean job | — | 2026-09-22 | 34 | [EF-113.md](EF-113.md) |
+| EF-114 | ForEachConnectedTrack IS ONE-HOP AND HIDES BROKEN EDGES: it calls GetDestStation, which returns false while any element is under construction; a broken-track construction site enters that array. Physical endpoint getters remain available, so repair reachability needs its own visited graph plus tunnel links—not train routes or helper emptiness | — | 2026-09-22 | 34 | [EF-114.md](EF-114.md) |
+| EF-115 | DRONE BATTERY/PALETTE/CONTROL SURFACES: battery_max defaults to 80000 stored units; idle seeks charge at <=12000 and work interrupts at <=6000, absolute rather than percentages. Building.SetPalette recursively accepts any valid colorizable object. CanBeControlled is the shared gate for both reassign buttons | — | 2026-09-22 | 28 | [EF-115.md](EF-115.md) |
 
