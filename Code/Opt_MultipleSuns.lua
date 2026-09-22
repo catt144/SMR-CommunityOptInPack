@@ -4,8 +4,9 @@
 -- take effect immediately, both directions — the build menu re-reads
 -- CanBuildOnlyOnce() live, so on_activate/on_deactivate below flip the
 -- template flag on the spot; existing suns are ordinary buildings and keep
--- working either way). The binding-fix half (the SolarPanelBase.GameInit
--- wrap) is installed at FILE SCOPE, classdef time, so it propagates through
+-- working either way). The binding-fix wraps (SolarPanelBase.GameInit and
+-- ArtificialSunBase.Done) are installed at FILE SCOPE, classdef time, so they
+-- propagate through
 -- class flattening and the FIRST mid-session enable binds new panels too —
 -- an apply()-time install ran after flattening and left that half silently
 -- dead until restart (audit A2, fixed 2026-07-29; the Opt_DroneOverhaul
@@ -50,6 +51,8 @@
 --      panel class and RCSolar. Plus the LoadGame sweep: `artificial_sun` is a
 --      persisted member nothing re-evaluates, so panels already dark beside a
 --      second sun in a modded save stay dark without one.
+--      ArtificialSunBase:Done is also post-wrapped: panels unbound by a removed
+--      sun are immediately handed to another in-range sun, if one exists.
 --
 -- However a save acquired its extra suns (this module, a third-party limit
 -- lifter, or a B&B-era import), the resulting state is identical — two suns in
@@ -74,13 +77,51 @@ local function module_active()
 	return fix and fix.status == "active"
 end
 
-local function find_sun_in_range(panel)
+local function find_sun_in_range(panel, excluded_sun)
 	local city = panel.city
 	local suns = city and city.labels and city.labels.ArtificialSun
 	if not suns then return end
 	for _, sun in ipairs(suns) do
-		if IsValid(sun) and TestSunPanelRange(sun, panel) then
+		if sun ~= excluded_sun and IsValid(sun) and TestSunPanelRange(sun, panel) then
 			return sun
+		end
+	end
+end
+
+-- 1.1.0 unbinds every panel owned by a sun in ArtificialSunBase:Done, but does
+-- not test whether another sun still covers it. Capture the affected panels
+-- before the shipped body clears their links, then reconnect only panels still
+-- dark afterward. Object:delete calls Done before CObject.delete, so the sun
+-- being removed may still be valid and labelled here; exclude it explicitly.
+do
+	local AS = rawget(_G, "ArtificialSunBase")
+	if type(AS) == "table" and type(AS.Done) == "function" then
+		local orig_done = AS.Done
+		function AS:Done(done_map, ...)
+			local affected
+			if module_active() and not done_map then
+				local city = self.city
+				local panels = city and city.labels and city.labels.SolarPanelBase
+				if type(panels) == "table" then
+					for _, panel in ipairs(panels) do
+						if panel.artificial_sun == self then
+							affected = affected or {}
+							affected[#affected + 1] = panel
+						end
+					end
+				end
+			end
+
+			local r = orig_done(self, done_map, ...)
+			if affected then
+				for _, panel in ipairs(affected) do
+					if IsValid(panel) and not panel.artificial_sun then
+						local sun = find_sun_in_range(panel, self)
+						if sun then panel:SetArtificialSun(sun) end
+					end
+				end
+			end
+			return r
 		end
 	end
 end
@@ -136,6 +177,11 @@ SMROptInPack.Register(FIX_ID, {
 		if type(rawget(_G, "TestSunPanelRange")) ~= "function" then
 			return "TestSunPanelRange not found (game update changed it?)"
 		end
+		local err = SMROptInPack.Require(FIX_ID, {
+			{ class = "ArtificialSunBase", method = "Done",
+			  reason = "ArtificialSunBase.Done not found (game update changed sun removal?)" },
+		})
+		if err then return err end
 	end,
 })
 

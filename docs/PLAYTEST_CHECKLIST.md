@@ -44,15 +44,6 @@ Name `Opt_MultipleSuns`'s `SolarPanelBase.GameInit` capture in its `Require` blo
 - Recommended: (a).
 Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 
-### OI-04 · opened 2026-09-17
-`MultipleSuns` (D04): 1.1.0 unbinds panels when a sun is demolished and never re-tests the other sun. Fix or document?
-- 1.1.0's new `ArtificialSunBase:Done` clears every panel bound to the removed sun without checking another.
-- With two overlapping suns, demolishing one leaves panels dark until the next load, when the module relinks them.
-- (a) add a `Done`-side relink mirroring the load sweep; (b) document it; (c) leave it for launch day.
-- Recommended: (b), the same shape as D01's parked-rocket limit you accepted on 2026-07-30.
-- Desk-read only. Falsifier: two overlapping suns, demolish one; if the survivor's panels stay lit, nothing to decide.
-Home: `docs/agent/bugs/D04.md`, `docs/agent/reports/MODULE_REVALIDATION_1_1_0.md`
-
 ### OI-18 · opened 2026-09-18
 Train hub: widen `tools/upload_preflight.py` so the hub's template and model can ship in this mod (your OI-16 = 4b)?
 - `:188-196` admits only `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview image.
