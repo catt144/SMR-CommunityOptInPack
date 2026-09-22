@@ -174,7 +174,8 @@ record of every step, with its numbers, is spec §9 from "Structure step, the bl
    bake, one import). Options for the owner's pick first, renders before any export. The brief
    05 door block in `20_TrainHub.lua` comes out when the portal ruling lands. Option 1 (flush
    rim) is being built as candidate C with renders beside the current build.
-6c. NEXT, same re-freeze — **hard-edged paint onto geometry (owner ruling, 2026-09-22, spec §9
+   RULED 2026-09-22: plain rim, 0.60 m (assets `559e478`). Production run authorised.
+6c. RULED 2026-09-22 (assets `332548e`, accepted as rendered), same re-freeze — **hard-edged paint onto geometry (owner ruling, 2026-09-22, spec §9
    "the jagged paint")**: ring rim strip and rib bands as their own face loops/islands; road arcs
    and centre crossings as ribbon meshes on the deck. The painter then fills those islands solid.
 7. NOT STARTED — the paint pass proper on the new atlas (panelisation, decals, roughness variety,

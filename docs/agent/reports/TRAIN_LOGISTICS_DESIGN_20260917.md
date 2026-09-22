@@ -1995,6 +1995,15 @@ u 50 m. Incident: an early candidate run overwrote `TrainHub_work.blend` and two
 from git, regenerated, verified 135/135. Next: the owner's picks, then the production run
 (knobs on, one re-freeze, AO + structure bake at 4096, export, one import).
 
+**Owner rulings, 2026-09-22, on the two candidates: "the first is good for me, all look good",
+then "Approved".** Portal C, the PLAIN rim at the ribs' 0.60 m, no second hoop (the hoop render
+was stopped unbuilt, nothing left in the tree); the edges unit as rendered: the rib sleeves 12 mm
+proud accepted, the road line at its full 0.247 m width kept. Production run authorised:
+`PORTAL_COLLAR='rim'` and `EDGE_GEOMETRY` on become the skeleton's defaults, legacy by knob; one
+UV re-freeze; AO + structure bake at the production sizes; export; one import (same FBX path,
+same material, no new selector or spot). The brief-05 door block comes out of `20_TrainHub.lua`
+in the same step; the structure lights follow.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
