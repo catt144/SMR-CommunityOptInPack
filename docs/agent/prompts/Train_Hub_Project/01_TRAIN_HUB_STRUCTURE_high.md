@@ -103,6 +103,11 @@ lines and their level stay held by value, as before.
    silver joint band, a raised trim strip with a bevel, or a recessed channel. It must sit on the
    seam positions and read as deliberate. Keep the palette; a blue accent there is the owner's call,
    so offer it, do not ship it.
+   **Or solid, no seam at all** (owner, same sitting: *"Or just make it solid no seem?"*). The ring
+   seams are painted per texel from 3D position (`paint_concept.py`, ring seam every ~10 degrees),
+   not geometry, so dropping them is one knob, and it is the cheapest of the three. If a crisp groove
+   does not hold, ship solid as the default and offer the designed feature beside it for the owner to
+   pick. If a line still shows with the painted seams gone, that is a UV island boundary: report it.
 3. **Silver reads as a blurry chrome blob** (metalness .90, roughness .22 mirroring the terrain).
    Make it brushed metal: rougher (about .35-.45) and/or less metallic, your call by eye.
 4. **Portal insert edge is ragged and hairy** against the white shell. Hard-edge it or widen the band

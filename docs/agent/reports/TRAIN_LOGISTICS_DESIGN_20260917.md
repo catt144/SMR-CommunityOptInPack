@@ -1639,7 +1639,8 @@ the ring. The palette reads as materials, not blue paint; the deep blue line is 
 ruling: yes to all four fixes** — SI to 4096 with antialiased rib bands, NM to 4096 for one clean
 ring groove, brushed rather than chrome silver, a hard portal insert edge — and on the ring seams:
 *"can we design over them to make it less noticeable if that doesn't work, put something there
-thats not a hairline seem."* Pass 1 is not kept; it is snapshotted as `hub-structure-pass1-20260921`
+thats not a hairline seem"*, then *"Or just make it solid no seem?"* — solid is the default if a
+crisp groove does not hold, the designed feature offered beside it. Pass 1 is not kept; it is snapshotted as `hub-structure-pass1-20260921`
 before pass 2. The pass 2 brief is `prompts/Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md`
 §"Pass 2". Read from screenshots by the orchestrator, not measured.
 
