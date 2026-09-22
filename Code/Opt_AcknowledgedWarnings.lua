@@ -27,12 +27,14 @@
 --     next remove attempt — BaseBuilding.lua:121-139 funnels both directions
 --     through UpdateObjectInNotification). A later, separate breakage of the
 --     same building notifies again.
---   * The shipped 4-game-hour whole-id window is NOT armed for this one id, so
+--   * The shipped 4-game-hour whole-id window is NOT armed for the generic
+--     notification or any of 1.1.0's seven routed reason notifications, so
 --     a NEW building breaking right after a dismissal warns immediately.
 --     Strictly better than the shipped window on both axes.
---   * Only `NotWorkingBuildings` is touched. DestroyedInfrastructure /
---     RoverDamaged etc. keep their shipped dismissal semantics (they are
---     one-shot adds where dismissal already holds — F32 trace).
+--   * `MaintenanceStuckBuildings` is deliberately out: malfunction reasons
+--     never reach this router. DestroyedInfrastructure / RoverDamaged etc. keep
+--     their shipped dismissal semantics (they are one-shot adds where
+--     dismissal already holds — F32 trace).
 --
 -- Mechanism — three chained wrappers on the notification helper GLOBALS
 -- (CommonLua\Libs\Notifications\Notifications.lua; none of the three is
@@ -41,9 +43,9 @@
 --   * SuppressNotification (:141-146) — its ONLY caller is RemoveNotification,
 --     and only under `notification.dismissed` (:86-88), so it IS the dismissal
 --     hook; `notification.objects` (an array_set — objects in the array part)
---     is still intact at that point. For this id we stamp and skip the shipped
---     whole-id window; every other id falls through untouched.
---   * AddObjectToNotification (:231-249) — the single re-add funnel for this id
+--     is still intact at that point. For the covered ids we stamp and skip the
+--     shipped whole-id window; every other id falls through untouched.
+--   * AddObjectToNotification (:231-249) — the single re-add funnel for these ids
 --     (BaseBuilding:UpdateNotWorkingBuildingsNotification via
 --     UpdateObjectInNotification, plus the direct RequiresMaintenance.lua:234
 --     call). An acknowledged building's re-add is dropped; anything else passes
@@ -64,7 +66,16 @@
 
 SMROptInPack_Optional = rawget(_G, "SMROptInPack_Optional") or {}
 
-local ID = "NotWorkingBuildings"
+local IDS = {
+	NotWorkingBuildings = true,
+	DepositExhausted = true,
+	PowerShortage = true,
+	WaterShortage = true,
+	OxygenShortage = true,
+	NoDroneService = true,
+	UnreachableBuilding = true,
+	EnvironmentalProblem = true,
+}
 local FLAG = "SMRFixPack_ack_notworking"
 
 local function module_active()
@@ -72,7 +83,7 @@ local function module_active()
 end
 
 SMROptInPack.Register("AcknowledgedWarnings", {
-	title = 'OPTIONAL: dismissing "Building Not Working" acknowledges those buildings until they recover',
+	title = 'OPTIONAL: dismissing routed building warnings acknowledges those buildings until they recover',
 	optional = true,
 	apply = function()
 		if not SMROptInPack.OptionEnabled("AcknowledgedWarnings") then
@@ -96,7 +107,7 @@ SMROptInPack.Register("AcknowledgedWarnings", {
 
 		local orig_suppress = SuppressNotification
 		local function suppress(notification, ...)
-			if module_active() and notification and notification.id == ID and notification.dismissed then
+			if module_active() and notification and IDS[notification.id] and notification.dismissed then
 				-- D02: dismissal = per-object acknowledgment. Stamp what the
 				-- player looked at; skip the shipped whole-id quiet window so a
 				-- NEW breakage still warns immediately.
@@ -112,7 +123,7 @@ SMROptInPack.Register("AcknowledgedWarnings", {
 
 		local orig_add = AddObjectToNotification
 		local function add(object, object_params, id, ...)
-			if module_active() and id == ID and type(object) == "table" and object[FLAG] then
+			if module_active() and IDS[id] and type(object) == "table" and object[FLAG] then
 				-- acknowledged and still broken: stay quiet. Mirror the shipped
 				-- "nothing to do" answer (the existing notification, if any).
 				return FindNotification(id, ...)
@@ -122,7 +133,7 @@ SMROptInPack.Register("AcknowledgedWarnings", {
 
 		local orig_remove = RemoveObjectFromNotification
 		local function remove(object, id, ...)
-			if module_active() and id == ID and type(object) == "table" and object[FLAG] then
+			if module_active() and IDS[id] and type(object) == "table" and object[FLAG] then
 				-- the building recovered (or was destroyed): re-arm its warnings
 				object[FLAG] = nil
 			end
