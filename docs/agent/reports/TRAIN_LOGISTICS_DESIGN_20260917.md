@@ -1766,6 +1766,27 @@ throat with a hard-edged dark band, lip bevel, blue line on the lip, buttresses 
 hood merged into the liner), opening size and position unchanged, spots untouched; two
 candidates (arch mouth / rounded-rect mouth) rendered from the owner's four angles for the pick
 before any export; then unwrap, one more re-freeze, bake, one import.
+Candidates delivered, assets `74efbad` (`PORTAL_STYLE` None by default; renders
+`export/portal_candidates/{A,B}_view1..4.png`, `NOTES.md`): one profile swept round the opening
+(throat, `PortalFrame_*` door rebate, collar with a 0.15 m lip bevel for the line, sill,
+buttresses); changed object `Hub_Portals` only (six Tripo collars and twelve straps removed, track
+beds and stub pylons kept), 104 others byte-identical. **Today's Tripo portal is 118 mm inside
+the measured 4.16 × 4.36 m train's roof corner**; both candidates clear it; only B clears a
+5 m tall train (+0.125 m). Door plane at 34.75 m from the centre, clear 6.50 × 5.125 m over the
+deck, rebate 7.10 m wide, 0.40 m deep, 0.30 m lip overlap. Hoods untouched, so the hood's
+arched bore is the tightest point behind B (+0.023 m); on a B pick the hood takes the same bore.
+The orchestrator recommends B. The owner's pick is owed.
+**Portal doors (owner, 2026-09-22):** reuse a vanilla animated door, scaled — brief
+`Train_Hub_Project/05_TRAIN_HUB_DOORS_high.md`, survey `VANILLA_DOOR_ENTITIES_20260922.md`
+(every Door-class entity measured from `entities.dat`; none fills a 6.5 × 13 m arch, scale is
+uniform; `ElevatorSurfaceDoor` 19.46 × 12.93 m and `TunnelEntranceDoor` 20.0 × 6.66 m at 33% are
+the two to look at; the owner's screenshot is the Elevator's surface door, not the Space
+Elevator's 2.85 m hatch). The door plane follows the owner's pick.
+**Repair-drone hangar (owner, 2026-09-22):** a pit like the Shuttle Hub's, for the Wasps to
+launch from and land into, instead of a recoloured recharger; the tower unwanted. **Ruling: route
+1, a pit modelled into the hub's own floor plate**, built now so it lands in the same re-freeze
+and bake as the portal. Feasibility read owed: `SHUTTLE_HUB_PIT_20260922.md` (how the pit renders
+below ground, whether a mod entity can do the same, the Wasps' launch and land states).
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
