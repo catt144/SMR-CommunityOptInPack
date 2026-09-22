@@ -1223,17 +1223,24 @@ end
 -- opening, turned round so the glass reads solid from outside and see-through from inside.
 -- Vanilla door entities attached to the hub, so no new persisted class or field; DeleteOnLoadGame
 -- and recreation like the lights, and a recreated door is CLOSED. A stopped hub destroys them.
--- The door plane is the rebuilt portal's rebate (SMR-Assets hub_skeleton.py PORTAL_DOOR_X); today's
--- Tripo collar spans 30.1-35.5 m, so until that portal is imported the doors clip the old collar.
+-- Agreed with the portal rebuild (brief 01, 2026-09-22; SMR-Assets hub_skeleton.py PORTAL_DOOR_FACE_X,
+-- PORTAL_DOOR_SINK): the leaf's OUTER face at 35.10 m, the leaves sunk 1.85 m below the deck into a
+-- thickened sill, all of it inside a pocket in a 16 m collar; the opening itself is unchanged
+-- (owner). Today's Tripo collar spans 30.1-35.5 m with no sill pocket, so until that portal is
+-- imported the doors clip it and their bottoms show under the deck (HubDoorSink = 0 hides that).
 -- Switch style from the console without an import: SMROptInTrainFloor.SetHubDoorStyle("shutter").
+-- `turn` lays the leaf across the line: the glass pair is wide along its own Y and turned round
+-- (the owner's reversal), the shutter is wide along its own X.
 local hub_door_styles = {
-	glass = { name = "Assembly glass pair", entity = "MarsAssembly_Door_01", scale = 184, reversed = true,
-		retracts = "two leaves slide sideways, clear of the opening (seen in game 2026-09-22)" },
-	shutter = { name = "Tunnel shutter", entity = "TunnelEntranceDoor", scale = 81, reversed = false,
-		retracts = "one slab drops about 5.1 m, below the deck (desk figure, not seen at this scale)" },
+	glass = { name = "Assembly glass pair", entity = "MarsAssembly_Door_01", scale = 184, turn = 180 * 60,
+		retracts = "two leaves slide sideways and up to 1.67 m inward, clear of the opening (seen in game 2026-09-22)" },
+	shutter = { name = "Tunnel shutter", entity = "TunnelEntranceDoor", scale = 81, turn = 90 * 60,
+		retracts = "one slab drops about 5.1 m, below the deck; dev-only, the portal is not built for it" },
 }
 Floor.HubDoorStyle = "glass" -- false: no doors
-local hub_door_radius = 3475 -- PORTAL_DOOR_X, 34.75 m out from the hub centre
+Floor.HubDoorFaceX = 3510 -- PORTAL_DOOR_FACE_X: the closed leaf's outer face, from the hub centre
+Floor.HubDoorSink = 185   -- PORTAL_DOOR_SINK: the leaf bottoms sit this far below the deck
+local hub_door_radius = 3475 -- PORTAL_DOOR_X, the plane's name; the doorway band is measured from it
 -- The doorway band, along the portal's line from the door plane: a train body inside it holds
 -- the door open. Owner-facing trials, tune by eye.
 Floor.HubDoorBandOut = 20 * guim -- outside the door: how early it opens (the opening takes 0.5 s)
@@ -1265,16 +1272,18 @@ local function place_hub_door(self, style, direction, deck)
 	door:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
 	-- The closed box, entity-local and unscaled (GameObject.lua:403-407); vanilla door meshes sit
 	-- far off their own origin (27.7 m for the shutter), so the leaf's centre is put on the plane.
-	local centre = door:GetEntityBBox():Center()
+	local box = door:GetEntityBBox()
+	local centre = box:Center()
+	local thickness = MulDivRound(Min(box:sizex(), box:sizey()), style.scale, 100)
 	local ax, ay = hub_door_axis(direction)
 	local angle = CalcOrientation(point(0, 0), point(ax, ay))
-	local turn = style.reversed and (angle + 180 * 60) % (360 * 60) or angle
+	local turn = (angle + style.turn) % (360 * 60)
 	local leaf = Rotate(point(MulDivRound(centre:x(), style.scale, 100), MulDivRound(centre:y(), style.scale, 100)), turn)
-	local plane = Rotate(point(hub_door_radius, 0), angle)
+	local plane = Rotate(point(Floor.HubDoorFaceX - thickness / 2, 0), angle)
 	self:Attach(door, self:GetSpotBeginIndex("Origin"))
 	door:SetScale(style.scale)
 	door:SetAttachAngle(turn)
-	door:SetAttachOffset(point(plane:x() - leaf:x(), plane:y() - leaf:y(), deck))
+	door:SetAttachOffset(point(plane:x() - leaf:x(), plane:y() - leaf:y(), deck - Floor.HubDoorSink))
 	DeleteOnLoadGame(door)
 	return door
 end
@@ -1367,9 +1376,8 @@ local function set_hub_doors_working(self, working)
 		list[direction] = { door = place_hub_door(self, style, direction, deck), open = false, hold = 0 }
 	end
 	hub_doors[self] = list
-	print(string.format("[TrainHubDev] doors: 6 x %s \"%s\" (%s) at scale %d, %d.%02d m out%s; a stopped hub destroys them",
-		Floor.HubDoorStyle, style.name, style.entity, style.scale, hub_door_radius // guim, hub_door_radius % guim,
-		style.reversed and ", turned round" or ""))
+	print(string.format("[TrainHubDev] doors: 6 x %s \"%s\" (%s) at scale %d, outer face %d cm out, sunk %d cm; a stopped hub destroys them",
+		Floor.HubDoorStyle, style.name, style.entity, style.scale, Floor.HubDoorFaceX, Floor.HubDoorSink))
 	start_door_watch()
 end
 

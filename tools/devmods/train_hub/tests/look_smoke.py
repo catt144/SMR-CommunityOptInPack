@@ -147,13 +147,14 @@ h:OnSetWorking(true); h:OnSetWorking(true)
 assert(#doors()==6, #doors())
 assert(threads>=1)
 for _,d in ipairs(doors()) do
- assert(d.delete_on_load and d.spot==0 and d.detail=='Essential' and d.scale==184 and d.cleared==15 and d.offset:z()==800)
+ assert(d.delete_on_load and d.spot==0 and d.detail=='Essential' and d.scale==184 and d.cleared==15 and d.offset:z()==800-185)
  assert(not d.opens and not d.closes)
 end
-local d0 -- direction 0 is +X: angle 0, turned to 180 deg; leaf centre (100,20)*1.84 -> (184,37) turned -> (-184,-37)
+local d0 -- direction 0 is +X: angle 0, turned to 180 deg; leaf centre (100,20)*1.84 -> (184,37) turned -> (-184,-37);
+-- thickness min(200,440)*1.84 = 368, so the centre plane is 3510-184 = 3326 and the offset x is 3326+184
 for _,d in ipairs(doors()) do if d.angle==180*60 then d0=d end end
-assert(d0 and d0.offset:x()==3475+184 and d0.offset:y()==37, d0 and d0.offset:x())
-for _,d in ipairs(doors()) do local r=math.sqrt(d.offset:x()^2+d.offset:y()^2); assert(r>3600 and r<3700, r) end
+assert(d0 and d0.offset:x()==3510 and d0.offset:y()==37, d0 and d0.offset:x())
+for _,d in ipairs(doors()) do local r=math.sqrt(d.offset:x()^2+d.offset:y()^2); assert(r>3505 and r<3515, r) end
 h:OnSetWorking(false); assert(#doors()==0 and IsValid(foreign))
 h:OnSetWorking(true); assert(#doors()==6)
 -- A 30 m train on line 0, heading in: the body reaches the band, only door 0 opens, once.
@@ -184,7 +185,7 @@ h:InitHubDoors(); assert(#doors()==6)
 for _,d in ipairs(doors()) do assert(not d.opens and not d.closes) end
 -- The second style switches from the console with no import; the first is removed.
 Floor.SetHubDoorStyle('shutter'); assert(#doors()==0 and #h:GetAttaches('TunnelEntranceDoor')==6)
-for _,d in ipairs(h:GetAttaches('TunnelEntranceDoor')) do assert(d.scale==81 and d.angle%(60*60)==0) end
+for _,d in ipairs(h:GetAttaches('TunnelEntranceDoor')) do assert(d.scale==81 and d.angle%(30*60)==0 and d.angle%(60*60)~=0) end
 Floor.SetHubDoorStyle('glass'); assert(#doors()==6 and #h:GetAttaches('TunnelEntranceDoor')==0 and IsValid(foreign))
 ''')
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
