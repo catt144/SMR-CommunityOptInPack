@@ -2039,6 +2039,29 @@ a track colour change is a knob (`PAD_BASE`/`PAD_VARIANT`, the line colour), a ~
 a validator re-pin of the held road value under a ruling, and a texture-only import; the arm
 lights' colour is one Lua constant. Next: the structure lights (step 6), then the cost reading.
 
+**Floor strip islands and the portal junction, 2026-09-22 — assets `5cbedc6`, desk-verified; the
+owner's mesh-and-maps import is owed.** Owner's look after the rim + edges import: the floor
+plate's blue edge strip still a sawtooth; at every portal mouth the throat cheeks strobing
+("textures breaking") and a thin black line at the ring's cut end. Causes measured: the floor
+loops sat inside the one planar top island and were painted by radius (lit 13,192 vs core
+8,423 — the only edge group where the two differed); the cheeks were trimmed flush to the ring's
+envelope (204 coplanar overlapping face pairs, 16.08 m², with Ring underside/tops and the hood
+bore) and the cut end was uncovered. Fix, one Opus run, proofs rerun by the orchestrator
+(check-rebuild 172/172, previous production 135/135 by knob, legacy 99/99, validate_structure
+PASS 0 failures): strip (144 faces) and trim (288) are their own polar islands (0 off-axis UV
+edges, density −0.03% of the mean), painted by face membership — lit 10,736 = core 10,736;
+`build_throat_cheeks()` sweeps the ring's own section inboard with `PORTAL_THROAT_INSET` 30 mm
+on every shared face (inner wall 3.25 → 3.28 m): 0 coplanar pairs, cut-face exposure 4,077 →
+603 samples, the residual the inset's own band, not a hole (`junction_{before,after}_*.png`).
+Digests: only `PortalThroat_1..6` changed, `FloorPlate` identical, 0 spots moved; body 19,321
+faces; UV re-frozen once (`concept_freeze_rim_edges.json` kept), density 19.59 /m, spread 5.4%,
+overlap 0. Published TGA sha256 BC `62f01310…`, NM `99de6443…`, RM `626bb85d…`, SI `462fa59f…`.
+Also this sitting: the structure lights (OptInPack `ba1e0d7`: portal 30, pit 6, rim 36, floor 24
+off by default, 144 total with the arms; `SetHubLightTune` / `SetHubStructureLights` console
+tuners for the owner's lavender-when-lit, read as overexposure) and the recharger platform
+removed (`51b89a5`). Owner's asks pending: storage bay restyle (gunmetal, yellow border, a decal
+the owner will supply) — paint only, after this import.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.

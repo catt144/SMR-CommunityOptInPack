@@ -181,11 +181,14 @@ record of every step, with its numbers, is spec §9 from "Structure step, the bl
 6d. DONE, NOT IMPORTED — production run (assets `24a98b7`): rim + edges as defaults, UVs
    re-frozen, structure set published. NEXT: the owner's import (no new selector or spot), look,
    restore point on keep (`snapshot_hub.py hub-rim-edges-20260922`).
-7. NOT STARTED — the paint pass proper on the new atlas (panelisation, decals, roughness variety,
+6e. DONE, NOT IMPORTED — floor strip islands + portal cheek inset (assets `5cbedc6`). NEXT: the
+   owner's mesh-and-maps import (no new selector or spot), look, restore point on keep.
+6f. DONE — step 6, the structure lights + arm-light tuner (`ba1e0d7`); the owner tunes in game.
+7. NOT STARTED — the paint pass proper (first unit: the storage bays — gunmetal, yellow border,
+   the owner's decal) on the new atlas (panelisation, decals, roughness variety,
    small emissives; the trim-sheet material for the metal parts behind a test import) — after the
    owner's look; brief it as its own one-off if it outgrows this file.
-8. NOT STARTED — step 6, the structure's own lights in `20_TrainHub.lua` + `look_smoke.py`.
-   Released: the doors session has closed and the door operation is cut (owner, 2026-09-22). The arm lights' pattern is the template; the pit rim and the portal lips are the
+8. DONE — see 6f. The arm lights' pattern is the template; the pit rim and the portal lips are the
    obvious seats.
 9. NOT STARTED — step 7, the whole-hub cost reading, `gpu_sample.ps1`, spec §9 `<<PENDING-RUN>>`.
 
