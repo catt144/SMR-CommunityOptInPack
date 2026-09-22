@@ -78,6 +78,22 @@ edited by L2. L2 removes its spent row rather than striking it because the map g
 tombstones. Read-command mistakes and initial mock expectation failures are preserved in the
 report; they are not native failures or successful flight evidence.
 
+### L2R handoff, 2026-09-22
+
+Read `docs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md` and its drift table. The actual
+route is checked by `flight_smoke.py`; `exit_clearance.py` measures swept level-Wasp envelopes
+against evaluated Blender geometry and optional panels. Its committed receipt pins inputs,
+counts, per-leg bounds and worst triangles; none establishes native clearance.
+The route keeps OI-25's +1000 crest before lowering into the under-deck lane: audit this explicit
+interpretation against L3's visual result. Track height is a stated guess, awaiting a train pass.
+
+Scope extension: the first smoke failed because `d48871e` deleted the flight metadata entry;
+L2R restored that single entry, without claiming import survival. Shared geometry changed
+between measurement runs; the final receipt was re-measured and hash-checked. No art changed
+in this link. Initial nonexistent-path / escaped-underscore / wildcard reads failed without
+writes. Spent row removal follows the map gate instead of the brief's literal strikethrough.
+Review L3 for all native obligations and L4 for unchanged save/deadline authority.
+
 ## Lifecycle
 
 Your report is the chain's close-out. **Delete this file and strike its row in `README.md` in the

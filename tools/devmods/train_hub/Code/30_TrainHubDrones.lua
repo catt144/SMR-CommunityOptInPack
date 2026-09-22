@@ -10,10 +10,17 @@
 
 if SMROptInHubFlight and SMROptInHubFlight.ClearAll then SMROptInHubFlight.ClearAll() end
 SMROptInHubFlight = {
-  HoverHeight = 300,        -- engine units above each track element origin; GUESS, tune in L3
+  HoverHeight = 300,        -- GUESS safety buffer above the guessed train envelope
+  OverTrackHeight = 1200,   -- GUESS train envelope above rail; total ride offset = this + buffer
+  FixHeight = 100,          -- GUESS work origin above the target element, not cruise altitude
+  UnderDeckHeight = 300,    -- entity-local z; native-scale mesh measured by exit_clearance.py
+  OutwardDistance = 9000,   -- radius from hub origin before climbing, beyond arms/platforms
+  ClimbRate = 1500,         -- GUESS vertical units/game second, also used for site descent
+  TransferHeight = 2500,    -- entity-local z for crossing back above the hub after outside climb
+  ExitDirectionX = -866, ExitDirectionY = -500, -- /1000; generator 30-degree pillar gap
   Speed = 6000,             -- engine units per game second; GUESS
-  LaunchTime = 3000,        -- game ms, floor -> rim -> above deck
-  LandingTime = 3000,       -- game ms, above deck -> rim -> floor
+  LaunchTime = 3000,        -- game ms, floor -> rim -> OI-25 crest
+  LandingTime = 3000,       -- game ms, OI-25 crest -> rim -> floor
   WorkTime = 5000,          -- game ms in constructIdle, excludes start/end animations
   PitOffsetX = -310, PitOffsetY = 180, PitExitZ = 1000, -- OI-25, entity local
   BatteryMax = 800000,
@@ -36,7 +43,7 @@ end
 local function elevated(o)
   local p = o:GetVisualPos()
   if not p or p:z() == nil then return nil end
-  return p + point(0, 0, F.HoverHeight)
+  return p + point(0, 0, F.OverTrackHeight + F.HoverHeight)
 end
 
 function F.PitPoints(hub)
@@ -51,7 +58,14 @@ function F.PitPoints(hub)
   local local_rim = GetEntitySpotPos(hub:GetEntity(), rim_idx)
   local exit = hub:GetRelativePoint(point(local_rim:x() + F.PitOffsetX,
     local_rim:y() + F.PitOffsetY, F.PitExitZ))
-  return {floor, rim, exit}
+  local cruise = hub:GetRelativePoint(point(local_rim:x() + F.PitOffsetX,
+    local_rim:y() + F.PitOffsetY, F.UnderDeckHeight))
+  local x = MulDivRound(F.OutwardDistance, F.ExitDirectionX, 1000)
+  local y = MulDivRound(F.OutwardDistance, F.ExitDirectionY, 1000)
+  local outside = hub:GetRelativePoint(point(x, y, F.UnderDeckHeight))
+  local high = hub:GetRelativePoint(point(x, y, F.TransferHeight))
+  -- OI-25's crest stays. Descend in the same clear column before travelling out.
+  return {floor, rim, exit, cruise, outside, high}
 end
 
 local function copy(path)
@@ -105,7 +119,7 @@ local function tunnel_inner(mouth)
       if not distance or d > distance then best, distance = pos, d end
     end
   end
-  return best and best + point(0, 0, F.HoverHeight)
+  return best and best + point(0, 0, F.OverTrackHeight + F.HoverHeight)
 end
 
 function F.Route(hub, target)
@@ -116,7 +130,9 @@ function F.Route(hub, target)
   if target.is_construction_site and live(target.broken) then original = target.broken end
   local target_track = original.track_obj
   if not live(target_track) then return nil, "Target has no physical track" end
-  local queue = {{hub = hub, path = {{pos = pit[3], owner = hub}}}}
+  local prefix = {}
+  for i = 3, #pit do append(prefix, pit[i], false, hub) end
+  local queue = {{hub = hub, path = prefix}}
   local seen, seen_tracks = {[hub] = true}, {}
   local cursor = 1
   while queue[cursor] do
@@ -131,6 +147,16 @@ function F.Route(hub, target)
       local elements = track_elements(track, station)
       if not elements or #elements == 0 then return end
       local path = copy(item.path)
+      if station == hub then
+        -- Approach the first rail only AFTER the outside climb. Cross at or above
+        -- TransferHeight, then lower vertically onto its centreline cruise point.
+        local first = elevated(elements[1])
+        if not first then return end
+        local high = path[#path].pos
+        local z = Max(high:z(), first:z())
+        append(path, point(high:x(), high:y(), z), false, hub)
+        append(path, point(first:x(), first:y(), z), false, elements[1])
+      end
       -- Inside stations, connector-to-connector is an explicit above-deck segment.
       -- Its geometry/hood clearance is a live L3 obligation.
       for _, el in ipairs(elements) do
@@ -143,7 +169,12 @@ function F.Route(hub, target)
         queue[#queue + 1] = {hub = dest, path = path}
       end
     end)
-    if found then return found end
+    if found then
+      local site = original:GetVisualPos()
+      if not site or site:z() == nil then return nil, "Target position missing" end
+      append(found, site + point(0, 0, F.FixHeight), false, original)
+      return found
+    end
     local far = station.linked_obj
     if IsKindOf(station, "TrackTunnelBase") and live(far) and far.linked_obj == station and not seen[far] then
       local near_pos, far_pos = tunnel_inner(station), tunnel_inner(far)
@@ -162,7 +193,9 @@ function F.Route(hub, target)
 end
 
 local function duration(a, b)
-  return Max(1, MulDivRound(a:Dist(b), 1000, F.Speed))
+  -- Limit vertical motion as well as total speed; applies in both directions and recall.
+  return Max(Max(1, MulDivRound(a:Dist(b), 1000, F.Speed)),
+    MulDivRound(math.abs(b:z()-a:z()), 1000, F.ClimbRate))
 end
 
 local function segment(plan, a, b, ms, state, hidden, owner)
@@ -394,7 +427,9 @@ end
 
 function SetHubDroneTune(name, value)
   if active then return false, "Return the prototype before changing its constants" end
-  local tuneable = {HoverHeight = true, Speed = true, LaunchTime = true, LandingTime = true, WorkTime = true}
+  local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
+    UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
+    Speed = true, LaunchTime = true, LandingTime = true, WorkTime = true}
   if not tuneable[name] or type(value) ~= "number" or value <= 0 or value ~= math.floor(value) then
     return false, "Use a named flight constant and a positive integer" end
   F[name] = value

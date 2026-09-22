@@ -103,8 +103,25 @@ t2=track(s,f,{{20000,0},{30000,0},{40000,0}})
 -- Breaks retain their originals. The site has no ordered node index.
 cs=obj(10000,0); cs.is_construction_site=true; cs.track_obj=t1
 cs.broken=t1.elements[2]; t1.elements[2].broken=cs; t1.elements_under_construction={cs}
-path=assert(F.Route(h,t2.elements[2])); assert(#path==6)
-assert(F.Route(h,cs)[3].owner==t1.elements[2])
+path=assert(F.Route(h,t2.elements[2]))
+local rails={}
+for _,node in ipairs(path) do
+  if node.owner and node.owner.node_idx and node.pos.Z==F.OverTrackHeight+F.HoverHeight then
+    rails[#rails+1]=node.owner
+  end
+end
+assert(#rails==5 and rails[1]==t1.elements[1] and rails[5]==t2.elements[2])
+local repair_path=assert(F.Route(h,cs))
+assert(repair_path[#repair_path].owner==t1.elements[2])
+assert(repair_path[#repair_path].pos.Z==F.FixHeight)
+-- No portal shortcut: fixed column -> low outward leg -> outside vertical climb,
+-- then high transfer to the first rail, centreline cruise, and site-only descent.
+assert(path[1].pos.Z==F.PitExitZ and path[2].pos.Z==F.UnderDeckHeight)
+assert(path[3].pos.Z==F.UnderDeckHeight and path[4].pos.Z==F.TransferHeight)
+assert(path[3].pos.X==path[4].pos.X and path[3].pos.Y==path[4].pos.Y)
+assert(math.sqrt(path[3].pos.X^2+path[3].pos.Y^2)>8900)
+assert(path[1].pos.X==path[2].pos.X and path[1].pos.Y==path[2].pos.Y)
+assert(path[6].pos.Z>=F.TransferHeight)
 -- A cycle terminates; an isolated component cannot be reached.
 loop=track(f,h,{{40000,0},{20000,20000},{0,0}})
 outside=obj(60000,0); other=obj(80000,0)
@@ -119,6 +136,8 @@ h.missing=true; assert(SpawnHubDrone(h)==nil); h.missing=false
 h.angle=90; h.scale=150
 pit=assert(F.PitPoints(h)); assert(pit[1].Z==-3000 and pit[3].Z==1500)
 assert(math.abs(pit[1].X-595.5)<=.5 and pit[1].Y==-1965)
+assert(pit[4].Z==450 and pit[5].Z==450 and pit[6].Z==3750)
+assert(pit[5].X==6750 and pit[5].Y==-11691)
 h.angle=0; h.scale=100
 drone=assert(SpawnHubDrone(h)); assert(created==1)
 assert(SpawnHubDrone(h)==drone and created==1)
@@ -134,12 +153,30 @@ arrival=status.arrival; completed=status.work_done; finished=status.removed
 assert(completed-arrival==6000)
 drone.battery=1; tick(arrival); assert(drone.battery==F.BatteryMax)
 assert(drone.state=='constructStart' and drone.fx=='Construct')
+assert(drone.pos.X==cs.pos.X and drone.pos.Y==cs.pos.Y and drone.pos.Z==F.FixHeight)
 tick(arrival+400); assert(drone.state=='constructIdle')
 tick(arrival+5400); assert(drone.state=='constructEnd' and not drone.fx)
 tick(completed); assert(drone.state=='fly')
 assert(ReturnHubDrone()==drone and F.Status().removed==finished)
 tick(finished); assert(drone.deleted and not F.Status())
 measured_arrival=arrival-10000; measured_work=completed-10000; measured_total=finished-10000
+-- Recall while beneath the deck must retrace the low lane before the pit column.
+clock=50000; drone,status=SendHubDroneTo(cs,h)
+local low_at
+for tm=clock,status.arrival,20 do
+  tick(tm)
+  if drone.pos.Z==F.UnderDeckHeight and drone.pos.X < -2000 then low_at=tm; break end
+end
+assert(low_at); local farthest=drone.pos.X
+ReturnHubDrone(); local recalled=F.Status().removed
+for tm=low_at+20,recalled,20 do
+  tick(tm)
+  if F.Status() then
+    assert(drone.pos.X>=farthest)
+    if drone.pos.X < -1310 then assert(drone.pos.Z==F.UnderDeckHeight) end
+  end
+end
+tick(recalled); assert(drone.deleted and not F.Status())
 -- Reciprocal tunnel path is timed and hidden in both directions.
 h2=hub(0,100000); near=obj(20000,100000); far=obj(70000,100000); dest=obj(90000,100000)
 near.class='TrackTunnelBase'; far.class='TrackTunnelBase'; near.linked_obj=far; far.linked_obj=near
@@ -177,6 +214,9 @@ drone=SpawnHubDrone(h); drone.command_center=s; tick(clock+1); assert(drone.dele
 drone=SpawnHubDrone(h); drone.command='GoHome'; tick(clock+1); assert(drone.deleted)
 drone=SpawnHubDrone(h); h.destroyed=true; tick(clock+1); assert(drone.deleted); h.destroyed=false
 assert(SetHubDroneTune('Speed',9000)); assert(not SetHubDroneTune('Speed',0))
+for _,name in ipairs({'UnderDeckHeight','OutwardDistance','ClimbRate','OverTrackHeight','FixHeight','TransferHeight','HoverHeight'}) do
+  assert(SetHubDroneTune(name,F[name]))
+end
 assert(not SetHubDroneTune('PitOffsetX',1))
 drone=SpawnHubDrone(h); assert(not SetHubDroneTune('Speed',6000))
 OnMsg.DoneGame(); assert(drone.deleted and not F.Status())
@@ -184,7 +224,16 @@ OnMsg.DoneGame(); assert(drone.deleted and not F.Status())
 clock=400000; F.Speed=6000
 r1=assert(F.Create(h,clock-4000)); r2=assert(F.Create(h,clock-4000))
 assert(F.Send(r1,cs,true)); assert(F.Send(r2,cs,true))
-assert(r1.arrival==clock+923 and r2.arrival==r1.arrival)
+assert(r1.arrival==clock-4000+measured_arrival and r2.arrival==r1.arrival)
+-- Full return reverses every movement, including the site climb and the low exit.
+local movements={}
+for _,s in ipairs(r1.plan) do if s.state=='fly' then movements[#movements+1]=s end end
+assert(#movements%2==0)
+for i=1,#movements/2 do
+  local a,b=movements[i],movements[#movements+1-i]
+  assert(a.a:Dist(b.b)==0 and a.b:Dist(b.a)==0)
+  if not a.pit then assert(a.finish-a.start>=MulDivRound(math.abs(a.b.Z-a.a.Z),1000,F.ClimbRate)) end
+end
 assert(F.Update(r1,clock) and F.Update(r2,clock)); assert(r1.drone.pos:Dist(r2.drone.pos)==0)
 OnMsg.SaveGameStart(); assert(r1.drone.deleted and r2.drone.deleted)
 assert(F.Create(h)==nil); OnMsg.SaveGameDone()

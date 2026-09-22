@@ -2639,3 +2639,21 @@ Pit MEASURED: the 11.50 m mouth has a clear static launch column at entity-local
 → same XY at local z +10 m, and reverse for return. **Owner ruling OI-25, 2026-09-22:** the owner
 approved the task's pending question, adopting this offset floor launch/return column. Live
 flight clearance remains link 3's test.
+
+### Drones L2R: under-deck route (owner ruling, 2026-09-22)
+
+The owner settles the exit: **under the deck between the pillars, never through the train
+portals**. No lane guard, waiting on train traffic or arbitration. Track travel stays directly
+on the centreline, high enough for a train to pass below; at the work site the drone descends
+to fix height, works there, then climbs back for return. No reliable train height is recorded:
+L2R's 12 m assumed envelope plus 3 m buffer is explicitly a guess for L3's passing-train check.
+
+L2R keeps OI-25's offset floor/rim and +1000 crest, lowers in the same column to local +300,
+travels toward the generator's 30-degree pillar gap to local XY `(-7794,-4500)`, climbs there
+to local +2500, then transfers above the hub to the first track's centreline cruise point.
+Return reverses this route to the pit floor. The extra crest/lowering preserves the brief's
+explicit +1000 requirement; L3 judges its appearance. Track work ends at rail origin +100.
+All tunable guesses, measured static margins and their limits are in
+`docs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md`; its committed measurement receipt
+pins the current source geometry. Native clearance, train passage and import survival remain
+L3's attended checks. The flight metadata entry removed in `d48871e` is restored by L2R.

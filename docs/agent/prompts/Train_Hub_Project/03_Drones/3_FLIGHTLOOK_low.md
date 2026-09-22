@@ -60,6 +60,32 @@ Do not claim a value is the owner's unless they said so in the sitting; relay th
 - Saves cancel the console visual. Relaunch/re-send after autosave; L4 owns persisted resume.
   Mocked smoke passed; native rendering, animation, AI suppression and palette remain untested.
 
+### L2R handoff, 2026-09-22
+
+The under-deck route is implemented; resume this sitting. Read
+`docs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md` and its receipt. Earlier L2 defaults
+above are historical. OI-25's floor → rim → +1000 crest stays; then the drone lowers in that
+column to +300, exits beneath the deck toward local XY `(-7794,-4500)`, climbs outside the
+footprint to +2500, and transfers above the hub onto the track centreline. Return reverses it.
+`SpawnHubDrone` still waits at the crest until sent. Judge that retained rise/lower visually.
+
+Tuneable defaults (all guesses): `UnderDeckHeight=300`, `OutwardDistance=9000`, `ClimbRate=1500`,
+`TransferHeight=2500`, `OverTrackHeight=1200`, `HoverHeight=300`, `FixHeight=100`, `Speed=6000`,
+`LaunchTime=3000`, `LandingTime=3000`, `WorkTime=5000`. Use `SetHubDroneTune` after landing.
+Track ride height is `OverTrackHeight + HoverHeight`: the former is a guessed train envelope,
+the latter a buffer. Watch a train pass directly below the drone; no measured train height
+supports these numbers. At the target, verify descent to +100, work there, then climb back.
+
+Static source-mesh minimum is 0.347332 m at the column's siding edge (excluding the intentional
+0.24 m floor separation); low outward margin is 0.792286 m at RingClamp_1. These are conservative
+level-Wasp envelope bounds, not a native verdict. Check cargo stacks, crown light/attachments,
+hoods, the pit, other stations and tunnel arches/concealment at the higher ride height.
+Record worst live margin/location; never tune the exit into a train portal.
+
+Import warning is now observed: `d48871e` removed the flight code entry. L2R restores it in
+metadata, but the next editor import still owes a survival check. If absent again, stop under
+this brief's existing import instruction. Save cancellation/relaunch and L4 resume duties stand.
+
 ## Lifecycle
 
 Append the settled values into link 4's notes, then **delete this file and strike its row in

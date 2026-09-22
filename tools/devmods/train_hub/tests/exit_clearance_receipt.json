@@ -1,0 +1,1069 @@
+{
+  "command": "blender -b <work.blend> --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py",
+  "head": "0e9ec05e567de71774c3fdd368f7427e2608f81b",
+  "assets_head": "537b02e4b1e90a4aff5bf25e817f85ee477ad153",
+  "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
+  "blend_sha256": "11b68f0b65af779d638ac8202c8e465c588b4fa0b1514103a95a90f56c7434f9",
+  "source_sha256": "8edffe9cefed4e919bc6471d9dab848d8b40e0cd6e4ad241f67bea14785bc2b9",
+  "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
+  "object_triangles": {
+    "Hub_Portals": 1140,
+    "Track_A": 20,
+    "Track_B": 20,
+    "Track_C": 20,
+    "CentrePlate": 8,
+    "Pillar_1": 116,
+    "Pillar_2": 116,
+    "Pillar_3": 116,
+    "Pillar_4": 116,
+    "Pillar_5": 116,
+    "Pillar_6": 116,
+    "Pillar_7": 116,
+    "Platform_1": 244,
+    "Platform_2": 244,
+    "Platform_3": 244,
+    "Platform_4": 244,
+    "Platform_5": 244,
+    "Platform_6": 244,
+    "Platform_7": 244,
+    "Platform_8": 244,
+    "Platform_9": 244,
+    "Platform_10": 244,
+    "Platform_11": 244,
+    "Platform_12": 244,
+    "Siding_1": 64,
+    "SidingPanel_1": 12,
+    "Siding_2": 64,
+    "SidingPanel_2": 12,
+    "Siding_3": 64,
+    "SidingPanel_3": 12,
+    "Siding_4": 64,
+    "SidingPanel_4": 12,
+    "Siding_5": 64,
+    "SidingPanel_5": 12,
+    "Siding_6": 64,
+    "SidingPanel_6": 12,
+    "Ring": 5376,
+    "RingClamp_1": 496,
+    "RingClamp_2": 496,
+    "RingClamp_3": 496,
+    "RingClamp_4": 496,
+    "RingClamp_5": 496,
+    "RingClamp_6": 496,
+    "RingPillar_1": 116,
+    "RingPillar_2": 116,
+    "RingPillar_3": 116,
+    "RingPillar_4": 116,
+    "RingPillar_5": 116,
+    "RingPillar_6": 116,
+    "RingPillar_7": 116,
+    "RingPillar_8": 116,
+    "RingPillar_9": 116,
+    "RingPillar_10": 116,
+    "RingPillar_11": 116,
+    "RingPillar_12": 116,
+    "Hood_1": 332,
+    "Hood_2": 332,
+    "Hood_3": 332,
+    "Hood_4": 332,
+    "Hood_5": 332,
+    "Hood_6": 332,
+    "PortalRim_1": 836,
+    "PortalThroat_1": 744,
+    "PortalSill_1": 24,
+    "PortalRim_2": 836,
+    "PortalThroat_2": 744,
+    "PortalSill_2": 24,
+    "PortalRim_3": 836,
+    "PortalThroat_3": 744,
+    "PortalSill_3": 24,
+    "PortalRim_4": 836,
+    "PortalThroat_4": 744,
+    "PortalSill_4": 24,
+    "PortalRim_5": 836,
+    "PortalThroat_5": 744,
+    "PortalSill_5": 24,
+    "PortalRim_6": 836,
+    "PortalThroat_6": 744,
+    "PortalSill_6": 24,
+    "Rib_1": 360,
+    "Rib_2": 360,
+    "Rib_3": 360,
+    "Rib_4": 360,
+    "Rib_5": 360,
+    "Rib_6": 360,
+    "CrownBoss_1": 20,
+    "CrownLensRing_1": 144,
+    "CrownLens_1": 22,
+    "Line_Arm_1": 380,
+    "Line_Arm_2": 380,
+    "Line_Arm_3": 380,
+    "Line_Arm_4": 380,
+    "Line_Arm_5": 380,
+    "Line_Arm_6": 380,
+    "Line_Curve_1": 282,
+    "Line_Curve_2": 282,
+    "Line_Curve_3": 282,
+    "Line_Curve_4": 282,
+    "Line_Curve_5": 282,
+    "Line_Curve_6": 282,
+    "Line_Centre_1": 10,
+    "RibBand_1": 64,
+    "RibBand_2": 64,
+    "RibBand_3": 64,
+    "RibBand_4": 64,
+    "RibBand_5": 64,
+    "RibBand_6": 64,
+    "RibBand_7": 64,
+    "RibBand_8": 64,
+    "RibBand_9": 64,
+    "RibBand_10": 64,
+    "RibBand_11": 64,
+    "RibBand_12": 64,
+    "RibBand_13": 64,
+    "RibBand_14": 64,
+    "RibBand_15": 64,
+    "RibBand_16": 64,
+    "RibBand_17": 64,
+    "RibBand_18": 64,
+    "RibBand_19": 64,
+    "RibBand_20": 64,
+    "RibBand_21": 64,
+    "RibBand_22": 64,
+    "RibBand_23": 64,
+    "RibBand_24": 64,
+    "RibBand_25": 64,
+    "RibBand_26": 64,
+    "RibBand_27": 64,
+    "RibBand_28": 64,
+    "RibBand_29": 64,
+    "RibBand_30": 64,
+    "FloorPlate": 2750,
+    "PitRim_1": 288,
+    "PitShaft_1": 1248,
+    "PitFloor_1": 188,
+    "PitPost_1": 28,
+    "PitPost_2": 28,
+    "PitPost_3": 28,
+    "PitPost_4": 28,
+    "PitPost_5": 28,
+    "PitPost_6": 28,
+    "Bay_1": 108,
+    "Bay_2": 108,
+    "Bay_3": 108,
+    "Bay_4": 108,
+    "Bay_5": 108,
+    "Bay_6": 108
+  },
+  "triangle_total": 40302,
+  "excluded_names": [
+    "Collision",
+    "Glass",
+    "Guide_Hexes_MustStayFree",
+    "Selection",
+    "hex_shape",
+    "terrain_hole"
+  ],
+  "generator_waypoints_m": [
+    [
+      9.991148313710921,
+      9.358180655694053,
+      -20.0
+    ],
+    [
+      9.991148313710921,
+      9.358180655694053,
+      0.30000001907348633
+    ],
+    [
+      9.991148313710921,
+      9.358180655694053,
+      10.0
+    ],
+    [
+      9.991148313710921,
+      9.358180655694053,
+      3.0
+    ],
+    [
+      77.94114317029974,
+      44.99801997095915,
+      3.0
+    ],
+    [
+      77.94114317029974,
+      44.99801997095915,
+      25.0
+    ]
+  ],
+  "leg_count": 17,
+  "legs": {
+    "floor_to_rim": {
+      "worst_object": "PitFloor_1",
+      "margin_m": 0.23999999999999844,
+      "worst_triangle_generator_m": [
+        [
+          11.488204956054688,
+          11.327573776245117,
+          -20.0
+        ],
+        [
+          9.999995231628418,
+          11.523500442504883,
+          -20.0
+        ],
+        [
+          8.511785507202148,
+          11.327573776245117,
+          -20.0
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 4.670000171661377
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 4.082090191621711
+        },
+        "ring_pillars": {
+          "object": "RingPillar_4",
+          "margin_m": 16.118227051463283
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 8.361243520546086
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 16.20960885983997
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 13.817437134597773
+        },
+        "portal_arches": {
+          "object": "PortalRim_2",
+          "margin_m": 13.918820604777647
+        }
+      }
+    },
+    "rim_to_crest": {
+      "worst_object": "Siding_1",
+      "margin_m": 0.347331863489428,
+      "worst_triangle_generator_m": [
+        [
+          25.200000762939453,
+          7.25,
+          7.394999980926514
+        ],
+        [
+          6.148780345916748,
+          7.25,
+          7.394999980926514
+        ],
+        [
+          6.148780345916748,
+          7.25,
+          7.695000171661377
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Siding_1",
+          "margin_m": 0.347331863489428
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 4.082090191621711
+        },
+        "ring_pillars": {
+          "object": "RingPillar_4",
+          "margin_m": 16.118227051463283
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 8.361243520546086
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 16.19630694099569
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 13.817437134597773
+        },
+        "portal_arches": {
+          "object": "PortalRim_2",
+          "margin_m": 13.819085649838629
+        }
+      }
+    },
+    "crest_to_cruise": {
+      "worst_object": "Siding_1",
+      "margin_m": 0.347331863489428,
+      "worst_triangle_generator_m": [
+        [
+          25.200000762939453,
+          7.25,
+          7.394999980926514
+        ],
+        [
+          6.148780345916748,
+          7.25,
+          7.394999980926514
+        ],
+        [
+          6.148780345916748,
+          7.25,
+          7.695000171661377
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Siding_1",
+          "margin_m": 0.347331863489428
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 4.082090191621711
+        },
+        "ring_pillars": {
+          "object": "RingPillar_4",
+          "margin_m": 16.118227051463283
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 8.361243520546086
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 16.19630694099569
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 13.817437134597773
+        },
+        "portal_arches": {
+          "object": "PortalRim_2",
+          "margin_m": 13.819085649838629
+        }
+      }
+    },
+    "under_deck_out": {
+      "worst_object": "RingClamp_1",
+      "margin_m": 0.7922858428955077,
+      "worst_triangle_generator_m": [
+        [
+          28.464834213256836,
+          16.006399154663086,
+          5.622285842895508
+        ],
+        [
+          28.434520721435547,
+          16.060192108154297,
+          5.622285842895508
+        ],
+        [
+          31.16159439086914,
+          17.600479125976562,
+          5.622285842895508
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 1.9700001907348632
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 3.2883007690578197
+        },
+        "ring_pillars": {
+          "object": "RingPillar_4",
+          "margin_m": 3.712917624414926
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 2.1399999761581423
+        },
+        "ring_wall": {
+          "object": "RingClamp_1",
+          "margin_m": 0.7922858428955077
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 7.899594230651855
+        },
+        "portal_arches": {
+          "object": "PortalRim_2",
+          "margin_m": 7.991856575693568
+        }
+      }
+    },
+    "outside_climb": {
+      "worst_object": "Platform_6",
+      "margin_m": 37.99590449392689,
+      "worst_triangle_generator_m": [
+        [
+          41.526798248291016,
+          68.4005355834961,
+          7.399999618530273
+        ],
+        [
+          41.526798248291016,
+          68.4005355834961,
+          8.0
+        ],
+        [
+          44.471282958984375,
+          66.70053100585938,
+          8.0
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 43.30618002396075
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 69.36166251045813
+        },
+        "ring_pillars": {
+          "object": "RingPillar_4",
+          "margin_m": 54.82358296811161
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 58.190941447380254
+        },
+        "ring_wall": {
+          "object": "RingClamp_1",
+          "margin_m": 52.41073320225127
+        },
+        "hoods": {
+          "object": "Hood_1",
+          "margin_m": 59.30474695539238
+        },
+        "portal_arches": {
+          "object": "PortalThroat_1",
+          "margin_m": 57.25836088654409
+        }
+      }
+    },
+    "Trackconnector1_transfer": {
+      "worst_object": "Line_Arm_1",
+      "margin_m": 17.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          40.802818298339844,
+          -0.13979168236255646,
+          8.008000373840332
+        ],
+        [
+          41.04701614379883,
+          -0.15097852051258087,
+          8.008000373840332
+        ],
+        [
+          41.04701614379883,
+          0.15097852051258087,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_2",
+          "margin_m": 35.96513456165991
+        },
+        "ring_pillars": {
+          "object": "RingPillar_1",
+          "margin_m": 24.51944154312618
+        },
+        "beds": {
+          "object": "Bay_6",
+          "margin_m": 28.407355986934103
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 23.025347190977726
+        },
+        "hoods": {
+          "object": "Hood_1",
+          "margin_m": 25.71054405595349
+        },
+        "portal_arches": {
+          "object": "PortalSill_1",
+          "margin_m": 22.801188290318052
+        }
+      }
+    },
+    "Trackconnector1_onto_rail": {
+      "worst_object": "Line_Arm_1",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          42.767513275146484,
+          0.05707549676299095,
+          8.008000373840332
+        ],
+        [
+          43.01725769042969,
+          0.08916866779327393,
+          8.008000373840332
+        ],
+        [
+          43.01725769042969,
+          0.33616867661476135,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_2",
+          "margin_m": 35.96513456165991
+        },
+        "ring_pillars": {
+          "object": "RingPillar_1",
+          "margin_m": 24.51944154312618
+        },
+        "beds": {
+          "object": "Bay_6",
+          "margin_m": 28.407355986934103
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 23.025347190977712
+        },
+        "hoods": {
+          "object": "Hood_1",
+          "margin_m": 25.71054405595349
+        },
+        "portal_arches": {
+          "object": "PortalSill_1",
+          "margin_m": 22.801188290318052
+        }
+      }
+    },
+    "Trackconnector2_transfer": {
+      "worst_object": "Rib_2",
+      "margin_m": 6.011500881371795,
+      "worst_triangle_generator_m": [
+        [
+          2.932573011094064e-07,
+          13.495139122009277,
+          19.739849090576172
+        ],
+        [
+          0.30000022053718567,
+          10.241315841674805,
+          20.098487854003906
+        ],
+        [
+          0.30000028014183044,
+          13.482657432556152,
+          19.66044044494629
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_1",
+          "margin_m": 18.439999809265135
+        },
+        "ring_pillars": {
+          "object": "RingPillar_1",
+          "margin_m": 19.139999618530272
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 23.24
+        },
+        "ring_wall": {
+          "object": "RingClamp_1",
+          "margin_m": 16.053714027404784
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 11.514999618530272
+        },
+        "portal_arches": {
+          "object": "PortalRim_2",
+          "margin_m": 10.920547714233397
+        }
+      }
+    },
+    "Trackconnector2_onto_rail": {
+      "worst_object": "Line_Arm_2",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          -42.767513275146484,
+          -0.057071756571531296,
+          8.008000373840332
+        ],
+        [
+          -43.01725769042969,
+          -0.08916490525007248,
+          8.008000373840332
+        ],
+        [
+          -43.01725769042969,
+          -0.3361649215221405,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_3",
+          "margin_m": 35.96513456165991
+        },
+        "ring_pillars": {
+          "object": "RingPillar_7",
+          "margin_m": 24.51944154312618
+        },
+        "beds": {
+          "object": "Bay_3",
+          "margin_m": 28.407356427967738
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 23.025347190977712
+        },
+        "hoods": {
+          "object": "Hood_4",
+          "margin_m": 25.7105437755242
+        },
+        "portal_arches": {
+          "object": "PortalSill_4",
+          "margin_m": 22.801187974835102
+        }
+      }
+    },
+    "Trackconnector3_transfer": {
+      "worst_object": "Line_Arm_3",
+      "margin_m": 17.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          20.522470474243164,
+          35.26638412475586,
+          8.008000373840332
+        ],
+        [
+          20.65425682067871,
+          35.47227096557617,
+          8.008000373840332
+        ],
+        [
+          20.39275550842285,
+          35.62324905395508,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 36.21708746882093
+        },
+        "ring_pillars": {
+          "object": "RingPillar_3",
+          "margin_m": 24.395000030994414
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 28.458784072789054
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 22.94077037648239
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 25.615058945893374
+        },
+        "portal_arches": {
+          "object": "PortalSill_2",
+          "margin_m": 22.742923352962286
+        }
+      }
+    },
+    "Trackconnector3_onto_rail": {
+      "worst_object": "Line_Arm_3",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          21.334325790405273,
+          37.06629180908203,
+          8.008000373840332
+        ],
+        [
+          21.43140411376953,
+          37.29862594604492,
+          8.008000373840332
+        ],
+        [
+          21.217496871948242,
+          37.422122955322266,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 36.21708746882092
+        },
+        "ring_pillars": {
+          "object": "RingPillar_3",
+          "margin_m": 24.334057070780855
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 28.458784072789044
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 22.94077037648239
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 25.615058945893374
+        },
+        "portal_arches": {
+          "object": "PortalSill_2",
+          "margin_m": 22.705458845930345
+        }
+      }
+    },
+    "Trackconnector4_transfer": {
+      "worst_object": "Rib_6",
+      "margin_m": 6.078439205114751,
+      "worst_triangle_generator_m": [
+        [
+          11.526322364807129,
+          -7.001136779785156,
+          19.66044044494629
+        ],
+        [
+          8.587759971618652,
+          -5.5581464767456055,
+          19.88030242919922
+        ],
+        [
+          11.386981964111328,
+          -7.174278259277344,
+          19.4434871673584
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_1",
+          "margin_m": 18.439999809265135
+        },
+        "ring_pillars": {
+          "object": "RingPillar_1",
+          "margin_m": 19.139999618530272
+        },
+        "beds": {
+          "object": "Bay_1",
+          "margin_m": 23.24
+        },
+        "ring_wall": {
+          "object": "RingClamp_1",
+          "margin_m": 16.053714027404784
+        },
+        "hoods": {
+          "object": "Hood_1",
+          "margin_m": 11.514999618530272
+        },
+        "portal_arches": {
+          "object": "PortalRim_1",
+          "margin_m": 10.920547714233397
+        }
+      }
+    },
+    "Trackconnector4_onto_rail": {
+      "worst_object": "Line_Arm_4",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          -21.334321975708008,
+          -37.0662956237793,
+          8.008000373840332
+        ],
+        [
+          -21.431400299072266,
+          -37.29862976074219,
+          8.008000373840332
+        ],
+        [
+          -21.217493057250977,
+          -37.42212677001953,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_5",
+          "margin_m": 36.21708746882092
+        },
+        "ring_pillars": {
+          "object": "RingPillar_9",
+          "margin_m": 24.33405707078086
+        },
+        "beds": {
+          "object": "Bay_4",
+          "margin_m": 28.458784072789044
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 22.94077037648239
+        },
+        "hoods": {
+          "object": "Hood_5",
+          "margin_m": 25.615059061997897
+        },
+        "portal_arches": {
+          "object": "PortalSill_5",
+          "margin_m": 22.705459791548236
+        }
+      }
+    },
+    "Trackconnector5_transfer": {
+      "worst_object": "RingClamp_2",
+      "margin_m": 16.053714027404784,
+      "worst_triangle_generator_m": [
+        [
+          0.7800942659378052,
+          34.3757209777832,
+          9.186285972595215
+        ],
+        [
+          0.7150961756706238,
+          34.37713623046875,
+          9.186285972595215
+        ],
+        [
+          0.6993736624717712,
+          33.621299743652344,
+          9.186285972595215
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_B",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_4",
+          "margin_m": 28.141691199727326
+        },
+        "ring_pillars": {
+          "object": "RingPillar_3",
+          "margin_m": 19.139999618530272
+        },
+        "beds": {
+          "object": "Bay_2",
+          "margin_m": 23.24
+        },
+        "ring_wall": {
+          "object": "RingClamp_2",
+          "margin_m": 16.053714027404784
+        },
+        "hoods": {
+          "object": "Hood_2",
+          "margin_m": 17.194166412353514
+        },
+        "portal_arches": {
+          "object": "PortalThroat_2",
+          "margin_m": 16.17000030517578
+        }
+      }
+    },
+    "Trackconnector5_onto_rail": {
+      "worst_object": "Line_Arm_5",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          -21.43317985534668,
+          37.009220123291016,
+          8.008000373840332
+        ],
+        [
+          -21.585845947265625,
+          37.20945739746094,
+          8.008000373840332
+        ],
+        [
+          -21.799753189086914,
+          37.085960388183594,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_C",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_6",
+          "margin_m": 36.217086827503266
+        },
+        "ring_pillars": {
+          "object": "RingPillar_6",
+          "margin_m": 24.33406260372742
+        },
+        "beds": {
+          "object": "Bay_2",
+          "margin_m": 28.380848250553335
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 22.940766624761757
+        },
+        "hoods": {
+          "object": "Hood_3",
+          "margin_m": 25.615058420680235
+        },
+        "portal_arches": {
+          "object": "PortalSill_3",
+          "margin_m": 22.705462285279026
+        }
+      }
+    },
+    "Trackconnector6_transfer": {
+      "worst_object": "RingClamp_6",
+      "margin_m": 16.053714027404784,
+      "worst_triangle_generator_m": [
+        [
+          29.38020133972168,
+          -17.863441467285156,
+          9.186285972595215
+        ],
+        [
+          29.413923263549805,
+          -17.807859420776367,
+          9.186285972595215
+        ],
+        [
+          28.7672119140625,
+          -17.416324615478516,
+          9.186285972595215
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_A",
+          "margin_m": 17.24
+        },
+        "centre_pillars": {
+          "object": "Pillar_2",
+          "margin_m": 28.24855613942631
+        },
+        "ring_pillars": {
+          "object": "RingPillar_2",
+          "margin_m": 19.139999618530272
+        },
+        "beds": {
+          "object": "Bay_6",
+          "margin_m": 23.24
+        },
+        "ring_wall": {
+          "object": "RingClamp_6",
+          "margin_m": 16.053714027404784
+        },
+        "hoods": {
+          "object": "Hood_1",
+          "margin_m": 17.194166412353514
+        },
+        "portal_arches": {
+          "object": "PortalThroat_1",
+          "margin_m": 16.17000030517578
+        }
+      }
+    },
+    "Trackconnector6_onto_rail": {
+      "worst_object": "Line_Arm_6",
+      "margin_m": 15.231999626159666,
+      "worst_triangle_generator_m": [
+        [
+          21.433183670043945,
+          -37.00921630859375,
+          8.008000373840332
+        ],
+        [
+          21.58584976196289,
+          -37.20945358276367,
+          8.008000373840332
+        ],
+        [
+          21.79975700378418,
+          -37.08595657348633,
+          8.008000373840332
+        ]
+      ],
+      "families": {
+        "deck": {
+          "object": "Track_C",
+          "margin_m": 15.239999999999998
+        },
+        "centre_pillars": {
+          "object": "Pillar_7",
+          "margin_m": 36.217086827503266
+        },
+        "ring_pillars": {
+          "object": "RingPillar_12",
+          "margin_m": 24.33406260372742
+        },
+        "beds": {
+          "object": "Bay_5",
+          "margin_m": 28.380848855557918
+        },
+        "ring_wall": {
+          "object": "Ring",
+          "margin_m": 22.940766624761757
+        },
+        "hoods": {
+          "object": "Hood_6",
+          "margin_m": 25.615058304575705
+        },
+        "portal_arches": {
+          "object": "PortalSill_6",
+          "margin_m": 22.705461339661134
+        }
+      }
+    }
+  }
+}
