@@ -1698,6 +1698,28 @@ other object's digest unchanged. Restore point `hub-structure-pass2-20260921` (O
 `d6d1a1f`, the pass 2 import checkpoint, assets `cb60471`; 66 files, 501.7 MB) holds
 the state before the floor and the UV pass.
 
+**Floor plate built, 2026-09-21 — assets `e9e6f3c`, desk-verified; game look UNTESTED.** Built by
+an Opus agent; guards and validator rerun by the orchestrator. `FloorPlate` in `hub_skeleton.py`:
+144-gon, radius 31.35 m (ring wall inner 31.65 less 0.30), thickness `FLOOR_T` 0.30 m (the beds'
+own kerb height), top and rim only, no collider (`Collision`, `hex_shape`, `Selection` FBX nodes
+byte-identical). `Bay_1..6` and their `-Box` spots rise 0.30 m (FBX `-Box` z 0.5 → 0.8). Proof
+`verify_floor_pass.py` against `floor_pass_baseline.json` (the work file at
+`hub-structure-pass2-20260921`): 98 objects, 86 byte-identical, 1 added, 12 risen by exactly
+0.30; source digests 92 of 92 untouched equal; old freeze kept as `concept_freeze_pass2.json`.
+Clearances (BVH, both directions): ring wall 5.66 m, portal legs 4.88, hoods 7.93, ring-pillar
+feet 0.155; the seven centre pillars pass through, the six beds stand on it; each bed's outer
+corner overhangs the edge by ≤ 0.083 m (reported, not fixed: covering it eats the pillar
+clearance). Paint: `#E4E0D8` (.35/.05), per-hex tone ±1.2%, hex relief on the game's pointy-top
+lattice at 2.0 m pitch (a fifth of a hex), 0.60 m `#071016` trim, a 0.15 m (0,40,255) strip at
+`THIN_SI` just inside it — **offered; the owner picks the strip's colour**. The Bay cube grid is
+removed (no beam or stub ever carried a hex pattern). `validate_structure.py` PASS on the new
+atlas by value (0 road-finish texels off, ceiling 179, 64,305 core texels exactly the line
+colour; FloorPlate 635,340 texels at 4096, shell luma median 222 against the beds' 14). Adopted
+for the pass, owner's latitude 2026-09-21 ("anything else … feel free to adopt"): smooth shading
+by angle on the curved parts (normals only; the owner's look says whether the engine takes
+them), a baked AO/bevel layer in the structure rebake, and a two-atlas deck/structure split held
+back until the repack's density is seen.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
