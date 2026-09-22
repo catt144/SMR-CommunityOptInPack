@@ -2004,6 +2004,32 @@ UV re-freeze; AO + structure bake at the production sizes; export; one import (s
 same material, no new selector or spot). The brief-05 door block comes out of `20_TrainHub.lua`
 in the same step; the structure lights follow.
 
+**Production run, the flush rim and the hard-edged lines, 2026-09-22 13:11 — assets
+`24a98b7`, desk-verified; the owner's mesh-and-maps import is owed.** Built by an Opus
+agent; the orchestrator reran `--check-rebuild` (172 of 172 digests), `prove_previous_production.py`
+(135 of 135 identical to `TrainHub_work_before_rim_edges.blend` by knob), `--legacy
+--check-rebuild` (99 of 99) and `validate_structure.py` (PASS, 0 failures). Defaults:
+`PORTAL_COLLAR='rim'`, `EDGE_GEOMETRY` on; `PORTAL_SHOULDERS` is now derived from the collar.
+Work file 135 → 172 objects: 49 added (`PortalRim_1..6`, `Line_Arm_1..6`, `Line_Curve_1..6`,
+`Line_Centre_1`, `RibBand_1..30`), 27 changed, 12 removed (`Portal_*`, `PortalShoulder_*`), 96
+identical, spots 27 → 27, 0 moved; body 17,689 faces / 22,541 verts. The rim's blue line is the
+generator's glow faces carried through the merge (`lit` per face, 41 a mouth, 246), painted by
+that mark. UV re-frozen once (`concept_freeze_uv2.json` kept): density 18.00 → 19.33 /m, spread
+5.1%, worst group 4.45%, coverage 51.35%, overlap 0; `Hood` straightness 68.1 → 56.8% (the hoods
+now die on the dome: a change of subject). FBX 33 nodes, only the body changed. AO rebaked;
+`bake_structure.py` 191 s; published `seams` as the validator's first choice (0 ring light runs —
+the last pass's flip has no symptom now): road lit 0, `Line_Arm` 37,196 / `Line_Curve` 28,700 /
+`RibBand` 20,340 / `PortalRim` 6,504 lit texels all core at SI 179, 180,977 core texels exactly
+(0,40,255). Clearance unchanged (+0.7475 / +0.125 m). TGA sha256 BC `0a598e77…`, NM `09db59d5…`,
+RM `38724e48…`, SI `f572b12e…`; DDS expected ~11 + 22 + 11 + 2.8 MB. **Flagged: a published check
+changed** — the rib-band edge-ramp test moves to the `RibBand` sleeves and inverts to 0 ramp
+texels, gated on the mask (wants a ruling, as the light-half change did). `textures/structure_seams/`
+is a dead-atlas leftover (03:58), deletion the owner's call. Owner's steps: README "Current
+handoff: the flush rim and the hard-edged lines" and `IMPORTER_STEPS.md` — same FBX path, same
+material, no new selector or spot; Fill selectors, Body import procedure in full, save, reload.
+The doors' Lua came out at OptInPack `c1a8a50` (look_smoke 8 cases PASS); brief 05 deleted at
+`b3c1bba`. Next after the look: restore point on keep, then the structure lights (step 6).
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
