@@ -41,6 +41,14 @@ PlaceObj('SIE_ImportItem_Mesh', {
 					'SpotName', "Box1",
 				}),
 				PlaceObj('SIE_ImportItemSelector', {
+					'name', "-Pitfloor",
+					'SpotName', "Pitfloor",
+				}),
+				PlaceObj('SIE_ImportItemSelector', {
+					'name', "-Pitrim",
+					'SpotName', "Pitrim",
+				}),
+				PlaceObj('SIE_ImportItemSelector', {
 					'name', "-Top",
 					'SpotName', "Top",
 				}),
@@ -127,6 +135,10 @@ PlaceObj('SIE_ImportItem_Mesh', {
 				PlaceObj('SIE_ImportItemSelector', {
 					'name', "Selection",
 					'SurfaceType', "selection",
+				}),
+				PlaceObj('SIE_ImportItemSelector', {
+					'name', "terrain_hole",
+					'SurfaceType', "terrain_hole",
 				}),
 				}),
 			}),
