@@ -1748,6 +1748,25 @@ with no check weakened. `textures/pad|nostrips|thinlines*` are historical at
 — the material is unchanged; run the Body import procedure in full (the Importer re-reads the
 FBX and recompiles all four DDS), save, reload.
 
+**The owner's look at the UV pass, 2026-09-22: "the hub's quality is much better now, the only
+thing that still doesn't look up to spec is the paint."** Restore point
+`hub-uv-refrozen-20260922` — paired tags at OptInPack `543504f`, the checkpoint of the 00:44
+mesh-and-maps import (entjson, `Meshes/*.hgrm`, metadata) and assets `3d5c11e`; 66 files,
+501.8 MB. The paint pass is next (AO/bevel bake, panelisation, decals, roughness variety, small
+emissives — proposed, the owner's screenshot and decal call awaited). A trim-sheet material for
+the metal parts is possible (the importer assigns a material per mesh object, as the glass
+shows) and unmeasured on this pipeline; proposed as the paint pass's first unit behind a test
+import. **Then, with four close-ups: the portals.** Owner: *"we need our train tunnels / portals
+… some of the rims are broken. I mostly want them to look clean, have a nice transition /
+entrance, and look clean."* Read by the orchestrator: every defect is the Tripo mesh (the collar
+strap splits at the crown, the hood is a separate piece inside the arch, the side silhouette is a
+keyhole), not paint. **Ruling, owner, 2026-09-22: the portals are open to redesign.** Route: a
+generated portal in `hub_skeleton.py` (flared collar from one continuous profile, recessed
+throat with a hard-edged dark band, lip bevel, blue line on the lip, buttresses into the ring,
+hood merged into the liner), opening size and position unchanged, spots untouched; two
+candidates (arch mouth / rounded-rect mouth) rendered from the owner's four angles for the pick
+before any export; then unwrap, one more re-freeze, bake, one import.
+
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
 (110,110,31): 95,577; (122,122,0): 320,320, summing to 4,194,304 texels.
