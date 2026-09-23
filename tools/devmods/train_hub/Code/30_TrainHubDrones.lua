@@ -20,7 +20,12 @@
 --    which is also what a save loaded without the mod does: the drone becomes a plain Wasp.
 --  * Save: a drone under a stock command or hold has no mod thread and stays in the save
 --    untouched (DESIGN.md:55-56); only scripted motion is removed at SaveGameStart. The driver
---    is deleted for the save and restarted at SaveGameDone. LoadGame sweeps prototype leftovers.
+--    is deleted for the save and restarted at SaveGameDone.
+--  * Load (drones chain L4, 2026-09-23): a Wasp that rode the save under a stock leg or hold is
+--    taken back into a record by F.Adopt at the stage the hub's persisted deadline names ("out"
+--    or "back"); the hub calls it on its first tick after load and then sweeps what nobody
+--    adopted (20_TrainHub.lua). This file no longer sweeps at LoadGame; F.SweepLoaded remains
+--    for the console prototype and skips any Wasp a registered record holds.
 -- MODE "scripted": the tagged drones-scripted-flight-20260923 flight, unchanged below.
 --
 -- HOW SCRIPTED MOTION MOVES (installed build 24995074, archived 1.1.0.403908), the way the game's own units do:
@@ -44,7 +49,7 @@
 -- upvalues; its orphan gate is the first statement after its only yield. OnMsg.SaveGameStart
 -- deletes it and every scripted-motion visual before the persist walk and gates spawns until
 -- SaveGameDone; engine-mode drones under a stock command or hold stay (see MODE "engine").
--- L4 owns persisted deadlines and reconstruction; this prototype sweeps its leftovers at load.
+-- L4 owns persisted deadlines and reconstruction (F.Adopt is its way back in after a load).
 -- Source surfaces: Unit.lua:42-51 (init_with_command=false), FlyingDrone.lua:114-132
 -- (TakeOff/LandingEnd), Track.lua:194-199, TrainTransport.lua:57-65, TrackTunnel.lua:20-28;
 -- EF-112/115 (FX and battery).
@@ -874,12 +879,15 @@ function F.Persists(a)
   return a.mode == "engine" and (a.stage == "ready" or a.stage == "out" or a.stage == "back")
 end
 
--- Prototype leftovers in a loaded save: a Wasp whose controller is a train hub but that the
--- hub's own fleet list does not hold. L4's fleet adopts from its persisted deadline instead.
+-- Prototype leftovers in a loaded save: a Wasp whose controller is a train hub but that neither
+-- the hub's own fleet list nor a registered record (an adopted repair flight) holds. The hub
+-- runs its own sweep after adopting its jobs; this one serves the console prototype.
 function F.SweepLoaded()
+  local held = {}
+  for record in pairs(visuals) do if live(record.drone) then held[record.drone] = true end end
   AllMapsForEach(true, "FlyingDrone", function(d)
     local hub = d.command_center
-    if live(d) and hub_ok(hub) and not table.find(hub.drones or empty_table, d) then
+    if live(d) and hub_ok(hub) and not held[d] and not table.find(hub.drones or empty_table, d) then
       F.Lost = "load"
       d:StopFX()
       DoneObject(d)
@@ -935,6 +943,36 @@ function F.Create(hub, started)
     record.stage, record.rise_started = "rise", record.started
     record.handoff = F.HandoffAt == "outside" and 5 or 3
   end
+  visuals[record] = true
+  start_driver()
+  return record
+end
+
+-- L4: take back a Wasp that rode a save under a stock leg or hold (F.Persists), at the stage
+-- the hub's persisted deadline names: "out" (still flying to the break, or holding there) or
+-- "back" (the work is done by the deadline's reckoning; the next hold ends in the descent).
+-- Nothing is flown here: the driver's next look treats the record exactly like one it made
+-- itself, so a leg still under way is polled and a hold is taken back within one PollTime.
+-- A Wasp under any other command is refused; the hub then sweeps it as a stray.
+function F.Adopt(hub, drone, target, stage)
+  if save_gate then return nil, "Save in progress" end
+  local pit, reason = F.PitPoints(hub)
+  if not pit then return nil, reason end
+  if not live(drone) or drone.command_center ~= hub then return nil, "Not this hub's Wasp" end
+  if stage ~= "out" and stage ~= "back" then return nil, 'Stage is "out" or "back"' end
+  local c = drone.command
+  if c ~= STOCK_LEG and c ~= STOCK_HOLD then return nil, "Not under a stock leg or hold" end
+  local site, owner = F.Site(target)
+  if not site then return nil, owner end
+  for record in pairs(visuals) do if record.drone == drone then return record end end
+  local now = GameTime()
+  drone.battery_max = F.BatteryMax
+  drone.battery = F.BatteryMax
+  drone:SetCurvature(false)
+  local record = {hub = hub, drone = drone, pit = pit, plan = make_plan({}, 1, {}), started = now,
+    phase = stage, issued = 0, state = false, visible = true, yaw = drone:GetAngle(), placed = true,
+    mode = "engine", stage = stage, handoff = F.HandoffAt == "outside" and 5 or 3,
+    target = target, site = site, site_owner = owner, leg_at = now, rise_started = now}
   visuals[record] = true
   start_driver()
   return record
@@ -1111,7 +1149,7 @@ function SetHubDroneTune(name, value)
   if not tuneable[name] or type(value) ~= "number" or value ~= math.floor(value)
     or (limit and (value < -limit or value > limit)) or (not limit and value < 1) then
     return false, "Use a named positive integer; BankAngle -2700..2700 angle minutes, "
-      .. "ExitDirectionX/Y -1000..1000 (a /1000 unit vector)" end
+      .. "ExitDirectionX and ExitDirectionY -1000..1000 (a unit vector in thousandths)" end
   F[name] = value
   return true
 end
@@ -1142,7 +1180,8 @@ function OnMsg.SaveGameDone()
   save_gate = false
   if next(visuals) then start_driver() end
 end
-function OnMsg.LoadGame() F.ClearAll(); save_gate = false; F.SweepLoaded() end
+-- The hub adopts its jobs' Wasps on its first tick after load and sweeps the rest (L4).
+function OnMsg.LoadGame() F.ClearAll(); save_gate = false end
 function OnMsg.DoneGame()
   F.ClearAll(); save_gate = false
 end

@@ -258,6 +258,13 @@ assert not re.search(r"^\s*(FlyingDrone|Drone|FlyingObject|CommandObject)\.\w+\s
 lua.execute(source_text)
 lua.execute("SetHubDroneMode('scripted')  -- the tagged flight first; the engine suite follows")
 lua.execute(r'''
+-- The scripted suite was written under the tagged flight's dials (drones-scripted-flight-20260923);
+-- the engine suite runs under L3's settled defaults. The mock's drone position is the current
+-- chord's end, so the recall geometry only reads at the slow dials.
+function tagged_dials() F.Speed,F.ClimbRate,F.Accel,F.ExitDirectionX,F.ExitDirectionY=6000,1500,1200,-866,-500 end
+function settled_dials() F.Speed,F.ClimbRate,F.Accel,F.ExitDirectionX,F.ExitDirectionY=16000,8000,8000,-998,-70 end
+''')
+lua.execute(r'''
 F=SMROptInHubFlight
 h=hub(); s=obj(20000,0); f=obj(40000,0)
 t1=track(h,s,{{0,0},{10000,0},{20000,0}})
@@ -299,7 +306,7 @@ h.angle=90; h.scale=150
 pit=assert(F.PitPoints(h)); assert(pit[1].Z==-3000 and pit[3].Z==1500)
 assert(math.abs(pit[1].X-595.5)<=.5 and pit[1].Y==-1965)
 assert(pit[4].Z==450 and pit[5].Z==450 and pit[6].Z==3750)
-assert(pit[5].X==6750 and pit[5].Y==-11691)
+assert(pit[5].X==945 and pit[5].Y==-13473, 'the outside point follows the settled 184-degree lane (L3), rotated and scaled: '..pit[5].X..','..pit[5].Y)
 h.angle=0; h.scale=100
 ''')
 
@@ -353,10 +360,14 @@ assert(drone.fx_first==arrival and drone.fx_target==cs, 'work FX start at arriva
 ''')
 lua.execute(r'''
 -- Kinematics of the committed plan: continuous speed, bounded acceleration, rest before work.
+-- Pinned under the tagged scripted flight's dials (drones-scripted-flight-20260923: Speed 6000,
+-- ClimbRate 1500, Accel 1200, lane 210 degrees); L3's settled defaults are restored below.
+tagged_dials()
 clock=100000; r=assert(F.Create(h,clock)); assert(F.Send(r,cs,true))
 measured_arrival,measured_work,measured_total=r.arrival-clock,r.work_done-clock,r.removed-clock
--- Regression pins for the fixture at the committed defaults; a planner change moves them on purpose.
+-- Regression pins for the fixture at the tagged dials; a planner change moves them on purpose.
 assert(measured_arrival==25524 and measured_work==31524 and measured_total==57051,
+  
   'fixture offsets moved: '..measured_arrival..' '..measured_work..' '..measured_total)
 local steps=r.plan.steps
 local prev; worst_join=0; max_acc=0; max_roll=0
@@ -408,6 +419,7 @@ for i,s in ipairs(steps) do
   end
 end
 assert(in_lane)
+settled_dials()
 ''')
 
 lua.execute(r'''
@@ -442,6 +454,7 @@ assert(hidden_start[1]==5000 and hidden_start[2]==0 and visible_again[1]==10000 
 
 lua.execute(r'''
 -- Recall while accelerating along the under-deck lane: brake, stop, retrace the lane, land.
+tagged_dials()
 clock=200000; drone,status=SendHubDroneTo(cs,h)
 local low_at
 while F.Status() and not (drone.pos.Z==F.UnderDeckHeight and drone.pos.X<-2500) do local w=F.Sample(); clock=clock+w end
@@ -468,10 +481,12 @@ clock=400000; drone=SpawnHubDrone(h); drive(clock+1200); local z0=drone.pos.Z
 ReturnHubDrone(); local zmax=z0
 while F.Status() do local w=F.Sample(); if not w then break end; clock=clock+w; zmax=math.max(zmax,drone.pos.Z) end
 assert(zmax<F.PitExitZ and zmax>z0 and drone.deleted, 'brakes upward then returns: '..z0..' -> '..zmax)
+settled_dials()
 ''')
 
 lua.execute(r'''
 -- Reciprocal tunnel: hidden only between the inner spots, in both directions, seams exact.
+tagged_dials()
 h2=hub(0,100000); near=obj(20000,100000); far=obj(70000,100000); dest=obj(90000,100000)
 near.class='TrackTunnelBase'; far.class='TrackTunnelBase'; near.linked_obj=far; far.linked_obj=near
 near.inner=obj(21000,100000); far.inner=obj(69000,100000)
@@ -498,6 +513,7 @@ clock=clock+700; F.Sample(); ReturnHubDrone(); assert(drone.visible==false)
 local reappeared=false
 while F.Status() do local w=F.Sample(); if not w then break end; clock=clock+w; if drone.visible~=false and drone.pos.X<21000 then reappeared=true end end
 assert(reappeared and drone.deleted)
+settled_dials()
 ''')
 
 lua.execute(r'''
@@ -542,6 +558,7 @@ assert(r.drone.deleted)
 ''')
 lua.execute(r'''
 -- L4's independent records: absolute start, sparse sampling, idempotence, no deadline drift.
+tagged_dials() -- measured_arrival was pinned under these
 clock=900000
 r1=assert(F.Create(h,clock-4000)); r2=assert(F.Create(h,clock-4000))
 assert(F.Send(r1,cs,true)); assert(F.Send(r2,cs,true))
@@ -564,6 +581,7 @@ F.TurnRadius=1500; F.Accel=1200
 OnMsg.SaveGameStart(); assert(r1.drone.deleted and q.drone.deleted)
 assert(F.Create(h)==nil); OnMsg.SaveGameDone()
 assert(created==removed)
+settled_dials()
 ''')
 
 
@@ -700,8 +718,38 @@ local stray=obj(0,0); stray.command_center=h; stray.command='FlightGoto'; map_ob
 local fleet=obj(0,0); fleet.command_center=h; h.drones={fleet}; map_objects[#map_objects+1]=fleet
 local other=obj(0,0); other.command_center=s; map_objects[#map_objects+1]=other
 clock=9700000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000)
-OnMsg.LoadGame(); assert(drone.deleted and stray.deleted and not fleet.deleted and not other.deleted and F.Lost=='load' and not F.Status())
+OnMsg.LoadGame(); assert(drone.deleted and not F.Status(), 'LoadGame clears records and nothing else')
+assert(not stray.deleted, 'the flight file no longer sweeps at load; the hub adopts first (L4)')
+F.SweepLoaded(); assert(stray.deleted and not fleet.deleted and not other.deleted and F.Lost=='load')
 created=created+1 -- the stray was never created by the flight code
+-- ADOPT (L4): a Wasp that rode the save under a stock leg is taken back at the hub's stage and
+-- flown home by the same driver: out -> hold -> work -> back -> descent, never Idle. A record
+-- registered this way is what SweepLoaded now skips.
+local function saved_wasp(cmd,...)
+  local w=obj(15000,0,700); w.command_center=h; w.city=h.city; created=created+1; drones[#drones+1]=w; map_objects[#map_objects+1]=w
+  w:SetCommand(cmd,...); if cmd=='FlightGoto' then w:QueueCommand('WaitUninterruptable',F.HoldTimeout) end
+  return w
+end
+clock=9750000
+assert(F.Adopt(h,saved_wasp('Idle'),cs,'out')==nil, 'a Wasp under a foreign command is refused')
+drones[#drones].deleted=true; removed=removed+1
+local w=saved_wasp('FlightGoto',point(cs.pos.X,cs.pos.Y))
+assert(F.Adopt(h,w,cs,'sideways')==nil and F.Adopt(s,w,cs,'out')==nil)
+local ad=assert(F.Adopt(h,w,cs,'out')); assert(F.Adopt(h,w,cs,'out')==ad, 'adopting twice returns the same record')
+assert(ad.stage=='out' and ad.mode=='engine' and w.battery==F.BatteryMax and not w.curvature)
+F.SweepLoaded(); assert(not w.deleted, 'an adopted Wasp is not a stray')
+local worked=false
+edrive()
+for _,st in ipairs(w.states) do if st[1]=='constructIdle' then worked=true end end
+assert(w.deleted and worked and not w.leaked, 'adopted out: worked at the break, returned, landed, never Idle')
+assert(w.calls[#w.calls].to.Z==-2000, 'lands on the pit floor')
+-- Adopted at "back": the hold at the arrival ends straight in the descent, no work pose.
+local wb=saved_wasp('WaitUninterruptable',F.HoldTimeout)
+assert(F.Adopt(h,wb,cs,'back')); edrive()
+local posed=false
+for _,st in ipairs(wb.states) do if st[1]=='constructIdle' then posed=true end end
+assert(wb.deleted and not posed and not wb.leaked, 'adopted back: descent only')
+assert(created==removed, 'created '..created..' removed '..removed)
 h.drones={}
 -- The switch applies to the next spawn: a scripted drone after engine ones, and back.
 assert(SetHubDroneMode('scripted')); clock=9800000; drone=assert(SpawnHubDrone(h)); assert(F.Status().mode=='scripted' and not F.Status().stage)
@@ -753,7 +801,9 @@ if args.clearance_output:
     lua.execute('''function GetEntitySpotPos(_,idx)
       local p=idx==0 and spot_floor or spot_rim
       return point(math.floor(p[1]+.5),math.floor(p[2]+.5),math.floor(p[3]+.5)) end''')
-    lua.execute("SetHubDroneMode('scripted')")  # the receipt bounds the scripted chords; engine mode reuses them for the pit rise/descent and the outside exit, its own legs are unbounded here
+    lua.execute("SetHubDroneMode('scripted'); tagged_dials()")  # the receipt bounds the TAGGED scripted flight's chords (drones-scripted-flight-20260923: Speed 6000, lane 210 deg).
+    # L4, 2026-09-23: at L3's settled dials and 184-degree lane the same measurement FAILS (Platform_6 -0.637 m on the
+    # connector-1 transfer, RingPillar_4 -0.052 m on the under-deck exit); the owner accepted the flown engine-mode exit by eye.
     routes={}
     for name,spot in spots.items():
         if not name.startswith('Trackconnector'): continue
@@ -788,7 +838,7 @@ if args.clearance_output:
         'bank_angle_minutes':abs(lua.globals().F.BankAngle),
         'chord_horizon_ms':0,
         'chords_are':'straight engine moves cut at every span boundary; each lies in its span control hull',
-        'mode':'scripted route; engine-mode legs (stock FlightGoto) are not bounded by this receipt',
+        'mode':'the tagged scripted flight (Speed 6000, ClimbRate 1500, Accel 1200, lane 210 deg); the settled 184-degree lane and engine-mode legs (stock FlightGoto) are NOT bounded by this receipt (the settled lane measured negative on 2026-09-23, see L4_HUB_20260923.md)',
         'routes':routes},indent=2)+'\n')
 g = lua.globals()
 assert g.created==g.removed

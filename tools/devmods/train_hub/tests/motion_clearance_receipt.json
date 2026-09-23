@@ -1,10 +1,10 @@
 {
-  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2e_motion_clearance_receipt.json",
-  "head": "16a69e35b18f93528f5088bd71974f68f3265cb0",
-  "assets_head": "9abe3deec2d36d68bbe7db8d6e3f97169718b566",
+  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\21da7abc-1158-41aa-896b-4b4ebb109501\\scratchpad\\drones_motion_curves_tagged.json --receipt C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\21da7abc-1158-41aa-896b-4b4ebb109501\\scratchpad\\l4_motion_clearance_receipt.json",
+  "head": "ed8c29bf3143fb9099b04a79e591070fad628941",
+  "assets_head": "a5535fbcb42a97447a815d886e2da8b657295489",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "da53324f89c5a4107604de59cda85511193fc576d27989c08b945ca56be0dec1",
+  "source_sha256": "940406bfbf1ed329e1bfbdbc94da8787acdf82214c80e0fb622c75536698bba9",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -186,13 +186,13 @@
       3.0
     ],
     [
-      77.94114317029974,
-      44.99801997095915,
+      50.36596004384196,
+      74.63640176791826,
       3.0
     ],
     [
-      77.94114317029974,
-      44.99801997095915,
+      50.36596004384196,
+      74.63640176791826,
       25.0
     ]
   ],
@@ -4256,14 +4256,14 @@
     }
   },
   "motion": {
-    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\drones_motion_curves.json",
-    "head": "16a69e35b18f93528f5088bd71974f68f3265cb0",
-    "source_sha256": "da53324f89c5a4107604de59cda85511193fc576d27989c08b945ca56be0dec1",
+    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\21da7abc-1158-41aa-896b-4b4ebb109501\\scratchpad\\drones_motion_curves_tagged.json",
+    "head": "ed8c29bf3143fb9099b04a79e591070fad628941",
+    "source_sha256": "940406bfbf1ed329e1bfbdbc94da8787acdf82214c80e0fb622c75536698bba9",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,
     "chords_are": "straight engine moves cut at every span boundary; each lies in its span control hull",
-    "mode": "scripted route; engine-mode legs (stock FlightGoto) are not bounded by this receipt",
+    "mode": "the tagged scripted flight (Speed 6000, ClimbRate 1500, Accel 1200, lane 210 deg); the settled 184-degree lane and engine-mode legs (stock FlightGoto) are NOT bounded by this receipt (the settled lane measured negative on 2026-09-23, see L4_HUB_20260923.md)",
     "routes": {
       "Trackconnector1": [
         {
