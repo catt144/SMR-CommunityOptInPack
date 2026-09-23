@@ -2211,7 +2211,21 @@ need the outer hub glass installed"* → the dome `Glass` object (frozen `e99cc9
 OI-23) exported as a third entity `SMROptInTrainHub6DomeGlass` with flat clear maps (#09384F,
 alpha .06, no glow) and its own glass material; the Lua attaches it at Origin, inert until the
 owner's one import. (3) *"the final paint design for the overall body"* — the last big job; the
-owner will have this session hand off once more for it. Builds (1) and (2) in flight, Opus.
+owner will have this session hand off once more for it. **(1) built, OptInPack `6b45010`**
+(Opus; smoke rerun by the orchestrator: PASS, 144 by day, 163 at night, 18 under-deck): family
+`underdeck`, three per arm on the arm axis at u = 900/1700/2500 cm, z 700, intensity 40, radius
+12 m, `SetHubStructureLights{ underdeck = {...} }` tunes intensity/radius/height/radii/colour/on.
+The same commit generalises the glass attach over `{siding, dome}`, the dome with no SI call,
+inert until `SMROptInTrainHub6DomeGlass` exists. Restart only. **(2) built, assets `54dc43f`**
+(Opus): `export_dome_glass.py` (a sibling, the frozen exporters untouched) writes
+`export/concept/SMROptInTrainHub6DomeGlass.fbx` — Origin + mesh, 2,976 faces, 3,061 vertices, 0
+drift on reimport, source `Glass` digest `e99cc9c2…` reproduced before writing; scripted
+azimuth×height UV, 1 island, 0 overlap, fingerprint `e4df81ac…` as a NEW `dome_glass` key in
+`concept_freeze.json` (additions only, the 14 old keys byte-identical; `prepare_concept.py`'s
+candidate runs rewrite that file whole and would drop the key, so re-run the exporter after any
+re-freeze); flat 256² maps BC #09384F alpha 15, NM flat, RM 33/33/0, SI 0, its OWN material
+(the siding atlas is alpha 255 outside its islands). Sheet: `DOME_GLASS_IMPORT.md`. The owner's
+one import of the third entity is next, then restart for the lights.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
