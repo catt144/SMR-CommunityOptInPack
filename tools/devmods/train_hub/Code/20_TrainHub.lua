@@ -10,6 +10,8 @@
 --   SMROptInTrainHub6Base    the six's object_class, and a city label
 --   SMROptInTrainHub4 / SMROptInTrainHub4Base   RESERVED for the four; not built
 --   SMROptIn_floor_hold      field on hub objects (10_TrainFloor.lua)
+--   SMROptIn_track_work      field on hub objects: the track-repair toggle and the
+--       pending list (build 4; the TRACK WORK section below is its record)
 --   "SMROptInTrainHub6Base:SMROptInTrainHub6"   the object's persist key: the
 --       generated class carries persist_baseclass = its object_class, which is
 --       what the Mod Editor writes (Composite.lua:522-523). The prototype's
@@ -112,7 +114,7 @@ DefineClass.SMROptInTrainHubBase = {
 	accept_requester_connects = true,
 	auto_connect_requesters_at_start = true,
 	OnPinClicked = DroneControl.OnPinClicked,
-	starting_drones = 2,
+	starting_drones = 5, -- the standing fleet (owner, 2026-09-23); Floor.HubRepairTune.Standing rules after placement
 	show_service_area = false,
 	show_range = true,
 	service_area_min = hub_work_radius,
@@ -991,29 +993,8 @@ function SMROptInTrainHubBase:GetUISectionDroneHubRollover()
 	}, "<newline><left>")
 end
 
--- DroneControl:SpawnDrone is an empty "override me" (DroneControl.lua:725).
--- Drones appear around the body the way DroneControl:SpawnDronesAround places
--- them (:244-255), because the stand-in has no drone entrance to walk out of.
-function SMROptInTrainHubBase:SpawnDrone()
-	if #self.drones >= self:GetMaxDrones() then return false end
-	local drone = self.city:CreateDrone()
-	drone:SetCommandCenter(self)
-	drone.battery_max = hub_drone_battery_max
-	drone.battery = hub_drone_battery_max
-	local map = self:GetMap()
-	local centre = self:GetPos()
-	local inner = longest_line(self) * const.GridSpacing
-	local outer = self.work_radius * const.GridSpacing
-	local pos = GetRandomPassableAroundOnMap(map, centre, outer, inner)
-		or GetRandomPassableAroundOnMap(map, centre, outer)
-		or centre
-	drone:SetPos(pos)
-	return true
-end
-
-function SMROptInTrainHubBase:CheatSpawnDrone()
-	self:SpawnDrone()
-end
+-- DroneControl:SpawnDrone is an empty "override me" (DroneControl.lua:725); this hub's is in
+-- the TRACK WORK section below, where the fleet lives.
 
 -- The old launch pad (a RechargeStationPlatform at q=1,r=1 with no charger behind it) is
 -- gone (owner, 2026-09-22): InitHubLaunchPad now only clears what old saves still carry.
@@ -1785,6 +1766,7 @@ function SMROptInTrainHubBase:GameInit()
 	top_up_hub_drones(self)
 	place_hub_markers(self)
 	Floor.Reconcile(self)
+	self:InitHubTrackWork()
 end
 
 function SMROptInTrainHubBase:OnSetWorking(working)
@@ -1863,6 +1845,8 @@ function SMROptInTrainHubBase:BuildingUpdate()
 		self:SelfService()
 	end
 	Floor.Reconcile(self)
+	-- Build 4: the track-work tick (jobs, the remote stations, the fleet), in every hub state.
+	self:HubTrackWorkTick()
 end
 
 -- ===========================================================================
@@ -1942,6 +1926,883 @@ end
 
 function OnMsg.LoadGame()
 	AllMapsForEach("map", "SMROptInTrainHubBase", heal_after_load)
+end
+
+-- ===========================================================================
+-- TRACK WORK (build 4, drones chain link 4, 2026-09-23). The hub repairs broken track on its
+-- own network from its own stock, without player action: a break becomes a pending job, the
+-- hub pays the site's OUTSTANDING cost at the cheaper (SafeTransport) rate whether or not that
+-- tech is researched, and completes the site at a deadline in game time. A vanilla Wasp flies
+-- out and back for the look of it (30_TrainHubDrones.lua); the DEADLINE IS THE ONLY AUTHORITY
+-- and the flight is advisory (DESIGN.md End state 2; owner, 2026-09-19 and 2026-09-23).
+-- Every source line below was read on the INSTALLED build 25390750 / 1.1.1.405907 from
+-- B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src.
+--
+-- SAVE CONTRACT (FIX_POLICY ban 1; inventory row 11). ONE persisted field, on hub objects,
+-- `false` until the hub first uses it:
+--   SMROptIn_track_work = {
+--     repair = <bool>,             -- the player's track-repair toggle (infopanel), default true
+--     jobs = { {                   -- the pending list; build 5 adds kind = "build" here and
+--       kind = "repair",           --   so needs NO second persisted name
+--       site = <ConstructionGroupLeader>, -- the break's repair group (Track.lua repair_cgs[i][1])
+--       el = <TrackGridElement>,   -- the first broken original, the flight's target
+--       track = <TrackBase>,
+--       found = <game ms>, started = <game ms>|false, deadline = <game ms>|false,
+--       drone = <FlyingDrone>|false,          -- the visual, adopted after a load
+--       held = { [res] = { req = <supply request>, amount = n } }|false, -- the stock claim
+--       waiting = <resource id>|false }, ... } }
+--   Plain data and vanilla object references only: no function, no thread, no closure. A save
+--   loaded without this mod carries an inert table on a mod building it cannot load anyway
+--   (FIX_POLICY section 0). A job whose site is gone (drones finished it, or it was cancelled)
+--   is dropped silently on the next tick (owner: whichever finishes first wins).
+--
+-- WHERE THE WORK RUNS: inside vanilla's own per-building update thread, BuildingUpdate every
+-- building_update_time (5 s game), which runs while the object is valid whatever its working
+-- state (Building.lua:811-826 StartUpdateThread; a watchdog restarts it, :832-840). No thread
+-- of ours, nothing captured by a save (FIX_POLICY section 3a, layer 3 shape). The tick:
+--   1. once after a load: adopt each job's surviving Wasp (F.Adopt), then sweep strays;
+--   2. the hub-rooted physical graph (below), and every Station on it gets this hub as a
+--      command centre (owner, 2026-09-23), the same AddCommandCenter call vanilla makes from
+--      its hex-circle sweep (DroneControl.lua:466-468) with connectivity as the criterion;
+--   3. new breaks on the graph become jobs (Track.lua repair_cgs, filled by BreakTracks,
+--      Meteors.lua:713-727, before Msg("TrackBroken", track, true));
+--   4. each job: dropped if its site is gone; dispatched when the switch, the toggle, a slot
+--      and the stock allow; completed at its deadline; given a Wasp while it flies;
+--   5. the fleet: vanilla's own load word (DroneControl.lua:1092-1107) picks a tier.
+--
+-- REACHABILITY (owner, 2026-09-19; enforcement moved to dispatch, 2026-09-23): anything a
+-- repair drone following the track could reach, never an isolated network. Engine flight can
+-- physically reach anything, so dispatch refuses a target off the graph. The graph is
+-- hub-rooted, with visited nodes and visited tracks, over PHYSICAL edges: a connector element's
+-- track (TrainTransport.lua:57-66 ForEachConnectorElement), the track's start/end station
+-- owners (Track.lua:194-199, which never test construction), and a tunnel mouth's reciprocal
+-- linked_obj (Tunnel.lua:8, :27-28; TrackTunnel.lua:7-9). ForEachConnectedTrack is NOT used:
+-- it calls GetDestStation, which returns false while any element is under construction
+-- (Track.lua:339-341), so it hides exactly the broken edge and everything beyond it (EF-114).
+-- A track is an edge only while every unfinished element of it is a repair site over a broken
+-- original (TrackElement.lua:139-152 `broken`); unfinished NEW track is build 5's.
+--
+-- COMPLETION (EF-112): the live repair group's leader, ConstructionGroupLeader:Complete
+-- (ConstructionSite.lua:2671-2718), which calls each member's TrackConstructionSite:Complete
+-- (TrackElement.lua:860-943): the hidden original is shown again, the track reconnects, and
+-- Msg("TrackBroken", track, false) fires. No funding check sits on that path, so the hub pays
+-- first. The OUTSTANDING cost is what the leader's demand requests still ask for
+-- (ConstructionSite.lua:703-718 construction_resources; :742 GetActualAmount is "remaining");
+-- delivered cubes are already consumed, so nothing is paid twice. The break costs
+-- (#elements)*100 % of one element, halved by SafeTransport (Track.lua:651-656), so the hub's
+-- rate is the site's remaining demand times 50 % without the tech and 100 % with it.
+-- Paying: the claim taken at dispatch (below) is released and AddResource(-n) lowers the stock
+-- (MultiResourceCubeVisuals.lua:422-435), which also runs the reserve's Reconcile.
+--
+-- THE STOCK CLAIM: at dispatch the hub claims the cost on its own supply requests through the
+-- engine's reservation, request:AssignUnit(n), exactly as 10_TrainFloor.lua's reserve does, so
+-- trains, drones and shuttles cannot take it before the deadline; the claim is recorded in the
+-- job with its request, because vanilla replaces a supply request when a resource is removed
+-- and re-added (10_TrainFloor.lua header); a claim on a dead request is forgotten, never
+-- released onto the new one. The maintenance reserve is already claimed, so "free" stock is
+-- Min(target, actual) and the repair never dips below the reserve (DESIGN.md End state 4).
+--
+-- THE FLEET (owner, 2026-09-23): five vanilla Wasps standing idle, launched more as work
+-- rises and recalled as it falls; thirty is the ceiling for fleet and repair flights together.
+-- They are FlyingDrone objects in hub.drones under vanilla's own AI (Idle draws tasks from
+-- their own command_center only, Drone.lua:704-706; past distance_to_provoke_go_home_cmd Idle
+-- sends them home, :709-711). A recall takes only an idle drone carrying nothing, removes it
+-- through DroneControl:KillDrone (DroneControl.lua:729-733, which asserts hub.drones
+-- membership) when it is near, and sends it home with the stock GoHome first when it is not.
+--
+-- A DESTROYED OR SALVAGED HUB DESPAWNS ITS DRONES (owner, 2026-09-22): Finalize below runs
+-- from DroneControl:Done and :OnDestroyed (:341-352) and nowhere else; it drops every carried
+-- cube on the ground (Drone:DropCarriedResource, Drone.lua:2098-2137, the same call
+-- DespawnAtHub makes first, :2169) and removes each drone, fleet and flight alike, before
+-- vanilla's Finalize would orphan them (:315-327). A save from between the two states heals
+-- on load: the first tick sweeps any Wasp whose controller is a destroyed hub.
+--
+-- NO FREE-DRONE LEAK: FlyingDrone declares its own CanBeControlled (FlyingDrone.lua:144-146,
+-- chaining Drone's, Drone.lua:2207-2209), so the wrap installs on the declaring class (F64):
+-- the original is always called; false is returned only when the live command_center is a
+-- train hub. Both reassign buttons (Drone.lua:2020-2023, :2048-2052) and the rocket's cargo
+-- pick (CargoTransporter.lua:425) read it, and so does CanTakeTaskOnTheWay (:621-637), so a
+-- repair drone never grabs a task on the way; the hub's FindTask still assigns it from Idle.
+-- ===========================================================================
+
+local TRACK_WORK = "SMROptIn_track_work"
+
+-- The owner's dials (link 5 moves them by eye), from the console:
+--   SetHubRepairTune("Standing", 5)        SetHubRepairTune{ StepMedium = 5, StepHigh = 10 }
+--   SetHubRepairTune("WaspPalette", "P4")  -- the reactor's variants, per-object (spec §9 ask)
+-- Nothing here is saved; a restart returns to these defaults.
+Floor.HubRepairTune = {
+	-- the deadline = LaunchTime + straight-line distance / Speed + WorkTime
+	-- (game ms; Speed in units per game second; a hex is 1000 units, a game minute 1000 ms)
+	Speed = false,          -- false = the flight's own Speed dial (SMROptInHubFlight.Speed)
+	LaunchTime = 12000,     -- the pit rise and the exit, before the leg
+	WorkTime = false,       -- false = the flight's WorkTime + 2000 (both work animations)
+	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
+	MinVisualTime = 15000,  -- a job with less time left before its deadline gets no fresh Wasp
+	-- the fleet (owner, 2026-09-23): five standing idle; more as vanilla's load reads medium/high
+	Standing = 5,
+	StepMedium = 5,
+	StepHigh = 10,
+	MaxDrones = 30,         -- fleet and repair flights together; the panel's "/ 30"
+	RecallDelay = 60000,    -- game ms the count must stay above its target before a recall starts
+	RecallStep = 15000,     -- game ms between recalls; one idle, empty-handed drone each
+	RecallRadius = 6000,    -- units; an idle drone this close is removed, a farther one is sent home first
+	WaspPalette = false,    -- false = vanilla's Wasp look; "P1".."P4" = the reactor's variants above
+}
+
+local function live(o)
+	return IsValid(o) and not o.destroyed and not IsBeingDestructed(o)
+end
+
+local function is_hub(o)
+	return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase")
+end
+
+local function flight_api()
+	local F = rawget(_G, "SMROptInHubFlight")
+	return type(F) == "table" and type(F.Create) == "function" and F or nil
+end
+
+-- The persisted record, created on first use. Reading never creates it (see HubRepairLine).
+local function track_work(self)
+	local record = rawget(self, TRACK_WORK)
+	if type(record) ~= "table" then
+		record = { repair = true, jobs = {} }
+		rawset(self, TRACK_WORK, record)
+	end
+	if type(record.jobs) ~= "table" then record.jobs = {} end
+	if record.repair == nil then record.repair = true end
+	return record
+end
+
+-- The record's jobs without creating the record: for readers (UI, console).
+local function track_jobs(self)
+	local record = rawget(self, TRACK_WORK)
+	return type(record) == "table" and record.jobs or empty_table, record
+end
+
+-- Ephemeral: flight records per job, and per-hub fleet timers. Weak-keyed, never saved.
+local flights = setmetatable({}, weak_keys_meta)
+local fleet_state = setmetatable({}, weak_keys_meta)
+local loaded_pending = false
+
+-- ---------------------------------------------------------------------------
+-- The graph.
+-- ---------------------------------------------------------------------------
+
+-- An existing physical edge: every unfinished element is a repair site over a broken original.
+local function physical_track(track)
+	if not IsValid(track) then return false end
+	for _, el in ipairs(track.elements_under_construction or empty_table) do
+		if not IsValid(el.broken) then return false end
+	end
+	return true
+end
+
+-- nodes[obj] = true for every station and tunnel mouth reachable from this hub; tracks[track] =
+-- true for every physical edge seen (false for an unfinished one, so it is not re-walked).
+function SMROptInTrainHubBase:HubTrackGraph()
+	local nodes, tracks = { [self] = true }, {}
+	local queue, cursor = { self }, 1
+	while queue[cursor] do
+		local node = queue[cursor]
+		cursor = cursor + 1
+		if IsValid(node) and node.ForEachConnectorElement then
+			node:ForEachConnectorElement(function(el)
+				local track = el and el.track_obj
+				if not IsValid(track) or tracks[track] ~= nil then return end
+				tracks[track] = physical_track(track)
+				if not tracks[track] then return end
+				local a, b = track:GetStartStation(), track:GetEndStation()
+				local other = (a == node) and b or a
+				if IsValid(other) and not IsBeingDestructed(other) and not nodes[other] then
+					nodes[other] = true
+					queue[#queue + 1] = other
+				end
+			end)
+		end
+		local far = IsValid(node) and node.linked_obj
+		if IsKindOf(node, "TrackTunnelBase") and IsValid(far) and far.linked_obj == node and not nodes[far] then
+			nodes[far] = true
+			queue[#queue + 1] = far
+		end
+	end
+	return nodes, tracks
+end
+
+-- Every Station on the graph gets this hub as a command centre (owner approved, 2026-09-23):
+-- the check a far station makes is list membership, not distance (Building.lua:853-858
+-- IsOutsideCommandRange; RequiresMaintenance.lua:297-300 GetMaintenanceStuckReason), so this
+-- clears "Too far from working Drone controller" and "No Drone Hub in range" out there, and
+-- vanilla's own maintenance machinery then sends the fleet. A station that left the graph and
+-- is outside the radius loses the hub again; one inside the radius is vanilla's to keep.
+--
+-- ONLY THE MAINTENANCE REQUESTS join the hub out there (owner, 2026-09-23, in play: with every
+-- request joined, the fleet began balancing resources between the network's stations, which
+-- the track-work ruling forbids beyond the radius). A controller asks the building before it
+-- files each request, `building:ShouldAddRequestToCommandCenter(request, center, res)`
+-- (DroneControl.lua:742, :754), declared once on TaskRequester as `return_true`
+-- (_TaskRequest.lua:209-210); Station does not declare it. The chained override on Station
+-- below answers false for a train hub that is out of range unless the request is the station's
+-- maintenance material or maintenance work request (RequiresMaintenance.lua), and hands every
+-- other case to the captured original. A station inside the radius keeps vanilla's full service.
+local function register_remote_stations(self, nodes)
+	if not self.are_requesters_connected then return end
+	for node in pairs(nodes) do
+		if node ~= self and IsValid(node) and IsKindOf(node, "Station") and node.auto_connect
+			and node.AddCommandCenter and not table.find(node.command_centers or empty_table, self) then
+			node:AddCommandCenter(self)
+		end
+	end
+	local stale
+	for _, o in ipairs(self.connected_task_requesters or empty_table) do
+		if IsValid(o) and IsKindOf(o, "Station") and not nodes[o] and not self:IsInWorkRange(o) then
+			stale = stale or {}
+			stale[#stale + 1] = o
+		end
+	end
+	for _, o in ipairs(stale or empty_table) do o:RemoveCommandCenter(self) end
+end
+
+local vanilla_should_add_request = TaskRequester.ShouldAddRequestToCommandCenter
+function Station:ShouldAddRequestToCommandCenter(request, command_center, res_id)
+	if is_hub(command_center) and command_center ~= self and not command_center:IsInWorkRange(self)
+		and request ~= self.maintenance_resource_request and request ~= self.maintenance_work_request then
+		return false
+	end
+	return vanilla_should_add_request(self, request, command_center, res_id)
+end
+
+-- A station registered before the filter above existed carries every request: once per load,
+-- every out-of-range station on the graph is re-registered so the filter applies.
+local function refilter_remote_stations(self)
+	local again = {}
+	for _, o in ipairs(self.connected_task_requesters or empty_table) do
+		if IsValid(o) and IsKindOf(o, "Station") and not self:IsInWorkRange(o) then again[#again + 1] = o end
+	end
+	for _, o in ipairs(again) do
+		o:RemoveCommandCenter(self)
+		o:AddCommandCenter(self)
+	end
+end
+
+-- ---------------------------------------------------------------------------
+-- Jobs: discovery, cost, the claim, dispatch, completion.
+-- ---------------------------------------------------------------------------
+
+local function job_for_site(jobs, leader)
+	for _, job in ipairs(jobs) do
+		if job.site == leader then return job end
+	end
+end
+
+-- Track.lua's repair_cgs holds one group per break event; cg[1] is its leader, cg[2..] its sites.
+local function discover_breaks(self, record, tracks, now)
+	for track, physical in pairs(tracks) do
+		if physical then
+			for _, cg in ipairs(track.repair_cgs or empty_table) do
+				local leader = cg[1]
+				if live(leader) and not job_for_site(record.jobs, leader) then
+					local member = cg[2]
+					local el = IsValid(member) and IsValid(member.broken) and member.broken or false
+					record.jobs[#record.jobs + 1] = { kind = "repair", site = leader, el = el, track = track,
+						found = now, started = false, deadline = false, drone = false, held = false, waiting = false }
+				end
+			end
+		end
+	end
+end
+
+local function repair_rate()
+	local colony = rawget(_G, "UIColony")
+	local researched = colony and colony.IsTechResearched and colony:IsTechResearched("SafeTransport")
+	return researched and 100 or 50
+end
+
+-- { res = amount } the site still asks for, at the hub's rate. Empty under Free Construction.
+local function outstanding_cost(leader)
+	local cost, rate = {}, repair_rate()
+	for res, req in pairs(leader.construction_resources or empty_table) do
+		local remaining = req:GetActualAmount()
+		if remaining > 0 then cost[res] = MulDivRound(remaining, rate, 100) end
+	end
+	return cost
+end
+
+-- Unclaimed stock: the standing reserve is already claimed, so this never dips into it.
+local function stock_free(self, res)
+	local req = self.supply and self.supply[res]
+	if not req then return 0, nil end
+	return Max(0, Min(req:GetTargetAmount(), req:GetActualAmount())), req
+end
+
+local function release_held(self, job)
+	for res, entry in pairs(job.held or empty_table) do
+		if entry.req and self.supply and entry.req == self.supply[res] and (entry.amount or 0) > 0 then
+			entry.req:UnassignUnit(entry.amount, false)
+		end
+	end
+	job.held = false
+end
+
+-- All or nothing: the claim is taken only when every resource covers its share.
+local function hold_cost(self, job, cost)
+	for res, amount in pairs(cost) do
+		if amount > 0 and stock_free(self, res) < amount then return false, res end
+	end
+	local held = {}
+	for res, amount in pairs(cost) do
+		if amount > 0 then
+			local _, req = stock_free(self, res)
+			if req and req:AssignUnit(amount) then held[res] = { req = req, amount = amount } end
+		end
+	end
+	job.held = held
+	return true
+end
+
+local function repair_speed()
+	local F = flight_api()
+	return Floor.HubRepairTune.Speed or (F and F.Speed) or 16000
+end
+
+local function repair_work_time()
+	local F = flight_api()
+	return Floor.HubRepairTune.WorkTime or ((F and F.WorkTime or 5000) + 2000)
+end
+
+local function eta_text(ms)
+	local hour = const.HourDuration or 60000
+	local minute = const.MinuteDuration or 1000
+	if ms >= 2 * hour then
+		return T{909018002011, "<n> h", n = DivRound(ms, hour)}
+	end
+	return T{909018002012, "<n> min", n = Max(1, DivRound(ms, minute))}
+end
+
+local hub_notification_id = "SMROptInTrackRepair"
+
+-- Text-only, sixty real seconds, the vanilla "TrainRefabbed" preset's shape. Runtime-created
+-- presets are not put in their map by PlaceObj, so the map entry is written here. A saved
+-- notification whose preset the game no longer knows is purged at load (Notifications.lua:
+-- 429-441), so a save without this mod carries nothing of it.
+local function ensure_hub_notification()
+	local presets = rawget(_G, "NotificationPresets")
+	if type(presets) ~= "table" or presets[hub_notification_id] then return end
+	local ok, preset = pcall(PlaceObj, "NotificationPreset", {
+		Expiration = 60000,
+		GameTime = false,
+		NotificationTemplate = "NotificationImportant",
+		RolloverTitle = T(909018002013, "Train hub"),
+		Title = T(909018002014, "Repair drone dispatched"),
+		TitlePl = T(909018002014, "Repair drone dispatched"),
+		group = "Default",
+		id = hub_notification_id,
+	})
+	if ok and preset then presets[hub_notification_id] = preset end
+end
+
+local function notify_dispatch(self, job, now)
+	if type(AddOnScreenNotification) ~= "function" then return end
+	ensure_hub_notification()
+	local presets = rawget(_G, "NotificationPresets")
+	if type(presets) ~= "table" or not presets[hub_notification_id] then return end
+	local eta = eta_text(Max(0, job.deadline - now))
+	AddOnScreenNotification(hub_notification_id, nil, {
+		override_text = T{909018002015, "Repair drone dispatched, ETA <eta>", eta = eta},
+		expiration = 60000,
+	}, IsValid(job.el) and { job.el } or nil, self:GetMap())
+end
+
+-- The switch (ui_working) and not destroyed: NEVER IsWorking, which a malfunction or a dead
+-- grid clears (owner, 2026-09-22: a malfunctioned or unpowered hub still dispatches).
+local function can_dispatch(self, record)
+	return record.repair ~= false and self.ui_working and not self.destroyed and true or false
+end
+
+-- Fleet drones and dispatched jobs share the ceiling; waiting jobs count so the fleet makes room.
+local function slot_counts(self, jobs)
+	local dispatched, waiting = 0, 0
+	for _, job in ipairs(jobs) do
+		if job.deadline then dispatched = dispatched + 1 else waiting = waiting + 1 end
+	end
+	return #(self.drones or empty_table), dispatched, waiting
+end
+
+local function dispatch_job(self, job, now)
+	local cost = outstanding_cost(job.site)
+	local ok, res = hold_cost(self, job, cost)
+	if not ok then
+		job.waiting = res
+		return false
+	end
+	job.waiting = false
+	local tune = Floor.HubRepairTune
+	local dist = IsValid(job.el) and self:GetDist2D(job.el:GetPos()) or 0
+	local travel = MulDivRound(dist, 1000, Max(1, repair_speed()))
+	job.started = now
+	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
+	job.drone = false
+	notify_dispatch(self, job, now)
+	return true
+end
+
+-- "done": paid and completed. "gone": the site no longer exists. "short", res: keep waiting.
+local function complete_job(self, job)
+	local leader = job.site
+	if not live(leader) or not leader.construction_group or leader.construction_group[1] ~= leader then
+		release_held(self, job)
+		return "gone"
+	end
+	local cost = outstanding_cost(leader)
+	for res, amount in pairs(cost) do
+		local entry = job.held and job.held[res]
+		local have = (entry and self.supply and entry.req == self.supply[res]) and entry.amount or 0
+		if amount > have and stock_free(self, res) < amount - have then return "short", res end
+	end
+	release_held(self, job)
+	for res, amount in pairs(cost) do
+		if amount > 0 then self:AddResource(-amount, res) end
+	end
+	leader:Complete()
+	return "done"
+end
+
+-- ---------------------------------------------------------------------------
+-- The visual: one flight record per dispatched job, created from the pit, adopted after a load.
+-- ---------------------------------------------------------------------------
+
+-- The reactor's per-object colorization on a hub Wasp (spec §9 owner ask, 2026-09-23), a dial.
+local function apply_wasp_palette(drone)
+	local variant = Floor.HubRepairTune.WaspPalette
+	if not variant or not IsValid(drone) or not drone.SetColorizationMaterial then return end
+	local channels = type(variant) == "table" and variant or (hub_reactor_palettes[variant] and hub_reactor_palettes[variant].channels)
+	if not channels then return end
+	local count = hub_reactor_channels
+	if drone.GetMaxColorizationMaterials then
+		local entity_count = drone:GetMaxColorizationMaterials() or 0
+		if entity_count > 0 then count = Min(count, entity_count) end
+	end
+	for i = 1, count do
+		local ch = channels[i]
+		if ch and ch.color then drone:SetColorizationMaterial(i, ch.color, ch.roughness or 0, ch.metallic or 0) end
+	end
+end
+
+local function ensure_visual(self, job, now)
+	local tune = Floor.HubRepairTune
+	if not tune.Visual or IsValid(job.drone) or not IsValid(job.el) then return end
+	if job.deadline - now < tune.MinVisualTime then return end
+	local F = flight_api()
+	if not F then return end
+	local record = F.Create(self)
+	if not record then return end
+	if not F.Send(record, job.el) then
+		F.Remove(record)
+		return
+	end
+	apply_wasp_palette(record.drone)
+	job.drone = record.drone
+	flights[job] = record
+end
+
+-- After a load: a job's Wasp that rode the save under a stock leg or hold is taken back at the
+-- stage the deadline names. Anything F.Adopt refuses is forgotten here and swept below.
+local function adopt_visual(self, job, now)
+	local F = flight_api()
+	local d = job.drone
+	if flights[job] or not IsValid(d) then return end
+	if F and F.Adopt and job.deadline and d.command_center == self then
+		local stage = now < job.deadline - repair_work_time() and "out" or "back"
+		local record = F.Adopt(self, d, job.el, stage)
+		if record then
+			flights[job] = record
+			return
+		end
+	end
+	job.drone = false
+end
+
+-- A repair drone leaves the way DespawnAtHub leaves: its cube on the ground first, then gone.
+-- DoneObject ends the command (CommandObject.lua:128-142) and Drone:Done removes it from the
+-- fleet list (Drone.lua:122-135); the fleet's own route is KillDrone, which asserts the list.
+local function remove_repair_drone(self, d)
+	if not IsValid(d) then return end
+	if SelectedObj == d then SelectObj(false) end
+	if d.DropCarriedResource then d:DropCarriedResource() end
+	if d.StopFX then d:StopFX() end
+	local F = flight_api()
+	for job, record in pairs(flights) do
+		if record.drone == d then
+			flights[job] = nil
+			if F and F.Remove then F.Remove(record) return end
+		end
+	end
+	if IsValid(d) and IsValid(self) and table.find(self.drones or empty_table, d) then
+		self:KillDrone(d)
+	elseif IsValid(d) then
+		DoneObject(d)
+	end
+end
+
+-- Once per load, from the first hub tick: every hub adopts, then the strays go. A stray is a
+-- Wasp whose controller is a train hub that is destroyed, or that holds it neither in its
+-- fleet list nor in a job (a leftover of the console prototype, or of a job that was dropped).
+local function after_load(now)
+	loaded_pending = false
+	local keep = {}
+	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub)
+		if not IsValid(hub) or hub.destroyed then return end
+		refilter_remote_stations(hub)
+		for _, job in ipairs(track_jobs(hub)) do
+			adopt_visual(hub, job, now)
+			if IsValid(job.drone) then keep[job.drone] = true end
+		end
+	end)
+	AllMapsForEach(true, "FlyingDrone", function(d)
+		local hub = IsValid(d) and d.command_center
+		if not is_hub(hub) then return end
+		if hub.destroyed then
+			remove_repair_drone(hub, d)
+		elseif not keep[d] and not table.find(hub.drones or empty_table, d) then
+			remove_repair_drone(hub, d)
+		end
+	end)
+end
+
+-- ---------------------------------------------------------------------------
+-- The fleet.
+-- ---------------------------------------------------------------------------
+
+function SMROptInTrainHubBase:GetMaxDrones()
+	return Floor.HubRepairTune.MaxDrones
+end
+
+-- A vanilla Wasp (DESIGN.md: FlyingDrone, entity DroneJapanFlying), named, topped up, placed
+-- around the body the way DroneControl:SpawnDronesAround places one (DroneControl.lua:244-255).
+function SMROptInTrainHubBase:SpawnDrone()
+	if #self.drones >= self:GetMaxDrones() then return false end
+	local drone = FlyingDrone:new({ city = self.city }, self:GetMap())
+	if not IsValid(drone) then return false end
+	drone:SetCommandCenter(self)
+	drone.name = "Repair Drone"
+	drone.battery_max = hub_drone_battery_max
+	drone.battery = hub_drone_battery_max
+	local map = self:GetMap()
+	local centre = self:GetPos()
+	local inner = longest_line(self) * const.GridSpacing
+	local outer = self.work_radius * const.GridSpacing
+	local pos = GetRandomPassableAroundOnMap(map, centre, outer, inner)
+		or GetRandomPassableAroundOnMap(map, centre, outer)
+		or centre
+	drone:SetPos(pos)
+	apply_wasp_palette(drone)
+	return true
+end
+
+function SMROptInTrainHubBase:CheatSpawnDrone()
+	self:SpawnDrone()
+end
+
+local function fleet_target(self, load, dispatched, waiting)
+	local tune = Floor.HubRepairTune
+	local target = tune.Standing
+	if load == "medium" then
+		target = target + tune.StepMedium
+	elseif load == "high" then
+		target = target + tune.StepMedium + tune.StepHigh
+	end
+	return Max(0, Min(target, tune.MaxDrones - dispatched - waiting))
+end
+
+local function idle_fleet_drone(self)
+	for _, d in ipairs(self.drones or empty_table) do
+		if IsValid(d) and (d.command == "Idle" or d.command == "WaitingCommand")
+			and not (d.GetCarriedResource and d:GetCarriedResource()) then
+			return d
+		end
+	end
+end
+
+function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
+	if not self:CanCommandDrones() then return end
+	local tune = Floor.HubRepairTune
+	local state = fleet_state[self]
+	if not state then state = {}; fleet_state[self] = state end
+	local load = self:GetDroneLoad()
+	local target = fleet_target(self, load, dispatched, waiting)
+	local count = #(self.drones or empty_table)
+	if count < target then
+		for _ = count + 1, target do
+			if not self:SpawnDrone() then break end
+		end
+		state.above_since = false
+	elseif count > target then
+		state.above_since = state.above_since or now
+		-- a waiting repair outranks a fleet drone: it makes room without the delay
+		if (waiting > 0 or now - state.above_since >= tune.RecallDelay)
+			and now - (state.last_recall or 0) >= tune.RecallStep then
+			local d = idle_fleet_drone(self)
+			if d then
+				state.last_recall = now
+				if self:GetDist2D(d:GetPos()) <= tune.RecallRadius then
+					remove_repair_drone(self, d)
+				else
+					d:SetCommand("GoHome", nil, nil, nil, "ReturningToController")
+				end
+			end
+		end
+	else
+		state.above_since = false
+	end
+	return target, load
+end
+
+-- Every repair drone of this hub, fleet or flight, in flight or idle: cube dropped, then gone.
+function SMROptInTrainHubBase:HubDespawnRepairDrones()
+	for i = #(self.drones or empty_table), 1, -1 do
+		remove_repair_drone(self, self.drones[i])
+	end
+	for _, job in ipairs(track_jobs(self)) do
+		if IsValid(job.drone) then remove_repair_drone(self, job.drone) end
+		job.drone = false
+	end
+	AllMapsForEach(true, "FlyingDrone", function(d)
+		if IsValid(d) and d.command_center == self then remove_repair_drone(self, d) end
+	end)
+end
+
+-- Finalize is reached from DroneControl:Done (salvage, refab) and :OnDestroyed only
+-- (DroneControl.lua:341-352). Ours removes the drones first, so vanilla's body finds none to
+-- orphan; then it releases every stock claim and empties the job list.
+function SMROptInTrainHubBase:Finalize()
+	self:HubDespawnRepairDrones()
+	local jobs, record = track_jobs(self)
+	for _, job in ipairs(jobs) do release_held(self, job) end
+	if record then record.jobs = {} end
+	DroneControl.Finalize(self)
+end
+
+-- ---------------------------------------------------------------------------
+-- The tick.
+-- ---------------------------------------------------------------------------
+
+local function service_job(self, record, job, now, tracks, dispatched_now)
+	if job.kind ~= "repair" then return true, dispatched_now end -- build 5's jobs are not ours
+	if not live(job.site) then return false, dispatched_now end
+	if not job.deadline then
+		if not can_dispatch(self, record) or not tracks[job.track] or dispatched_now then
+			return true, dispatched_now
+		end
+		local fleet, dispatched, _ = slot_counts(self, record.jobs)
+		if fleet + dispatched >= Floor.HubRepairTune.MaxDrones then return true, dispatched_now end
+		local launched = dispatch_job(self, job, now) -- one launch per tick, so the pit is not crowded
+		if launched then ensure_visual(self, job, now) end
+		return true, launched
+	end
+	if now >= job.deadline then
+		local result, res = complete_job(self, job)
+		if result == "done" or result == "gone" then return false, dispatched_now end
+		job.waiting = res
+		return true, dispatched_now
+	end
+	ensure_visual(self, job, now)
+	return true, dispatched_now
+end
+
+function SMROptInTrainHubBase:HubTrackWorkTick()
+	if not IsValid(self) or self.destroyed or IsBeingDestructed(self) then return end
+	local now = GameTime()
+	if loaded_pending then after_load(now) end
+	local record = track_work(self)
+	local nodes, tracks = self:HubTrackGraph()
+	register_remote_stations(self, nodes)
+	discover_breaks(self, record, tracks, now)
+	local jobs = record.jobs
+	local dispatched_now, waiting_any = false, false
+	for i = #jobs, 1, -1 do
+		local job = jobs[i]
+		local keep
+		keep, dispatched_now = service_job(self, record, job, now, tracks, dispatched_now)
+		if not keep then
+			release_held(self, job)
+			table.remove(jobs, i)
+		elseif job.waiting then
+			waiting_any = job.waiting
+		end
+	end
+	if self.AttachSign then self:AttachSign(waiting_any and true or false, "SignNoConsumptionResource") end
+	local _, dispatched, waiting = slot_counts(self, jobs)
+	self:HubFleetTick(now, dispatched, waiting)
+end
+
+-- A break on any map: the hubs there look now rather than on their next 5 s tick.
+function OnMsg.TrackBroken(track, is_broken)
+	if not is_broken or not rawget(_G, "SMROptInTrainFloor") or not IsValid(track) then return end
+	local map = track:GetMap()
+	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub)
+		if IsValid(hub) and hub:GetMap() == map then hub:HubTrackWorkTick() end
+	end)
+end
+
+-- ---------------------------------------------------------------------------
+-- Control, panel, console.
+-- ---------------------------------------------------------------------------
+
+-- Chained on the declaring class (FlyingDrone.lua:144-146). Inert for every other drone.
+local vanilla_wasp_can_be_controlled = FlyingDrone.CanBeControlled
+function FlyingDrone:CanBeControlled(...)
+	local result = vanilla_wasp_can_be_controlled(self, ...)
+	if result and is_hub(self.command_center) then return false end
+	return result
+end
+
+-- "Repair drones: N out / 30", the panel's one line (DESIGN.md), plus what waits.
+function SMROptInTrainHubBase:GetHubRepairLine()
+	local jobs, record = track_jobs(self)
+	local fleet, dispatched, waiting = slot_counts(self, jobs)
+	local text = string.format("Repair drones: %d out / %d", fleet + dispatched, self:GetMaxDrones())
+	if dispatched > 0 then text = text .. string.format(", %d repair%s under way", dispatched, dispatched == 1 and "" or "s") end
+	if waiting > 0 then text = text .. string.format(", %d waiting", waiting) end
+	for _, job in ipairs(jobs) do
+		if job.waiting then text = text .. " (short of " .. tostring(job.waiting) .. ")" break end
+	end
+	if record and record.repair == false then text = text .. "; track repair off" end
+	return Untranslated(text)
+end
+
+function SMROptInTrainHubBase:HubTrackRepairEnabled()
+	local _, record = track_jobs(self)
+	return not record or record.repair ~= false
+end
+
+function SMROptInTrainHubBase:SetHubTrackRepair(on)
+	track_work(self).repair = on and true or false
+	RebuildInfopanel(self)
+end
+
+-- `sectionCustom` spawns the XTemplate named for the template's object_class (sectionCustom
+-- XDef, 1.1.1.405907): the vanilla Drone Hub status section narrowed to count and load, this
+-- build's repair line under it, and the track-repair toggle as an InfopanelActiveSection with
+-- everything set in OnContextUpdate (the shipping Opt_ResidencyControl row's shape). The id
+-- is UI-only and never saved. Runtime-created XTemplates are not put in their map by PlaceObj.
+local function ensure_hub_infopanel()
+	local templates = rawget(_G, "XTemplates")
+	if type(templates) ~= "table" or templates.customSMROptInTrainHub6Base then return end
+	if type(InfopanelSection) ~= "table" or type(InfopanelActiveSection) ~= "table" then return end
+	local template = PlaceObj("XTemplate", {
+		group = "Infopanel Sections",
+		id = "customSMROptInTrainHub6Base",
+	}, {
+		PlaceObj("XTemplateWindow", {
+			"__class", "InfopanelSection",
+			"RolloverText", T(359011926905, "<UISectionDroneHubRollover>"),
+			"RolloverTitle", T(167050805716, "Drones Status"),
+			"Title", T(732959546527, "Drones"),
+			"TitleRight", T(745904750458, "<drone(DronesCount,MaxDronesCount)>"),
+			"Icon", "UI/IconsRemaster/Sections/drone.png",
+			"TitleHAlign", "stretch",
+		}, {
+			PlaceObj("XTemplateCode", {
+				"run", function(self, parent, context)
+					local content = InfopanelSection.__content(parent, context)
+					InfopanelText:new({ Text = T(935141416350, "<DronesStatusText>") }, content, context)
+					return InfopanelText:new({ Text = T(909018002010, "<HubRepairLine>") }, content, context)
+				end,
+			}),
+		}),
+		PlaceObj("XTemplateWindow", {
+			"__class", "InfopanelActiveSection",
+			"Icon", "UI/IconsRemaster/Sections/drone.png",
+			"OnContextUpdate", function(self, context, ...)
+				local hub = ResolvePropObj(context)
+				local on = IsValid(hub) and hub:HubTrackRepairEnabled()
+				self:SetIcon("UI/IconsRemaster/Sections/drone.png")
+				self:SetIconBack(on and "UI/IconsRemaster/Sections/ip_sections_on.png" or "UI/IconsRemaster/Sections/ip_sections_limit")
+				self:SetTitle(Untranslated(on and "Track repair: on" or "Track repair: off"))
+				self:SetRolloverImageColor(on and "green" or "yellow", true)
+				self.OnActivate = function(self, context, gamepad)
+					local building = ResolvePropObj(context)
+					if IsValid(building) then building:SetHubTrackRepair(not building:HubTrackRepairEnabled()) end
+				end
+				self:SetRolloverTitle(Untranslated("Track repair"))
+				self:SetRolloverText(Untranslated(on
+					and "A break on this hub's own track network is repaired from the hub's stock: a Repair Drone flies out and the site completes on its deadline, at the Safe Transport rate. Turning this off stops new dispatches; a repair already under way still completes.<newline><newline>Current status: <em>on</em>"
+					or "No new track repairs are dispatched from this hub. Broken track on its network waits for ordinary Drones or for this to be turned on again.<newline><newline>Current status: <em>off</em>"))
+				self:SetRolloverHint(Untranslated(on and "<left_click> Stop new track repairs" or "<left_click> Resume track repairs"))
+				self:SetRolloverHintGamepad(Untranslated(on and "<ButtonA> Stop new track repairs" or "<ButtonA> Resume track repairs"))
+			end,
+		}),
+	})
+	templates.customSMROptInTrainHub6Base = template
+end
+
+-- The console surface, the way SetHubDroneTune works: one name and a number, or a table.
+--   SetHubRepairTune("Standing", 5)   SetHubRepairTune{ RecallDelay = 30000, WaspPalette = "P4" }
+function SetHubRepairTune(name, value)
+	local tune = Floor.HubRepairTune
+	local changes = type(name) == "table" and name or { [name] = value }
+	for k, v in pairs(changes) do
+		if tune[k] == nil then
+			return false, "No such dial; the names are " .. table.concat(table.keys(tune, true), ", ")
+		end
+		if k == "WaspPalette" then
+			if v ~= false and type(v) ~= "table" and not hub_reactor_palettes[v] then
+				return false, 'WaspPalette is false, "P1".."P4" or a channel table'
+			end
+		elseif k == "Visual" then
+			v = v and true or false
+		elseif k == "Speed" or k == "WorkTime" then
+			if v ~= false and (type(v) ~= "number" or v < 1) then return false, k .. " is false or a positive integer" end
+		elseif type(v) ~= "number" or v ~= math.floor(v) or v < 0 then
+			return false, k .. " is a non-negative integer"
+		end
+		tune[k] = v
+	end
+	return true
+end
+
+-- HubRepairStatus(hub) prints the jobs, the fleet and the dials; returns the job list.
+function HubRepairStatus(hub)
+	hub = hub or SelectedObj
+	if not is_hub(hub) then print("[TrainHubDev] repair: select a built train hub") return end
+	local jobs, record = track_jobs(hub)
+	local fleet, dispatched, waiting = slot_counts(hub, jobs)
+	local now = GameTime()
+	print(string.format("[TrainHubDev] repair: toggle %s, switch %s, fleet %d, load %s, repairs %d under way, %d waiting, max %d",
+		(not record or record.repair ~= false) and "on" or "off", hub.ui_working and "on" or "off", fleet,
+		tostring(hub:GetDroneLoad()), dispatched, waiting, hub:GetMaxDrones()))
+	for i, job in ipairs(jobs) do
+		print(string.format("[TrainHubDev] repair job %d: %s site %s deadline %s (%s) drone %s waiting %s",
+			i, tostring(job.kind), tostring(job.site), tostring(job.deadline),
+			job.deadline and (now >= job.deadline and "due" or tostring(job.deadline - now) .. " ms left") or "not dispatched",
+			IsValid(job.drone) and tostring(job.drone.command) or "none", tostring(job.waiting)))
+	end
+	return jobs
+end
+
+function OnMsg.CityStart()
+	ensure_hub_infopanel()
+	ensure_hub_notification()
+end
+
+-- Every flight record and fleet timer belongs to the session that ends here (the flight file
+-- clears its own records at LoadGame too); the loaded hubs adopt afresh on their first tick.
+function OnMsg.LoadGame()
+	flights = setmetatable({}, weak_keys_meta)
+	fleet_state = setmetatable({}, weak_keys_meta)
+	loaded_pending = true
+	ensure_hub_infopanel()
+	ensure_hub_notification()
+end
+
+function OnMsg.DoneGame()
+	loaded_pending = false
+end
+
+function SMROptInTrainHubBase:InitHubTrackWork()
+	ensure_hub_infopanel()
+	ensure_hub_notification()
 end
 
 -- ===========================================================================

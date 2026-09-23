@@ -169,6 +169,7 @@ contract. New persisted names join this table.
 | 8 | `ClassicRockets` `AcknowledgedWarnings` `ResidencyControl` `MultipleSuns` `DroneOverhaul` `CohortHousing` `NoHomeless` | Mod-Options toggle keys **and** `Register` ids | `metadata.lua`, `items.lua`, each module's `Register` | `SMROptInPack.OptionEnabled` |
 | 9 | `DroneSpeedDial` `DroneCarryDial` | Mod-Options choice keys (**not** `Register` ids) | `metadata.lua`, `items.lua` | the module, directly |
 | 10 | `SMROptIn_hub_crossing` | Train reference (or false) on a dev hub; survives a mid-crossing save | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `HubAcquireCrossing` / `RemoveOccupyingTrain` | same file, `HubCrossingTrain`; TestKit smoke reads it |
+| 11 | `SMROptIn_track_work` | table (or false) on a dev hub: `repair` (the track-repair toggle) and `jobs` (the pending list; each job `kind`, `site`, `el`, `track`, `found`, `started`, `deadline`, `drone`, `held`, `waiting`) | `tools/devmods/train_hub/Code/20_TrainHub.lua`, the TRACK WORK section (`track_work`, the tick, `SetHubTrackRepair`) | same file (`track_jobs`, the tick, the panel line); `tests/repair_smoke.py` walks its shape |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -180,6 +181,13 @@ the lock until the existing train cleanup removes it: interruption is not physic
 The hub's bounded movement frames are a content residual under §0; removing a mod with placed
 hubs remains unsupported. `SMROptInTrainFloor.HubParkDistance` is a load-time tunable, not a
 GameVar or saved object field. The code header records why a blocking route is needed.
+
+Row 11 is build 4's pending list (drones chain link 4, 2026-09-23; `DESIGN.md` End state 1: name it
+once, with the kind field build 5 needs, so track construction adds no second persisted name). Its
+values are plain data and vanilla object references: the repair group's leader, the broken
+element, the track, the flight's Wasp, the stock claim's supply request. A job whose site is gone
+is dropped on the next tick; the deadline is the only authority for completion. The tick runs in
+vanilla's per-building update thread, so no thread of ours rides the save.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 
