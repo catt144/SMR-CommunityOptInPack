@@ -1,10 +1,10 @@
 {
   "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2m2_motion_clearance_receipt.json",
-  "head": "8e2c827310a2b148950651dc523f81615f2a42b8",
+  "head": "d77efa4759ab063ba17135b9b8f32848c97b24df",
   "assets_head": "9abe3deec2d36d68bbe7db8d6e3f97169718b566",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "dc782d6720ef2027fedab5354e416a53dd2cb9512d8d9b44b0ab79033785fea8",
+  "source_sha256": "55469eb90cf00dc4deb1b329e611595395025a12fb3b648bd6074fe3d7dad832",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -4257,8 +4257,8 @@
   },
   "motion": {
     "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\drones_motion_curves.json",
-    "head": "8e2c827310a2b148950651dc523f81615f2a42b8",
-    "source_sha256": "dc782d6720ef2027fedab5354e416a53dd2cb9512d8d9b44b0ab79033785fea8",
+    "head": "d77efa4759ab063ba17135b9b8f32848c97b24df",
+    "source_sha256": "55469eb90cf00dc4deb1b329e611595395025a12fb3b648bd6074fe3d7dad832",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,

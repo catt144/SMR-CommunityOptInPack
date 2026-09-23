@@ -40,7 +40,7 @@ SMROptInHubFlight = {
   ClimbRate = 1500,         -- units per game second, vertical cap; GUESS (L2R)
   Accel = 1200,             -- units per game second^2: speed-up, braking and cornering limit; GUESS
   TurnRadius = 1500,        -- units: most a corner is rounded before and after its waypoint; GUESS
-  BankAngle = 900,          -- angle minutes of roll in a full-rate turn; 0 disables; GUESS
+  BankAngle = 900,          -- angle minutes of roll in a full-rate turn; 0 disables, negative leans the other way; GUESS
   WorkTime = 5000,          -- game ms in constructIdle, excludes start/end animations
   PitOffsetX = -310, PitOffsetY = 180, PitExitZ = 1000, -- OI-25, entity local
   BatteryMax = 800000,
@@ -402,7 +402,7 @@ local function push_chord(steps, a, b, v0, v1, prim, t, v_mid, u_mid)
   local v_out = v_in + acc * T / 1000
   if v_out < 0 then acc = -v_in^2 / (2 * len); v_out = 0; T = Max(1, math.floor(2 * len / v_in * 1000 + .5)) end
   local roll = 0
-  if prim.curved and F.BankAngle > 0 then
+  if prim.curved and F.BankAngle ~= 0 then
     local kappa, sign, level = yaw_curvature(prim.pts, u_mid or .5)
     local lateral = ((v_mid or v_in) * level)^2 * kappa
     roll = -sign * F.BankAngle * Min(1, lateral / F.Accel) -- left turn (yaw increasing): left bank
@@ -576,7 +576,7 @@ local function issue(a, step, elapsed, skipped)
     local limit = (drone.max_yaw_speed or F.YawRate) * remaining / 1000
     yaw = (yaw + Clamp(delta, -limit, limit)) % 21600
     a.yaw = yaw
-    local roll = F.BankAngle > 0 and Clamp(step.roll or 0, -F.BankAngle, F.BankAngle) or 0
+    local roll = F.BankAngle ~= 0 and Clamp(step.roll or 0, -math.abs(F.BankAngle), math.abs(F.BankAngle)) or 0
     drone:SetRollPitchYaw(math.floor(roll + .5), 0, math.floor(yaw + .5), remaining)
   else
     -- At rest at step.bp: the last chord ended at zero speed and zero roll. Only now may
@@ -862,9 +862,9 @@ function SetHubDroneTune(name, value)
   local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
     UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
     Speed = true, WorkTime = true, TurnRadius = true, Accel = true, BankAngle = true}
-  if not tuneable[name] or type(value) ~= "number" or value < (name == "BankAngle" and 0 or 1)
+  if not tuneable[name] or type(value) ~= "number" or value < (name == "BankAngle" and -2700 or 1)
     or value ~= math.floor(value) or (name == "BankAngle" and value > 2700) then
-    return false, "Use a named positive integer; BankAngle allows 0..2700 angle minutes" end
+    return false, "Use a named positive integer; BankAngle allows -2700..2700 angle minutes" end
   F[name] = value
   return true
 end

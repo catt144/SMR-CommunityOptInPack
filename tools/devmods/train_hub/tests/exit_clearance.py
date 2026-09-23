@@ -145,7 +145,7 @@ if args.motion:
     motion=json.loads(args.motion.read_text())
     assert motion['source_sha256']==hashlib.sha256(SOURCE.read_bytes()).hexdigest()
     assert motion['entity_sha256']==hashlib.sha256((ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson').read_bytes()).hexdigest()
-    bank=math.radians(motion['bank_angle_minutes']/60)
+    bank=math.radians(abs(motion['bank_angle_minutes'])/60)
     # L2M2: the engine flies straight chords cut at every span boundary, so no rendered
     # chord straddles two spans; the export states the horizon it needs (0 for cut chords).
     horizon=motion.get('chord_horizon_ms',100)

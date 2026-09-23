@@ -87,7 +87,7 @@ function O:SetAcceleration(value)
   if c and c.clock==clock and c.acc==nil then c.acc=value else self.rest_acc=value end
 end
 function O:SetRollPitchYaw(roll,pitch,yaw,time)
-  assert(time>0 and pitch==0 and math.abs(roll)<=SMROptInHubFlight.BankAngle)
+  assert(time>0 and pitch==0 and math.abs(roll)<=math.abs(SMROptInHubFlight.BankAngle))
   assert(roll==math.floor(roll) and yaw==math.floor(yaw))
   local c=self.calls[#self.calls]
   if c and c.clock==clock then c.roll=roll; c.yaw=yaw; c.rot_time=time end
@@ -255,7 +255,7 @@ for i,s in ipairs(steps) do
 end
 assert(worst_join<1, 'speed is continuous across chord joins: '..worst_join)
 assert(max_acc<=F.Accel*1.1, 'straight-line acceleration stays under Accel: '..max_acc)
-assert(max_roll>0 and max_roll<=F.BankAngle, 'banks through the track approach: '..max_roll)
+assert(max_roll>0 and max_roll<=math.abs(F.BankAngle), 'banks through the track approach: '..max_roll)
 -- The work pose is exact; the return mirrors the outward trip in time and space.
 local at=F.Position(r.plan,measured_arrival)
 assert(at.X==cs.pos.X and at.Y==cs.pos.Y and at.Z==F.FixHeight)
@@ -396,7 +396,7 @@ end
 for _,name in ipairs({'PitOffsetX','LaunchTime','LandingTime','BlendTime','AccelTime','HeadingTime','SampleTime','ChordTime'}) do
   assert(not SetHubDroneTune(name,400), name..' is not a dial')
 end
-assert(SetHubDroneTune('BankAngle',0)); assert(not SetHubDroneTune('BankAngle',2701)); assert(SetHubDroneTune('BankAngle',900))
+assert(SetHubDroneTune('BankAngle',0)); assert(not SetHubDroneTune('BankAngle',2701)); assert(SetHubDroneTune('BankAngle',-900)); assert(SetHubDroneTune('BankAngle',900))
 drone=SpawnHubDrone(h); assert(not SetHubDroneTune('Speed',6000))
 OnMsg.DoneGame(); assert(drone.deleted and not F.Status())
 -- No AI/path entry point is needed. Throw if a new implementation hands over control.
@@ -502,7 +502,7 @@ if args.clearance_output:
         'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         'entity_sha256':hashlib.sha256(entity_path.read_bytes()).hexdigest(),
-        'bank_angle_minutes':lua.globals().F.BankAngle,
+        'bank_angle_minutes':abs(lua.globals().F.BankAngle),
         'chord_horizon_ms':0,
         'chords_are':'straight engine moves cut at every span boundary; each lies in its span control hull',
         'routes':routes},indent=2)+'\n')
