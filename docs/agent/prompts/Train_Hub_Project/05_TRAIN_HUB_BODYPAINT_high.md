@@ -10,6 +10,11 @@ frame line orange-red" to its end: that stretch is the record of every step sinc
 with its numbers. Brief 01 (`Parked/01_TRAIN_HUB_STRUCTURE_high.md`) is history: the pipeline
 facts, the seam and density measurements and the lights design live there and in spec §9.
 
+**Run 1, 2026-09-23 (assets `a5535fb`): end-state steps 1-4 are built, proved and published;
+the record is spec §9 "Body paint, run 1". Steps 5-6 — the owner's compile, the look, the
+snapshot if kept, the cost reading — are what remains. A later run starts from that entry; the
+diff test above is against `a5535fb` from here on.**
+
 ## Authority
 
 **Owner, 2026-09-23, looking at the reactor in game (palette P4: navy with polished steel and white

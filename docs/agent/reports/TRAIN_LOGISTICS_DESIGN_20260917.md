@@ -2271,6 +2271,53 @@ roughness, then restore point 5.
 (checkpoint OptInPack `1a158fe`, version 48). **Restore point 5 `hub-glass-lights-20260923`** (88
 files, 505.6 MB, paired tags): the whole look as kept — green frames, clear glass, reactor P4,
 under-deck lights, dome glass. Brief 05 starts from it.
+
+**Body paint, run 1 — 2026-09-23 (assets `a5535fb`; brief 05, fresh session). Built through the
+proofs; the owner's compile and look are owed.** The reactor's logic, read off the screenshot and
+applied by group (`paint_concept.py`, `BODY_PAINT 'reactor'`, every knob on the bake proof):
+**NAVY** #162248 (22,34,72; satin, RM .38/.10) on the ring ABOVE its blue strip (the panelled body
+with its 36 sector seams), the portal hoods, the throat cheeks and the under-deck beds, the dome
+ribs and their band sleeves, the arm beams' sides (new seams at the road's own pitch, 3 m on the
+tracks past |u| 4 and 8 m on the platforms, `SIDE_SEAM_WIDTH` .20 m at `SEAM_DEPTH_RING` and
+`SEAM_GROOVE_RING`) and the pillars' tapers and caps; **BAND** #D9D4CA (the shell's own off-white,
+polished, RM .30/.60 — between pass 1's chrome blob at .22/.90 and the silver that held at .40/.75)
+on the ring's base UNDER the strip, the pillars' sleeves from the base line's top edge (z 1.435) up
+to `PILLAR_CAP` 2.0 m under each pillar's top, the portal rim tubes and sills, the deck kerbs beside
+the road, the crown boss and the loading spots' frames (so the forest green reads on white);
+**FITTING** #14181E (RM .30/.70) on the ring clamps and the pillars' plinths. So the blue strip is
+the ring's navy/white edge and the pillar base line is the sleeve's, as on the reactor; the hood
+arch line stays inside its dark insert band, unmoved. The navy is an ALBEDO chosen by eye against
+the screenshot's lit drum (grid medians about (15-26, 22-34, 47-50) on screen against our shell at
+(172,162,145)); the reactor's tint (18,32,78) sits over vanilla's albedo and is not the number.
+Splits: the ring's two are the strip island's own edges (mesh edges); the pillar sleeve top (z 4.80
+under the beams, 3.80 under the ring) is a painted z-split on the shaft island and the plinth edge
+a mesh edge — the owner's zoom decides them (stop 1 of the brief if one jags). `-- --legacy-paint`
+reproduces the 2026-09-21 palette byte for byte, measured: the seams variant's four maps are
+`ce78edb0…` / `32aae399…` / `ccf8a11e…` / `20eb4c16…`, restore point 5's set. The bake
+(`bake_structure.py`, 114.7 s seams + 103.9 s solid; the proofs carry head `264ed18` because they
+ran on the working tree that became `a5535fb`) writes `paint_id_<size>.npy` (which finish every
+texel took, 0 for lit, blend or held) and `insert_mask_<size>.npy`; `validate_structure.py`'s new
+section 6 pins each finish BY VALUE to the proof's own knobs — metal byte exact, roughness inside
+the AO layer's window, navy hue and luma, band bright and neutral, fitting dark, the finish set per
+group the ruling's table, no lit or road texel with a finish — and its insert-edge test now reads
+the bake's insert weight instead of the luma threshold that assumed a light shell (fringe median
+1.0 texel, 620 texels in 220 runs). **`python validate_structure.py`: PASS 0 failures, `seams`
+published** — BC `8e9f684c…`, NM `4bff5969…`, RM `845da540…`, SI `20eb4c16…` (SI byte-identical
+to the held set: no glow moved). Finish census at 4096: navy 3,809,386, band 1,053,691, fitting
+273,640, insert 116,627 texels. New **`python verify_held_paint.py --set export/structure_seams`:
+PASS 0 failures** against restore point 5's copy (its manifest hashes rechecked): SI whole map 0
+texels differing; road finish and seam 0 in BC/SI/NM/RM; Bay, FloorPlate, Pit*, Line_*, CrownLens
+and CrownLensRing interiors 0 in all four maps; 451,533 lit core texels 0 in BC; NM 0 differing
+away from the beam-side islands (93,874 within 9 texels of them, the new side seams). Rebuild
+proofs rerun: `--check-rebuild` CROWN_PASS PASS (166 identical, the ruled 3 added, 6 changed);
+`prove_previous_production.py` 135/135; `-- --legacy --check-rebuild` 99/99; `verify_rim_bleed.py`
+on the published set: 182,382 rim texels, 6,973 line, 175,409 shell family, 0 neither, 0 near the
+bay yellow. Seen, out of scope, not changed: the platform posts' foot tops sit in the `Platform_top`
+mask (normal up) but paint with their post (mean z under the deck), so that group carries band and
+navy; the validator's table says so. **Texture-only: recompile `textures/structure/` and nothing
+else** (assets README, "Current handoff"). Next: the owner's compile and look (sector overview and
+close, day and night); `snapshot_hub.py hub-bodypaint-1-20260923` if kept; then the cost reading
+(§"Hub off against on cost", still `<<PENDING-RUN>>`).
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
