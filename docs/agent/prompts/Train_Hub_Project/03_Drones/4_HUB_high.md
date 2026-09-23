@@ -24,6 +24,21 @@ only), §4 (the infopanel line and the track-repair toggle), the save guard, the
 wrap and the no-free-drone-leak backstop — built on the flight link's calls, with the smoke left to
 link 5.
 
+**Reachability is yours alone now (owner, 2026-09-23).** `DESIGN.md` End state 1 defined what a
+repair drone can reach as "anything a repair drone following the track could reach" -- the flight
+itself enforced it. Engine mode flies straight over the terrain, so the path no longer constrains
+anything: a drone can physically reach an isolated network. **Dispatch must refuse a target off the
+hub's connected graph**, because nothing downstream will. The graph and the "track work" definition
+(owner, 2026-09-19) are unchanged; only their enforcement point moved.
+
+**The standing fleet (owner, 2026-09-23).** *"since the are acting as normal drones we should have
+maybe 5 out standying by at idle? And then dispatch can deploy and return more as needed?"* Five is
+the baseline idle count, superseding the "like 2" low tier below. With `work_radius` fixed at 15
+hexes and little but the hub inside it, vanilla `Idle` leaves them effectively parked; if the owner
+builds within the radius they pitch in, which the owner accepts. Keep them genuinely vanilla --
+`TryTakeTask` draws only from their own `command_center` (`Drone.lua:708`), so they cannot be taken
+by other work, and past `distance_to_provoke_go_home_cmd` `Idle` sends them home rather than astray.
+
 **Plus fleet scaling by load (owner, 2026-09-23).** `DESIGN.md`'s "constant 30, launched on demand"
 is refined: the hub launches only what the work needs and brings the surplus home. The owner's
 words: *"since we are allowing up to 30 drones, but won't need them all in flight, if drone load is

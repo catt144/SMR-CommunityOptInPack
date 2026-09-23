@@ -56,8 +56,11 @@ sweep is queued at `prompts/perma/gamepatch/`.
     to 30 out, so losses never shrink it. No prefabs, no prefab controls, no charger.
   - **Inside a fixed 15-hex radius** (owner; build 3 cuts the slider) they do **anything a drone
     does**, through vanilla's own drone AI.
-  - **Beyond it, track work only:** the same drone follows the track's element positions, hovering
-    over the track, never drone pathing, so it cannot cut across open ground; it plays the vanilla
+  - **Beyond it, track work only:** the engine flies the drone from the hub to the break and back
+    as a stock `FlightGoto` at the Wasp's own ride height, so it does cross open ground; only the
+    pit ends and the work pose are ours. What counts as track work, and what is reachable, are
+    unchanged and are enforced by **dispatch's choice of target**, never by the path flown. It
+    plays the vanilla
     repair work at the break (the Wasp's work animation state and the effects actions of the
     `DroneWork` path, `Drone.lua:983-1021`; find the exact names). **It charges from the track**
     (owner, 2026-09-19, for very long lines): in track mode the hub holds its battery at full the

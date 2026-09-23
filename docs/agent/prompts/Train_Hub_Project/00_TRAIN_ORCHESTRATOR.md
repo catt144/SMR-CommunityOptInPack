@@ -148,6 +148,12 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
      range (§4.3);
    - routing 5d or 5c, once the owner has played the 5a network.
+   - **"Follow the track" no longer binds on its own (owner, 2026-09-23).** The 2026-09-19 ruling
+     -- *"never drone pathing, so it cannot cut across open ground"* -- is not by itself a reason to
+     take the flight back from the engine: *"Not unless we have another reason to go back to our
+     flight path, it would have to be that plus something else. Right now that reason is the only
+     reason for our own flight path."* So engine mode stands and the drones cross open ground.
+     Reachability moves to dispatch, which is the only thing still enforcing it.
    - **`OI-26` is PARKED (owner, 2026-09-23)** until the hub is built and running: *"Lets park
      that until we get everything else built and running thats alot of poking and proding for
      something that might basically be unnoticible under real conditions and i am leaning towards
