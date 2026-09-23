@@ -375,3 +375,24 @@ Beyond the prototype, in rough order of cost. None of this is designed; it is th
   placement entirely; §7 item 1 is where it would be decided.
 - **(3) installed build no longer 24995074** — **FIRED.** Handled per §0 by re-deriving against
   the installed build rather than stopping; flagged here for the owner's call.
+
+---
+
+## 9 · Two engine facts not filed, and why
+
+Both are candidates for `docs/agent/facts/`; neither was filed, because `EF-` ids are allocated by
+the fix pack (`B:\Dev\SMR\SMR-BugFixPack`) and minting one here alone is what caused the
+2026-08-16 collision. Grepping `facts/INDEX.md` shows neither is recorded yet; `EF-114` is the
+nearest neighbour and is about track reachability, not this.
+
+1. **A cross-map unit transfer belongs inside a destructor.** The evidence is in §1. **Do not file
+   it until the sitting runs** — the destructor's necessity is inferred from two shipped callers
+   plus one un-rechecked console observation, and §6 batch 4 either confirms it or overturns it.
+   Filing it now would record a prediction as a fact. (Corroborating, already filed: `EF-104`
+   records `thread_running_destructors` as a real, observable state the engine filters on.)
+2. **The `disabled_in_environment` runtime table has two traps** —
+   `UndisableInEnvironment` is a no-op while `DisabledInEnvironment[id]` is nil, so a read must
+   come first; and `DisabledInEnvironment` is a `GameVar`, so writing it persists into the save.
+   This one is pure source, settled, and independent of the sitting; it is fileable now. It is
+   recorded in §3 and in the prototype's file header meanwhile, which is where the next person on
+   this job will read it.
