@@ -13,7 +13,11 @@ code = SOURCE.read_text(encoding='utf8')
 lua = LuaRuntime(unpack_returned_tuples=True)
 lua.execute(r'''
 SMROptInTrainHubBase={}; empty_table={}
-const={efCollision=1,efApplyToGrids=2,efWalkable=4,efSelectable=8}
+const={efCollision=1,efApplyToGrids=2,efWalkable=4,efSelectable=8,DustMaterialExterior='ext',DustMaterialInterior='int'}
+-- Vanilla's dust pass, mocked: the hub's value lands on every attach (BuildingComponents.lua:326-337).
+Station={}; function Station.SetDustVisuals(self,dust,in_dome)
+ self.dust=dust; for _,v in ipairs(self:GetAttaches('ShapeshifterAutoAttach')) do v.dust=dust; v.dust_calls=(v.dust_calls or 0)+1 end
+ return 'vanilla' end
 local P={}; P.__index=P
 function P:x() return self._x end
 function P:y() return self._y end
@@ -58,6 +62,7 @@ function V:SetAttachOffset(p) self.offset=p end
 function V:SetAttachAngle(a) self.angle=a end
 function V:SetScale(s) self.scale=s end
 function V:SetSIModulation(s) self.si=s end
+function V:SetDust(d,mat) self.dust=d; self.dust_mat=mat; self.dust_calls=(self.dust_calls or 0)+1 end
 function V:SetDetailClass(d) self.detail=d end
 function V:SetColor(c) self.color=c end
 function V:SetIntensity(i) self.intensity=i end
@@ -190,6 +195,13 @@ Floor.SetHubReactorPalette{[2]={color=NAVY}}; r=react()
 assert(r.cm_calls==1 and cm_is(r,2,NAVY,0,0) and r.cm[1]==nil)  -- a patch onto vanilla paints only its own channel
 Floor.SetHubReactorPalette(); r=react()
 assert(r.cm==nil and r.cm_calls==nil)
+-- Dust: vanilla's pass dusts every attach; the hub's override zeroes the reactor alone, exterior material.
+r=react(); local g=living('SMROptInTrainHub6Glass')[1]
+assert(h:SetDustVisuals(30000)=='vanilla' and h.dust==30000)
+assert(r.dust==0 and r.dust_mat=='ext' and r.dust_calls==2, tostring(r.dust)..' '..tostring(r.dust_calls))
+assert(g.dust==30000 and g.dust_calls==1)
+h:SetDustVisuals(0, true); assert(r.dust==0 and r.dust_mat=='int' and g.dust==0)
+h:SetDustVisuals(30000); assert(r.dust==0)  -- the fallback FusionReactor visual is covered by is_hub_reactor too
 -- Back to the default the owner sees first.
 Floor.SetHubReactorPalette('P4'); r=react()
 assert(r.cm_calls==4 and cm_is(r,1,NAVY,0,0) and cm_is(r,3,STEEL,-90,110) and cm_is(r,4,STEEL,-90,110))
@@ -360,6 +372,7 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
     'underdeck_positions':underdeck_positions,
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
+             'reactor dust: vanilla dusts every attach, the hub override zeroes the reactor visual alone, exterior/interior material as passed, the glass untouched by us',
              'reactor palette: default P4 on init (owner, 2026-09-22) -- 4 channels, navy RGB(18,32,78)/0/0 on 1-2, steel RGB(200,205,210)/-90/110 on 3-4, on the fallback entity and on the imported one',
              'reactor palette: re-applied by the recreation path, so it survives the mocked load; the glass visual is never colorized',
              'reactor palette: SetHubReactorPalette switches P1/P3/P4 live, a table patches one channel, an unknown name is a no-op',

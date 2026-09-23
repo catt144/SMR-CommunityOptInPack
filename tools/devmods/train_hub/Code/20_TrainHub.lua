@@ -1168,6 +1168,23 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	set_hub_reactor_working(self, self.working)
 end
 
+-- No dust on the reactor visual (owner, 2026-09-23: "our mini fusion reactor is having dust buildup
+-- while none of our other buildings do"). The hub is a Building, so it accumulates dust like any
+-- other and vanilla pushes that value onto EVERY attach: `BuildingVisualDustComponent:SetDustVisuals`
+-- -> `ApplyToObjAndAttaches(self, SetObjDust, ...)` (Lua/Buildings/BuildingComponents.lua:326-337,
+-- Building.lua:1711-1719, SupplyGrid.lua:256-260 on 1.1.0.403908). Our body and glass entities have
+-- no dust channel, so they show nothing; the vanilla FusionReactor entity does, so the reactor alone
+-- wore the hub's dust. Let vanilla run, then zero the reactor attach the same way it was set.
+function SMROptInTrainHubBase:SetDustVisuals(dust, in_dome)
+	local result = Station.SetDustVisuals(self, dust, in_dome)
+	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+		if is_hub_reactor(visual) then
+			visual:SetDust(0, in_dome and const.DustMaterialInterior or const.DustMaterialExterior)
+		end
+	end
+	return result
+end
+
 local function reinit_hub_reactor_visuals()
 	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub) hub:InitHubReactorVisual() end)
 end
