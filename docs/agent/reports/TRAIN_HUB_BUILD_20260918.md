@@ -881,3 +881,27 @@ watch an arrival run straight past the old onset, slide at the outer slide's rat
 and leave at normal, fast and fastest; autosave requires re-pressing an armed crossing watch.
 Slot 6 selects `HubSidingEntryDistance`, and slots 2/5 move it by 1 m while paused.
 Executed model: GPT-5 (Codex), as identified by the session instructions. No subagents were used.
+
+## Build 4, the hub half (drones chain L4), 2026-09-23 — BUILT, offline smokes only
+
+**Authority:** `docs/agent/prompts/Train_Hub_Project/03_Drones/DESIGN.md` and the retired
+`4_HUB_high.md`; owner rulings 2026-09-19, 2026-09-22 and 2026-09-23. Commits `b1f62be` (the flight
+adopts a loaded Wasp) and `b556035` (the hub half). Report: `drones_chain/L4_HUB_20260923.md`.
+**No game was driven.** Persisted name: `SMROptIn_track_work` (FIX_POLICY inventory row 11).
+
+**RAN:** `python tools/devmods/train_hub/tests/repair_smoke.py` PASS at `b1f62be` + the hub diff
+(18 flight records, 2 adoptions, 18 notifications, all mocked); `python
+tools/devmods/train_hub/tests/flight_smoke.py` PASS at `ed8c29b` + the flight diff (39 visuals
+created and removed, `idle_seen` false); `python tools/parsecheck.py --dir
+tools/devmods/train_hub/Code` 4 files, 0 errors; doccheck GREEN. **MEASURED:** the Blender static
+clearance at L3's settled lane FAILS (`Platform_6` −0.637 m, `RingPillar_4` −0.052 m); the
+receipt bounds the tagged flight only (worst 0.240 m). Details and the source facts, each with a
+falsifier, are in the L4 report.
+
+**Owner, in play (2026-09-23):** the fleet started balancing resources between network stations
+from the uncommitted tree; fixed before commit (only a far station's maintenance requests join the
+hub). The running game needs a restart or a save reload to take the fix.
+
+**The sitting is link 5's** (`5_SMOKE_medium.md`, attended): its notes carry what the smoke must
+show. Console for it: `HubRepairStatus()` with the hub selected; `SetHubRepairTune("Standing", 5)`
+or a table; `SMROptInTrainFloor.HubRepairTune` for the defaults; the panel's toggle.

@@ -2968,3 +2968,29 @@ every division through `div()`, every engine number through `int()`, and gates t
 smoke; the receipt is re-measured with the same bounds. Fluidity remains the owner's verdict in
 link 3, whose step zero is the control line `*r print(7/2, 7*1.0/2, math.type(7/2))`; no game
 ran in this link beyond that one failed line.
+
+### Drones L4: the hub half (2026-09-23; report `L4_HUB_20260923.md`)
+
+Built in `b556035` on `b1f62be`, no game run. The hub records a break on its own network as a job
+in ONE persisted field, `SMROptIn_track_work` (inventory row 11; `kind` is build 5's, so track
+construction adds no second name), claims the cost on its own supply requests at dispatch (50 % of
+the site's remaining demand without SafeTransport, 100 % with it, above the maintenance reserve),
+and at a persisted deadline pays the OUTSTANDING demand and calls the live repair group leader's
+`Complete()` (EF-112); a site drones finished first is dropped silently. Reachability is a
+hub-rooted BFS over physical edges, enforced at dispatch and nowhere else (owner, 2026-09-23).
+Dispatch reads the player's switch, never `IsWorking` (owner, 2026-09-22). The fleet: five standing
+vanilla Wasps, +5 at vanilla's medium load, +10 at high, 30 the ceiling with repair flights; a
+recall only of an idle, empty-handed drone. A destroyed or salvaged hub drops every carried cube
+and removes every drone before vanilla can orphan one. `FlyingDrone:CanBeControlled` is chained
+on its declaring class: false only for a hub's Wasp. The panel shows "Repair drones: N out / 30"
+and a track-repair toggle. All tunables are `SetHubRepairTune` dials for link 5.
+
+**Owner, in play, same day:** with every station on the network registered to the hub, the fleet
+began balancing resources between stations. Fixed before commit: only a far station's two
+maintenance requests join the hub (a chained `Station:ShouldAddRequestToCommandCenter`); a
+station inside the radius keeps vanilla's full service. **MEASURED, Blender:** at L3's settled
+184-degree lane and dials the scripted route fails the static clearance (`Platform_6` −0.637 m on
+the connector-1 transfer, `RingPillar_4` −0.052 m on the under-deck exit); the owner accepted the
+flown exit by eye, and the committed receipt bounds the tagged flight only. The flight smoke had
+been red since L3's dial commits; re-pinned. The fleet still appears around the body, not from the
+pit (a release entry point the flight file lacks); link 5 asks. Link 5's sitting is the claim.

@@ -167,6 +167,27 @@ owner's control line `*r print(7/2, 7*1.0/2, math.type(7/2))` was run before lin
 anything. No game ran in this link beyond that one failed console line; the smoke's chord
 contract is mocked Lua, and the claim of fluidity is left to the owner.
 
+### L4 handoff, 2026-09-23
+
+The hub half landed in `b556035` on `b1f62be`; report `L4_HUB_20260923.md`, whose drift inventory
+is the audit list. Sample: the persisted shape against the section's header and inventory row 11;
+the four dispatch gates and the 50 %/100 % arithmetic in `repair_smoke.py` against
+`Track.lua:651-656` and `ConstructionSite.lua:731-760`; the claim (`AssignUnit` at dispatch,
+`UnassignUnit` then `AddResource(-n)` at completion) against `10_TrainFloor.lua`'s reserve; the
+`Station:ShouldAddRequestToCommandCenter` override's scope (out of range only, maintenance
+requests only, the original always called); `Finalize`'s callers (`DroneControl.lua:341-352`).
+Drift to weigh: the flight file was edited although the brief scoped its internals out (`F.Adopt`
+and the load sweep's move, both named by the brief's own handoff text; 53 lines); `flight_smoke.py`
+was red at HEAD before this link from L3's dial commits landing without a smoke run, and its
+receipt hash had not matched the source since `7e02763` (both fixed in `b1f62be`, the scripted
+suite now pinned under the tagged dials); the Blender clearance at the settled lane FAILS
+(`Platform_6` −0.637 m, `RingPillar_4` −0.052 m) and the committed receipt bounds the tagged
+flight only, stated in its `mode` field; the owner saw resource balancing in play from the
+uncommitted tree and the fix landed before commit; `EF-115`'s 1.1.0 `CanBeControlled` body is
+corrected in the fact; the fleet does not launch from the pit (declared, link 5 asks). The peer's
+brief 06 committed twice mid-link with files left modified in the tree; committed by pathspec.
+No game ran.
+
 ## Lifecycle
 
 Your report is the chain's close-out. **Delete this file and strike its row in `README.md` in the

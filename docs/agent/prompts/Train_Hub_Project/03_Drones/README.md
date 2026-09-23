@@ -7,8 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 4 | `4_HUB_high.md` | high | no | **NEXT**, once the structure pass is out of `20_TrainHub.lua`. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
-| 5 | `5_SMOKE_medium.md` | medium | **yes** | `DESIGN.md` §5's smoke with the owner, and the train-construction question in §6. Records ETAs and the sitting |
+| 5 | `5_SMOKE_medium.md` | medium | **yes** | **NEXT.** `DESIGN.md` §5's smoke with the owner, the 2026-09-22/23 cases, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
 
 ## Chain rules
@@ -20,8 +19,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 - **Route, never drop.** An out-of-scope finding goes to the link that owns it, to spec §10, or to
   `docs/PLAYTEST_CHECKLIST.md` as an owner ask with a recommendation. Defects go through
   `smr-bug-library`.
-- **Order.** 2E then 3; both are independent of the structure pass. 4 waits for the
-  structure pass to be out of `20_TrainHub.lua`. 5 follows 4. 6 is last, in fresh context, and the
+- **Order.** Links 1 to 4 are consumed. 5 is next, attended. 6 is last, in fresh context, and the
   owner runs it on a different model from the links it audits.
 - **Self-split** at a clean commit boundary into a continuation link that is a full chain member,
   rather than running to the edge of a context window. Say so in the notes.
@@ -56,3 +54,14 @@ Link 2E landed engine mode in `9a540dd` (report `L2E_ENGINEFLIGHT_20260923.md`):
 `FlightGoto` legs between our pit ends, the handoff held by a queued stock `WaitUninterruptable`,
 `SetHubDroneMode` as the console switch. Engine legs and holds now survive a save; `OI-26` asks
 the 7 m ride ruling.
+
+## Link 4 landed, 2026-09-23
+
+The hub half is in `b556035` on `b1f62be` (report `L4_HUB_20260923.md`): the pending list
+`SMROptIn_track_work`, dispatch on the hub-rooted graph, completion at the outstanding cost, the
+fleet by vanilla's load word, the destroyed-hub despawn, the control wrap, the panel toggle, and
+the flight's adoption of a loaded Wasp. **Restart or reload before the sitting:** the owner's
+running game took an uncommitted state that made the fleet balance resources between stations;
+the committed code admits only a far station's maintenance requests. The Blender clearance at
+L3's settled lane measures negative at `RingPillar_4` (5 cm) and on the scripted connector-1
+transfer (64 cm); the receipt bounds the tagged flight only. Link 5's notes carry the sitting.

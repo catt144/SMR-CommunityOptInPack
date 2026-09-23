@@ -58,7 +58,6 @@ reload, in that order.
 
 ## Notes from upstream
 
-*(link 4 appends here: what shipped, what the smoke must cover, the persisted name)*
 
 ### L3 handoff, 2026-09-23 — `OI-26` is yours to judge, in passing
 
@@ -67,6 +66,58 @@ stays as built, and you judge it **under real play** — if a train passes benea
 your scenarios, look; do not build a rig for it. The answers and the three-way consequence are in
 `00_TRAIN_ORCHESTRATOR.md` under "Each run" step 3. Owner, 2026-09-23: *"i am leaning towards not
 worth changing its state"*, so absence of a complaint across the smoke is a real answer.
+
+### L4 handoff, 2026-09-23 — what shipped, and what the smoke must show
+
+**Shipped** (`b556035` on `b1f62be`; report `L4_HUB_20260923.md`): the hub records a break on its
+network as a job in `SMROptIn_track_work` (the one persisted name; the toggle lives inside it),
+claims the cost on its own stock at dispatch, and at a persisted deadline pays the outstanding
+demand and completes the site through the repair group leader; a Wasp flies out and back for the
+look (adopted after a load); five standing Wasps scale with vanilla's load word; a destroyed hub
+despawns every drone; the panel shows "Repair drones: N out / 30" and a track-repair toggle;
+every Station on the graph has the hub as a controller for its two maintenance requests only.
+Dials: `SetHubRepairTune(name, value)` or a table; `HubRepairStatus()` with the hub selected
+prints the jobs, the fleet, the load and the dials.
+
+**Before the sitting:** restart the game or reload the save. The owner's running game took the
+uncommitted tree that registered every station request (the resource balancing seen 2026-09-23);
+the committed filter re-files each far station once at load.
+
+**The smoke must show, in this order, with `HubRepairStatus()` before and after each step:**
+1. A far break (TestKit meteor): the job appears, the ETA notice shows with minutes, the stock's
+   claim (Metals target down, actual unchanged), a Wasp rises from the pit and flies out; at the
+   deadline the site completes, the stock drops by the outstanding cost at 50 % (100 % if
+   SafeTransport is researched), trains run again. Read the deadline against the Wasp's arrival:
+   the deadline is straight-line distance at the flight's Speed plus `LaunchTime` 12 s plus
+   `WorkTime`; if the Wasp arrives long before or after it, move `LaunchTime` or `Speed`.
+2. Save and reload mid-trip: the job survives with its deadline; a Wasp under an engine leg or
+   hold is adopted and continues (no blink); one removed at save reappears from the pit if more
+   than `MinVisualTime` 15 s remains; the site still completes on time. Autosave the same.
+3. Drones and the hub on one site: a break inside ordinary drone range; whichever finishes first
+   wins; if drones win, `HubRepairStatus()` shows the job gone and the Metals target restored.
+4. Short stock: the job waits, the hub wears the no-resource sign, the panel line says "short of
+   Metals"; deliver stock; it dispatches. Confirm nothing vanilla toggles that sign on the hub.
+5. The toggle off: a new break waits; a repair under way completes; toggle on dispatches it.
+   The player's switch off: the same for new dispatches. Malfunction (gauge full) and a dead grid:
+   dispatch and completion continue.
+6. Remote stations: a far station's maintenance no longer says "No Drone Hub in range"; a fleet
+   Wasp flies there for the repair work; watch whether `Idle`'s go-home distance bounces it home
+   repeatedly. And the negative: no cube hauling between stations (the 2026-09-23 fix).
+7. The fleet: five idle near the hub; make load medium/high (work in the radius) and count 10 /
+   20; let it fall and count the recalls (one per 15 s after 60 s low); a far idle drone goes home
+   first; a drone with a cube is never recalled. The reassign buttons grey on every hub Wasp; a
+   rocket cannot load one as cargo. Then `SetHubRepairTune("WaspPalette", "P4")` for the recolour
+   ask (spec §9) and judge it; it applies to Wasps spawned after the call.
+8. More than 30 jobs with 30 out: jobs wait; a waiting repair recalls a fleet drone at once.
+9. A destroyed hub with drones out and one carrying a cube: every Wasp gone, the cube on the
+   ground, nothing still flying; save and reload across it; the same after a salvage.
+10. `DESIGN.md` §6, train construction with no repair drone out, and whether a far station's train
+    construction waits on a drone the hub now supplies only for maintenance.
+11. **Ask the owner** whether the FLEET must also launch from the pit: today fleet Wasps appear
+    around the body as build 3's drones did (the repair flight does use the pit); the flight file
+    would need a release entry point to hand a risen Wasp to vanilla's `Idle`.
+12. **Look at the ring pillars on the exit** (`RingPillar_4`): the static measure at the settled
+    lane reads −5 cm against a conservative Wasp box; the owner accepted the flown exit by eye.
 
 ## Lifecycle
 
