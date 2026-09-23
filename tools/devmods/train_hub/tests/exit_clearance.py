@@ -146,6 +146,9 @@ if args.motion:
     assert motion['source_sha256']==hashlib.sha256(SOURCE.read_bytes()).hexdigest()
     assert motion['entity_sha256']==hashlib.sha256((ROOT/'tools/devmods/train_hub/Entities/SMROptInTrainHub6.entjson').read_bytes()).hexdigest()
     bank=math.radians(motion['bank_angle_minutes']/60)
+    # L2M2: the engine flies straight chords cut at every span boundary, so no rendered
+    # chord straddles two spans; the export states the horizon it needs (0 for cut chords).
+    horizon=motion.get('chord_horizon_ms',100)
     def split(control,u):
         rows=[np.array(control,dtype=float)]
         while len(rows[-1])>1: rows.append(rows[-1][:-1]*(1-u)+rows[-1][1:]*u)
@@ -156,18 +159,22 @@ if args.motion:
         left,_=split(c['points'],u1)
         return split(left,u0/u1)[1] if u0>0 else left
     legs=[]
+    bank_of={}
     for name,curves in motion['routes'].items():
         for i,c in enumerate(curves):
             # Runtime chords span at most 100 game-ms; include clipped neighbour
             # hulls so a chord straddling a curve seam is bounded too. Recall's
             # source clock advances no faster than this forward clock.
-            lo,hi=c['start']-100,c['finish']+100
+            lo,hi=c['start']-horizon,c['finish']+horizon
             controls=[generator(tuple(v/100 for v in p)) for other in curves
                       if other['finish']>lo and other['start']<hi
                       for p in clip(other,lo,hi)]
             label=f'{name}_curve_{i:02d}'
             control_sets[label]=controls
             contexts[label]=(curves,c['start'],c['finish'])
+            # L2M2 exports the roll actually commanded on each span; a span without one
+            # (older exports) is swept at the configured cap.
+            bank_of[label]=math.radians(c.get('bank_minutes',motion['bank_angle_minutes'])/60)
             legs.append((label,controls[0],controls[-1]))
 # Positive/negative controls: intersecting and clearly separated triangles.
 assert sweep((0,0,0),(10,0,0),np.array([[[5,-1,1],[5,1,1],[5,0,2]]],dtype=float))[0]<=0
@@ -183,7 +190,8 @@ for name,a,b in legs:
         continue
     for ob,triangles in groups.items():
         # The bottom of the drone is .24 m above the floor; include floor and shaft.
-        gaps=sweep(a,b,triangles,controls,bank)
+        leg_bank=bank_of.get(name,bank)
+        gaps=sweep(a,b,triangles,controls,leg_bank)
         margin=float(gaps.min()); triangle=int(gaps.argmin())
         if margin<=0 and name in contexts:
             # A prism spreads one corner's height across a long straight. If it
@@ -193,9 +201,9 @@ for name,a,b in legs:
             leaves=[]
             def refine(lo,hi):
                 pts=[generator(tuple(v/100 for v in p)) for c in curves
-                     if c['finish']>lo-100 and c['start']<hi+100
-                     for p in clip(c,lo-100,hi+100)]
-                gs=sweep(pts[0],pts[-1],triangles,pts,bank)
+                     if c['finish']>lo-horizon and c['start']<hi+horizon
+                     for p in clip(c,lo-horizon,hi+horizon)]
+                gs=sweep(pts[0],pts[-1],triangles,pts,leg_bank)
                 value=float(gs.min()); index=int(gs.argmin())
                 if value<=0 and hi-lo>1:
                     return min(refine(lo,(lo+hi)/2),refine((lo+hi)/2,hi))
@@ -231,7 +239,8 @@ result={'command':'blender -b <work.blend> --python-exit-code 1 --python tools/d
         'leg_count':len(legs),'legs':results}
 if motion:
     result.update(motion=motion,bank_angle_minutes=motion['bank_angle_minutes'],
-                  interpolation_horizon_game_ms=100,control_hulls_generator_m=control_sets)
+                  span_bank_minutes={n:round(math.degrees(b)*60) for n,b in bank_of.items()},
+                  interpolation_horizon_game_ms=horizon,control_hulls_generator_m=control_sets)
     result['command']='blender -b '+str(BLEND)+' --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion '+str(args.motion)+' --receipt '+str(args.receipt)
 assert hashlib.sha256(BLEND.read_bytes()).hexdigest()==blend_hash, 'Shared geometry changed during measurement'
 assert hashlib.sha256(SOURCE.read_bytes()).hexdigest()==source_hash, 'Flight source changed during measurement'
