@@ -18,9 +18,10 @@ unscheduled, so it does not age.
 ### OI-26 · opened 2026-09-23
 Is the Wasp's fixed 7 m ride on engine-flown repair-drone legs clear enough of the side-hanging trains?
 - The height cannot be tuned per drone (`Flight.lua:175`); only our scripted ends have dials.
-- Judge it in link 3's sitting with a train passing beneath, in `SetHubDroneMode("engine")`.
+- PARKED by you 2026-09-23 until the hub is built and running; engine mode ships as built meanwhile.
+- Judge it under real play in link 5's smoke, with a train passing beneath, not by staging one.
 - Say "7 m is fine", "the engine legs must ride higher" (then engine mode cannot ship as built), or "scripted ships".
-Home: `docs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md`
+Home: `docs/agent/prompts/Train_Hub_Project/00_TRAIN_ORCHESTRATOR.md`
 
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?

@@ -60,6 +60,14 @@ reload, in that order.
 
 *(link 4 appends here: what shipped, what the smoke must cover, the persisted name)*
 
+### L3 handoff, 2026-09-23 — `OI-26` is yours to judge, in passing
+
+The owner parked `OI-26` rather than staging it: the Wasp's fixed 7 m ride on engine-flown legs
+stays as built, and you judge it **under real play** — if a train passes beneath a drone during
+your scenarios, look; do not build a rig for it. The answers and the three-way consequence are in
+`00_TRAIN_ORCHESTRATOR.md` under "Each run" step 3. Owner, 2026-09-23: *"i am leaning towards not
+worth changing its state"*, so absence of a complaint across the smoke is a real answer.
+
 ## Lifecycle
 
 Append anything unresolved into link 6's notes, then **delete this file and strike its row in

@@ -148,6 +148,15 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
      range (§4.3);
    - routing 5d or 5c, once the owner has played the 5a network.
+   - **`OI-26` is PARKED (owner, 2026-09-23)** until the hub is built and running: *"Lets park
+     that until we get everything else built and running thats alot of poking and proding for
+     something that might basically be unnoticible under real conditions and i am leaning towards
+     not worth changing its state"*. Engine mode ships as built meanwhile; the Wasp's 7 m ride on
+     engine-flown legs is unchanged. Judge it under real play in link 5's smoke, not by staging a
+     train. If it ever does read wrong, the choice is three-way, not two: accept it, take the
+     flight back (scripted, the tag), or give the drone our own `FlyingDrone` subclass with a
+     higher `hover_height` — which keeps the engine flying but ends "it is just a vanilla Wasp",
+     the standing protection for a save loaded without the mod.
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
 5. **You own every brief's lifecycle** (owner, 2026-09-21). Once a fired brief's work is done,
