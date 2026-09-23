@@ -1,0 +1,24 @@
+{
+	"$persist_version": 0,
+	"$value": {
+		"strName": "SMROptInTrainHub6DomeGlass",
+		"states": [{
+				"name": "idle",
+				"mesh_ref": "mesh",
+				"category": "All"
+			}],
+		"meshDescriptions": [{
+				"id": "mesh",
+				"lods": [{
+						"meshes_data": [{
+								"mesh": "Mod/SMR_TrainHubDev_20260918/Meshes/SMROptInTrainHub6DomeGlass_mesh.sub_0.hgrm",
+								"material": "Mod/SMR_TrainHubDev_20260918/Materials/SMROptInTrainHub6DomeGlass.mtljson"
+							}],
+						"boxMin": [-3272.430419921875, -3295.0, 839.9999389648438],
+						"boxMax": [3272.430419921875, 3295.0, 2000.0],
+						"bsCenter": [-1291.6007080078126, 470.3651428222656, 1094.36328125],
+						"bsRadius": 4676.27197265625
+					}]
+			}]
+	}
+}

@@ -12,4 +12,6 @@ return {
 	PlaceObj('ModItemRef', {3} --[[SMROptInTrainHub6 refs: 1]]),
 	PlaceObj('ModItemRef', {4} --[[SMROptInTrainHub6Glass refs: 1]]),
 	PlaceObj('ModItemRef', {5} --[[SMROptInTrainHub6Glass]]),
+	PlaceObj('ModItemRef', {6} --[[SMROptInTrainHub6DomeGlass refs: 1]]),
+	PlaceObj('ModItemRef', {7} --[[SMROptInTrainHub6DomeGlass]]),
 }

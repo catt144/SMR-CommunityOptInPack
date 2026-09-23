@@ -11,6 +11,13 @@ PlaceObj('EntitySpec', {
 })
 
 PlaceObj('EntitySpec', {
+	id = "SMROptInTrainHub6DomeGlass",
+	last_change_time = 1790209693,
+	mod_handle = 7,
+	save_in = "Mod/SMR_TrainHubDev_20260918",
+})
+
+PlaceObj('EntitySpec', {
 	id = "SMROptInTrainHub6Glass",
 	last_change_time = 1790140860,
 	mod_handle = 5,
