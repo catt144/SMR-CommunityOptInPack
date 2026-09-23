@@ -2256,6 +2256,17 @@ and metal 27 (`GLASS_ROUGHNESS`/`GLASS_METAL` in paint_concept.py, `GLASS_RM` in
 export_dome_glass.py); only the two RM maps moved (siding `aba274cc…`, dome `eff8e8c0…`). Two
 texture compiles owed. If .45 does not calm the spot, the dust map in `Special` is the other
 difference, and it is a material edit in the editor.
+
+**Owner ruling, 2026-09-23 — the final body paint direction.** Looking at the reactor in P4: *"Ok
+for our final paint. This looks so good I think I would like to see something like this and its
+overall feel on the final structure."* Navy panels with seams, broad polished off-white bands, dark
+fittings, the blue line on the navy/white edge; the owner's screenshot is saved as
+`SMR-Assets/trainhub/reference/reactor_P4_owner_paint_reference_20260923.png` (git-ignored). The
+2026-09-21 handoff palette (warm off-white shell, brushed silver) is superseded. Brief 01 is DONE
+and parked (its cost reading moves with the paint); the body paint is
+`prompts/Train_Hub_Project/05_TRAIN_HUB_BODYPAINT_high.md`, the last big job, fired in a fresh
+session. Still owed before it starts: the owner's two glass texture compiles and their word on the
+roughness, then restore point 5.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
