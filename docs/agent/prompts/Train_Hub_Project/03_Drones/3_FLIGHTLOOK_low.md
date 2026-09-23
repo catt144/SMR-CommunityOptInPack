@@ -115,8 +115,13 @@ Check the next import explicitly. L4 still owns persisted resume and economic de
 
 ### L2M2 handoff, 2026-09-22
 
-Resume the attended sitting with motion build `d77efa4` plus `6d89b1a` (signed `BankAngle`, the
-re-measured receipt). Read `docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. The route is
+Resume the attended sitting with motion build `d77efa4` plus `6d89b1a` (signed `BankAngle`) and
+`b84f106` (**required**: `d77efa4` alone raises `HGE::l_SetAcceleration: Expected integer` on
+`SpawnHubDrone`, EF-116). Read `docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`,
+its correction section first. **Step zero, before any drone:** paste
+`*r print(7/2, 7*1.0/2, math.type(7/2))`; expect `3  3.5  integer`. Any other output, or any
+`[SMRTK] SMRTK_ERROR` from `30_TrainHubDrones.lua`, stops the sitting under Stop 1 with the line
+pasted verbatim; nothing is tuned on a build that errors. The route is
 L2R's; the driver is new: the engine flies every chord (one timed `SetPos` + `SetAcceleration`
 per chord, at most 333 ms, chained from a game-time thread), corners are rounded inside their own
 legs and flown at the speed their radius allows, straights run a physical speed profile, the crest

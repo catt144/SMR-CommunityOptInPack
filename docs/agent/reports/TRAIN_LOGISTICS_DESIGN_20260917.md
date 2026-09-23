@@ -2826,5 +2826,11 @@ terrain height cache; ComponentCurvature stays off because no shipped Lua calls 
 work end 31524, removal 57051 game ms). MEASURED source-mesh bound with per-span commanded roll:
 0.240 m at PitFloor_1 (the intentional floor separation), 0.3435 m at Siding_1 on the
 crest-to-lane corner, 0.792 m at RingClamp_1 along the lane; not live clearance. Report:
-`docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. Fluidity remains the owner's verdict
-in link 3; no game ran in this link.
+`docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. **Correction, 2026-09-23:** the
+owner's first console line on `d77efa4` raised `HGE::l_SetAcceleration: Expected integer`; the
+engine's Lua divides integers as integers (EF-116), which a lupa mock cannot show and which most
+likely also produced L2M's stutter (its sampler returned span endpoints in game). `b84f106` routes
+every division through `div()`, every engine number through `int()`, and gates the source in the
+smoke; the receipt is re-measured with the same bounds. Fluidity remains the owner's verdict in
+link 3, whose step zero is the control line `*r print(7/2, 7*1.0/2, math.type(7/2))`; no game
+ran in this link beyond that one failed line.

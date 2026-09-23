@@ -42,6 +42,7 @@ still belongs to link 3.
 The owner flew L2M's build (`74b1e4a`): *"Its studdered very bad coming out, the flight path is
 sorta better but still pretty sharp on the angles and its kinda glitchy / suttery when it lands to
 do the repair sequence. I needs the be, natural, fluid, and respemble flight."* The route is still
-not in question. Link 2M2 reopened the motion verdict and landed as `d77efa4` (the engine flies
-the chords from a game-time driver; report `docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`);
-link 3 resumes on that build.
+not in question. Link 2M2 reopened the motion verdict and landed as `d77efa4`, corrected by
+`b84f106` after the owner's first console line failed on the engine's integer division (EF-116);
+the engine flies the chords from a game-time driver; report
+`docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. Link 3 resumes on `b84f106`.

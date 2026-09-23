@@ -119,7 +119,7 @@ Review the fresh L3 handoff for every native obligation, and L4 for economic/sav
 
 ### L2M2 handoff, 2026-09-22
 
-Motion build `d77efa4` plus `6d89b1a`; report
+Motion build `d77efa4` plus `6d89b1a` and `b84f106`; report
 `docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md` has the three faults, their causes
 read from the code, the leg-by-leg mechanism, commands, hashes and the drift table. Audit these:
 the driver is a game-time thread (a mod-owned thread under FIX_POLICY §3a layer 1, gated and
@@ -131,9 +131,17 @@ be negative. The clearance instrument gained two export fields (`chord_horizon_m
 `bank_minutes`) and reads them with the old defaults as fallback; the receipt was re-measured
 after a line-ending normalisation because its first hash was of a CRLF working copy. FlightGoto
 was again not adopted, this time with the class-static parameter reason (Flight.lua:149-160);
-ComponentCurvature stays off with the reason that no shipped Lua calls it. Peer commit `8e2c827`
-landed mid-link and touches no drone path. No game ran in this link; the smoke's chord contract
-is mocked Lua, and the claim of fluidity is left to the owner.
+ComponentCurvature stays off with the reason that no shipped Lua calls it. Peer commits
+`8e2c827`, `2b64304`, `1fbdf49` landed during the link and touch no flight code. **Mock-green,
+game-red:** the owner's first console run of `d77efa4` raised `HGE::l_SetAcceleration: Expected
+integer`; the cause is the engine's integer division of integers (EF-116, fix pack `2812098`,
+mirror `de8a92b`), which a lupa mock cannot show, and which most likely also explains L2M's
+stutter (its sampler's `u` could only be 0 or 1 in game). `b84f106` routes every division through
+`div()`, every engine number through `int()`, and gates the source in the smoke; audit that the
+gate holds (`grep -n "[^/]/[^/]"` on the flight file finds only `div`'s body) and that the
+owner's control line `*r print(7/2, 7*1.0/2, math.type(7/2))` was run before link 3 tuned
+anything. No game ran in this link beyond that one failed console line; the smoke's chord
+contract is mocked Lua, and the claim of fluidity is left to the owner.
 
 ## Lifecycle
 
