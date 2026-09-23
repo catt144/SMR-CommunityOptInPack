@@ -57,7 +57,9 @@ SMROptInHubFlight = {
   UnderDeckHeight = 300,    -- entity-local z; native-scale mesh measured by exit_clearance.py
   OutwardDistance = 9000,   -- radius from hub origin before climbing, beyond arms/platforms
   TransferHeight = 2500,    -- entity-local z for crossing back above the hub after outside climb
-  ExitDirectionX = -866, ExitDirectionY = -500, -- /1000; generator 30-degree pillar gap
+  ExitDirectionX = -998, ExitDirectionY = -70, -- /1000; 184 deg, the measured pallet gap (L3)
+                            -- Box1 spots sit on r=2492 at 40.7+60n deg, so gaps centre on 10.7+60n;
+                            -- from the pit at (-1310,-397) 184 deg clears pallet 0 by 1.21 m, pallet 1 by 1.25 m
   Speed = 6000,             -- units per game second, level cruise cap; GUESS (L2)
   ClimbRate = 1500,         -- units per game second, vertical cap; GUESS (L2R)
   Accel = 1200,             -- units per game second^2: speed-up, braking and cornering limit; GUESS
@@ -1102,10 +1104,14 @@ function SetHubDroneTune(name, value)
   local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
     UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
     Speed = true, WorkTime = true, TurnRadius = true, Accel = true, BankAngle = true,
-    HoldTimeout = true}
-  if not tuneable[name] or type(value) ~= "number" or value < (name == "BankAngle" and -2700 or 1)
-    or value ~= math.floor(value) or (name == "BankAngle" and value > 2700) then
-    return false, "Use a named positive integer; BankAngle allows -2700..2700 angle minutes" end
+    HoldTimeout = true, ExitDirectionX = true, ExitDirectionY = true}
+  -- Dials that may be negative, with their magnitude limit; every other dial is a positive integer.
+  local signed = {BankAngle = 2700, ExitDirectionX = 1000, ExitDirectionY = 1000}
+  local limit = signed[name]
+  if not tuneable[name] or type(value) ~= "number" or value ~= math.floor(value)
+    or (limit and (value < -limit or value > limit)) or (not limit and value < 1) then
+    return false, "Use a named positive integer; BankAngle -2700..2700 angle minutes, "
+      .. "ExitDirectionX/Y -1000..1000 (a /1000 unit vector)" end
   F[name] = value
   return true
 end
