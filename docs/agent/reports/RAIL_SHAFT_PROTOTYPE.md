@@ -260,21 +260,77 @@ is logged when it happens.
 
 ---
 
-## 5 · What the owner saw
+## 5 · What the owner saw — sitting held 2026-09-23, 17:45–18:12
 
-**Nothing yet.** The sitting has not been held; the session that built this was non-interactive.
-No leg of the round trip has been run, on any save, with any mod set.
+Retail `Mars.exe`, build 25390750 / 1.1.1.405907. Mods loaded (log line 184): the fix pack, the
+Test Kit, this pack, `SMR_TrainHubDev_20260918` and `SMR_RailShaftDev_20260923`. The owner's own
+train-hub test colony, saved as a throwaway; SpaceY / politician. Log
+`Mars.exe-20260923-17.45.25-6aad2d75.log`; every line number below is in it.
 
-Not claimed, and not to be claimed from this report: that trains can run between maps; that
-routing works across a shaft; that cargo, passengers or wagon attaches survive a transfer; that
-the return leg works; that the command thread survives `TransferToMap`. A MarsDebug pass would
-not be retail evidence either (EF-044).
+**Fixture.** Two ordinary Universal Tunnel pairs built through the UI, one per map (`List()`,
+:463-467). A track probe showed each pair had one mouth on station track and one on a dead-end
+spur — surface 6753 → `StationSmall 2008`, underground 6770 → `StationSmall 6787`; 6754 and 6771
+ended `none / none` both ways. `Link(1, 3)` kept 6753↔6770 and disposed 6754 and 6771 (:497-507).
+
+**The round trip completed.** Train 2000002070 ran surface → underground and back, seven stages
+each way, `cmd GotoStation` throughout (:515-535):
+
+```
+stage 3 pre-transfer   | map surface     | station 2008
+stage 4 post-transfer  | map underground | cmd GotoStation     <- map changed, thread alive
+stage 5 at-far-mouth … stage 6 at-far-connector … stage 7 done | station 6770
+```
+
+Between the outbound `stage 7` (station 6770, the mouth) and the return `stage 1` (station 6787)
+the train reached the underground station and departed from it on its own — routing resolved in
+both directions. **The brief's stop (1) does not fire: the command thread survives
+`TransferToMap` inside a destructor.** That is measured, not predicted.
+
+**A second, unassigned train used the shaft.** 2000002087 hopped underground → surface
+(:573-582), also seven stages, clean. The route rebuild had made the shaft part of every
+connected route, which is the point of the next paragraph.
+
+**Save/reload survived.** The owner saved and restarted; the 18:10 log shows the pair intact and
+the guard firing for both mouths on load — `AddPFTunnel skipped for rail-shaft mouth 6753 / 6770`
+(18:10 log :227-228). No `[RailShaftDev]` error or abort in either log; 3 hops, 3 completions.
+
+**Then trains that never touched the shaft stalled — silently.** At high speed, several of the
+owner's hub-line trains stopped moving. Nothing in the log names a stall: no error, no abort, no
+`Idle` print. The cause is derived from source and recorded in §7 item 0 with its falsifier; it is
+*not* yet measured, because the owner had to step away. Two peer diagnoses circulated in the same
+window and are recorded here as claims, not findings: *"the link deleted two live mouths"* is
+contradicted by the pre-link track probe (both disposed mouths were dead-end, `none / none`), and
+*"the train's destination reads as a tunnel handle"* is a misread of the stage log — `station` is
+`train.current_station`, which vanilla itself sets to the mouth at `TrackTunnel.lua:78`.
+
+**Not shown, and not to be claimed:** that cargo, passengers or wagon attaches cross — no freight
+evidence was taken; that anything holds for more than one round trip; that a real module's
+placement is reachable. The `Persist error: Attempt to persist a C function` in the vanilla
+`MarkFlight` repeat thread (`Flight.lua:835-840`) at :703 and :753 **predates this mod** — it is
+in the 16:09 and 17:27 logs, before `SMR_RailShaftDev` was ever enabled — and belongs to whoever
+owns the flight work. A MarsDebug pass would not be retail evidence (EF-044); this was retail.
 
 ---
 
-## 6 · The sitting, ready to run
+## 6 · The sitting — run through batch 5 step 18; what is next
 
-Batches of about five steps, the owner drives. Both mods are normally loaded, so grep the log
+Batches 1–4 and steps 16–18 of batch 5 were run on 2026-09-23 (§5). Steps 19–20 (freight) were not
+reached. **The next sitting starts with the stall, not with freight**, on the reloaded save:
+
+1. `SMRRailShaft.Sweep()` — every train now prints `route_ok`. Expect the stalled ones to read
+   `cmd Idle` (or `LoadTrain`) with `route_ok false`, and the moving ones `true`. If a stalled
+   train reads `route_ok true`, §7 item 0 is wrong and the stall is something else.
+2. `SMRRailShaft.Routes()` — prints every route's station chain and flags `BROKEN track` for any
+   segment whose route omits one of its own end stations. Expect the broken segments to be the
+   hub line's tracks on one side of station 2008. Zero broken lines also falsifies item 0.
+3. `SMRRailShaft.Unlink()` — the undo: breaks the pair both ways, removes both mouths, rebuilds
+   routes. Then `Routes()` again (expect 0 broken) and watch the stalled trains restart on the
+   next in-game hour (`OnMsg.NewHour` → `Train:Start`, `Train.lua:58-70`).
+4. ⚠️ **Do not undo by disabling the mod.** `linked_obj` is vanilla's own saved field; the
+   cross-map pair outlives this mod, and without the guards vanilla runs `AddPFTunnel` and
+   `MergeGrids` across maps on the next load. `Unlink()` first, then disable if wanted.
+
+The original batch list follows for the record. Both mods are normally loaded, so grep the log
 with the full token — `[RailShaftDev]` for this prototype, `[CommunityOptInPack]` for the pack.
 Console lines are one paste-safe line each, no comments.
 
@@ -339,6 +395,25 @@ mods loaded.
 
 Beyond the prototype, in rough order of cost. None of this is designed; it is the bill.
 
+0. **A shaft must not be a branch off a through-station. This is the finding of the sitting,
+   and it is the first thing a real module has to solve.** Vanilla's route model is a *linear
+   chain*: `Station:GetConnectedTrack` passes a train straight through only — it looks for a
+   connector on the opposite side (`Station.lua:931-962`) — and `RebuildTrainRoutes` writes every
+   segment of every enumerated route with `routes[segment] = route` (`TrainTransport.lua:331`),
+   an **unconditional overwrite** guarded only at the starting track (`:316`). Before the link
+   the shaft spur off station 2008 was a dead end, and `EnumRouteTracks` writes nothing for a
+   one-station chain (`:297`). The link made it a live branch: a second route was enumerated
+   through the spur, and its retrace (`:321-327`) walked back through 2008 and on along one side
+   of the hub line, overwriting those segments with a route that lacks the other side's stations.
+   A train on an overwritten segment then finds no destination — `GetArrivalTrack` → nil →
+   `GotoStation` goes `Idle` (`Train.lua:339-342`), or `TransferCargo` → no work → `LoadTrain`
+   goes `Idle` (`:865-874`, `:285`) — with no error, and `OnMsg.NewHour` restarts it into the
+   same wall (`:58-70`). *Derived from source, not yet measured*; the falsifier is
+   `SMRRailShaft.Routes()` (§6). If it holds, a module has three shapes to choose from: a shaft
+   mouth that is itself a **terminus** (its own station, no through-track); a shaft placed only
+   at a **line end**; or a route model that admits branches, which is a rewrite of
+   `RebuildTrainRoutes` and off the table. The first is the honest one and it is also what the
+   train hub's design already assumes about hub connectors.
 1. **Two-map placement.** The prototype dodges it by re-linking. A module needs a construction
    flow that places one mouth, lets the player switch maps, and places the other —
    `TunnelConstructionController:Activate` assumes one map throughout
@@ -370,7 +445,12 @@ Beyond the prototype, in rough order of cost. None of this is designed; it is th
 
 ## 8 · Stops, as they stand
 
-- **(1) train cannot survive a transfer** — **open.** §6 batch 4 decides it.
+- **(1) train cannot survive a transfer** — **CLOSED, does not fire.** Measured 2026-09-23: three
+  hops, three completions, stages 4–7 all after the transfer, on retail (§5).
+- **NEW, open — the link stalls trains that never use the shaft.** Observed by the owner, not yet
+  measured; mechanism and falsifier in §7 item 0 and §6. Until `Routes()` has been read on the
+  reloaded save, the shaft is to be treated as **not safe on a live line**: link only where the
+  keeper mouth is a terminus, and `Unlink()` before ending a sitting.
 - **(2) two-map placement needs an unreachable state** — **not reached.** The prototype avoids
   placement entirely; §7 item 1 is where it would be decided.
 - **(3) installed build no longer 24995074** — **FIRED.** Handled per §0 by re-deriving against
