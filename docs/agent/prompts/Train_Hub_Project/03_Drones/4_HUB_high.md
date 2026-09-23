@@ -195,6 +195,41 @@ adopted by the prototype: `DroneControl:KillDrone` asserts `hub.drones` membersh
 during an engine leg shows `Getui_command`'s fallback for `"FlightGoto"`/`"WaitUninterruptable"`;
 the panel line this link builds should not rely on `command` for the repair drone's status.
 
+### L3 handoff, 2026-09-23 — the flight is settled; two jobs land on you
+
+**The flight is done and needs nothing from you.** Engine mode with `HandoffAt="outside"` is what
+the owner flew and accepted: ours from the pit floor up the OI-25 column, out under the deck along
+the re-aimed pallet lane, out to open ground; the engine's `FlightGoto` from there to the break and
+back; ours for the work pose and the descent. Settled defaults, all in
+`Code/30_TrainHubDrones.lua`: `Speed=16000` (the Wasp's own `move_speed`), `Accel=8000`,
+`ClimbRate=8000`, `ExitDirection=(-998,-70)` (184 degrees, the measured pallet gap). Owner on the
+result: *"Ok that was good."* `SetHubDroneMode` and `SetHubDroneTune` stay as the console surface.
+
+**1. Remote stations: register the hub as their controller (owner approved, 2026-09-23).** A
+station beyond the hub's 15 hexes shows vanilla's `NoDroneHub` — *"Too far from working Drone
+controller"* — and its maintenance stalls with *"No Drone Hub in range"*. The check is **list
+membership, not distance**: `Building:IsOutsideCommandRange` only walks `self.command_centers` and
+asks each for `CanCommandDrones()` (`Building.lua:853-858`), and `GetMaintenanceStuckReason` reads
+the same list (`RequiresMaintenance.lua:297-300`). So call `station:AddCommandCenter(hub)` for every
+station on the hub's connected track graph — the identical call vanilla makes from its hex-circle
+sweep (`DroneControl.lua:466-468`), with connectivity as the criterion instead of proximity. The
+owner asked whether it could be satisfied or bluffed "as long as it track is connected to the hubs
+track" and approved this on being shown it is the honest call: *"Ok that should be fine."*
+
+Consequences to build for, and to hand link 5: vanilla's own maintenance machinery will then assign
+hub drones to those stations, so **station upkeep may need no dispatch of yours at all** — check
+before building one. `Idle`'s "stay close to the command_center" test (`Drone.lua:710-712`) is a
+distance check against the controller, so a drone at a far station may bounce home repeatedly;
+that is a smoke item. `command_centers` persists, which puts a reference to our hub on a vanilla
+station — no new exposure, since the hub is a mod building and a save without the mod loses it
+either way, but it is not the same as mod state on a vanilla drone, which stays forbidden.
+
+**2. Reachability is enforced here and nowhere else** — see the section above; engine flight can
+physically reach an isolated network, so dispatch must refuse an off-graph target.
+
+**Still owed to link 5, not to you:** the work pose at the break by eye, the `Idle` watch
+(`SMROptInHubFlight.Lost`), save cancellation and relaunch, and `OI-26`.
+
 ## Lifecycle
 
 Append what the smoke must cover into link 5's notes, then **delete this file and strike its row in

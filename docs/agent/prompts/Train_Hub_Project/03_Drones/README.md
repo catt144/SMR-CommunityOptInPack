@@ -7,8 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | **NEXT.** The owner A/Bs engine mode against the scripted flight, then judges the flight by eye and tunes it: curves, heading, bank, heights, speed, launch, landing, work descent, a passing train, stations, hoods and tunnels. Records values and checks import survival |
-| 4 | `4_HUB_high.md` | high | no | ⛔ Waits for the structure pass. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
+| 4 | `4_HUB_high.md` | high | no | **NEXT**, once the structure pass is out of `20_TrainHub.lua`. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
 | 5 | `5_SMOKE_medium.md` | medium | **yes** | `DESIGN.md` §5's smoke with the owner, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
 
