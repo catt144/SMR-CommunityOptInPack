@@ -402,12 +402,23 @@ function RS.Sweep()
 	end
 	RS.trains = found
 
+	-- route_ok is the stall test. Train:TransferCargo reads
+	-- self.city.train_track_routes[track] and returns NO WORK when that route
+	-- omits the current or the next station (Train.lua:865-874); GotoStation
+	-- goes Idle when GetArrivalTrack cannot find both (:339-342). Either way
+	-- the train sits with no error and OnMsg.NewHour restarts it into the
+	-- same dead end (:58-70). A false here names the train that is stuck.
 	log("%d train(s):", #found)
 	for i, t in ipairs(found) do
-		log("  [%d] handle %s  %s  pos %s  cmd %s  station %s  track %s",
+		local routes = t.city and t.city.train_track_routes
+		local route = routes and IsValid(t.track) and routes[t.track]
+		local nxt = IsValid(t.track) and IsValid(t.current_station) and t:GetNextStation()
+		local ok = route and IsValid(t.current_station) and table.find(route, t.current_station)
+			and (not IsValid(nxt) or table.find(route, nxt)) and true or false
+		log("  [%d] handle %s  %s  pos %s  cmd %s  station %s  track %s  route_ok %s",
 			i, tostring(t.handle), RS.MapName(t), tostring(t:GetPos()), tostring(t.command),
 			tostring(t.current_station and t.current_station.handle),
-			tostring(t.track and t.track.handle))
+			tostring(t.track and t.track.handle), tostring(ok))
 	end
 	return #found
 end
@@ -423,6 +434,103 @@ function RS.Kill(i)
 	DoneObject(t)
 	RS.trains = false
 	return true
+end
+
+-- ---------------------------------------------------------------------------
+-- 5b. the route table, and why linking can stall trains that never use the shaft
+--
+-- MEASURED 2026-09-23: after Link(1,3), trains that had nothing to do with
+-- the shaft stopped, silently. The mechanism is vanilla's route model, and the
+-- link exposes it:
+--   * A "route" is one LINEAR chain of stations. Station:GetConnectedTrack
+--     passes a train straight through only -- it wants a connector on the
+--     opposite side (Station.lua:931-962). There is no branch concept.
+--   * RebuildTrainRoutes enumerates a route from every (station, track) whose
+--     track is not yet in the table (:316), then writes EVERY segment of that
+--     route with routes[segment] = route (:331) -- an unconditional overwrite.
+--   * Before the link the shaft spur was a dead end: EnumRouteTracks returns
+--     nil for a chain with one station (:297), so nothing was written for it.
+--     After the link the spur is a live branch off a through-station, so a
+--     second route is enumerated through it, and its retrace (:321-327) walks
+--     back through the station and on along ONE side of the original line,
+--     overwriting those segments with a route whose station list lacks the
+--     other side.
+--   * A train on an overwritten segment then cannot find its destination:
+--     GetArrivalTrack -> nil -> GotoStation goes Idle (Train.lua:339-342), or
+--     TransferCargo -> no work -> LoadTrain goes Idle (:865-874, :285). No
+--     error is raised. OnMsg.NewHour restarts it into the same wall (:58-70).
+-- Routes() prints the falsifier: a track whose route omits one of its own two
+-- end stations is exactly this signature. Unlink() is the undo.
+
+function RS.Routes()
+	local seen, n = {}, 0
+	for _, city in ipairs(Cities or empty_table) do
+		local routes = city.train_track_routes or empty_table
+		local broken = 0
+		for track, route in pairs(routes) do
+			if not seen[route] then
+				seen[route] = true
+				n = n + 1
+				local names = {}
+				for _, st in ipairs(route) do
+					names[#names + 1] = tostring(st.handle) .. "/" .. RS.MapName(st)
+				end
+				log("route #%d (%s city table) loop=%s: %s", n, RS.MapName(city),
+					tostring(route.loop), table.concat(names, " > "))
+			end
+		end
+		for track, route in pairs(routes) do
+			if IsValid(track) then
+				local miss = {}
+				for _, st in ipairs{track:GetStartStation(), track:GetEndStation()} do
+					if IsValid(st) and not IsKindOf(st, "TrackTunnelBase") and not table.find(route, st) then
+						miss[#miss + 1] = tostring(st.handle)
+					end
+				end
+				if #miss > 0 then
+					broken = broken + 1
+					log("  BROKEN track %s (%s): its route omits its own end station(s) %s -- a train on it goes Idle",
+						tostring(track.handle), RS.MapName(track), table.concat(miss, ","))
+				end
+			end
+		end
+		log("%s city: %d route(s) seen so far, %d broken track(s)", RS.MapName(city), n, broken)
+	end
+	return n
+end
+
+-- The undo. Breaks every cross-map pair both ways, removes both mouths, and
+-- rebuilds routes. The spur tracks become dead ends again, which is exactly
+-- the pre-link state: EnumRouteTracks writes nothing for them.
+-- Disabling the mod is NOT an undo: linked_obj is vanilla's own saved field,
+-- so a cross-map pair outlives this mod, and without the guards vanilla would
+-- run AddPFTunnel and MergeGrids across maps on the next load.
+function RS.Unlink()
+	local pairs_found, done = {}, {}
+	AllMapsForEach("map", "TrackTunnelBase", function(t)
+		if IsCrossMap(t) and not done[t] then
+			done[t] = true
+			done[t.linked_obj] = true
+			pairs_found[#pairs_found + 1] = { t, t.linked_obj }
+		end
+	end)
+	if #pairs_found == 0 then
+		log("no cross-map pair to unlink")
+		return 0
+	end
+	for _, p in ipairs(pairs_found) do
+		local a, b = p[1], p[2]
+		log("unlinking %s (%s) <-> %s (%s); removing both mouths",
+			tostring(a.handle), RS.MapName(a), tostring(b.handle), RS.MapName(b))
+		a.linked_obj = false
+		b.linked_obj = false
+		DoneObject(a)
+		DoneObject(b)
+	end
+	RebuildTrainRoutes()
+	log("unlinked %d pair(s); routes rebuilt. Run Routes() -- expect 0 broken -- then Sweep().",
+		#pairs_found)
+	return #pairs_found
 end
 
 -- ---------------------------------------------------------------------------
@@ -445,7 +553,7 @@ function RS.Status()
 		trains = trains + #((city.labels and city.labels.Train) or empty_table)
 	end
 	log("trains: %d", trains)
-	log("List() / Link(i,j) / Sweep() / Kill(i) / AllowUnderground(true|false)")
+	log("List() / Link(i,j) / Routes() / Unlink() / Sweep() / Kill(i) / AllowUnderground(true|false)")
 	return shafts
 end
 
