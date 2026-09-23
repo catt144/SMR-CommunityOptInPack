@@ -2163,8 +2163,20 @@ still); glass entity `SMROptInTrainHub6Glass` at 20:23, one material (`blendGlas
 off, TwoSidedShading on, no shadows; this editor build has no TransparentDecal field), BC compiled
 DXGI 78 = BC3 sRGB so the alpha survived, NM collapsed to 4×4 (flat), RM BC1, SI BC4, entity
 box ±24.85 × ±24.97 m at z 7.745-7.895. The editor's save dropped the drones code-list line a
-third time (restored). The owner's look at the orange frames, the crown pool and the glass is
-next; then the whole-hub cost reading.
+third time (restored).
+
+**Owner's look, 2026-09-22 ~20:30, from the deck at a parking spot — two rulings.** *"Don't like
+the orange, and we try a green something on the darker side like a forest green. And the glass
+should be fully transparent, there is a blue line running through it."* The glass itself worked
+first time (transparent pane inside the frame, the deck visible through it). Built, assets
+`9abe3de` (Opus, guards rerun by the orchestrator: `validate_structure.py` PASS 0 failures, BC
+`ce78edb0…`): `SIDING_LINE_COLOUR '#1B5E20'` (27,94,32), Siding core 33,274 texels all exactly
+that, 0 lit green outside Siding, Line_Arm 37,776 all (0,40,255), bays' yellow 14,672 intact; NM/RM/SI
+unchanged; 135/135, 99/99, crown pass and rim bleed proofs PASS. Glass: new knob `GLASS_LINE`
+(False = no lit line; True is the old wave), `GLASS_OPACITY` .24 → .06 (0.0 would remove the pane's
+tint and reflections entirely; .06 is the prototype, one knob); BC `188aaab7…` alpha exactly 15 over
+the pane, SI max 0, RM unchanged; baked on glass UV `a0aa8955…`. Two texture compiles owed (body
+material, glass material), then the owner's look; then the whole-hub cost reading.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
