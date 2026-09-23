@@ -25,11 +25,17 @@ assert metadata.count('"Code/30_TrainHubDrones.lua"') == 1, "Flight code registr
 lua = LuaRuntime(unpack_returned_tuples=True)
 lua.execute(r'''
 OnMsg = {}; empty_table = {}; clock = 0; created = 0; removed = 0
-Min=math.min; Max=math.max
-function Clamp(v,a,b) return Max(a,Min(b,v)) end
-function MulDivRound(a,b,c) return math.floor(a*b/c+.5) end
+-- The engine's Min/Max/Clamp are INTEGER helpers and its `/` divides integers as integers
+-- (shipped idiom `a * 1.0 / b`). They are deliberately absent here so the flight source cannot
+-- lean on them; MulDivRound is the engine's integer function and keeps its integer contract.
+Min=nil; Max=nil; Clamp=nil
+function MulDivRound(a,b,c)
+  assert(math.type(a)=='integer' and math.type(b)=='integer' and math.type(c)=='integer','MulDivRound takes integers')
+  return math.floor(a*b/c+.5)
+end
+local function isint(v) return math.type(v)=='integer' end
 local P={}; P.__index=P
-function point(x,y,z) return setmetatable({X=x,Y=y,Z=z},P) end
+function point(x,y,z) assert(isint(x) and isint(y) and isint(z),'engine points take integers'); return setmetatable({X=x,Y=y,Z=z},P) end
 function P:x() return self.X end; function P:y() return self.Y end; function P:z() return self.Z end
 P.__add=function(a,b) return point(a.X+b.X,a.Y+b.Y,a.Z+b.Z) end
 P.__sub=function(a,b) return point(a.X-b.X,a.Y-b.Y,a.Z-b.Z) end
@@ -57,7 +63,7 @@ function O:GetRelativePoint(p)
   local angle=(self.angle or 0)*math.pi/180
   local scale=(self.scale or 100)/100
   return self.pos+point(math.floor((p.X*math.cos(angle)-p.Y*math.sin(angle))*scale+.5),
-    math.floor((p.X*math.sin(angle)+p.Y*math.cos(angle))*scale+.5),p.Z*scale)
+    math.floor((p.X*math.sin(angle)+p.Y*math.cos(angle))*scale+.5),math.floor(p.Z*scale+.5))
 end
 function O:GetSpotBeginIndex(name)
   if self.missing then return -1 end
@@ -74,7 +80,7 @@ function O:GetStartStation() return self.start_el.station end
 function O:GetEndStation() return self.end_el.station end
 -- Engine mocks record the call contract. A timed SetPos starts where the object IS.
 function O:SetPos(p,time)
-  assert(p.X==math.floor(p.X) and p.Y==math.floor(p.Y) and p.Z==math.floor(p.Z),'engine points are integers')
+  assert(time==nil or isint(time),'SetPos time is an integer')
   self.calls[#self.calls+1]={from=self.pos,to=p,time=time or 0,clock=clock,visible=self.visible,state=self.state}
   self.pos=p; self.pos_time=time or 0
 end
@@ -82,13 +88,13 @@ function O:SetAngle(a) self.angle=a end
 function O:GetAngle() return self.angle or 0 end
 function O:SetCurvature(value) assert(value==false); self.curvature=value end
 function O:SetAcceleration(value)
-  assert(value==math.floor(value),'engine acceleration is an integer')
+  assert(isint(value),'HGE::l_SetAcceleration: Expected integer')
   local c=self.calls[#self.calls]
   if c and c.clock==clock and c.acc==nil then c.acc=value else self.rest_acc=value end
 end
 function O:SetRollPitchYaw(roll,pitch,yaw,time)
   assert(time>0 and pitch==0 and math.abs(roll)<=math.abs(SMROptInHubFlight.BankAngle))
-  assert(roll==math.floor(roll) and yaw==math.floor(yaw))
+  assert(isint(roll) and isint(pitch) and isint(yaw) and isint(time),'SetRollPitchYaw takes integers')
   local c=self.calls[#self.calls]
   if c and c.clock==clock then c.roll=roll; c.yaw=yaw; c.rot_time=time end
   self.angle=yaw; self.roll=roll; self.turn_time=time
@@ -129,12 +135,21 @@ function drive(limit)
   while true do
     local w=SMROptInHubFlight.Sample()
     if not w then return wakes,false end
+    assert(isint(w),'Sleep takes an integer')
     if limit and clock+w>limit then clock=limit; SMROptInHubFlight.Sample(); return wakes,true end
     clock=clock+w; wakes=wakes+1
   end
 end
 ''')
-lua.execute(SOURCE.read_text(encoding="utf8"))
+source_text = SOURCE.read_text(encoding="utf8")
+# Static gate: this engine's `/` divides integers as integers, so the flight source may divide
+# only inside div() (which coerces to float first) and may not call the engine's integer helpers.
+import re
+_code = "\n".join(line.split("--", 1)[0] for line in source_text.split("\n"))
+_bare = [line.strip() for line in _code.split("\n") if re.search(r"(?<!/)/(?!/)", line)]
+assert _bare == ["local function div(a, b) return (a * 1.0) / b end"], "bare division outside div(): %r" % _bare
+assert not re.search(r"\b(Min|Max|Clamp)\(", _code), "engine integer helper used on flight numbers"
+lua.execute(source_text)
 lua.execute(r'''
 F=SMROptInHubFlight
 h=hub(); s=obj(20000,0); f=obj(40000,0)
@@ -200,7 +215,7 @@ assert(clock==finished and drone.deleted and not F.Status(), 'removed exactly at
 chords=0; instant=0; joins=0; breaks=0; max_chord=0; min_chord=1e9
 for i,c in ipairs(drone.calls) do
   if c.time==0 then instant=instant+1 else
-    chords=chords+1; max_chord=Max(max_chord,c.time); min_chord=Min(min_chord,c.time)
+    chords=chords+1; max_chord=math.max(max_chord,c.time); min_chord=math.min(min_chord,c.time)
     assert(c.rot_time==c.time, 'heading/bank interpolate over the same chord time')
     local p=drone.calls[i-1]
     if p and p.time>0 then
@@ -242,9 +257,9 @@ for i,s in ipairs(steps) do
   if s.state=='fly' then
     assert(s.finish-s.start>=1 and s.finish-s.start<=F.ChordTime)
     assert(s.v0>=-1 and s.v1>=-1 and s.len>0)
-    if not s.curved then max_acc=Max(max_acc,math.abs(s.acc)) end
-    max_roll=Max(max_roll,math.abs(s.roll))
-    if prev and prev.state=='fly' and prev.finish==s.start then worst_join=Max(worst_join,math.abs(prev.v1-s.v0)) end
+    if not s.curved then max_acc=math.max(max_acc,math.abs(s.acc)) end
+    max_roll=math.max(max_roll,math.abs(s.roll))
+    if prev and prev.state=='fly' and prev.finish==s.start then worst_join=math.max(worst_join,math.abs(prev.v1-s.v0)) end
     local nxt=steps[i+1]
     if nxt and nxt.state~='fly' then
       assert(math.abs(s.v1)<1 and s.roll==0, 'arrives at rest, level: v1='..s.v1..' roll='..s.roll)
@@ -305,7 +320,7 @@ assert(mid.X<6000 and mid.Y>0 and mid.X>3000, 'genuinely curved, not an axis ler
 rev,rev_total=F.Trajectory({{p={0,0,0},stop=true},{p={0,0,1000}},{p={0,0,0},stop=true}},0,0)
 local rplan={steps=rev,total=rev_total}; for i,s in ipairs(rev) do s.index=i end
 local top=0
-for t=0,rev_total do local p=F.Position(rplan,t); assert(p.X==0 and p.Y==0 and p.Z>=0 and p.Z<=1000); top=Max(top,p.Z) end
+for t=0,rev_total do local p=F.Position(rplan,t); assert(p.X==0 and p.Y==0 and p.Z>=0 and p.Z<=1000); top=math.max(top,p.Z) end
 assert(top==1000)
 -- A concealment seam is exact: the chord ends on it, the corner there is not rounded.
 seam,_=F.Trajectory({{p={0,0,0},stop=true},{p={5000,0,0}},{p={10000,3000,0},hidden=true},{p={15000,3000,0}},{p={20000,3000,0},stop=true}},0,0)
@@ -342,7 +357,7 @@ clock=300000; drone=SpawnHubDrone(h); drive(clock+6000); assert(F.Status().phase
 ReturnHubDrone(); drive(); assert(drone.deleted and drone.calls[#drone.calls].to.Z==-2000)
 clock=400000; drone=SpawnHubDrone(h); drive(clock+1200); local z0=drone.pos.Z
 ReturnHubDrone(); local zmax=z0
-while F.Status() do local w=F.Sample(); if not w then break end; clock=clock+w; zmax=Max(zmax,drone.pos.Z) end
+while F.Status() do local w=F.Sample(); if not w then break end; clock=clock+w; zmax=math.max(zmax,drone.pos.Z) end
 assert(zmax<F.PitExitZ and zmax>z0 and drone.deleted, 'brakes upward then returns: '..z0..' -> '..zmax)
 ''')
 
@@ -410,7 +425,7 @@ while F.Update(r,clock) do
   local yaw=r.drone:GetAngle(); local dt=r.drone.turn_time or 1
   local jump=math.abs((yaw-prev_yaw+10800)%21600-10800)
   assert(jump<=F.YawRate*dt/1000+1, 'yaw turns no faster than the Wasp turns')
-  max_yaw_step=Max(max_yaw_step,jump); prev_yaw=yaw
+  max_yaw_step=math.max(max_yaw_step,jump); prev_yaw=yaw
   assert(r.drone.battery==F.BatteryMax and not r.drone.command and not r.drone.curvature)
   clock=clock+F.Update(r,clock)
 end
@@ -471,20 +486,22 @@ if args.clearance_output:
     lua.globals().spot_floor=lua.table_from(spots['Pitfloor'])
     lua.globals().spot_rim=lua.table_from(spots['Pitrim'])
     lua.execute('''function GetEntitySpotPos(_,idx)
-      local p=idx==0 and spot_floor or spot_rim; return point(p[1],p[2],p[3]) end''')
+      local p=idx==0 and spot_floor or spot_rim
+      return point(math.floor(p[1]+.5),math.floor(p[2]+.5),math.floor(p[3]+.5)) end''')
     routes={}
     for name,spot in spots.items():
         if not name.startswith('Trackconnector'): continue
         lua.globals().connector=lua.table_from(spot)
         lua.execute('''mh=hub(); ms=obj(20000,0); local c=connector
-        mt=track(mh,ms,{{c[1],c[2],c[3]},{c[1]*4,c[2]*4,c[3]}})
+        local function r(v) return math.floor(v+.5) end -- spot positions are engine integers
+        mt=track(mh,ms,{{r(c[1]),r(c[2]),r(c[3])},{r(c[1]*4),r(c[2]*4),r(c[3])}})
         mr=F.Create(mh,0); F.Send(mr,mt.elements[2],true)
         export={}
         for _,p in ipairs(mr.plan.prims) do
           if p.start and p.finish<=mr.arrival then
             local bank=0
             for _,s in ipairs(mr.plan.steps) do
-              if s.state=='fly' and s.start>=p.start and s.finish<=p.finish then bank=Max(bank,math.abs(s.roll)) end
+              if s.state=='fly' and s.start>=p.start and s.finish<=p.finish then bank=math.max(bank,math.abs(s.roll)) end
             end
             export[#export+1]={start=p.start,finish=p.finish,bank=math.ceil(bank),pts=p.pts}
           end

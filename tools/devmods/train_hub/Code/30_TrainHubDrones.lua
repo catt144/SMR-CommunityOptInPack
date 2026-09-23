@@ -55,6 +55,23 @@ local F = SMROptInHubFlight
 local active, save_gate, driver = false, false, false
 local visuals = {}
 
+-- NUMBERS. This engine's Lua divides an integer by an integer as integers: shipped code writes
+-- `party_size * 1.0 / remaining_seats`, `trip_time + 0.0` and DivAsFloats() before dividing
+-- (Factions.lua:180, TransportStatistics.lua:56, Legislature.lua:1344), and Min/Max/Clamp are
+-- its INTEGER helpers (LuaSharedLib docs). A standard-Lua mock cannot show this, so the rule
+-- here is mechanical: every fractional division goes through div(), min/max/clamp are the
+-- standard library's, and every number handed to the engine goes through int(). The smoke
+-- refuses a bare `/` and a Min/Max/Clamp call in this file.
+local function div(a, b) return (a * 1.0) / b end
+local tointeger = math.tointeger or function(v) return v end
+local function int(x)
+  local v = math.floor(x + .5)
+  if v ~= v or v == math.huge or v == -math.huge then return 0 end
+  return tointeger(v) or 0
+end
+local min, max = math.min, math.max
+local function clamp(v, lo, hi) return v < lo and lo or (v > hi and hi or v) end
+
 local function live(o)
   return IsValid(o) and not o.destroyed and not IsBeingDestructed(o)
 end
@@ -176,7 +193,7 @@ function F.Route(hub, target)
         local first = elevated(elements[1])
         if not first then return end
         local high = path[#path].pos
-        local z = Max(high:z(), first:z())
+        local z = max(high:z(), first:z())
         append(path, point(high:x(), high:y(), z), false, hub)
         append(path, point(first:x(), first:y(), z), false, elements[1])
       end
@@ -220,7 +237,7 @@ end
 -- All arithmetic in engine units (cm) and game ms; vectors are {x,y,z} tables.
 ---------------------------------------------------------------------------------------------
 local function V(p) return {p:x(), p:y(), p:z()} end
-local function P(v) return point(math.floor(v[1] + .5), math.floor(v[2] + .5), math.floor(v[3] + .5)) end
+local function P(v) return point(int(v[1]), int(v[2]), int(v[3])) end
 local function sub(a, b) return {a[1]-b[1], a[2]-b[2], a[3]-b[3]} end
 local function add(a, b) return {a[1]+b[1], a[2]+b[2], a[3]+b[3]} end
 local function scale(a, k) return {a[1]*k, a[2]*k, a[3]*k} end
@@ -230,7 +247,7 @@ local function norm(a) return math.sqrt(a[1]^2 + a[2]^2 + a[3]^2) end
 local function unit(a)
   local l = norm(a)
   if l == 0 then return {0, 0, 0}, 0 end
-  return {a[1]/l, a[2]/l, a[3]/l}, l
+  return {div(a[1], l), div(a[2], l), div(a[3], l)}, l
 end
 local function lerp(a, b, t) return {a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t, a[3]+(b[3]-a[3])*t} end
 
@@ -252,7 +269,7 @@ local function curvature(pts, u)
   local d1, d2 = bez_d1(pts, u), bez_d2(pts)
   local l = norm(d1)
   if l == 0 then return 0 end
-  return norm(cross(d1, d2)) / l^3
+  return div(norm(cross(d1, d2)), l^3)
 end
 -- Curvature of the path's horizontal projection (what a banked turn answers to) and the
 -- turn's sign: positive is a left turn (yaw increasing). Vertical-plane corners bank nothing.
@@ -262,7 +279,7 @@ local function yaw_curvature(pts, u)
   local l = norm(d1)
   if l == 0 or lh < .2 * l then return 0, 0, 0 end
   local z = d1[1]*d2[2] - d1[2]*d2[1]
-  return math.abs(z) / lh^3, z > 0 and 1 or (z < 0 and -1 or 0), lh / l
+  return div(math.abs(z), lh^3), z > 0 and 1 or (z < 0 and -1 or 0), div(lh, l)
 end
 
 local SAMPLES = 32
@@ -275,12 +292,12 @@ local function primitive(pts, hidden, owner, cap)
   end
   local table_s, prev, s, kmax = {0}, pts[1], 0, 0
   for i = 1, SAMPLES do
-    local q = bez(pts, i / SAMPLES)
+    local q = bez(pts, div(i, SAMPLES))
     s = s + norm(sub(q, prev)); table_s[i+1] = s; prev = q
   end
-  for i = 0, SAMPLES do kmax = Max(kmax, (curvature(pts, i / SAMPLES))) end
+  for i = 0, SAMPLES do kmax = max(kmax, (curvature(pts, div(i, SAMPLES)))) end
   local d0, d1 = unit(bez_d1(pts, 0)), unit(bez_d1(pts, 1))
-  prim.turn = math.deg(math.acos(Clamp(dot(d0, d1), -1, 1))) * 60 -- angle minutes of deflection
+  prim.turn = math.deg(math.acos(clamp(dot(d0, d1), -1, 1))) * 60 -- angle minutes of deflection
   prim.len, prim.table, prim.kappa = s, table_s, kmax
   return prim
 end
@@ -288,34 +305,34 @@ end
 -- arc length -> position and Bezier parameter
 local function prim_point(prim, s)
   if not prim.curved then
-    return lerp(prim.pts[1], prim.pts[2], prim.len > 0 and Clamp(s / prim.len, 0, 1) or 0), 0
+    return lerp(prim.pts[1], prim.pts[2], prim.len > 0 and clamp(div(s, prim.len), 0, 1) or 0), 0
   end
   local t = prim.table
   if s <= 0 then return bez(prim.pts, 0), 0 end
   if s >= prim.len then return bez(prim.pts, 1), 1 end
   local lo, hi = 1, #t
   while hi - lo > 1 do
-    local mid = math.floor((lo + hi) / 2)
+    local mid = math.floor(div(lo + hi, 2))
     if t[mid] <= s then lo = mid else hi = mid end
   end
   local span = t[hi] - t[lo]
-  local u = ((lo - 1) + (span > 0 and (s - t[lo]) / span or 0)) / SAMPLES
+  local u = div((lo - 1) + (span > 0 and div(s - t[lo], span) or 0), SAMPLES)
   return bez(prim.pts, u), u
 end
 
 local function dir_cap(d)
   local uz, cap = math.abs(d[3]), F.Speed
-  if uz > 1e-6 then cap = Min(cap, F.ClimbRate / uz) end
+  if uz > 1e-6 then cap = min(cap, div(F.ClimbRate, uz)) end
   return cap
 end
 
 local function prim_cap(p)
   local cap = p.cap or F.Speed
-  if not p.curved then return Max(50, Min(cap, dir_cap(p.dir))) end
+  if not p.curved then return max(50, min(cap, dir_cap(p.dir))) end
   local d0, d1 = unit(bez_d1(p.pts, 0)), unit(bez_d1(p.pts, 1))
-  cap = Min(cap, dir_cap(d0), dir_cap(d1))
-  if p.kappa > 0 then cap = Min(cap, math.sqrt(F.Accel / p.kappa)) end
-  return Max(cap, 50) -- never below 0.5 m/s so a corner's time stays finite
+  cap = min(cap, dir_cap(d0), dir_cap(d1))
+  if p.kappa > 0 then cap = min(cap, math.sqrt(div(F.Accel, p.kappa))) end
+  return max(cap, 50) -- never below 0.5 m/s so a corner's time stays finite
 end
 
 -- nodes: {p={x,y,z}, hidden (of the leg ARRIVING here), owner, stop, dwell, sharp, cap, radius}
@@ -347,7 +364,7 @@ local function build_geometry(nodes)
     if a.hidden ~= b.hidden then node.sharp = true end -- a concealment seam is exact, never rounded
     trim[k] = 0
     if not node.stop and not node.sharp and c < straight_cos then
-      local d = Min(F.TurnRadius, node.radius or F.TurnRadius, a.len / 2, b.len / 2)
+      local d = min(F.TurnRadius, node.radius or F.TurnRadius, div(a.len, 2), div(b.len, 2))
       if d >= 20 then trim[k] = d end
     end
   end
@@ -361,7 +378,7 @@ local function build_geometry(nodes)
     prims[#prims+1] = straight
     if (trim[k+1] or 0) > 0 then
       local corner = primitive({b, list[k+1].p, add(list[k+1].p, scale(legs[k+1].dir, trim[k+1]))},
-        leg.hidden, legs[k+1].owner, Min(leg.cap or F.Speed, legs[k+1].cap or F.Speed))
+        leg.hidden, legs[k+1].owner, min(leg.cap or F.Speed, legs[k+1].cap or F.Speed))
       prims[#prims+1] = corner
     end
   end
@@ -374,17 +391,17 @@ local function profile(prims, v_start)
   for j, p in ipairs(prims) do
     p.vcap = prim_cap(p)
     local v = (j == M or (p.end_node and p.end_node.stop)) and 0 or p.vcap
-    if j < M then v = Min(v, prim_cap(prims[j+1])) end
+    if j < M then v = min(v, prim_cap(prims[j+1])) end
     n[j+1] = v
   end
-  n[1] = Min(v_start or 0, prims[1] and prims[1].vcap or 0)
+  n[1] = min(v_start or 0, prims[1] and prims[1].vcap or 0)
   for j = 1, M do
     local p = prims[j]
-    n[j+1] = Min(n[j+1], p.curved and n[j] or math.sqrt(n[j]^2 + 2 * F.Accel * p.len))
+    n[j+1] = min(n[j+1], p.curved and n[j] or math.sqrt(n[j]^2 + 2 * F.Accel * p.len))
   end
   for j = M, 1, -1 do
     local p = prims[j]
-    n[j] = Min(n[j], p.curved and n[j+1] or math.sqrt(n[j+1]^2 + 2 * F.Accel * p.len))
+    n[j] = min(n[j], p.curved and n[j+1] or math.sqrt(n[j+1]^2 + 2 * F.Accel * p.len))
   end
   return n
 end
@@ -397,15 +414,15 @@ local function push_chord(steps, a, b, v0, v1, prim, t, v_mid, u_mid)
   if len < .5 then return t end
   local prev = steps[#steps]
   local v_in = (prev and prev.state == "fly" and prev.finish == t) and prev.v1 or v0
-  local T = Max(1, math.floor(2 * len / Max(1, v_in + v1) * 1000 + .5))
-  local acc = 2 * (len - v_in * T / 1000) / (T / 1000)^2
-  local v_out = v_in + acc * T / 1000
-  if v_out < 0 then acc = -v_in^2 / (2 * len); v_out = 0; T = Max(1, math.floor(2 * len / v_in * 1000 + .5)) end
+  local T = max(1, int(div(2 * len, max(1, v_in + v1)) * 1000))
+  local acc = div(2 * (len - div(v_in * T, 1000)), div(T, 1000)^2)
+  local v_out = v_in + div(acc * T, 1000)
+  if v_out < 0 then acc = -div(v_in^2, 2 * len); v_out = 0; T = max(1, int(div(2 * len, v_in) * 1000)) end
   local roll = 0
   if prim.curved and F.BankAngle ~= 0 then
     local kappa, sign, level = yaw_curvature(prim.pts, u_mid or .5)
     local lateral = ((v_mid or v_in) * level)^2 * kappa
-    roll = -sign * F.BankAngle * Min(1, lateral / F.Accel) -- left turn (yaw increasing): left bank
+    roll = -sign * F.BankAngle * min(1, div(lateral, F.Accel)) -- left turn (yaw increasing): left bank
   end
   steps[#steps+1] = {state = "fly", start = t, finish = t + T, a = av, b = bv, bp = bp, len = len,
     v0 = v_in, v1 = v_out, acc = acc, hidden = prim.hidden, owner = prim.owner, roll = roll,
@@ -416,13 +433,13 @@ local function push_chord(steps, a, b, v0, v1, prim, t, v_mid, u_mid)
 end
 
 local function trapezoid(L, v_in, v_out, cap)
-  cap = Max(cap, v_in, v_out)
-  local d_acc, d_dec = (cap^2 - v_in^2) / (2 * F.Accel), (cap^2 - v_out^2) / (2 * F.Accel)
+  cap = max(cap, v_in, v_out)
+  local d_acc, d_dec = div(cap^2 - v_in^2, 2 * F.Accel), div(cap^2 - v_out^2, 2 * F.Accel)
   if d_acc + d_dec <= L then
     return {{d_acc, v_in, cap}, {L - d_acc - d_dec, cap, cap}, {d_dec, cap, v_out}}
   end
-  local vp = math.sqrt(Max(0, (2 * F.Accel * L + v_in^2 + v_out^2) / 2))
-  return {{(vp^2 - v_in^2) / (2 * F.Accel), v_in, vp}, {(vp^2 - v_out^2) / (2 * F.Accel), vp, v_out}}
+  local vp = math.sqrt(max(0, div(2 * F.Accel * L + v_in^2 + v_out^2, 2)))
+  return {{div(vp^2 - v_in^2, 2 * F.Accel), v_in, vp}, {div(vp^2 - v_out^2, 2 * F.Accel), vp, v_out}}
 end
 
 -- Chords for one straight primitive between boundary speeds.
@@ -431,14 +448,14 @@ local function straight_chords(steps, p, v_in, v_out, t)
   for _, piece in ipairs(trapezoid(p.len, v_in, v_out, p.vcap)) do
     local d, v0, v1 = piece[1], piece[2], piece[3]
     if d > .5 then
-      local T = 2 * d / (v0 + v1) * 1000
-      local count = Max(1, math.ceil(T / F.ChordTime))
-      count = Min(count, Max(1, math.floor(T / F.ChordMinTime)))
-      local acc = (v1 - v0) / (T / 1000)
+      local T = div(2 * d, v0 + v1) * 1000
+      local count = max(1, math.ceil(div(T, F.ChordTime)))
+      count = min(count, max(1, math.floor(div(T, F.ChordMinTime))))
+      local acc = div(v1 - v0, div(T, 1000))
       for i = 1, count do
-        local tau0, tau1 = T * (i-1) / count / 1000, T * i / count / 1000
+        local tau0, tau1 = div(T * (i-1), count * 1000), div(T * i, count * 1000)
         local d0, d1 = v0 * tau0 + .5 * acc * tau0^2, v0 * tau1 + .5 * acc * tau1^2
-        t = push_chord(steps, (prim_point(p, base + d0)), (prim_point(p, base + Min(d, d1))),
+        t = push_chord(steps, (prim_point(p, base + d0)), (prim_point(p, base + min(d, d1))),
           v0 + acc * tau0, v0 + acc * tau1, p, t)
       end
       base = base + d
@@ -449,15 +466,15 @@ end
 
 -- Chords for one corner: constant speed, split by time and by turn angle.
 local function corner_chords(steps, p, v, t)
-  v = Max(v, 50)
-  local T = p.len / v * 1000
-  local count = Max(1, math.ceil(T / F.ChordTime), math.ceil(p.turn / Max(1, F.ChordAngle)))
-  count = Min(count, Max(1, math.floor(T / F.ChordMinTime)))
+  v = max(v, 50)
+  local T = div(p.len, v) * 1000
+  local count = max(1, math.ceil(div(T, F.ChordTime)), math.ceil(div(p.turn, max(1, F.ChordAngle))))
+  count = min(count, max(1, math.floor(div(T, F.ChordMinTime))))
   for i = 1, count do
-    local s0, s1 = p.len * (i-1) / count, p.len * i / count
+    local s0, s1 = div(p.len * (i-1), count), div(p.len * i, count)
     local a = prim_point(p, s0)
     local b = prim_point(p, s1)
-    local _, u_mid = prim_point(p, (s0 + s1) / 2)
+    local _, u_mid = prim_point(p, div(s0 + s1, 2))
     t = push_chord(steps, a, b, v, v, p, t, v, u_mid)
   end
   return t
@@ -516,7 +533,7 @@ local function step_at(plan, elapsed)
   if hi == 0 then return nil end
   if elapsed >= steps[hi].finish then return steps[hi], hi end
   while hi > lo do
-    local mid = math.floor((lo + hi) / 2)
+    local mid = math.floor(div(lo + hi, 2))
     if steps[mid].finish <= elapsed then lo = mid + 1 else hi = mid end
   end
   return steps[lo], lo
@@ -527,15 +544,15 @@ function F.Position(plan, elapsed)
   if not s then return nil end
   if s.state ~= "fly" then return s.bp end
   if elapsed >= s.finish then return s.bp end
-  local tau = Max(0, elapsed - s.start) / 1000
+  local tau = div(max(0, elapsed - s.start), 1000)
   local d = s.v0 * tau + .5 * s.acc * tau^2
-  return P(lerp(s.a, s.b, s.len > 0 and Clamp(d / s.len, 0, 1) or 0))
+  return P(lerp(s.a, s.b, s.len > 0 and clamp(div(d, s.len), 0, 1) or 0))
 end
 
 local function speed_at(plan, elapsed)
   local s = step_at(plan, elapsed)
   if not s or s.state ~= "fly" or elapsed >= s.finish then return 0, s end
-  return Max(0, s.v0 + s.acc * Max(0, elapsed - s.start) / 1000), s
+  return max(0, s.v0 + div(s.acc * max(0, elapsed - s.start), 1000)), s
 end
 
 ---------------------------------------------------------------------------------------------
@@ -551,7 +568,7 @@ local function issue(a, step, elapsed, skipped)
     drone:SetPos(F.Position(a.plan, elapsed))
     a.placed = true
   end
-  local remaining = Max(1, step.finish - elapsed)
+  local remaining = max(1, step.finish - elapsed)
   if step.state == "fly" then
     if a.state ~= "fly" then
       drone:StopFX()
@@ -562,22 +579,22 @@ local function issue(a, step, elapsed, skipped)
       a.visible = not step.hidden
       drone:SetVisible(a.visible)
     end
-    local T = remaining / 1000
+    local T = div(remaining, 1000)
     local acc = step.acc
     if elapsed > step.start then
-      acc = 2 * (step.len - step.v0 * T) / (T * T)
+      acc = div(2 * (step.len - step.v0 * T), T * T)
       if step.v0 * T > step.len then acc = 0 end
     end
     drone:SetPos(step.bp, remaining)
-    drone:SetAcceleration(math.floor(acc + .5))
+    drone:SetAcceleration(int(acc))
     local yaw = a.yaw or drone:GetAngle()
     local target = step.heading or yaw
     local delta = ((target - yaw + 10800) % 21600) - 10800
-    local limit = (drone.max_yaw_speed or F.YawRate) * remaining / 1000
-    yaw = (yaw + Clamp(delta, -limit, limit)) % 21600
+    local limit = div((drone.max_yaw_speed or F.YawRate) * remaining, 1000)
+    yaw = (yaw + clamp(delta, -limit, limit)) % 21600
     a.yaw = yaw
-    local roll = F.BankAngle ~= 0 and Clamp(step.roll or 0, -math.abs(F.BankAngle), math.abs(F.BankAngle)) or 0
-    drone:SetRollPitchYaw(math.floor(roll + .5), 0, math.floor(yaw + .5), remaining)
+    local roll = F.BankAngle ~= 0 and clamp(step.roll or 0, -math.abs(F.BankAngle), math.abs(F.BankAngle)) or 0
+    drone:SetRollPitchYaw(int(roll), 0, int(yaw), remaining)
   else
     -- At rest at step.bp: the last chord ended at zero speed and zero roll. Only now may
     -- the state, animation and FX change (Land -> MoveSleep -> LandingEnd order).
@@ -631,7 +648,7 @@ function F.Update(a, now)
   if save_gate or not hub_ok(a.hub) or not live(a.drone) or a.drone.command_center ~= a.hub
     or a.drone.command or a.drone.run_cmd_on_land then F.Remove(a); return false end
   a.drone.battery = a.drone.battery_max
-  local elapsed = Max(0, (now or GameTime()) - a.started)
+  local elapsed = max(0, (now or GameTime()) - a.started)
   local plan, steps = a.plan, a.plan.steps
   if elapsed >= plan.total then
     local last = steps[#steps]
@@ -646,7 +663,7 @@ function F.Update(a, now)
   end
   local i, target = a.issued or 0, a.issued or 0
   while steps[target+1] and steps[target+1].start <= elapsed do target = target + 1 end
-  local current = steps[Max(1, target)]
+  local current = steps[max(1, target)]
   if current.owner and not live(current.owner) then F.Remove(a); return false end
   if target > i then
     local skipped = false
@@ -654,7 +671,7 @@ function F.Update(a, now)
     issue(a, current, elapsed, skipped)
     a.issued = target
   end
-  return Max(1, current.finish - elapsed)
+  return max(1, current.finish - elapsed)
 end
 
 -- Services every registered visual; returns the shortest wait or nil when none is left.
@@ -662,7 +679,7 @@ function F.Sample()
   local wait
   for record in pairs(visuals) do
     local w = F.Update(record)
-    if w then wait = wait and Min(wait, w) or w end
+    if w then wait = wait and min(wait, w) or w end
   end
   return wait
 end
@@ -743,7 +760,7 @@ function F.Send(record, target, keep_start)
   local drone, start = record.drone, record.started
   -- The launch already flown keeps its exact chords; the drone dwells at the crest until now.
   local _, rise_total = F.Trajectory(rise_nodes(record.pit), 0, 0)
-  local wait = keep_start and 0 or Max(0, GameTime() - start - rise_total)
+  local wait = keep_start and 0 or max(0, GameTime() - start - rise_total)
   local nodes = rise_nodes(record.pit)
   nodes[#nodes].dwell = wait
   for i = 2, #path do nodes[#nodes+1] = {p = V(path[i].pos), hidden = path[i].hidden, owner = path[i].owner} end
@@ -752,8 +769,8 @@ function F.Send(record, target, keep_start)
   local arrival = total
   local at = steps[#steps].b or steps[#steps].pos
   local site = P(at)
-  for _, state in ipairs({{"constructStart", Max(1, drone:GetAnimDuration("constructStart"))},
-      {"constructIdle", F.WorkTime}, {"constructEnd", Max(1, drone:GetAnimDuration("constructEnd"))}}) do
+  for _, state in ipairs({{"constructStart", max(1, drone:GetAnimDuration("constructStart"))},
+      {"constructIdle", F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
     steps[#steps+1] = {state = state[1], start = total, finish = total + state[2], pos = at, bp = site, owner = path[#path].owner}
     total = total + state[2]
   end
@@ -772,7 +789,7 @@ function F.Send(record, target, keep_start)
   record.plan, record.target, record.remove = make_plan(steps, total, prims), target, true
   record.arrival, record.work_done, record.removed = start + arrival, start + work_done, start + total
   -- Chords the old plan issued are the same chords here; anything past them is still owed.
-  record.issued = Min(record.issued or 0, issued_before(steps, Max(0, GameTime() - start)))
+  record.issued = min(record.issued or 0, issued_before(steps, max(0, GameTime() - start)))
   return record
 end
 
@@ -805,11 +822,11 @@ function ReturnHubDrone()
   end
   local plan = a.plan
   local limit = a.arrival and a.arrival - a.started or plan.total
-  local elapsed = Min(Max(0, now - a.started), limit)
+  local elapsed = min(max(0, now - a.started), limit)
   local v_now, current = speed_at(plan, elapsed)
   local here = V(F.Position(plan, elapsed))
   local nodes = {{p = here, stop = v_now <= 0}}
-  local brake = v_now^2 / (2 * F.Accel)
+  local brake = div(v_now^2, 2 * F.Accel)
   local _, index = step_at(plan, elapsed)
   local flown = {}
   for i = 1, (index or 1) - 1 do
@@ -823,9 +840,9 @@ function ReturnHubDrone()
     local from = here
     while s and s.state == "fly" and s.finish <= limit and travelled < brake do
       local rest = norm(sub(s.b, from))
-      local cap = Max(s.v0, s.v1)
+      local cap = max(s.v0, s.v1)
       if travelled + rest >= brake then
-        local cut = lerp(from, s.b, rest > 0 and (brake - travelled) / rest or 1)
+        local cut = lerp(from, s.b, rest > 0 and div(brake - travelled, rest) or 1)
         nodes[#nodes+1] = {p = cut, hidden = s.hidden, owner = s.owner, sharp = true, cap = cap, stop = true}
         travelled = brake
       else
@@ -846,14 +863,14 @@ function ReturnHubDrone()
   end
   for i = #flown, 1, -1 do
     local s = flown[i]
-    nodes[#nodes+1] = {p = s.a, hidden = s.hidden, owner = s.owner, sharp = true, cap = Max(s.v0, s.v1)}
+    nodes[#nodes+1] = {p = s.a, hidden = s.hidden, owner = s.owner, sharp = true, cap = max(s.v0, s.v1)}
   end
   nodes[#nodes].stop = true
   local steps, total, prims = F.Trajectory(nodes, v_now, 0)
   fill_headings(steps)
   a.drone:StopFX()
-  a.plan, a.started, a.remove, a.returning, a.issued = make_plan(steps, Max(1, total), prims), now, true, true, 0
-  a.arrival, a.work_done, a.removed = false, false, now + Max(1, total)
+  a.plan, a.started, a.remove, a.returning, a.issued = make_plan(steps, max(1, total), prims), now, true, true, 0
+  a.arrival, a.work_done, a.removed = false, false, now + max(1, total)
   return a.drone, F.Status()
 end
 

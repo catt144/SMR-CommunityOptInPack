@@ -1,10 +1,10 @@
 {
   "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2m2_motion_clearance_receipt.json",
-  "head": "d77efa4759ab063ba17135b9b8f32848c97b24df",
+  "head": "2b3b32bbee41e7556f595d29360d660348a9d38a",
   "assets_head": "9abe3deec2d36d68bbe7db8d6e3f97169718b566",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "55469eb90cf00dc4deb1b329e611595395025a12fb3b648bd6074fe3d7dad832",
+  "source_sha256": "d645d4884e5f22a94e3d9b70cc2bb26575fad5eabfc5f34e3710a329aaf0a392",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -221,7 +221,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -512,7 +512,7 @@
     },
     "Trackconnector1_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 27.629523753244456,
+      "margin_m": 27.629205536535977,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -533,31 +533,31 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 31.263828274626682
+          "margin_m": 31.263955156428572
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 50.000806330759104
+          "margin_m": 50.000488114050626
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 37.26197385700422
+          "margin_m": 37.26165564029574
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 41.47674131305891
+          "margin_m": 41.47642309635043
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 36.663539408762034
+          "margin_m": 36.663221192053555
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 39.37650251301008
+          "margin_m": 39.3761842963016
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 36.60080671222883
+          "margin_m": 36.60048849552035
         }
       },
       "refined_objects": {}
@@ -589,7 +589,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 36.50951094755007
+          "margin_m": 36.508216878656306
         },
         "ring_pillars": {
           "object": "RingPillar_1",
@@ -597,19 +597,19 @@
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 27.985445929849874
+          "margin_m": 27.98415186095611
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 23.172244025553
+          "margin_m": 23.170949956659236
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 25.885207129801046
+          "margin_m": 25.883913060907282
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 23.109511329019796
+          "margin_m": 23.108217260126032
         }
       },
       "refined_objects": {}
@@ -641,27 +641,27 @@
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 36.133594710679255
+          "margin_m": 36.1322717129938
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 23.39476223692437
+          "margin_m": 23.393439239238916
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 27.60952969297906
+          "margin_m": 27.608206695293603
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 22.796327788682184
+          "margin_m": 22.795004790996728
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 25.50929089293023
+          "margin_m": 25.507967895244775
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 22.73359509214898
+          "margin_m": 22.732272094463525
         }
       },
       "refined_objects": {}
@@ -693,27 +693,27 @@
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 36.133594710679255
+          "margin_m": 36.1322717129938
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 23.39476223692437
+          "margin_m": 23.393439239238916
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 27.60952969297906
+          "margin_m": 27.608206695293603
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 22.796327788682184
+          "margin_m": 22.795004790996728
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 25.50929089293023
+          "margin_m": 25.507967895244775
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 22.73359509214898
+          "margin_m": 22.732272094463525
         }
       },
       "refined_objects": {}
@@ -745,34 +745,34 @@
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 37.13915380465052
+          "margin_m": 37.13783080685143
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 24.400321330895636
+          "margin_m": 24.39899833309655
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 28.615088786950324
+          "margin_m": 28.613765789151238
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 23.80188688265345
+          "margin_m": 23.800563884854363
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 26.514849986901496
+          "margin_m": 26.51352698910241
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 23.739154186120246
+          "margin_m": 23.73783118832116
         }
       },
       "refined_objects": {}
     },
     "Trackconnector1_curve_11": {
       "worst_object": "Platform_1",
-      "margin_m": 151.23360402712368,
+      "margin_m": 151.2369722912151,
       "worst_triangle_generator_m": [
         [
           40.0,
@@ -793,38 +793,38 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 166.23360402712368
+          "margin_m": 166.2369722912151
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 209.13360364565395
+          "margin_m": 209.13697190974537
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 196.39477117189907
+          "margin_m": 196.3981394359905
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 200.60953862795375
+          "margin_m": 200.61290689204517
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 195.79633672365688
+          "margin_m": 195.7997049877483
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 198.50929982790493
+          "margin_m": 198.51266809199635
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 195.73360402712368
+          "margin_m": 195.7369722912151
         }
       },
       "refined_objects": {}
     },
     "Trackconnector1_curve_12": {
       "worst_object": "Platform_1",
-      "margin_m": 158.23916312109492,
+      "margin_m": 158.24253138439093,
       "worst_triangle_generator_m": [
         [
           40.0,
@@ -845,31 +845,31 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 173.23916312109492
+          "margin_m": 173.24253138439093
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 216.1391627396252
+          "margin_m": 216.1425310029212
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 203.4003302658703
+          "margin_m": 203.40369852916632
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 207.615097721925
+          "margin_m": 207.618465985221
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 202.80189581762812
+          "margin_m": 202.80526408092413
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 205.51485892187617
+          "margin_m": 205.51822718517218
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 202.73916312109492
+          "margin_m": 202.74253138439093
         }
       },
       "refined_objects": {}
@@ -897,7 +897,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -1188,7 +1188,7 @@
     },
     "Trackconnector2_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 21.2458089041603,
+      "margin_m": 21.24583543578038,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -1209,31 +1209,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 31.701550786484518
+          "margin_m": 31.701577318104597
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 43.61709148167495
+          "margin_m": 43.61711801329503
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 30.878259007920065
+          "margin_m": 30.878285539540144
         },
         "beds": {
           "object": "Bay_1",
-          "margin_m": 36.843028371323385
+          "margin_m": 36.843054902943464
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 31.1231282400978
+          "margin_m": 31.12315477171788
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 35.97020571365457
+          "margin_m": 35.97012438222557
         },
         "portal_arches": {
           "object": "PortalRim_1",
-          "margin_m": 35.37490551605325
+          "margin_m": 35.37482418462425
         }
       },
       "refined_objects": {}
@@ -1317,7 +1317,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_3",
-          "margin_m": 35.182899854226605
+          "margin_m": 35.1815792685066
         },
         "ring_pillars": {
           "object": "RingPillar_7",
@@ -1325,19 +1325,19 @@
         },
         "beds": {
           "object": "Bay_3",
-          "margin_m": 26.658836743875042
+          "margin_m": 26.65751615815504
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 21.845632932229535
+          "margin_m": 21.844312346509533
         },
         "hoods": {
           "object": "Hood_4",
-          "margin_m": 24.55859603647758
+          "margin_m": 24.55727545075758
         },
         "portal_arches": {
           "object": "PortalSill_4",
-          "margin_m": 21.78290023569633
+          "margin_m": 21.78157964997633
         }
       },
       "refined_objects": {}
@@ -1369,27 +1369,27 @@
         },
         "centre_pillars": {
           "object": "Pillar_3",
-          "margin_m": 36.133594710679255
+          "margin_m": 36.1322717129938
         },
         "ring_pillars": {
           "object": "RingPillar_7",
-          "margin_m": 23.39476223692437
+          "margin_m": 23.393439239238916
         },
         "beds": {
           "object": "Bay_3",
-          "margin_m": 27.609531600327692
+          "margin_m": 27.608208602642236
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 22.796327788682184
+          "margin_m": 22.795004790996728
         },
         "hoods": {
           "object": "Hood_4",
-          "margin_m": 25.50929089293023
+          "margin_m": 25.507967895244775
         },
         "portal_arches": {
           "object": "PortalSill_4",
-          "margin_m": 22.73359509214898
+          "margin_m": 22.732272094463525
         }
       },
       "refined_objects": {}
@@ -1421,34 +1421,34 @@
         },
         "centre_pillars": {
           "object": "Pillar_3",
-          "margin_m": 37.13915380465052
+          "margin_m": 37.13783080685143
         },
         "ring_pillars": {
           "object": "RingPillar_7",
-          "margin_m": 24.400321330895636
+          "margin_m": 24.39899833309655
         },
         "beds": {
           "object": "Bay_3",
-          "margin_m": 28.615090694298956
+          "margin_m": 28.61376769649987
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 23.80188688265345
+          "margin_m": 23.800563884854363
         },
         "hoods": {
           "object": "Hood_4",
-          "margin_m": 26.514849986901496
+          "margin_m": 26.51352698910241
         },
         "portal_arches": {
           "object": "PortalSill_4",
-          "margin_m": 23.739154186120246
+          "margin_m": 23.73783118832116
         }
       },
       "refined_objects": {}
     },
     "Trackconnector2_curve_11": {
       "worst_object": "Platform_3",
-      "margin_m": 151.23360402712368,
+      "margin_m": 151.2369722912151,
       "worst_triangle_generator_m": [
         [
           -40.0,
@@ -1469,38 +1469,38 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 166.23360402712368
+          "margin_m": 166.2369722912151
         },
         "centre_pillars": {
           "object": "Pillar_3",
-          "margin_m": 209.13360364565395
+          "margin_m": 209.13697190974537
         },
         "ring_pillars": {
           "object": "RingPillar_7",
-          "margin_m": 196.39477117189907
+          "margin_m": 196.3981394359905
         },
         "beds": {
           "object": "Bay_3",
-          "margin_m": 200.6095405353024
+          "margin_m": 200.6129087993938
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 195.79633672365688
+          "margin_m": 195.7997049877483
         },
         "hoods": {
           "object": "Hood_4",
-          "margin_m": 198.50929982790493
+          "margin_m": 198.51266809199635
         },
         "portal_arches": {
           "object": "PortalSill_4",
-          "margin_m": 195.73360402712368
+          "margin_m": 195.7369722912151
         }
       },
       "refined_objects": {}
     },
     "Trackconnector2_curve_12": {
       "worst_object": "Platform_3",
-      "margin_m": 158.23916312109492,
+      "margin_m": 158.24253138439093,
       "worst_triangle_generator_m": [
         [
           -40.0,
@@ -1521,31 +1521,31 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 173.23916312109492
+          "margin_m": 173.24253138439093
         },
         "centre_pillars": {
           "object": "Pillar_3",
-          "margin_m": 216.1391627396252
+          "margin_m": 216.1425310029212
         },
         "ring_pillars": {
           "object": "RingPillar_7",
-          "margin_m": 203.4003302658703
+          "margin_m": 203.40369852916632
         },
         "beds": {
           "object": "Bay_3",
-          "margin_m": 207.61509962927363
+          "margin_m": 207.61846789256964
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 202.80189581762812
+          "margin_m": 202.80526408092413
         },
         "hoods": {
           "object": "Hood_4",
-          "margin_m": 205.51485892187617
+          "margin_m": 205.51822718517218
         },
         "portal_arches": {
           "object": "PortalSill_4",
-          "margin_m": 202.73916312109492
+          "margin_m": 202.74253138439093
         }
       },
       "refined_objects": {}
@@ -1573,7 +1573,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -1864,7 +1864,7 @@
     },
     "Trackconnector3_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 20.817686358475925,
+      "margin_m": 20.817686266259784,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -1885,11 +1885,11 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 31.273428240800143
+          "margin_m": 31.273428148584003
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 43.18896893599057
+          "margin_m": 43.18896884377443
         },
         "ring_pillars": {
           "object": "RingPillar_1",
@@ -1897,11 +1897,11 @@
         },
         "beds": {
           "object": "Bay_1",
-          "margin_m": 36.41490582563901
+          "margin_m": 36.41490573342287
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 31.381826678300143
+          "margin_m": 31.381826586084003
         },
         "hoods": {
           "object": "Hood_1",
@@ -1916,7 +1916,7 @@
     },
     "Trackconnector3_curve_07": {
       "worst_object": "PortalRim_2",
-      "margin_m": 15.612822455453205,
+      "margin_m": 15.612829071085969,
       "worst_triangle_generator_m": [
         [
           13.615937232971191,
@@ -1941,7 +1941,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 25.398341339667702
+          "margin_m": 25.39834070479405
         },
         "ring_pillars": {
           "object": "RingPillar_3",
@@ -1961,7 +1961,7 @@
         },
         "portal_arches": {
           "object": "PortalRim_2",
-          "margin_m": 15.612822455453205
+          "margin_m": 15.612829071085969
         }
       },
       "refined_objects": {}
@@ -1993,7 +1993,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 30.631377330456715
+          "margin_m": 30.631373573475244
         },
         "ring_pillars": {
           "object": "RingPillar_3",
@@ -2001,26 +2001,26 @@
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 22.533585220472325
+          "margin_m": 22.533591827721803
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.31567870679949
+          "margin_m": 16.315674949818018
         },
         "hoods": {
           "object": "Hood_2",
-          "margin_m": 19.786297908459645
+          "margin_m": 19.786294151478174
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 17.489457240735035
+          "margin_m": 17.489453483753564
         }
       },
       "refined_objects": {}
     },
     "Trackconnector3_curve_09": {
       "worst_object": "Line_Arm_3",
-      "margin_m": 15.226489872293929,
+      "margin_m": 15.226999626159667,
       "worst_triangle_generator_m": [
         [
           20.142169952392578,
@@ -2041,31 +2041,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 15.23449024613426
+          "margin_m": 15.235
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 30.77512007929373
+          "margin_m": 30.77565116570586
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 17.20885291685294
+          "margin_m": 17.209394425211812
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 22.533585220472325
+          "margin_m": 22.534126728831197
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.43688422419119
+          "margin_m": 16.43741531060332
         },
         "hoods": {
           "object": "Hood_2",
-          "margin_m": 19.930040657296658
+          "margin_m": 19.93057174370879
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 17.63319998957205
+          "margin_m": 17.63373107598418
         }
       },
       "refined_objects": {}
@@ -2097,34 +2097,34 @@
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 31.646704640627732
+          "margin_m": 31.646700762352182
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 17.733822789431443
+          "margin_m": 17.733818911155893
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 23.03914420432277
+          "margin_m": 23.03915092169308
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 17.284695592165818
+          "margin_m": 17.28469171389027
         },
         "hoods": {
           "object": "Hood_2",
-          "margin_m": 20.80162521863066
+          "margin_m": 20.801621340355112
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 18.504784550906052
+          "margin_m": 18.504780672630503
         }
       },
       "refined_objects": {}
     },
     "Trackconnector3_curve_11": {
       "worst_object": "Platform_5",
-      "margin_m": 128.15399298931987,
+      "margin_m": 128.15451307668818,
       "worst_triangle_generator_m": [
         [
           15.528709411621094,
@@ -2145,38 +2145,38 @@
       "families": {
         "deck": {
           "object": "Track_C",
-          "margin_m": 142.85086951519878
+          "margin_m": 142.85138960256708
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 180.59752593304546
+          "margin_m": 180.59804602041376
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 165.78568778302105
+          "margin_m": 165.78620787038935
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 169.96752486493023
+          "margin_m": 169.96804495229853
         },
         "ring_wall": {
           "object": "RingClamp_2",
-          "margin_m": 164.22895560528667
+          "margin_m": 164.22947569265497
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 169.75244460369976
+          "margin_m": 169.75296469106806
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 167.45560584332378
+          "margin_m": 167.45612593069208
         }
       },
       "refined_objects": {}
     },
     "Trackconnector3_curve_12": {
       "worst_object": "Platform_10",
-      "margin_m": 134.22172272543563,
+      "margin_m": 134.22170746664656,
       "worst_triangle_generator_m": [
         [
           -35.5286979675293,
@@ -2197,31 +2197,31 @@
       "families": {
         "deck": {
           "object": "Track_C",
-          "margin_m": 148.91860688070906
+          "margin_m": 148.91859162192
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 186.66526329855574
+          "margin_m": 186.66524803976668
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 171.85342514853133
+          "margin_m": 171.85340988974227
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 176.0352622304405
+          "margin_m": 176.03524697165145
         },
         "ring_wall": {
           "object": "RingClamp_2",
-          "margin_m": 170.29669297079695
+          "margin_m": 170.2966777120079
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 175.82018196921004
+          "margin_m": 175.82016671042098
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 173.52334320883406
+          "margin_m": 173.523327950045
         }
       },
       "refined_objects": {}
@@ -2249,7 +2249,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -2540,7 +2540,7 @@
     },
     "Trackconnector4_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 23.5201532691907,
+      "margin_m": 23.52015290173094,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -2561,31 +2561,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 33.97589515151492
+          "margin_m": 33.97589478405516
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 45.89143584670535
+          "margin_m": 45.89143547924559
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 33.152603372950466
+          "margin_m": 33.152603005490704
         },
         "beds": {
           "object": "Bay_1",
-          "margin_m": 39.117372736353786
+          "margin_m": 39.117372368894024
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 32.55416892470828
+          "margin_m": 32.554168557248516
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 35.267132028956325
+          "margin_m": 35.26713166149656
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 32.491436228175075
+          "margin_m": 32.49143586071531
         }
       },
       "refined_objects": {}
@@ -2644,7 +2644,7 @@
     },
     "Trackconnector4_curve_08": {
       "worst_object": "Ring",
-      "margin_m": 15.791170892933444,
+      "margin_m": 15.79116711542509,
       "worst_triangle_generator_m": [
         [
           -12.4071683883667,
@@ -2669,7 +2669,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 30.10686951659067
+          "margin_m": 30.106865739082316
         },
         "ring_pillars": {
           "object": "RingPillar_9",
@@ -2681,22 +2681,22 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 15.791170892933444
+          "margin_m": 15.79116711542509
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 19.261788187244967
+          "margin_m": 19.261784409736613
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 16.96494942686899
+          "margin_m": 16.964945649360637
         }
       },
       "refined_objects": {}
     },
     "Trackconnector4_curve_09": {
       "worst_object": "Line_Arm_4",
-      "margin_m": 15.226489872293929,
+      "margin_m": 15.226999626159667,
       "worst_triangle_generator_m": [
         [
           -20.142166137695312,
@@ -2717,31 +2717,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 15.23449024613426
+          "margin_m": 15.235
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 30.77512007929373
+          "margin_m": 30.77565116570586
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 17.20885291685294
+          "margin_m": 17.209394425211812
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 22.533584743635167
+          "margin_m": 22.53412625199404
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.43688422419119
+          "margin_m": 16.43741531060332
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 19.930038749948025
+          "margin_m": 19.930569836360156
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 17.63319998957205
+          "margin_m": 17.63373107598418
         }
       },
       "refined_objects": {}
@@ -2773,34 +2773,34 @@
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 31.646704640627732
+          "margin_m": 31.646700762352182
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 17.733822789431443
+          "margin_m": 17.733818911155893
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 23.039143727485612
+          "margin_m": 23.03915044485592
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 17.284695592165818
+          "margin_m": 17.28469171389027
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 20.80162331128203
+          "margin_m": 20.80161943300648
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 18.504784550906052
+          "margin_m": 18.504780672630503
         }
       },
       "refined_objects": {}
     },
     "Trackconnector4_curve_11": {
       "worst_object": "Platform_7",
-      "margin_m": 128.15398535992534,
+      "margin_m": 128.15450544729364,
       "worst_triangle_generator_m": [
         [
           -15.528703689575195,
@@ -2821,38 +2821,38 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 142.85086951519878
+          "margin_m": 142.85138960256708
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 180.59752593304546
+          "margin_m": 180.59804602041376
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 165.78568778302105
+          "margin_m": 165.78620787038935
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 169.96752486493023
+          "margin_m": 169.96804495229853
         },
         "ring_wall": {
           "object": "RingClamp_5",
-          "margin_m": 164.22895560528667
+          "margin_m": 164.22947569265497
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 169.75244460369976
+          "margin_m": 169.75296469106806
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 167.45560584332378
+          "margin_m": 167.45612593069208
         }
       },
       "refined_objects": {}
     },
     "Trackconnector4_curve_12": {
       "worst_object": "Platform_7",
-      "margin_m": 134.22172272543563,
+      "margin_m": 134.22170746664656,
       "worst_triangle_generator_m": [
         [
           -15.528703689575195,
@@ -2873,31 +2873,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 148.91860688070906
+          "margin_m": 148.91859162192
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 186.66526329855574
+          "margin_m": 186.66524803976668
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 171.85342514853133
+          "margin_m": 171.85340988974227
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 176.0352622304405
+          "margin_m": 176.03524697165145
         },
         "ring_wall": {
           "object": "RingClamp_5",
-          "margin_m": 170.29669297079695
+          "margin_m": 170.2966777120079
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 175.82018196921004
+          "margin_m": 175.82016671042098
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 173.52334320883406
+          "margin_m": 173.523327950045
         }
       },
       "refined_objects": {}
@@ -2925,7 +2925,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -3216,7 +3216,7 @@
     },
     "Trackconnector5_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 20.726271017546665,
+      "margin_m": 20.726801527077484,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -3237,38 +3237,38 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 31.182012899870884
+          "margin_m": 31.182543409401703
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 43.097553595061314
+          "margin_m": 43.09808410459213
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 33.57325637189262
+          "margin_m": 33.573791273002016
         },
         "beds": {
           "object": "Bay_1",
-          "margin_m": 36.32349048470975
+          "margin_m": 36.32402099424057
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 31.290411337370884
+          "margin_m": 31.290941846901703
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 39.381612180150675
+          "margin_m": 39.38214708126007
         },
         "portal_arches": {
           "object": "PortalRim_1",
-          "margin_m": 38.78631198254936
+          "margin_m": 38.786846883658754
         }
       },
       "refined_objects": {}
     },
     "Trackconnector5_curve_07": {
       "worst_object": "Rib_2",
-      "margin_m": 12.16477160692969,
+      "margin_m": 12.164703529823662,
       "worst_triangle_generator_m": [
         [
           2.9325727268769697e-07,
@@ -3293,7 +3293,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 24.525331070430667
+          "margin_m": 24.525262993324638
         },
         "ring_pillars": {
           "object": "RingPillar_3",
@@ -3320,7 +3320,7 @@
     },
     "Trackconnector5_curve_08": {
       "worst_object": "Ring",
-      "margin_m": 16.02383883983938,
+      "margin_m": 16.02251121427985,
       "worst_triangle_generator_m": [
         [
           -10.002252578735352,
@@ -3345,7 +3345,7 @@
         },
         "centre_pillars": {
           "object": "Pillar_6",
-          "margin_m": 30.710733789353682
+          "margin_m": 30.70998216098475
         },
         "ring_pillars": {
           "object": "RingPillar_6",
@@ -3357,15 +3357,15 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.02383883983938
+          "margin_m": 16.02251121427985
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 19.86565246000798
+          "margin_m": 19.864900831639048
         },
         "portal_arches": {
           "object": "PortalThroat_3",
-          "margin_m": 17.568813699632003
+          "margin_m": 17.56806207126307
         }
       },
       "refined_objects": {}
@@ -3397,11 +3397,11 @@
         },
         "centre_pillars": {
           "object": "Pillar_6",
-          "margin_m": 30.775111968260056
+          "margin_m": 30.774354151063307
         },
         "ring_pillars": {
           "object": "RingPillar_6",
-          "margin_m": 17.20886673106697
+          "margin_m": 17.20753950474185
         },
         "beds": {
           "object": "Bay_2",
@@ -3409,15 +3409,15 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.436876113157517
+          "margin_m": 16.436118295960767
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 19.930030638914353
+          "margin_m": 19.929272821717603
         },
         "portal_arches": {
           "object": "PortalThroat_3",
-          "margin_m": 17.633191878538376
+          "margin_m": 17.632434061341627
         }
       },
       "refined_objects": {}
@@ -3449,11 +3449,11 @@
         },
         "centre_pillars": {
           "object": "Pillar_6",
-          "margin_m": 31.646696396102584
+          "margin_m": 31.645931110974658
         },
         "ring_pillars": {
           "object": "RingPillar_6",
-          "margin_m": 17.733814544906295
+          "margin_m": 17.73304925977837
         },
         "beds": {
           "object": "Bay_2",
@@ -3461,22 +3461,22 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 17.28468734764067
+          "margin_m": 17.283922062512744
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 20.80161506675688
+          "margin_m": 20.800849781628955
         },
         "portal_arches": {
           "object": "PortalThroat_3",
-          "margin_m": 18.504776306380904
+          "margin_m": 18.50401102125298
         }
       },
       "refined_objects": {}
     },
     "Trackconnector5_curve_11": {
       "worst_object": "Platform_10",
-      "margin_m": 128.15395385023098,
+      "margin_m": 128.15597485696213,
       "worst_triangle_generator_m": [
         [
           -38.473182678222656,
@@ -3497,38 +3497,38 @@
       "families": {
         "deck": {
           "object": "Track_C",
-          "margin_m": 142.85083800550441
+          "margin_m": 142.85285901223557
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 180.5974944233511
+          "margin_m": 180.59951543008225
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 165.78565627332668
+          "margin_m": 165.78767728005784
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 169.96749335523586
+          "margin_m": 169.96951436196701
         },
         "ring_wall": {
           "object": "RingClamp_2",
-          "margin_m": 164.2289240955923
+          "margin_m": 164.23094510232346
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 169.7524130940054
+          "margin_m": 169.75443410073655
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 167.45557433362941
+          "margin_m": 167.45759534036057
         }
       },
       "refined_objects": {}
     },
     "Trackconnector5_curve_12": {
       "worst_object": "Platform_10",
-      "margin_m": 134.22169028130094,
+      "margin_m": 134.22365901251393,
       "worst_triangle_generator_m": [
         [
           -38.473182678222656,
@@ -3549,31 +3549,31 @@
       "families": {
         "deck": {
           "object": "Track_C",
-          "margin_m": 148.91857443657437
+          "margin_m": 148.92054316778737
         },
         "centre_pillars": {
           "object": "Pillar_4",
-          "margin_m": 186.66523085442105
+          "margin_m": 186.66719958563405
         },
         "ring_pillars": {
           "object": "RingPillar_3",
-          "margin_m": 171.85339270439664
+          "margin_m": 171.85536143560964
         },
         "beds": {
           "object": "Bay_2",
-          "margin_m": 176.03522978630582
+          "margin_m": 176.03719851751882
         },
         "ring_wall": {
           "object": "RingClamp_2",
-          "margin_m": 170.29666052666227
+          "margin_m": 170.29862925787526
         },
         "hoods": {
           "object": "Hood_3",
-          "margin_m": 175.82014952507535
+          "margin_m": 175.82211825628835
         },
         "portal_arches": {
           "object": "PortalThroat_2",
-          "margin_m": 173.52331076469937
+          "margin_m": 173.52527949591237
         }
       },
       "refined_objects": {}
@@ -3601,7 +3601,7 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 4.670000171661377
+          "margin_m": 4.670000190734863
         },
         "centre_pillars": {
           "object": "Pillar_4",
@@ -3892,7 +3892,7 @@
     },
     "Trackconnector6_curve_06": {
       "worst_object": "Platform_6",
-      "margin_m": 26.827973620672566,
+      "margin_m": 26.82783454158364,
       "worst_triangle_generator_m": [
         [
           41.526798248291016,
@@ -3913,31 +3913,31 @@
       "families": {
         "deck": {
           "object": "Track_A",
-          "margin_m": 31.621099552349143
+          "margin_m": 31.621168320495833
         },
         "centre_pillars": {
           "object": "Pillar_2",
-          "margin_m": 49.199256198187214
+          "margin_m": 49.19911711909829
         },
         "ring_pillars": {
           "object": "RingPillar_1",
-          "margin_m": 36.46042372443233
+          "margin_m": 36.46028464534341
         },
         "beds": {
           "object": "Bay_6",
-          "margin_m": 40.67519118048702
+          "margin_m": 40.675052101398094
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 35.861989276190144
+          "margin_m": 35.86185019710122
         },
         "hoods": {
           "object": "Hood_1",
-          "margin_m": 38.57495238043819
+          "margin_m": 38.574813301349266
         },
         "portal_arches": {
           "object": "PortalSill_1",
-          "margin_m": 35.79925657965694
+          "margin_m": 35.799117500568016
         }
       },
       "refined_objects": {}
@@ -3996,7 +3996,7 @@
     },
     "Trackconnector6_curve_08": {
       "worst_object": "Ring",
-      "margin_m": 15.82643093242195,
+      "margin_m": 15.825638607206223,
       "worst_triangle_generator_m": [
         [
           11.211834907531738,
@@ -4017,31 +4017,31 @@
       "families": {
         "deck": {
           "object": "Track_C",
-          "margin_m": 16.23449024613426
+          "margin_m": 16.235
         },
         "centre_pillars": {
           "object": "Pillar_7",
-          "margin_m": 29.878701738038778
+          "margin_m": 29.878485073601126
         },
         "ring_pillars": {
           "object": "RingPillar_12",
-          "margin_m": 18.134489864664534
+          "margin_m": 18.134999618530273
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 22.23449024613426
+          "margin_m": 22.235
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 15.82643093242195
+          "margin_m": 15.825638607206223
         },
         "hoods": {
           "object": "Hood_6",
-          "margin_m": 19.033622316041708
+          "margin_m": 19.033405651604056
         },
         "portal_arches": {
           "object": "PortalThroat_6",
-          "margin_m": 16.78531107361839
+          "margin_m": 16.78582082748413
         }
       },
       "refined_objects": {}
@@ -4073,11 +4073,11 @@
         },
         "centre_pillars": {
           "object": "Pillar_7",
-          "margin_m": 30.775111968260056
+          "margin_m": 30.774354151063307
         },
         "ring_pillars": {
           "object": "RingPillar_12",
-          "margin_m": 17.20886673106697
+          "margin_m": 17.20753950474185
         },
         "beds": {
           "object": "Bay_5",
@@ -4085,15 +4085,15 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 16.436876113157517
+          "margin_m": 16.436118295960767
         },
         "hoods": {
           "object": "Hood_6",
-          "margin_m": 19.930032546262986
+          "margin_m": 19.929274729066236
         },
         "portal_arches": {
           "object": "PortalThroat_6",
-          "margin_m": 17.633191878538376
+          "margin_m": 17.632434061341627
         }
       },
       "refined_objects": {}
@@ -4125,11 +4125,11 @@
         },
         "centre_pillars": {
           "object": "Pillar_7",
-          "margin_m": 31.646696396102584
+          "margin_m": 31.645931110974658
         },
         "ring_pillars": {
           "object": "RingPillar_12",
-          "margin_m": 17.733814544906295
+          "margin_m": 17.73304925977837
         },
         "beds": {
           "object": "Bay_5",
@@ -4137,22 +4137,22 @@
         },
         "ring_wall": {
           "object": "Ring",
-          "margin_m": 17.28468734764067
+          "margin_m": 17.283922062512744
         },
         "hoods": {
           "object": "Hood_6",
-          "margin_m": 20.801616974105514
+          "margin_m": 20.800851688977588
         },
         "portal_arches": {
           "object": "PortalThroat_6",
-          "margin_m": 18.504776306380904
+          "margin_m": 18.50401102125298
         }
       },
       "refined_objects": {}
     },
     "Trackconnector6_curve_11": {
       "worst_object": "Platform_12",
-      "margin_m": 128.1539614796255,
+      "margin_m": 128.15598248635666,
       "worst_triangle_generator_m": [
         [
           38.47319412231445,
@@ -4173,38 +4173,38 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 142.85083800550441
+          "margin_m": 142.85285901223557
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 180.5974944233511
+          "margin_m": 180.59951543008225
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 165.78565627332668
+          "margin_m": 165.78767728005784
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 169.96749335523586
+          "margin_m": 169.96951436196701
         },
         "ring_wall": {
           "object": "RingClamp_5",
-          "margin_m": 164.2289240955923
+          "margin_m": 164.23094510232346
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 169.7524130940054
+          "margin_m": 169.75443410073655
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 167.45557433362941
+          "margin_m": 167.45759534036057
         }
       },
       "refined_objects": {}
     },
     "Trackconnector6_curve_12": {
       "worst_object": "Platform_7",
-      "margin_m": 134.22169028130094,
+      "margin_m": 134.22365901251393,
       "worst_triangle_generator_m": [
         [
           -15.528703689575195,
@@ -4225,31 +4225,31 @@
       "families": {
         "deck": {
           "object": "Track_B",
-          "margin_m": 148.91857443657437
+          "margin_m": 148.92054316778737
         },
         "centre_pillars": {
           "object": "Pillar_5",
-          "margin_m": 186.66523085442105
+          "margin_m": 186.66719958563405
         },
         "ring_pillars": {
           "object": "RingPillar_9",
-          "margin_m": 171.85339270439664
+          "margin_m": 171.85536143560964
         },
         "beds": {
           "object": "Bay_5",
-          "margin_m": 176.03522978630582
+          "margin_m": 176.03719851751882
         },
         "ring_wall": {
           "object": "RingClamp_5",
-          "margin_m": 170.29666052666227
+          "margin_m": 170.29862925787526
         },
         "hoods": {
           "object": "Hood_5",
-          "margin_m": 175.82014952507535
+          "margin_m": 175.82211825628835
         },
         "portal_arches": {
           "object": "PortalThroat_5",
-          "margin_m": 173.52331076469937
+          "margin_m": 173.52527949591237
         }
       },
       "refined_objects": {}
@@ -4257,8 +4257,8 @@
   },
   "motion": {
     "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\drones_motion_curves.json",
-    "head": "d77efa4759ab063ba17135b9b8f32848c97b24df",
-    "source_sha256": "55469eb90cf00dc4deb1b329e611595395025a12fb3b648bd6074fe3d7dad832",
+    "head": "2b3b32bbee41e7556f595d29360d660348a9d38a",
+    "source_sha256": "d645d4884e5f22a94e3d9b70cc2bb26575fad5eabfc5f34e3710a329aaf0a392",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,
@@ -4278,7 +4278,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ]
           ]
         },
@@ -4290,7 +4290,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ],
             [
               -1310.0,
@@ -4329,7 +4329,7 @@
             [
               -1310,
               -397,
-              300.0
+              300
             ],
             [
               -1605.7595058356994,
@@ -4368,260 +4368,7 @@
             [
               -7794,
               -4500,
-              300.0
-            ],
-            [
-              -7794.0,
-              -4500.0,
-              1400.0
-            ]
-          ]
-        },
-        {
-          "start": 10420,
-          "finish": 12267,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -7794.0,
-              -4500.0,
-              1400.0
-            ],
-            [
-              -7794,
-              -4500,
-              2500.0
-            ],
-            [
-              -6705.4175364079565,
-              -4658.076626861395,
-              2500.0
-            ]
-          ]
-        },
-        {
-          "start": 12267,
-          "finish": 14901,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -6705.4175364079565,
-              -4658.076626861395,
-              2500.0
-            ],
-            [
-              -3098.962774566606,
-              -5181.781741308055,
-              2500.0
-            ]
-          ]
-        },
-        {
-          "start": 14901,
-          "finish": 15457,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -3098.962774566606,
-              -5181.781741308055,
-              2500.0
-            ],
-            [
-              -3000.000732421875,
-              -5196.15234375,
-              2500.0
-            ],
-            [
-              -3000.000732421875,
-              -5196.15234375,
-              2400.0
-            ]
-          ]
-        },
-        {
-          "start": 15457,
-          "finish": 16014,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -3000.000732421875,
-              -5196.15234375,
-              2400.0
-            ],
-            [
-              -3000.000732421875,
-              -5196.15234375,
-              2300.0
-            ],
-            [
-              -3050.000742146968,
-              -5282.754878513658,
-              2300.0
-            ]
-          ]
-        },
-        {
-          "start": 16014,
-          "finish": 22760,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -3050.000742146968,
-              -5282.754878513658,
-              2300.0
-            ],
-            [
-              -11650.002861611849,
-              -20178.391631654395,
-              2300.0
-            ]
-          ]
-        },
-        {
-          "start": 22760,
-          "finish": 24231,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -11650.002861611849,
-              -20178.391631654395,
-              2300.0
-            ],
-            [
-              -12000.0029296875,
-              -20784.609375,
-              2300.0
-            ],
-            [
-              -12000.0029296875,
-              -20784.609375,
-              1600.0
-            ]
-          ]
-        },
-        {
-          "start": 24231,
-          "finish": 25367,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -12000.0029296875,
-              -20784.609375,
-              1600.0
-            ],
-            [
-              -12000.0029296875,
-              -20784.609375,
-              900.0
-            ]
-          ]
-        }
-      ],
-      "Trackconnector2": [
-        {
-          "start": 0,
-          "finish": 1980,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -1310.0,
-              -397.0,
-              -2000.0
-            ],
-            [
-              -1310.0,
-              -397.0,
-              30.000001907348633
-            ]
-          ]
-        },
-        {
-          "start": 1980,
-          "finish": 3250,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -1310.0,
-              -397.0,
-              30.000001907348633
-            ],
-            [
-              -1310.0,
-              -397.0,
-              1000.0
-            ]
-          ]
-        },
-        {
-          "start": 3250,
-          "finish": 4052,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -1310.0,
-              -397.0,
-              1000.0
-            ],
-            [
-              -1310.0,
-              -397.0,
-              650.0
-            ]
-          ]
-        },
-        {
-          "start": 4052,
-          "finish": 5095,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -1310.0,
-              -397.0,
-              650.0
-            ],
-            [
-              -1310,
-              -397,
-              300.0
-            ],
-            [
-              -1605.7595058356994,
-              -584.1531851394009,
-              300.0
-            ]
-          ]
-        },
-        {
-          "start": 5095,
-          "finish": 8573,
-          "bank_minutes": 0,
-          "points": [
-            [
-              -1605.7595058356994,
-              -584.1531851394009,
-              300.0
-            ],
-            [
-              -6864.470124516373,
-              -3911.804275276169,
-              300.0
-            ]
-          ]
-        },
-        {
-          "start": 8573,
-          "finish": 10420,
-          "bank_minutes": 1,
-          "points": [
-            [
-              -6864.470124516373,
-              -3911.804275276169,
-              300.0
-            ],
-            [
-              -7794,
-              -4500,
-              300.0
+              300
             ],
             [
               -7794.0,
@@ -4643,134 +4390,134 @@
             [
               -7794,
               -4500,
-              2500.0
+              2500
             ],
             [
-              -6975.68136268903,
-              -3764.9118366960893,
+              -6705.412613858904,
+              -4658.042724395954,
               2500.0
             ]
           ]
         },
         {
           "start": 12266,
-          "finish": 17979,
+          "finish": 14900,
           "bank_minutes": 0,
           "points": [
             [
-              -6975.68136268903,
-              -3764.9118366960893,
+              -6705.412613858904,
+              -4658.042724395954,
               2500.0
             ],
             [
-              2925.6081290299685,
-              5129.326147086008,
+              -3098.9624896491905,
+              -5181.632479600368,
               2500.0
             ]
           ]
         },
         {
-          "start": 17979,
-          "finish": 18534,
+          "start": 14900,
+          "finish": 15455,
           "bank_minutes": 1,
           "points": [
             [
-              2925.6081290299685,
-              5129.326147086008,
+              -3098.9624896491905,
+              -5181.632479600368,
               2500.0
             ],
             [
-              3000.000732421875,
-              5196.15234375,
-              2500.0
+              -3000,
+              -5196,
+              2500
             ],
             [
-              3000.000732421875,
-              5196.15234375,
+              -3000.0,
+              -5196.0,
               2400.0
             ]
           ]
         },
         {
-          "start": 18534,
-          "finish": 19093,
+          "start": 15455,
+          "finish": 16013,
           "bank_minutes": 1,
           "points": [
             [
-              3000.000732421875,
-              5196.15234375,
+              -3000.0,
+              -5196.0,
               2400.0
             ],
             [
-              3000.000732421875,
-              5196.15234375,
-              2300.0
+              -3000,
+              -5196,
+              2300
             ],
             [
-              3050.000742146968,
-              5282.754878513658,
+              -3049.998694418422,
+              -5282.603294143198,
               2300.0
             ]
           ]
         },
         {
-          "start": 19093,
-          "finish": 25840,
+          "start": 16013,
+          "finish": 22764,
           "bank_minutes": 0,
           "points": [
             [
-              3050.000742146968,
-              5282.754878513658,
+              -3049.998694418422,
+              -5282.603294143198,
               2300.0
             ],
             [
-              11650.002861611849,
-              20178.391631654395,
+              -11650.009139071046,
+              -20178.776940997614,
               2300.0
             ]
           ]
         },
         {
-          "start": 25840,
-          "finish": 27312,
+          "start": 22764,
+          "finish": 24236,
           "bank_minutes": 1,
           "points": [
             [
-              11650.002861611849,
-              20178.391631654395,
+              -11650.009139071046,
+              -20178.776940997614,
               2300.0
             ],
             [
-              12000.0029296875,
-              20784.609375,
-              2300.0
+              -12000,
+              -20785,
+              2300
             ],
             [
-              12000.0029296875,
-              20784.609375,
+              -12000.0,
+              -20785.0,
               1600.0
             ]
           ]
         },
         {
-          "start": 27312,
-          "finish": 28449,
+          "start": 24236,
+          "finish": 25375,
           "bank_minutes": 0,
           "points": [
             [
-              12000.0029296875,
-              20784.609375,
+              -12000.0,
+              -20785.0,
               1600.0
             ],
             [
-              12000.0029296875,
-              20784.609375,
+              -12000.0,
+              -20785.0,
               900.0
             ]
           ]
         }
       ],
-      "Trackconnector3": [
+      "Trackconnector2": [
         {
           "start": 0,
           "finish": 1980,
@@ -4784,7 +4531,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ]
           ]
         },
@@ -4796,7 +4543,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ],
             [
               -1310.0,
@@ -4835,7 +4582,7 @@
             [
               -1310,
               -397,
-              300.0
+              300
             ],
             [
               -1605.7595058356994,
@@ -4874,7 +4621,260 @@
             [
               -7794,
               -4500,
+              300
+            ],
+            [
+              -7794.0,
+              -4500.0,
+              1400.0
+            ]
+          ]
+        },
+        {
+          "start": 10420,
+          "finish": 12266,
+          "bank_minutes": 1,
+          "points": [
+            [
+              -7794.0,
+              -4500.0,
+              1400.0
+            ],
+            [
+              -7794,
+              -4500,
+              2500
+            ],
+            [
+              -6975.675645761669,
+              -3764.9182009732394,
+              2500.0
+            ]
+          ]
+        },
+        {
+          "start": 12266,
+          "finish": 17983,
+          "bank_minutes": 0,
+          "points": [
+            [
+              -6975.675645761669,
+              -3764.9182009732394,
+              2500.0
+            ],
+            [
+              2925.6068768874243,
+              5129.174381906658,
+              2500.0
+            ]
+          ]
+        },
+        {
+          "start": 17983,
+          "finish": 18536,
+          "bank_minutes": 1,
+          "points": [
+            [
+              2925.6068768874243,
+              5129.174381906658,
+              2500.0
+            ],
+            [
+              3000,
+              5196,
+              2500
+            ],
+            [
+              3000.0,
+              5196.0,
+              2400.0
+            ]
+          ]
+        },
+        {
+          "start": 18536,
+          "finish": 19094,
+          "bank_minutes": 1,
+          "points": [
+            [
+              3000.0,
+              5196.0,
+              2400.0
+            ],
+            [
+              3000,
+              5196,
+              2300
+            ],
+            [
+              3049.998694418422,
+              5282.603294143198,
+              2300.0
+            ]
+          ]
+        },
+        {
+          "start": 19094,
+          "finish": 25847,
+          "bank_minutes": 0,
+          "points": [
+            [
+              3049.998694418422,
+              5282.603294143198,
+              2300.0
+            ],
+            [
+              11650.009139071046,
+              20178.776940997614,
+              2300.0
+            ]
+          ]
+        },
+        {
+          "start": 25847,
+          "finish": 27316,
+          "bank_minutes": 1,
+          "points": [
+            [
+              11650.009139071046,
+              20178.776940997614,
+              2300.0
+            ],
+            [
+              12000,
+              20785,
+              2300
+            ],
+            [
+              12000.0,
+              20785.0,
+              1600.0
+            ]
+          ]
+        },
+        {
+          "start": 27316,
+          "finish": 28454,
+          "bank_minutes": 0,
+          "points": [
+            [
+              12000.0,
+              20785.0,
+              1600.0
+            ],
+            [
+              12000.0,
+              20785.0,
+              900.0
+            ]
+          ]
+        }
+      ],
+      "Trackconnector3": [
+        {
+          "start": 0,
+          "finish": 1980,
+          "bank_minutes": 0,
+          "points": [
+            [
+              -1310.0,
+              -397.0,
+              -2000.0
+            ],
+            [
+              -1310.0,
+              -397.0,
+              30.0
+            ]
+          ]
+        },
+        {
+          "start": 1980,
+          "finish": 3250,
+          "bank_minutes": 0,
+          "points": [
+            [
+              -1310.0,
+              -397.0,
+              30.0
+            ],
+            [
+              -1310.0,
+              -397.0,
+              1000.0
+            ]
+          ]
+        },
+        {
+          "start": 3250,
+          "finish": 4052,
+          "bank_minutes": 0,
+          "points": [
+            [
+              -1310.0,
+              -397.0,
+              1000.0
+            ],
+            [
+              -1310.0,
+              -397.0,
+              650.0
+            ]
+          ]
+        },
+        {
+          "start": 4052,
+          "finish": 5095,
+          "bank_minutes": 1,
+          "points": [
+            [
+              -1310.0,
+              -397.0,
+              650.0
+            ],
+            [
+              -1310,
+              -397,
+              300
+            ],
+            [
+              -1605.7595058356994,
+              -584.1531851394009,
               300.0
+            ]
+          ]
+        },
+        {
+          "start": 5095,
+          "finish": 8573,
+          "bank_minutes": 0,
+          "points": [
+            [
+              -1605.7595058356994,
+              -584.1531851394009,
+              300.0
+            ],
+            [
+              -6864.470124516373,
+              -3911.804275276169,
+              300.0
+            ]
+          ]
+        },
+        {
+          "start": 8573,
+          "finish": 10420,
+          "bank_minutes": 1,
+          "points": [
+            [
+              -6864.470124516373,
+              -3911.804275276169,
+              300.0
+            ],
+            [
+              -7794,
+              -4500,
+              300
             ],
             [
               -7794.0,
@@ -4896,11 +4896,11 @@
             [
               -7794,
               -4500,
-              2500.0
+              2500
             ],
             [
-              -7386.645060979747,
-              -3478.2065014613736,
+              -7386.64500138727,
+              -3478.206525218906,
               2500.0
             ]
           ]
@@ -4911,13 +4911,13 @@
           "bank_minutes": 0,
           "points": [
             [
-              -7386.645060979747,
-              -3478.2065014613736,
+              -7386.64500138727,
+              -3478.206525218906,
               2500.0
             ],
             [
-              -6037.032267183659,
-              -92.88955510951288,
+              -6037.032272601157,
+              -92.8903158891904,
               2500.0
             ]
           ]
@@ -4928,18 +4928,18 @@
           "bank_minutes": 1,
           "points": [
             [
-              -6037.032267183659,
-              -92.88955510951288,
+              -6037.032272601157,
+              -92.8903158891904,
               2500.0
             ],
             [
-              -6000.0,
-              0.000762939453125,
-              2500.0
+              -6000,
+              0,
+              2500
             ],
             [
               -6000.0,
-              0.000762939453125,
+              0.0,
               2400.0
             ]
           ]
@@ -4947,21 +4947,21 @@
         {
           "start": 15454,
           "finish": 16011,
-          "bank_minutes": 1,
+          "bank_minutes": 0,
           "points": [
             [
               -6000.0,
-              0.000762939453125,
+              0.0,
               2400.0
             ],
             [
-              -6000.0,
-              0.000762939453125,
-              2300.0
+              -6000,
+              0,
+              2300
             ],
             [
-              -6099.999999999999,
-              0.0007756551106770833,
+              -6100.0,
+              0.0,
               2300.0
             ]
           ]
@@ -4972,13 +4972,13 @@
           "bank_minutes": 0,
           "points": [
             [
-              -6099.999999999999,
-              0.0007756551106770833,
+              -6100.0,
+              0.0,
               2300.0
             ],
             [
-              -23300.000000000007,
-              0.0029627482096354174,
+              -23300.0,
+              0.0,
               2300.0
             ]
           ]
@@ -4986,21 +4986,21 @@
         {
           "start": 22758,
           "finish": 24231,
-          "bank_minutes": 1,
+          "bank_minutes": 0,
           "points": [
             [
-              -23300.000000000007,
-              0.0029627482096354174,
+              -23300.0,
+              0.0,
               2300.0
             ],
             [
-              -24000.0,
-              0.0030517578125,
-              2300.0
+              -24000,
+              0,
+              2300
             ],
             [
               -24000.0,
-              0.0030517578125,
+              0.0,
               1600.0
             ]
           ]
@@ -5012,12 +5012,12 @@
           "points": [
             [
               -24000.0,
-              0.0030517578125,
+              0.0,
               1600.0
             ],
             [
               -24000.0,
-              0.0030517578125,
+              0.0,
               900.0
             ]
           ]
@@ -5037,7 +5037,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ]
           ]
         },
@@ -5049,7 +5049,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ],
             [
               -1310.0,
@@ -5088,7 +5088,7 @@
             [
               -1310,
               -397,
-              300.0
+              300
             ],
             [
               -1605.7595058356994,
@@ -5127,7 +5127,7 @@
             [
               -7794,
               -4500,
-              300.0
+              300
             ],
             [
               -7794.0,
@@ -5149,11 +5149,11 @@
             [
               -7794,
               -4500,
-              2500.0
+              2500
             ],
             [
-              -6748.240887469054,
-              -4158.8433225650015,
+              -6748.240904523267,
+              -4158.843270288147,
               2500.0
             ]
           ]
@@ -5164,13 +5164,13 @@
           "bank_minutes": 0,
           "points": [
             [
-              -6748.240887469054,
-              -4158.8433225650015,
+              -6748.240904523267,
+              -4158.843270288147,
               2500.0
             ],
             [
-              5904.930989769914,
-              -31.015006342634827,
+              5904.930991320297,
+              -31.014248155622976,
               2500.0
             ]
           ]
@@ -5181,18 +5181,18 @@
           "bank_minutes": 1,
           "points": [
             [
-              5904.930989769914,
-              -31.015006342634827,
+              5904.930991320297,
+              -31.014248155622976,
               2500.0
             ],
             [
-              6000.0,
-              -0.000762939453125,
-              2500.0
+              6000,
+              0,
+              2500
             ],
             [
               6000.0,
-              -0.000762939453125,
+              0.0,
               2400.0
             ]
           ]
@@ -5200,21 +5200,21 @@
         {
           "start": 18537,
           "finish": 19091,
-          "bank_minutes": 1,
+          "bank_minutes": 0,
           "points": [
             [
               6000.0,
-              -0.000762939453125,
+              0.0,
               2400.0
             ],
             [
-              6000.0,
-              -0.000762939453125,
-              2300.0
+              6000,
+              0,
+              2300
             ],
             [
-              6099.999999999999,
-              -0.0007756551106770833,
+              6100.0,
+              0.0,
               2300.0
             ]
           ]
@@ -5225,13 +5225,13 @@
           "bank_minutes": 0,
           "points": [
             [
-              6099.999999999999,
-              -0.0007756551106770833,
+              6100.0,
+              0.0,
               2300.0
             ],
             [
-              23300.000000000007,
-              -0.0029627482096354174,
+              23300.0,
+              0.0,
               2300.0
             ]
           ]
@@ -5239,21 +5239,21 @@
         {
           "start": 25839,
           "finish": 27310,
-          "bank_minutes": 1,
+          "bank_minutes": 0,
           "points": [
             [
-              23300.000000000007,
-              -0.0029627482096354174,
+              23300.0,
+              0.0,
               2300.0
             ],
             [
-              24000.0,
-              -0.0030517578125,
-              2300.0
+              24000,
+              0,
+              2300
             ],
             [
               24000.0,
-              -0.0030517578125,
+              0.0,
               1600.0
             ]
           ]
@@ -5265,12 +5265,12 @@
           "points": [
             [
               24000.0,
-              -0.0030517578125,
+              0.0,
               1600.0
             ],
             [
               24000.0,
-              -0.0030517578125,
+              0.0,
               900.0
             ]
           ]
@@ -5290,7 +5290,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ]
           ]
         },
@@ -5302,7 +5302,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ],
             [
               -1310.0,
@@ -5341,7 +5341,7 @@
             [
               -1310,
               -397,
-              300.0
+              300
             ],
             [
               -1605.7595058356994,
@@ -5380,7 +5380,7 @@
             [
               -7794,
               -4500,
-              300.0
+              300
             ],
             [
               -7794.0,
@@ -5392,7 +5392,7 @@
         {
           "start": 10420,
           "finish": 12266,
-          "bank_minutes": 1,
+          "bank_minutes": 0,
           "points": [
             [
               -7794.0,
@@ -5402,128 +5402,128 @@
             [
               -7794,
               -4500,
-              2500.0
+              2500
             ],
             [
-              -7306.469386840889,
-              -3513.940214169191,
+              -7306.463271611635,
+              -3513.943237702631,
               2500.0
             ]
           ]
         },
         {
           "start": 12266,
-          "finish": 17005,
+          "finish": 17003,
           "bank_minutes": 0,
           "points": [
             [
-              -7306.469386840889,
-              -3513.940214169191,
+              -7306.463271611635,
+              -3513.943237702631,
               2500.0
             ],
             [
-              -3044.3202324107715,
-              5106.511033319358,
+              -3044.3215207625785,
+              5106.3584761547845,
               2500.0
             ]
           ]
         },
         {
-          "start": 17005,
+          "start": 17003,
           "finish": 17562,
           "bank_minutes": 1,
           "points": [
             [
-              -3044.3202324107715,
-              5106.511033319358,
+              -3044.3215207625785,
+              5106.3584761547845,
               2500.0
             ],
             [
-              -2999.999267578125,
-              5196.15283203125,
-              2500.0
+              -3000,
+              5196,
+              2500
             ],
             [
-              -2999.999267578125,
-              5196.15283203125,
+              -3000.0,
+              5196.0,
               2400.0
             ]
           ]
         },
         {
           "start": 17562,
-          "finish": 18121,
+          "finish": 18120,
           "bank_minutes": 1,
           "points": [
             [
-              -2999.999267578125,
-              5196.15283203125,
+              -3000.0,
+              5196.0,
               2400.0
             ],
             [
-              -2999.999267578125,
-              5196.15283203125,
-              2300.0
+              -3000,
+              5196,
+              2300
             ],
             [
-              -3049.999255468805,
-              5282.755379401012,
+              -3049.998694418422,
+              5282.603294143198,
               2300.0
             ]
           ]
         },
         {
-          "start": 18121,
-          "finish": 24868,
+          "start": 18120,
+          "finish": 24871,
           "bank_minutes": 0,
           "points": [
             [
-              -3049.999255468805,
-              5282.755379401012,
+              -3049.998694418422,
+              5282.603294143198,
               2300.0
             ],
             [
-              -11649.997155077739,
-              20178.393496536668,
+              -11650.009139071046,
+              20178.776940997614,
               2300.0
             ]
           ]
         },
         {
-          "start": 24868,
-          "finish": 26340,
+          "start": 24871,
+          "finish": 26343,
           "bank_minutes": 1,
           "points": [
             [
-              -11649.997155077739,
-              20178.393496536668,
+              -11650.009139071046,
+              20178.776940997614,
               2300.0
             ],
             [
-              -11999.9970703125,
-              20784.611328125,
-              2300.0
+              -12000,
+              20785,
+              2300
             ],
             [
-              -11999.9970703125,
-              20784.611328125,
+              -12000.0,
+              20785.0,
               1600.0
             ]
           ]
         },
         {
-          "start": 26340,
-          "finish": 27477,
+          "start": 26343,
+          "finish": 27482,
           "bank_minutes": 0,
           "points": [
             [
-              -11999.9970703125,
-              20784.611328125,
+              -12000.0,
+              20785.0,
               1600.0
             ],
             [
-              -11999.9970703125,
-              20784.611328125,
+              -12000.0,
+              20785.0,
               900.0
             ]
           ]
@@ -5543,7 +5543,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ]
           ]
         },
@@ -5555,7 +5555,7 @@
             [
               -1310.0,
               -397.0,
-              30.000001907348633
+              30.0
             ],
             [
               -1310.0,
@@ -5594,7 +5594,7 @@
             [
               -1310,
               -397,
-              300.0
+              300
             ],
             [
               -1605.7595058356994,
@@ -5633,7 +5633,7 @@
             [
               -7794,
               -4500,
-              300.0
+              300
             ],
             [
               -7794.0,
@@ -5655,11 +5655,11 @@
             [
               -7794,
               -4500,
-              2500.0
+              2500
             ],
             [
-              -6696.28063003438,
-              -4570.796785253867,
+              -6696.279631576134,
+              -4570.781302244118,
               2500.0
             ]
           ]
@@ -5670,113 +5670,113 @@
           "bank_minutes": 0,
           "points": [
             [
-              -6696.28063003438,
-              -4570.796785253867,
+              -6696.279631576134,
+              -4570.781302244118,
               2500.0
             ],
             [
-              2900.2065975812507,
-              -5189.716760644535,
+              2900.2072392341943,
+              -5189.565336159626,
               2500.0
             ]
           ]
         },
         {
           "start": 17003,
-          "finish": 17560,
-          "bank_minutes": 1,
+          "finish": 17558,
+          "bank_minutes": 0,
           "points": [
             [
-              2900.2065975812507,
-              -5189.716760644535,
+              2900.2072392341943,
+              -5189.565336159626,
               2500.0
             ],
             [
-              2999.999267578125,
-              -5196.15283203125,
-              2500.0
+              3000,
+              -5196,
+              2500
             ],
             [
-              2999.999267578125,
-              -5196.15283203125,
+              3000.0,
+              -5196.0,
               2400.0
             ]
           ]
         },
         {
-          "start": 17560,
+          "start": 17558,
           "finish": 18115,
           "bank_minutes": 1,
           "points": [
             [
-              2999.999267578125,
-              -5196.15283203125,
+              3000.0,
+              -5196.0,
               2400.0
             ],
             [
-              2999.999267578125,
-              -5196.15283203125,
-              2300.0
+              3000,
+              -5196,
+              2300
             ],
             [
-              3049.999255468805,
-              -5282.755379401012,
+              3049.998694418422,
+              -5282.603294143198,
               2300.0
             ]
           ]
         },
         {
           "start": 18115,
-          "finish": 24862,
+          "finish": 24867,
           "bank_minutes": 0,
           "points": [
             [
-              3049.999255468805,
-              -5282.755379401012,
+              3049.998694418422,
+              -5282.603294143198,
               2300.0
             ],
             [
-              11649.997155077739,
-              -20178.393496536668,
+              11650.009139071046,
+              -20178.776940997614,
               2300.0
             ]
           ]
         },
         {
-          "start": 24862,
-          "finish": 26333,
+          "start": 24867,
+          "finish": 26336,
           "bank_minutes": 1,
           "points": [
             [
-              11649.997155077739,
-              -20178.393496536668,
+              11650.009139071046,
+              -20178.776940997614,
               2300.0
             ],
             [
-              11999.9970703125,
-              -20784.611328125,
-              2300.0
+              12000,
+              -20785,
+              2300
             ],
             [
-              11999.9970703125,
-              -20784.611328125,
+              12000.0,
+              -20785.0,
               1600.0
             ]
           ]
         },
         {
-          "start": 26333,
-          "finish": 27470,
+          "start": 26336,
+          "finish": 27474,
           "bank_minutes": 0,
           "points": [
             [
-              11999.9970703125,
-              -20784.611328125,
+              12000.0,
+              -20785.0,
               1600.0
             ],
             [
-              11999.9970703125,
-              -20784.611328125,
+              12000.0,
+              -20785.0,
               900.0
             ]
           ]
@@ -5821,9 +5821,9 @@
     "Trackconnector3_curve_06": 1,
     "Trackconnector3_curve_07": 0,
     "Trackconnector3_curve_08": 1,
-    "Trackconnector3_curve_09": 1,
+    "Trackconnector3_curve_09": 0,
     "Trackconnector3_curve_10": 0,
-    "Trackconnector3_curve_11": 1,
+    "Trackconnector3_curve_11": 0,
     "Trackconnector3_curve_12": 0,
     "Trackconnector4_curve_00": 0,
     "Trackconnector4_curve_01": 0,
@@ -5834,9 +5834,9 @@
     "Trackconnector4_curve_06": 1,
     "Trackconnector4_curve_07": 0,
     "Trackconnector4_curve_08": 1,
-    "Trackconnector4_curve_09": 1,
+    "Trackconnector4_curve_09": 0,
     "Trackconnector4_curve_10": 0,
-    "Trackconnector4_curve_11": 1,
+    "Trackconnector4_curve_11": 0,
     "Trackconnector4_curve_12": 0,
     "Trackconnector5_curve_00": 0,
     "Trackconnector5_curve_01": 0,
@@ -5844,7 +5844,7 @@
     "Trackconnector5_curve_03": 1,
     "Trackconnector5_curve_04": 0,
     "Trackconnector5_curve_05": 1,
-    "Trackconnector5_curve_06": 1,
+    "Trackconnector5_curve_06": 0,
     "Trackconnector5_curve_07": 0,
     "Trackconnector5_curve_08": 1,
     "Trackconnector5_curve_09": 1,
@@ -5859,7 +5859,7 @@
     "Trackconnector6_curve_05": 1,
     "Trackconnector6_curve_06": 1,
     "Trackconnector6_curve_07": 0,
-    "Trackconnector6_curve_08": 1,
+    "Trackconnector6_curve_08": 0,
     "Trackconnector6_curve_09": 1,
     "Trackconnector6_curve_10": 0,
     "Trackconnector6_curve_11": 1,
@@ -5876,14 +5876,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector1_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -5961,95 +5961,95 @@
         25.0
       ],
       [
-        73.86721459840473,
-        34.78023616080259,
+        73.86689638169625,
+        34.78036304260448,
         25.0
       ]
     ],
     "Trackconnector1_curve_07": [
       [
-        73.86721459840473,
-        34.78023616080259,
+        73.86689638169625,
+        34.78036304260448,
         25.0
       ],
       [
-        60.37036012122442,
-        0.928896175029621,
+        60.36906605233066,
+        0.9296400161108487,
         25.0
       ]
     ],
     "Trackconnector1_curve_08": [
       [
-        60.37036012122442,
-        0.928896175029621,
+        60.36906605233066,
+        0.9296400161108487,
         25.0
       ],
       [
-        60.000002978324886,
-        6.737742658913248e-06,
+        59.99867998063943,
+        0.0007621135331561391,
         25.0
       ],
       [
-        60.000002978324886,
-        6.737742658913248e-06,
+        59.99867998063943,
+        0.0007621135331561391,
         24.0
       ]
     ],
     "Trackconnector1_curve_09": [
       [
-        60.000002978324886,
-        6.737742658913248e-06,
+        59.99867998063943,
+        0.0007621135331561391,
         24.0
       ],
       [
-        60.000002978324886,
-        6.737742658913248e-06,
+        59.99867998063943,
+        0.0007621135331561391,
         23.0
       ],
       [
-        61.00000297832487,
-        6.850038367645084e-06,
+        60.998679980525786,
+        0.0007470380412541999,
         23.0
       ]
     ],
     "Trackconnector1_curve_10": [
       [
-        61.00000297832487,
-        6.850038367645084e-06,
+        60.998679980525786,
+        0.0007470380412541999,
         23.0
       ],
       [
-        233.00001191329957,
-        2.6164900688741e-05,
+        233.003380177391,
+        -0.0018460174240431115,
         23.0
       ]
     ],
     "Trackconnector1_curve_11": [
       [
-        233.00001191329957,
-        2.6164900688741e-05,
+        233.003380177391,
+        -0.0018460174240431115,
         23.0
       ],
       [
-        240.00001191329955,
-        2.6950970635652993e-05,
+        240.00338017659556,
+        -0.0019515458673708963,
         23.0
       ],
       [
-        240.00001191329955,
-        2.6950970635652993e-05,
+        240.00338017659556,
+        -0.0019515458673708963,
         16.0
       ]
     ],
     "Trackconnector1_curve_12": [
       [
-        240.00001191329955,
-        2.6950970635652993e-05,
+        240.00338017659556,
+        -0.0019515458673708963,
         16.0
       ],
       [
-        240.00001191329955,
-        2.6950970635652993e-05,
+        240.00338017659556,
+        -0.0019515458673708963,
         9.0
       ]
     ],
@@ -6062,14 +6062,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector2_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -6147,95 +6147,95 @@
         25.0
       ],
       [
-        67.48349974932057,
-        41.586613504463045,
+        67.48352628094065,
+        41.586532173034044,
         25.0
       ]
     ],
     "Trackconnector2_curve_07": [
       [
-        67.48349974932057,
-        41.586613504463045,
+        67.48352628094065,
+        41.586532173034044,
         25.0
       ],
       [
-        -59.04930812187224,
-        0.31012112284789595,
+        -59.047987536152235,
+        0.3093731408236664,
         25.0
       ]
     ],
     "Trackconnector2_curve_08": [
       [
-        -59.04930812187224,
-        0.31012112284789595,
+        -59.047987536152235,
+        0.3093731408236664,
         25.0
       ],
       [
-        -60.000002978324886,
-        -6.737742658913248e-06,
+        -59.99867998063943,
+        -0.0007621135331561391,
         25.0
       ],
       [
-        -60.000002978324886,
-        -6.737742658913248e-06,
+        -59.99867998063943,
+        -0.0007621135331561391,
         24.0
       ]
     ],
     "Trackconnector2_curve_09": [
       [
-        -60.000002978324886,
-        -6.737742658913248e-06,
+        -59.99867998063943,
+        -0.0007621135331561391,
         24.0
       ],
       [
-        -60.000002978324886,
-        -6.737742658913248e-06,
+        -59.99867998063943,
+        -0.0007621135331561391,
         23.0
       ],
       [
-        -61.00000297832487,
-        -6.850038367645084e-06,
+        -60.998679980525786,
+        -0.0007470380412541999,
         23.0
       ]
     ],
     "Trackconnector2_curve_10": [
       [
-        -61.00000297832487,
-        -6.850038367645084e-06,
+        -60.998679980525786,
+        -0.0007470380412541999,
         23.0
       ],
       [
-        -233.00001191329957,
-        -2.6164900688741e-05,
+        -233.003380177391,
+        0.0018460174240431115,
         23.0
       ]
     ],
     "Trackconnector2_curve_11": [
       [
-        -233.00001191329957,
-        -2.6164900688741e-05,
+        -233.003380177391,
+        0.0018460174240431115,
         23.0
       ],
       [
-        -240.00001191329955,
-        -2.6950970635652993e-05,
+        -240.00338017659556,
+        0.0019515458673708963,
         23.0
       ],
       [
-        -240.00001191329955,
-        -2.6950970635652993e-05,
+        -240.00338017659556,
+        0.0019515458673708963,
         16.0
       ]
     ],
     "Trackconnector2_curve_12": [
       [
-        -240.00001191329955,
-        -2.6950970635652993e-05,
+        -240.00338017659556,
+        0.0019515458673708963,
         16.0
       ],
       [
-        -240.00001191329955,
-        -2.6950970635652993e-05,
+        -240.00338017659556,
+        0.0019515458673708963,
         9.0
       ]
     ],
@@ -6248,14 +6248,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector3_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -6333,95 +6333,95 @@
         25.0
       ],
       [
-        67.0553772036362,
-        46.579190208166274,
+        67.05537711142006,
+        46.57918957329262,
         25.0
       ]
     ],
     "Trackconnector3_curve_07": [
       [
-        67.0553772036362,
-        46.579190208166274,
+        67.05537711142006,
+        46.57918957329262,
         25.0
       ],
       [
-        30.989608480629023,
-        51.817785292926565,
+        30.989615096261787,
+        51.817781535945095,
         25.0
       ]
     ],
     "Trackconnector3_curve_08": [
       [
-        30.989608480629023,
-        51.817785292926565,
+        30.989615096261787,
+        51.817781535945095,
         25.0
       ],
       [
-        29.999993392750522,
-        51.96152804176358,
+        30.0,
+        51.96152422706631,
         25.0
       ],
       [
-        29.999993392750522,
-        51.96152804176358,
+        30.0,
+        51.96152422706631,
         24.0
       ]
     ],
     "Trackconnector3_curve_09": [
       [
-        29.999993392750522,
-        51.96152804176358,
+        30.0,
+        51.96152422706631,
         24.0
       ],
       [
-        29.999993392750522,
-        51.96152804176358,
+        30.0,
+        51.96152422706631,
         23.0
       ],
       [
-        30.499993282629692,
-        52.827553509126304,
+        30.5,
+        52.827549630850754,
         23.0
       ]
     ],
     "Trackconnector3_curve_10": [
       [
-        30.499993282629692,
-        52.827553509126304,
+        30.5,
+        52.827549630850754,
         23.0
       ],
       [
-        116.4999743418479,
-        201.7839338955153,
+        116.5,
+        201.7839190817742,
         23.0
       ]
     ],
     "Trackconnector3_curve_11": [
       [
-        116.4999743418479,
-        201.7839338955153,
+        116.5,
+        201.7839190817742,
         23.0
       ],
       [
-        119.99997357100209,
-        207.84611216705432,
+        120.0,
+        207.84609690826525,
         23.0
       ],
       [
-        119.99997357100209,
-        207.84611216705432,
+        120.0,
+        207.84609690826525,
         16.0
       ]
     ],
     "Trackconnector3_curve_12": [
       [
-        119.99997357100209,
-        207.84611216705432,
+        120.0,
+        207.84609690826525,
         16.0
       ],
       [
-        119.99997357100209,
-        207.84611216705432,
+        120.0,
+        207.84609690826525,
         9.0
       ]
     ],
@@ -6434,14 +6434,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector4_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -6519,95 +6519,95 @@
         25.0
       ],
       [
-        69.75784411435097,
-        37.64726378122545,
+        69.75784374689121,
+        37.64726419030354,
         25.0
       ]
     ],
     "Trackconnector4_curve_07": [
       [
-        69.75784411435097,
-        37.64726378122545,
+        69.75784374689121,
+        37.64726419030354,
         25.0
       ],
       [
-        -29.256057114936997,
-        -51.29327747906052,
+        -29.256063688781044,
+        -51.29327370155217,
         25.0
       ]
     ],
     "Trackconnector4_curve_08": [
       [
-        -29.256057114936997,
-        -51.29327747906052,
+        -29.256063688781044,
+        -51.29327370155217,
         25.0
       ],
       [
-        -29.999993392750522,
-        -51.96152804176358,
+        -30.0,
+        -51.96152422706631,
         25.0
       ],
       [
-        -29.999993392750522,
-        -51.96152804176358,
+        -30.0,
+        -51.96152422706631,
         24.0
       ]
     ],
     "Trackconnector4_curve_09": [
       [
-        -29.999993392750522,
-        -51.96152804176358,
+        -30.0,
+        -51.96152422706631,
         24.0
       ],
       [
-        -29.999993392750522,
-        -51.96152804176358,
+        -30.0,
+        -51.96152422706631,
         23.0
       ],
       [
-        -30.499993282629692,
-        -52.827553509126304,
+        -30.5,
+        -52.827549630850754,
         23.0
       ]
     ],
     "Trackconnector4_curve_10": [
       [
-        -30.499993282629692,
-        -52.827553509126304,
+        -30.5,
+        -52.827549630850754,
         23.0
       ],
       [
-        -116.4999743418479,
-        -201.7839338955153,
+        -116.5,
+        -201.7839190817742,
         23.0
       ]
     ],
     "Trackconnector4_curve_11": [
       [
-        -116.4999743418479,
-        -201.7839338955153,
+        -116.5,
+        -201.7839190817742,
         23.0
       ],
       [
-        -119.99997357100209,
-        -207.84611216705432,
+        -120.0,
+        -207.84609690826525,
         23.0
       ],
       [
-        -119.99997357100209,
-        -207.84611216705432,
+        -120.0,
+        -207.84609690826525,
         16.0
       ]
     ],
     "Trackconnector4_curve_12": [
       [
-        -119.99997357100209,
-        -207.84611216705432,
+        -120.0,
+        -207.84609690826525,
         16.0
       ],
       [
-        -119.99997357100209,
-        -207.84611216705432,
+        -120.0,
+        -207.84609690826525,
         9.0
       ]
     ],
@@ -6620,14 +6620,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector5_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -6705,95 +6705,95 @@
         25.0
       ],
       [
-        66.96396186270694,
-        45.70617993892924,
+        66.96395747112837,
+        45.70611186182321,
         25.0
       ]
     ],
     "Trackconnector5_curve_07": [
       [
-        66.96396186270694,
-        45.70617993892924,
+        66.96395747112837,
+        45.70611186182321,
         25.0
       ],
       [
-        -29.00208163354702,
-        51.89714175182353,
+        -29.00075400798749,
+        51.8963901234546,
         25.0
       ]
     ],
     "Trackconnector5_curve_08": [
       [
-        -29.00208163354702,
-        51.89714175182353,
+        -29.00075400798749,
+        51.8963901234546,
         25.0
       ],
       [
-        -30.00000720696455,
-        51.96151993072991,
+        -29.99867998063943,
+        51.96076211353316,
         25.0
       ],
       [
-        -30.00000720696455,
-        51.96151993072991,
+        -29.99867998063943,
+        51.96076211353316,
         24.0
       ]
     ],
     "Trackconnector5_curve_09": [
       [
-        -30.00000720696455,
-        51.96151993072991,
+        -29.99867998063943,
+        51.96076211353316,
         24.0
       ],
       [
-        -30.00000720696455,
-        51.96151993072991,
+        -29.99867998063943,
+        51.96076211353316,
         23.0
       ],
       [
-        -30.50000732805774,
-        52.827545264601156,
+        -30.49869303634157,
+        52.82677997947323,
         23.0
       ]
     ],
     "Trackconnector5_curve_10": [
       [
-        -30.50000732805774,
-        52.827545264601156,
+        -30.49869303634157,
+        52.82677997947323,
         23.0
       ],
       [
-        -116.50002798020589,
-        201.78390238582094,
+        -116.50328878668054,
+        201.7859233925521,
         23.0
       ]
     ],
     "Trackconnector5_curve_11": [
       [
-        -116.50002798020589,
-        201.78390238582094,
+        -116.50328878668054,
+        201.7859233925521,
         23.0
       ],
       [
-        -120.0000288278582,
-        207.84607972291963,
+        -120.00338017659556,
+        207.84804845413262,
         23.0
       ],
       [
-        -120.0000288278582,
-        207.84607972291963,
+        -120.00338017659556,
+        207.84804845413262,
         16.0
       ]
     ],
     "Trackconnector5_curve_12": [
       [
-        -120.0000288278582,
-        207.84607972291963,
+        -120.00338017659556,
+        207.84804845413262,
         16.0
       ],
       [
-        -120.0000288278582,
-        207.84607972291963,
+        -120.00338017659556,
+        207.84804845413262,
         9.0
       ]
     ],
@@ -6806,14 +6806,14 @@
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ]
     ],
     "Trackconnector6_curve_01": [
       [
         9.98812085302422,
         9.359932789576145,
-        0.30000001907348633
+        0.3
       ],
       [
         9.98812085302422,
@@ -6891,95 +6891,95 @@
         25.0
       ],
       [
-        73.06566446583284,
-        35.13750743852505,
+        73.06552538674391,
+        35.13757620667174,
         25.0
       ]
     ],
     "Trackconnector6_curve_07": [
       [
-        73.06566446583284,
-        35.13750743852505,
+        73.06552538674391,
+        35.13757620667174,
         25.0
       ],
       [
-        30.443232543734265,
-        -51.06510970050863,
+        30.441917960962684,
+        -51.06435813496158,
         25.0
       ]
     ],
     "Trackconnector6_curve_08": [
       [
-        30.443232543734265,
-        -51.06510970050863,
+        30.441917960962684,
+        -51.06435813496158,
         25.0
       ],
       [
-        30.00000720696455,
-        -51.96151993072991,
+        29.99867998063943,
+        -51.96076211353316,
         25.0
       ],
       [
-        30.00000720696455,
-        -51.96151993072991,
+        29.99867998063943,
+        -51.96076211353316,
         24.0
       ]
     ],
     "Trackconnector6_curve_09": [
       [
-        30.00000720696455,
-        -51.96151993072991,
+        29.99867998063943,
+        -51.96076211353316,
         24.0
       ],
       [
-        30.00000720696455,
-        -51.96151993072991,
+        29.99867998063943,
+        -51.96076211353316,
         23.0
       ],
       [
-        30.50000732805774,
-        -52.827545264601156,
+        30.49869303634157,
+        -52.82677997947323,
         23.0
       ]
     ],
     "Trackconnector6_curve_10": [
       [
-        30.50000732805774,
-        -52.827545264601156,
+        30.49869303634157,
+        -52.82677997947323,
         23.0
       ],
       [
-        116.50002798020589,
-        -201.78390238582094,
+        116.50328878668054,
+        -201.7859233925521,
         23.0
       ]
     ],
     "Trackconnector6_curve_11": [
       [
-        116.50002798020589,
-        -201.78390238582094,
+        116.50328878668054,
+        -201.7859233925521,
         23.0
       ],
       [
-        120.0000288278582,
-        -207.84607972291963,
+        120.00338017659556,
+        -207.84804845413262,
         23.0
       ],
       [
-        120.0000288278582,
-        -207.84607972291963,
+        120.00338017659556,
+        -207.84804845413262,
         16.0
       ]
     ],
     "Trackconnector6_curve_12": [
       [
-        120.0000288278582,
-        -207.84607972291963,
+        120.00338017659556,
+        -207.84804845413262,
         16.0
       ],
       [
-        120.0000288278582,
-        -207.84607972291963,
+        120.00338017659556,
+        -207.84804845413262,
         9.0
       ]
     ]
