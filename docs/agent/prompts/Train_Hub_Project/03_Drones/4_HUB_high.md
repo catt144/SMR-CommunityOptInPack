@@ -24,6 +24,19 @@ only), §4 (the infopanel line and the track-repair toggle), the save guard, the
 wrap and the no-free-drone-leak backstop — built on the flight link's calls, with the smoke left to
 link 5.
 
+**Plus fleet scaling by load (owner, 2026-09-23).** `DESIGN.md`'s "constant 30, launched on demand"
+is refined: the hub launches only what the work needs and brings the surplus home. The owner's
+words: *"since we are allowing up to 30 drones, but won't need them all in flight, if drone load is
+at low maybe we only have like 2 out there and if it goes to medium we launch X more drones, high
+we launch X more drones. And as it dials back down we bring X drones back into the bay?"* The
+tiers, their thresholds and the step size are **your call** — record them in the commit message and
+give the owner a console dial per number, the way the flight link's tuner works, because these are
+feel values link 5's sitting will want to move. Scaling down recalls and removes; it never strands
+a drone mid-job. The hub is already a `DroneControl` (`20_TrainHub.lua:95`), so `drones`,
+`SpawnDrone`, `KillDrone` and `GetIdleDronesCount()` (`Lua/Buildings/DroneControl.lua:99, 725, 729,
+992`, build 25390750) are inherited rather than built; prefer `DespawnNow`'s `KillDrone` route over
+a bare `DoneObject`, which skips the controller's bookkeeping.
+
 `FIX_POLICY` §0 sets the disable direction for content. The toggle is tested in both directions in
 link 5, not here.
 
