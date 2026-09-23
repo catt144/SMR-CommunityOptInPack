@@ -2267,6 +2267,10 @@ and parked (its cost reading moves with the paint); the body paint is
 `prompts/Train_Hub_Project/05_TRAIN_HUB_BODYPAINT_high.md`, the last big job, fired in a fresh
 session. Still owed before it starts: the owner's two glass texture compiles and their word on the
 roughness, then restore point 5.
+**Owner, 2026-09-23: "Glass is good"** — roughness .45 / metal .1 KEPT on both glass sets
+(checkpoint OptInPack `1a158fe`, version 48). **Restore point 5 `hub-glass-lights-20260923`** (88
+files, 505.6 MB, paired tags): the whole look as kept — green frames, clear glass, reactor P4,
+under-deck lights, dome glass. Brief 05 starts from it.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.

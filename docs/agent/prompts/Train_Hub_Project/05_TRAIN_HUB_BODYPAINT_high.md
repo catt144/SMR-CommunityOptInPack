@@ -96,8 +96,8 @@ stops it, and the cost reading is recorded.
   after any save.
 - **Restore points:** `snapshot_hub.py <name>` (paired tags + a copy of the git-ignored maps and DDS
   under `B:\Dev\SMR\SMR-Shared\SMR-HubBackups\<name>\`). The last kept state before this brief is
-  `hub-green-glass-20260922` (restore point 4); restore point 5 is owed once the owner keeps the
-  glass roughness, and the next worker takes it first if it is still missing.
+  `hub-glass-lights-20260923` (restore point 5, 2026-09-23: green frames, clear glass at
+  roughness .45, reactor P4, under-deck lights, dome glass — everything this brief holds).
 - **The old glass maps, seams sets and `structure_before_*` atlases** are dead sets awaiting the
   owner's word to delete; do not delete them.
 
