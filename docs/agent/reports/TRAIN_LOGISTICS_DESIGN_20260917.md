@@ -2318,6 +2318,12 @@ navy; the validator's table says so. **Texture-only: recompile `textures/structu
 else** (assets README, "Current handoff"). Next: the owner's compile and look (sector overview and
 close, day and night); `snapshot_hub.py hub-bodypaint-1-20260923` if kept; then the cost reading
 (§"Hub off against on cost", still `<<PENDING-RUN>>`).
+**Owner, 2026-09-23, in game after the compile: "That is good, its approved."** The body paint is
+KEPT as baked (assets `a5535fb`); checkpoint OptInPack `2f3d347` (version 49, BC/NM/RM
+recompiled 17:27, SI unchanged, the drones code-list line held). **Restore point 6
+`hub-bodypaint-1-20260923`** (88 files, 505.5 MB, paired tags): the whole look as kept. Still
+owed from brief 05: the cost reading (step 6). Owner's next ask, same sitting: a custom build-menu
+icon — "our icon in the build menu just looks like another station".
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
