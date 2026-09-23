@@ -2157,9 +2157,14 @@ to 133 along the lit line), pane #09384F, lit line #0453C1, SI peak 166, roughne
 44,237 lit texels, 590 outside an island and all within 3 texels (the old set had 8,269 outside).
 The body FBX was re-exported by the same command with 0 drift; only its timestamp differs. The
 concept-era 2048 body maps in `textures/concept/` moved too; the shipped atlas is
-`textures/structure/`. Order for the owner's sitting:
-texture compile (orange frames) → restart, night look (crown pool, frames) → glass entity import
-from the sheet → the whole-hub cost reading.
+`textures/structure/`. **Both imported by the owner, 2026-09-22 20:20-20:23 — checkpoint
+OptInPack `5f3c3de` (+ the glass mesh, next commit).** Body BC recompiled 20:20 (NM/RM/SI at 18:54
+still); glass entity `SMROptInTrainHub6Glass` at 20:23, one material (`blendGlass`, DepthWrite
+off, TwoSidedShading on, no shadows; this editor build has no TransparentDecal field), BC compiled
+DXGI 78 = BC3 sRGB so the alpha survived, NM collapsed to 4×4 (flat), RM BC1, SI BC4, entity
+box ±24.85 × ±24.97 m at z 7.745-7.895. The editor's save dropped the drones code-list line a
+third time (restored). The owner's look at the orange frames, the crown pool and the glass is
+next; then the whole-hub cost reading.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
