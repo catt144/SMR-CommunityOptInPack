@@ -191,6 +191,15 @@ assignment in the colony, far out of proportion to this pain.
 No code survives to restore (§1); it would be a new transport system on the most-churned file in
 this area.
 
+### F · Bypass the elevator: a cross-map train tunnel (separate report)
+
+The owner asked on 2026-09-21 for the bypass to be explored instead of the elevator altered — a
+train tunnel whose two ends sit on different maps, so a surface train runs down to the
+underground. It touches nothing in this report: the elevator is unchanged and F does not compete
+with A, B or C, it removes the need for them at scale. A dev-only prototype is built and
+installed but **has not been run**; the mechanism, the bill for a real module and the sitting that
+would measure it are in `reports/RAIL_SHAFT_PROTOTYPE.md`. Nothing about F is established yet.
+
 ---
 
 ## 3 · Pain points against options

@@ -1,5 +1,16 @@
 # Rail shaft — research the map transfer, build a throwaway prototype · _high
 
+> **STATE 2026-09-23 — partly consumed; only the sitting is left. Do not redo the research.**
+> The research and the prototype are done and recorded in
+> `docs/agent/reports/RAIL_SHAFT_PROTOTYPE.md`; the dev mod is built, parses, and is junctioned in
+> at `tools/devmods/rail_shaft/`. **Stop (3) fired**: the game patched to 1.1.1.405907 / build
+> **25390750** on 2026-09-23, so every source citation below describes a tree the rig no longer
+> has. Rather than stop dead, every claim was re-derived against the installed tree and the report
+> carries the new line numbers — read §1-§3 of the report, not the "What is already known" section
+> below, which is now superseded. The 2026-09-21 log this brief cites has rotated off disk and
+> cannot be re-checked. **What is owed: the sitting**, written out step by step as report §6, plus
+> recording its result in report §5. Fire this brief only for that.
+
 **Decided (owner, 2026-09-21).** The elevator cargo pain is an Opt-In Modules matter
 (`docs/agent/reports/ELEVATOR_LOGISTICS_OPTIONS.md`). The owner now wants the bypass explored: a
 train tunnel whose two ends sit on different maps, so a surface train runs down to the underground.
