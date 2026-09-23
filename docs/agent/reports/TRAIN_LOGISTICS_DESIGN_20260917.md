@@ -2187,7 +2187,16 @@ object alone through vanilla's per-object colorization (`SetColorizationMaterial
 roughness, metallic)`, the path vanilla uses for the colony colour scheme), so no vanilla material
 is restyled and no import is needed; four named variants (navy everywhere; navy + polished steel on
 channel 1, 2, or 3+4) and a live `Floor.SetHubReactorPalette` tune, so the owner learns which
-channel is which surface by eye. Build in flight (Opus, Lua + look_smoke). If the owner wants
+channel is which surface by eye. **Built, OptInPack `1fbdf49`** (Opus; smoke rerun by the
+orchestrator: PASS, 4 reactor channels, 0 colorization calls on the hub). Facts read on
+1.1.0.403908: `SetColorizationMaterial(channel, colour, roughness, metallic)`
+(`CommonLua/Classes/Colorization.lua:802-818`); roughness and metallic are SIGNED OFFSETS on the
+authored material, -128..127, 0 = as authored (`:179-191`, `const.lua:452`), so "polished steel" is
+RGB(200,205,210) at roughness -90, metallic +110, a judgement value; the attach inherits it
+(`CObject` ← `ColorizableObject`, `:723-725`; `ShapeshifterAutoAttach` → `Shapeshifter` → `Object` →
+`CObject`). Navy RGB(18,32,78). Default P2 (steel on channel 1). "vanilla" recreates the visual
+and paints nothing, which is the base look because C initialises a new CObject from the entity's
+own palette (`:763-764`). Restart only; the owner's look next. If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
 
