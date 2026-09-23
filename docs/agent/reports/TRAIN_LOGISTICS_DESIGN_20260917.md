@@ -2218,6 +2218,20 @@ with the control wrap (link 1): `CanBeControlled` gates only while the live `com
 train hub, so without this sweep the orphans would have become adoptable by the colony. Link 5's
 sitting tests drones out, hub destroyed, then save and reload.
 
+
+**The drones' motion, sent back twice, 2026-09-22.** L2M (`74b1e4a`) kept scripted planning and
+rendered it through native timed interpolation, with `SetCurvature(false)` and `SetAcceleration(0)`,
+issuing a fresh timed `SetPos` each sample tick. The owner flew it: *"Its studdered very bad coming
+out, the flight path is sorta better but still pretty sharp on the angles and its kinda glitchy /
+suttery when it lands to do the repair sequence. I needs the be, natural, fluid, and respemble
+flight."* The route (L2R, under the deck) has never been the objection. `2M2_FLUIDITY_high.md`
+reopens the mechanism with two changes of footing: an ordinary Wasp flying beside ours is the
+reference for what to call and how often, and — **orchestrator's call, the owner may overturn** —
+**the deadline is a fence, not a leash**: the visual must not outlast link 4's persisted deadline,
+but it need not be at an exact position at every instant, which is what forced the per-tick writes.
+Clearance is re-measured against L2M's receipt shape, because a curve that clips is worse than a
+jerk that does not.
+
 ## 10 · The prototype, the next build (authorised 2026-09-18)
 
 **Owner ruling, 2026-09-18 (OI-10):** "prototype B via 3a". Appearance does not matter, and the
