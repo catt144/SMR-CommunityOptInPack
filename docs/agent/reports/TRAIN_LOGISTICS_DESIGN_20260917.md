@@ -2226,6 +2226,17 @@ candidate runs rewrite that file whole and would drop the key, so re-run the exp
 re-freeze); flat 256² maps BC #09384F alpha 15, NM flat, RM 33/33/0, SI 0, its OWN material
 (the siding atlas is alpha 255 outside its islands). Sheet: `DOME_GLASS_IMPORT.md`. The owner's
 one import of the third entity is next, then restart for the lights.
+
+**Owner, 2026-09-23 — "our mini fusion reactor is having dust buildup while none of our other
+buildings do" — fixed, OptInPack `bc8aaf2`.** Cause read on 1.1.0.403908: the hub is a Building and
+accumulates dust like any other; `BuildingVisualDustComponent:SetDustVisuals` pushes that value onto
+EVERY attach through `ApplyToObjAndAttaches(self, SetObjDust, ...)` (`BuildingComponents.lua:326-337`,
+`Building.lua:1711-1719`, `SupplyGrid.lua:256-260`). Our body and glass entities have no dust channel
+and show nothing; the vanilla `FusionReactor` entity does, so the reactor alone wore the hub's dust.
+The hub now overrides `SetDustVisuals`: vanilla runs, then the reactor attach is set to dust 0 with
+the same material constant. Smoke case added, PASS. Restart only. Note for the body paint: the hub's
+own maintenance dust is invisible by design of its materials; if a dust read is ever wanted on the
+body, it is a dust channel in the maps, not Lua.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
