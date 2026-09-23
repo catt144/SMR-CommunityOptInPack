@@ -2324,6 +2324,12 @@ recompiled 17:27, SI unchanged, the drones code-list line held). **Restore point
 `hub-bodypaint-1-20260923`** (88 files, 505.5 MB, paired tags): the whole look as kept. Still
 owed from brief 05: the cost reading (step 6). Owner's next ask, same sitting: a custom build-menu
 icon — "our icon in the build menu just looks like another station".
+**Owner ask, 2026-09-23, same sitting — the hub's Wasps recoloured "when it comes time".** Route:
+vanilla's per-object colorization on each hub drone at spawn, the reactor's own P4 mechanism
+(`SetColorizationMaterial`, spec §9 "Owner ask, 2026-09-22 ~21:50"), navy with white bands so a hub
+drone reads as the hub's and a colony Wasp keeps its own; Lua on the drone objects, no import.
+It belongs to the drones chain (`03_Drones/`), after the flight look settles (link 3), and is
+tuned by eye like the reactor variants were. Brief 06 is the icon; this is not in it.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
