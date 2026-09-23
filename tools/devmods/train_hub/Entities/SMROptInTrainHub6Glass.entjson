@@ -1,0 +1,24 @@
+{
+	"$persist_version": 0,
+	"$value": {
+		"strName": "SMROptInTrainHub6Glass",
+		"states": [{
+				"name": "idle",
+				"mesh_ref": "mesh",
+				"category": "All"
+			}],
+		"meshDescriptions": [{
+				"id": "mesh",
+				"lods": [{
+						"meshes_data": [{
+								"mesh": "Mod/SMR_TrainHubDev_20260918/Meshes/SMROptInTrainHub6Glass_mesh.sub_0.hgrm",
+								"material": "Mod/SMR_TrainHubDev_20260918/Materials/SMROptInTrainHub6Glass.mtljson"
+							}],
+						"boxMin": [-2485.0, -2497.072998046875, 774.5],
+						"boxMax": [2485.0, 2497.072998046875, 789.5],
+						"bsCenter": [-138.62884521484376, -50.4505500793457, 774.5004272460938],
+						"bsRadius": 2714.004150390625
+					}]
+			}]
+	}
+}

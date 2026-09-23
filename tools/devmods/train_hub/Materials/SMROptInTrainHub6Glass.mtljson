@@ -1,0 +1,21 @@
+{
+	"$persist_version": 0,
+	"$value": [{
+			"BaseColor": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6Glass_BC.dds",
+			"BaseColorChannel": 0,
+			"BlendType": "blendGlass",
+			"CastContactShadow": false,
+			"CastShadow": false,
+			"DepthWrite": false,
+			"Name": "SMROptInTrainHub6Glass",
+			"Normal": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6Glass_NM.dds",
+			"NormalChannel": 0,
+			"RM": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6Glass_RM.dds",
+			"RMChannel": 0,
+			"ReceiveShadow": false,
+			"SI": "Mod/SMR_TrainHubDev_20260918/Textures/SMROptInTrainHub6Glass_SI.dds",
+			"SIChannel": 0,
+			"TwoSidedShading": true,
+			"VertexColorUsages": []
+		}]
+}

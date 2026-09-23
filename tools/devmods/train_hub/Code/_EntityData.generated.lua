@@ -10,3 +10,8 @@ EntityData["SMROptInTrainHub6"] = {
 		class_parent = "BuildingEntityClass",
 	},
 }
+EntityData["SMROptInTrainHub6Glass"] = {
+	editor_artset = "Mods",
+	editor_category = "Common",
+	editor_subcategory = "Common",
+}
