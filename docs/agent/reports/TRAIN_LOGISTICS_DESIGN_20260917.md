@@ -2175,8 +2175,21 @@ that, 0 lit green outside Siding, Line_Arm 37,776 all (0,40,255), bays' yellow 1
 unchanged; 135/135, 99/99, crown pass and rim bleed proofs PASS. Glass: new knob `GLASS_LINE`
 (False = no lit line; True is the old wave), `GLASS_OPACITY` .24 → .06 (0.0 would remove the pane's
 tint and reflections entirely; .06 is the prototype, one knob); BC `188aaab7…` alpha exactly 15 over
-the pane, SI max 0, RM unchanged; baked on glass UV `a0aa8955…`. Two texture compiles owed (body
-material, glass material), then the owner's look; then the whole-hub cost reading.
+the pane, SI max 0, RM unchanged; baked on glass UV `a0aa8955…`. **Compiled by the owner 21:43 and
+KEPT** (*"That looks good"*): checkpoint OptInPack `2b64304` (the drones code-list line restored a
+fourth time), **restore point 4 `hub-green-glass-20260922`** (74 files, 504.8 MB, paired tags).
+
+**Owner ask, 2026-09-22 ~21:50 — the reactor.** *"do a pass on our smaller fusion reactor. close to
+base game, give us a few different details and maybe more of a navy blue instead of the base
+games light blue. And some metal polished on some of the surfaces."* Orchestrator's route,
+prototype first: keep the vanilla `FusionReactor` entity on the hub's 75% attach and recolour that
+object alone through vanilla's per-object colorization (`SetColorizationMaterial(i, colour,
+roughness, metallic)`, the path vanilla uses for the colony colour scheme), so no vanilla material
+is restyled and no import is needed; four named variants (navy everywhere; navy + polished steel on
+channel 1, 2, or 3+4) and a live `Floor.SetHubReactorPalette` tune, so the owner learns which
+channel is which surface by eye. Build in flight (Opus, Lua + look_smoke). If the owner wants
+geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
+deferred since 2026-09-21) is the next step, not this one.
 
 **Correction to the earlier sampled RM claim.** The validator's full baseline histogram at
 `ea82ef4` finds RGB (71,71,0): 91,421; (74,74,0): 432,288; (82,82,0): 3,254,698;
