@@ -2237,6 +2237,14 @@ The hub now overrides `SetDustVisuals`: vanilla runs, then the reactor attach is
 the same material constant. Smoke case added, PASS. Restart only. Note for the body paint: the hub's
 own maintenance dust is invisible by design of its materials; if a dust read is ever wanted on the
 body, it is a dust channel in the maps, not Lua.
+
+**Owner, 2026-09-23 afternoon.** The dome glass imported (checkpoint OptInPack `37e3dca`, version 47;
+the drones code-list line restored a fifth time) and reads as glass. *"underdeck lights look
+good"* — KEPT at the start values (18, intensity 40, radius 12 m, z 7 m). Open: *"a really bright
+sun spot that moves over the glass as I pan the camera. The base game doesn't really seem to do
+that"* — our glass RM is roughness 0.13; a worker is reading vanilla's dome glass RM texture and
+matching both glass sets to it (RM-only change, two texture compiles). Restore point 5 is taken
+once the glass roughness is kept.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
