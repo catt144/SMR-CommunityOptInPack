@@ -4,6 +4,10 @@ return {
 		'CodeFileName', "Code/20_TrainHub.lua",
 	}),
 	PlaceObj('ModItemCode', {
+		'name', "30_TrainHubDrones",
+		'CodeFileName', "Code/30_TrainHubDrones.lua",
+	}),
+	PlaceObj('ModItemCode', {
 		'name', "10_TrainFloor",
 		'CodeFileName', "Code/10_TrainFloor.lua",
 	}),
