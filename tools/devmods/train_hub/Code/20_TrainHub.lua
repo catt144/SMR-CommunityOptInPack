@@ -1084,7 +1084,7 @@ local hub_reactor_palettes = {
 }
 local hub_reactor_palette_order = { "P1", "P2", "P3", "P4" }
 local hub_reactor_channels = 4
-local hub_reactor_palette_default = "P2"
+local hub_reactor_palette_default = "P4" -- owner, 2026-09-22 in game: "P4 is the winner"
 -- A variant key, a patched channel table, or false for the base game's look. Session only: a
 -- restart puts the default back, exactly like Floor.HubLightTune.
 local hub_reactor_palette = hub_reactor_palette_default

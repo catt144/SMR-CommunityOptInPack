@@ -120,12 +120,12 @@ assert(#living('FusionReactor')==1 and #living('SMROptInTrainHub6Glass')==0)
 old=living('FusionReactor')[1]
 assert(old.scale==75 and old.angle==210*60)
 assert(old.offset:x()==3897 and old.offset:y()==2250 and old.offset:z()==0)
--- The palette rides the fallback FusionReactor as well: default P2, navy with channel 1 polished.
+-- The palette rides the fallback FusionReactor as well: default P4 (owner, 2026-09-22), navy with channels 3 and 4 polished.
 NAVY=RGB(18,32,78); STEEL=RGB(200,205,210)
 function cm_is(v,i,c,r,m) local e=v.cm and v.cm[i]; return e~=nil and e[1]==c and e[2]==r and e[3]==m end
 assert(old.cm_calls==4, tostring(old.cm_calls))
-assert(cm_is(old,1,STEEL,-90,110))
-for i=2,4 do assert(cm_is(old,i,NAVY,0,0), i) end
+for i=1,2 do assert(cm_is(old,i,NAVY,0,0), i) end
+for i=3,4 do assert(cm_is(old,i,STEEL,-90,110), i) end
 assert(h.colorized==nil)
 foreign=PlaceObjectIn('ShapeshifterAutoAttach',1); foreign:ChangeEntity('ForeignVisual'); h:Attach(foreign,0)
 -- Imported replacements, then repeated initialization: no duplicates or unrelated deletion.
@@ -137,7 +137,7 @@ assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass
 reactor=living('SMROptInTrainHubReactor')[1]; glass=living('SMROptInTrainHub6Glass')[1]
 assert(reactor.scale==75 and reactor.angle==210*60 and reactor.fx_actor_class=='FusionReactor')
 assert(glass.offset:x()==0 and glass.offset:y()==0 and glass.offset:z()==0)
-assert(reactor.cm_calls==4 and cm_is(reactor,1,STEEL,-90,110) and cm_is(reactor,4,NAVY,0,0))
+assert(reactor.cm_calls==4 and cm_is(reactor,1,NAVY,0,0) and cm_is(reactor,4,STEEL,-90,110))
 assert(glass.cm_calls==nil)  -- the glass keeps its own look
 for _,v in ipairs({reactor,glass}) do assert(v.delete_on_load and v.cleared==15 and v.spot==0) end
 h:OnSetWorking(false)
@@ -150,7 +150,7 @@ assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass
 assert(IsValid(foreign))
 -- The palette is re-applied by the same recreation path, so it survives the load.
 reactor=living('SMROptInTrainHubReactor')[1]
-assert(reactor.cm_calls==4 and cm_is(reactor,1,STEEL,-90,110) and cm_is(reactor,2,NAVY,0,0))
+assert(reactor.cm_calls==4 and cm_is(reactor,1,NAVY,0,0) and cm_is(reactor,3,STEEL,-90,110))
 assert(h.colorized==nil)
 -- Variants switch live from the console; each moves the polished channel and nothing else.
 function react() return living('SMROptInTrainHubReactor')[1] end
@@ -176,8 +176,8 @@ assert(r.cm_calls==1 and cm_is(r,2,NAVY,0,0) and r.cm[1]==nil)  -- a patch onto 
 Floor.SetHubReactorPalette(); r=react()
 assert(r.cm==nil and r.cm_calls==nil)
 -- Back to the default the owner sees first.
-Floor.SetHubReactorPalette('P2'); r=react()
-assert(r.cm_calls==4 and cm_is(r,1,STEEL,-90,110) and cm_is(r,3,NAVY,0,0))
+Floor.SetHubReactorPalette('P4'); r=react()
+assert(r.cm_calls==4 and cm_is(r,1,NAVY,0,0) and cm_is(r,3,STEEL,-90,110) and cm_is(r,4,STEEL,-90,110))
 assert(h.colorized==nil)
 -- Arm lights: 6*12 on (the owner's pick, B2 spots, on every arm), along the painted line's path, destroyed (not dimmed) off, no duplicates on repeat, others untouched.
 h:OnSetWorking(true); h:OnSetWorking(true)
@@ -279,7 +279,7 @@ MAP.NightLightsState=false; h:InitHubLights(); assert(n('crown')==0 and #lights(
 -- After the whole lights pass the reactor still carries the default palette, and the hub
 -- object itself never received a single colorization call.
 r=react()
-assert(r.cm_calls==4 and cm_is(r,1,STEEL,-90,110) and cm_is(r,4,NAVY,0,0))
+assert(r.cm_calls==4 and cm_is(r,1,NAVY,0,0) and cm_is(r,4,STEEL,-90,110))
 assert(h.colorized==nil, tostring(h.colorized))
 counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),
         crown_day=n('crown'),crown_night=night_counts.crown,
@@ -293,7 +293,7 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
     'counts':counts,
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
-             'reactor palette: default P2 on init -- 4 channels, steel RGB(200,205,210)/-90/110 on 1, navy RGB(18,32,78)/0/0 on 2-4, on the fallback entity and on the imported one',
+             'reactor palette: default P4 on init (owner, 2026-09-22) -- 4 channels, navy RGB(18,32,78)/0/0 on 1-2, steel RGB(200,205,210)/-90/110 on 3-4, on the fallback entity and on the imported one',
              'reactor palette: re-applied by the recreation path, so it survives the mocked load; the glass visual is never colorized',
              'reactor palette: SetHubReactorPalette switches P1/P3/P4 live, a table patches one channel, an unknown name is a no-op',
              'reactor palette: \"vanilla\" and a bare call recreate the visual with no colorization at all; a patch onto vanilla paints only its own channel',
