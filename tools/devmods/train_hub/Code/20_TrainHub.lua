@@ -1030,6 +1030,107 @@ local reactor_fallback_entity = "FusionReactor"
 local reactor_scale = 75
 local reactor_offset = point(3897, 2250, 0) -- 45 m out, local angle 30 degrees
 
+-- Palette pass (owner ask, 2026-09-22, in game): "close to base game, give us a few different
+-- details and maybe more of a navy blue instead of the base game's light blue. And some metal
+-- polished on some of the surfaces."
+--
+-- PER-OBJECT colorization, on OUR attached copy only. `obj:SetColorizationMaterial(channel,
+-- color, roughness, metallic)` is the same call vanilla makes to paint every building per
+-- instance from the colony colour scheme (`Lua/Buildings/Building.lua:752-760`:
+-- `GetBuildingColors` -> `Building:SetPalette` -> `SetObjectPaletteRecursive`; the setter's own
+-- signature at `CommonLua/Classes/Colorization.lua:802,:810,:818` and `CommonLua/Patterns.lua:283`).
+-- It writes to the OBJECT, never to the shared material asset, so every other fusion reactor in
+-- the colony keeps the base game's light blue and the 2026-09-21 ruling above stands.
+-- Read on build 1.1.0.403908, from that build's archived tree
+-- `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src`:
+--   * REACHABLE ON THE ATTACH. `AppendClass.CObject = { __parents = { "ColorizableObject" } }`
+--     (`Colorization.lua:723-725`) puts the setter on every CObject, and our visual is one:
+--     `ShapeshifterAutoAttach` -> `Shapeshifter` (`CommonLua/Classes/AutoAttach.lua:2598-2600`)
+--     -> `Object` (`CommonLua/Classes/Shapeshifter.lua:6-8`) -> `CObject`
+--     (`CommonLua/Classes/_object.lua:5-7`). `ChangeEntity` does not touch colorization
+--     (`AutoAttach.lua:2606-2619`), so setting it after the entity swap is safe.
+--   * FOUR CHANNELS. Vanilla's own per-object API is exactly cm1..cm4
+--     (`Colorization.lua:889-895`) and a building's palette is four colours
+--     (`Lua/ColonyColorScheme.lua:20-22`). The engine's `const.MaxColorizationMaterials` is
+--     C-side, so `GetMaxColorizationMaterials` (`Colorization.lua:105-107`) narrows the 4 below
+--     to whatever THIS entity's colorization texture actually carries.
+--   * UNITS, and they are NOT 0-1 and NOT 0-255. `color` is a packed RGB; `roughness` and
+--     `metallic` are SIGNED offsets on the entity's authored material -- the editor sliders are
+--     `min = -128, max = 127` (`Colorization.lua:179-181, :189-191`) and 0 means "as the artist
+--     made it" (`const.NoColorization = RGBRM(white point, 0, 0)`, `CommonLua/Core/const.lua:452`;
+--     the game's own `DefaultCM` is `RGB(128,128,128), 0, 0`, `Lua/ColonyColorScheme.lua:1`).
+--     So polished steel here is a NEGATIVE roughness with a strongly POSITIVE metallic.
+--   * SUB-MODELS. This paints the visual itself. Vanilla's recursion for a building is
+--     `SetObjectPaletteRecursive` (`Colorization.lua:855-861`); if the owner reports pieces of
+--     the reactor staying light blue, that is the next step, not a sign the call failed.
+--
+-- WHICH channel paints WHICH surface is unknown until the owner looks, so the four variants below
+-- move ONE polished channel at a time and the mapping is learnable by eye: P1 is the flat navy
+-- reference, P2/P3 polish a single channel, P4 polishes two. Console, no restart, no import:
+--   SMROptInTrainFloor.SetHubReactorPalette("P1")   -- .. "P2", "P3", "P4"
+--   SMROptInTrainFloor.SetHubReactorPalette{ [3] = { color = RGB(200, 205, 210), roughness = -90, metallic = 110 } }
+--   SMROptInTrainFloor.SetHubReactorPalette("vanilla")
+-- Code constants plus a session-only override: no persisted class, no saved field, no thread.
+local reactor_navy = RGB(18, 32, 78)        -- the owner's navy, against vanilla's light blue
+local reactor_steel = RGB(200, 205, 210)    -- polished steel
+local steel_roughness, steel_metallic = -90, 110
+local function navy_ch() return { color = reactor_navy, roughness = 0, metallic = 0 } end
+local function steel_ch() return { color = reactor_steel, roughness = steel_roughness, metallic = steel_metallic } end
+local hub_reactor_palettes = {
+	P1 = { name = "navy all", channels = { navy_ch(), navy_ch(), navy_ch(), navy_ch() } },
+	P2 = { name = "navy + steel on 1", channels = { steel_ch(), navy_ch(), navy_ch(), navy_ch() } },
+	P3 = { name = "navy + steel on 2", channels = { navy_ch(), steel_ch(), navy_ch(), navy_ch() } },
+	P4 = { name = "navy + steel on 3 and 4", channels = { navy_ch(), navy_ch(), steel_ch(), steel_ch() } },
+}
+local hub_reactor_palette_order = { "P1", "P2", "P3", "P4" }
+local hub_reactor_channels = 4
+local hub_reactor_palette_default = "P2"
+-- A variant key, a patched channel table, or false for the base game's look. Session only: a
+-- restart puts the default back, exactly like Floor.HubLightTune.
+local hub_reactor_palette = hub_reactor_palette_default
+
+local function hub_reactor_palette_channels()
+	local selected = hub_reactor_palette
+	if not selected then return nil end
+	if type(selected) == "table" then return selected end
+	local variant = hub_reactor_palettes[selected]
+	return variant and variant.channels or nil
+end
+
+local function hub_reactor_palette_name()
+	local selected = hub_reactor_palette
+	if not selected then return "vanilla (the entity's own default colours)" end
+	if type(selected) == "table" then return "patched channels" end
+	local variant = hub_reactor_palettes[selected]
+	return string.format("%s \"%s\"", selected, variant and variant.name or "?")
+end
+
+-- Returns how many channels were written, so the smoke and the console can see it.
+local function apply_hub_reactor_palette(visual)
+	local channels = hub_reactor_palette_channels()
+	if not channels or not IsValid(visual) or not visual.SetColorizationMaterial then return 0 end
+	local count = hub_reactor_channels
+	if visual.GetMaxColorizationMaterials then
+		local entity_count = visual:GetMaxColorizationMaterials() or 0
+		if entity_count > 0 then count = Min(count, entity_count) end
+	end
+	local written = 0
+	for i = 1, count do
+		local ch = channels[i]
+		if ch and ch.color then
+			visual:SetColorizationMaterial(i, ch.color, ch.roughness or 0, ch.metallic or 0)
+			written = written + 1
+			local r, g, b = 0, 0, 0
+			if type(GetRGB) == "function" then r, g, b = GetRGB(ch.color) end
+			print(string.format("[TrainHubDev] reactor palette: channel %d = %d,%d,%d roughness %d metallic %d",
+				i, r or 0, g or 0, b or 0, ch.roughness or 0, ch.metallic or 0))
+		end
+	end
+	print(string.format("[TrainHubDev] reactor palette: %s, %d of %d channels written on the attached copy only (vanilla's own per-object call; no material is restyled)",
+		hub_reactor_palette_name(), written, hub_reactor_channels))
+	return written
+end
+
 local function is_hub_reactor(obj)
 	return IsValid(obj) and IsKindOf(obj, "ShapeshifterAutoAttach")
 		and (obj:GetEntity() == reactor_entity or obj:GetEntity() == reactor_fallback_entity)
@@ -1056,6 +1157,7 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	if not IsValidEntity(entity) then return end
 	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
 	visual:ChangeEntity(entity)
+	apply_hub_reactor_palette(visual)
 	visual.fx_actor_class = reactor_fallback_entity -- preserve the existing Working FX actor
 	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
 	self:Attach(visual, self:GetSpotBeginIndex("Origin"))
@@ -1064,6 +1166,59 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	visual:SetScale(reactor_scale)
 	DeleteOnLoadGame(visual)
 	set_hub_reactor_working(self, self.working)
+end
+
+local function reinit_hub_reactor_visuals()
+	AllMapsForEach("map", "SMROptInTrainHubBase", function(hub) hub:InitHubReactorVisual() end)
+end
+
+-- Layer a partial table over whatever is selected now. A patch onto "vanilla" paints ONLY the
+-- channels it names and leaves the rest of the reactor as the base game made it.
+local function patched_reactor_channels(patch)
+	local base = hub_reactor_palette_channels()
+	local out = {}
+	for i = 1, hub_reactor_channels do
+		local ch = base and base[i]
+		if ch then out[i] = { color = ch.color, roughness = ch.roughness or 0, metallic = ch.metallic or 0 } end
+	end
+	for i, fields in pairs(patch) do
+		if type(i) == "number" and i >= 1 and i <= hub_reactor_channels and type(fields) == "table" then
+			local ch = out[i] or navy_ch()
+			for k, v in pairs(fields) do ch[k] = v end
+			out[i] = ch
+		else
+			print(string.format("[TrainHubDev] reactor palette: ignoring \"%s\"; patch by channel number 1-%d",
+				tostring(i), hub_reactor_channels))
+		end
+	end
+	return out
+end
+
+-- SMROptInTrainFloor.SetHubReactorPalette("P3")
+-- SMROptInTrainFloor.SetHubReactorPalette{ [2] = { color = RGB(200, 205, 210), roughness = -90, metallic = 110 } }
+-- SMROptInTrainFloor.SetHubReactorPalette("vanilla")  -- or with no argument at all
+-- Nothing here is saved; a restart returns to the default variant.
+function Floor.SetHubReactorPalette(variant)
+	if type(variant) == "table" then
+		hub_reactor_palette = patched_reactor_channels(variant)
+	elseif variant == nil or variant == "vanilla" then
+		-- Back to the base game's look by RECREATING the visual and applying nothing, rather than
+		-- re-deriving vanilla's colours ourselves: C initializes a freshly placed CObject from its
+		-- entity's own default palette (`GetColorsByColorizationPaletteName` is "called by C when
+		-- initializing CObjects with palettes", `CommonLua/Classes/Colorization.lua:763-764`,
+		-- build 1.1.0.403908), so an untouched new object IS the base game's look. Vanilla's
+		-- building path is not open to us anyway: `GetBuildingColors` reads
+		-- `building.palette_color1..4` (`Lua/ColonyColorScheme.lua:20-22`) and this visual is an
+		-- attach, not a Building.
+		hub_reactor_palette = false
+	elseif hub_reactor_palettes[variant] then
+		hub_reactor_palette = variant
+	else
+		print(string.format("[TrainHubDev] reactor palette: no variant \"%s\"; try %s, or \"vanilla\"",
+			tostring(variant), table.concat(hub_reactor_palette_order, ", ")))
+		return
+	end
+	reinit_hub_reactor_visuals()
 end
 
 -- The six original panel prisms, in one separately imported glass entity.

@@ -65,6 +65,11 @@ function V:SetAttenuationRadius(r) self.radius=r end
 function V:SetConeInnerAngle(a) self.inner=a end
 function V:SetConeOuterAngle(a) self.outer=a end
 function V:SetAttachAxis(a) self.axis=a end
+-- Per-object colorization (CommonLua/Classes/Colorization.lua:802,:810,:818 on build
+-- 1.1.0.403908). The channel count the entity really carries comes from :105-107.
+function V:SetColorizationMaterial(i,c,r,m) self.cm=self.cm or {}
+ self.cm[i]={c,r,m}; self.cm_calls=(self.cm_calls or 0)+1 end
+function V:GetMaxColorizationMaterials() return 4 end
 local B={}; B.__index=B
 function B:Center() return point((self[1]+self[3])/2,(self[2]+self[4])/2) end
 function B:minx() return self[1] end; function B:miny() return self[2] end
@@ -94,6 +99,8 @@ end
 function h:GetSpotBeginIndex(s) assert(s=='Origin' or s=='Pitrim', s); return s=='Pitrim' and 27 or 0 end
 function h:HasSpot(s) return s=='Pitrim' end
 function h:Attach(v,spot) v.spot=spot; self.attached[#self.attached+1]=v end
+-- The hub itself must NEVER be colorized: only our attached copy is.
+function h:SetColorizationMaterial() h.colorized=(h.colorized or 0)+1 end
 function h:GatherOrphanedDrones() end
 function h:SetWaitingDronesIdle() end
 function h:NotifyWorkingChanged() end
@@ -113,6 +120,13 @@ assert(#living('FusionReactor')==1 and #living('SMROptInTrainHub6Glass')==0)
 old=living('FusionReactor')[1]
 assert(old.scale==75 and old.angle==210*60)
 assert(old.offset:x()==3897 and old.offset:y()==2250 and old.offset:z()==0)
+-- The palette rides the fallback FusionReactor as well: default P2, navy with channel 1 polished.
+NAVY=RGB(18,32,78); STEEL=RGB(200,205,210)
+function cm_is(v,i,c,r,m) local e=v.cm and v.cm[i]; return e~=nil and e[1]==c and e[2]==r and e[3]==m end
+assert(old.cm_calls==4, tostring(old.cm_calls))
+assert(cm_is(old,1,STEEL,-90,110))
+for i=2,4 do assert(cm_is(old,i,NAVY,0,0), i) end
+assert(h.colorized==nil)
 foreign=PlaceObjectIn('ShapeshifterAutoAttach',1); foreign:ChangeEntity('ForeignVisual'); h:Attach(foreign,0)
 -- Imported replacements, then repeated initialization: no duplicates or unrelated deletion.
 available.SMROptInTrainHubReactor=true; available.SMROptInTrainHub6Glass=true
@@ -123,6 +137,8 @@ assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass
 reactor=living('SMROptInTrainHubReactor')[1]; glass=living('SMROptInTrainHub6Glass')[1]
 assert(reactor.scale==75 and reactor.angle==210*60 and reactor.fx_actor_class=='FusionReactor')
 assert(glass.offset:x()==0 and glass.offset:y()==0 and glass.offset:z()==0)
+assert(reactor.cm_calls==4 and cm_is(reactor,1,STEEL,-90,110) and cm_is(reactor,4,NAVY,0,0))
+assert(glass.cm_calls==nil)  -- the glass keeps its own look
 for _,v in ipairs({reactor,glass}) do assert(v.delete_on_load and v.cleared==15 and v.spot==0) end
 h:OnSetWorking(false)
 assert(reactor.si==0 and glass.si==0 and reactor.fx_state=='end')
@@ -132,6 +148,37 @@ assert(reactor.si==200 and glass.si==200 and reactor.fx_state=='start')
 DoneObject(reactor); DoneObject(glass); h:InitHubReactorVisual(); h:InitHubSidingGlass()
 assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass')==1)
 assert(IsValid(foreign))
+-- The palette is re-applied by the same recreation path, so it survives the load.
+reactor=living('SMROptInTrainHubReactor')[1]
+assert(reactor.cm_calls==4 and cm_is(reactor,1,STEEL,-90,110) and cm_is(reactor,2,NAVY,0,0))
+assert(h.colorized==nil)
+-- Variants switch live from the console; each moves the polished channel and nothing else.
+function react() return living('SMROptInTrainHubReactor')[1] end
+Floor.SetHubReactorPalette('P3'); r=react()
+assert(#living('SMROptInTrainHubReactor')==1 and r.cm_calls==4)
+assert(cm_is(r,1,NAVY,0,0) and cm_is(r,2,STEEL,-90,110) and cm_is(r,3,NAVY,0,0) and cm_is(r,4,NAVY,0,0))
+Floor.SetHubReactorPalette('P4'); r=react()
+assert(cm_is(r,1,NAVY,0,0) and cm_is(r,2,NAVY,0,0) and cm_is(r,3,STEEL,-90,110) and cm_is(r,4,STEEL,-90,110))
+Floor.SetHubReactorPalette('P1'); r=react()
+for i=1,4 do assert(cm_is(r,i,NAVY,0,0), i) end
+-- A table patches one channel over the selected variant and leaves the other three alone.
+Floor.SetHubReactorPalette{[3]={color=STEEL,roughness=-90,metallic=110}}; r=react()
+assert(r.cm_calls==4 and cm_is(r,3,STEEL,-90,110))
+assert(cm_is(r,1,NAVY,0,0) and cm_is(r,2,NAVY,0,0) and cm_is(r,4,NAVY,0,0))
+-- An unknown name changes nothing at all: no recreation, no write.
+Floor.SetHubReactorPalette('nope')
+assert(react()==r and cm_is(r,3,STEEL,-90,110))
+-- "vanilla", and a bare call, recreate the visual and write NO colorization.
+Floor.SetHubReactorPalette('vanilla'); r=react()
+assert(#living('SMROptInTrainHubReactor')==1 and r.cm==nil and r.cm_calls==nil)
+Floor.SetHubReactorPalette{[2]={color=NAVY}}; r=react()
+assert(r.cm_calls==1 and cm_is(r,2,NAVY,0,0) and r.cm[1]==nil)  -- a patch onto vanilla paints only its own channel
+Floor.SetHubReactorPalette(); r=react()
+assert(r.cm==nil and r.cm_calls==nil)
+-- Back to the default the owner sees first.
+Floor.SetHubReactorPalette('P2'); r=react()
+assert(r.cm_calls==4 and cm_is(r,1,STEEL,-90,110) and cm_is(r,3,NAVY,0,0))
+assert(h.colorized==nil)
 -- Arm lights: 6*12 on (the owner's pick, B2 spots, on every arm), along the painted line's path, destroyed (not dimmed) off, no duplicates on repeat, others untouched.
 h:OnSetWorking(true); h:OnSetWorking(true)
 function set(k) return Floor.HubLightSet(h)[k] end
@@ -229,9 +276,15 @@ MAP.NightLightsState=true; h:InitHubLights(); assert(n('crown')==1)
 OnMsg.LightmodelChange({},false,{night=false},0,{night=true})
 assert(n('crown')==1, n('crown'))
 MAP.NightLightsState=false; h:InitHubLights(); assert(n('crown')==0 and #lights()==144)
+-- After the whole lights pass the reactor still carries the default palette, and the hub
+-- object itself never received a single colorization call.
+r=react()
+assert(r.cm_calls==4 and cm_is(r,1,STEEL,-90,110) and cm_is(r,4,NAVY,0,0))
+assert(h.colorized==nil, tostring(h.colorized))
 counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),
         crown_day=n('crown'),crown_night=night_counts.crown,
-        total_day=#lights(),total_night=night_counts.total,total=#lights()}
+        total_day=#lights(),total_night=night_counts.total,total=#lights(),
+        reactor_channels=r.cm_calls,hub_colorization_calls=h.colorized or 0}
 ''')
 counts = {k: v for k, v in dict(lua.globals().counts).items()}
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
@@ -240,6 +293,11 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
     'counts':counts,
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
+             'reactor palette: default P2 on init -- 4 channels, steel RGB(200,205,210)/-90/110 on 1, navy RGB(18,32,78)/0/0 on 2-4, on the fallback entity and on the imported one',
+             'reactor palette: re-applied by the recreation path, so it survives the mocked load; the glass visual is never colorized',
+             'reactor palette: SetHubReactorPalette switches P1/P3/P4 live, a table patches one channel, an unknown name is a no-op',
+             'reactor palette: \"vanilla\" and a bare call recreate the visual with no colorization at all; a patch onto vanilla paints only its own channel',
+             'reactor palette: the hub object itself receives no colorization call in the whole run',
              'arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved',
              'arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets',
              'structure lights: portal 30 on by default; pit 6 (on the Pitrim spot), rim 36 and floor 24 off by default; 102 default, 144 with rim and pit',
