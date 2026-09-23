@@ -113,6 +113,51 @@ live clearance/location, native command suppression, save cancellation/relaunch,
 survival. Another texture import removed the code-list entry; concurrent `061d6cb` restored it.
 Check the next import explicitly. L4 still owns persisted resume and economic deadlines.
 
+### L2M2 handoff, 2026-09-22
+
+Resume the attended sitting with motion build `d77efa4` plus `6d89b1a` (signed `BankAngle`, the
+re-measured receipt). Read `docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. The route is
+L2R's; the driver is new: the engine flies every chord (one timed `SetPos` + `SetAcceleration`
+per chord, at most 333 ms, chained from a game-time thread), corners are rounded inside their own
+legs and flown at the speed their radius allows, straights run a physical speed profile, the crest
+reversal is a parabola through rest, and the landing decelerates to rest before any state change.
+The L2M handoff above is historical; its `TurnRadius=300`, `BlendTime`, `AccelTime`,
+`HeadingTime` and `SampleTime` no longer exist or mean the same thing.
+
+Dials, all GUESS defaults, `SetHubDroneTune` after the drone lands: `Accel=1200` (units per game
+second squared: how hard it speeds up, brakes and corners; the main feel dial), `TurnRadius=1500`
+(units: how far before and after a waypoint a corner is rounded; 15 m), `BankAngle=900` (angle
+minutes of lean in a turn, -2700..2700; **negative flips the lean direction** if it leans out of
+turns, 0 disables), `Speed=6000` and `ClimbRate=1500` (caps, units per game second), heights and
+distances unchanged (`HoverHeight`, `OverTrackHeight`, `FixHeight`, `UnderDeckHeight`,
+`OutwardDistance`, `TransferHeight`), `WorkTime=5000`. **Retired:** `LaunchTime`, `LandingTime`,
+`BlendTime`, `AccelTime`, `HeadingTime`, `SampleTime`. The launch and landing now take what
+`ClimbRate` and `Accel` give them (about 3.3 s for the 30 m column). Every dial moves the
+visual's own duration, so the console deadlines move with it; L4 derives from the plan offsets.
+
+Five steps for the owner, with an ordinary Wasp in frame for comparison (a Drone Hub's Wasp
+working nearby, or any Wasp on the map): (1) select the built hub in `train_hub_base`,
+`*r SpawnHubDrone()`, and watch the rise: it should speed up, slow into the crest and hang there
+without a jolt or a stop-start. (2) Select a track element two or three stations out,
+`*r SendHubDroneTo(SelectedObj)`, and watch the exit in order: the dive to the lane, the swing out
+under the deck, the run out, the climb, the crossing back over the hub, the S-drop onto the
+track; name any hitch, pause or kink by place. (3) Watch the arrival: it slows into the pose
+above the break, comes to rest, then the work animation starts; then the return and the landing
+in the pit. (4) Run the same trip at normal, fast and fastest game speed: the motion should
+scale, not stutter. (5) After it lands, dial `Accel` first, then `TurnRadius` and `BankAngle`,
+re-sending after each change; record the values you settle with your own words.
+
+MEASURED source-mesh bound for the new chords (per-span commanded roll, chords cut at span
+boundaries): **0.240 m at PitFloor_1** (the intentional floor separation), 0.3435 m at Siding_1
+on the crest-to-lane corner, 0.792 m at RingClamp_1 along the lane, over 4.4 m everywhere outside
+the footprint; `tests/motion_clearance_receipt.json`. Conservative hull bounds, not live
+clearance; rerun the export and measurement after changing any path dial or the art.
+
+Still owed here, unchanged: fluidity and bank direction by eye, the passing-train height check,
+full route through stations, hoods, portals and a tunnel, the work pose, worst live clearance,
+native command suppression, save cancellation and relaunch, import survival (the code-list line
+was restored a third time in `5f3c3de`; check it after the next import).
+
 ## Lifecycle
 
 Append the settled values into link 4's notes, then **delete this file and strike its row in

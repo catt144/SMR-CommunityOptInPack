@@ -122,6 +122,16 @@ what link 5's sitting still has to show.
   hub, keep 30 Wasps): orphans are never handed to the colony. Link 5's sitting tests it: drones
   out, hub destroyed, then save and reload.
 
+- **L2M2 API note, 2026-09-22.** `Create`, `Send(record, target, true)`, `Update(record, now)`,
+  `Remove`, `Route` and `Position(plan, t)` keep their shapes. Two changes: every record made by
+  `Create` is registered with the module's own game-time driver, which services all records, so
+  you may leave sampling to it, and calling `Update` yourself remains safe (a repeated `now`
+  issues nothing; a sparse or late `now` snaps to the absolute position and flies on). And the
+  plan offsets `arrival - started`, `work_done - started`, `removed - started` now follow the
+  motion dials (`Accel`, `TurnRadius`, `Speed`, `ClimbRate`, heights), not a fixed budget: derive
+  the visual start from your persisted deadline and the plan's offsets at rearm time, as before.
+  `LandingEnd` fires only at `removed`. Nothing here is persisted.
+
 ## Lifecycle
 
 Append what the smoke must cover into link 5's notes, then **delete this file and strike its row in

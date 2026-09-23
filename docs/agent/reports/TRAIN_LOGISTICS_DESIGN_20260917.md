@@ -2781,3 +2781,28 @@ fluidity verdict. L3 resumes for visual judgment, train passage, the full route/
 clearance, import survival and save behavior. L4's persisted deadlines and integration remain
 its authority. Concurrent `061d6cb` restored registration after another texture import; the
 next import still owes its survival check.
+
+### Drones L2M2: the motion re-driven (owner instruction, 2026-09-22)
+
+The owner flew L2M's `74b1e4a`: *"studdered very bad coming out, ... still pretty sharp on the
+angles and ... glitchy / suttery when it lands to do the repair sequence. I needs the be, natural,
+fluid, and respemble flight."* Build `d77efa4` keeps L2R's route and replaces the driver with the
+game's own shape: one timed `SetPos` + `SetAcceleration` per chord, at most 333 ms, chained at
+exact wakes from a game-time thread (Train.lua:512-513, :549-550; FlyingDrone.lua:194-201), so no
+position is written per frame and nothing snaps. Corners are quadratic Beziers inside their own
+legs, trimmed up to `TurnRadius` (now 1500) and flown at the speed their radius allows under the new
+`Accel` (1200); straights run a trapezoid between corner speeds; the crest reversal is a parabola
+through rest; the final descent decelerates to zero speed and zero roll before the construct
+state, animation and FX start. The three faults' causes, read from the code: a snap-and-restart of
+the interpolation every 16-33 ms from a real-time thread; a 50 ms corner trim with a 15 to 60 m/s
+blend across it; cubic braking with `SetState("fly")` re-issued at every waypoint and rotation
+still interpolating at arrival. FlightGoto is again not taken, now with the reason that its move
+parameters and hover height are class-static (Flight.lua:149-160) and its spline runs over the
+terrain height cache; ComponentCurvature stays off because no shipped Lua calls it. Retired dials:
+`LaunchTime`, `LandingTime`, `BlendTime`, `AccelTime`, `HeadingTime`, `SampleTime`. `BankAngle`
+(900) may be negative to flip the lean. Console deadlines follow the dials (fixture arrival 25524,
+work end 31524, removal 57051 game ms). MEASURED source-mesh bound with per-span commanded roll:
+0.240 m at PitFloor_1 (the intentional floor separation), 0.3435 m at Siding_1 on the
+crest-to-lane corner, 0.792 m at RingClamp_1 along the lane; not live clearance. Report:
+`docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md`. Fluidity remains the owner's verdict
+in link 3; no game ran in this link.

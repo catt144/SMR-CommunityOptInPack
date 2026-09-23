@@ -117,6 +117,24 @@ retains failed read/patch attempts, initial long-running-tool handling and disca
 L2M deletes its spent file and removes its row together, and clears the parent map's block.
 Review the fresh L3 handoff for every native obligation, and L4 for economic/save integration.
 
+### L2M2 handoff, 2026-09-22
+
+Motion build `d77efa4` plus `6d89b1a`; report
+`docs/agent/reports/drones_chain/L2M2_FLUIDITY_20260922.md` has the three faults, their causes
+read from the code, the leg-by-leg mechanism, commands, hashes and the drift table. Audit these:
+the driver is a game-time thread (a mod-owned thread under FIX_POLICY §3a layer 1, gated and
+deleted at SaveGameStart; a departure from L2's "REAL-time driver" header); `Speed`/`ClimbRate`
+changed meaning from deadline budgets to speed caps, so the console deadlines now move with every
+dial (the L2M smoke's "deadline independence" assertion was replaced on purpose); six tuners were
+retired and one added; `TurnRadius` kept its name but its default grew fivefold; `BankAngle` may
+be negative. The clearance instrument gained two export fields (`chord_horizon_ms`, per-span
+`bank_minutes`) and reads them with the old defaults as fallback; the receipt was re-measured
+after a line-ending normalisation because its first hash was of a CRLF working copy. FlightGoto
+was again not adopted, this time with the class-static parameter reason (Flight.lua:149-160);
+ComponentCurvature stays off with the reason that no shipped Lua calls it. Peer commit `8e2c827`
+landed mid-link and touches no drone path. No game ran in this link; the smoke's chord contract
+is mocked Lua, and the claim of fluidity is left to the owner.
+
 ## Lifecycle
 
 Your report is the chain's close-out. **Delete this file and strike its row in `README.md` in the
