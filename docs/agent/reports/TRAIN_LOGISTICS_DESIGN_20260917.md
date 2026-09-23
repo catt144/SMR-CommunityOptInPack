@@ -2198,7 +2198,21 @@ RGB(200,205,210) at roughness -90, metallic +110, a judgement value; the attach 
 and paints nothing, which is the base look because C initialises a new CObject from the entity's
 own palette (`:763-764`). **Owner, 2026-09-22 late, in game: "P4 is the winner"** — navy on
 channels 1-2, polished steel on 3 and 4 is the default (OptInPack `fd862af`, smoke PASS); the
-other variants and the live tune stay for retuning. If the owner wants
+other variants and the live tune stay for retuning.
+
+**Owner rulings, 2026-09-22 late, from the night overview — the last three jobs, in order.**
+(1) *"the lighting is just close but I want just a bit more in the interior. They will be same
+color temp as the big overhead flood light but I want them underneath the tracks giving a little
+more light on the ground floor just to even the lighting out down there. They don't need fixtures
+as you cannot see the underneath of the tracks from any angle."* → a new `underdeck` family:
+warm RGB(255,214,170), night only on the crown's vanilla switch, PointLights 1 m under each arm's
+deck at radii 9/17/25 m, 18 in all, intensity 40, radius 12 m to start, tunable live. (2) *"we
+need the outer hub glass installed"* → the dome `Glass` object (frozen `e99cc9c2…`, excluded since
+OI-23) exported as a third entity `SMROptInTrainHub6DomeGlass` with flat clear maps (#09384F,
+alpha .06, no glow) and its own glass material; the Lua attaches it at Origin, inert until the
+owner's one import. (3) *"the final paint design for the overall body"* — the last big job; the
+owner will have this session hand off once more for it. Builds (1) and (2) in flight, Opus.
+If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
 
