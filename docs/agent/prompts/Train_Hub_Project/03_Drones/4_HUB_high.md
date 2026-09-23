@@ -40,6 +40,27 @@ a bare `DoneObject`, which skips the controller's bookkeeping.
 `FIX_POLICY` §0 sets the disable direction for content. The toggle is tested in both directions in
 link 5, not here.
 
+**Flight has two modes, and you serve whichever one ships** (2026-09-23): the engine paths between
+our pit ends (`9a540dd`), or the scripted flight at tag `drones-scripted-flight-20260923`. Link 3's
+sitting picks one. Build dispatch against the flight file's API, never a mode's internals, and keep
+**`DESIGN.md` section 2's persisted deadline as the only authority**: an engine leg's arrival is
+solver-owned and is not knowable at dispatch, so the ETA you notify and the cost you charge come
+from your deadline, and the visual is advisory.
+
+**Save, corrected by L2E (`L2E_ENGINEFLIGHT_20260923.md`):** engine-driven legs and queued holds
+**need no save guard** — a drone under a stock command carries no mod thread, so it persists as an
+ordinary Wasp, which is what `DESIGN.md` already allows. The guard exists for **our own game-time
+driver thread** (EF-023), so it covers the scripted mode and our pit ends. L2E removes its own
+prototype visuals at save; **you replace that removal with adoption from the persisted deadline**, so
+a reload continues the job instead of blinking it away. Its hold has a 60 s game-time timeout, after
+which vanilla's `Idle` takes the drone — that timeout is exactly the window a save loaded without
+our code falls into, so re-arm inside it.
+
+⚠️ **Version.** The engine facts in these notes and in `DESIGN.md` were read on **1.1.0.403908**
+except where a note says 1.1.1; the installed game is now **1.1.1.405907** (build 25390750), and
+`doccheck --emit-fingerprint` reports every fact group MOVED. Re-read each line number you build on;
+the sweep is queued at `prompts/perma/gamepatch/`.
+
 ## Live work list
 
 One todo item per commit-and-verify unit, before any write.

@@ -5,10 +5,29 @@ owner rulings.** The work is the numbered links beside it (`README.md` is the ma
 reads this file for what the owner decided; a link that finds a ruling here overtaken by a later
 one records that in its own notes and in spec §10, and leaves this text alone.
 
-**Two rulings here are already overtaken** (owner, 2026-09-22, after the hub's look pass):
-the recharge-pad model inside the ring is REMOVED (`51b89a5`) and the **drone pit** built into the
-floor plate is the drones' place; the entity carries `Pitfloor` and `Pitrim` spots. Where this file
-says "pad", read the pit, and link 1 measures what the pit actually gives.
+**What later rulings have overtaken here** — read this file with these in hand:
+
+1. **The pad is gone** (owner, 2026-09-22): the recharge-pad model inside the ring is REMOVED
+   (`51b89a5`) and the **drone pit** in the floor plate is the drones' place (`Pitfloor`, `Pitrim`
+   spots; OI-25 settles the column). Where this file says "pad", read the pit.
+2. **Not a constant 30 in the air** (owner, 2026-09-23): the fleet **scales with load** — a couple
+   out when work is light, more as it rises, recalled as it falls. Thirty is the ceiling, not the
+   standing count. The tiers and the step size are link 4's to choose; `4_HUB_high.md` carries it.
+3. **Flight is a hybrid** (owner, 2026-09-23): our code owns the launch, the return and the
+   commands; the **engine paths between them** (`SetHubDroneMode`, built in `9a540dd`). The scripted
+   flight is kept restorable at tag `drones-scripted-flight-20260923`. Consequence for section 3's
+   ride: a Wasp's `hover_height` is **class-static** (`Flight.lua:175`), so an engine leg rides at
+   7 m and cannot be dialled per drone — **`OI-26` asks the owner whether that clears the
+   side-hanging trains**, and until it is answered, "above any train that may be coming" holds only
+   for the scripted ends.
+4. **A malfunctioned or unpowered hub still repairs**, and **a destroyed hub despawns its drones**
+   (owner, 2026-09-22): both are recorded in `4_HUB_high.md`, which builds them. Section 1's "if the
+   hub is working" means the player's switch, never `IsWorking`.
+
+⚠️ **Version.** Every citation in this file was read on **1.1.0.403908**. The game patched to
+**1.1.1.405907** (installed build 25390750) mid-chain, and `doccheck --emit-fingerprint` reports
+every fact group MOVED. Re-read any line number on the installed tree before building on it; the
+sweep is queued at `prompts/perma/gamepatch/`.
 
 ## Authority
 

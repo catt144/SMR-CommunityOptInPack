@@ -20,10 +20,16 @@ owner re-presses the armed slot.
    the maintenance gauge full (the hub malfunctioned), dispatch with the grid dead, and the hub
    **destroyed with drones out** — every orphan removed, a carried cube dropped rather than lost,
    nothing left running a dead hub's command, and a save-and-reload across it.
-3. `DESIGN.md` §6: whether a station can build a train with no repair drone out, and what the hub
+3. **What the 2026-09-23 design changes added**, each needing the game: the **fleet scaling tiers**
+   (light load keeps a couple out, rising load launches more, falling load recalls them, never
+   stranding a drone mid-job), with the owner dialling the thresholds by eye; a **reload during a
+   flight**, which must continue the job from its deadline rather than blink the drone away; and, in
+   whichever flight mode shipped, no drone lost to vanilla's `Idle` (`SMROptInHubFlight.Lost`)
+   across a long run, including one left alone past the 60 s hold timeout.
+4. `DESIGN.md` §6: whether a station can build a train with no repair drone out, and what the hub
    waits for if it cannot — with the owner's ruling on the acknowledgement launch if a drone is the
    missing piece.
-4. The result recorded in the hub report and spec §10, and the owner's rulings where the role that
+5. The result recorded in the hub report and spec §10, and the owner's rulings where the role that
    obeys them reads them.
 
 **Both configurations** (`FIX_POLICY` §8) and both toggle directions belong to the module's ship

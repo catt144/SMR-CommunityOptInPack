@@ -28,6 +28,17 @@ the folder-empty gate. Its value on a clean run is certification plus residue, n
 6. A verdict of PASS, PASS WITH CORRECTIONS or FAIL, with the corrections listed as work, and the
    kickoff line for whatever the owner has queued next, or a line saying nothing is queued.
 
+⚠️ **The game patched mid-chain**, 1.1.0.403908 → **1.1.1.405907** (installed build 25390750), and
+`doccheck --emit-fingerprint` reports every fact group MOVED. Every chain report written before
+2026-09-23 cites a tree that is no longer installed. Judge those citations on that basis: a claim
+whose line number moved is not thereby wrong, but it is unverified until re-read, and the queued
+sweep (`prompts/perma/gamepatch/`) is where that work belongs, not silently inside your audit.
+
+**Two flight implementations exist:** engine mode (`9a540dd`) and the scripted flight preserved at
+tag `drones-scripted-flight-20260923`. Check that the one link 3 chose is the one link 4 built
+against, that the other is either removed or knowingly kept, and that `OI-26`'s ruling (the 7 m
+engine ride) is recorded where the obeying role reads it, not only in a report.
+
 ## Live work list
 
 One todo item per commit-and-verify unit.

@@ -5,19 +5,35 @@ Read `DESIGN.md` and your `## Notes from upstream`. `git log`, `git pull` both r
 
 ## Authority
 
-The owner's method (2026-09-20): rough and in the game fast, then dialled in by eye. Link 2 built
-the flight behind named constants; this sitting sets them. No redesign, no new mechanism.
+The owner's method (2026-09-20): rough and in the game fast, then dialled in by eye. **There are now
+two implementations to judge, not one** (the owner's redirect, 2026-09-23): **engine mode**, where
+the engine paths between our pit ends and we own the commands (`9a540dd`,
+`SetHubDroneMode("engine")`), and the **scripted flight** the owner accepted as a floor — *"It is
+better now, still not nearly as clean as vanilla but its useable"* — preserved at tag
+`drones-scripted-flight-20260923`. This sitting picks the one that ships and tunes what it exposes.
+No redesign, no new mechanism: a fault that tuning cannot fix goes back as a rebuild.
 
 ## End state
 
-1. About **five steps at a time** for the owner, and a console tuner for each constant, the way the
-   arm-light tuner works (`SetHubLightTune` is the pattern).
-2. The owner judges, in one sitting: hover height over the track, travel speed, the launch and the
-   landing, the work pose at the break, and clearance at a station, the hub's hoods, a portal and a
-   tunnel.
-3. Every value the owner settles becomes the new default in `Code/30_TrainHubDrones.lua` and is
+1. About **five steps at a time** for the owner. `SetHubDroneMode` switches modes in place, so the
+   A/B is flown back to back in one session; the scripted constants keep their `SetHubDroneTune`
+   dials, and engine legs expose far fewer.
+2. **The owner's verdict on which one ships**, in their words, recorded. If engine mode ships, say
+   what it costs in dials; if scripted ships, the tag is the base and engine mode is what goes.
+3. **`OI-26`, the owner's open ask and this brief's to close** (`docs/PLAYTEST_CHECKLIST.md`): with
+   a train passing beneath in `SetHubDroneMode("engine")`, is the Wasp's fixed **7 m** ride clear of
+   the side-hanging trains? The height is class-static and cannot be dialled per drone
+   (`Flight.lua:175`). The answers are: 7 m is fine · the engine legs must ride higher, so engine
+   mode cannot ship as built · scripted ships. Record the ruling where the role that obeys it reads
+   it, and delete the checklist item in that commit.
+4. **The standing debt, all of it needing the game:** the passing-train height check, the full route
+   through stations, hoods, portals and tunnels, the work pose, the worst live clearance and where,
+   native command suppression (a real `Idle` falsifies L2E's model — watch
+   `SMROptInHubFlight.Lost`), save cancellation and relaunch, and **import survival of the
+   `Code/30_TrainHubDrones.lua` code-list line**, which importers have now removed four times.
+5. Every value the owner settles becomes the new default in `Code/30_TrainHubDrones.lua` and is
    committed, with the owner's own words for why in the commit message.
-4. The game cannot turn autosave off: after one, the owner re-presses the armed slot.
+6. The game cannot turn autosave off: after one, the owner re-presses the armed slot.
 
 ## Live work list
 
