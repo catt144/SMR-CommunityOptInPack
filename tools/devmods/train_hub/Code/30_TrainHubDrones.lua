@@ -1,8 +1,29 @@
--- Drones chain L2M2: console-only Wasp flight prototype. Owner OI-25 (2026-09-22) and L2R's
--- under-deck route stand; this build replaces the motion driver after the owner flew 74b1e4a.
--- No dispatch, resources, task requests, class additions or persisted mod fields.
+-- Drones chain L2E: console-only Wasp flight prototype, two implementations behind one switch.
+-- Owner OI-25 (2026-09-22) and L2R's under-deck route stand. No dispatch, resources, task
+-- requests, class additions, class wraps or persisted mod fields.
 --
--- HOW IT MOVES (installed build 24995074, archived 1.1.0.403908), the way the game's own units do:
+-- MODE "engine" (owner redirect, 2026-09-23: "besides our launch and return parts the engine
+-- handles that pathing and we handle the commands"; installed build 25390750, 1.1.1.405907):
+--  * Ours, scripted as below: the pit rise through OI-25's column to the crest hold, the work
+--    pose at the break, and the pit descent. HandoffAt="outside" also keeps L2R's under-deck
+--    exit to the outside point, for a hub the engine's own path cannot leave cleanly.
+--  * The engine's: every leg between them, under the STOCK command FlightGoto(xy)
+--    (Flight.lua:1182; the C++ Flight component paths it over the flight surface at the
+--    class-static hover_height, 7 m, Flight.lua:175). Only stock method names are ever written
+--    onto the drone: "FlightGoto", "WaitUninterruptable" and false.
+--  * The handoff race: a finished command falls into Idle in the same thread with no yield
+--    (CommandObject.lua CommandThreadProc), and Idle lands, greys, seeks tasks and self-issues
+--    GoHome. So every leg queues the stock hold WaitUninterruptable(HoldTimeout) behind it
+--    (CommandObject.lua:359 QueueCommand; :168 ExecuteUninterruptable(WaitMsg)): the drone
+--    holds itself at the arrival until our driver, polling every PollTime, ends the hold with
+--    InterruptWait() and SetCommand(false). Vanilla's Idle can only follow the hold's timeout,
+--    which is also what a save loaded without the mod does: the drone becomes a plain Wasp.
+--  * Save: a drone under a stock command or hold has no mod thread and stays in the save
+--    untouched (DESIGN.md:55-56); only scripted motion is removed at SaveGameStart. The driver
+--    is deleted for the save and restarted at SaveGameDone. LoadGame sweeps prototype leftovers.
+-- MODE "scripted": the tagged drones-scripted-flight-20260923 flight, unchanged below.
+--
+-- HOW SCRIPTED MOTION MOVES (installed build 24995074, archived 1.1.0.403908), the way the game's own units do:
 --  * The route is scripted: pit column, under-deck duck, outside climb, over-track centreline.
 --  * Corners are rounded (quadratic Bezier inside the corner's own legs) and the speed is a
 --    physical profile: Accel bounds speed-up, braking and cornering; Speed and ClimbRate cap it.
@@ -21,8 +42,9 @@
 --
 -- SAVE POLICY (FIX_POLICY §3a, layer 1): the driver is a mod-owned GAME-time thread with no
 -- upvalues; its orphan gate is the first statement after its only yield. OnMsg.SaveGameStart
--- deletes it and every visual before the persist walk and gates spawns until SaveGameDone.
--- L4 owns persisted deadlines and reconstruction; this prototype cancels at save/load.
+-- deletes it and every scripted-motion visual before the persist walk and gates spawns until
+-- SaveGameDone; engine-mode drones under a stock command or hold stay (see MODE "engine").
+-- L4 owns persisted deadlines and reconstruction; this prototype sweeps its leftovers at load.
 -- Source surfaces: Unit.lua:42-51 (init_with_command=false), FlyingDrone.lua:114-132
 -- (TakeOff/LandingEnd), Track.lua:194-199, TrainTransport.lua:57-65, TrackTunnel.lua:20-28;
 -- EF-112/115 (FX and battery).
@@ -49,11 +71,19 @@ SMROptInHubFlight = {
   ChordAngle = 600,         -- angle minutes of turn per chord on a curve; not an owner dial
   ChordMinTime = 50,        -- game ms, shortest chord worth issuing; not an owner dial
   YawRate = 9000,           -- angle minutes per second; the Wasp's own max_yaw_speed is preferred
+  Mode = "engine",          -- "engine": stock FlightGoto legs between our ends; "scripted": the tagged flight
+  HandoffAt = "crest",      -- "crest": engine legs start and end at the OI-25 hold; "outside": after L2R's under-deck exit
+  HoldTimeout = 60000,      -- game ms a stock WaitUninterruptable hold lasts before vanilla Idle; the driver re-arms at half
+  PollTime = 250,           -- game ms between driver looks at an engine leg or hold; not an owner dial
+  Lost = false,             -- diagnostics: the foreign command that last took a prototype drone away
 }
 
 local F = SMROptInHubFlight
 local active, save_gate, driver = false, false, false
 local visuals = {}
+-- The only command names this file ever writes onto a drone. Both are shipped engine methods
+-- (Flight.lua FlyingObject:FlightGoto; CommonLua CommandObject:WaitUninterruptable).
+local STOCK_LEG, STOCK_HOLD = "FlightGoto", "WaitUninterruptable"
 
 -- NUMBERS. This engine's Lua divides an integer by an integer as integers: shipped code writes
 -- `party_size * 1.0 / remaining_seats`, `trip_time + 0.0` and DivAsFloats() before dividing
@@ -230,6 +260,17 @@ function F.Route(hub, target)
     end
   end
   return nil, "Target unreachable through existing physical track and reciprocal tunnels"
+end
+
+-- Engine mode needs no route: the break's own position, validated as F.Route validates it.
+function F.Site(target)
+  if not live(target) then return nil, "Select a track element or its repair site" end
+  local original = target
+  if target.is_construction_site and live(target.broken) then original = target.broken end
+  if not live(original.track_obj) then return nil, "Target has no physical track" end
+  local site = original:GetVisualPos()
+  if not site or site:z() == nil then return nil, "Target position missing" end
+  return site, original
 end
 
 ---------------------------------------------------------------------------------------------
@@ -612,10 +653,14 @@ local function issue(a, step, elapsed, skipped)
   a.step, a.phase = step, step.state
 end
 
+-- DoneObject, not DespawnNow: the prototype never enters hub.drones, and DroneControl:KillDrone
+-- asserts membership (DroneControl.lua:729-733). Drone:Done drops any carried resource itself.
 function F.Remove(old)
   if old then visuals[old] = nil end
   if old and old == active then active = false end
+  if old and old.lost then F.Lost = old.lost end
   if old and IsValid(old.drone) then
+    if SelectedObj == old.drone then SelectObj(false) end
     old.drone:StopFX()
     DoneObject(old.drone)
   end
@@ -637,29 +682,24 @@ function F.Status()
   if not active then return false end
   return {drone = active.drone, hub = active.hub, phase = active.phase,
     started = active.started, arrival = active.arrival, work_done = active.work_done,
-    removed = active.removed, now = GameTime()}
+    removed = active.removed, now = GameTime(), mode = active.mode, stage = active.stage,
+    handoff = active.handoff, command = live(active.drone) and active.drone.command or nil}
 end
 
--- Advance a record to `now`: issue the step that contains it, if not issued yet. Returns the
--- game ms until the next boundary, or false once the record is removed. Idempotent for a
--- repeated `now`; a sparse caller catches up instead of extending a deadline.
-function F.Update(a, now)
-  if not a then return false end
-  if save_gate or not hub_ok(a.hub) or not live(a.drone) or a.drone.command_center ~= a.hub
-    or a.drone.command or a.drone.run_cmd_on_land then F.Remove(a); return false end
-  a.drone.battery = a.drone.battery_max
-  local elapsed = max(0, (now or GameTime()) - a.started)
+-- Play a scripted plan to `now`: issue the step that contains it, if not issued yet. Returns
+-- the game ms until the next boundary, true once the plan has fully played out, or false when
+-- the record was removed. Idempotent for a repeated `now`; a sparse caller catches up instead
+-- of extending a deadline.
+local function run_plan(a, elapsed)
   local plan, steps = a.plan, a.plan.steps
-  if elapsed >= plan.total then
+  if #steps == 0 or elapsed >= plan.total then -- a recall at the spawn instant has no chord to fly
     local last = steps[#steps]
     if last and (a.issued or 0) < #steps then
       a.drone:SetPos(last.bp)
       a.drone:SetAcceleration(0)
       a.issued, a.placed, a.step = #steps, true, last
     end
-    if a.remove then a.drone:LandingEnd(); F.Remove(a); return false end
-    a.phase = "hover"
-    return 1000
+    return true
   end
   local i, target = a.issued or 0, a.issued or 0
   while steps[target+1] and steps[target+1].start <= elapsed do target = target + 1 end
@@ -672,6 +712,177 @@ function F.Update(a, now)
     a.issued = target
   end
   return max(1, current.finish - elapsed)
+end
+
+function F.Update(a, now)
+  if not a then return false end
+  now = now or GameTime()
+  if a.mode == "engine" then return F.UpdateEngine(a, now) end
+  if save_gate or not hub_ok(a.hub) or not live(a.drone) or a.drone.command_center ~= a.hub
+    or a.drone.command or a.drone.run_cmd_on_land then F.Remove(a); return false end
+  a.drone.battery = a.drone.battery_max
+  local wait = run_plan(a, max(0, now - a.started))
+  if wait ~= true then return wait end
+  if a.remove then a.drone:LandingEnd(); F.Remove(a); return false end
+  a.phase = "hover"
+  return 1000
+end
+
+local function rise_nodes(pit)
+  return {{p = V(pit[1]), stop = true}, {p = V(pit[2])}, {p = V(pit[3]), stop = true}}
+end
+
+local function make_plan(steps, total, prims)
+  for i, s in ipairs(steps) do s.index = i end
+  return {steps = steps, total = total, prims = prims}
+end
+
+-- Steps already begun before `elapsed` were issued by the plan they came from (the rebuilt
+-- launch has identical chords); a step starting exactly now is still owed.
+local function issued_before(steps, elapsed)
+  local i = 0
+  while steps[i+1] and steps[i+1].start < elapsed do i = i + 1 end
+  return i
+end
+
+---------------------------------------------------------------------------------------------
+-- Engine mode. Stages: rise (ours) -> ready (stock hold at the crest) -> [exit (ours, when
+-- HandoffAt="outside")] -> out (engine) -> work (ours) -> back (engine) -> descent (ours).
+-- The drone is under a stock command or hold exactly in ready/out/back, and under no command
+-- at all while our chords fly it.
+---------------------------------------------------------------------------------------------
+local function hold(a, now)
+  a.drone:InterruptWait() -- a re-arm ends the running hold first, or the new command waits for its timeout
+  a.drone:SetCommand(STOCK_HOLD, F.HoldTimeout)
+  a.hold_at = now
+end
+
+-- End the stock hold before vanilla's Idle can follow it, leaving the drone with no command.
+local function take_back(a)
+  a.drone:InterruptWait()
+  a.drone:SetCommand(false)
+  a.state, a.hold_at = false, nil -- the next chord re-asserts the fly state after the engine's own
+end
+
+-- One engine leg: a stock FlightGoto to a 2D point (the shape FlyingDrone:Goto hands the same
+-- call), with the stock hold queued behind it so the arrival is ours, not Idle's.
+local function leg(a, now, stage)
+  local dest = stage == "out" and a.site or a.pit[a.handoff]
+  a.drone:InterruptWait()
+  a.drone:SetCommand(STOCK_LEG, point(dest:x(), dest:y()))
+  a.drone:QueueCommand(STOCK_HOLD, F.HoldTimeout)
+  a.stage, a.phase, a.leg_at, a.state, a.hold_at = stage, stage, now, false, nil
+end
+
+local function scripted(a, now, steps, total, prims, stage)
+  fill_headings(steps)
+  a.plan, a.started, a.issued, a.placed = make_plan(steps, max(1, total), prims), now, 0, true
+  a.stage, a.phase = stage, stage
+end
+
+local function here(a) return V(a.drone:GetVisualPos()) end
+
+-- Ours from the crest hold: the rise already flown keeps its exact chords, the crest dwell
+-- absorbs the hold, and `extra` continues from the crest. A recall retraces to the floor.
+local function continue_from_crest(a, now, extra, stage)
+  local _, rise_total = F.Trajectory(rise_nodes(a.pit), 0, 0)
+  local nodes = rise_nodes(a.pit)
+  nodes[#nodes].dwell = max(0, now - a.rise_started - rise_total)
+  for _, n in ipairs(extra) do nodes[#nodes+1] = n end
+  nodes[#nodes].stop = true
+  local steps, total, prims = F.Trajectory(nodes, 0, 0)
+  scripted(a, now, steps, total, prims, stage)
+  a.started = a.rise_started
+  a.issued = issued_before(steps, max(0, now - a.started))
+end
+
+-- Ours at the break: down from the engine's arrival to the work pose, the work, and back up
+-- to the arrival height the engine chose, from where it takes the return leg.
+local function work_plan(a, now)
+  local drone, arrival = a.drone, here(a)
+  local pose = {a.site:x(), a.site:y(), a.site:z() + F.FixHeight}
+  local steps, total, prims = F.Trajectory({{p = arrival, stop = true}, {p = pose, stop = true}}, 0, 0)
+  local at = steps[#steps] and steps[#steps].b or pose
+  local bp = P(at)
+  for _, state in ipairs({{"constructStart", max(1, drone:GetAnimDuration("constructStart"))},
+      {"constructIdle", F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
+    steps[#steps+1] = {state = state[1], start = total, finish = total + state[2], pos = at, bp = bp, owner = a.site_owner}
+    total = total + state[2]
+  end
+  local up, up_total, up_prims = F.Trajectory({{p = at, stop = true}, {p = arrival, stop = true}}, 0, total)
+  for _, s in ipairs(up) do steps[#steps+1] = s end
+  for _, p in ipairs(up_prims) do prims[#prims+1] = p end
+  scripted(a, now, steps, up_total, prims, "work")
+  a.target_pose = bp
+end
+
+-- Ours at the end: from wherever the engine's return leg ended, down the settled route into
+-- the pit. HandoffAt="outside" re-enters under the deck and keeps OI-25's crest reversal.
+local function descent_plan(a, now)
+  local nodes = {{p = here(a), stop = true}}
+  for i = a.handoff, 1, -1 do nodes[#nodes+1] = {p = V(a.pit[i]), stop = i == 3 or i == 1} end
+  local steps, total, prims = F.Trajectory(nodes, 0, 0)
+  scripted(a, now, steps, total, prims, "descent")
+  a.remove = true
+end
+
+function F.UpdateEngine(a, now)
+  local d = a.drone
+  if save_gate then return F.PollTime end -- the driver is gone for the save; nothing is issued
+  if not hub_ok(a.hub) or not live(d) or d.command_center ~= a.hub or d.run_cmd_on_land then
+    F.Remove(a); return false
+  end
+  d.battery = d.battery_max
+  local stage, c = a.stage, d.command
+  if stage == "out" or stage == "back" then
+    if c == STOCK_LEG then return F.PollTime end
+    if c ~= STOCK_HOLD then a.lost = c or "none"; F.Remove(a); return false end
+    take_back(a)
+    if stage == "out" then work_plan(a, now) else descent_plan(a, now) end
+    stage = a.stage
+  elseif stage == "ready" then
+    if c ~= STOCK_HOLD then a.lost = c or "none"; F.Remove(a); return false end
+    if not a.target then
+      if now - a.hold_at >= int(div(F.HoldTimeout, 2)) then hold(a, now) end
+      return F.PollTime
+    end
+    if a.handoff == 5 then
+      take_back(a)
+      continue_from_crest(a, now, {{p = V(a.pit[4])}, {p = V(a.pit[5])}}, "exit")
+      stage = "exit"
+    else
+      leg(a, now, "out")
+      return F.PollTime
+    end
+  elseif c then
+    a.lost = c; F.Remove(a); return false -- something else commanded the drone mid-chord
+  end
+  local wait = run_plan(a, max(0, now - a.started))
+  if wait ~= true then return wait end
+  if stage == "rise" then
+    hold(a, now); a.stage, a.phase = "ready", "hover"
+  elseif stage == "exit" then leg(a, now, "out")
+  elseif stage == "work" then leg(a, now, "back")
+  else d:LandingEnd(); F.Remove(a); return false end
+  return F.PollTime
+end
+
+-- A drone under a stock command or hold has no mod thread and may stay in a save.
+function F.Persists(a)
+  return a.mode == "engine" and (a.stage == "ready" or a.stage == "out" or a.stage == "back")
+end
+
+-- Prototype leftovers in a loaded save: a Wasp whose controller is a train hub but that the
+-- hub's own fleet list does not hold. L4's fleet adopts from its persisted deadline instead.
+function F.SweepLoaded()
+  AllMapsForEach(true, "FlyingDrone", function(d)
+    local hub = d.command_center
+    if live(d) and hub_ok(hub) and not table.find(hub.drones or empty_table, d) then
+      F.Lost = "load"
+      d:StopFX()
+      DoneObject(d)
+    end
+  end)
 end
 
 -- Services every registered visual; returns the shortest wait or nil when none is left.
@@ -698,15 +909,6 @@ local function start_driver()
   end)
 end
 
-local function rise_nodes(pit)
-  return {{p = V(pit[1]), stop = true}, {p = V(pit[2])}, {p = V(pit[3]), stop = true}}
-end
-
-local function make_plan(steps, total, prims)
-  for i, s in ipairs(steps) do s.index = i end
-  return {steps = steps, total = total, prims = prims}
-end
-
 function F.Create(hub, started)
   if save_gate then return nil, "Save in progress" end
   local pit, reason = F.PitPoints(hub)
@@ -726,7 +928,11 @@ function F.Create(hub, started)
   fill_headings(steps)
   local record = {hub = hub, drone = drone, pit = pit, plan = make_plan(steps, total, prims),
     started = started or GameTime(), phase = "launch", issued = 0, state = "fly", visible = true,
-    yaw = drone:GetAngle(), placed = true}
+    yaw = drone:GetAngle(), placed = true, mode = F.Mode}
+  if record.mode == "engine" then
+    record.stage, record.rise_started = "rise", record.started
+    record.handoff = F.HandoffAt == "outside" and 5 or 3
+  end
   visuals[record] = true
   start_driver()
   return record
@@ -742,19 +948,19 @@ function SpawnHubDrone(hub)
   return active.drone, F.Status()
 end
 
--- Steps already begun before `elapsed` were issued by the plan they came from (the rebuilt
--- launch has identical chords); a step starting exactly now is still owed.
-local function issued_before(steps, elapsed)
-  local i = 0
-  while steps[i+1] and steps[i+1].start < elapsed do i = i + 1 end
-  return i
-end
-
 function F.Send(record, target, keep_start)
   if save_gate then return nil, "Save in progress" end
   if not record or not live(record.drone) then return nil, "No live flight" end
   if record.target == target then return record end
   if record.target then return nil, "Return the current flight first" end
+  if record.mode == "engine" then
+    -- Only from the rise or the crest hold; the driver's next look issues the exit or the leg.
+    if record.stage ~= "rise" and record.stage ~= "ready" then return nil, "Return the current flight first" end
+    local site, owner = F.Site(target)
+    if not site then return nil, owner end
+    record.target, record.site, record.site_owner = target, site, owner
+    return record
+  end
   local path, reason = F.Route(record.hub, target)
   if not path then return nil, reason end
   local drone, start = record.drone, record.started
@@ -799,7 +1005,9 @@ function SendHubDroneTo(target, hub)
   hub = hub or (active and active.hub)
   if active and active.hub ~= hub then return nil, "Prototype already belongs to another hub" end
   -- Validate before creating any visual, so an isolated target cannot leave one behind.
-  local path, reason = F.Route(hub, target)
+  local mode = active and active.mode or F.Mode
+  local path, reason
+  if mode == "engine" then path, reason = F.Site(target) else path, reason = F.Route(hub, target) end
   if not path then return nil, reason end
   local drone, err = SpawnHubDrone(hub)
   if not drone then return nil, err end
@@ -816,7 +1024,21 @@ function ReturnHubDrone()
   F.Sample()
   if not active then return true end
   local a, now = active, GameTime()
-  if a.work_done and now >= a.work_done then
+  if a.mode == "engine" then
+    local stage = a.stage -- a.target stays: it is the work FX target, and the stage gates re-sends
+    if stage == "out" then
+      leg(a, now, "back") -- a mid-air SetCommand re-plans from the current velocity (FlyingDrone.lua:50)
+    elseif stage == "ready" then
+      take_back(a)
+      continue_from_crest(a, now, {{p = V(a.pit[2])}, {p = V(a.pit[1])}}, "descent")
+      a.remove = true
+    elseif stage == "rise" or stage == "exit" then
+      a.returning = true -- the scripted recall below retraces the flown chords to the floor
+    end
+    -- work: the pose finishes and the return leg follows anyway; back/descent: already returning
+    if not a.returning then return a.drone, F.Status() end
+    a.returning = nil
+  elseif a.work_done and now >= a.work_done then
     a.returning = true
     return a.drone, F.Status()
   end
@@ -871,6 +1093,7 @@ function ReturnHubDrone()
   a.drone:StopFX()
   a.plan, a.started, a.remove, a.returning, a.issued = make_plan(steps, max(1, total), prims), now, true, true, 0
   a.arrival, a.work_done, a.removed = false, false, now + max(1, total)
+  if a.mode == "engine" then a.stage, a.phase = "descent", "descent" end
   return a.drone, F.Status()
 end
 
@@ -878,7 +1101,8 @@ function SetHubDroneTune(name, value)
   if active then return false, "Return the prototype before changing its constants" end
   local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
     UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
-    Speed = true, WorkTime = true, TurnRadius = true, Accel = true, BankAngle = true}
+    Speed = true, WorkTime = true, TurnRadius = true, Accel = true, BankAngle = true,
+    HoldTimeout = true}
   if not tuneable[name] or type(value) ~= "number" or value < (name == "BankAngle" and -2700 or 1)
     or value ~= math.floor(value) or (name == "BankAngle" and value > 2700) then
     return false, "Use a named positive integer; BankAngle allows -2700..2700 angle minutes" end
@@ -886,9 +1110,33 @@ function SetHubDroneTune(name, value)
   return true
 end
 
-function OnMsg.SaveGameStart() save_gate = true; F.ClearAll() end
-function OnMsg.SaveGameDone() save_gate = false end
-function OnMsg.LoadGame() F.ClearAll(); save_gate = false end
+-- The owner's switch, at the console, without a reload: it applies to the next SpawnHubDrone,
+-- so link 3 can Return, switch and Spawn to A/B the two implementations in one sitting.
+function SetHubDroneMode(mode, handoff)
+  if mode ~= "engine" and mode ~= "scripted" then return false, 'Use "engine" or "scripted"' end
+  if handoff ~= nil and handoff ~= "crest" and handoff ~= "outside" then
+    return false, 'The handoff is "crest" or "outside"'
+  end
+  F.Mode = mode
+  if handoff then F.HandoffAt = handoff end
+  return true, F.Mode .. " " .. F.HandoffAt .. (active and " (next spawn)" or "")
+end
+
+-- Scripted motion has no thread in the save and is removed; a drone under a stock command or
+-- hold completes itself and stays. The driver never rides in the save: it is deleted here
+-- and restarted at SaveGameDone with its records intact in memory.
+function OnMsg.SaveGameStart()
+  save_gate = true
+  DeleteThread(driver); driver = false
+  for record in pairs(visuals) do
+    if not F.Persists(record) then F.Remove(record) end
+  end
+end
+function OnMsg.SaveGameDone()
+  save_gate = false
+  if next(visuals) then start_driver() end
+end
+function OnMsg.LoadGame() F.ClearAll(); save_gate = false; F.SweepLoaded() end
 function OnMsg.DoneGame()
   F.ClearAll(); save_gate = false
 end

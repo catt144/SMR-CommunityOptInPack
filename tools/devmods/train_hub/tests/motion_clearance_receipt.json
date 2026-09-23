@@ -1,10 +1,10 @@
 {
-  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2m2_motion_clearance_receipt.json",
-  "head": "2b3b32bbee41e7556f595d29360d660348a9d38a",
+  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2e_motion_clearance_receipt.json",
+  "head": "16a69e35b18f93528f5088bd71974f68f3265cb0",
   "assets_head": "9abe3deec2d36d68bbe7db8d6e3f97169718b566",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "d645d4884e5f22a94e3d9b70cc2bb26575fad5eabfc5f34e3710a329aaf0a392",
+  "source_sha256": "da53324f89c5a4107604de59cda85511193fc576d27989c08b945ca56be0dec1",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -4257,12 +4257,13 @@
   },
   "motion": {
     "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\drones_motion_curves.json",
-    "head": "2b3b32bbee41e7556f595d29360d660348a9d38a",
-    "source_sha256": "d645d4884e5f22a94e3d9b70cc2bb26575fad5eabfc5f34e3710a329aaf0a392",
+    "head": "16a69e35b18f93528f5088bd71974f68f3265cb0",
+    "source_sha256": "da53324f89c5a4107604de59cda85511193fc576d27989c08b945ca56be0dec1",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,
     "chords_are": "straight engine moves cut at every span boundary; each lies in its span control hull",
+    "mode": "scripted route; engine-mode legs (stock FlightGoto) are not bounded by this receipt",
     "routes": {
       "Trackconnector1": [
         {

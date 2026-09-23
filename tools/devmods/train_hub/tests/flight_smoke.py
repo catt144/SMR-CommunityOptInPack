@@ -8,6 +8,15 @@ cannot check from code: one timed SetPos per chord, chained end to end at exact 
 wakes, speed continuous across chord joins, acceleration bounded, zero speed and zero roll at
 every rest pose before any state change, concealment seams exact, recall retracing the flown
 lane. Fluidity itself is the owner's verdict in game.
+
+L2E: the command machinery is mocked to CommandObject.lua's semantics (1.1.1.405907): a
+finished command runs its queue and then Idle in the same thread, WaitUninterruptable holds
+until InterruptWait or its timeout, and Idle is the leak (lands, greys, seeks tasks). The
+engine-mode suite holds: only stock names ever written, every leg a 2D FlightGoto with the
+stock hold queued behind it, the drone taken back within one poll, never Idle; scripted work
+and pit descent from the engine's own arrival positions; recalls; the save split (stock
+command or hold persists, scripted motion is removed); the load sweep. Engine pathing itself
+(where the solver flies, whether it clears the hub) cannot be shown here.
 """
 import json
 import argparse
@@ -35,7 +44,12 @@ function MulDivRound(a,b,c)
 end
 local function isint(v) return math.type(v)=='integer' end
 local P={}; P.__index=P
-function point(x,y,z) assert(isint(x) and isint(y) and isint(z),'engine points take integers'); return setmetatable({X=x,Y=y,Z=z},P) end
+-- 2D points exist: FlyingDrone:Goto hands FlightGoto point(x, y), whose z() is nil.
+function point(x,y,z) assert(isint(x) and isint(y) and (z==nil or isint(z)),'engine points take integers'); return setmetatable({X=x,Y=y,Z=z},P) end
+SelectedObj=false; function SelectObj(o) SelectedObj=o or false end
+function table.find(t,v) for i,x in ipairs(t) do if x==v then return i end end end
+map_objects={}; hubs={}; drones={}
+function AllMapsForEach(area,cls,fn) assert(area==true and cls=='FlyingDrone'); for _,o in ipairs(map_objects) do fn(o) end end
 function P:x() return self.X end; function P:y() return self.Y end; function P:z() return self.Z end
 P.__add=function(a,b) return point(a.X+b.X,a.Y+b.Y,a.Z+b.Z) end
 P.__sub=function(a,b) return point(a.X-b.X,a.Y-b.Y,a.Z-b.Z) end
@@ -54,7 +68,7 @@ function DeleteThread(t) if t then t.deleted=true end end
 function DoneObject(o) assert(not o.deleted); o.deleted=true; removed=removed+1 end
 function GetEntitySpotPos(_,idx) return idx==0 and point(-1000,-577,-2000) or point(-1000,-577,30) end
 local O={}; O.__index=O
-function obj(x,y,z) return setmetatable({valid=true,pos=point(x,y,z or 0),connectors={},calls={},states={}},O) end
+function obj(x,y,z) return setmetatable({valid=true,pos=point(x,y,z or 0),connectors={},calls={},states={},commands={}},O) end
 function O:GetPos() return self.pos end
 function O:GetVisualPos() return self.pos end
 function O:GetEntity() return self.entity or 'rail' end
@@ -99,24 +113,94 @@ function O:SetRollPitchYaw(roll,pitch,yaw,time)
   if c and c.clock==clock then c.roll=roll; c.yaw=yaw; c.rot_time=time end
   self.angle=yaw; self.roll=roll; self.turn_time=time
 end
-function O:SetState(s) self.states[#self.states+1]={s,clock}; self.state=s end
+function O:SetState(s) self.states[#self.states+1]={s,clock,self.pos}; self.state=s end
 function O:SetVisible(v) self.visible=v end
 function O:TakeOff() self:SetState('fly') end
 function O:LandingEnd() self:SetState('idle') end
 function O:GetAnimDuration(s) return s=='constructStart' and 400 or 600 end
 function O:StartFX(f,t) self.fx=f; self.fx_target=t; self.fx_first=self.fx_first or clock end
 function O:StopFX() self.fx=false end
+-- Stock command machinery, to CommandObject.lua (1.1.1.405907): SetCommand replaces the command
+-- and clears the queue; when a command's function returns, CommandThreadProc runs the queue and
+-- then Idle with no yield between; WaitUninterruptable is ExecuteUninterruptable(WaitMsg), so a
+-- SetCommand during it is deferred until the wait ends (InterruptWait = Msg(self) ends it);
+-- OnCommandStart clears run_cmd_on_land and stops any flight. Idle is the leak.
+STOCK={FlightGoto=true,WaitUninterruptable=true,Idle=true,GoHome=true,Goto=true,Malfunction=true}
+function O:SetCommand(cmd,...)
+  assert(cmd==false or cmd==nil or STOCK[cmd],'not a stock method name: '..tostring(cmd))
+  if self.wait and not self.msg then error('SetCommand during WaitUninterruptable without InterruptWait is deferred to the timeout') end
+  self.commands[#self.commands+1]={cmd=cmd or false,args={...},clock=clock,pos=self.pos}
+  self.command=cmd or nil; self.command_queue=nil; self.wait=nil; self.msg=nil; self.flight=nil; self.run_cmd_on_land=nil
+  if cmd=='FlightGoto' then
+    local dest=...
+    assert(dest and dest.Z==nil,'FlightGoto takes the 2D point FlyingDrone:Goto hands it')
+    local dx,dy=dest.X-self.pos.X,dest.Y-self.pos.Y
+    local dist=math.floor(math.sqrt(dx*dx+dy*dy)+.5)
+    self.flight={from=self.pos,dest=dest,start=clock,finish=clock+math.max(1,math.floor(dist*1000/1600+.5))}
+    self:SetState('fly')
+  elseif cmd=='WaitUninterruptable' then
+    local timeout=...
+    assert(isint(timeout) and timeout>0)
+    self.wait={until_=clock+timeout}
+  elseif cmd=='Idle' then self:Idle()
+  end
+end
+function O:QueueCommand(cmd,...)
+  assert(STOCK[cmd],'not a stock method name: '..tostring(cmd))
+  assert(self.command and self.command~='Idle','InsertCommand on an idle drone is a SetCommand')
+  self.command_queue=self.command_queue or {}
+  self.command_queue[#self.command_queue+1]={cmd=cmd,args={...}}
+end
+function O:InterruptWait() if self.wait then self.msg=true end end
+function O:Idle()
+  self.command='Idle'; self.leaked=(self.leaked or 0)+1; self.grey=true; self.wait=nil; self.flight=nil
+  self:SetState('idle')
+end
+local function command_done(d,at)
+  local q=d.command_queue
+  local nxt=q and table.remove(q,1)
+  if not nxt then d:Idle(); return end
+  d.command=nxt.cmd
+  d.commands[#d.commands+1]={cmd=nxt.cmd,args=nxt.args,clock=at,pos=d.pos,queued=true}
+  if nxt.cmd=='WaitUninterruptable' then d.wait={until_=at+nxt.args[1]} else error('mock: unqueued '..nxt.cmd) end
+end
+-- The flight surface: terrain 0, the hub stamped 30 m high inside its 90 m footprint, the way
+-- the flight cache marks a building; the engine arrives at surface + hover_height (7 m).
+function surface(x,y)
+  for _,h in ipairs(hubs) do local dx,dy=x-h.pos.X,y-h.pos.Y; if dx*dx+dy*dy<=9000*9000 then return 3000 end end
+  return 0
+end
+function engine_step()
+  for _,d in ipairs(drones) do
+    if not d.deleted then
+      local f=d.flight
+      if f then
+        if clock>=f.finish then
+          d.pos=point(f.dest.X,f.dest.Y,surface(f.dest.X,f.dest.Y)+700)
+          d.flight=nil; d.arrived=(d.arrived or 0)+1
+          command_done(d,f.finish)
+        else
+          local t=(clock-f.start)/(f.finish-f.start)
+          local z=surface(d.pos.X,d.pos.Y)+700
+          d.pos=point(math.floor(f.from.X+(f.dest.X-f.from.X)*t+.5),math.floor(f.from.Y+(f.dest.Y-f.from.Y)*t+.5),math.floor(f.from.Z+(z-f.from.Z)*t+.5))
+        end
+      end
+      local w=d.wait
+      if w and (d.msg or clock>=w.until_) then d.wait=nil; d.msg=nil; command_done(d,clock) end
+    end
+  end
+end
 FlyingDrone={}
 function FlyingDrone:new(params,map)
   assert(params.init_with_command==false and map==1)
   local d=obj(0,0)
   for k,v in pairs(params) do d[k]=v end
-  created=created+1
+  created=created+1; drones[#drones+1]=d; map_objects[#map_objects+1]=d
   return d
 end
 Building={SetPalette=function(d,...) d.palette={...} end}
 function hub(x,y)
-  local h=obj(x or 0,y or 0); h.city={}; h.entity='SMROptInTrainHub6'; return h
+  local h=obj(x or 0,y or 0); h.city={}; h.entity='SMROptInTrainHub6'; h.drones={}; hubs[#hubs+1]=h; return h
 end
 function track(a,b,points)
   local t=obj(0,0); t.elements={}; t.elements_under_construction={}
@@ -130,6 +214,22 @@ function track(a,b,points)
 end
 function tick(t) clock=t; return SMROptInHubFlight.Sample() end
 -- The game-time driver, simulated: wake exactly when the current chord ends.
+-- Engine mode: the mock flight and holds advance before every driver look.
+function edrive(limit)
+  local wakes=0
+  while true do
+    engine_step()
+    local w=SMROptInHubFlight.Sample()
+    if not w then return wakes,false end
+    assert(isint(w),'Sleep takes an integer')
+    if limit and clock+w>limit then clock=limit; engine_step(); SMROptInHubFlight.Sample(); return wakes,true end
+    clock=clock+w; wakes=wakes+1
+  end
+end
+function edrive_until(cond)
+  while SMROptInHubFlight.Status() and not cond() do engine_step(); local w=SMROptInHubFlight.Sample(); if not w then break end; clock=clock+w end
+  engine_step()
+end
 function drive(limit)
   local wakes=0
   while true do
@@ -149,7 +249,14 @@ _code = "\n".join(line.split("--", 1)[0] for line in source_text.split("\n"))
 _bare = [line.strip() for line in _code.split("\n") if re.search(r"(?<!/)/(?!/)", line)]
 assert _bare == ["local function div(a, b) return (a * 1.0) / b end"], "bare division outside div(): %r" % _bare
 assert not re.search(r"\b(Min|Max|Clamp)\(", _code), "engine integer helper used on flight numbers"
+# Static gate: the only command names this file writes onto a drone are the two stock methods
+# (bound once, below) and false; both exist in the installed 1.1.1.405907 tree, read below.
+_cmds = re.findall(r"(?:SetCommand|QueueCommand)\(([^,)]+)", _code)
+assert _cmds and set(_cmds) <= {"STOCK_LEG", "STOCK_HOLD", "false"}, _cmds
+assert 'local STOCK_LEG, STOCK_HOLD = "FlightGoto", "WaitUninterruptable"' in _code
+assert not re.search(r"^\s*(FlyingDrone|Drone|FlyingObject|CommandObject)\.\w+\s*=", _code, re.M), "no class wrap"
 lua.execute(source_text)
+lua.execute("SetHubDroneMode('scripted')  -- the tagged flight first; the engine suite follows")
 lua.execute(r'''
 F=SMROptInHubFlight
 h=hub(); s=obj(20000,0); f=obj(40000,0)
@@ -352,6 +459,8 @@ for i=n0+1,#drone.calls do
   if c.to.X<-2000 and c.to.X>-7000 then assert(math.abs(c.to.Z-F.UnderDeckHeight)<=1, 'retrace stays in the lane') end
 end
 assert(drone.calls[#drone.calls].to.Z==-2000, 'lands on the pit floor')
+-- A recall at the spawn instant has no chord to retrace: it lands where it is and is removed.
+clock=250000; drone=SpawnHubDrone(h); ReturnHubDrone(); drive(); assert(drone.deleted and not F.Status())
 -- Recall from the crest hover descends and lands; recall mid-rise never passes the crest.
 clock=300000; drone=SpawnHubDrone(h); drive(clock+6000); assert(F.Status().phase=='hover')
 ReturnHubDrone(); drive(); assert(drone.deleted and drone.calls[#drone.calls].to.Z==-2000)
@@ -457,24 +566,180 @@ assert(F.Create(h)==nil); OnMsg.SaveGameDone()
 assert(created==removed)
 ''')
 
-# Actual archived FlightGoto, with a solver spy: the destination is a solver request, not a
-# waypoint-constrained interpolator. Source contract only; it names the call path the build
-# does not take.
-archive = Path('B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.0.403908/Src')
+
+lua.execute(r"""
+-- ENGINE MODE. The ends are ours, the middle is the engine's, the commands are ours.
+assert(SetHubDroneMode('engine','crest')); assert(not SetHubDroneMode('hybrid')); assert(not SetHubDroneMode('engine','pit'))
+pit=assert(F.PitPoints(h)); crest=pit[3]; outside=pit[5]
+clock=1000000; drone=assert(SpawnHubDrone(h)); local st=F.Status(); assert(st.mode=='engine' and st.stage=='rise' and st.handoff==3)
+assert(not drone.command, 'the rise is ours: no command')
+edrive(clock+6000)
+st=F.Status(); assert(st.stage=='ready' and st.phase=='hover' and st.command=='WaitUninterruptable' and drone.pos.Z==F.PitExitZ,
+  'the stand-ready hold is a stock WaitUninterruptable at the crest')
+-- The hold outlives its own timeout many times over without ever idling: the driver re-arms it.
+local n0=#drone.commands
+edrive(clock+F.HoldTimeout*3)
+assert(not drone.leaked and drone.command=='WaitUninterruptable' and #drone.commands>=n0+4, 're-armed: '..(#drone.commands-n0))
+for _,c in ipairs(drone.commands) do assert(c.cmd=='WaitUninterruptable') end
+-- The trip. Send accepts a site or its element; the driver's next look issues the leg.
+local sent=assert(SendHubDroneTo(cs,h)); assert(sent==drone)
+assert(SendHubDroneTo(cs,h)==drone, 'a repeat is a no-op')
+assert(SendHubDroneTo(t2.elements[2],h)==nil, 'a second target must wait for the return')
+edrive()
+assert(drone.deleted and not F.Status() and not drone.leaked and created==removed, 'lands, removed, never Idle')
+-- The command trail: only stock names, every leg a 2D FlightGoto with the stock hold queued behind it,
+-- every queued hold taken back (false, or the next leg) within one poll.
+legs={}; holds=0; taken_back_late=0
+for i,c in ipairs(drone.commands) do
+  assert(c.cmd=='FlightGoto' or c.cmd=='WaitUninterruptable' or c.cmd==false, tostring(c.cmd))
+  if c.cmd=='FlightGoto' then
+    legs[#legs+1]=c; assert(c.args[1].Z==nil, 'a 2D destination')
+    local q=drone.commands[i+1]; assert(q and q.cmd=='WaitUninterruptable' and q.queued, 'the hold is queued behind the leg')
+  end
+  if c.queued then
+    holds=holds+1
+    local nxt=drone.commands[i+1]; assert(nxt, 'a queued hold is always followed by our take-back')
+    if nxt.clock-c.clock>F.PollTime then taken_back_late=taken_back_late+1 end
+  end
+end
+assert(#legs==2 and holds==2 and taken_back_late==0, #legs..' legs '..holds..' holds '..taken_back_late..' late')
+assert(legs[1].args[1].X==cs.pos.X and legs[1].args[1].Y==cs.pos.Y, 'out: to the break')
+assert(legs[1].pos.X==crest.X and legs[1].pos.Y==crest.Y and legs[1].pos.Z==crest.Z, 'out leg starts at the crest hold')
+assert(legs[2].args[1].X==crest.X and legs[2].args[1].Y==crest.Y, 'back: to the crest column')
+-- Ours at the break: from the engine's arrival (surface + 7 m) down to the pose, the work, back up.
+local work_at
+for _,stt in ipairs(drone.states) do if stt[1]=='constructStart' then work_at=stt[3] end end
+assert(work_at and work_at.X==cs.pos.X and work_at.Y==cs.pos.Y and work_at.Z==F.FixHeight, 'work pose at FixHeight above the break')
+assert(drone.fx_target==cs)
+assert(legs[2].pos.X==cs.pos.X and legs[2].pos.Y==cs.pos.Y and legs[2].pos.Z==700, 'back leg starts at the engine arrival height above the break')
+-- Ours at the end: the engine left the drone above the hub's stamp (30 m + 7 m); we descend the column and land.
+local after=0; local crest_pass=false; local snaps=0
+for i,c in ipairs(drone.calls) do
+  if c.clock>=legs[2].clock then after=after+1; if c.time==0 then snaps=snaps+1 end; if c.to.Z==crest.Z and c.to.X==crest.X then crest_pass=true end end
+end
+assert(after>4 and snaps==0 and crest_pass, 'chords down the column from the arrival, no snap: '..after..' '..snaps)
+local last=drone.calls[#drone.calls]; assert(last.to.Z==-2000 and drone.states[#drone.states][1]=='idle', 'LandingEnd on the pit floor')
+local first_after
+for _,c in ipairs(drone.calls) do if c.clock>=legs[2].clock and not first_after then first_after=c end end
+assert(first_after.from.Z==3700 and first_after.from.X==crest.X, 'descent begins where the engine stopped, 37 m up')
+""")
+lua.execute(r"""
+-- HandoffAt="outside": L2R's under-deck exit stays ours; the engine takes over at the outside point.
+assert(SetHubDroneMode('engine','outside'))
+clock=2000000; local t0=clock; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); assert(F.Status().stage=='ready' and F.Status().handoff==5)
+SendHubDroneTo(cs,h); edrive()
+assert(drone.deleted and not drone.leaked)
+legs={}; for _,c in ipairs(drone.commands) do if c.cmd=='FlightGoto' then legs[#legs+1]=c end end
+assert(#legs==2 and legs[1].pos.X==outside.X and legs[1].pos.Y==outside.Y and legs[1].pos.Z==outside.Z, 'engine from the outside point')
+assert(legs[2].args[1].X==outside.X and legs[2].args[1].Y==outside.Y, 'and back to it')
+local lane,crest_z=false,false
+for _,c in ipairs(drone.calls) do
+  if c.clock<legs[1].clock and c.clock>t0+6000 and c.to.Z==F.UnderDeckHeight then lane=true end
+  if c.clock>legs[2].clock and c.to.Z==crest.Z then crest_z=true end
+end
+assert(lane and crest_z and drone.calls[#drone.calls].to.Z==-2000, 'exit under the deck, return through the crest reversal')
+assert(SetHubDroneMode('engine','crest'))
+""")
+lua.execute(r"""
+-- Recalls. Mid-leg: a new FlightGoto from where it is (the engine re-plans from its velocity).
+clock=3000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
+edrive_until(function() return drone.flight and clock>=drone.flight.start+1500 end)
+local mid=drone.pos; assert(mid.X~=crest.X and mid.X~=cs.pos.X)
+ReturnHubDrone(); assert(F.Status().stage=='back' and drone.command=='FlightGoto' and drone.flight.from.X==mid.X)
+assert(ReturnHubDrone()==drone and drone.flight.from.X==mid.X, 'a repeat does not re-plan')
+edrive(); assert(drone.deleted and not drone.leaked and drone.calls[#drone.calls].to.Z==-2000)
+-- From the crest hold: taken back, straight down the column.
+clock=4000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); assert(drone.command=='WaitUninterruptable')
+ReturnHubDrone(); assert(drone.command==nil and F.Status().stage=='descent')
+edrive(); assert(drone.deleted and not drone.leaked and drone.calls[#drone.calls].to.Z==-2000)
+-- Mid-rise: the scripted recall, as in scripted mode.
+clock=5000000; drone=assert(SpawnHubDrone(h)); edrive(clock+1200); ReturnHubDrone(); assert(F.Status().stage=='descent')
+edrive(); assert(drone.deleted and drone.calls[#drone.calls].to.Z==-2000 and #drone.commands==0, 'never commanded')
+-- During the work pose: the pose finishes and the return follows anyway.
+clock=6000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
+edrive_until(function() return F.Status().stage=='work' end); ReturnHubDrone(); assert(F.Status().stage=='work')
+edrive(); assert(drone.deleted and drone.fx_target==cs and not drone.leaked)
+-- Send during the rise is honoured once the crest hold begins.
+clock=6500000; drone=assert(SpawnHubDrone(h)); edrive(clock+800); assert(SendHubDroneTo(cs,h)==drone)
+edrive(); assert(drone.deleted and drone.arrived==2 and not drone.leaked)
+""")
+lua.execute(r"""
+-- Losing the drone: a foreign command mid-leg is noticed on the next look and the drone removed.
+clock=7000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
+edrive_until(function() return drone.command=='FlightGoto' end)
+drone:SetCommand('GoHome'); engine_step(); F.Sample(); assert(drone.deleted and F.Lost=='GoHome' and not F.Status())
+-- The hold's timeout is the only road to Idle: a driver absent longer than HoldTimeout loses the
+-- drone to vanilla, which is exactly what a save loaded without the mod does.
+F.HoldTimeout=2000
+clock=8000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
+edrive_until(function() return drone.command=='FlightGoto' end)
+clock=drone.flight.finish+3000; engine_step()
+assert(drone.leaked==1 and drone.command=='Idle', 'vanilla Idle after the hold timed out unattended')
+F.Sample(); assert(drone.deleted and F.Lost=='Idle')
+F.HoldTimeout=60000
+-- A disabling command deferred to landing removes the record, as in scripted mode.
+clock=8500000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); drone.run_cmd_on_land='Malfunction'; engine_step(); F.Sample(); assert(drone.deleted)
+""")
+lua.execute(r"""
+-- SAVE. A drone under a stock command or hold stays; scripted motion is removed; the driver is
+-- gated and issues nothing until SaveGameDone.
+clock=9000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
+edrive_until(function() return drone.command=='FlightGoto' end)
+OnMsg.SaveGameStart(); assert(not drone.deleted and F.Status() and drone.command=='FlightGoto', 'an engine leg persists')
+assert(SpawnHubDrone(h)==nil and SendHubDroneTo(cs,h)==nil)
+clock=drone.flight.finish+500; engine_step(); assert(drone.command=='WaitUninterruptable', 'the leg ended during the save; the queued hold keeps it')
+assert(tick(clock)==F.PollTime and drone.command=='WaitUninterruptable', 'the gated driver looks but touches nothing')
+OnMsg.SaveGameDone(); edrive(); assert(drone.deleted and not drone.leaked and created==removed)
+clock=9500000; drone=assert(SpawnHubDrone(h)); edrive(clock+1000); OnMsg.SaveGameStart(); assert(drone.deleted, 'scripted motion is removed'); OnMsg.SaveGameDone()
+clock=9600000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); OnMsg.SaveGameStart(); assert(not drone.deleted, 'the crest hold persists')
+OnMsg.SaveGameDone(); edrive(clock+8000); assert(F.Status().stage=='ready' and drone.command=='WaitUninterruptable')
+SendHubDroneTo(cs,h); edrive_until(function() return F.Status().stage=='work' end)
+OnMsg.SaveGameStart(); assert(drone.deleted, 'the work pose is ours and is removed'); OnMsg.SaveGameDone()
+-- LOAD. Prototype leftovers (a Wasp of a train hub outside its fleet list) are swept; the fleet and other hubs' Wasps are not.
+local stray=obj(0,0); stray.command_center=h; stray.command='FlightGoto'; map_objects[#map_objects+1]=stray
+local fleet=obj(0,0); fleet.command_center=h; h.drones={fleet}; map_objects[#map_objects+1]=fleet
+local other=obj(0,0); other.command_center=s; map_objects[#map_objects+1]=other
+clock=9700000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000)
+OnMsg.LoadGame(); assert(drone.deleted and stray.deleted and not fleet.deleted and not other.deleted and F.Lost=='load' and not F.Status())
+created=created+1 -- the stray was never created by the flight code
+h.drones={}
+-- The switch applies to the next spawn: a scripted drone after engine ones, and back.
+assert(SetHubDroneMode('scripted')); clock=9800000; drone=assert(SpawnHubDrone(h)); assert(F.Status().mode=='scripted' and not F.Status().stage)
+assert(select(2,SetHubDroneMode('engine')):find('next spawn')); assert(F.Status().mode=='scripted')
+drive(clock+6000); assert(#drone.commands==0); ReturnHubDrone(); drive(); assert(drone.deleted)
+drone=assert(SpawnHubDrone(h)); assert(F.Status().mode=='engine'); ReturnHubDrone(); edrive(); assert(drone.deleted)
+assert(created==removed)
+""")
+
+# The installed tree (1.1.1.405907): the two stock methods exist with the semantics the engine
+# mode rests on, and the archived FlightGoto, run with a solver spy, hands the destination to
+# Flight_Step and owns the path: engine mode's legs are exactly this call, under a command.
+archive = Path('B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src')
 flight = (archive/'Lua/Flight.lua').read_text(encoding='utf8')
+cmdobj = (archive/'CommonLua/Classes/CommandObject.lua').read_text(encoding='utf8')
+assert 'function FlyingObject:FlightGoto(dest, dest_vector)' in flight
+assert 'function CommandObject:WaitUninterruptable(timeout)\n\treturn self:ExecuteUninterruptable(WaitMsg, self, timeout)' in cmdobj
+assert 'function CommandObject:InterruptWait()\n\tMsg(self)' in cmdobj
+proc = cmdobj.split('local function CommandThreadProc(',1)[1].split('\nend\n',1)[0]
+assert proc.index('packed_command = queue and table_remove(queue, 1)') < proc.index('command, command_func = self:ChooseIdleCommand()') < proc.index('command_func = self.Idle'), 'queue, then Idle'
+setcmd = cmdobj.split('function CommandObject:DoSetCommand(',1)[1].split('\nend\n',1)[0]
+assert 'if not uninterruptable_importance then' in setcmd and 'wait the current thread to finish destructor execution' in setcmd, 'SetCommand defers behind an uninterruptable wait'
+assert 'function FlyingDroneAutoresolve:OnCommandStart()\n\tself.run_cmd_on_land = nil' in (archive/'Lua/Units/FlyingDrone.lua').read_text(encoding='utf8')
 body = flight.split('function FlyingObject:FlightGoto(dest, dest_vector)',1)[1].split('\nfunction FlyingObject:FlightStop()',1)[0]
 native = LuaRuntime()
 native.execute('''FlyingObject={}; calls=0; Sleep=function() error('yield') end
 function Flight_Step(self,dest,vector) calls=calls+1; self.solver_dest=dest; self.pos='solver-owned'; return -1 end
 function IsValid() return true end
+function IsGameRecordingRunning() return false end; function IsGameReplayRunning() return false end
 ''')
-native.execute('local fssFinished=-1; local fssRequestFailed=-9; local debug=false\nfunction FlyingObject:FlightGoto(dest,dest_vector)'+body)
+native.execute('local fssFinished=-1; local fssFlightStart=-2; local fssPathPending=-3; local fssRequestFailed=-9; local debug=false\nfunction FlyingObject:FlightGoto(dest,dest_vector)'+body)
 native.execute('''o=setmetatable({sync_path=true},{__index=FlyingObject})
 function o:GetFlying() return false end; function o:FlightStop() self.stopped=true end
 assert(o:FlightGoto('requested-waypoint')); assert(calls==1 and o.solver_dest=='requested-waypoint')
 assert(o.pos=='solver-owned' and o.stopped)
 ''')
 assert 'per-instance overrides are ignored by design' in flight, 'flight class params are class-static (Flight.lua)'
+assert 'hover_height = 7*guim' in (archive/'Lua/Units/FlyingDrone.lua').read_text(encoding='utf8')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--clearance-output',type=Path)
@@ -488,6 +753,7 @@ if args.clearance_output:
     lua.execute('''function GetEntitySpotPos(_,idx)
       local p=idx==0 and spot_floor or spot_rim
       return point(math.floor(p[1]+.5),math.floor(p[2]+.5),math.floor(p[3]+.5)) end''')
+    lua.execute("SetHubDroneMode('scripted')")  # the receipt bounds the scripted chords; engine mode reuses them for the pit rise/descent and the outside exit, its own legs are unbounded here
     routes={}
     for name,spot in spots.items():
         if not name.startswith('Trackconnector'): continue
@@ -522,6 +788,7 @@ if args.clearance_output:
         'bank_angle_minutes':abs(lua.globals().F.BankAngle),
         'chord_horizon_ms':0,
         'chords_are':'straight engine moves cut at every span boundary; each lies in its span control hull',
+        'mode':'scripted route; engine-mode legs (stock FlightGoto) are not bounded by this receipt',
         'routes':routes},indent=2)+'\n')
 g = lua.globals()
 assert g.created==g.removed
@@ -547,6 +814,10 @@ result = {
     "worst_chord_join_speed_step_units_per_s": g.worst_join,
     "max_straight_accel_units_per_s2": g.max_acc,
     "max_yaw_step_minutes_per_chord": g.max_yaw_step,
-    "native_solver_contract": "archived FlightGoto executed with solver spy; solver owns path; not taken",
+    "native_solver_contract": "archived 1.1.1.405907 FlightGoto executed with solver spy; solver owns path; engine mode issues it as a stock command",
+    "engine_mode": {"stock_names_written": ["FlightGoto", "WaitUninterruptable", "false"],
+                    "legs_per_trip": 2, "queued_holds_per_trip": 2, "take_back_within_ms": g.F.PollTime,
+                    "idle_seen": False, "persists_through_save": ["ready", "out", "back"],
+                    "removed_at_save": ["rise", "exit", "work", "descent"]},
 }
 print(json.dumps(result, indent=2))
