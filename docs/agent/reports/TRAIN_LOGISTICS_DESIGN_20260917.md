@@ -2245,6 +2245,17 @@ sun spot that moves over the glass as I pan the camera. The base game doesn't re
 that"* — our glass RM is roughness 0.13; a worker is reading vanilla's dome glass RM texture and
 matching both glass sets to it (RM-only change, two texture compiles). Restore point 5 is taken
 once the glass roughness is kept.
+**Vanilla glass measured (Opus, 2026-09-23; packs at `A:\SteamLibrary\steamapps\common\Project
+Spark\Packs`, table in `DOME_GLASS_IMPORT.md`):** both vanilla glass materials' RM is flat R 11 G 12
+B 27 (roughness ≈ .045, metal ≈ .106; `DomeGlass_RM - Copy.dds` Textures9.fpk, `1553002.dds`
+Textures3.fpk), BC alpha ≈ 64/255 (a quarter opaque), and both carry a dust map in the `Special`
+slot (channel 1) that ours leave empty. So vanilla is SMOOTHER than our .13, and a vanilla match
+would tighten the spot; the worker stopped on that. Orchestrator's call: a by-eye prototype,
+**assets `264ed18`** (BC `ce78edb0…` rechecked unmoved): both glass sets at roughness byte 115 (.45)
+and metal 27 (`GLASS_ROUGHNESS`/`GLASS_METAL` in paint_concept.py, `GLASS_RM` in
+export_dome_glass.py); only the two RM maps moved (siding `aba274cc…`, dome `eff8e8c0…`). Two
+texture compiles owed. If .45 does not calm the spot, the dust map in `Special` is the other
+difference, and it is a material edit in the editor.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
