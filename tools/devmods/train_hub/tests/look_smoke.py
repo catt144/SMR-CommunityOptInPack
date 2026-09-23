@@ -117,6 +117,7 @@ lua.execute(r'''
 -- Before editor import, the existing visual survives and no missing entity is made.
 h:InitHubReactorVisual(); h:InitHubSidingGlass()
 assert(#living('FusionReactor')==1 and #living('SMROptInTrainHub6Glass')==0)
+assert(#living('SMROptInTrainHub6DomeGlass')==0)
 old=living('FusionReactor')[1]
 assert(old.scale==75 and old.angle==210*60)
 assert(old.offset:x()==3897 and old.offset:y()==2250 and old.offset:z()==0)
@@ -134,6 +135,16 @@ for i=1,2 do h:InitHubReactorVisual(); h:InitHubSidingGlass() end
 assert(old.deleted and IsValid(foreign))
 assert(#living('FusionReactor')==0)
 assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass')==1)
+-- The outer dome shell (owner, 2026-09-22, superseding OI-23's "no dome glass") is gated on its
+-- OWN entity: not imported yet, so it is simply absent and the siding glass beside it is intact.
+assert(#living('SMROptInTrainHub6DomeGlass')==0)
+available.SMROptInTrainHub6DomeGlass=true
+for i=1,2 do h:InitHubSidingGlass() end                 -- present exactly once, however often it runs
+assert(#living('SMROptInTrainHub6DomeGlass')==1 and #living('SMROptInTrainHub6Glass')==1)
+dome=living('SMROptInTrainHub6DomeGlass')[1]
+assert(dome.offset:x()==0 and dome.offset:y()==0 and dome.offset:z()==0)
+assert(dome.delete_on_load and dome.cleared==15 and dome.spot==0 and dome.cm_calls==nil)
+assert(dome.si==nil)   -- it carries no glow, so it never receives a SetSIModulation call
 reactor=living('SMROptInTrainHubReactor')[1]; glass=living('SMROptInTrainHub6Glass')[1]
 assert(reactor.scale==75 and reactor.angle==210*60 and reactor.fx_actor_class=='FusionReactor')
 assert(glass.offset:x()==0 and glass.offset:y()==0 and glass.offset:z()==0)
@@ -141,12 +152,16 @@ assert(reactor.cm_calls==4 and cm_is(reactor,1,NAVY,0,0) and cm_is(reactor,4,STE
 assert(glass.cm_calls==nil)  -- the glass keeps its own look
 for _,v in ipairs({reactor,glass}) do assert(v.delete_on_load and v.cleared==15 and v.spot==0) end
 h:OnSetWorking(false)
-assert(reactor.si==0 and glass.si==0 and reactor.fx_state=='end')
+assert(reactor.si==0 and glass.si==0 and reactor.fx_state=='end' and dome.si==nil)
 h:OnSetWorking(true)
-assert(reactor.si==200 and glass.si==200 and reactor.fx_state=='start')
+assert(reactor.si==200 and glass.si==200 and reactor.fx_state=='start' and dome.si==nil)
 -- DeleteOnLoadGame's engine removal is mocked, then run the exact init path again.
-DoneObject(reactor); DoneObject(glass); h:InitHubReactorVisual(); h:InitHubSidingGlass()
+DoneObject(reactor); DoneObject(glass); DoneObject(dome)
+h:InitHubReactorVisual(); h:InitHubSidingGlass()
 assert(#living('SMROptInTrainHubReactor')==1 and #living('SMROptInTrainHub6Glass')==1)
+assert(#living('SMROptInTrainHub6DomeGlass')==1)
+dome=living('SMROptInTrainHub6DomeGlass')[1]
+assert(dome.delete_on_load and dome.offset:z()==0 and dome.si==nil)
 assert(IsValid(foreign))
 -- The palette is re-applied by the same recreation path, so it survives the load.
 reactor=living('SMROptInTrainHubReactor')[1]
@@ -193,6 +208,7 @@ end
 assert(spots==72)
 -- Structure lights: portal and pit on, the ring rim and the floor edge off by default (owner, 2026-09-22).
 assert(n('portal')==30 and n('pit')==0 and n('rim')==0 and n('floor')==0)
+assert(n('underdeck')==0, n('underdeck'))   -- night only, like the crown; this whole pass is by DAY
 assert(#lights()==102, #lights())
 Floor.SetHubStructureLights{rim={on=true},pit={on=true}}; assert(n('rim')==36 and n('pit')==6 and #lights()==144)
 for _,v in ipairs(set('portal')) do
@@ -247,35 +263,83 @@ assert(n('crown')==0 and #lights()==144)
 MAP.NightLightsState=true
 OnMsg.LightmodelChange(MAP,false,{night=true},0,{night=false})
 assert(n('crown')==1, n('crown'))
-assert(#lights()==145 and n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
+assert(#lights()==163 and n('arm')==72 and n('portal')==30 and n('pit')==6 and n('rim')==36)
 crown=set('crown')[1]
 assert(crown.class=='PointLight' and crown.delete_on_load and crown.spot==0 and crown.detail=='Essential')
 assert(crown.color==RGB(255,214,170) and crown.intensity==150 and crown.radius==40*guim)
 assert(crown.axis==nil and crown.angle==nil)                -- a point light: no aim to get wrong
 assert(crown.offset:x()==0 and crown.offset:y()==0 and crown.offset:z()==1900) -- the dome axis, 19.00 m
+-- Under-deck fill (owner, 2026-09-22): "a little more light on the ground floor ... underneath the
+-- tracks ... same color temp as the big overhead flood light ... no fixtures". 18 warm points,
+-- three per arm at 9/17/25 m out along that arm's OWN direction, at z 7.00 m -- 1.00 m under the
+-- 8.00 m deck top, so no hot circle on the deck's underside. Night only, on the crown's schedule.
+function arm_dir(d)
+ local x0,y0=HexToWorld(0,0); local q,r=HexRotate(1,0,d); local hx,hy=HexToWorld(q,r)
+ local ax,ay=hx-x0,hy-y0; return ax,ay,point(ax,ay):Len()
+end
+assert(n('underdeck')==18, n('underdeck'))
+UD_R={9*guim,17*guim,25*guim}
+seen={}; ud_parts={}
+for _,v in ipairs(set('underdeck')) do
+ assert(v.class=='PointLight' and v.delete_on_load and v.spot==0 and v.detail=='Essential')
+ assert(v.color==RGB(255,214,170) and v.color==crown.color)  -- the crown's colour temperature exactly
+ assert(v.intensity==40 and v.radius==12*guim)
+ assert(v.axis==nil and v.angle==nil and v.inner==nil and v.outer==nil) -- no aim, no cone, no fixture
+ assert(v.offset:z()==700, v.offset:z())                     -- 1.00 m under the deck top, above the floor
+ local hit=nil
+ for d=0,5 do
+  local ax,ay,len=arm_dir(d)
+  for _,u in ipairs(UD_R) do
+   if v.offset:x()==MulDivRound(ax,u,len) and v.offset:y()==MulDivRound(ay,u,len) then hit=d..'@'..u end
+  end
+ end
+ assert(hit and not seen[hit], tostring(hit))                -- on an arm axis, and each slot used once
+ seen[hit]=true
+ local rr=math.sqrt(v.offset:x()^2+v.offset:y()^2)
+ assert(rr<=3295, rr)                                        -- inside the ring/dome glazing radius 32.95 m
+ local deg=math.deg(math.atan(v.offset:y(),v.offset:x())) % 360
+ ud_parts[#ud_parts+1]=string.format('r=%d cm, angle=%.1f deg, z=%d cm (x=%d, y=%d)',
+  math.floor(rr+.5), deg, v.offset:z(), v.offset:x(), v.offset:y())
+end
+local slots=0; for _ in pairs(seen) do slots=slots+1 end
+assert(slots==18, slots)
+ud_report=table.concat(ud_parts,' | ')
+assert(#lights()==163, #lights())
+-- Tunable and off-able through the same console entry point as every other family, `radii` too.
+Floor.SetHubStructureLights{underdeck={intensity=70,radius=15*guim,height=650}}
+assert(n('underdeck')==18 and #lights()==163)
+for _,v in ipairs(set('underdeck')) do assert(v.intensity==70 and v.radius==1500 and v.offset:z()==650) end
+Floor.SetHubStructureLights{underdeck={radii={8*guim}}}
+assert(n('underdeck')==6 and #lights()==151)                 -- one ring per arm
+Floor.SetHubStructureLights{underdeck={on=false}}
+assert(n('underdeck')==0 and #lights()==145)
+Floor.SetHubStructureLights{underdeck={on=true,intensity=40,radius=12*guim,height=700,
+ radii={9*guim,17*guim,25*guim}}}
+assert(n('underdeck')==18 and #lights()==163)
 -- Idempotent at night, and tunable/off-able through the existing console entry point.
-h:InitHubLights(); h:InitHubLights(); assert(n('crown')==1 and #lights()==145)
+h:InitHubLights(); h:InitHubLights(); assert(n('crown')==1 and #lights()==163)
 Floor.SetHubStructureLights{crown={intensity=90,height=1850,color=RGB(255,200,150),radius=45*guim}}
 assert(n('crown')==1)
 crown=set('crown')[1]
 assert(crown.intensity==90 and crown.offset:z()==1850 and crown.color==RGB(255,200,150) and crown.radius==45*guim)
-Floor.SetHubStructureLights{crown={on=false}}; assert(n('crown')==0 and #lights()==144)
+Floor.SetHubStructureLights{crown={on=false}}; assert(n('crown')==0 and #lights()==162)
 Floor.SetHubStructureLights{crown={on=true,intensity=60,height=1900,color=RGB(255,214,170),outer=90}}
-assert(n('crown')==1 and #lights()==145)
+assert(n('crown')==1 and #lights()==163)
 -- A stopped hub destroys it with the rest; running again rebuilds it.
 h:OnSetWorking(false); assert(#lights()==0 and Floor.HubLightSet(h)==nil)
-h:OnSetWorking(true); assert(n('crown')==1 and #lights()==145)
-night_counts={crown=n('crown'),total=#lights()}
+h:OnSetWorking(true); assert(n('crown')==1 and n('underdeck')==18 and #lights()==163)
+night_counts={crown=n('crown'),underdeck=n('underdeck'),total=#lights()}
 -- Dawn, the same Msg the other way: the crown goes, nothing else moves.
 MAP.NightLightsState=false
 OnMsg.LightmodelChange(MAP,false,{night=false},0,{night=true})
-assert(n('crown')==0 and #lights()==144 and n('arm')==72 and n('portal')==30 and n('rim')==36)
+assert(n('crown')==0 and n('underdeck')==0 and #lights()==144 and n('arm')==72 and n('portal')==30 and n('rim')==36)
 -- Another map's dusk/dawn does not switch this hub: the override is keyed by map, and a hub
 -- elsewhere falls back to its own MapVar.
-MAP.NightLightsState=true; h:InitHubLights(); assert(n('crown')==1)
+MAP.NightLightsState=true; h:InitHubLights(); assert(n('crown')==1 and n('underdeck')==18)
 OnMsg.LightmodelChange({},false,{night=false},0,{night=true})
-assert(n('crown')==1, n('crown'))
-MAP.NightLightsState=false; h:InitHubLights(); assert(n('crown')==0 and #lights()==144)
+assert(n('crown')==1 and n('underdeck')==18, n('crown'))
+MAP.NightLightsState=false; h:InitHubLights()
+assert(n('crown')==0 and n('underdeck')==0 and #lights()==144)
 -- After the whole lights pass the reactor still carries the default palette, and the hub
 -- object itself never received a single colorization call.
 r=react()
@@ -283,14 +347,17 @@ assert(r.cm_calls==4 and cm_is(r,1,NAVY,0,0) and cm_is(r,4,STEEL,-90,110))
 assert(h.colorized==nil, tostring(h.colorized))
 counts={arm=n('arm'),portal=n('portal'),pit=n('pit'),rim=n('rim'),floor=n('floor'),
         crown_day=n('crown'),crown_night=night_counts.crown,
+        underdeck_day=n('underdeck'),underdeck_night=night_counts.underdeck,
         total_day=#lights(),total_night=night_counts.total,total=#lights(),
         reactor_channels=r.cm_calls,hub_colorization_calls=h.colorized or 0}
 ''')
 counts = {k: v for k, v in dict(lua.globals().counts).items()}
+underdeck_positions = lua.globals().ud_report.split(' | ')
 print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py',
     'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
     'status':'PASS: mocked visual lifecycle; native game behavior untested',
     'counts':counts,
+    'underdeck_positions':underdeck_positions,
     'cases':['missing imports','fallback replacement','idempotent init','foreign attachment preserved',
              'offset/scale/FX preserved','working on/off SI','recreate after mocked load deletion',
              'reactor palette: default P4 on init (owner, 2026-09-22) -- 4 channels, navy RGB(18,32,78)/0/0 on 1-2, steel RGB(200,205,210)/-90/110 on 3-4, on the fallback entity and on the imported one',
@@ -303,7 +370,14 @@ print(json.dumps({'command':'python tools/devmods/train_hub/tests/look_smoke.py'
              'structure lights: portal 30 on by default; pit 6 (on the Pitrim spot), rim 36 and floor 24 off by default; 102 default, 144 with rim and pit',
              'structure lights: on the rim span, the kerb circle and the ring radius, at their z',
              'structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on',
-             'crown floor light: absent all through the day pass; 1 at night on the dome axis (0,0,1900), SpotLight aimed down like the arm spots, RGB(255,214,170), intensity 60, radius 3500 cm, cone 50/90',
+             'crown floor light: absent all through the day pass; 1 at night on the dome axis (0,0,1900), a PointLight with no aim at all, RGB(255,214,170), intensity 150, radius 4000 cm',
              'crown floor light: the vanilla night hook fired both ways -- Msg LightmodelChange day->night places it, night->day destroys it, a no-transition fire rebuilds nothing',
              "crown floor light: another map's LightmodelChange does not switch this hub",
-             'crown floor light: idempotent at night, tunable and off-able via SetHubStructureLights, destroyed by OnSetWorking(false) and recreated by (true)']}))
+             'crown floor light: idempotent at night, tunable and off-able via SetHubStructureLights, destroyed by OnSetWorking(false) and recreated by (true)',
+             'under-deck fill (owner, 2026-09-22): absent all through the day pass; 18 at night, three per arm at 9/17/25 m along each arm axis, all at z 700 cm and inside the 32.95 m glazing radius, each arm/radius slot used exactly once',
+             "under-deck fill: PointLight, the crown's own RGB(255,214,170), intensity 40, radius 1200 cm, no axis, no angle, no cone and no fixture",
+             'under-deck fill: tunable via SetHubStructureLights{underdeck={...}} -- intensity/radius/height applied to all 18, radii={800} gives 6, on=false gives 0, back to 18 on the defaults',
+             'under-deck fill: on the vanilla night hook both ways with the crown, idempotent at night, gone with every other light when the hub stops (0 lights standing) and back at 18 when it runs',
+             'dome glass (owner, 2026-09-22, superseding OI-23): absent while its entity is missing and the siding glass beside it unaffected; present exactly once when available, however often init runs',
+             'dome glass: attached at Origin with a zero offset, flags cleared, DeleteOnLoadGame, never colorized and never given a SetSIModulation call on working on or off',
+             'dome glass: deleted by the mocked load removal and recreated once by the same init path']}))

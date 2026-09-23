@@ -1223,9 +1223,17 @@ end
 
 -- The six original panel prisms, in one separately imported glass entity.
 -- No new persisted class/field or thread: same DeleteOnLoadGame + recreation
--- lifecycle as the reactor, and no dome glass (owner 2026-09-21, OI-23).
+-- lifecycle as the reactor. OI-23's "no dome glass" (owner 2026-09-21) was
+-- SUPERSEDED on 2026-09-22: the owner asked for the outer hub glass too, so
+-- the dome shell rides here as a second entity on exactly the same lifecycle.
 local siding_glass_entity = "SMROptInTrainHub6Glass"
+local dome_glass_entity = "SMROptInTrainHub6DomeGlass"
+-- Both attach at Origin with a zero offset; each is IsValidEntity-gated, so an entity that has
+-- not been imported yet is simply absent and the rest of the hub is unaffected.
+local hub_glass_entities = { siding_glass_entity, dome_glass_entity }
 
+-- Only the SIDING panels carry the glow that SI modulation drives. The dome shell carries none,
+-- so it is deliberately left out of this loop and never receives a SetSIModulation call.
 local function set_hub_glass_working(self, working)
 	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
 		if IsValid(visual) and visual:GetEntity() == siding_glass_entity then
@@ -1234,17 +1242,22 @@ local function set_hub_glass_working(self, working)
 	end
 end
 
+-- Named for the siding it started as; it now rebuilds every glass shell in `hub_glass_entities`,
+-- so the three call sites (GameInit, heal_after_load, and this file's own re-init) are unchanged.
 function SMROptInTrainHubBase:InitHubSidingGlass()
-	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
-		if IsValid(visual) and visual:GetEntity() == siding_glass_entity then DoneObject(visual) end
+	for _, entity in ipairs(hub_glass_entities) do
+		for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+			if IsValid(visual) and visual:GetEntity() == entity then DoneObject(visual) end
+		end
+		if IsValidEntity(entity) then
+			local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
+			visual:ChangeEntity(entity)
+			visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+			self:Attach(visual, self:GetSpotBeginIndex("Origin"))
+			visual:SetAttachOffset(point(0, 0, 0))
+			DeleteOnLoadGame(visual)
+		end
 	end
-	if not IsValidEntity(siding_glass_entity) then return end
-	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
-	visual:ChangeEntity(siding_glass_entity)
-	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
-	self:Attach(visual, self:GetSpotBeginIndex("Origin"))
-	visual:SetAttachOffset(point(0, 0, 0))
-	DeleteOnLoadGame(visual)
 	set_hub_glass_working(self, self.working)
 end
 
@@ -1375,8 +1388,29 @@ local hub_structure_lights = {
 	-- light needs no aim: a PointLight at the apex lights the floor and the dome from inside.
 	crown = { on = true, night = true, name = "crown floor light", class = "PointLight",
 		color = RGB(255, 214, 170), intensity = 150, radius = 40 * guim, height = 1900 },
+	-- Owner, 2026-09-22, night look at the whole hub: "the lighting is just close but I want just a
+	-- bit more in the interior. They will be same color temp as the big overhead flood light but I
+	-- want them underneath the tracks giving a little more light on the ground floor just to even
+	-- the lighting out down there. They don't need fixtures as you cannot see the underneath of the
+	-- tracks from any angle." So: the crown's colour exactly, no fixture, no spot, and hidden under
+	-- the six track arms' decks where nothing can look at them.
+	--   * Three per arm at `radii` 9, 17 and 25 m out from the hub centre along that arm's own
+	--     direction (6 x 3 = 18), all inside the ring's 32.95 m glazing radius.
+	--   * `height` 7.00 m: the deck's top face is DECK_Z 8.00 m, so these hang 1.00 m under it and
+	--     well above the 0.30 m floor plate. The metre of clearance is deliberate -- a point light
+	--     half a metre off a surface burns a hot circle into it (spec finding), and this is meant to
+	--     be fill, not a pool.
+	--   * intensity 40 / radius 12 m: "a little more", not a wash. The crown at 150 / 40 m stays the
+	--     hub's light source; these only lift the shadow the deck casts on the ground floor.
+	-- `night = true`, so they follow the same vanilla schedule as the crown and are NOT PLACED by day.
+	-- Live from the console like every other family, `radii` included:
+	--   SMROptInTrainFloor.SetHubStructureLights{ underdeck = { intensity = 60, radius = 15 * guim } }
+	--   SMROptInTrainFloor.SetHubStructureLights{ underdeck = { radii = { 800, 1600, 2400 } } }
+	underdeck = { on = true, night = true, name = "under-deck fill", class = "PointLight",
+		color = RGB(255, 214, 170), intensity = 40, radius = 12 * guim, height = 700,
+		radii = { 9 * guim, 17 * guim, 25 * guim } },
 }
-local hub_structure_order = { "portal", "pit", "rim", "floor", "crown" }
+local hub_structure_order = { "portal", "pit", "rim", "floor", "crown", "underdeck" }
 
 -- THE NIGHT SCHEDULE IS VANILLA'S, NOT A TIMER OF OURS. Read on build 1.1.0.403908 from that
 -- build's archived tree, `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src`:
@@ -1506,6 +1540,17 @@ local function place_hub_structure_lights(self, sets)
 				-- aims a SpotLight straight down with exactly the arm spots' assumption (+X turned
 				-- a quarter about Y), so this reuses that aim rather than making a second one.
 				list[#list + 1] = place_hub_light(self, family, 0, 0, family.height)
+			elseif key == "underdeck" then
+				-- Straight down each arm's own axis: `hub_arm_point` with v = 0 is a point `u` cm out
+				-- from the centre along that arm, the same helper the arm lights and the portal rims
+				-- use. No spot and no fixture, so there is nothing to aim or to hang them from.
+				for direction = 0, 5 do
+					local ax, ay, length = hub_arm_axis(direction)
+					for _, u in ipairs(family.radii or empty_table) do
+						local x, y = hub_arm_point(ax, ay, length, u, 0)
+						list[#list + 1] = place_hub_light(self, family, x, y, family.height)
+					end
+				end
 			elseif key == "portal" then
 				for direction = 0, 5 do
 					local ax, ay, length = hub_arm_axis(direction)
