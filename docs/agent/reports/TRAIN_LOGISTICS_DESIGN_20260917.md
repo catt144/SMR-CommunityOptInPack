@@ -2196,7 +2196,9 @@ RGB(200,205,210) at roughness -90, metallic +110, a judgement value; the attach 
 (`CObject` ← `ColorizableObject`, `:723-725`; `ShapeshifterAutoAttach` → `Shapeshifter` → `Object` →
 `CObject`). Navy RGB(18,32,78). Default P2 (steel on channel 1). "vanilla" recreates the visual
 and paints nothing, which is the base look because C initialises a new CObject from the entity's
-own palette (`:763-764`). Restart only; the owner's look next. If the owner wants
+own palette (`:763-764`). **Owner, 2026-09-22 late, in game: "P4 is the winner"** — navy on
+channels 1-2, polished steel on 3 and 4 is the default (OptInPack `fd862af`, smoke PASS); the
+other variants and the live tune stay for retuning. If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
 
