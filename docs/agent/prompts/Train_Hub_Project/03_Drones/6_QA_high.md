@@ -78,6 +78,19 @@ edited by L2. L2 removes its spent row rather than striking it because the map g
 tombstones. Read-command mistakes and initial mock expectation failures are preserved in the
 report; they are not native failures or successful flight evidence.
 
+### L2E handoff, 2026-09-23
+
+Engine mode landed in `9a540dd` on `16a69e3`; report `L2E_ENGINEFLIGHT_20260923.md`. Audit: the
+static gate (only `STOCK_LEG`/`STOCK_HOLD`/`false` reach `SetCommand`/`QueueCommand`; no class
+assignment) and the mocked command machinery, which is the whole basis of the "never Idle" claim —
+a real `Idle` in link 3's sitting falsifies the model, not the mock. Drift: HEAD moved mid-link
+(`16a69e3`, Spec 9) and two peer files sat modified in the tree at commit time, committed by
+pathspec; a pre-existing spawn-instant recall error was fixed in passing; `DespawnNow` was declined
+against the brief's preference with `KillDrone`'s membership assert as the reason; Blender wrote
+the receipt CRLF and it was normalised before commit; the smoke's solver spy moved from the 1.1.0
+to the 1.1.1 archive. The receipt bounds the scripted chords only; engine legs are unbounded.
+`OI-26` asks the 7 m ride ruling. No game ran.
+
 ### L2R handoff, 2026-09-22
 
 Read `docs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md` and its drift table. The actual

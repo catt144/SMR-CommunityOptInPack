@@ -7,8 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 2E | `2E_ENGINEFLIGHT_high.md` | high | no | **NEXT.** Owner redirect, 2026-09-23: our code keeps the pit launch, the stand-ready hold and the return; the engine paths every leg between them under stock commands only; we own the commands. Adds the console switch so link 3 can A/B it against the scripted flight |
-| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | ⛔ **Waits for 2E.** The owner judges the flight by eye and tunes it: curves, heading, bank, heights, speed, launch, landing, work descent, a passing train, stations, hoods and tunnels. Records values and checks import survival |
+| 3 | `3_FLIGHTLOOK_low.md` | low | **yes** | **NEXT.** The owner A/Bs engine mode against the scripted flight, then judges the flight by eye and tunes it: curves, heading, bank, heights, speed, launch, landing, work descent, a passing train, stations, hoods and tunnels. Records values and checks import survival |
 | 4 | `4_HUB_high.md` | high | no | ⛔ Waits for the structure pass. The hub half in `20_TrainHub.lua`: dispatch on `TrackBroken`, the two-kind pending list and its persisted name, completion at the deadline, the save guard, `CanBeControlled`, the infopanel line and toggle |
 | 5 | `5_SMOKE_medium.md` | medium | **yes** | `DESIGN.md` §5's smoke with the owner, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
@@ -53,3 +52,8 @@ The sitting's verdict, the owner's decisions, and every engine fact verified for
 falsifier, all re-read on the newly installed **1.1.1.405907** tree — are in
 `docs/agent/reports/drones_chain/L3_FLIGHTLOOK_HYBRID_20260923.md`. Fleet scaling by load went to
 `4_HUB_high.md`.
+
+Link 2E landed engine mode in `9a540dd` (report `L2E_ENGINEFLIGHT_20260923.md`): stock
+`FlightGoto` legs between our pit ends, the handoff held by a queued stock `WaitUninterruptable`,
+`SetHubDroneMode` as the console switch. Engine legs and holds now survive a save; `OI-26` asks
+the 7 m ride ruling.

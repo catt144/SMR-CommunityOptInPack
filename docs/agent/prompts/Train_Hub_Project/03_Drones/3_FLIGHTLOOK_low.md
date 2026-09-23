@@ -163,6 +163,40 @@ full route through stations, hoods, portals and a tunnel, the work pose, worst l
 native command suppression, save cancellation and relaunch, import survival (the code-list line
 was restored a third time in `5f3c3de`; check it after the next import).
 
+### L2E handoff, 2026-09-23 — the engine flies the middle
+
+Resume on `9a540dd` (report `docs/agent/reports/drones_chain/L2E_ENGINEFLIGHT_20260923.md`), on the
+installed **1.1.1.405907**. Step zero stands (`*r print(7/2, 7*1.0/2, math.type(7/2))` → `3  3.5
+integer`). The flight now has two implementations behind one console switch; the default is the
+owner's redirect. `SetHubDroneMode("engine")` / `SetHubDroneMode("scripted")`, optionally with a
+second argument `"crest"` (default) or `"outside"`; it applies to the **next** `SpawnHubDrone`, so
+an A/B is `ReturnHubDrone()`, switch, `SpawnHubDrone()`. `SMROptInHubFlight.Status()` shows `mode`,
+`stage` and the drone's live `command`; `SMROptInHubFlight.Lost` names whatever took a drone away.
+
+**Engine mode, what is whose.** Ours: the pit rise to the crest hold, the work pose at the break
+(`FixHeight`, `WorkTime`), the pit descent, and with `"outside"` L2R's under-deck exit to the
+outside point. The engine's: the leg from the handoff to the break and the leg back, as a stock
+`FlightGoto` at the Wasp's own 7 m ride, its own speed, curves and bank — none of `Speed`,
+`ClimbRate`, `Accel`, `TurnRadius`, `BankAngle` apply to those legs (they still shape our ends).
+The handoff after each engine leg is a stock hold the drone keeps by itself; the driver takes it
+back within a quarter second. New dial: `HoldTimeout=60000` (game ms; not a feel value).
+
+**What the owner is asked to judge, in order.** (1) The handoff at the crest: does the engine's
+first spline out of the hold clip the ring, hoods or deck? If it does, `SetHubDroneMode("engine",
+"outside")` and judge again — that is the fallback the report describes under Stop 2, and the
+owner's word decides which handoff ships. (2) The engine's ride height over the track with a train
+passing beneath: 7 m above the flight surface is class-static and cannot be tuned; `OI-26` on the
+checklist asks the ruling. (3) The return arrival: the engine stops above the hub's stamp and our
+descent drops through the column; judge that drop. (4) The work descent and climb at the break,
+now vertical from the engine's arrival height. (5) Then the A/B against `"scripted"` in the same
+sitting: the owner's words for which ships.
+
+**Saves.** An engine leg or hold now survives an autosave (no blink, no relaunch needed); only our
+scripted motion still cancels. After a load the prototype sweeps its own leftovers. Watch for a
+greyed drone landing at an arrival: that is vanilla `Idle` winning, which the mock says cannot
+happen; `Status().command` and `Lost` are the evidence to record. The drone's infopanel line
+during an engine leg is expected to read "Unknown"; cosmetic.
+
 ## Lifecycle
 
 Append the settled values into link 4's notes, then **delete this file and strike its row in

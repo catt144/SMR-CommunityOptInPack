@@ -145,6 +145,20 @@ what link 5's sitting still has to show.
   the visual start from your persisted deadline and the plan's offsets at rearm time, as before.
   `LandingEnd` fires only at `removed`. Nothing here is persisted.
 
+### L2E handoff, 2026-09-23
+
+Engine mode (`9a540dd`, report `L2E_ENGINEFLIGHT_20260923.md`) changes two things this link builds
+on. **Save guard:** a drone under a stock `FlightGoto` or the stock `WaitUninterruptable` hold has
+no mod thread and stays in the save; only scripted motion (rise, exit, work pose, descent) is
+removed at `SaveGameStart`, and re-arming from the deadline is owed only for those. **Load:** the
+prototype's `OnMsg.LoadGame` sweeps any `FlyingDrone` whose controller is a train hub and that
+`hub.drones` does not hold — replace that sweep with adoption once the fleet enters `hub.drones`,
+or fleet Wasps in a loaded save are safe only because they are in the list. `DespawnNow` was not
+adopted by the prototype: `DroneControl:KillDrone` asserts `hub.drones` membership
+(`DroneControl.lua:729-733`), so it is the fleet's route, not a loose visual's. The infopanel
+during an engine leg shows `Getui_command`'s fallback for `"FlightGoto"`/`"WaitUninterruptable"`;
+the panel line this link builds should not rely on `command` for the repair drone's status.
+
 ## Lifecycle
 
 Append what the smoke must cover into link 5's notes, then **delete this file and strike its row in
