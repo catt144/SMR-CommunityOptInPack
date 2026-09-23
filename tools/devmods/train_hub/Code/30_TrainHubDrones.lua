@@ -60,9 +60,9 @@ SMROptInHubFlight = {
   ExitDirectionX = -998, ExitDirectionY = -70, -- /1000; 184 deg, the measured pallet gap (L3)
                             -- Box1 spots sit on r=2492 at 40.7+60n deg, so gaps centre on 10.7+60n;
                             -- from the pit at (-1310,-397) 184 deg clears pallet 0 by 1.21 m, pallet 1 by 1.25 m
-  Speed = 6000,             -- units per game second, level cruise cap; GUESS (L2)
-  ClimbRate = 1500,         -- units per game second, vertical cap; GUESS (L2R)
-  Accel = 1200,             -- units per game second^2: speed-up, braking and cornering limit; GUESS
+  Speed = 16000,            -- units per game second, level cruise cap; the Wasp's own move_speed (16*guim)
+  ClimbRate = 8000,         -- units per game second, vertical cap; flown and accepted (L3)
+  Accel = 8000,             -- units per game second^2: speed-up, braking and cornering limit; flown and accepted (L3)
   TurnRadius = 1500,        -- units: most a corner is rounded before and after its waypoint; GUESS
   BankAngle = 900,          -- angle minutes of roll in a full-rate turn; 0 disables, negative leans the other way; GUESS
   WorkTime = 5000,          -- game ms in constructIdle, excludes start/end animations
