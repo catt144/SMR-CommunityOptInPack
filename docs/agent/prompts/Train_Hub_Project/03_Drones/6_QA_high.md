@@ -72,11 +72,15 @@ Native visual clearance was not explicitly confirmed. Exhaustive source-field/ci
 the recursive inventory is lexical candidate evidence, not certification. D14(a)'s
 `3a0faff` passed its source test but the owner then hit loader assertions and CTD
 on the old autosave and known-good templates. That repair is withdrawn; the legacy
-dwell closure is restored exactly. The original save defect remains RED. Read §8:
+dwell closure was restored exactly. Read §8:
 the test missed the Lua→C permanent transition when loading an old save. Require
 old→new→save→reload controls for a replacement; native template and autosave
 rollback loads now pass, while the latest process still logs C-function persist errors.
 Neither a matching source copy nor a same-version collector test proves migration.
+The subsequent snapshot-guard candidate (§10) preserves that legacy wrapper body,
+temporarily restores the native waiter around PersistGame and adds an explicit
+metadata marker for new loads. Updated mocked tests pass; native migration and
+autosave results are still pending. Pre-wrapper unmarked hub saves remain ambiguous.
 Repair smoke had incorrectly removed each completed repair group immediately;
 it now keeps groups until the final unfinished site completes, with a failing
 old-fixture control. Traffic smoke remains red on the known obsolete geometry

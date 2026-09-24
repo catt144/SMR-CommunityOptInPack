@@ -53,9 +53,10 @@ Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 
 -- D14(a), 2026-09-24: rollback of 3a0faff after owner loads asserted in
 -- luaSPersist.cpp:1272 and crashed, including known-good template saves.
--- Keep this legacy closure byte-for-byte while diagnosing load compatibility.
--- The native C waiter still lacks its own permanent: saving remains defective.
--- This rollback is NOT a save fix; native template and autosave loads passed.
+-- Keep the legacy wrapper's body unchanged: older hub saves resolve its Lua
+-- frames through cthread.WaitWakeup. The snapshot guard below temporarily
+-- publishes the native waiter and marks new metadata for the matching loader.
+-- Native old -> new -> save -> reload verification is required for that guard.
 -- See docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md, load-crash follow-up.
 -- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
 -- issue exactly one WaitWakeup, after transfer/boarding, with the remaining
@@ -95,7 +96,68 @@ local function install_hub_dwell()
 	end
 	_G.WaitWakeup = wrapper
 	Floor.HubDwellInstalled = rawget(_G, "WaitWakeup") == wrapper
+	Floor.HubDwellNativeWait = previous
+	Floor.HubDwellWrapper = wrapper
 end
+
+-- D14(a): owner 2026-09-24 proposed removing our replacement around saving.
+-- Scope it to the actual snapshot, not SaveGameStart: autosaves keep running
+-- during earlier yields, and in-memory/bug-report saves skip those messages.
+-- SOURCE: archived 1.1.1.405907 CommonLua/Savegame.lua:853-867,1004-1033,
+-- 1117-1153; SavegameMetadata.lua:50-82; Core/cthreads.lua:466-478.
+-- New save contract: metadata.SMROptIn_hub_native_waiter = 1. Keep unmarked
+-- existing hub saves on their legacy mapping; do not infer it from mod version.
+-- Pre-wrapper hub saves are an older ambiguous case, not classified here.
+local function install_hub_save_guard()
+	if Floor.HubSaveGuardInstalled then return end
+	local previous = rawget(_G, "PersistGame")
+	if type(previous) ~= "function" or not Floor.HubDwellInstalled
+		or type(Floor.HubDwellNativeWait) ~= "function"
+		or type(Floor.HubDwellWrapper) ~= "function" then return end
+	local wrapper = function(...)
+		local before = rawget(_G, "WaitWakeup")
+		local native = Floor.HubDwellNativeWait
+		if before ~= Floor.HubDwellWrapper and before ~= native then
+			return "Train hub save waiter changed; snapshot cancelled"
+		end
+		_G.WaitWakeup = native
+		local result = table.pack(pcall(previous, ...))
+		if rawget(_G, "WaitWakeup") == native then _G.WaitWakeup = before end
+		if not result[1] then error(result[2], 0) end
+		return table.unpack(result, 2, result.n)
+	end
+	_G.PersistGame = wrapper
+	Floor.HubSaveGuardInstalled = rawget(_G, "PersistGame") == wrapper
+	if Floor.HubSaveGuardInstalled then
+		print("[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained")
+	end
+end
+
+function OnMsg.GatherGameMetadata(metadata)
+	if Floor.HubSaveGuardInstalled then metadata.SMROptIn_hub_native_waiter = 1 end
+end
+
+function OnMsg.PreLoadGame(metadata)
+	if not Floor.HubSaveGuardInstalled then return end
+	local has_hub
+	for _, mod in ipairs(metadata.active_mods or empty_table) do
+		local id = type(mod) == "table" and mod.id or mod
+		if id == "SMR_TrainHubDev_20260918" then has_hub = true; break end
+	end
+	local target = (metadata.SMROptIn_hub_native_waiter == 1 or not has_hub)
+		and Floor.HubDwellNativeWait or Floor.HubDwellWrapper
+	Floor.HubWaitLoadRestore = { before = rawget(_G, "WaitWakeup"), target = target }
+	_G.WaitWakeup = target
+end
+
+function OnMsg.UnpersistEnd()
+	local restore = Floor.HubWaitLoadRestore
+	Floor.HubWaitLoadRestore = nil
+	if restore and rawget(_G, "WaitWakeup") == restore.target then
+		_G.WaitWakeup = restore.before
+	end
+end
+
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
 
@@ -2834,6 +2896,7 @@ DefineClass.SMROptInTrainHub6Base = {
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
 	install_hub_dwell()
+	install_hub_save_guard()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
 		class.entity = "SMROptInTrainHub6"

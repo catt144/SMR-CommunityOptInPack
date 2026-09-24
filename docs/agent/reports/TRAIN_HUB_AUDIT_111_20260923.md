@@ -425,3 +425,84 @@ the subsequent departure test are recorded here and removed from the donor list.
 No new owner ask substitutes for the agent's pending save-compatibility work.
 L5 retains the broader drone smoke; D14 retains save, cross-map, conditional
 nanite/split and import findings. Executed model: GPT-6 (Codex), no subagents.
+
+## 10. Owner's save-boundary proposal and snapshot-guard candidate
+
+Owner: "Can't we guard our changes from saves by unloading them right at the
+on save point, and then applying them at the onload point ?" The narrower
+implementation applies that idea to the global wait-function replacement;
+it does not unload content, strip saved state or erase suspended command frames.
+Those frames are why simply removing the wrapper previously broke old loads.
+
+On archived **1.1.1.405907**, `CommonLua/Savegame.lua:1041` sends SaveGameStart,
+then yields on the route to the snapshot; `_Wrap:337`, `_InternalSave:346` and
+`SaveMetadata:784` retain that gap. EF-070's earlier-build warning therefore still
+applies to a general teardown scheme. InMemSaveGame (1117) and bug-report PStr
+(1141) skip the Start/Done messages. The checked Lua save paths reach PersistGame
+(853), which calls EngineSaveGame (860). Commands:
+`rg -n -F 'PersistGame(' <1.1.1-archive>/Src` and
+`rg -n -F 'EngineSaveGame(' <1.1.1-archive>/Src` [RAN at HEAD `f556ee8`].
+This scopes the check to Lua source callers, not unknown native entry points.
+
+**Candidate built after `f556ee8`:** chain PersistGame with a native-waiter
+scope and restore the runtime wrapper after success, a returned error, or a
+thrown error. Preserve returned values and rethrow after cleanup. If another
+replacement has changed the expected waiter, return a save error before the
+snapshot rather than writing a save with the wrong marker. The guarded function
+still performs the engine's CanSaveGame, snapshot and persist-error handling.
+
+GatherGameMetadata marks `SMROptIn_hub_native_waiter=1` only when the guard is
+installed. SavegameMetadata.lua:50–82 supplies metadata for normal and in-memory
+saves; uiXBugReportDlg.lua:390 gathers the bug-report metadata through it too.
+PreLoadGame selects the captured native waiter for marked saves or saves with no
+hub mod record; unmarked existing hub saves select the exact legacy Lua wrapper.
+UnpersistEnd restores runtime behavior even when EngineLoadGame returns an error.
+This runs before/after the engine at Savegame.lua:798–815. The new marker is in
+FIX_POLICY's persisted-name inventory. No original permanent label is renamed.
+
+**Compatibility boundary:** the unmarked version-15 template and version-49
+autosave retain their successful rollback mapping. The older pre-wrapper hub
+version-9 fixture remains ambiguous: the wrapper appeared during that same
+version, so a version-only choice is unsafe. This candidate preserves the
+rollback behavior for such unmarked hub saves; it does not claim to repair all
+historical fixtures or to recover frames already lost by an earlier bad save.
+
+**Local controls** [RAN at `f556ee8` plus candidate diff]: updated
+`python tools/devmods/train_hub/tests/dwell_smoke.py` runs the actual archived
+PersistGame and permanent collector with a mocked engine snapshot. It checks
+native mapping during the snapshot, legacy/new/native load selection, a suspended
+native waiter, success/error cleanup, and a conflicting global waiter. It also
+asserts that the legacy wrapper's body is byte-identical to `d73d701`. This is
+not C++ serialization. The earlier test's global-always-native/command-copy
+requirements described the withdrawn repair and were replaced with the new
+snapshot-boundary contract; a passing collector alone still cannot prove reload.
+
+Failing controls use `dwell_smoke.py --source <file>`: the `f556ee8` body lacks
+the guard and fails; changing only the guard's native assignment to retain the
+wrapper fails at "native waiter missing at actual snapshot"; forcing all loads
+to native fails the legacy mapping equality. Reproduction files are
+`scratch/train_hub_before_save_guard.lua`, `train_hub_guard_no_native_snapshot.lua`,
+and `train_hub_guard_wrong_legacy_mapping.lua`. The initial standalone candidate
+in `scratch/train_hub_save_guard.lua` is inert, not an additional loaded mod.
+Movement smoke and dev Lua parse pass. Its shared mock needed the normal OnMsg
+table because handlers now occur earlier in the source; its first failure was
+missing mock setup, not a runtime game failure. No clearance claim was added.
+
+**Native control pending, ck215:** restart with the candidate, first load the
+original stalled autosave and pause, then make and reload a separate named save
+and an autosave. Inspect the explicit metadata marker and closed native logs;
+do not count a toolkit SAVE success as serializer success. Both errors and
+positive load/save evidence must be read. The currently installed candidate
+must not be described as a verified save fix until those checks pass.
+
+During preparation the active autosave entry had rotated out. The agent restored
+`Autosave Sol 31(3).savegame.sav` using exclusive-create from the protected backup;
+SHA256 remained `36e32972717e2177ede90a66e11ba7558a82ebeaef22c4c869d081eb02d2192e`.
+No existing save was overwritten. Active directory:
+`C:/Users/stkot/Saved Games/Surviving Mars Relaunched/76561198020568696/`.
+The owner's `trainhub post stuck test.savegame.sav` was also copied to the protected
+backup directory; SHA256 `f1aeae7d526268e857d0c4c08e24ca7362cbfbed9af50f49a7ea70298d171ce8`.
+Copy/readback equality was asserted. Earlier read attempts used a nonexistent
+donor saves path and omitted the Steam-id subdirectory; no absence conclusion
+was taken until the real directory was listed. A quoted PowerShell rg pattern
+also misrouted a search; the literal source searches above replaced it.

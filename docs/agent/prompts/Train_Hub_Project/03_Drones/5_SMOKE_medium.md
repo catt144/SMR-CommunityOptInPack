@@ -69,10 +69,10 @@ mutually blocking departure despite runnable tracks and a clear crossing.
 HubExitClear now recognizes completed siding parking; the regression rejects
 the old guard. After restarting, the owner confirmed the trains are unstuck.
 Physical contact/clearance was not explicitly confirmed. The original
-save defect is OPEN and `dwell_smoke.py` is RED. Old/new permanent compatibility
-needs a migration and native old→new→save→reload controls before resuming saves.
-The new process still logs the C-function persist error; saving is the next
-blocking agent work. Preserve the protected input saves. The report has runnable
+save defect is OPEN. The snapshot-guard candidate in audit §10 passes the updated
+`dwell_smoke.py`; native old→new→save→reload and autosave controls are pending.
+The post-siding process still logged the C-function persist error; the new guard
+has not earned a clean-save claim. Preserve the protected input saves. The report has runnable
 track/thread probes if another stall occurs; the completed probes need no replay.
 A successful toolkit SAVE line did not mean serialization was clean.
 

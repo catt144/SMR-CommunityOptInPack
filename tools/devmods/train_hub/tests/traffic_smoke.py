@@ -26,7 +26,7 @@ ASSETS = Path(os.environ.get("SMR_TRAINASSETS",
 ORACLE = ASSETS / "_shared" / "geometry" / "hub_oracle.py"
 
 STUBS = r'''
-guim=100; empty_table={}; axis_z={}; const={DroneBatteryMax=100}
+guim=100; empty_table={}; axis_z={}; const={DroneBatteryMax=100}; OnMsg={}
 function round(n) return math.floor(n+0.5) end
 local P={}; P.__index=P
 function point(x,y,z) return setmetatable({xx=x,yy=y,zz=z or 0},P) end
