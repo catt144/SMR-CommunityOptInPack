@@ -1,0 +1,443 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aad2d75
+Date:          	Fri Sep 18 08:24:21 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	35%
+Disk Free      	1217720 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:067
+Steam initialized (AppId 3215050)
+					Render 0:00:00:069
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:410
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:551
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:784
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:842
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:02:843
+Lua revision: 405907
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.405907
+Build branch:  Release
+						Lua 0:00:04:899
+Account storage loaded successfully in 7 ms
+DLC norman loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:04:900
+DLC thomas loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:04:919
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-049) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-020) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) unpacked from appdata
+						Lua 0:00:05:309
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:05:310
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:05:315
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=835 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=835 id=1
+						Lua 0:00:05:318
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 select tunable,scratch boot" t=835 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 select tunable,scratch boot" t=835 id=2
+						Lua 0:00:05:319
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:05:321
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:05:322
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:05:323
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:05:324
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:05:325
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:05:326
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:05:327
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:05:328
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+						Lua 0:00:05:329
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+						Lua 0:00:05:330
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[RailShaftDev] loaded: cross-map train tunnel prototype. UNVERIFIED IN GAME.
+						Lua 0:00:06:121
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:06:211
+Reloading done in 1292 ms
+						Lua 0:00:06:212
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:06:257
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=835 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=835 id=3
+						Lua 0:00:06:635
+[preset] Preset postprocess took 153 ms.
+						Lua 0:00:06:682
+482 / 482 particle streams loaded in 40 ms.
+						Lua 0:00:06:683
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:06:684
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+						Lua 0:00:06:685
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:06:892
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:06:893
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:06:984
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=835 id=4
+						Lua 0:00:07:010
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2518):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+						Lua 0:00:07:020
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=835 id=5
+						Lua 0:00:07:030
+[mod] Loaded mod items for: SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityFixPack, SMR_CommunityOptInPack, SMR_RailShaftDev_20260923
+						Lua 0:00:07:285
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:07:286
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:07:380
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=835 id=6
+						Lua 0:00:07:818
+[PdxSDK] Started up. Took 1066
+						Lua 0:00:08:218
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:08:325
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:08:326
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:13:400
+Load Game: 
+	lua_revision: 405907 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923 
+						Lua 0:00:13:408
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:15:127
+*** Assets reloaded in 1.7 s, read 359.0 MB, read speed 208.8 MB/s, average read 8138 bytes.
+						Lua 0:00:16:054
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=6294 id=7
+						Lua 0:00:16:845
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=6294 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=6294 id=8
+						Lua 0:00:18:838
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:00:18:839
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:00:18:840
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:18:844
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+[RailShaftDev] loaded; underground is locked in this save, so the tunnel stays surface-only.
+[RailShaftDev] ready. SMRRailShaft.Status() for where things stand.
+						Lua 0:00:18:947
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, paradox, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:18:998
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 5601 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=40 last=meteor_single last_id=75 present=true session=1790212816:1090914:1213678925:1535279817 t=21650525 id=9
+[SMRTK] SMRTK_PROVENANCE actions=40 last=meteor_single last_id=75 present=true session=1790212816:1090914:1213678925:1535279817 t=21650525 id=9
+						Lua 0:00:19:008
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=21650525 id=10
+						Lua 0:00:19:021
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=21650525 id=11
+						Lua 0:00:19:024
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:19:134
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=21650525 id=12
+						Lua 0:00:19:578
+Game loaded on map BlankBig_01 in 						Lua 0:00:19:579
+6311 ms
+						Lua 0:00:29:223
+Persist error: Attempt to persist a C function: 00000254DDA3AAE8 
+Persist stack:
+						Lua 0:00:29:225
+    table: 00000254E01DF360 #19266
+    table: 00000254DF4F9DA8 #0
+    table: 00000254DE4EBAF8 #481
+    SortedMarsScreenLandingSpots
+    table: 00000254E1219A20 #28
+    table: 00000254E03ECE80 MarsScreenOurColony "OurColony"
+    map
+    table: 00000254EA139510 Map
+    ResourceOverviewCity
+    table: 00000254E08EA6D8 ResourceOverview [6167952007] on map 1
+    city
+    table: 00000254E3B65EB8 City [1988759200] on map 1
+    train_track_routes
+    table: 00000254E1A4BD88 #9
+    table: 00000254DFA02410 TrackBase [6402] at (277000, 161076, 10000) on map 1
+    table: 00000254E1A4BDC8 #6
+    table: 00000254DFA02410 TrackBase [6402] at (277000, 161076, 10000) on map 1
+    start_el
+    table: 00000254DF622A28 TrackGridElement [6432] at (277000, 161076) on map 1
+    owner_building
+    table: 00000254E1879400 SMROptInTrainHub6 [6430] at (280000, 166272, 10000) on map 1
+    restrictor_update_thread
+    thread: 00000254E95C81E0
+    function: 00000254DDA3AAE8
+
+						Lua 0:01:24:853
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2011) status=OK t=21744134 id=13						Lua 0:01:24:854
+
+						Lua 0:01:31:920
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2007) status=OK t=21751200 id=14
+						Lua 0:01:36:150
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=21755430 id=15
+						Lua 0:01:53:765
+[RailShaftDev] 8 train(s):
+[RailShaftDev]   [1] handle 2000001652  surface  pos (385511, 176377, 10000)  cmd LoadTrain  station 1994  track 2396  route_ok true
+[RailShaftDev]   [2] handle 2000001837  surface  pos (280940, 167000, 10800)  cmd GotoStation  station 6430  track 6402  route_ok true
+[RailShaftDev]   [3] handle 2000001838  surface  pos (286000, 166561, 10800)  cmd GotoStation  station 1994  track 6413  route_ok true
+[RailShaftDev]   [4] handle 2000001839  surface  pos (281100, 165822, 10800)  cmd GotoStation  station 6430  track 6406  route_ok true
+[RailShaftDev]   [5] handle 2000001840  surface  pos (282750, 171612, 10800)  cmd GotoStation  station 2012  track 6410  route_ok true
+[RailShaftDev]   [6] handle 2000001841  surface  pos (279060, 165544, 10800)  cmd GotoStation  station 6430  track 6410  route_ok true
+[RailShaftDev]   [7] handle 2000001842  surface  pos (387750, 172478, 10800)  cmd GotoStation  station 2007  track 2396  route_ok true
+[RailShaftDev]   [8] handle 2000001843  surface  pos (278900, 166722, 10800)  cmd GotoStation  station 6430  track 6413  route_ok true
+						Lua 0:01:58:163
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=21777454 id=16
+						Lua 0:02:01:222
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=86 status=OK truncated=false t=21780515 id=17
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=86 status=OK truncated=false t=21780515 id=17
+						Lua 0:02:09:933
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=21789227 id=18
+						Lua 0:03:18:417
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=21857699 id=19
+						Lua 0:03:23:900
+[TrainAudit] hub 6430 crossing false
+[TrainAudit] slot 1 train 2000001841 cmd GotoStation thread true station 6430 arrival 1 parked true
+[TrainAudit] slot 2 train 2000001837 cmd GotoStation thread true station 6430 arrival 2 parked true
+[TrainAudit] slot 3 train 2000001843 cmd GotoStation thread true station 6430 arrival 3 parked true
+[TrainAudit] slot 4 train 2000001839 cmd GotoStation thread true station 6430 arrival 4 parked true
+						Lua 0:03:27:605
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=21866899 id=20
+						Lua 0:03:28:581
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=96 status=OK truncated=false t=21867874 id=21
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=96 status=OK truncated=false t=21867874 id=21
+						Lua 0:04:30:197
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipDrone object=FlyingDrone(2000001834) status=OK t=21929482 id=22
+						Lua 0:04:30:693
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrain object=Train(2000001841) status=OK t=21929980 id=23
+						Lua 0:04:31:297
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=21930574 id=24
+						Lua 0:04:36:117
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=101 status=OK truncated=false t=21935411 id=25
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=101 status=OK truncated=false t=21935411 id=25
+						Lua 0:05:45:708
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:05:45:709
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:05:45:710
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:05:53:610
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrain object=Train(2000001843) status=OK t=22012895 id=26
+						Lua 0:05:53:966
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipDrone object=FlyingDrone(2000001835) status=OK t=22013254 id=27
+						Lua 0:05:54:553
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=22013833 id=28
+						Lua 0:05:57:310
+[TrainAudit] hub 6430 old_crossers 0
+						Lua 0:05:57:311
+[TrainAudit] track 6402 spot 1 can_run true repairs 0 unfinished 0
+[TrainAudit] track 6410 spot 2 can_run true repairs 0 unfinished 0
+[TrainAudit] track 6406 spot 3 can_run true repairs 0 unfinished 0
+[TrainAudit] track 6413 spot 4 can_run true repairs 0 unfinished 0
+[TrainAudit] track 6378 spot 5 can_run true repairs 0 unfinished 0
+[TrainAudit] track 6417 spot 6 can_run true repairs 0 unfinished 0
+						Lua 0:06:00:067
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=129 status=OK truncated=false t=22019362 id=29
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=129 status=OK truncated=false t=22019362 id=29
+						Lua 0:07:59:329
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=22138624 id=30
+						Lua 0:07:59:720
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=22139001 id=31
+						Lua 0:08:00:827
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=22140122 id=32
+						Lua 0:08:02:257
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=22141552 id=33
+						Lua 0:08:03:744
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=22143039 id=34
+						Lua 0:10:30:713
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:10:30:714
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:10:30:715
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:10:57:230
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=22316507 id=35
+						Lua 0:11:01:815
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:11:02:180
+
+
+*** Debug::Done()
+Time (ms)	662180
+
+

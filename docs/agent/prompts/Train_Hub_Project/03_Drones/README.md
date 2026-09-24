@@ -7,7 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 5 | `5_SMOKE_medium.md` | medium | **yes** | **IN PROGRESS, owner sitting needed.** First confirm template loading after the dwell rollback; `3a0faff` caused a suspected load regression and is withdrawn (audit report §8). Save compatibility and stalled-train diagnosis remain open. Then `DESIGN.md` §5's smoke, the 2026-09-22/23 cases and the train-construction question in §6. No compatibility clearance yet |
+| 5 | `5_SMOKE_medium.md` | medium | **yes** | **IN PROGRESS.** Rollback restores template/autosave loads; the corrected siding guard unsticks trains (owner, audit §§8–9). Compatible saving is the next blocking agent work. Then remaining `DESIGN.md` §5 smoke, the 2026-09-22/23 cases and the train-construction question in §6. No compatibility clearance yet |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
 
 ## Chain rules

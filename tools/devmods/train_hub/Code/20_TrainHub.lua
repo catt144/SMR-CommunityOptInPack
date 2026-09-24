@@ -55,7 +55,7 @@ Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 -- luaSPersist.cpp:1272 and crashed, including known-good template saves.
 -- Keep this legacy closure byte-for-byte while diagnosing load compatibility.
 -- The native C waiter still lacks its own permanent: saving remains defective.
--- This rollback is NOT a save fix; native rollback load confirmation is owed.
+-- This rollback is NOT a save fix; native template and autosave loads passed.
 -- See docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md, load-crash follow-up.
 -- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
 -- issue exactly one WaitWakeup, after transfer/boarding, with the remaining
@@ -466,17 +466,24 @@ function SMROptInTrainHubBase:HubIncomingTrain(except)
 	end
 end
 
--- Owner's exit-contact report, 2026-09-20. Vanilla deliberately ignores a
--- parked train in TrackBase:IsTrackFreeFor (archived 1.1.0.403908,
--- Track.lua:357-365). Our interior rail is shared, so its parked reservation
--- must clear too. Returning along one's own line remains eligible.
--- Loading policy and ordered platform queueing are the owner's next pass.
+-- D14(f): the pre-siding exit guard treated every parked train as on the rail.
+-- Two loaded trains on opposite sidings then waited on each other forever.
+-- Owner's later 2026-09-20 siding design permits passing a parked train (spec
+-- section 9). TrainArrive publishes at_station + station_arrival_track only
+-- after the siding move finishes; TrainDepart clears at_station before moving.
+-- Unknown/legacy or incoming reservations still block. The crossing lock and
+-- vanilla outgoing-track exclusion still serialize actual movement (archived
+-- 1.1.1.405907 Lua/Buildings/Track.lua:357-372). No queue/routing policy change.
 function SMROptInTrainHubBase:HubExitClear(train, departure_track)
 	if not IsValid(departure_track) then return false end
 	local idx = self:GetConnectionSpot(departure_track)
 	if not idx then return false end
 	local occupant = self:HubReservations()[idx]
-	return (not occupant or occupant == train) and departure_track:IsTrackFreeFor(train, self)
+	local on_siding = occupant and occupant.current_station == self
+		and occupant.at_station and occupant.station_arrival_track == idx
+		and self:HubCrossingTrain() ~= occupant
+	return (not occupant or occupant == train or on_siding)
+		and departure_track:IsTrackFreeFor(train, self)
 end
 
 function SMROptInTrainHubBase:CanTrainTraverse(train, arrival_track, departure_track)

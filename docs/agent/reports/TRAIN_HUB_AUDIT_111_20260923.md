@@ -1,14 +1,16 @@
 # Train hub / rail shaft audit — 1.1.1.405907
 
-Executed 2026-09-24; owner request and incident 2026-09-23. **Stall cause OPEN.**
+Executed 2026-09-24; owner request and incident 2026-09-23. **Siding deadlock fixed;
+owner confirms trains unstuck (§9). Save defect remains OPEN.**
 **Correction after owner testing: `3a0faff` is withdrawn.** Old autosave and
 known-good template loads asserted and crashed with that change. The legacy
-dwell closure is restored; its original save defect remains OPEN. Start with
-the load-crash follow-up below before using the older audit instructions.
+dwell closure is restored; the owner's template and stalled autosave load again.
+New autosaves still report the C-function persist error. Start with §§8–9 before
+using the initial audit evidence below.
 No game ran during the initial audit. The game was closed when checked; the availability
-question received no answer during the source work. Brief stop 1 applies: the
-stalled save must be read with the owner. Link 5 resumes with §6, before its next
-meteor or mid-trip save. This is not certification of either dev mod on 1.1.1.
+question received no answer during the source work. The later owner sitting
+supplied the stalled state and native fix result. Link 5 resumes with §6; save
+compatibility and wider audit gaps remain. This is not certification of either dev mod on 1.1.1.
 
 ## 1. Evidence boundary and reproduction
 
@@ -68,7 +70,7 @@ object graph reaches it first explains the different stack tails; a stack throug
 MarkFlight attribution is insufficient as ownership evidence. Both are victims
 of the same displaced mapping. The old hook was introduced in `99a8cd9`.
 
-**Fixed in `3a0faff`:** preserve global `WaitWakeup`; shorten only the hub's
+**Initial repair `3a0faff`, later withdrawn (§8):** preserve global `WaitWakeup`; shorten only the hub's
 `Train:LoadTrain` / `Train:UnloadTrain` waits. The command copies are pinned to
 archived 1.1.1, with ownership guards delegating foreign stations to their originals.
 `dwell_smoke.py` executes the archived permanent collector with a native C waiter;
@@ -158,7 +160,7 @@ save can exclude it. No routing mutation or `Unlink()` was run by this audit.
 
 ## 5. Tests, design obligations and limits
 
-Commands run from this repo: `python tools/devmods/train_hub/tests/` followed by
+Initial pre-rollback commands from this repo: `python tools/devmods/train_hub/tests/` followed by
 `dwell_smoke.py`, `move_smoke.py`, `repair_smoke.py`, `flight_smoke.py`,
 `look_smoke.py` — **PASS** for their stated mocked/source scopes. `traffic_smoke.py`
 — **FAIL**, `-10800 != 0` at its old geometry assertion, already recorded by brief
@@ -199,44 +201,28 @@ DESIGN/L4 obligations remain reachable as tests on 1.1.1, with these qualificati
   has no ETA, and engine handoff defaults outside. No owner ruling was reversed.
   Both shipping configurations and toggle directions remain the eventual ship gate.
 
-## 6. Resume: one console read at a time
+## 6. Resume after the native siding fix
 
-Owner-only live run is routed to the fix pack's checklist **ck212**, per this mod's kernel.
-Keep the stalled save. Restart the process to load the corrected dev code, then
-load that save without adding trains, firing meteors or unlinking anything.
-Give only the next line; the agent reads its output in the newest file log.
+The owner completed the template and autosave rollback controls and the train
+departure test. Their evidence is in §§8–9; do not ask for those same reads again.
+The next blocking agent work is D14(a)'s compatible save repair. Keep the protected
+input saves and require old→new→save→reload controls before resuming mid-trip save
+testing. A successful toolkit SAVE line is not a clean serializer result.
 
-1. `SMRRailShaft.Sweep()` — commands, route membership, map and station for each
-   train. If there are no trains, first establish the correct fixture.
-2. `SMRRailShaft.Routes()` — broken route membership vs an intact linear chain.
-3. `SMRRailShaft.Status()` — actual cross-map mouths; enabled mod alone is not a shaft.
-4. Select the built hub, then `HubRepairStatus()` — jobs, deadlines and stock waits.
-5. Read track repair state with this single paste-safe line:
-
-```lua
-*r for _, c in ipairs(Cities or empty_table) do for _, t in ipairs(c.labels.TrackBase or empty_table) do if IsValid(t) then print(string.format("[TrainAudit] track=%s groups=%s unfinished=%s", tostring(t.handle), tostring(#(t.repair_cgs or empty_table)), tostring(#(t.elements_under_construction or empty_table)))) end end end
-```
-
-6. With the hub selected, read its lock and each train's live command thread:
-
-```lua
-*r local h=SelectedObj; print("[TrainAudit] crossing="..tostring(h and h.SMROptIn_hub_crossing)); for _, c in ipairs(Cities or empty_table) do for _, t in ipairs(c.labels.Train or empty_table) do if IsValid(t) then print(string.format("[TrainAudit] train=%s cmd=%s thread=%s station=%s track=%s",tostring(t.handle),tostring(t.command),tostring(IsValidThread(t.command_thread)),tostring(t.current_station and t.current_station.handle),tostring(t.track and t.track.handle))) end end end
-```
-
-If repairs remain, inspect those sites before making more damage. If route membership
-is broken, follow the shaft report's reversible fixture procedure after preserving
-the readout. If routes and tracks are sound, investigate the command/crossing lock;
-do not clear a valid lock on assumption. Run a fresh fixed-process save and reload
-on a throwaway copy, then exit and grep `Persist error` with positive SAVE/load/hub
-lines. A negative log requires process exit. Only that control can close D14(a)'s
-native result; only observed resumption can close the stall cause.
+L5 still owes a measured repair to completion, including multiple breaks on a
+track, train motion afterwards, and its remaining DESIGN scenarios (§5). Read
+HubRepairStatus before and after the deadline; measure the Wasp's actual arrival.
+If another stall occurs, use §9's connector/lock reads and Sweep first. Routes and
+Status remain available if route membership or map ownership becomes suspect;
+those extra probes were unnecessary for the measured siding deadlock. Do not
+clear locks or unlink tracks to diagnose an unexplained stall.
 
 ## 7. Remaining work / close-out inventory
 
 | finding or request | home / next action | disposition |
 |---|---|---|
 | Save permanent defect | D14(a); load-crash follow-up below | `3a0faff` withdrawn; legacy hook restored, original save defect OPEN |
-| Stall classification | §6; link 5 upstream notes | Open under brief stop 1 |
+| Stall classification | D14(f), §9; link 5 upstream notes | Siding guard corrected; owner confirms trains unstuck; visual clearance not explicitly confirmed |
 | Exhaustive engine-field/class/message audit | inventory file/member/assignment/citation arrays; manually resolve remaining candidates and literal commands on the relevant archive | **Incomplete**. The table above names adjudicated groups; inventory is not a substitute for reviewing every receiver and field. Citation-only and lower-priority semantic rows remain. |
 | Cross-map drone ownership | D14(b), this mod OI-27 | Owner design ruling; no map guard built |
 | Nanite early completion / pending job after a track split | D14(c,d); reproduce conditional paths before fixes | Source risks, not tonight's measured cause |
@@ -290,7 +276,7 @@ and load; it never restored a save made with the old mapping. A Lupa probe at
 `1b6f28e` confirms `debug.getinfo(...).what` changes from `Lua` to `C` across
 those implementations. This is a type-mapping demonstration, not native
 deserialization. The native C++ serializer source was unavailable; the precise
-failing saved frame and recovery of the autosave remain unproved.
+failing saved frame remains unproved. The later rollback restores loading below.
 
 **Containment:** restored the dwell helper and wrapper byte-for-byte from
 `d73d701`, removed the copied train commands, and restored the corresponding
@@ -318,15 +304,124 @@ Checks [RAN 2026-09-24, HEAD `1b6f28e` plus rollback diff]:
 at the missing native permanent assertion: the original defect is still present.
 Do not reinterpret that failure as a clean save result or weaken the test.
 
-**Next owner check:** enable the original mod set, fully restart, load `train_hub_base`, do not overwrite it,
-and exit rather than ignore an assertion. The agent reads the new log. A load
-without assertions or CTD is the rollback control; if it still fails, the mapping
-hypothesis alone is insufficient. If it loads, diagnose the old/new permanent
-transition and test a migration before reintroducing the save repair. That repair
+**Rollback control passed:** the owner re-enabled mods, loaded, and restarted.
+Preserved `10.45.34-6aad2d75.log` shows all template-required mods loaded at 183,
+saved hub version 15 at 224, `Game Loaded` at 246, the map ready at 259, a track
+selection at 261, and normal exit code 0 at 265. At HEAD `2035dbb`,
+`rg -n 'ASSERT|\[ CRASH \]|Access violation|Persist error:' <that-log>` returned
+1; the verification throws on any other result. The loaded-mod list, `Game Loaded`,
+map-ready and exit-code markers each occurred once (counted and asserted in the
+same command). This supports rollback of the template-load regression, not save
+recovery, a new-save pass, or train movement. The existing ArtSpec startup error
+is still present. Rail Shaft was not loaded and is not listed in this template's
+saved mod set; the autosave requires it.
+
+**Autosave rollback control passed:** the owner answered "Loaded without assertions"
+for `Autosave Sol 31(3)` with Train Hub and Rail Shaft enabled. The preserved,
+closed `10.49.56-6aad2d75.log` has `Game Loaded` at 270, map-ready at 283 and
+normal exit at 431. A Python assertion and
+`rg -n 'ASSERT|\[ CRASH \]|Access violation' <that-log>` found no such markers
+(rg exit 1 required, HEAD `2035dbb`). The C-function persist error is still at
+286, this time through the hub's restrictor thread. This is successful loading,
+not repaired saving. §9 records the subsequent stall diagnosis and departure fix.
+Agent work remains: diagnose the old/new permanent transition and test a migration
+before reintroducing the save repair. That repair
 must distinguish legacy and newly written saves, and cover old→new→save→reload,
 ordinary native saves and suspended waits. A version-only guess is insufficient:
 `3a0faff` retained dev version 49, and the wrapper was introduced during version 9.
-Then resume §6's stall reads and L5's remaining smoke. Neither native rollback
-success nor save recovery has been observed yet.
+L5's remaining smoke resumes through §6. No clean new-save verification has been observed.
 
 Executed model: GPT-6 (Codex), as exposed by the transcript; no subagents.
+
+## 9. Native siding deadlock and correction, 2026-09-24
+
+Owner: all but one line remained stuck after rollback. The closed archived
+`Mars.exe-20260924-10.49.56-6aad2d75.log` records these read-only console commands
+(Sweep refreshes its diagnostic cache):
+
+```lua
+*r SMRRailShaft.Sweep(); FlushLogFile()
+*r local h=SelectedObj; print("[TrainAudit] hub",h.handle,"crossing",h.SMROptIn_hub_crossing); for k,t in pairs(h.track_busy or empty_table) do print("[TrainAudit] slot",k,"train",t.handle,"cmd",t.command,"thread",IsValidThread(t.command_thread),"station",t.current_station and t.current_station.handle,"arrival",t.station_arrival_track,"parked",t.at_station) end; FlushLogFile()
+*r local h=SelectedObj; print("[TrainAudit] hub",h.handle,"old_crossers",table.count(h.trains_traversing or empty_table)); h:ForEachConnectorElement(function(el,i) local tr=el.track_obj; print("[TrainAudit] track",tr.handle,"spot",i,"can_run",tr:CanTrainsRun(),"repairs",#tr.repair_cgs,"unfinished",#tr.elements_under_construction) end); FlushLogFile()
+```
+
+An intervening probe iterated `h.tracks`, a mock-only field, and printed nothing.
+That was an instrumentation mistake, not evidence of absent tracks; the connector
+probe replaced it. Archived 1.1.1.405907 `Lua/TrainTransport.lua:57` visits actual
+connectors, including tracks whose destination is unavailable. Its connected-track
+iterator at 68 would filter those out. No trains, routes, locks or repairs were reset.
+
+Measurement at HEAD `2035dbb`, before the guard diff: Python `re.findall(..., re.M)`
+on the closed log used `^\[RailShaftDev\]   \[\d+\].*$`,
+`^\[TrainAudit\] slot .*$` and `^\[TrainAudit\] track .*$`, asserted totals
+**8 / 4 / 6**, and asserted every row's positive state. Reproduce the member read
+with `rg -n '^\[RailShaftDev\]   \[|^\[TrainAudit\]' <that-log>`.
+Sweep members at 323–330: train handles 2000001652, 2000001837, 2000001838,
+2000001839, 2000001840, 2000001841, 2000001842, 2000001843. All had
+`route_ok true`; 1652 was LoadTrain, the remaining seven were GotoStation.
+Hub 6430's crossing was false (341), legacy crossers zero (386). Its parked
+members (342–345), joined to their assigned outgoing tracks, were:
+
+| parked slot | train handle | requested track | exit slot | exit siding held by |
+|---|---|---|---|---|
+| 1 | 2000001841 | 6410 | 2 | 2000001837 |
+| 2 | 2000001837 | 6402 | 1 | 2000001841 |
+| 3 | 2000001843 | 6413 | 4 | 2000001839 |
+| 4 | 2000001839 | 6406 | 3 | 2000001843 |
+
+Each had a live GotoStation thread, `current_station=6430`, the matching
+`station_arrival_track`, and `at_station=true`. Track members at 388–393, in
+connector order 1–6: **6402, 6410, 6406, 6413, 6378, 6417**. Every one reported
+CanTrainsRun true, zero repair groups, zero unfinished elements. Archived
+1.1.1.405907 `Lua/Buildings/Track.lua:371` gates on those two lists. Thus the
+observed pairs were waiting on each other's siding reservation, with no occupied
+crossing or unfinished track repair to clear. Slots 5/6 had no such parked pair,
+consistent with the owner's working line; the screenshot alone could not prove it.
+
+The exit-contact guard in `2606719` predates the off-line sidings in `99a8cd9`
+(`git merge-base --is-ancestor 2606719 99a8cd9` passed). The earlier build/spec
+records already noted mutually blocked departures as a limitation. The later
+owner ruling, spec §9 at the six-loading-sidings passage, explicitly permits
+through movement beside a parked loading train. The implementation retained
+the earlier whole-exit reservation guard, contradicting that later design.
+
+**Correction:** HubExitClear permits an exit with a train fully parked on that
+exit's siding: this hub is its current station, at_station is true, arrival slot
+matches and it does not own the crossing. Arrival publishes that state only after
+siding motion. Incoming, moving and unknown/legacy reservations still block.
+The existing crossing lock and vanilla IsTrackFreeFor check continue to govern
+actual movement; no queue priorities, routes or persisted fields were added.
+The legacy dwell closure remains byte-identical to the rollback.
+
+**Controls run** on `2035dbb` plus the guard/test diff:
+`python tools/devmods/train_hub/tests/move_smoke.py` PASS and
+`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` PASS.
+The same movement smoke with `--source scratch/train_hub_before_siding_guard.lua`
+(exact `git show 2035dbb:tools/devmods/train_hub/Code/20_TrainHub.lua`) FAILS at
+"opposite siding reservation deadlocks first departure". Positive controls allow
+both opposite departures and a through train beside the parked train, retaining
+its position/reservation; negative controls retain moving/incoming/unknown and
+crossing-owner exclusions. Both departures release their reservations and lock.
+The old contact fixtures needed explicit absent arrival metadata: `atstop` had
+inherited a completed-siding slot, so its original expectation described the old
+inline geometry. No production workaround was added for that fixture failure.
+
+**Native result:** asked the owner to fully restart, reload the same autosave and
+unpause without overwriting it. Owner: **"They are now unstuck."** This is the
+train resumption result for that colony; physical contact/clearance was not
+explicitly answered. Partial post-fix log
+`Mars.exe-20260924-11.01.15-6aad2d75.partial-after-guard.log` preserves loading and
+the still-present save error (284, 299), now through VoiceQueuePlay. Its partial
+status precludes a whole-process absence claim. The error is independent of the
+departure guard, and the owner was told that new autosaves remain unreliable.
+
+Archive bytes were captured with exclusive-create and readback equality. SHA256:
+closed pre-guard `10.49.56`: `9b9e497846e83d293227ef20c4427f4fc951621dfa73f2fe76abe6f5ef2a36e1`;
+partial post-guard `11.01.15`: `195f7ae224897d5cb1c7e14adfd7f6f7c861c17ada512a2d6b2560d2e6aee74d`.
+The archive's local `*.log -text -diff` preserves the native bytes on commit.
+
+Completed owner asks ck213 (template rollback), ck214 (autosave rollback), and
+the subsequent departure test are recorded here and removed from the donor list.
+No new owner ask substitutes for the agent's pending save-compatibility work.
+L5 retains the broader drone smoke; D14 retains save, cross-map, conditional
+nanite/split and import findings. Executed model: GPT-6 (Codex), no subagents.

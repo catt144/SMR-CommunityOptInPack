@@ -3,6 +3,8 @@
 This checks Lua control flow, reservations and power gating, not the look,
 native interpolation, loading cargo or serialization. The owner smoke is owed.
 """
+import argparse
+from pathlib import Path
 import subprocess
 
 from lupa import LuaRuntime
@@ -15,7 +17,10 @@ lua = LuaRuntime(unpack_returned_tuples=True)
 lua.execute(STUBS.replace("for k=1,4 do", "for k=1,6 do")
             .replace("s<200 and 4 or 5", "s<200 and 6 or 7"))
 lua.execute("sqrt=math.sqrt; Min=math.min")
-code = SOURCE.read_text(encoding="utf-8")
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--source', type=Path, default=SOURCE)
+args = parser.parse_args()
+code = args.source.read_text(encoding="utf-8")
 lua.execute(code[:code.index("-- Vanilla creates only indices 0..4")])
 lua.execute(between(code, "DefineClass.SMROptInTrainHub6Base =", "-- The BuildingTemplate companion"))
 train = (ARCHIVE / "Lua/Units/Train.lua").read_text(encoding="utf-8")
@@ -159,12 +164,13 @@ assertclose(through.pos.xx,dest.xx); assertclose(through.pos.yy,dest.yy)
 assert(not h:HubCrossingTrain())
 assert(#through.turns>0,'other-line path missed its pivot')
 
--- Exit-contact regression: vanilla permits this track because its train is
--- parked. The hub must reject both through admission and crossing acquisition.
+-- Exit-contact regression: a reservation without completed-siding metadata
+-- must still block, even with at_station=true.
 -- A same-line reverse by the blocker must remain possible, then the follower
 -- waits until that departing train also clears vanilla's outgoing track.
 local qh=newhub(0,true)
 local blocker=atstop(qh,3)
+blocker.station_arrival_track=false
 blocker.command='LoadTrain'
 local follower=newtrain(qh,1)
 assert(qh.tracks[3]:IsTrackFreeFor(follower,qh),'fixture must reproduce vanilla parked exemption')
@@ -191,6 +197,7 @@ qh:RemoveOccupyingTrain(follower)
 -- A loaded departure must stay on its siding until the exit guard clears.
 local parked=atstop(qh,1)
 local occupied=atstop(qh,3)
+occupied.station_arrival_track=false
 parked.command='GotoStation'; parked:AssignToTrack(qh.tracks[3])
 local siding=parked:GetPos()
 local held=false
@@ -202,6 +209,37 @@ function WaitMsg()
 end
 qh:TrainDepart(parked,qh.tracks[3])
 assert(held and not qh:HubCrossingTrain(),'loaded departure did not wait/release')
+-- D14(f): the native stall had two opposite pairs parked fully on their sidings,
+-- each assigned to the track under the other train's reservation. Neither can
+-- clear if completed siding parking is treated as occupying the running rail.
+local pair=newhub(0,true)
+local a,b=atstop(pair,1),atstop(pair,2)
+a.station_arrival_track=1; b.station_arrival_track=2
+a.command='GotoStation'; b.command='GotoStation'
+a:AssignToTrack(pair.tracks[2]); b:AssignToTrack(pair.tracks[1])
+assert(pair:HubExitClear(a,pair.tracks[2]),'opposite siding reservation deadlocks first departure')
+assert(pair:HubExitClear(b,pair.tracks[1]),'opposite siding reservation deadlocks second departure')
+local approaching=newtrain(pair,3)
+assert(pair:CanTrainTraverse(approaching,pair.tracks[3],pair.tracks[2]),'completed siding blocks a through train')
+-- A moving occupant, an incoming reservation, or the crossing owner is not
+-- a completed siding park. Keep each negative control beside the passing case.
+b.at_station=false
+assert(not pair:HubExitClear(a,pair.tracks[2]),'moving occupant was treated as parked off line')
+b.at_station=true; b.current_station={}; b:AssignToTrack(pair.tracks[2])
+assert(not pair:HubExitClear(a,pair.tracks[2]),'incoming reservation was treated as parked off line')
+b.current_station=pair; b:AssignToTrack(pair.tracks[1]); pair.SMROptIn_hub_crossing=b
+assert(not pair:HubExitClear(a,pair.tracks[2]),'crossing owner was treated as parked off line')
+pair.SMROptIn_hub_crossing=a
+assert(not pair:CanTrainTraverse(b,pair.tracks[2],pair.tracks[1]),'opposite departures share the crossing')
+pair.SMROptIn_hub_crossing=false
+local parked_b=b:GetPos()
+function WaitMsg() error('opposite siding departures are still mutually blocked') end
+pair:TrainDepart(a,pair.tracks[2])
+assert(not pair:HubCrossingTrain(),'first siding departure retained the crossing')
+assertclose(b.pos.xx,parked_b.xx); assertclose(b.pos.yy,parked_b.yy)
+assert(pair:HubReservations()[2]==b,'passing train stole the parked reservation')
+pair:TrainDepart(b,pair.tracks[1])
+assert(not pair:HubCrossingTrain() and not next(pair:HubReservations()),'paired departures did not release')
 -- Load migration keeps a parked train at the siding and reservations intact.
 local restored=atstop(qh,2)
 qh.city={labels={Train={restored}}}
@@ -316,5 +354,5 @@ WaitWakeup(12000); assert(clock==5000,'live dwell tuning ignored')
 SMROptInTrainFloor.HubDwellTime=6000
 ''')
 print("HEAD", subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
-print("PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, same-line reverse/release, power gating, archived dwell commands and vanilla control.")
-print("Owner visual smoke and native cold-start/save-load checks remain pending; no oracle run.")
+print("PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived dwell commands and vanilla control.")
+print("This test does not certify native clearance or save/load; owner results are recorded in D14.")

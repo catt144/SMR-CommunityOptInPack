@@ -58,20 +58,23 @@ reload, in that order.
 
 ## Notes from upstream
 
-### Audit handoff, 2026-09-24 — confirm rollback loads before resuming the smoke
+### Audit handoff, 2026-09-24 — loads restored and siding deadlock fixed; saving remains open
 
-Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, §8 before §6. The owner
+Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, §§8–9 before §6. The owner
 tried the autosave and known-good templates: loader assertions, then CTD after
 Ignore All. `3a0faff` is withdrawn; the exact legacy dwell closure is restored.
-First confirm a fresh-process `train_hub_base` load with the original mods enabled,
-without assertions or CTD;
-do not save over the template, and exit if an assertion appears. The original
+The template and `Autosave Sol 31(3)` rollback controls passed (`10.45.34` and
+`10.49.56-6aad2d75.log`). Native reads identified opposite siding reservations
+mutually blocking departure despite runnable tracks and a clear crossing.
+HubExitClear now recognizes completed siding parking; the regression rejects
+the old guard. After restarting, the owner confirmed the trains are unstuck.
+Physical contact/clearance was not explicitly confirmed. The original
 save defect is OPEN and `dwell_smoke.py` is RED. Old/new permanent compatibility
 needs a migration and native old→new→save→reload controls before resuming saves.
-The stall cause remains OPEN. Once loading works, preserve the stalled save and
-give Sweep, Routes, Status and HubRepairStatus one at
-a time before adding damage or clearing locks. The report has the next track and
-thread reads. A successful toolkit SAVE line did not mean serialization was clean.
+The new process still logs the C-function persist error; saving is the next
+blocking agent work. Preserve the protected input saves. The report has runnable
+track/thread probes if another stall occurs; the completed probes need no replay.
+A successful toolkit SAVE line did not mean serialization was clean.
 
 Then repeat the first repair to COMPLETION and observe trains moving, including
 multiple breaks on one track, before advancing to the mid-trip reload. The earlier
@@ -162,4 +165,4 @@ Owner rulings, each built and committed:
 
 Also fixed: engine `HandoffAt="outside"` is now the default, with the receipt re-pinned (`1b32bc8`).
 
-Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. First diagnose the stall and repeat completion through the audit handoff above; then resume the mid-trip reload.
+Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. The siding stall is fixed; repeat repair completion through the audit handoff above, and resolve save compatibility before resuming the mid-trip reload.
