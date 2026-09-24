@@ -190,6 +190,7 @@ lua.execute("SMROptInTrainHubBase = {}\nlocal Floor = SMROptInTrainFloor\n" + se
 
 lua.execute(r'''
 F = SMROptInHubFlight; Tune = SMROptInTrainFloor.HubRepairTune
+Tune.FlightGrace = 0 -- the deadline cases below complete at the deadline; the live-Wasp wait has its own case
 -- The fixture: H -T1- S1(near) -T2- S2 -T3- N]tunnel[F -T4- S3 -T5- H (a cycle); I -T6- J isolated;
 -- S3 -X- (unfinished new track). T2 breaks at element 3 (past S1, so the far side is beyond a break).
 H = hub(0, 0)
@@ -442,12 +443,29 @@ local jb = H2.SMROptIn_track_work.jobs[1]; assert(jb.deadline and not IsValid(jb
 F.save_gate = false; clock = clock + 5000; H2:HubTrackWorkTick(); assert(IsValid(jb.drone), "a Wasp once the gate lifts")
 -- a job with little time left gets no fresh Wasp
 DoneObject(jb.drone); clock = jb.deadline - Tune.MinVisualTime + 1; H2:HubTrackWorkTick(); assert(not IsValid(jb.drone))
--- the Wasp's work ends before the deadline: the site completes then, not on the next tick (owner, 2026-09-24)
 assert(F.OnWorkDone, "the hub registers its work-done hook on the flight")
 jb.drone = FlyingDrone:new({ command_center = H2 }, 1); clock = clock + 1; local early = clock; assert(early < jb.deadline)
 F.OnWorkDone(H2, jb.drone, early)
 assert(Lb.completed and not table.find(H2.SMROptIn_track_work.jobs, jb), "completed at the work's end, the job cleared")
 F.OnWorkDone(H2, FlyingDrone:new({ command_center = H2 }, 1), early); F.OnWorkDone(H, jb.drone, early) -- unknown drones and other hubs: no-ops
+-- a live Wasp holds the completion past its deadline until its work ends, within FlightGrace (owner, 2026-09-24)
+Tune.FlightGrace = 100
+local Lc = break_track(TA, 4, 4000); clock = clock + 5000; H2:HubTrackWorkTick()
+local jc; for _, j in ipairs(H2.SMROptIn_track_work.jobs) do if j.site == Lc then jc = j end end
+assert(jc and jc.deadline and IsValid(jc.drone), "dispatched with a Wasp")
+clock = jc.deadline; H2:HubTrackWorkTick(); assert(not Lc.completed, "the Wasp is still out: the deadline waits for it")
+F.OnWorkDone(H2, jc.drone, clock); assert(Lc.completed, "its work's end completes it")
+-- a stuck Wasp: past the grace the deadline completes anyway
+local Ld = break_track(TA, 4, 4000); clock = clock + 5000; H2:HubTrackWorkTick()
+local jd; for _, j in ipairs(H2.SMROptIn_track_work.jobs) do if j.site == Ld then jd = j end end
+assert(jd and IsValid(jd.drone), "stuck case dispatch: job " .. tostring(jd) .. " deadline " .. tostring(jd and jd.deadline) .. " left " .. tostring(jd and jd.deadline and jd.deadline - clock) .. " jobs " .. #H2.SMROptIn_track_work.jobs); local trip = jd.deadline - jd.started
+clock = jd.deadline + trip - 1; H2:HubTrackWorkTick(); assert(not Ld.completed, "inside the grace")
+clock = jd.deadline + trip; H2:HubTrackWorkTick(); assert(Ld.completed, "past the grace: the fallback completes a stuck flight")
+-- no Wasp at all: the deadline alone completes it
+local Le = break_track(TA, 4, 4000); clock = clock + 5000; H2:HubTrackWorkTick()
+local je; for _, j in ipairs(H2.SMROptIn_track_work.jobs) do if j.site == Le then je = j end end
+DoneObject(je.drone); clock = je.deadline; H2:HubTrackWorkTick(); assert(Le.completed, "no live Wasp: completed at the deadline")
+Tune.FlightGrace = 0
 ''')
 
 lua.execute(r'''

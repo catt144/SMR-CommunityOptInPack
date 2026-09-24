@@ -2113,6 +2113,7 @@ Floor.HubRepairTune = {
 	Speed = false,          -- false = a hub Wasp's live move_speed (drone dials and techs included) x SpeedPercent
 	SpeedPercent = 80,      -- the share of move_speed an engine leg achieves; a little under measured, so it arrives first
 	LaunchTime = 4000,      -- the pit rise and the exit, before the leg (measured 3944 ms)
+	FlightGrace = 100,      -- percent of the predicted trip a live Wasp may run past the deadline before the fallback completes anyway
 	WorkTime = false,       -- false = the flight's WorkTime + 2000 (both work animations)
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
 	MinVisualTime = 15000,  -- a job with less time left before its deadline gets no fresh Wasp
@@ -2745,12 +2746,15 @@ end
 -- The flight's work at the break has ended (owner, 2026-09-24: the site fixed only once the Wasp
 -- was part way home). Measured: work ended 0.6 s before the deadline and the 5 s tick completed it
 -- 4.2 s after, 35.0 s from dispatch against the Wasp leaving at 30.2 s. The deadline only moves
--- EARLIER, so it stays the persisted authority for a reload or a job with no Wasp.
+-- EARLIER. With a live Wasp this event is the completion; the deadline is the fallback (below).
+local work_done = setmetatable({}, weak_keys_meta) -- job -> true; never saved, read on the same tick
+
 local function on_work_done(hub, drone, now)
 	if not is_hub(hub) then return end
 	for _, job in ipairs(track_jobs(hub)) do
 		if job.drone == drone and job.deadline then
 			if now < job.deadline then job.deadline = now end
+			work_done[job] = true
 			hub:HubTrackWorkTick()
 			return
 		end
@@ -2776,6 +2780,15 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 		return true, launched
 	end
 	if now >= job.deadline then
+		-- The flight is the authority (owner, 2026-09-24: "that way its never just one a timer"):
+		-- a job with a live Wasp completes when that Wasp finishes its work (on_work_done). The
+		-- deadline completes only a job with no Wasp (none launched, lost, or gone across a save),
+		-- or one stuck past FlightGrace percent of its predicted trip.
+		local record = flights[job]
+		if not work_done[job] and record and IsValid(record.drone) and not record.lost and job.drone == record.drone then
+			local cap = job.deadline + MulDivRound(job.deadline - (job.started or job.deadline), Floor.HubRepairTune.FlightGrace, 100)
+			if now < cap then return true, dispatched_now end
+		end
 		local result, res = complete_job(self, job)
 		if result == "done" or result == "gone" then
 			-- the Wasp's stage at completion: "out" = deadline early, "work" = on time, "back" = late
