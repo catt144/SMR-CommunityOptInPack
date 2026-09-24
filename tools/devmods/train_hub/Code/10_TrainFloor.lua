@@ -160,7 +160,9 @@ end
 --
 -- `TransferCargo` opens with `self:UnloadAll()` (:845), and a floor must count
 -- what this train is about to unload. Calling UnloadAll first is safe: vanilla's
--- own call then finds nothing left to unload and an empty assignment list.
+-- own call is idempotent. On 1.1.1.405907 (archived Train.lua:787-831), it
+-- KEEPS assignments whose cargo cannot fit, rather than always emptying the list;
+-- the second call still cannot fit those entries and must leave them assigned.
 -- The function does not yield (no Sleep, Wait or Goto on any path, :836-1020),
 -- so the transient claims never outlive this call.
 local vanilla_transfer_cargo = Train.TransferCargo

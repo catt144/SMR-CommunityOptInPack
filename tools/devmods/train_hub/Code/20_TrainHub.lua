@@ -56,7 +56,7 @@ Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 -- CommonLua/Core/cthreads.lua:466-478). Replacing it leaves the native C frame
 -- in every sleeping deficit/flight thread without its permanent at save.
 -- These two mid-body timeout changes require command copies: Train.lua:230-289,
--- :426-451 on that build. All other body bytes are vanilla; foreign stations
+-- :424-451 on that build. All other body bytes are vanilla; foreign stations
 -- delegate to the captured commands. No global wait, map scan or new saved name.
 -- Save policy: layer 2. These are blocking command bodies, inert once the
 -- content mod is removed; placed-hub removal remains unsupported (FIX_POLICY 0).

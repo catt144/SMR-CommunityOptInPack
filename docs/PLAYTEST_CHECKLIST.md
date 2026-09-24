@@ -15,6 +15,14 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-27 · opened 2026-09-24
+When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
+- The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.
+- Recommend restricting drone work to the hub's map, retaining ordinary same-map tunnels.
+- Alternatively, keep that combined fixture parked until cross-map service is designed.
+- The audit did not add a map restriction to your network-wide service rule.
+Home: `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, `docs/agent/bugs/D14.md`
+
 ### OI-26 · opened 2026-09-23
 Is the Wasp's fixed 7 m ride on engine-flown repair-drone legs clear enough of the side-hanging trains?
 - The height cannot be tuned per drone (`Flight.lua:175`); only our scripted ends have dials.

@@ -1,0 +1,58 @@
+== patchcheck · 2026-09-24 · fix pack HEAD fa96a47 ==
+command: python tools/patchcheck.py --old 1.1.0.403908 --new 1.1.1.405907 --code B:/Dev/SMR/SMR-OptInPack/tools/devmods/train_hub/Code --code B:/Dev/SMR/SMR-OptInPack/tools/devmods/rail_shaft/Code --no-notes --rows 100
+old: 1.1.0.403908  B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src
+new: 1.1.1.405907  B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src
+A archived: 1.1.1.405907 (digest d753f949af92e2b7…)
+P holds — Lua.fpk 2374/2374 byte-identical, 0 divergent, 0 absent; Data.fpk 2192/2192 byte-identical, 0 divergent, 0 absent
+index: old 33404 declarations, new 33547; identical 32948 · body 406 · body+sig 35 · removed 12 · moved 0 · moved+body 3; added 158
+files (non-DLC): changed 311 · identical 4255 · added 2 · removed 0
+T 315 changed hand declarations = body 286 + body+sig 14 + removed 12 + moved+body 3 (moved 0, added 140 excluded)
+B 0 file(s) with a DefineClass/__parents line changed under a pinned/required/cited file
+notes: not fetched (--no-notes)
+
+── code: B:/Dev/SMR/SMR-OptInPack/tools/devmods/train_hub/Code — 4 modules ──
+columns: PIN 0 · REQ 0 · CITE 2 · ANON 2 · SIGCALL 0 · D1 2 · M 2
+modules with no resolvable pin (covered by REQ/CITE/ANON only): 2
+D3 save-exposed sites in this Code/: 0; flagged 0
+D2 0 call(s) in 0 module(s), ranked gone > incompatible > prefix-compatible
+M — flagged modules (2):
+  20_TrainHub  [CITE ANON]
+      CITE Drone.Done  body  Lua/Units/Drone.lua:122 -> Lua/Units/Drone.lua:122  (cited :122)
+      ANON Lua/Buildings/Building.lua  file changed  (cited :1 is outside every keyed declaration)
+      ANON Lua/Buildings/DroneControl.lua  file changed  (cited :96 is outside every keyed declaration)
+      ANON Lua/Buildings/Station.lua  file changed  (cited :72 is outside every keyed declaration)
+      ANON Lua/Buildings/TrackElement.lua  file changed  (cited :139 is outside every keyed declaration)
+      ANON Lua/SupplyGrid.lua  file changed  (cited :12 is outside every keyed declaration)
+      ANON Lua/Units/FlyingDrone.lua  file changed  (cited :144 is outside every keyed declaration)
+  30_TrainHubDrones  [CITE ANON]
+      CITE FlyingDrone.Land  body  Lua/Units/FlyingDrone.lua:181 -> Lua/Units/FlyingDrone.lua:184  (cited :194)
+      ANON Lua/Flight.lua  file changed  (cited :149 is outside every keyed declaration)
+      ANON Lua/Units/FlyingDrone.lua  file changed  (cited :50 is outside every keyed declaration)
+no row (2): 10_TrainFloor, _EntityData.generated
+
+── code: B:/Dev/SMR/SMR-OptInPack/tools/devmods/rail_shaft/Code — 1 modules ──
+columns: PIN 1 · REQ 0 · CITE 0 · ANON 0 · SIGCALL 0 · D1 1 · M 1
+modules with no resolvable pin (covered by REQ/CITE/ANON only): 0
+D3 save-exposed sites in this Code/: 0; flagged 0
+D2 0 call(s) in 0 module(s), ranked gone > incompatible > prefix-compatible
+M — flagged modules (1):
+  10_RailShaft  [PIN]
+      PIN  TunnelBase.AddPFTunnel  body  Lua/Buildings/Tunnel.lua:193 -> Lua/Buildings/Tunnel.lua:193
+no row (0): —
+
+D5 facts: 117 files, 72 with a resolvable game-function citation, 11 cite a function that changed
+  EF-055   OpenPreGameMainMenu
+  EF-061   SetAtmosphereBreathable
+  EF-063   customUniversalRocket.Init
+  EF-065   OpenPreGameMainMenu
+  EF-074   Drone.PickUp
+  EF-083   UIGetBuildingPrerequisites
+  EF-091   CargoTransporterNew.DroneUnloadResource, Drone.Deliver
+  EF-099   PlacePipeLine
+  EF-104   CargoTransporterNew.GatherAvailableColonists
+  EF-107   Workforce.HasFreeWorkplacesAroundForSpecialist
+  EF-115   Drone.CanBeControlled
+
+summary B:/Dev/SMR/SMR-OptInPack/tools/devmods/train_hub/Code: modules 4 · M 2 · notes-added 0 · D3 0
+summary B:/Dev/SMR/SMR-OptInPack/tools/devmods/rail_shaft/Code: modules 1 · M 1 · notes-added 0 · D3 0
+verdict: SCOPED — |M| = 2 (<= 12), D3 = 0, B = 0, T = 315  (limits 12 modules / 1000 declarations are budget defaults; the small-patch regime is uncalibrated until the first real patch)

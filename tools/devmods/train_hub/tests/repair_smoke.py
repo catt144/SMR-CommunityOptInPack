@@ -149,7 +149,9 @@ function break_track(t, idx, cost)
   t.elements_under_construction[#t.elements_under_construction + 1] = site
   t.repair_cgs[#t.repair_cgs + 1] = cg
   function leader:Complete()
-    self.completed = true; el.broken = nil; table.remove_entry(t.elements_under_construction, site); table.remove_entry(t.repair_cgs, cg)
+    self.completed = true; el.broken = nil; table.remove_entry(t.elements_under_construction, site)
+    -- 1.1.1.405907 TrackElement.lua:915-933: old groups stay until EVERY site is done.
+    if #t.elements_under_construction == 0 then t.repair_cgs = {} end
     DoneObject(site); DoneObject(self)
   end
   -- drones finished it first: the same teardown, nothing paid by the hub
@@ -271,8 +273,12 @@ L8 = break_track(T2, 4, 4000); clock = clock + 5000; H:HubTrackWorkTick()
 assert(#jobs == 2 and not jobs[2].deadline and jobs[2].site == L8, "recorded, not dispatched, toggle off")
 assert(H:GetHubRepairLine():find("track repair off"))
 clock = jobs[1].deadline; H:HubTrackWorkTick(); assert(L7.completed, "the repair under way completed with the toggle off")
+assert(#T2.repair_cgs == 2 and #T2.elements_under_construction == 1,
+  "partially repaired track remains blocked while another group is unfinished")
 H:SetHubTrackRepair(true); clock = clock + 5000; H:HubTrackWorkTick(); assert(jobs[1].deadline, "dispatched once the toggle is back on")
 clock = jobs[1].deadline; H:HubTrackWorkTick(); assert(L8.completed and #jobs == 0)
+assert(#T2.repair_cgs == 0 and #T2.elements_under_construction == 0,
+  "last break clears the track; a dead earlier group is not rediscovered as a job")
 -- The player's switch off stops NEW dispatches; malfunction and no power do not (owner, 2026-09-22).
 H.ui_working = false
 L9 = break_track(T2, 3, 4000); clock = clock + 5000; H:HubTrackWorkTick(); assert(not jobs[1].deadline, "switch off: no dispatch")

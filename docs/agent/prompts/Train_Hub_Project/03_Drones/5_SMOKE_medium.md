@@ -58,6 +58,26 @@ reload, in that order.
 
 ## Notes from upstream
 
+### Audit handoff, 2026-09-24 — diagnose the stalled save before resuming the smoke
+
+Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, especially §6. The one-off
+audit stopped at missing owner game state; the stall cause is OPEN. `3a0faff` fixes
+the global dwell hook displacing the native WaitWakeup save permanent (D14(a));
+native save/reload and train resumption are still owed. Restart the process first,
+keep the stalled save, and give Sweep, Routes, Status and HubRepairStatus one at
+a time before adding damage or clearing locks. The report has the next track and
+thread reads. A successful toolkit SAVE line did not mean serialization was clean.
+
+Then repeat the first repair to COMPLETION and observe trains moving, including
+multiple breaks on one track, before advancing to the mid-trip reload. The earlier
+status dumps were before the deadline. Recheck cargo with a full hub (1.1.1 changed
+UnloadAll), actual flight arrival on quiet logs (path failure became quieter),
+remote maintenance, cube survival on destruction, return-leg reload, all unrun
+DESIGN/L4 scenarios and the conditional train-construction request read. OI-27
+holds the cross-map drone policy; OI-26 stays as owner-ruled. The report explicitly
+lists unadjudicated engine fields/citations and conditional nanite/split risks;
+resolve those before treating the audit as full compatibility clearance.
+
 
 ### L3 handoff, 2026-09-23 — `OI-26` is yours to judge, in passing
 
@@ -124,7 +144,7 @@ the committed filter re-files each far station once at load.
 Append anything unresolved into link 6's notes, then **delete this file and strike its row in
 `README.md` in the same commit**.
 
-### Sitting so far, 2026-09-23 (paused on `../07_TRAIN_HUB_AUDIT_111_high.md`)
+### Sitting so far, 2026-09-23 (resume through the audit handoff above)
 
 Done in the sitting, on `train_hub_base`, then `SMRTK_A.sav`:
 - **Far break 1:** a job, the notice with "ETA 57 min", which is game minutes, about 28.5 s of game time. The Metals target went down with the actual unchanged (owner). The Wasp crossed the dome glass: the crest handoff was still the file default.
@@ -137,4 +157,4 @@ Owner rulings, each built and committed:
 
 Also fixed: engine `HandoffAt="outside"` is now the default, with the receipt re-pinned (`1b32bc8`).
 
-Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. Resume at handoff item 2 after `07` lands, with its notes in hand.
+Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. First diagnose the stall and repeat completion through the audit handoff above; then resume the mid-trip reload.
