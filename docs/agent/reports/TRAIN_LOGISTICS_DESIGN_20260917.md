@@ -213,6 +213,120 @@ open, and the prototype decides it.
 Any floor or amount the module shows or stores must therefore be relative to the live
 `GetMaxStorage(res)`, and the module must re-apply its values after that rewrite.
 
+### 4.8 The distribution centre (owner's design, 2026-09-24) — DESIGN ONLY, NOT BUILT
+
+The owner's vision for where Module A and the hub meet. **Nothing here is built and nothing is
+authorised**; this is the record of the design and its known mechanism, so the eventual brief does
+not re-derive it.
+
+**The shape.** Stations get their per-resource sliders back (§4.1, §4.7). The hub becomes the
+network's **distribution centre**: it takes what the spokes do not want, and feeds each spoke what
+it does. Every station states its intent per resource, and the hub is the sink and the source.
+
+**Three modes, and the slider's meaning changes with the mode** (owner's words, 2026-09-24):
+
+| mode | local DRONES should | TRAINS should | the slider is |
+|---|---|---|---|
+| **Export** | keep it **full** — haul the area's excess in | drain it, never deliver | the minimum to keep |
+| **Import** | keep it **empty** — distribute out to the area | fill it, never take away | the amount always kept |
+| **Balanced** (unmarked) | vanilla | vanilla, pinned to the number | the number to hold |
+
+**Per resource, never per station** (owner, 2026-09-24, and this closes it): a mining sector has a
+dome, so it exports metals while importing food, delicacies and machine parts; an agri sector
+exports food and imports maintenance goods; industry exports maintenance goods and imports food and
+raw materials. A station-level mode cannot express any of them.
+
+**The mechanism — one lever, two views.** Trains and drones read the same request numbers through
+different paths, and only the train's path is ours (`Train:TransferCargo` is already wrapped,
+`10_TrainFloor.lua:168-198`). So:
+
+- **Baseline request numbers are what the drones see.**
+- **A transient claim, applied inside the train's evaluation and released at once, is what the
+  trains see.**
+
+That is enough for all three modes without touching the balancer: export keeps demand open at
+baseline (drones fill it) and claims it during the train call (trains stop delivering); import holds
+supply at baseline down to the slider (drones distribute out, never below it) and opens demand
+during the train call (trains fill it); balanced claims both sides at the slider. ⚠️ **The transient
+shape exists and has never run** (`10_TrainFloor.lua`: no station requests transient yet). It is the
+one unproven link and the first thing any prototype must settle.
+
+**Where the state lives: on the HUB, not on the stations** (decided with the owner, 2026-09-24).
+The hub keeps the per-station, per-resource modes and sliders for its own network. Nothing of ours
+is persisted on a vanilla `Station`, one persisted name covers it, and removing the mod removes the
+hub and every trace of the feature. The alternative considered and declined was cloning the vanilla
+station into our own building: it would force players to rebuild their network to get the feature,
+and mix two kinds of station in one line.
+
+**Where the UI lives: on each STATION's own card, not on the hub's.** §4.7 already settles the
+shape — the control belongs in the resource row the panel already draws. The hub's card gets a
+summary line at most (owner, 2026-09-24: the hub's card is already busy and the game shrinks it as
+the network grows). A card can be extended without altering the building: infopanel XTemplates are
+UI data, nothing persists, and the TestKit already attaches sections to vanilla `ipBuilding` panels.
+**Storage location and UI location are independent**; the row's control writes to the hub's table.
+
+⛔ **The save rule for claims.** Requests are saved, so a standing claim on a vanilla station could
+persist into a save and outlive the mod, leaving a station quietly crippled with nobody to undo it.
+**Prefer transient claims.** Where a standing claim is needed for the drone-side view, release every
+claim at `SaveGameStart` and re-apply after, the shape the hub's own reserve reconcile and the
+drones' save guard already use.
+
+**Interaction, so 12 stations do not mean a grid** (options, not a decision): default everything to
+balanced and mark only the exceptions, which is a handful of rows per station; sector presets
+(mining, agri, industry, residential) as a starting pattern; and a "suggest" that pre-ticks from
+what the station's own radius produces and consumes. Export marks are naturally few — a resource the
+area does not produce never needs one, because there is nothing local for drones to haul in.
+
+**Open, for the owner when this is briefed**
+
+1. **The hub full case.** When the sink fills, §3's capacity-share rule starts pushing stock back to
+   the spokes and an export station bounces. Hub refuses, spokes hold, or something else.
+2. **Whether a central overview is wanted at all**, and if so, world signs per mode (read the
+   network by looking at it) or a dialog opened from the hub whose rows select and centre a station.
+   Not a command-centre tab: the owner's objection (2026-09-24) is that it trades a spatial problem
+   for a list of names with no map behind it.
+3. Whether the hub also **places the trains it builds** (see §4.9).
+
+**What is unproven, and must be measured before any of this is believed**
+
+- the transient claim path, above — never executed;
+- `transport_policy = "accept"` (import) has **no measured drone effect** (§4.3, §7.2: the fixture
+  had no consumer in drone range); the export half is MEASURED working when driven by hand;
+- that drones respond to the baseline numbers the way the table assumes, which is the whole
+  drone half of the feature and is a separate question from the UI.
+
+**Phasing against §4.4.** This is A1 plus A2 with the hub as the sink, so it inherits both: §4.5's
+six rewrite paths (store relative to live `GetMaxStorage`, re-apply after each) and §4.6's alias
+trap. The prototype is mechanism only, at the console, on two stations and the hub — no UI — and it
+answers the three unproven items above in one sitting.
+
+### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
+
+The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in
+`labels.Stations` and therefore in `RebuildTrainRoutes`, and nothing gates `ConstructTrain` on
+anything but the class. Cost is `g_Consts.TrainMetalCost` 5 Metals + `g_Consts.TrainMPCost` 1
+Electronics (`__const.lua:720-731`), time `TrainConstructionTime` 90 000 (`:713-718`), and
+`StartTrainConstruction` (`Station.lua:522-529`) needs only that the building works and both
+resources are on hand. `Station:SelfService` (`:489-511`) pulls them from the station's own stock
+without a drone, so **the hub is the one place on the network that can always build a train with no
+drone** — which is the hub's answer to `DESIGN.md` §6's open question.
+
+There is **no per-station train cap**: the limits are per track (`max_vehicles` from element count,
+`Track.lua:61-66`) and per route (`max_trains = num_stations`, `TrainTransport.lua:492-537`).
+
+⭐ **The gain is not the building, it is the placing.** A finished train becomes a colony-wide
+prefab and is auto-assigned **only when exactly one connected route has room**
+(`Station.lua:592-607`). A six-connector hub almost always has more than one, so its trains would
+land in the prefab pool for the player to place by hand. A hub that picks the route — emptiest,
+fewest trains, or a player choice — is small work on machinery that already exists, and it is the
+whole reason to give the hub a build queue.
+
+Unmeasured: whether the hub's build button is present and works in game today, and whether the
+platform-occupancy arithmetic (`Station.lua:1124-1138`, written for four connectors) pairs
+correctly for connectors 5 and 6.
+
+---
+
 ---
 
 ## 5 · Module B — train junction hub

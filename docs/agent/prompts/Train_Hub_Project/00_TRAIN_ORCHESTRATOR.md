@@ -145,6 +145,15 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      reactor imports.
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
+   - **The distribution centre (spec 4.8), the owner's design of 2026-09-24 — DESIGN ONLY, not
+     authorised.** Per-resource export / import / balanced on every station, the hub as the sink,
+     state on the hub, controls in the station card's existing resource rows. Place it AFTER the
+     drones chain and build 5: it is Module A's A1+A2 and wants the hub's own mechanics finished
+     first. **One exception worth jumping the queue:** its console-only prototype (no UI, two
+     stations and the hub) settles the three unproven things at once — the transient claim path
+     that has never run, whether drones respond to the baseline numbers, and the unmeasured
+     `accept` half. Cheap, and everything else rests on it. Train construction at the hub is
+     spec 4.9: the hub can already build trains; the work worth doing is having it PLACE them.
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
      range (§4.3);
    - routing 5d or 5c, once the owner has played the 5a network.
