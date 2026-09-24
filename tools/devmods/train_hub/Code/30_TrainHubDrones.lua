@@ -779,6 +779,18 @@ local function leg(a, now, stage)
   a.drone:SetCommand(STOCK_LEG, point(dest:x(), dest:y()))
   a.drone:QueueCommand(STOCK_HOLD, F.HoldTimeout)
   a.stage, a.phase, a.leg_at, a.state, a.hold_at = stage, stage, now, false, nil
+  local from = a.drone:GetVisualPos()
+  a.leg_from = point(from:x(), from:y(), 0)
+end
+
+-- The smoke's speed record (link 5): what the engine leg really flew, in game time.
+local function report_leg(a, now)
+  if not a.leg_at or not a.leg_from then return end
+  local p = a.drone:GetVisualPos()
+  local dist = point(p:x(), p:y(), 0):Dist(a.leg_from)
+  local ms = max(1, now - a.leg_at)
+  print(string.format("[TrainHubDev] engine leg %s: %d m in %d ms = %d units per s (move_speed %s) at t=%d",
+    a.stage, int(div(dist, 100)), ms, MulDivRound(dist, 1000, ms), tostring(a.drone.move_speed), now))
 end
 
 local function scripted(a, now, steps, total, prims, stage)
@@ -844,6 +856,7 @@ function F.UpdateEngine(a, now)
   if stage == "out" or stage == "back" then
     if c == STOCK_LEG then return F.PollTime end
     if c ~= STOCK_HOLD then a.lost = c or "none"; F.Remove(a); return false end
+    report_leg(a, now)
     take_back(a)
     if stage == "out" then work_plan(a, now) else descent_plan(a, now) end
     stage = a.stage
