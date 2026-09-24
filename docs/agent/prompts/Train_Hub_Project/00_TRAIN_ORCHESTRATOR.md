@@ -51,20 +51,24 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, close of the 2026-09-21 orchestrator session (second).** The model
-     is FINAL at radius 6 and owner-accepted; the transitions are ACCEPTED. The AI texturing trial
-     is CLOSED (Tripo, nothing usable); the look goes by bake onto our UVs, staged, the owner
-     inspecting each step (spec §9). **Step 1 is DONE:** the road is variant B, black glass
-     (owner ruling OI-24, held provisionally: reopened if glow lights spoil the reflections).
-     The handoff package in Downloads is reference only. ⚖️ **The 5 MB guard does not bind this
-     mod** (owner); resolution is a look decision, plan BaseColor 4096 supersampled and the rest
-     2048. The lights step is DONE (restore point 3, `hub-lines-b2-lights-20260921`:
-     B2 deep blue lines and 72 arm lights). **The fire order is this folder's `README.md`**: keep it
-     current whenever a brief is fired, parked or added; the owner reads it to pick the next one.
-     Still owed to the owner: OI-18 (widen `upload_preflight.py`,
-     or keep the hub a separate mod) and OI-19. The tree move record is
-     `docs/agent/support/MOVE_PATH_INVENTORY_20260921.md`. Read spec §9 "The first concept import in
-     game" first for why the hub looked like flat paint and the five older restore tags.
+   - **WHERE THE PROJECT STANDS, close of the 2026-09-24 orchestrator session.** The fire order is
+     this folder's [`README.md`](README.md) and the drones chain's own
+     [`03_Drones/README.md`](03_Drones/README.md) — keep both current; they are what the owner reads
+     to pick the next thing. The look pass is DONE and accepted (brief `01` parked, body paint kept,
+     restore point 6); spec §9 holds every step, its measurements and the restore tags, and `05` is
+     live for its last step alone, the whole-hub GPU cost reading that is still `<<PENDING-RUN>>`.
+     The drones are built: chain links 1-4 are consumed, the hub half landed in `b556035` with the
+     one persisted name `SMROptIn_track_work` inventoried, and **link 5's attended smoke is in
+     flight and paused on a save defect another agent is fixing**; link 6's QA is last and the owner
+     runs it on a different model. `04` (build 5, the hub builds track) stays held until that smoke
+     is recorded. The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md)
+     — read it there rather than trusting a list here.
+   - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
+     Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
+     numbers are the drones' view, a transient claim during the train's evaluation is the trains'),
+     the decisions already taken (per resource not per station, state on the hub, controls in the
+     station card's existing rows, claims kept out of saves), and the three unproven things its
+     console prototype settles in one sitting.
    - **Live, fire when the owner wants an agent spent:** `02_TRAIN_HUB_LOADERRORS_low.md`, two errors
      the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is

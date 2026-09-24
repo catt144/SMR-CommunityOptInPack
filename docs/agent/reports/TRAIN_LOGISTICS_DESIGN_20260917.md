@@ -110,6 +110,17 @@ a two-route network settled at network-wide capacity shares.
 **Ceiling without owning the scheduler:** per resource × per station × per route. Out of
 reach: per-train, per-direction, inter-resource priority, time-based rules.
 
+**And nothing outside the train chooses where it goes** (SOURCE, 1.1.1.405907, read 2026-09-24).
+There is no player-set line and no dispatcher: a *route* is a flat array of stations rebuilt by
+`RebuildTrainRoutes` (`TrainTransport.lua:302-358`) on `StationsConnected` / `StationsDisconnected`
+/ `TrackBroken`, over `city.labels.Stations` — the **build-category** label (`Building.lua:677-681`),
+which is why our hub joins it. At each stop `Train:LoadTrain` (`Train.lua:230-289`) takes the
+continue-straight track (`Station:GetConnectedTrack`, collinear, first match, no scoring,
+`Station.lua:931-962`), asks `TransferCargo` whether there is work and gets `next_stop` back, retries
+reversed if not, and otherwise goes `Idle` until `OnMsg.NewHour` restarts it (`Train.lua:58-74`) —
+an up-to-an-hour idle whose real cost is unmeasured. `Train:GotoStation` is traversal only.
+A station's own arbitration is platform occupancy (`Station.lua:1124-1182`), nothing more.
+
 ---
 
 ## 4 · Module A — per-resource station import/export
@@ -286,6 +297,18 @@ area does not produce never needs one, because there is nothing local for drones
    Not a command-centre tab: the owner's objection (2026-09-24) is that it trades a spatial problem
    for a list of names with no map behind it.
 3. Whether the hub also **places the trains it builds** (see §4.9).
+
+⛔ **Precondition the owner's own colony exposes: the drone half only works where there ARE
+drones.** Every remote station in the owner's 2026-09-23/24 game wears vanilla's
+*"Too far from working Drone controller"* (`Building:ShouldShowNoCCSign` → `IsOutsideCommandRange`,
+`Building.lua:860-866`), and the owner reports it has been so throughout testing without causing
+trouble. It matters here: a spoke with no command centre in range has no drones to keep an export
+station full or to distribute an import station's stock outward, so on such a station only the
+train half of the design does anything. Link 4 made the hub a controller for far stations'
+**maintenance requests only** (`20_TrainHub.lua:2171-2178`) precisely because joining every request
+turned the hub's fleet into a resource balancer between stations. Any brief must state what an
+uncovered spoke is expected to do, and whether the hub's fleet is meant to serve these modes at
+distance — which would reopen that filter and the track-work ruling behind it.
 
 **What is unproven, and must be measured before any of this is believed**
 

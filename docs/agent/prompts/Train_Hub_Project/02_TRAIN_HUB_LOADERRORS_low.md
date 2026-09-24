@@ -63,6 +63,19 @@ loaded. The guard at line 72 checks that the API *exists*; it does not check tha
 Note the wrapper is global and wraps a vanilla function, so it runs for every caller in the game,
 not only for trains. Keep the fix cheap: the fast path must stay fast.
 
+## A third error, seen 2026-09-23 (owner's log) — check it, fix it if it is ours
+
+`[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global
+'EntitySpecPathToEntity')`, thrown once during mod load, through `ModItem.lua(2518)` →
+`Preset.lua(541)` → `OnPresetPostLoad`. It appears in the **MarsDebug** session log at every load
+and is an editor-only code path running outside the editor. The dev mod ships
+`tools/devmods/train_hub/SourceData/ArtSpec-mod.lua`, so the item is probably ours.
+
+Settle it cheaply: confirm which mod item raises it, and whether it fires in the retail game as well
+as MarsDebug (the owner's retail logs for 2026-09-23 are the check). If it is ours and harmless in
+retail, say so and leave it; if it is ours and fires in retail, fix it the way the other two are
+fixed. If it is vanilla's own item, record that and stop — it is not this brief's to repair.
+
 ## Done when
 
 - Both messages are absent from a fresh session log, and the hub still dwells and still shows its
