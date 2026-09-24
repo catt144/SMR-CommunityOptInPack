@@ -2742,6 +2742,21 @@ end
 -- The tick.
 -- ---------------------------------------------------------------------------
 
+-- The flight's work at the break has ended (owner, 2026-09-24: the site fixed only once the Wasp
+-- was part way home). Measured: work ended 0.6 s before the deadline and the 5 s tick completed it
+-- 4.2 s after, 35.0 s from dispatch against the Wasp leaving at 30.2 s. The deadline only moves
+-- EARLIER, so it stays the persisted authority for a reload or a job with no Wasp.
+local function on_work_done(hub, drone, now)
+	if not is_hub(hub) then return end
+	for _, job in ipairs(track_jobs(hub)) do
+		if job.drone == drone and job.deadline then
+			if now < job.deadline then job.deadline = now end
+			hub:HubTrackWorkTick()
+			return
+		end
+	end
+end
+
 local function service_job(self, record, job, now, tracks, dispatched_now)
 	if job.kind ~= "repair" then return true, dispatched_now end -- build 5's jobs are not ours
 	if not live(job.site) then return false, dispatched_now end
@@ -2780,6 +2795,8 @@ function SMROptInTrainHubBase:HubTrackWorkTick()
 	if not IsValid(self) or self.destroyed or IsBeingDestructed(self) then return end
 	local now = GameTime()
 	if loaded_pending then after_load(now) end
+	local F = flight_api()
+	if F and F.OnWorkDone ~= on_work_done then F.OnWorkDone = on_work_done end
 	local record = track_work(self)
 	local nodes, tracks = self:HubTrackGraph()
 	register_remote_stations(self, nodes)

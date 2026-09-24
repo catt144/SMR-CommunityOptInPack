@@ -442,6 +442,12 @@ local jb = H2.SMROptIn_track_work.jobs[1]; assert(jb.deadline and not IsValid(jb
 F.save_gate = false; clock = clock + 5000; H2:HubTrackWorkTick(); assert(IsValid(jb.drone), "a Wasp once the gate lifts")
 -- a job with little time left gets no fresh Wasp
 DoneObject(jb.drone); clock = jb.deadline - Tune.MinVisualTime + 1; H2:HubTrackWorkTick(); assert(not IsValid(jb.drone))
+-- the Wasp's work ends before the deadline: the site completes then, not on the next tick (owner, 2026-09-24)
+assert(F.OnWorkDone, "the hub registers its work-done hook on the flight")
+jb.drone = FlyingDrone:new({ command_center = H2 }, 1); clock = clock + 1; local early = clock; assert(early < jb.deadline)
+F.OnWorkDone(H2, jb.drone, early)
+assert(Lb.completed and not table.find(H2.SMROptIn_track_work.jobs, jb), "completed at the work's end, the job cleared")
+F.OnWorkDone(H2, FlyingDrone:new({ command_center = H2 }, 1), early); F.OnWorkDone(H, jb.drone, early) -- unknown drones and other hubs: no-ops
 ''')
 
 lua.execute(r'''

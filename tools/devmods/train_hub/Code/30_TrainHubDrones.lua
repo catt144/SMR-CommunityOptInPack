@@ -882,7 +882,10 @@ function F.UpdateEngine(a, now)
   if stage == "rise" then
     hold(a, now); a.stage, a.phase = "ready", "hover"
   elseif stage == "exit" then leg(a, now, "out")
-  elseif stage == "work" then leg(a, now, "back")
+  elseif stage == "work" then
+    -- the hub completes the site as the Wasp lifts off, not on its next 5 s tick (L5, 2026-09-24)
+    if F.OnWorkDone then F.OnWorkDone(a.hub, a.drone, now) end
+    leg(a, now, "back")
   else d:LandingEnd(); F.Remove(a); return false end
   return F.PollTime
 end
