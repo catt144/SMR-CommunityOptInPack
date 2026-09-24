@@ -66,15 +66,18 @@ each verdict.
 
 `reports/TRAIN_HUB_AUDIT_111_20260923.md` consumed brief 07 under its no-game-state
 stop. Stall cause and exhaustive source-field/citation resolution remain OPEN;
-the recursive inventory is lexical candidate evidence, not certification. D14(a)
-landed in `3a0faff`: global WaitWakeup wrapper removed; two scoped 1.1.1 train
-command copies keep the dwell. The archived permanent collector rejects the old
-hook and accepts the new code; native save/reload remains L5's. Audit the byte-copy
-gate, source-policy layer 2, foreign controls and fresh-process save before closure.
+the recursive inventory is lexical candidate evidence, not certification. D14(a)'s
+`3a0faff` passed its source test but the owner then hit loader assertions and CTD
+on the old autosave and known-good templates. That repair is withdrawn; the legacy
+dwell closure is restored exactly. The original save defect remains RED. Read §8:
+the test missed the Lua→C permanent transition when loading an old save. Require
+native rollback confirmation and old→new→save→reload controls for a replacement;
+neither a matching source copy nor a same-version collector test proves migration.
 Repair smoke had incorrectly removed each completed repair group immediately;
 it now keeps groups until the final unfinished site completes, with a failing
 old-fixture control. Traffic smoke remains red on the known obsolete geometry
-expectation. Flight code/receipt were unchanged. No native game ran; no clearance
+expectation. Flight code/receipt were unchanged. No native game ran in the initial audit;
+the later owner loads failed. No clearance
 or both-configuration result was earned. OI-27 carries the cross-map policy;
 D14(b-e) carry cross-map, nanite, track-split and editor-load residue. The report
 lists read-command failures and the unavailable todo tool. The peer icon edit

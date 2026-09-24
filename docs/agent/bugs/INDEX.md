@@ -20,5 +20,5 @@ matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matte
 | 7 | D07 | Cohort housing: seniors/children never consolidate without filter micromanagement — ⚖️ RETIRED 2026-09-17 (DEAD), module no longer ships | tested-attended | dsgn | med | [D07.md](D07.md) |
 | 8 | D09 | No player control over drone speed/carry (breakthrough lottery) | tested | dsgn | med | [D09.md](D09.md) |
 | 9 | D12 | Homeless strand in specialist domes; emigration ties never move them — ⚖️ RETIRED 2026-09-17 (DEAD), module gone but the defect survives 1.1.0 | speced | dsgn | med | [D12.md](D12.md) |
-| 10 | D14 | Train hub dev build: save waiter defect and open stalled-train diagnosis | built | dsgn | high | [D14.md](D14.md) |
+| 10 | D14 | Train hub dev build: save waiter defect and open stalled-train diagnosis | open | dsgn | high | [D14.md](D14.md) |
 

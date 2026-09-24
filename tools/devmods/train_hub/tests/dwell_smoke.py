@@ -1,5 +1,9 @@
 """D14(a): source-copy and native-wait permanent regression. No native save claim.
 
+KNOWN RED after the 2026-09-24 rollback: the original save defect remains.
+3a0faff passed this test but crashed on owner legacy loads; this test did not
+exercise old-to-new serialization and cannot establish save compatibility.
+
 --source accepts the pre-fix file for the failing control. The collector body is
 executed from the 1.1.1 archive, with coroutine.yield as a native C waiter.
 """

@@ -1,0 +1,544 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aad2d75
+					Render 0:00:00:007
+Date:          	Fri Sep 18 08:24:21 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	34%
+Disk Free      	1217988 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:097
+Steam initialized (AppId 3215050)
+					Render 0:00:00:100
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:469
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:613
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:848
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:875
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:02:876
+Lua revision: 405907
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.405907
+Build branch:  Release
+						Lua 0:00:04:962
+Account storage loaded successfully in 2 ms
+DLC norman loaded, lua revision 405907, assets revision 33225
+DLC thomas loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:04:966
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-049) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-020) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+						Lua 0:00:05:367
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:05:371
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=871 id=1						Lua 0:00:05:372
+
+[SMRTK] SMRTK_CORE loaded=true tee=false t=871 id=1
+						Lua 0:00:05:375
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 select tunable,scratch boot" t=871 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions="TRAIN_HUB_BUILD_20260918.md: centre/transition prototype" sitting=train_hub_move slots="1 traffic/power,2 inward,3 departure,4 crossing watch,5 outward,6 select tunable,scratch boot" t=871 id=2
+						Lua 0:00:05:377
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:05:378
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:05:379
+[TrainHubDev] train export floor loaded (standing + transient holds)
+						Lua 0:00:05:380
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+						Lua 0:00:05:381
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:05:382
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:05:383
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:05:384
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+						Lua 0:00:05:385
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:05:386
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:06:182
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:06:272
+Reloading done in 1305 ms
+						Lua 0:00:06:273
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:06:319
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=871 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=871 id=3
+						Lua 0:00:06:707
+[preset] Preset postprocess took 156 ms.
+						Lua 0:00:06:754
+482 / 482 particle streams loaded in 41 ms.
+						Lua 0:00:06:755
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:06:756
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+						Lua 0:00:06:757
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+						Lua 0:00:06:968
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:07:064
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=871 id=4
+						Lua 0:00:07:092
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):  method OnPresetPostLoad
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2518):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInTrainHub6'
+						Lua 0:00:07:103
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=871 id=5
+						Lua 0:00:07:114
+[mod] Loaded mod items for: SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityOptInPack, SMR_CommunityFixPack
+						Lua 0:00:07:374
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:07:375
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:07:475
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=871 id=6
+						Lua 0:00:07:916
+[PdxSDK] Started up. Took 1091
+						Lua 0:00:08:324
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:08:325
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:08:423
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:12:945
+Load Game: 
+	lua_revision: 403908 (last saved with) 						Lua 0:00:12:946
+
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33006 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918 
+						Lua 0:00:12:948
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:14:693
+*** Assets reloaded in 1.7 s, read 359.0 MB, read speed 205.7 MB/s, average read 8138 bytes.
+						Lua 0:00:15:633
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=5769 id=7
+						Lua 0:00:16:430
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=5769 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=5769 id=8
+						Lua 0:00:17:063
+A:\spark-release\HGE\luaSPersist.cpp(1272): ASSERT(((((ci->func))->tt_) == ((((6 | (0 << 4))) | (1 << 6))))) failed
+  Time: RT 7518 | GT 5769
+  Scope 
+						Lua 0:00:19:693
+[mod] This savegame tries to load Mod Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-019), which is loaded with a different version 1.00-020
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-027), which is loaded with a different version 0.00-049
+						Lua 0:00:21:085
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:00:21:086
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:00:21:087
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:00:21:091
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:21:097
+Applied 28 savegame fixup(s) in 5 ms: AAA_SetLRManagerMap, AgronomistFarmCropGrowth, CleanStaleRoverDamagedNotificationObjects, ConstructionSiteFlightMarks, CureSmallCropTechLock, CureUndergroundCropTechLock, FixDustGeneratorThrowTimes, FixFoodServiceMealsServedByShift, HospitalExoticMineralTreatment, KickWorkersFromTurnedOffDomes, MarkUnavoidableSupplyDrains, MoveOpenPasturePilesOffOrigin2, PipesAtBuildableLevelSteps, PoliticalAnimalAchievement2, RemarkJumboCaves, RemoveBreathableAtmosphereAirConsumptionModifier, ResetPlanetSceneCameraState, RespawnUnreachableBottomlessPitAnomalies, ResupplyCutoffLocksDelicacies, SplitDailyCountersByShift, ZZZZ_FixLeakedRocketReservations, ZZZ_DestroyTradeRocketsWithUnplacedLandingSite, ZZZ_FactionTaskDomeCompletableInAnyDome, ZZZ_HungerLocksFoodImport, ZZZ_RebuildElevatorResourceModeRegistration, ZZZ_ReviveElevatorSharedDepots, ZZZ_UpdateRefuelRequests, Zzz_RestartStalledMaintenanceDemand
+						Lua 0:00:21:204
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, NASA, Brazil
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:21:256
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 8311 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=28 last=section_attach last_id=39 present=true session=1790028373:3659795611:1976295557:668693811 t=19386195 id=9
+[SMRTK] SMRTK_PROVENANCE actions=28 last=section_attach last_id=39 present=true session=1790028373:3659795611:1976295557:668693811 t=19386195 id=9
+						Lua 0:00:21:268
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19386195 id=10
+						Lua 0:00:21:282
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=19386195 id=11
+						Lua 0:00:21:286
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:21:395
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19386195 id=12
+						Lua 0:00:21:408
+
+
+
+ =================[ CRASH ]=================
+
+Writing minidump (if there's no 'Minidump Done' below, it crashed)
+						Lua 0:00:21:664
+		Minidump Done
+Parsing map file (if there's no 'ParseMap Done' below, it crashed)
+		ParseMap Done
+--------------------------------------------------------------
+-- Exception Information
+--
+
+Thread:        	2004 "Lua"
+Module:        	Mars.exe
+Address:       	00000033:00007ff787364e06
+Process:      	7ff787290000
+Error:         	Access violation
+Details:       	Read from location 00000001BA5175D3
+
+Scope:	
+All thread scopes:
+
+Registers:
+RAX=00000212e2fdd290 CS=00000033 RIP=00007ff787364e06 EFLAGS=00010206
+RBX=00000212e2952798 SS=0000002b RSP=00000015878fef90 RBP=0000000000000001
+RCX=00000212e2952798 DS=0000002b RSI=00000212e3001888 FS=0053
+RDX=00000212e64419f7 ES=0000002b RDI=00000212e2fdd290 GS=002b
+R8=00000001ba5175d7  R9=0000000000000001  R10=000000000010000b R11=000000007ffe03d8
+R12=0000000000000000 R13=000000000127cf53 R14=0000000000000000 R15=0000000000000001
+
+Stack:
+15878fef90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878fefa0: 09 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+15878fefb0: 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+15878fefc0: 00 00 00 00 00 00 00 00 f8 27 95 e2 12 02 00 00  .........'......
+15878fefd0: 88 18 00 e3 12 02 00 00 01 00 00 00 00 00 00 00  ................
+15878fefe0: 98 27 95 e2 12 02 00 00 aa 1e 34 87 f7 7f 00 00  .'........4.....
+15878feff0: 53 cf 27 01 00 00 00 00 3a 8d b1 e7 12 02 00 00  S.'.....:.......
+15878ff000: 58 d5 da e5 12 02 00 00 e8 1f 93 e3 12 02 00 00  X...............
+15878ff010: ff ff ff ff 00 00 00 00 00 00 a0 e1 12 02 00 00  ................
+15878ff020: 01 00 00 00 00 00 00 00 20 ca 36 88 f7 7f 00 00  ........ .6.....
+15878ff030: 00 00 00 00 00 00 00 00 5b 09 34 87 f7 7f 00 00  ........[.4.....
+15878ff040: 98 27 95 e2 12 02 00 00 00 00 00 00 00 00 00 00  .'..............
+15878ff050: 98 27 95 e2 12 02 00 00 a4 ce 34 87 f7 7f 00 00  .'........4.....
+15878ff060: 01 00 00 00 00 00 00 00 78 1a a0 e1 12 02 00 00  ........x.......
+15878ff070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff080: 40 f0 8f 87 15 00 00 00 84 27 95 e2 12 02 00 00  @........'......
+15878ff090: 40 f0 8f 87 15 00 00 00 00 00 00 00 00 00 00 00  @...............
+15878ff0a0: 98 27 95 e2 12 02 00 00 20 ca 36 88 f7 7f 00 00  .'...... .6.....
+15878ff0b0: 00 00 00 00 00 00 00 00 53 cf 27 01 00 00 00 00  ........S.'.....
+15878ff0c0: 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+15878ff0d0: 3d 09 34 87 f7 7f 00 00 a1 1f 00 00 7f 02 00 00  =.4.............
+15878ff0e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff0f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff110: 00 00 00 00 00 00 00 80 00 00 00 00 00 00 00 00  ................
+15878ff120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff130: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff140: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff150: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff160: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff170: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff180: 00 00 00 00 f7 7f 00 00 00 00 00 00 00 00 00 00  ................
+15878ff190: 84 27 95 e2 12 02 00 00 e8 1f 34 87 f7 7f 00 00  .'........4.....
+15878ff1a0: 98 27 95 e2 12 02 00 00 00 1d 34 87 f7 7f 00 00  .'........4.....
+15878ff1b0: 10 f2 8f 87 15 00 00 00 18 ae 84 87 f7 7f 00 00  ................
+15878ff1c0: a8 19 a0 e1 12 02 00 00 88 69 b0 e7 12 02 00 00  .........i......
+15878ff1d0: b8 44 37 88 f7 7f 00 00 20 ca 36 88 f7 7f 00 00  .D7..... .6.....
+15878ff1e0: 01 00 00 00 00 00 00 00 a8 19 a0 e1 12 02 00 00  ................
+15878ff1f0: 00 00 00 00 00 00 00 00 f8 b9 84 87 f7 7f 00 00  ................
+15878ff200: 01 00 00 00 12 02 00 00 84 8b b1 e7 12 02 00 00  ................
+15878ff210: 01 00 00 00 12 02 00 00 00 00 a0 e1 12 02 00 00  ................
+15878ff220: 01 00 88 ec 12 02 00 00 b6 71 c5 87 f7 7f 00 00  .........q......
+15878ff230: 40 42 0f 00 00 00 00 00 a8 19 a0 e1 12 02 00 00  @B..............
+15878ff240: 39 8e e3 38 8e e3 38 8e c5 1f 01 e6 12 02 00 00  9..8..8.........
+15878ff250: 28 fe fe e4 12 02 00 00 9d c9 84 87 f7 7f 00 00  (...............
+15878ff260: 00 00 00 00 00 00 00 00 a8 19 a0 e1 12 02 00 00  ................
+15878ff270: 50 c9 84 87 f7 7f 00 00 60 1d 00 00 00 00 00 00  P.......`.......
+15878ff280: a8 19 a0 e1 12 02 00 00 b3 13 34 87 f7 7f 00 00  ..........4.....
+15878ff290: 3d 09 34 87 f7 7f 00 00 a1 1f 00 00 7f 02 00 00  =.4.............
+15878ff2a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff2b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff2c0: 64 40 00 01 00 00 00 00 64 40 00 01 00 00 00 00  d@......d@......
+15878ff2d0: c5 1f 01 e6 12 02 00 00 01 00 00 00 00 00 00 00  ................
+15878ff2e0: 09 00 00 00 00 00 00 00 00 f4 8f 87 15 00 00 00  ................
+15878ff2f0: 02 00 00 00 00 00 00 00 d8 7c 36 87 f7 7f 00 00  .........|6.....
+15878ff300: 1e f7 14 e6 12 02 00 00 00 00 00 00 00 00 00 00  ................
+15878ff310: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff320: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+15878ff330: 40 59 67 e2 12 02 00 00 00 00 00 00 00 00 00 00  @Yg.............
+15878ff340: 01 00 00 00 f7 7f 00 00 00 00 00 00 00 00 00 00  ................
+15878ff350: f4 8c 7e e4 12 02 00 00 e8 1f 34 87 f7 7f 00 00  ..~.......4.....
+15878ff360: 08 8d 7e e4 12 02 00 00 00 1d 34 87 f7 7f 00 00  ..~.......4.....
+15878ff370: d0 f3 8f 87 15 00 00 00 18 ae 84 87 f7 7f 00 00  ................
+15878ff380: a8 19 a0 e1 12 02 00 00 28 b2 66 e2 12 02 00 00  ........(.f.....
+
+
+Calls:
+
+						Lua 0:00:21:665
+Modules:
+A:\SteamLibrary\steamapps\common\Project Spark\Mars.exe, loaded at 0x7ff787290000, size 18768896 bytes
+C:\WINDOWS\SYSTEM32\ntdll.dll, loaded at 0x7ff991d80000, size 2522000 bytes
+C:\WINDOWS\System32\KERNEL32.DLL, loaded at 0x7ff991320000, size 836128 bytes
+C:\WINDOWS\System32\KERNELBASE.dll, loaded at 0x7ff98f0e0000, size 4133496 bytes
+C:\WINDOWS\SYSTEM32\apphelp.dll, loaded at 0x7ff98c050000, size 662560 bytes
+C:\WINDOWS\SYSTEM32\AcGenral.DLL, loaded at 0x7ff93ca20000, size 468376 bytes
+C:\WINDOWS\System32\msvcrt.dll, loaded at 0x7ff990880000, size 699768 bytes
+C:\WINDOWS\System32\sechost.dll, loaded at 0x7ff991990000, size 691520 bytes
+C:\WINDOWS\System32\SHLWAPI.dll, loaded at 0x7ff991120000, size 427056 bytes
+C:\WINDOWS\System32\ucrtbase.dll, loaded at 0x7ff98eed0000, size 1373328 bytes
+C:\WINDOWS\System32\USER32.dll, loaded at 0x7ff9904b0000, size 1873248 bytes
+C:\WINDOWS\System32\win32u.dll, loaded at 0x7ff98f710000, size 170912 bytes
+C:\WINDOWS\System32\GDI32.dll, loaded at 0x7ff990f10000, size 187392 bytes
+C:\WINDOWS\System32\gdi32full.dll, loaded at 0x7ff98f9f0000, size 1232800 bytes
+C:\WINDOWS\System32\msvcp_win.dll, loaded at 0x7ff98f660000, size 641944 bytes
+C:\WINDOWS\System32\ole32.dll, loaded at 0x7ff991aa0000, size 1683160 bytes
+C:\WINDOWS\System32\combase.dll, loaded at 0x7ff991420000, size 3716128 bytes
+C:\WINDOWS\System32\RPCRT4.dll, loaded at 0x7ff990390000, size 1162568 bytes
+C:\WINDOWS\System32\advapi32.dll, loaded at 0x7ff990680000, size 745240 bytes
+C:\WINDOWS\System32\shcore.dll, loaded at 0x7ff991220000, size 997288 bytes
+C:\WINDOWS\System32\SHELL32.dll, loaded at 0x7ff98fb20000, size 7728344 bytes
+C:\WINDOWS\System32\wintypes.dll, loaded at 0x7ff98f740000, size 1501376 bytes
+C:\WINDOWS\SYSTEM32\USERENV.dll, loaded at 0x7ff98e240000, size 187376 bytes
+C:\WINDOWS\SYSTEM32\MPR.dll, loaded at 0x7ff96ff30000, size 146080 bytes
+C:\WINDOWS\SYSTEM32\SspiCli.dll, loaded at 0x7ff98dee0000, size 307208 bytes
+C:\WINDOWS\System32\IMM32.DLL, loaded at 0x7ff990940000, size 212168 bytes
+C:\WINDOWS\System32\COMDLG32.dll, loaded at 0x7ff991c40000, size 962560 bytes
+C:\WINDOWS\System32\WS2_32.dll, loaded at 0x7ff990290000, size 489056 bytes
+C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.26100.7309_none_87ef0e2f7a2c9771\COMCTL32.dll, loaded at 0x7ff95b200000, size 738688 bytes
+C:\WINDOWS\System32\imagehlp.dll, loaded at 0x7ff9913f0000, size 137832 bytes
+C:\WINDOWS\System32\PSAPI.DLL, loaded at 0x7ff990280000, size 42696 bytes
+C:\WINDOWS\System32\CRYPT32.dll, loaded at 0x7ff98f4e0000, size 1534432 bytes
+C:\WINDOWS\System32\SETUPAPI.dll, loaded at 0x7ff990980000, size 4802864 bytes
+C:\WINDOWS\SYSTEM32\MSWSOCK.dll, loaded at 0x7ff98e190000, size 447712 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\libfbxsdk.dll, loaded at 0x7ff880fa0000, size 8000288 bytes
+C:\WINDOWS\SYSTEM32\faultrep.dll, loaded at 0x7ff93d1c0000, size 559272 bytes
+C:\WINDOWS\SYSTEM32\dxgi.dll, loaded at 0x7ff98c2a0000, size 1294768 bytes
+C:\WINDOWS\SYSTEM32\WININET.dll, loaded at 0x7ff973f30000, size 2670720 bytes
+						Lua 0:00:21:666
+C:\WINDOWS\SYSTEM32\bcrypt.dll, loaded at 0x7ff98edc0000, size 183264 bytes
+C:\WINDOWS\SYSTEM32\WINMM.dll, loaded at 0x7ff9813c0000, size 220448 bytes
+C:\WINDOWS\SYSTEM32\XAudio2_9.dll, loaded at 0x7ff93c980000, size 589824 bytes
+C:\WINDOWS\SYSTEM32\HID.DLL, loaded at 0x7ff98d320000, size 61440 bytes
+C:\WINDOWS\SYSTEM32\MSVCP140.dll, loaded at 0x7ff974770000, size 643512 bytes
+C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll, loaded at 0x7ff974710000, size 178616 bytes
+C:\WINDOWS\SYSTEM32\VCRUNTIME140_1.dll, loaded at 0x7ff975770000, size 50112 bytes
+C:\WINDOWS\SYSTEM32\powrprof.dll, loaded at 0x7ff98e7c0000, size 398160 bytes
+C:\WINDOWS\SYSTEM32\AVRT.dll, loaded at 0x7ff989360000, size 55168 bytes
+C:\WINDOWS\SYSTEM32\MMDevAPI.DLL, loaded at 0x7ff980e00000, size 629520 bytes
+C:\WINDOWS\SYSTEM32\UMPDC.dll, loaded at 0x7ff98e760000, size 92352 bytes
+C:\Program Files (x86)\Steam\gameoverlayrenderer64.dll, loaded at 0x7ff900610000, size 1576600 bytes
+C:\WINDOWS\System32\OLEAUT32.dll, loaded at 0x7ff990e30000, size 885688 bytes
+C:\WINDOWS\SYSTEM32\CFGMGR32.dll, loaded at 0x7ff98eb60000, size 365064 bytes
+C:\WINDOWS\SYSTEM32\kernel.appcore.dll, loaded at 0x7ff98dc40000, size 121264 bytes
+C:\WINDOWS\System32\bcryptPrimitives.dll, loaded at 0x7ff98f8b0000, size 691504 bytes
+C:\WINDOWS\SYSTEM32\windows.storage.dll, loaded at 0x212dd250000, size 8835752 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\steam_api64.dll, loaded at 0x7ff93cda0000, size 298384 bytes
+C:\Program Files (x86)\Steam\steamclient64.dll, loaded at 0x7ff8be320000, size 26328216 bytes
+C:\Program Files (x86)\Steam\tier0_s64.dll, loaded at 0x7ff8d7de0000, size 900760 bytes
+C:\Program Files (x86)\Steam\vstdlib_s64.dll, loaded at 0x7ff8d7670000, size 487576 bytes
+C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL, loaded at 0x7ff98d630000, size 224584 bytes
+C:\WINDOWS\SYSTEM32\VERSION.dll, loaded at 0x7ff9884a0000, size 55192 bytes
+C:\WINDOWS\SYSTEM32\Secur32.dll, loaded at 0x7ff98c100000, size 53248 bytes
+C:\WINDOWS\SYSTEM32\CRYPTBASE.DLL, loaded at 0x7ff98e3e0000, size 59336 bytes
+C:\WINDOWS\SYSTEM32\profapi.dll, loaded at 0x7ff98edf0000, size 179112 bytes
+C:\WINDOWS\SYSTEM32\dxcore.dll, loaded at 0x7ff98c250000, size 278280 bytes
+C:\WINDOWS\SYSTEM32\directxdatabasehelper.dll, loaded at 0x7ff989b10000, size 410504 bytes
+C:\WINDOWS\SYSTEM32\msasn1.dll, loaded at 0x7ff98e5e0000, size 88248 bytes
+C:\WINDOWS\SYSTEM32\cryptnet.dll, loaded at 0x7ff988130000, size 253512 bytes
+C:\WINDOWS\SYSTEM32\wldp.dll, loaded at 0x7ff98e480000, size 422944 bytes
+C:\WINDOWS\SYSTEM32\drvstore.dll, loaded at 0x7ff987fb0000, size 1567488 bytes
+C:\WINDOWS\SYSTEM32\devobj.dll, loaded at 0x7ff98eb30000, size 195560 bytes
+C:\WINDOWS\System32\wintrust.dll, loaded at 0x7ff98f960000, size 534504 bytes
+C:\WINDOWS\SYSTEM32\CRYPTSP.dll, loaded at 0x7ff98e580000, size 121312 bytes
+C:\WINDOWS\system32\rsaenh.dll, loaded at 0x7ff98dba0000, size 249384 bytes
+C:\WINDOWS\system32\nvspcap64.dll, loaded at 0x7ff9463c0000, size 1424496 bytes
+C:\WINDOWS\SYSTEM32\ntmarta.dll, loaded at 0x7ff98dd60000, size 224584 bytes
+C:\WINDOWS\system32\uxtheme.dll, loaded at 0x7ff98c170000, size 692224 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvppex.dll, loaded at 0x7ff944b20000, size 7601328 bytes
+C:\WINDOWS\System32\MSCTF.dll, loaded at 0x7ff990f40000, size 1447632 bytes
+C:\WINDOWS\SYSTEM32\textinputframework.dll, loaded at 0x7ff94aef0000, size 1360888 bytes
+C:\WINDOWS\SYSTEM32\d3d12.dll, loaded at 0x7ff8db5a0000, size 146080 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\D3D12Core.dll, loaded at 0x7ff8edf90000, size 4821064 bytes
+						Lua 0:00:21:667
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvldumdx.dll, loaded at 0x7ff9884b0000, size 842960 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvgpucomp64.dll, loaded at 0x7ff981a30000, size 99396392 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\NvMemMapStoragex.dll, loaded at 0x7ff980660000, size 1284016 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvwgf2umx.dll, loaded at 0x7ff97a4d0000, size 90502104 bytes
+C:\WINDOWS\SYSTEM32\D3DSCache.dll, loaded at 0x7ff9019f0000, size 947664 bytes
+C:\WINDOWS\SYSTEM32\dcomp.dll, loaded at 0x7ff98b620000, size 2249256 bytes
+C:\WINDOWS\SYSTEM32\Microsoft.Internal.WarpPal.dll, loaded at 0x7ff98a7e0000, size 113024 bytes
+C:\WINDOWS\SYSTEM32\dwmapi.dll, loaded at 0x7ff98c400000, size 191512 bytes
+C:\WINDOWS\SYSTEM32\gpapi.dll, loaded at 0x7ff98e200000, size 212192 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\_nvngx.dll, loaded at 0x7ff8dafb0000, size 1422568 bytes
+C:\WINDOWS\SYSTEM32\nvapi64.dll, loaded at 0x7ff9777b0000, size 572368 bytes
+C:\WINDOWS\system32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvapi64_impl.dll, loaded at 0x7ff977230000, size 5514512 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\nvngx_dlss.dll, loaded at 0x7ff876ce0000, size 58977904 bytes
+C:\Program Files\NVIDIA Corporation\NvTelemetry\NvTelemetryAPI64.dll, loaded at 0x7ff94b950000, size 4866672 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvcuda64.dll, loaded at 0x7ff874e00000, size 32173800 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvdxgdmal64.dll, loaded at 0x7ff93c410000, size 712424 bytes
+C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_b26cc1edfbb8f4d0\nvobjectloader64.dll, loaded at 0x7ff873ff0000, size 14654184 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\libxess.dll, loaded at 0x7ff843350000, size 77795704 bytes
+C:\Program Files\NVIDIA Corporation\NvTelemetry\NvTelemetryBridge64.dll, loaded at 0x7ff961b70000, size 426608 bytes
+C:\WINDOWS\SYSTEM32\mscms.dll, loaded at 0x7ff95b900000, size 803048 bytes
+C:\WINDOWS\SYSTEM32\icm32.dll, loaded at 0x7ff93c700000, size 290816 bytes
+C:\WINDOWS\system32\napinsp.dll, loaded at 0x7ff95c2a0000, size 108792 bytes
+C:\WINDOWS\SYSTEM32\DNSAPI.dll, loaded at 0x7ff98d720000, size 1241048 bytes
+C:\WINDOWS\System32\NSI.dll, loaded at 0x7ff990e20000, size 51048 bytes
+C:\WINDOWS\System32\winrnr.dll, loaded at 0x7ff95c2c0000, size 84120 bytes
+C:\WINDOWS\system32\nlansp_c.dll, loaded at 0x7ff95c2e0000, size 139264 bytes
+C:\WINDOWS\system32\wshbth.dll, loaded at 0x7ff95c310000, size 90112 bytes
+C:\Windows\System32\rasadhlp.dll, loaded at 0x7ff988450000, size 45056 bytes
+C:\WINDOWS\System32\fwpuclnt.dll, loaded at 0x7ff987a70000, size 548864 bytes
+C:\WINDOWS\System32\clbcatq.dll, loaded at 0x7ff9907c0000, size 720400 bytes
+C:\WINDOWS\SYSTEM32\AUDIOSES.DLL, loaded at 0x7ff979fa0000, size 1803008 bytes
+C:\Windows\System32\Windows.UI.dll, loaded at 0x7ff96e350000, size 1402224 bytes
+C:\WINDOWS\SYSTEM32\xinput9_1_0.dll, loaded at 0x7ff989dc0000, size 36864 bytes
+C:\WINDOWS\SYSTEM32\XInput1_4.dll, loaded at 0x7ff925b30000, size 114688 bytes
+C:\WINDOWS\SYSTEM32\inputhost.dll, loaded at 0x7ff946a70000, size 2005496 bytes
+C:\WINDOWS\SYSTEM32\CoreMessaging.dll, loaded at 0x7ff98bc90000, size 1224528 bytes
+C:\WINDOWS\SYSTEM32\resourcepolicyclient.dll, loaded at 0x7ff98c690000, size 92344 bytes
+A:\SteamLibrary\steamapps\common\Project Spark\PDXSDK.dll, loaded at 0x7ff8738d0000, size 2966016 bytes
+C:\WINDOWS\SYSTEM32\iertutil.dll, loaded at 0x7ff96e730000, size 2922784 bytes
+C:\WINDOWS\SYSTEM32\netutils.dll, loaded at 0x7ff98d5f0000, size 63336 bytes
+C:\WINDOWS\SYSTEM32\srvcli.dll, loaded at 0x7ff972320000, size 146080 bytes
+C:\WINDOWS\SYSTEM32\ondemandconnroutehelper.dll, loaded at 0x7ff9632c0000, size 122880 bytes
+						Lua 0:00:21:668
+C:\WINDOWS\SYSTEM32\WINHTTP.dll, loaded at 0x7ff987cd0000, size 1224528 bytes
+C:\WINDOWS\SYSTEM32\WINNSI.DLL, loaded at 0x7ff98a010000, size 71680 bytes
+C:\WINDOWS\SYSTEM32\DPAPI.DLL, loaded at 0x7ff98ebc0000, size 40960 bytes
+C:\WINDOWS\SYSTEM32\urlmon.dll, loaded at 0x7ff96edb0000, size 1921024 bytes
+C:\WINDOWS\system32\schannel.DLL, loaded at 0x7ff98da70000, size 794624 bytes
+C:\WINDOWS\SYSTEM32\ncrypt.dll, loaded at 0x7ff98e780000, size 208040 bytes
+C:\WINDOWS\SYSTEM32\NTASN1.dll, loaded at 0x7ff98e710000, size 270056 bytes
+C:\WINDOWS\system32\ncryptsslp.dll, loaded at 0x7ff95b310000, size 274184 bytes
+C:\WINDOWS\SYSTEM32\TextShaping.dll, loaded at 0x7ff9479b0000, size 749368 bytes
+C:\WINDOWS\SYSTEM32\CoreUIComponents.dll, loaded at 0x7ff988c40000, size 3031400 bytes
+Last 0 Gossips:
+
+
+Available memory:
+	physical: 39994ll MB
+	virtual:  134109834ll MB
+	pagefile: 155615ll MB
+
+Process memory usage:  2748 MB
+Process avg CPU usage: 4 %
+
+Process HANDLEs: 1282
+
+
+*** Debug::Done()
+Time (ms)	21668
+
+

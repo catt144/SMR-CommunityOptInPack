@@ -1,0 +1,2 @@
+# Preserve the native crash evidence byte-for-byte, including mixed newlines.
+*.log -text -diff

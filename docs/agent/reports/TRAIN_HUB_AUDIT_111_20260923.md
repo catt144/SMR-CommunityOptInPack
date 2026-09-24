@@ -1,9 +1,11 @@
 # Train hub / rail shaft audit — 1.1.1.405907
 
 Executed 2026-09-24; owner request and incident 2026-09-23. **Stall cause OPEN.**
-The audit found and repaired a source-confirmed save defect in our global dwell
-hook (`3a0faff`, D14(a)). It does not establish that this caused the reported lock-up.
-No game ran during the audit. The game was closed when checked; the availability
+**Correction after owner testing: `3a0faff` is withdrawn.** Old autosave and
+known-good template loads asserted and crashed with that change. The legacy
+dwell closure is restored; its original save defect remains OPEN. Start with
+the load-crash follow-up below before using the older audit instructions.
+No game ran during the initial audit. The game was closed when checked; the availability
 question received no answer during the source work. Brief stop 1 applies: the
 stalled save must be read with the owner. Link 5 resumes with §6, before its next
 meteor or mid-trip save. This is not certification of either dev mod on 1.1.1.
@@ -233,7 +235,7 @@ native result; only observed resumption can close the stall cause.
 
 | finding or request | home / next action | disposition |
 |---|---|---|
-| Save permanent defect | D14(a), `3a0faff`; §6 native control | Built, source-tested; not native-certified |
+| Save permanent defect | D14(a); load-crash follow-up below | `3a0faff` withdrawn; legacy hook restored, original save defect OPEN |
 | Stall classification | §6; link 5 upstream notes | Open under brief stop 1 |
 | Exhaustive engine-field/class/message audit | inventory file/member/assignment/citation arrays; manually resolve remaining candidates and literal commands on the relevant archive | **Incomplete**. The table above names adjudicated groups; inventory is not a substitute for reviewing every receiver and field. Citation-only and lower-priority semantic rows remain. |
 | Cross-map drone ownership | D14(b), this mod OI-27 | Owner design ruling; no map guard built |
@@ -251,3 +253,80 @@ native result; only observed resumption can close the stall cause.
 map row, but does not retire the pending L5 work. No STATE or archived text was
 edited. Executed model from this transcript: **GPT-6 (Codex)**; no more specific
 model/effort identifier was exposed. No native game, upload or publication occurred.
+
+## 8. Owner load crashes and rollback, 2026-09-24
+
+**Observed:** the owner attempted the stalled autosave, received assertions in
+`luaSPersist.cpp(1272)`, chose Ignore All, and crashed to desktop. The owner then
+reported the same failure in older known-good templates. The screenshots and
+native logs supersede the earlier source-only confidence in `3a0faff`.
+
+The preserved logs are in
+[`docs/archive/train_hub_load_crash_20260924/`](../../archive/train_hub_load_crash_20260924/).
+Read with `rg -n 'Load Game:|last saved|ASSERT|Game Loaded|Access violation|Details:'`
+over those named files [RAN 2026-09-24, HEAD `1b6f28e`]:
+
+| log suffix (all `Mars.exe-20260924-`, build `6aad2d75`, game 1.1.1.405907) | last saved on | assertion / crash lines |
+|---|---|---|
+| `10.28.59-6aad2d75.log` | 405907 | 222, 226 / 305-306 |
+| `10.33.26-6aad2d75.log` | 403908 | 221 / 275-276 |
+| `10.36.16-6aad2d75.log` | 403908 | 225 / 305-306 |
+
+Each reaches a `Game Loaded` line after an assertion, then the Lua thread has
+an access violation reading `00000001BA5175D3`. That line is not a successful
+load verdict. The first two screenshots test `ci->func`'s type; the third tests
+its GC object's type. Ignoring the assertions did not restore a usable colony.
+
+A later log, `10.42.33-6aad2d75.log`, is also preserved. It asserts at 113 and
+crashes at 158-159, but lines 119-122 explicitly say the opt-in pack, TestKit,
+fix pack and hub are present **but not loaded**. This launch followed the rollback
+write at 10:41:01, but did not execute it. It is not the rollback control. The
+owner was told to re-enable the original mod set and restart before that check.
+
+**Source-supported regression hypothesis:** the old hook occupied the engine's
+`cthread.WaitWakeup` permanent with a Lua closure. `3a0faff` made the same label
+resolve to a C function. The existing test exercised the new collector at save
+and load; it never restored a save made with the old mapping. A Lupa probe at
+`1b6f28e` confirms `debug.getinfo(...).what` changes from `Lua` to `C` across
+those implementations. This is a type-mapping demonstration, not native
+deserialization. The native C++ serializer source was unavailable; the precise
+failing saved frame and recovery of the autosave remain unproved.
+
+**Containment:** restored the dwell helper and wrapper byte-for-byte from
+`d73d701`, removed the copied train commands, and restored the corresponding
+movement smoke while retaining its 1.1.1 source pin. The restored section from
+`local function hub_dwell_train(` to `local hub_work_radius` has SHA256
+`2d64e75720a577aaa56d53fd7e2dc2812fcaa520513d77908c5537225c95dd23`.
+An equality assertion against `git show d73d701:tools/devmods/train_hub/Code/20_TrainHub.lua`
+passed [RAN 2026-09-24, HEAD `1b6f28e` plus rollback diff]. This is a rollback,
+not a new serialization fix. No save bytes or installed game files were changed.
+
+Backups outside the game's autosave rotation are in
+`scratch/train_hub_load_20260924/saves/`, with full-file hash equality recorded in
+`scratch/train_hub_load_20260924/backup_receipt.json`. Members: `Autosave Sol 31(3)`,
+`train_hub_base`, `train_hub_base_agent`, `tunnel test`, and `SMRTK_A` (original
+extensions retained). Their plaintext metadata records hub versions 49, 15, 9,
+27, and 49 respectively. The first 200000 bytes were read for metadata; compressed
+persist bodies were **not decoded**. An initial FLPK extraction assumption failed
+on the BPUL header, before changing any input. The original source defect still
+does not establish that every old save is damaged.
+
+Checks [RAN 2026-09-24, HEAD `1b6f28e` plus rollback diff]:
+`python tools/parsecheck.py --dir tools/devmods/train_hub/Code` and
+`python tools/devmods/train_hub/tests/move_smoke.py` pass.
+`python tools/devmods/train_hub/tests/dwell_smoke.py` deliberately remains RED
+at the missing native permanent assertion: the original defect is still present.
+Do not reinterpret that failure as a clean save result or weaken the test.
+
+**Next owner check:** enable the original mod set, fully restart, load `train_hub_base`, do not overwrite it,
+and exit rather than ignore an assertion. The agent reads the new log. A load
+without assertions or CTD is the rollback control; if it still fails, the mapping
+hypothesis alone is insufficient. If it loads, diagnose the old/new permanent
+transition and test a migration before reintroducing the save repair. That repair
+must distinguish legacy and newly written saves, and cover old→new→save→reload,
+ordinary native saves and suspended waits. A version-only guess is insufficient:
+`3a0faff` retained dev version 49, and the wrapper was introduced during version 9.
+Then resume §6's stall reads and L5's remaining smoke. Neither native rollback
+success nor save recovery has been observed yet.
+
+Executed model: GPT-6 (Codex), as exposed by the transcript; no subagents.

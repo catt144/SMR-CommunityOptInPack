@@ -58,13 +58,18 @@ reload, in that order.
 
 ## Notes from upstream
 
-### Audit handoff, 2026-09-24 — diagnose the stalled save before resuming the smoke
+### Audit handoff, 2026-09-24 — confirm rollback loads before resuming the smoke
 
-Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, especially §6. The one-off
-audit stopped at missing owner game state; the stall cause is OPEN. `3a0faff` fixes
-the global dwell hook displacing the native WaitWakeup save permanent (D14(a));
-native save/reload and train resumption are still owed. Restart the process first,
-keep the stalled save, and give Sweep, Routes, Status and HubRepairStatus one at
+Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, §8 before §6. The owner
+tried the autosave and known-good templates: loader assertions, then CTD after
+Ignore All. `3a0faff` is withdrawn; the exact legacy dwell closure is restored.
+First confirm a fresh-process `train_hub_base` load with the original mods enabled,
+without assertions or CTD;
+do not save over the template, and exit if an assertion appears. The original
+save defect is OPEN and `dwell_smoke.py` is RED. Old/new permanent compatibility
+needs a migration and native old→new→save→reload controls before resuming saves.
+The stall cause remains OPEN. Once loading works, preserve the stalled save and
+give Sweep, Routes, Status and HubRepairStatus one at
 a time before adding damage or clearing locks. The report has the next track and
 thread reads. A successful toolkit SAVE line did not mean serialization was clean.
 

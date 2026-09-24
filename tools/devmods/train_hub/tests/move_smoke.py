@@ -263,7 +263,7 @@ h.electricity.production=0; h:OnModifiableValueChanged('electricity_production')
 assert(h.electricity.production==70000)
 ''')
 # Exercise the archived command bodies, including time consumed before their wait.
-lua.execute("local Floor=SMROptInTrainFloor\n" + between(code, "local function hub_dwell_timeout(", "local hub_work_radius") + "\nInstallHubDwell=install_hub_dwell")
+lua.execute("local Floor=SMROptInTrainFloor\n" + between(code, "local function hub_dwell_train(", "local hub_work_radius") + "\nInstallHubDwell=install_hub_dwell")
 lua.execute(between(train, "function Train:LoadTrain()", "function Train:WaitForTrack("))
 lua.execute(between(train, "function Train:UnloadTrain()", "function Train:IsStoppingOn("))
 lua.execute(r'''
@@ -280,15 +280,12 @@ function WaitWakeup(timeout,...)
  return 'delegated',42
 end
 local hub=newhub(0,true)
-function IsKindOf(o,class) return o==hub and class=='SMROptInTrainHubBase' end
 local train=newtrain(hub,1)
 hub.city={labels={Train={train}}}
 function AllMapsForEach(_,class,fn,...) assert(class=='SMROptInTrainHubBase'); fn(hub,...) end
-local native_wait=WaitWakeup
 InstallHubDwell()
-assert(WaitWakeup==native_wait,'native permanent displaced')
-local installed=Train.LoadTrain
-InstallHubDwell(); assert(Train.LoadTrain==installed,'double installation')
+local installed=WaitWakeup
+InstallHubDwell(); assert(WaitWakeup==installed,'double installation')
 train.at_station=true; train.at_spawn_track=true; train.units={}
 train.current_station=hub; active_thread=train.command_thread
 local transfer_time=0
@@ -315,8 +312,7 @@ local a,b=WaitWakeup(12000); assert(clock==12000 and a=='delegated' and b==42)
 train.command='LoadTrain'; active_thread={}; clock=0
 WaitWakeup(12000); assert(clock==12000,'foreign thread changed')
 active_thread=train.command_thread; clock=0; SMROptInTrainFloor.HubDwellTime=5000
-train.track.GetStartStation=function() return hub end
-Train.LoadTrain(train); assert(clock==5000,'live dwell tuning ignored')
+WaitWakeup(12000); assert(clock==5000,'live dwell tuning ignored')
 SMROptInTrainFloor.HubDwellTime=6000
 ''')
 print("HEAD", subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
