@@ -329,6 +329,12 @@ reached. **The next sitting starts with the stall, not with freight**, on the re
 4. ⚠️ **Do not undo by disabling the mod.** `linked_obj` is vanilla's own saved field; the
    cross-map pair outlives this mod, and without the guards vanilla runs `AddPFTunnel` and
    `MergeGrids` across maps on the next load. `Unlink()` first, then disable if wanted.
+5. **The positive control — the placement rule, tested.** After `Unlink()`, build the surface
+   pair again with its keeper mouth's spur joining the hub line at its **end** station (one
+   whose only other track is the line itself), and the underground pair the same way at a line
+   end; `List()`, `Link(i, j)`, then `Routes()` — expect **0 broken** — and `Sweep()` — expect
+   every train `route_ok true`. Then a round trip as in batch 4. A pass turns §7 item 0 from a
+   derivation into a measured rule; a `BROKEN` line here means the rule is incomplete.
 
 The original batch list follows for the record. Both mods are normally loaded, so grep the log
 with the full token — `[RailShaftDev]` for this prototype, `[CommunityOptInPack]` for the pack.
@@ -409,11 +415,17 @@ Beyond the prototype, in rough order of cost. None of this is designed; it is th
    `GotoStation` goes `Idle` (`Train.lua:339-342`), or `TransferCargo` → no work → `LoadTrain`
    goes `Idle` (`:865-874`, `:285`) — with no error, and `OnMsg.NewHour` restarts it into the
    same wall (`:58-70`). *Derived from source, not yet measured*; the falsifier is
-   `SMRRailShaft.Routes()` (§6). If it holds, a module has three shapes to choose from: a shaft
-   mouth that is itself a **terminus** (its own station, no through-track); a shaft placed only
-   at a **line end**; or a route model that admits branches, which is a rewrite of
-   `RebuildTrainRoutes` and off the table. The first is the honest one and it is also what the
-   train hub's design already assumes about hub connectors.
+   `SMRRailShaft.Routes()` (§6). **The hijack is geometric.** A station passes a train to the
+   connector *opposite* its arrival (`Station.lua:945-947`: `el2eldir == dir or
+   abs(el2eldir - dir) == 3`). A spur that meets a mid-line station at an angle to both line
+   tracks is straight-through with neither: the retrace stops there, shaft trains treat the
+   station as a terminus (`Train:IsStoppingOn`, `:467`) and the line is untouched — a usable
+   feeder, but it depends on which hex the spur lands on. A spur dead-opposite one line track
+   walks through and overwrites that side. So the rule for a module is **a shaft extends a
+   line; it never branches one**: attach at a **line end** (the clean case — the two lines
+   become one longer chain), or accept the at-an-angle feeder knowingly. A route model that
+   admits branches would be a rewrite of `RebuildTrainRoutes` and is off the table. This is a
+   vanilla constraint on any third track at a station; the shaft only made a dead-end spur live.
 1. **Two-map placement.** The prototype dodges it by re-linking. A module needs a construction
    flow that places one mouth, lets the player switch maps, and places the other —
    `TunnelConstructionController:Activate` assumes one map throughout
