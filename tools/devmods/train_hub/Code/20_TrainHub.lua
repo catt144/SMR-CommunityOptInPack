@@ -51,44 +51,130 @@ Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward r
 Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
 Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 
--- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
--- issue exactly one WaitWakeup, after transfer/boarding, with the remaining
--- portion of a 12-second deadline. Subtract the difference from that input:
--- max(max(12000-elapsed,100)-6000,100) == max(6000-elapsed,100).
--- Layer 3 input adjustment; tail delegation has no post-yield work. No new
--- timer, saved timestamp, command replacement or early boarding wakeup.
-local function hub_dwell_train(hub, thread, result)
-	for _, train in ipairs(hub.city.labels.Train or empty_table) do
-		if train.current_station == hub and train.at_station
-			and train.command_thread == thread
-			and (train.command == "LoadTrain" or train.command == "UnloadTrain") then
-			result.train = train
-			return
-		end
-	end
+-- D14(a): never replace global WaitWakeup. The engine gathers the native waiter
+-- from that global as cthread.WaitWakeup (1.1.1.405907, archived
+-- CommonLua/Core/cthreads.lua:466-478). Replacing it leaves the native C frame
+-- in every sleeping deficit/flight thread without its permanent at save.
+-- These two mid-body timeout changes require command copies: Train.lua:230-289,
+-- :426-451 on that build. All other body bytes are vanilla; foreign stations
+-- delegate to the captured commands. No global wait, map scan or new saved name.
+-- Save policy: layer 2. These are blocking command bodies, inert once the
+-- content mod is removed; placed-hub removal remains unsupported (FIX_POLICY 0).
+local function hub_dwell_timeout(train)
+	local base = const.HourDuration / 5
+	if not rawget(_G, "SMROptInTrainFloor") or not train.at_station
+		or train.command_thread ~= CurrentThread() then return base end
+	return Max(100, Min(SMROptInTrainFloor.HubDwellTime, base))
 end
 
 local function install_hub_dwell()
 	if Floor.HubDwellInstalled then return end
-	local previous = rawget(_G, "WaitWakeup")
-	if type(previous) ~= "function" or type(AllMapsForEach) ~= "function" then
-		print("[TrainHubDev] hub dwell unavailable: wait/map API missing")
+	local previous_load, previous_unload = Train.LoadTrain, Train.UnloadTrain
+	if type(previous_load) ~= "function" or type(previous_unload) ~= "function" then
+		print("[TrainHubDev] hub dwell unavailable: train commands missing")
 		return
 	end
-	local wrapper = function(timeout, ...)
-		if rawget(_G, "SMROptInTrainFloor") and type(timeout) == "number"
-			and timeout >= 100 and timeout <= const.HourDuration / 5 then
-			local result = {}
-			AllMapsForEach("map", "SMROptInTrainHubBase", hub_dwell_train, CurrentThread(), result)
-			if result.train then
-				local dwell = Max(100, Min(SMROptInTrainFloor.HubDwellTime, const.HourDuration / 5))
-				timeout = Max(timeout - (const.HourDuration / 5 - dwell), 100)
+
+	function Train:LoadTrain()
+		-- FIX: only our station uses the copied command.
+		if not IsValid(self.current_station) or not IsKindOf(self.current_station, "SMROptInTrainHubBase") then
+			return previous_load(self)
+		end
+		local source_station = self.current_station
+		if not IsValid(self.track) or ((source_station ~= self.track:GetStartStation()) and (source_station ~= self.track:GetEndStation())) then
+			return self:DestroySilent("track")
+		end
+		local time_stamp = GameTime()
+		local next_track 
+		if not self.at_spawn_track then
+			next_track = source_station:GetConnectedTrack(self.track, "check dest") -- is our track going further?	
+		end
+
+		local inbound
+		for _, train in ipairs(self.track.assigned_vehicles) do
+			if train ~= self and not train.at_station and train.current_station ~= self.current_station then
+				inbound = true
+				break
 			end
 		end
-		return previous(timeout, ...)
+
+		local has_work, next_stop, boarding_colonists
+		local should_move = inbound or self.at_spawn_track
+		if IsValid(source_station) then
+			-- any cargo?
+			if next_track then
+				has_work, next_stop, boarding_colonists = self:TransferCargo(next_track, should_move)
+			end
+			if not has_work then -- we got nothing, maybe reverse?
+				-- we should check if the other side of the track is free first
+				if self.at_spawn_track or not source_station:GetOccupyingTrain(self.track) then
+					next_track = self.track
+					has_work, next_stop, boarding_colonists = self:TransferCargo(next_track, should_move)
+				end
+			end
+			assert(not has_work or next_stop)
+			Msg("TrainLoadedUnloaded", self, source_station)
+		end
+
+		if #boarding_colonists > 0 then
+			self:PushDestructor(function(self)
+				while #boarding_colonists > 0 do
+					Sleep(100)
+					for i, colonist in ripairs(boarding_colonists) do
+						if not colonist.transport_ticket or colonist.transport_ticket.stage ~= "Boarding" or not colonist:ShouldBoardTrain(source_station, next_track) then
+							table.remove(boarding_colonists, i)
+						end
+					end
+				end	
+			end)
+			self:PopAndCallDestructor()
+		end
+		-- todo: check if there's a train waiting?
+		-- FIX: shorten this train's deadline, preserving the native waiter.
+		WaitWakeup(Max(hub_dwell_timeout(self) - GameTime() + time_stamp, 100))
+		PlayFX("Loading","start", self)	
+		if not has_work then
+			-- OnMsg.NewHour will restart the service on its next tick and re-evaluate if there's any work to be serviced
+			self:SetCommand("Idle")
+		else
+			self:SetCommand("GotoStation", next_stop, self.track and "teleport")
+		end
 	end
-	_G.WaitWakeup = wrapper
-	Floor.HubDwellInstalled = rawget(_G, "WaitWakeup") == wrapper
+
+	function Train:UnloadTrain()
+		-- FIX: only our station uses the copied command.
+		if not IsValid(self.current_station) or not IsKindOf(self.current_station, "SMROptInTrainHubBase") then
+			return previous_unload(self)
+		end
+		PlayFX("Moving","end", self)
+		local time_stamp = GameTime()
+		local destination = self.current_station
+		self:PushDestructor(function(self)
+			local remaining_passengers = #self.units
+			for _, colonist in ripairs(self.units) do
+				self.entrance_fallback = false
+				if not colonist.transport_ticket or colonist.transport_ticket.dst_station == destination or not IsValid(destination) or not IsValid(colonist.transport_ticket.dst_station) then
+					colonist:SetCommand("ExitVehicle", self)				
+					remaining_passengers = remaining_passengers - 1
+				end
+			end
+			while #self.units > remaining_passengers do
+				Sleep(100)
+			end
+			if not IsValid(self) or IsBeingDestructed(self) then
+				return
+			end
+			if remaining_passengers == 0 and self.is_stopping then
+				self:DestroySilent("stopped")
+			else
+				self:QueueCommand("LoadTrain")
+			end
+		end)
+		self:PopAndCallDestructor()
+		-- FIX: shorten this train's deadline, preserving the native waiter.
+		WaitWakeup(Max(hub_dwell_timeout(self) - GameTime() + time_stamp, 100))
+	end
+	Floor.HubDwellInstalled = true
 end
 local hub_work_radius = 15
 local hub_drone_battery_max = 100 * const.DroneBatteryMax
