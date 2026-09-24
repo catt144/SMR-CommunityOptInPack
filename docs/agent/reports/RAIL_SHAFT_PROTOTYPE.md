@@ -329,12 +329,22 @@ reached. **The next sitting starts with the stall, not with freight**, on the re
 4. ⚠️ **Do not undo by disabling the mod.** `linked_obj` is vanilla's own saved field; the
    cross-map pair outlives this mod, and without the guards vanilla runs `AddPFTunnel` and
    `MergeGrids` across maps on the next load. `Unlink()` first, then disable if wanted.
-5. **The positive control — the placement rule, tested.** After `Unlink()`, build the surface
-   pair again with its keeper mouth's spur joining the hub line at its **end** station (one
-   whose only other track is the line itself), and the underground pair the same way at a line
-   end; `List()`, `Link(i, j)`, then `Routes()` — expect **0 broken** — and `Sweep()` — expect
-   every train `route_ok true`. Then a round trip as in batch 4. A pass turns §7 item 0 from a
-   derivation into a measured rule; a `BROKEN` line here means the rule is incomplete.
+5. **The positive control — attach the shaft to the hub (owner, 2026-09-23).** The train hub is
+   built on the rule that bit us: straight-through line pairs crossing, each connector pair its
+   own line (`TRAIN_LOGISTICS_DESIGN_20260917.md:256-263`, `:533`), with vanilla's
+   opposite-connector `GetConnectedTrack` inherited unchanged. After `Unlink()`, build the
+   surface pair with its keeper mouth's spur on a **hub connector whose opposite connector is
+   empty** — the shaft is then a dedicated shuttle terminating at the hub, invisible to its other
+   lines — and the underground pair at a line end or its own station. `List()`, `Link(i, j)`,
+   `Routes()` — expect **0 broken** — `Sweep()` — every train `route_ok true` — then a round trip.
+   Second shape, later: a connector whose opposite carries a line, so the shaft *extends* that
+   line underground. A pass turns §7 item 0 into a measured rule; a `BROKEN` line here means the
+   rule is incomplete.
+6. **Hand-off to the hub's owner before that sitting:** the hub's drone-dispatch graph follows a
+   tunnel's `linked_obj` with no map check (`20_TrainHub.lua:2124-2128`) and enrols every station
+   on the graph as hub-commanded (`:2133`). A shaft on the hub puts underground stations in that
+   graph; drones cannot fly there. It wants an `IsSameMap(node, far)` guard at `:2125`. Their
+   file; not edited here.
 
 The original batch list follows for the record. Both mods are normally loaded, so grep the log
 with the full token — `[RailShaftDev]` for this prototype, `[CommunityOptInPack]` for the pack.
