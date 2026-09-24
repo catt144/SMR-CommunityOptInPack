@@ -1,12 +1,14 @@
 # Train hub / rail shaft audit — 1.1.1.405907
 
 Executed 2026-09-24; owner request and incident 2026-09-23. **Siding deadlock fixed;
-owner confirms trains unstuck (§9). Save defect remains OPEN.**
+owner confirms trains unstuck (§9). The guarded autosave cycle, new manual save
+and fresh-process reload pass in the owner fixture (§§11–12). Wider audit residue remains.**
 **Correction after owner testing: `3a0faff` is withdrawn.** Old autosave and
 known-good template loads asserted and crashed with that change. The legacy
 dwell closure is restored; the owner's template and stalled autosave load again.
-New autosaves still report the C-function persist error. Start with §§8–9 before
-using the initial audit evidence below.
+Autosaves before the snapshot guard still reported the C-function persist error;
+the later closed run and fresh-load prefix do not (§§11–12). Start with §§8–12 before using
+the initial audit evidence below.
 No game ran during the initial audit. The game was closed when checked; the availability
 question received no answer during the source work. The later owner sitting
 supplied the stalled state and native fix result. Link 5 resumes with §6; save
@@ -205,9 +207,10 @@ DESIGN/L4 obligations remain reachable as tests on 1.1.1, with these qualificati
 
 The owner completed the template and autosave rollback controls and the train
 departure test. Their evidence is in §§8–9; do not ask for those same reads again.
-The next blocking agent work is D14(a)'s compatible save repair. Keep the protected
-input saves and require old→new→save→reload controls before resuming mid-trip save
-testing. A successful toolkit SAVE line is not a clean serializer result.
+The snapshot guard now passes the native autosave cycle, manual save and
+fresh-process reload controls (§§11–12); ck215 is consumed. Keep the protected
+inputs and the stated compatibility bounds. A successful toolkit SAVE line alone
+is not a clean serializer result.
 
 L5 still owes a measured repair to completion, including multiple breaks on a
 track, train motion afterwards, and its remaining DESIGN scenarios (§5). Read
@@ -221,7 +224,7 @@ clear locks or unlink tracks to diagnose an unexplained stall.
 
 | finding or request | home / next action | disposition |
 |---|---|---|
-| Save permanent defect | D14(a); load-crash follow-up below | `3a0faff` withdrawn; legacy hook restored, original save defect OPEN |
+| Save permanent defect | D14(a), §§8–12 | `3a0faff` withdrawn; guard `102f5f0` passes the observed native autosave/manual-save/fresh-process controls; historical fixture and ship-matrix bounds remain |
 | Stall classification | D14(f), §9; link 5 upstream notes | Siding guard corrected; owner confirms trains unstuck; visual clearance not explicitly confirmed |
 | Exhaustive engine-field/class/message audit | inventory file/member/assignment/citation arrays; manually resolve remaining candidates and literal commands on the relevant archive | **Incomplete**. The table above names adjudicated groups; inventory is not a substitute for reviewing every receiver and field. Citation-only and lower-priority semantic rows remain. |
 | Cross-map drone ownership | D14(b), this mod OI-27 | Owner design ruling; no map guard built |
@@ -488,12 +491,10 @@ Movement smoke and dev Lua parse pass. Its shared mock needed the normal OnMsg
 table because handlers now occur earlier in the source; its first failure was
 missing mock setup, not a runtime game failure. No clearance claim was added.
 
-**Native control pending, ck215:** restart with the candidate, first load the
-original stalled autosave and pause, then make and reload a separate named save
-and an autosave. Inspect the explicit metadata marker and closed native logs;
-do not count a toolkit SAVE success as serializer success. Both errors and
-positive load/save evidence must be read. The currently installed candidate
-must not be described as a verified save fix until those checks pass.
+**Native control, ck215:** §§11–12 record the subsequent legacy-load, autosave
+cycle, manual save and fresh-process reload result; the ask is consumed.
+The explicit metadata marker and closed-run error sweep accompany positive load
+evidence. This verifies the owner fixture, not full historical save compatibility.
 
 During preparation the active autosave entry had rotated out. The agent restored
 `Autosave Sol 31(3).savegame.sav` using exclusive-create from the protected backup;
@@ -506,3 +507,131 @@ Copy/readback equality was asserted. Earlier read attempts used a nonexistent
 donor saves path and omitted the Steam-id subdirectory; no absence conclusion
 was taken until the real directory was listed. A quoted PowerShell rg pattern
 also misrouted a search; the literal source searches above replaced it.
+
+## 11. Native 128× autosave cycle, 2026-09-24
+
+Owner loaded the original autosave, ran at 128×, let a new autosave generate,
+continued, reloaded that autosave, continued again and flushed the log. This
+fulfills the legacy-load and same-process autosave/reload portion of ck215.
+No code changed for this read. HEAD was `29c3666`; `git diff 102f5f0..HEAD --
+tools/devmods/train_hub/Code/20_TrainHub.lua tools/devmods/train_hub/tests/dwell_smoke.py`
+was empty. The intervening `29c3666` is design-only, outside this test.
+
+Preserved evidence in `docs/archive/train_hub_load_crash_20260924/`:
+`Mars.exe-20260924-12.06.00-6aad2d75.partial-autosave-validation.log` and its
+`.receipt.json`. The receipt records input hash, bytes, line count, HEAD, regexes,
+counts and exact matching members. Exclusive-create/readback equality preserved
+the captured bytes. The game was still open, so this is a flushed prefix through
+RT **0:24:47.809**, not a closed-process absence claim. The first Python print
+failed on a console encoding character; rerunning with UTF-8 stdout succeeded.
+
+Evidence on **1.1.1.405907**, executable **6aad2d75** (log header):
+
+| observation | members in preserved log | measured result |
+|---|---|---|
+| save guard installed | 136 | one positive guard marker |
+| game load completed | 270, 580 | two `Game Loaded in` markers |
+| map ready after load | 283, 593 | two map-ready markers |
+| 128× actions, counting `[mod]` only | 341, 493, 597, 743 | four positive speed records |
+| explicit flush actions, counting `[mod]` only | 740, 746 | two `flushed=true` records |
+| persistence/load/assert/crash filter below | empty member list | zero matches in this prefix |
+| Lua error | 165 | one: existing ArtSpecEditor.lua:573 / EntitySpecPathToEntity, D14(e) |
+| Braze failures | 193, 195, 197, 199, 202, 204 | six lines: DNS/session/launcher/init failures, same startup telemetry issue as earlier logs |
+
+Counts were measured by Python `re.search` per decoded line, with each pattern
+and matching line stored in the receipt. The negative check was also executed:
+
+```powershell
+rg -n 'Persist error:|Attempt to persist|ASSERT|\[ CRASH \]|Access violation|Unpersisted function|Unpersist missing permanent|snapshot cancelled|LoadGame error:|Savegame error:' docs/archive/train_hub_load_crash_20260924/Mars.exe-20260924-12.06.00-6aad2d75.partial-autosave-validation.log
+if ($LASTEXITCODE -ne 1) { throw 'snapshot contains a failure or grep failed' }
+```
+
+This passed at `29c3666`. Positive guard/load/map markers were asserted beside
+it. No compressed save body was searched for absence. The broader
+`error|exception|assert|crash|warning|fail|invalid` and
+`lost|stuck|leak|fatal|problem|timeout|cannot|unable|missing|not found|unavailable|bad|dropped`
+reads found no additional runtime fault in this prefix. The ArtificialSun
+startup availability warning at 156 resolves at 161. The console copy reports
+`truncated=true` because its display buffer holds a limited tail; this review
+read the entire flushed disk file, not just that copied tail.
+
+The active autosaves were copied outside rotation to
+`scratch/train_hub_load_20260924/saves/autosave_guard_128x/`. Both copies were
+byte-checked. Metadata-only reads of their first 200000 bytes each found exactly
+one `SMROptIn_hub_native_waiter = 1` and `autosave = true`:
+
+| file | GameTime | os_timestamp | SHA256 |
+|---|---|---|---|
+| `Autosave Sol 36(2).savegame.sav` | 25460094 | 1790267378 | `9739eeb5dacf3f89854207bf37d0c29e1ea53ae9acec12410e6a3f887dbbf28b` |
+| `Autosave Sol 41.savegame.sav` | 29143934 | 1790267458 | `cb7463bc93302df43d49bb5281b3f532ddea70fe8fe328f127c7beee6f2eee41` |
+
+These are subsequent saved artifacts, not a proved filename for the loaded
+autosave: the reload resumes at game time 25361662 (581–591), before either
+artifact's metadata GameTime. The owner identifies the reloaded input as the
+new autosave. Sol 41's timestamp is also later than the captured log's last
+flush, so its metadata proves the new mapping was written, not that this log
+already covers every event of that later save. Retain those evidence boundaries.
+
+**Verdict:** positive native legacy-load→autosave→same-process reload with no
+matching save/load failures in the flushed prefix. The existing startup art
+error and telemetry failures remain concerns in their recorded scopes. Do not
+call the entire log error-free, certify every historical save, or infer drone
+repair completion from this accelerated run. At this capture, the fresh-process
+reload, named manual-save leg and closed-log check were still ck215; the owner's
+next report and §12 complete those controls. L5 keeps its broader smoke.
+Executed model: GPT-6 (Codex), no subagents.
+
+## 12. Named manual save and full restart verified, 2026-09-24
+
+The owner then reported making a new hard save, fully restarting, loading that
+save and flushing the new log. The completed `12.06.00-6aad2d75.log`, the new
+`12.35.05-6aad2d75.partial-manual-restart.log`, and
+`manual_restart_20260924.receipt.json` are preserved beside §11's earlier prefix.
+No archived file was replaced. Capture HEAD `69f7cc5` only adds design/prompt
+work since `29c3666`; `git diff 102f5f0..HEAD --` over the hub code and dwell
+smoke is still empty. Runtime remains the guard from `102f5f0`.
+
+The receipt's per-line regex measurement and the same failure `rg` command from
+§11, now over these two named files, passed with zero failure matches and the
+positive controls below. Each total is reconciled against its member lines:
+
+| check | closed 12.06.00 run | new 12.35.05 flushed prefix |
+|---|---|---|
+| guard active | 136 (one) | 136 (one) |
+| completed loads | 270, 580, 1009 (three) | 268 (one) |
+| map ready | 283, 593, 1022 (three) | 284 (one) |
+| persist/load/assert/crash failures | zero | zero in the captured prefix |
+| normal exit | 1033 (one), followed by WM_QUIT | none; process still open |
+| existing ArtSpec Lua error | 165 (one) | 165 (one) |
+| Braze failures | 193,195,197,199,202,204 (six) | same line members (six) |
+
+The named file is `trainhub post stuck test.savegame.sav`, written at metadata
+`os_timestamp=1790267683`, with `SMROptIn_hub_native_waiter=1` and
+`GameTime=31329512`. The fresh-process load's toolkit readouts at 269–280 report
+that exact game time. This independently ties the marked manual save to the
+owner's successful cold load; the prior process also loaded it at 1009 before
+exiting. The restored colony advances to game time 31345537 at the new flush
+(288), so this is not merely a load-banner observation.
+
+A byte-identical copy lives at
+`scratch/train_hub_load_20260924/saves/manual_guard_123443/trainhub post stuck test.savegame.sav`.
+Its SHA256 is `d1c0c1647fb524ec45191316cb1999ac94a4a0f656f73ca876d5782268a87797`.
+This is separate from the earlier protected file with the same display name;
+no backup was overwritten. Metadata inspection was limited to plaintext header
+fields in the first 200000 bytes; no compressed-body absence claim was made.
+
+**Result:** the reported native save defect passes the owner fixture's legacy
+load, generated-autosave/reload, new manual save and fresh-process reload controls.
+The completed writer process has no persistence failures. The new process has
+none in its flushed prefix. Existing D14(e) art-import and Braze network startup
+errors remain; the logs are not globally error-free. No code change was needed
+after the guard for this run.
+
+ck215 is consumed. Test-shape clarification: autosave was reloaded in the writer
+process; the independent fresh-process leg used the new manual save. Both carry
+the same explicit marker and use the same guarded snapshot/load mapping, so this
+covers the regression mechanisms without another blocking rerun. An autosave-only
+cold reload was not separately performed. Ambiguous pre-wrapper hub saves and
+the both-configuration/toggle ship matrix remain outside this result; D14's
+other audit findings and L5's drone smoke remain open.
+Executed model: GPT-6 (Codex), no subagents.

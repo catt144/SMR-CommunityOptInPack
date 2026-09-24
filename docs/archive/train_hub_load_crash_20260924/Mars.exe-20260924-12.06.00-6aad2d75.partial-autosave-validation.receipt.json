@@ -1,0 +1,193 @@
+{
+  "head": "29c366683c0989379d7fbaaf6188f7ac533cc1b5",
+  "runtime_change": "102f5f0",
+  "log": "Mars.exe-20260924-12.06.00-6aad2d75.partial-autosave-validation.log",
+  "log_sha256": "60c79907ca4acc336d8d915229d07d4f9ce5341884e71a5d7851c296ad04f840",
+  "log_bytes": 63819,
+  "log_lines": 747,
+  "scope": "flushed prefix; game has not exited",
+  "filters": {
+    "guard": {
+      "regex": "^\\[TrainHubDev\\] save guard:",
+      "count": 1,
+      "members": [
+        {
+          "line": 136,
+          "text": "[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained"
+        }
+      ]
+    },
+    "loads": {
+      "regex": "^Game Loaded in",
+      "count": 2,
+      "members": [
+        {
+          "line": 270,
+          "text": "Game Loaded in 6698 ms"
+        },
+        {
+          "line": 580,
+          "text": "Game Loaded in 3832 ms"
+        }
+      ]
+    },
+    "map_ready": {
+      "regex": "^Game loaded on map",
+      "count": 2,
+      "members": [
+        {
+          "line": 283,
+          "text": "Game loaded on map BlankBig_01 in 7370 ms"
+        },
+        {
+          "line": 593,
+          "text": "Game loaded on map BlankBig_01 in 4331 ms"
+        }
+      ]
+    },
+    "persist_or_load_failure": {
+      "regex": "Persist error:|Attempt to persist|ASSERT|\\[ CRASH \\]|Access violation|Unpersisted function|Unpersist missing permanent|snapshot cancelled|LoadGame error:|Savegame error:",
+      "count": 0,
+      "members": []
+    },
+    "lua_error": {
+      "regex": "^\\[LUA ERROR\\]",
+      "count": 1,
+      "members": [
+        {
+          "line": 165,
+          "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+        }
+      ]
+    },
+    "braze_failure": {
+      "regex": "^\\[Braze\\].*(error|Failed)",
+      "count": 6,
+      "members": [
+        {
+          "line": 193,
+          "text": "[Braze] SessionStart error The server name or address could not be resolved"
+        },
+        {
+          "line": 195,
+          "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        },
+        {
+          "line": 197,
+          "text": "[Braze] Failed to init"
+        },
+        {
+          "line": 199,
+          "text": "[Braze] SessionStart error The server name or address could not be resolved"
+        },
+        {
+          "line": 202,
+          "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        },
+        {
+          "line": 204,
+          "text": "[Braze] Failed to init"
+        }
+      ]
+    },
+    "speed": {
+      "regex": "^\\[mod\\] \\[SMRTK\\] SMRTK_SPEED.*requested=128 ",
+      "count": 4,
+      "members": [
+        {
+          "line": 341,
+          "text": "[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=5000 factor=128000 requested=128 status=OK t=22516862 id=22"
+        },
+        {
+          "line": 493,
+          "text": "[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=128000 factor=128000 requested=128 status=OK t=25561982 id=23"
+        },
+        {
+          "line": 597,
+          "text": "[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=128000 factor=128000 requested=128 status=OK t=25553278 id=34"
+        },
+        {
+          "line": 743,
+          "text": "[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=27835646 id=38"
+        }
+      ]
+    },
+    "flush": {
+      "regex": "^\\[mod\\] \\[SMRTK\\] SMRTK_COPY.*flushed=true",
+      "count": 2,
+      "members": [
+        {
+          "line": 740,
+          "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=27835646 id=37"
+        },
+        {
+          "line": 746,
+          "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=27904894 id=39"
+        }
+      ]
+    },
+    "normal_exit": {
+      "regex": "^Stopping the game threads from the Lua side with exit code 0\\.",
+      "count": 0,
+      "members": []
+    }
+  },
+  "saves": [
+    {
+      "name": "Autosave Sol 36(2).savegame.sav",
+      "sha256": "9739eeb5dacf3f89854207bf37d0c29e1ea53ae9acec12410e6a3f887dbbf28b",
+      "bytes": 27678853,
+      "metadata_only_first_bytes": 200000,
+      "metadata": {
+        "SMROptIn_hub_native_waiter": [
+          "1,"
+        ],
+        "GameTime": [
+          "25460094,"
+        ],
+        "autosave": [
+          "true,"
+        ],
+        "displayname": [
+          "\"Autosave Sol 36\","
+        ],
+        "os_timestamp": [
+          "1790267378,"
+        ],
+        "savename": [
+          "\"Autosave Sol 36(2).savegame.sav\","
+        ],
+        "save_game_id": []
+      },
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\train_hub_load_20260924\\saves\\autosave_guard_128x\\Autosave Sol 36(2).savegame.sav"
+    },
+    {
+      "name": "Autosave Sol 41.savegame.sav",
+      "sha256": "cb7463bc93302df43d49bb5281b3f532ddea70fe8fe328f127c7beee6f2eee41",
+      "bytes": 27887407,
+      "metadata_only_first_bytes": 200000,
+      "metadata": {
+        "SMROptIn_hub_native_waiter": [
+          "1,"
+        ],
+        "GameTime": [
+          "29143934,"
+        ],
+        "autosave": [
+          "true,"
+        ],
+        "displayname": [
+          "\"Autosave Sol 41\","
+        ],
+        "os_timestamp": [
+          "1790267458,"
+        ],
+        "savename": [
+          "\"Autosave Sol 41.savegame.sav\","
+        ],
+        "save_game_id": []
+      },
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\train_hub_load_20260924\\saves\\autosave_guard_128x\\Autosave Sol 41.savegame.sav"
+    }
+  ]
+}

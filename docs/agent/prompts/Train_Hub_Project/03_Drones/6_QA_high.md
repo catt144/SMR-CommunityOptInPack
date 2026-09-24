@@ -75,12 +75,17 @@ on the old autosave and known-good templates. That repair is withdrawn; the lega
 dwell closure was restored exactly. Read §8:
 the test missed the Lua→C permanent transition when loading an old save. Require
 old→new→save→reload controls for a replacement; native template and autosave
-rollback loads now pass, while the latest process still logs C-function persist errors.
+rollback loads passed while that pre-guard process still logged C-function persist errors.
 Neither a matching source copy nor a same-version collector test proves migration.
-The subsequent snapshot-guard candidate (§10) preserves that legacy wrapper body,
+The subsequent snapshot guard `102f5f0` (§10) preserves that legacy wrapper body,
 temporarily restores the native waiter around PersistGame and adds an explicit
-metadata marker for new loads. Updated mocked tests pass; native migration and
-autosave results are still pending. Pre-wrapper unmarked hub saves remain ambiguous.
+metadata marker for new loads. Updated mocked tests pass; native controls in
+§§11–12 now cover legacy loading, a 128× autosave/reload cycle, a new manual save
+and its fresh-process reload. The closed writer log and fresh-load prefix contain
+no persist/load/crash failure markers; the existing ArtSpec/Braze startup errors
+remain. ck215 is consumed. Autosave-specific cold reload was not separately run;
+pre-wrapper unmarked hub saves remain ambiguous, and drone-flight adoption was
+not exercised by that general colony run.
 Repair smoke had incorrectly removed each completed repair group immediately;
 it now keeps groups until the final unfinished site completes, with a failing
 old-fixture control. Traffic smoke remains red on the known obsolete geometry

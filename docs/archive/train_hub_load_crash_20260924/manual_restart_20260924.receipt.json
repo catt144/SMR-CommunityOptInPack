@@ -1,0 +1,254 @@
+{
+  "head": "69f7cc5cf5d9c7941631e810fcf1799bfa0e2121",
+  "runtime_change": "102f5f0",
+  "logs": [
+    {
+      "name": "Mars.exe-20260924-12.06.00-6aad2d75.log",
+      "closed": true,
+      "bytes": 91997,
+      "sha256": "be779fd645dd493ad02bbb93c9fba32b57853d1a97a2e49a7f9979ae60b8817d",
+      "lines": 1046,
+      "filters": {
+        "guard": {
+          "regex": "^\\[TrainHubDev\\] save guard:",
+          "count": 1,
+          "members": [
+            {
+              "line": 136,
+              "text": "[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained"
+            }
+          ]
+        },
+        "loads": {
+          "regex": "^Game Loaded in",
+          "count": 3,
+          "members": [
+            {
+              "line": 270,
+              "text": "Game Loaded in 6698 ms"
+            },
+            {
+              "line": 580,
+              "text": "Game Loaded in 3832 ms"
+            },
+            {
+              "line": 1009,
+              "text": "Game Loaded in 3861 ms"
+            }
+          ]
+        },
+        "map_ready": {
+          "regex": "^Game loaded on map",
+          "count": 3,
+          "members": [
+            {
+              "line": 283,
+              "text": "Game loaded on map BlankBig_01 in 7370 ms"
+            },
+            {
+              "line": 593,
+              "text": "Game loaded on map BlankBig_01 in 4331 ms"
+            },
+            {
+              "line": 1022,
+              "text": "Game loaded on map BlankBig_01 in 4342 ms"
+            }
+          ]
+        },
+        "failure": {
+          "regex": "Persist error:|Attempt to persist|ASSERT|\\[ CRASH \\]|Access violation|Unpersisted function|Unpersist missing permanent|snapshot cancelled|LoadGame error:|Savegame error:",
+          "count": 0,
+          "members": []
+        },
+        "lua_error": {
+          "regex": "^\\[LUA ERROR\\]",
+          "count": 1,
+          "members": [
+            {
+              "line": 165,
+              "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+            }
+          ]
+        },
+        "braze_failure": {
+          "regex": "^\\[Braze\\].*(error|Failed)",
+          "count": 6,
+          "members": [
+            {
+              "line": 193,
+              "text": "[Braze] SessionStart error The server name or address could not be resolved"
+            },
+            {
+              "line": 195,
+              "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+            },
+            {
+              "line": 197,
+              "text": "[Braze] Failed to init"
+            },
+            {
+              "line": 199,
+              "text": "[Braze] SessionStart error The server name or address could not be resolved"
+            },
+            {
+              "line": 202,
+              "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+            },
+            {
+              "line": 204,
+              "text": "[Braze] Failed to init"
+            }
+          ]
+        },
+        "normal_exit": {
+          "regex": "^Stopping the game threads from the Lua side with exit code 0\\.",
+          "count": 1,
+          "members": [
+            {
+              "line": 1033,
+              "text": "Stopping the game threads from the Lua side with exit code 0."
+            }
+          ]
+        },
+        "flush": {
+          "regex": "^\\[mod\\] \\[SMRTK\\] SMRTK_COPY.*flushed=true",
+          "count": 2,
+          "members": [
+            {
+              "line": 740,
+              "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=27835646 id=37"
+            },
+            {
+              "line": 746,
+              "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=27904894 id=39"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mars.exe-20260924-12.35.05-6aad2d75.partial-manual-restart.log",
+      "closed": false,
+      "bytes": 19291,
+      "sha256": "44409fd6c3e2c8d4fe42283d33ff44369674f11bbe1ecaa1aa245c670d537812",
+      "lines": 316,
+      "filters": {
+        "guard": {
+          "regex": "^\\[TrainHubDev\\] save guard:",
+          "count": 1,
+          "members": [
+            {
+              "line": 136,
+              "text": "[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained"
+            }
+          ]
+        },
+        "loads": {
+          "regex": "^Game Loaded in",
+          "count": 1,
+          "members": [
+            {
+              "line": 268,
+              "text": "Game Loaded in 5807 ms"
+            }
+          ]
+        },
+        "map_ready": {
+          "regex": "^Game loaded on map",
+          "count": 1,
+          "members": [
+            {
+              "line": 284,
+              "text": "Game loaded on map BlankBig_01 in 6548 ms"
+            }
+          ]
+        },
+        "failure": {
+          "regex": "Persist error:|Attempt to persist|ASSERT|\\[ CRASH \\]|Access violation|Unpersisted function|Unpersist missing permanent|snapshot cancelled|LoadGame error:|Savegame error:",
+          "count": 0,
+          "members": []
+        },
+        "lua_error": {
+          "regex": "^\\[LUA ERROR\\]",
+          "count": 1,
+          "members": [
+            {
+              "line": 165,
+              "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+            }
+          ]
+        },
+        "braze_failure": {
+          "regex": "^\\[Braze\\].*(error|Failed)",
+          "count": 6,
+          "members": [
+            {
+              "line": 193,
+              "text": "[Braze] SessionStart error The server name or address could not be resolved"
+            },
+            {
+              "line": 195,
+              "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+            },
+            {
+              "line": 197,
+              "text": "[Braze] Failed to init"
+            },
+            {
+              "line": 199,
+              "text": "[Braze] SessionStart error The server name or address could not be resolved"
+            },
+            {
+              "line": 202,
+              "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+            },
+            {
+              "line": 204,
+              "text": "[Braze] Failed to init"
+            }
+          ]
+        },
+        "normal_exit": {
+          "regex": "^Stopping the game threads from the Lua side with exit code 0\\.",
+          "count": 0,
+          "members": []
+        },
+        "flush": {
+          "regex": "^\\[mod\\] \\[SMRTK\\] SMRTK_COPY.*flushed=true",
+          "count": 1,
+          "members": [
+            {
+              "line": 288,
+              "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=47 status=OK truncated=false t=31345537 id=14"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "manual_save": {
+    "name": "trainhub post stuck test.savegame.sav",
+    "bytes": 27865193,
+    "sha256": "d1c0c1647fb524ec45191316cb1999ac94a4a0f656f73ca876d5782268a87797",
+    "metadata": {
+      "GameTime": [
+        "31329512,"
+      ],
+      "SMROptIn_hub_native_waiter": [
+        "1,"
+      ],
+      "displayname": [
+        "\"trainhub post stuck test\","
+      ],
+      "os_timestamp": [
+        "1790267683,"
+      ],
+      "savename": [
+        "\"trainhub post stuck test.savegame.sav\","
+      ]
+    },
+    "metadata_only_first_bytes": 200000,
+    "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\train_hub_load_20260924\\saves\\manual_guard_123443\\trainhub post stuck test.savegame.sav",
+    "restart_game_time_match": 31329512
+  }
+}

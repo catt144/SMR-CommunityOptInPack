@@ -58,9 +58,9 @@ reload, in that order.
 
 ## Notes from upstream
 
-### Audit handoff, 2026-09-24 — loads restored and siding deadlock fixed; saving remains open
+### Audit handoff, 2026-09-24 — siding and save fixes pass the owner fixture
 
-Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, §§8–9 before §6. The owner
+Read `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, §§8–12 before §6. The owner
 tried the autosave and known-good templates: loader assertions, then CTD after
 Ignore All. `3a0faff` is withdrawn; the exact legacy dwell closure is restored.
 The template and `Autosave Sol 31(3)` rollback controls passed (`10.45.34` and
@@ -68,11 +68,13 @@ The template and `Autosave Sol 31(3)` rollback controls passed (`10.45.34` and
 mutually blocking departure despite runnable tracks and a clear crossing.
 HubExitClear now recognizes completed siding parking; the regression rejects
 the old guard. After restarting, the owner confirmed the trains are unstuck.
-Physical contact/clearance was not explicitly confirmed. The original
-save defect is OPEN. The snapshot-guard candidate in audit §10 passes the updated
-`dwell_smoke.py`; native old→new→save→reload and autosave controls are pending.
-The post-siding process still logged the C-function persist error; the new guard
-has not earned a clean-save claim. Preserve the protected input saves. The report has runnable
+Physical contact/clearance was not explicitly confirmed. The snapshot guard
+`102f5f0` now passes the owner's legacy-load, 128× autosave/reload, new manual-save
+and full-restart/manual-load controls (§§11–12). The closed writer log has no
+persist/load/crash failure markers; the fresh-load prefix is also clear of those
+markers. The existing ArtSpec startup error and Braze network failures remain.
+ck215 is consumed. This did not test repair-drone adoption mid-flight, ambiguous
+pre-wrapper saves or the ship matrix. Preserve the protected inputs. The report has runnable
 track/thread probes if another stall occurs; the completed probes need no replay.
 A successful toolkit SAVE line did not mean serialization was clean.
 
@@ -165,4 +167,4 @@ Owner rulings, each built and committed:
 
 Also fixed: engine `HandoffAt="outside"` is now the default, with the receipt re-pinned (`1b32bc8`).
 
-Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. The siding stall is fixed; repeat repair completion through the audit handoff above, and resolve save compatibility before resuming the mid-trip reload.
+Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. The siding stall and reported save failure now pass their owner controls; repeat repair completion through the audit handoff above, then resume the mid-trip reload.
