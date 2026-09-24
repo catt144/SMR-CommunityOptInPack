@@ -220,8 +220,9 @@ local job = jobs[1]
 assert(job.deadline and job.started == 1000 and not job.waiting, "dispatched on the first tick")
 assert(job.held.Metals.amount == 2000 and H.supply.Metals.target == 18000 and H.supply.Metals.actual == 20000, "claimed 50 % of the 4000 outstanding, stock untouched")
 assert(#notifications == 1 and notifications[1].text == "Repair drone dispatched" and notifications[1].objs[1] == E1, notifications[1].text)
--- deadline = LaunchTime + dist/Speed + WorkTime: E1 is at x 25000: 12000 + 25000*1000/16000 + 7000
-assert(job.deadline == 1000 + 12000 + 1563 + 7000, "deadline arithmetic: " .. job.deadline)
+-- deadline = LaunchTime + dist/Speed + WorkTime (owner option A, 2026-09-24): E1 is at x 25000; Speed is
+-- a hub Wasp's live move_speed x 80 %, or the class base 1600 with none: 4000 + 25000*1000/1280 + 7000
+assert(job.deadline == 1000 + 4000 + 19531 + 7000, "deadline arithmetic: " .. job.deadline)
 assert(F.created == 1 and IsValid(job.drone) and job.drone.command_center == H, "one Wasp flies")
 -- the panel lines on the repair flight (owner, 2026-09-24): ours by stage; every other drone vanilla's
 assert(Drone.Getui_command(job.drone) == "Flying to a track repair" and Drone.GetDestName(job.drone) == "Going to<right><em>Broken track</em>")
@@ -257,8 +258,13 @@ assert(L1.completed and #jobs == 0, "completed at the deadline")
 assert(H.supply.Metals.actual == 18000 and H.supply.Metals.target == 18000, "paid 2000 once; the claim released before paying: " .. H.supply.Metals.actual .. "/" .. H.supply.Metals.target)
 assert(#H.resources_added == 1 and H.resources_added[1][1] == "Metals" and H.resources_added[1][2] == -2000)
 -- Drones delivered part of it before the deadline: only the remainder is paid.
+-- the live speed: a hub Wasp at move_speed 8960 (the owner's 5x dial and techs) sets the travel at 80 % of it
+H.drones[1].move_speed = 8960
 L2, E2 = break_track(T2, 4, 4000); clock = clock + 5000; H:HubTrackWorkTick()
 local job2 = jobs[1]; assert(job2.site == L2 and job2.held.Metals.amount == 2000)
+local d2 = H:GetDist2D(E2:GetPos())
+assert(job2.deadline - job2.started == 4000 + MulDivRound(d2, 1000, 7168) + 7000, "travel at the live speed: " .. (job2.deadline - job2.started) .. " for " .. d2)
+H.drones[1].move_speed = nil
 L2.construction_resources.Metals.actual = 1000; L2.construction_resources.Metals.target = 1000 -- drones brought 3000
 clock = job2.deadline; H:HubTrackWorkTick()
 assert(L2.completed and H.supply.Metals.actual == 17500, "paid half of the 1000 still outstanding: " .. H.supply.Metals.actual)

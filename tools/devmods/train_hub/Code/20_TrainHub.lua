@@ -2106,9 +2106,13 @@ local TRACK_WORK = "SMROptIn_track_work"
 -- Nothing here is saved; a restart returns to these defaults.
 Floor.HubRepairTune = {
 	-- the deadline = LaunchTime + straight-line distance / Speed + WorkTime
-	-- (game ms; Speed in units per game second; a hex is 1000 units, a game minute 1000 ms)
-	Speed = false,          -- false = the flight's own Speed dial (SMROptInHubFlight.Speed)
-	LaunchTime = 12000,     -- the pit rise and the exit, before the leg
+	-- (game ms; Speed in units per game second; a hex is 1000 units)
+	-- Owner, 2026-09-24 (option A): the repair takes the Wasp's own time, so completion lands
+	-- while it works at any drone speed. Measured in the L5 sitting at move_speed 8960: engine
+	-- legs flew 7296-7465 units/s (81-83 %), and the pit launch took 3.9 s.
+	Speed = false,          -- false = a hub Wasp's live move_speed (drone dials and techs included) x SpeedPercent
+	SpeedPercent = 80,      -- the share of move_speed an engine leg achieves; a little under measured, so it arrives first
+	LaunchTime = 4000,      -- the pit rise and the exit, before the leg (measured 3944 ms)
 	WorkTime = false,       -- false = the flight's WorkTime + 2000 (both work animations)
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
 	MinVisualTime = 15000,  -- a job with less time left before its deadline gets no fresh Wasp
@@ -2351,9 +2355,17 @@ local function hold_cost(self, job, cost)
 	return true
 end
 
-local function repair_speed()
-	local F = flight_api()
-	return Floor.HubRepairTune.Speed or (F and F.Speed) or 16000
+-- A hub Wasp's live move_speed carries the label modifiers every Wasp shares (drone speed dials,
+-- techs); with none standing, the class base. Scaled to what an engine leg achieves.
+local function repair_speed(self)
+	local tune = Floor.HubRepairTune
+	if tune.Speed then return tune.Speed end
+	local speed
+	for _, d in ipairs(self and self.drones or empty_table) do
+		if IsValid(d) and type(d.move_speed) == "number" and d.move_speed > 0 then speed = d.move_speed break end
+	end
+	speed = speed or FlyingDrone.move_speed or 1600
+	return Max(1, MulDivRound(speed, tune.SpeedPercent, 100))
 end
 
 local function repair_work_time()
@@ -2421,7 +2433,7 @@ local function dispatch_job(self, job, now)
 	job.waiting = false
 	local tune = Floor.HubRepairTune
 	local dist = IsValid(job.el) and self:GetDist2D(job.el:GetPos()) or 0
-	local travel = MulDivRound(dist, 1000, Max(1, repair_speed()))
+	local travel = MulDivRound(dist, 1000, repair_speed(self))
 	job.started = now
 	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
 	job.drone = false
