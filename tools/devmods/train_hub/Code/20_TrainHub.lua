@@ -2408,6 +2408,9 @@ local function dispatch_job(self, job, now)
 	job.started = now
 	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
 	job.drone = false
+	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
+	print(string.format("[TrainHubDev] repair dispatched: %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
+		DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time(), now))
 	notify_dispatch(self, job, now)
 	return true
 end
@@ -2674,7 +2677,13 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 	end
 	if now >= job.deadline then
 		local result, res = complete_job(self, job)
-		if result == "done" or result == "gone" then return false, dispatched_now end
+		if result == "done" or result == "gone" then
+			-- the Wasp's stage at completion: "out" = deadline early, "work" = on time, "back" = late
+			local record = flights[job]
+			print(string.format("[TrainHubDev] repair %s: %d ms after the deadline, the Wasp's stage %s",
+				result, now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp")))
+			return false, dispatched_now
+		end
 		job.waiting = res
 		return true, dispatched_now
 	end
