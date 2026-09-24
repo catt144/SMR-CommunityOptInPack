@@ -1762,7 +1762,6 @@ function SMROptInTrainHubBase:GameInit()
 	self:InitHubReactorVisual()
 	self:InitHubSidingGlass()
 	self:InitHubLights()
-	self:GatherOrphanedDrones()
 	top_up_hub_drones(self)
 	place_hub_markers(self)
 	Floor.Reconcile(self)
@@ -1771,7 +1770,6 @@ end
 
 function SMROptInTrainHubBase:OnSetWorking(working)
 	if working then
-		self:GatherOrphanedDrones()
 		top_up_hub_drones(self)
 		self:SetWaitingDronesIdle()
 	end
@@ -2498,6 +2496,13 @@ function SMROptInTrainHubBase:SpawnDrone()
 	drone:SetPos(pos)
 	apply_wasp_palette(drone)
 	return true
+end
+
+-- Never adopt another controller's orphaned drones (owner, 2026-09-23): vanilla's
+-- DroneControl:GatherOrphanedDrones (DroneControl.lua:292 on 1.1.1.405907) takes any drone on the
+-- map up to the maximum, and the fleet's recall would then delete it. Every vanilla caller goes
+-- through self (DroneControl.lua:857, DroneHubExtender.lua:162), so this covers them all.
+function SMROptInTrainHubBase:GatherOrphanedDrones()
 end
 
 function SMROptInTrainHubBase:CheatSpawnDrone()
