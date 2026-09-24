@@ -168,3 +168,27 @@ Owner rulings, each built and committed:
 Also fixed: engine `HandoffAt="outside"` is now the default, with the receipt re-pinned (`1b32bc8`).
 
 Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. The siding stall and reported save failure now pass their owner controls; repeat repair completion through the audit handoff above, then resume the mid-trip reload.
+
+### Sitting, 2026-09-24 (resumed after `07`, fixed build)
+
+Seen by the owner:
+- Two breaks on one track: both repaired, the line cleared.
+- A track reaching the hub only through other stations: dispatched, the train on it stopped then ran again.
+- Menu save right after dispatch, then reload: the repair still completed. That save logged 0 persist errors (log `Mars.exe-20260924-12.35.05`). An autosave is not yet seen.
+
+Measured (log `Mars.exe-20260924-17.07.20`), with move_speed 8960 from the owner's 5x dial and techs:
+- One break at 1457 m straight line. The pit launch took 3944 ms; the leg out was 1371 m in 18784 ms (7296 units/s); the leg back 7310 units/s. An earlier leg flew 7382 / 7465.
+- The old deadline (12000 + dist/16000 + 7000) landed 5.4 s after arrival. Its launch and speed errors cancelled.
+
+Owner rulings, built:
+- The Wasp's panel shows its trip (`a40db90`).
+- A meteor damages the hub and never destroys it (`5cfaee6`). Mystery bombardment stays vanilla.
+- **Option A:** the deadline follows the live Wasp speed x 80 % plus a 4 s launch (`459629e`).
+
+Print-only instruments: `9fe42cd` (dispatch and completion), `6cad16c` (leg speed).
+
+Noticed:
+- A meteor beside the hub destroyed it (before `5cfaee6`), and vanilla stored a train bound for it.
+- The ruin's magenta icon is brief 06's uncommitted `display_icon` test path, not ours. Routed to 06's session through the owner.
+
+Still to run: the meteor beside the hub on the fixed build, the panel lines, short stock, toggle/switch/malfunction/dead grid, remote stations, fleet tiers, >30 jobs, destroyed hub with drones (a salvage now, since meteors no longer destroy it), §6 train construction, an autosave, the owner asks (fleet pit launch, ring pillars, OI-27).
