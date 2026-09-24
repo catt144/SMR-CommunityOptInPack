@@ -429,20 +429,24 @@ assert(#SA.filed[H2] == 2, "an out-of-range station is re-filed once per load")
 assert(#F.adopted == 1 and F.adopted[1].drone == job.drone and F.adopted[1].stage == "out" and F.adopted[1].target == Ea, "adopted at 'out': adoptions " .. #F.adopted .. " stage " .. tostring(F.adopted[1] and F.adopted[1].stage) .. " same drone " .. tostring(F.adopted[1] and F.adopted[1].drone == job.drone) .. " deadline " .. tostring(job.deadline) .. " clock " .. clock)
 assert(not job.drone.deleted and not fleet.deleted and not foreign.deleted, "adopted, fleet and foreign Wasps stay")
 assert(stray.deleted and orphan_of_dead.deleted and orphan_of_dead.dropped == "Metals", "strays and a dead hub's drone go, cubes dropped")
--- a later load, past the work: adopted at 'back'; a refused adoption (foreign command) is swept
+-- a later load near the deadline: still adopted 'out' (a standing job's work is not done); a refused
+-- adoption (foreign command) is swept and the job relaunches a fresh Wasp
 local job2 = job; job2.drone.command = "WaitUninterruptable"
 OnMsg.LoadGame(); clock = job2.deadline - 1000; H2:HubTrackWorkTick()
-assert(F.adopted[2].stage == "back", "adopted at 'back' inside the work window")
+assert(F.adopted[2].stage == "out", "a standing job resumes outbound")
 local idle_wasp = job2.drone; idle_wasp.command = "Idle"; OnMsg.LoadGame(); clock = clock + 1; H2:HubTrackWorkTick()
-assert(#F.adopted == 2 and idle_wasp.deleted == true and job2.drone == false, "a Wasp under a foreign command is refused, forgotten and swept")
+assert(#F.adopted == 2 and idle_wasp.deleted == true and IsValid(job2.drone) and job2.drone ~= idle_wasp, "a Wasp under a foreign command is refused and swept; a fresh one relaunches")
 assert(La.completed or job2.deadline > clock)
 -- no flight while saving: Create refuses, the deadline stands, the next tick tries again
 clock = job2.deadline; H2:HubTrackWorkTick(); assert(La.completed)
 local Lb = break_track(TA, 3, 4000); F.save_gate = true; clock = clock + 5000; H2:HubTrackWorkTick()
 local jb = H2.SMROptIn_track_work.jobs[1]; assert(jb.deadline and not IsValid(jb.drone), "dispatched, no Wasp under the save gate")
 F.save_gate = false; clock = clock + 5000; H2:HubTrackWorkTick(); assert(IsValid(jb.drone), "a Wasp once the gate lifts")
--- a job with little time left gets no fresh Wasp
-DoneObject(jb.drone); clock = jb.deadline - Tune.MinVisualTime + 1; H2:HubTrackWorkTick(); assert(not IsValid(jb.drone))
+-- a Wasp destroyed on the way (owner, 2026-09-24: a meteor storm) is replaced and its trip restarts
+local lost_wasp, d0 = jb.drone, jb.deadline; DoneObject(lost_wasp); clock = clock + 1000; H2:HubTrackWorkTick()
+assert(IsValid(jb.drone) and jb.drone ~= lost_wasp and jb.deadline > d0 and not Lb.completed, "relaunched, the trip restarted, nothing repaired")
+jb.drone.command = "Dead"; local dead_wasp = jb.drone; clock = clock + 1000; H2:HubTrackWorkTick()
+assert(IsValid(jb.drone) and jb.drone ~= dead_wasp and not Lb.completed, "a dead Wasp is replaced too")
 assert(F.OnWorkDone, "the hub registers its work-done hook on the flight")
 jb.drone = FlyingDrone:new({ command_center = H2 }, 1); clock = clock + 1; local early = clock; assert(early < jb.deadline)
 F.OnWorkDone(H2, jb.drone, early)
@@ -461,10 +465,12 @@ local jd; for _, j in ipairs(H2.SMROptIn_track_work.jobs) do if j.site == Ld the
 assert(jd and IsValid(jd.drone), "stuck case dispatch: job " .. tostring(jd) .. " deadline " .. tostring(jd and jd.deadline) .. " left " .. tostring(jd and jd.deadline and jd.deadline - clock) .. " jobs " .. #H2.SMROptIn_track_work.jobs); local trip = jd.deadline - jd.started
 clock = jd.deadline + trip - 1; H2:HubTrackWorkTick(); assert(not Ld.completed, "inside the grace")
 clock = jd.deadline + trip; H2:HubTrackWorkTick(); assert(Ld.completed, "past the grace: the fallback completes a stuck flight")
--- no Wasp at all: the deadline alone completes it
+-- no Wasps at all (the Visual probe dial off): the deadline alone completes it
+Tune.Visual = false
 local Le = break_track(TA, 4, 4000); clock = clock + 5000; H2:HubTrackWorkTick()
 local je; for _, j in ipairs(H2.SMROptIn_track_work.jobs) do if j.site == Le then je = j end end
-DoneObject(je.drone); clock = je.deadline; H2:HubTrackWorkTick(); assert(Le.completed, "no live Wasp: completed at the deadline")
+assert(je and je.deadline and not IsValid(je.drone)); clock = je.deadline; H2:HubTrackWorkTick(); assert(Le.completed, "Visual off: completed at the deadline")
+Tune.Visual = true
 Tune.FlightGrace = 0
 ''')
 

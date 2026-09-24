@@ -2116,7 +2116,6 @@ Floor.HubRepairTune = {
 	FlightGrace = 100,      -- percent of the predicted trip a live Wasp may run past the deadline before the fallback completes anyway
 	WorkTime = false,       -- false = the flight's WorkTime + 2000 (both work animations)
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
-	MinVisualTime = 15000,  -- a job with less time left before its deadline gets no fresh Wasp
 	-- the fleet (owner, 2026-09-23): five standing idle; more as vanilla's load reads medium/high
 	Standing = 5,
 	StepMedium = 5,
@@ -2472,6 +2471,19 @@ local function slot_counts(self, jobs)
 	return #(self.drones or empty_table), dispatched, waiting
 end
 
+-- A trip's predicted end, from now: the fallback deadline (the Wasp's work is the completion).
+local function schedule_trip(self, job, now, what)
+	local tune = Floor.HubRepairTune
+	local dist = IsValid(job.el) and self:GetDist2D(job.el:GetPos()) or 0
+	local travel = MulDivRound(dist, 1000, repair_speed(self))
+	job.started = now
+	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
+	job.drone = false
+	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
+	print(string.format("[TrainHubDev] repair %s: %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
+		what, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time(), now))
+end
+
 local function dispatch_job(self, job, now)
 	local cost = outstanding_cost(job.site)
 	local ok, res = hold_cost(self, job, cost)
@@ -2480,15 +2492,7 @@ local function dispatch_job(self, job, now)
 		return false
 	end
 	job.waiting = false
-	local tune = Floor.HubRepairTune
-	local dist = IsValid(job.el) and self:GetDist2D(job.el:GetPos()) or 0
-	local travel = MulDivRound(dist, 1000, repair_speed(self))
-	job.started = now
-	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
-	job.drone = false
-	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
-	print(string.format("[TrainHubDev] repair dispatched: %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
-		DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time(), now))
+	schedule_trip(self, job, now, "dispatched")
 	notify_dispatch(self, job, now)
 	return true
 end
@@ -2538,7 +2542,6 @@ end
 local function ensure_visual(self, job, now)
 	local tune = Floor.HubRepairTune
 	if not tune.Visual or IsValid(job.drone) or not IsValid(job.el) then return end
-	if job.deadline - now < tune.MinVisualTime then return end
 	local F = flight_api()
 	if not F then return end
 	local record = F.Create(self)
@@ -2559,8 +2562,9 @@ local function adopt_visual(self, job, now)
 	local d = job.drone
 	if flights[job] or not IsValid(d) then return end
 	if F and F.Adopt and job.deadline and d.command_center == self then
-		local stage = now < job.deadline - repair_work_time() and "out" or "back"
-		local record = F.Adopt(self, d, job.el, stage)
+		-- a job still in the list has not had its work done (the work's end completes it), so its
+		-- Wasp resumes outbound whatever the clock says
+		local record = F.Adopt(self, d, job.el, "out")
 		if record then
 			flights[job] = record
 			return
@@ -2761,6 +2765,16 @@ local function on_work_done(hub, drone, now)
 	end
 end
 
+local function wasps_fly()
+	return Floor.HubRepairTune.Visual and flight_api() ~= nil
+end
+
+local function live_wasp(job)
+	local record = flights[job]
+	local d = record and record.drone
+	return IsValid(d) and not record.lost and d == job.drone and d.command ~= "Dead" or false
+end
+
 local function service_job(self, record, job, now, tracks, dispatched_now)
 	if job.kind ~= "repair" then return true, dispatched_now end -- build 5's jobs are not ours
 	if not live(job.site) then return false, dispatched_now end
@@ -2779,13 +2793,22 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 		if launched then ensure_visual(self, job, now) end
 		return true, launched
 	end
+	-- A repair under way always has a live Wasp (owner, 2026-09-24: a Wasp destroyed on the way,
+	-- by a meteor storm say, must not leave the timer to repair the track with no drone there).
+	-- One that died, was lost or never launched before its work was done is replaced from the
+	-- pit, and the trip's fallback deadline restarts with it.
+	if not work_done[job] and wasps_fly() and not live_wasp(job) then
+		flights[job] = nil
+		schedule_trip(self, job, now, "relaunched")
+		ensure_visual(self, job, now)
+		return true, dispatched_now
+	end
 	if now >= job.deadline then
 		-- The flight is the authority (owner, 2026-09-24: "that way its never just one a timer"):
-		-- a job with a live Wasp completes when that Wasp finishes its work (on_work_done). The
-		-- deadline completes only a job with no Wasp (none launched, lost, or gone across a save),
-		-- or one stuck past FlightGrace percent of its predicted trip.
-		local record = flights[job]
-		if not work_done[job] and record and IsValid(record.drone) and not record.lost and job.drone == record.drone then
+		-- a job with a live Wasp completes when that Wasp finishes its work (on_work_done); a lost
+		-- one is relaunched above. The deadline completes a job only with Wasps off (the Visual
+		-- dial or no flight code), or one stuck past FlightGrace percent of its predicted trip.
+		if not work_done[job] and live_wasp(job) then
 			local cap = job.deadline + MulDivRound(job.deadline - (job.started or job.deadline), Floor.HubRepairTune.FlightGrace, 100)
 			if now < cap then return true, dispatched_now end
 		end
