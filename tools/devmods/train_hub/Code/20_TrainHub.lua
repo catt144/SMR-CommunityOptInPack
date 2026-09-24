@@ -2742,6 +2742,50 @@ function FlyingDrone:CanBeControlled(...)
 	return result
 end
 
+-- The panel's status and destination lines for a Wasp on a repair flight (owner, 2026-09-24:
+-- "Unknown" / "No particular destination" the whole trip). Vanilla reads the command's entry in
+-- DroneCommands (Drone:Getui_command, Drone.lua:3168 on 1.1.1.405907), and the stock
+-- FlightGoto/WaitUninterruptable legs have none. Chained on the declaring class; every drone
+-- that is not a hub repair flight gets vanilla's answer.
+local function repair_flight_stage(drone)
+	local hub = drone.command_center
+	if not IsKindOf(drone, "FlyingDrone") or not is_hub(hub) then return end
+	for _, job in ipairs(track_jobs(hub)) do
+		if job.drone == drone then
+			local record = flights[job]
+			return record and record.stage or "out"
+		end
+	end
+end
+
+local repair_flight_status = {
+	rise = T(909018002017, "Launching for a track repair"),
+	ready = T(909018002017, "Launching for a track repair"),
+	exit = T(909018002017, "Launching for a track repair"),
+	out = T(909018002018, "Flying to a track repair"),
+	work = T(909018002019, "Repairing track"),
+	back = T(909018002020, "Returning to the Train Hub"),
+	descent = T(909018002020, "Returning to the Train Hub"),
+}
+
+local vanilla_drone_ui_command = Drone.Getui_command
+function Drone:Getui_command(...)
+	local stage = repair_flight_stage(self)
+	if stage and repair_flight_status[stage] then return repair_flight_status[stage] end
+	return vanilla_drone_ui_command(self, ...)
+end
+
+local vanilla_drone_dest_name = Drone.GetDestName
+function Drone:GetDestName(...)
+	local stage = repair_flight_stage(self)
+	if stage == "back" or stage == "descent" then
+		return T(909018002021, "Going to<right><em>Train Hub</em>")
+	elseif stage then
+		return T(909018002022, "Going to<right><em>Broken track</em>")
+	end
+	return vanilla_drone_dest_name(self, ...)
+end
+
 -- "Repair drones: N out / 30", the panel's one line (DESIGN.md), plus what waits.
 function SMROptInTrainHubBase:GetHubRepairLine()
 	local jobs, record = track_jobs(self)

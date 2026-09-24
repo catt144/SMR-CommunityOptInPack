@@ -85,6 +85,10 @@ Station = {}
 DroneControl = {}
 function DroneControl.KillDrone(self, d) assert(table.remove_entry(self.drones, d), "KillDrone asserts fleet membership") DoneObject(d) end
 function DroneControl.Finalize(self) self.finalized = (self.finalized or 0) + 1 for _, d in ipairs(self.drones) do d.orphaned = true end end
+-- vanilla's panel lines, declared on Drone
+Drone = {}
+function Drone.Getui_command(self) return "vanilla status" end
+function Drone.GetDestName(self) return "vanilla dest" end
 -- the Wasp
 FlyingDrone = { classes = { FlyingDrone = true } }
 function FlyingDrone.CanBeControlled(self) return not self.disabled end
@@ -105,7 +109,7 @@ end
 -- the flight API (30_TrainHubDrones.lua), mocked: records made, targets sent, adoption by command
 SMROptInHubFlight = { Speed = 16000, WorkTime = 5000, save_gate = false, created = 0, adopted = {} }
 local F = SMROptInHubFlight
-function F.Create(hub) if F.save_gate then return nil, "Save in progress" end local d = FlyingDrone:new({ command_center = hub, city = hub.city, name = "Repair Drone" }, 1) d.command = false; F.created = F.created + 1 return { hub = hub, drone = d } end
+function F.Create(hub) if F.save_gate then return nil, "Save in progress" end local d = FlyingDrone:new({ command_center = hub, city = hub.city, name = "Repair Drone" }, 1) d.command = false; F.created = F.created + 1 F.last = { hub = hub, drone = d } return F.last end
 function F.Send(record, target) if not IsValid(target) or not IsValid(target.track_obj) then return nil, "bad target" end record.target = target return record end
 function F.Remove(record) if IsValid(record.drone) then DoneObject(record.drone) end record.removed = true end
 function F.Adopt(hub, drone, target, stage)
@@ -215,6 +219,15 @@ assert(#notifications == 1 and notifications[1].text == "Repair drone dispatched
 -- deadline = LaunchTime + dist/Speed + WorkTime: E1 is at x 25000: 12000 + 25000*1000/16000 + 7000
 assert(job.deadline == 1000 + 12000 + 1563 + 7000, "deadline arithmetic: " .. job.deadline)
 assert(F.created == 1 and IsValid(job.drone) and job.drone.command_center == H, "one Wasp flies")
+-- the panel lines on the repair flight (owner, 2026-09-24): ours by stage; every other drone vanilla's
+assert(Drone.Getui_command(job.drone) == "Flying to a track repair" and Drone.GetDestName(job.drone) == "Going to<right><em>Broken track</em>")
+F.last.stage = "work"; assert(Drone.Getui_command(job.drone) == "Repairing track")
+F.last.stage = "back"; assert(Drone.Getui_command(job.drone) == "Returning to the Train Hub" and Drone.GetDestName(job.drone) == "Going to<right><em>Train Hub</em>")
+F.last.stage = "rise"; assert(Drone.Getui_command(job.drone) == "Launching for a track repair")
+F.last.stage = "out"
+assert(Drone.Getui_command(H.drones[1]) == "vanilla status" and Drone.GetDestName(H.drones[1]) == "vanilla dest", "a fleet Wasp keeps vanilla's lines")
+local foreign_wasp = FlyingDrone:new({ command_center = S1 }, 1)
+assert(Drone.Getui_command(foreign_wasp) == "vanilla status" and Drone.GetDestName(foreign_wasp) == "vanilla dest", "a foreign Wasp keeps vanilla's lines")
 -- the remote stations got the hub as a command centre; the isolated one did not
 assert(table.find(S2.command_centers, H) and table.find(S3.command_centers, H) and table.find(S1.command_centers, H) and not table.find(I.command_centers, H))
 assert(not table.find(N.command_centers or empty_table, H), "tunnel mouths are not stations")
