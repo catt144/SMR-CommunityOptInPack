@@ -85,6 +85,10 @@ Station = {}
 DroneControl = {}
 function DroneControl.KillDrone(self, d) assert(table.remove_entry(self.drones, d), "KillDrone asserts fleet membership") DoneObject(d) end
 function DroneControl.Finalize(self) self.finalized = (self.finalized or 0) + 1 for _, d in ipairs(self.drones) do d.orphaned = true end end
+-- vanilla's building destruction and the meteor FX
+destroyed_log = {}
+function DestroyBuildingImmediate(bld, params) destroyed_log[#destroyed_log + 1] = { bld = bld, reason = params and params.reason } bld.destroyed = true return true end
+function PlayFX() end
 -- vanilla's panel lines, declared on Drone
 Drone = {}
 function Drone.Getui_command(self) return "vanilla status" end
@@ -225,6 +229,13 @@ F.last.stage = "work"; assert(Drone.Getui_command(job.drone) == "Repairing track
 F.last.stage = "back"; assert(Drone.Getui_command(job.drone) == "Returning to the Train Hub" and Drone.GetDestName(job.drone) == "Going to<right><em>Train Hub</em>")
 F.last.stage = "rise"; assert(Drone.Getui_command(job.drone) == "Launching for a track repair")
 F.last.stage = "out"
+-- a meteor malfunctions the hub instead of destroying it (owner, 2026-09-24); nothing else changes
+H.SetMalfunction = function(self) self.meteor_malfunction = true end
+assert(DestroyBuildingImmediate(H, { reason = "meteor", insurance = true }) == false and H.meteor_malfunction and not H.destroyed and #destroyed_log == 0, "the hub is damaged, not destroyed")
+local shed = { valid = true, classes = { Building = true } }
+assert(DestroyBuildingImmediate(shed, { reason = "meteor" }) == true and shed.destroyed, "another building still goes")
+assert(#destroyed_log == 1 and destroyed_log[1].bld == shed)
+H.meteor_malfunction = nil; H.SetMalfunction = nil
 assert(Drone.Getui_command(H.drones[1]) == "vanilla status" and Drone.GetDestName(H.drones[1]) == "vanilla dest", "a fleet Wasp keeps vanilla's lines")
 local foreign_wasp = FlyingDrone:new({ command_center = S1 }, 1)
 assert(Drone.Getui_command(foreign_wasp) == "vanilla status" and Drone.GetDestName(foreign_wasp) == "vanilla dest", "a foreign Wasp keeps vanilla's lines")

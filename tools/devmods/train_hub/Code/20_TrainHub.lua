@@ -2131,6 +2131,23 @@ local function is_hub(o)
 	return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase")
 end
 
+-- A meteor damages the hub, never destroys it (owner, 2026-09-24: "Domes never get destroyed via
+-- a meteor strike, they just get damaged and need repaired and our hub is a dome sized building").
+-- The large meteor destroys any Station outright (Meteors.lua:927-932 on 1.1.1.405907) through
+-- DestroyBuildingImmediate with reason "meteor"; the small one malfunctions it (:783-786). A hub
+-- hit by either now malfunctions and waits for repair. `indestructible` would also block the
+-- player's demolish (Building.lua:925), so the chain is scoped to the meteor reason alone; every
+-- other building and every other cause gets vanilla's answer.
+local vanilla_destroy_building_immediate = DestroyBuildingImmediate
+function DestroyBuildingImmediate(bld, params, ...)
+	if is_hub(bld) and not bld.destroyed and type(params) == "table" and params.reason == "meteor" then
+		PlayFX("MeteorMalfunction", "start", bld)
+		bld:SetMalfunction()
+		return false
+	end
+	return vanilla_destroy_building_immediate(bld, params, ...)
+end
+
 local function flight_api()
 	local F = rawget(_G, "SMROptInHubFlight")
 	return type(F) == "table" and type(F.Create) == "function" and F or nil
