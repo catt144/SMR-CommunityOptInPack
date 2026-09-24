@@ -2698,6 +2698,11 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 		if not can_dispatch(self, record) or not tracks[job.track] or dispatched_now then
 			return true, dispatched_now
 		end
+		-- A new site builds its requests after GameInit (ConstructionSite.lua:806-815, :767-768 on
+		-- 1.1.1.405907); until then its cost reads empty and the claim would hold nothing (L5
+		-- sitting, 2026-09-24: an empty hub dispatched on TrackBroken's tick). Free Construction
+		-- builds the table with no demand, so an empty table still dispatches.
+		if not job.site.construction_resources then return true, dispatched_now end
 		local fleet, dispatched, _ = slot_counts(self, record.jobs)
 		if fleet + dispatched >= Floor.HubRepairTune.MaxDrones then return true, dispatched_now end
 		local launched = dispatch_job(self, job, now) -- one launch per tick, so the pit is not crowded

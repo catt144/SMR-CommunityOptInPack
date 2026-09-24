@@ -258,6 +258,13 @@ assert(L1.completed and #jobs == 0, "completed at the deadline")
 assert(H.supply.Metals.actual == 18000 and H.supply.Metals.target == 18000, "paid 2000 once; the claim released before paying: " .. H.supply.Metals.actual .. "/" .. H.supply.Metals.target)
 assert(#H.resources_added == 1 and H.resources_added[1][1] == "Metals" and H.resources_added[1][2] == -2000)
 -- Drones delivered part of it before the deadline: only the remainder is paid.
+-- a site whose requests are not built yet (TrackBroken's own tick) waits a tick instead of dispatching unclaimed
+local pending_site, pending_el = break_track(T2, 5, 4000); local built = pending_site.construction_resources; pending_site.construction_resources = false
+clock = clock + 5000; H:HubTrackWorkTick()
+local seen = false; for _, j in ipairs(jobs) do if j.site == pending_site then seen = true; assert(not j.deadline and not j.held, "no dispatch before the site's requests exist") end end; assert(seen, "the pending site is a job")
+pending_site.construction_resources = built; clock = clock + 5000; H:HubTrackWorkTick()
+seen = false; for _, j in ipairs(jobs) do if j.site == pending_site then seen = true; assert(j.deadline and j.held and j.held.Metals, "dispatched with its claim once they do") end end; assert(seen, "still a job")
+pending_site.construction_resources.Metals.actual = 0; clock = clock + 100000; H:HubTrackWorkTick(); clock = clock + 5000; H:HubTrackWorkTick()
 -- the live speed: a hub Wasp at move_speed 8960 (the owner's 5x dial and techs) sets the travel at 80 % of it
 H.drones[1].move_speed = 8960
 L2, E2 = break_track(T2, 4, 4000); clock = clock + 5000; H:HubTrackWorkTick()
