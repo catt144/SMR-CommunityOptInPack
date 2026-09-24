@@ -7,7 +7,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 | # | link | tag | attended? | what it drains |
 |---|---|---|---|---|
-| 5 | `5_SMOKE_medium.md` | medium | **yes** | **NEXT.** `DESIGN.md` §5's smoke with the owner, the 2026-09-22/23 cases, and the train-construction question in §6. Records ETAs and the sitting |
+| 5 | `5_SMOKE_medium.md` | medium | **yes** | **IN PROGRESS, PAUSED** on `../07_TRAIN_HUB_AUDIT_111_high.md` (the trains locked up mid-sitting, 2026-09-23). `DESIGN.md` §5's smoke with the owner, the 2026-09-22/23 cases, and the train-construction question in §6. Records ETAs and the sitting |
 | 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
 
 ## Chain rules

@@ -123,3 +123,18 @@ the committed filter re-files each far station once at load.
 
 Append anything unresolved into link 6's notes, then **delete this file and strike its row in
 `README.md` in the same commit**.
+
+### Sitting so far, 2026-09-23 (paused on `../07_TRAIN_HUB_AUDIT_111_high.md`)
+
+Done in the sitting, on `train_hub_base`, then `SMRTK_A.sav`:
+- **Far break 1:** a job, the notice with "ETA 57 min", which is game minutes, about 28.5 s of game time. The Metals target went down with the actual unchanged (owner). The Wasp crossed the dome glass: the crest handoff was still the file default.
+- **After Load A:** fleet 5, low. Meteor id 71 gave one job, `deadline 19814893`, 24463 ms left, the Wasp on a stock `FlightGoto` (log `Mars.exe-20260923-23.38.53`). Then the trains locked up and the owner called the audit.
+
+Owner rulings, each built and committed:
+- **Never adopt orphaned drones** (`cafcaea`). A fresh hub read fleet 9, and the recall deleted 4 adopted drones.
+- **No ETA in the notice, and it clears when the repair is done** (`5ec8048`).
+- **Fixing code that a closed link built is the working link's job** (the audit carries this too).
+
+Also fixed: engine `HandoffAt="outside"` is now the default, with the receipt re-pinned (`1b32bc8`).
+
+Not yet seen: whether the Wasp reached the break before or after completion, the mid-trip reload, and every later item. Resume at handoff item 2 after `07` lands, with its notes in hand.
