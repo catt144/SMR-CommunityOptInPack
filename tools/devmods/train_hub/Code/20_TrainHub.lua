@@ -2269,15 +2269,6 @@ local function repair_work_time()
 	return Floor.HubRepairTune.WorkTime or ((F and F.WorkTime or 5000) + 2000)
 end
 
-local function eta_text(ms)
-	local hour = const.HourDuration or 60000
-	local minute = const.MinuteDuration or 1000
-	if ms >= 2 * hour then
-		return T{909018002011, "<n> h", n = DivRound(ms, hour)}
-	end
-	return T{909018002012, "<n> min", n = Max(1, DivRound(ms, minute))}
-end
-
 local hub_notification_id = "SMROptInTrackRepair"
 
 -- Text-only, sixty real seconds, the vanilla "TrainRefabbed" preset's shape. Runtime-created
@@ -2305,9 +2296,10 @@ local function notify_dispatch(self, job, now)
 	ensure_hub_notification()
 	local presets = rawget(_G, "NotificationPresets")
 	if type(presets) ~= "table" or not presets[hub_notification_id] then return end
-	local eta = eta_text(Max(0, job.deadline - now))
+	-- No ETA (owner, 2026-09-23): game minutes read as seconds to a player, and real seconds
+	-- change with the game speed.
 	AddOnScreenNotification(hub_notification_id, nil, {
-		override_text = T{909018002015, "Repair drone dispatched, ETA <eta>", eta = eta},
+		override_text = T(909018002016, "Repair drone dispatched"),
 		expiration = 60000,
 	}, IsValid(job.el) and { job.el } or nil, self:GetMap())
 end
@@ -2638,6 +2630,10 @@ function SMROptInTrainHubBase:HubTrackWorkTick()
 	end
 	if self.AttachSign then self:AttachSign(waiting_any and true or false, "SignNoConsumptionResource") end
 	local _, dispatched, waiting = slot_counts(self, jobs)
+	-- the notice goes when the last repair under way is done, not a minute later (owner, 2026-09-23)
+	if dispatched == 0 and type(RemoveOnScreenNotification) == "function" then
+		RemoveOnScreenNotification(hub_notification_id, self:GetMap())
+	end
 	self:HubFleetTick(now, dispatched, waiting)
 end
 

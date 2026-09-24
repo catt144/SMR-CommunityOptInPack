@@ -209,7 +209,7 @@ assert(#jobs == 1 and jobs[1].site == L1 and jobs[1].el == E1 and jobs[1].track 
 local job = jobs[1]
 assert(job.deadline and job.started == 1000 and not job.waiting, "dispatched on the first tick")
 assert(job.held.Metals.amount == 2000 and H.supply.Metals.target == 18000 and H.supply.Metals.actual == 20000, "claimed 50 % of the 4000 outstanding, stock untouched")
-assert(#notifications == 1 and notifications[1].text:find("ETA") and notifications[1].objs[1] == E1, notifications[1].text)
+assert(#notifications == 1 and notifications[1].text == "Repair drone dispatched" and notifications[1].objs[1] == E1, notifications[1].text)
 -- deadline = LaunchTime + dist/Speed + WorkTime: E1 is at x 25000: 12000 + 25000*1000/16000 + 7000
 assert(job.deadline == 1000 + 12000 + 1563 + 7000, "deadline arithmetic: " .. job.deadline)
 assert(F.created == 1 and IsValid(job.drone) and job.drone.command_center == H, "one Wasp flies")
