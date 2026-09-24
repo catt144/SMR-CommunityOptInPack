@@ -85,6 +85,9 @@ Station = {}
 DroneControl = {}
 function DroneControl.KillDrone(self, d) assert(table.remove_entry(self.drones, d), "KillDrone asserts fleet membership") DoneObject(d) end
 function DroneControl.Finalize(self) self.finalized = (self.finalized or 0) + 1 for _, d in ipairs(self.drones) do d.orphaned = true end end
+-- vanilla's drone-coverage verdict for a construction site
+ConstructionSite = {}
+function ConstructionSite.IsOutsideCommandRange(self) return true end
 -- vanilla's building destruction and the meteor FX
 destroyed_log = {}
 function DestroyBuildingImmediate(bld, params) destroyed_log[#destroyed_log + 1] = { bld = bld, reason = params and params.reason } bld.destroyed = true return true end
@@ -230,6 +233,9 @@ F.last.stage = "work"; assert(Drone.Getui_command(job.drone) == "Repairing track
 F.last.stage = "back"; assert(Drone.Getui_command(job.drone) == "Returning to the Train Hub" and Drone.GetDestName(job.drone) == "Going to<right><em>Train Hub</em>")
 F.last.stage = "rise"; assert(Drone.Getui_command(job.drone) == "Launching for a track repair")
 F.last.stage = "out"
+-- coverage (owner, 2026-09-24): a site the hub is repairing reads as covered, and its sign is refreshed
+assert(ConstructionSite.IsOutsideCommandRange(job.site) == false, "the hub's job site is covered")
+assert(ConstructionSite.IsOutsideCommandRange({ valid = true }) == true, "any other site is vanilla's")
 -- a meteor malfunctions the hub instead of destroying it (owner, 2026-09-24); nothing else changes
 H.SetMalfunction = function(self) self.meteor_malfunction = true end
 assert(DestroyBuildingImmediate(H, { reason = "meteor", insurance = true }) == false and H.meteor_malfunction and not H.destroyed and #destroyed_log == 0, "the hub is damaged, not destroyed")
@@ -308,11 +314,14 @@ L7 = break_track(T2, 3, 4000); clock = clock + 5000; H:HubTrackWorkTick(); asser
 H:SetHubTrackRepair(false); assert(H.SMROptIn_track_work.repair == false and rebuilt == 1)
 L8 = break_track(T2, 4, 4000); clock = clock + 5000; H:HubTrackWorkTick()
 assert(#jobs == 2 and not jobs[2].deadline and jobs[2].site == L8, "recorded, not dispatched, toggle off")
+assert(ConstructionSite.IsOutsideCommandRange(L8) == true, "toggle off: the hub covers nothing, vanilla's warning returns")
 assert(H:GetHubRepairLine():find("track repair off"))
 clock = jobs[1].deadline; H:HubTrackWorkTick(); assert(L7.completed, "the repair under way completed with the toggle off")
 assert(#T2.repair_cgs == 2 and #T2.elements_under_construction == 1,
   "partially repaired track remains blocked while another group is unfinished")
+local refreshed = 0; L8.UpdateNoCCSign = function() refreshed = refreshed + 1 end
 H:SetHubTrackRepair(true); clock = clock + 5000; H:HubTrackWorkTick(); assert(jobs[1].deadline, "dispatched once the toggle is back on")
+assert(ConstructionSite.IsOutsideCommandRange(L8) == false and refreshed >= 1, "toggle on: covered again, and the sign refreshed"); L8.UpdateNoCCSign = nil
 clock = jobs[1].deadline; H:HubTrackWorkTick(); assert(L8.completed and #jobs == 0)
 assert(#T2.repair_cgs == 0 and #T2.elements_under_construction == 0,
   "last break clears the track; a dead earlier group is not rediscovered as a job")

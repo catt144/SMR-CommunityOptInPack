@@ -2414,6 +2414,54 @@ local function can_dispatch(self, record)
 	return record.repair ~= false and self.ui_working and not self.destroyed and true or false
 end
 
+-- Drone coverage for the sites a hub is repairing (owner, 2026-09-24: "Can't we make the game think
+-- its covered as long as its connected to the hub?"). Vanilla calls a site uncovered when no
+-- controller in its command_centers can command drones (ConstructionSite:IsOutsideCommandRange,
+-- ConstructionSite.lua:3029 on 1.1.1.405907). Only the site's warning (:2038) and the no-controller
+-- sign and notification (Building:ShouldShowNoCCSign, :860; BaseBuilding:UpdateNoDroneServiceNotification)
+-- read it, so the answer is display-only. A site counts as covered while it is a job of a hub
+-- whose switch and track-repair toggle are on. Coverage is refreshed through vanilla's own
+-- updaters when it starts or stops, because they are event-driven.
+local covered_sites = setmetatable({}, weak_keys_meta) -- group leader -> hub
+
+local function refresh_coverage(leader)
+	for _, site in ipairs(leader.construction_group or { leader }) do
+		if live(site) then
+			if site.UpdateNoCCSign then site:UpdateNoCCSign() end
+			if site.UpdateNoDroneServiceNotification then site:UpdateNoDroneServiceNotification() end
+		end
+	end
+end
+
+local function update_coverage(self, record)
+	local covering, now_set = can_dispatch(self, record), {}
+	for _, job in ipairs(record.jobs) do
+		if job.kind == "repair" and live(job.site) then now_set[job.site] = true end
+	end
+	for site, hub in pairs(covered_sites) do
+		if hub == self and not (covering and now_set[site]) then
+			covered_sites[site] = nil
+			if live(site) then refresh_coverage(site) end
+		end
+	end
+	if covering then
+		for site in pairs(now_set) do
+			if covered_sites[site] ~= self then
+				covered_sites[site] = self
+				refresh_coverage(site)
+			end
+		end
+	end
+end
+
+local vanilla_site_outside_command_range = ConstructionSite.IsOutsideCommandRange
+function ConstructionSite:IsOutsideCommandRange(...)
+	local leader = self.construction_group and self.construction_group[1] or self
+	local hub = covered_sites[leader]
+	if hub and live(hub) then return false end
+	return vanilla_site_outside_command_range(self, ...)
+end
+
 -- Fleet drones and dispatched jobs share the ceiling; waiting jobs count so the fleet makes room.
 local function slot_counts(self, jobs)
 	local dispatched, waiting = 0, 0
@@ -2684,6 +2732,9 @@ function SMROptInTrainHubBase:Finalize()
 	local jobs, record = track_jobs(self)
 	for _, job in ipairs(jobs) do release_held(self, job) end
 	if record then record.jobs = {} end
+	for site, hub in pairs(covered_sites) do
+		if hub == self then covered_sites[site] = nil; if live(site) then refresh_coverage(site) end end
+	end
 	DroneControl.Finalize(self)
 end
 
@@ -2747,6 +2798,7 @@ function SMROptInTrainHubBase:HubTrackWorkTick()
 		end
 	end
 	if self.AttachSign then self:AttachSign(waiting_any and true or false, "SignNoConsumptionResource") end
+	update_coverage(self, record)
 	local _, dispatched, waiting = slot_counts(self, jobs)
 	-- the notice goes when the last repair under way is done, not a minute later (owner, 2026-09-23)
 	if dispatched == 0 and type(RemoveOnScreenNotification) == "function" then
