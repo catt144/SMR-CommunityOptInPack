@@ -2474,9 +2474,9 @@ good to me").** Brief 06, one session (claude-opus-5-5). Path form, read on
 `def.content_path = ModContentPath .. def.id .. "/"`, `:875` mounts the mod there;
 `Lua/Buildings/Building.lua:193` `display_icon` is a `ui_image`. So the field carries
 `Mod/SMR_TrainHubDev_20260918/UI/<file>.png`; a solid magenta 232 × 100 proved it in the menu
-(owner's screenshot, 2026-09-24). A hand edit of `Data/` alone does NOT reach the game: the
-build menu read the generated `Code/BuildingTemplate/…generated.lua`, which only the Mod Editor's
-save rewrites. The menu does not clip to the hex, so the art is transparent. Vanilla's layout,
+(owner's screenshot, 2026-09-24). A hand edit of `Data/` alone did NOT reach the game (observed:
+vanilla icon until the owner's Mod Editor save rewrote `Code/BuildingTemplate/…generated.lua`,
+magenta after; which of the two the menu reads was inferred, not traced). The menu does not clip to the hex, so the art is transparent. Vanilla's layout,
 measured on both train icons: two 116 × 100 cells, left normal, right hover (opaque pixels
 about 1.12× brighter), halo (123,197,251) falling 205→15 alpha over 8 px. Three variants
 (assets `trainhub/icon/`: `render_icon.py` cameras, `compose_icon.py`, full-size renders):
@@ -2484,7 +2484,11 @@ A whole hub, B ring and dome with the arms faded past the ring, C low 20° profi
 A and C not tried in game. The PNG keeps the test file's name,
 `UI/SMROptInTrainHub6_icon_test.png`, because the owner's save (version 51) wrote that path and
 no further save was asked for; renaming it needs one Mod Editor save. The encyclopedia image was
-not asked for.
+not asked for. **At the launch re-import (owner, 2026-09-25: the dev name comes out of the mod
+then):** `display_icon` embeds the dev mod id, so it must be repointed to `Mod/<launch id>/UI/…`
+or the menu tile goes blank; drop `_test` from the file name in the same save. Seven files
+besides `metadata.lua` carry `SMR_TrainHubDev_20260918` today (`grep -rl` over the dev mod's
+`*.lua`: the template pair, `ArtSpec-mod.lua`, three `GFXMaterial/` files, `Code/20_TrainHub.lua`).
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
