@@ -2949,60 +2949,52 @@ function SMROptInTrainHubBase:SetHubTrackRepair(on)
 	RebuildInfopanel(self)
 end
 
--- `sectionCustom` spawns the XTemplate named for the template's object_class (sectionCustom
--- XDef, 1.1.1.405907): the vanilla Drone Hub status section narrowed to count and load, this
--- build's repair line under it, and the track-repair toggle as an InfopanelActiveSection with
--- everything set in OnContextUpdate (the shipping Opt_ResidencyControl row's shape). The id
--- is UI-only and never saved. Runtime-created XTemplates are not put in their map by PlaceObj.
-local function ensure_hub_infopanel()
-	local templates = rawget(_G, "XTemplates")
-	if type(templates) ~= "table" or templates.customSMROptInTrainHub6Base then return end
-	if type(InfopanelSection) ~= "table" or type(InfopanelActiveSection) ~= "table" then return end
-	local template = PlaceObj("XTemplate", {
-		group = "Infopanel Sections",
-		id = "customSMROptInTrainHub6Base",
-	}, {
-		PlaceObj("XTemplateWindow", {
-			"__class", "InfopanelSection",
-			"RolloverText", T(359011926905, "<UISectionDroneHubRollover>"),
-			"RolloverTitle", T(167050805716, "Drones Status"),
-			"Title", T(732959546527, "Drones"),
-			"TitleRight", T(745904750458, "<drone(DronesCount,MaxDronesCount)>"),
-			"Icon", "UI/IconsRemaster/Sections/drone.png",
-			"TitleHAlign", "stretch",
-		}, {
-			PlaceObj("XTemplateCode", {
-				"run", function(self, parent, context)
-					local content = InfopanelSection.__content(parent, context)
-					InfopanelText:new({ Text = T(935141416350, "<DronesStatusText>") }, content, context)
-					return InfopanelText:new({ Text = T(909018002010, "<HubRepairLine>") }, content, context)
-				end,
-			}),
-		}),
-		PlaceObj("XTemplateWindow", {
-			"__class", "InfopanelActiveSection",
-			"Icon", "UI/IconsRemaster/Sections/drone.png",
-			"OnContextUpdate", function(self, context, ...)
-				local hub = ResolvePropObj(context)
-				local on = IsValid(hub) and hub:HubTrackRepairEnabled()
-				self:SetIcon("UI/IconsRemaster/Sections/drone.png")
-				self:SetIconBack(on and "UI/IconsRemaster/Sections/ip_sections_on.png" or "UI/IconsRemaster/Sections/ip_sections_limit")
-				self:SetTitle(Untranslated(on and "Track repair: on" or "Track repair: off"))
-				self:SetRolloverImageColor(on and "green" or "yellow", true)
-				self.OnActivate = function(self, context, gamepad)
-					local building = ResolvePropObj(context)
-					if IsValid(building) then building:SetHubTrackRepair(not building:HubTrackRepairEnabled()) end
-				end
-				self:SetRolloverTitle(Untranslated("Track repair"))
-				self:SetRolloverText(Untranslated(on
-					and "A break on this hub's own track network is repaired from the hub's stock: a Repair Drone flies out and the site completes on its deadline, at the Safe Transport rate. Turning this off stops new dispatches; a repair already under way still completes.<newline><newline>Current status: <em>on</em>"
-					or "No new track repairs are dispatched from this hub. Broken track on its network waits for ordinary Drones or for this to be turned on again.<newline><newline>Current status: <em>off</em>"))
-				self:SetRolloverHint(Untranslated(on and "<left_click> Stop new track repairs" or "<left_click> Resume track repairs"))
-				self:SetRolloverHintGamepad(Untranslated(on and "<ButtonA> Stop new track repairs" or "<ButtonA> Resume track repairs"))
-			end,
-		}),
-	})
-	templates.customSMROptInTrainHub6Base = template
+-- The hub's panel sections: vanilla's Drone Hub status narrowed to count and load, this build's
+-- repair line under it, and the track-repair toggle as an InfopanelActiveSection with everything
+-- set in OnContextUpdate. They are built in sectionCustom:Init, which ipBuilding spawns for every
+-- building (ipBuilding.generated.lua:65 on 1.1.1.405907). That is the shipping
+-- Opt_ResidencyControl shape: a generated XDef class declares Init itself, so the classdef capture
+-- is valid at load. L5 sitting, 2026-09-24: the runtime XTemplate this replaces was registered and
+-- on sectionCustom's lookup path, but never showed in play.
+local function add_hub_sections(section, context)
+	local status = InfopanelSection:new({
+		RolloverText = T(359011926905, "<UISectionDroneHubRollover>"),
+		RolloverTitle = T(167050805716, "Drones Status"),
+		Title = T(732959546527, "Drones"),
+		TitleRight = T(745904750458, "<drone(DronesCount,MaxDronesCount)>"),
+		Icon = "UI/IconsRemaster/Sections/drone.png",
+		TitleHAlign = "stretch",
+	}, section, context)
+	local content = InfopanelSection.__content(status, context)
+	InfopanelText:new({ Text = T(935141416350, "<DronesStatusText>") }, content, context)
+	InfopanelText:new({ Text = T(909018002010, "<HubRepairLine>") }, content, context)
+	InfopanelActiveSection:new({
+		Icon = "UI/IconsRemaster/Sections/drone.png",
+		OnContextUpdate = function(self, context, ...)
+			local hub = ResolvePropObj(context)
+			local on = IsValid(hub) and hub:HubTrackRepairEnabled()
+			self:SetIcon("UI/IconsRemaster/Sections/drone.png")
+			self:SetIconBack(on and "UI/IconsRemaster/Sections/ip_sections_on.png" or "UI/IconsRemaster/Sections/ip_sections_limit")
+			self:SetTitle(Untranslated(on and "Track repair: on" or "Track repair: off"))
+			self:SetRolloverImageColor(on and "green" or "yellow", true)
+			self.OnActivate = function(self, context, gamepad)
+				local building = ResolvePropObj(context)
+				if IsValid(building) then building:SetHubTrackRepair(not building:HubTrackRepairEnabled()) end
+			end
+			self:SetRolloverTitle(Untranslated("Track repair"))
+			self:SetRolloverText(Untranslated(on
+				and "A break on this hub's own track network is repaired from the hub's stock: a Repair Drone flies out and the track is fixed when it finishes its work, at the Safe Transport rate. Turning this off stops new dispatches; a repair already under way still completes.<newline><newline>Current status: <em>on</em>"
+				or "No new track repairs are dispatched from this hub. Broken track on its network waits for ordinary Drones or for this to be turned on again.<newline><newline>Current status: <em>off</em>"))
+			self:SetRolloverHint(Untranslated(on and "<left_click> Stop new track repairs" or "<left_click> Resume track repairs"))
+			self:SetRolloverHintGamepad(Untranslated(on and "<ButtonA> Stop new track repairs" or "<ButtonA> Resume track repairs"))
+		end,
+	}, section, context)
+end
+
+local vanilla_section_custom_init = sectionCustom.Init
+function sectionCustom:Init(parent, context, ...)
+	vanilla_section_custom_init(self, parent, context, ...)
+	if is_hub(ResolvePropObj(context)) then add_hub_sections(self, context) end
 end
 
 -- The console surface, the way SetHubDroneTune works: one name and a number, or a table.
@@ -3050,7 +3042,6 @@ function HubRepairStatus(hub)
 end
 
 function OnMsg.CityStart()
-	ensure_hub_infopanel()
 	ensure_hub_notification()
 end
 
@@ -3060,7 +3051,6 @@ function OnMsg.LoadGame()
 	flights = setmetatable({}, weak_keys_meta)
 	fleet_state = setmetatable({}, weak_keys_meta)
 	loaded_pending = true
-	ensure_hub_infopanel()
 	ensure_hub_notification()
 end
 
@@ -3069,7 +3059,6 @@ function OnMsg.DoneGame()
 end
 
 function SMROptInTrainHubBase:InitHubTrackWork()
-	ensure_hub_infopanel()
 	ensure_hub_notification()
 end
 

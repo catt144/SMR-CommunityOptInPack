@@ -65,7 +65,11 @@ function DoneObject(o) assert(IsValid(o), "DoneObject on a dead object") o.delet
 notifications = {}
 function AddOnScreenNotification(id, cb, params, objs, map) notifications[#notifications + 1] = { id = id, text = params.override_text, objs = objs } end
 NotificationPresets = {}; XTemplates = {}
-InfopanelSection = {}; InfopanelActiveSection = {}; InfopanelText = {}
+created_ui = {}
+local function ui_class(name) local c = {} function c.new(cls, props, parent, ctx) local o = { class = name, props = props, parent = parent, ctx = ctx } created_ui[#created_ui + 1] = o return o end return c end
+InfopanelSection = ui_class("InfopanelSection"); InfopanelActiveSection = ui_class("InfopanelActiveSection"); InfopanelText = ui_class("InfopanelText")
+function InfopanelSection.__content(o) return o end
+sectionCustom = {}; function sectionCustom.Init(self, parent, context) self.vanilla_init = true end
 placed = {}
 function PlaceObj(class, props, children) local o = { class = class, props = props, children = children } placed[#placed + 1] = o return o end
 UIColony = { safe = false, IsTechResearched = function(self, id) return id == "SafeTransport" and self.safe end }
@@ -500,10 +504,15 @@ assert(HubRepairStatus(H) == jobs)
 local before = #jobs; L12 = break_track(T5, 3, 2000); OnMsg.TrackBroken(T5, true); assert(#jobs == before + 1, "TrackBroken ticks the hub at once")
 OnMsg.TrackBroken(T5, false); assert(#jobs == before + 1)
 -- the panel template registers once, with the section, the line and the toggle
-OnMsg.CityStart(); assert(XTemplates.customSMROptInTrainHub6Base and NotificationPresets.SMROptInTrackRepair)
+OnMsg.CityStart(); assert(NotificationPresets.SMROptInTrackRepair)
 local n = #placed; OnMsg.LoadGame(); assert(#placed == n, "idempotent")
-local tpl = XTemplates.customSMROptInTrainHub6Base
-assert(tpl.children[1].props[2] == "InfopanelSection" and tpl.children[2].props[2] == "InfopanelActiveSection")
+-- the hub's sections are built in sectionCustom:Init (L5, 2026-09-24): vanilla's Init first, then
+-- the status section with its two lines and the toggle; any other building gets vanilla's alone
+local sec = {}; local before_ui = #created_ui; sectionCustom.Init(sec, nil, H)
+assert(sec.vanilla_init and #created_ui == before_ui + 4, "four elements for a hub: " .. (#created_ui - before_ui))
+assert(created_ui[before_ui + 1].class == "InfopanelSection" and created_ui[before_ui + 1].parent == sec)
+assert(created_ui[before_ui + 3].props.Text == "<HubRepairLine>" and created_ui[before_ui + 4].class == "InfopanelActiveSection" and created_ui[before_ui + 4].parent == sec)
+local other = {}; before_ui = #created_ui; sectionCustom.Init(other, nil, S1); assert(other.vanilla_init and #created_ui == before_ui, "other buildings: vanilla only")
 ''')
 
 result = {
