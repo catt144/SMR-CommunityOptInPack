@@ -6,7 +6,7 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00`, `02` to `06` are live (`01` is parked, done; the earlier `05`, the portal doors, was fired, built and then cut by the owner on
+`00`, `02` to `07` are live (`01` is parked, done; the earlier `05`, the portal doors, was fired, built and then cut by the owner on
 2026-09-22; its survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at
 `8aef5de`). Only one brief that edits `tools/devmods/train_hub/Code/20_TrainHub.lua` runs
 at a time: `02`, `03_Drones/`'s link 4 and `04`; `05` and `06` touch no Lua. The drones chain's
@@ -20,6 +20,7 @@ links 2-3 stay out of that file by design, so they run beside the structure pass
 | `04_TRAIN_HUB_BUILDTRACK_high.md` | Build 5: the same drones build new track from the hub's stock, using `03`'s pending list. | Held until `03`'s smoke is recorded |
 | `05_TRAIN_HUB_BODYPAINT_high.md` | **The final body paint** — the reactor's P4 feel (navy panels, polished off-white bands) on every body surface not held by an owner ruling; then the whole-hub GPU cost reading that closes the look pass. | **Paint KEPT (owner, 2026-09-23; restore point 6). Live for its step 6 alone: the cost reading** |
 | `06_TRAIN_HUB_ICON_medium.md` | **A build-menu icon of the hub's own** (owner, 2026-09-23: the vanilla large-station icon "just looks like another station"): a 232 × 100 render of the painted hub in vanilla's icon style, the template's `display_icon` pointed at it, the owner's pick in the menu. | **Live: fire any time; no Lua** |
+| `07_DISTRIBUTION_PROTOTYPE_high.md` | **The distribution centre's console prototype** (spec §4.8, design only): does a transient claim make trains and drones see different numbers, do drones respond to the baseline numbers, and does `accept` do anything with a consumer in range. No UI, no persistence, nothing ships. | **Live: fire any time.** Fenced out of `20_TrainHub.lua`, `30_TrainHubDrones.lua` and `repair_smoke.py` while the drones chain's link 5 runs |
 
 ## `Parked/` — do not fire
 
