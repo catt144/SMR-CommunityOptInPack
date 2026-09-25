@@ -77,8 +77,8 @@ Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 ### OI-29 · opened 2026-09-25
 When you next test the hub, run MarsDebug with the dev mod and both packs, then send a train through a hub.
 - Confirm dwell and the power display; an isolated hub shows no disconnected-grid warning.
-- Send the debug log: `[TrainHubDev]` must appear, and both original load errors must be absent.
-- Start retail with the dev mod too; send its log to check `EntitySpecPathToEntity` is absent.
+- Send the new debug log: `[TrainHubDev]` must appear; the original errors and undefined
+  `SMROptInHubFlight` must be absent.
 - In the Mod Editor, open, save and reopen the hub EntitySpec to check the editor path still works.
 Home: `docs/agent/prompts/Train_Hub_Project/02_TRAIN_HUB_LOADERRORS_low.md`
 
