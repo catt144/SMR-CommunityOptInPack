@@ -1,10 +1,10 @@
 {
-  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\bab8bca4-e05e-4106-ae52-059acb1e6fc0\\scratchpad\\drones_motion_curves_tagged.json --receipt C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\bab8bca4-e05e-4106-ae52-059acb1e6fc0\\scratchpad\\l5d_motion_clearance_receipt.json",
-  "head": "7ddb822be3287f75fb08a79457049aa9fb8870ac",
+  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\drones_motion_curves_tagged.json --receipt C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\l5c_motion_clearance_receipt.json",
+  "head": "c0a63aa0bea5a10461f89a7f1aa3e5cd3c780dad",
   "assets_head": "a5535fbcb42a97447a815d886e2da8b657295489",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "36873e98988fda75840fe91d040f95f7146c4ed4b70282f300688a093eb76f8d",
+  "source_sha256": "5b847a52c2b1e16fca7c95f4ba76afc32eddd735c6112a4d0cf29b283c665078",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -4256,9 +4256,9 @@
     }
   },
   "motion": {
-    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\bab8bca4-e05e-4106-ae52-059acb1e6fc0\\scratchpad\\drones_motion_curves_tagged.json",
-    "head": "7ddb822be3287f75fb08a79457049aa9fb8870ac",
-    "source_sha256": "36873e98988fda75840fe91d040f95f7146c4ed4b70282f300688a093eb76f8d",
+    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\drones_motion_curves_tagged.json",
+    "head": "c0a63aa0bea5a10461f89a7f1aa3e5cd3c780dad",
+    "source_sha256": "5b847a52c2b1e16fca7c95f4ba76afc32eddd735c6112a4d0cf29b283c665078",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,

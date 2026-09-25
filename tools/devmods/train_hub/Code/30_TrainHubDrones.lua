@@ -80,6 +80,9 @@ SMROptInHubFlight = {
   YawRate = 9000,           -- angle minutes per second; the Wasp's own max_yaw_speed is preferred
   Mode = "engine",          -- "engine": stock FlightGoto legs between our ends; "scripted": the tagged flight
   HandoffAt = "outside",    -- "outside": after L2R's under-deck exit; "crest" (the OI-25 hold) crosses the dome shell (L3, 2026-09-23)
+  ExitVia = "door",         -- "door": out and home through a train door (owner, 2026-09-24); "deck": L2R's under-deck exit
+  DoorRideHeight = 200,     -- entity-local z above the door's rail; with the 800 deck it equals PitExitZ, so the crest-to-centre hop is level. GUESS, by eye
+  DoorOutDistance = 3000,   -- how far past the door, along its track, the engine takes over. GUESS, by eye
   HoldTimeout = 60000,      -- game ms a stock WaitUninterruptable hold lasts before vanilla Idle; the driver re-arms at half
   PollTime = 250,           -- game ms between driver looks at an engine leg or hold; not an owner dial
   Lost = false,             -- diagnostics: the foreign command that last took a prototype drone away
@@ -142,7 +145,61 @@ function F.PitPoints(hub)
   local outside = hub:GetRelativePoint(point(x, y, F.UnderDeckHeight))
   local high = hub:GetRelativePoint(point(x, y, F.TransferHeight))
   -- OI-25's crest stays. Descend in the same clear column before travelling out.
-  return {floor, rim, exit, cruise, outside, high}
+  return {floor, rim, exit, cruise, outside, high, handoff = 5}
+end
+
+-- A train door's route (owner, 2026-09-24: one Wasp flies out of a train door; a swarm uses
+-- several, at random). The pit column and crest stay; from the crest the Wasp crosses to the hub's
+-- centre at ride height, runs out along the door's track through the portal, and the engine takes
+-- it DoorOutDistance past the door. Home is the same route reversed. Trains may clip it (accepted).
+-- Returns the six-point route in PitPoints' shape; .handoff is the engine's end, .door the door.
+local MAX_DOORS = 12
+local function door_count(hub)
+  local n = 0
+  while n < MAX_DOORS and hub:GetSpotBeginIndex("Trackconnector" .. (n + 1)) >= 0
+    and hub:GetSpotBeginIndex("Trackdirection" .. (n + 1)) >= 0 do n = n + 1 end
+  return n
+end
+
+function F.DoorPoints(hub, door)
+  local pit, reason = F.PitPoints(hub)
+  if not pit then return nil, reason end
+  local ci = hub:GetSpotBeginIndex("Trackconnector" .. tostring(door))
+  local di = hub:GetSpotBeginIndex("Trackdirection" .. tostring(door))
+  if ci < 0 or di < 0 then return nil, "Door spots missing" end
+  local entity = hub:GetEntity()
+  local c, d = GetEntitySpotPos(entity, ci), GetEntitySpotPos(entity, di)
+  local dx, dy = d:x() - c:x(), d:y() - c:y()
+  local len = max(1, int(math.sqrt(dx * dx + dy * dy)))
+  local z = c:z() + F.DoorRideHeight
+  local ox = c:x() + MulDivRound(dx, F.DoorOutDistance, len)
+  local oy = c:y() + MulDivRound(dy, F.DoorOutDistance, len)
+  return {pit[1], pit[2], pit[3], hub:GetRelativePoint(point(0, 0, z)),
+    hub:GetRelativePoint(point(c:x(), c:y(), z)), hub:GetRelativePoint(point(ox, oy, z)),
+    handoff = 6, door = door}
+end
+
+-- The door nearest `toward` (a repair's break, a homing Wasp); with none, the next door from a
+-- shuffled deck per hub, so a swarm spreads across every door before one repeats.
+local door_decks = setmetatable({}, {__mode = "k"})
+function F.PickDoor(hub, toward)
+  local n = door_count(hub)
+  if n == 0 then return nil end
+  if toward then
+    local best, dist
+    for i = 1, n do
+      local d = hub:GetSpotPos(hub:GetSpotBeginIndex("Trackconnector" .. i)):Dist2D(toward)
+      if not dist or d < dist then best, dist = i, d end
+    end
+    return best
+  end
+  local deck = door_decks[hub]
+  if not deck or #deck == 0 then
+    deck = {}
+    for i = 1, n do table.insert(deck, 1 + InteractionRand(i, "SMRHubDoor"), i) end
+    door_decks[hub] = deck
+  end
+  return table.remove(deck)
 end
 
 local function copy(path)
@@ -690,7 +747,7 @@ function F.Status()
   return {drone = active.drone, hub = active.hub, phase = active.phase,
     started = active.started, arrival = active.arrival, work_done = active.work_done,
     removed = active.removed, now = GameTime(), mode = active.mode, stage = active.stage,
-    handoff = active.handoff, command = live(active.drone) and active.drone.command or nil}
+    handoff = active.handoff, door = active.door, command = live(active.drone) and active.drone.command or nil}
 end
 
 -- Play a scripted plan to `now`: issue the step that contains it, if not issued yet. Returns
@@ -771,9 +828,25 @@ local function take_back(a)
   a.state, a.hold_at = false, nil -- the next chord re-asserts the fly state after the engine's own
 end
 
+-- Out or home through a train door (ExitVia="door"): the record's route becomes that door's.
+-- Only with HandoffAt="outside"; without door spots the pit's under-deck route stays.
+local function door_route(a, toward)
+  if F.ExitVia ~= "door" or F.HandoffAt ~= "outside" then return end
+  local door = F.PickDoor(a.hub, toward)
+  local pit = door and F.DoorPoints(a.hub, door)
+  if pit then a.pit, a.handoff, a.door = pit, pit.handoff, door end
+end
+
+local function exit_nodes(a)
+  local nodes = {}
+  for i = 4, a.handoff do nodes[#nodes+1] = {p = V(a.pit[i])} end
+  return nodes
+end
+
 -- One engine leg: a stock FlightGoto to a 2D point (the shape FlyingDrone:Goto hands the same
 -- call), with the stock hold queued behind it so the arrival is ours, not Idle's.
 local function leg(a, now, stage)
+  if stage == "back" then door_route(a, a.drone:GetVisualPos()) end -- home by the nearest door
   local dest = stage == "out" and a.site or a.pit[a.handoff]
   a.drone:InterruptWait()
   a.drone:SetCommand(STOCK_LEG, point(dest:x(), dest:y()))
@@ -880,16 +953,18 @@ function F.UpdateEngine(a, now)
   elseif stage == "ready" then
     if c ~= STOCK_HOLD then a.lost = c or "none"; F.Remove(a); return false end
     if not a.target and a.release then
-      if a.handoff ~= 5 then release_now(a); return false end
+      if a.handoff == 3 then release_now(a); return false end
+      door_route(a)
       take_back(a)
-      continue_from_crest(a, now, {{p = V(a.pit[4])}, {p = V(a.pit[5])}}, "exit")
+      continue_from_crest(a, now, exit_nodes(a), "exit")
       stage = "exit"
     elseif not a.target then
       if now - a.hold_at >= int(div(F.HoldTimeout, 2)) then hold(a, now) end
       return F.PollTime
-    elseif a.handoff == 5 then
+    elseif a.handoff ~= 3 then
+      door_route(a, a.site)
       take_back(a)
-      continue_from_crest(a, now, {{p = V(a.pit[4])}, {p = V(a.pit[5])}}, "exit")
+      continue_from_crest(a, now, exit_nodes(a), "exit")
       stage = "exit"
     else
       leg(a, now, "out")
@@ -980,7 +1055,7 @@ function F.Create(hub, started)
     yaw = drone:GetAngle(), placed = true, mode = F.Mode}
   if record.mode == "engine" then
     record.stage, record.rise_started = "rise", record.started
-    record.handoff = F.HandoffAt == "outside" and 5 or 3
+    record.handoff = F.HandoffAt == "outside" and pit.handoff or 3
   end
   -- a launch staggered into the future waits unseen on the pit floor until its turn (L5, 2026-09-24)
   if record.started > GameTime() then
@@ -1015,8 +1090,9 @@ function F.Adopt(hub, drone, target, stage)
   drone:SetCurvature(false)
   local record = {hub = hub, drone = drone, pit = pit, plan = make_plan({}, 1, {}), started = now,
     phase = stage, issued = 0, state = false, visible = true, yaw = drone:GetAngle(), placed = true,
-    mode = "engine", stage = stage, handoff = F.HandoffAt == "outside" and 5 or 3,
+    mode = "engine", stage = stage, handoff = F.HandoffAt == "outside" and pit.handoff or 3,
     target = target, site = site, site_owner = owner, leg_at = now, rise_started = now}
+  if stage == "back" then door_route(record, drone:GetVisualPos()) end
   visuals[record] = true
   start_driver()
   return record
@@ -1043,7 +1119,7 @@ function F.Recall(hub, drone)
   drone:SetCurvature(false)
   local record = {hub = hub, drone = drone, pit = pit, plan = make_plan({}, 1, {}), started = now,
     phase = "back", issued = 0, state = false, visible = true, yaw = drone:GetAngle(), placed = true,
-    mode = "engine", stage = "back", handoff = F.HandoffAt == "outside" and 5 or 3,
+    mode = "engine", stage = "back", handoff = F.HandoffAt == "outside" and pit.handoff or 3,
     recall = true, leg_at = now, rise_started = now}
   leg(record, now, "back")
   visuals[record] = true
@@ -1215,7 +1291,8 @@ function SetHubDroneTune(name, value)
   local tuneable = {HoverHeight = true, OverTrackHeight = true, FixHeight = true,
     UnderDeckHeight = true, OutwardDistance = true, ClimbRate = true, TransferHeight = true,
     Speed = true, WorkTime = true, TurnRadius = true, Accel = true, BankAngle = true,
-    HoldTimeout = true, ExitDirectionX = true, ExitDirectionY = true}
+    HoldTimeout = true, ExitDirectionX = true, ExitDirectionY = true, DoorRideHeight = true,
+    DoorOutDistance = true}
   -- Dials that may be negative, with their magnitude limit; every other dial is a positive integer.
   local signed = {BankAngle = 2700, ExitDirectionX = 1000, ExitDirectionY = 1000}
   local limit = signed[name]
@@ -1229,14 +1306,16 @@ end
 
 -- The owner's switch, at the console, without a reload: it applies to the next SpawnHubDrone,
 -- so link 3 can Return, switch and Spawn to A/B the two implementations in one sitting.
-function SetHubDroneMode(mode, handoff)
+function SetHubDroneMode(mode, handoff, via)
   if mode ~= "engine" and mode ~= "scripted" then return false, 'Use "engine" or "scripted"' end
   if handoff ~= nil and handoff ~= "crest" and handoff ~= "outside" then
     return false, 'The handoff is "crest" or "outside"'
   end
+  if via ~= nil and via ~= "door" and via ~= "deck" then return false, 'The exit is "door" or "deck"' end
   F.Mode = mode
   if handoff then F.HandoffAt = handoff end
-  return true, F.Mode .. " " .. F.HandoffAt .. (active and " (next spawn)" or "")
+  if via then F.ExitVia = via end
+  return true, F.Mode .. " " .. F.HandoffAt .. " " .. F.ExitVia .. (active and " (next spawn)" or "")
 end
 
 -- Scripted motion has no thread in the save and is removed; a drone under a stock command or

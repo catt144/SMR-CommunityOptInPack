@@ -53,6 +53,7 @@ function AllMapsForEach(area,cls,fn) assert(area==true and cls=='FlyingDrone'); 
 function P:x() return self.X end; function P:y() return self.Y end; function P:z() return self.Z end
 P.__add=function(a,b) return point(a.X+b.X,a.Y+b.Y,a.Z+b.Z) end
 P.__sub=function(a,b) return point(a.X-b.X,a.Y-b.Y,a.Z-b.Z) end
+function P:Dist2D(b) return math.floor(math.sqrt((self.X-b.X)^2+(self.Y-b.Y)^2)+.5) end
 function P:Dist(b) return math.floor(math.sqrt((self.X-b.X)^2+(self.Y-b.Y)^2+(self.Z-b.Z)^2)+.5) end
 function GameTime() return clock end
 function IsValid(o) return type(o)=='table' and o.valid and not o.deleted end
@@ -256,7 +257,7 @@ assert _cmds and set(_cmds) <= {"STOCK_LEG", "STOCK_HOLD", "false"}, _cmds
 assert 'local STOCK_LEG, STOCK_HOLD = "FlightGoto", "WaitUninterruptable"' in _code
 assert not re.search(r"^\s*(FlyingDrone|Drone|FlyingObject|CommandObject)\.\w+\s*=", _code, re.M), "no class wrap"
 lua.execute(source_text)
-lua.execute("SetHubDroneMode('scripted')  -- the tagged flight first; the engine suite follows")
+lua.execute("SetHubDroneMode('scripted', nil, 'deck')  -- the tagged flight first; the engine suite follows; the train-door exit has its own case")
 lua.execute(r'''
 -- The scripted suite was written under the tagged flight's dials (drones-scripted-flight-20260923);
 -- the engine suite runs under L3's settled defaults. The mock's drone position is the current
@@ -673,6 +674,65 @@ assert(F.Recall(h, d)); assert(d.command=='FlightGoto', 'home by a stock leg')
 edrive(); assert(d.deleted and not d.leaked and d.calls[#d.calls].to.Z==-2000, 'landed on the pit floor and removed')
 F.OnReleased=nil
 assert(SetHubDroneMode('engine','crest'))
+""")
+lua.execute(r"""
+-- Train doors (owner, 2026-09-24): out and home through a door. A swarm deals every door once
+-- before one repeats; a repair leaves by the door nearest its break; a recall comes home by the
+-- door nearest the Wasp. Door i: connector on r=60 m at the deck (z 800), direction 10 m further.
+assert(SetHubDroneMode('engine','outside','door'))
+local dh=hub(0,0); dh.door_spots=true
+function dh:GetSpotBeginIndex(name)
+  if name=='Pitfloor' then return 0 elseif name=='Pitrim' then return 1 end
+  local c=name:match('^Trackconnector(%d+)$'); if c and tonumber(c)<=6 then return 10+tonumber(c) end
+  local d=name:match('^Trackdirection(%d+)$'); if d and tonumber(d)<=6 then return 20+tonumber(d) end
+  return -1
+end
+local pit_spot=GetEntitySpotPos
+function GetEntitySpotPos(e,idx)
+  if idx<10 then return pit_spot(e,idx) end
+  local i=idx%10; local r=idx<20 and 6000 or 7000; local a=math.rad(60*(i-1))
+  return point(math.floor(r*math.cos(a)+.5),math.floor(r*math.sin(a)+.5),800)
+end
+local rolls=0
+function InteractionRand(n,tag) assert(tag=='SMRHubDoor' and n>=1); rolls=rolls+1; return (rolls*7)%n end
+local function door_pt(i,rad,z) local a=math.rad(60*(i-1)); return math.floor(rad*math.cos(a)+.5),math.floor(rad*math.sin(a)+.5),z end
+local function passes(d,i,since)
+  local x,y,z=door_pt(i,6000,800+F.DoorRideHeight)
+  for _,c in ipairs(d.calls) do if c.clock>=since and c.to.X==x and c.to.Y==y and c.to.Z==z then return true end end
+  return false
+end
+clock=2700000; local t0=clock
+local released,seen={},{}
+F.OnReleased=function(hub,d) released[#released+1]=d end
+local recs={}
+for k=1,6 do local r=assert(F.Create(dh, clock+300*(k-1))); assert(F.Release(r)); recs[k]=r end
+edrive()
+assert(#released==6, 'six released')
+for _,r in ipairs(recs) do
+  assert(r.door and r.handoff==6 and passes(r.drone,r.door,t0), 'released through its door')
+  local o=r.pit[6]; local x,y=door_pt(r.door,6000+F.DoorOutDistance)
+  assert(o.X==x and o.Y==y and r.drone.pos.X==x and r.drone.pos.Y==y, 'handed over past the door')
+  seen[r.door]=true
+end
+for i=1,6 do assert(seen[i], 'every door dealt once: '..i) end
+F.OnReleased=nil
+-- A repair to the east leaves by door 1 (0 deg) and comes home by it.
+local rs=obj(20000,0); rs.track_obj=t1
+local r=assert(F.Create(dh)); assert(F.Send(r, rs)); local t1c=clock
+edrive()
+assert(r.door==1 and r.drone.deleted and not r.drone.leaked, 'repair by the nearest door, landed')
+local legs={}; for _,c in ipairs(r.drone.commands) do if c.cmd=='FlightGoto' then legs[#legs+1]=c end end
+local ox,oy=door_pt(1,6000+F.DoorOutDistance)
+assert(#legs==2 and legs[1].pos.X==ox and legs[1].pos.Y==oy and legs[2].args[1].X==ox and legs[2].args[1].Y==oy, 'engine from and to past door 1')
+assert(passes(r.drone,1,legs[2].clock) and r.drone.calls[#r.drone.calls].to.Z==-2000, 'home through door 1 into the pit')
+-- A recalled fleet Wasp west of the hub comes home by door 4 (180 deg).
+local d=released[1]; d.pos=point(-40000,0,3700); d.command='Idle'; local t2c=clock
+assert(F.Recall(dh, d)); edrive()
+assert(d.deleted and passes(d,4,t2c) and d.calls[#d.calls].to.Z==-2000, 'recall by the nearest door')
+for _,x in ipairs(released) do if not x.deleted then DoneObject(x) end end
+GetEntitySpotPos=pit_spot
+assert(clock<3000000, 'the door case stays before the next case clock')
+assert(SetHubDroneMode('engine','crest','deck'))
 """)
 lua.execute(r"""
 -- Recalls. Mid-leg: a new FlightGoto from where it is (the engine re-plans from its velocity).
