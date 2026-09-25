@@ -51,18 +51,18 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, close of the 2026-09-24 orchestrator session.** The fire order is
+   - **WHERE THE PROJECT STANDS, close of the 2026-09-25 orchestrator session.** The fire order is
      this folder's [`README.md`](README.md) and the drones chain's own
      [`03_Drones/README.md`](03_Drones/README.md) — keep both current; they are what the owner reads
-     to pick the next thing. The look pass is DONE and accepted (brief `01` parked, body paint kept,
-     restore point 6); spec §9 holds every step, its measurements and the restore tags, and `05` is
-     live for its last step alone, the whole-hub GPU cost reading that is still `<<PENDING-RUN>>`.
-     The drones are built: chain links 1-4 are consumed, the hub half landed in `b556035` with the
-     one persisted name `SMROptIn_track_work` inventoried, and **link 5's attended smoke passed and is
-     recorded** (`reports/drones_chain/L5_SMOKE_20260925.md`, 2026-09-25); link 6's QA is next and last, and the owner
-     runs it on a different model. `04` (build 5, the hub builds track) was held until that smoke
-     was recorded; it now is. The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md)
-     — read it there rather than trusting a list here.
+     to pick the next thing. The look pass is DONE and accepted (brief `01` parked); `05` is live for
+     its last step alone, the whole-hub GPU cost reading, still `<<PENDING-RUN>>` in spec §9.
+     **The drones are DONE and smoked** (`reports/drones_chain/L5_SMOKE_20260925.md`, owner's
+     sitting 2026-09-24/25): links 1-5 are consumed and only link 6, the fresh-context adversarial
+     QA, is left — the owner runs it on a different model from the links it audits. **`04` (build 5,
+     the hub builds track) is therefore unheld** and is the next build; it inherits the pending list
+     `SMROptIn_track_work` and its kind field. `07` (the distribution prototype) is live and fenced
+     out of the hub's Lua. The owner's open asks live on
+     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md) — read them there.
    - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
      Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
      numbers are the drones' view, a transient claim during the train's evaluation is the trains'),

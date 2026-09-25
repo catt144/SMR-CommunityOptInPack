@@ -1,7 +1,12 @@
 # Train hub build 5: the hub builds track
 
-⛔ **HELD until build 4's smoke test is recorded** (`03_TRAIN_HUB_DRONES_high.md`). It is build 4's
-mechanism with a second trigger and a fixed order, on the pending list build 4 designed for it.
+**LIVE, fire when ready. Its hold is lifted** (2026-09-25): build 4's smoke is recorded
+(`reports/drones_chain/L5_SMOKE_20260925.md`), and build 4 itself is
+`03_Drones/DESIGN.md` with the hub half in `20_TrainHub.lua`. It is build 4's mechanism with a
+second trigger and a fixed order, on the pending list `SMROptIn_track_work` that build 4 shipped
+with a kind field for exactly this. ⚠️ Read that build before designing: the pending list, the
+completion path and the fleet all exist now, and the drones chain's link 6 (QA) may still be
+auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongside another brief.
 
 ## Authority
 
