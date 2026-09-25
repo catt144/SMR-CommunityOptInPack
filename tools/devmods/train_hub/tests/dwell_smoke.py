@@ -25,6 +25,7 @@ def body(path, pattern):
 lua=LuaRuntime(unpack_returned_tuples=True)
 lua.execute('''
 OnMsg={}; CObject={}; empty_table={}; Platform={developer=false}
+CurrentMap={}; ChangingMap=false
 SMROptInTrainFloor={HubDwellTime=6000}; WaitWakeup=coroutine.yield; native_wait=WaitWakeup
 const={HourDuration=60000}; Max=math.max; Min=math.min
 function AllMapsForEach() end
@@ -41,7 +42,7 @@ legacy=subprocess.check_output(['git','show','d73d701:tools/devmods/train_hub/Co
 start='\tlocal wrapper = function(timeout, ...)'; end='\n\t_G.WaitWakeup = wrapper'
 assert source[source.index(start):source.index(end)]==legacy[legacy.index(start):legacy.index(end)]
 assert 'local function install_hub_save_guard()' in part, 'snapshot guard missing: native waiter remains unregistered at save'
-lua.execute('local Floor=SMROptInTrainFloor\n'+part+'\ninstall_hub_dwell(); install_hub_save_guard()')
+lua.execute('local Floor=SMROptInTrainFloor\n'+part+'\ninstall_hub_dwell(); set_hub_dwell_waiter(CurrentMap and not ChangingMap); install_hub_save_guard()')
 lua.execute('''
 local floor=SMROptInTrainFloor
 assert(floor.HubDwellInstalled and floor.HubSaveGuardInstalled)
@@ -91,8 +92,21 @@ local foreign=function() end; WaitWakeup=foreign
 local previous_calls=calls
 assert(PersistGame('fixture/'):find('cancelled',1,true))
 assert(calls==previous_calls and WaitWakeup==foreign,'conflicting waiter captured under wrong metadata')
+WaitWakeup=floor.HubDwellWrapper
+CurrentMap=false; OnMsg.ChangeMap()
+assert(WaitWakeup==native_wait,'map change left the map-scanning waiter active')
+local scan_calls=0
+AllMapsForEach=function() scan_calls=scan_calls+1 end
+local no_map_wait=coroutine.create(function() WaitWakeup(6000) end)
+assert(coroutine.resume(no_map_wait) and scan_calls==0,'no-map wakeup scanned maps')
+OnMsg.ChangeMapDone()
+assert(WaitWakeup==native_wait,'failed map load activated dwell')
+CurrentMap={}; OnMsg.ChangeMapDone()
+assert(WaitWakeup==floor.HubDwellWrapper,'loaded map did not activate dwell')
+ChangingMap=true; OnMsg.ApplicationQuit()
+assert(WaitWakeup==native_wait,'quit left the map-scanning waiter active')
 ''')
 print('command:', subprocess.list2cmdline([sys.executable,*sys.argv]))
 print('HEAD',subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip())
-print('PASS: snapshot mapping, old/new/native load selection, save return/error and failed-load restoration, foreign conflict rejection')
+print('PASS: snapshot mapping, old/new/native load selection, save return/error and failed-load restoration, foreign conflict rejection, no-map waiter lifecycle')
 print('LIMIT: no native serialization; ambiguous unmarked pre-wrapper hub saves are not classified')

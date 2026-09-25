@@ -100,6 +100,30 @@ local function install_hub_dwell()
 	Floor.HubDwellWrapper = wrapper
 end
 
+-- Keep the legacy wrapper body stable for saved wait frames. Publish the native
+-- waiter while a map is absent or changing: AllMapsForEach can see a map object
+-- before EngineChangeMap has installed its native map (map.lua:355-368).
+local function set_hub_dwell_waiter(active)
+	if not Floor.HubDwellInstalled then return end
+	local native, wrapper = Floor.HubDwellNativeWait, Floor.HubDwellWrapper
+	local current = rawget(_G, "WaitWakeup")
+	if current == native or current == wrapper then
+		_G.WaitWakeup = active and wrapper or native
+	end
+end
+
+function OnMsg.ChangeMap()
+	set_hub_dwell_waiter(false)
+end
+
+function OnMsg.ChangeMapDone()
+	set_hub_dwell_waiter(CurrentMap and not ChangingMap)
+end
+
+function OnMsg.ApplicationQuit()
+	set_hub_dwell_waiter(false)
+end
+
 -- D14(a): owner 2026-09-24 proposed removing our replacement around saving.
 -- Scope it to the actual snapshot, not SaveGameStart: autosaves keep running
 -- during earlier yields, and in-memory/bug-report saves skip those messages.
@@ -3240,6 +3264,7 @@ DefineClass.SMROptInTrainHub6Base = {
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
 	install_hub_dwell()
+	set_hub_dwell_waiter(CurrentMap and not ChangingMap)
 	install_hub_save_guard()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
