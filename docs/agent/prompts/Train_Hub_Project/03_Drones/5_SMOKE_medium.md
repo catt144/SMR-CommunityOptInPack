@@ -231,7 +231,6 @@ Explained, not changed:
 - The dome outside the 15-hex ring is genuinely uncovered.
 - "Not enough Power" was the owner's unbuilt power lines.
 
-Open owner question: the growth gate is one chunk per 60 s window. I offered to restart the meter at each jump and require 15 s instead. **Unanswered.**
 
 Still to run:
 - `WaspPalette` "P4", for the owner to judge.
