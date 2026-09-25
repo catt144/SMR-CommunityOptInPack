@@ -3213,3 +3213,13 @@ bind build 5 and any later hub work:
 - **Deferred to the import/export and dials work:** `DESIGN.md` §6 train construction (the 1.1.1
   source says a stocked station builds without a drone; untested), and cargo kept aboard at a full
   hub. **Moved:** the Wasp palette default, to brief 05 and §9. **OI-26:** kept as built.
+
+### Build 5: stopped at construction-group accounting (2026-09-25)
+
+`TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md` records the source audit on archived installed build
+25390750 / 1.1.1.405907. New track sites share a `construction_group` leader: only it owns the
+resource and work requests, its `Complete()` completes every live member, and its cost multiplier
+prices the group. That conflicts with the owner's sequential, normal-cost-per-element requirement.
+No build-track behavior or smoke was run. The build 4 pending list already has `kind`; no new
+persisted name is needed. Build 5 remains at the brief's stop pending OI-28. The drones-chain QA
+corrections and ship tests remain owed.
