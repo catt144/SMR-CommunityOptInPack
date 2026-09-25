@@ -153,20 +153,22 @@ end
 -- centre at ride height, runs out along the door's track through the portal, and the engine takes
 -- it DoorOutDistance past the door. Home is the same route reversed. Trains may clip it (accepted).
 -- Returns the six-point route in PitPoints' shape; .handoff is the engine's end, .door the door.
+-- The body's own spots only: the engine's GetSpotBeginIndex raises "Invalid spot" on a missing
+-- name (it never returns -1), and the hub's HasSpot answers true for its synthetic line spots.
 local MAX_DOORS = 12
 local function door_count(hub)
   local n = 0
-  while n < MAX_DOORS and hub:GetSpotBeginIndex("Trackconnector" .. (n + 1)) >= 0
-    and hub:GetSpotBeginIndex("Trackdirection" .. (n + 1)) >= 0 do n = n + 1 end
+  while n < MAX_DOORS and CObject.HasSpot(hub, "Trackconnector" .. (n + 1))
+    and CObject.HasSpot(hub, "Trackdirection" .. (n + 1)) do n = n + 1 end
   return n
 end
 
 function F.DoorPoints(hub, door)
   local pit, reason = F.PitPoints(hub)
   if not pit then return nil, reason end
+  if not door or door < 1 or door > door_count(hub) then return nil, "Door spots missing" end
   local ci = hub:GetSpotBeginIndex("Trackconnector" .. tostring(door))
   local di = hub:GetSpotBeginIndex("Trackdirection" .. tostring(door))
-  if ci < 0 or di < 0 then return nil, "Door spots missing" end
   local entity = hub:GetEntity()
   local c, d = GetEntitySpotPos(entity, ci), GetEntitySpotPos(entity, di)
   local dx, dy = d:x() - c:x(), d:y() - c:y()

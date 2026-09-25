@@ -80,6 +80,8 @@ function O:GetRelativePoint(p)
   return self.pos+point(math.floor((p.X*math.cos(angle)-p.Y*math.sin(angle))*scale+.5),
     math.floor((p.X*math.sin(angle)+p.Y*math.cos(angle))*scale+.5),math.floor(p.Z*scale+.5))
 end
+-- The engine's body-spot query (the flight counts doors with it). A plain mock body has no doors.
+CObject={HasSpot=function(o,name) return o.HasSpot~=nil and o:HasSpot(name) or false end}
 function O:GetSpotBeginIndex(name)
   if self.missing then return -1 end
   return (name=='Pitfloor' or name=='Enter1') and 0 or 1
@@ -685,7 +687,10 @@ function dh:GetSpotBeginIndex(name)
   if name=='Pitfloor' then return 0 elseif name=='Pitrim' then return 1 end
   local c=name:match('^Trackconnector(%d+)$'); if c and tonumber(c)<=6 then return 10+tonumber(c) end
   local d=name:match('^Trackdirection(%d+)$'); if d and tonumber(d)<=6 then return 20+tonumber(d) end
-  return -1
+  error('HGE::l_GetSpotBeginIndex: Invalid spot') -- the engine raises; it never returns -1
+end
+function dh:HasSpot(name)
+  local c=name:match('^Track%a+(%d+)$'); return c~=nil and tonumber(c)<=6 or name=='Pitfloor' or name=='Pitrim'
 end
 local pit_spot=GetEntitySpotPos
 function GetEntitySpotPos(e,idx)
