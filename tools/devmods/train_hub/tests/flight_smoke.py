@@ -258,6 +258,12 @@ _cmds = re.findall(r"(?:SetCommand|QueueCommand)\(([^,)]+)", _code)
 assert _cmds and set(_cmds) <= {"STOCK_LEG", "STOCK_HOLD", "false"}, _cmds
 assert 'local STOCK_LEG, STOCK_HOLD = "FlightGoto", "WaitUninterruptable"' in _code
 assert not re.search(r"^\s*(FlyingDrone|Drone|FlyingObject|CommandObject)\.\w+\s*=", _code, re.M), "no class wrap"
+# MarsDebug 2026-09-25 raised on the first read of this absent global. The
+# standard Lua mock silently returned nil, so make that one read strict.
+lua.execute("""assert(rawget(_G, 'SMROptInHubFlight') == nil)
+setmetatable(_G, {__index=function(_, key)
+  if key == 'SMROptInHubFlight' then error('undefined SMROptInHubFlight') end
+end})""")
 lua.execute(source_text)
 lua.execute("SetHubDroneMode('scripted', nil, 'deck')  -- the tagged flight first; the engine suite follows; the train-door exit has its own case")
 lua.execute(r'''

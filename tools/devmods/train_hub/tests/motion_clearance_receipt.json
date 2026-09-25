@@ -1,10 +1,10 @@
 {
-  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\drones_motion_curves_tagged.json --receipt C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\l5d_motion_clearance_receipt.json",
-  "head": "3c47ce22d7e65df0bd6113fc1b53a287403bf69c",
-  "assets_head": "a5535fbcb42a97447a815d886e2da8b657295489",
+  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\train_hub_loaderror_motion_20260925.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\motion_clearance_receipt.json",
+  "head": "b63636a8094d6ad6851cd6927db0c2a2d272e9f9",
+  "assets_head": "2dcb019bab82eadde637dd1e9f275015d9365a5a",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "c9b60c79ad8772360fed9df21fd4b310690a08b40ece16776f43528d3ceb491b",
+  "source_sha256": "2155c7796b7fb15e1a4d1473d421d5b35f2eae0c069efeeb39c8c46357f46a28",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -4256,9 +4256,9 @@
     }
   },
   "motion": {
-    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\drones_motion_curves_tagged.json",
-    "head": "3c47ce22d7e65df0bd6113fc1b53a287403bf69c",
-    "source_sha256": "c9b60c79ad8772360fed9df21fd4b310690a08b40ece16776f43528d3ceb491b",
+    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\train_hub_loaderror_motion_20260925.json",
+    "head": "b63636a8094d6ad6851cd6927db0c2a2d272e9f9",
+    "source_sha256": "2155c7796b7fb15e1a4d1473d421d5b35f2eae0c069efeeb39c8c46357f46a28",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,

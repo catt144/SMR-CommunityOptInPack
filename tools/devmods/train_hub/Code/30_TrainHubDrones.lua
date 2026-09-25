@@ -54,7 +54,8 @@
 -- (TakeOff/LandingEnd), Track.lua:194-199, TrainTransport.lua:57-65, TrackTunnel.lua:20-28;
 -- EF-112/115 (FX and battery).
 
-if SMROptInHubFlight and SMROptInHubFlight.ClearAll then SMROptInHubFlight.ClearAll() end
+local previous_flight = rawget(_G, "SMROptInHubFlight")
+if previous_flight and previous_flight.ClearAll then previous_flight.ClearAll() end
 SMROptInHubFlight = {
   HoverHeight = 300,        -- GUESS safety buffer above the guessed train envelope
   OverTrackHeight = 1200,   -- GUESS train envelope above rail; total ride offset = this + buffer
