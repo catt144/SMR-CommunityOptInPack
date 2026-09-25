@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-28 · opened 2026-09-25
-Train hub: should an isolated, self-powered hub show a power-grid connection warning?
-- It both produces 70 and consumes 10 power; vanilla producer and consumer checks count the hub itself.
-- Recommend no warning while isolated: the hub powers itself, and an isolated grid has no external consumer.
-- Alternatively, show a warning until connected to an external grid, to flag that its surplus cannot be exported.
-- Say "no warning" or "warn until connected"; this decides the inheritance override in the dev mod.
-Home: `docs/agent/prompts/Train_Hub_Project/02_TRAIN_HUB_LOADERRORS_low.md`
-
 ### OI-27 · opened 2026-09-24
 When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
 - The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.

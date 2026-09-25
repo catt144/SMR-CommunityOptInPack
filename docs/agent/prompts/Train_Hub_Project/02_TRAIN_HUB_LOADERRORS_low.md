@@ -42,10 +42,11 @@ cannot pick one. All four citations are that build's archived tree,
 `ShowUISectionElectricityGrid` at `20_TrainHub.lua:133` for exactly this reason. Read that override
 before writing yours, and match whatever it decided about which parent's behaviour the hub wants.
 
-**Your call:** which parent's sign the hub should show, or a hub-specific answer. The hub is the
-single `+70/-10` power-grid object (spec §10), so it is both producer and consumer in practice —
-decide what a player should see when it is off-grid, and record the reasoning in the commit
-message, not only in code.
+⚖️ **Owner ruling 2026-09-25 (OI-28): "No warning."** An isolated, self-powered hub shows no
+power-grid sign and no power-grid UI warning. The method only drives `SignNoPowerProducer` and
+`Building:GetUIWarning` (`Building.lua:2968`); the hub is not a `Workplace`, so it gates no work.
+Precedent: `Track.lua:664` sets it to `ret_false`. Override it on `SMROptInTrainHubBase` to
+return `false`, then hand the owner the exact log check.
 
 **2 — Engine assert from the dwell hook, line 275.**
 
