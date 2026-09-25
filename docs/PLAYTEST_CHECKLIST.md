@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-28 · opened 2026-09-25
-Train hub build 5: should the hub still build each track element in order at its normal cost?
-- Vanilla new-track sites share a group leader's cost and work requests; `Complete()` finishes the group.
-- The build brief says to stop at this conflict; no build-track code or smoke was run.
-- Recommended: keep your order and cost requirements; authorize a separate group-accounting design.
-- Or allow vanilla's group completion and price; say which requirements change.
-Home: `docs/agent/reports/TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md`
-
 ### OI-27 · opened 2026-09-24
 When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
 - The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.

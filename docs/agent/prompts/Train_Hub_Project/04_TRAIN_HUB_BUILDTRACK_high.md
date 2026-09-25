@@ -22,6 +22,17 @@ auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongs
   guard; build 4's brief). Both bans bind; no new
   persisted name if build 4's list carries the kind, and if it does not, stop and report.
 - Testing depth (owner): a smoke test only.
+- ⚖️ **Owner ruling 2026-09-25, on this brief's construction-group stop: "1 is fine" — the whole
+  line is one job, the game's own way.** New track is one `construction_group`: only its leader
+  holds the cost and work requests, and the leader's `Complete()` finishes every element at once
+  (`ConstructionSite.lua:32,2671`, `Tracks.lua:460-474`, 1.1.1.405907;
+  `reports/TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md`). So the hub pays the group's **outstanding**
+  cost from stock and completes the leader after a build time scaled to the line's length, which is
+  build 4's repair path. Element-by-element order and per-element payment are dropped; End state 2-5
+  below read with that. If the whole line appearing at once reads wrong in the smoke, the next
+  step is feeding the cost in over the build time (pause the line on a stock-out), still
+  completing at once. Taking over the group's accounting to finish single elements is not
+  authorised.
 
 ## Read first
 
@@ -43,21 +54,20 @@ Build 4's brief and report. Facts from the 1.1.0.403908 source, with the line th
 1. **Trigger and gate.** A track construction group with an end station on the hub's network is
    queued as build work; one without waits, and is picked up when it becomes connected. A player
    toggle on the hub, separate from repair, your call.
-2. **Order.** Elements complete sequentially from the connected end outward, so the drone always
-   rides built track to the next site; pay each element from stock as it completes, at the normal
-   cost. If stock runs out, pause at the last built element, sign the hub, resume when stock lands.
+2. **One job per line** (owner ruling above). Pay the group leader's outstanding cost from stock and
+   complete the leader; the whole line finishes at once. If stock runs out, pay what is there, sign
+   the hub, and wait; resume when stock lands.
    **Drones are never limited** (owner, 2026-09-19): any section in a drone's range is built by
-   drones exactly as today, at the same time as the hub works the line from its end, and an
-   element other drones finish is skipped. The hub pays only an element's
-   **outstanding** cost when it completes it, so a site drones have part-supplied is never paid
-   twice. The smoke has one line with a drone hub covering its middle.
-3. **Time.** Per element at the emergency speed plus a build time per element, a dial: a long line
+   drones exactly as today, at the same time as the hub's job runs. The hub pays only the
+   group's **outstanding** cost, so a line drones have part-supplied is never paid twice. The smoke has one line with a drone hub covering its middle.
+3. **Time.** Flight at the emergency speed plus a build time scaled to the line's element count, a dial: a long line
    visibly takes longer than a repair, but never long enough to be the pain point again. Report
-   the smoke's measured times per element and per line.
-4. **The repair drone** rides out in track mode and lays track as it goes, under build 4's save guard.
+   the smoke's measured times per line, with each line's element count.
+4. **The repair drone** flies out as build 4's do (engine mode, spec §10 "Drones L5") and works
+   the line until it completes.
 5. **Smoke with the owner:** a line from a hub-served station to a new far station with no drone
    in reach; a line placed from an unreachable station that starts when a second line connects it;
-   stock running out mid-line; save and reload mid-line; toggle off.
+   stock running out mid-job; save and reload mid-job; toggle off.
 6. **Record** in the hub report and spec §10.
 
 **Done means:** a line with no drone coverage is built by the hub from stock, in order from the
@@ -73,8 +83,6 @@ Out: building stations, drone logic, Module A, routing. Tunnels follow build 4's
 ## Stops
 
 - **Build 4's list has no kind field** and adding one needs a second persisted name: report.
-- **Sequential completion fights the construction group's own leader logic** (the group's first
-  site carries the cost multiplier, `Track.lua:646`): report the fields and stop.
 
 ## Do not claim
 

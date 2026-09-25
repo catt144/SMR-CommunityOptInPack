@@ -3221,5 +3221,11 @@ bind build 5 and any later hub work:
 resource and work requests, its `Complete()` completes every live member, and its cost multiplier
 prices the group. That conflicts with the owner's sequential, normal-cost-per-element requirement.
 No build-track behavior or smoke was run. The build 4 pending list already has `kind`; no new
-persisted name is needed. Build 5 remains at the brief's stop pending OI-28. The drones-chain QA
-corrections and ship tests remain owed.
+persisted name is needed. The drones-chain QA corrections and ship tests remain owed.
+
+⚖️ **Owner ruling 2026-09-25: "1 is fine" — build 5 builds a whole line as one job, the game's own
+way.** The hub pays the group's outstanding cost from stock and completes the leader after a build
+time scaled to the line's length (build 4's repair path); the line appears at once, a stock-out
+waits. Element-by-element order and per-element payment are dropped. If the pop-in reads wrong in
+the smoke, the next step is paying the cost in over the build time, still completing at once; a
+per-element accounting design is not authorised. Brief 04 carries the ruling.
