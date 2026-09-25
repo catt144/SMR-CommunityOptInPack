@@ -398,6 +398,7 @@ assert(#H.drones == 5, "idle fleet: low, 5: " .. #H.drones)
 H.free = 0; local saw_medium, ticks = false, 0
 while #H.drones < 20 and ticks < 30 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; if #H.drones == 10 then saw_medium = true end end
 assert(saw_medium and #H.drones == 20 and ticks <= 12, "all busy: medium then high within the 60 s window, ticks " .. ticks)
+assert(H:GetDronesStatusText():find("Heavy"), "the panel's load line shows the fleet meter: " .. tostring(H:GetDronesStatusText()))
 for _, d in ipairs(H.drones) do d.command = "Idle" end
 H.free = 20; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
 clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones < 20, "idle again: low, recalls begin: " .. #H.drones)

@@ -2716,6 +2716,27 @@ local function fleet_load(self, now, state)
 	return "high"
 end
 
+-- The panel's "Drones load" line shows the meter the fleet steers by (owner, 2026-09-24: 20 out, all
+-- busy, and the panel still read vanilla's 12-hour "Low"). Vanilla's lines otherwise, same ids
+-- (DroneControl:GetDronesStatusText, DroneControl.lua:1135-1155 on 1.1.1.405907). GetDroneLoad
+-- itself stays vanilla's, so the heavy-workload notification (:1117) keeps vanilla's pace.
+local hub_load_texts = {
+	low = T(935141416351, "Drones load <right><green>Low</green><left>"),
+	medium = T(935141416352, "Drones load <right><yellow>Medium</yellow><left>"),
+	high = T(935141416353, "Drones load <right><red>Heavy</red><left>"),
+}
+
+function SMROptInTrainHubBase:GetDronesStatusText(...)
+	local meter = fleet_state[self]
+	local word = meter and meter.load
+	if not hub_load_texts[word] then return DroneControl.GetDronesStatusText(self, ...) end
+	local broken_count = self.GetBrokenDronesCount and self:GetBrokenDronesCount() or 0
+	local broken = broken_count == 1 and T(648, "There is <red>1</red> malfunctioning Drone") .. "\n"
+		or broken_count > 1 and T{649, "There are <red><number></red> malfunctioning Drones", number = broken_count} .. "\n"
+		or ""
+	return broken .. hub_load_texts[word]
+end
+
 function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
 	if not self:CanCommandDrones() then return end
 	local tune = Floor.HubRepairTune
