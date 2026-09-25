@@ -1730,6 +1730,13 @@ owner confirmed the lights gone before the second sample (the off path prints no
 own spread (84.8-88.6%). Memory cannot move here: lights hold no textures and a stopped hub keeps
 its body and maps (52.7 MB of DDS) loaded, so this reads the lights and effects only. Not measured:
 day, an unpaused scene with trains, and a weaker GPU than the owner's RTX 4080.
+**Brief 05's hand-over from drones link 5, the Wasp palette — closed by the owner's ruling of
+2026-09-25 (the drone recolour CLOSED as vanilla, above).** `Floor.HubRepairTune.WaspPalette`
+stays at its shipped default `false`, vanilla's look; no value changes. Finding for the drones
+chain: the dial cannot paint in any setting, because it uses per-object colorization and the Wasp
+entity has 0 colour channels (the owner's console read, above), so `"P1"`..`"P4"` write nothing.
+Removing the inert dial is a code change for the drones chain under its own ruling; it is left.
+With the cost reading measured, **brief 05 is done**; the orchestrator parks or deletes it.
 
 **Structure step, the blur measured before the bake, 2026-09-21 — assets `3be561d`.** Executed
 agent: Claude Fable 5.1 (`claude-fable-5-1`). Two read-only scripts in SMR-Assets
