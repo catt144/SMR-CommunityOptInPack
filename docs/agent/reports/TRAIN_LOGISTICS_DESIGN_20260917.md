@@ -2467,6 +2467,15 @@ vanilla's per-object colorization on each hub drone at spawn, the reactor's own 
 drone reads as the hub's and a colony Wasp keeps its own; Lua on the drone objects, no import.
 It belongs to the drones chain (`03_Drones/`), after the flight look settles (link 3), and is
 tuned by eye like the reactor variants were. Brief 06 is the icon; this is not in it.
+**Measured by the owner, 2026-09-25, in the console on a hub Wasp: the per-object route is CLOSED.**
+`SelectedObj:GetMaxColorizationMaterials()` printed **0** on the stock `DroneJapanFlying`, and 0
+again after `ChangeEntity` to each of vanilla's two unused Wasp models, `DroneJapanFlying_02` and
+`_03` (no game Lua references either: `rg DroneJapanFlying_0 Lua DLC` on the 1.1.0.403908 archive
+finds only `_EntityData.generated.lua`). With no channels, `SetColorizationMaterial` does nothing.
+The recolour's only route is a **repainted copy of a Wasp model imported as our own entity**, which
+the hub's drones take at spawn and after load; the vanilla files are never edited. Its first
+question is whether an animated vanilla unit (rotors, landing) survives a Mod Editor re-import with
+its animations. Still the drones chain's, after link 3; not yet briefed.
 **Build-menu icon — KEPT (owner, 2026-09-25, in the build menu: "The icon you have in it looks
 good to me").** Brief 06, one session (claude-opus-5-5). Path form, read on
 `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src` (the brief's `C:\Dev` path moved
