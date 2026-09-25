@@ -170,7 +170,7 @@ Metals consumer in range, and is unconfirmed.
 | Element | Vanilla status | Work |
 |---|---|---|
 | import/export per resource | `transport_policy[res]` exists, consumed, no UI | **UI only** |
-| import: drones drain to zero | `supply desired = 0` — the `accept` branch; **UNCONFIRMED** 2026-09-18 (§7.2) | **none**, if a later fixture with a Metals consumer confirms it |
+| import: drones drain to zero | `supply desired = 0` — the `accept` branch; **MEASURED** 2026-09-25 (§4.8 "Owner's sitting") | **none** |
 | export: drones fill to max | `supply desired = max` — the `send` branch; **MEASURED** 2026-09-18 (§7.2) | **none** |
 | import **up to N** | amount hardcoded to 0/max in both branches; the slider reaches only the `default` branch | small — make `SetDesiredAmount` per-resource-aware; the absolute cap falls out of per-resource capacity, since `load_amount` is already clamped by `dest.demand[res]:GetTargetAmount()` |
 | export **down to floor N** | **MISSING** — the train reads `available = Min(supply:GetTargetAmount(), supply:GetActualAmount())` and never subtracts a floor; only `needed`, a proportional share, is held back | **the one genuinely new thing** — requires intervening in `Train:TransferCargo` |
@@ -312,11 +312,9 @@ distance — which would reopen that filter and the track-work ruling behind it.
 
 **What is unproven, and must be measured before any of this is believed**
 
-- the transient claim path, above — never executed;
-- `transport_policy = "accept"` (import) has **no measured drone effect** (§4.3, §7.2: the fixture
-  had no consumer in drone range); the export half is MEASURED working when driven by hand;
-- that drones respond to the baseline numbers the way the table assumes, which is the whole
-  drone half of the feature and is a separate question from the UI.
+- all three are MEASURED in the owner's sitting of 2026-09-25 (§4.8 "Owner's sitting"): the
+  transient claim path ran natively, drones respond to the baseline numbers, and `accept`
+  drains a station toward a depot that wants the resource.
 
 **Phasing against §4.4.** This is A1 plus A2 with the hub as the sink, so it inherits both: §4.5's
 six rewrite paths (store relative to live `GetMaxStorage`, re-apply after each) and §4.6's alias
@@ -342,12 +340,42 @@ arithmetic; `:787-825`, called at `:872`, handles existing cargo reservations.
 It stores local session settings, claims configured route members during a train
 call, and prints current/drone-sample/train-sample request values. Drone samples
 restore synchronously; no standing baseline, saved field, UI or save hook was added.
-The full design above is still unbuilt. **SOURCE:** OI-29 asks whether the brief's
-no-persistence restriction permits a disposable live baseline experiment; until
-answered, the baseline/drone and `accept` questions remain open. **INFERRED:** those
-observations need local drone coverage and a consumer, which an uncovered spoke
-cannot provide. The report carries the console script and rewrite/alias limits:
+The full design above is still unbuilt. The report carries the console script and rewrite/alias limits:
 `docs/agent/reports/TRAIN_DISTRIBUTION_PROTOTYPE_20260925.md`.
+
+#### Owner's sitting, 2026-09-25 — the three unproven things, MEASURED
+
+One disposable session (no save), game 1.1.1.405907, both mods loaded, save "trainhub post stuck
+test"; orchestrator-guided, results read from the session log, archived byte-for-byte as
+`docs/archive/train_distribution_20260925/Mars.exe-20260925-17.20.38-6aad2d75.log` (71616 B,
+sha256 `5201518e7e4978c6…`). Line numbers below are that file's. Units are resource units (÷1000).
+
+1. **Transient claim, native: PASS** (`40_TrainDistribution`, StationSmall 2008, no drone
+   coverage, capacity 60, export floor 20% = 12). Paused, full: drones' view supply target 60, the
+   train's view 48; import made the train's supply target 0 (:423-474). After trains ran,
+   `native calls=8` with no error; the station went 60 → 34 by train alone (owner: no drones in
+   range), its drone view released (target = actual, 34 / 26), while the train's view hid the
+   26 of room (demand target 0) (:491-495). The floor never had to bind: vanilla's capacity share
+   took only 26 — draining to the floor stays unproven, as the offline fixtures predicted.
+2. **Drones respond to the baseline numbers: PASS**, driven by hand on the request objects (no
+   prototype code). Stations 6243 and 2011, each with one mechanized Metals depot in a drone range
+   the owner trimmed to depot plus station; the areas do not overlap. Control on default
+   (supply/demand desired 10/50), ~825k ticks: 6243 went 14.5 → 10.5 (drones drained it to the
+   floor) (:668-743). Export set by hand (supply desired 60, demand desired 0, :763): drones
+   filled 6243 from its ~4k depot "immediately" (owner), 10.5 → **60** (:855).
+3. **`accept` (supply desired 0, demand desired 60): a real, smaller effect.** 2011 on default held
+   ~4 while trains fed it and drones passed Metals on to a depot wanting 700 (depot 23 → 75, owner's
+   reading). Set to `accept`: 2011 drained to **0** and the depot reached **310** (:855-860) over
+   ~1.64M ticks, about 2.3× the control's rate — loose, because train deliveries were not
+   controlled and the 75 was read by eye. A station on default already acts as an import pipe when a
+   hungry depot is in range; `accept` makes it complete.
+
+Both stations were restored to 10/50 by hand (:886-887). OI-29 (may the prototype leave the drone
+baseline installed?) is closed by this sitting (owner, 2026-09-25: "yes"): the drone questions
+were answered with no code, so later work starts from these results. **Defect for any later build
+of this file:** `print_view` divides by a global `ResourceScale`, which the game never defines —
+vanilla keeps it file-local; use `const.ResourceScale` (`ResourcesFormatting.lua:6`,
+1.1.1.405907). The offline harness defined the global, so `Status` failed only in game (:411).
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 

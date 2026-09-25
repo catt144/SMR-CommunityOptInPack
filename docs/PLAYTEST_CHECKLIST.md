@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-29 · opened 2026-09-25
-May the distribution prototype temporarily change drone request baselines in a disposable game session?
-- Brief 07 requires no persistence and no save hooks; the game saves native request values.
-- The delivered prototype restores samples immediately, so it cannot yet measure drone responses.
-- Recommend allowing temporary baseline edits, an explicit Reset afterward, and no saving while armed.
-- Or keep the synchronous-only scope and leave drone-baseline/accept observations open.
-Home: `docs/agent/reports/TRAIN_DISTRIBUTION_PROTOTYPE_20260925.md`
-
 ### OI-27 · opened 2026-09-24
 When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
 - The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.

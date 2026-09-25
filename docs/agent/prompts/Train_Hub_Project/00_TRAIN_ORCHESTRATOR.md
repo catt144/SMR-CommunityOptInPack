@@ -62,15 +62,14 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      sitting 2026-09-24/25): links 1-5 are consumed and only link 6, the fresh-context adversarial
      QA, is left — the owner runs it on a different model from the links it audits. **`04` (build 5,
      the hub builds track) is therefore unheld** and is the next build; it inherits the pending list
-     `SMROptIn_track_work` and its kind field. `07` (the distribution prototype) is live and fenced
-     out of the hub's Lua. The owner's open asks live on
+     `SMROptIn_track_work` and its kind field. The owner's open asks live on
      [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md) — read them there.
    - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
      Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
      numbers are the drones' view, a transient claim during the train's evaluation is the trains'),
      the decisions already taken (per resource not per station, state on the hub, controls in the
-     station card's existing rows, claims kept out of saves), and the three unproven things its
-     console prototype settles in one sitting.
+     station card's existing rows, claims kept out of saves), and the owner's sitting of 2026-09-25
+     that MEASURED its three unproven things (§4.8 "Owner's sitting").
    - **Live, fire when the owner wants an agent spent:** `02_TRAIN_HUB_LOADERRORS_low.md`, two errors
      the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
@@ -155,10 +154,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      authorised.** Per-resource export / import / balanced on every station, the hub as the sink,
      state on the hub, controls in the station card's existing resource rows. Place it AFTER the
      drones chain and build 5: it is Module A's A1+A2 and wants the hub's own mechanics finished
-     first. **One exception worth jumping the queue:** its console-only prototype (no UI, two
-     stations and the hub) settles the three unproven things at once — the transient claim path
-     that has never run, whether drones respond to the baseline numbers, and the unmeasured
-     `accept` half. Cheap, and everything else rests on it. Train construction at the hub is
+     first. Its console prototype is done: the claim path, the drones' response to the baseline
+     numbers and `accept` are MEASURED (§4.8 "Owner's sitting"). Train construction at the hub is
      spec 4.9: the hub can already build trains; the work worth doing is having it PLACE them.
    - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
      range (§4.3);
