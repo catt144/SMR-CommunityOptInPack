@@ -233,7 +233,6 @@ Explained, not changed:
 
 
 Still to run:
-- `WaspPalette` "P4", for the owner to judge.
 - Cargo kept aboard at a full hub is unloaded later (the audit: 1.1.1 changed `UnloadAll`); no stall was seen 2026-09-25.
 - The ring pillars by eye (item 12).
 - OI-26 in passing.
@@ -262,6 +261,8 @@ Seen by the owner (log `Mars.exe-20260925-13.43.07`):
 - **Trains at a full hub, by eye:** trains ran with the hub cheat-filled (CheatFill to 2850000 twice in log `Mars.exe-20260925-13.43.07`). Owner: "I can't really tell they aren't stalled and they don't seem to be having issues loading and unloading". No stall was seen. Not checked: whether the cargo a train keeps aboard at a full hub (1.1.1 `Train:UnloadAll`, `Train.lua:787-823`) survives and is unloaded at a later stop.
 - **Recalls take idle Wasps only:** a recall of 5 after work took no busy or cube-carrying Wasp (owner, by eye).
 - **A save and load mid-trip on the door build** (slot A): the repair still completed. **This also covers the autosave** (owner, 2026-09-25: "do that"). On 1.1.1.405907, both saves run `DoSaveGame` (`CommonLua/Savegame.lua:1035-1061`). The autosave adds only a metadata flag (:1448-1451), a screenshot, its own loading screen and the pruning of older autosaves, and our code reacts to none of them. The one difference that matters to the mod is that the game keeps running during the save: the save path never pauses (only on a failure, :1460). The TestKit slot save is the same unpaused `SaveGame` call (TestKit `75_SMRTK_Saves.lua:78`), so slot A had that window.
+
+Moved by the owner: **the `WaspPalette` judgement belongs to the structure brief** (owner: "This task belongs to the structure prompt, this isn't the place for a constantly back and forth on design tweaks"), handed over in `05_TRAIN_HUB_BODYPAINT_high.md`.
 
 Deferred by the owner: **`DESIGN.md` §6 train construction (item 10) is not run in this link.** Owner: "it matters less so we can just move on, we will have far more to test regarding that later when we add dials and import / export controls". What the 1.1.1.405907 source says, not tested in the game: `Station:SelfService` (`Station.lua:504-512`) feeds the train build's Metals and Machine Parts from the station's own storage without a drone (`TransferFromSupply`, :490-502, which calls the unload with no drone). The build is a timer (`UpdateTrainConstruction`, :541-557), and the drones seen during it are an FX (`ConstructingDrones`, :527). A station that holds the materials should build with no drone around; drones only bring the materials in. If that holds, the §6 acknowledgement launch is never needed. The ready test: `SetHubRepairTune("ForceFleet", 0)`, queue a train at the stocked hub and at a cheat-filled far station, and read any request left open.
 

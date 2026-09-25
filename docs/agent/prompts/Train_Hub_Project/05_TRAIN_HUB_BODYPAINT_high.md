@@ -106,6 +106,17 @@ stops it, and the cost reading is recorded.
 - **The old glass maps, seams sets and `structure_before_*` atlases** are dead sets awaiting the
   owner's word to delete; do not delete them.
 
+## Handed over: the Wasp palette (owner, 2026-09-25)
+
+Owner, in the drones smoke (link 5): *"This task belongs to the structure prompt, this isn't the
+place for a constantly back and forth on design tweaks"*. The hub's Wasps can wear the reactor's
+colours, and whether they should is this brief's look question. The dial is already built and
+needs no code: `SetHubRepairTune("WaspPalette", "P4")` (or `"P1"`..`"P3"`, or a channel table)
+paints only Wasps launched after the call. `false`, the shipped default in
+`Floor.HubRepairTune.WaspPalette` (`20_TrainHub.lua`), keeps vanilla's look. To judge it, grow the
+fleet after the call so new Wasps launch. The owner's pick changes that one default. Record it in
+spec §9 with the paint. This is the one Lua value in scope; the rest of the Lua stays out.
+
 ## Scope
 
 In: the body atlas's BC, NM, RM and SI for the groups named above, the validator's by-value pins
