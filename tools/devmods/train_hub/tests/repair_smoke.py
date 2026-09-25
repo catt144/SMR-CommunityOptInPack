@@ -343,6 +343,7 @@ H.working = true; H.is_malfunctioned = nil
 lua.execute(r'''
 -- The ceiling: fleet and repair flights share MaxDrones; the fleet makes room for a waiting repair.
 Tune.MaxDrones = 8; Tune.Standing = 5; Tune.LaunchTime = 200000 -- long deadlines, so no slot frees during the scenario
+Tune.RepairReserve = 0 -- the bare shared ceiling here; the reserve has its own case below
 -- five fleet Wasps stand; three breaks: two dispatch (one per tick), the third waits at 5 + 3 > 8
 local Ls = {}
 for i = 1, 3 do Ls[i] = break_track(T5, i + 1, 2000) end
@@ -359,7 +360,7 @@ waiting = 0; for _, j in ipairs(jobs) do if not j.deadline then waiting = waitin
 assert(waiting == 0 and #H.drones == 4, "dispatched once the fleet made room; the fleet holds at the ceiling's remainder: waiting " .. waiting .. " fleet " .. #H.drones)
 for _, j in ipairs(jobs) do clock = math.max(clock, j.deadline) end
 H:HubTrackWorkTick(); assert(#jobs == 0)
-Tune.MaxDrones = 30; Tune.LaunchTime = 12000
+Tune.MaxDrones = 30; Tune.LaunchTime = 12000; Tune.RepairReserve = 5
 ''')
 
 lua.execute(r'''
@@ -395,22 +396,27 @@ Tune.ForceFleet = false
 for i = #H.drones, 1, -1 do DroneControl.KillDrone(H, H.drones[i]) end
 H.free = 5; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
 assert(#H.drones == 5, "idle fleet: low, 5: " .. #H.drones)
--- chunks (owner, 2026-09-24): all busy grows 5 -> 10 -> 20 -> 30, one jump per LoadWindow
+-- chunks (owner, 2026-09-25): all busy grows 5 -> 15 -> 25, one jump per LoadWindow, and stops
+-- there: the last 5 of 30 are the repairs'
 H.free = 0; local seen, ticks = {}, 0
-while #H.drones < 30 and ticks < 60 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; seen[#H.drones] = true end
-assert(seen[10] and seen[20] and #H.drones == 30 and ticks <= 40, "5 -> 10 -> 20 -> 30 in chunks, ticks " .. ticks)
+while ticks < 60 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; seen[#H.drones] = seen[#H.drones] or ticks end
+assert(seen[15] and seen[25] and not seen[10] and not seen[20] and #H.drones == 25 and seen[25] <= 30,
+  "5 -> 15 -> 25 in chunks and no further: " .. #H.drones)
 assert(H:GetDronesStatusText():find("Heavy"), "the panel's load line shows the fleet meter: " .. tostring(H:GetDronesStatusText()))
--- 30 out keeps 10 idle: 12 idle recalls down to the buffer, not to the standing 5
+-- 25 out keeps 10 idle: 12 idle recalls down to the buffer, not to the standing 5
 for _, d in ipairs(H.drones) do d.command = "Idle" end
 H.free = 12; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
-clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones == 29, "above the buffer: one recalled: " .. #H.drones)
+clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones == 24, "above the buffer: one recalled: " .. #H.drones)
 H.free = 10; for _ = 1, 8 do clock = clock + Tune.RecallStep; H:HubTrackWorkTick() end
-assert(#H.drones == 29, "at the buffer: the fleet holds: " .. #H.drones)
--- 20 out keeps 5 idle: a busy fleet with 3 idle is never recalled (the sitting's 20 -> 19); it grows
-for i = #H.drones, 21, -1 do DroneControl.KillDrone(H, H.drones[i]) end
+assert(#H.drones == 24, "at the buffer: the fleet holds: " .. #H.drones)
+-- 15 out keeps 5 idle: a busy fleet with 3 idle is never recalled; it grows to 25
+for i = #H.drones, 16, -1 do DroneControl.KillDrone(H, H.drones[i]) end
 local lowest = #H.drones
 H.free = 3; for _ = 1, 24 do clock = clock + 5000; H:HubTrackWorkTick(); lowest = Min(lowest, #H.drones) end
-assert(lowest == 20 and #H.drones == 30, "3 idle of 20: never below 20, grows to 30: lowest " .. lowest .. " now " .. #H.drones)
+assert(lowest == 15 and #H.drones == 25, "3 idle of 15: never below 15, grows to 25: lowest " .. lowest .. " now " .. #H.drones)
+-- the repairs' reserve: even pinned at 30 the fleet stops at 25
+Tune.ForceFleet = 30; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 25, "the repairs' 5 are never the fleet's: " .. #H.drones)
+Tune.ForceFleet = false
 -- no work at all: back down to the standing 5, never below
 H.free = 30; for _ = 1, 200 do clock = clock + Tune.RecallStep; H:HubTrackWorkTick() end
 assert(#H.drones == 5, "idle: down to Standing: " .. #H.drones)

@@ -2118,12 +2118,17 @@ Floor.HubRepairTune = {
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
 	-- the fleet (owner, 2026-09-23): five standing idle; more as vanilla's load reads medium/high
 	Standing = 5,
-	-- fleet chunks 5 / 10 / 20 / 30 (owner, 2026-09-24): the idle Wasps each size keeps. Fewer idle on
-	-- average than that grows the fleet to the next chunk; more recalls one idle Wasp at a time
-	Buffer10 = 2,           -- up to 10 out
-	Buffer20 = 5,           -- 11 to 20 out
-	Buffer30 = 10,          -- 21 to 30 out
+	-- fleet chunks Standing / Chunk2 / Chunk3 = 5 / 15 / 25 (owner, 2026-09-25: "5 stays default then it
+	-- jumps to 15, and then the next jump goes to 25"); the last RepairReserve of MaxDrones are the
+	-- repair flights'. The idle Wasps each size keeps (owner, 2026-09-24): fewer idle on average grows
+	-- the fleet to the next chunk; more recalls one idle Wasp at a time
+	Chunk2 = 15,
+	Chunk3 = 25,
+	Buffer10 = 2,           -- up to Standing out (the names predate the 2026-09-25 chunks)
+	Buffer20 = 5,           -- above Standing, up to Chunk2
+	Buffer30 = 10,          -- above Chunk2
 	MaxDrones = 30,         -- fleet and repair flights together; the panel's "/ 30"
+	RepairReserve = 5,      -- slots the fleet leaves to repair flights; repairs beyond it take fleet slots
 	RecallDelay = 60000,    -- game ms the count must stay above its target before a recall starts
 	RecallStep = 15000,     -- game ms between recalls; one idle, empty-handed drone each
 	RecallRadius = 6000,    -- units; an idle drone this close is removed, a farther one is sent home first
@@ -2705,25 +2710,27 @@ function SMROptInTrainHubBase:CheatSpawnDrone()
 end
 
 -- The fleet in chunks (owner, 2026-09-24: "if there are 10 drones out 2 need to be idle, 20 out 5,
--- 30 out 10"). Growth jumps to the next chunk (Standing, 10, 20, MaxDrones) when both the meter's
--- average and the count now sit below the buffer, at most once per LoadWindow so new Wasps can take
--- work first. Shrinking recalls one idle Wasp while both sit above it, paced by RecallDelay and
--- RecallStep below, never under Standing. The ceiling is shared with repair flights.
+-- 30 out 10"; 2026-09-25: the chunks are 5 / 15 / 25 and the last 5 are the repairs'). Growth jumps
+-- to the next chunk (Standing, Chunk2, Chunk3) when both the meter's average and the count now sit
+-- below the buffer, at most once per LoadWindow so new Wasps can take work first. Shrinking recalls
+-- one idle Wasp while both sit above it, paced by RecallDelay and RecallStep below, never under
+-- Standing. The ceiling is shared with repair flights: the fleet stops RepairReserve short of it,
+-- and repairs beyond the reserve take fleet slots.
 local function idle_buffer(tune, count)
-	if count <= 10 then return tune.Buffer10 elseif count <= 20 then return tune.Buffer20 end
+	if count <= tune.Standing then return tune.Buffer10 elseif count <= tune.Chunk2 then return tune.Buffer20 end
 	return tune.Buffer30
 end
 
 local function next_chunk(tune, count)
-	for _, c in ipairs({ tune.Standing, 10, 20, tune.MaxDrones }) do
+	for _, c in ipairs({ tune.Standing, tune.Chunk2, tune.Chunk3 }) do
 		if c > count then return c end
 	end
-	return tune.MaxDrones
+	return count
 end
 
 local function fleet_target(self, now, state, dispatched, waiting)
 	local tune = Floor.HubRepairTune
-	local cap = Max(0, tune.MaxDrones - dispatched - waiting)
+	local cap = Max(0, tune.MaxDrones - Max(tune.RepairReserve, dispatched + waiting))
 	if tune.ForceFleet then return Min(tune.ForceFleet, cap) end
 	local count = #(self.drones or empty_table) + rising_count(self)
 	if count < tune.Standing then return Min(tune.Standing, cap) end
