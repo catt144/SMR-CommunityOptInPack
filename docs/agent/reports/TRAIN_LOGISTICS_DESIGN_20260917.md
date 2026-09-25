@@ -1720,8 +1720,16 @@ daylight look, and the both-configuration and toggle ship tests on the final bui
 done to test the gpu part because right now we would just be testing the tracks."** The hub off
 against on reading is DEFERRED to the whole hub: structure maps, then the structure's own lights,
 then one reading. `Train_Hub_Project/01_TRAIN_HUB_STRUCTURE_high.md` carries all three and starts from restore point 3.
-**Hub off against on cost: <<PENDING-RUN>>** — the owner's reading, same save and fixed camera,
-no trains in view; frame rate first, `gpu_sample.ps1` for GPU memory and 3D utilisation.
+**Hub off against on cost — measured 2026-09-25 (brief 05 step 6): no cost the sampler resolves.**
+The owner's colony and camera, NIGHT, game PAUSED for both samples (the game clock is identical,
+t 32366510, so the scene is frozen and identical), hub on then switched off from its panel; the
+owner confirmed the lights gone before the second sample (the off path prints nothing).
+`gpu_sample.ps1 -Label hub-on-night-paused` / `hub-off-night-paused`, 5 samples each, logged to
+`SMR-HubBackupsram_samples.jsonl`: dedicated GPU memory **4,857 MB both**; 3D utilisation mean
+**86.9% on (121 lights: 72 arm + 49 structure) against 87.4% off**, a difference inside each set's
+own spread (84.8-88.6%). Memory cannot move here: lights hold no textures and a stopped hub keeps
+its body and maps (52.7 MB of DDS) loaded, so this reads the lights and effects only. Not measured:
+day, an unpaused scene with trains, and a weaker GPU than the owner's RTX 4080.
 
 **Structure step, the blur measured before the bake, 2026-09-21 — assets `3be561d`.** Executed
 agent: Claude Fable 5.1 (`claude-fable-5-1`). Two read-only scripts in SMR-Assets
@@ -2454,7 +2462,7 @@ mask (normal up) but paint with their post (mean z under the deck), so that grou
 navy; the validator's table says so. **Texture-only: recompile `textures/structure/` and nothing
 else** (assets README, "Current handoff"). Next: the owner's compile and look (sector overview and
 close, day and night); `snapshot_hub.py hub-bodypaint-1-20260923` if kept; then the cost reading
-(§"Hub off against on cost", still `<<PENDING-RUN>>`).
+(§"Hub off against on cost", measured 2026-09-25: no resolvable cost).
 **Owner, 2026-09-23, in game after the compile: "That is good, its approved."** The body paint is
 KEPT as baked (assets `a5535fb`); checkpoint OptInPack `2f3d347` (version 49, BC/NM/RM
 recompiled 17:27, SI unchanged, the drones code-list line held). **Restore point 6
