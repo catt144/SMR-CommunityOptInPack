@@ -75,9 +75,8 @@ Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 ## Run
 
 ### OI-29 · opened 2026-09-25
-When you next test the hub, run MarsDebug with the dev mod and both packs, then send a train through a hub.
-- Send the new debug log: `[TrainHubDev]` must appear; the original errors and undefined
-  `SMROptInHubFlight` must be absent.
+When you next open the hub dev mod in MarsDebug's Mod Editor, let the load log flush and tell the agent.
+- `[TrainHubDev]` must appear; the original errors and undefined `SMROptInHubFlight` must be absent.
 Home: `docs/agent/prompts/Train_Hub_Project/02_TRAIN_HUB_LOADERRORS_low.md`
 
 ### OI-12 · opened 2026-09-18 · launch

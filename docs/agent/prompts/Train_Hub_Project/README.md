@@ -15,7 +15,7 @@ links 2-3 stay out of that file by design, so they run beside the structure pass
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
-| `02_TRAIN_HUB_LOADERRORS_low.md` | Two errors that fire every time the dev hub loads. A small code fix with its cause already found. | Live, fire any time; Lua one-at-a-time |
+| `02_TRAIN_HUB_LOADERRORS_low.md` | Two dev-hub load errors, plus the retail art-spec path; code repairs are prepared. | Live: retail behavior observed; next ordinary MarsDebug Mod Editor load is owed; no debug colony |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 | `04_TRAIN_HUB_BUILDTRACK_high.md` | Build 5: the same drones build new track from the hub's stock, using `03`'s pending list. | Its hold is lifted: `03`'s smoke is recorded (L5 report, 2026-09-25). Fire when the owner says |
 | `05_TRAIN_HUB_BODYPAINT_high.md` | **The final body paint** — the reactor's P4 feel (navy panels, polished off-white bands) on every body surface not held by an owner ruling; then the whole-hub GPU cost reading that closes the look pass. | **Paint KEPT (owner, 2026-09-23; restore point 6). Live for its step 6, the cost reading, and the Wasp palette judgement handed over from drones link 5 (owner, 2026-09-25)** |

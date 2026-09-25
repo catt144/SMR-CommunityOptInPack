@@ -79,22 +79,27 @@ fixed. If it is vanilla's own item, record that and stop — it is not this brie
 
 ## Done when
 
-- Both messages are absent from a fresh session log, and the hub still dwells and still shows its
-  power state. A log with neither line, from a run that actually loaded a map and ran a train, is
-  the evidence.
-- ⛔ Grep the log with the full token — `[TrainHubDev]` for this mod's own prints, and the exact
-  error strings above for the two defects. Both mods are loaded in the owner's rig as normal.
-- Prove the absence: grep the presence side too. A run that produced no `[TrainHubDev]` lines at
-  all proves nothing about the errors.
+- ⚖️ Owner, 2026-09-25: MarsDebug is used for importing and editing mods; colonies and trains run
+  in retail. Do not request a debug colony.
+- In retail, the owner runs a map and train, observes dwell and the hub's power state, and the
+  completed session log has `[TrainHubDev]` present with the exact two errors absent.
+- In MarsDebug, a normal Mod Editor load has `[TrainHubDev]` present and the inheritance error,
+  map assert and cold-load `SMROptInHubFlight` error absent. No train is required in debug.
+- The retail `EntitySpecPathToEntity` error is absent; the generated art source survives a normal
+  Mod Editor save/reload. Count the presence side when proving absence in either log.
+
+The owner's closed retail `Mars.exe-20260925-16.24.10-6aad2d75.log` loaded a colony and they
+observed train dwell, power display and no isolated-grid warning. `Select-String -SimpleMatch`
+finds `[TrainHubDev]` and `Game loaded on map`, with no `[LUA ERROR]`, inheritance, map assert,
+art-spec or flight-global error; the log ends in `Debug::Done()`. The earlier MarsDebug
+`16.15.52` Mod Editor load had no original two errors but raised the cold flight-global error,
+repaired in `cb14c13`. OI-29 waits for the next ordinary Mod Editor load after that repair.
 
 The owner runs the game; you do not. Prepare the change, say exactly what you need looked at, and
 hand over a paste-safe console line if you need one read.
 
 ## Stops
 
-- **The `ShouldShowNotConnectedToPowerGridSign` answer is not obvious from `:133`'s precedent.**
-  Report both options with what each shows a player, and let the owner choose. It is a one-line
-  difference to them.
 - **A map guard cannot be made cheap** — for example, the only reliable test costs a call per
   wakeup on a hot path. Report the cost and the alternatives; do not silently accept a hot-path
   regression to remove an assert.
@@ -112,4 +117,6 @@ from stubbed geometry and is not the game's number. Do not use it as your pass s
 
 ## Lifecycle
 
-Done when both errors are proven gone in an owner session log. Lifecycle: the orchestrator decides, once this is fired and done: park it in `Parked/` if it is kept for touch-up work, or delete it; either way its row in `README.md` follows (owner, 2026-09-21).
+Done when the retail and Mod Editor evidence above clears. Lifecycle: the orchestrator decides,
+once this is fired and done: park it in `Parked/` if kept for touch-up work, or delete it; either
+way its row in `README.md` follows (owner, 2026-09-21).
