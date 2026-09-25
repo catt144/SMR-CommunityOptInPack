@@ -3134,6 +3134,8 @@ pit (a release entry point the flight file lacks); link 5 asks. Link 5's sitting
 
 ### Drones L5: the smoke (2026-09-23 to 2026-09-25; report `L5_SMOKE_20260925.md`)
 
+Terminal audit: `drones_chain/L6_QA_20260925.md` closes the chain PASS WITH CORRECTIONS; C1–C6 and D14(g,h) are the next active hub link's correction work, with native residue on shared checklist ck217 and the owner deferrals below unchanged.
+
 The owner's sitting passed the drones smoke; the report has the breaks, distances, deadlines,
 reloads and every commit. **These rulings overtake `DESIGN.md` and the L4 section above**, and they
 bind build 5 and any later hub work:

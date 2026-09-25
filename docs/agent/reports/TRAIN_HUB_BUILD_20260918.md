@@ -908,6 +908,8 @@ or a table; `SMROptInTrainFloor.HubRepairTune` for the defaults; the panel's tog
 
 ## Build 4 smoke (drones chain L5), 2026-09-23 to 2026-09-25 — SMOKE PASS on the owner's list
 
+Terminal QA: `drones_chain/L6_QA_20260925.md` closes the chain PASS WITH CORRECTIONS, bounds the smoke's independent evidence and routes C1–C6 / D14(g,h); native residue is on shared checklist ck217.
+
 **Authority:** the retired `5_SMOKE_medium.md` and owner rulings 2026-09-23 to 2026-09-25. Report:
 `drones_chain/L5_SMOKE_20260925.md`, which holds the breaks, distances, deadlines and reloads in
 that order, every ruling with its commit, and what was not covered. Build 25390750 / 1.1.1.405907.

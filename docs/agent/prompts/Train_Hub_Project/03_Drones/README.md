@@ -5,9 +5,9 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 
 `DESIGN.md` is the owner's settled design, unchanged. It is reference, never fired.
 
-| # | link | tag | attended? | what it drains |
-|---|---|---|---|---|
-| 6 | `6_QA_high.md` | high | no | Terminal adversarial backward QA in fresh context. Audits every handoff, samples claims against the code and logs, holds the folder-empty gate |
+Closed 2026-09-25: `reports/drones_chain/L6_QA_20260925.md`, **PASS WITH CORRECTIONS**.
+It holds the evidence bounds and routed C1–C6; spec §10 “Drones L5” carries the current owner
+rulings, including door exits and OI-26 kept as built, which overtake the historical sections below.
 
 ## Chain rules
 
@@ -18,8 +18,7 @@ structure pass finishes**, and the link that must wait starts fully briefed inst
 - **Route, never drop.** An out-of-scope finding goes to the link that owns it, to spec §10, or to
   `docs/PLAYTEST_CHECKLIST.md` as an owner ask with a recommendation. Defects go through
   `smr-bug-library`.
-- **Order.** Links 1 to 5 are consumed (link 5: `reports/drones_chain/L5_SMOKE_20260925.md`). 6 is next and last, in fresh context, and the
-  owner runs it on a different model from the links it audits.
+- **Order.** The terminal audit is complete; no runnable link remains here. The project map owns the next brief.
 - **Self-split** at a clean commit boundary into a continuation link that is a full chain member,
   rather than running to the edge of a context window. Say so in the notes.
 - **Drift** (anything that went other than as briefed, however small) is appended to link 6's

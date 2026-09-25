@@ -25,6 +25,8 @@ auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongs
 
 ## Read first
 
+**Current inheritance:** spec §10 “Drones L5” overtakes the pad/constant-fleet/scripted-route wording below; take `reports/drones_chain/L6_QA_20260925.md` C1–C6 and D14(g,h) into the active build's work list, preserving each test's stated trigger.
+
 Build 4's brief and report. Facts from the 1.1.0.403908 source, with the line that could falsify each:
 
 - **New track is the same site class as a break.** `PlaceTrackLine` places a `TrackGridElement`

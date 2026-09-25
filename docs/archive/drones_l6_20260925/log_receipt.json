@@ -1,0 +1,934 @@
+{
+  "command": "python scratch/drones_l6_logs.py",
+  "head": "ce064ed67bccc88f59c053fea7f91490abeaef02",
+  "scope": "late recovered original logs, not committed by L5; no mod source hash in logs",
+  "logs": {
+    "Mars.exe-20260924-12.35.05-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260924-12.35.05-6aad2d75.log",
+      "sha256": "8de6b1e296f343eda98aefb4885960688ee744763014687b8ea7b29eb6ed0c2f",
+      "bytes": 36720,
+      "line_total": 532,
+      "hits": {
+        "repair": [],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 165,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 51,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 520,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 0,
+        "save_load": 0,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260924-17.07.20-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260924-17.07.20-6aad2d75.log",
+      "sha256": "00888eb9379e1a79d5729a96ef0d89a9e16e47629283937eeb680dccde4cb159",
+      "bytes": 38387,
+      "line_total": 552,
+      "hits": {
+        "repair": [
+          {
+            "line": 292,
+            "text": "[TrainHubDev] repair done: 1515 ms after the deadline, the Wasp's stage out"
+          },
+          {
+            "line": 305,
+            "text": "[TrainHubDev] repair dispatched: 1457 m, deadline in 28105 ms (launch 12000 + travel 9105 + work 7000) at t=31613981"
+          },
+          {
+            "line": 322,
+            "text": "[TrainHubDev] repair done: 4109 ms after the deadline, the Wasp's stage back"
+          },
+          {
+            "line": 385,
+            "text": "[TrainHubDev] repair dispatched: 150 m, deadline in 19938 ms (launch 12000 + travel 938 + work 7000) at t=31718744"
+          },
+          {
+            "line": 528,
+            "text": "[TrainHubDev] repair dispatched: 160 m, deadline in 20000 ms (launch 12000 + travel 1000 + work 7000) at t=31657944"
+          }
+        ],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 166,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 49,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 539,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 5,
+        "save_load": 0,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260924-17.18.02-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260924-17.18.02-6aad2d75.log",
+      "sha256": "2d562d0d691e6dedcc5283320b7e90e1660502cab553bf8e1479a42904cc4245",
+      "bytes": 50251,
+      "line_total": 647,
+      "hits": {
+        "repair": [
+          {
+            "line": 337,
+            "text": "[TrainHubDev] repair dispatched: 170 m, deadline in 20063 ms (launch 12000 + travel 1063 + work 7000) at t=31657944"
+          },
+          {
+            "line": 350,
+            "text": "[TrainHubDev] repair done: 3188 ms after the deadline, the Wasp's stage descent"
+          },
+          {
+            "line": 421,
+            "text": "[TrainHubDev] repair dispatched: 1428 m, deadline in 27922 ms (launch 12000 + travel 8922 + work 7000) at t=32036856"
+          },
+          {
+            "line": 432,
+            "text": "[TrainHubDev] repair done: 1417 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 485,
+            "text": "[TrainHubDev] repair dispatched: 1369 m, deadline in 27556 ms (launch 12000 + travel 8556 + work 7000) at t=32108683"
+          },
+          {
+            "line": 505,
+            "text": "[TrainHubDev] repair done: 14956 ms after the deadline, the Wasp's stage back"
+          },
+          {
+            "line": 563,
+            "text": "[TrainHubDev] repair dispatched: 70 m, deadline in 19437 ms (launch 12000 + travel 437 + work 7000) at t=32654989"
+          },
+          {
+            "line": 567,
+            "text": "[TrainHubDev] repair done: 1769 ms after the deadline, the Wasp's stage back"
+          },
+          {
+            "line": 625,
+            "text": "[TrainHubDev] repair dispatched: 1161 m, deadline in 26255 ms (launch 12000 + travel 7255 + work 7000) at t=32856673"
+          }
+        ],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 166,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 50,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 634,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 9,
+        "save_load": 0,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260924-21.01.51-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260924-21.01.51-6aad2d75.log",
+      "sha256": "46231b2e22cb98b41d379e8f5c88314e134b2f7898bc6d7468a8022358db77f1",
+      "bytes": 54788,
+      "line_total": 716,
+      "hits": {
+        "repair": [
+          {
+            "line": 334,
+            "text": "[TrainHubDev] repair dispatched: 1398 m, deadline in 30507 ms (launch 4000 + travel 19507 + work 7000) at t=31661195"
+          },
+          {
+            "line": 338,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 376,
+            "text": "[TrainHubDev] repair dispatched: 1161 m, deadline in 27193 ms (launch 4000 + travel 16193 + work 7000) at t=31761195"
+          },
+          {
+            "line": 383,
+            "text": "[TrainHubDev] repair relaunched: 1161 m, deadline in 27193 ms (launch 4000 + travel 16193 + work 7000) at t=31766195"
+          },
+          {
+            "line": 387,
+            "text": "[TrainHubDev] repair done: 49 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 422,
+            "text": "[TrainHubDev] repair dispatched: 1349 m, deadline in 29826 ms (launch 4000 + travel 18826 + work 7000) at t=31826195"
+          },
+          {
+            "line": 528,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 574,
+            "text": "[TrainHubDev] repair dispatched: 1151 m, deadline in 27058 ms (launch 4000 + travel 16058 + work 7000) at t=31881195"
+          },
+          {
+            "line": 603,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [
+          {
+            "line": 435,
+            "text": "[SMRTK] SMRTK_SAVE action=save_A name=SMRTK_A.sav session=1790298128:86402966:45404022:467164939 slot=A status=OK t=31836118 id=37"
+          },
+          {
+            "line": 517,
+            "text": "[SMRTK] SMRTK_LOAD action=load_A name=SMRTK_A.sav override=false session=1790298128:86402966:45404022:467164939 slot=A status=OK t=31836118 id=47"
+          }
+        ],
+        "failure": [
+          {
+            "line": 165,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 51,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 703,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 9,
+        "save_load": 2,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260924-21.44.09-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260924-21.44.09-6aad2d75.log",
+      "sha256": "93f06e593d311f1fe4a7783be00a45561ad75318a8f367263eb75dfa67e27cea",
+      "bytes": 31936,
+      "line_total": 460,
+      "hits": {
+        "repair": [
+          {
+            "line": 347,
+            "text": "[TrainHubDev] repair dispatched: 1161 m, deadline in 27193 ms (launch 4000 + travel 16193 + work 7000) at t=31696195"
+          },
+          {
+            "line": 351,
+            "text": "[TrainHubDev] repair done: 49 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 407,
+            "text": "[TrainHubDev] repair dispatched: 1231 m, deadline in 28172 ms (launch 4000 + travel 17172 + work 7000) at t=31821195"
+          },
+          {
+            "line": 411,
+            "text": "[TrainHubDev] repair done: 322 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 168,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 50,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 446,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 4,
+        "save_load": 0,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260925-13.34.56-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260925-13.34.56-6aad2d75.log",
+      "sha256": "36d6fee967ea1467f43b69b39e12a56ccef37762a55af76aca37124fd0d42bd0",
+      "bytes": 150832,
+      "line_total": 1458,
+      "hits": {
+        "repair": [
+          {
+            "line": 1365,
+            "text": "[TrainHubDev] repair dispatched: 353 m, deadline in 15930 ms (launch 4000 + travel 4930 + work 7000) at t=33663444"
+          },
+          {
+            "line": 1392,
+            "text": "[TrainHubDev] repair done: 3130 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 213,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          },
+          {
+            "line": 457,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 473,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32009723 id=29"
+          },
+          {
+            "line": 474,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32009723 id=29"
+          },
+          {
+            "line": 478,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 495,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010023 id=30"
+          },
+          {
+            "line": 496,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010023 id=30"
+          },
+          {
+            "line": 498,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 515,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010287 id=31"
+          },
+          {
+            "line": 516,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010287 id=31"
+          },
+          {
+            "line": 518,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 534,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010573 id=32"
+          },
+          {
+            "line": 535,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010573 id=32"
+          },
+          {
+            "line": 537,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 553,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010888 id=33"
+          },
+          {
+            "line": 554,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32010888 id=33"
+          },
+          {
+            "line": 556,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 572,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011194 id=34"
+          },
+          {
+            "line": 573,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011194 id=34"
+          },
+          {
+            "line": 575,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 592,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011472 id=35"
+          },
+          {
+            "line": 593,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011472 id=35"
+          },
+          {
+            "line": 595,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 611,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011776 id=36"
+          },
+          {
+            "line": 612,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32011776 id=36"
+          },
+          {
+            "line": 614,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 631,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32012080 id=37"
+          },
+          {
+            "line": 632,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32012080 id=37"
+          },
+          {
+            "line": 634,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 650,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32012396 id=38"
+          },
+          {
+            "line": 651,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32012396 id=38"
+          },
+          {
+            "line": 653,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 669,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32014713 id=39"
+          },
+          {
+            "line": 670,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32014713 id=39"
+          },
+          {
+            "line": 672,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 688,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015016 id=40"
+          },
+          {
+            "line": 689,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015016 id=40"
+          },
+          {
+            "line": 691,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 707,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015277 id=41"
+          },
+          {
+            "line": 708,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015277 id=41"
+          },
+          {
+            "line": 710,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 727,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015615 id=42"
+          },
+          {
+            "line": 728,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015615 id=42"
+          },
+          {
+            "line": 730,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 746,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015887 id=43"
+          },
+          {
+            "line": 747,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32015887 id=43"
+          },
+          {
+            "line": 749,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 766,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016179 id=44"
+          },
+          {
+            "line": 767,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016179 id=44"
+          },
+          {
+            "line": 769,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 785,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016500 id=45"
+          },
+          {
+            "line": 786,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016500 id=45"
+          },
+          {
+            "line": 788,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 805,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016789 id=46"
+          },
+          {
+            "line": 806,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32016789 id=46"
+          },
+          {
+            "line": 808,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 824,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32017086 id=47"
+          },
+          {
+            "line": 825,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32017086 id=47"
+          },
+          {
+            "line": 827,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 843,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32017386 id=48"
+          },
+          {
+            "line": 844,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(957):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=32017386 id=48"
+          },
+          {
+            "line": 867,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 888,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32103444 id=50"
+          },
+          {
+            "line": 889,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32103444 id=50"
+          },
+          {
+            "line": 893,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 914,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32118444 id=51"
+          },
+          {
+            "line": 915,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32118444 id=51"
+          },
+          {
+            "line": 919,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 940,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32133444 id=52"
+          },
+          {
+            "line": 941,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32133444 id=52"
+          },
+          {
+            "line": 947,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 967,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32148444 id=54"
+          },
+          {
+            "line": 968,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32148444 id=54"
+          },
+          {
+            "line": 972,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 992,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32163444 id=55"
+          },
+          {
+            "line": 993,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32163444 id=55"
+          },
+          {
+            "line": 999,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1019,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32178444 id=57"
+          },
+          {
+            "line": 1020,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32178444 id=57"
+          },
+          {
+            "line": 1024,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1044,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32193444 id=58"
+          },
+          {
+            "line": 1045,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32193444 id=58"
+          },
+          {
+            "line": 1051,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1071,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32208444 id=60"
+          },
+          {
+            "line": 1072,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32208444 id=60"
+          },
+          {
+            "line": 1076,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1096,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32223444 id=61"
+          },
+          {
+            "line": 1097,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32223444 id=61"
+          },
+          {
+            "line": 1103,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1124,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32238444 id=63"
+          },
+          {
+            "line": 1125,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32238444 id=63"
+          },
+          {
+            "line": 1129,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1150,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32253444 id=64"
+          },
+          {
+            "line": 1151,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32253444 id=64"
+          },
+          {
+            "line": 1157,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1177,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32268444 id=66"
+          },
+          {
+            "line": 1178,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32268444 id=66"
+          },
+          {
+            "line": 1182,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1202,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32283444 id=67"
+          },
+          {
+            "line": 1203,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32283444 id=67"
+          },
+          {
+            "line": 1209,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1229,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32298444 id=69"
+          },
+          {
+            "line": 1230,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32298444 id=69"
+          },
+          {
+            "line": 1234,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1254,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32313444 id=70"
+          },
+          {
+            "line": 1255,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1124):  field Recall\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2829):  method HubFleetTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(2985):  method HubTrackWorkTick\\n  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(1922):  field ?\\n  CommonLua/Core/classes.lua(177):  method BuildingUpdate\\n  Lua/Buildings/Building.lua(821):   <>\\n        --- end of stack\" t=32313444 id=70"
+          },
+          {
+            "line": 1369,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1385,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(965):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=33664920 id=83"
+          },
+          {
+            "line": 1386,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(965):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=33664920 id=83"
+          },
+          {
+            "line": 1393,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1410,
+            "text": "[mod] [SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(986):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=33682504 id=85"
+          },
+          {
+            "line": 1411,
+            "text": "[SMRTK] SMRTK_ERROR kind=lua message=\"HGE::l_GetSpotBeginIndex: Invalid spot\" stack=\"  Mod/SMR_TrainHubDev_20260918/Code/20_TrainHub.lua(384):  method GetSpotBeginIndex\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(159):  upvalue door_count\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(186):  field PickDoor\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(835):  upvalue door_route\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(849):  upvalue leg\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(986):   <>\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1016):  field Sample\\n  Mod/SMR_TrainHubDev_20260918/Code/30_TrainHubDrones.lua(1028):   <>\\n        --- end of stack\" t=33682504 id=85"
+          }
+        ],
+        "identity": [
+          {
+            "line": 51,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 1446,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 2,
+        "save_load": 0,
+        "failure": 112,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260925-13.43.07-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260925-13.43.07-6aad2d75.log",
+      "sha256": "2e0257c22c340d6299f6028d9baa53fbd80a388c5fea4f4857a62210c8420127",
+      "bytes": 49186,
+      "line_total": 641,
+      "hits": {
+        "repair": [
+          {
+            "line": 615,
+            "text": "[TrainHubDev] repair dispatched: 1161 m, deadline in 27193 ms (launch 4000 + travel 16193 + work 7000) at t=33912099"
+          }
+        ],
+        "save_load": [],
+        "failure": [
+          {
+            "line": 173,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 50,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 628,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 1,
+        "save_load": 0,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    },
+    "Mars.exe-20260925-14.14.01-6aad2d75.log": {
+      "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260925-14.14.01-6aad2d75.log",
+      "sha256": "612443951132f1e7f4682ee44ced5a11393e06a85bb6dd7c6082f3282aa6e3a0",
+      "bytes": 79327,
+      "line_total": 1040,
+      "hits": {
+        "repair": [
+          {
+            "line": 526,
+            "text": "[TrainHubDev] repair dispatched: 150 m, deadline in 13092 ms (launch 4000 + travel 2092 + work 7000) at t=34356899"
+          },
+          {
+            "line": 552,
+            "text": "[TrainHubDev] repair done: 3630 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 582,
+            "text": "[TrainHubDev] repair dispatched: 522 m, deadline in 18283 ms (launch 4000 + travel 7283 + work 7000) at t=34382553"
+          },
+          {
+            "line": 587,
+            "text": "[TrainHubDev] repair dispatched: 737 m, deadline in 21275 ms (launch 4000 + travel 10275 + work 7000) at t=34387553"
+          },
+          {
+            "line": 594,
+            "text": "[TrainHubDev] repair dispatched: 747 m, deadline in 21428 ms (launch 4000 + travel 10428 + work 7000) at t=34389208"
+          },
+          {
+            "line": 601,
+            "text": "[TrainHubDev] repair dispatched: 453 m, deadline in 17319 ms (launch 4000 + travel 6319 + work 7000) at t=34392553"
+          },
+          {
+            "line": 605,
+            "text": "[TrainHubDev] repair dispatched: 832 m, deadline in 22602 ms (launch 4000 + travel 11602 + work 7000) at t=34395448"
+          },
+          {
+            "line": 617,
+            "text": "[TrainHubDev] repair dispatched: 1069 m, deadline in 25908 ms (launch 4000 + travel 14908 + work 7000) at t=34403035"
+          },
+          {
+            "line": 619,
+            "text": "[TrainHubDev] repair done: 2199 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 648,
+            "text": "[TrainHubDev] repair dispatched: 1234 m, deadline in 28217 ms (launch 4000 + travel 17217 + work 7000) at t=34407553"
+          },
+          {
+            "line": 650,
+            "text": "[TrainHubDev] repair done: 1292 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 656,
+            "text": "[TrainHubDev] repair done: 1840 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 681,
+            "text": "[TrainHubDev] repair done: 1090 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 708,
+            "text": "[TrainHubDev] repair done: 1444 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 748,
+            "text": "[TrainHubDev] repair done: 466 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 752,
+            "text": "[TrainHubDev] repair done: 721 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [
+          {
+            "line": 365,
+            "text": "[SMRTK] SMRTK_SAVE action=save_A name=SMRTK_A.sav session=1790360046:148321459:1242593737:1707829155 slot=A status=OK t=34235572 id=22"
+          },
+          {
+            "line": 427,
+            "text": "[SMRTK] SMRTK_LOAD action=load_A name=SMRTK_A.sav override=false session=1790360046:148321459:1242593737:1707829155 slot=A status=OK t=34235864 id=32"
+          }
+        ],
+        "failure": [
+          {
+            "line": 174,
+            "text": "[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')"
+          }
+        ],
+        "identity": [
+          {
+            "line": 50,
+            "text": "Lua revision: 405907"
+          },
+          {
+            "line": 1027,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ],
+        "control_line": []
+      },
+      "counts": {
+        "repair": 16,
+        "save_load": 2,
+        "failure": 1,
+        "identity": 2,
+        "control_line": 0
+      }
+    }
+  },
+  "log_total": 8,
+  "byte_total": 491427
+}

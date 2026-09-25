@@ -1,0 +1,955 @@
+{
+  "command": "python docs\\archive\\drones_l6_20260925\\drones_l6_audit.py",
+  "head": "bed0268ac0ce690a1619968480264246504d90bc",
+  "hub_sha256": "1a491b02a9054b1b1d8ef6e3b2942abf30b2c4e311c8785269bda9117b1168e1",
+  "rising_reproduction": {
+    "same_hub_live_control": "PASS",
+    "dead_and_released_cleanup": "PASS",
+    "other_hub_live_entry_before": true,
+    "other_hub_live_entry_after": false,
+    "other_hub_count": 0,
+    "memory_only_counterfactual": "PASS; no production edit"
+  },
+  "link_deletion_commits": [
+    {
+      "commit": "d6135b8f45cc29f7bd489f5259fee6c14ab85af0",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/5_SMOKE_medium.md"
+      ],
+      "changes": [
+        "M\tdocs/PLAYTEST_CHECKLIST.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/00_TRAIN_ORCHESTRATOR.md",
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/5_SMOKE_medium.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/README.md",
+        "M\tdocs/agent/reports/TRAIN_HUB_BUILD_20260918.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L5_SMOKE_20260925.md"
+      ]
+    },
+    {
+      "commit": "0fbaeae0fe4faf7fdf06667aa182add257c83e47",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md"
+      ],
+      "changes": [
+        "M\tdocs/agent/facts/EF-115.md",
+        "M\tdocs/agent/facts/INDEX.md",
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/5_SMOKE_medium.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/README.md",
+        "M\tdocs/agent/reports/TRAIN_HUB_BUILD_20260918.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L4_HUB_20260923.md"
+      ]
+    },
+    {
+      "commit": "6cd20f3ed4c0993c7b9dba9dee89c42d97cec42a",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md"
+      ],
+      "changes": [
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "A\tdocs/agent/reports/drones_chain/L3_FLIGHTLOOK_ENGINE_20260923.md"
+      ]
+    },
+    {
+      "commit": "bbcd8ad409c2e8d73d7ae87f7d300643d09af39d",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/2E_ENGINEFLIGHT_high.md"
+      ],
+      "changes": [
+        "M\tdocs/PLAYTEST_CHECKLIST.md",
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2E_ENGINEFLIGHT_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "A\tdocs/agent/reports/drones_chain/L2E_ENGINEFLIGHT_20260923.md"
+      ]
+    },
+    {
+      "commit": "6d89b1a28f5e7d8d2027e80849e932d7e49ed9b8",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/2M2_FLUIDITY_high.md"
+      ],
+      "changes": [
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2M2_FLUIDITY_high.md",
+        "M\ttools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+        "M\ttools/devmods/train_hub/tests/exit_clearance.py",
+        "M\ttools/devmods/train_hub/tests/flight_smoke.py",
+        "M\ttools/devmods/train_hub/tests/motion_clearance_receipt.json"
+      ]
+    },
+    {
+      "commit": "6a56be0de90f0f3c5f819d6c197840bef67fcc67",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/2M_MOTION_high.md"
+      ],
+      "changes": [
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2M_MOTION_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/README.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L2M_MOTION_20260922.md"
+      ]
+    },
+    {
+      "commit": "0ad2e3d13b096f44562e0d9eb4e8a1489f523aca",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/2R_EXITROUTE_medium.md"
+      ],
+      "changes": [
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2R_EXITROUTE_medium.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/README.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L2R_EXITROUTE_20260922.md",
+        "M\ttools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+        "M\ttools/devmods/train_hub/metadata.lua",
+        "A\ttools/devmods/train_hub/tests/exit_clearance.py",
+        "A\ttools/devmods/train_hub/tests/exit_clearance_receipt.json",
+        "M\ttools/devmods/train_hub/tests/flight_smoke.py"
+      ]
+    },
+    {
+      "commit": "0edc0c93fe69499de0cb546da21586825e1c61dc",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/2_FLIGHT_medium.md"
+      ],
+      "changes": [
+        "M\tdocs/PLAYTEST_CHECKLIST.md",
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2_FLIGHT_medium.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/3_FLIGHTLOOK_low.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L2_FLIGHT_20260922.md",
+        "A\ttools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+        "A\ttools/devmods/train_hub/tests/flight_smoke.py"
+      ]
+    },
+    {
+      "commit": "b8ab5454386e09823fd7b48e2da4579cc6f379a6",
+      "deleted": [
+        "docs/agent/prompts/Train_Hub_Project/03_Drones/1_SURVEY_fanout_level_3.md"
+      ],
+      "changes": [
+        "M\tdocs/PLAYTEST_CHECKLIST.md",
+        "D\tdocs/agent/prompts/Train_Hub_Project/03_Drones/1_SURVEY_fanout_level_3.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/2_FLIGHT_medium.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/4_HUB_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/6_QA_high.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/03_Drones/README.md",
+        "M\tdocs/agent/prompts/Train_Hub_Project/README.md",
+        "M\tdocs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md",
+        "A\tdocs/agent/reports/drones_chain/L1_SURVEY_20260922.md"
+      ]
+    }
+  ],
+  "folder_members": [
+    "6_QA_high.md",
+    "DESIGN.md",
+    "README.md"
+  ],
+  "tag_commit": "eedb69b4ea7a8a0feba0b92c5cc2c523aa4f67ff",
+  "historical_samples": {
+    "L2_no_command_thread": {
+      "revision": "0edc0c9",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "init_with_command = false": [
+          288
+        ],
+        "CreateRealTimeThread": [
+          274
+        ],
+        "function F.Route": [
+          111
+        ]
+      }
+    },
+    "L2R_underdeck": {
+      "revision": "0ad2e3d",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "UnderDeckHeight = 300": [
+          16
+        ],
+        "PitExitZ = 1000": [
+          25
+        ],
+        "OutwardDistance = 9000": [
+          17
+        ]
+      }
+    },
+    "L2M_interpolation": {
+      "revision": "74b1e4a",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "SetPos": [
+          359,
+          376,
+          473
+        ],
+        "SetRollPitchYaw": [
+          373,
+          377
+        ],
+        "CreateRealTimeThread": [
+          454
+        ]
+      }
+    },
+    "L2M2_game_driver_and_numeric_gate": {
+      "revision": "b84f106",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "CreateGameTimeThread": [
+          691
+        ],
+        "local function div(a, b) return (a * 1.0) / b end": [
+          65
+        ],
+        "SetAcceleration": [
+          9,
+          559,
+          589,
+          602,
+          657,
+          723
+        ]
+      }
+    },
+    "L2E_stock_commands": {
+      "revision": "9a540dd",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "\"FlightGoto\", \"WaitUninterruptable\"": [
+          13,
+          86
+        ],
+        "QueueCommand(STOCK_HOLD": [
+          773
+        ],
+        "function F.Persists": [
+          871
+        ]
+      }
+    },
+    "L4_shape_and_cost": {
+      "revision": "b556035",
+      "path": "tools/devmods/train_hub/Code/20_TrainHub.lua",
+      "matches": {
+        "local TRACK_WORK = \"SMROptIn_track_work\"": [
+          2028
+        ],
+        "kind = \"repair\"": [
+          1946,
+          2208
+        ],
+        "return researched and 100 or 50": [
+          2219
+        ],
+        "req:AssignUnit(amount)": [
+          2257
+        ],
+        "entry.req:UnassignUnit(entry.amount, false)": [
+          2242
+        ],
+        "self:AddResource(-amount, res)": [
+          2365
+        ],
+        "leader:Complete()": [
+          2367
+        ]
+      }
+    },
+    "L5_actual_door_fix": {
+      "revision": "ad5113b",
+      "path": "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "matches": {
+        "CObject.HasSpot(hub, \"Trackconnector\"": [
+          161
+        ],
+        "ExitVia = \"door\"": [
+          83
+        ]
+      }
+    }
+  },
+  "dev_lua_scan": {
+    "filter": "tools/devmods/train_hub/**/*.lua, decoded UTF-8",
+    "members": [
+      "tools/devmods/train_hub/Code/10_TrainFloor.lua",
+      "tools/devmods/train_hub/Code/20_TrainHub.lua",
+      "tools/devmods/train_hub/Code/30_TrainHubDrones.lua",
+      "tools/devmods/train_hub/Code/_EntityData.generated.lua",
+      "tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+      "tools/devmods/train_hub/Data/BuildingTemplate/SMROptInTrainHub6.lua",
+      "tools/devmods/train_hub/items.lua",
+      "tools/devmods/train_hub/metadata.lua",
+      "tools/devmods/train_hub/SourceData/ArtSpec-mod.lua",
+      "tools/devmods/train_hub/SourceData/GFXMaterial/SMROptInTrainHub6.lua",
+      "tools/devmods/train_hub/SourceData/GFXMaterial/SMROptInTrainHub6DomeGlass.lua",
+      "tools/devmods/train_hub/SourceData/GFXMaterial/SMROptInTrainHub6Glass.lua",
+      "tools/devmods/train_hub/SourceData/SIE_ImportItem/SMROptInTrainHub6.lua",
+      "tools/devmods/train_hub/SourceData/SIE_ImportItem/SMROptInTrainHub6DomeGlass.lua",
+      "tools/devmods/train_hub/SourceData/SIE_ImportItem/SMROptInTrainHub6Glass.lua"
+    ],
+    "forbidden_hits": [],
+    "own_namespace_lines": 234,
+    "file_total": 15,
+    "compressed_inputs": [],
+    "grep_command": "rg -n SMRFixPack tools/devmods/train_hub -g *.lua"
+  },
+  "log_archive_search": {
+    "SMR-OptInPack": {
+      "20260923-16.09.06": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-17.07.20": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-17.18.02": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-21.01.51": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-21.44.09": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-13.34.56": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-13.43.07": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-14.14.01": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-12.35.05": {
+        "current": [
+          "docs/archive/train_hub_load_crash_20260924/Mars.exe-20260924-12.35.05-6aad2d75.partial-manual-restart.log"
+        ],
+        "historical": [
+          "docs/archive/train_hub_load_crash_20260924/Mars.exe-20260924-12.35.05-6aad2d75.partial-manual-restart.log"
+        ]
+      }
+    },
+    "SMR-BugFixPack": {
+      "20260923-16.09.06": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-17.07.20": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-17.18.02": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-21.01.51": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-21.44.09": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-13.34.56": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-13.43.07": {
+        "current": [],
+        "historical": []
+      },
+      "20260925-14.14.01": {
+        "current": [],
+        "historical": []
+      },
+      "20260924-12.35.05": {
+        "current": [],
+        "historical": []
+      }
+    },
+    "filter": "tracked names and all-ref archive-history names; reports are not log evidence; compressed-name candidates listed separately"
+  },
+  "archive_compressed_candidates": {
+    "B:\\Dev\\SMR\\SMR-OptInPack": [],
+    "B:\\Dev\\SMR\\SMR-BugFixPack": []
+  },
+  "historical_receipts": {
+    "0ad2e3d": {
+      "command": "blender -b <work.blend> --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py",
+      "measurement_head": "0e9ec05e567de71774c3fdd368f7427e2608f81b",
+      "leg_total": 17,
+      "triangle_total": 40302,
+      "source_hash_matches": true,
+      "mode": "historical scripted"
+    },
+    "74b1e4a": {
+      "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\motion_clearance_receipt.json",
+      "measurement_head": "63790bc472e3ebe323278dda571e59339e02ff3d",
+      "leg_total": 120,
+      "triangle_total": 40302,
+      "source_hash_matches": true,
+      "mode": "historical scripted"
+    },
+    "b84f106": {
+      "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\drones_motion_curves.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\l2m2_motion_clearance_receipt.json",
+      "measurement_head": "2b3b32bbee41e7556f595d29360d660348a9d38a",
+      "leg_total": 78,
+      "triangle_total": 40302,
+      "source_hash_matches": true,
+      "mode": "historical scripted"
+    },
+    "HEAD": {
+      "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\drones_motion_curves_tagged.json --receipt C:\\Users\\stkot\\AppData\\Local\\Temp\\claude\\b--Dev-SMR-SMR-OptInPack\\a2b997ad-85f0-426e-b5f6-de4cb0a1b4bc\\scratchpad\\l5d_motion_clearance_receipt.json",
+      "measurement_head": "3c47ce22d7e65df0bd6113fc1b53a287403bf69c",
+      "leg_total": 78,
+      "triangle_total": 40302,
+      "source_hash_matches": true,
+      "mode": "historical scripted"
+    }
+  },
+  "recovered_log_checks": {
+    "Mars.exe-20260924-12.35.05-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 284,
+            "text": "Game loaded on map BlankBig_01 in 6548 ms"
+          },
+          {
+            "line": 452,
+            "text": "Game loaded on map BlankBig_01 in 4378 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 520,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 0,
+        "save_load": 0,
+        "load_completed": 2,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260924-17.07.20-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [
+          {
+            "line": 225,
+            "text": "Unpersist missing permanent: Preset:NotificationPreset.SMROptInTrackRepair | Fallback permanent: NotificationPreset \"BreakthroughDiscovered\": 00000252FB8EC800"
+          }
+        ],
+        "repairs_done": [
+          {
+            "line": 292,
+            "text": "[TrainHubDev] repair done: 1515 ms after the deadline, the Wasp's stage out"
+          },
+          {
+            "line": 322,
+            "text": "[TrainHubDev] repair done: 4109 ms after the deadline, the Wasp's stage back"
+          }
+        ],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 286,
+            "text": "Game loaded on map BlankBig_01 in 6342 ms"
+          },
+          {
+            "line": 514,
+            "text": "Game loaded on map BlankBig_01 in 4377 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 539,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 1,
+        "repairs_done": 2,
+        "save_load": 0,
+        "load_completed": 2,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260924-17.18.02-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [
+          {
+            "line": 350,
+            "text": "[TrainHubDev] repair done: 3188 ms after the deadline, the Wasp's stage descent"
+          },
+          {
+            "line": 432,
+            "text": "[TrainHubDev] repair done: 1417 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 505,
+            "text": "[TrainHubDev] repair done: 14956 ms after the deadline, the Wasp's stage back"
+          },
+          {
+            "line": 567,
+            "text": "[TrainHubDev] repair done: 1769 ms after the deadline, the Wasp's stage back"
+          }
+        ],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 328,
+            "text": "Game loaded on map BlankBig_01 in 6334 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 634,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 4,
+        "save_load": 0,
+        "load_completed": 1,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260924-21.01.51-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [
+          {
+            "line": 338,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 387,
+            "text": "[TrainHubDev] repair done: 49 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 528,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 603,
+            "text": "[TrainHubDev] repair done: 0 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [
+          {
+            "line": 435,
+            "text": "[SMRTK] SMRTK_SAVE action=save_A name=SMRTK_A.sav session=1790298128:86402966:45404022:467164939 slot=A status=OK t=31836118 id=37"
+          },
+          {
+            "line": 517,
+            "text": "[SMRTK] SMRTK_LOAD action=load_A name=SMRTK_A.sav override=false session=1790298128:86402966:45404022:467164939 slot=A status=OK t=31836118 id=47"
+          }
+        ],
+        "load_completed": [
+          {
+            "line": 320,
+            "text": "Game loaded on map BlankBig_01 in 6222 ms"
+          },
+          {
+            "line": 515,
+            "text": "Game loaded on map BlankBig_01 in 4402 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 703,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 4,
+        "save_load": 2,
+        "load_completed": 2,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260924-21.44.09-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [
+          {
+            "line": 351,
+            "text": "[TrainHubDev] repair done: 49 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 411,
+            "text": "[TrainHubDev] repair done: 322 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 325,
+            "text": "Game loaded on map BlankBig_01 in 7467 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 446,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 2,
+        "save_load": 0,
+        "load_completed": 1,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260925-13.34.56-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [
+          {
+            "line": 457,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 478,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 498,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 518,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 537,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 556,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 575,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 595,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 614,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 634,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 653,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 672,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 691,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 710,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 730,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 749,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 769,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 788,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 808,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 827,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 867,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 893,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 919,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 947,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 972,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 999,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1024,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1051,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1076,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1103,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1129,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1157,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1182,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1209,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1234,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1369,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          },
+          {
+            "line": 1393,
+            "text": "[LUA ERROR] HGE::l_GetSpotBeginIndex: Invalid spot"
+          }
+        ],
+        "persist_errors": [],
+        "repairs_done": [
+          {
+            "line": 1392,
+            "text": "[TrainHubDev] repair done: 3130 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 370,
+            "text": "Game loaded on map BlankBig_01 in 7754 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 1446,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 37,
+        "persist_errors": 0,
+        "repairs_done": 1,
+        "save_load": 0,
+        "load_completed": 1,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260925-13.43.07-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [],
+        "save_load": [],
+        "load_completed": [
+          {
+            "line": 330,
+            "text": "Game loaded on map BlankBig_01 in 6267 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 628,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 0,
+        "save_load": 0,
+        "load_completed": 1,
+        "shutdown": 1
+      }
+    },
+    "Mars.exe-20260925-14.14.01-6aad2d75.log": {
+      "members": {
+        "invalid_spot_events": [],
+        "persist_errors": [],
+        "repairs_done": [
+          {
+            "line": 552,
+            "text": "[TrainHubDev] repair done: 3630 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 619,
+            "text": "[TrainHubDev] repair done: 2199 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 650,
+            "text": "[TrainHubDev] repair done: 1292 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 656,
+            "text": "[TrainHubDev] repair done: 1840 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 681,
+            "text": "[TrainHubDev] repair done: 1090 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 708,
+            "text": "[TrainHubDev] repair done: 1444 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 748,
+            "text": "[TrainHubDev] repair done: 466 ms after the deadline, the Wasp's stage work"
+          },
+          {
+            "line": 752,
+            "text": "[TrainHubDev] repair done: 721 ms after the deadline, the Wasp's stage work"
+          }
+        ],
+        "save_load": [
+          {
+            "line": 365,
+            "text": "[SMRTK] SMRTK_SAVE action=save_A name=SMRTK_A.sav session=1790360046:148321459:1242593737:1707829155 slot=A status=OK t=34235572 id=22"
+          },
+          {
+            "line": 427,
+            "text": "[SMRTK] SMRTK_LOAD action=load_A name=SMRTK_A.sav override=false session=1790360046:148321459:1242593737:1707829155 slot=A status=OK t=34235864 id=32"
+          }
+        ],
+        "load_completed": [
+          {
+            "line": 290,
+            "text": "Game loaded on map BlankBig_01 in 6348 ms"
+          },
+          {
+            "line": 425,
+            "text": "Game loaded on map BlankBig_01 in 4484 ms"
+          },
+          {
+            "line": 1014,
+            "text": "Game loaded on map BlankBig_01 in 4279 ms"
+          }
+        ],
+        "shutdown": [
+          {
+            "line": 1027,
+            "text": "Stopping the game threads from the Lua side with exit code 0."
+          }
+        ]
+      },
+      "counts": {
+        "invalid_spot_events": 0,
+        "persist_errors": 0,
+        "repairs_done": 8,
+        "save_load": 2,
+        "load_completed": 3,
+        "shutdown": 1
+      }
+    }
+  },
+  "recovered_log_filter": {
+    "invalid_spot_events": "^\\[LUA ERROR\\] HGE::l_GetSpotBeginIndex: Invalid spot",
+    "persist_errors": "Persist error:|Attempt to persist|luaSPersist|Unpersisted function|Unpersist missing permanent|Savegame error:|LoadGame error:",
+    "repairs_done": "^\\[TrainHubDev\\] repair done:",
+    "save_load": "^\\[SMRTK\\] SMRTK_(SAVE|LOAD) ",
+    "load_completed": "^Game loaded on map",
+    "shutdown": "Stopping the game threads from the Lua side with exit code 0"
+  },
+  "prior_brief_bytes": 19956
+}

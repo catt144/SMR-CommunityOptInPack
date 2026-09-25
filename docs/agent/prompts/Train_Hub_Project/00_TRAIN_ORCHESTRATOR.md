@@ -17,6 +17,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 
 ## Read first
 
+**Drones terminal QA, 2026-09-25:** `reports/drones_chain/L6_QA_20260925.md` closes link 6 PASS WITH CORRECTIONS; its C1–C6, D14(g,h) and shared checklist ck217 replace the older “QA next” state below; build 5's lifted hold stays lifted.
+
 - The spec, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`: §7.2 holds the measured
   results, §6 the options and the owner's direction (the routing target in OPTION 5), and §10 the
   prototype.
