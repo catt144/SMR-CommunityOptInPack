@@ -406,6 +406,44 @@ correctly for connectors 5 and 6.
 
 ---
 
+### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — DESIGN ONLY, NOT AUTHORISED
+
+Two upgrades on the hub: **+100% storage on every train station** and **+100% cargo on every
+train**. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
+off, and is gone when the hub is. Brief it after build 5 frees `20_TrainHub.lua`; the template
+half is a Mod Editor save.
+
+**SOURCE (1.1.1.405907), the mechanism is vanilla's own.** `Building:ApplyUpgrade`
+(`Buildings/Building.lua:1150-1250`) gives each upgrade up to three modifier slots; a slot with a
+non-`self` target builds a `LabelModifier` on that container, id `<handle>_upgrade<n>_mod_<i>`
+(the game's name, not ours). `AncientArtifactInterface` does a colony-wide one
+(`upgrade1_mod_target_1 = "colony"`). Trains and stations are labelled on the **city**
+(`Units/Train.lua:113`, `city.labels.Station`), so the target is `city`. Labels: `StationSmall`
+and `StationBig` for `max_storage_per_resource` (Expanded Warehousing's own labels) — **not
+`Station`, which would double the hub's own storage**; `Train` for `max_shared_storage`
+(`Units/Train.lua:22`, modifiable). A capacity change resizes a live station through
+`MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:225-240`, measured
+live 09-18, §7.2 P3b); a train reads `GetEmptyStorage` per load (`Units/Train.lua:708`). Over
+capacity after a drop, a station's demand goes to 0 (`:220`) and a train loads nothing; no stock
+is lost. The player's on/off is `ToggleUpgradeOnOff` (`Building.lua:1261`); demolition runs
+`StopUpgradeModifiers` from `Building:Done` (`:529-534`). An upgrade must be unlocked before it
+can be built (`UIColony:IsUpgradeUnlocked`).
+
+⚖️ **Owner rulings, 2026-09-25:**
+1. **Once per colony, not per hub.** *"make it so if a second hub is build its upgrades are
+   already spend if they are spent on the first"*. Percentages would otherwise add (two hubs =
+   +200%). The upgrade panel reads the building's `IsUpgradeUnlocked` / `HasUpgrade` answers
+   (`XDef/sectionUpgrades.generated.lua:28-117`), which the hub class owns.
+2. **Vanilla on power:** *"leave it vanilla"* — the bonus holds while the hub stands, working
+   or not; only demolition or the player's toggle removes it.
+
+**Open:** after the owning hub is demolished, may another hub buy the upgrade again (the
+orchestrator's recommendation) or does it pass to a surviving hub? Cost and unlock (tech or from
+the start) are unset. **Caveats:** the upgrade ids become persisted names (ban 1); removing the
+whole mod from a save leaves the modifiers on the city — vanilla's
+`SavegameFixups.RemoveLeakedUpgradeModifiers` (`:1323`) runs once per save — which is the
+hub's general uninstall problem, not this feature's.
+
 ## 5 · Module B — train junction hub
 
 ### 5.1 What is closed, and what is not
