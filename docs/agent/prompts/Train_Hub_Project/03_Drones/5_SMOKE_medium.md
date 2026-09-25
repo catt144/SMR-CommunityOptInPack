@@ -234,11 +234,11 @@ Explained, not changed:
 Open owner question: the growth gate is one chunk per 60 s window. I offered to restart the meter at each jump and require 15 s instead. **Unanswered.**
 
 Still to run:
-- The pit launch and recall (`dba55af`) and its swarm feel.
-- Recalls down to 5 after the work ends; a Wasp carrying a cube is never recalled.
+- The door launch and recall (`3c47ce2`) and its swarm feel.
+- A Wasp carrying a cube is never recalled.
 - `WaspPalette` "P4", for the owner to judge.
-- More than 30 jobs (item 8).
-- A **salvaged** hub with Wasps out, one carrying a cube, and save/reload across it (item 9; meteors no longer destroy the hub).
+- More than 30 jobs (item 8), now against the 25-Wasp fleet plus 5 reserved.
+- Save/reload across a demolished hub (the rest of item 9 passed 2026-09-25, below).
 - `DESIGN.md` §6 train construction (item 10).
 - An autosave mid-trip.
 - Cargo unloading with the hub full (the audit: 1.1.1 changed `UnloadAll`).
@@ -256,6 +256,13 @@ Close-out still owed by the final link-5 session:
 Owner rulings:
 - **Wasps leave and come home through a train door** (`3c47ce2`). This partly backtracks the pit launch in `dba55af`: the rise out of the pit stays, then the Wasp crosses to the hub's centre and runs out along a door's track at 2 m above the rail. One Wasp takes the door nearest its break; a swarm uses every door, in shuffled order, before any door repeats. Occasional clipping of trains is accepted. `ExitVia="deck"` restores the under-deck exit. `DoorRideHeight` and `DoorOutDistance` are guesses, for the owner to set by eye. No clearance against the mesh has been measured for the door route.
 - **A far station gets maintenance only; its upgrades are not the hub's.** The owner's words: "lets leave it just wanted to check". An upgrade files two `rfUpgrade` demand requests and connects them to its command centres (`Building.lua:2094-2124` on 1.1.1.405907). The Station filter refuses them to an out-of-range hub, so an upgrade at a far station waits for a vanilla drone controller. This confirms the 2026-09-23 maintenance-only ruling for upgrades.
+
+- **A demolished hub's ruin stays until a vanilla controller clears it.** The hub despawns its Wasps when destroyed (2026-09-22), so it cannot clear its own ruin; the owner chose to keep this, as vanilla does for any ruin.
+- **The fleet steps 5 → 15 → 25, and the last 5 of 30 are held for repair flights** (`cf14791`). Owner: "it feels bad under heavy work. so 5 stays default then it jumps to 15, and then the next jump goes to 25. And the extra 5 are reserved for drone repair dispatches". Dials `Chunk2`, `Chunk3`, `RepairReserve`; the idle buffers 2 / 5 / 10 now follow the chunks. The growth gate, still one jump per 60 s window, stays an open question.
+
+Seen by the owner (log `Mars.exe-20260925-13.43.07`):
+- **Item 9 on a demolish.** A true salvage cannot remove the hub: a demolish leaves a ruin. Demolished with Wasps out: every Wasp was gone and the cubes were on the ground. The log shows a 1161 m repair dispatched at t=33912099 just before; the despawn prints nothing. Save/reload across it was not reported.
+- **Growth and recall on real load.** The TestKit `CheatDelete` of the old hub left a `ResourceStockpileLR`; hauling it grew the fleet to 20 (the old steps) at 128× speed. The quick-build of the new hub deleted the pile, as vanilla's cheat path does (`ConstructionSite:OnQuickBuild` → `DestroyStockpilesUnderneath`, `ConstructionSite.lua:1682-1683`, `:1637-1643` on 1.1.1.405907); a normal build moves the piles out (`:129`). The fleet then recalled to 5.
 
 Bug, fixed in `ad5113b`: `door_count` crashed the flight driver. The engine's `GetSpotBeginIndex` raises "Invalid spot" on a name the body lacks; it does not return -1. The game ran the broken build until it restarted.
 
