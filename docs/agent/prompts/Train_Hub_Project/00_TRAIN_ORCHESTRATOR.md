@@ -58,10 +58,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      restore point 6); spec §9 holds every step, its measurements and the restore tags, and `05` is
      live for its last step alone, the whole-hub GPU cost reading that is still `<<PENDING-RUN>>`.
      The drones are built: chain links 1-4 are consumed, the hub half landed in `b556035` with the
-     one persisted name `SMROptIn_track_work` inventoried, and **link 5's attended smoke is in
-     flight and paused on a save defect another agent is fixing**; link 6's QA is last and the owner
-     runs it on a different model. `04` (build 5, the hub builds track) stays held until that smoke
-     is recorded. The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md)
+     one persisted name `SMROptIn_track_work` inventoried, and **link 5's attended smoke passed and is
+     recorded** (`reports/drones_chain/L5_SMOKE_20260925.md`, 2026-09-25); link 6's QA is next and last, and the owner
+     runs it on a different model. `04` (build 5, the hub builds track) was held until that smoke
+     was recorded; it now is. The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md)
      — read it there rather than trusting a list here.
    - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
      Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
@@ -171,8 +171,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      that until we get everything else built and running thats alot of poking and proding for
      something that might basically be unnoticible under real conditions and i am leaning towards
      not worth changing its state"*. Engine mode ships as built meanwhile; the Wasp's 7 m ride on
-     engine-flown legs is unchanged. Judge it under real play in link 5's smoke, not by staging a
-     train. If it ever does read wrong, the choice is three-way, not two: accept it, take the
+     engine-flown legs is unchanged. **Answered in link 5's smoke (owner, 2026-09-25): kept as
+     built** ("2 agreed", with no complaint across the sitting). If it ever does read wrong, the choice is three-way, not two: accept it, take the
      flight back (scripted, the tag), or give the drone our own `FlyingDrone` subclass with a
      higher `hover_height` — which keeps the engine flying but ends "it is just a vanilla Wasp",
      the standing protection for a save loaded without the mod.

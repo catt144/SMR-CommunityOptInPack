@@ -62,6 +62,45 @@ each verdict.
 
 ## Notes from upstream
 
+### L5 handoff, 2026-09-25 — the smoke closed; audit it against the report
+
+The report is `docs/agent/reports/drones_chain/L5_SMOKE_20260925.md`; the hub report's "Build 4
+smoke" and spec §10's "Drones L5" carry the rulings. Treat each as a claim and sample it against its
+commit and the named log. The L5 commits are `git log --grep="Drones chain L5"`, plus `ca586d1`
+(storage).
+
+**Left for you, or for the owner through you:**
+- Never seen in play: the reassign buttons greyed on hub Wasps; a rocket refusing a hub Wasp as
+  cargo; whether `Idle`'s go-home distance bounces a far fleet Wasp home repeatedly; the absence of
+  cube hauling between stations; `SMROptInHubFlight.Lost` read after a long run, including a Wasp
+  left past the 60 s hold timeout (end state 3); a dead grid (only the malfunction ran); OI-27, the
+  cross-map drone policy, never asked; the storage cap (`ca586d1`) in play.
+- The door route's mesh clearance is unmeasured. The committed receipt bounds only the tagged
+  scripted flight. `DoorRideHeight` 200 and `DoorOutDistance` 3000 are guesses the owner has not
+  dialled.
+- Deferred by the owner to the import/export and dials work: `DESIGN.md` §6 train construction (the
+  report holds the 1.1.1 source reading and a ready test) and cargo kept aboard at a full hub.
+- Moved: the Wasp palette default, to brief 05 (its "Handed over" section).
+- The ship test: neither configuration and neither toggle direction was run.
+
+**Drift since "L5 drift" below:**
+- The owner backtracked the pit swarm launch (`dba55af`, never seen) to a train-door launch within
+  the sitting (`3c47ce2`). The chunk steps `7ddb822` (5/10/20/30) were replaced by 5/15/25 with a
+  5-slot repair reserve (`cf14791`).
+- L5 shipped `3c47ce2` with a door count that crashed the flight driver in the game (36 errors, log
+  `Mars.exe-20260925-13.34.56`). The mock returned -1 for a missing spot where the engine raises;
+  `ad5113b` fixed both. The first in-game run stranded every launched Wasp until a restart.
+- Item 9 ran on a demolish, not a salvage: a salvage cannot remove a hub. The owner's earlier
+  demolish-and-rebuild used the TestKit's `CheatDelete` and quick-build, which deleted the dropped
+  pile (vanilla's cheat path).
+- The autosave was closed by argument, not by a run: the slot save shares `DoSaveGame` and the
+  unpaused window (the report cites the lines).
+- The storage change (`ca586d1`) came at close-out, outside the smoke's scope, on an owner ask. It
+  overrides vanilla's `RecalculateDerivedMaxZ` with vanilla's own body, sized from min(storage,
+  150000); no mock covers it.
+- The clearance receipt was re-pinned twice (`3c47ce2`, `ad5113b`) with identical geometry. The
+  2026-09-25 session ran `claude-opus-5-5[1m]`.
+
 ### L5 drift, 2026-09-24 (the attended sitting, fixes built in-link under the owner's ruling)
 
 - L3's accepted fix `HandoffAt="outside"` was never made the file default: `1b32bc8`.

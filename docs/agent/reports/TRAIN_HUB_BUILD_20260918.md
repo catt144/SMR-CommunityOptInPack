@@ -905,3 +905,30 @@ hub). The running game needs a restart or a save reload to take the fix.
 **The sitting is link 5's** (`5_SMOKE_medium.md`, attended): its notes carry what the smoke must
 show. Console for it: `HubRepairStatus()` with the hub selected; `SetHubRepairTune("Standing", 5)`
 or a table; `SMROptInTrainFloor.HubRepairTune` for the defaults; the panel's toggle.
+
+## Build 4 smoke (drones chain L5), 2026-09-23 to 2026-09-25 — SMOKE PASS on the owner's list
+
+**Authority:** the retired `5_SMOKE_medium.md` and owner rulings 2026-09-23 to 2026-09-25. Report:
+`drones_chain/L5_SMOKE_20260925.md`, which holds the breaks, distances, deadlines and reloads in
+that order, every ruling with its commit, and what was not covered. Build 25390750 / 1.1.1.405907.
+
+**Seen in play:** far breaks repaired by the hub's flight, completing at the Wasp's work stage.
+Two breaks on one track. A track that reaches the hub through other stations. Short stock waits.
+The toggle and the switch. A malfunctioned hub still dispatches. A meteor malfunctions the hub and
+never destroys it. Menu and slot saves mid-trip reload and complete (0 persist errors); the slot
+save covers the autosave. A demolished hub with Wasps out drops every cube and removes every Wasp,
+and a save/reload across it is normal. More than 30 jobs. The fleet grows 5 → 15 → 25 on its own
+60 s meter, holds 5 of the 30 for repairs, and recalls only idle Wasps. Wasps leave and come home
+through the train doors. **MEASURED:** engine legs at move_speed 8960 flew 6990-7465 units/s (about
+80 %), and the pit launch took 3944 ms; the deadline now follows the live speed × 80 % + 4 s.
+
+**Changed from build 4 as built:** the flight, not the timer, is the repair's authority, and a lost
+Wasp is relaunched. The fleet steers by its own meter in 5/15/25 chunks, not vanilla's load word.
+Wasps launch from the pit and leave through a door. No orphan is ever adopted. The notice has no
+ETA. Four bugs were fixed in-link (the report lists them). **Storage** is 240000 a resource again, and
+the cargo stacks stay at the height 150000 drew (`max_z` 7); the stock past that is stored and not
+drawn (owner, 2026-09-25, `ca586d1`; not yet seen in play). "Storage and cargo display" above holds.
+
+**Deferred by the owner:** `DESIGN.md` §6 train construction and cargo kept aboard at a full hub,
+both to the import/export work; the Wasp palette to brief 05. **Not run:** the ship test (both
+configurations, both toggle directions) and the report's "not seen" list. Both go to link 6.

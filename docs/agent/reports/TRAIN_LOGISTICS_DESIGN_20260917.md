@@ -3131,3 +3131,34 @@ the connector-1 transfer, `RingPillar_4` −0.052 m on the under-deck exit); the
 flown exit by eye, and the committed receipt bounds the tagged flight only. The flight smoke had
 been red since L3's dial commits; re-pinned. The fleet still appears around the body, not from the
 pit (a release entry point the flight file lacks); link 5 asks. Link 5's sitting is the claim.
+
+### Drones L5: the smoke (2026-09-23 to 2026-09-25; report `L5_SMOKE_20260925.md`)
+
+The owner's sitting passed the drones smoke; the report has the breaks, distances, deadlines,
+reloads and every commit. **These rulings overtake `DESIGN.md` and the L4 section above**, and they
+bind build 5 and any later hub work:
+
+- **The flight is the repair's authority** (owner, 2026-09-24). The site completes at the Wasp's
+  work end, and the persisted deadline is only a fallback. A repair under way always has a live
+  Wasp: a lost one is relaunched from the pit. `MinVisualTime` is gone. The fallback deadline is
+  `LaunchTime` 4000 + straight-line distance at the live Wasp speed × `SpeedPercent` 80 + `WorkTime`.
+- **The fleet** (owner, 2026-09-24 and 2026-09-25) steers by its own 60 s idle-drone meter with
+  vanilla's thresholds, not `GetDroneLoad`. It grows in chunks 5 → 15 → 25, one jump per 60 s, with
+  2 / 5 / 10 idle kept per size. It recalls one idle, empty-handed Wasp at a time. The last 5 of the
+  30 are held for repair flights (`RepairReserve`); a sixth repair takes a fleet slot at once. Every
+  fleet Wasp rises out of the pit and is recalled back into it.
+- **Wasps leave and come home through a train door** (owner, 2026-09-24): the pit rise, the hub's
+  centre, then out along a door's track at `DoorRideHeight` above the rail and handed to the engine
+  `DoorOutDistance` past the door. The door nearest a repair's break is used; a swarm draws doors from
+  a shuffled deck. Train clipping is accepted. The route's mesh clearance is unmeasured.
+- **No orphan is ever adopted**; the dispatch notice has no ETA and clears when the repair is done; a
+  hub under repair reads as drone-covered; the flight works inside the radius too.
+- **A meteor damages the hub and never destroys it.** A demolished hub's ruin needs a vanilla
+  controller to clear it, as any ruin does.
+- **Storage is 240000 a resource; the cargo stacks are capped at the height 150000 drew** (owner,
+  2026-09-25): the stock past the cap is stored and not drawn (`ca586d1`).
+- **Far stations get maintenance only**: their upgrades and other requests stay vanilla's (confirmed
+  2026-09-25).
+- **Deferred to the import/export and dials work:** `DESIGN.md` §6 train construction (the 1.1.1
+  source says a stocked station builds without a drone; untested), and cargo kept aboard at a full
+  hub. **Moved:** the Wasp palette default, to brief 05 and §9. **OI-26:** kept as built.

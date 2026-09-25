@@ -23,14 +23,6 @@ When a rail shaft connects the hub to another map, should hub drones stop at the
 - The audit did not add a map restriction to your network-wide service rule.
 Home: `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, `docs/agent/bugs/D14.md`
 
-### OI-26 · opened 2026-09-23
-Is the Wasp's fixed 7 m ride on engine-flown repair-drone legs clear enough of the side-hanging trains?
-- The height cannot be tuned per drone (`Flight.lua:175`); only our scripted ends have dials.
-- PARKED by you 2026-09-23 until the hub is built and running; engine mode ships as built meanwhile.
-- Judge it under real play in link 5's smoke, with a train passing beneath, not by staging one.
-- Say "7 m is fine", "the engine legs must ride higher" (then engine mode cannot ship as built), or "scripted ships".
-Home: `docs/agent/prompts/Train_Hub_Project/00_TRAIN_ORCHESTRATOR.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
@@ -75,7 +67,7 @@ Train hub: accept the remaining economic/module-off defaults, or name changes?
 - Module off: no new hubs, built hubs keep working (as MultipleSuns). Removing the mod with hubs standing is unsafe.
 - Cost 60 Concrete, 40 Metals, 10 Machine Parts and 15 Electronics.
 - Maintenance is 2 Electronics; the reserve is two maintenances, 4 Electronics, which trains and drones leave alone.
-- Radius 15, two stopgap drones and 150 storage per resource were separately ruled and smoke-tested in build 3.
+- Radius 15 and the drones were separately ruled; storage is 240 per resource, stacks drawn to 150 (2026-09-25).
 - Say "accept" or name changes to the module-off rule, cost, maintenance or reserve.
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
