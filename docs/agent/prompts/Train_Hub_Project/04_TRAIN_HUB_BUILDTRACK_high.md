@@ -1,104 +1,103 @@
-# Train hub build 5: the hub builds track
+# Train hub build 5: the hub builds track — second pass
 
-**LIVE: implemented, attended smoke remains** (2026-09-25). Build receipt and remaining
-checks: `reports/TRAIN_HUB_BUILDTRACK_20260925.md`. Build 4's smoke is recorded
-(`reports/drones_chain/L5_SMOKE_20260925.md`), and build 4 itself is
-`03_Drones/DESIGN.md` with the hub half in `20_TrainHub.lua`. It is build 4's mechanism with a
-second trigger and native group completion, on the pending list `SMROptIn_track_work` that build 4 shipped
-with a kind field for exactly this. ⚠️ Read that build before designing: the pending list, the
-completion path and the fleet all exist now, and the drones chain's link 6 (QA) may still be
-auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongside another brief.
+**LIVE: pass 2** (2026-09-25). Pass 1 is `ad7d202`, its receipt
+`reports/TRAIN_HUB_BUILDTRACK_20260925.md`. Its attended smoke was stopped after case 2 and the
+owner sent the build back: spec §10 "Build 5 attended smoke, 2026-09-25" (`984be33`) is the record
+this pass starts from. It is build 4's mechanism (`03_Drones/DESIGN.md`, the hub half in
+`20_TrainHub.lua`) with a second trigger, on the pending list `SMROptIn_track_work` and its `kind`
+field. Only one brief edits `20_TrainHub.lua` at a time; none other is live.
 
 ## Authority
 
-- **Owner, 2026-09-19.** The other pain point of a big network is building it: slow-driving a
-  commander or chaining drone hubs along the line. The hub **builds new track** from its own stock
-  by dispatching its repair drones to the construction sites. **The gate: a line does not start until it
-  is connected to the hub**, meaning one of its end stations is on the hub's network. A line placed
-  from a station the hub cannot reach waits, and starts the moment the network grows to touch that
-  station. Cost is the normal element cost; there is no vanilla cheaper rate to match.
-- Build 4's rulings carry over: cheap version, emergency speed, the principle that the feature
-  must not replace one pain point with another, and the repair drones themselves (vanilla Wasps
-  under the hub, a constant 30, launched from the pad, never charging, track mode with its save
-  guard; build 4's brief). Both bans bind; no new
-  persisted name if build 4's list carries the kind, and if it does not, stop and report.
-- Testing depth (owner): a smoke test only.
-- ⚖️ **Owner ruling 2026-09-25, on this brief's construction-group stop: "1 is fine" — the whole
-  line is one job, the game's own way.** New track is one `construction_group`: only its leader
-  holds the cost and work requests, and the leader's `Complete()` finishes every element at once
-  (`ConstructionSite.lua:32,2671`, `Tracks.lua:460-474`, 1.1.1.405907;
-  `reports/TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md`). So the hub pays the group's **outstanding**
-  cost from stock and completes the leader after a build time scaled to the line's length, which is
-  build 4's repair path. Element-by-element order and per-element payment are dropped; End state 2-5
-  below read with that. If the whole line appearing at once reads wrong in the smoke, the next
-  step is feeding the cost in over the build time (pause the line on a stock-out), still
-  completing at once. Taking over the group's accounting to finish single elements is not
-  authorised.
-- ⚖️ **Owner ruling 2026-09-25, in the attended smoke: repairs take priority, and the drone cap goes
-  to 60.** *"I think repairs take priority and we just increase the drone cap to 60 that should be
-  plenty."* Seen in the sitting: vanilla splits a placed line into 5-element construction groups
-  (23 on one line), each became its own build job and Wasp, and one line had 21 of 30 Wasps out.
-  Keep one job per native group. Raise `Floor.HubRepairTune.MaxDrones` to 60 (it counts the fleet
-  and track flights together); the fleet chunks 5 / 15 / 25 are the owner's earlier ruling and stay,
-  so the added slots go to track work. A queued or broken-track **repair dispatches before any
-  queued build**, and builds never take the repair reserve. No frame-rate check: a vanilla Drone
-  Hub runs 120 drones fully teched (owner, in the sitting, from its own panel reading 20/120).
+- **Owner, 2026-09-19.** The hub **builds new track** from its own stock by dispatching its repair
+  Wasps to the construction sites. **The gate: a line starts only once it is connected to the hub's
+  network**; one placed where the hub cannot reach waits, and starts when the network grows to touch
+  it. Cost is the normal element cost. Testing depth: a smoke test only.
+- Build 4's rulings carry over (spec §10 "Drones L5" overtakes older wording): the feature must not
+  replace one pain point with another, vanilla Wasps from the pit, engine flight. Both bans bind.
+- ⚖️ **Owner, 2026-09-25, "1 is fine": the game's own group accounting.** Vanilla splits a placed
+  line into construction groups (5 elements each in the smoke); only a group's leader holds its cost
+  and work requests and its `Complete()` finishes the group (`ConstructionSite.lua:32,2671`,
+  `Tracks.lua:460-474`, 1.1.1.405907; `reports/TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md`). **One job
+  per native group**: pay its outstanding cost from stock, complete the leader after a build time
+  scaled to its element count. Splitting, repricing or finishing single elements is not authorised.
+  A stock-out signs the hub and waits.
+- ⚖️ **Owner, 2026-09-25, in the smoke: "I think repairs take priority and we just increase the
+  drone cap to 60 that should be plenty."** `Floor.HubRepairTune.MaxDrones` 30 → 60 (it counts the
+  fleet and track flights together); the fleet chunks 5 / 15 / 25 are an earlier owner ruling and
+  stay, so the added slots go to track work. **A repair dispatches before any queued build**, and
+  builds never take the repair reserve. No frame-rate check (owner: a vanilla Drone Hub runs 120).
+- ⚖️ **Owner, 2026-09-25: reworked networks are a core case, not an edge.** *"highly likely to
+  happen with players as well as resource piles deplete and they change their bases around"* —
+  cutting a line, extending or re-joining an existing track, re-routing to a moved station.
 
-## Read first
+## What the smoke found (spec §10 has the log lines)
 
-**Current inheritance:** spec §10 “Drones L5” overtakes the pad/constant-fleet/scripted-route wording below; take `reports/drones_chain/L6_QA_20260925.md` C1–C6 and D14(g,h) into the active build's work list, preserving each test's stated trigger.
-
-Build 4's brief and report. Facts from the 1.1.0.403908 source, with the line that could falsify each:
-
-- **New track is the same site class as a break.** `PlaceTrackLine` places a `TrackGridElement`
-  construction group (`Tracks.lua:108`), so build 4's completion path completes it unchanged.
-  Vanilla notes whether the line has a drone hub in reach (`has_group_with_no_hub`, `Tracks.lua:122`).
-- **Both ends must already be station connectors** (`Tracks.lua:240`). The hub builds the line,
-  never the stations.
-- **Cost per element:** `construction_cost_Metals = 200`, `build_points = 1000`
-  (`Data/BuildingTemplate/Track.lua:5-8`); confirm the resource scale before quoting a per-line
-  total.
+- **Case 1 PASS**: a fresh line from a hub stub to a far station outside every drone range; 23
+  groups, 110 elements, 23 dispatched and done, no error.
+- **Case 2 FAIL**: the owner cut a connected track and extended it with an unfinished section to a
+  new station. Nothing was queued (`0 waiting`). Station 7042, joined to the hub's track, reads OFF
+  in `HubTrackGraph`. Both its connector tracks printed `from false false to false false unbuilt 0
+  broken 0`: `GetStartStation`/`GetEndStation` read `start_el.station`/`end_el.station`
+  (`Buildings/Track.lua:194-200`) and return false on these tracks, so the station-to-station walk
+  dead-ends, and the unfinished section sits on neither of 7042's track objects. That is the
+  evidence, not a diagnosis: the worked cause is yours to find.
+- Cases 3 and 4 were not run.
 
 ## End state
 
-1. **Trigger and gate.** A track construction group with an end station on the hub's network is
-   queued as build work; one without waits, and is picked up when it becomes connected. A player
-   toggle on the hub, separate from repair, your call.
-2. **One job per line** (owner ruling above). Pay the group leader's outstanding cost from stock and
-   complete the leader; the whole line finishes at once. If stock runs out, pay what is there, sign
-   the hub, and wait; resume when stock lands.
-   **Drones are never limited** (owner, 2026-09-19): any section in a drone's range is built by
-   drones exactly as today, at the same time as the hub's job runs. The hub pays only the
-   group's **outstanding** cost, so a line drones have part-supplied is never paid twice. The smoke has one line with a drone hub covering its middle.
-3. **Time.** Flight at the emergency speed plus a build time scaled to the line's element count, a dial: a long line
-   visibly takes longer than a repair, but never long enough to be the pain point again. Report
-   the smoke's measured times per line, with each line's element count.
-4. **The repair drone** flies out as build 4's do (engine mode, spec §10 "Drones L5") and works
-   the line until it completes.
-5. **Smoke with the owner:** a line from a hub-served station to a new far station with no drone
-   in reach; a line placed from an unreachable station that starts when a second line connects it;
-   stock running out mid-job; save and reload mid-job; toggle off.
-6. **Record** in the hub report and spec §10.
+1. **Discovery and reachability survive reworked networks.** A connected unfinished section is
+   queued, and stations beyond reworked track stay on the hub's network, whatever shape the player's
+   edit leaves the track objects in. Establish from source and a live read what a cut-and-extended
+   track actually looks like before choosing the fix. Check whether **repairs** share the blind
+   spot, and fix them in the same pass if so.
+2. **`MaxDrones` 60 and repair priority**, as ruled above.
+3. **Desk smoke that models reworked track** (a track with no station at an end, a mixed track, an
+   unfinished section hanging off a finished one), not only fresh station-to-station lines. A fix
+   invalidates its own tests: rerun the whole suite (`buildtrack_smoke.py`, `flight_smoke.py`,
+   `move_smoke.py`, `repair_smoke.py`) and preserve the outputs with HEAD.
+4. **The attended smoke with the owner, all four cases from the start**, about five steps at a
+   time: (1) a fresh line with no drone coverage, and a longer one for timing; (2) a line that
+   waits, then starts on connection, **and** the cut-and-extend rework that failed; (3) a line whose
+   middle an ordinary Drone Hub covers, with a forced stock-out at work end, then refill; (4)
+   save/reload mid-job including a full restart, and the Track work toggle off/on mid-session. Ask
+   the owner how the chunked fill-in looks and whether a line's total time feels right
+   (`BuildTimePerElement` is the dial). Read console output from the newest
+   `%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-*.log` yourself when the owner says
+   "flushed". `MaxDrones` set by console does not survive a restart.
+5. **Record** in the build report and spec §10, with the session log archived byte-for-byte under
+   `docs/archive/train_hub_build5_20260925/`; then hand back to the orchestrator.
 
-**Done means:** a line with no drone coverage is built by the hub from stock as a native group,
-survives a reload mid-job, and a line placed before connection starts on connection.
+The inherited drones-QA items C1–C6 and D14(g,h) keep the dispositions in the pass-1 report's
+table; carry each with its trigger.
+
+**Done means:** all four cases pass in the owner's game, the reworked-network case included, with
+lines, element counts, times and the reload recorded.
+
+## Start
+
+`git log`, `git pull`. Authored on `10053e1`; an empty `git diff --stat 10053e1..HEAD --
+tools/devmods/train_hub/Code/` means the code facts above hold. Put the work in the todo tool
+before the first write, one item per commit-and-verify unit.
 
 ## Scope
 
-**Test save (owner, 2026-09-20):** sittings load `train_hub_base`, which has the stations, tracks and lines prebuilt; only the hub is built each round. Spec §10, "The standing test save". Do not build trains or lines each sitting. Unattended legs load `train_hub_base_agent` (hub prebuilt, full and switched off; spec §10).
-
-In: the dev mod, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
-Out: building stations, drone logic, Module A, routing. Tunnels follow build 4's hide-and-show rule.
+In: the dev mod's track-work code and tests, TestKit slots (`tools/SMRTK.md`), the sitting, the records.
+Out: building stations, drone flight, Module A, routing, the Capacity Network Upgrade (spec §4.10, not
+authorised). Tunnels follow build 4's hide-and-show rule. Sittings use `train_hub_base` without saving over it (spec §10 "The standing test save").
 
 ## Stops
 
-- **Build 4's list has no kind field** and adding one needs a second persisted name: report.
+- The fix needs a new persisted name (ban 1): report before writing it.
+- The fix needs a change to one job per native group, or taking over a group's accounting: report.
+- A reworked track's state cannot be read reliably from Lua: report what was read and how.
 
 ## Do not claim
 
-"Building works" from one line. The claim is the smoke's lines, element counts, times and reload,
-in that colony.
+"Reworked networks work" from the one cut-and-extend the owner made. Claim the rework shapes the
+smoke covered, in that colony.
 
 ## Lifecycle
 
-Done when its smoke is recorded. Lifecycle: the orchestrator decides, once this is fired and done: park it in `Parked/` if it is kept for touch-up work, or delete it; either way its row in `README.md` follows (owner, 2026-09-21).
+Done when its smoke is recorded. The orchestrator then parks it in `Parked/` or deletes it, with its
+row in `README.md` (owner, 2026-09-21).
