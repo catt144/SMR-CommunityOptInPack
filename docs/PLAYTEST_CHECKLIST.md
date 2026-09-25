@@ -74,11 +74,6 @@ Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ## Run
 
-### OI-29 · opened 2026-09-25
-When you next open the hub dev mod in MarsDebug's Mod Editor, let the load log flush and tell the agent.
-- `[TrainHubDev]` must appear; the original errors and undefined `SMROptInHubFlight` must be absent.
-Home: `docs/agent/prompts/Train_Hub_Project/02_TRAIN_HUB_LOADERRORS_low.md`
-
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.
 - Paradox rejects a mod with no `image` / `preview.png` before packing.
