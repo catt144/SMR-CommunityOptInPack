@@ -462,7 +462,9 @@ can be built (`UIColony:IsUpgradeUnlocked`).
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
 60 × 3 = 180, not 240, and a train with Extended Cargo Carriages and Train Loading Standards
-holds 42 × 3 = 126. Not ruled otherwise; vanilla's arithmetic stands.
+holds 42 × 3 = 126. ⚖️ Owner, 2026-09-25, accepting these stacked figures: *"those numbers
+look good to me as boosts without going overboard on release"* — vanilla's additive arithmetic
+stands.
 
 **Caveats:** the upgrade id becomes a persisted name (ban 1), in `upgrades_built` and in the
 colony's unlock list; removing the whole mod from a save leaves the modifiers on the city — vanilla's
