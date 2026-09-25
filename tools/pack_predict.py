@@ -74,12 +74,6 @@ def to_regex(pat):
     return re.compile("^" + "".join(out) + "$")
 
 
-# Kept although predict() no longer reads it: `pack_list.py --tree` imports it.
-# The donor dropped it in 9d15550 and its pack_list --tree now raises
-# AttributeError there.
-PATS = [(p, to_regex(p)) for p in IGNORE]
-
-
 def is_reparse_point(path):
     """True for a symlink or a Windows junction (any reparse point)."""
     try:

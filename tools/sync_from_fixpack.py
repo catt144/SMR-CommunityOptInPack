@@ -180,9 +180,8 @@ TOOLS_ADAPTED = {
     "l8_hostile_input.py": "token rename and this mod's module trio "
                            "(ClassicRockets, DroneStatDials, NoHomeless)",
     "pack_list.py": _GUARD + " only — the donor lacks it: propose there",
-    "pack_predict.py": "this repo's ignore_files and CONTENT_PREFIX; keeps PATS, which "
-                       "pack_list --tree imports (the donor dropped it in 9d15550: "
-                       "propose there)",
+    "pack_predict.py": "this repo's ignore_files and CONTENT_PREFIX; "
+                       "both pack_list copies now build regexes from IGNORE",
     "parsecheck.py": "provenance line only",
     "prompt_map_selftest.py": "this prompt map's classes: no ledger-exception row "
                               "or migration allowance",
