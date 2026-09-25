@@ -2101,7 +2101,7 @@ end
 local TRACK_WORK = "SMROptIn_track_work"
 
 -- The owner's dials (link 5 moves them by eye), from the console:
---   SetHubRepairTune("Standing", 5)        SetHubRepairTune{ StepMedium = 5, StepHigh = 10 }
+--   SetHubRepairTune("Standing", 5)        SetHubRepairTune{ Buffer20 = 5, Buffer30 = 10 }
 --   SetHubRepairTune("WaspPalette", "P4")  -- the reactor's variants, per-object (spec §9 ask)
 -- Nothing here is saved; a restart returns to these defaults.
 Floor.HubRepairTune = {
@@ -2118,8 +2118,11 @@ Floor.HubRepairTune = {
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
 	-- the fleet (owner, 2026-09-23): five standing idle; more as vanilla's load reads medium/high
 	Standing = 5,
-	StepMedium = 5,
-	StepHigh = 10,
+	-- fleet chunks 5 / 10 / 20 / 30 (owner, 2026-09-24): the idle Wasps each size keeps. Fewer idle on
+	-- average than that grows the fleet to the next chunk; more recalls one idle Wasp at a time
+	Buffer10 = 2,           -- up to 10 out
+	Buffer20 = 5,           -- 11 to 20 out
+	Buffer30 = 10,          -- 21 to 30 out
 	MaxDrones = 30,         -- fleet and repair flights together; the panel's "/ 30"
 	RecallDelay = 60000,    -- game ms the count must stay above its target before a recall starts
 	RecallStep = 15000,     -- game ms between recalls; one idle, empty-handed drone each
@@ -2127,7 +2130,7 @@ Floor.HubRepairTune = {
 	-- the fleet's own load meter (owner, 2026-09-24): vanilla's thresholds over a short window
 	LoadWindow = 60000,     -- game ms of idle-drone samples averaged
 	LoadSampleTime = 5000,  -- game ms between samples (the hub's tick)
-	ForceLoad = false,      -- false = the meter; "low" / "medium" / "high" pins the fleet's tier (a console probe)
+	ForceFleet = false,     -- false = the chunks; a number pins the fleet size (a console probe)
 	WaspPalette = false,    -- false = vanilla's Wasp look; "P1".."P4" = the reactor's variants above
 }
 
@@ -2665,15 +2668,39 @@ function SMROptInTrainHubBase:CheatSpawnDrone()
 	self:SpawnDrone()
 end
 
-local function fleet_target(self, load, dispatched, waiting)
-	local tune = Floor.HubRepairTune
-	local target = tune.Standing
-	if load == "medium" then
-		target = target + tune.StepMedium
-	elseif load == "high" then
-		target = target + tune.StepMedium + tune.StepHigh
+-- The fleet in chunks (owner, 2026-09-24: "if there are 10 drones out 2 need to be idle, 20 out 5,
+-- 30 out 10"). Growth jumps to the next chunk (Standing, 10, 20, MaxDrones) when both the meter's
+-- average and the count now sit below the buffer, at most once per LoadWindow so new Wasps can take
+-- work first. Shrinking recalls one idle Wasp while both sit above it, paced by RecallDelay and
+-- RecallStep below, never under Standing. The ceiling is shared with repair flights.
+local function idle_buffer(tune, count)
+	if count <= 10 then return tune.Buffer10 elseif count <= 20 then return tune.Buffer20 end
+	return tune.Buffer30
+end
+
+local function next_chunk(tune, count)
+	for _, c in ipairs({ tune.Standing, 10, 20, tune.MaxDrones }) do
+		if c > count then return c end
 	end
-	return Max(0, Min(target, tune.MaxDrones - dispatched - waiting))
+	return tune.MaxDrones
+end
+
+local function fleet_target(self, now, state, dispatched, waiting)
+	local tune = Floor.HubRepairTune
+	local cap = Max(0, tune.MaxDrones - dispatched - waiting)
+	if tune.ForceFleet then return Min(tune.ForceFleet, cap) end
+	local count = #(self.drones or empty_table)
+	if count < tune.Standing then return Min(tune.Standing, cap) end
+	local buffer = idle_buffer(tune, count)
+	local free_now = self:GetFreeDronesCount()
+	local target = count
+	if state.pct < 100 * buffer and free_now < buffer
+		and (not state.grew_at or now - state.grew_at >= tune.LoadWindow) then
+		target = next_chunk(tune, count)
+	elseif state.pct > 100 * buffer and free_now > buffer and count > tune.Standing then
+		target = count - 1
+	end
+	return Min(target, cap)
 end
 
 local function idle_fleet_drone(self)
@@ -2708,7 +2735,6 @@ local function fleet_load(self, now, state)
 		samples[pos], state.pos, state.sampled_at = free, pos, now
 	end
 	state.pct = MulDivRound(state.sum, 100, n)
-	if tune.ForceLoad then return tune.ForceLoad end
 	if drones <= 0 then return "low" end
 	local low_pct = Min(200, 100 * drones)
 	local high_pct = MulDivRound(100, low_pct, 200)
@@ -2744,12 +2770,13 @@ function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
 	if not state then state = {}; fleet_state[self] = state end
 	local load = fleet_load(self, now, state)
 	state.load = load
-	local target = fleet_target(self, load, dispatched, waiting)
+	local target = fleet_target(self, now, state, dispatched, waiting)
 	local count = #(self.drones or empty_table)
 	if count < target then
 		for _ = count + 1, target do
 			if not self:SpawnDrone() then break end
 		end
+		if count >= Floor.HubRepairTune.Standing then state.grew_at = now end
 		state.above_since = false
 	elseif count > target then
 		state.above_since = state.above_since or now
@@ -3067,8 +3094,8 @@ function SetHubRepairTune(name, value)
 			if v ~= false and type(v) ~= "table" and not hub_reactor_palettes[v] then
 				return false, 'WaspPalette is false, "P1".."P4" or a channel table'
 			end
-		elseif k == "ForceLoad" then
-			if v ~= false and v ~= "low" and v ~= "medium" and v ~= "high" then return false, 'ForceLoad is false, "low", "medium" or "high"' end
+		elseif k == "ForceFleet" then
+			if v ~= false and (type(v) ~= "number" or v < 0 or v ~= math.floor(v)) then return false, "ForceFleet is false or a non-negative integer" end
 		elseif k == "Visual" then
 			v = v and true or false
 		elseif k == "Speed" or k == "WorkTime" then

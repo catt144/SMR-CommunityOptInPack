@@ -366,11 +366,11 @@ lua.execute(r'''
 -- The fleet tiers: low 5, medium 10, high 20; a recall only of an idle, empty-handed drone,
 -- removed when near, sent home when far; never a busy one.
 for i = #H.drones, 1, -1 do DroneControl.KillDrone(H, H.drones[i]) end
-Tune.ForceLoad = "low"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 5, "low: 5")
-Tune.ForceLoad = "medium"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 10, "medium: 10")
-Tune.ForceLoad = "high"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "high: 20")
+Tune.ForceFleet = 5; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 5, "low: 5")
+Tune.ForceFleet = 10; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 10, "medium: 10")
+Tune.ForceFleet = 20; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "high: 20")
 for _, d in ipairs(H.drones) do assert(d.painted == nil, "no palette by default") end
-Tune.ForceLoad = "low"
+Tune.ForceFleet = 5
 clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "no recall before RecallDelay")
 clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones == 19, "one recalled after the delay")
 clock = clock + 1000; H:HubTrackWorkTick(); assert(#H.drones == 19, "one per RecallStep")
@@ -386,22 +386,34 @@ for _, d in ipairs(H.drones) do d.command = "Idle"; d.resource = "Metals" end
 clock = clock + Tune.RecallStep; H:HubTrackWorkTick(); assert(#H.drones == 18, "a drone carrying a cube is not recalled")
 for _, d in ipairs(H.drones) do d.resource = false end
 -- the palette dial paints new Wasps with the reactor's variant
-Tune.WaspPalette = "P4"; Tune.ForceLoad = "high"; clock = clock + 5000; H:HubTrackWorkTick()
+Tune.WaspPalette = "P4"; Tune.ForceFleet = 20; clock = clock + 5000; H:HubTrackWorkTick()
 assert(#H.drones == 20 and H.drones[20].painted == 4, "painted through per-object colorization"); Tune.WaspPalette = false
 -- the switch off freezes the fleet where it is
-H.ui_working = false; Tune.ForceLoad = "low"; clock = clock + Tune.RecallDelay * 2; H:HubTrackWorkTick(); assert(#H.drones == 20); H.ui_working = true
+H.ui_working = false; Tune.ForceFleet = 5; clock = clock + Tune.RecallDelay * 2; H:HubTrackWorkTick(); assert(#H.drones == 20); H.ui_working = true
 -- the fleet's own meter (owner, 2026-09-24): idle drones averaged over LoadWindow, vanilla's thresholds
-Tune.ForceLoad = false
+Tune.ForceFleet = false
 for i = #H.drones, 1, -1 do DroneControl.KillDrone(H, H.drones[i]) end
 H.free = 5; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
 assert(#H.drones == 5, "idle fleet: low, 5: " .. #H.drones)
-H.free = 0; local saw_medium, ticks = false, 0
-while #H.drones < 20 and ticks < 30 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; if #H.drones == 10 then saw_medium = true end end
-assert(saw_medium and #H.drones == 20 and ticks <= 12, "all busy: medium then high within the 60 s window, ticks " .. ticks)
+-- chunks (owner, 2026-09-24): all busy grows 5 -> 10 -> 20 -> 30, one jump per LoadWindow
+H.free = 0; local seen, ticks = {}, 0
+while #H.drones < 30 and ticks < 60 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; seen[#H.drones] = true end
+assert(seen[10] and seen[20] and #H.drones == 30 and ticks <= 40, "5 -> 10 -> 20 -> 30 in chunks, ticks " .. ticks)
 assert(H:GetDronesStatusText():find("Heavy"), "the panel's load line shows the fleet meter: " .. tostring(H:GetDronesStatusText()))
+-- 30 out keeps 10 idle: 12 idle recalls down to the buffer, not to the standing 5
 for _, d in ipairs(H.drones) do d.command = "Idle" end
-H.free = 20; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
-clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones < 20, "idle again: low, recalls begin: " .. #H.drones)
+H.free = 12; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
+clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones == 29, "above the buffer: one recalled: " .. #H.drones)
+H.free = 10; for _ = 1, 8 do clock = clock + Tune.RecallStep; H:HubTrackWorkTick() end
+assert(#H.drones == 29, "at the buffer: the fleet holds: " .. #H.drones)
+-- 20 out keeps 5 idle: a busy fleet with 3 idle is never recalled (the sitting's 20 -> 19); it grows
+for i = #H.drones, 21, -1 do DroneControl.KillDrone(H, H.drones[i]) end
+local lowest = #H.drones
+H.free = 3; for _ = 1, 24 do clock = clock + 5000; H:HubTrackWorkTick(); lowest = Min(lowest, #H.drones) end
+assert(lowest == 20 and #H.drones == 30, "3 idle of 20: never below 20, grows to 30: lowest " .. lowest .. " now " .. #H.drones)
+-- no work at all: back down to the standing 5, never below
+H.free = 30; for _ = 1, 200 do clock = clock + Tune.RecallStep; H:HubTrackWorkTick() end
+assert(#H.drones == 5, "idle: down to Standing: " .. #H.drones)
 H.free = nil
 ''')
 
@@ -509,7 +521,7 @@ assert(#jobs == count0 + 1 and plain(H.SMROptIn_track_work, 0), "no function rea
 for _, key in ipairs({ "kind", "site", "el", "track", "found", "started", "deadline", "drone", "held", "waiting" }) do assert(jobs[1][key] ~= nil, key) end
 -- Console: the dials and the status line.
 assert(SetHubRepairTune("Standing", 3) and Tune.Standing == 3)
-assert(SetHubRepairTune{ StepMedium = 2, RecallDelay = 1000 } and Tune.StepMedium == 2)
+assert(SetHubRepairTune{ Buffer20 = 4, RecallDelay = 1000 } and Tune.Buffer20 == 4)
 assert(not SetHubRepairTune("Nope", 1) and not SetHubRepairTune("Standing", -1) and not SetHubRepairTune("Standing", 1.5))
 assert(SetHubRepairTune("Speed", false), "Speed false"); assert(SetHubRepairTune("Speed", 9000), "Speed 9000"); assert(not SetHubRepairTune("Speed", 0), "Speed 0 refused")
 assert(SetHubRepairTune("WaspPalette", "P4"), "P4"); assert(not SetHubRepairTune("WaspPalette", "P9"), "P9 refused"); assert(SetHubRepairTune("WaspPalette", false), "palette off")
