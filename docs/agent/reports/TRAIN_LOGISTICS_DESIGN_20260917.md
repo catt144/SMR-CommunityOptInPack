@@ -408,8 +408,14 @@ correctly for connectors 5 and 6.
 
 ### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — DESIGN ONLY, NOT AUTHORISED
 
-Two upgrades on the hub: **+100% storage on every train station** and **+100% cargo on every
-train**. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
+**One** upgrade on the hub: **+100% storage on every train station and +100% cargo on every
+train**. ⚖️ Owner, 2026-09-25: one upgrade, not two — *"since I might do some other upgrades and I
+don't want to burn multiple slots on that"*. A building has 6 upgrades of 3 modifier slots each
+(`const.Building.MaxUpgrades` / `UpgradeModifierSlots`, `Building.lua:158-159`); this one fills
+all three — `StationSmall` and `StationBig` `max_storage_per_resource` +100%, `Train`
+`max_shared_storage` +100% — and leaves the hub 5. The hub template has no upgrades yet and is
+not labelled `StationSmall`/`StationBig`. Adding passengers (`max_colonists_to_transport`) would
+need a second upgrade. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
 off, and is gone when the hub is. Brief it after build 5 frees `20_TrainHub.lua`; the template
 half is a Mod Editor save.
 
@@ -437,7 +443,7 @@ can be built (`UIColony:IsUpgradeUnlocked`).
 2. **Vanilla on power:** *"leave it vanilla"* — the bonus holds while the hub stands, working
    or not; only demolition or the player's toggle removes it.
 
-**Open:** after the owning hub is demolished, may another hub buy the upgrade again (the
+**Open:** after the owning hub is demolished, may another hub buy it again (the
 orchestrator's recommendation) or does it pass to a surviving hub? Cost and unlock (tech or from
 the start) are unset. **Caveats:** the upgrade ids become persisted names (ban 1); removing the
 whole mod from a save leaves the modifiers on the city — vanilla's
