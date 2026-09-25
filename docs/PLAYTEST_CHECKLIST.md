@@ -15,6 +15,14 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-30 · opened 2026-09-25
+Authorise the train hub's Capacity Network Upgrade once build 5 closes?
+- One hub upgrade: +100% station storage (hub included), train cargo and passengers.
+- Your rulings are in spec §4.10: once per colony, re-buyable, no tech, 20 Metals + 20 Concrete.
+- It needs `20_TrainHub.lua`, so it cannot start until build 5 is done.
+- Say "build it" and the orchestrator writes the brief.
+Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
+
 ### OI-27 · opened 2026-09-24
 When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
 - The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.

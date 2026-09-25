@@ -15,7 +15,7 @@ was fired, built and then cut by the owner on 2026-09-22; its survey stays in
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `04_TRAIN_HUB_BUILDTRACK_high.md` | Build 5: the same drones build new track from the hub's stock, using `03`'s pending list. | **Implemented; attended smoke remains.** Owner's group-completion ruling is `d230bd4`; receipt and next checks in `reports/TRAIN_HUB_BUILDTRACK_20260925.md` |
+| `04_TRAIN_HUB_BUILDTRACK_high.md` | Build 5: the same drones build new track from the hub's stock, using `03`'s pending list. | **Back to its build agent for another pass.** The attended smoke stopped after case 2 (spec §10 "Build 5 attended smoke, 2026-09-25"): case 1 passed, a reworked network is lost. The smoke repeats from case 1 after the fix |
 
 ## `Parked/` — do not fire
 

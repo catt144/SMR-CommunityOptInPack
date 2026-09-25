@@ -17,8 +17,6 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 
 ## Read first
 
-**Drones terminal QA, 2026-09-25:** `reports/drones_chain/L6_QA_20260925.md` closes link 6 PASS WITH CORRECTIONS; its C1–C6, D14(g,h) and shared checklist ck217 replace the older “QA next” state below; build 5's lifted hold stays lifted.
-
 - The spec, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`: §7.2 holds the measured
   results, §6 the options and the owner's direction (the routing target in OPTION 5), and §10 the
   prototype.
@@ -53,25 +51,27 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, close of the 2026-09-25 orchestrator session.** The fire order is
-     this folder's [`README.md`](README.md) and the drones chain's own
-     [`03_Drones/README.md`](03_Drones/README.md) — keep both current; they are what the owner reads
-     to pick the next thing. The look pass is DONE and accepted (brief `01` parked); `05` is live for
-     its last step alone, the whole-hub GPU cost reading, still `<<PENDING-RUN>>` in spec §9.
-     **The drones are DONE and smoked** (`reports/drones_chain/L5_SMOKE_20260925.md`, owner's
-     sitting 2026-09-24/25): links 1-5 are consumed and only link 6, the fresh-context adversarial
-     QA, is left — the owner runs it on a different model from the links it audits. **`04` (build 5,
-     the hub builds track) is therefore unheld** and is the next build; it inherits the pending list
-     `SMROptIn_track_work` and its kind field. The owner's open asks live on
-     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md) — read them there.
+   - **WHERE THE PROJECT STANDS, close of the second 2026-09-25 orchestrator session** (Claude
+     Opus 5.5, `claude-opus-5-5[1m]`). The fire order is this folder's [`README.md`](README.md);
+     keep it current. **`04` (build 5) is back with its build agent for another pass**: the
+     attended smoke stopped after case 2 (spec §10 "Build 5 attended smoke, 2026-09-25"). Case 1
+     passed; case 2 failed on a reworked network (a cut-and-extended track loses its end stations,
+     so the station-to-station walk dead-ends), an owner must-fix. The brief also carries the
+     owner's two smoke rulings (`MaxDrones` 60, repairs before builds). When 04 reports, check it
+     against its commits, then guide the owner through the **whole** smoke again from case 1 —
+     the owner asked the orchestrator to run it with them; read console output from the game log
+     yourself when the owner says "flushed" (log path in memory). Closed this session: the drones
+     chain's L6 QA (C1–C6, D14(g,h) routed into 04); briefs `02` (load errors), `05` (body paint),
+     `06` (icon) and `07` (distribution prototype), each retired. **Next after build 5: the
+     Capacity Network Upgrade, spec §4.10** — fully designed and ruled, not authorised; the
+     owner's word is OI-30 on the checklist. The owner's open asks live on
+     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
    - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
      Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
      numbers are the drones' view, a transient claim during the train's evaluation is the trains'),
      the decisions already taken (per resource not per station, state on the hub, controls in the
      station card's existing rows, claims kept out of saves), and the owner's sitting of 2026-09-25
      that MEASURED its three unproven things (§4.8 "Owner's sitting").
-   - **Live, fire when the owner wants an agent spent:** `02_TRAIN_HUB_LOADERRORS_low.md`, two errors
-     the owner found in their session log on the dev hub's load path.
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
      `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
@@ -124,11 +124,6 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      final pre-launch test, if the owner wants some moves slightly tweaked.
      `Parked/TRAIN_HUB_MOVE_high.md` is PARKED for that and is not fired before it; never treat it as a
      gate on anything. Do not re-derive a movement fault from an old report.
-   - **Build 4** (`03_TRAIN_HUB_DRONES_high.md`) is unblocked but NOT next (owner, 2026-09-21): the
-     hub look comes first, and the drone system (deploy, movement, retextured storage) is unbuilt
-     beyond a few test drones. **Build 5**
-     (`04_TRAIN_HUB_BUILDTRACK_high.md`) stays HELD until build 4's smoke is recorded. A brief still
-     in the map has not finished.
    - **Loading policy and full queueing** are the owner's own next pass, deferred 2026-09-20.
    - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
      cruise at the same units per game second, and the train's best samples beat the shuttle's.
@@ -141,13 +136,6 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
      upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
      wave. Spec §10 holds the open questions. Decide after the movement prototype;
-   - **the look pass RESUMED, staged** (`Parked/TRAIN_HUB_LOOK_high.md`, the briefs named above). Settled, with citations in
-     spec §9: the SI glow map is a ONE-CHANNEL BC4 mask, so glow colour lives in the base colour;
-     the hub's glow follows its working state and goes to **zero**, not dim, when it stops
-     (`SetSIModulation` 200 / 0), ours to drive per siding later; glass CANNOT live in the hub's
-     mesh (one material per node) and goes as a separate attached entity, the way every vanilla
-     dome's glass does. Still owed: the resumed look, the owner's night look, the glass and
-     reactor imports.
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
    - **The distribution centre (spec 4.8), the owner's design of 2026-09-24 — DESIGN ONLY, not
