@@ -416,8 +416,8 @@ and *"give a 100% upgrade to the hub as well"*. A building has 6 upgrades of 3 m
 `Station` `max_storage_per_resource` +100%: vanilla stations join their class label `Station`
 (`Building.lua:461`, `object_class = "Station"`) and the hub adds itself to it
 (`20_TrainHub.lua` `SMROptInTrainHubBase:AddToCityLabels`), so small 60 → 120, big 120 → 240, hub
-240 → 480. Slot 2 is `Train` `max_shared_storage` +100% (42 → 84). **Slot 3 is spare** (the
-orchestrator's suggestion, not ruled: passengers, `max_colonists_to_transport` +100%). The hub's
+240 → 480. Slot 2 is `Train` `max_shared_storage` +100% (42 → 84). Slot 3 is `Train`
+`max_colonists_to_transport` +100% (12 → 24; owner, 2026-09-25: *"yes to your idea"*). The hub's
 `OnModifiableValueChanged` is a combined method, so vanilla's resize still runs; its cargo stacks
 stay capped at the 150 look (`hub_visual_storage`). The build checks that nothing in the hub treats
 240 as a constant. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
@@ -448,10 +448,24 @@ can be built (`UIColony:IsUpgradeUnlocked`).
 2. **Vanilla on power:** *"leave it vanilla"* — the bonus holds while the hub stands, working
    or not; only demolition or the player's toggle removes it.
 
-**Open:** after the owning hub is demolished, may another hub buy it again (the
-orchestrator's recommendation) or does it pass to a surviving hub? Cost and unlock (tech or from
-the start) are unset. **Caveats:** the upgrade ids become persisted names (ban 1); removing the
-whole mod from a save leaves the modifiers on the city — vanilla's
+3. **Re-buy:** after the owning hub is demolished, another hub may buy the upgrade again (owner,
+   2026-09-25: *"yes"*). No automatic transfer.
+4. **No tech.** *"I don't want to mess with techs for any of this, that is a big target in 1.1.x
+   and I expect it to be frequently balanced."* Our Lua unlocks the upgrade itself
+   (`UIColony:UnlockUpgrade`), available from the start; the tech tree is not touched.
+5. **Cost: 20 Metals + 20 Concrete** (`upgrade1_upgrade_cost_Metals = 20000`, `…_Concrete =
+   20000`). *"The expanded warehousing upgrade on stations costs 5 metal and 5 concrete. So lets
+   make it 20 metals and 20 concrete a bit more for a colony wide upgrade."* Vanilla's +100%
+   storage upgrades, per building: small station, oxygen tank and water tank 5 + 5; big station
+   15 + 10; large oxygen and water tanks 15 + 15 (`BuildingTemplate/*.generated.lua`).
+
+**Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
+`base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
+60 × 3 = 180, not 240, and a train with Extended Cargo Carriages and Train Loading Standards
+holds 42 × 3 = 126. Not ruled otherwise; vanilla's arithmetic stands.
+
+**Caveats:** the upgrade id becomes a persisted name (ban 1), in `upgrades_built` and in the
+colony's unlock list; removing the whole mod from a save leaves the modifiers on the city — vanilla's
 `SavegameFixups.RemoveLeakedUpgradeModifiers` (`:1323`) runs once per save — which is the
 hub's general uninstall problem, not this feature's.
 
