@@ -34,6 +34,15 @@ auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongs
   step is feeding the cost in over the build time (pause the line on a stock-out), still
   completing at once. Taking over the group's accounting to finish single elements is not
   authorised.
+- ⚖️ **Owner ruling 2026-09-25, in the attended smoke: repairs take priority, and the drone cap goes
+  to 60.** *"I think repairs take priority and we just increase the drone cap to 60 that should be
+  plenty."* Seen in the sitting: vanilla splits a placed line into 5-element construction groups
+  (23 on one line), each became its own build job and Wasp, and one line had 21 of 30 Wasps out.
+  Keep one job per native group. Raise `Floor.HubRepairTune.MaxDrones` to 60 (it counts the fleet
+  and track flights together); the fleet chunks 5 / 15 / 25 are the owner's earlier ruling and stay,
+  so the added slots go to track work. A queued or broken-track **repair dispatches before any
+  queued build**, and builds never take the repair reserve. Check frame rate with a large build
+  under way.
 
 ## Read first
 

@@ -3349,6 +3349,14 @@ waits. Element-by-element order and per-element payment are dropped. If the pop-
 the smoke, the next step is paying the cost in over the build time, still completing at once; a
 per-element accounting design is not authorised. Brief 04 carries the ruling.
 
+⚖️ **Owner ruling 2026-09-25, build 5's attended smoke: repairs take priority; the hub's drone cap
+is 60.** *"I think repairs take priority and we just increase the drone cap to 60 that should be
+plenty."* The sitting showed vanilla splitting one placed line into 23 construction groups of 5
+elements, each its own build job and Wasp (21 of 30 out for one line); a long line or several laid
+while paused would otherwise starve repairs. One job per native group stays; `MaxDrones` 30 → 60
+with the fleet chunks 5 / 15 / 25 unchanged; a repair dispatches before any queued build. Brief 04
+carries it.
+
 Implementation and desk evidence: `TRAIN_HUB_BUILDTRACK_20260925.md`. New-track groups incident
 to the physical network share the pending list and the Track work toggle with repairs. Builders
 use the native outstanding price, pay available unreserved stock at work end, and wait on a
