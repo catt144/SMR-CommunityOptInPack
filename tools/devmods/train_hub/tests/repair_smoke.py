@@ -181,6 +181,7 @@ function hub(x, y) local h = { valid = true, classes = { SMROptInTrainHubBase = 
   function h:GetPos() return self.pos end
   function h:GetDist2D(p) return math.floor(math.sqrt((self.pos.x - p.x) ^ 2 + (self.pos.y - p.y) ^ 2) + .5) end
   function h:GetDroneLoad() return self.load end
+  function h:GetFreeDronesCount() return self.free or #self.drones end
   function h:CanCommandDrones() return self.ui_working and not self.destroyed end
   function h:IsInWorkRange(o) return o.near == true end
   function h:AttachSign(on, name) self.signs[name] = on or nil end
@@ -365,11 +366,11 @@ lua.execute(r'''
 -- The fleet tiers: low 5, medium 10, high 20; a recall only of an idle, empty-handed drone,
 -- removed when near, sent home when far; never a busy one.
 for i = #H.drones, 1, -1 do DroneControl.KillDrone(H, H.drones[i]) end
-H.load = "low"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 5, "low: 5")
-H.load = "medium"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 10, "medium: 10")
-H.load = "high"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "high: 20")
+Tune.ForceLoad = "low"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 5, "low: 5")
+Tune.ForceLoad = "medium"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 10, "medium: 10")
+Tune.ForceLoad = "high"; clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "high: 20")
 for _, d in ipairs(H.drones) do assert(d.painted == nil, "no palette by default") end
-H.load = "low"
+Tune.ForceLoad = "low"
 clock = clock + 5000; H:HubTrackWorkTick(); assert(#H.drones == 20, "no recall before RecallDelay")
 clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones == 19, "one recalled after the delay")
 clock = clock + 1000; H:HubTrackWorkTick(); assert(#H.drones == 19, "one per RecallStep")
@@ -385,10 +386,22 @@ for _, d in ipairs(H.drones) do d.command = "Idle"; d.resource = "Metals" end
 clock = clock + Tune.RecallStep; H:HubTrackWorkTick(); assert(#H.drones == 18, "a drone carrying a cube is not recalled")
 for _, d in ipairs(H.drones) do d.resource = false end
 -- the palette dial paints new Wasps with the reactor's variant
-Tune.WaspPalette = "P4"; H.load = "high"; clock = clock + 5000; H:HubTrackWorkTick()
+Tune.WaspPalette = "P4"; Tune.ForceLoad = "high"; clock = clock + 5000; H:HubTrackWorkTick()
 assert(#H.drones == 20 and H.drones[20].painted == 4, "painted through per-object colorization"); Tune.WaspPalette = false
 -- the switch off freezes the fleet where it is
-H.ui_working = false; H.load = "low"; clock = clock + Tune.RecallDelay * 2; H:HubTrackWorkTick(); assert(#H.drones == 20); H.ui_working = true
+H.ui_working = false; Tune.ForceLoad = "low"; clock = clock + Tune.RecallDelay * 2; H:HubTrackWorkTick(); assert(#H.drones == 20); H.ui_working = true
+-- the fleet's own meter (owner, 2026-09-24): idle drones averaged over LoadWindow, vanilla's thresholds
+Tune.ForceLoad = false
+for i = #H.drones, 1, -1 do DroneControl.KillDrone(H, H.drones[i]) end
+H.free = 5; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
+assert(#H.drones == 5, "idle fleet: low, 5: " .. #H.drones)
+H.free = 0; local saw_medium, ticks = false, 0
+while #H.drones < 20 and ticks < 30 do clock = clock + 5000; H:HubTrackWorkTick(); ticks = ticks + 1; if #H.drones == 10 then saw_medium = true end end
+assert(saw_medium and #H.drones == 20 and ticks <= 12, "all busy: medium then high within the 60 s window, ticks " .. ticks)
+for _, d in ipairs(H.drones) do d.command = "Idle" end
+H.free = 20; for _ = 1, 12 do clock = clock + 5000; H:HubTrackWorkTick() end
+clock = clock + Tune.RecallDelay; H:HubTrackWorkTick(); assert(#H.drones < 20, "idle again: low, recalls begin: " .. #H.drones)
+H.free = nil
 ''')
 
 lua.execute(r'''

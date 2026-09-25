@@ -2124,6 +2124,10 @@ Floor.HubRepairTune = {
 	RecallDelay = 60000,    -- game ms the count must stay above its target before a recall starts
 	RecallStep = 15000,     -- game ms between recalls; one idle, empty-handed drone each
 	RecallRadius = 6000,    -- units; an idle drone this close is removed, a farther one is sent home first
+	-- the fleet's own load meter (owner, 2026-09-24): vanilla's thresholds over a short window
+	LoadWindow = 60000,     -- game ms of idle-drone samples averaged
+	LoadSampleTime = 5000,  -- game ms between samples (the hub's tick)
+	ForceLoad = false,      -- false = the meter; "low" / "medium" / "high" pins the fleet's tier (a console probe)
 	WaspPalette = false,    -- false = vanilla's Wasp look; "P1".."P4" = the reactor's variants above
 }
 
@@ -2681,12 +2685,44 @@ local function idle_fleet_drone(self)
 	end
 end
 
+-- The fleet's load word. Vanilla's GetDroneLoad (DroneControl.lua:1092-1107 on 1.1.1.405907)
+-- averages idle drones over 12 game hours sampled half-hourly (_GameConst.lua:94-98), which kept a
+-- busy hub at "low" for hours in the L5 sitting. Owner, 2026-09-24: the same test (low while at
+-- least 2 drones idle on average, high at 1 or fewer, both scaled down for a small fleet) over a
+-- LoadWindow sampled every LoadSampleTime. The window starts at vanilla's seed of 2, the low/medium
+-- line (DroneControl.lua:16). Unsaved; a load starts it afresh. The panel keeps vanilla's word.
+local function fleet_load(self, now, state)
+	local tune = Floor.HubRepairTune
+	local n = Max(1, DivRound(tune.LoadWindow, Max(1, tune.LoadSampleTime)))
+	local samples = state.samples
+	if not samples or #samples ~= n then
+		samples = {}
+		for i = 1, n do samples[i] = 2 end
+		state.samples, state.pos, state.sum, state.sampled_at = samples, 0, 2 * n, false
+	end
+	local drones = #(self.drones or empty_table)
+	if not state.sampled_at or now - state.sampled_at >= tune.LoadSampleTime then
+		local free = drones > 0 and self:GetFreeDronesCount() or 2
+		local pos = state.pos % n + 1
+		state.sum = state.sum - samples[pos] + free
+		samples[pos], state.pos, state.sampled_at = free, pos, now
+	end
+	state.pct = MulDivRound(state.sum, 100, n)
+	if tune.ForceLoad then return tune.ForceLoad end
+	if drones <= 0 then return "low" end
+	local low_pct = Min(200, 100 * drones)
+	local high_pct = MulDivRound(100, low_pct, 200)
+	if state.pct >= low_pct then return "low" elseif state.pct > high_pct then return "medium" end
+	return "high"
+end
+
 function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
 	if not self:CanCommandDrones() then return end
 	local tune = Floor.HubRepairTune
 	local state = fleet_state[self]
 	if not state then state = {}; fleet_state[self] = state end
-	local load = self:GetDroneLoad()
+	local load = fleet_load(self, now, state)
+	state.load = load
 	local target = fleet_target(self, load, dispatched, waiting)
 	local count = #(self.drones or empty_table)
 	if count < target then
@@ -3010,6 +3046,8 @@ function SetHubRepairTune(name, value)
 			if v ~= false and type(v) ~= "table" and not hub_reactor_palettes[v] then
 				return false, 'WaspPalette is false, "P1".."P4" or a channel table'
 			end
+		elseif k == "ForceLoad" then
+			if v ~= false and v ~= "low" and v ~= "medium" and v ~= "high" then return false, 'ForceLoad is false, "low", "medium" or "high"' end
 		elseif k == "Visual" then
 			v = v and true or false
 		elseif k == "Speed" or k == "WorkTime" then
@@ -3029,9 +3067,10 @@ function HubRepairStatus(hub)
 	local jobs, record = track_jobs(hub)
 	local fleet, dispatched, waiting = slot_counts(hub, jobs)
 	local now = GameTime()
-	print(string.format("[TrainHubDev] repair: toggle %s, switch %s, fleet %d, load %s, repairs %d under way, %d waiting, max %d",
+	local meter = fleet_state[hub] or empty_table
+	print(string.format("[TrainHubDev] repair: toggle %s, switch %s, fleet %d, fleet load %s (%s %%), vanilla load %s, repairs %d under way, %d waiting, max %d",
 		(not record or record.repair ~= false) and "on" or "off", hub.ui_working and "on" or "off", fleet,
-		tostring(hub:GetDroneLoad()), dispatched, waiting, hub:GetMaxDrones()))
+		tostring(meter.load), tostring(meter.pct), tostring(hub:GetDroneLoad()), dispatched, waiting, hub:GetMaxDrones()))
 	for i, job in ipairs(jobs) do
 		print(string.format("[TrainHubDev] repair job %d: %s site %s deadline %s (%s) drone %s waiting %s",
 			i, tostring(job.kind), tostring(job.site), tostring(job.deadline),
