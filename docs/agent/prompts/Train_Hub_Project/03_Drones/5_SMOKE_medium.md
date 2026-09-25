@@ -250,3 +250,13 @@ Not covered by this sitting: both configurations and both toggle directions of t
 Close-out still owed by the final link-5 session:
 - The result into the hub report and spec §10, with the rulings from all three notes sections, where the role that obeys them reads them.
 - This file deleted with its README row, per Lifecycle.
+
+### Sitting, 2026-09-25 (log `Mars.exe-20260925-13.34.56`)
+
+Owner rulings:
+- **Wasps leave and come home through a train door** (`3c47ce2`). This partly backtracks the pit launch in `dba55af`: the rise out of the pit stays, then the Wasp crosses to the hub's centre and runs out along a door's track at 2 m above the rail. One Wasp takes the door nearest its break; a swarm uses every door, in shuffled order, before any door repeats. Occasional clipping of trains is accepted. `ExitVia="deck"` restores the under-deck exit. `DoorRideHeight` and `DoorOutDistance` are guesses, for the owner to set by eye. No clearance against the mesh has been measured for the door route.
+- **A far station gets maintenance only; its upgrades are not the hub's.** The owner's words: "lets leave it just wanted to check". An upgrade files two `rfUpgrade` demand requests and connects them to its command centres (`Building.lua:2094-2124` on 1.1.1.405907). The Station filter refuses them to an out-of-range hub, so an upgrade at a far station waits for a vanilla drone controller. This confirms the 2026-09-23 maintenance-only ruling for upgrades.
+
+Bug, fixed in `ad5113b`: `door_count` crashed the flight driver. The engine's `GetSpotBeginIndex` raises "Invalid spot" on a name the body lacks; it does not return -1. The game ran the broken build until it restarted.
+
+Not yet seen: the door launch in play.
