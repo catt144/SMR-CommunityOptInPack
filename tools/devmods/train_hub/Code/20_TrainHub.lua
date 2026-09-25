@@ -112,6 +112,25 @@ local function set_hub_dwell_waiter(active)
 	end
 end
 
+-- Archived 1.1.0.403908 ArtSpecEditor.lua:565-612 calls the editor-only
+-- EntitySpecPathToEntity from OnPresetPostLoad, including on retail mod load.
+-- These three dev asset specs have no color props to normalize; their entity
+-- data is loaded separately. In the editor, retain the original post-load.
+local function install_hub_art_spec_guard()
+	local spec = g_Classes and g_Classes.EntitySpec
+	local previous = spec and rawget(spec, "OnPresetPostLoad")
+	if type(previous) ~= "function" or previous == Floor.HubArtSpecGuard then return end
+	local wrapper = function(self, ...)
+		local id = self.id
+		if (id == "SMROptInTrainHub6" or id == "SMROptInTrainHub6Glass"
+			or id == "SMROptInTrainHub6DomeGlass")
+			and type(rawget(_G, "EntitySpecPathToEntity")) ~= "function" then return end
+		return previous(self, ...)
+	end
+	spec.OnPresetPostLoad = wrapper
+	Floor.HubArtSpecGuard = wrapper
+end
+
 function OnMsg.ChangeMap()
 	set_hub_dwell_waiter(false)
 end
@@ -3266,6 +3285,7 @@ function OnMsg.ClassesPostprocess()
 	install_hub_dwell()
 	set_hub_dwell_waiter(CurrentMap and not ChangingMap)
 	install_hub_save_guard()
+	install_hub_art_spec_guard()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
 		class.entity = "SMROptInTrainHub6"
