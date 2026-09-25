@@ -235,7 +235,6 @@ Open owner question: the growth gate is one chunk per 60 s window. I offered to 
 
 Still to run:
 - `WaspPalette` "P4", for the owner to judge.
-- More than 30 jobs (item 8), now against the 25-Wasp fleet plus 5 reserved.
 - `DESIGN.md` §6 train construction (item 10).
 - Cargo unloading with the hub full (the audit: 1.1.1 changed `UnloadAll`).
 - The ring pillars by eye (item 12).
@@ -254,13 +253,14 @@ Owner rulings:
 - **A far station gets maintenance only; its upgrades are not the hub's.** The owner's words: "lets leave it just wanted to check". An upgrade files two `rfUpgrade` demand requests and connects them to its command centres (`Building.lua:2094-2124` on 1.1.1.405907). The Station filter refuses them to an out-of-range hub, so an upgrade at a far station waits for a vanilla drone controller. This confirms the 2026-09-23 maintenance-only ruling for upgrades.
 
 - **A demolished hub's ruin stays until a vanilla controller clears it.** The hub despawns its Wasps when destroyed (2026-09-22), so it cannot clear its own ruin; the owner chose to keep this, as vanilla does for any ruin.
-- **The fleet steps 5 → 15 → 25, and the last 5 of 30 are held for repair flights** (`cf14791`). Owner: "it feels bad under heavy work. so 5 stays default then it jumps to 15, and then the next jump goes to 25. And the extra 5 are reserved for drone repair dispatches". Dials `Chunk2`, `Chunk3`, `RepairReserve`; the idle buffers 2 / 5 / 10 now follow the chunks. The growth gate, still one jump per 60 s window, stays an open question. **Seen:** a heavy build test on the new steps, "it works fine" (log `Mars.exe-20260925-14.14.01`, no mod error).
+- **The fleet steps 5 → 15 → 25, and the last 5 of 30 are held for repair flights** (`cf14791`). Owner: "it feels bad under heavy work. so 5 stays default then it jumps to 15, and then the next jump goes to 25. And the extra 5 are reserved for drone repair dispatches". Dials `Chunk2`, `Chunk3`, `RepairReserve`; the idle buffers 2 / 5 / 10 now follow the chunks. The growth gate stays at one jump per 60 s window (owner: "2 is fine"; the 15 s offer is closed). **Seen:** a heavy build test on the new steps, "it works fine" (log `Mars.exe-20260925-14.14.01`, no mod error).
 
 Seen by the owner (log `Mars.exe-20260925-13.43.07`):
 - **Item 9 on a demolish.** A true salvage cannot remove the hub: a demolish leaves a ruin. Demolished with Wasps out: every Wasp was gone and the cubes were on the ground. The log shows a 1161 m repair dispatched at t=33912099 just before; the despawn prints nothing. **Save/reload across the demolished hub** (slot A, saved t=34235572, loaded t=34235864, log `Mars.exe-20260925-14.14.01`): "seems perfectly normal", with no mod error in the log. Item 9 passes.
 - **Growth and recall on real load.** The TestKit `CheatDelete` of the old hub left a `ResourceStockpileLR`; hauling it grew the fleet to 20 (the old steps) at 128× speed. The quick-build of the new hub deleted the pile, as vanilla's cheat path does (`ConstructionSite:OnQuickBuild` → `DestroyStockpilesUnderneath`, `ConstructionSite.lua:1682-1683`, `:1637-1643` on 1.1.1.405907); a normal build moves the piles out (`:129`). The fleet then recalled to 5.
 
 - **The door launch and recall** (`3c47ce2`): the growing fleet leaves through several doors, and recalls come home through doors. Owner: "1 is correct".
+- **More than 30 jobs (item 8)**, against the 25-Wasp fleet plus the 5 held for repairs: "3 worked fine".
 - **Recalls take idle Wasps only:** a recall of 5 after work took no busy or cube-carrying Wasp (owner, by eye).
 - **A save and load mid-trip on the door build** (slot A): the repair still completed. **This also covers the autosave** (owner, 2026-09-25: "do that"). On 1.1.1.405907, both saves run `DoSaveGame` (`CommonLua/Savegame.lua:1035-1061`). The autosave adds only a metadata flag (:1448-1451), a screenshot, its own loading screen and the pruning of older autosaves, and our code reacts to none of them. The one difference that matters to the mod is that the game keeps running during the save: the save path never pauses (only on a failure, :1460). The TestKit slot save is the same unpaused `SaveGame` call (TestKit `75_SMRTK_Saves.lua:78`), so slot A had that window.
 
