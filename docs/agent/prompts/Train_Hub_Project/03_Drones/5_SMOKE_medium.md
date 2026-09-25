@@ -236,7 +236,7 @@ Open owner question: the growth gate is one chunk per 60 s window. I offered to 
 Still to run:
 - `WaspPalette` "P4", for the owner to judge.
 - `DESIGN.md` §6 train construction (item 10).
-- Cargo unloading with the hub full (the audit: 1.1.1 changed `UnloadAll`).
+- Cargo kept aboard at a full hub is unloaded later (the audit: 1.1.1 changed `UnloadAll`); no stall was seen 2026-09-25.
 - The ring pillars by eye (item 12).
 - OI-26 in passing.
 
@@ -261,6 +261,7 @@ Seen by the owner (log `Mars.exe-20260925-13.43.07`):
 
 - **The door launch and recall** (`3c47ce2`): the growing fleet leaves through several doors, and recalls come home through doors. Owner: "1 is correct".
 - **More than 30 jobs (item 8)**, against the 25-Wasp fleet plus the 5 held for repairs: "3 worked fine".
+- **Trains at a full hub, by eye:** trains ran with the hub cheat-filled (CheatFill to 2850000 twice in log `Mars.exe-20260925-13.43.07`). Owner: "I can't really tell they aren't stalled and they don't seem to be having issues loading and unloading". No stall was seen. Not checked: whether the cargo a train keeps aboard at a full hub (1.1.1 `Train:UnloadAll`, `Train.lua:787-823`) survives and is unloaded at a later stop.
 - **Recalls take idle Wasps only:** a recall of 5 after work took no busy or cube-carrying Wasp (owner, by eye).
 - **A save and load mid-trip on the door build** (slot A): the repair still completed. **This also covers the autosave** (owner, 2026-09-25: "do that"). On 1.1.1.405907, both saves run `DoSaveGame` (`CommonLua/Savegame.lua:1035-1061`). The autosave adds only a metadata flag (:1448-1451), a screenshot, its own loading screen and the pruning of older autosaves, and our code reacts to none of them. The one difference that matters to the mod is that the game keeps running during the save: the save path never pauses (only on a failure, :1460). The TestKit slot save is the same unpaused `SaveGame` call (TestKit `75_SMRTK_Saves.lua:78`), so slot A had that window.
 
