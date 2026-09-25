@@ -2476,6 +2476,15 @@ The recolour's only route is a **repainted copy of a Wasp model imported as our 
 the hub's drones take at spawn and after load; the vanilla files are never edited. Its first
 question is whether an animated vanilla unit (rotors, landing) survives a Mod Editor re-import with
 its animations. Still the drones chain's, after link 3; not yet briefed.
+**Owner ruling, 2026-09-25: CLOSED as vanilla.** The hub's drones stay stock Wasps; no recolour, no
+imported copy, no brief. The repainted-copy route above is the record if the owner ever reopens it
+through the orchestrator; nothing is owed on it.
+**Owner ruling, 2026-09-25: PARKED, with the likely plan of staying vanilla.** The hub's drones
+remain stock Wasps. The repainted-copy route (gains: any paint, an emissive line family, our own
+finish; costs: an untested animated re-import, the entity name becoming a save contract, vanilla
+updates no longer reaching it, the asteroid variant, a days-long job) stays on record here and
+opens only on the owner's word, starting with a one-evening import test of an unpainted copy.
+No brief exists for it and none is owed.
 **Build-menu icon — KEPT (owner, 2026-09-25, in the build menu: "The icon you have in it looks
 good to me").** Brief 06, one session (claude-opus-5-5). Path form, read on
 `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src` (the brief's `C:\Dev` path moved
