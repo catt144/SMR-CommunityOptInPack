@@ -408,14 +408,19 @@ correctly for connectors 5 and 6.
 
 ### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — DESIGN ONLY, NOT AUTHORISED
 
-**One** upgrade on the hub: **+100% storage on every train station and +100% cargo on every
-train**. ⚖️ Owner, 2026-09-25: one upgrade, not two — *"since I might do some other upgrades and I
-don't want to burn multiple slots on that"*. A building has 6 upgrades of 3 modifier slots each
-(`const.Building.MaxUpgrades` / `UpgradeModifierSlots`, `Building.lua:158-159`); this one fills
-all three — `StationSmall` and `StationBig` `max_storage_per_resource` +100%, `Train`
-`max_shared_storage` +100% — and leaves the hub 5. The hub template has no upgrades yet and is
-not labelled `StationSmall`/`StationBig`. Adding passengers (`max_colonists_to_transport`) would
-need a second upgrade. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
+**One** upgrade on the hub, the **Capacity Network Upgrade**: **+100% storage on every train
+station, the hub included, and +100% cargo on every train**. ⚖️ Owner, 2026-09-25: one upgrade, not
+two — *"since I might do some other upgrades and I don't want to burn multiple slots on that"* —
+and *"give a 100% upgrade to the hub as well"*. A building has 6 upgrades of 3 modifier slots each
+(`const.Building.MaxUpgrades` / `UpgradeModifierSlots`, `Building.lua:158-159`). Slot 1 is label
+`Station` `max_storage_per_resource` +100%: vanilla stations join their class label `Station`
+(`Building.lua:461`, `object_class = "Station"`) and the hub adds itself to it
+(`20_TrainHub.lua` `SMROptInTrainHubBase:AddToCityLabels`), so small 60 → 120, big 120 → 240, hub
+240 → 480. Slot 2 is `Train` `max_shared_storage` +100% (42 → 84). **Slot 3 is spare** (the
+orchestrator's suggestion, not ruled: passengers, `max_colonists_to_transport` +100%). The hub's
+`OnModifiableValueChanged` is a combined method, so vanilla's resize still runs; its cargo stacks
+stay capped at the 150 look (`hub_visual_storage`). The build checks that nothing in the hub treats
+240 as a constant. The owner chose upgrades over a bare modifier because an upgrade can be added, switched
 off, and is gone when the hub is. Brief it after build 5 frees `20_TrainHub.lua`; the template
 half is a Mod Editor save.
 
@@ -424,9 +429,9 @@ half is a Mod Editor save.
 non-`self` target builds a `LabelModifier` on that container, id `<handle>_upgrade<n>_mod_<i>`
 (the game's name, not ours). `AncientArtifactInterface` does a colony-wide one
 (`upgrade1_mod_target_1 = "colony"`). Trains and stations are labelled on the **city**
-(`Units/Train.lua:113`, `city.labels.Station`), so the target is `city`. Labels: `StationSmall`
-and `StationBig` for `max_storage_per_resource` (Expanded Warehousing's own labels) — **not
-`Station`, which would double the hub's own storage**; `Train` for `max_shared_storage`
+(`Units/Train.lua:113`, `city.labels.Station`), so the target is `city`. Labels: `Station` for
+`max_storage_per_resource` (every station and the hub; `StationSmall`/`StationBig`, Expanded
+Warehousing's labels, would leave the hub out); `Train` for `max_shared_storage`
 (`Units/Train.lua:22`, modifiable). A capacity change resizes a live station through
 `MultiResourceDepotBase:OnModifiableValueChanged` (`MultiResourceDepot.lua:225-240`, measured
 live 09-18, §7.2 P3b); a train reads `GetEmptyStorage` per load (`Units/Train.lua:708`). Over
