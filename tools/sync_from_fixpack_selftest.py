@@ -189,9 +189,15 @@ def citation_legs():
         ]
         body = "\n".join("`%s`" % c for c in cites if c != "fact_donor.md")
         body += "\nBare prose cites bare_ok.py and bare_gone.py.\n"
+        body += "\n`section_ok.md` \u00a74 and `section_gone.md` \u00a74.\n"
+        body += "\nStem citations stem_ok \u00a72 and stem_gone \u00a72.\n"
         write(here, "docs/agent/WORKFLOW.md", b"# w\n")
         write(here, "docs/agent/moved.md", b"# moved here\n")
         write(here, "tools/bare_ok.py", b"x\n")
+        write(here, "docs/agent/section_ok.md", b"## 4 The present section\n")
+        write(here, "docs/agent/section_gone.md", b"## 3 Another section\n")
+        write(here, "docs/agent/stem_ok.md", b"## 2 The present section\n")
+        write(here, "docs/agent/stem_gone.md", b"## 3 Another section\n")
         write(here, "docs/README.md", body.encode())
         write(here, "docs/agent/facts/EF-900.md",
               b"`fact_donor.md` `mixed_donor.md`\n")
@@ -250,6 +256,14 @@ def citation_legs():
                   not listed(present, "NOWHERE") and not listed(present, "DONOR HAS"))
             check("citation resolver: %s still reports the gone %s" % (place, gone),
                   listed(gone, "NOWHERE"))
+        check("a present file section is not marked stale",
+              not listed("section_ok.md section 4", "STALE-SHAPED"))
+        check("a missing section in a present file is still marked stale",
+              listed("section_gone.md section 4", "STALE-SHAPED"))
+        check("a known filename stem with a present section resolves",
+              not listed("stem_ok.md section 2", "STALE-SHAPED"))
+        check("a known filename stem with a missing section is marked stale",
+              listed("stem_gone.md section 2", "STALE-SHAPED"))
         check("declared CITATIONS_BY_DESIGN row hides its own row",
               not listed("declared_donor.md", "DONOR HAS"))
         check("an undeclared donor-has-it row is still listed",

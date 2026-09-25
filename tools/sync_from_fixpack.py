@@ -211,14 +211,18 @@ MIRRORED_DOCS = {
     "tools/SMRTK.md": "the in-game toolkit and sitting preload",
 }
 
-# Filename and id shapes from KNOWLEDGE_SYNC_PASS section 1. Section-heading
-# validity still needs a separate contextual check; finding the file is not
-# proof that its cited section survives.
+# Filename, id and explicit file-section shapes from KNOWLEDGE_SYNC_PASS section
+# 1. A section check finds labels in current files; historical and external
+# targets still need contextual adjudication.
 CITE_PATH = re.compile(r"`([A-Za-z0-9_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))`")
 # Prose cites filenames without backticks too. Remove inline code with a space
 # before this scan so adjacent prose cannot join into a fictitious path.
 CITE_BARE = re.compile(r"(?<![\w/])([A-Za-z_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))\b")
 CITE_ID = re.compile(r"\b(EF-\d{3}|D\d{2}|F\d{2,3}|C\d{2,3})\b")
+CITE_SECTION = re.compile(
+    r"`?([A-Za-z_][A-Za-z0-9_./-]*\.md)`?\s*\u00a7\s*([A-Za-z0-9][\w.]*)")
+CITE_STEM_SECTION = re.compile(
+    r"(?<![\w./])([A-Za-z_][A-Za-z0-9_-]*)\s*\u00a7\s*([A-Za-z0-9][\w.]*)")
 
 # ---------------------------------------------------------------------------
 # EXPECTED donor-owned citations — `WORKFLOW.md` "Donor names", as data.
@@ -326,6 +330,13 @@ CITATIONS_ABSENT = {
     "hexcover.py": "GEOMETRY_ORACLE records the asset helper as retired",
     "ref_paths.py": "GEOMETRY_ORACLE labels this as scratch, not a durable file",
     "shrink_footprint_probe.py": "TRAIN_HUB_BUILD and SITTING record this probe as deleted",
+}
+
+# A dated citer can name a section of a document whose structure changed.
+# This exception is narrower than a filename exemption: it names the section
+# and explains why the dated record should retain that historical reference.
+SECTIONS_BY_DESIGN = {
+    ("PLAYTEST_CHECKLIST.md", "1"): "D06 quotes the fix pack checklist's old section-1 freeze banner; the owner list was later reorganised",
 }
 
 
@@ -577,6 +588,102 @@ def _cited(root):
     return cites
 
 
+def _section_targets(c):
+    """Existing local/donor files matching a cited Markdown name or path.
+
+    Bare names can be ambiguous (README.md, DESIGN.md); retain every match so
+    a section present in the intended one is not called stale because another
+    same-named file was visited first. Historical-only names stay unverified.
+    """
+    found = []
+    for root in (REPO, DONOR):
+        if not os.path.isdir(root):
+            continue
+        for base in ("", "docs", "docs/agent"):
+            p = os.path.join(root, base, *c.split("/"))
+            if os.path.isfile(p) and p not in found:
+                found.append(p)
+        if not found:
+            basename = c.rsplit("/", 1)[-1]
+            for dirpath, dirnames, filenames in os.walk(root):
+                dirnames[:] = [d for d in dirnames if d not in _SKIP_DIRS]
+                if basename in filenames:
+                    found.append(os.path.join(dirpath, basename))
+    return found
+
+
+def _has_section(path, section):
+    """A heading, numbered list item or bold inline label begins SECTION."""
+    token = section.rstrip(".")
+    if not token:
+        return False
+    start = re.compile(r"^(?:#{1,6}\s*(?:\u00a7\s*)?|\s*\*\*)"
+                       + re.escape(token) + r"(?=$|[\s.:)\-])", re.I)
+    item = re.compile(r"^\s*" + re.escape(token) + r"\.\s+\*\*", re.I)
+    try:
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            lines = fh.readlines()
+    except OSError:
+        return False
+    if any(start.search(line) or item.search(line) for line in lines):
+        return True
+    # FIX_POLICY's §1.5, for example, means item 5 in section 1's ranked
+    # list, not a literal "1.5" heading. Keep the search inside that section.
+    major_minor = re.fullmatch(r"(\d+)\.(\d+)", token)
+    if major_minor:
+        major, minor = major_minor.groups()
+        heading = re.compile(r"^##\s*(?:\u00a7\s*)?" + major + r"(?=$|[\s.:)\-])")
+        numbered = re.compile(r"^\s*" + minor + r"\.\s+")
+        inside = False
+        for line in lines:
+            if heading.match(line):
+                inside = True
+            elif inside and line.startswith("## "):
+                break
+            elif inside and numbered.match(line):
+                return True
+    return False
+
+
+def section_candidates(root):
+    """Distinct file+section references whose present targets lack that label."""
+    refs = {}
+    stems = set()
+    for tree in (root, os.path.join(DONOR, "docs")):
+        if os.path.isdir(tree):
+            for dirpath, dirnames, filenames in os.walk(tree):
+                dirnames[:] = [d for d in dirnames if d not in _SKIP_DIRS]
+                stems.update(n[:-3] for n in filenames if n.endswith(".md"))
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d != "archive"]
+        for name in filenames:
+            if not name.endswith(".md"):
+                continue
+            p = os.path.join(dirpath, name)
+            rel = os.path.relpath(p, REPO).replace("\\", "/")
+            try:
+                body = lf(p).decode("utf-8", "replace")
+            except OSError:
+                continue
+            for c, sec in CITE_SECTION.findall(body):
+                if c not in PLACEHOLDERS:
+                    refs.setdefault((c, sec.rstrip(".")), []).append(rel)
+            for stem, sec in CITE_STEM_SECTION.findall(body):
+                if stem in stems:
+                    refs.setdefault((stem + ".md", sec.rstrip(".")), []).append(rel)
+    stale, unknown, designed = [], [], []
+    for (c, sec), citers in sorted(refs.items()):
+        if (c, sec.rstrip(".")) in SECTIONS_BY_DESIGN:
+            designed.append((c, sec, citers))
+            continue
+        targets = _section_targets(c)
+        if not targets:
+            unknown.append((c, sec, citers))
+        elif not any(_has_section(p, sec) for p in targets):
+            stale.append((c, sec, citers))
+    return refs, stale, unknown, designed
+
+
 def _resolves_here(c):
     if re.fullmatch(r"EF-\d{3}", c):
         return os.path.exists(os.path.join(REPO, "docs", "agent", "facts", c + ".md"))
@@ -709,7 +816,18 @@ def pass_citations(out):
         out.append("  DONOR HAS %-38s cited by %s" % (c, ", ".join(cites[c][:3])))
     for c in nowhere:
         out.append("  NOWHERE   %-38s cited by %s" % (c, ", ".join(cites[c][:3])))
-    if not donor_has and not nowhere:
+    sections, stale_sections, unknown_sections, designed_sections = section_candidates(
+        os.path.join(REPO, "docs"))
+    present_sections = (len(sections) - len(stale_sections)
+                        - len(unknown_sections) - len(designed_sections))
+    out.append("  %d file-section pair(s): %d present, %d stale candidate(s), "
+               "%d historical/external unverified, %d intentional historical"
+               % (len(sections), present_sections, len(stale_sections),
+                  len(unknown_sections), len(designed_sections)))
+    for c, sec, citers in stale_sections:
+        out.append("  STALE-SHAPED %-38s cited by %s"
+                   % (c + " section " + sec, ", ".join(citers[:3])))
+    if not donor_has and not nowhere and not stale_sections:
         out.append("  PASS - every extracted filename/id resolves or has a declared disposition")
     else:
         out.append("  ⇒ DONOR HAS is the action list: a target this repo cites, does "
@@ -717,7 +835,7 @@ def pass_citations(out):
         out.append("  ⇒ NOWHERE is a broken reference: report it, never invent a target.")
         out.append("  ⚠️ Still read the sentence before filing — a name may be cited as "
                    "deleted on purpose, which reads identically to a dangling one.")
-    return bool(donor_has or nowhere)
+    return bool(donor_has or nowhere or stale_sections)
 
 
 # ---------------------------------------------------------------------------
