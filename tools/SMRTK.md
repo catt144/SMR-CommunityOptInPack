@@ -11,7 +11,9 @@ is [`TESTKIT.md`](TESTKIT.md). The unattended arming harness is
 
 It lives in `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no remote,
 local-only by design and settled**. Never raise a push there as owed. A pack lane
-does not commit in it.
+does not commit kit code or probes in it. The one exception is a sitting's slots:
+`80_AgentSlots.lua` is agent-owned, ships nothing, and is committed there as part
+of preloading (see "Gates, then the one line to the owner").
 
 Open it with the SMR status bar (bottom-right) or **Ctrl-Shift-F11**; the bar
 carries taint, armed count, errors and Quiet at a glance. There are **no popout
@@ -40,6 +42,12 @@ determines its rows, and Add Dust chooses one alternative. More retains native
 suffix labels. Editor/debug-dependent actions may be unavailable on retail. An old
 selection or an active mechanized-depot animation refuses the affected action.
 Delete and Destroy differ; test them on sacrificial objects.
+
+⛔ **A registered leaf is not a rendered button.** Selected and World build their
+rows only from explicit lists (`leaves`, `more_methods`, `companions` on
+Selected; a hand-written button-row table on World); an action registered
+outside those lists still runs from the console but draws no control. A new
+leaf is not done when it is registered — it is done when a row renders it.
 
 ⛔ **No achievement reset, runtime string compiler, arbitrary file reader or
 vanilla eligibility verdict is available to this mod** (`EF-094`, `EF-096`).
@@ -84,7 +92,8 @@ logger conflict**: disarm Quiet before invoking console loggers.
 
 # Preloading a sitting — `80_AgentSlots.lua`
 
-**Pull-only.** Use this half only when a sitting brief calls for preloaded slots.
+**Pull-only.** An attended sitting is preloaded, so read this half when authoring or
+running one; a brief that asks the owner to type instead states why no slot can do it.
 `80_AgentSlots.lua` is agent-owned, rewritten for the next sitting, and **never
 edited by a build link.** None of it is a fix and none of it ships.
 

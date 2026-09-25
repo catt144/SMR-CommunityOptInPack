@@ -177,6 +177,8 @@ def citation_legs():
             "Sub/Mod.lua", "Sub/Missing.lua",                   # game subfolder
             "Code/dev_entity.lua", "Code/dev_missing.lua",      # tools/devmods
             "asset_tool.py", "asset_missing.py",                # train assets
+            "SMR-Assets/_shared/geometry/hub_oracle.py",
+            "SMR-Assets/_shared/geometry/gone_oracle.py",       # prefixed asset path
             "used_up.md", "never_existed.md",                   # this repo's history
             "donor_used_up.md", "donor_never.md",               # the donor's history
             "docs/old/moved.md", "docs/old/nowhere.md",         # moved by name
@@ -186,8 +188,10 @@ def citation_legs():
             "C47.md",                                           # a donor id's file
         ]
         body = "\n".join("`%s`" % c for c in cites if c != "fact_donor.md")
+        body += "\nBare prose cites bare_ok.py and bare_gone.py.\n"
         write(here, "docs/agent/WORKFLOW.md", b"# w\n")
         write(here, "docs/agent/moved.md", b"# moved here\n")
+        write(here, "tools/bare_ok.py", b"x\n")
         write(here, "docs/README.md", body.encode())
         write(here, "docs/agent/facts/EF-900.md",
               b"`fact_donor.md` `mixed_donor.md`\n")
@@ -195,6 +199,7 @@ def citation_legs():
         write(kit, "Code/kit_probe.lua", b"x\n")
         write(src, "1.1.0.1/Src/Sub/Mod.lua", b"x\n")
         write(assets, "blender/asset_tool.py", b"x\n")
+        write(assets, "_shared/geometry/hub_oracle.py", b"x\n")
         for name in ("declared_donor.md", "undeclared_donor.md", "fact_donor.md",
                      "mixed_donor.md", "donor_used_up.md"):
             write(there, "docs/" + name, b"x\n")
@@ -231,10 +236,13 @@ def citation_legs():
                 failures.append("%s\n%s" % (label, text))
 
         for present, gone, place in (
+                ("bare_ok.py", "bare_gone.py", "bare prose"),
                 ("kit_probe.lua", "kit_gone.lua", "TestKit"),
                 ("Sub/Mod.lua", "Sub/Missing.lua", "game-source subfolder"),
                 ("Code/dev_entity.lua", "Code/dev_missing.lua", "tools/devmods"),
                 ("asset_tool.py", "asset_missing.py", "train asset repo"),
+                ("SMR-Assets/_shared/geometry/hub_oracle.py",
+                 "SMR-Assets/_shared/geometry/gone_oracle.py", "prefixed asset path"),
                 ("used_up.md", "never_existed.md", "this repo's git history"),
                 ("donor_used_up.md", "donor_never.md", "the donor's git history"),
                 ("docs/old/moved.md", "docs/old/nowhere.md", "a moved path")):

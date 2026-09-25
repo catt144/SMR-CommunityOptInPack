@@ -19,8 +19,8 @@ last donor sync are in `tools/sync_from_fixpack.py`.
 
 ⚠️ **RE-SYNCED @ `bec2e06` (68 files, 2026-08-31) and @ `e6ec192` (107 files,
 2026-09-17).** A re-sync is a **straight overwrite** of every `EF-*.md` from the fix
-pack: the only local adaptation is `EF-062`'s `FUTURE_IDEAS` pointer, and it must be
-re-applied afterwards. ⛔ **`EF-` ids are allocated by the fix pack** — file a new fact
+pack, apart from the declared local adaptations in `tools/sync_from_fixpack.py`:
+`EF-062`'s `FUTURE_IDEAS` pointer and `EF-115`'s later 1.1.1 correction. ⛔ **`EF-` ids are allocated by the fix pack** — file a new fact
 there, then mirror it here at the same id. Run `python tools/doccheck.py --regen` after
 any sync, and `--emit-fingerprint` to see which `derived_at:` groups still describe the
 installed game build.

@@ -59,15 +59,17 @@ DONOR = os.environ.get("SMR_FIXPACK", os.path.join(os.path.dirname(REPO), "SMR-B
 # A row here is a PROMISE that the difference is deliberate. Anything differing
 # that is NOT listed here is the finding this pass exists to surface.
 LOCAL_ADAPTATIONS = {
-    "EF-062.md": "its FUTURE_IDEAS pointer is adapted to this repo's file "
-                 "(the only CONTENT adaptation in the mirror)",
+    "EF-062.md": "its FUTURE_IDEAS pointer is adapted to this repo's file",
+    "EF-115.md": "this repo's 1.1.1 FlyingDrone control-gate correction "
+                 "is newer than the donor's 1.1.0 text; propose it there",
+    "INDEX.md": "generated from this repo's adapted EF-115 front matter",
     "_preamble.md": "carries this repo's dated copy note and sync-tool pointer "
                     "on top of the donor's text",
 }
 
 # The last donor sha this repo synced from. Move it when a sync completes, in
 # the same commit that lands the sync.
-LAST_SYNC = "fc10083"
+LAST_SYNC = "c41ccb1"
 
 # Donor paths whose changes could matter here. Deliberately NOT the whole tree:
 # its Fix_*.lua modules, its playtest checklist and its store drafts are its own
@@ -108,6 +110,15 @@ TOOLS_NOT_PORTED = {
         "desk_migration_cluster.py", "desk_migration_observations.py",
         "desk_mystery_tech_migration.py", "desk_probes_f67_f59.py",
         "desk_progress_seam.py", "desk_seam_food.py", "desk_shelter_reflex.py")},
+    **{name: _DONOR_CASEWORK for name in (
+        "desk_c111_rescue_text.py", "desk_c114_hub_access.py",
+        "desk_c114_sitting_findings.py", "desk_c115_home_rescue.py",
+        "desk_c116_hub_marker.py", "desk_c117_hub_salvage.py",
+        "desk_f124_track.py", "desk_f125_vacuum.py",
+        "desk_f127_arrival_booking.py", "desk_gamepatch_retirements.py",
+        "desk_hubset07_rehearsal.py", "desk_hubset07b_rehearsal.py")},
+    "gamepatch_111_census.py": "the fix pack's 1.1.1 retirement set and baseline are hard-coded; its patch job owns the verdict",
+    "replacecheck.py": "built for the donor's 1.1.1 full-body triage; this mod has no open full-body census to run",
     "bodycheck.py": "pins manifest headers this repo's Opt_ modules do not carry "
                     "(FIX_POLICY's adaptation note omits §2b)",
     "patchcheck.py": "the fix pack's game-patch job runs it FROM the fix pack against "
@@ -178,8 +189,8 @@ TOOLS_ADAPTED = {
     "repair_pass_selftest.py": "no marker-integrity legs (no such gate here); parity "
                                "legs drift this repo's own ignore list; C1/C2 "
                                "mutants end at the next def",
-    "sigcheck.py": "provenance line and the SMROptInPack token; its forward-declared-"
-                   "local blind spot (a false ABSENT on Opt_MultipleSuns): propose there",
+    "sigcheck.py": "provenance line, SMROptInPack token and local fixture; "
+                   "the donor's forward-declared-local fix is carried here",
     "split_bugs.py": "N/A-migration note and this repo's INDEX header prose",
     "split_facts.py": "port note: the migration half is N/A here",
 }
@@ -200,8 +211,13 @@ MIRRORED_DOCS = {
     "tools/SMRTK.md": "the in-game toolkit and sitting preload",
 }
 
-# Citation shapes, from KNOWLEDGE_SYNC_PASS section 1.
+# Filename and id shapes from KNOWLEDGE_SYNC_PASS section 1. Section-heading
+# validity still needs a separate contextual check; finding the file is not
+# proof that its cited section survives.
 CITE_PATH = re.compile(r"`([A-Za-z0-9_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))`")
+# Prose cites filenames without backticks too. Remove inline code with a space
+# before this scan so adjacent prose cannot join into a fictitious path.
+CITE_BARE = re.compile(r"(?<![\w/])([A-Za-z_][A-Za-z0-9_./-]*\.(?:md|py|lua|json))\b")
 CITE_ID = re.compile(r"\b(EF-\d{3}|D\d{2}|F\d{2,3}|C\d{2,3})\b")
 
 # ---------------------------------------------------------------------------
@@ -296,8 +312,20 @@ CITATIONS_ABSENT = {
     "_LuaRevision.lua": "EF-014, EF-085: the game's fpk-only file, not in any archived "
                         "Src tree (the mirrored fact says so)",
     "Lua/Config/_LuaRevision.lua": "EF-085: as _LuaRevision.lua",
+    "mapdata.lua": "EF-085: compiled inside each map fpk, absent from the extracted Src tree",
     "for-modders.md": "EF-054: a doc the donor names as unchanged, absent from every "
                       "tree here (the mirrored fact's own words)",
+    "Code/40_TrainDistribution.lua": "the live distribution prototype brief names the file it will build",
+    "MANIFEST.json": "TRAIN_LOGISTICS_DESIGN: a restore point manifest in the external hub backups",
+    "RESTORE.md": "TRAIN_LOGISTICS_DESIGN and the parked brief: instructions inside external restore points",
+    "manifest.json": "TRAIN_LOGISTICS_DESIGN: a git-ignored export manifest in the asset workflow",
+    "MATERIAL_SPEC.md": "TRAIN_LOGISTICS_DESIGN: the owner's external visual handoff, reference only",
+    "ROUTE_GEOMETRY_SPEC.json": "TRAIN_LOGISTICS_DESIGN: the owner's external visual handoff, reference only",
+    "STYLE_PARAMETERS.json": "TRAIN_LOGISTICS_DESIGN: the owner's external visual handoff, reference only",
+    "TrackConnectedObj.lua": "L2_FLIGHT records a wrong source-path guess, not a target to find",
+    "hexcover.py": "GEOMETRY_ORACLE records the asset helper as retired",
+    "ref_paths.py": "GEOMETRY_ORACLE labels this as scratch, not a durable file",
+    "shrink_footprint_probe.py": "TRAIN_HUB_BUILD and SITTING record this probe as deleted",
 }
 
 
@@ -337,7 +365,7 @@ SRC_ARCHIVE = os.environ.get("SMR_SRCARCHIVE", r"B:\Dev\SMR\SMR-Shared\SMR-SrcAr
 # (2026-09-19: the first run listed 78 NOWHERE rows, most of them these):
 TESTKIT = os.environ.get("SMR_TESTKIT", os.path.join(os.path.dirname(REPO),
                                                      "SMR-BugFixPack-TestKit"))
-TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"B:\Dev\SMR\SMR-Assets\trainhub")
+TRAIN_ASSETS = os.environ.get("SMR_TRAINASSETS", r"B:\Dev\SMR\SMR-Assets")
 _SKIP_DIRS = (".git", "__pycache__", "node_modules")
 _indexes = {}
 
@@ -369,7 +397,7 @@ def _tree_index(root):
 def _hit(c, idx):
     """True when citation C names a file in IDX. A leading `TestKit/` or a
     `<build>/Src/` the citer spelled is dropped before the suffix test."""
-    c = re.sub(r"^(?:TestKit/|[0-9][0-9.]*/Src/)", "", c)
+    c = re.sub(r"^(?:TestKit/|SMR-Assets/|[0-9][0-9.]*/Src/)", "", c)
     return c in idx
 
 
@@ -542,7 +570,9 @@ def _cited(root):
                 text = lf(p).decode("utf-8", "replace")
             except OSError:
                 continue
-            for m in set(CITE_PATH.findall(text)) | set(CITE_ID.findall(text)):
+            prose = re.sub(r"`[^`]*`", " ", text)
+            bare = {m for m in CITE_BARE.findall(prose) if not m.startswith("s/")}
+            for m in set(CITE_PATH.findall(text)) | bare | set(CITE_ID.findall(text)):
                 cites.setdefault(m, []).append(rel)
     return cites
 
@@ -610,10 +640,15 @@ def pass_citations(out):
                "something" % control)
 
     donor_has, nowhere, expected, game = [], [], [], []
+    placeholders, resolves_here = [], []
     designed, sibling, moved, history, other_history = [], [], [], [], []
     absent = []
     for c in sorted(cites):
-        if c in PLACEHOLDERS or _resolves_here(c):
+        if c in PLACEHOLDERS:
+            placeholders.append(c)
+            continue
+        if _resolves_here(c):
+            resolves_here.append(c)
             continue
         if donor_owned(c):
             expected.append(c)
@@ -644,6 +679,8 @@ def pass_citations(out):
 
     out.append("  %d distinct citation(s) checked across docs/ (archive excluded)"
                % len(cites))
+    out.append("  %d resolve in this repo; %d illustrative placeholder(s) skipped"
+               % (len(resolves_here), len(placeholders)))
     out.append("  %d expected donor-owned (WORKFLOW 'Donor names') — counted, not listed"
                % len(expected))
     out.append("  %d shipped-game source file(s) under %s — counted, not listed"
@@ -661,13 +698,19 @@ def pass_citations(out):
                % len(other_history))
     out.append("  %d resolve nowhere ON PURPOSE (CITATIONS_ABSENT, each with a "
                "reason) — counted, not listed" % len(absent))
+    total = sum(len(group) for group in (
+        resolves_here, placeholders, expected, game, sibling, moved,
+        designed, history, other_history, absent, donor_has, nowhere))
+    if total != len(cites):
+        out.append("  RED - classification total %d differs from checked %d"
+                   % (total, len(cites)))
+        return True
     for c in donor_has:
         out.append("  DONOR HAS %-38s cited by %s" % (c, ", ".join(cites[c][:3])))
     for c in nowhere:
         out.append("  NOWHERE   %-38s cited by %s" % (c, ", ".join(cites[c][:3])))
     if not donor_has and not nowhere:
-        out.append("  PASS - every citation either resolves here or is expected "
-                   "donor-owned")
+        out.append("  PASS - every extracted filename/id resolves or has a declared disposition")
     else:
         out.append("  ⇒ DONOR HAS is the action list: a target this repo cites, does "
                    "not hold, and is NOT declared donor-owned.")

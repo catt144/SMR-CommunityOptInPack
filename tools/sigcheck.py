@@ -93,6 +93,9 @@ DEF_METHOD = re.compile(r"^\s*function\s+([A-Za-z_][\w.]*)\s*([:.])\s*([A-Za-z_]
 DEF_GLOBAL = re.compile(r"^\s*function\s+([A-Za-z_]\w*)\s*\(([^)]*)\)")
 # `local C = Colonist` / `local C = rawget(_G, "Colonist")`
 ALIAS = re.compile(r"^\s*local\s+([A-Za-z_]\w*)\s*=\s*(?:rawget\s*\(\s*_G\s*,\s*[\"']([\w]+)[\"']\s*\)|([A-Z][\w]*))\s*$")
+# A later `function name(...)` assigns a previously declared local, rather
+# than replacing a shipped global (Opt_MultipleSuns.lua uses this shape).
+LOCAL_DECL = re.compile(r"^\s*local\s+((?:[A-Za-z_]\w*\s*,\s*)*[A-Za-z_]\w*)\b")
 
 # `SMROptInPack.SetGlobal("Name", <expr>` -- the pack's only sanctioned route to a
 # global replacement (FIX_POLICY §1.4b), and invisible to DEF_GLOBAL above.
@@ -177,12 +180,16 @@ def scan_pack(code=None):
             continue
         path = os.path.join(code, fn)
         aliases = {}
+        locals_declared = set()
         with open(path, "r", encoding="utf-8", errors="replace") as fh:
             lines = fh.readlines()
         for line in lines:
             m = ALIAS.match(line)
             if m:
                 aliases[m.group(1)] = m.group(2) or m.group(3)
+            m = LOCAL_DECL.match(line)
+            if m:
+                locals_declared.update(x.strip() for x in m.group(1).split(","))
         for n, line in enumerate(lines, 1):
             m = DEF_METHOD.match(line)
             if m:
@@ -194,7 +201,7 @@ def scan_pack(code=None):
             m = DEF_GLOBAL.match(line)
             if m:
                 name, ps = m.groups()
-                if name in OURS or name.startswith("OnMsg"):
+                if name in OURS or name.startswith("OnMsg") or name in locals_declared:
                     continue
                 sites.append((fn, n, None, name, params(ps), "declaration"))
                 continue
@@ -223,6 +230,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--src", default=DEFAULT_SRC)
+    ap.add_argument("--code", default=CODE,
+                    help="the pack Code/ to scan (default: this pack)")
     ap.add_argument("--all", action="store_true", help="also print OK rows")
     ap.add_argument("--coverage", action="store_true",
                     help="list replacement sites carrying no SRC: pin of their own function")
@@ -236,9 +245,12 @@ def main():
     if not os.path.isdir(a.src):
         print("source tree not found: %s" % a.src)
         return 2
+    if not os.path.isdir(a.code):
+        print("pack Code/ not found: %s" % a.code)
+        return 2
 
     shipped = scan_source(a.src)
-    sites = scan_pack()
+    sites = scan_pack(a.code)
 
     counts = {"MISMATCH": 0, "ABSENT": 0, "MULTI": 0, "UNRESOLVED": 0, "OK": 0}
     rows = []
@@ -305,7 +317,7 @@ def main():
         if note:
             print("            %s" % note)
 
-    gaps = coverage()
+    gaps = coverage(a.code)
     if a.coverage:
         print("=" * 78)
         print("MANIFEST COVERAGE -- replacement sites with no SRC: pin of their")
@@ -423,6 +435,16 @@ SELFTEST_MODULE = '''\
 	SMROptInPack.SetGlobal("GetTable", SomeTable.field, "not a function literal")
 '''
 
+SELFTEST_LOCALFN = '''\
+local lift_build_limit, restore_build_limit
+function lift_build_limit(a, b)
+end
+function restore_build_limit()
+end
+function DeliberatelyMissingGlobal(x, y)
+end
+'''
+
 # coverage fixtures: one site pinned by its own SRC:, three that are not, for
 # each of the three ways a manifest can fail to name a function.
 SELFTEST_PINNED = '''\
@@ -458,6 +480,8 @@ def selftest():
         fh.write(SELFTEST_SHIPPED)
     with open(os.path.join(code, "Fix_Selftest.lua"), "w", encoding="utf-8") as fh:
         fh.write(SELFTEST_MODULE)
+    with open(os.path.join(code, "Opt_SelftestLocalFn.lua"), "w", encoding="utf-8") as fh:
+        fh.write(SELFTEST_LOCALFN)
     with open(os.path.join(code, "Fix_SelftestPinned.lua"), "w", encoding="utf-8") as fh:
         fh.write(SELFTEST_PINNED)
 
@@ -528,11 +552,17 @@ def selftest():
     check("SetGlobal sites are covered by the gap check too",
           "TriggerCaveIn" in gaps and "GetTable" in gaps, repr(sorted(gaps)))
 
+    check("forward-declared locals are not global replacement sites",
+          not ({"lift_build_limit", "restore_build_limit"} & set(sites)),
+          repr(sorted(set(sites) & {"lift_build_limit", "restore_build_limit"})))
+    check("an undeclared global still reports ABSENT",
+          got.get("DeliberatelyMissingGlobal") == "ABSENT", repr(got))
+
     print("=" * 78)
     if fails:
         print("SELFTEST FAILED: %s" % ", ".join(fails))
         return 1
-    print("selftest: 9 leg(s) pass. This falsifies the A-4 RESOLUTION only --")
+    print("selftest: 11 leg(s) pass. This falsifies A-4 resolution and local declaration parsing --")
     print("it says nothing about whether an OK row's BODY is still correct.")
     return 0
 

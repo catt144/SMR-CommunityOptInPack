@@ -6,7 +6,9 @@ part that costs sessions when it is missing — **what a verdict from it license
 
 The kit itself is `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no
 remote, local-only by design and settled**. Never raise a push there as owed, and
-never commit in it from a pack lane. Its own `README.md` is the build-state
+never commit kit code or probes in it from a pack lane. The one exception is a
+sitting's slots: `80_AgentSlots.lua` is agent-owned, ships nothing, and is committed
+there as part of preloading (`SMRTK.md`). Its own `README.md` is the build-state
 document; this file is the durable part, and it is here because the kit is
 unreachable to anyone not sitting at that machine.
 
@@ -105,6 +107,13 @@ the two disagree is itself the finding, not a flaky probe.
 
 All three produced a *confident* wrong verdict in this project. The second and
 third are repaired and stay listed because the failure shape recurs.
+
+⭐ **Read where the throw landed, and read the probe's own title, before trusting
+its verdict.** Reaching deep into shipped code on an ERROR can be proof the call
+still delegates — the opposite of what the message says — and a probe's title
+sometimes states outright that its PASS condition needs a screen check. A
+suite-wide `FAIL`/`ERROR` sweep can be the instrument, not a regression;
+challenge before filing.
 
 1. **A probe whose `run` falls off the end returns nil, and `SMRTest.Run` turns
    nil into SKIP with an empty message** (`00_TestCore.lua`). It reads as a
