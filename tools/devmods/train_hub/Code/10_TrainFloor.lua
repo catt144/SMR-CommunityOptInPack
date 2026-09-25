@@ -66,6 +66,30 @@ local function release(req, amount)
 	if amount > 0 then req:UnassignUnit(amount, false) end
 end
 
+-- Synchronous test seam shared by the legacy floor and distribution prototype.
+-- Claims are {request, wanted}; no object fields are written. Release also on a
+-- genuine runtime error (error()/assert() do not unwind in the game).
+function Floor.WithTransientClaims(claims, fn, ...)
+	local held = {}
+	local results = table.pack(pcall(function(...)
+		for _, claim in ipairs(claims) do
+			local took = hold(claim[1], claim[2])
+			if took > 0 then
+				held[#held + 1] = { claim[1], took }
+				Floor.stats.transient_holds = Floor.stats.transient_holds + 1
+			end
+		end
+		return fn(...)
+	end, ...))
+	for i = #held, 1, -1 do release(held[i][1], held[i][2]) end
+	if not results[1] then
+		Floor.stats.last_error = tostring(results[2])
+		print("[TrainHubDev] transient claim failed: " .. Floor.stats.last_error)
+		return
+	end
+	return table.unpack(results, 2, results.n)
+end
+
 function Floor.Wanted(station, res)
 	local fn = station.GetTrainExportFloor
 	if type(fn) ~= "function" then return 0, false end
@@ -182,19 +206,15 @@ function Train:TransferCargo(...)
 				Floor.ReconcileRes(station, res)
 			else
 				local req = supply_of(station, res)
-				local took = req and hold(req, want) or 0
-				if took > 0 then
+				if req then
 					transient = transient or {}
-					transient[#transient + 1] = { req, took }
-					Floor.stats.transient_holds = Floor.stats.transient_holds + 1
+					transient[#transient + 1] = { req, want }
 				end
 			end
 		end
 	end
 	if not transient then return vanilla_transfer_cargo(self, ...) end
-	local results = table.pack(vanilla_transfer_cargo(self, ...))
-	for _, claim in ipairs(transient) do release(claim[1], claim[2]) end
-	return table.unpack(results, 1, results.n)
+	return Floor.WithTransientClaims(transient, vanilla_transfer_cargo, self, ...)
 end
 
 print("[TrainHubDev] train export floor loaded (standing + transient holds)")

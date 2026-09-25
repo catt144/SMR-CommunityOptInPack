@@ -323,6 +323,32 @@ six rewrite paths (store relative to live `GetMaxStorage`, re-apply after each) 
 trap. The prototype is mechanism only, at the console, on two stations and the hub — no UI — and it
 answers the three unproven items above in one sitting.
 
+#### Console mechanism prototype, 2026-09-25
+
+**MEASURED, offline only:** `distribution_smoke.py` executed the existing transient
+floor path against the archived 1.1.1.405907 train bodies with request doubles.
+Supply actual 80 / target 80 became target 60 under a claim of 20 and released
+afterward. Native requests and drone behaviour remain unmeasured. Command, HEAD,
+source hashes and results: `docs/archive/train_distribution_20260925/offline.log`.
+
+**MEASURED, offline:** the same equal-capacity fixture left 60 at an exporter with
+floor 20; an importer received the capacity share, not a full load to capacity.
+Already reserved inbound cargo could unload and be re-exported below the requested
+floor. **SOURCE:** archived `Lua/Units/Train.lua:921-952` retains capacity-share
+arithmetic; `:787-825`, called at `:872`, handles existing cargo reservations.
+**INFERRED:** claims alone do not establish the owner's full mode table.
+
+**SOURCE:** the console-only build is `tools/devmods/train_hub/Code/40_TrainDistribution.lua`.
+It stores local session settings, claims configured route members during a train
+call, and prints current/drone-sample/train-sample request values. Drone samples
+restore synchronously; no standing baseline, saved field, UI or save hook was added.
+The full design above is still unbuilt. **SOURCE:** OI-29 asks whether the brief's
+no-persistence restriction permits a disposable live baseline experiment; until
+answered, the baseline/drone and `accept` questions remain open. **INFERRED:** those
+observations need local drone coverage and a consumer, which an uncovered spoke
+cannot provide. The report carries the console script and rewrite/alias limits:
+`docs/agent/reports/TRAIN_DISTRIBUTION_PROTOTYPE_20260925.md`.
+
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in
