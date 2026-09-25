@@ -25,7 +25,7 @@ def body(path, pattern):
 lua=LuaRuntime(unpack_returned_tuples=True)
 lua.execute('''
 OnMsg={}; CObject={}; empty_table={}; Platform={developer=false}
-CurrentMap={}; ChangingMap=false
+CurrentMap=false; ChangingMap=false
 SMROptInTrainFloor={HubDwellTime=6000}; WaitWakeup=coroutine.yield; native_wait=WaitWakeup
 const={HourDuration=60000}; Max=math.max; Min=math.min
 function AllMapsForEach() end
@@ -42,7 +42,13 @@ legacy=subprocess.check_output(['git','show','d73d701:tools/devmods/train_hub/Co
 start='\tlocal wrapper = function(timeout, ...)'; end='\n\t_G.WaitWakeup = wrapper'
 assert source[source.index(start):source.index(end)]==legacy[legacy.index(start):legacy.index(end)]
 assert 'local function install_hub_save_guard()' in part, 'snapshot guard missing: native waiter remains unregistered at save'
-lua.execute('local Floor=SMROptInTrainFloor\n'+part+'\ninstall_hub_dwell(); set_hub_dwell_waiter(CurrentMap and not ChangingMap); install_hub_save_guard()')
+lua.execute('''local Floor=SMROptInTrainFloor\n'''+part+'''
+install_hub_dwell()
+set_hub_dwell_waiter(CurrentMap and not ChangingMap)
+assert(WaitWakeup==native_wait, 'startup without a map published the scanning waiter')
+CurrentMap={}; OnMsg.ChangeMapDone()
+install_hub_save_guard()
+''')
 lua.execute('''
 local floor=SMROptInTrainFloor
 assert(floor.HubDwellInstalled and floor.HubSaveGuardInstalled)
