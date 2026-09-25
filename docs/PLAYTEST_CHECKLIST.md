@@ -26,7 +26,8 @@ Home: `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, `docs/agent/bugs/D14
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
-- The fix pack holds this mod's listing drafts: `RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`.
+- The fix pack holds this mod's listing drafts: `RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`,
+  and the opt-in strings in `STORE_METADATA_STRINGS.md`; recheck all at launch.
 - Say "run from the fix pack" or "port at launch".
 Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`
 
