@@ -2467,6 +2467,24 @@ vanilla's per-object colorization on each hub drone at spawn, the reactor's own 
 drone reads as the hub's and a colony Wasp keeps its own; Lua on the drone objects, no import.
 It belongs to the drones chain (`03_Drones/`), after the flight look settles (link 3), and is
 tuned by eye like the reactor variants were. Brief 06 is the icon; this is not in it.
+**Build-menu icon — KEPT (owner, 2026-09-25, in the build menu: "The icon you have in it looks
+good to me").** Brief 06, one session (claude-opus-5-5). Path form, read on
+`B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src` (the brief's `C:\Dev` path moved
+2026-09-21): `CommonLua/Modding/Mod.lua:6` `ModContentPath = "Mod/"`, `:1771`
+`def.content_path = ModContentPath .. def.id .. "/"`, `:875` mounts the mod there;
+`Lua/Buildings/Building.lua:193` `display_icon` is a `ui_image`. So the field carries
+`Mod/SMR_TrainHubDev_20260918/UI/<file>.png`; a solid magenta 232 × 100 proved it in the menu
+(owner's screenshot, 2026-09-24). A hand edit of `Data/` alone does NOT reach the game: the
+build menu read the generated `Code/BuildingTemplate/…generated.lua`, which only the Mod Editor's
+save rewrites. The menu does not clip to the hex, so the art is transparent. Vanilla's layout,
+measured on both train icons: two 116 × 100 cells, left normal, right hover (opaque pixels
+about 1.12× brighter), halo (123,197,251) falling 205→15 alpha over 8 px. Three variants
+(assets `trainhub/icon/`: `render_icon.py` cameras, `compose_icon.py`, full-size renders):
+A whole hub, B ring and dome with the arms faded past the ring, C low 20° profile; **B shipped**,
+A and C not tried in game. The PNG keeps the test file's name,
+`UI/SMROptInTrainHub6_icon_test.png`, because the owner's save (version 51) wrote that path and
+no further save was asked for; renaming it needs one Mod Editor save. The encyclopedia image was
+not asked for.
 If the owner wants
 geometric details beyond what a palette gives, the themed-entity route (`build_concept_reactor.py`,
 deferred since 2026-09-21) is the next step, not this one.
