@@ -98,6 +98,10 @@ commit and the named log. The L5 commits are `git log --grep="Drones chain L5"`,
 - The storage change (`ca586d1`) came at close-out, outside the smoke's scope, on an owner ask. It
   overrides vanilla's `RecalculateDerivedMaxZ` with vanilla's own body, sized from min(storage,
   150000); no mock covers it.
+- The spot-name finding is filed as **EF-117** (fix pack `c41ccb1`, mirrored here). Two `< 0` checks
+  after `GetSpotBeginIndex` remain in `30_TrainHubDrones.lua` and are dead code under it: the pit
+  spots in `F.PitPoints` (:131) and `Enter1`/`Enter2` in `tunnel_inner` (:251). They cannot fire on
+  today's bodies, and they were left unchanged.
 - The clearance receipt was re-pinned twice (`3c47ce2`, `ad5113b`) with identical geometry. The
   2026-09-25 session ran `claude-opus-5-5[1m]`.
 
