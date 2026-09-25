@@ -3357,6 +3357,36 @@ while paused would otherwise starve repairs. One job per native group stays; `Ma
 with the fleet chunks 5 / 15 / 25 unchanged; a repair dispatches before any queued build. Brief 04
 carries it.
 
+**Build 5 attended smoke, 2026-09-25 — STOPPED after case 2, back to 04 for another pass**
+(owner: *"We should let 04 take another pass depending on what it has to redesign we may have to
+repeat these tests"*). Orchestrator-guided, `ad7d202`, game 1.1.1.405907, save "trainhub post stuck
+test". Log archived byte-for-byte: `docs/archive/train_hub_build5_20260925/Mars.exe-20260925-18.12.36-6aad2d75.log`
+(138350 B, sha256 `0dcc023f59805e89…`, a snapshot while the game still ran); screenshot
+`B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0082.png`. Line numbers are that file's.
+
+1. **Case 1 PASS** — a fresh line from a hub stub to a far station outside every drone range.
+   Vanilla split it into **23 construction groups** (21 × 5, 1 × 4, 1 × 1 = 110 elements; vanilla's
+   "Construction not serviced by drones (x23)" counts groups). 23 dispatched, 23 done, no error
+   (:349-2212); each done 1.0–2.8 s after its deadline; first dispatch t=31686195 to last done
+   ≈ t=31771000, ~85 s of game time. Peak 3 under way / 20 waiting at a fleet of 14 (:359); the panel
+   later read 21 of 30 Wasps out for this one line. The hub's own drones worked the elements inside
+   their radius as ordinary drones. The line fills in 5-element chunks in no set order. Owner's
+   judgement of the chunked look and the total time: not given.
+2. **Case 2 FAIL, on a reworked network — must-fix before build 5 closes** (owner: *"highly likely
+   to happen with players as well as resource piles deplete and they change their bases around"*).
+   The owner cut a connected track and extended it with a new unfinished section to a new station.
+   The hub queued nothing (`0 waiting`, :2458, with `max 60` set by console). Station 7042, joined to
+   the hub's track, reads OFF in `HubTrackGraph` (:2470, :2534). Its two connector tracks report
+   **no station at either end and no unbuilt element** (:2575-2576: `TRACK 7042 7043 from false
+   false to false false unbuilt 0 broken 0`, likewise 7045). `GetStartStation`/`GetEndStation` read
+   `start_el.station` / `end_el.station` (`Buildings/Track.lua:194-200`, 1.1.1.405907), and
+   `HubTrackGraph` steps station to station through them, so the walk dead-ends there; the
+   unfinished section is on neither of 7042's track objects. The first half of case 2 — a line
+   between two unconnected stations stays unqueued — passed (owner).
+3. Cases 3 (covered middle, stock-out, refill) and 4 (save/reload, toggle) **not run**: they repeat
+   after 04's pass. A repair dispatched and completed during the sitting (`repair done: elements 0,
+   elapsed 17976 ms`).
+
 Implementation and desk evidence: `TRAIN_HUB_BUILDTRACK_20260925.md`. New-track groups incident
 to the physical network share the pending list and the Track work toggle with repairs. Builders
 use the native outstanding price, pay available unreserved stock at work end, and wait on a

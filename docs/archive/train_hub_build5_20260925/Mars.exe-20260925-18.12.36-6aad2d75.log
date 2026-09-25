@@ -1,0 +1,2581 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aad2d75
+Date:          	Fri Sep 18 08:24:21 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	40%
+Disk Free      	1225470 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:103
+Steam initialized (AppId 3215050)
+					Render 0:00:00:105
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:391
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:530
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:755
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:767
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:02:768
+Lua revision: 405907
+Assets revision: 33225
+						Lua 0:00:02:769
+Steam AppID: 3215050
+Build version: 1.1.1.405907
+Build branch:  Release
+						Lua 0:00:10:157
+Account storage loaded successfully in 2 ms
+						Lua 0:00:10:158
+DLC norman loaded, lua revision 405907, assets revision 33225
+DLC thomas loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:10:162
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-052) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-021) unpacked from appdata
+						Lua 0:00:10:543
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:10:548
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=6175 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=6175 id=1
+						Lua 0:00:10:551
+[mod] [SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=hubset/07B_VERIFY_PASS2_owner.md sitting=hubset07b slots="scratch boot,1 C111,2 C114 wait,3 C114 fire,4 C117 wait,5 C117 salvage" t=6175 id=2
+[SMRTK] SMRTK_SLOTS armed_at_load=0 predictions=hubset/07B_VERIFY_PASS2_owner.md sitting=hubset07b slots="scratch boot,1 C111,2 C114 wait,3 C114 fire,4 C117 wait,5 C117 salvage" t=6175 id=2
+						Lua 0:00:10:552
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:10:554
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:10:555
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] synchronous console prototype loaded; drone baselines are samples only
+						Lua 0:00:10:556
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:10:557
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+						Lua 0:00:10:558
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:10:559
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+						Lua 0:00:10:560
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+						Lua 0:00:10:561
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+						Lua 0:00:10:562
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+						Lua 0:00:10:563
+[RailShaftDev] loaded: cross-map train tunnel prototype. UNVERIFIED IN GAME.
+						Lua 0:00:11:263
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:11:331
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:11:423
+Reloading done in 1261 ms
+						Lua 0:00:11:424
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:11:471
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=6175 id=3
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=6175 id=3
+						Lua 0:00:11:842
+[preset] Preset postprocess took 154 ms.
+						Lua 0:00:11:892
+482 / 482 particle streams loaded in 43 ms.
+						Lua 0:00:11:893
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:11:894
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+						Lua 0:00:11:895
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:12:097
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:12:186
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=6175 id=4
+						Lua 0:00:12:218
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=6175 id=5
+						Lua 0:00:12:234
+[mod] Loaded mod items for: SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityFixPack, SMR_CommunityOptInPack, SMR_RailShaftDev_20260923
+						Lua 0:00:12:482
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:12:483
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:12:580
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=6175 id=6
+						Lua 0:00:13:432
+[PdxSDK] Started up. Took 1469
+						Lua 0:00:13:872
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:13:982
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:19:519
+Load Game: 
+	lua_revision: 405907 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923 
+						Lua 0:00:19:521
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:21:291
+*** Assets reloaded in 1.8 s, read 360.1 MB, read speed 203.4 MB/s, average read 8160 bytes.
+						Lua 0:00:22:233
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12147 id=7
+						Lua 0:00:23:021
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=12147 id=8
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=12147 id=8
+						Lua 0:00:23:649
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-049), which is loaded with a different version 0.00-052
+[mod] This savegame tries to load Mod Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-020), which is loaded with a different version 1.00-021
+						Lua 0:00:25:036
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:25:037
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:00:25:038
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:00:25:039
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:25:042
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+						Lua 0:00:25:043
+[RailShaftDev] loaded; underground is locked in this save, so the tunnel stays surface-only.
+[RailShaftDev] ready. SMRRailShaft.Status() for where things stand.
+						Lua 0:00:25:148
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:00:25:149
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:00:25:150
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:00:25:151
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:00:25:153
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: NASA, paradox, Brazil
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:25:204
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:00:25:205
+Game Loaded in 5687 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=22 last=meteor_single last_id=50 present=true session=1790267710:55985545:970832306:597371464 t=31652099 id=9
+[SMRTK] SMRTK_PROVENANCE actions=22 last=meteor_single last_id=50 present=true session=1790267710:55985545:970832306:597371464 t=31652099 id=9
+						Lua 0:00:25:215
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=31652099 id=10
+						Lua 0:00:25:227
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=31652099 id=11
+						Lua 0:00:25:230
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:25:335
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=31652099 id=12
+						Lua 0:00:25:370
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:00:25:371
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:00:25:372
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:25:733
+Game loaded on map BlankBig_01 in 6338 ms
+						Lua 0:04:26:011
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:04:26:012
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:04:26:013
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:26:014
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:06:11:278
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=31655415 id=13						Lua 0:06:11:279
+
+						Lua 0:06:45:917
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=31655415 id=14
+						Lua 0:08:51:886
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=31658499 id=15
+						Lua 0:08:53:530
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=2850000 before=1736200 method=CheatFill object=SMROptInTrainHub6(6430) resource=multiple resources=21 status=OK valid_after=true t=31660116 id=16
+[SMRTK] SMRTK_ACTION action=selected_fill after=2850000 before=1736200 method=CheatFill object=SMROptInTrainHub6(6430) resource=multiple resources=21 status=OK valid_after=true t=31660116 id=16
+						Lua 0:09:50:688
+[TrainHubDev] build dispatched: elements 5, 1025 m, deadline in 30296 ms (launch 4000 + travel 14296 + work 12000) at t=31686195
+						Lua 0:09:55:687
+[TrainHubDev] build dispatched: elements 5, 1009 m, deadline in 30070 ms (launch 4000 + travel 14070 + work 12000) at t=31691195
+						Lua 0:09:57:184
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=31692680 id=17
+						Lua 0:09:59:079
+[TrainHubDev] engine leg back: 49 m in 3393 ms = 1457 units per s (move_speed 8960) at t=31694588
+						Lua 0:10:00:687
+[TrainHubDev] build dispatched: elements 5, 995 m, deadline in 29875 ms (launch 4000 + travel 13875 + work 12000) at t=31696195
+						Lua 0:10:05:973
+[TrainHubDev] repair: toggle on, switch on, fleet 14, fleet load medium (133 %), vanilla load low, repairs 3 under way, 20 waiting, max 30
+[TrainHubDev] repair job 1: build site table: 000001FF7E78AAC0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 2: build site table: 000001FF7E793818 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 3: build site table: 000001FF7C462EA8 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 4: build site table: 000001FF7B92E3A0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 5: build site table: 000001FF756873F8 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 6: build site table: 000001FF7373FC68 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 7: build site table: 000001FF763C1D38 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 8: build site table: 000001FF73DAAE68 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 9: build site table: 000001FF7500E6C8 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 10: build site table: 000001FF73D637A0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 11: build site table: 000001FF750857C0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 12: build site table: 000001FF74C0F1E0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 13: build site table: 000001FF765021C0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 14: build site table: 000001FF72365780 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 15: build site table: 000001FF785F2CA0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 16: build site table: 000001FF7C609DA0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 17: build site table: 000001FF7C6120F0 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 18: build site table: 000001FF7F460208 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 19: build site table: 000001FF7F450350 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 20: build site table: 000001FF7F2A6900 deadline false (not dispatched) drone none waiting false
+[TrainHubDev] repair job 21: build site table: 000001FF7F29ED88 deadline 31726070 (27814 ms left) drone false waiting false
+[TrainHubDev] repair job 22: build site table: 000001FF7F297130 deadline 31721265 (23009 ms left) drone FlightGoto waiting false
+[TrainHubDev] repair job 23: build site table: 000001FF7C35EE10 deadline 31716491 (18235 ms left) drone FlightGoto waiting false
+						Lua 0:10:05:979
+{
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (297000, 166272, 10000)-(297001, 166273, 10001)
+            construction_group = {...}
+            counter = 3927
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6530
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 11
+            pillared = false
+            q = 201
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7E78B7D8
+            working = true
+            true = userdata: 000001FF337E8F90
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (296483, 166149, 10000)-(301519, 166395, 11081)
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3926
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6529
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7E78AF00
+            working = true
+            true = userdata: 000001FF33807508
+        }
+        started = false
+        track = {
+            accumulate_maintenance_points = false
+            assigned_vehicles = {}
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            city = {...}
+            command_centers = {...}
+            creation_time = 31655415
+            elements = {...}
+            elements_under_construction = {...}
+            end_el = {...}
+            fx_working = true
+            handle = 6517
+            input_shortage_time = 0
+            last_node_idx = 95
+            max_vehicles = 1
+            modifications = {...}
+            repair_cgs = {}
+            resource_spots = {...}
+            spent_time_values = {}
+            start_el = {...}
+            stations_connected = false
+            update_thread = thread: 000001FF7E762038
+            working = true
+            true = userdata: 000001FF33874778
+        }
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (302000, 166272, 10000)-(302001, 166273, 10001)
+            construction_group = {...}
+            counter = 3933
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackPillarCCP3
+            grids_applied = true
+            handle = 6536
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 16
+            pillared = true
+            q = 206
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7E794680
+            working = true
+            true = userdata: 000001FF3365D6A0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (301490, 166149, 10000)-(306509, 166395, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3932
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6535
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7E793AE8
+            working = true
+            true = userdata: 000001FF33357208
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (307000, 166272, 10000)-(307001, 166273, 10001)
+            construction_group = {...}
+            counter = 3962
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6565
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 21
+            pillared = false
+            q = 211
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7C4C94C8
+            working = true
+            true = userdata: 000001FF33E67450
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (306483, 166149, 10000)-(311509, 166395, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3961
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6564
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7C4631F0
+            working = true
+            true = userdata: 000001FF3387DBC0
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (312000, 166272, 10000)-(312001, 166273, 10001)
+            construction_group = {...}
+            counter = 3968
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6571
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 26
+            pillared = false
+            q = 216
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF76979A40
+            working = true
+            true = userdata: 000001FF33D28FF8
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (311483, 166149, 10000)-(316519, 166395, 11081)
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3967
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6570
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF79248408
+            working = true
+            true = userdata: 000001FF33D4C2A0
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (317000, 166272, 10000)-(317001, 166273, 10001)
+            construction_group = {...}
+            counter = 3974
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackPillarCCP3
+            grids_applied = true
+            handle = 6577
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 31
+            pillared = true
+            q = 221
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7DBD7F50
+            working = true
+            true = userdata: 000001FF34179FF8
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (316490, 166149, 10000)-(321519, 166395, 11081)
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3973
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6576
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF74B83140
+            working = true
+            true = userdata: 000001FF33797D28
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (322000, 166272, 10000)-(322001, 166273, 10001)
+            construction_group = {...}
+            counter = 3980
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6583
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 36
+            pillared = false
+            q = 226
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7B5C1AC8
+            working = true
+            true = userdata: 000001FF343301D0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (321483, 166149, 10000)-(326509, 166395, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 3979
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6582
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7412EBE8
+            working = true
+            true = userdata: 000001FF33246400
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (327000, 166272, 10000)-(327001, 166273, 10001)
+            construction_group = {...}
+            counter = 4031
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6634
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 41
+            pillared = false
+            q = 231
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7675E3F8
+            working = true
+            true = userdata: 000001FF340B65D0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (326483, 166149, 10000)-(331519, 166395, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 4030
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6633
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF76741778
+            working = true
+            true = userdata: 000001FF33EE79E8
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (332000, 166272, 10000)-(332001, 166273, 10001)
+            construction_group = {...}
+            counter = 4037
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackPillarCCP3
+            grids_applied = true
+            handle = 6640
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 46
+            pillared = true
+            q = 236
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF73DB34D8
+            working = true
+            true = userdata: 000001FF343405D0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (331490, 166149, 10000)-(336519, 166395, 11081)
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 4036
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6639
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7B0A5610
+            working = true
+            true = userdata: 000001FF332F5310
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (337000, 166272, 10000)-(337001, 166273, 10001)
+            construction_group = {...}
+            counter = 4043
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6646
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 51
+            pillared = false
+            q = 241
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF75063B78
+            working = true
+            true = userdata: 000001FF334CA280
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (336483, 166149, 10000)-(341509, 166395, 11081)
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 4042
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6645
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF7500E8F8
+            working = true
+            true = userdata: 000001FF33CFF9C8
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (342000, 166272, 10000)-(342001, 166273, 10001)
+            construction_group = {...}
+            counter = 4049
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6652
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 56
+            pillared = false
+            q = 246
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF74BF8558
+            working = true
+            true = userdata: 000001FF3351E128
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (341483, 166149, 10000)-(346509, 166395, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 4048
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6651
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF73D63AE8
+            working = true
+            true = userdata: 000001FF33426838
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (347000, 166272, 10000)-(347001, 166273, 10001)
+            construction_group = {...}
+            counter = 4122
+            creation_time = 31655415
+            direction = 1
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackRightCCP3
+            grids_applied = true
+            handle = 6725
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 61
+            pillared = true
+            q = 251
+            r = 192
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF750868D0
+            working = true
+            true = userdata: 000001FF343B9FC0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_demolish = true
+            city = {...}
+            construct_request = work "construct" from ConstructionGroupLeader actual:0 (target:0)
+            construction_bbox = (346408, 165925, 10000)-(349350, 170237, 11081)
+            construction_cost_multiplier = 100
+            construction_costs_at_start = {...}
+            construction_group = {...}
+            construction_resources = {...}
+            counter = 4121
+            creation_time = 31655415
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            handle = 6724
+            input_shortage_time = 0
+            instant_build = false
+            is_tall = false
+            labels_applied = true
+            priority = 3
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            task_requests = {...}
+            update_thread = thread: 000001FF75085B08
+            working = true
+            true = userdata: 000001FF343FD040
+        }
+        started = false
+        track = {loop!}
+        waiting = false
+    }
+    {
+        deadline = false
+        drone = false
+        el = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            building_class = TrackGridElement
+            building_class_proto = {...}
+            can_cancel = true
+            can_demolish = true
+            city = {...}
+            connections = {...}
+            construction_bbox = (349500, 170602, 10000)-(349501, 170603, 10001)
+            construction_group = {...}
+            counter = 4128
+            creation_time = 31655415
+            direction = 0
+            display_name = userdata: FF00000000003844
+            display_name_pl = userdata: FF00000000003845
+            entity = TrackCCP3
+            grids_applied = true
+            handle = 6731
+            input_shortage_time = 0
+            is_tall = false
+            labels_applied = true
+            modifications = {...}
+            node_idx = 66
+            pillared = false
+            q = 251
+            r = 197
+            rename_allowed = false
+            resource_spots = {...}
+            shape = 0
+            signs = {}
+            track_obj = {...}
+            traverse_pitch = 0
+            update_thread = thread: 000001FF7B65CD08
+            working = true
+            true = userdata: 000001FF33386AE0
+        }
+        elements = 5
+        found = 31686195
+        held = false
+        kind = build
+        site = {
+            accumulate_maintenance_points = false
+            auto_connect = true
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+       
+						Lua 0:10:27:000
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipDrone object=FlyingDrone(2000001959) status=OK t=31698256 id=18
+						Lua 0:10:51:997
+[TrainHubDev] build dispatched: elements 5, 954 m, deadline in 29303 ms (launch 4000 + travel 13303 + work 12000) at t=31701195
+						Lua 0:10:54:868
+[TrainHubDev] engine leg out: 936 m in 13864 ms = 6752 units per s (move_speed 8960) at t=31704069
+						Lua 0:10:56:997
+[TrainHubDev] build dispatched: elements 5, 906 m, deadline in 28635 ms (launch 4000 + travel 12635 + work 12000) at t=31706195
+						Lua 0:10:59:618
+[TrainHubDev] engine leg out: 921 m in 13614 ms = 6764 units per s (move_speed 8960) at t=31708819
+						Lua 0:11:00:716
+[TrainHubDev] engine leg back: 46 m in 3721 ms = 1247 units per s (move_speed 8960) at t=31709916
+						Lua 0:11:01:997
+[TrainHubDev] build dispatched: elements 4, 868 m, deadline in 27104 ms (launch 4000 + travel 12104 + work 11000) at t=31711195
+						Lua 0:11:31:823
+[TrainHubDev] engine leg out: 908 m in 13798 ms = 6580 units per s (move_speed 8960) at t=31713936
+						Lua 0:11:34:085
+[TrainHubDev] build dispatched: elements 1, 860 m, deadline in 24000 ms (launch 4000 + travel 12000 + work 8000) at t=31716195
+						Lua 0:11:35:490
+[TrainHubDev] build done: elements 5, elapsed 31404 ms, 1108 ms after the deadline, the Wasp's stage work
+						Lua 0:11:35:491
+[TrainHubDev] build dispatched: elements 5, 824 m, deadline in 27495 ms (launch 4000 + travel 11495 + work 12000) at t=31717599
+						Lua 0:11:36:959
+[TrainHubDev] engine leg out: 868 m in 13866 ms = 6257 units per s (move_speed 8960) at t=31719071
+						Lua 0:11:39:086
+[TrainHubDev] build dispatched: elements 5, 789 m, deadline in 27010 ms (launch 4000 + travel 11010 + work 12000) at t=31721195
+						Lua 0:11:40:307
+[TrainHubDev] build done: elements 5, elapsed 31220 ms, 1150 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 756 m, deadline in 26550 ms (launch 4000 + travel 10550 + work 12000) at t=31722415
+						Lua 0:11:40:914
+[TrainHubDev] engine leg out: 820 m in 12822 ms = 6397 units per s (move_speed 8960) at t=31723027
+						Lua 0:11:42:373
+[TrainHubDev] engine leg back: 51 m in 3291 ms = 1562 units per s (move_speed 8960) at t=31724486
+						Lua 0:11:44:084
+[TrainHubDev] build dispatched: elements 5, 725 m, deadline in 26117 ms (launch 4000 + travel 10117 + work 12000) at t=31726195
+						Lua 0:12:08:774
+[TrainHubDev] engine leg out: 782 m in 12031 ms = 6504 units per s (move_speed 8960) at t=31727174
+						Lua 0:12:08:859
+[TrainHubDev] build done: elements 5, elapsed 31059 ms, 1184 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 696 m, deadline in 25715 ms (launch 4000 + travel 9715 + work 12000) at t=31727254
+						Lua 0:12:12:797
+[TrainHubDev] build dispatched: elements 5, 670 m, deadline in 25347 ms (launch 4000 + travel 9347 + work 12000) at t=31731195
+						Lua 0:12:13:100
+[TrainHubDev] engine leg back: 936 m in 13902 ms = 6734 units per s (move_speed 8960) at t=31731501
+						Lua 0:12:13:486
+[TrainHubDev] engine leg out: 775 m in 11754 ms = 6592 units per s (move_speed 8960) at t=31731887
+						Lua 0:12:13:945
+[TrainHubDev] build done: elements 5, elapsed 31146 ms, 1843 ms after the deadline, the Wasp's stage work
+						Lua 0:12:13:946
+[TrainHubDev] build dispatched: elements 5, 620 m, deadline in 24650 ms (launch 4000 + travel 8650 + work 12000) at t=31732341
+						Lua 0:12:14:498
+[TrainHubDev] engine leg out: 737 m in 11294 ms = 6530 units per s (move_speed 8960) at t=31732899
+						Lua 0:12:17:579
+[TrainHubDev] engine leg back: 921 m in 13565 ms = 6788 units per s (move_speed 8960) at t=31735980
+						Lua 0:12:17:797
+[TrainHubDev] build dispatched: elements 5, 570 m, deadline in 23952 ms (launch 4000 + travel 7952 + work 12000) at t=31736195
+						Lua 0:12:17:828
+[TrainHubDev] engine leg out: 702 m in 11024 ms = 6365 units per s (move_speed 8960) at t=31736229
+						Lua 0:12:17:900
+[TrainHubDev] build done: elements 5, elapsed 30102 ms, 1467 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 520 m, deadline in 23254 ms (launch 4000 + travel 7254 + work 12000) at t=31736297
+						Lua 0:12:18:407
+[TrainHubDev] engine leg out: 668 m in 10611 ms = 6293 units per s (move_speed 8960) at t=31736807
+						Lua 0:12:20:871
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=31739251 id=19
+						Lua 0:12:21:026
+[TrainHubDev] engine leg back: 48 m in 3231 ms = 1495 units per s (move_speed 8960) at t=31739426
+						Lua 0:12:21:036
+[TrainHubDev] build done: elements 4, elapsed 28237 ms, 1133 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 470 m, deadline in 22557 ms (launch 4000 + travel 6557 + work 12000) at t=31739432
+						Lua 0:12:21:952
+[TrainHubDev] engine leg out: 636 m in 10331 ms = 6155 units per s (move_speed 8960) at t=31740353
+						Lua 0:12:22:206
+[TrainHubDev] engine leg back: 908 m in 13353 ms = 6800 units per s (move_speed 8960) at t=31740607
+						Lua 0:12:22:572
+[TrainHubDev] engine leg out: 607 m in 9866 ms = 6148 units per s (move_speed 8960) at t=31740972
+						Lua 0:12:22:794
+[TrainHubDev] build done: elements 1, elapsed 24996 ms, 996 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 420 m, deadline in 21859 ms (launch 4000 + travel 5859 + work 12000) at t=31741191
+						Lua 0:12:22:802
+[TrainHubDev] build dispatched: elements 5, 370 m, deadline in 21162 ms (launch 4000 + travel 5162 + work 12000) at t=31741195
+						Lua 0:12:26:541
+[TrainHubDev] engine leg out: 580 m in 9923 ms = 5845 units per s (move_speed 8960) at t=31744942
+						Lua 0:12:27:043
+[TrainHubDev] engine leg back: 868 m in 13103 ms = 6621 units per s (move_speed 8960) at t=31745444
+						Lua 0:12:27:044
+[TrainHubDev] engine leg out: 530 m in 9339 ms = 5675 units per s (move_speed 8960) at t=31745444
+						Lua 0:12:27:797
+[TrainHubDev] build dispatched: elements 5, 320 m, deadline in 20464 ms (launch 4000 + travel 4464 + work 12000) at t=31746195
+						Lua 0:12:27:845
+[TrainHubDev] build done: elements 5, elapsed 28643 ms, 1148 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 270 m, deadline in 19767 ms (launch 4000 + travel 3767 + work 12000) at t=31746242
+						Lua 0:12:30:069
+[TrainHubDev] engine leg out: 430 m in 8259 ms = 5206 units per s (move_speed 8960) at t=31748470
+						Lua 0:12:30:196
+[TrainHubDev] engine leg back: 820 m in 12299 ms = 6669 units per s (move_speed 8960) at t=31748596
+						Lua 0:12:30:331
+[TrainHubDev] engine leg out: 480 m in 8727 ms = 5500 units per s (move_speed 8960) at t=31748731
+						Lua 0:12:31:135
+[TrainHubDev] build done: elements 5, elapsed 28336 ms, 1326 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 220 m, deadline in 19069 ms (launch 4000 + travel 3069 + work 12000) at t=31749531
+						Lua 0:12:31:737
+[TrainHubDev] build done: elements 5, elapsed 27718 ms, 1168 ms after the deadline, the Wasp's stage work
+[TrainHubDev] build dispatched: elements 5, 170 m, deadline in 18372 ms (launch 4000 + travel 2372 + work 12000) at t=31750133
+						Lua 0:12:32:345
+[TrainHubDev] engine leg out: 380 m in 7531 ms = 5046 units per s (move_speed 8960) at t=31750745
+						Lua 0:12:32:959
+[TrainHubDev] engine leg out: 280 m in 6378 ms = 4390 units per s (move_speed 8960) at t=31751359
+[TrainHubDev] engine leg back: 782 m in 11927 ms = 6561 units per s (move_speed 8960) at t=31751359
+						Lua 0:12:33:514
+[TrainHubDev] engine leg out: 330 m in 6960 ms = 4741 units per s (move_speed 8960) at t=31751915
+						Lua 0:12:34:585
+[TrainHubDev] engine leg back: 775 m in 11794 ms = 6570 units per s (move_speed 8960) at t=31752985
+						Lua 0:12:35:265
+[TrainHubDev] build done: elements 5, elapsed 27466 ms, 1349 ms after the deadline, the Wasp's stage work
+						Lua 0:12:35:861
+[TrainHubDev] build done: elements 5, elapsed 27004 ms, 1289 ms after the deadline, the Wasp's stage work
+						Lua 0:12:36:016
+[TrainHubDev] engine leg back: 51 m in 3222 ms = 1597 units per s (move_speed 8960) at t=31754417
+						Lua 0:12:36:948
+[TrainHubDev] engine leg out: 180 m in 5161 ms = 3488 units per s (move_speed 8960) at t=31755348
+						Lua 0:14:25:236
+[TrainHubDev] engine leg out: 230 m in 5790 ms = 3972 units per s (move_speed 8960) at t=31755772
+						Lua 0:14:26:909
+[TrainHubDev] engine leg out: 80 m in 3534 ms = 2264 units per s (move_speed 8960) at t=31757445
+						Lua 0:14:27:035
+[TrainHubDev] engine leg back: 737 m in 11329 ms = 6510 units per s (move_speed 8960) at t=31757571
+						Lua 0:14:27:579
+[TrainHubDev] engine leg out: 130 m in 4775 ms = 2723 units per s (move_speed 8960) at t=31758114
+						Lua 0:14:27:750
+[TrainHubDev] build done: elements 5, elapsed 27087 ms, 1740 ms after the deadline, the Wasp's stage work
+						Lua 0:14:28:169
+[TrainHubDev] build done: elements 5, elapsed 26359 ms, 1709 ms after the deadline, the Wasp's stage work
+						Lua 0:14:30:163
+[TrainHubDev] engine leg back: 702 m in 11167 ms = 6284 units per s (move_speed 8960) at t=31760698
+						Lua 0:14:30:329
+[TrainHubDev] engine leg back: 668 m in 10730 ms = 6223 units per s (move_speed 8960) at t=31760863
+						Lua 0:14:31:196
+[TrainHubDev] build done: elements 5, elapsed 25431 ms, 2177 ms after the deadline, the Wasp's stage work
+						Lua 0:14:31:451
+[TrainHubDev] build done: elements 5, elapsed 25788 ms, 1836 ms after the deadline, the Wasp's stage work
+						Lua 0:14:33:449
+[TrainHubDev] engine leg back: 636 m in 10324 ms = 6160 units per s (move_speed 8960) at t=31763985
+						Lua 0:14:33:477
+[TrainHubDev] build done: elements 5, elapsed 24577 ms, 2020 ms after the deadline, the Wasp's stage work
+						Lua 0:14:33:636
+[TrainHubDev] engine leg back: 607 m in 9913 ms = 6119 units per s (move_speed 8960) at t=31764171
+						Lua 0:14:34:079
+[TrainHubDev] build done: elements 5, elapsed 23416 ms, 2254 ms after the deadline, the Wasp's stage work
+						Lua 0:14:34:643
+[TrainHubDev] build done: elements 5, elapsed 23980 ms, 2121 ms after the deadline, the Wasp's stage work
+						Lua 0:14:37:215
+[TrainHubDev] engine leg back: 530 m in 9050 ms = 5856 units per s (move_speed 8960) at t=31767750
+						Lua 0:14:37:537
+[TrainHubDev] engine leg back: 580 m in 9791 ms = 5924 units per s (move_speed 8960) at t=31768073
+						Lua 0:14:38:044
+[TrainHubDev] build done: elements 5, elapsed 22334 ms, 2567 ms after the deadline, the Wasp's stage work
+						Lua 0:14:38:487
+[TrainHubDev] build done: elements 5, elapsed 22825 ms, 2361 ms after the deadline, the Wasp's stage work
+						Lua 0:14:38:797
+[TrainHubDev] engine leg back: 43 m in 3138 ms = 1381 units per s (move_speed 8960) at t=31769333
+						Lua 0:14:39:199
+[TrainHubDev] engine leg back: 430 m in 8006 ms = 5371 units per s (move_speed 8960) at t=31769734
+						Lua 0:14:39:846
+[TrainHubDev] engine leg back: 480 m in 8399 ms = 5715 units per s (move_speed 8960) at t=31770382
+						Lua 0:14:40:106
+[TrainHubDev] build done: elements 5, elapsed 20506 ms, 2134 ms after the deadline, the Wasp's stage work
+						Lua 0:14:40:586
+[TrainHubDev] engine leg back: 280 m in 6510 ms = 4301 units per s (move_speed 8960) at t=31771121
+						Lua 0:14:40:777
+[TrainHubDev] engine leg back: 380 m in 7302 ms = 5204 units per s (move_speed 8960) at t=31771311
+						Lua 0:14:40:831
+[TrainHubDev] build done: elements 5, elapsed 21823 ms, 2754 ms after the deadline, the Wasp's stage work
+						Lua 0:14:41:326
+[TrainHubDev] engine leg back: 330 m in 6691 ms = 4932 units per s (move_speed 8960) at t=31771862
+						Lua 0:14:43:111
+[TrainHubDev] engine leg back: 180 m in 5070 ms = 3550 units per s (move_speed 8960) at t=31773646
+						Lua 0:14:43:773
+[TrainHubDev] engine leg back: 80 m in 3667 ms = 2182 units per s (move_speed 8960) at t=31774306
+						Lua 0:14:44:049
+[TrainHubDev] engine leg back: 230 m in 5565 ms = 4133 units per s (move_speed 8960) at t=31774585
+						Lua 0:14:45:106
+[TrainHubDev] engine leg back: 130 m in 4288 ms = 3032 units per s (move_speed 8960) at t=31775642
+						Lua 0:14:53:910
+[TrainHubDev] engine leg back: 50 m in 3250 ms = 1525 units per s (move_speed 8960) at t=31784445
+						Lua 0:15:09:159
+[TrainHubDev] engine leg back: 59 m in 3500 ms = 1683 units per s (move_speed 8960) at t=31799695
+						Lua 0:15:23:909
+[TrainHubDev] engine leg back: 50 m in 3250 ms = 1551 units per s (move_speed 8960) at t=31814445
+						Lua 0:15:39:160
+[TrainHubDev] engine leg back: 51 m in 3500 ms = 1443 units per s (move_speed 8960) at t=31829695
+						Lua 0:17:55:851
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=31966383 id=20
+						Lua 0:17:57:680
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=31968215 id=21
+						Lua 0:17:59:283
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=31969819 id=22						Lua 0:17:59:284
+
+						Lua 0:18:02:816
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=DroneHub(1061) status=OK t=31973334 id=23
+						Lua 0:18:49:293
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32019813 id=24
+						Lua 0:18:58:743
+[TrainHubDev] repair: toggle on, switch on, fleet 5, fleet load low (500 %), vanilla load low, repairs 0 under way, 0 waiting, max 30
+{}
+						Lua 0:19:02:574
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32033109 id=25
+						Lua 0:19:03:685
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=239 status=OK truncated=false t=32034219 id=26
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=239 status=OK truncated=false t=32034219 id=26
+						Lua 0:19:54:467
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:19:54:468
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:19:54:469
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:19:54:470
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:19:54:471
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:21:02:647
+true
+						Lua 0:21:04:539
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32155060 id=27
+						Lua 0:21:07:323
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=32157858 id=28
+						Lua 0:21:24:950
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32175486 id=29
+						Lua 0:21:29:584
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32180111 id=30
+						Lua 0:21:42:579
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32193108 id=31
+						Lua 0:21:55:297
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32205830 id=32
+						Lua 0:21:57:449
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(7036) status=OK t=32207978 id=33
+						Lua 0:21:58:478
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7036) leader_valid_after=false object=ConstructionSite(7036) selected_valid_after=false status=OK t=32209004 id=34
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7036) leader_valid_after=false object=ConstructionSite(7036) selected_valid_after=false status=OK t=32209004 id=34
+						Lua 0:21:58:490
+
+!!! Quick Build !!!
+						Lua 0:21:58:501
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7037) status=OK t=32209005 id=35
+						Lua 0:21:59:026
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(7035) status=OK t=32209552 id=36
+						Lua 0:21:59:873
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7035) leader_valid_after=false object=ConstructionSite(7035) selected_valid_after=false status=OK t=32210403 id=37
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7035) leader_valid_after=false object=ConstructionSite(7035) selected_valid_after=false status=OK t=32210403 id=37
+						Lua 0:21:59:886
+
+!!! Quick Build !!!
+						Lua 0:21:59:896
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7042) status=OK t=32210403 id=38
+						Lua 0:22:01:788
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32212320 id=39
+						Lua 0:22:21:615
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7050) status=OK t=32232144 id=40
+						Lua 0:22:22:894
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=TrackGridElement completed=true group_members=6 leader=ConstructionGroupLeader(7047) leader_valid_after=false object=TrackConstructionSite(7050) selected_valid_after=false status=OK t=32233425 id=41						Lua 0:22:22:895
+
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=TrackGridElement completed=true group_members=6 leader=ConstructionGroupLeader(7047) leader_valid_after=false object=TrackConstructionSite(7050) selected_valid_after=false status=OK t=32233425 id=41
+						Lua 0:22:22:898
+
+!!! Quick Build !!!
+						Lua 0:22:22:901
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(7126) status=OK t=32233426 id=42
+						Lua 0:22:24:368
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(7129) status=OK t=32234899 id=43
+						Lua 0:22:24:695
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(7126) status=OK t=32235227 id=44
+						Lua 0:22:25:802
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(7126) status=OK valid_after=false t=32236331 id=45
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(7126) status=OK valid_after=false t=32236331 id=45
+						Lua 0:22:26:706
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(7129) status=OK t=32237238 id=46
+						Lua 0:22:27:686
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(7129) status=OK valid_after=false t=32238217 id=47
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(7129) status=OK valid_after=false t=32238217 id=47
+						Lua 0:22:29:885
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7064) status=OK t=32240415 id=48
+						Lua 0:22:31:605
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7064) status=OK valid_after=false t=32242132 id=49
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7064) status=OK valid_after=false t=32242132 id=49
+						Lua 0:22:32:270
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7071) status=OK t=32242798 id=50
+						Lua 0:22:33:342
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7071) status=OK valid_after=false t=32243875 id=51
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7071) status=OK valid_after=false t=32243875 id=51
+						Lua 0:22:34:267
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7068) status=OK t=32244797 id=52
+						Lua 0:22:35:255
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7068) status=OK valid_after=false t=32245788 id=53
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7068) status=OK valid_after=false t=32245788 id=53
+						Lua 0:22:37:638
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7061) status=OK t=32248168 id=54
+						Lua 0:22:38:681
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7061) status=OK valid_after=false t=32249214 id=55
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7061) status=OK valid_after=false t=32249214 id=55
+						Lua 0:22:39:755
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7057) status=OK t=32250286 id=56
+						Lua 0:22:40:732
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7057) status=OK valid_after=false t=32251264 id=57
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackConstructionSite(7057) status=OK valid_after=false t=32251264 id=57
+						Lua 0:22:42:650
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32253182 id=58
+						Lua 0:22:48:755
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7037) status=OK t=32259279 id=59
+						Lua 0:22:50:768
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StationSmall(7037) status=OK valid_after=false t=32261283 id=60
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StationSmall(7037) status=OK valid_after=false t=32261283 id=60
+						Lua 0:22:54:333
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32264864 id=61
+						Lua 0:23:03:069
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32273596 id=62
+						Lua 0:23:06:063
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(7352) status=OK t=32276592 id=63
+						Lua 0:23:07:315
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7352) leader_valid_after=false object=ConstructionSite(7352) selected_valid_after=false status=OK t=32277843 id=64
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(7352) leader_valid_after=false object=ConstructionSite(7352) selected_valid_after=false status=OK t=32277843 id=64
+						Lua 0:23:07:329
+
+!!! Quick Build !!!
+						Lua 0:23:07:339
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7353) status=OK t=32277843 id=65
+						Lua 0:23:35:559
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:23:35:560
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:23:35:561
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:23:41:615
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32312147 id=66
+						Lua 0:24:02:527
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32333061 id=67
+						Lua 0:24:03:930
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=32334465 id=68
+						Lua 0:24:05:839
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32336375 id=69
+						Lua 0:24:10:851
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32341382 id=70
+						Lua 0:24:11:323
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32341858 id=71
+						Lua 0:24:13:927
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32344455 id=72
+						Lua 0:24:25:201
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32355723 id=73
+						Lua 0:24:39:468
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:24:39:469
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:24:39:470
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:24:39:471
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:24:55:608
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=32386138 id=74
+						Lua 0:24:58:224
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=TrackConstructionSite(7135) status=OK t=32388753 id=75
+						Lua 0:25:00:492
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(7572) status=OK t=32391020 id=76
+						Lua 0:25:01:881
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StirlingGenerator completed=true group_members=0 leader=ConstructionSite(7572) leader_valid_after=false object=ConstructionSite(7572) selected_valid_after=false status=OK t=32392411 id=77
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StirlingGenerator completed=true group_members=0 leader=ConstructionSite(7572) leader_valid_after=false object=ConstructionSite(7572) selected_valid_after=false status=OK t=32392411 id=77
+						Lua 0:25:01:887
+
+!!! Quick Build !!!
+						Lua 0:25:01:897
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(7573) status=OK t=32392413 id=78
+						Lua 0:25:15:582
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32406097 id=79
+						Lua 0:25:56:346
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32446869 id=80
+						Lua 0:26:04:338
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7042) status=OK t=32454862 id=81
+						Lua 0:26:05:184
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StirlingGenerator(7573) status=OK t=32455711 id=82
+						Lua 0:26:18:352
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32468874 id=83
+						Lua 0:26:47:759
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32498281 id=84
+						Lua 0:26:57:051
+[TrainHubDev] repair: toggle on, switch on, fleet 5, fleet load low (500 %), vanilla load low, repairs 0 under way, 0 waiting, max 60
+{}
+						Lua 0:27:00:617
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32511152 id=85
+						Lua 0:27:01:995
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=32512529 id=86
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=32512529 id=86
+						Lua 0:27:57:548
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32568070 id=87
+						Lua 0:28:09:931
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7042) status=OK t=32580453 id=88
+						Lua 0:28:11:971
+GRAPH OFF
+						Lua 0:28:14:549
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=32585082 id=89
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=300 status=OK truncated=true t=32585082 id=89
+						Lua 0:29:02:649
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32633184 id=90
+						Lua 0:29:08:306
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32638841 id=91
+						Lua 0:29:09:813
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=32640349 id=92
+						Lua 0:29:11:670
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32642205 id=93
+						Lua 0:29:20:336
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=32650871 id=94
+						Lua 0:29:25:614
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0081 fallback=false label="Screenshot 0081" mark=365 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0081.png status=OK t=32656150 id=95
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0081 fallback=false label="Screenshot 0081" mark=365 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0081.png status=OK t=32656150 id=95
+						Lua 0:29:25:615
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32656150 id=96
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32656150 id=96
+						Lua 0:29:25:660
+[TrainHubDev] repair dispatched: elements 0, 286 m, deadline in 14992 ms (launch 4000 + travel 3992 + work 7000) at t=32656195
+						Lua 0:29:30:814
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0082 fallback=false label="Screenshot 0082" mark=368 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0082.png status=OK t=32661349 id=97
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0082 fallback=false label="Screenshot 0082" mark=368 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0082.png status=OK t=32661349 id=97
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32661349 id=98
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32661349 id=98
+						Lua 0:29:35:517
+[TrainHubDev] engine leg out: 197 m in 5000 ms = 3934 units per s (move_speed 8960) at t=32666053
+						Lua 0:29:43:651
+[TrainHubDev] repair done: elements 0, elapsed 17976 ms, 2984 ms after the deadline, the Wasp's stage work
+						Lua 0:29:43:655
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:29:43:656
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:29:43:657
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:29:48:885
+[TrainHubDev] engine leg back: 197 m in 5250 ms = 3747 units per s (move_speed 8960) at t=32679421
+						Lua 0:29:54:424
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=368 lines=21 status=OK truncated=false t=32684956 id=99
+[SMRTK] SMRTK_COPY action=copy flushed=true from=368 lines=21 status=OK truncated=false t=32684956 id=99
+						Lua 0:29:54:480
+[mod] [SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0083 fallback=false label="Screenshot 0083" mark=390 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0083.png status=OK t=32685015 id=100
+						Lua 0:29:54:481
+[SMRTK] SMRTK_MARK action=screenshot_mark capture="native accepted" capture_id=0083 fallback=false label="Screenshot 0083" mark=390 path=B:/Dev/SMR/SMR-ScreenCaptures/SMRTK_0083.png status=OK t=32685015 id=100
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32685015 id=101
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=screenshot_mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32685015 id=101
+						Lua 0:30:33:438
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7042) status=OK t=32723962 id=102
+						Lua 0:30:34:777
+GRAPH OFF
+						Lua 0:30:36:835
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=390 lines=5 status=OK truncated=false t=32727370 id=103
+[SMRTK] SMRTK_COPY action=copy flushed=true from=390 lines=5 status=OK truncated=false t=32727370 id=103
+						Lua 0:30:45:435
+[mod] [SMRTK] SMRTK_MARK action=mark label=MARK mark=396 status=OK t=32735970 id=104
+[SMRTK] SMRTK_MARK action=mark label=MARK mark=396 status=OK t=32735970 id=104
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32735970 id=105
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="trainhub post stuck test.savegame.sav" sol=46 status=OK t=32735970 id=105
+						Lua 0:30:45:917
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=32736453 id=106
+						Lua 0:31:55:003
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:31:55:004
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:31:55:005
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:32:29:249
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=World t=32839248 id=107
+						Lua 0:32:42:705
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6989) status=OK t=32852701 id=108
+						Lua 0:32:47:459
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32857445 id=109
+						Lua 0:32:50:232
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6980) status=OK t=32860226 id=110
+						Lua 0:35:09:100
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(7042) status=OK t=32999088 id=111
+						Lua 0:35:12:335
+TRACK 7042 7043 from false false to false false unbuilt 0 broken 0
+TRACK 7042 7045 from false false to false false unbuilt 0 broken 0
+						Lua 0:35:16:454
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=World t=33006453 id=112
+						Lua 0:35:17:363
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=396 lines=28 status=OK truncated=false t=33007361 id=113
+[SMRTK] SMRTK_COPY action=copy flushed=true from=396 lines=28 status=OK truncated=false t=33007361 id=113
