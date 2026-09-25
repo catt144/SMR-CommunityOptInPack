@@ -234,7 +234,6 @@ Explained, not changed:
 Open owner question: the growth gate is one chunk per 60 s window. I offered to restart the meter at each jump and require 15 s instead. **Unanswered.**
 
 Still to run:
-- A Wasp carrying a cube is never recalled.
 - `WaspPalette` "P4", for the owner to judge.
 - More than 30 jobs (item 8), now against the 25-Wasp fleet plus 5 reserved.
 - Save/reload across a demolished hub (the rest of item 9 passed 2026-09-25, below).
@@ -264,6 +263,7 @@ Seen by the owner (log `Mars.exe-20260925-13.43.07`):
 - **Growth and recall on real load.** The TestKit `CheatDelete` of the old hub left a `ResourceStockpileLR`; hauling it grew the fleet to 20 (the old steps) at 128× speed. The quick-build of the new hub deleted the pile, as vanilla's cheat path does (`ConstructionSite:OnQuickBuild` → `DestroyStockpilesUnderneath`, `ConstructionSite.lua:1682-1683`, `:1637-1643` on 1.1.1.405907); a normal build moves the piles out (`:129`). The fleet then recalled to 5.
 
 - **The door launch and recall** (`3c47ce2`): the growing fleet leaves through several doors, and recalls come home through doors. Owner: "1 is correct".
+- **Recalls take idle Wasps only:** a recall of 5 after work took no busy or cube-carrying Wasp (owner, by eye).
 - **A save and load mid-trip on the door build** (slot A): the repair still completed. The autosave is still owed: it runs vanilla's own `RequestAutosave(GetAutosaveName())` (`CommonLua/Savegame.lua:1555` on 1.1.1.405907), which can be called from the console.
 
 Bug, fixed in `ad5113b`: `door_count` crashed the flight driver. The engine's `GetSpotBeginIndex` raises "Invalid spot" on a name the body lacks; it does not return -1. The game ran the broken build until it restarted.
