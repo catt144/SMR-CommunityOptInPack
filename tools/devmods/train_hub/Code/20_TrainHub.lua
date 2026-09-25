@@ -247,6 +247,12 @@ function SMROptInTrainHubBase:ShowUISectionElectricityGrid()
 	return false
 end
 
+-- Owner ruling 2026-09-25 (OI-28): the self-powered hub shows no disconnected
+-- power-grid sign or UI warning. Both inherited checks see its own grid element.
+function SMROptInTrainHubBase:ShouldShowNotConnectedToPowerGridSign()
+	return false
+end
+
 -- ===========================================================================
 -- Geometry (the prototype's, proven in sitting 2: six connectors attached,
 -- three routes, 0 Lua errors). Computed spots are used only for names the body
