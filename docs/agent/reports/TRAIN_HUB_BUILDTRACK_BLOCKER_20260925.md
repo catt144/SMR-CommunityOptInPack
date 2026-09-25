@@ -1,6 +1,8 @@
 # Train hub build 5 — construction-group stop
 
-**Status: STOP, source audit only.** Build 5's brief says to report and stop if sequential
+**Historical stop, resolved by owner ruling `d230bd4`.** Implementation and remaining smoke:
+`TRAIN_HUB_BUILDTRACK_20260925.md`. This report records the source audit only.
+Build 5's original brief said to report and stop if sequential
 completion conflicts with the construction group's leader logic. It does. No build-track code,
 smoke, sitting, or timing measurement was made. The existing repair path and dev-mod metadata
 were not changed by this audit.
@@ -17,9 +19,10 @@ Source: archived installed game tree, **1.1.1.405907 / installed build 25390750*
 
 Build 4's persisted list **does** have `kind` (`tools/devmods/train_hub/Code/20_TrainHub.lua`,
 `track_work` and `discover_breaks`), so the other stop does not apply. The obstacle is the group's
-shared cost and completion semantics. The owner must decide whether to retain sequential,
+shared cost and completion semantics. OI-28 asked whether to retain sequential,
 per-element normal-cost construction and commission a group-accounting design, or change build 5's
-order and cost requirements. `docs/PLAYTEST_CHECKLIST.md` OI-28 holds that decision.
+order and cost requirements. The owner chose native group completion in `d230bd4`; brief 04
+records the ruling and OI-28 was removed in that commit.
 
-The brief stays live and blocked at its stated stop. Drones-chain QA C1–C6 and D14(g,h) remain
-owed by the next active hub implementation; this audit does not close or test them.
+The original audit did not implement or test the feature. The current build report tracks
+drones-chain QA C1–C6 and D14(g,h); this source audit closes none of those checks.

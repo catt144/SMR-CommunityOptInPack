@@ -260,7 +260,7 @@ assert(#S2.filed[H] == 2 and S2.filed[H][1] == "maintenance material" and S2.fil
 assert(#S1.filed[H] == 4, "a station inside the radius keeps vanilla's full service")
 assert(Station.ShouldAddRequestToCommandCenter(S2, S2.task_requests[1], S1, "res") == true, "another controller passes through to the original")
 -- the panel line and the toggle read without creating anything
-assert(H:GetHubRepairLine() == "Repair drones: 6 out / 30, 1 repair under way", H:GetHubRepairLine())
+assert(H:GetHubRepairLine() == "Repair drones: 6 out / 30, 1 track job under way", H:GetHubRepairLine())
 -- (five fleet Wasps stood up on the same tick, load low)
 assert(#H.drones == 5 and H.drones[1].name == "Repair Drone" and H.drones[1].battery == hub_drone_battery_max, "the standing fleet")
 -- Completion at the deadline: the leader's Complete, the outstanding cost paid once at 50 %.
@@ -321,7 +321,7 @@ H:SetHubTrackRepair(false); assert(H.SMROptIn_track_work.repair == false and reb
 L8 = break_track(T2, 4, 4000); clock = clock + 5000; H:HubTrackWorkTick()
 assert(#jobs == 2 and not jobs[2].deadline and jobs[2].site == L8, "recorded, not dispatched, toggle off")
 assert(ConstructionSite.IsOutsideCommandRange(L8) == true, "toggle off: the hub covers nothing, vanilla's warning returns")
-assert(H:GetHubRepairLine():find("track repair off"))
+assert(H:GetHubRepairLine():find("track work off"))
 clock = jobs[1].deadline; H:HubTrackWorkTick(); assert(L7.completed, "the repair under way completed with the toggle off")
 assert(#T2.repair_cgs == 2 and #T2.elements_under_construction == 1,
   "partially repaired track remains blocked while another group is unfinished")

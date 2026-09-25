@@ -1,9 +1,10 @@
 # Train hub build 5: the hub builds track
 
-**LIVE, fire when ready. Its hold is lifted** (2026-09-25): build 4's smoke is recorded
+**LIVE: implemented, attended smoke remains** (2026-09-25). Build receipt and remaining
+checks: `reports/TRAIN_HUB_BUILDTRACK_20260925.md`. Build 4's smoke is recorded
 (`reports/drones_chain/L5_SMOKE_20260925.md`), and build 4 itself is
 `03_Drones/DESIGN.md` with the hub half in `20_TrainHub.lua`. It is build 4's mechanism with a
-second trigger and a fixed order, on the pending list `SMROptIn_track_work` that build 4 shipped
+second trigger and native group completion, on the pending list `SMROptIn_track_work` that build 4 shipped
 with a kind field for exactly this. ⚠️ Read that build before designing: the pending list, the
 completion path and the fleet all exist now, and the drones chain's link 6 (QA) may still be
 auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongside another brief.
@@ -70,8 +71,8 @@ Build 4's brief and report. Facts from the 1.1.0.403908 source, with the line th
    stock running out mid-job; save and reload mid-job; toggle off.
 6. **Record** in the hub report and spec §10.
 
-**Done means:** a line with no drone coverage is built by the hub from stock, in order from the
-connected end, survives a reload mid-line, and a line placed before connection starts on connection.
+**Done means:** a line with no drone coverage is built by the hub from stock as a native group,
+survives a reload mid-job, and a line placed before connection starts on connection.
 
 ## Scope
 

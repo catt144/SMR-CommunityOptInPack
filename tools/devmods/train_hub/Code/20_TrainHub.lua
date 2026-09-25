@@ -2080,22 +2080,22 @@ end
 
 -- ===========================================================================
 -- TRACK WORK (build 4, drones chain link 4, 2026-09-23). The hub repairs broken track on its
--- own network from its own stock, without player action: a break becomes a pending job, the
--- hub pays the site's OUTSTANDING cost at the cheaper (SafeTransport) rate whether or not that
--- tech is researched, and completes the site at a deadline in game time. A vanilla Wasp flies
--- out and back for the look of it (30_TrainHubDrones.lua); the DEADLINE IS THE ONLY AUTHORITY
--- and the flight is advisory (DESIGN.md End state 2; owner, 2026-09-19 and 2026-09-23).
+-- own network from its own stock. Build 5 adds native new-track groups incident to that
+-- network (owner d230bd4): one group, one job, full outstanding native price. Repairs retain
+-- the SafeTransport rate. The Wasp's work-end callback completes a job; the deadline is a
+-- stuck-flight fallback (owner, 2026-09-24). Builders deliver available stock at work end,
+-- then wait for missing resources or ordinary drones' reserved deliveries before completing.
 -- Every source line below was read on the INSTALLED build 25390750 / 1.1.1.405907 from
 -- B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src.
 --
 -- SAVE CONTRACT (FIX_POLICY ban 1; inventory row 11). ONE persisted field, on hub objects,
 -- `false` until the hub first uses it:
 --   SMROptIn_track_work = {
---     repair = <bool>,             -- the player's track-repair toggle (infopanel), default true
---     jobs = { {                   -- the pending list; build 5 adds kind = "build" here and
---       kind = "repair",           --   so needs NO second persisted name
---       site = <ConstructionGroupLeader>, -- the break's repair group (Track.lua repair_cgs[i][1])
---       el = <TrackGridElement>,   -- the first broken original, the flight's target
+--     repair = <bool>,             -- Track work toggle (build + repair), default true; name retained
+--     jobs = { {
+--       kind = "repair"|"build", elements = <count for build jobs>,
+--       site = <ConstructionGroupLeader>, -- native repair or new-track group
+--       el = <TrackGridElement|TrackConstructionSite>, -- the flight target
 --       track = <TrackBase>,
 --       found = <game ms>, started = <game ms>|false, deadline = <game ms>|false,
 --       drone = <FlyingDrone>|false,          -- the visual, adopted after a load
@@ -2114,11 +2114,10 @@ end
 --   2. the hub-rooted physical graph (below), and every Station on it gets this hub as a
 --      command centre (owner, 2026-09-23), the same AddCommandCenter call vanilla makes from
 --      its hex-circle sweep (DroneControl.lua:466-468) with connectivity as the criterion;
---   3. new breaks on the graph become jobs (Track.lua repair_cgs, filled by BreakTracks,
---      Meteors.lua:713-727, before Msg("TrackBroken", track, true));
+--   3. breaks on physical edges and construction groups on incident unfinished edges become jobs;
 --   4. each job: dropped if its site is gone; dispatched when the switch, the toggle, a slot
---      and the stock allow; completed at its deadline; given a Wasp while it flies;
---   5. the fleet: vanilla's own load word (DroneControl.lua:1092-1107) picks a tier.
+--      allow (repairs also reserve stock); work completion pays, and builders wait on stock;
+--   5. the fleet: the hub's rolling idle-drone meter chooses the owner-ruled fleet tier.
 --
 -- REACHABILITY (owner, 2026-09-19; enforcement moved to dispatch, 2026-09-23): anything a
 -- repair drone following the track could reach, never an isolated network. Engine flight can
@@ -2130,7 +2129,7 @@ end
 -- it calls GetDestStation, which returns false while any element is under construction
 -- (Track.lua:339-341), so it hides exactly the broken edge and everything beyond it (EF-114).
 -- A track is an edge only while every unfinished element of it is a repair site over a broken
--- original (TrackElement.lua:139-152 `broken`); unfinished NEW track is build 5's.
+-- original (TrackElement.lua:139-152 `broken`); NEW track is queued but never traversed.
 --
 -- COMPLETION (EF-112): the live repair group's leader, ConstructionGroupLeader:Complete
 -- (ConstructionSite.lua:2671-2718), which calls each member's TrackConstructionSite:Complete
@@ -2192,6 +2191,7 @@ Floor.HubRepairTune = {
 	LaunchTime = 4000,      -- the pit rise and the exit, before the leg (measured 3944 ms)
 	FlightGrace = 100,      -- percent of the predicted trip a live Wasp may run past the deadline before the fallback completes anyway
 	WorkTime = false,       -- false = the flight's WorkTime + 2000 (both work animations)
+	BuildTimePerElement = 1000, -- game ms added to a new line's work per construction element
 	Visual = true,          -- fly a Wasp for each repair; false = deadlines only (a probe dial)
 	-- the fleet (owner, 2026-09-23): five standing idle; more as vanilla's load reads medium/high
 	Standing = 5,
@@ -2275,7 +2275,11 @@ local rising = setmetatable({}, weak_keys_meta)
 local function rising_count(self)
 	local n = 0
 	for record in pairs(rising) do
-		if record.hub == self and not record.released and IsValid(record.drone) then n = n + 1 else rising[record] = nil end
+		if record.released or not IsValid(record.drone) then
+			rising[record] = nil
+		elseif record.hub == self then
+			n = n + 1
+		end
 	end
 	return n
 end
@@ -2409,6 +2413,29 @@ local function discover_breaks(self, record, tracks, now)
 	end
 end
 
+-- Build 5, owner d230bd4: one native construction group is one job, at its outstanding
+-- normal price. The graph records unfinished incident tracks as false, never as traversable
+-- edges. Thus a queued line cannot enroll its far station before it is actually built.
+local function discover_builds(self, record, tracks, now)
+	for track, physical in pairs(tracks) do
+		if not physical then
+			for _, member in ipairs(track.elements_under_construction or empty_table) do
+				local cg = live(member) and not IsValid(member.broken) and member.construction_group
+				local leader = cg and cg[1]
+				if live(leader) and not job_for_site(record.jobs, leader) then
+					local count = 0
+					for i = 2, #cg do
+						if live(cg[i]) then count = count + 1 end
+					end
+					record.jobs[#record.jobs + 1] = { kind = "build", site = leader, el = member,
+						track = track, elements = count, found = now, started = false,
+						deadline = false, drone = false, held = false, waiting = false }
+				end
+			end
+		end
+	end
+end
+
 local function repair_rate()
 	local colony = rawget(_G, "UIColony")
 	local researched = colony and colony.IsTechResearched and colony:IsTechResearched("SafeTransport")
@@ -2475,6 +2502,10 @@ local function repair_work_time()
 	return Floor.HubRepairTune.WorkTime or ((F and F.WorkTime or 5000) + 2000)
 end
 
+local function build_extra_time(job)
+	return job.kind == "build" and Max(1, job.elements or 1) * Floor.HubRepairTune.BuildTimePerElement or 0
+end
+
 local hub_notification_id = "SMROptInTrackRepair"
 
 -- Text-only, sixty real seconds, the vanilla "TrainRefabbed" preset's shape. Runtime-created
@@ -2505,7 +2536,7 @@ local function notify_dispatch(self, job, now)
 	-- No ETA (owner, 2026-09-23): game minutes read as seconds to a player, and real seconds
 	-- change with the game speed.
 	AddOnScreenNotification(hub_notification_id, nil, {
-		override_text = T(909018002016, "Repair drone dispatched"),
+		override_text = job.kind == "build" and Untranslated("Track construction drone dispatched") or T(909018002016, "Repair drone dispatched"),
 		expiration = 60000,
 	}, IsValid(job.el) and { job.el } or nil, self:GetMap())
 end
@@ -2538,7 +2569,7 @@ end
 local function update_coverage(self, record)
 	local covering, now_set = can_dispatch(self, record), {}
 	for _, job in ipairs(record.jobs) do
-		if job.kind == "repair" and live(job.site) then now_set[job.site] = true end
+		if (job.kind == "repair" or job.kind == "build") and live(job.site) then now_set[job.site] = true end
 	end
 	for site, hub in pairs(covered_sites) do
 		if hub == self and not (covering and now_set[site]) then
@@ -2579,19 +2610,23 @@ local function schedule_trip(self, job, now, what)
 	local dist = IsValid(job.el) and self:GetDist2D(job.el:GetPos()) or 0
 	local travel = MulDivRound(dist, 1000, repair_speed(self))
 	job.started = now
-	job.deadline = now + tune.LaunchTime + travel + repair_work_time()
+	job.deadline = now + tune.LaunchTime + travel + repair_work_time() + build_extra_time(job)
 	job.drone = false
 	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
-	print(string.format("[TrainHubDev] repair %s: %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
-		what, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time(), now))
+	print(string.format("[TrainHubDev] %s %s: elements %d, %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
+		job.kind, what, job.elements or 0, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time() + build_extra_time(job), now))
 end
 
 local function dispatch_job(self, job, now)
-	local cost = outstanding_cost(job.site)
-	local ok, res = hold_cost(self, job, cost)
-	if not ok then
-		job.waiting = res
-		return false
+	-- Build stock is paid into native requests at the work's end. Partial deliveries remain
+	-- native supplied resources across reloads, cancellation and simultaneous ordinary drones.
+	if job.kind ~= "build" then
+		local cost = outstanding_cost(job.site)
+		local ok, res = hold_cost(self, job, cost)
+		if not ok then
+			job.waiting = res
+			return false
+		end
 	end
 	job.waiting = false
 	schedule_trip(self, job, now, "dispatched")
@@ -2605,6 +2640,25 @@ local function complete_job(self, job)
 	if not live(leader) or not leader.construction_group or leader.construction_group[1] ~= leader then
 		release_held(self, job)
 		return "gone"
+	end
+	if job.kind == "build" then
+		-- ConstructionSite:AddResource is the rover's non-yielding delivery path on
+		-- 1.1.1.405907, archived ConstructionSite.lua:1560-1575. Target excludes drone
+		-- reservations: never supply their in-flight load twice, nor consume the hub reserve.
+		local waiting
+		for res, req in pairs(leader.construction_resources or empty_table) do
+			local amount = Max(0, Min(stock_free(self, res), Min(req:GetActualAmount(), req:GetTargetAmount())))
+			if amount > 0 then
+				self:AddResource(-amount, res)
+				leader:AddResource(amount, res)
+			end
+			if req:GetActualAmount() > 0 then waiting = res end
+		end
+		if waiting then return "short", waiting end
+		leader:Complete()
+		-- Nanite's queue may defer native completion. Keep the job; resources already
+		-- delivered are zero outstanding, so a retry cannot charge them again.
+		return live(leader) and "short" or "done", "construction completion"
 	end
 	local cost = outstanding_cost(leader)
 	for res, amount in pairs(cost) do
@@ -2648,6 +2702,7 @@ local function ensure_visual(self, job, now)
 	if not F then return end
 	local record = F.Create(self)
 	if not record then return end
+	record.work_time = (F.WorkTime or 5000) + build_extra_time(job)
 	if not F.Send(record, job.el) then
 		F.Remove(record)
 		return
@@ -2668,6 +2723,7 @@ local function adopt_visual(self, job, now)
 		-- Wasp resumes outbound whatever the clock says
 		local record = F.Adopt(self, d, job.el, "out")
 		if record then
+			record.work_time = (F.WorkTime or 5000) + build_extra_time(job)
 			flights[job] = record
 			return
 		end
@@ -2969,6 +3025,9 @@ local function on_work_done(hub, drone, now)
 			if now < job.deadline then job.deadline = now end
 			work_done[job] = true
 			hub:HubTrackWorkTick()
+			-- Keep a builder at its site while stock is short. The flight polls this
+			-- synchronous callback; ordinary drones may supply or finish the group meanwhile.
+			if job.kind == "build" and table.find(track_jobs(hub), job) then return false end
 			return
 		end
 	end
@@ -2985,10 +3044,11 @@ local function live_wasp(job)
 end
 
 local function service_job(self, record, job, now, tracks, dispatched_now)
-	if job.kind ~= "repair" then return true, dispatched_now end -- build 5's jobs are not ours
+	if job.kind ~= "repair" and job.kind ~= "build" then return true, dispatched_now end
 	if not live(job.site) then return false, dispatched_now end
 	if not job.deadline then
-		if not can_dispatch(self, record) or not tracks[job.track] or dispatched_now then
+		local reachable = job.kind == "build" and tracks[job.track] ~= nil or tracks[job.track]
+		if not can_dispatch(self, record) or not reachable or dispatched_now then
 			return true, dispatched_now
 		end
 		-- A new site builds its requests after GameInit (ConstructionSite.lua:806-815, :767-768 on
@@ -3006,7 +3066,8 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 	-- by a meteor storm say, must not leave the timer to repair the track with no drone there).
 	-- One that died, was lost or never launched before its work was done is replaced from the
 	-- pit, and the trip's fallback deadline restarts with it.
-	if not work_done[job] and wasps_fly() and not live_wasp(job) then
+	if (not work_done[job] or job.kind == "build") and wasps_fly() and not live_wasp(job) then
+		work_done[job] = nil
 		flights[job] = nil
 		schedule_trip(self, job, now, "relaunched")
 		ensure_visual(self, job, now)
@@ -3025,8 +3086,8 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 		if result == "done" or result == "gone" then
 			-- the Wasp's stage at completion: "out" = deadline early, "work" = on time, "back" = late
 			local record = flights[job]
-			print(string.format("[TrainHubDev] repair %s: %d ms after the deadline, the Wasp's stage %s",
-				result, now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp")))
+			print(string.format("[TrainHubDev] %s %s: elements %d, elapsed %d ms, %d ms after the deadline, the Wasp's stage %s",
+				job.kind, result, job.elements or 0, now - (job.started or now), now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp")))
 			return false, dispatched_now
 		end
 		job.waiting = res
@@ -3046,6 +3107,7 @@ function SMROptInTrainHubBase:HubTrackWorkTick()
 	local nodes, tracks = self:HubTrackGraph()
 	register_remote_stations(self, nodes)
 	discover_breaks(self, record, tracks, now)
+	discover_builds(self, record, tracks, now)
 	local jobs = record.jobs
 	local dispatched_now, waiting_any = false, false
 	for i = #jobs, 1, -1 do
@@ -3101,7 +3163,7 @@ local function repair_flight_stage(drone)
 	for _, job in ipairs(track_jobs(hub)) do
 		if job.drone == drone then
 			local record = flights[job]
-			return record and record.stage or "out"
+			return record and record.stage or "out", job.kind
 		end
 	end
 end
@@ -3118,16 +3180,21 @@ local repair_flight_status = {
 
 local vanilla_drone_ui_command = Drone.Getui_command
 function Drone:Getui_command(...)
-	local stage = repair_flight_stage(self)
+	local stage, kind = repair_flight_stage(self)
+	if kind == "build" and stage ~= "back" and stage ~= "descent" then
+		return Untranslated(stage == "work" and "Building track / waiting for materials" or "Flying to track construction")
+	end
 	if stage and repair_flight_status[stage] then return repair_flight_status[stage] end
 	return vanilla_drone_ui_command(self, ...)
 end
 
 local vanilla_drone_dest_name = Drone.GetDestName
 function Drone:GetDestName(...)
-	local stage = repair_flight_stage(self)
+	local stage, kind = repair_flight_stage(self)
 	if stage == "back" or stage == "descent" then
 		return T(909018002021, "Going to<right><em>Train Hub</em>")
+	elseif kind == "build" then
+		return Untranslated("Going to<right><em>Track construction</em>")
 	elseif stage then
 		return T(909018002022, "Going to<right><em>Broken track</em>")
 	end
@@ -3139,12 +3206,12 @@ function SMROptInTrainHubBase:GetHubRepairLine()
 	local jobs, record = track_jobs(self)
 	local fleet, dispatched, waiting = slot_counts(self, jobs)
 	local text = string.format("Repair drones: %d out / %d", fleet + dispatched, self:GetMaxDrones())
-	if dispatched > 0 then text = text .. string.format(", %d repair%s under way", dispatched, dispatched == 1 and "" or "s") end
+	if dispatched > 0 then text = text .. string.format(", %d track job%s under way", dispatched, dispatched == 1 and "" or "s") end
 	if waiting > 0 then text = text .. string.format(", %d waiting", waiting) end
 	for _, job in ipairs(jobs) do
 		if job.waiting then text = text .. " (short of " .. tostring(job.waiting) .. ")" break end
 	end
-	if record and record.repair == false then text = text .. "; track repair off" end
+	if record and record.repair == false then text = text .. "; track work off" end
 	return Untranslated(text)
 end
 
@@ -3184,18 +3251,18 @@ local function add_hub_sections(section, context)
 			local on = IsValid(hub) and hub:HubTrackRepairEnabled()
 			self:SetIcon("UI/IconsRemaster/Sections/drone.png")
 			self:SetIconBack(on and "UI/IconsRemaster/Sections/ip_sections_on.png" or "UI/IconsRemaster/Sections/ip_sections_limit")
-			self:SetTitle(Untranslated(on and "Track repair: on" or "Track repair: off"))
+			self:SetTitle(Untranslated(on and "Track work: on" or "Track work: off"))
 			self:SetRolloverImageColor(on and "green" or "yellow", true)
 			self.OnActivate = function(self, context, gamepad)
 				local building = ResolvePropObj(context)
 				if IsValid(building) then building:SetHubTrackRepair(not building:HubTrackRepairEnabled()) end
 			end
-			self:SetRolloverTitle(Untranslated("Track repair"))
+			self:SetRolloverTitle(Untranslated("Track work"))
 			self:SetRolloverText(Untranslated(on
-				and "A break on this hub's own track network is repaired from the hub's stock: a Repair Drone flies out and the track is fixed when it finishes its work, at the Safe Transport rate. Turning this off stops new dispatches; a repair already under way still completes.<newline><newline>Current status: <em>on</em>"
-				or "No new track repairs are dispatched from this hub. Broken track on its network waits for ordinary Drones or for this to be turned on again.<newline><newline>Current status: <em>off</em>"))
-			self:SetRolloverHint(Untranslated(on and "<left_click> Stop new track repairs" or "<left_click> Resume track repairs"))
-			self:SetRolloverHintGamepad(Untranslated(on and "<ButtonA> Stop new track repairs" or "<ButtonA> Resume track repairs"))
+				and "Builds track connected to this hub's network and repairs breaks using its stock. New lines pay their remaining normal cost and finish as a group; repairs use the Safe Transport rate. A drone waits at the site if materials run short. Turning this off stops new dispatches; jobs already under way still finish.<newline><newline>Current status: <em>on</em>"
+				or "No new track construction or repairs are dispatched from this hub. Ordinary Drones keep working; jobs already under way still finish.<newline><newline>Current status: <em>off</em>"))
+			self:SetRolloverHint(Untranslated(on and "<left_click> Stop new track jobs" or "<left_click> Resume track work"))
+			self:SetRolloverHintGamepad(Untranslated(on and "<ButtonA> Stop new track jobs" or "<ButtonA> Resume track work"))
 		end,
 	}, section, context)
 end
@@ -3262,6 +3329,7 @@ end
 function OnMsg.LoadGame()
 	flights = setmetatable({}, weak_keys_meta)
 	fleet_state = setmetatable({}, weak_keys_meta)
+	work_done = setmetatable({}, weak_keys_meta)
 	loaded_pending = true
 	ensure_hub_notification()
 end

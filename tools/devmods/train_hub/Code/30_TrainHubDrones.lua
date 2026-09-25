@@ -900,7 +900,7 @@ local function work_plan(a, now)
   local at = steps[#steps] and steps[#steps].b or pose
   local bp = P(at)
   for _, state in ipairs({{"constructStart", max(1, drone:GetAnimDuration("constructStart"))},
-      {"constructIdle", F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
+      {"constructIdle", a.work_time or F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
     steps[#steps+1] = {state = state[1], start = total, finish = total + state[2], pos = at, bp = bp, owner = a.site_owner}
     total = total + state[2]
   end
@@ -985,7 +985,7 @@ function F.UpdateEngine(a, now)
     leg(a, now, "out")
   elseif stage == "work" then
     -- the hub completes the site as the Wasp lifts off, not on its next 5 s tick (L5, 2026-09-24)
-    if F.OnWorkDone then F.OnWorkDone(a.hub, a.drone, now) end
+    if F.OnWorkDone and F.OnWorkDone(a.hub, a.drone, now) == false then return F.PollTime end
     leg(a, now, "back")
   else d:LandingEnd(); F.Remove(a); return false end
   return F.PollTime
@@ -1045,7 +1045,7 @@ function F.Create(hub, started)
     name = Untranslated("Repair Drone")}, hub:GetMap())
   if not IsValid(drone) then return nil, "Wasp creation failed" end
   -- No command is started and no custom function is placed on a vanilla object.
-  -- Keep the console visual out of controller dispatch lists; L4 owns fleet integration.
+  -- Dedicated job flights stay outside controller dispatch lists; the hub owns fleet integration.
   drone:SetPos(pit[1])
   drone:TakeOff()
   drone:SetCurvature(false)
@@ -1070,9 +1070,9 @@ function F.Create(hub, started)
   return record
 end
 
--- L4: take back a Wasp that rode a save under a stock leg or hold (F.Persists), at the stage
--- the hub's persisted deadline names: "out" (still flying to the break, or holding there) or
--- "back" (the work is done by the deadline's reckoning; the next hold ends in the descent).
+-- Take back a Wasp that rode a save under a stock leg or hold (F.Persists). Pending hub
+-- jobs adopt as "out" and repeat the work pose; "back" remains available for a completed
+-- flight. The hub restores each build job's work_time before the driver's next sample.
 -- Nothing is flown here: the driver's next look treats the record exactly like one it made
 -- itself, so a leg still under way is polled and a hold is taken back within one PollTime.
 -- A Wasp under any other command is refused; the hub then sweeps it as a stray.
@@ -1168,7 +1168,7 @@ function F.Send(record, target, keep_start)
   local at = steps[#steps].b or steps[#steps].pos
   local site = P(at)
   for _, state in ipairs({{"constructStart", max(1, drone:GetAnimDuration("constructStart"))},
-      {"constructIdle", F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
+      {"constructIdle", record.work_time or F.WorkTime}, {"constructEnd", max(1, drone:GetAnimDuration("constructEnd"))}}) do
     steps[#steps+1] = {state = state[1], start = total, finish = total + state[2], pos = at, bp = site, owner = path[#path].owner}
     total = total + state[2]
   end

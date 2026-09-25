@@ -846,6 +846,36 @@ drone=assert(SpawnHubDrone(h)); assert(F.Status().mode=='engine'); ReturnHubDron
 assert(created==removed)
 """)
 
+lua.execute(r"""
+-- Build 5: a job's work time belongs to its flight. A stock-out callback holds the
+-- builder at the site; a subsequent successful callback releases the normal return.
+assert(SetHubDroneMode('engine')); clock=9900000
+local r=assert(F.Create(h)); r.work_time=17000; assert(F.Send(r,cs))
+local function until_record(cond)
+  local limit=clock+120000
+  while not cond() and clock<limit do
+    engine_step(); local wait=F.Sample(); assert(wait, 'flight unexpectedly ended'); clock=clock+wait
+  end
+  assert(cond(), 'flight condition timed out')
+end
+local callbacks=0; local supplied=false
+F.OnWorkDone=function(hub,d,now)
+  assert(hub==h and d==r.drone); callbacks=callbacks+1
+  if not supplied then return false end
+end
+until_record(function() return r.stage=='work' end)
+local idle
+for _,step in ipairs(r.plan.steps) do if step.state=='constructIdle' then idle=step end end
+assert(idle and idle.finish-idle.start==17000 and F.WorkTime~=17000, 'per-job duration')
+until_record(function() return callbacks>0 end)
+assert(r.stage=='work' and not r.drone.deleted, 'short stock keeps builder at site')
+local stop=clock+1000; edrive(stop)
+assert(r.stage=='work' and callbacks>1, 'stock-out rechecks without departing')
+supplied=true; edrive(); assert(r.drone.deleted and not r.drone.leaked, 'stock replenished: home normally')
+F.OnWorkDone=nil
+assert(created==removed)
+""")
+
 # The installed tree (1.1.1.405907): the two stock methods exist with the semantics the engine
 # mode rests on, and the archived FlightGoto, run with a solver spy, hands the destination to
 # Flight_Step and owns the path: engine mode's legs are exactly this call, under a command.

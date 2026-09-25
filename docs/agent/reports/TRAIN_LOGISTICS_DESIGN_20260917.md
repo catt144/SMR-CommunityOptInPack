@@ -3240,13 +3240,13 @@ bind build 5 and any later hub work:
   source says a stocked station builds without a drone; untested), and cargo kept aboard at a full
   hub. **Moved:** the Wasp palette default, to brief 05 and §9. **OI-26:** kept as built.
 
-### Build 5: stopped at construction-group accounting (2026-09-25)
+### Build 5: group construction implemented; attended smoke remains (2026-09-25)
 
 `TRAIN_HUB_BUILDTRACK_BLOCKER_20260925.md` records the source audit on archived installed build
 25390750 / 1.1.1.405907. New track sites share a `construction_group` leader: only it owns the
 resource and work requests, its `Complete()` completes every live member, and its cost multiplier
 prices the group. That conflicts with the owner's sequential, normal-cost-per-element requirement.
-No build-track behavior or smoke was run. The build 4 pending list already has `kind`; no new
+That source audit ran no build-track behavior or smoke. The build 4 pending list already has `kind`; no new
 persisted name is needed. The drones-chain QA corrections and ship tests remain owed.
 
 ⚖️ **Owner ruling 2026-09-25: "1 is fine" — build 5 builds a whole line as one job, the game's own
@@ -3255,3 +3255,11 @@ time scaled to the line's length (build 4's repair path); the line appears at on
 waits. Element-by-element order and per-element payment are dropped. If the pop-in reads wrong in
 the smoke, the next step is paying the cost in over the build time, still completing at once; a
 per-element accounting design is not authorised. Brief 04 carries the ruling.
+
+Implementation and desk evidence: `TRAIN_HUB_BUILDTRACK_20260925.md`. New-track groups incident
+to the physical network share the pending list and the Track work toggle with repairs. Builders
+use the native outstanding price, pay available unreserved stock at work end, and wait on a
+shortfall or ordinary drones' reserved deliveries. Each flight adds `BuildTimePerElement` per
+group member to its work animation. D14(g)'s multi-hub accounting correction passes the desk
+control. Native line times, reload, stock-out, middle-line drone coverage and the visual verdict
+remain owed by the attended smoke; build 5 is not closed.

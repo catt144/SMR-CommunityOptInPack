@@ -1,10 +1,10 @@
 {
-  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\train_hub_loaderror_motion_20260925.json --receipt B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\motion_clearance_receipt.json",
-  "head": "b63636a8094d6ad6851cd6927db0c2a2d272e9f9",
+  "command": "blender -b B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend --python-exit-code 1 --python tools/devmods/train_hub/tests/exit_clearance.py -- --motion scratch\\build5-motion.json --receipt tools\\devmods\\train_hub\\tests\\motion_clearance_receipt.json",
+  "head": "d2609ddbc551ba792979c6ed4f4444678340d6b9",
   "assets_head": "2dcb019bab82eadde637dd1e9f275015d9365a5a",
   "blend": "B:\\Dev\\SMR\\SMR-Assets\\trainhub\\blender\\TrainHub_work.blend",
   "blend_sha256": "cb39f20fa801a0c69a83b283412ba0b5de6f698cf96f8edcb6014219bc67943d",
-  "source_sha256": "2155c7796b7fb15e1a4d1473d421d5b35f2eae0c069efeeb39c8c46357f46a28",
+  "source_sha256": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b",
   "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
   "object_triangles": {
     "Hub_Portals": 1140,
@@ -4256,9 +4256,9 @@
     }
   },
   "motion": {
-    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\train_hub_loaderror_motion_20260925.json",
-    "head": "b63636a8094d6ad6851cd6927db0c2a2d272e9f9",
-    "source_sha256": "2155c7796b7fb15e1a4d1473d421d5b35f2eae0c069efeeb39c8c46357f46a28",
+    "command": "python tools/devmods/train_hub/tests/flight_smoke.py --clearance-output scratch\\build5-motion.json",
+    "head": "d2609ddbc551ba792979c6ed4f4444678340d6b9",
+    "source_sha256": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b",
     "entity_sha256": "225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1",
     "bank_angle_minutes": 900,
     "chord_horizon_ms": 0,
