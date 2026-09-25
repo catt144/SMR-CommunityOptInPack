@@ -236,7 +236,6 @@ Open owner question: the growth gate is one chunk per 60 s window. I offered to 
 Still to run:
 - `WaspPalette` "P4", for the owner to judge.
 - More than 30 jobs (item 8), now against the 25-Wasp fleet plus 5 reserved.
-- Save/reload across a demolished hub (the rest of item 9 passed 2026-09-25, below).
 - `DESIGN.md` §6 train construction (item 10).
 - Cargo unloading with the hub full (the audit: 1.1.1 changed `UnloadAll`).
 - The ring pillars by eye (item 12).
@@ -258,7 +257,7 @@ Owner rulings:
 - **The fleet steps 5 → 15 → 25, and the last 5 of 30 are held for repair flights** (`cf14791`). Owner: "it feels bad under heavy work. so 5 stays default then it jumps to 15, and then the next jump goes to 25. And the extra 5 are reserved for drone repair dispatches". Dials `Chunk2`, `Chunk3`, `RepairReserve`; the idle buffers 2 / 5 / 10 now follow the chunks. The growth gate, still one jump per 60 s window, stays an open question. **Seen:** a heavy build test on the new steps, "it works fine" (log `Mars.exe-20260925-14.14.01`, no mod error).
 
 Seen by the owner (log `Mars.exe-20260925-13.43.07`):
-- **Item 9 on a demolish.** A true salvage cannot remove the hub: a demolish leaves a ruin. Demolished with Wasps out: every Wasp was gone and the cubes were on the ground. The log shows a 1161 m repair dispatched at t=33912099 just before; the despawn prints nothing. Save/reload across it was not reported.
+- **Item 9 on a demolish.** A true salvage cannot remove the hub: a demolish leaves a ruin. Demolished with Wasps out: every Wasp was gone and the cubes were on the ground. The log shows a 1161 m repair dispatched at t=33912099 just before; the despawn prints nothing. **Save/reload across the demolished hub** (slot A, saved t=34235572, loaded t=34235864, log `Mars.exe-20260925-14.14.01`): "seems perfectly normal", with no mod error in the log. Item 9 passes.
 - **Growth and recall on real load.** The TestKit `CheatDelete` of the old hub left a `ResourceStockpileLR`; hauling it grew the fleet to 20 (the old steps) at 128× speed. The quick-build of the new hub deleted the pile, as vanilla's cheat path does (`ConstructionSite:OnQuickBuild` → `DestroyStockpilesUnderneath`, `ConstructionSite.lua:1682-1683`, `:1637-1643` on 1.1.1.405907); a normal build moves the piles out (`:129`). The fleet then recalled to 5.
 
 - **The door launch and recall** (`3c47ce2`): the growing fleet leaves through several doors, and recalls come home through doors. Owner: "1 is correct".
