@@ -62,6 +62,16 @@ each verdict.
 
 ## Notes from upstream
 
+### L5 drift, 2026-09-24 (the attended sitting, fixes built in-link under the owner's ruling)
+
+- L3's accepted fix `HandoffAt="outside"` was never made the file default: `1b32bc8`.
+- The hub dispatched before a new site's requests existed; the claim held nothing (`68ad91b`, found by the short-stock case).
+- The runtime XTemplate panel section never rendered in play, although every smoke passed it (`c73a286`). The mocks could not see it.
+- `DESIGN.md` §2's "the timer is the only authority" is overtaken: the flight is the authority and a lost Wasp is relaunched (`c764ea4`, `89330ed`). `MinVisualTime` is gone.
+- The L4 fleet tiers on vanilla's load word are replaced (`3955ab5`, `7ddb822`).
+- L5's own error: it told the owner the persist error was vanilla's and came with 1.1.1, from logs that held no saves. The audit found it was ours (`99a8cd9`'s global `WaitWakeup`).
+- L5's console lines twice failed to parse or indexed nil (a method reference without a call, `MapGet` absent in the console).
+
 ### Audit drift, 2026-09-24
 
 `reports/TRAIN_HUB_AUDIT_111_20260923.md` consumed brief 07 under its no-game-state

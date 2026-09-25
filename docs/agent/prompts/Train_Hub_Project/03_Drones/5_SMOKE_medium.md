@@ -214,3 +214,39 @@ Owner rulings, built:
 Bug fixed: dispatch now waits for the site's resource requests (`68ad91b`).
 
 Measured leg speeds at move_speed 8960: 6990-7465 units/s on long legs, 2145 on an 80 m hop.
+
+### Handoff, 2026-09-24 late (context limit; the owner is about to ask for a partial backtrack)
+
+HEAD is `dba55af`. The icon brief's peer work is uncommitted in the tree (`metadata.lua`, the template and its generated companion, `UI/`). It is not this link's; commit by pathspec.
+
+**Every change since the last notes is its own commit, so a backtrack can revert by sha.** Newest first; "seen" means the owner saw it in play:
+- `dba55af`: the fleet launches from the pit and recalls land back in it. `LaunchSpacing` is 300 ms ("a swarm coming out to assist"). New flight entry points `F.Release`, `F.Recall` and `F.OnReleased`. **Not yet seen.**
+- `7ddb822`: the fleet moves in chunks 5/10/20/30. It keeps `Buffer10` 2 / `Buffer20` 5 / `Buffer30` 10 idle, grows one chunk per `LoadWindow`, and recalls one idle Wasp at a time. `ForceFleet` is the console probe. **Seen:** 10, then 20.
+- `458f1fc`: the panel's "Drones load" line shows the fleet meter. **Seen** ("Heavy" at 10).
+- `3955ab5`: the fleet's own 60 s idle-drone meter, with vanilla's thresholds. Vanilla's `GetDroneLoad` is a 12-game-hour average (`_GameConst.lua:94-98`) and read "low" with every drone busy.
+- `c73a286`: the hub's Drones section and Track-repair toggle are built in `sectionCustom:Init`; the runtime XTemplate was registered but never rendered. **Seen and passed:** the toggle off/on, the switch off/on, a far station's maintenance serviced (log `Mars.exe-20260924-21.44.09`).
+
+Explained, not changed:
+- The "Construction not serviced by drones" rows were stale while the game was paused (`t` constant); vanilla refreshes them through game-time `Notify`, and they cleared on unpause.
+- The dome outside the 15-hex ring is genuinely uncovered.
+- "Not enough Power" was the owner's unbuilt power lines.
+
+Open owner question: the growth gate is one chunk per 60 s window. I offered to restart the meter at each jump and require 15 s instead. **Unanswered.**
+
+Still to run:
+- The pit launch and recall (`dba55af`) and its swarm feel.
+- Recalls down to 5 after the work ends; a Wasp carrying a cube is never recalled.
+- `WaspPalette` "P4", for the owner to judge.
+- More than 30 jobs (item 8).
+- A **salvaged** hub with Wasps out, one carrying a cube, and save/reload across it (item 9; meteors no longer destroy the hub).
+- `DESIGN.md` §6 train construction (item 10).
+- An autosave mid-trip.
+- Cargo unloading with the hub full (the audit: 1.1.1 changed `UnloadAll`).
+- The ring pillars by eye (item 12).
+- OI-26 in passing.
+
+Not covered by this sitting: both configurations and both toggle directions of the ship test.
+
+Close-out still owed by the final link-5 session:
+- The result into the hub report and spec §10, with the rulings from all three notes sections, where the role that obeys them reads them.
+- This file deleted with its README row, per Lifecycle.
