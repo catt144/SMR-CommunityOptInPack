@@ -845,6 +845,18 @@ local function descent_plan(a, now)
   a.remove = true
 end
 
+-- A fleet launch (owner, 2026-09-24: "anytime drones spawn or despawn they should be flying out of
+-- the pit and landing back into the pit"): at the end of the rise (and the under-deck exit with
+-- HandoffAt="outside") the Wasp leaves our driver with no command, and the hub takes it into its
+-- fleet (F.OnReleased), where vanilla's AI flies it from there.
+local function release_now(a)
+  take_back(a)
+  visuals[a] = nil
+  if a == active then active = false end
+  a.released = true
+  if F.OnReleased then F.OnReleased(a.hub, a.drone) end
+end
+
 function F.UpdateEngine(a, now)
   local d = a.drone
   if save_gate then return F.PollTime end -- the driver is gone for the save; nothing is issued
@@ -852,6 +864,11 @@ function F.UpdateEngine(a, now)
     F.Remove(a); return false
   end
   d.battery = d.battery_max
+  if a.hidden_until then
+    if now < a.hidden_until then return a.hidden_until - now end
+    d:SetVisible(true)
+    a.hidden_until = nil
+  end
   local stage, c = a.stage, d.command
   if stage == "out" or stage == "back" then
     if c == STOCK_LEG then return F.PollTime end
@@ -862,11 +879,15 @@ function F.UpdateEngine(a, now)
     stage = a.stage
   elseif stage == "ready" then
     if c ~= STOCK_HOLD then a.lost = c or "none"; F.Remove(a); return false end
-    if not a.target then
+    if not a.target and a.release then
+      if a.handoff ~= 5 then release_now(a); return false end
+      take_back(a)
+      continue_from_crest(a, now, {{p = V(a.pit[4])}, {p = V(a.pit[5])}}, "exit")
+      stage = "exit"
+    elseif not a.target then
       if now - a.hold_at >= int(div(F.HoldTimeout, 2)) then hold(a, now) end
       return F.PollTime
-    end
-    if a.handoff == 5 then
+    elseif a.handoff == 5 then
       take_back(a)
       continue_from_crest(a, now, {{p = V(a.pit[4])}, {p = V(a.pit[5])}}, "exit")
       stage = "exit"
@@ -881,7 +902,9 @@ function F.UpdateEngine(a, now)
   if wait ~= true then return wait end
   if stage == "rise" then
     hold(a, now); a.stage, a.phase = "ready", "hover"
-  elseif stage == "exit" then leg(a, now, "out")
+  elseif stage == "exit" then
+    if a.release then release_now(a); return false end
+    leg(a, now, "out")
   elseif stage == "work" then
     -- the hub completes the site as the Wasp lifts off, not on its next 5 s tick (L5, 2026-09-24)
     if F.OnWorkDone then F.OnWorkDone(a.hub, a.drone, now) end
@@ -959,6 +982,11 @@ function F.Create(hub, started)
     record.stage, record.rise_started = "rise", record.started
     record.handoff = F.HandoffAt == "outside" and 5 or 3
   end
+  -- a launch staggered into the future waits unseen on the pit floor until its turn (L5, 2026-09-24)
+  if record.started > GameTime() then
+    drone:SetVisible(false)
+    record.hidden_until = record.started
+  end
   visuals[record] = true
   start_driver()
   return record
@@ -989,6 +1017,35 @@ function F.Adopt(hub, drone, target, stage)
     phase = stage, issued = 0, state = false, visible = true, yaw = drone:GetAngle(), placed = true,
     mode = "engine", stage = stage, handoff = F.HandoffAt == "outside" and 5 or 3,
     target = target, site = site, site_owner = owner, leg_at = now, rise_started = now}
+  visuals[record] = true
+  start_driver()
+  return record
+end
+
+-- Mark a fresh launch (F.Create) as a fleet Wasp: it rises and is released instead of sent.
+function F.Release(record)
+  if not record or record.mode ~= "engine" or record.target then return nil, "Not a fresh engine launch" end
+  record.release = true
+  return record
+end
+
+-- A fleet Wasp recalled home: the engine flies it back to the pit's handoff point, our descent
+-- lands it in the pit, and it is removed there. The hub takes it off its fleet list first.
+function F.Recall(hub, drone)
+  if save_gate then return nil, "Save in progress" end
+  local pit, reason = F.PitPoints(hub)
+  if not pit then return nil, reason end
+  if not live(drone) or drone.command_center ~= hub then return nil, "Not this hub's Wasp" end
+  for record in pairs(visuals) do if record.drone == drone then return nil, "Already flying" end end
+  local now = GameTime()
+  drone.battery_max = F.BatteryMax
+  drone.battery = F.BatteryMax
+  drone:SetCurvature(false)
+  local record = {hub = hub, drone = drone, pit = pit, plan = make_plan({}, 1, {}), started = now,
+    phase = "back", issued = 0, state = false, visible = true, yaw = drone:GetAngle(), placed = true,
+    mode = "engine", stage = "back", handoff = F.HandoffAt == "outside" and 5 or 3,
+    recall = true, leg_at = now, rise_started = now}
+  leg(record, now, "back")
   visuals[record] = true
   start_driver()
   return record

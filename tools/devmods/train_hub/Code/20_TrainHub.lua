@@ -2131,6 +2131,7 @@ Floor.HubRepairTune = {
 	LoadWindow = 60000,     -- game ms of idle-drone samples averaged
 	LoadSampleTime = 5000,  -- game ms between samples (the hub's tick)
 	ForceFleet = false,     -- false = the chunks; a number pins the fleet size (a console probe)
+	LaunchSpacing = 300,    -- game ms between fleet Wasps rising from the pit: a tight swarm (owner, 2026-09-24)
 	WaspPalette = false,    -- false = vanilla's Wasp look; "P1".."P4" = the reactor's variants above
 }
 
@@ -2185,6 +2186,18 @@ end
 -- Ephemeral: flight records per job, and per-hub fleet timers. Weak-keyed, never saved.
 local flights = setmetatable({}, weak_keys_meta)
 local fleet_state = setmetatable({}, weak_keys_meta)
+
+-- Fleet Wasps rising from the pit, not yet released to the fleet list: record -> true (unsaved).
+local rising = setmetatable({}, weak_keys_meta)
+
+local function rising_count(self)
+	local n = 0
+	for record in pairs(rising) do
+		if record.hub == self and not record.released and IsValid(record.drone) then n = n + 1 else rising[record] = nil end
+	end
+	return n
+end
+
 local loaded_pending = false
 
 -- ---------------------------------------------------------------------------
@@ -2475,7 +2488,7 @@ local function slot_counts(self, jobs)
 	for _, job in ipairs(jobs) do
 		if job.deadline then dispatched = dispatched + 1 else waiting = waiting + 1 end
 	end
-	return #(self.drones or empty_table), dispatched, waiting
+	return #(self.drones or empty_table) + rising_count(self), dispatched, waiting
 end
 
 -- A trip's predicted end, from now: the fallback deadline (the Wasp's work is the completion).
@@ -2637,8 +2650,38 @@ end
 
 -- A vanilla Wasp (DESIGN.md: FlyingDrone, entity DroneJapanFlying), named, topped up, placed
 -- around the body the way DroneControl:SpawnDronesAround places one (DroneControl.lua:244-255).
+-- The hub takes a released Wasp into its fleet, where vanilla's AI flies it (Drone:SetCommandCenter
+-- inserts it into the list, Drone.lua:257-277 on 1.1.1.405907).
+local function on_released(hub, drone)
+	if not is_hub(hub) or not IsValid(drone) then return end
+	drone.name = "Repair Drone"
+	drone.battery_max = hub_drone_battery_max
+	drone.battery = hub_drone_battery_max
+	drone:SetCommandCenter(hub)
+	apply_wasp_palette(drone)
+	drone:SetCommand("Idle")
+end
+
+-- A fleet Wasp rises out of the pit (owner, 2026-09-24: "anytime drones spawn or despawn they
+-- should be flying out of the pit and landing back into the pit"), staggered by LaunchSpacing.
+-- Without the flight code it falls back to vanilla's placement around the body
+-- (DroneControl:SpawnDronesAround, DroneControl.lua:244-255).
 function SMROptInTrainHubBase:SpawnDrone()
-	if #self.drones >= self:GetMaxDrones() then return false end
+	if #self.drones + rising_count(self) >= self:GetMaxDrones() then return false end
+	local F = flight_api()
+	if F and F.Release then
+		F.OnReleased = on_released
+		local state = fleet_state[self]
+		if not state then state = {}; fleet_state[self] = state end
+		local now = GameTime()
+		local start = Max(now, state.next_launch or now)
+		state.next_launch = start + Floor.HubRepairTune.LaunchSpacing
+		local record = F.Create(self, start)
+		if not record then return false end
+		F.Release(record)
+		rising[record] = true
+		return true
+	end
 	local drone = FlyingDrone:new({ city = self.city }, self:GetMap())
 	if not IsValid(drone) then return false end
 	drone:SetCommandCenter(self)
@@ -2655,13 +2698,6 @@ function SMROptInTrainHubBase:SpawnDrone()
 	drone:SetPos(pos)
 	apply_wasp_palette(drone)
 	return true
-end
-
--- Never adopt another controller's orphaned drones (owner, 2026-09-23): vanilla's
--- DroneControl:GatherOrphanedDrones (DroneControl.lua:292 on 1.1.1.405907) takes any drone on the
--- map up to the maximum, and the fleet's recall would then delete it. Every vanilla caller goes
--- through self (DroneControl.lua:857, DroneHubExtender.lua:162), so this covers them all.
-function SMROptInTrainHubBase:GatherOrphanedDrones()
 end
 
 function SMROptInTrainHubBase:CheatSpawnDrone()
@@ -2689,7 +2725,7 @@ local function fleet_target(self, now, state, dispatched, waiting)
 	local tune = Floor.HubRepairTune
 	local cap = Max(0, tune.MaxDrones - dispatched - waiting)
 	if tune.ForceFleet then return Min(tune.ForceFleet, cap) end
-	local count = #(self.drones or empty_table)
+	local count = #(self.drones or empty_table) + rising_count(self)
 	if count < tune.Standing then return Min(tune.Standing, cap) end
 	local buffer = idle_buffer(tune, count)
 	local free_now = self:GetFreeDronesCount()
@@ -2771,7 +2807,7 @@ function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
 	local load = fleet_load(self, now, state)
 	state.load = load
 	local target = fleet_target(self, now, state, dispatched, waiting)
-	local count = #(self.drones or empty_table)
+	local count = #(self.drones or empty_table) + rising_count(self)
 	if count < target then
 		for _ = count + 1, target do
 			if not self:SpawnDrone() then break end
@@ -2786,7 +2822,12 @@ function SMROptInTrainHubBase:HubFleetTick(now, dispatched, waiting)
 			local d = idle_fleet_drone(self)
 			if d then
 				state.last_recall = now
-				if self:GetDist2D(d:GetPos()) <= tune.RecallRadius then
+				local F = flight_api()
+				if F and F.Recall and F.PitPoints(self) then
+					-- home through the pit (owner, 2026-09-24); off the fleet list first, still this hub's
+					table.remove_entry(self.drones, d)
+					if not F.Recall(self, d) then remove_repair_drone(self, d) end
+				elseif self:GetDist2D(d:GetPos()) <= tune.RecallRadius then
 					remove_repair_drone(self, d)
 				else
 					d:SetCommand("GoHome", nil, nil, nil, "ReturningToController")

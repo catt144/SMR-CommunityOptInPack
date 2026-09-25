@@ -659,6 +659,22 @@ assert(lane and crest_z and drone.calls[#drone.calls].to.Z==-2000, 'exit under t
 assert(SetHubDroneMode('engine','crest'))
 """)
 lua.execute(r"""
+-- The fleet through the pit (owner, 2026-09-24): a staggered launch waits unseen, rises, exits under
+-- the deck and is handed to the hub alive; a recalled idle Wasp flies home, lands and is removed.
+assert(SetHubDroneMode('engine','outside'))
+clock=2500000; local got=false
+F.OnReleased=function(hub,d) got={hub=hub,d=d} end
+local r=assert(F.Create(h, clock+300)); assert(F.Release(r)); assert(r.drone.visible==false, 'staggered: unseen until its turn')
+edrive()
+assert(got and got.d==r.drone and got.hub==h and r.released and not r.drone.deleted, 'released to the hub, not removed')
+assert(r.drone.command==nil and r.drone.visible==true, 'no command left, shown')
+local d=r.drone; d.command='Idle'
+assert(F.Recall(h, d)); assert(d.command=='FlightGoto', 'home by a stock leg')
+edrive(); assert(d.deleted and not d.leaked and d.calls[#d.calls].to.Z==-2000, 'landed on the pit floor and removed')
+F.OnReleased=nil
+assert(SetHubDroneMode('engine','crest'))
+""")
+lua.execute(r"""
 -- Recalls. Mid-leg: a new FlightGoto from where it is (the engine re-plans from its velocity).
 clock=3000000; drone=assert(SpawnHubDrone(h)); edrive(clock+6000); SendHubDroneTo(cs,h)
 edrive_until(function() return drone.flight and clock>=drone.flight.start+1500 end)

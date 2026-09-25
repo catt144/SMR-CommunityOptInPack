@@ -34,7 +34,7 @@ assert re.findall(r"rawset\(\s*self\s*,\s*(\w+)", plain) == ["TRACK_WORK"], "one
 assert 'local TRACK_WORK = "SMROptIn_track_work"' in plain
 assert "SMRFixPack" not in plain, "executable code carries no fix-pack reference (ban 2)"
 cmds = re.findall(r":SetCommand\(\s*\"(\w+)\"", plain)
-assert set(cmds) == {"GoHome"}, "only stock command names are written onto a drone: %r" % cmds
+assert set(cmds) == {"GoHome", "Idle"}, "only stock command names are written onto a drone (Idle hands a pit-launched Wasp to vanilla, L5): %r" % cmds
 assert "IsWorking" not in plain and "self.working" not in plain, "dispatch reads the switch, never IsWorking (owner, 2026-09-22)"
 assert "ForEachConnectedTrack" not in plain, "the one-hop helper hides broken edges (EF-114)"
 assert "FlyingDrone.CanBeControlled" in plain and "local vanilla_wasp_can_be_controlled = FlyingDrone.CanBeControlled" in plain
@@ -414,6 +414,22 @@ assert(lowest == 20 and #H.drones == 30, "3 idle of 20: never below 20, grows to
 -- no work at all: back down to the standing 5, never below
 H.free = 30; for _ = 1, 200 do clock = clock + Tune.RecallStep; H:HubTrackWorkTick() end
 assert(#H.drones == 5, "idle: down to Standing: " .. #H.drones)
+-- through the pit (owner, 2026-09-24): with the flight's Release, a launch rises before it joins the
+-- fleet, counting as out meanwhile; a recall leaves the list at once and flies home
+local made, recalled = {}, {}
+F.Release = function(r) r.release = true made[#made + 1] = r return r end
+F.Recall = function(hub, d) recalled[#recalled + 1] = d return {} end
+F.PitPoints = function() return {} end
+Tune.ForceFleet = 8; clock = clock + 5000; H:HubTrackWorkTick()
+assert(#made == 3 and #H.drones == 5, "three launches rising, not yet in the fleet: " .. #made .. " / " .. #H.drones)
+assert(made[1].hub == H and made[2].drone ~= made[1].drone)
+clock = clock + 5000; H:HubTrackWorkTick(); assert(#made == 3, "rising Wasps count as out: no second launch")
+for _, r in ipairs(made) do r.released = true; F.OnReleased(H, r.drone) end
+assert(#H.drones == 8 and H.drones[8].command == "Idle" and H.drones[8].name == "Repair Drone", "released into the fleet")
+Tune.ForceFleet = 5; H.free = 8; for _, d in ipairs(H.drones) do d.command = "Idle" end
+clock = clock + 5000; H:HubTrackWorkTick(); clock = clock + Tune.RecallDelay; H:HubTrackWorkTick()
+assert(#recalled >= 1 and #H.drones == 8 - #recalled and not recalled[1].deleted, "recalled through the pit: off the list, flying home")
+F.Release, F.Recall, F.PitPoints, F.OnReleased = nil, nil, nil, nil; Tune.ForceFleet = false; H.free = nil
 H.free = nil
 ''')
 
