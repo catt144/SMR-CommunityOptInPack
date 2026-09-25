@@ -192,3 +192,25 @@ Noticed:
 - The ruin's magenta icon is brief 06's uncommitted `display_icon` test path, not ours. Routed to 06's session through the owner.
 
 Still to run: the meteor beside the hub on the fixed build, the panel lines, short stock, toggle/switch/malfunction/dead grid, remote stations, fleet tiers, >30 jobs, destroyed hub with drones (a salvage now, since meteors no longer destroy it), §6 train construction, an autosave, the owner asks (fleet pit launch, ring pillars, OI-27).
+
+### Sitting, 2026-09-24 continued (log `Mars.exe-20260924-17.18.02` to `-21.01.51`)
+
+Passed, seen by the owner and checked in the log:
+- **Drones and the hub on one site (item 3).** The hub's 5 standing Wasps went to a break 170 m out: vanilla asks one drone per broken element (`ConstructionSite.lua:727`, 1000 build points each), capped at 10. The hub's flight finished it first. Owner: **keep the flight inside the radius too** ("simpler and less surfaces to break").
+- **A meteor on the hub.** It malfunctioned and its own drones repaired it.
+- **Short stock.** The job waited with the missing-stock sign after `68ad91b`. Vanilla's `BrokenTracks` notification is shown on every break (`TrainDisasterHandling.lua:114-118`) and was left as it is.
+- **The flight as the authority.** A far break completes during the Wasp's work stage ("0 ms after the deadline, stage work", on four trips).
+- **A despawned Wasp.** It was relaunched in 1.8 s and the repair completed at the new Wasp's work.
+- **A save/reload mid-trip.** The adopted Wasp completed at its work.
+- **A malfunctioned hub.** It dispatched and completed.
+- **Persist errors:** 0 in every log of the sitting.
+
+Owner rulings, built:
+- A break the hub is repairing reads drone-covered while its switch and toggle are on (`c2294af`).
+- The site completes at the Wasp's work end (`47a5ca6`).
+- **The flight is the authority; the deadline is only a fallback** (`c764ea4`). This overtakes `DESIGN.md` §2 "the timer is the only authority".
+- **A repair under way always has a live Wasp; a lost one is relaunched** (`89330ed`). `MinVisualTime` is removed, so L4's handoff item 2 wording above is overtaken, and adoption always resumes "out".
+
+Bug fixed: dispatch now waits for the site's resource requests (`68ad91b`).
+
+Measured leg speeds at move_speed 8960: 6990-7465 units/s on long legs, 2145 on an 80 m hop.
