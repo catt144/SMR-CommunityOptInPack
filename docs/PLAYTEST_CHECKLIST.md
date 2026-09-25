@@ -74,6 +74,13 @@ Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ## Run
 
+### OI-29 · opened 2026-09-25
+When you next run the game, load both mods and send a train through a powered hub.
+- Confirm it dwells, shows its power state, and shows no disconnected-grid warning while isolated.
+- Send the session log after the map and train ran; the two original load errors must be absent.
+- Check `[TrainHubDev]` is present, and the retail `EntitySpecPathToEntity` error is absent too.
+Home: `docs/agent/prompts/Train_Hub_Project/02_TRAIN_HUB_LOADERRORS_low.md`
+
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.
 - Paradox rejects a mod with no `image` / `preview.png` before packing.
