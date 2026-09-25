@@ -41,8 +41,8 @@ auditing them — check `git log` on `20_TrainHub.lua` and do not edit it alongs
   Keep one job per native group. Raise `Floor.HubRepairTune.MaxDrones` to 60 (it counts the fleet
   and track flights together); the fleet chunks 5 / 15 / 25 are the owner's earlier ruling and stay,
   so the added slots go to track work. A queued or broken-track **repair dispatches before any
-  queued build**, and builds never take the repair reserve. Check frame rate with a large build
-  under way.
+  queued build**, and builds never take the repair reserve. No frame-rate check: a vanilla Drone
+  Hub runs 120 drones fully teched (owner, in the sitting, from its own panel reading 20/120).
 
 ## Read first
 
