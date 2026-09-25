@@ -34,6 +34,6 @@ PlaceObj('ModItemBuildingTemplate', {
 	'disabled_in_environment', set( "Asteroid" ),
 	'desire_slider_max', 120,
 	'desired_amount', 10000,
-	'max_storage_per_resource', 150000,
+	'max_storage_per_resource', 240000,
 })
 

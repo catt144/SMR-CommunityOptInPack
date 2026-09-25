@@ -1945,6 +1945,34 @@ function SMROptInTrainHubBase:GetTotalStorageColumns()
 	return pallets * self.max_x * self.max_y
 end
 
+-- Storage back at 240000 a resource, the stacks no taller than 150000 drew (owner, 2026-09-25:
+-- "can we increase ours back up and just keep the current maximum visual we have now? We reduced it
+-- because it was clipping"; 3b4f73b had cut storage to 150000 for the look). Vanilla's
+-- MultiResourceDepotBase:RecalculateDerivedMaxZ (MultiResourceDepot.lua:125-141 on 1.1.1.405907),
+-- sized from the smaller of the two. A cube with no slot is not drawn: SetCountColumnAlloc stops
+-- at the first nil position (MultiResourceCubeVisuals.lua:180-182), and GetCubePosRelative above
+-- returns nil at max_z, so the stock past the cap is stored and simply not shown.
+local hub_visual_storage = 150000
+function SMROptInTrainHubBase:RecalculateDerivedMaxZ()
+	if not self.has_visual_cubes then return end
+	local storage = self.max_storage_per_resource
+	if not storage or storage <= 0 then return end
+	storage = Min(storage, hub_visual_storage)
+	local _, _, n = self:PartitionVisualResources()
+	if self.pending_removal then
+		for resource in pairs(self.pending_removal) do
+			if not self.storable_resources[resource] and self:TakesVisualSpace(resource) then
+				n = n + 1
+			end
+		end
+	end
+	if n == 0 then return end
+	local total_cols = self:GetTotalStorageColumns()
+	local min_cols = (n > total_cols) and 1 or (total_cols / n)
+	local denom = min_cols * const.ResourceScale
+	self.max_z = (storage + denom - 1) / denom
+end
+
 function SMROptInTrainHubBase:GetCubePosRelative(idx, placement_offset, resource)
 	local pallets, first = own_pallets(self)
 	if pallets == 0 then return Station.GetCubePosRelative(self, idx, placement_offset, resource) end
