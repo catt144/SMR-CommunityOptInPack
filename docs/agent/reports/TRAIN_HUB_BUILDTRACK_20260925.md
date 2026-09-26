@@ -255,3 +255,26 @@ The file was flushed while the process was still running. Its byte-preserved che
 `pass2_case2.json` carries the exact command/filter, HEAD, hash, complete leader membership and
 timing reconciliation. The full closed-process log will be appended after this sitting ends.
 Cases 1, 3 and 4, repair-priority/reserve in native play, and inherited QA remain unclaimed.
+
+The closed case-2 log has now been appended under its original basename
+`Mars.exe-20260925-23.29.29-6aad2d75.log`: 98706 bytes, SHA-256
+`adbec278d35fe80ce8af42ad771022ca0cdf94ede567a2144bc0484c2842e320`.
+Measured by `python scratch/build5_case3_attempt1_receipt.py` at HEAD `a2c9ce4` using
+the complete source bytes; the earlier checkpoint remains unchanged.
+
+**Case 3 first attempt: completion observed; shortage not held (2026-09-26).**
+Boot `Mars.exe-20260925-23.49.03-6aad2d75.log`, same runtime and TestKit as case 2.
+Slot 4 removed 70600 Metals at t=32762717 (`:607`); the ON read still showed zero
+(`:883`). Construction completed before a material wait was captured. The first
+final read was refused because time was running (`:1233`); the paused retry
+at t=33072446 shows Metals 42100 actual/target (`:1272`) and no active, waiting or
+candidate work, `errors=0` (`:1305`). Stock was replenished during the attempt;
+these reads do not identify the delivery source. No slot-5 refill was exercised.
+Asked whether the ordinary Drone Hub's drones built the middle, the owner replied
+"yes everything appeared normal flushed". This supports the covered-middle
+observation, not a passed shortage/refill case. Retry with incoming Metals disabled
+at the selected hub; case 3 remains open.
+
+Byte checkpoint `case3_attempt1_snapshot_Mars.exe-20260925-23.49.03-6aad2d75.log`
+and `pass2_case3_attempt1.json` in the same archive preserve this unsuccessful
+shortage attempt. The JSON records HEAD, command/filter, hash and selected raw rows.

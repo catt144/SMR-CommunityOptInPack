@@ -3420,3 +3420,10 @@ chunked appearance and overall timing ("done and yes"); `BuildTimePerElement` st
 Measured leader-by-leader counts, line times, fixture limits and the archived log checkpoint are
 in `TRAIN_HUB_BUILDTRACK_20260925.md` §"Pass 2 attended results". Cases 1, 3 and 4 remain owed;
 this closes the witnessed rework/delayed-connection leg, not build 5 or general reworked-network QA.
+
+**Build 5 pass 2 case 3 in progress, 2026-09-26.** The owner confirmed normal ordinary
+Drone Hub activity in the middle and the paused final read showed completed work with
+no recorded error. The forced drain did not hold: Metals were replenished before a
+material wait was captured. Shortage and refill remain unverified; the unsuccessful
+attempt and its log checkpoint are preserved in the build report. Cases 1 and 4 also
+remain owed; build 5 stays open.

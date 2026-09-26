@@ -1,0 +1,65 @@
+{
+  "command": "python scratch/build5_case3_attempt1_receipt.py",
+  "HEAD": "a2c9ce48798c119a9d10b7248de88d1259c7802e",
+  "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260925-23.49.03-6aad2d75.log",
+  "snapshot": "docs\\archive\\train_hub_build5_20260925\\case3_attempt1_snapshot_Mars.exe-20260925-23.49.03-6aad2d75.log",
+  "bytes": 116292,
+  "sha256": "45da1ec470938ea7cf70a470ba321a2f8d396aff9691b1a2ac47575e0a1a472f",
+  "filter": "[mod] [SMRTK] lines containing stock_change, SMRTK_ACTION, or both row=stock and res=Metals",
+  "rows": [
+    {
+      "line": 283,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=TrackGridElement(6923) status=OK valid_after=false t=32762717 id=17"
+    },
+    {
+      "line": 416,
+      "text": "[mod] [SMRTK] SMRTK_DUMP actual=70600 leg=OFF res=Metals row=stock target=70600 t=32762717 id=81"
+    },
+    {
+      "line": 448,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_2 active=0 candidate_elements=101 candidate_groups=21 errors=0 fleet=5 game_time=32762717 hub=6430 mark=59 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=97"
+    },
+    {
+      "line": 568,
+      "text": "[mod] [SMRTK] SMRTK_DUMP actual=70600 leg=READ res=Metals row=stock target=70600 t=32762717 id=155"
+    },
+    {
+      "line": 600,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=101 candidate_groups=21 errors=0 fleet=5 game_time=32762717 hub=6430 mark=133 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=171"
+    },
+    {
+      "line": 607,
+      "text": "[mod] [SMRTK] SMRTK_DUMP after=0 before=70600 delta=-70600 res=Metals row=stock_change target=0 t=32762717 id=174"
+    },
+    {
+      "line": 726,
+      "text": "[mod] [SMRTK] SMRTK_DUMP actual=0 leg=DRAINED res=Metals row=stock target=0 t=32762717 id=232"
+    },
+    {
+      "line": 759,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_4 active=0 candidate_elements=101 candidate_groups=21 errors=0 fleet=5 game_time=32762717 hub=6430 mark=210 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=248"
+    },
+    {
+      "line": 883,
+      "text": "[mod] [SMRTK] SMRTK_DUMP actual=0 leg=ON res=Metals row=stock target=0 t=32762717 id=308"
+    },
+    {
+      "line": 915,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_3 active=0 candidate_elements=101 candidate_groups=21 errors=0 fleet=5 game_time=32762717 hub=6430 mark=286 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=32762717 id=324"
+    },
+    {
+      "line": 1233,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason=\"pause first\" status=REFUSED t=32990201 id=331"
+    },
+    {
+      "line": 1272,
+      "text": "[mod] [SMRTK] SMRTK_DUMP actual=42100 leg=READ res=Metals row=stock target=42100 t=33072446 id=348"
+    },
+    {
+      "line": 1305,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=5 game_time=33072446 hub=6430 mark=530 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=33072446 id=364"
+    }
+  ],
+  "owner_observation": "yes everything appeared normal flushed",
+  "disposition": "Completion observed; shortage not held; refill not exercised. Owner confirms ordinary Drone Hub observation. No attribution of missing group to a specific drone."
+}

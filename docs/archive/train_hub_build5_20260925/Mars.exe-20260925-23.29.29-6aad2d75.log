@@ -1,0 +1,1151 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aad2d75
+Date:          	Fri Sep 18 08:24:21 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	35%
+Disk Free      	1226679 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:074
+Steam initialized (AppId 3215050)
+					Render 0:00:00:077
+Drive type for game installation: SSD, savegames: SSD
+					Render 0:00:00:078
+Language: English
+					Render 0:00:01:445
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:592
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:827
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:798
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+						Lua 0:00:02:799
+Lua revision: 405907
+Assets revision: 33225
+						Lua 0:00:02:800
+Steam AppID: 3215050
+Build version: 1.1.1.405907
+Build branch:  Release
+						Lua 0:00:08:103
+Account storage loaded successfully in 1 ms
+						Lua 0:00:08:104
+DLC norman loaded, lua revision 405907, assets revision 33225
+DLC thomas loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:08:108
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-052) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-021) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+						Lua 0:00:08:485
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:08:486
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:08:490
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=4091 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=4091 id=1
+						Lua 0:00:08:494
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:08:496
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:08:497
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] synchronous console prototype loaded; drone baselines are samples only
+						Lua 0:00:08:498
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:08:499
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:08:500
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:08:501
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:08:502
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:08:503
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied						Lua 0:00:08:504
+
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+						Lua 0:00:08:505
+[RailShaftDev] loaded: cross-map train tunnel prototype. UNVERIFIED IN GAME.
+						Lua 0:00:09:184
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:09:256
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:09:344
+Reloading done in 1236 ms
+						Lua 0:00:09:346
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:09:390
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=4091 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=4091 id=2
+						Lua 0:00:09:758
+[preset] Preset postprocess took 153 ms.
+						Lua 0:00:09:804
+482 / 482 particle streams loaded in 39 ms.
+5 / 5 particle streams loaded in 0 ms.
+						Lua 0:00:09:806
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:10:014
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:10:015
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:10:107
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=4091 id=3
+						Lua 0:00:10:140
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=4091 id=4
+						Lua 0:00:10:155
+[mod] Loaded mod items for: SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityFixPack, SMR_CommunityOptInPack, SMR_RailShaftDev_20260923
+						Lua 0:00:10:404
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:10:405
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:10:499
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=4091 id=5
+						Lua 0:00:11:012
+[PdxSDK] Started up. Took 1137
+						Lua 0:00:11:415
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:11:562
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:01:23:200
+Load Game: 
+	lua_revision: 405907 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923 
+						Lua 0:01:23:205
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:01:26:185
+*** Assets reloaded in 3.0 s, read 359.0 MB, read speed 120.5 MB/s, average read 8137 bytes.
+						Lua 0:01:27:238
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=76158 id=6
+						Lua 0:01:28:167
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=76158 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=76158 id=7
+						Lua 0:01:30:220
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:30:221
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:01:30:222
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:01:30:223
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:01:30:226
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+[RailShaftDev] loaded; underground is locked in this save, so the tunnel stays surface-only.
+[RailShaftDev] ready. SMRRailShaft.Status() for where things stand.
+						Lua 0:01:30:340
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: NASA, Brazil, paradox
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:30:391
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:01:30:392
+Game Loaded in 7193 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=19 last=copy last_id=2217 present=true session=1790392144:180417242:39543104:290418134 t=32762717 id=8
+[SMRTK] SMRTK_PROVENANCE actions=19 last=copy last_id=2217 present=true session=1790392144:180417242:39543104:290418134 t=32762717 id=8
+						Lua 0:01:30:401
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=32762717 id=9
+						Lua 0:01:30:414
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=32762717 id=10
+						Lua 0:01:30:419
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:30:530
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=32762717 id=11
+						Lua 0:01:31:160
+Game loaded on map BlankBig_01 in 8088 ms
+						Lua 0:01:31:472
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Agent t=32762717 id=12
+						Lua 0:01:35:021
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=Agent t=32762717 id=13
+						Lua 0:01:38:339
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=Agent t=32762717 id=14
+						Lua 0:01:39:153
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=32762717 id=15
+						Lua 0:01:49:782
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_TOPOLOGY_BOOT mark=51 status=OK t=32762717 id=16
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_TOPOLOGY_BOOT mark=51 status=OK t=32762717 id=16
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=17
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=17
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=32762717 id=18
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=32762717 id=18
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=32762717 id=19
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=32762717 id=19
+[mod] [SMRTK] SMRTK_ACTION action=slot_scratch errors=0 sitting=build5_pass2_topology status=OK t=32762717 id=20
+[SMRTK] SMRTK_ACTION action=slot_scratch errors=0 sitting=build5_pass2_topology status=OK t=32762717 id=20
+						Lua 0:01:52:904
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_TOGGLE_false mark=56 status=OK t=32762717 id=21
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_TOGGLE_false mark=56 status=OK t=32762717 id=21
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=22
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=22
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_OFF mark=58 status=OK t=32762717 id=23
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_OFF mark=58 status=OK t=32762717 id=23
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=24
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=24
+						Lua 0:01:52:911
+[mod] [SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=OFF row=candidate site=7372 track=7360 t=32762717 id=25
+[SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=OFF row=candidate site=7372 track=7360 t=32762717 id=25
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7372 target=200 t=32762717 id=26
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7372 target=200 t=32762717 id=26
+[mod] [SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=OFF row=candidate site=7485 track=7360 t=32762717 id=27
+[SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=OFF row=candidate site=7485 track=7360 t=32762717 id=27
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7485 target=200 t=32762717 id=28
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7485 target=200 t=32762717 id=28
+[mod] [SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=OFF row=candidate site=7503 track=7504 t=32762717 id=29
+[SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=OFF row=candidate site=7503 track=7504 t=32762717 id=29
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7503 target=200 t=32762717 id=30
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7503 target=200 t=32762717 id=30
+						Lua 0:01:52:912
+[mod] [SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=OFF row=candidate site=7522 track=7504 t=32762717 id=31
+[SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=OFF row=candidate site=7522 track=7504 t=32762717 id=31
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7522 target=200 t=32762717 id=32
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7522 target=200 t=32762717 id=32
+[mod] [SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=OFF row=candidate site=7497 track=7360 t=32762717 id=33
+[SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=OFF row=candidate site=7497 track=7360 t=32762717 id=33
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7497 target=200 t=32762717 id=34
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7497 target=200 t=32762717 id=34
+[mod] [SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=OFF row=candidate site=7420 track=7360 t=32762717 id=35
+[SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=OFF row=candidate site=7420 track=7360 t=32762717 id=35
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7420 target=200 t=32762717 id=36
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7420 target=200 t=32762717 id=36
+[mod] [SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=OFF row=candidate site=7491 track=7360 t=32762717 id=37
+[SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=OFF row=candidate site=7491 track=7360 t=32762717 id=37
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7491 target=200 t=32762717 id=38
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7491 target=200 t=32762717 id=38
+[mod] [SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=OFF row=candidate site=7479 track=7360 t=32762717 id=39
+[SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=OFF row=candidate site=7479 track=7360 t=32762717 id=39
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7479 target=200 t=32762717 id=40
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7479 target=200 t=32762717 id=40
+[mod] [SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=OFF row=candidate site=7552 track=7504 t=32762717 id=41
+[SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=OFF row=candidate site=7552 track=7504 t=32762717 id=41
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7552 target=200 t=32762717 id=42
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7552 target=200 t=32762717 id=42
+[mod] [SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=OFF row=candidate site=7378 track=7360 t=32762717 id=43
+[SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=OFF row=candidate site=7378 track=7360 t=32762717 id=43
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7378 target=200 t=32762717 id=44
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7378 target=200 t=32762717 id=44
+[mod] [SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=OFF row=candidate site=7570 track=7504 t=32762717 id=45
+[SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=OFF row=candidate site=7570 track=7504 t=32762717 id=45
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7570 target=200 t=32762717 id=46
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7570 target=200 t=32762717 id=46
+[mod] [SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=OFF row=candidate site=7414 track=7360 t=32762717 id=47
+[SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=OFF row=candidate site=7414 track=7360 t=32762717 id=47
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7414 target=200 t=32762717 id=48
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7414 target=200 t=32762717 id=48
+[mod] [SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=OFF row=candidate site=7366 track=7360 t=32762717 id=49
+[SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=OFF row=candidate site=7366 track=7360 t=32762717 id=49
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7366 target=200 t=32762717 id=50
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7366 target=200 t=32762717 id=50
+[mod] [SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=OFF row=candidate site=7359 track=7360 t=32762717 id=51
+[SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=OFF row=candidate site=7359 track=7360 t=32762717 id=51
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7359 target=200 t=32762717 id=52
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7359 target=200 t=32762717 id=52
+[mod] [SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=OFF row=candidate site=7564 track=7504 t=32762717 id=53
+[SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=OFF row=candidate site=7564 track=7504 t=32762717 id=53
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7564 target=200 t=32762717 id=54
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7564 target=200 t=32762717 id=54
+[mod] [SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=OFF row=candidate site=7510 track=7504 t=32762717 id=55
+[SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=OFF row=candidate site=7510 track=7504 t=32762717 id=55
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7510 target=200 t=32762717 id=56
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7510 target=200 t=32762717 id=56
+[mod] [SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=OFF row=candidate site=7426 track=7360 t=32762717 id=57
+[SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=OFF row=candidate site=7426 track=7360 t=32762717 id=57
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7426 target=200 t=32762717 id=58
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7426 target=200 t=32762717 id=58
+[mod] [SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=OFF row=candidate site=7408 track=7360 t=32762717 id=59
+[SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=OFF row=candidate site=7408 track=7360 t=32762717 id=59
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7408 target=200 t=32762717 id=60
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7408 target=200 t=32762717 id=60
+[mod] [SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=OFF row=candidate site=7516 track=7504 t=32762717 id=61
+[SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=OFF row=candidate site=7516 track=7504 t=32762717 id=61
+						Lua 0:01:52:913
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7516 target=200 t=32762717 id=62
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7516 target=200 t=32762717 id=62
+[mod] [SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=OFF row=candidate site=7558 track=7504 t=32762717 id=63
+[SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=OFF row=candidate site=7558 track=7504 t=32762717 id=63
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7558 target=200 t=32762717 id=64
+[SMRTK] SMRTK_DUMP actual=200 leg=OFF res=Metals row=demand site=7558 target=200 t=32762717 id=64
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=2007 on_graph=true row=network_station t=32762717 id=65
+[SMRTK] SMRTK_DUMP leg=OFF object=2007 on_graph=true row=network_station t=32762717 id=65
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=2008 on_graph=true row=network_station t=32762717 id=66
+[SMRTK] SMRTK_DUMP leg=OFF object=2008 on_graph=true row=network_station t=32762717 id=66
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=7353 on_graph=false row=network_station t=32762717 id=67
+[SMRTK] SMRTK_DUMP leg=OFF object=7353 on_graph=false row=network_station t=32762717 id=67
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=2009 on_graph=true row=network_station t=32762717 id=68
+[SMRTK] SMRTK_DUMP leg=OFF object=2009 on_graph=true row=network_station t=32762717 id=68
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=6430 on_graph=true row=network_station t=32762717 id=69
+[SMRTK] SMRTK_DUMP leg=OFF object=6430 on_graph=true row=network_station t=32762717 id=69
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=1994 on_graph=true row=network_station t=32762717 id=70
+[SMRTK] SMRTK_DUMP leg=OFF object=1994 on_graph=true row=network_station t=32762717 id=70
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=2011 on_graph=true row=network_station t=32762717 id=71
+[SMRTK] SMRTK_DUMP leg=OFF object=2011 on_graph=true row=network_station t=32762717 id=71
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=2012 on_graph=true row=network_station t=32762717 id=72
+[SMRTK] SMRTK_DUMP leg=OFF object=2012 on_graph=true row=network_station t=32762717 id=72
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=7042 on_graph=false row=network_station t=32762717 id=73
+[SMRTK] SMRTK_DUMP leg=OFF object=7042 on_graph=false row=network_station t=32762717 id=73
+						Lua 0:01:52:914
+[mod] [SMRTK] SMRTK_DUMP leg=OFF object=6243 on_graph=true row=network_station t=32762717 id=74
+[SMRTK] SMRTK_DUMP leg=OFF object=6243 on_graph=true row=network_station t=32762717 id=74
+[mod] [SMRTK] SMRTK_DUMP actual=66000 leg=OFF res=Spices row=stock target=66000 t=32762717 id=75
+[SMRTK] SMRTK_DUMP actual=66000 leg=OFF res=Spices row=stock target=66000 t=32762717 id=75
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=OFF res=WasteRock row=stock target=73000 t=32762717 id=76
+[SMRTK] SMRTK_DUMP actual=73000 leg=OFF res=WasteRock row=stock target=73000 t=32762717 id=76
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Fuel row=stock target=67000 t=32762717 id=77
+[SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Fuel row=stock target=67000 t=32762717 id=77
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=OFF res=Butter row=stock target=65000 t=32762717 id=78
+[SMRTK] SMRTK_DUMP actual=65000 leg=OFF res=Butter row=stock target=65000 t=32762717 id=78
+[mod] [SMRTK] SMRTK_DUMP actual=63000 leg=OFF res=Meat row=stock target=63000 t=32762717 id=79
+[SMRTK] SMRTK_DUMP actual=63000 leg=OFF res=Meat row=stock target=63000 t=32762717 id=79
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=PreciousMetals row=stock target=67000 t=32762717 id=80
+[SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=PreciousMetals row=stock target=67000 t=32762717 id=80
+[mod] [SMRTK] SMRTK_DUMP actual=70600 leg=OFF res=Metals row=stock target=70600 t=32762717 id=81
+[SMRTK] SMRTK_DUMP actual=70600 leg=OFF res=Metals row=stock target=70600 t=32762717 id=81
+[mod] [SMRTK] SMRTK_DUMP actual=59000 leg=OFF res=Sugar row=stock target=59000 t=32762717 id=82
+[SMRTK] SMRTK_DUMP actual=59000 leg=OFF res=Sugar row=stock target=59000 t=32762717 id=82
+[mod] [SMRTK] SMRTK_DUMP actual=72000 leg=OFF res=Coffee row=stock target=72000 t=32762717 id=83
+[SMRTK] SMRTK_DUMP actual=72000 leg=OFF res=Coffee row=stock target=72000 t=32762717 id=83
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=OFF res=Concrete row=stock target=73000 t=32762717 id=84
+[SMRTK] SMRTK_DUMP actual=73000 leg=OFF res=Concrete row=stock target=73000 t=32762717 id=84
+[mod] [SMRTK] SMRTK_DUMP actual=71000 leg=OFF res=MachineParts row=stock target=71000 t=32762717 id=85
+[SMRTK] SMRTK_DUMP actual=71000 leg=OFF res=MachineParts row=stock target=71000 t=32762717 id=85
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=Bread row=stock target=69000 t=32762717 id=86
+[SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=Bread row=stock target=69000 t=32762717 id=86
+[mod] [SMRTK] SMRTK_DUMP actual=64000 leg=OFF res=Food row=stock target=64000 t=32762717 id=87
+[SMRTK] SMRTK_DUMP actual=64000 leg=OFF res=Food row=stock target=64000 t=32762717 id=87
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Herbs row=stock target=67000 t=32762717 id=88
+[SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Herbs row=stock target=67000 t=32762717 id=88
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Polymers row=stock target=67000 t=32762717 id=89
+[SMRTK] SMRTK_DUMP actual=67000 leg=OFF res=Polymers row=stock target=67000 t=32762717 id=89
+[mod] [SMRTK] SMRTK_DUMP actual=70000 leg=OFF res=Electronics row=stock target=67200 t=32762717 id=90
+[SMRTK] SMRTK_DUMP actual=70000 leg=OFF res=Electronics row=stock target=67200 t=32762717 id=90
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=PreciousMinerals row=stock target=69000 t=32762717 id=91
+[SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=PreciousMinerals row=stock target=69000 t=32762717 id=91
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=Seeds row=stock target=69000 t=32762717 id=92
+[SMRTK] SMRTK_DUMP actual=69000 leg=OFF res=Seeds row=stock target=69000 t=32762717 id=92
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=OFF res=Cheese row=stock target=65000 t=32762717 id=93
+[SMRTK] SMRTK_DUMP actual=65000 leg=OFF res=Cheese row=stock target=65000 t=32762717 id=93
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=58 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=94
+[SMRTK] SMRTK_ACTION action=slot_2 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=58 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=94
+						Lua 0:01:56:241
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_READ mark=130 status=OK t=32762717 id=95
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_READ mark=130 status=OK t=32762717 id=95
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=96
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=96
+						Lua 0:01:56:249
+[mod] [SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=READ row=candidate site=7372 track=7360 t=32762717 id=97
+[SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=READ row=candidate site=7372 track=7360 t=32762717 id=97
+						Lua 0:01:56:250
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7372 target=200 t=32762717 id=98
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7372 target=200 t=32762717 id=98
+[mod] [SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=READ row=candidate site=7485 track=7360 t=32762717 id=99
+[SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=READ row=candidate site=7485 track=7360 t=32762717 id=99
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7485 target=200 t=32762717 id=100
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7485 target=200 t=32762717 id=100
+[mod] [SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=READ row=candidate site=7503 track=7504 t=32762717 id=101
+[SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=READ row=candidate site=7503 track=7504 t=32762717 id=101
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7503 target=200 t=32762717 id=102
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7503 target=200 t=32762717 id=102
+[mod] [SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=READ row=candidate site=7522 track=7504 t=32762717 id=103
+[SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=READ row=candidate site=7522 track=7504 t=32762717 id=103
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7522 target=200 t=32762717 id=104
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7522 target=200 t=32762717 id=104
+[mod] [SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=READ row=candidate site=7497 track=7360 t=32762717 id=105
+[SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=READ row=candidate site=7497 track=7360 t=32762717 id=105
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7497 target=200 t=32762717 id=106
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7497 target=200 t=32762717 id=106
+[mod] [SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=READ row=candidate site=7420 track=7360 t=32762717 id=107
+[SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=READ row=candidate site=7420 track=7360 t=32762717 id=107
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7420 target=200 t=32762717 id=108
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7420 target=200 t=32762717 id=108
+[mod] [SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=READ row=candidate site=7491 track=7360 t=32762717 id=109
+[SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=READ row=candidate site=7491 track=7360 t=32762717 id=109
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7491 target=200 t=32762717 id=110
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7491 target=200 t=32762717 id=110
+[mod] [SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=READ row=candidate site=7479 track=7360 t=32762717 id=111
+[SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=READ row=candidate site=7479 track=7360 t=32762717 id=111
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7479 target=200 t=32762717 id=112
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7479 target=200 t=32762717 id=112
+[mod] [SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=READ row=candidate site=7552 track=7504 t=32762717 id=113
+[SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=READ row=candidate site=7552 track=7504 t=32762717 id=113
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7552 target=200 t=32762717 id=114
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7552 target=200 t=32762717 id=114
+[mod] [SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=READ row=candidate site=7378 track=7360 t=32762717 id=115
+[SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=READ row=candidate site=7378 track=7360 t=32762717 id=115
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7378 target=200 t=32762717 id=116
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7378 target=200 t=32762717 id=116
+[mod] [SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=READ row=candidate site=7570 track=7504 t=32762717 id=117
+[SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=READ row=candidate site=7570 track=7504 t=32762717 id=117
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7570 target=200 t=32762717 id=118
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7570 target=200 t=32762717 id=118
+[mod] [SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=READ row=candidate site=7414 track=7360 t=32762717 id=119
+[SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=READ row=candidate site=7414 track=7360 t=32762717 id=119
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7414 target=200 t=32762717 id=120
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7414 target=200 t=32762717 id=120
+[mod] [SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=READ row=candidate site=7366 track=7360 t=32762717 id=121
+[SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=READ row=candidate site=7366 track=7360 t=32762717 id=121
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7366 target=200 t=32762717 id=122
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7366 target=200 t=32762717 id=122
+[mod] [SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=READ row=candidate site=7359 track=7360 t=32762717 id=123
+[SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=READ row=candidate site=7359 track=7360 t=32762717 id=123
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7359 target=200 t=32762717 id=124
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7359 target=200 t=32762717 id=124
+[mod] [SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=READ row=candidate site=7564 track=7504 t=32762717 id=125
+[SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=READ row=candidate site=7564 track=7504 t=32762717 id=125
+						Lua 0:01:56:251
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7564 target=200 t=32762717 id=126
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7564 target=200 t=32762717 id=126
+[mod] [SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=READ row=candidate site=7510 track=7504 t=32762717 id=127
+[SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=READ row=candidate site=7510 track=7504 t=32762717 id=127
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7510 target=200 t=32762717 id=128
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7510 target=200 t=32762717 id=128
+[mod] [SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=READ row=candidate site=7426 track=7360 t=32762717 id=129
+[SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=READ row=candidate site=7426 track=7360 t=32762717 id=129
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7426 target=200 t=32762717 id=130
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7426 target=200 t=32762717 id=130
+[mod] [SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=READ row=candidate site=7408 track=7360 t=32762717 id=131
+[SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=READ row=candidate site=7408 track=7360 t=32762717 id=131
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7408 target=200 t=32762717 id=132
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7408 target=200 t=32762717 id=132
+[mod] [SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=READ row=candidate site=7516 track=7504 t=32762717 id=133
+[SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=READ row=candidate site=7516 track=7504 t=32762717 id=133
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7516 target=200 t=32762717 id=134
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7516 target=200 t=32762717 id=134
+[mod] [SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=READ row=candidate site=7558 track=7504 t=32762717 id=135
+[SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=READ row=candidate site=7558 track=7504 t=32762717 id=135
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7558 target=200 t=32762717 id=136
+[SMRTK] SMRTK_DUMP actual=200 leg=READ res=Metals row=demand site=7558 target=200 t=32762717 id=136
+						Lua 0:01:56:252
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2007 on_graph=true row=network_station t=32762717 id=137
+[SMRTK] SMRTK_DUMP leg=READ object=2007 on_graph=true row=network_station t=32762717 id=137
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2008 on_graph=true row=network_station t=32762717 id=138
+[SMRTK] SMRTK_DUMP leg=READ object=2008 on_graph=true row=network_station t=32762717 id=138
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=7353 on_graph=false row=network_station t=32762717 id=139
+[SMRTK] SMRTK_DUMP leg=READ object=7353 on_graph=false row=network_station t=32762717 id=139
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2009 on_graph=true row=network_station t=32762717 id=140
+[SMRTK] SMRTK_DUMP leg=READ object=2009 on_graph=true row=network_station t=32762717 id=140
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=6430 on_graph=true row=network_station t=32762717 id=141
+[SMRTK] SMRTK_DUMP leg=READ object=6430 on_graph=true row=network_station t=32762717 id=141
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=1994 on_graph=true row=network_station t=32762717 id=142
+[SMRTK] SMRTK_DUMP leg=READ object=1994 on_graph=true row=network_station t=32762717 id=142
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2011 on_graph=true row=network_station t=32762717 id=143
+[SMRTK] SMRTK_DUMP leg=READ object=2011 on_graph=true row=network_station t=32762717 id=143
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2012 on_graph=true row=network_station t=32762717 id=144
+[SMRTK] SMRTK_DUMP leg=READ object=2012 on_graph=true row=network_station t=32762717 id=144
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=7042 on_graph=false row=network_station t=32762717 id=145
+[SMRTK] SMRTK_DUMP leg=READ object=7042 on_graph=false row=network_station t=32762717 id=145
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=6243 on_graph=true row=network_station t=32762717 id=146
+[SMRTK] SMRTK_DUMP leg=READ object=6243 on_graph=true row=network_station t=32762717 id=146
+[mod] [SMRTK] SMRTK_DUMP actual=66000 leg=READ res=Spices row=stock target=66000 t=32762717 id=147
+[SMRTK] SMRTK_DUMP actual=66000 leg=READ res=Spices row=stock target=66000 t=32762717 id=147
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=READ res=WasteRock row=stock target=73000 t=32762717 id=148
+[SMRTK] SMRTK_DUMP actual=73000 leg=READ res=WasteRock row=stock target=73000 t=32762717 id=148
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Fuel row=stock target=67000 t=32762717 id=149
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Fuel row=stock target=67000 t=32762717 id=149
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Butter row=stock target=65000 t=32762717 id=150
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Butter row=stock target=65000 t=32762717 id=150
+[mod] [SMRTK] SMRTK_DUMP actual=63000 leg=READ res=Meat row=stock target=63000 t=32762717 id=151
+[SMRTK] SMRTK_DUMP actual=63000 leg=READ res=Meat row=stock target=63000 t=32762717 id=151
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=PreciousMetals row=stock target=67000 t=32762717 id=152
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=PreciousMetals row=stock target=67000 t=32762717 id=152
+[mod] [SMRTK] SMRTK_DUMP actual=70600 leg=READ res=Metals row=stock target=70600 t=32762717 id=153
+[SMRTK] SMRTK_DUMP actual=70600 leg=READ res=Metals row=stock target=70600 t=32762717 id=153
+[mod] [SMRTK] SMRTK_DUMP actual=59000 leg=READ res=Sugar row=stock target=59000 t=32762717 id=154
+[SMRTK] SMRTK_DUMP actual=59000 leg=READ res=Sugar row=stock target=59000 t=32762717 id=154
+[mod] [SMRTK] SMRTK_DUMP actual=72000 leg=READ res=Coffee row=stock target=72000 t=32762717 id=155
+[SMRTK] SMRTK_DUMP actual=72000 leg=READ res=Coffee row=stock target=72000 t=32762717 id=155
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=READ res=Concrete row=stock target=73000 t=32762717 id=156
+[SMRTK] SMRTK_DUMP actual=73000 leg=READ res=Concrete row=stock target=73000 t=32762717 id=156
+[mod] [SMRTK] SMRTK_DUMP actual=71000 leg=READ res=MachineParts row=stock target=71000 t=32762717 id=157
+[SMRTK] SMRTK_DUMP actual=71000 leg=READ res=MachineParts row=stock target=71000 t=32762717 id=157
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=READ res=Bread row=stock target=69000 t=32762717 id=158
+[SMRTK] SMRTK_DUMP actual=69000 leg=READ res=Bread row=stock target=69000 t=32762717 id=158
+[mod] [SMRTK] SMRTK_DUMP actual=64000 leg=READ res=Food row=stock target=64000 t=32762717 id=159
+[SMRTK] SMRTK_DUMP actual=64000 leg=READ res=Food row=stock target=64000 t=32762717 id=159
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Herbs row=stock target=67000 t=32762717 id=160
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Herbs row=stock target=67000 t=32762717 id=160
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Polymers row=stock target=67000 t=32762717 id=161
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Polymers row=stock target=67000 t=32762717 id=161
+[mod] [SMRTK] SMRTK_DUMP actual=70000 leg=READ res=Electronics row=stock target=67200 t=32762717 id=162
+[SMRTK] SMRTK_DUMP actual=70000 leg=READ res=Electronics row=stock target=67200 t=32762717 id=162
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=READ res=PreciousMinerals row=stock target=69000 t=32762717 id=163
+[SMRTK] SMRTK_DUMP actual=69000 leg=READ res=PreciousMinerals row=stock target=69000 t=32762717 id=163
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=READ res=Seeds row=stock target=69000 t=32762717 id=164
+[SMRTK] SMRTK_DUMP actual=69000 leg=READ res=Seeds row=stock target=69000 t=32762717 id=164
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Cheese row=stock target=65000 t=32762717 id=165
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Cheese row=stock target=65000 t=32762717 id=165
+						Lua 0:01:56:253
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=130 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=166
+[SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=130 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=0 t=32762717 id=166
+						Lua 0:01:59:471
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=130 lines=72 status=OK truncated=false t=32762717 id=167
+[SMRTK] SMRTK_COPY action=copy flushed=true from=130 lines=72 status=OK truncated=false t=32762717 id=167
+						Lua 0:04:29:723
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_TOGGLE_true mark=203 status=OK t=32762717 id=168
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_TOGGLE_true mark=203 status=OK t=32762717 id=168
+						Lua 0:04:29:724
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=169
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=169
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_ON mark=205 status=OK t=32762717 id=170
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_ON mark=205 status=OK t=32762717 id=170
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=171
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=46 status=OK t=32762717 id=171
+						Lua 0:04:29:731
+[mod] [SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=ON row=candidate site=7372 track=7360 t=32762717 id=172
+[SMRTK] SMRTK_DUMP element=7373 elements=5 kind=build leg=ON row=candidate site=7372 track=7360 t=32762717 id=172
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7372 target=200 t=32762717 id=173
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7372 target=200 t=32762717 id=173
+[mod] [SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=ON row=candidate site=7485 track=7360 t=32762717 id=174
+[SMRTK] SMRTK_DUMP element=7486 elements=5 kind=build leg=ON row=candidate site=7485 track=7360 t=32762717 id=174
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7485 target=200 t=32762717 id=175
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7485 target=200 t=32762717 id=175
+[mod] [SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=ON row=candidate site=7503 track=7504 t=32762717 id=176
+[SMRTK] SMRTK_DUMP element=7509 elements=5 kind=build leg=ON row=candidate site=7503 track=7504 t=32762717 id=176
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7503 target=200 t=32762717 id=177
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7503 target=200 t=32762717 id=177
+[mod] [SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=ON row=candidate site=7522 track=7504 t=32762717 id=178
+[SMRTK] SMRTK_DUMP element=7527 elements=5 kind=build leg=ON row=candidate site=7522 track=7504 t=32762717 id=178
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7522 target=200 t=32762717 id=179
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7522 target=200 t=32762717 id=179
+[mod] [SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=ON row=candidate site=7497 track=7360 t=32762717 id=180
+[SMRTK] SMRTK_DUMP element=7498 elements=5 kind=build leg=ON row=candidate site=7497 track=7360 t=32762717 id=180
+						Lua 0:04:29:732
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7497 target=200 t=32762717 id=181
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7497 target=200 t=32762717 id=181
+[mod] [SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=ON row=candidate site=7420 track=7360 t=32762717 id=182
+[SMRTK] SMRTK_DUMP element=7421 elements=5 kind=build leg=ON row=candidate site=7420 track=7360 t=32762717 id=182
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7420 target=200 t=32762717 id=183
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7420 target=200 t=32762717 id=183
+[mod] [SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=ON row=candidate site=7491 track=7360 t=32762717 id=184
+[SMRTK] SMRTK_DUMP element=7492 elements=5 kind=build leg=ON row=candidate site=7491 track=7360 t=32762717 id=184
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7491 target=200 t=32762717 id=185
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7491 target=200 t=32762717 id=185
+[mod] [SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=ON row=candidate site=7479 track=7360 t=32762717 id=186
+[SMRTK] SMRTK_DUMP element=7480 elements=5 kind=build leg=ON row=candidate site=7479 track=7360 t=32762717 id=186
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7479 target=200 t=32762717 id=187
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7479 target=200 t=32762717 id=187
+[mod] [SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=ON row=candidate site=7552 track=7504 t=32762717 id=188
+[SMRTK] SMRTK_DUMP element=7557 elements=5 kind=build leg=ON row=candidate site=7552 track=7504 t=32762717 id=188
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7552 target=200 t=32762717 id=189
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7552 target=200 t=32762717 id=189
+[mod] [SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=ON row=candidate site=7378 track=7360 t=32762717 id=190
+[SMRTK] SMRTK_DUMP element=7379 elements=5 kind=build leg=ON row=candidate site=7378 track=7360 t=32762717 id=190
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7378 target=200 t=32762717 id=191
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7378 target=200 t=32762717 id=191
+[mod] [SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=ON row=candidate site=7570 track=7504 t=32762717 id=192
+[SMRTK] SMRTK_DUMP element=7571 elements=1 kind=build leg=ON row=candidate site=7570 track=7504 t=32762717 id=192
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7570 target=200 t=32762717 id=193
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7570 target=200 t=32762717 id=193
+[mod] [SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=ON row=candidate site=7414 track=7360 t=32762717 id=194
+[SMRTK] SMRTK_DUMP element=7415 elements=5 kind=build leg=ON row=candidate site=7414 track=7360 t=32762717 id=194
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7414 target=200 t=32762717 id=195
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7414 target=200 t=32762717 id=195
+[mod] [SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=ON row=candidate site=7366 track=7360 t=32762717 id=196
+[SMRTK] SMRTK_DUMP element=7367 elements=5 kind=build leg=ON row=candidate site=7366 track=7360 t=32762717 id=196
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7366 target=200 t=32762717 id=197
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7366 target=200 t=32762717 id=197
+[mod] [SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=ON row=candidate site=7359 track=7360 t=32762717 id=198
+[SMRTK] SMRTK_DUMP element=7361 elements=5 kind=build leg=ON row=candidate site=7359 track=7360 t=32762717 id=198
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7359 target=200 t=32762717 id=199
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7359 target=200 t=32762717 id=199
+[mod] [SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=ON row=candidate site=7564 track=7504 t=32762717 id=200
+[SMRTK] SMRTK_DUMP element=7569 elements=5 kind=build leg=ON row=candidate site=7564 track=7504 t=32762717 id=200
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7564 target=200 t=32762717 id=201
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7564 target=200 t=32762717 id=201
+[mod] [SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=ON row=candidate site=7510 track=7504 t=32762717 id=202
+[SMRTK] SMRTK_DUMP element=7515 elements=5 kind=build leg=ON row=candidate site=7510 track=7504 t=32762717 id=202
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7510 target=200 t=32762717 id=203
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7510 target=200 t=32762717 id=203
+[mod] [SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=ON row=candidate site=7426 track=7360 t=32762717 id=204
+[SMRTK] SMRTK_DUMP element=7427 elements=5 kind=build leg=ON row=candidate site=7426 track=7360 t=32762717 id=204
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7426 target=200 t=32762717 id=205
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7426 target=200 t=32762717 id=205
+[mod] [SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=ON row=candidate site=7408 track=7360 t=32762717 id=206
+[SMRTK] SMRTK_DUMP element=7409 elements=5 kind=build leg=ON row=candidate site=7408 track=7360 t=32762717 id=206
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7408 target=200 t=32762717 id=207
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7408 target=200 t=32762717 id=207
+[mod] [SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=ON row=candidate site=7516 track=7504 t=32762717 id=208
+[SMRTK] SMRTK_DUMP element=7521 elements=5 kind=build leg=ON row=candidate site=7516 track=7504 t=32762717 id=208
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7516 target=200 t=32762717 id=209
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7516 target=200 t=32762717 id=209
+[mod] [SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=ON row=candidate site=7558 track=7504 t=32762717 id=210
+[SMRTK] SMRTK_DUMP element=7563 elements=5 kind=build leg=ON row=candidate site=7558 track=7504 t=32762717 id=210
+[mod] [SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7558 target=200 t=32762717 id=211
+[SMRTK] SMRTK_DUMP actual=200 leg=ON res=Metals row=demand site=7558 target=200 t=32762717 id=211
+						Lua 0:04:29:733
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=2007 on_graph=true row=network_station t=32762717 id=212
+[SMRTK] SMRTK_DUMP leg=ON object=2007 on_graph=true row=network_station t=32762717 id=212
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=2008 on_graph=true row=network_station t=32762717 id=213
+[SMRTK] SMRTK_DUMP leg=ON object=2008 on_graph=true row=network_station t=32762717 id=213
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=7353 on_graph=false row=network_station t=32762717 id=214
+[SMRTK] SMRTK_DUMP leg=ON object=7353 on_graph=false row=network_station t=32762717 id=214
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=2009 on_graph=true row=network_station t=32762717 id=215
+[SMRTK] SMRTK_DUMP leg=ON object=2009 on_graph=true row=network_station t=32762717 id=215
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=6430 on_graph=true row=network_station t=32762717 id=216
+[SMRTK] SMRTK_DUMP leg=ON object=6430 on_graph=true row=network_station t=32762717 id=216
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=1994 on_graph=true row=network_station t=32762717 id=217
+[SMRTK] SMRTK_DUMP leg=ON object=1994 on_graph=true row=network_station t=32762717 id=217
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=2011 on_graph=true row=network_station t=32762717 id=218
+[SMRTK] SMRTK_DUMP leg=ON object=2011 on_graph=true row=network_station t=32762717 id=218
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=2012 on_graph=true row=network_station t=32762717 id=219
+[SMRTK] SMRTK_DUMP leg=ON object=2012 on_graph=true row=network_station t=32762717 id=219
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=7042 on_graph=false row=network_station t=32762717 id=220
+[SMRTK] SMRTK_DUMP leg=ON object=7042 on_graph=false row=network_station t=32762717 id=220
+[mod] [SMRTK] SMRTK_DUMP leg=ON object=6243 on_graph=true row=network_station t=32762717 id=221
+[SMRTK] SMRTK_DUMP leg=ON object=6243 on_graph=true row=network_station t=32762717 id=221
+[mod] [SMRTK] SMRTK_DUMP actual=66000 leg=ON res=Spices row=stock target=66000 t=32762717 id=222
+[SMRTK] SMRTK_DUMP actual=66000 leg=ON res=Spices row=stock target=66000 t=32762717 id=222
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=ON res=WasteRock row=stock target=73000 t=32762717 id=223
+[SMRTK] SMRTK_DUMP actual=73000 leg=ON res=WasteRock row=stock target=73000 t=32762717 id=223
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Fuel row=stock target=67000 t=32762717 id=224
+[SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Fuel row=stock target=67000 t=32762717 id=224
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=ON res=Butter row=stock target=65000 t=32762717 id=225
+[SMRTK] SMRTK_DUMP actual=65000 leg=ON res=Butter row=stock target=65000 t=32762717 id=225
+						Lua 0:04:29:734
+[mod] [SMRTK] SMRTK_DUMP actual=63000 leg=ON res=Meat row=stock target=63000 t=32762717 id=226
+[SMRTK] SMRTK_DUMP actual=63000 leg=ON res=Meat row=stock target=63000 t=32762717 id=226
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=ON res=PreciousMetals row=stock target=67000 t=32762717 id=227
+[SMRTK] SMRTK_DUMP actual=67000 leg=ON res=PreciousMetals row=stock target=67000 t=32762717 id=227
+[mod] [SMRTK] SMRTK_DUMP actual=70600 leg=ON res=Metals row=stock target=70600 t=32762717 id=228
+[SMRTK] SMRTK_DUMP actual=70600 leg=ON res=Metals row=stock target=70600 t=32762717 id=228
+[mod] [SMRTK] SMRTK_DUMP actual=59000 leg=ON res=Sugar row=stock target=59000 t=32762717 id=229
+[SMRTK] SMRTK_DUMP actual=59000 leg=ON res=Sugar row=stock target=59000 t=32762717 id=229
+[mod] [SMRTK] SMRTK_DUMP actual=72000 leg=ON res=Coffee row=stock target=72000 t=32762717 id=230
+[SMRTK] SMRTK_DUMP actual=72000 leg=ON res=Coffee row=stock target=72000 t=32762717 id=230
+[mod] [SMRTK] SMRTK_DUMP actual=73000 leg=ON res=Concrete row=stock target=73000 t=32762717 id=231
+[SMRTK] SMRTK_DUMP actual=73000 leg=ON res=Concrete row=stock target=73000 t=32762717 id=231
+[mod] [SMRTK] SMRTK_DUMP actual=71000 leg=ON res=MachineParts row=stock target=71000 t=32762717 id=232
+[SMRTK] SMRTK_DUMP actual=71000 leg=ON res=MachineParts row=stock target=71000 t=32762717 id=232
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=ON res=Bread row=stock target=69000 t=32762717 id=233
+[SMRTK] SMRTK_DUMP actual=69000 leg=ON res=Bread row=stock target=69000 t=32762717 id=233
+[mod] [SMRTK] SMRTK_DUMP actual=64000 leg=ON res=Food row=stock target=64000 t=32762717 id=234
+[SMRTK] SMRTK_DUMP actual=64000 leg=ON res=Food row=stock target=64000 t=32762717 id=234
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Herbs row=stock target=67000 t=32762717 id=235
+[SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Herbs row=stock target=67000 t=32762717 id=235
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Polymers row=stock target=67000 t=32762717 id=236
+[SMRTK] SMRTK_DUMP actual=67000 leg=ON res=Polymers row=stock target=67000 t=32762717 id=236
+[mod] [SMRTK] SMRTK_DUMP actual=70000 leg=ON res=Electronics row=stock target=67200 t=32762717 id=237
+[SMRTK] SMRTK_DUMP actual=70000 leg=ON res=Electronics row=stock target=67200 t=32762717 id=237
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=ON res=PreciousMinerals row=stock target=69000 t=32762717 id=238
+[SMRTK] SMRTK_DUMP actual=69000 leg=ON res=PreciousMinerals row=stock target=69000 t=32762717 id=238
+[mod] [SMRTK] SMRTK_DUMP actual=69000 leg=ON res=Seeds row=stock target=69000 t=32762717 id=239
+[SMRTK] SMRTK_DUMP actual=69000 leg=ON res=Seeds row=stock target=69000 t=32762717 id=239
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=ON res=Cheese row=stock target=65000 t=32762717 id=240
+[SMRTK] SMRTK_DUMP actual=65000 leg=ON res=Cheese row=stock target=65000 t=32762717 id=240
+[mod] [SMRTK] SMRTK_ACTION action=slot_3 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=205 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=32762717 id=241
+[SMRTK] SMRTK_ACTION action=slot_3 active=0 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32762717 hub=6430 mark=205 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=32762717 id=241
+						Lua 0:04:38:674
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=false status=OK tab=Agent t=32765794 id=242
+						Lua 0:04:39:084
+[TrainHubDev] build dispatched: elements 5, 1543 m, deadline in 37524 ms (launch 4000 + travel 21524 + work 12000) at t=32766195 site=7558 track=7504
+						Lua 0:04:44:081
+[TrainHubDev] build dispatched: elements 5, 1659 m, deadline in 39141 ms (launch 4000 + travel 23141 + work 12000) at t=32771195 site=7516 track=7504
+						Lua 0:04:49:081
+[TrainHubDev] build dispatched: elements 5, 1180 m, deadline in 32464 ms (launch 4000 + travel 16464 + work 12000) at t=32776195 site=7408 track=7360
+						Lua 0:04:54:081
+[TrainHubDev] build dispatched: elements 5, 1293 m, deadline in 34037 ms (launch 4000 + travel 18037 + work 12000) at t=32781195 site=7426 track=7360
+						Lua 0:04:59:083
+[TrainHubDev] build dispatched: elements 5, 1666 m, deadline in 39240 ms (launch 4000 + travel 23240 + work 12000) at t=32786195 site=7510 track=7504
+						Lua 0:05:03:583
+[TrainHubDev] engine leg out: 1461 m in 20500 ms = 7125 units per s (move_speed 8960) at t=32790705
+						Lua 0:05:04:081
+[TrainHubDev] build dispatched: elements 5, 1497 m, deadline in 36886 ms (launch 4000 + travel 20886 + work 12000) at t=32791195 site=7564 track=7504
+						Lua 0:05:09:001
+[TrainHubDev] engine leg out: 1093 m in 15918 ms = 6867 units per s (move_speed 8960) at t=32796123
+						Lua 0:05:09:082
+[TrainHubDev] build dispatched: elements 5, 992 m, deadline in 29839 ms (launch 4000 + travel 13839 + work 12000) at t=32796195 site=7359 track=7360
+						Lua 0:05:10:053
+[TrainHubDev] engine leg out: 1576 m in 21969 ms = 7174 units per s (move_speed 8960) at t=32797174
+						Lua 0:05:14:082
+[TrainHubDev] build dispatched: elements 5, 1035 m, deadline in 30442 ms (launch 4000 + travel 14442 + work 12000) at t=32801195 site=7366 track=7360
+						Lua 0:05:15:300
+[TrainHubDev] engine leg out: 1208 m in 17216 ms = 7014 units per s (move_speed 8960) at t=32802421
+						Lua 0:05:17:365
+[TrainHubDev] build done: elements 5, elapsed 38278 ms, 754 ms after the deadline, the Wasp's stage work at t=32804473 site=7558
+[TrainHubDev] build dispatched: elements 5, 1220 m, deadline in 33027 ms (launch 4000 + travel 17027 + work 12000) at t=32804473 site=7414 track=7360
+						Lua 0:05:17:881
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:05:17:882
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+						Lua 0:05:17:883
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:05:19:081
+[TrainHubDev] build dispatched: elements 1, 1488 m, deadline in 32759 ms (launch 4000 + travel 20759 + work 8000) at t=32806195 site=7570 track=7504
+						Lua 0:05:22:321
+[TrainHubDev] build done: elements 5, elapsed 33236 ms, 772 ms after the deadline, the Wasp's stage work at t=32809431 site=7408
+						Lua 0:05:22:322
+[TrainHubDev] build dispatched: elements 5, 1132 m, deadline in 31788 ms (launch 4000 + travel 15788 + work 12000) at t=32809431 site=7378 track=7504
+						Lua 0:05:23:392
+[TrainHubDev] build done: elements 5, elapsed 39305 ms, 164 ms after the deadline, the Wasp's stage work at t=32810500 site=7516
+[TrainHubDev] build dispatched: elements 5, 1588 m, deadline in 38148 ms (launch 4000 + travel 22148 + work 12000) at t=32810500 site=7552 track=7504
+						Lua 0:05:24:082
+[TrainHubDev] build dispatched: elements 5, 1330 m, deadline in 34561 ms (launch 4000 + travel 18561 + work 12000) at t=32811195 site=7479 track=7504
+						Lua 0:05:24:805
+[TrainHubDev] engine leg out: 1582 m in 21722 ms = 7284 units per s (move_speed 8960) at t=32811927
+						Lua 0:05:26:128
+[TrainHubDev] engine leg out: 906 m in 13211 ms = 6856 units per s (move_speed 8960) at t=32813250
+						Lua 0:05:27:519
+[TrainHubDev] engine leg out: 1416 m in 19518 ms = 7252 units per s (move_speed 8960) at t=32814641
+						Lua 0:05:29:082
+[TrainHubDev] build dispatched: elements 5, 1408 m, deadline in 35641 ms (launch 4000 + travel 19641 + work 12000) at t=32816195 site=7491 track=7504
+						Lua 0:05:29:250
+[TrainHubDev] build done: elements 5, elapsed 35164 ms, 1127 ms after the deadline, the Wasp's stage work at t=32816359 site=7426
+[TrainHubDev] build dispatched: elements 5, 1256 m, deadline in 33525 ms (launch 4000 + travel 17525 + work 12000) at t=32816359 site=7420 track=7504
+						Lua 0:05:32:130
+[TrainHubDev] engine leg out: 949 m in 14129 ms = 6717 units per s (move_speed 8960) at t=32819252
+						Lua 0:05:34:081
+[TrainHubDev] build dispatched: elements 5, 1448 m, deadline in 36195 ms (launch 4000 + travel 20195 + work 12000) at t=32821195 site=7497 track=7504
+						Lua 0:05:37:458
+[TrainHubDev] engine leg out: 1134 m in 16097 ms = 7043 units per s (move_speed 8960) at t=32824580
+						Lua 0:05:38:044
+[TrainHubDev] engine leg back: 1093 m in 15735 ms = 6946 units per s (move_speed 8960) at t=32825166
+						Lua 0:05:38:125
+[TrainHubDev] build done: elements 5, elapsed 39038 ms, 0 ms after the deadline, the Wasp's stage work at t=32825233 site=7510
+[TrainHubDev] build dispatched: elements 5, 1629 m, deadline in 38724 ms (launch 4000 + travel 22724 + work 12000) at t=32825233 site=7522 track=7504
+						Lua 0:05:38:362
+[TrainHubDev] engine leg back: 1461 m in 21010 ms = 6952 units per s (move_speed 8960) at t=32825483
+						Lua 0:05:39:082
+[TrainHubDev] build dispatched: elements 5, 1674 m, deadline in 39359 ms (launch 4000 + travel 23359 + work 12000) at t=32826195 site=7503 track=7504
+						Lua 0:05:39:441
+[TrainHubDev] build done: elements 5, elapsed 30355 ms, 516 ms after the deadline, the Wasp's stage work at t=32826550 site=7359
+[TrainHubDev] build dispatched: elements 5, 1369 m, deadline in 35096 ms (launch 4000 + travel 19096 + work 12000) at t=32826550 site=7485 track=7504
+						Lua 0:05:40:995
+[TrainHubDev] build done: elements 5, elapsed 36910 ms, 24 ms after the deadline, the Wasp's stage work at t=32828105 site=7564
+[TrainHubDev] build dispatched: elements 5, 1083 m, deadline in 31114 ms (launch 4000 + travel 15114 + work 12000) at t=32828105 site=7372 track=7504
+						Lua 0:05:41:180
+[TrainHubDev] engine leg out: 1045 m in 14961 ms = 6984 units per s (move_speed 8960) at t=32828301
+						Lua 0:05:42:023
+[TrainHubDev] engine leg out: 1407 m in 18994 ms = 7405 units per s (move_speed 8960) at t=32829144
+						Lua 0:05:45:158
+[TrainHubDev] engine leg back: 1576 m in 21779 ms = 7237 units per s (move_speed 8960) at t=32832279
+						Lua 0:05:45:159
+[TrainHubDev] engine leg out: 1246 m in 17319 ms = 7194 units per s (move_speed 8960) at t=32832279
+						Lua 0:05:45:786
+[TrainHubDev] build done: elements 5, elapsed 31701 ms, 1259 ms after the deadline, the Wasp's stage work at t=32832896 site=7366
+						Lua 0:05:46:251
+[TrainHubDev] engine leg back: 1208 m in 17014 ms = 7098 units per s (move_speed 8960) at t=32833373
+						Lua 0:05:48:175
+[TrainHubDev] engine leg out: 1505 m in 20956 ms = 7183 units per s (move_speed 8960) at t=32835297
+						Lua 0:05:49:825
+[TrainHubDev] engine leg out: 1170 m in 16620 ms = 7041 units per s (move_speed 8960) at t=32836946
+						Lua 0:05:50:750
+[TrainHubDev] build done: elements 5, elapsed 33387 ms, 360 ms after the deadline, the Wasp's stage work at t=32837860 site=7414
+						Lua 0:05:51:042
+[TrainHubDev] engine leg out: 1325 m in 18045 ms = 7342 units per s (move_speed 8960) at t=32838164
+						Lua 0:05:51:391
+[TrainHubDev] build done: elements 1, elapsed 32309 ms, 0 ms after the deadline, the Wasp's stage work at t=32838504 site=7570
+						Lua 0:05:52:778
+[TrainHubDev] engine leg back: 906 m in 13350 ms = 6784 units per s (move_speed 8960) at t=32839900
+						Lua 0:05:54:510
+[TrainHubDev] build done: elements 5, elapsed 32188 ms, 400 ms after the deadline, the Wasp's stage work at t=32841619 site=7378
+						Lua 0:05:57:412
+[TrainHubDev] engine leg out: 1365 m in 19329 ms = 7064 units per s (move_speed 8960) at t=32844534
+						Lua 0:05:58:681
+[TrainHubDev] build done: elements 5, elapsed 34596 ms, 35 ms after the deadline, the Wasp's stage work at t=32845791 site=7479
+						Lua 0:05:59:325
+[TrainHubDev] engine leg out: 997 m in 14553 ms = 6850 units per s (move_speed 8960) at t=32846447
+						Lua 0:05:59:576
+[TrainHubDev] engine leg back: 949 m in 13801 ms = 6877 units per s (move_speed 8960) at t=32846697
+[TrainHubDev] engine leg back: 1582 m in 21464 ms = 7371 units per s (move_speed 8960) at t=32846697
+						Lua 0:06:00:419
+[TrainHubDev] engine leg back: 1416 m in 19436 ms = 7283 units per s (move_speed 8960) at t=32847541
+						Lua 0:06:00:982
+[TrainHubDev] engine leg out: 1285 m in 17681 ms = 7268 units per s (move_speed 8960) at t=32848103
+						Lua 0:06:01:486
+[TrainHubDev] build done: elements 5, elapsed 38095 ms, 0 ms after the deadline, the Wasp's stage work at t=32848595 site=7552
+						Lua 0:06:02:677
+[TrainHubDev] engine leg out: 1547 m in 20803 ms = 7436 units per s (move_speed 8960) at t=32849799
+						Lua 0:06:03:540
+[TrainHubDev] build done: elements 5, elapsed 34291 ms, 766 ms after the deadline, the Wasp's stage work at t=32850650 site=7420
+						Lua 0:06:04:330
+[TrainHubDev] engine leg out: 1590 m in 21441 ms = 7414 units per s (move_speed 8960) at t=32851452
+						Lua 0:06:04:526
+[TrainHubDev] build done: elements 5, elapsed 35441 ms, 0 ms after the deadline, the Wasp's stage work at t=32851636 site=7491
+						Lua 0:06:06:989
+[TrainHubDev] engine leg back: 1134 m in 16251 ms = 6976 units per s (move_speed 8960) at t=32854111
+						Lua 0:06:09:559
+[TrainHubDev] engine leg back: 1045 m in 15062 ms = 6937 units per s (move_speed 8960) at t=32856681
+						Lua 0:06:10:751
+[TrainHubDev] build done: elements 5, elapsed 36665 ms, 470 ms after the deadline, the Wasp's stage work at t=32857860 site=7497
+						Lua 0:06:10:857
+[TrainHubDev] engine leg back: 1407 m in 19475 ms = 7222 units per s (move_speed 8960) at t=32857979
+						Lua 0:06:12:649
+[TrainHubDev] build done: elements 5, elapsed 31654 ms, 540 ms after the deadline, the Wasp's stage work at t=32859759 site=7372
+						Lua 0:06:14:489
+[TrainHubDev] build done: elements 5, elapsed 35049 ms, 0 ms after the deadline, the Wasp's stage work at t=32861599 site=7485
+						Lua 0:06:15:990
+[TrainHubDev] engine leg back: 1246 m in 17320 ms = 7193 units per s (move_speed 8960) at t=32863111
+						Lua 0:06:16:060
+[TrainHubDev] build done: elements 5, elapsed 37936 ms, 0 ms after the deadline, the Wasp's stage work at t=32863169 site=7522
+						Lua 0:06:17:668
+[TrainHubDev] build done: elements 5, elapsed 38575 ms, 0 ms after the deadline, the Wasp's stage work at t=32864770 site=7503
+						Lua 0:06:19:082
+[TrainHubDev] build dispatched: elements 5, 1830 m, deadline in 41525 ms (launch 4000 + travel 25525 + work 12000) at t=32866195 site=7199 track=7134
+						Lua 0:06:20:300
+[TrainHubDev] engine leg back: 1170 m in 16771 ms = 6977 units per s (move_speed 8960) at t=32867421
+						Lua 0:06:22:253
+[TrainHubDev] engine leg back: 1505 m in 20780 ms = 7244 units per s (move_speed 8960) at t=32869375
+						Lua 0:06:22:583
+[TrainHubDev] engine leg back: 1325 m in 18069 ms = 7332 units per s (move_speed 8960) at t=32869705
+						Lua 0:06:24:083
+[TrainHubDev] build dispatched: elements 5, 1900 m, deadline in 42507 ms (launch 4000 + travel 26507 + work 12000) at t=32871195 site=7262 track=7134
+						Lua 0:06:27:031
+[TrainHubDev] engine leg back: 997 m in 14394 ms = 6925 units per s (move_speed 8960) at t=32874153
+						Lua 0:06:29:083
+[TrainHubDev] build dispatched: elements 5, 1769 m, deadline in 40682 ms (launch 4000 + travel 24682 + work 12000) at t=32876195 site=7181 track=7134
+						Lua 0:06:29:596
+[TrainHubDev] engine leg back: 1365 m in 18858 ms = 7240 units per s (move_speed 8960) at t=32876718
+						Lua 0:06:32:863
+[TrainHubDev] engine leg back: 1285 m in 18385 ms = 6990 units per s (move_speed 8960) at t=32879984
+						Lua 0:06:34:082
+[TrainHubDev] build dispatched: elements 5, 1808 m, deadline in 41228 ms (launch 4000 + travel 25228 + work 12000) at t=32881195 site=7193 track=7134
+						Lua 0:06:37:118
+[TrainHubDev] engine leg back: 1547 m in 21071 ms = 7342 units per s (move_speed 8960) at t=32884240
+						Lua 0:06:38:994
+[TrainHubDev] engine leg back: 1590 m in 21346 ms = 7447 units per s (move_speed 8960) at t=32886116
+						Lua 0:06:39:083
+[TrainHubDev] build dispatched: elements 5, 1875 m, deadline in 42165 ms (launch 4000 + travel 26165 + work 12000) at t=32886195 site=7256 track=7134
+						Lua 0:06:44:083
+[TrainHubDev] build dispatched: elements 4, 1979 m, deadline in 42612 ms (launch 4000 + travel 27612 + work 11000) at t=32891195 site=7347 track=7134
+						Lua 0:06:45:963
+[TrainHubDev] engine leg out: 1740 m in 23016 ms = 7559 units per s (move_speed 8960) at t=32893085
+						Lua 0:06:49:082
+[TrainHubDev] build dispatched: elements 5, 1751 m, deadline in 40434 ms (launch 4000 + travel 24434 + work 12000) at t=32896195 site=7152 track=7134
+						Lua 0:06:52:021
+[TrainHubDev] engine leg out: 1810 m in 24123 ms = 7503 units per s (move_speed 8960) at t=32899143
+						Lua 0:06:54:082
+[TrainHubDev] build dispatched: elements 5, 1735 m, deadline in 40204 ms (launch 4000 + travel 24204 + work 12000) at t=32901195 site=7146 track=7134
+						Lua 0:06:55:300
+[TrainHubDev] engine leg out: 1680 m in 22350 ms = 7518 units per s (move_speed 8960) at t=32902421
+						Lua 0:06:59:082
+[TrainHubDev] build dispatched: elements 5, 1925 m, deadline in 42862 ms (launch 4000 + travel 26862 + work 12000) at t=32906195 site=7268 track=7134
+						Lua 0:06:59:158
+[TrainHubDev] build done: elements 5, elapsed 40072 ms, 0 ms after the deadline, the Wasp's stage work at t=32906267 site=7199
+[TrainHubDev] build dispatched: elements 5, 1788 m, deadline in 40946 ms (launch 4000 + travel 24946 + work 12000) at t=32906267 site=7187 track=7134
+						Lua 0:07:00:372
+[TrainHubDev] engine leg out: 1719 m in 22386 ms = 7678 units per s (move_speed 8960) at t=32907493
+						Lua 0:07:04:082
+[TrainHubDev] build dispatched: elements 5, 1852 m, deadline in 41837 ms (launch 4000 + travel 25837 + work 12000) at t=32911195 site=7250 track=7134
+						Lua 0:07:05:249
+[TrainHubDev] build done: elements 5, elapsed 41164 ms, 0 ms after the deadline, the Wasp's stage work at t=32912359 site=7262
+[TrainHubDev] build dispatched: elements 5, 1720 m, deadline in 39992 ms (launch 4000 + travel 23992 + work 12000) at t=32912359 site=7140 track=7134
+						Lua 0:07:06:463
+[TrainHubDev] engine leg out: 1786 m in 23547 ms = 7583 units per s (move_speed 8960) at t=32913585
+						Lua 0:07:08:629
+[TrainHubDev] build done: elements 5, elapsed 39544 ms, 0 ms after the deadline, the Wasp's stage work at t=32915739 site=7181
+[TrainHubDev] build dispatched: elements 5, 1706 m, deadline in 39798 ms (launch 4000 + travel 23798 + work 12000) at t=32915739 site=7133 track=7134
+						Lua 0:07:09:082
+[TrainHubDev] build dispatched: elements 5, 1952 m, deadline in 43231 ms (launch 4000 + travel 27231 + work 12000) at t=32916195 site=7341 track=7134
+						Lua 0:07:13:605
+[TrainHubDev] engine leg out: 1889 m in 25521 ms = 7404 units per s (move_speed 8960) at t=32920726
+						Lua 0:07:13:693
+[TrainHubDev] build done: elements 5, elapsed 39608 ms, 0 ms after the deadline, the Wasp's stage work at t=32920803 site=7193
+						Lua 0:07:14:992
+[TrainHubDev] engine leg out: 1663 m in 21909 ms = 7590 units per s (move_speed 8960) at t=32922114
+						Lua 0:07:19:867
+[TrainHubDev] build done: elements 5, elapsed 40782 ms, 0 ms after the deadline, the Wasp's stage work at t=32926977 site=7256
+[TrainHubDev] engine leg out: 1647 m in 21772 ms = 7564 units per s (move_speed 8960) at t=32926977
+						Lua 0:07:22:031
+[TrainHubDev] engine leg back: 1740 m in 22886 ms = 7602 units per s (move_speed 8960) at t=32929153
+						Lua 0:07:25:561
+[TrainHubDev] engine leg out: 1699 m in 22449 ms = 7568 units per s (move_speed 8960) at t=32932683
+						Lua 0:07:25:892
+[TrainHubDev] build done: elements 4, elapsed 41807 ms, 0 ms after the deadline, the Wasp's stage work at t=32933002 site=7347
+						Lua 0:07:27:641
+[TrainHubDev] engine leg out: 1836 m in 24736 ms = 7420 units per s (move_speed 8960) at t=32934763
+						Lua 0:07:28:302
+[TrainHubDev] build done: elements 5, elapsed 39217 ms, 0 ms after the deadline, the Wasp's stage work at t=32935412 site=7152
+						Lua 0:07:29:279
+[TrainHubDev] engine leg back: 1810 m in 24042 ms = 7528 units per s (move_speed 8960) at t=32936401
+						Lua 0:07:30:853
+[TrainHubDev] engine leg back: 1680 m in 22236 ms = 7556 units per s (move_speed 8960) at t=32937975
+[TrainHubDev] engine leg out: 1632 m in 21681 ms = 7528 units per s (move_speed 8960) at t=32937975
+						Lua 0:07:31:247
+[TrainHubDev] engine leg out: 1762 m in 23169 ms = 7606 units per s (move_speed 8960) at t=32938368
+						Lua 0:07:33:219
+[TrainHubDev] build done: elements 5, elapsed 39134 ms, 0 ms after the deadline, the Wasp's stage work at t=32940329 site=7146
+						Lua 0:07:33:851
+[TrainHubDev] engine leg out: 1619 m in 21264 ms = 7614 units per s (move_speed 8960) at t=32940972
+						Lua 0:07:36:266
+[TrainHubDev] engine leg back: 1719 m in 22585 ms = 7610 units per s (move_speed 8960) at t=32943388
+						Lua 0:07:37:883
+[TrainHubDev] engine leg out: 1862 m in 24881 ms = 7484 units per s (move_speed 8960) at t=32945003
+						Lua 0:07:38:870
+[TrainHubDev] build done: elements 5, elapsed 39714 ms, 0 ms after the deadline, the Wasp's stage work at t=32945981 site=7187
+						Lua 0:07:40:930
+[TrainHubDev] build done: elements 5, elapsed 41844 ms, 0 ms after the deadline, the Wasp's stage work at t=32948039 site=7268
+						Lua 0:07:43:324
+[TrainHubDev] engine leg back: 1786 m in 23469 ms = 7608 units per s (move_speed 8960) at t=32950446
+						Lua 0:07:44:166
+[TrainHubDev] build done: elements 5, elapsed 38918 ms, 0 ms after the deadline, the Wasp's stage work at t=32951277 site=7140
+						Lua 0:07:44:414
+[TrainHubDev] build done: elements 5, elapsed 40329 ms, 0 ms after the deadline, the Wasp's stage work at t=32951524 site=7250
+						Lua 0:07:47:194
+[TrainHubDev] build done: elements 5, elapsed 38565 ms, 0 ms after the deadline, the Wasp's stage work at t=32954304 site=7133
+						Lua 0:07:50:396
+[TrainHubDev] engine leg back: 1663 m in 22106 ms = 7522 units per s (move_speed 8960) at t=32957518
+						Lua 0:07:51:027
+[TrainHubDev] engine leg back: 1889 m in 25146 ms = 7514 units per s (move_speed 8960) at t=32958148
+						Lua 0:07:51:439
+[TrainHubDev] build done: elements 5, elapsed 42338 ms, 0 ms after the deadline, the Wasp's stage work at t=32958533 site=7341
+						Lua 0:07:55:313
+[TrainHubDev] engine leg back: 1647 m in 22106 ms = 7450 units per s (move_speed 8960) at t=32962435
+						Lua 0:08:01:315
+[TrainHubDev] engine leg back: 1699 m in 22456 ms = 7565 units per s (move_speed 8960) at t=32968437
+						Lua 0:08:04:944
+[TrainHubDev] engine leg back: 1836 m in 24027 ms = 7639 units per s (move_speed 8960) at t=32972066
+						Lua 0:08:06:036
+[TrainHubDev] engine leg back: 1632 m in 21881 ms = 7459 units per s (move_speed 8960) at t=32973158
+						Lua 0:08:07:507
+[TrainHubDev] engine leg back: 1762 m in 23105 ms = 7627 units per s (move_speed 8960) at t=32974629
+						Lua 0:08:08:607
+[TrainHubDev] engine leg back: 1619 m in 21424 ms = 7557 units per s (move_speed 8960) at t=32975728
+						Lua 0:08:16:340
+[TrainHubDev] engine leg back: 1862 m in 24929 ms = 7469 units per s (move_speed 8960) at t=32983462
+						Lua 0:09:37:678
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=33064788 id=243
+						Lua 0:09:42:905
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=33070012 id=244
+						Lua 0:09:44:429
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=Agent t=33071550 id=245
+						Lua 0:09:45:425
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="pause first" status=REFUSED t=33072546 id=246
+[SMRTK] SMRTK_ACTION action=slot_1 reason="pause first" status=REFUSED t=33072546 id=246
+						Lua 0:09:46:616
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=205 lines=229 status=OK truncated=false t=33073737 id=247
+[SMRTK] SMRTK_COPY action=copy flushed=true from=205 lines=229 status=OK truncated=false t=33073737 id=247
+						Lua 0:10:02:882
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:10:02:883
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:10:02:884
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:16:25:671
+[mod] [SMRTK] SMRTK_MARK action=mark label=BUILD5_READ mark=451 status=OK t=33471613 id=248
+[SMRTK] SMRTK_MARK action=mark label=BUILD5_READ mark=451 status=OK t=33471613 id=248
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=47 status=OK t=33471613 id=249
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=41/41 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=21 read="live registry" save="track test(2).savegame.sav" sol=47 status=OK t=33471613 id=249
+						Lua 0:16:25:680
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2007 on_graph=true row=network_station t=33471613 id=250
+[SMRTK] SMRTK_DUMP leg=READ object=2007 on_graph=true row=network_station t=33471613 id=250
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2008 on_graph=true row=network_station t=33471613 id=251
+[SMRTK] SMRTK_DUMP leg=READ object=2008 on_graph=true row=network_station t=33471613 id=251
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=7353 on_graph=true row=network_station t=33471613 id=252
+[SMRTK] SMRTK_DUMP leg=READ object=7353 on_graph=true row=network_station t=33471613 id=252
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2009 on_graph=true row=network_station t=33471613 id=253
+[SMRTK] SMRTK_DUMP leg=READ object=2009 on_graph=true row=network_station t=33471613 id=253
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=6430 on_graph=true row=network_station t=33471613 id=254
+[SMRTK] SMRTK_DUMP leg=READ object=6430 on_graph=true row=network_station t=33471613 id=254
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=1994 on_graph=true row=network_station t=33471613 id=255
+[SMRTK] SMRTK_DUMP leg=READ object=1994 on_graph=true row=network_station t=33471613 id=255
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2011 on_graph=true row=network_station t=33471613 id=256
+[SMRTK] SMRTK_DUMP leg=READ object=2011 on_graph=true row=network_station t=33471613 id=256
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=2012 on_graph=true row=network_station t=33471613 id=257
+[SMRTK] SMRTK_DUMP leg=READ object=2012 on_graph=true row=network_station t=33471613 id=257
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=7042 on_graph=true row=network_station t=33471613 id=258
+[SMRTK] SMRTK_DUMP leg=READ object=7042 on_graph=true row=network_station t=33471613 id=258
+[mod] [SMRTK] SMRTK_DUMP leg=READ object=6243 on_graph=true row=network_station t=33471613 id=259
+[SMRTK] SMRTK_DUMP leg=READ object=6243 on_graph=true row=network_station t=33471613 id=259
+[mod] [SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Spices row=stock target=57000 t=33471613 id=260
+[SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Spices row=stock target=57000 t=33471613 id=260
+						Lua 0:16:25:681
+[mod] [SMRTK] SMRTK_DUMP actual=71000 leg=READ res=WasteRock row=stock target=71000 t=33471613 id=261
+[SMRTK] SMRTK_DUMP actual=71000 leg=READ res=WasteRock row=stock target=71000 t=33471613 id=261
+[mod] [SMRTK] SMRTK_DUMP actual=66000 leg=READ res=Fuel row=stock target=66000 t=33471613 id=262
+[SMRTK] SMRTK_DUMP actual=66000 leg=READ res=Fuel row=stock target=66000 t=33471613 id=262
+[mod] [SMRTK] SMRTK_DUMP actual=62000 leg=READ res=Butter row=stock target=62000 t=33471613 id=263
+[SMRTK] SMRTK_DUMP actual=62000 leg=READ res=Butter row=stock target=62000 t=33471613 id=263
+[mod] [SMRTK] SMRTK_DUMP actual=61000 leg=READ res=Meat row=stock target=61000 t=33471613 id=264
+[SMRTK] SMRTK_DUMP actual=61000 leg=READ res=Meat row=stock target=61000 t=33471613 id=264
+[mod] [SMRTK] SMRTK_DUMP actual=62000 leg=READ res=PreciousMetals row=stock target=62000 t=33471613 id=265
+[SMRTK] SMRTK_DUMP actual=62000 leg=READ res=PreciousMetals row=stock target=62000 t=33471613 id=265
+[mod] [SMRTK] SMRTK_DUMP actual=63800 leg=READ res=Metals row=stock target=63800 t=33471613 id=266
+[SMRTK] SMRTK_DUMP actual=63800 leg=READ res=Metals row=stock target=63800 t=33471613 id=266
+[mod] [SMRTK] SMRTK_DUMP actual=53000 leg=READ res=Sugar row=stock target=53000 t=33471613 id=267
+[SMRTK] SMRTK_DUMP actual=53000 leg=READ res=Sugar row=stock target=53000 t=33471613 id=267
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Coffee row=stock target=65000 t=33471613 id=268
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Coffee row=stock target=65000 t=33471613 id=268
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Concrete row=stock target=65000 t=33471613 id=269
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Concrete row=stock target=65000 t=33471613 id=269
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=MachineParts row=stock target=67000 t=33471613 id=270
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=MachineParts row=stock target=67000 t=33471613 id=270
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Bread row=stock target=65000 t=33471613 id=271
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Bread row=stock target=65000 t=33471613 id=271
+[mod] [SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Food row=stock target=57000 t=33471613 id=272
+[SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Food row=stock target=57000 t=33471613 id=272
+[mod] [SMRTK] SMRTK_DUMP actual=60000 leg=READ res=Herbs row=stock target=60000 t=33471613 id=273
+[SMRTK] SMRTK_DUMP actual=60000 leg=READ res=Herbs row=stock target=60000 t=33471613 id=273
+[mod] [SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Polymers row=stock target=65000 t=33471613 id=274
+[SMRTK] SMRTK_DUMP actual=65000 leg=READ res=Polymers row=stock target=65000 t=33471613 id=274
+[mod] [SMRTK] SMRTK_DUMP actual=74000 leg=READ res=Electronics row=stock target=71200 t=33471613 id=275
+[SMRTK] SMRTK_DUMP actual=74000 leg=READ res=Electronics row=stock target=71200 t=33471613 id=275
+[mod] [SMRTK] SMRTK_DUMP actual=63000 leg=READ res=PreciousMinerals row=stock target=63000 t=33471613 id=276
+[SMRTK] SMRTK_DUMP actual=63000 leg=READ res=PreciousMinerals row=stock target=63000 t=33471613 id=276
+[mod] [SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Seeds row=stock target=67000 t=33471613 id=277
+[SMRTK] SMRTK_DUMP actual=67000 leg=READ res=Seeds row=stock target=67000 t=33471613 id=277
+[mod] [SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Cheese row=stock target=57000 t=33471613 id=278
+[SMRTK] SMRTK_DUMP actual=57000 leg=READ res=Cheese row=stock target=57000 t=33471613 id=278
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=5 game_time=33471613 hub=6430 mark=451 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=33471613 id=279
+[SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=5 game_time=33471613 hub=6430 mark=451 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=33471613 id=279
+						Lua 0:16:27:401
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=451 lines=32 status=OK truncated=false t=33471613 id=280
+[SMRTK] SMRTK_COPY action=copy flushed=true from=451 lines=32 status=OK truncated=false t=33471613 id=280
+						Lua 0:19:04:802
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:19:04:803
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:19:05:166
+
+
+*** Debug::Done()
+Time (ms)	1145166
+
+
