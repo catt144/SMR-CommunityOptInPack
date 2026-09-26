@@ -1,0 +1,17 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_ui_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_ui_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 10c29e5cb295287a39a267cb574116d033277d3f52f817f786b248a717befcf6
+[TrainDistribution] station resource-row controls loaded
+PASS row wiring: mutual exclusion, unchecked balanced, slider, coverage note, native readout, disabled resource, no hub controls
+NOT TESTED: native widgets, hit testing, pixels and gamepad focus
+
+exit: 0

@@ -1,284 +1,355 @@
-"""Offline claim tests; C++ requests and drone scheduling are NOT emulated proof.
+"""Distribution desk smoke using archived vanilla bodies, with native request doubles.
 
-Runs the archived 1.1.1.405907 Train:TransferCargo body with explicit doubles.
-Never opens the parallel drones-chain files. Run from the repo root.
+No engine/drone/UI/save serialization claim. No fenced hub file is loaded.
 """
 from pathlib import Path
 import hashlib
 import re
 import subprocess
 import sys
-
 from lupa import LuaRuntime
 
 ROOT = Path(__file__).resolve().parents[4]
 MOD = ROOT / "tools/devmods/train_hub"
-ARCHIVE = ROOT.parent / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src"
-SOURCE = ARCHIVE / "Lua/Units/Train.lua"
+ARCHIVE = ROOT.parent / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src/Lua"
 
 
-def main():
-    print("command:", subprocess.list2cmdline([sys.executable, *sys.argv]), flush=True)
-    print("HEAD:", subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(), flush=True)
-    print("source:", SOURCE, "sha256:", hashlib.sha256(SOURCE.read_bytes()).hexdigest(), flush=True)
-    # Regenerate only explicit code registrations from their ModItemCode source.
-    # The editor owns generated preset/entity entries and code_hash; preserve them.
-    items = (MOD / "items.lua").read_text(encoding="utf8")
-    metadata_path = MOD / "metadata.lua"
-    metadata = metadata_path.read_text(encoding="utf8")
-    code = re.search(r"('code', \{\n)(.*?)(\t\},)", metadata, re.S)
-    assert code
-    explicit = re.findall(r"'CodeFileName', \"([^\"]+)\"", items)
-    existing = re.findall(r'"([^\"]+)"', code[2])
-    generated = [p for p in existing if p.endswith(".generated.lua")]
-    assert all(p in explicit or p in generated for p in existing)
-    expected = explicit + generated
-    if "--regen-code" in sys.argv:
-        updated = metadata[:code.start(2)] + "".join(
-            f'\t\t"{p}",\n' for p in expected) + metadata[code.end(2):]
-        metadata_path.write_text(updated, encoding="utf8", newline="\n")
-        existing = expected
-    assert existing == expected, "metadata drift; run this test with --regen-code"
-    assert explicit.count("Code/40_TrainDistribution.lua") == 1
+def source_parts(lua, name, sections):
+    path = ARCHIVE / name
+    text = path.read_text(encoding="utf8")
+    print("source:", name, "sha256:", hashlib.sha256(path.read_bytes()).hexdigest(), flush=True)
+    chunks = [text[text.index(start):text.index(end, text.index(start))]
+              for start, end in sections]
+    lua.execute("local ResourceScale=const.ResourceScale\n"
+                "local rfSuspended=const.rfSuspended\n"
+                "local rfPostInQueue=const.rfPostInQueue\n"
+                "local rfStorageDepot=const.rfStorageDepot\n" + "\n".join(chunks))
+
+
+def runtime():
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.execute(r'''
-Min, Max = math.min, math.max
-empty_table = {}
-const = {ResourceScale=1000, trfInclusive=1, trfBidirectional=2}
-IsValid = function(o) return type(o) == "table" and not o.invalid end
-IsKindOf = function(o, c) return o.class == c end
-MulDivRound = function(a,b,c) return math.floor(a*b/c+0.5) end
-table.find = function(t,v) for i,x in ipairs(t) do if x == v then return i end end end
-table.copy = function(t) local r={} for k,v in pairs(t) do r[k]=v end return r end
-table.keys = function(t) local r={} for k in pairs(t) do r[#r+1]=k end return r end
-ripairs = function(t) local i=#t+1 return function() i=i-1 if i>0 then return i,t[i] end end end
-GetNextConnectedStation = function(st) return st end
-ForEachTrainInRoute = function() end
-GetRouteDist = function() return 1 end
-ForEachStationAlongTrack = function(st, track, flags, fn, ...)
-    if flags ~= 0 then fn(st, "cargo", ...) end
-    fn(track:GetDestStation(st), "cargo", ...)
+Min=function(a,b) if a==nil then return b end if b==nil then return a end return math.min(a,b) end
+Max=math.max
+Clamp=function(n,a,b) return math.min(math.max(n,a),b) end
+MulDivRound=function(a,b,c) return math.floor(a*b/c+0.5) end
+const={ResourceScale=1000,trfInclusive=1,trfBidirectional=2,rfSuspended=1,rfPostInQueue=2,rfStorageDepot=4}
+empty_table={}; Train={}; MultiResourceCubeVisuals={}; MultiResourceDepotBase={}
+Station=setmetatable({}, {__index=MultiResourceDepotBase})
+SavegameFixups={}; g_Classes={Station={desired_amount=10000}}
+OnMsg={}; ObjModified=function() end; GameTime=function() return 0 end
+IsValid=function(o) return type(o)=='table' and not o.invalid end
+IsKindOf=function(o,c) return o and (o.class==c or (c=='Station' and o.hub) or (c=='SMROptInTrainHubBase' and o.hub)) end
+table.find=function(t,v) for i,x in ipairs(t) do if x==v then return i end end end
+table.copy=function(t) local r={} for k,v in pairs(t) do r[k]=v end return r end
+table.keys=function(t) local r={} for k in pairs(t) do r[#r+1]=k end return r end
+ripairs=function(t) local i=#t+1 return function() i=i-1 if i>0 then return i,t[i] end end end
+bor=function(a,b) return a|b end
+GetLRManager=function() end
+GetNextConnectedStation=function(st) return st end
+ForEachTrainInRoute=function(track,fn) for _,t in ipairs(track.trains) do fn(t) end end
+GetRouteDist=function() return 1 end
+ForEachStationAlongTrack=function(st,track,flags,fn,...)
+    for _,s in ipairs(track.members) do
+        if flags~=0 or s~=st then fn(s,'cargo',...) end
+    end
 end
-function request(actual, desired)
-    return {
-        actual=actual, target=actual, desired=desired,
+AllMapsForEach=function(_,_,fn) for _,s in ipairs(UIColony.labels.Station) do fn(s) end end
+GroupResourcesForIP=function() return {} end
+function request(actual,desired)
+    return {actual=actual,target=actual,desired=desired,flags=4,
         GetActualAmount=function(r) return r.actual end,
         GetTargetAmount=function(r) return r.target end,
         GetDesiredAmount=function(r) return r.desired end,
         SetDesiredAmount=function(r,n) r.desired=n end,
+        SetAmount=function(r,n) r.actual=n r.target=n end,
         CanAssignUnit=function(r,n) return n>0 and n<=r.target end,
         AssignUnit=function(r,n)
             if r.reject or not r:CanAssignUnit(n) then return false end
             r.target=r.target-n return true
         end,
-        UnassignUnit=function(r,n,fulfilled)
-            assert(not fulfilled) r.target=r.target+n
-        end,
+        UnassignUnit=function(r,n,f) assert(not f) r.target=r.target+n end,
+        IsAnyFlagSet=function(r,f) return r.flags&f~=0 end,
+        AddFlags=function(r,f) r.flags=r.flags|f end,
+        ClearFlags=function(r,f) r.flags=r.flags&~f end,
+        SetReciprocalRequest=function() end,
     }
 end
-function station(stock)
-    local s={class="Station", handle=stock+1, storable_resources={"Metals"},
-        waiting_for_train={}, transport_policy={},
-        supply={Metals=request(stock*1000,50000)},
-        demand={Metals=request((100-stock)*1000,50000)}}
-    function s:GetMaxStorage() return 100000 end
-    function s:GetResDesiredAmount(res) return self.supply[res]:GetDesiredAmount() end
-    function s:IsResourceEnabled() return true end
-    function s:AddResource(n,res)
-        for _,pair in ipairs({{self.supply[res],n},{self.demand[res],-n}}) do
-            pair[1].actual=pair[1].actual+pair[2]
-            pair[1].target=pair[1].target+pair[2]
+RequestAssignUnit=function(r,_,n) return r:AssignUnit(n) end
+RequestUnassignUnit=function(r,_,n,f) r:UnassignUnit(n,f) end
+function Station:BuildingUpdate() end
+function station(stock,cap,hub)
+    local st=setmetatable({class='Station',hub=hub,handle=hub and 1 or 2,
+        max_storage_per_resource=cap*1000,desired_amount=10000,desire_slider_max=cap,
+        storable_resources={'Metals','Food',Metals=true,Food=true},
+        waiting_for_train={},transport_policy={},stockpiled_amount={},visual_cubes={},
+        has_demand_request=true,command_centers={},
+        supply={Metals=request(stock*1000,10000),Food=request(0,10000)},
+        demand={Metals=request((cap-stock)*1000,cap*1000-10000),Food=request(cap*1000,cap*1000-10000)}}, {__index=Station})
+    function st:ResourceRequestsEnabled() return true end
+    function st:RecalculateCapacityColumns() end
+    function st:RecalculateDerivedMaxZ() end
+    function st:ReallocateVisualColumns() end
+    function st:RebuildInfopanel() end
+    function st:RebuildResourceGroupsForIP() end
+    function st:InterruptDrones() end
+    function st:DisconnectFromCommandCenters() end
+    function st:ConnectToCommandCenters() end
+    function st:AddSupplyRequest(res,n,flags,_,want) return request(n,want) end
+    function st:AddDemandRequest(res,n,flags,_,want) return request(n,want) end
+    function st:AddResource(n,res)
+        for _,p in ipairs({{self.supply[res],n},{self.demand[res],-n}}) do
+            p[1].actual=p[1].actual+p[2]; p[1].target=p[1].target+p[2]
         end
     end
-    return s
+    if hub then
+        function st:GetTrainExportFloor() return self.reserve or 0,true end
+        function st:HubTrackGraph() return self.nodes end
+    end
+    return st
 end
-Train = {}
-function fixture(a,b)
-    local src,dst=station(a),station(b)
-    local track={GetDestStation=function(_,s) return s==src and dst or src end}
-    local t=setmetatable({current_station=src,track=track,
-        city={train_track_routes={[track]={src,dst}}},
-        stockpiled_amount={},assigned_resources={},is_stopping=false}, {__index=Train})
-    function t:GetEmptyStorage() return 100000 end
-    function t:AddResource(n,res) self.stockpiled_amount[res]=(self.stockpiled_amount[res] or 0)+n end
+function fixture(stock,hubstock,cap,hubcap)
+    local s,h=station(stock,cap),station(hubstock,hubcap,true)
+    local track={members={s,h},trains={}}
+    function track:GetDestStation(st) return st==s and h or s end
+    local city={train_track_routes={[track]=track.members},labels={Station=track.members}}
+    s.city=city;h.city=city;h.nodes={[s]=true,[h]=true};UIColony=city
+    local t=setmetatable({current_station=s,track=track,city=city,
+        stockpiled_amount={},assigned_resources={},units={},is_stopping=false}, {__index=Train})
+    function t:GetEmptyStorage() local n=0 for _,v in pairs(self.stockpiled_amount) do n=n+v end return 1000000-n end
+    function t:AddResource(n,r) self.stockpiled_amount[r]=(self.stockpiled_amount[r] or 0)+n end
     function t:LogCargo() end
     function t:PushDestructor() end
     function t:PopDestructor() end
-    return t,src,dst
+    track.trains={t}
+    if SMROptInTrainDistribution then SMROptInTrainDistribution.Refresh() end
+    return t,s,h
 end
-RequestAssignUnit=function(r,u,n) return r:AssignUnit(n) end
-RequestUnassignUnit=function(r,u,n,f) r:UnassignUnit(n,f) end
+function stock(st,res) return st.supply[res or 'Metals']:GetActualAmount() end
+function deliver(t,dest) t.current_station=dest; t:UnloadAll() end
+function checked_transfer(t)
+    t:TransferCargo(nil,true)
+    assert(not SMROptInTrainFloor.stats.last_error,SMROptInTrainFloor.stats.last_error)
+    assert(not SMROptInTrainDistribution.error,SMROptInTrainDistribution.error)
+end
 ''')
-    source = SOURCE.read_text(encoding="utf8")
-    # Exact delimited archived bodies, not a reimplementation of the balancer.
-    sections = [
+    source_parts(lua, "Buildings/MultiResourceCubeVisuals.lua", [
+        ("function MultiResourceCubeVisuals:GetMaxStorage(", "MultiResourceCubeVisuals.AddDepotResource ="),
+        ("function MultiResourceCubeVisuals:RegisterResourceRequest(", "function MultiResourceCubeVisuals:FinalizePendingRemoval("),
+    ])
+    lua.execute('''
+MultiResourceDepotBase.GetMaxStorage=MultiResourceCubeVisuals.GetMaxStorage
+MultiResourceDepotBase.GetMaxStorageForAnyOneResource=MultiResourceCubeVisuals.GetMaxStorageForAnyOneResource
+MultiResourceDepotBase.RegisterResourceRequest=MultiResourceCubeVisuals.RegisterResourceRequest
+''')
+    source_parts(lua, "Buildings/MultiResourceDepot.lua", [
+        ("function MultiResourceDepotBase:UpdateRequestCapacity(", "function MultiResourceDepotBase:ToggleAcceptResource("),
+        ("function MultiResourceDepotBase:RecalculateAfterResourceListChange(", "function MultiResourceDepotBase:ResourceRequestsEnabled("),
+    ])
+    source_parts(lua, "Buildings/Station.lua", [
+        ("function Station:SetDesiredAmount(", "function Station:GetResAcceptIcon("),
+        ("function Station:SetAcceptResourceState(", "function Station:TrainTraverse("),
+    ])
+    # The fixup is the final function in this archived file.
+    station_source=(ARCHIVE/'Buildings/Station.lua').read_text(encoding='utf8')
+    lua.execute(station_source[station_source.index('function SavegameFixups.RevertStationDesiredAmount()'):])
+    source_parts(lua, "Units/Train.lua", [
         ("local ttPrioBalance =", "function Train:LogCargo"),
         ("function Train:TransferCargo(", "function Train:OnContinuousTaskTick("),
-    ]
-    chunks = [source[source.index(start):source.index(end)] for start, end in sections]
-    # Vanilla's scale is file-local. Do not invent a global that hides mod bugs.
-    lua.execute("local ResourceScale = const.ResourceScale\n" + "\n".join(chunks))
-    lua.execute("vanilla_transfer = Train.TransferCargo")
-    floor_path = MOD / "Code/10_TrainFloor.lua"
-    lua.execute(floor_path.read_text(encoding="utf8"))
-    print("floor sha256:", hashlib.sha256(floor_path.read_bytes()).hexdigest(), flush=True)
+    ])
+    lua.execute("vanilla_transfer=Train.TransferCargo")
+    for name in ["10_TrainFloor.lua", "40_TrainDistribution.lua"]:
+        path = MOD / "Code" / name
+        lua.execute(path.read_text(encoding="utf8"))
+        print(name, "sha256:", hashlib.sha256(path.read_bytes()).hexdigest(), flush=True)
+    lua.execute("assert(SMROptInTrainDistribution.active,SMROptInTrainDistribution.error)")
+    return lua
+
+
+def main():
+    print("command:", subprocess.list2cmdline([sys.executable, *sys.argv]), flush=True)
+    print("HEAD:", subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(), flush=True)
+    items=(MOD/'items.lua').read_text(encoding='utf8')
+    metadata=(MOD/'metadata.lua').read_text(encoding='utf8')
+    explicit=re.findall(r"'CodeFileName', \"([^\"]+)\"",items)
+    code=re.search(r"'code', \{(.*?)\n\t\},",metadata,re.S)[1]
+    registered=re.findall(r'"([^\"]+)"',code)
+    assert [p for p in registered if not p.endswith('.generated.lua')]==explicit
+    assert explicit.count('Code/45_TrainDistributionUI.lua')==1
+    parser=LuaRuntime()
+    for name in ['Code/10_TrainFloor.lua','Code/40_TrainDistribution.lua','Code/45_TrainDistributionUI.lua','metadata.lua','items.lua']:
+        parser.compile((MOD/name).read_text(encoding='utf8'),name=name)
+    print('PASS owned dev Lua parses; code registration agrees with ModItemCode source',flush=True)
+    lua=runtime()
     lua.execute(r'''
-local F=SMROptInTrainFloor
+local D,F=SMROptInTrainDistribution,SMROptInTrainFloor
+assert(ResourceScale==nil)
 local r=request(80000,50000)
 local returns=table.pack(F.WithTransientClaims({{r,20000}},function(a)
-    assert(a==7 and r:GetTargetAmount()==60000 and r:GetActualAmount()==80000)
+    assert(a==7 and r.target==60000 and r.actual==80000)
     return true,nil,7,nil
 end,7))
-assert(returns.n==4 and returns[1] and returns[2]==nil and returns[3]==7)
-assert(r.target==80000 and r.actual==80000)
+assert(returns.n==4 and returns[1] and returns[3]==7 and r.target==80000)
 r.reject=true
 F.WithTransientClaims({{r,20000}},function() assert(r.target==80000) end)
 r.reject=false
 F.WithTransientClaims({{r,20000}},function() local absent; return absent.field end)
-assert(r.target==80000 and F.stats.last_error)
--- A real cargo reservation survives the prototype releasing its own demand claim.
-local d=request(100000,50000)
-F.WithTransientClaims({{d,20000}},function() assert(d:AssignUnit(30000)) end)
-assert(d.target==70000)
-local t,s,dest=fixture(80,0)
-t:TransferCargo()
-assert(t.stockpiled_amount.Metals==40000 and s.supply.Metals.actual==40000)
-print("PASS vanilla archived balancer: 80/0 -> source 40, cargo 40")
-t,s,dest=fixture(80,0)
-function s:GetTrainExportFloor() return 20000,false end
-t:TransferCargo()
-assert(t.stockpiled_amount.Metals==20000 and s.supply.Metals.actual==60000)
-assert(s.supply.Metals.target==60000 and rawget(s,F.FIELD)==nil)
-print("PASS existing transient path: floor 20 -> source 60, cargo 20; claim released")
--- Standing hub reserve regression, without loading either fenced hub file.
-t,s,dest=fixture(80,0)
-function s:GetTrainExportFloor() return 20000,true end
-F.Reconcile(s)
-assert(F.Held(s,"Metals")==20000)
-t:TransferCargo()
-assert(F.Held(s,"Metals")==20000 and s.supply.Metals.actual==60000)
-F.ReleaseAll(s)
-assert(s.supply.Metals.target==s.supply.Metals.actual)
-print("PASS rejection, runtime failure cleanup, nil returns, other reservations, standing reserve")
-''')
-    distribution_path = MOD / "Code/40_TrainDistribution.lua"
-    lua.execute(distribution_path.read_text(encoding="utf8"))
-    print("distribution sha256:", hashlib.sha256(distribution_path.read_bytes()).hexdigest(), flush=True)
-    lua.execute(r'''
-local D=SMROptInTrainDistribution
-SMROptInTrainFloor.stats.last_error=nil
-local t,s,d=fixture(80,0)
-assert(D.Set(s,"Metals","export",20))
-local v=D.Status(s,"Metals")
-assert(v.current.supply_target==80000 and v.drone.supply_target==80000)
-assert(v.drone.supply_desired==100000 and v.drone.demand_desired==0)
-assert(v.train.supply_target==60000 and v.train.demand_target==0)
-assert(s.supply.Metals.desired==50000 and s.demand.Metals.desired==50000)
-assert(s.supply.Metals.target==80000 and s.demand.Metals.target==20000)
-t:TransferCargo()
-assert(t.stockpiled_amount.Metals==20000 and s.supply.Metals.target==60000)
-D.Reset()
--- A configured destination must be claimed when the train is at another station.
-t,s,d=fixture(80,0)
-assert(D.Set(d,"Metals","export",20))
-t:TransferCargo(nil,true)
-assert(not t.stockpiled_amount.Metals and d.demand.Metals.target==100000)
-D.Reset()
-t,s,d=fixture(80,0)
-assert(D.Set(s,"Metals","import",20))
-t:TransferCargo(nil,true)
-assert(not t.stockpiled_amount.Metals and s.supply.Metals.target==80000)
-D.Reset()
-t,s,d=fixture(80,0)
-assert(D.Set(d,"Metals","import",20))
-t:TransferCargo()
+assert(r.target==80000 and F.stats.last_error);F.stats.last_error=nil
+F.WithTransientClaims({{r,20000}},function() assert(r:AssignUnit(30000)) end)
+assert(r.target==50000)
+print('PASS claim cleanup on rejection/error, nil returns, independent reservations')
+-- Pass-1 control: the archived body, one supply claim, no enabled/capacity lies.
+for _,c in ipairs({{100,60},{400,36}}) do
+    local t,s,h=fixture(80,0,100,c[1])
+    F.WithTransientClaims({{s.supply.Metals,20000}},vanilla_transfer,t,nil,true)
+    assert(stock(s)==c[2]*1000)
+    print('CONTROL floor=20 sink='..c[1]..' retained='..stock(s)/1000)
+end
+-- Native import ceiling: equal capacity shares only 40 of the available 80.
+local t,s,h=fixture(0,80,100,100)
+t.current_station=h
+vanilla_transfer(t,nil,true)
 assert(t.stockpiled_amount.Metals==40000)
-assert(d.demand.Metals.target==60000) -- real train reservation retained
-print("PASS import destination still gets share 40, not full capacity 100")
-D.Reset()
-t,s,d=fixture(80,0)
-assert(D.Set(d,"Metals","balanced",20))
-t:TransferCargo()
-assert(t.stockpiled_amount.Metals==20000 and d.demand.Metals.target==80000)
-D.Reset()
--- Existing hauler claims, partial stock and capacity changes.
-t,s,d=fixture(10,0)
-assert(s.supply.Metals:AssignUnit(3000))
-assert(D.Set(s,"Metals","export",20))
-v=D.Status(s,"Metals")
-assert(v.train.supply_target==0 and s.supply.Metals.target==7000)
-function s:GetMaxStorage() return 200000 end
-v=D.Status(s,"Metals")
-assert(v.slider==40000 and s.supply.Metals.target==7000)
-assert(not D.Set(s,"Metals","export",101))
-assert(not D.Set(s,"Metals","export",0/0))
-assert(not D.Set(s,"Missing","export",20))
-function s:GetTrainExportFloor() return 0,true end
-assert(not D.Set(s,"Metals","export",20))
-D.Reset()
--- Sample failure restores desired amounts; disabled resources are bypassed.
-t,s,d=fixture(80,0)
-assert(D.Set(s,"Metals","balanced",20))
-local old=s.supply.Metals.GetActualAmount
-s.supply.Metals.GetActualAmount=function(r)
-    if r.desired==20000 then local absent; return absent.field end
-    return old(r)
+print('CONTROL import: available=80 requested=80 allocated=40')
+-- Live hub shape and equal twins; slider endpoints and fractional unit floor.
+for _,caps in ipairs({{60,240},{60,480},{100,100}}) do
+  for _,percent in ipairs({0,1,20,50,99,100}) do
+    t,s,h=fixture(caps[1],0,caps[1],caps[2])
+    assert(D.Set(s,'Metals','export',percent))
+    local n=math.floor(caps[1]*1000*percent/100+0.5)
+    checked_transfer(t)
+    assert(stock(s)==n,stock(s)..' != '..n)
+    deliver(t,h);t.current_station=s;checked_transfer(t)
+    assert(stock(s)==n and (t.stockpiled_amount.Metals or 0)==0)
+    assert(s:IsResourceEnabled('Metals') and s:GetMaxStorage('Metals')==caps[1]*1000)
+    assert(s.supply.Metals.target==stock(s))
+    assert(s.supply.Metals.desired==caps[1]*1000 and s.demand.Metals.desired==0)
+    assert(rawget(s,D.FIELD)==nil and rawget(h,D.FIELD)[s].Metals.percent==percent)
+  end
 end
-assert(not D.Status(s,"Metals"))
-assert(s.supply.Metals.desired==50000 and s.demand.Metals.desired==50000)
-s.supply.Metals.GetActualAmount=old
-function s:IsResourceEnabled() return false end
-assert(not D.Status(s,"Metals"))
-D.Reset()
-assert(D.calls>0)
-assert(not SMROptInTrainFloor.stats.last_error, "unexpected error inside native transfer")
-print("PASS modes, route destination, reservation cleanup, live percentage, invalid input, sample failure")
--- Brief 09 stop check: can claims alone actually drain to the chosen floor?
--- Deliver the first load, return empty, and ask the archived body again.
--- The larger destination stands for a hub; no hub implementation is loaded.
-for _,case in ipairs({{100000,60000},{400000,36000}}) do
-    D.Reset()
-    t,s,d=fixture(80,0)
-    function d:GetMaxStorage() return case[1] end
-    d.demand.Metals.actual=case[1]
-    d.demand.Metals.target=case[1]
-    -- Install the measured export drone baseline too: raising desire does not
-    -- change capacity shares once aggregate desire is positive.
-    s.supply.Metals:SetDesiredAmount(100000)
-    s.demand.Metals:SetDesiredAmount(0)
-    assert(D.Set(s,"Metals","export",20))
-    t:TransferCargo()
-    local loaded=t.stockpiled_amount.Metals
-    assert(loaded==80000-case[2] and s.supply.Metals.actual==case[2])
-    t.current_station=d
-    t:UnloadAll()
-    assert(t.stockpiled_amount.Metals==0 and d.supply.Metals.actual==loaded)
-    t.current_station=s
-    t:TransferCargo(nil,true)
-    assert(t.stockpiled_amount.Metals==0 and s.supply.Metals.actual==case[2])
-    assert(s.supply.Metals.target==s.supply.Metals.actual)
-    assert(s.supply.Metals.actual>20000)
-    print(string.format("PASS brief09 stop witness: source cap=100 sink cap=%d; stock 80 -> %d; floor=20; return trip loads=0",
-        case[1]/1000,case[2]/1000))
+print('PASS export: exact floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100; return trip stops')
+for _,mode in ipairs({'import','balanced'}) do
+    t,s,h=fixture(0,80,100,100)
+    assert(D.Set(s,'Metals',mode,80))
+    t.current_station=h;checked_transfer(t)
+    assert(t.stockpiled_amount.Metals==80000)
+    assert(s.demand.Metals.target==20000)
+    deliver(t,s);checked_transfer(t)
+    assert(stock(s)==80000 and t.stockpiled_amount.Metals==0)
+    assert(s.supply.Metals.target==stock(s))
+    assert(s.supply.Metals.desired==(mode=='import' and 0 or 80000))
 end
-assert(not SMROptInTrainFloor.stats.last_error, "unexpected error in stop witnesses")
-assert(ResourceScale==nil, "test must not supply the nonexistent global")
--- Claims bracket evaluation, but existing incoming assignments predate them.
--- Demonstrate the limit without changing vanilla unload behaviour.
-D.Reset()
-t,s,d=fixture(0,0)
-t.stockpiled_amount.Metals=10000
-t.assigned_resources[s]={Metals=10000}
+print('PASS import ceiling lifted: 80 allocated and retained; balanced fills to 80')
+-- Several receivers, plus other resources: real requests bound each order.
+t,s,h=fixture(0,240,60,240)
+local other=station(5,60);other.handle=3;other.city=s.city
+table.insert(t.track.members,other);h.nodes[other]=true;D.Refresh()
+assert(D.Set(s,'Metals','import',50));assert(D.Set(other,'Metals','balanced',25))
+t.current_station=h;checked_transfer(t)
+assert(t.assigned_resources[s].Metals==30000 and t.assigned_resources[other].Metals==10000)
+assert(t.stockpiled_amount.Metals==40000)
+assert(s.supply.Food.desired==10000 and s:IsResourceEnabled('Food'))
+print('PASS several receivers get separate bounded orders; other resource stays vanilla')
+t,s,h=fixture(80,0,100,400)
+assert(D.Set(s,'Metals','balanced',20));checked_transfer(t)
+assert(stock(s)==20000)
+print('PASS balanced export excess leaves 20')
+-- The hub's existing maintenance reserve still limits what an import can take.
+t,s,h=fixture(0,80,100,100);h.reserve=4000
+F.Reconcile(h);assert(F.Held(h,'Metals')==4000)
+assert(D.Set(s,'Metals','import',100));t.current_station=h;checked_transfer(t)
+assert(stock(h)==4000 and t.stockpiled_amount.Metals==76000)
+assert(F.Held(h,'Metals')==4000)
+print('PASS existing standing hub reserve is retained')
+t,s,h=fixture(60,240,60,240)
+assert(D.Set(s,'Metals','export',20));checked_transfer(t)
+assert(stock(s)==60000 and (t.stockpiled_amount.Metals or 0)==0)
+t.current_station=h;checked_transfer(t)
+assert(stock(h)==240000 and stock(s)==60000)
+assert(D.Status(s,'Metals').full)
+print('PASS full hub refuses, does not bounce stock to exporter')
+-- A real outstanding incoming reservation must not be allocated twice.
+t,s,h=fixture(0,240,60,240)
+assert(D.Set(s,'Metals','import',50))
 assert(s.demand.Metals:AssignUnit(10000))
-assert(D.Set(s,"Metals","export",20))
-t:TransferCargo(nil,true)
-assert(s.supply.Metals.actual==5000 and t.stockpiled_amount.Metals==5000)
-print("PASS limitation: existing inbound 10 unloads, then 5 reloads despite export floor 20")
-D.Reset()
+t.current_station=h;checked_transfer(t)
+assert(t.stockpiled_amount.Metals==20000 and s.demand.Metals.target==30000)
+deliver(t,s);assert(stock(s)==20000 and s.demand.Metals.target==30000)
+-- Old inbound cargo after changing to export remains assigned, then unloads at hub.
+t,s,h=fixture(10,0,60,240)
+t.stockpiled_amount.Metals=10000;t.assigned_resources[s]={Metals=10000}
+assert(s.demand.Metals:AssignUnit(10000))
+assert(D.Set(s,'Metals','export',20));checked_transfer(t)
+assert(stock(s)==10000 and t.stockpiled_amount.Metals==10000)
+deliver(t,h)
+assert(stock(h)==10000 and stock(s)==10000 and s.demand.Metals.target==50000)
+print('PASS existing inbound reservations; export does not unload old cargo')
+-- Drone coverage excludes a remote hub even though it services maintenance.
+t,s,h=fixture(60,0,60,240)
+function h:CanCommandDrones() return true end
+function h:IsInWorkRange() return false end
+s.command_centers={h}
+assert(D.Set(s,'Metals','export',20))
+assert(not D.HasDroneCoverage(s));checked_transfer(t);assert(stock(s)==12000)
+s.command_centers={{CanCommandDrones=function() return true end,IsInWorkRange=function() return true end}}
+assert(D.HasDroneCoverage(s))
+print('PASS uncovered spoke gets train behavior; remote hub is not local drone coverage')
+-- Rewrite paths use archived vanilla writers, including the request alias.
+assert(D.Set(s,'Food','balanced',35))
+local function baselines(cap)
+    assert(s.supply.Metals.desired==cap and s.demand.Metals.desired==0)
+    assert(s.supply.Food.desired==cap*35/100 and s.demand.Food.desired==cap*65/100)
+end
+baselines(60000)
+s:SetDesiredAmount(3000);baselines(60000)
+s:SetAcceptResourceState('Metals','disabled');assert(not s:IsResourceEnabled('Metals'))
+s:SetAcceptResourceState('Metals','store');baselines(60000)
+s:UpdateRequestCapacity('Food');baselines(60000)
+s:OnModifiableValueChanged('max_storage_per_resource');baselines(60000)
+local old=s.supply.Food
+s.supply.Food=nil;s.demand.Food=nil
+s:RecalculateAfterResourceListChange();baselines(60000);assert(s.supply.Food~=old)
+assert(MultiResourceDepotBase.RegisterResourceRequest==MultiResourceCubeVisuals.RegisterResourceRequest)
+SavegameFixups.RevertStationDesiredAmount();baselines(60000)
+for _,st in ipairs(UIColony.labels.Station) do
+    st.max_storage_per_resource=st.max_storage_per_resource*2
+    st:OnModifiableValueChanged('max_storage_per_resource')
+end
+baselines(120000)
+assert(D.Status(s,'Metals').slider==24000 and h:GetMaxStorage('Metals')==480000)
+print('PASS six rewrite paths, captured request alias, network-wide capacity doubling')
+-- Simulated load keeps only the hub table plus vanilla-written baseline/ledger.
+OnMsg.SaveGameStart()
+assert(s:IsResourceEnabled('Metals') and s.supply.Metals.target==stock(s))
+OnMsg.SaveGameDone()
+s.supply.Metals.desired=0;s.supply.Food.desired=0
+OnMsg.LoadGame();baselines(120000)
+-- Fire SaveGameStart synchronously from inside vanilla's evaluation.
+t,s,h=fixture(60,0,60,240);assert(D.Set(s,'Metals','export',20))
+local old_actual=s.supply.Metals.GetActualAmount
+local fired=false
+s.supply.Metals.GetActualAmount=function(req)
+    if not fired and not s:IsResourceEnabled('Metals') then
+        fired=true;OnMsg.SaveGameStart()
+        assert(s:IsResourceEnabled('Metals') and s:GetMaxStorage('Metals')==60000)
+        assert(req.target==req.actual and h.supply.Metals.target==h.supply.Metals.actual)
+    end
+    return old_actual(req)
+end
+checked_transfer(t);assert(fired);OnMsg.SaveGameDone()
+assert(s.supply.Metals.target==stock(s))
+print('PASS save hook removes in-call lies/claims; load rebuilds baselines from hub table')
+-- Invalid edits and reset leave the vanilla dial/resource toggles intact.
+assert(not D.Set(s,'Metals','export',101))
+assert(not D.Set(s,'Metals','export',0/0))
+assert(not D.Set(h,'Metals','export',20))
+D.Reset(s);assert(not D.Get(s,'Metals'))
+assert(s.supply.Metals.desired==s.desired_amount)
+assert(not F.stats.last_error and not D.error)
+print('PASS invalid controls and reset; no outstanding test errors')
 ''')
-    print("PASS offline scope only: native requests, drones, engine load/save NOT tested", flush=True)
+    print("PASS desk only: native requests, drone scheduling, UI and engine serialization remain attended", flush=True)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

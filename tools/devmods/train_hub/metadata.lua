@@ -1,6 +1,6 @@
 return PlaceObj('ModDef', {
 	'title', "DEV ONLY - Train Hub (Module B build)",
-	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, the imported hub body, a built-in drone controller and a Metals maintenance reserve. Test colonies only until it ships inside the Opt-In Modules mod.",
+	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, the imported hub body, a built-in drone controller and a Metals maintenance reserve. Station resource rows offer import, export and a relative amount slider. Removing the mod can leave vanilla drone desired amounts at their last setting until a vanilla dial, storage toggle or capacity change rewrites them. Placed hubs retain their existing removal limitations. Test colonies only until it ships inside the Opt-In Modules mod.",
 	'short_description', "DEV ONLY: six-connector train hub with its own drones and a maintenance reserve.",
 	'id', "SMR_TrainHubDev_20260918",
 	'author', "catt144",
@@ -18,6 +18,7 @@ return PlaceObj('ModDef', {
 		"Code/30_TrainHubDrones.lua",
 		"Code/10_TrainFloor.lua",
 		"Code/40_TrainDistribution.lua",
+		"Code/45_TrainDistributionUI.lua",
 		"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
 		"Code/_EntityData.generated.lua",
 	},

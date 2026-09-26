@@ -249,25 +249,27 @@ dome, so it exports metals while importing food, delicacies and machine parts; a
 exports food and imports maintenance goods; industry exports maintenance goods and imports food and
 raw materials. A station-level mode cannot express any of them.
 
-**The mechanism — one lever, two views.** Trains and drones read the same request numbers through
+**The mechanism — two views.** Trains and drones read the same request numbers through
 different paths, and only the train's path is ours (`Train:TransferCargo` is already wrapped,
 `10_TrainFloor.lua:168-198`). So:
 
 - **Baseline request numbers are what the drones see.**
-- **A transient claim, applied inside the train's evaluation and released at once, is what the
-  trains see.**
+- **Transient claims and enabled/capacity answers, applied inside the train's evaluation and
+  released at once, are what the trains see.**
 
-That is enough for all three modes without touching the balancer: export keeps demand open at
-baseline (drones fill it) and claims it during the train call (trains stop delivering); import holds
-supply at baseline down to the slider (drones distribute out, never below it) and opens demand
-during the train call (trains fill it); balanced claims both sides at the slider. ⚠️ **The transient
-shape exists and has never run** (`10_TrainFloor.lua`: no station requests transient yet). It is the
-one unproven link and the first thing any prototype must settle.
+The native claim path was measured on 2026-09-25. Pass 1 then confirmed that claims
+alone stack the floor on top of vanilla's capacity share. Under the owner's pass-2
+delegation, the source answers disabled only during evaluation and receivers answer
+capacity equal to their remaining order; the native loader still writes every cargo
+entry. Export's drone baseline is full, import's is empty (the measured `accept`
+branch), and balanced uses the selected amount. The train-side claims cap what leaves
+or arrives. Pass 2's desk results and native limits are recorded below.
 
 **Where the state lives: on the HUB, not on the stations** (decided with the owner, 2026-09-24).
 The hub keeps the per-station, per-resource modes and sliders for its own network. Nothing of ours
-is persisted on a vanilla `Station`, one persisted name covers it, and removing the mod removes the
-hub and every trace of the feature. The alternative considered and declined was cloning the vanilla
+is persisted as a custom field on a vanilla `Station`, and one persisted name covers the settings.
+The table goes with the hub; vanilla drone desired amounts can linger after removal, as disclosed
+under rung 1 below. The alternative considered and declined was cloning the vanilla
 station into our own building: it would force players to rebuild their network to get the feature,
 and mix two kinds of station in one line.
 
@@ -424,6 +426,27 @@ configured resources may depart from capacity-share allocation; no such change w
 implemented. Evidence, scope, proposed cost and the unrelated traffic-smoke failure:
 `TRAIN_DISTRIBUTION_BUILD_20260926.md`. Captured command outputs:
 `docs/archive/train_distribution_20260926/`.
+
+#### Second pass, 2026-09-26 — desk build, attended pending
+
+**MEASURED, desk:** transient enabled/capacity answers around vanilla's existing
+transfer body overcome the stacked floor/share bound. Export reaches the slider
+on 60/240, 60/480 and equal 100/100 fixtures; an import target of 80 gets 80 where
+vanilla allocated 40. Balanced, full-hub refusal, existing reservations, rewrite
+paths, the captured aliases and a network-wide doubling pass the archived-body
+harness. No copied train body or amount-only loader replacement was needed.
+
+**SOURCE / desk-witnessed footprint:** train view and row UI are rung 0; drone
+desired amounts are vanilla-written rung 1; `SMROptIn_distribution` is the rung-2
+hub settings table. Baselines are re-derived on load; transient claims and answers
+clear at SaveGameStart. Native serialization and the row's visual fit remain untested.
+The mod description names the lingering native drone desired amounts after removal.
+
+The build, evidence, rung table, exact hub-header line owed to the orchestrator,
+limits and preloaded sitting predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`.
+**Attended smoke is still owed.** Desk counts are in the report's linked command
+receipt; the existing traffic-smoke failure is retained separately. Capacity's live
+pairing and the whole hub's ship test are not discharged here.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 

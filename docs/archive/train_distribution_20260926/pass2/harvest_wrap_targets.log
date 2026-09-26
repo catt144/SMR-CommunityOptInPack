@@ -1,0 +1,6 @@
+command: C:\Python313\python.exe tools/harvest_wrap_targets.py --check
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+  allowlisted  Opt_MultipleSuns             SolarPanelBase.GameInit — declares it — SolarPanel.lua:8 (readiness pass 2026-08-31); guarded inline at Opt_MultipleSuns.lua:95/132, not by a Require pair
+WRAP CHECK: 0 wrap site(s) outside Require, 1 allowlisted
+
+exit: 0

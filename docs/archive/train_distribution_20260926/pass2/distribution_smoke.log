@@ -1,0 +1,34 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+PASS owned dev Lua parses; code registration agrees with ModItemCode source
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 10c29e5cb295287a39a267cb574116d033277d3f52f817f786b248a717befcf6
+[TrainHubDev] transient claim failed: [string "<python>"]:13: attempt to index a nil value (local 'absent')
+PASS claim cleanup on rejection/error, nil returns, independent reservations
+CONTROL floor=20 sink=100 retained=60.0
+CONTROL floor=20 sink=400 retained=36.0
+CONTROL import: available=80 requested=80 allocated=40
+PASS export: exact floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100; return trip stops
+PASS import ceiling lifted: 80 allocated and retained; balanced fills to 80
+PASS several receivers get separate bounded orders; other resource stays vanilla
+PASS balanced export excess leaves 20
+PASS existing standing hub reserve is retained
+[TrainDistribution] station=2 res=Metals mode=export slider=12.000 stock=60.000 supply=60.000/60.000 demand=0.000/0.000 covered=false hub_full=true calls=45
+PASS full hub refuses, does not bounce stock to exporter
+PASS existing inbound reservations; export does not unload old cargo
+PASS uncovered spoke gets train behavior; remote hub is not local drone coverage
+[TrainDistribution] station=2 res=Metals mode=export slider=24.000 stock=12.000 supply=12.000/120.000 demand=108.000/0.000 covered=true hub_full=false calls=48
+PASS six rewrite paths, captured request alias, network-wide capacity doubling
+PASS save hook removes in-call lies/claims; load rebuilds baselines from hub table
+PASS invalid controls and reset; no outstanding test errors
+PASS desk only: native requests, drone scheduling, UI and engine serialization remain attended
+
+exit: 0

@@ -1,0 +1,10 @@
+command: reconcile tests/*smoke.py + parsecheck + harvest_wrap_targets against archived terminal exits
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+total 14 = PASS 13 + FAIL 1
+PASS: art_spec_smoke.log, buildtrack_smoke.log, capacity_smoke.log, distribution_slots_smoke.log, distribution_smoke.log, distribution_ui_smoke.log, dwell_smoke.log, flight_smoke.log, harvest_wrap_targets.log, look_smoke.log, move_smoke.log, parsecheck.log, repair_smoke.log
+FAIL: traffic_smoke.log
+HEAD unchanged: tools/devmods/train_hub/Code/20_TrainHub.lua
+HEAD unchanged: tools/devmods/train_hub/Code/30_TrainHubDrones.lua
+HEAD unchanged: tools/devmods/train_hub/tests/traffic_smoke.py
+TestKit capacity 1-3 and Scratch unchanged after removing added block
+80_AgentSlots.lua sha256=692b276f35cfceadeef6dea0e2770420c8d633a64dec24b018d3d4b147b00c59

@@ -1,0 +1,49 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\capacity_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\capacity_smoke.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+{
+  "command": "python tools/devmods/train_hub/tests/capacity_smoke.py",
+  "head": "e1daef62f8546b93beb0671e49056712f40216ec",
+  "source_sha256": "4415ecf6f51fc4147ca595548659370ca49d530bff90826cd759b230b431e426",
+  "vanilla_sha256": {
+    "Buildings/Building.lua": "02b438909f4a0e0cb880a41cc05f35cdeb0bfcbb22bb3f4631d056b93fa68d9a",
+    "Buildings/UpgradableBuilding.lua": "a9df30bafbd0212ffe0b230f9ac753564643cc5a708e6f0d3b30356174553b1c",
+    "UpgradeUnlocks.lua": "4b0e276dc31c094752074484f982ca741e83d121c244d6616a604d699b4ca81e",
+    "Buildings/MultiResourceDepot.lua": "9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f"
+  },
+  "vanilla_bodies_run": 19,
+  "scope": "vanilla 1.1.1.405907 upgrade and resize bodies over mocked modifiers and labels; no native run, no save file",
+  "applied (small, big, hub A, hub B, train cargo, train passengers)": [
+    120000,
+    240000,
+    480000,
+    480000,
+    84000,
+    24
+  ],
+  "toggled off (small, big, hub A, train cargo, train passengers)": [
+    60000,
+    120000,
+    240000,
+    42000,
+    12
+  ],
+  "ruins cleared (small, big, hub B, train cargo, train passengers)": [
+    60000,
+    120000,
+    240000,
+    42000,
+    12
+  ],
+  "re-bought on B (small, hub B, hub C, train cargo, train passengers)": [
+    120000,
+    480000,
+    480000,
+    84000,
+    24
+  ],
+  "result": "PASS"
+}
+
+exit: 0

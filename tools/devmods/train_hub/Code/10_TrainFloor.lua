@@ -69,11 +69,34 @@ end
 -- Synchronous test seam shared by the legacy floor and distribution prototype.
 -- Claims are {request, wanted}; no object fields are written. Release also on a
 -- genuine runtime error (error()/assert() do not unwind in the game).
+local transient_scopes = {}
+local function release_scope(scope)
+	for i = #scope, 1, -1 do
+		release(scope[i][1], scope[i][2])
+		scope[i] = nil
+	end
+end
+
+-- SaveGameStart can unwind an in-flight view without releasing it twice when
+-- its synchronous caller returns. No scope or callback is stored on an object.
+function Floor.ReleaseTransientClaims()
+	for scope in pairs(transient_scopes) do
+		release_scope(scope)
+		scope.closed = true
+	end
+end
+
 function Floor.WithTransientClaims(claims, fn, ...)
 	local held = {}
+	transient_scopes[held] = true
 	local results = table.pack(pcall(function(...)
 		for _, claim in ipairs(claims) do
+			if held.closed then break end
 			local took = hold(claim[1], claim[2])
+			if held.closed then
+				release(claim[1], took)
+				break
+			end
 			if took > 0 then
 				held[#held + 1] = { claim[1], took }
 				Floor.stats.transient_holds = Floor.stats.transient_holds + 1
@@ -81,7 +104,8 @@ function Floor.WithTransientClaims(claims, fn, ...)
 		end
 		return fn(...)
 	end, ...))
-	for i = #held, 1, -1 do release(held[i][1], held[i][2]) end
+	release_scope(held)
+	transient_scopes[held] = nil
 	if not results[1] then
 		Floor.stats.last_error = tostring(results[2])
 		print("[TrainHubDev] transient claim failed: " .. Floor.stats.last_error)

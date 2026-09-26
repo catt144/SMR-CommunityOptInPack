@@ -1,0 +1,12 @@
+command: enumerate tests/*smoke.py + parsecheck + harvest_wrap_targets --check
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+filter: each archived command terminal exit field
+total 13 = PASS 12 + FAIL 1
+PASS: art_spec_smoke.log, buildtrack_smoke.log, capacity_smoke.log, distribution_smoke.log, distribution_ui_smoke.log, dwell_smoke.log, flight_smoke.log, look_smoke.log, move_smoke.log, repair_smoke.log, parsecheck.log, harvest_wrap_targets.log
+FAIL: traffic_smoke.log
+tools\devmods\train_hub\Code\10_TrainFloor.lua sha256=93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+tools\devmods\train_hub\Code\20_TrainHub.lua sha256=4415ecf6f51fc4147ca595548659370ca49d530bff90826cd759b230b431e426
+tools\devmods\train_hub\Code\30_TrainHubDrones.lua sha256=67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b
+tools\devmods\train_hub\Code\40_TrainDistribution.lua sha256=10c29e5cb295287a39a267cb574116d033277d3f52f817f786b248a717befcf6
+tools\devmods\train_hub\Code\45_TrainDistributionUI.lua sha256=398b50621a6d39478dc6b6e3a5685b1bbe0fc7ae82e0e751f2921629c13626ac
+tools\devmods\train_hub\Code\_EntityData.generated.lua sha256=4b9d59b603ae2160d639a4d6c1bfce13445a3fe3d49d64347015ca404c58db5a

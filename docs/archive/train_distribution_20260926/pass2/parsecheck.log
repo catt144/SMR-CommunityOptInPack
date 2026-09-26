@@ -1,0 +1,5 @@
+command: C:\Python313\python.exe tools/parsecheck.py
+HEAD: e1daef62f8546b93beb0671e49056712f40216ec
+PARSE: 5 file(s) in Code, 0 error(s) [Lua 5.5]
+
+exit: 0
