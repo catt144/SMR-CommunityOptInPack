@@ -138,6 +138,9 @@ and report. Stale probes are how false facts got recorded.
 Leg-design rules:
 
 - An objective counter is only objective if it can fail, and it needs a liveness witness beside it.
+- A prediction names the result that would refute it, and its author confirms the instrument can
+  produce that result. A disjunction one branch of which the data always satisfies is not a
+  prediction.
 - A probe reaches the code the way production does and computes its expectation independently
   (vanilla's algorithm or hand-derived constants), never with the module's own logic. A guard probe
   also asserts that the guard still delegates.

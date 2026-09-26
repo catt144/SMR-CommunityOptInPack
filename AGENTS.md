@@ -64,6 +64,12 @@ STATE/WORKFLOW/FIX_POLICY).
 Prompts: the map is `docs/agent/prompts/README.md`, whose own gate carries the prompt-map duty;
 reusable ones live in `prompts/perma/`, and one-offs live at the prompt root until consumed.
 
+**Where things are on this rig** (the owner's Windows machine; Linux/Proton paths differ).
+Game install `A:\SteamLibrary\steamapps\common\Project Spark` — the folder is **not** named for the game.
+Logs `%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-*.log`, newest wins. Saves
+`C:\Users\stkot\Saved Games\Surviving Mars Relaunched\<steamid>`; `%APPDATA%\Surviving Mars\<steamid>`
+is a decoy, not the play history (`EF-110`).
+
 > **Split out of `SMR-BugFixPack` @ `33d69f5` on 2026-08-12** (chain `split-optins`). Policies,
 > engine facts, tooling and doc conventions came with it; declared local fact adaptations and the
 > last donor sync live in `tools/sync_from_fixpack.py`. Pre-split records in the fix pack cite

@@ -126,6 +126,10 @@ RULE_HEADER_DOCS = (
     "docs/PARKED_MODULES.md",
     "docs/agent/FIX_POLICY.md",
     "docs/agent/prompts/README.md",
+    # Synced from the donor 2026-09-26 (donor 753358c, owner ruling): chain
+    # authoring gained two rules that bind nothing else — approval for a sitting
+    # placed ahead of the build, and a second-seat read of an attended brief.
+    "docs/agent/support/CHAIN_METHOD.md",
 )
 RULE_HEADER_WARN_BYTES = 1024
 RULE_HEADER_MAX_BYTES = 2048

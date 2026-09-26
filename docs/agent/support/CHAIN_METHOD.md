@@ -1,5 +1,11 @@
 # Chain method — building a multi-session effort
 
+## Must_Read_Header
+<!-- RULES -->
+Rule: Ask the owner before authoring a chain whose sitting comes before the build, and name the knowledge the fix cannot be built without. [A3: pass]
+Rule: Have a second seat read an attended brief before the owner sits. [A3: pass]
+<!-- /RULES -->
+
 For an effort over about two sessions. Each link is a brief written per the `prompt-authoring` skill;
 this adds the chain structure.
 
