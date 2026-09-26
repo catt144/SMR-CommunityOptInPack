@@ -6,15 +6,22 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. No build brief is live: the next, the Capacity
-Network Upgrade (spec §4.10), waits on the owner's OI-30. The earlier `05`, the portal doors,
-was fired, built and then cut by the owner on 2026-09-22; its survey stays in
-`reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at `8aef5de`. Only one brief that edits
-`tools/devmods/train_hub/Code/20_TrainHub.lua` runs at a time.
+`00` is live; `03_Drones/` is closed reference. ⚖️ **Two build briefs are live in parallel, `08` and
+`09`** (owner, 2026-09-26: capacity, and the distribution centre while capacity runs). They are
+fireable **in either order or at the same time** because their file sets are disjoint: `08` owns
+`20_TrainHub.lua` and the building template, `09` owns `10_TrainFloor.lua` and
+`40_TrainDistribution.lua`. Each brief states the fence. This is how the one-brief-at-a-time rule on
+`20_TrainHub.lua` is satisfied — `08` holds it alone. The only file both write is `metadata.lua`;
+both re-read it before each write and commit with a pathspec.
+
+The earlier `05`, the portal doors, was fired, built and then cut by the owner on 2026-09-22; its
+survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at `8aef5de`.
 
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
+| `08_TRAIN_HUB_CAPACITY_high.md` | The Capacity Network Upgrade, spec §4.10: one hub upgrade, +100% station storage / train cargo / passengers, once per colony. Owns `20_TrainHub.lua` and the building template. | **LIVE** (owner, 2026-09-26) |
+| `09_TRAIN_HUB_DISTRIBUTION_high.md` | The distribution centre, spec §4.8: per-resource import/export/balanced on every station with the hub as sink, state on the hub, controls in the station card's rows. Owns `10_TrainFloor.lua` and `40_TrainDistribution.lua`. | **LIVE** (owner, 2026-09-26), parallel to `08` |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

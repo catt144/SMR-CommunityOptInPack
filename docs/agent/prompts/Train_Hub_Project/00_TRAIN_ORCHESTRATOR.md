@@ -51,23 +51,34 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-26** (Claude Opus 5.5,
-     `claude-opus-5-5[1m]`). The fire order is this folder's [`README.md`](README.md); keep it
-     current. **Build 5 is done and its brief deleted**: pass 2 (`3e8176b`) fixed reworked-network
+   - **WHERE THE PROJECT STANDS, orchestrator 2026-09-26 (second session)** (Claude Opus 5,
+     `claude-opus-5`). The fire order is this folder's [`README.md`](README.md); keep it current.
+     **Build 5 is done and its brief deleted**: pass 2 (`3e8176b`) fixed reworked-network
      discovery and added `MaxDrones` 60 and repair priority; the attended smoke closed all four
      cases with the owner accepting look and timing (spec §10 "Build 5 pass 2 attended smoke
      closed", `reports/TRAIN_HUB_BUILDTRACK_20260925.md`, whose limits stand: leader 6630's
      completion path unproven, case 3's shortage/refill waived, native repair priority unwitnessed).
-     **No build brief is live.** Next is the **Capacity Network Upgrade, spec §4.10**, fully
-     ruled and waiting on the owner's OI-30; `20_TrainHub.lua` is free for it. The owner can ask the
-     orchestrator to guide an attended sitting and read the game log on "flushed". The owner's open
-     asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
-   - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
-     Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
-     numbers are the drones' view, a transient claim during the train's evaluation is the trains'),
-     the decisions already taken (per resource not per station, state on the hub, controls in the
-     station card's existing rows, claims kept out of saves), and the owner's sitting of 2026-09-25
-     that MEASURED its three unproven things (§4.8 "Owner's sitting").
+     ⚖️ **TWO BUILD BRIEFS ARE NOW LIVE IN PARALLEL** (owner, 2026-09-26: *"lets do capacity"*, and
+     *"while capacity is running we need to get the distribution center built"*): `08` for the
+     **Capacity Network Upgrade (spec §4.10)** and `09` for the **distribution centre (spec §4.8)**.
+     Their file sets are disjoint — `08` owns `20_TrainHub.lua` and the building template, `09` owns
+     `10_TrainFloor.lua` and `40_TrainDistribution.lua` — which is how the one-brief-at-a-time rule on
+     `20_TrainHub.lua` is kept. `metadata.lua` is the only shared file. ⚠️ **When both land, schedule
+     the live pairing neither brief may claim:** `08`'s upgrade fires §4.5's request-rewrite path on
+     every station at once, which is the new blast radius `09` only tests from its harness.
+     The owner can ask the orchestrator to guide an attended sitting and read the game log on
+     "flushed". The owner's open asks live on
+     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
+   - **The distribution centre's own rulings, spec §4.8** — read §4.8 and §4.9 before briefing
+     anything further in this area. They carry the mechanism (baseline numbers are the drones' view,
+     a transient claim during the train's evaluation is the trains'), the decisions already taken
+     (per resource not per station, state on the hub, controls in the station card's existing rows,
+     claims kept out of saves), the owner's sitting of 2026-09-25 that MEASURED its three unproven
+     things (§4.8 "Owner's sitting"), and the owner's three rulings of 2026-09-26: a full hub
+     refuses; no presets, no "suggest" and no overview, just two checkboxes and a slider per resource
+     row; an uncovered spoke gets the train half only with its row saying so, and link 4's
+     maintenance-only filter stays shut. **Still open: whether the hub places the trains it builds**
+     (§4.9, not authorised).
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
      `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
@@ -134,15 +145,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      wave. Spec §10 holds the open questions. Decide after the movement prototype;
    - before the final build's full battery, brief a TestKit fix for the crossing witness
      (the hub report's §"Sitting result");
-   - **The distribution centre (spec 4.8), the owner's design of 2026-09-24 — DESIGN ONLY, not
-     authorised.** Per-resource export / import / balanced on every station, the hub as the sink,
-     state on the hub, controls in the station card's existing resource rows. Place it AFTER the
-     drones chain and build 5: it is Module A's A1+A2 and wants the hub's own mechanics finished
-     first. Its console prototype is done: the claim path, the drones' response to the baseline
-     numbers and `accept` are MEASURED (§4.8 "Owner's sitting"). Train construction at the hub is
-     spec 4.9: the hub can already build trains; the work worth doing is having it PLACE them.
-   - Module A phase A1, whose `accept` half needs a retest with a Metals consumer in drone
-     range (§4.3);
+   - **Train construction at the hub is spec 4.9**, DESIGN ONLY: the hub can already build trains;
+     the work worth doing is having it PLACE them. It is the one question §4.8 still leaves open.
+     Module A's A1 and A2 are brief `09`'s, above; `accept` with a consumer in drone range was
+     MEASURED in the owner's 2026-09-25 sitting, so §4.3's retest is discharged.
    - routing 5d or 5c, once the owner has played the 5a network.
    - **"Follow the track" no longer binds on its own (owner, 2026-09-23).** The 2026-09-19 ruling
      -- *"never drone pathing, so it cannot cut across open ground"* -- is not by itself a reason to

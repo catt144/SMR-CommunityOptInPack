@@ -224,11 +224,13 @@ open, and the prototype decides it.
 Any floor or amount the module shows or stores must therefore be relative to the live
 `GetMaxStorage(res)`, and the module must re-apply its values after that rewrite.
 
-### 4.8 The distribution centre (owner's design, 2026-09-24) — DESIGN ONLY, NOT BUILT
+### 4.8 The distribution centre (owner's design, 2026-09-24) — ⚖️ AUTHORISED 2026-09-26, BUILD LIVE
 
-The owner's vision for where Module A and the hub meet. **Nothing here is built and nothing is
-authorised**; this is the record of the design and its known mechanism, so the eventual brief does
-not re-derive it.
+Where Module A and the hub meet. ⚖️ **Owner, 2026-09-26: build it** — *"while capacity is running we
+need to get the distribution center built"*. The brief is
+`prompts/Train_Hub_Project/09_TRAIN_HUB_DISTRIBUTION_high.md`, running in parallel with the Capacity
+Network Upgrade (§4.10) on a disjoint file set. Everything below is the design and its known
+mechanism, so the build does not re-derive it. Nothing is built until that brief records its smoke.
 
 **The shape.** Stations get their per-resource sliders back (§4.1, §4.7). The hub becomes the
 network's **distribution centre**: it takes what the spokes do not want, and feeds each spoke what
@@ -282,21 +284,29 @@ persist into a save and outlive the mod, leaving a station quietly crippled with
 claim at `SaveGameStart` and re-apply after, the shape the hub's own reserve reconcile and the
 drones' save guard already use.
 
-**Interaction, so 12 stations do not mean a grid** (options, not a decision): default everything to
-balanced and mark only the exceptions, which is a handful of rows per station; sector presets
-(mining, agri, industry, residential) as a starting pattern; and a "suggest" that pre-ticks from
-what the station's own radius produces and consumes. Export marks are naturally few — a resource the
-area does not produce never needs one, because there is nothing local for drones to haul in.
+**Interaction, so 12 stations do not mean a grid:** everything defaults to balanced and only the
+exceptions are marked, which is a handful of rows per station. Export marks are naturally few — a
+resource the area does not produce never needs one, because there is nothing local for drones to
+haul in. Nothing is marked for the player; see ruling 2 above.
 
-**Open, for the owner when this is briefed**
+⚖️ **Owner rulings, 2026-09-26, closing the open questions below**
 
-1. **The hub full case.** When the sink fills, §3's capacity-share rule starts pushing stock back to
-   the spokes and an export station bounces. Hub refuses, spokes hold, or something else.
-2. **Whether a central overview is wanted at all**, and if so, world signs per mode (read the
-   network by looking at it) or a dialog opened from the hub whose rows select and centre a station.
-   Not a command-centre tab: the owner's objection (2026-09-24) is that it trades a spatial problem
-   for a list of names with no map behind it.
-3. Whether the hub also **places the trains it builds** (see §4.9).
+1. **The hub full case: the hub REFUSES.** A full hub stops accepting that resource, rather than
+   letting §3's capacity-share rule push stock back out and bounce an exporter (drained, refilled,
+   drained). The excess sits at the spoke and the player sees a full hub.
+2. **No central overview**, and no sector presets and no "suggest" pre-tick either. ⚖️ *"I don't want
+   auto selected presets, I want to give full control to players everything is check the import box,
+   check the export box, or no check and balanced. And the slider"* — so the control is **two
+   checkboxes and a slider per resource row**, neither box checked being balanced, import and export
+   mutually exclusive. Every §4.8 interaction idea below is refused; the player does it all by hand.
+3. **An uncovered spoke gets the train half only, and its row says so.** A station with no Drone
+   Controller in range keeps working on the train side; the drone half does nothing there and the row
+   shows there are no drones in range. ⛔ This does **not** reopen link 4's filter — the hub's fleet
+   stays maintenance-only for far stations, and is not to serve these modes at distance.
+
+**Still open**
+
+- Whether the hub also **places the trains it builds** (see §4.9).
 
 ⛔ **Precondition the owner's own colony exposes: the drone half only works where there ARE
 drones.** Every remote station in the owner's 2026-09-23/24 game wears vanilla's
@@ -306,9 +316,8 @@ trouble. It matters here: a spoke with no command centre in range has no drones 
 station full or to distribute an import station's stock outward, so on such a station only the
 train half of the design does anything. Link 4 made the hub a controller for far stations'
 **maintenance requests only** (`20_TrainHub.lua:2171-2178`) precisely because joining every request
-turned the hub's fleet into a resource balancer between stations. Any brief must state what an
-uncovered spoke is expected to do, and whether the hub's fleet is meant to serve these modes at
-distance — which would reopen that filter and the track-work ruling behind it.
+turned the hub's fleet into a resource balancer between stations. ⚖️ Ruling 3 above settles it: the
+train half only, the row says so, and the filter stays shut.
 
 **What is unproven, and must be measured before any of this is believed**
 
@@ -406,7 +415,11 @@ correctly for connectors 5 and 6.
 
 ---
 
-### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — DESIGN ONLY, NOT AUTHORISED
+### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — ⚖️ AUTHORISED 2026-09-26, BUILD LIVE
+
+⚖️ **Owner, 2026-09-26, answering OI-30: build it** — *"lets do capacity"*. The brief is
+`prompts/Train_Hub_Project/08_TRAIN_HUB_CAPACITY_high.md`, which owns `20_TrainHub.lua` while it
+runs and is parallel to the distribution centre (§4.8). Nothing is built until it records its smoke.
 
 **One** upgrade on the hub, the **Capacity Network Upgrade**: **+100% storage on every train
 station, the hub included, and +100% cargo on every train**. ⚖️ Owner, 2026-09-25: one upgrade, not
