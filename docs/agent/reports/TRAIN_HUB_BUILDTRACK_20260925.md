@@ -285,3 +285,26 @@ native verification of a sustained material wait. Cases 1 and 4 remain owed.
 Byte checkpoint `case3_attempt1_snapshot_Mars.exe-20260925-23.49.03-6aad2d75.log`
 and `pass2_case3_attempt1.json` in the same archive preserve this unsuccessful
 shortage attempt. The JSON records HEAD, command/filter, hash and selected raw rows.
+
+**Case 4 pre-shutdown checkpoint, 2026-09-26; outcome pending.** The owner completed
+the mid-job save and full exit, and warned that earlier sessions share this process log.
+`Mars.exe-20260926-10.33.35-6aad2d75.log` is archived complete, including that noise.
+The relevant load starts at line 7035. Its ON read is at t=32762717 (`:7278`);
+OFF and READ are at t=32779613 (`:7477`, `:7667`). Both report 3 active jobs and
+17 queued, Track work false, fleet 5, cap 60. The READ job rows reconcile to
+20 groups / 96 members: active leaders 7420, 7510, 7522 each have 5 members;
+the queued leaders have 16 groups of 5 and one of 1. Site 7420 relaunched at
+t=32781195 (`:7670`), after this read; the saved state needs a native reload check.
+
+The process-wide error field stays 112 from ON to the final read. Filtering raw
+`[LUA ERROR]` rows around the last `Load Game:` boundary finds 112 before it and
+none after it. The last preceding error is `:6897`, in SupplyGrid; these earlier
+errors are retained without attributing them to this test or investigating them here.
+The owner-named `train_hub_build5_midjob.savegame.sav` exists and Mars is no longer
+running. This proves the checkpoint, not successful recovery or OFF behavior over time.
+
+`pass2_case4_presave.json` records command/filter, HEAD `cf5194d`, full leader
+membership, log/save hashes and the unchanged runtime hash. It also records the
+appended closed case-3 log `Mars.exe-20260925-23.49.03-6aad2d75.log`; all earlier
+snapshots remain intact. Next: reload in a fresh process, read paused, let existing
+jobs finish with Track work OFF, read again, then turn ON and verify queued work.

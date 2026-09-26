@@ -1,0 +1,173 @@
+{
+  "command": "python scratch/build5_case4_presave_receipt.py",
+  "HEAD": "cf5194d70dd43eb07eca925241a19b57246682c2",
+  "runtime_sha256": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+  "archives": [
+    {
+      "name": "Mars.exe-20260926-10.33.35-6aad2d75.log",
+      "bytes": 535811,
+      "sha256": "3661b871df946cb0310849ce43932bb447ff832f2414f9fe05fdfb2386d70a07"
+    },
+    {
+      "name": "Mars.exe-20260925-23.49.03-6aad2d75.log",
+      "bytes": 116527,
+      "sha256": "ea2bb3a8bdb2fd6b9740f5eaee234d6bb7172559df25aec4be2e03c985e5bdb3"
+    }
+  ],
+  "save": {
+    "path": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696\\train_hub_build5_midjob.savegame.sav",
+    "bytes": 27877347,
+    "sha256": "c010ae0f1f667f0d603a81b85f2b24319cca61316a2192a8475c91ba48376bf6"
+  },
+  "filter": "Last Load Game: boundary; [LUA ERROR] counts before/after; unique [mod] [SMRTK] leg=READ row=job records after boundary",
+  "load_boundary_line": 7035,
+  "errors_before": 112,
+  "errors_after": 0,
+  "jobs": [
+    {
+      "line": 7587,
+      "site": 7552,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7557 elements=5 kind=build leg=READ row=job site=7552 started=false track=7504 waiting=false t=32779613 id=748"
+    },
+    {
+      "line": 7589,
+      "site": 7366,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7367 elements=5 kind=build leg=READ row=job site=7366 started=false track=7360 waiting=false t=32779613 id=749"
+    },
+    {
+      "line": 7591,
+      "site": 7414,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7415 elements=5 kind=build leg=READ row=job site=7414 started=false track=7360 waiting=false t=32779613 id=750"
+    },
+    {
+      "line": 7594,
+      "site": 7426,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7427 elements=5 kind=build leg=READ row=job site=7426 started=false track=7360 waiting=false t=32779613 id=751"
+    },
+    {
+      "line": 7596,
+      "site": 7497,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7498 elements=5 kind=build leg=READ row=job site=7497 started=false track=7360 waiting=false t=32779613 id=752"
+    },
+    {
+      "line": 7598,
+      "site": 7372,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7373 elements=5 kind=build leg=READ row=job site=7372 started=false track=7360 waiting=false t=32779613 id=753"
+    },
+    {
+      "line": 7600,
+      "site": 7564,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7569 elements=5 kind=build leg=READ row=job site=7564 started=false track=7504 waiting=false t=32779613 id=754"
+    },
+    {
+      "line": 7602,
+      "site": 7485,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7486 elements=5 kind=build leg=READ row=job site=7485 started=false track=7360 waiting=false t=32779613 id=755"
+    },
+    {
+      "line": 7604,
+      "site": 7491,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7492 elements=5 kind=build leg=READ row=job site=7491 started=false track=7360 waiting=false t=32779613 id=756"
+    },
+    {
+      "line": 7606,
+      "site": 7479,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7480 elements=5 kind=build leg=READ row=job site=7479 started=false track=7360 waiting=false t=32779613 id=757"
+    },
+    {
+      "line": 7608,
+      "site": 7558,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7563 elements=5 kind=build leg=READ row=job site=7558 started=false track=7504 waiting=false t=32779613 id=758"
+    },
+    {
+      "line": 7610,
+      "site": 7408,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7409 elements=5 kind=build leg=READ row=job site=7408 started=false track=7360 waiting=false t=32779613 id=759"
+    },
+    {
+      "line": 7612,
+      "site": 7503,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7509 elements=5 kind=build leg=READ row=job site=7503 started=false track=7504 waiting=false t=32779613 id=760"
+    },
+    {
+      "line": 7614,
+      "site": 7359,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7361 elements=5 kind=build leg=READ row=job site=7359 started=false track=7360 waiting=false t=32779613 id=761"
+    },
+    {
+      "line": 7616,
+      "site": 7570,
+      "elements": 1,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7571 elements=1 kind=build leg=READ row=job site=7570 started=false track=7504 waiting=false t=32779613 id=762"
+    },
+    {
+      "line": 7618,
+      "site": 7516,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7521 elements=5 kind=build leg=READ row=job site=7516 started=false track=7504 waiting=false t=32779613 id=763"
+    },
+    {
+      "line": 7620,
+      "site": 7378,
+      "elements": 5,
+      "active": false,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=none deadline=false drone=false element=7379 elements=5 kind=build leg=READ row=job site=7378 started=false track=7360 waiting=false t=32779613 id=764"
+    },
+    {
+      "line": 7622,
+      "site": 7420,
+      "elements": 5,
+      "active": true,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=false deadline=32809720 drone=2000002007 element=7421 elements=5 kind=build leg=READ row=job site=7420 started=32776195 track=7360 waiting=false t=32779613 id=765"
+    },
+    {
+      "line": 7624,
+      "site": 7510,
+      "elements": 5,
+      "active": true,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=FlightGoto deadline=32810435 drone=2000002006 element=7515 elements=5 kind=build leg=READ row=job site=7510 started=32771195 track=7504 waiting=false t=32779613 id=766"
+    },
+    {
+      "line": 7626,
+      "site": 7522,
+      "elements": 5,
+      "active": true,
+      "raw": "[mod] [SMRTK] SMRTK_DUMP command=FlightGoto deadline=32804919 drone=2000002005 element=7527 elements=5 kind=build leg=READ row=job site=7522 started=32766195 track=7504 waiting=false t=32779613 id=767"
+    }
+  ],
+  "active": 3,
+  "queued": 17,
+  "members": 96,
+  "status": "Pre-shutdown checkpoint only; restart and toggle outcomes pending",
+  "note": "Site 7420 relaunched after read at t=32781195, log line 7670. Save contents will be checked by native reload; paused read precedes save and is not asserted to equal its exact timestamp."
+}

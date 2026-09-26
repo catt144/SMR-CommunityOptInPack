@@ -3429,3 +3429,10 @@ the hub and ruled, "I think we are close enough to call this a pass". No further
 attended shortage/refill retry is owed for this sitting. Sustained shortage/refill
 remains unwitnessed; the attempt and its log checkpoint are preserved in the build
 report. Cases 1 and 4 remain owed; build 5 stays open.
+
+**Build 5 pass 2 case 4 checkpoint, 2026-09-26.** Mid-job save and full process exit
+are captured; the pre-save paused read has Track work OFF with active and queued
+build jobs. Earlier sessions produced errors in the same process, but none occur
+after this fixture's load boundary. The complete log, boundary, job identities and
+save fingerprint are recorded in `TRAIN_HUB_BUILDTRACK_20260925.md`. Fresh-process
+recovery, OFF hold and ON continuation remain pending; this is not a case-4 pass.
