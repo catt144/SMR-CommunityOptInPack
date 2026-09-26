@@ -171,6 +171,7 @@ contract. New persisted names join this table.
 | 10 | `SMROptIn_hub_crossing` | Train reference (or false) on a dev hub; survives a mid-crossing save | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `HubAcquireCrossing` / `RemoveOccupyingTrain` | same file, `HubCrossingTrain`; TestKit smoke reads it |
 | 11 | `SMROptIn_track_work` | table (or false) on a dev hub: `repair` (the Track work toggle, construction and repair) and `jobs` (the pending list; each job `kind`, `site`, `el`, `track`, `found`, `started`, `deadline`, `drone`, `held`, `waiting`; build jobs also `elements`) | `tools/devmods/train_hub/Code/20_TrainHub.lua`, the TRACK WORK section (`track_work`, the tick, `SetHubTrackRepair`) | same file (`track_jobs`, the tick, the panel line); `tests/repair_smoke.py` walks its shape |
 | 12 | `SMROptIn_hub_native_waiter` | save metadata marker: `1` means the snapshot mapped `cthread.WaitWakeup` to the captured native waiter | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `OnMsg.GatherGameMetadata` when the snapshot guard is installed | same file, `OnMsg.PreLoadGame`; unmarked existing hub saves retain the legacy Lua mapping |
+| 13 | `SMROptInTrainHub6_CapacityNetwork` | **upgrade id**: a key in the owning dev hub's vanilla `upgrades_built`, `upgrade_on_off_state`, `upgrade_modifiers`, `upgrade_id_to_modifiers` (and `upgrades_under_construction` while it is being built), and in `UIColony.unlocked_upgrades`; its modifiers' `upgrade_id` | the template's `upgrade1_id` (`tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua`) through vanilla `Building:ApplyUpgrade`; `20_TrainHub.lua` §Capacity Network Upgrade (`UnlockUpgrade`) | vanilla's upgrade panel and toggle; same section (`hub_capacity_upgrade`, once per colony); `tests/capacity_smoke.py` |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -189,6 +190,12 @@ values are plain data and vanilla object references: the repair group's leader, 
 element, the track, the flight's Wasp, the stock claim's supply request. A job whose site is gone
 is dropped on the next tick; the deadline is the only authority for completion. The tick runs in
 vanilla's per-building update thread, so no thread of ours rides the save.
+
+Row 13 is the Capacity Network Upgrade (spec §4.10, authorised by it; brief 08, 2026-09-26). Its
+modifiers are vanilla `LabelModifier`s on the city with the game's own ids
+(`<handle>_upgrade1_mod_<i>`), not names of ours. Removing the mod from a save leaves them to
+vanilla's `SavegameFixups.RemoveLeakedUpgradeModifiers` (`Building.lua:1323` on 1.1.1.405907),
+which runs once per save: the hub's general uninstall problem.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 

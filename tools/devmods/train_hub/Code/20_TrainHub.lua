@@ -1890,6 +1890,7 @@ function SMROptInTrainHubBase:GameInit()
 	place_hub_markers(self)
 	Floor.Reconcile(self)
 	self:InitHubTrackWork()
+	self:InitHubCapacityUpgrade()
 end
 
 function SMROptInTrainHubBase:OnSetWorking(working)
@@ -3426,5 +3427,95 @@ end
 --       last_connector_idx = 4,
 --       hub_connector_directions = { 0, 3, 1, 4 },
 --   }
+
+-- ===========================================================================
+-- The Capacity Network Upgrade (spec §4.10; owner, 2026-09-25 and 2026-09-26). The template's
+-- upgrade1 carries it: three LabelModifiers on the city, +100% `max_storage_per_resource` on the
+-- `Station` label (the hub joins it, AddToCityLabels above), +100% `max_shared_storage` and
+-- `max_colonists_to_transport` on `Train`. Vanilla applies, toggles and removes them
+-- (Building:ApplyUpgrade / ToggleUpgradeOnOff / Done -> StopUpgradeModifiers, Building.lua
+-- :1151-1250, :1261, :529-534 on 1.1.1.405907), and a live station resizes through
+-- MultiResourceDepotBase:OnModifiableValueChanged (MultiResourceDepot.lua:225-240), which reaches
+-- this hub's capped RecalculateDerivedMaxZ above.
+--
+-- What this file adds is only what vanilla has no field for:
+--   * Unlocked from the start, no tech (owner ruling 4). UIColony's unlock list persists it.
+--   * Once per colony (owner ruling 1). The owner is the hub whose own `upgrades_built` holds it,
+--     ruins included: a salvaged hub keeps the bonus until its ruins are cleared, which is when
+--     vanilla's Done stops the modifiers (owner, 2026-09-26: "When ruins are cleared"). Any other
+--     hub answers HasUpgrade with "spent" and cannot switch it; nothing new is persisted.
+-- ===========================================================================
+
+local hub_capacity_upgrade = "SMROptInTrainHub6_CapacityNetwork" -- save contract, FIX_POLICY inventory
+SMROptInTrainHubBase.hub_capacity_upgrade = hub_capacity_upgrade
+
+local function unlock_capacity_upgrade()
+	if UIColony and not UIColony:IsUpgradeUnlocked(hub_capacity_upgrade) then
+		UIColony:UnlockUpgrade(hub_capacity_upgrade)
+	end
+end
+
+-- Another hub that has built the upgrade ("built") or has it under construction, cancelled or not
+-- ("started"), since a cancelled one keeps its delivered resources and may resume
+-- (Building:StopUpgradeConstruction, Building.lua:2149-2170).
+local function other_capacity_hub(self, started)
+	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
+		if hub ~= self and IsKindOf(hub, "SMROptInTrainHubBase") then
+			if Building.HasUpgrade(hub, hub_capacity_upgrade) then return hub end
+			if started and hub.upgrades_under_construction and hub.upgrades_under_construction[hub_capacity_upgrade] then
+				return hub
+			end
+		end
+	end
+end
+
+function SMROptInTrainHubBase:HasUpgrade(id)
+	local own = Building.HasUpgrade(self, id)
+	if own or id ~= hub_capacity_upgrade or not other_capacity_hub(self) then return own end
+	-- The panel's Ctrl+click reads this table raw once HasUpgrade is true (sectionUpgrades
+	-- .generated.lua:74-84); ApplyUpgrade would have made it on the owner.
+	self.upgrade_on_off_state = self.upgrade_on_off_state or {}
+	return true
+end
+
+-- A spent upgrade shows as "Upgrade already constructed", with no switch
+-- (UpgradableBuilding.lua:256-261, sectionUpgrades.generated.lua:41-45); the owner hub switches it.
+function SMROptInTrainHubBase:CanDisableUpgrade(id)
+	if id == hub_capacity_upgrade and not Building.HasUpgrade(self, id) and other_capacity_hub(self) then return false end
+	return Building.CanDisableUpgrade(self, id)
+end
+
+function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
+	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
+end
+
+function SMROptInTrainHubBase:StopUpgradeModifiersForUpgrade(id)
+	if Building.HasUpgrade(self, id) then Building.StopUpgradeModifiersForUpgrade(self, id) end
+end
+
+-- Every construct and cancel, single or Ctrl+click broadcast, comes through here
+-- (Building.lua:2078-2092). A hub may cancel its own; it may not start one another hub holds.
+function SMROptInTrainHubBase:ConstructUpgrade(id)
+	if id == hub_capacity_upgrade and not self:IsUpgradeBeingConstructed(id) then
+		local other = other_capacity_hub(self, "started")
+		if other then
+			print(string.format("[TrainHubDev] capacity upgrade: refused on hub %s, hub %s holds it", tostring(self.handle), tostring(other.handle)))
+			return
+		end
+	end
+	return Building.ConstructUpgrade(self, id)
+end
+
+function SMROptInTrainHubBase:InitHubCapacityUpgrade()
+	unlock_capacity_upgrade()
+end
+
+function OnMsg.CityStart()
+	unlock_capacity_upgrade()
+end
+
+function OnMsg.LoadGame()
+	unlock_capacity_upgrade()
+end
 
 print("[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve")

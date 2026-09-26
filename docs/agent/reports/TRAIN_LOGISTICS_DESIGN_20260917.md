@@ -488,6 +488,13 @@ can be built (`UIColony:IsUpgradeUnlocked`).
    storage upgrades, per building: small station, oxygen tank and water tank 5 + 5; big station
    15 + 10; large oxygen and water tanks 15 + 15 (`BuildingTemplate/*.generated.lua`).
 
+⚖️ **Owner ruling, 2026-09-26 (brief 08, before the first write): the bonus ends when the ruins are
+cleared** — pure vanilla. The hub has `use_demolished_state`, so salvage or destruction runs
+`Building:Destroy` (`Building.lua:1564` on 1.1.1.405907), which never stops upgrade modifiers; only
+`Building:Done` does (`:529-534`), when drones clear the ruins. So a ruined owner hub keeps the
++100% and the claim, and another hub may buy the upgrade once the ruins are gone. This refines
+ruling 2's "only demolition … removes it" and ruling 3's "after the owning hub is demolished".
+
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
 60 × 3 = 180, not 240, and a train with Extended Cargo Carriages and Train Loading Standards
