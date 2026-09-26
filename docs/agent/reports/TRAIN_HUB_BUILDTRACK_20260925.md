@@ -94,3 +94,44 @@ the content-removal disclosure. The build does not settle those gates.
 Executed model: Codex / GPT-6 as identified in this transcript; no more specific model variant
 was exposed. Scope reviewed: build diff, brief 04, spec §10, D14(g,h), L6 C1–C6 and the named
 desk receipts. Unrelated distribution-prototype and metadata work is excluded.
+
+## Pass 2: live topology inspection
+
+Started on `3f46c8d`, game fingerprint command `python tools/doccheck.py --emit-fingerprint`
+reports installed 25390750 / archived source 1.1.1.405907. Owner has no saved failed layout and
+will recreate it from `train_hub_base` (2026-09-25). Preserve that save. No runtime fix chosen
+before this read; the previous smoke proves failure, not its full topology.
+
+Read-only TestKit slots replace sitting `hubset07b` at kit parent `c8b1646`; that binding is
+recoverable in git. Slot calls do not change the fixture, launch work, arm callbacks, or change
+speed. Select the hub and pause before each snapshot. Native game actions used to recreate the
+case (cutting/extending track and the Track work toggle) remain explicit owner actions.
+
+Predictions, written before boot:
+
+1. Scratch: `SMRTK_ACTION action=slot_scratch status=OK`, plus `SMRTK_TAINT_READ` and
+   `SMRTK_ELIGIBILITY reason=UNAVAILABLE:sandbox`. Read the actual taint and error count;
+   no clean-achievement claim. First-screen witness: "Read taint and eligibility".
+2. Slots 1–6: `SMRTK_ACTION action=slot_N status=OK`, phase respectively BASE, CUT, EXTENDED,
+   WAITED, REJOINED, FOLLOWUP. Each emits bounded map membership via `SMRTK_DUMP` rows for
+   stations/connectors, tracks/endpoints/member lists, elements/hex links/neighbours, repair
+   groups and pending jobs, bracketed by numeric MARKs. Handles and counts are live variables.
+   Expected witness: "Read topology: BASE (select hub, paused)" on slot 1. Normal runtime is
+   immediate while paused; stop if no result within 10 seconds, abort at 30 seconds, or on any
+   engine error/unexpected mutation. Wrong selection or running time must return REFUSED.
+3. Capture BASE before cutting, CUT after cutting, EXTENDED after placing the new section.
+   Keep Track work off during setup; turn it on, run briefly, pause and capture WAITED.
+   REJOINED/FOLLOWUP are reserved for explicit subsequent shapes; no silent slot rebinding.
+   Flush the full file log. A missing endpoint does not decide the fix: compare the exact
+   connector membership, element connections and neighbouring occupied hexes across stages.
+
+Source reads motivating those fields: archived `Buildings/Track.lua:194-200,564-571`
+reads endpoint station ownership and resets endpoints from the built-element array;
+`Buildings/TrackElement.lua:815-856` expands across neighbouring hexes and can move elements
+between track objects; `TrainTransport.lua:57-66` supplies station connectors. Both build and
+repair discovery currently depend on the same station-endpoint graph. These are investigation
+leads, not a live diagnosis or a claim that all neighbouring track must be serviced.
+
+The four acceptance cases and every inherited QA trigger above remain owed. This inspection
+does not run those cases. Unrelated TestKit UI/depot/field-watch/overlay, world actions, grouped
+selection, pipe/cable/dome Quick build and Verbose checks in `tools/SMRTK.md`: NOT RUN.
