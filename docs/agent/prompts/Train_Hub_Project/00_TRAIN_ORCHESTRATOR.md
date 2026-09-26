@@ -51,21 +51,17 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, close of the second 2026-09-25 orchestrator session** (Claude
-     Opus 5.5, `claude-opus-5-5[1m]`). The fire order is this folder's [`README.md`](README.md);
-     keep it current. **`04` (build 5) is back with its build agent for another pass**: the
-     attended smoke stopped after case 2 (spec §10 "Build 5 attended smoke, 2026-09-25"). Case 1
-     passed; case 2 failed on a reworked network (a cut-and-extended track loses its end stations,
-     so the station-to-station walk dead-ends), an owner must-fix. The brief also carries the
-     owner's two smoke rulings (`MaxDrones` 60, repairs before builds). When 04 reports, check it
-     against its commits, then guide the owner through the **whole** smoke again from case 1 —
-     the owner asked the orchestrator to run it with them; read console output from the game log
-     yourself when the owner says "flushed" (log path in memory). Closed this session: the drones
-     chain's L6 QA (C1–C6, D14(g,h) routed into 04); briefs `02` (load errors), `05` (body paint),
-     `06` (icon) and `07` (distribution prototype), each retired. **Next after build 5: the
-     Capacity Network Upgrade, spec §4.10** — fully designed and ruled, not authorised; the
-     owner's word is OI-30 on the checklist. The owner's open asks live on
-     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-26** (Claude Opus 5.5,
+     `claude-opus-5-5[1m]`). The fire order is this folder's [`README.md`](README.md); keep it
+     current. **Build 5 is done and its brief deleted**: pass 2 (`3e8176b`) fixed reworked-network
+     discovery and added `MaxDrones` 60 and repair priority; the attended smoke closed all four
+     cases with the owner accepting look and timing (spec §10 "Build 5 pass 2 attended smoke
+     closed", `reports/TRAIN_HUB_BUILDTRACK_20260925.md`, whose limits stand: leader 6630's
+     completion path unproven, case 3's shortage/refill waived, native repair priority unwitnessed).
+     **No build brief is live.** Next is the **Capacity Network Upgrade, spec §4.10**, fully
+     ruled and waiting on the owner's OI-30; `20_TrainHub.lua` is free for it. The owner can ask the
+     orchestrator to guide an attended sitting and read the game log on "flushed". The owner's open
+     asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
    - **The next design, not authorised: the distribution centre, spec §4.8** (owner, 2026-09-24).
      Read §4.8 and §4.9 before briefing anything in this area; they carry the mechanism (baseline
      numbers are the drones' view, a transient claim during the train's evaluation is the trains'),

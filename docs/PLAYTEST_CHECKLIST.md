@@ -16,10 +16,10 @@ unscheduled, so it does not age.
 ## Decide
 
 ### OI-30 · opened 2026-09-25
-Authorise the train hub's Capacity Network Upgrade once build 5 closes?
+Authorise the train hub's Capacity Network Upgrade now that build 5 is closed?
 - One hub upgrade: +100% station storage (hub included), train cargo and passengers.
 - Your rulings are in spec §4.10: once per colony, re-buyable, no tech, 20 Metals + 20 Concrete.
-- It needs `20_TrainHub.lua`, so it cannot start until build 5 is done.
+- Build 5 closed on 2026-09-26, so `20_TrainHub.lua` is free for it.
 - Say "build it" and the orchestrator writes the brief.
 Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
 
