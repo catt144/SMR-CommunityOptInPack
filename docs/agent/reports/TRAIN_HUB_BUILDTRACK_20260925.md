@@ -219,5 +219,39 @@ failed-layout save; use a separate named save for mid-job reload.
 Run the original four acceptance cases from the beginning: fresh uncovered line plus a longer
 one; delayed connection plus the saved cut-and-extend layout; covered middle plus stock-out and
 refill; mid-job save/reload/full restart plus toggle off/on. Obtain the owner's judgment of the
-chunked appearance and whole-line time. All are **PENDING**, as are the inherited QA triggers
+chunked appearance and whole-line time. Results follow below; the inherited QA triggers remain
 in the original table. Executed model for pass 2: Codex / GPT-6, as exposed in this transcript.
+
+## Pass 2 attended results — in progress
+
+**Case 2 PASS in the saved cut-and-extend layout and its following line.** Owner asked to exercise
+the failing shape first; fresh-line regression remains owed. Runtime `3e8176b`, TestKit `357bccc`,
+game 405907, named save `track test(2).savegame.sav`, sol 46; both mods loaded. The sitting's live
+Fix Pack registry reports version 21 and 41/41 active, whereas the earlier diagnostic boot was
+42/42. No present/absent shipping matrix is claimed. Initial hub fleet was 5, cap 60, Track work
+off, Metals 70600 actual/target (native units, ON dump `:725`). Ordinary drone coverage was not mapped in this
+case. No stock injection was used for this leg.
+
+| Line, matched by native leader handles | Groups / members | First dispatch → last done (game ms) | Elapsed |
+|---|---|---|---|
+| Reworked corridor, original tracks 7360/7504 | 20 / 96 = 19 × 5 + 1 × 1 | 32766195 → 32864770 | 98575 ms |
+| Following line, original track 7134 | 14 / 69 = 13 × 5 + 1 × 4 | 32866195 → 32958533 | 92338 ms |
+
+Every dispatched leader has one matching done line with the same element count. Vanilla moved
+members between TrackBase objects during completion; reconciliation uses leader identity, not
+the changing track id. The following line was absent from the initial candidates and began only
+after the reworked corridor finished. Final paused read (`:1130`) reports no active/waiting jobs,
+no candidate groups/elements, `errors=0`, cap 60; stations 7042 and 7353 both read `on_graph=true`
+(`:1087`, `:1075`). The first final-read attempt was REFUSED because time was running (`:1041`);
+the paused retry is the evidence. Scratch recorded `used=false` and eligibility
+`UNAVAILABLE:sandbox`; these remain distinct observations.
+
+**Owner acceptance, 2026-09-25:** asked whether the chunked construction looked acceptable and
+the total time felt right, the owner replied **"done and yes"**. Keep `BuildTimePerElement=1000`;
+no timing adjustment requested. This accepts this colony's observed lines, not every layout.
+
+The file was flushed while the process was still running. Its byte-preserved checkpoint is
+`docs/archive/train_hub_build5_20260925/case2_snapshot_Mars.exe-20260925-23.29.29-6aad2d75.log`.
+`pass2_case2.json` carries the exact command/filter, HEAD, hash, complete leader membership and
+timing reconciliation. The full closed-process log will be appended after this sitting ends.
+Cases 1, 3 and 4, repair-priority/reserve in native play, and inherited QA remain unclaimed.

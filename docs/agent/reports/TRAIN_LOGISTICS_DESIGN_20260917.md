@@ -3411,3 +3411,12 @@ accounting, persisted names or flight implementation changed. Required build/rep
 desk suites pass, including the captured layout replay and an old-body negative control. Evidence,
 limits and the next boot's slot predictions: `TRAIN_HUB_BUILDTRACK_20260925.md`, pass 2 sections.
 This is not acceptance: all four attended cases restart, and the existing inherited QA remains owed.
+
+**Build 5 pass 2 attended case 2 PASS, 2026-09-25 (`3e8176b`).** The owner chose the saved failed
+cut-and-extend layout first. The attached corridor completed, its station joined the network, and
+the previously unreachable following line then dispatched and completed. The final paused read
+has both far stations on the graph, no remaining work and `errors=0`. The owner accepted the
+chunked appearance and overall timing ("done and yes"); `BuildTimePerElement` stays 1000.
+Measured leader-by-leader counts, line times, fixture limits and the archived log checkpoint are
+in `TRAIN_HUB_BUILDTRACK_20260925.md` §"Pass 2 attended results". Cases 1, 3 and 4 remain owed;
+this closes the witnessed rework/delayed-connection leg, not build 5 or general reworked-network QA.

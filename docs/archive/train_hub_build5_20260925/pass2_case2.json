@@ -1,0 +1,479 @@
+{
+  "command": "python scratch/build5_case2_receipt.py",
+  "head": "3e8176b3010940d002af7363edf857736d75b313",
+  "filter": "unique [TrainHubDev] build dispatched/done site handles; initial corridor = SMRTK_DUMP leg=ON row=candidate; final slot_1 status=OK",
+  "snapshot": {
+    "file": "case2_snapshot_Mars.exe-20260925-23.29.29-6aad2d75.log",
+    "bytes": 98471,
+    "sha256": "8585fd6a539c8d756acc8dde0ce1d000e389316c322c993f1a0bd2725e689468"
+  },
+  "lines": {
+    "cut_extension": {
+      "groups": 20,
+      "elements": 96,
+      "group_sizes": {
+        "5": 19,
+        "1": 1
+      },
+      "first_dispatch": 32766195,
+      "last_done": 32864770,
+      "elapsed_ms": 98575,
+      "members": {
+        "7359": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32796195,
+            "line": 772
+          },
+          "done": {
+            "elements": 5,
+            "t": 32826550,
+            "line": 839
+          }
+        },
+        "7366": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32801195,
+            "line": 776
+          },
+          "done": {
+            "elements": 5,
+            "t": 32832896,
+            "line": 853
+          }
+        },
+        "7372": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32828105,
+            "line": 843
+          },
+          "done": {
+            "elements": 5,
+            "t": 32859759,
+            "line": 902
+          }
+        },
+        "7378": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32809431,
+            "line": 806
+          },
+          "done": {
+            "elements": 5,
+            "t": 32841619,
+            "line": 869
+          }
+        },
+        "7408": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32776195,
+            "line": 760
+          },
+          "done": {
+            "elements": 5,
+            "t": 32809431,
+            "line": 804
+          }
+        },
+        "7414": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32804473,
+            "line": 781
+          },
+          "done": {
+            "elements": 5,
+            "t": 32837860,
+            "line": 861
+          }
+        },
+        "7420": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32816359,
+            "line": 822
+          },
+          "done": {
+            "elements": 5,
+            "t": 32850650,
+            "line": 888
+          }
+        },
+        "7426": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32781195,
+            "line": 762
+          },
+          "done": {
+            "elements": 5,
+            "t": 32816359,
+            "line": 821
+          }
+        },
+        "7479": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32811195,
+            "line": 811
+          },
+          "done": {
+            "elements": 5,
+            "t": 32845791,
+            "line": 873
+          }
+        },
+        "7485": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32826550,
+            "line": 840
+          },
+          "done": {
+            "elements": 5,
+            "t": 32861599,
+            "line": 904
+          }
+        },
+        "7491": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32816195,
+            "line": 819
+          },
+          "done": {
+            "elements": 5,
+            "t": 32851636,
+            "line": 892
+          }
+        },
+        "7497": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32821195,
+            "line": 826
+          },
+          "done": {
+            "elements": 5,
+            "t": 32857860,
+            "line": 898
+          }
+        },
+        "7503": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32826195,
+            "line": 837
+          },
+          "done": {
+            "elements": 5,
+            "t": 32864770,
+            "line": 910
+          }
+        },
+        "7510": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32786195,
+            "line": 764
+          },
+          "done": {
+            "elements": 5,
+            "t": 32825233,
+            "line": 832
+          }
+        },
+        "7516": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32771195,
+            "line": 758
+          },
+          "done": {
+            "elements": 5,
+            "t": 32810500,
+            "line": 808
+          }
+        },
+        "7522": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32825233,
+            "line": 833
+          },
+          "done": {
+            "elements": 5,
+            "t": 32863169,
+            "line": 908
+          }
+        },
+        "7552": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32810500,
+            "line": 809
+          },
+          "done": {
+            "elements": 5,
+            "t": 32848595,
+            "line": 884
+          }
+        },
+        "7558": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32766195,
+            "line": 756
+          },
+          "done": {
+            "elements": 5,
+            "t": 32804473,
+            "line": 780
+          }
+        },
+        "7564": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32791195,
+            "line": 768
+          },
+          "done": {
+            "elements": 5,
+            "t": 32828105,
+            "line": 842
+          }
+        },
+        "7570": {
+          "dispatch": {
+            "elements": 1,
+            "t": 32806195,
+            "line": 802
+          },
+          "done": {
+            "elements": 1,
+            "t": 32838504,
+            "line": 865
+          }
+        }
+      }
+    },
+    "following_line": {
+      "groups": 14,
+      "elements": 69,
+      "group_sizes": {
+        "5": 13,
+        "4": 1
+      },
+      "first_dispatch": 32866195,
+      "last_done": 32958533,
+      "elapsed_ms": 92338,
+      "members": {
+        "7133": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32915739,
+            "line": 965
+          },
+          "done": {
+            "elements": 5,
+            "t": 32954304,
+            "line": 1013
+          }
+        },
+        "7140": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32912359,
+            "line": 960
+          },
+          "done": {
+            "elements": 5,
+            "t": 32951277,
+            "line": 1009
+          }
+        },
+        "7146": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32901195,
+            "line": 946
+          },
+          "done": {
+            "elements": 5,
+            "t": 32940329,
+            "line": 995
+          }
+        },
+        "7152": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32896195,
+            "line": 942
+          },
+          "done": {
+            "elements": 5,
+            "t": 32935412,
+            "line": 986
+          }
+        },
+        "7181": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32876195,
+            "line": 924
+          },
+          "done": {
+            "elements": 5,
+            "t": 32915739,
+            "line": 964
+          }
+        },
+        "7187": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32906267,
+            "line": 953
+          },
+          "done": {
+            "elements": 5,
+            "t": 32945981,
+            "line": 1003
+          }
+        },
+        "7193": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32881195,
+            "line": 930
+          },
+          "done": {
+            "elements": 5,
+            "t": 32920803,
+            "line": 971
+          }
+        },
+        "7199": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32866195,
+            "line": 912
+          },
+          "done": {
+            "elements": 5,
+            "t": 32906267,
+            "line": 952
+          }
+        },
+        "7250": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32911195,
+            "line": 957
+          },
+          "done": {
+            "elements": 5,
+            "t": 32951524,
+            "line": 1011
+          }
+        },
+        "7256": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32886195,
+            "line": 936
+          },
+          "done": {
+            "elements": 5,
+            "t": 32926977,
+            "line": 975
+          }
+        },
+        "7262": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32871195,
+            "line": 920
+          },
+          "done": {
+            "elements": 5,
+            "t": 32912359,
+            "line": 959
+          }
+        },
+        "7268": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32906195,
+            "line": 950
+          },
+          "done": {
+            "elements": 5,
+            "t": 32948039,
+            "line": 1005
+          }
+        },
+        "7341": {
+          "dispatch": {
+            "elements": 5,
+            "t": 32916195,
+            "line": 967
+          },
+          "done": {
+            "elements": 5,
+            "t": 32958533,
+            "line": 1019
+          }
+        },
+        "7347": {
+          "dispatch": {
+            "elements": 4,
+            "t": 32891195,
+            "line": 938
+          },
+          "done": {
+            "elements": 4,
+            "t": 32933002,
+            "line": 982
+          }
+        }
+      }
+    }
+  },
+  "last_read": {
+    "line": 1130,
+    "action": "slot_1",
+    "active": "0",
+    "candidate_elements": "0",
+    "candidate_groups": "0",
+    "errors": "0",
+    "fleet": "5",
+    "game_time": "33471613",
+    "hub": "6430",
+    "mark": "451",
+    "max_drones": "60",
+    "sitting": "build5_pass2_smoke",
+    "status": "OK",
+    "track_work": "true",
+    "waiting": "0",
+    "t": "33471613",
+    "id": "279"
+  },
+  "final_stations": {
+    "2007": "true",
+    "2008": "true",
+    "7353": "true",
+    "2009": "true",
+    "6430": "true",
+    "1994": "true",
+    "2011": "true",
+    "2012": "true",
+    "7042": "true",
+    "6243": "true"
+  },
+  "owner_verdict": "done and yes: chunked appearance and total time accepted",
+  "limit": "one saved cut-and-extend layout plus its delayed following line; other acceptance cases remain"
+}
