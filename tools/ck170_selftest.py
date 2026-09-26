@@ -69,6 +69,8 @@ def byte_cases(m, root):
 def skill_cases(m, root):
     m.SKILLS_DIR = str(root / "skills")
     m.CODEX_SKILLS_DIR = str(root / "mirror")
+    m.IMPORTED_SKILLS = ()   # user-level imports are machine-global; the fixture
+                             # tests mirror identity, not imports
     src, dst = [Path(base) / "fixture/SKILL.md"
                 for base in (m.SKILLS_DIR, m.CODEX_SKILLS_DIR)]
     good = b"abcde\nabcde\n"
