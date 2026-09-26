@@ -210,14 +210,30 @@ This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 
 ### 4.7 UI direction (owner, 2026-09-18)
 
-1.1.0's station infopanel is cleaner, and Module A must blend with it rather than add a section
-of its own. The panel groups resources into collapsible **Basic / Advanced / Delicacies /
+1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
-with an icon button at the left and `stored/max` plus the resource glyph at the right. The
-per-resource control belongs **in that row**, with the same visual weight as the existing
-parts: a state the row already has room for, not a new panel. How it does that (the row's
-button, a glyph beside the amount, or a ctrl-click the way the row's broadcast already works) is
-open, and the prototype decides it.
+with an icon button at the left and `stored/max` plus the resource glyph at the right.
+
+⚖️ **Owner, 2026-09-26, in the distribution sitting: the control moves OUT of those rows into its
+own section on the station card.** This reverses the 2026-09-18 "in that row, not a new panel"
+direction. Pass 2 put two labelled checkboxes and a slider in each row: the labels printed over the
+resource names, the slider showed no value, and a permanent explanation popup sat over the buttons
+with no way to dismiss it. The owner: *"could we just make an import export subpanel that just
+controls that and changes the offerin as you cycle basic, adv delicacies"*, then *"We can continue
+and try your recommended. this popout is very ugly as well and no way to dismiss it. That just just be
+a question mark hove on the new card. Not a perma one over the buttons. The slider isn't had but has
+no visual indicator how much its on."* So:
+
+- **Vanilla's resource rows are left untouched.**
+- **One import/export section** attached to the station's `ipBuilding` panel (the TestKit's
+  `section_attach` is the proven pattern), with **its own group tabs** — Basic · Advanced ·
+  Delicacies · Other — rather than following vanilla's expanded group, which can be several or none.
+- Each of its rows: the resource, the import and export toggles, the slider **with its value shown**,
+  and the station's `stored/max` repeated so the player need not look back up.
+- **Help is a "?" on the section's own header, shown on hover.** Never a standing popup over controls.
+- The "no drones in range" note for an uncovered spoke is one line at the top of the section.
+- Offered with the recommendation, **not yet ruled**: a "marked only" view listing just the resources
+  with a mode set.
 
 **Capacity is not fixed.** Expanded Warehousing doubles the per-resource max (60 → 120 on a
 `StationSmall`), and §4.5's upgrade path rewrites every resource's desired amounts when it lands.
@@ -322,11 +338,12 @@ haul in. Nothing is marked for the player; see ruling 2 above.
 2. **No central overview**, and no sector presets and no "suggest" pre-tick either. ⚖️ *"I don't want
    auto selected presets, I want to give full control to players everything is check the import box,
    check the export box, or no check and balanced. And the slider"* — so the control is **two
-   checkboxes and a slider per resource row**, neither box checked being balanced, import and export
-   mutually exclusive. Every §4.8 interaction idea below is refused; the player does it all by hand.
-3. **An uncovered spoke gets the train half only, and its row says so.** A station with no Drone
-   Controller in range keeps working on the train side; the drone half does nothing there and the row
-   shows there are no drones in range. ⛔ This does **not** reopen link 4's filter — the hub's fleet
+   toggles and a slider per resource**, neither toggle on being balanced, import and export mutually
+   exclusive. Every §4.8 interaction idea below is refused; the player does it all by hand. **Where
+   the control sits is §4.7's 2026-09-26 ruling: its own section, not vanilla's rows.**
+3. **An uncovered spoke gets the train half only, and its card says so.** A station with no Drone
+   Controller in range keeps working on the train side; the drone half does nothing there and the
+   distribution section shows there are no drones in range. ⛔ This does **not** reopen link 4's filter — the hub's fleet
    stays maintenance-only for far stations, and is not to serve these modes at distance.
 
 **Still open**

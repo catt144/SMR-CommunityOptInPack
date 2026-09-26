@@ -113,9 +113,14 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
    (owner, 2026-09-25: "yes") already admits the baseline into the save; the residual is a station
    that behaves as last set until the player touches its dial, and the description says so.
 6. **State on the hub**, one persisted name, from your own file.
-7. **UI in the station card's existing resource rows** (§4.7): two boxes and a slider at the panel's own
-   visual weight; an uncovered station's row says there are no drones in range; the hub's card gets
-   nothing this pass. Infopanel XTemplates are UI data; nothing of ours persists there.
+7. **UI in its own section on the station card** — ⚖️ owner, 2026-09-26, in the sitting, reversing the
+   in-row placement (spec §4.7 holds the ruling and the owner's words). Vanilla's resource rows are
+   left untouched. One import/export section attached to `ipBuilding`, with its own Basic · Advanced ·
+   Delicacies · Other tabs; each row carries the resource, the two toggles, the slider **with its
+   value shown**, and `stored/max`. Help is a **"?" on the section header, on hover only** — no
+   standing popup over controls. An uncovered station shows its no-drones line at the top of the
+   section. The hub's card gets nothing. Infopanel XTemplates are UI data; nothing of ours persists
+   there. The pass-2 row controls come out.
 8. **Survives §4.5's six rewrite paths and §4.6's alias trap**, including the network-wide capacity
    change above; `harvest_wrap_targets.py --check` passes.
 9. **Desk smoke** extending `distribution_smoke.py`: both fixtures; all three modes; the floor
@@ -172,8 +177,8 @@ outside this fence without editing it.
   the copy.
 - A part needs rung 5 (our own persisted class referenced from a vanilla object): report the part,
   the rung-4 attempt and its measurement, before writing it.
-- The station card's resource row cannot carry two checkboxes and a slider at the panel's own visual
-  weight: report what the row can hold, with a screenshot, before inventing a new section.
+- The section cannot be attached to vanilla stations' `ipBuilding` panel the way the TestKit's is:
+  report what was tried, with a screenshot, before placing controls anywhere else.
 
 ## Do not claim
 
