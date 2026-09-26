@@ -1,0 +1,265 @@
+{
+  "command": "python scratch/build5_case4_off_receipt.py",
+  "HEAD": "719f1742a1bde1d45d27d83effd5601e147f2781",
+  "snapshot": "case4_off_snapshot_Mars.exe-20260926-13.24.29-6aad2d75.log",
+  "bytes": 64138,
+  "sha256": "d35315c96f8299e4427c7373da2b21f078cf2d461e2f19497c2177a549222a59",
+  "filter": "Unique [mod] [SMRTK] action=slot_1 and leg=READ row=job; [TrainHubDev] build done/dispatched; [LUA ERROR]",
+  "first_read": {
+    "line": 471,
+    "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=3 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32793440 hub=6430 mark=51 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=17 t=32793440 id=105"
+  },
+  "second_read": {
+    "line": 678,
+    "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=81 candidate_groups=17 errors=0 fleet=5 game_time=32988754 hub=6430 mark=167 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=17 t=32988754 id=189"
+  },
+  "completed": [
+    {
+      "line": 476,
+      "site": 7522,
+      "elements": 5,
+      "text": "[TrainHubDev] build done: elements 5, elapsed 38692 ms, 0 ms after the deadline, the Wasp's stage work at t=32804887 site=7522"
+    },
+    {
+      "line": 498,
+      "site": 7510,
+      "elements": 5,
+      "text": "[TrainHubDev] build done: elements 5, elapsed 39034 ms, 0 ms after the deadline, the Wasp's stage work at t=32810229 site=7510"
+    },
+    {
+      "line": 500,
+      "site": 7420,
+      "elements": 5,
+      "text": "[TrainHubDev] build done: elements 5, elapsed 34487 ms, 962 ms after the deadline, the Wasp's stage work at t=32815682 site=7420"
+    }
+  ],
+  "first_jobs": [
+    {
+      "line": 392,
+      "site": 7552,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 394,
+      "site": 7366,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 396,
+      "site": 7414,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 398,
+      "site": 7426,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 400,
+      "site": 7497,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 402,
+      "site": 7372,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 404,
+      "site": 7564,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 406,
+      "site": 7485,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 408,
+      "site": 7491,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 410,
+      "site": 7479,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 412,
+      "site": 7558,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 414,
+      "site": 7408,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 416,
+      "site": 7503,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 418,
+      "site": 7359,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 420,
+      "site": 7570,
+      "elements": 1,
+      "active": false
+    },
+    {
+      "line": 422,
+      "site": 7516,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 424,
+      "site": 7378,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 426,
+      "site": 7420,
+      "elements": 5,
+      "active": true
+    },
+    {
+      "line": 428,
+      "site": 7510,
+      "elements": 5,
+      "active": true
+    },
+    {
+      "line": 430,
+      "site": 7522,
+      "elements": 5,
+      "active": true
+    }
+  ],
+  "second_jobs": [
+    {
+      "line": 605,
+      "site": 7552,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 607,
+      "site": 7366,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 609,
+      "site": 7414,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 611,
+      "site": 7426,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 613,
+      "site": 7497,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 615,
+      "site": 7372,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 617,
+      "site": 7564,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 620,
+      "site": 7485,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 622,
+      "site": 7491,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 624,
+      "site": 7479,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 626,
+      "site": 7558,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 628,
+      "site": 7408,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 630,
+      "site": 7503,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 632,
+      "site": 7359,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 634,
+      "site": 7570,
+      "elements": 1,
+      "active": false
+    },
+    {
+      "line": 636,
+      "site": 7516,
+      "elements": 5,
+      "active": false
+    },
+    {
+      "line": 638,
+      "site": 7378,
+      "elements": 5,
+      "active": false
+    }
+  ],
+  "dispatch_count": 0,
+  "lua_error_count": 0,
+  "disposition": "Fresh-process reload and OFF hold pass; ON continuation still pending. Snapshot while game running."
+}

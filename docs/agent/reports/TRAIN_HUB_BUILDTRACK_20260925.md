@@ -308,3 +308,15 @@ membership, log/save hashes and the unchanged runtime hash. It also records the
 appended closed case-3 log `Mars.exe-20260925-23.49.03-6aad2d75.log`; all earlier
 snapshots remain intact. Next: reload in a fresh process, read paused, let existing
 jobs finish with Track work OFF, read again, then turn ON and verify queued work.
+
+**Case 4 fresh-process reload and OFF hold PASS, 2026-09-26.** The owner loaded the
+named mid-job save in a new Mars process. Paused slot-1 reads at t=32793440 and
+t=32988754 show Track work false, fleet 5, cap 60, errors 0. The three active
+five-member leaders 7420, 7510 and 7522 each completed during that interval;
+all 17 queued groups, 81 members, retained their leader identities and did not
+dispatch. No raw Lua errors appear in this process snapshot. This verifies
+recovery and OFF behavior. ON continuation is still owed before case 4 passes.
+`case4_off_snapshot_Mars.exe-20260926-13.24.29-6aad2d75.log` is a byte-preserved
+running-process checkpoint; `pass2_case4_off.json` gives the command/filter, HEAD
+`719f174`, hash and reconciled member identities. The full closed log will be
+appended after the process exits.

@@ -3436,3 +3436,8 @@ build jobs. Earlier sessions produced errors in the same process, but none occur
 after this fixture's load boundary. The complete log, boundary, job identities and
 save fingerprint are recorded in `TRAIN_HUB_BUILDTRACK_20260925.md`. Fresh-process
 recovery, OFF hold and ON continuation remain pending; this is not a case-4 pass.
+
+The subsequent fresh-process check passed recovery and OFF hold: three active
+groups finished, 17 queued groups remained undispatched, and the read reported
+zero errors. The build report preserves identities and the log checkpoint. ON
+continuation remains owed before case 4 passes.
