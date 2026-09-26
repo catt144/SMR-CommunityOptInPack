@@ -272,8 +272,15 @@ candidate work, `errors=0` (`:1305`). Stock was replenished during the attempt;
 these reads do not identify the delivery source. No slot-5 refill was exercised.
 Asked whether the ordinary Drone Hub's drones built the middle, the owner replied
 "yes everything appeared normal flushed". This supports the covered-middle
-observation, not a passed shortage/refill case. Retry with incoming Metals disabled
-at the selected hub; case 3 remains open.
+observation; a sustained shortage/refill remains unwitnessed.
+
+**Owner ruling, 2026-09-26: case 3 accepted as PASS; no shortage/refill retry owed.**
+"Its going to be near impossible to get shortage refill it has 5 other trains all
+constantly balancing the hub. I think we are close enough to call this a pass".
+The train count and balancing explanation are the owner's fixture description,
+not a measured count. This acceptance waives the remaining attended shortage/refill
+step for this sitting. Keep the observed evidence and desk controls distinct from
+native verification of a sustained material wait. Cases 1 and 4 remain owed.
 
 Byte checkpoint `case3_attempt1_snapshot_Mars.exe-20260925-23.49.03-6aad2d75.log`
 and `pass2_case3_attempt1.json` in the same archive preserve this unsuccessful
