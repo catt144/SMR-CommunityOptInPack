@@ -1,0 +1,10 @@
+command: compare traffic inputs and fenced files to git HEAD; verify archived suite exits
+HEAD: ceb568ffc6edf400f59d0c5f74548a085b268a2c
+HEAD matches: tools/devmods/train_hub/tests/traffic_smoke.py normalized-sha256=d8adbb85adc7ba93b25149c2dc78e39ef112fe2bc4239fe3eec6e144a2b706ba
+HEAD matches: tools/devmods/train_hub/Code/20_TrainHub.lua normalized-sha256=5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b
+HEAD matches: tools/devmods/train_hub/Code/30_TrainHubDrones.lua normalized-sha256=67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b
+traffic smoke does not load changed distribution code or distribution harness; failure exists on HEAD inputs
+filter: archived *.log, terminal exit field
+PASS 10: art_spec_smoke.log, buildtrack_smoke.log, distribution_smoke.log, dwell_smoke.log, flight_smoke.log, harvest_wrap_targets.log, look_smoke.log, move_smoke.log, parsecheck.log, repair_smoke.log
+FAIL 1: traffic_smoke.log
+total 11 = 10 + 1

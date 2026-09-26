@@ -44,9 +44,8 @@ def main():
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.execute(r'''
 Min, Max = math.min, math.max
-ResourceScale = 1000
 empty_table = {}
-const = {trfInclusive=1, trfBidirectional=2}
+const = {ResourceScale=1000, trfInclusive=1, trfBidirectional=2}
 IsValid = function(o) return type(o) == "table" and not o.invalid end
 IsKindOf = function(o, c) return o.class == c end
 MulDivRound = function(a,b,c) return math.floor(a*b/c+0.5) end
@@ -118,7 +117,8 @@ RequestUnassignUnit=function(r,u,n,f) r:UnassignUnit(n,f) end
         ("function Train:TransferCargo(", "function Train:OnContinuousTaskTick("),
     ]
     chunks = [source[source.index(start):source.index(end)] for start, end in sections]
-    lua.execute("\n".join(chunks))
+    # Vanilla's scale is file-local. Do not invent a global that hides mod bugs.
+    lua.execute("local ResourceScale = const.ResourceScale\n" + "\n".join(chunks))
     lua.execute("vanilla_transfer = Train.TransferCargo")
     floor_path = MOD / "Code/10_TrainFloor.lua"
     lua.execute(floor_path.read_text(encoding="utf8"))
@@ -234,6 +234,36 @@ D.Reset()
 assert(D.calls>0)
 assert(not SMROptInTrainFloor.stats.last_error, "unexpected error inside native transfer")
 print("PASS modes, route destination, reservation cleanup, live percentage, invalid input, sample failure")
+-- Brief 09 stop check: can claims alone actually drain to the chosen floor?
+-- Deliver the first load, return empty, and ask the archived body again.
+-- The larger destination stands for a hub; no hub implementation is loaded.
+for _,case in ipairs({{100000,60000},{400000,36000}}) do
+    D.Reset()
+    t,s,d=fixture(80,0)
+    function d:GetMaxStorage() return case[1] end
+    d.demand.Metals.actual=case[1]
+    d.demand.Metals.target=case[1]
+    -- Install the measured export drone baseline too: raising desire does not
+    -- change capacity shares once aggregate desire is positive.
+    s.supply.Metals:SetDesiredAmount(100000)
+    s.demand.Metals:SetDesiredAmount(0)
+    assert(D.Set(s,"Metals","export",20))
+    t:TransferCargo()
+    local loaded=t.stockpiled_amount.Metals
+    assert(loaded==80000-case[2] and s.supply.Metals.actual==case[2])
+    t.current_station=d
+    t:UnloadAll()
+    assert(t.stockpiled_amount.Metals==0 and d.supply.Metals.actual==loaded)
+    t.current_station=s
+    t:TransferCargo(nil,true)
+    assert(t.stockpiled_amount.Metals==0 and s.supply.Metals.actual==case[2])
+    assert(s.supply.Metals.target==s.supply.Metals.actual)
+    assert(s.supply.Metals.actual>20000)
+    print(string.format("PASS brief09 stop witness: source cap=100 sink cap=%d; stock 80 -> %d; floor=20; return trip loads=0",
+        case[1]/1000,case[2]/1000))
+end
+assert(not SMROptInTrainFloor.stats.last_error, "unexpected error in stop witnesses")
+assert(ResourceScale==nil, "test must not supply the nonexistent global")
 -- Claims bracket evaluation, but existing incoming assignments predate them.
 -- Demonstrate the limit without changing vanilla unload behaviour.
 D.Reset()

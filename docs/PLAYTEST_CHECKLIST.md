@@ -15,6 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-31 · opened 2026-09-26
+May configured distribution resources use mode/slider train targets instead of vanilla capacity shares?
+- Brief 09 requires this decision before taking over the capacity-share behavior.
+- Desk test: floor 20 leaves 60 with an equal-size sink, or 36 with a larger sink; returning trains take no more.
+- Recommend allowing a targeted allocation change for configured resources, retaining vanilla behavior elsewhere.
+- This adds allocation and reservation work plus game-update verification; no takeover is implemented.
+- Alternatively keep capacity sharing and accept that export can stop above the slider.
+Home: `docs/agent/reports/TRAIN_DISTRIBUTION_BUILD_20260926.md`
+
 ### OI-27 · opened 2026-09-24
 When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
 - The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.

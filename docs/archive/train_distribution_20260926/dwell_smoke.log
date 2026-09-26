@@ -1,0 +1,9 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\dwell_smoke.py
+HEAD: ceb568ffc6edf400f59d0c5f74548a085b268a2c
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\dwell_smoke.py
+HEAD ceb568ffc6edf400f59d0c5f74548a085b268a2c
+PASS: snapshot mapping, old/new/native load selection, save return/error and failed-load restoration, foreign conflict rejection, no-map waiter lifecycle
+LIMIT: no native serialization; ambiguous unmarked pre-wrapper hub saves are not classified
+
+exit: 0

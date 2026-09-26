@@ -97,7 +97,7 @@ local function baseline_sample(station, res, entry, fn)
 end
 
 local function print_view(label, v)
-	local scale = ResourceScale
+	local scale = const.ResourceScale
 	print(string.format("[TrainDistribution] %s supply actual/target/desired=%.3f/%.3f/%.3f; demand actual/target/desired=%.3f/%.3f/%.3f",
 		label, v.supply_actual/scale, v.supply_target/scale, v.supply_desired/scale,
 		v.demand_actual/scale, v.demand_target/scale, v.demand_desired/scale))

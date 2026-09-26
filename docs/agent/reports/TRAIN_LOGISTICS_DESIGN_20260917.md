@@ -382,9 +382,25 @@ sha256 `5201518e7e4978c6…`). Line numbers below are that file's. Units are res
 Both stations were restored to 10/50 by hand (:886-887). OI-29 (may the prototype leave the drone
 baseline installed?) is closed by this sitting (owner, 2026-09-25: "yes"): the drone questions
 were answered with no code, so later work starts from these results. **Defect for any later build
-of this file:** `print_view` divides by a global `ResourceScale`, which the game never defines —
+of this file (fixed 2026-09-26; desk regression passed):** `print_view` divided by a global `ResourceScale`, which the game never defines —
 vanilla keeps it file-local; use `const.ResourceScale` (`ResourcesFormatting.lua:6`,
 1.1.1.405907). The offline harness defined the global, so `Status` failed only in game (:411).
+
+#### Build stop, 2026-09-26 — allocation decision needed
+
+**MEASURED, desk only:** brief 09's export floor stop was reached. With initial
+stock 80 and floor 20, an equal-capacity sink leaves the exporter at 60; a sink
+four times larger leaves it at 36. After delivering and returning, the train takes
+nothing further. **INFERRED:** claims lower availability but preserve the source's
+capacity share, so they cannot guarantee draining to the slider. The equal-capacity
+vanilla control without a claim still retains 40.
+
+The independent `Status` scale error above is fixed, with the harness's invented
+global removed. The feature and attended smoke remain unfinished. OI-31 asks whether
+configured resources may depart from capacity-share allocation; no such change was
+implemented. Evidence, scope, proposed cost and the unrelated traffic-smoke failure:
+`TRAIN_DISTRIBUTION_BUILD_20260926.md`. Captured command outputs:
+`docs/archive/train_distribution_20260926/`.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
