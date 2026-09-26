@@ -21,7 +21,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `08_TRAIN_HUB_CAPACITY_high.md` | The Capacity Network Upgrade, spec §4.10: one hub upgrade, +100% station storage / train cargo / passengers, once per colony. Owns `20_TrainHub.lua` and the building template. | **LIVE** (owner, 2026-09-26) |
-| `09_TRAIN_HUB_DISTRIBUTION_high.md` | The distribution centre, spec §4.8: per-resource import/export/balanced on every station with the hub as sink, state on the hub, controls in the station card's rows. Owns `10_TrainFloor.lua` and `40_TrainDistribution.lua`. | **LIVE** (owner, 2026-09-26), parallel to `08` |
+| `09_TRAIN_HUB_DISTRIBUTION_high.md` | The distribution centre, spec §4.8: per-resource import/export/balanced on every station with the hub as sink, state on the hub, controls in the station card's rows. Owns `10_TrainFloor.lua` and `40_TrainDistribution.lua`. | **LIVE, pass 2** (owner, 2026-09-26), parallel to `08`. Pass 1 (`5afdbe6`) hit the capacity-share stop; pass 2 carries the save-boundary ruling and the transient route |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

@@ -284,6 +284,29 @@ persist into a save and outlive the mod, leaving a station quietly crippled with
 claim at `SaveGameStart` and re-apply after, the shape the hub's own reserve reconcile and the
 drones' save guard already use.
 
+⚖️ **Owner ruling, 2026-09-26: the save boundary may be crossed for this feature, minimally.** The
+first time the boundary was actually in front of us (the capacity-share stop, brief 09 pass 1):
+*"this peice we are working on is a corner stone for the mod, its the single most requested thing
+the community wants. And as a content mod, people are excepting more inherent risk installing a
+content mod vs a bug fix mod. So if we hit a wall where to achieve our goals we have to contaminate
+saves we will. The goal then becomes contaminate minimally to achieve our goal"*. This is
+`FIX_POLICY` §0's principle decided in advance for the distribution centre: an agent no longer
+stops to offer the crossing; it takes the lowest rung that achieves the goal and records which rung
+and why the one below could not. **"Minimally" is this ladder, lowest first:**
+
+| rung | what reaches the save | who can undo it without the mod |
+|---|---|---|
+| 0 | nothing — a transient lie told inside vanilla's own call (a claim, an enabled-state or capacity answer) | nothing to undo |
+| 1 | vanilla-shaped state written by vanilla's own writer (`SetDesiredAmount`, `LoadResourceForStation`, an upgrade) | vanilla reads it fine; behaviour lingers until the player touches the control that owns it |
+| 2 | our fields on our own objects (the hub's table) | gone with the hub — the hub's general uninstall problem, already accepted |
+| 3 | our inert fields on vanilla objects | ignored by vanilla; a stray key in the save (read, not measured) |
+| 4 | vanilla state only our code unwinds (a standing `AssignUnit` across a save, a request flag) | nobody — this is "quietly crippled"; needs a `SaveGameStart` release or a named player path back |
+| 5 | our own persisted classes referenced from vanilla objects | a load without the mod may drop or fail — the last resort |
+
+Rung 4 or 5 also puts its residual in the module's description (§0). The safe-equals-good rule still
+holds: a rung is climbed because the one below **measurably** cannot do it, never because it is
+easier.
+
 **Interaction, so 12 stations do not mean a grid:** everything defaults to balanced and only the
 exceptions are marked, which is a handful of rows per station. Export marks are naturally few — a
 resource the area does not produce never needs one, because there is nothing local for drones to

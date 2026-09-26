@@ -66,6 +66,16 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `20_TrainHub.lua` is kept. `metadata.lua` is the only shared file. ⚠️ **When both land, schedule
      the live pairing neither brief may claim:** `08`'s upgrade fires §4.5's request-rewrite path on
      every station at once, which is the new blast radius `09` only tests from its harness.
+     **Later the same day:** `08`'s desk half is committed (`c6108c9`, `daef3ec`) and its attended
+     smoke waits on the owner. `09` pass 1 (`5afdbe6`) hit its stop correctly — retained = slider +
+     vanilla's capacity share, the two stack (`Train.lua:929-951`) — and is **rewritten as pass 2**
+     on the orchestrator's source reads: `needed` is skipped for a source that answers disabled
+     (`:929-932`), so a transient per-resource enabled-state lie plus the claim lands the floor exactly;
+     persistent "disabled" inverts the drone half and is not the route. ⚖️ **Owner ruling 2026-09-26,
+     recorded in spec §4.8 with a six-rung contamination ladder and pointed to from `FIX_POLICY`
+     §0: the distribution centre may cross the save boundary without stopping to offer it, minimally.**
+     OI-31 was retired by delegation: the route is the agent's, transient lies first, amount-only
+     allocation through vanilla's own loader second, a copied body still a stop.
      The owner can ask the orchestrator to guide an attended sitting and read the game log on
      "flushed". The owner's open asks live on
      [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).

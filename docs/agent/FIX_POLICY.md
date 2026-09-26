@@ -43,6 +43,9 @@ the behaviour modules as well as content such as the train hub.
 - **Choosing between options:** if a safe option is as good as an unsafe one, the safe one always
   wins. An unsafe option may be considered only when it gives a much better product, or does
   something the safe option cannot. The aim is the best product for the player.
+- **A standing crossing (owner, 2026-09-26):** the distribution centre may cross the save boundary
+  without stopping to offer it, minimally, by the rung ladder in the train spec §4.8. It is the
+  one feature with that ruling; every other module still offers and waits.
 
 ## 1. Choose the least invasive technique that works
 
