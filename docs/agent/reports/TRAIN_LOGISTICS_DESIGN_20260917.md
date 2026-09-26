@@ -3394,3 +3394,20 @@ shortfall or ordinary drones' reserved deliveries. Each flight adds `BuildTimePe
 group member to its work animation. D14(g)'s multi-hub accounting correction passes the desk
 control. Native line times, reload, stock-out, middle-line drone coverage and the visual verdict
 remain owed by the attended smoke; build 5 is not closed.
+
+**Build 5 pass 2, 2026-09-25 — diagnosis captured; desk fix passes; attended rerun pending.**
+The owner found the saved failed layout. The paused read shows a finished element beside new
+construction on a separate TrackBase, with neither endpoint-station fields nor stored connection
+arrays spanning the seam. Vanilla joins these occupied neighbouring hexes during completion
+(`Buildings/TrackElement.lua:815-856,912-933`, archived 1.1.1.405907). Station 7042 is beyond the
+unfinished corridor in this snapshot; it should join physical service when that corridor finishes.
+The hub must first discover and build the corridor, which the old endpoint walk misses.
+
+The dev hub now walks track hexes: built/broken elements extend service, and attached construction
+corridors supply native group jobs without granting service through their far station. Repairs
+use reached members too, including on mixed tracks. The owner's 60-drone ceiling and repair-first
+dispatch with a protected reserve are implemented; fleet chunks remain 5/15/25. No native group
+accounting, persisted names or flight implementation changed. Required build/repair/flight/movement
+desk suites pass, including the captured layout replay and an old-body negative control. Evidence,
+limits and the next boot's slot predictions: `TRAIN_HUB_BUILDTRACK_20260925.md`, pass 2 sections.
+This is not acceptance: all four attended cases restart, and the existing inherited QA remains owed.

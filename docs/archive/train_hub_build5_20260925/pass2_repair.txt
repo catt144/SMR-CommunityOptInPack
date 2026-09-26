@@ -1,0 +1,67 @@
+{
+  "command": "python tools/devmods/train_hub/tests/repair_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "sources": {
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\repair_smoke.py": "9e4734d1d5127085bab7f9dd10a4e9225ba801b15ff688f7580b453ac2b822eb",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\30_TrainHubDrones.lua": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b"
+  }
+}
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=1000 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage out at t=31531 site=nil
+[TrainHubDev] repair dispatched: elements 1, 350 m, deadline in 38344 ms (launch 4000 + travel 27344 + work 7000) at t=41531 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 100000 ms, 61656 ms after the deadline, the Wasp's stage untracked at t=141531 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 15185 ms (launch 4000 + travel 4185 + work 7000) at t=151531 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 15185 ms, 0 ms after the deadline, the Wasp's stage untracked at t=166716 site=nil
+[TrainHubDev] repair dispatched: elements 1, 350 m, deadline in 38344 ms (launch 4000 + travel 27344 + work 7000) at t=171716 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 38344 ms, 0 ms after the deadline, the Wasp's stage untracked at t=210060 site=nil
+[TrainHubDev] repair dispatched: elements 1, 200 m, deadline in 26625 ms (launch 4000 + travel 15625 + work 7000) at t=215060 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=230060 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=260591 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=270591 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=301122 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=306122 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=336653 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 34438 ms (launch 4000 + travel 23438 + work 7000) at t=341653 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 34438 ms, 0 ms after the deadline, the Wasp's stage untracked at t=376091 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=386091 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=416622 site=nil
+[TrainHubDev] repair dispatched: elements 1, 750 m, deadline in 265594 ms (launch 200000 + travel 58594 + work 7000) at t=421622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 625 m, deadline in 255828 ms (launch 200000 + travel 48828 + work 7000) at t=426622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 500 m, deadline in 246063 ms (launch 200000 + travel 39063 + work 7000) at t=431622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 375 m, deadline in 236297 ms (launch 200000 + travel 29297 + work 7000) at t=446622 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 240594 ms, 4297 ms after the deadline, the Wasp's stage untracked at t=687216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 265594 ms, 0 ms after the deadline, the Wasp's stage untracked at t=687216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 260594 ms, 4766 ms after the deadline, the Wasp's stage untracked at t=687216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 255594 ms, 9531 ms after the deadline, the Wasp's stage untracked at t=687216 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 38531 ms (launch 12000 + travel 19531 + work 7000) at t=4743216 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 150 m, deadline in 30719 ms (launch 12000 + travel 11719 + work 7000) at t=4748216 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 150 m, deadline in 30719 ms (launch 12000 + travel 11719 + work 7000) at t=4777936 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30719 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4808655 site=nil
+[TrainHubDev] repair dispatched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4813655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4818655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4819655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4820655 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 1 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4820656 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4825656 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 42438 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4868094 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4873094 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 84876 ms, 42438 ms after the deadline, the Wasp's stage untracked at t=4957970 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4962970 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 42438 ms, 0 ms after the deadline, the Wasp's stage no Wasp at t=5005408 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 38531 ms (launch 12000 + travel 19531 + work 7000) at t=5010408 site=nil track=nil
+[TrainHubDev] repair: toggle on, switch on, fleet 5, fleet load low (200 %), vanilla load low, repairs 1 under way, 0 waiting, max 30
+[TrainHubDev] repair job 1: repair site table: 000001D8927263D0 deadline 5048939 (38531 ms left) drone false waiting false
+[TrainHubDev] repair dispatched: elements 1, 625 m, deadline in 25944 ms (launch 12000 + travel 6944 + work 7000) at t=5010408 site=nil track=nil
+{
+  "command": "python tools/devmods/train_hub/tests/repair_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "source_sha256": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+  "scope": "mocked Lua / source contract over the TRACK WORK section; no native run, no save file, no clearance claim",
+  "result": "PASS",
+  "flight_records_created": 27,
+  "adoptions": 2,
+  "notifications": 22
+}
+
+exit_code=0

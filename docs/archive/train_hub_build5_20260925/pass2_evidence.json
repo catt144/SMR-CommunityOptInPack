@@ -1,0 +1,72 @@
+{
+  "command": "python scratch/build5_finalize_evidence.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "closed_log": {
+    "path": "docs\\archive\\train_hub_build5_20260925\\Mars.exe-20260925-23.08.46-6aad2d75.log",
+    "bytes": 1051801,
+    "sha256": "f7f5ec0ba30b0642c3c9d0cab258f45568397fa881dafd65b3c699eee09354e4"
+  },
+  "runtime_sha256": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+  "suite_receipts_verified": {
+    "buildtrack": {
+      "command": "python tools/devmods/train_hub/tests/buildtrack_smoke.py",
+      "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+      "exit_code": 0
+    },
+    "repair": {
+      "command": "python tools/devmods/train_hub/tests/repair_smoke.py",
+      "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+      "exit_code": 0
+    },
+    "flight": {
+      "command": "python tools/devmods/train_hub/tests/flight_smoke.py",
+      "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+      "exit_code": 0
+    },
+    "move": {
+      "command": "python tools/devmods/train_hub/tests/move_smoke.py",
+      "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+      "exit_code": 0
+    }
+  },
+  "kit_gates": [
+    {
+      "command": [
+        "rg",
+        "-n",
+        "NetSyncEvent|LogCheatUsed",
+        "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit\\Code",
+        "-g",
+        "7*_SMRTK*.lua",
+        "-g",
+        "80_AgentSlots.lua"
+      ],
+      "exit_code": 1,
+      "output": ""
+    },
+    {
+      "command": [
+        "rg",
+        "-n",
+        "^\\s*print\\(",
+        "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit\\Code",
+        "-g",
+        "7*_SMRTK*.lua",
+        "-g",
+        "80_AgentSlots.lua"
+      ],
+      "exit_code": 1,
+      "output": ""
+    },
+    {
+      "command": [
+        "rg",
+        "-n",
+        "T.BindScratch|Read track work|Full topology snapshot",
+        "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit\\Code\\80_AgentSlots.lua"
+      ],
+      "exit_code": 0,
+      "output": "78:T.BindScratch(\"Read taint and eligibility\", function(ctx)\n130:T.Bind(1,\"Read track work (select hub, paused)\",function(ctx)\n175:T.Bind(6,\"Full topology snapshot (select hub, paused)\",function(ctx) return snapshot(ctx,\"FOLLOWUP\") end,{mode=\"once\",needs=\"selected\"})\n"
+    }
+  ]
+}

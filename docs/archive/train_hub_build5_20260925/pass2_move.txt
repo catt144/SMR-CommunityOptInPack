@@ -1,0 +1,16 @@
+{
+  "command": "python tools/devmods/train_hub/tests/move_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "sources": {
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\move_smoke.py": "b9a13b922ebd060dc3cd24c9c7a7e049dbbec253b4235bdf3757eff4255578ea",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\30_TrainHubDrones.lua": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b"
+  }
+}
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+HEAD 86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607
+PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived dwell commands and vanilla control.
+This test does not certify native clearance or save/load; owner results are recorded in D14.
+
+exit_code=0

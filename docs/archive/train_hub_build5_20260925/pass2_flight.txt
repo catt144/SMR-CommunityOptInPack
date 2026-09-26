@@ -1,0 +1,79 @@
+{
+  "command": "python tools/devmods/train_hub/tests/flight_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "sources": {
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\flight_smoke.py": "8701bf852475e9500626cc9e46ba4e44afa42516479da93489b3968b0f4e8ff3",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\30_TrainHubDrones.lua": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b"
+  }
+}
+[TrainHubDev] engine leg out: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=1193250
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=1207596
+[TrainHubDev] engine leg out: 190 m in 12000 ms = 1583 units per s (move_speed nil) at t=2020469
+[TrainHubDev] engine leg back: 190 m in 12000 ms = 1583 units per s (move_speed nil) at t=2039565
+[TrainHubDev] engine leg back: 0 m in 250 ms = 0 units per s (move_speed nil) at t=2504495
+[TrainHubDev] engine leg out: 110 m in 7000 ms = 1571 units per s (move_speed nil) at t=2716814
+[TrainHubDev] engine leg back: 110 m in 7000 ms = 1571 units per s (move_speed nil) at t=2730910
+[TrainHubDev] engine leg back: 310 m in 19500 ms = 1590 units per s (move_speed nil) at t=2755120
+[TrainHubDev] engine leg back: 24 m in 1500 ms = 1600 units per s (move_speed nil) at t=3009000
+[TrainHubDev] engine leg out: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=6013250
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=6027596
+[TrainHubDev] engine leg out: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=6508726
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=6523072
+[TrainHubDev] engine leg out: 113 m in 7573 ms = 1494 units per s (move_speed nil) at t=9013573
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=9027919
+[TrainHubDev] engine leg out: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=9621250
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=9767596
+[TrainHubDev] engine leg out: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=9908726
+[TrainHubDev] engine leg back: 113 m in 7250 ms = 1561 units per s (move_speed nil) at t=9936322
+{
+  "command": "python tools/devmods/train_hub/tests/flight_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "source_sha256": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b",
+  "scope": "mocked Lua / source contract; ordinary run also verifies mesh receipt; no native flight, import or serialization claim",
+  "result": "PASS",
+  "fixture_game_ms": {
+    "arrival": 25524,
+    "work_done": 31524,
+    "removed": 57051
+  },
+  "visuals_created": 48,
+  "visuals_removed": 48,
+  "console_trip": {
+    "timed_position_calls": 160,
+    "instant_position_calls": 1,
+    "driver_wakes_incl_hover": 158,
+    "chord_ms_min_max": [
+      50,
+      306
+    ]
+  },
+  "worst_chord_join_speed_step_units_per_s": 0,
+  "max_straight_accel_units_per_s2": 1239.764483741618,
+  "max_yaw_step_minutes_per_chord": 2754,
+  "native_solver_contract": "archived 1.1.1.405907 FlightGoto executed with solver spy; solver owns path; engine mode issues it as a stock command",
+  "engine_mode": {
+    "stock_names_written": [
+      "FlightGoto",
+      "WaitUninterruptable",
+      "false"
+    ],
+    "legs_per_trip": 2,
+    "queued_holds_per_trip": 2,
+    "take_back_within_ms": 250,
+    "idle_seen": false,
+    "persists_through_save": [
+      "ready",
+      "out",
+      "back"
+    ],
+    "removed_at_save": [
+      "rise",
+      "exit",
+      "work",
+      "descent"
+    ]
+  }
+}
+
+exit_code=0

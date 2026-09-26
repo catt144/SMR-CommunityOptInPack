@@ -136,6 +136,19 @@ function request(amount) local r = { actual = amount, target = amount, valid = t
   function r:AddAmount(n) self.actual = self.actual + n; self.target = self.target + n end
   return r end
 -- graph objects
+testmap = { object_hex_grid = {} }; track_row = 0
+HexNeighbours = {}
+for _, offset in ipairs({{1,0},{-1,0},{0,1},{0,-1},{1,-1},{-1,1}}) do
+  local dq, dr = offset[1], offset[2]
+  HexNeighbours[#HexNeighbours + 1] = { xy = function() return dq, dr end }
+end
+function HexGetTrackGridElement(grid, q, r) return grid[q .. ':' .. r] end
+function place_element(t, q, r, pos)
+  local el = { valid = true, track_obj = t, q = q, r = r, connections = {}, pos = pos or {x=0,y=0},
+    GetMap = function() return testmap end, GetPos = function(self) return self.pos end }
+  testmap.object_hex_grid[q .. ':' .. r] = el
+  return el
+end
 function station(name, near) local s = { valid = true, name = name, classes = { Station = true }, auto_connect = true, command_centers = {}, connectors = {}, near = near or false, pos = { x = 0, y = 0 } }
   function s:ForEachConnectorElement(fn) for _, el in ipairs(self.connectors) do fn(el) end end
   s.maintenance_resource_request = { valid = true, kind = 'maintenance material' }; s.maintenance_work_request = { valid = true, kind = 'maintenance work' }
@@ -147,12 +160,17 @@ function station(name, near) local s = { valid = true, name = name, classes = { 
   function s:RemoveCommandCenter(c) table.remove_entry(self.command_centers, c); table.remove_entry(c.connected_task_requesters, self); self.filed[c] = nil end
   return s end
 function tunnel(name) local t = station(name) t.classes = { TrackTunnelBase = true } t.linked_obj = false return t end
-function track(a, b, n) local t = { valid = true, elements = {}, elements_under_construction = {}, repair_cgs = {}, GetMap = function() return 1 end }
-  for i = 1, n do t.elements[i] = { valid = true, track_obj = t, node_idx = i, pos = { x = a.pos.x + (b.pos.x - a.pos.x) * i / n, y = a.pos.y + (b.pos.y - a.pos.y) * i / n }, GetPos = function(self) return self.pos end } end
-  t.elements[1].station = a; t.elements[n].station = b
-  function t:GetStartStation() return self.elements[1].station end
-  function t:GetEndStation() return self.elements[#self.elements].station end
-  a.connectors[#a.connectors + 1] = t.elements[1]; b.connectors[#b.connectors + 1] = t.elements[n]
+function track(a, b, n) local t = { valid = true, elements = {}, elements_under_construction = {}, repair_cgs = {}, GetMap = function() return testmap end }
+  track_row = track_row + 10
+  for i = 1, n do
+    t.elements[i] = place_element(t, i, track_row, {x=a.pos.x+(b.pos.x-a.pos.x)*i/n, y=a.pos.y+(b.pos.y-a.pos.y)*i/n})
+    t.elements[i].node_idx = i
+  end
+  t.start_el = place_element(t, 0, track_row); t.start_el.station = a
+  t.end_el = place_element(t, n+1, track_row); t.end_el.station = b
+  function t:GetStartStation() return self.start_el and self.start_el.station end
+  function t:GetEndStation() return self.end_el and self.end_el.station end
+  a.connectors[#a.connectors + 1] = t.start_el; b.connectors[#b.connectors + 1] = t.end_el
   return t end
 -- a break: the repair group of Track.lua:628-663 and Meteors.lua:713-727, with its cost
 function break_track(t, idx, cost)
@@ -177,7 +195,7 @@ function hub(x, y) local h = { valid = true, classes = { SMROptInTrainHubBase = 
     connected_task_requesters = {}, are_requesters_connected = true, ui_working = true, working = true, work_radius = 15, load = "low", connectors = {},
     supply = { Metals = request(20000), Concrete = request(10000) }, signs = {}, resources_added = {} }
   function h:ForEachConnectorElement(fn) for _, el in ipairs(self.connectors) do fn(el) end end
-  function h:GetMap() return 1 end
+  function h:GetMap() return testmap end
   function h:GetPos() return self.pos end
   function h:GetDist2D(p) return math.floor(math.sqrt((self.pos.x - p.x) ^ 2 + (self.pos.y - p.y) ^ 2) + .5) end
   function h:GetDroneLoad() return self.load end
@@ -208,11 +226,12 @@ S3 = station("S3"); S3.pos = { x = 100000, y = 0 }
 I = station("I"); I.pos = { x = 0, y = 90000 }
 J = station("J"); J.pos = { x = 0, y = 100000 }
 T1 = track(H, S1, 3); T2 = track(S1, S2, 6); T3 = track(S2, N, 3); T4 = track(Fm, S3, 3); T5 = track(S3, H, 8); T6 = track(I, J, 3)
-X = track(S3, station("X"), 3); X.elements_under_construction = { { valid = true, is_construction_site = true, broken = false } }
+Xs = station("X"); X = track(S3, Xs, 3)
+X.elements[2].is_construction_site = true; X.elements_under_construction = { X.elements[2] }
 keys_before = table.keys(H)
 nodes, tracks = H:HubTrackGraph()
 assert(nodes[S1] and nodes[S2] and nodes[N] and nodes[Fm] and nodes[S3] and not nodes[I] and not nodes[J], "graph: stations, tunnel pair, cycle; not the isolated pair")
-assert(tracks[T1] and tracks[T2] and tracks[T5] and tracks[X] == false and tracks[T6] == nil, "edges: physical tracks; unfinished new track excluded")
+assert(tracks[T1] and tracks[T2] and tracks[T5] and not nodes[Xs] and tracks[T6] == nil, "unfinished middle prevents far-station service; isolated track excluded")
 -- a break beyond S1 keeps the far side reachable: the broken track stays a physical edge
 L1, E1 = break_track(T2, 3, 4000)
 nodes = H:HubTrackGraph(); assert(nodes[S2] and nodes[S3], "the far side of a break is reachable for repair")
@@ -260,7 +279,7 @@ assert(#S2.filed[H] == 2 and S2.filed[H][1] == "maintenance material" and S2.fil
 assert(#S1.filed[H] == 4, "a station inside the radius keeps vanilla's full service")
 assert(Station.ShouldAddRequestToCommandCenter(S2, S2.task_requests[1], S1, "res") == true, "another controller passes through to the original")
 -- the panel line and the toggle read without creating anything
-assert(H:GetHubRepairLine() == "Repair drones: 6 out / 30, 1 track job under way", H:GetHubRepairLine())
+assert(H:GetHubRepairLine() == "Repair drones: 6 out / 60, 1 track job under way", H:GetHubRepairLine())
 -- (five fleet Wasps stood up on the same tick, load low)
 assert(#H.drones == 5 and H.drones[1].name == "Repair Drone" and H.drones[1].battery == hub_drone_battery_max, "the standing fleet")
 -- Completion at the deadline: the leader's Complete, the outstanding cost paid once at 50 %.

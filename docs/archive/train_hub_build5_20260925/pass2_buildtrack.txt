@@ -1,0 +1,126 @@
+{
+  "command": "python tools/devmods/train_hub/tests/buildtrack_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "sources": {
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\tests\\buildtrack_smoke.py": "51c460bd5dd52710ee3f8b64b975cd6a05421c7aab603c02b31944c8879ca072",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+    "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\devmods\\train_hub\\Code\\30_TrainHubDrones.lua": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b"
+  }
+}
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=1000 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage out at t=31531 site=nil
+[TrainHubDev] repair dispatched: elements 1, 350 m, deadline in 38344 ms (launch 4000 + travel 27344 + work 7000) at t=41531 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 100000 ms, 61656 ms after the deadline, the Wasp's stage untracked at t=141531 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 15185 ms (launch 4000 + travel 4185 + work 7000) at t=151531 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 15185 ms, 0 ms after the deadline, the Wasp's stage untracked at t=166716 site=nil
+[TrainHubDev] repair dispatched: elements 1, 350 m, deadline in 38344 ms (launch 4000 + travel 27344 + work 7000) at t=171716 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 38344 ms, 0 ms after the deadline, the Wasp's stage untracked at t=210060 site=nil
+[TrainHubDev] repair dispatched: elements 1, 200 m, deadline in 26625 ms (launch 4000 + travel 15625 + work 7000) at t=215060 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=230060 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=260591 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=270591 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=301122 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=306122 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=336653 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 34438 ms (launch 4000 + travel 23438 + work 7000) at t=341653 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 34438 ms, 0 ms after the deadline, the Wasp's stage untracked at t=376091 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 30531 ms (launch 4000 + travel 19531 + work 7000) at t=386091 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30531 ms, 0 ms after the deadline, the Wasp's stage untracked at t=416622 site=nil
+[TrainHubDev] repair dispatched: elements 1, 625 m, deadline in 255828 ms (launch 200000 + travel 48828 + work 7000) at t=421622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 500 m, deadline in 246063 ms (launch 200000 + travel 39063 + work 7000) at t=426622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 750 m, deadline in 265594 ms (launch 200000 + travel 58594 + work 7000) at t=431622 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 375 m, deadline in 236297 ms (launch 200000 + travel 29297 + work 7000) at t=446622 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 250594 ms, 14297 ms after the deadline, the Wasp's stage untracked at t=697216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 275594 ms, 19766 ms after the deadline, the Wasp's stage untracked at t=697216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 270594 ms, 24531 ms after the deadline, the Wasp's stage untracked at t=697216 site=nil
+[TrainHubDev] repair done: elements 1, elapsed 265594 ms, 0 ms after the deadline, the Wasp's stage untracked at t=697216 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 38531 ms (launch 12000 + travel 19531 + work 7000) at t=4753216 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 150 m, deadline in 30719 ms (launch 12000 + travel 11719 + work 7000) at t=4758216 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 150 m, deadline in 30719 ms (launch 12000 + travel 11719 + work 7000) at t=4787936 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 30719 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4818655 site=nil
+[TrainHubDev] repair dispatched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4823655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4828655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4829655 site=nil track=nil
+[TrainHubDev] repair relaunched: elements 1, 225 m, deadline in 36578 ms (launch 12000 + travel 17578 + work 7000) at t=4830655 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 1 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4830656 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4835656 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 42438 ms, 0 ms after the deadline, the Wasp's stage untracked at t=4878094 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4883094 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 84876 ms, 42438 ms after the deadline, the Wasp's stage untracked at t=4967970 site=nil
+[TrainHubDev] repair dispatched: elements 1, 300 m, deadline in 42438 ms (launch 12000 + travel 23438 + work 7000) at t=4972970 site=nil track=nil
+[TrainHubDev] repair done: elements 1, elapsed 42438 ms, 0 ms after the deadline, the Wasp's stage no Wasp at t=5015408 site=nil
+[TrainHubDev] repair dispatched: elements 1, 250 m, deadline in 38531 ms (launch 12000 + travel 19531 + work 7000) at t=5020408 site=nil track=nil
+[TrainHubDev] repair: toggle on, switch on, fleet 5, fleet load low (200 %), vanilla load low, repairs 1 under way, 0 waiting, max 30
+[TrainHubDev] repair job 1: repair site table: 00000291A59452B0 deadline 5058939 (38531 ms left) drone false waiting false
+[TrainHubDev] repair dispatched: elements 1, 625 m, deadline in 25944 ms (launch 12000 + travel 6944 + work 7000) at t=5020408 site=nil track=nil
+[TrainHubDev] build dispatched: elements 4, 0 m, deadline in 15000 ms (launch 4000 + travel 0 + work 11000) at t=5020408 site=nil track=nil
+[TrainHubDev] build done: elements 4, elapsed 15001 ms, 1 ms after the deadline, the Wasp's stage out at t=5035409 site=nil
+[TrainHubDev] build dispatched: elements 8, 0 m, deadline in 19000 ms (launch 4000 + travel 0 + work 15000) at t=5040409 site=nil track=nil
+[TrainHubDev] build done: elements 8, elapsed 19000 ms, 0 ms after the deadline, the Wasp's stage untracked at t=5059409 site=nil
+[TrainHubDev] build dispatched: elements 3, 0 m, deadline in 14000 ms (launch 4000 + travel 0 + work 10000) at t=5064409 site=nil track=nil
+[TrainHubDev] build dispatched: elements 5, 0 m, deadline in 16000 ms (launch 4000 + travel 0 + work 12000) at t=5069409 site=nil track=nil
+[TrainHubDev] build dispatched: elements 4, 0 m, deadline in 15000 ms (launch 4000 + travel 0 + work 11000) at t=5069409 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 11000 ms (launch 4000 + travel 0 + work 7000) at t=5069409 site=nil track=nil
+[TrainHubDev] build dispatched: elements 4, 0 m, deadline in 15000 ms (launch 4000 + travel 0 + work 11000) at t=5069410 site=nil track=nil
+[TrainHubDev] build dispatched: elements 3, 0 m, deadline in 14000 ms (launch 4000 + travel 0 + work 10000) at t=5069410 site=nil track=nil
+[TrainHubDev] build dispatched: elements 4, 0 m, deadline in 15000 ms (launch 4000 + travel 0 + work 11000) at t=5069410 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069411 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069412 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069413 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069414 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069415 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069416 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069417 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069418 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069419 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069420 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069421 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069422 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069423 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069424 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069425 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069426 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069427 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069428 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069429 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069430 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069431 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069432 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069433 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069434 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069435 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069436 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069437 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069438 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069439 site=nil track=nil
+[TrainHubDev] build dispatched: elements 1, 0 m, deadline in 10005000 ms (launch 4000 + travel 0 + work 10001000) at t=5069440 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 10004000 ms (launch 4000 + travel 0 + work 10000000) at t=5069451 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 10004000 ms (launch 4000 + travel 0 + work 10000000) at t=5069452 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 10004000 ms (launch 4000 + travel 0 + work 10000000) at t=5069453 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 10004000 ms (launch 4000 + travel 0 + work 10000000) at t=5069454 site=nil track=nil
+[TrainHubDev] repair dispatched: elements 1, 0 m, deadline in 10004000 ms (launch 4000 + travel 0 + work 10000000) at t=5069455 site=nil track=nil
+{
+  "command": "python tools/devmods/train_hub/tests/repair_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "source_sha256": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+  "scope": "mocked Lua / source contract over the TRACK WORK section; no native run, no save file, no clearance claim",
+  "result": "PASS",
+  "flight_records_created": 27,
+  "adoptions": 2,
+  "notifications": 22
+}
+{
+  "command": "python tools/devmods/train_hub/tests/buildtrack_smoke.py",
+  "head": "86c7a9e283bb9b7756b0c1a46b9d97cbcc58e607",
+  "sources": {
+    "20_TrainHub.lua": "5b24465d685fb993565c0c420c2b5b0415ea7a6f30bbe970bc4b9e8c85476f1b",
+    "30_TrainHubDrones.lua": "67d112c79a2057c40f069adabb857f1177373c94d96453347052741a21e1d40b"
+  },
+  "snapshot_sha256": "4b2fb494810d497e6ddcd43587d9ac1bf4cd2997c82b6f807a058c5a5a271163",
+  "captured_line_groups": 20,
+  "pre_fix_control": "86c7a9e graph finds zero build groups in the identical snapshot",
+  "scope": "mocked Lua plus captured-topology replay: reworked/mixed/hanging tracks, real gaps, repair priority/reserve, build payment/timing, adoption, toggle, multi-hub launches; no game/save-file evidence",
+  "result": "PASS"
+}
+
+exit_code=0

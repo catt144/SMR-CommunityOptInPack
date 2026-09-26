@@ -2122,14 +2122,10 @@ end
 -- REACHABILITY (owner, 2026-09-19; enforcement moved to dispatch, 2026-09-23): anything a
 -- repair drone following the track could reach, never an isolated network. Engine flight can
 -- physically reach anything, so dispatch refuses a target off the graph. The graph is
--- hub-rooted, with visited nodes and visited tracks, over PHYSICAL edges: a connector element's
--- track (TrainTransport.lua:57-66 ForEachConnectorElement), the track's start/end station
--- owners (Track.lua:194-199, which never test construction), and a tunnel mouth's reciprocal
--- linked_obj (Tunnel.lua:8, :27-28; TrackTunnel.lua:7-9). ForEachConnectedTrack is NOT used:
--- it calls GetDestStation, which returns false while any element is under construction
--- (Track.lua:339-341), so it hides exactly the broken edge and everything beyond it (EF-114).
--- A track is an edge only while every unfinished element of it is a repair site over a broken
--- original (TrackElement.lua:139-152 `broken`); NEW track is queued but never traversed.
+-- hub-rooted over occupied track hexes and reciprocal tunnel mouths. Built and broken
+-- elements extend physical service; adjacent unfinished corridors supply build jobs without
+-- enrolling their far station. Track endpoints and connection arrays can omit a cut/reworked
+-- seam until vanilla completes and joins it (live snapshot 2026-09-25, build 1.1.1.405907).
 --
 -- COMPLETION (EF-112): the live repair group's leader, ConstructionGroupLeader:Complete
 -- (ConstructionSite.lua:2671-2718), which calls each member's TrackConstructionSite:Complete
@@ -2152,7 +2148,7 @@ end
 -- Min(target, actual) and the repair never dips below the reserve (DESIGN.md End state 4).
 --
 -- THE FLEET (owner, 2026-09-23): five vanilla Wasps standing idle, launched more as work
--- rises and recalled as it falls; thirty is the ceiling for fleet and repair flights together.
+-- rises and recalled as it falls; sixty is the ceiling for fleet and track flights together.
 -- They are FlyingDrone objects in hub.drones under vanilla's own AI (Idle draws tasks from
 -- their own command_center only, Drone.lua:704-706; past distance_to_provoke_go_home_cmd Idle
 -- sends them home, :709-711). A recall takes only an idle drone carrying nothing, removes it
@@ -2204,7 +2200,7 @@ Floor.HubRepairTune = {
 	Buffer10 = 2,           -- up to Standing out (the names predate the 2026-09-25 chunks)
 	Buffer20 = 5,           -- above Standing, up to Chunk2
 	Buffer30 = 10,          -- above Chunk2
-	MaxDrones = 30,         -- fleet and repair flights together; the panel's "/ 30"
+	MaxDrones = 60,         -- owner, 2026-09-25: fleet + track flights; fleet chunks stay 5/15/25
 	RepairReserve = 5,      -- slots the fleet leaves to repair flights; repairs beyond it take fleet slots
 	RecallDelay = 60000,    -- game ms the count must stay above its target before a recall starts
 	RecallStep = 15000,     -- game ms between recalls; one idle, empty-handed drone each
@@ -2290,44 +2286,83 @@ local loaded_pending = false
 -- The graph.
 -- ---------------------------------------------------------------------------
 
--- An existing physical edge: every unfinished element is a repair site over a broken original.
-local function physical_track(track)
-	if not IsValid(track) then return false end
-	for _, el in ipairs(track.elements_under_construction or empty_table) do
-		if not IsValid(el.broken) then return false end
-	end
-	return true
-end
-
--- nodes[obj] = true for every station and tunnel mouth reachable from this hub; tracks[track] =
--- true for every physical edge seen (false for an unfinished one, so it is not re-walked).
+-- Walk occupied track hexes, as vanilla ExpandTrackFromElement does (archived
+-- 1.1.1.405907, TrackElement.lua:815-856). Cut/extended sections can be adjacent while
+-- their TrackBase endpoints AND connections omit the join until native completion.
+-- The 2026-09-25 live snapshot has exactly that seam, 6941 -> 7361.
+-- First walk: built track and broken originals enroll stations/tunnels. Second walk:
+-- a connected construction corridor supplies build groups, but never enrolls its far
+-- station or crosses that station to another line. Native groups stay indivisible.
+-- All traversal state is ephemeral. TrackBase membership is diagnostic only: mixed
+-- or split tracks cannot grant reach to disconnected elements sharing the same object.
 function SMROptInTrainHubBase:HubTrackGraph()
-	local nodes, tracks = { [self] = true }, {}
-	local queue, cursor = { self }, 1
-	while queue[cursor] do
-		local node = queue[cursor]
-		cursor = cursor + 1
-		if IsValid(node) and node.ForEachConnectorElement then
-			node:ForEachConnectorElement(function(el)
-				local track = el and el.track_obj
-				if not IsValid(track) or tracks[track] ~= nil then return end
-				tracks[track] = physical_track(track)
-				if not tracks[track] then return end
-				local a, b = track:GetStartStation(), track:GetEndStation()
-				local other = (a == node) and b or a
-				if IsValid(other) and not IsBeingDestructed(other) and not nodes[other] then
-					nodes[other] = true
-					queue[#queue + 1] = other
-				end
-			end)
-		end
-		local far = IsValid(node) and node.linked_obj
-		if IsKindOf(node, "TrackTunnelBase") and IsValid(far) and far.linked_obj == node and not nodes[far] then
-			nodes[far] = true
-			queue[#queue + 1] = far
+	local nodes, tracks, sites = {}, {}, {}
+	local physical, planned, queue, pending = {}, {}, {}, {}
+	local cursor = 1
+	local function enqueue(el)
+		if live(el) and live(el.track_obj) and not physical[el] then
+			physical[el] = true
+			queue[#queue + 1] = el
 		end
 	end
-	return nodes, tracks
+	local function station(node)
+		if not live(node) or nodes[node] then return end
+		nodes[node] = true
+		if node.ForEachConnectorElement then node:ForEachConnectorElement(enqueue) end
+	end
+	local function neighbours(el, visit)
+		local map = el:GetMap()
+		if not map or not map.object_hex_grid then return end
+		for _, offset in ipairs(HexNeighbours) do
+			local dq, dr = offset:xy()
+			local other = HexGetTrackGridElement(map.object_hex_grid, el.q + dq, el.r + dr)
+			if live(other) and live(other.track_obj) then visit(other) end
+		end
+	end
+	local function candidate(member, kind)
+		local cg = live(member) and member.construction_group
+		local leader = cg and cg[1]
+		if live(leader) and not sites[leader] then
+			sites[leader] = { kind = kind, el = kind == "repair" and member.broken or member,
+				track = member.track_obj }
+		end
+	end
+	local function plan(el)
+		if live(el) and live(el.track_obj) and not planned[el] then
+			planned[el] = true
+			pending[#pending + 1] = el
+		end
+	end
+	station(self)
+	while queue[cursor] do
+		local el = queue[cursor]
+		cursor = cursor + 1
+		if el.is_construction_site and not live(el.broken) then
+			physical[el] = nil
+			plan(el)
+		else
+			tracks[el.track_obj] = true
+			local member = el.is_construction_site and el or el.broken
+			if live(member) then candidate(member, "repair") end
+			local node = el.station
+			station(node)
+			local far = live(node) and node.linked_obj
+			if IsKindOf(node, "TrackTunnelBase") and live(far) and far.linked_obj == node then station(far) end
+			neighbours(el, enqueue)
+		end
+	end
+	cursor = 1
+	while pending[cursor] do
+		local el = pending[cursor]
+		cursor = cursor + 1
+		if not physical[el] then
+			if tracks[el.track_obj] == nil then tracks[el.track_obj] = false end
+			if el.is_construction_site and not live(el.broken) then candidate(el, "build") end
+			-- A station at the unbuilt end is a boundary, not access to its other connectors.
+			if not live(el.station) then neighbours(el, plan) end
+		end
+	end
+	return nodes, tracks, sites
 end
 
 -- Every Station on the graph gets this hub as a command centre (owner approved, 2026-09-23):
@@ -2396,43 +2431,23 @@ local function job_for_site(jobs, leader)
 	end
 end
 
--- Track.lua's repair_cgs holds one group per break event; cg[1] is its leader, cg[2..] its sites.
-local function discover_breaks(self, record, tracks, now)
-	for track, physical in pairs(tracks) do
-		if physical then
-			for _, cg in ipairs(track.repair_cgs or empty_table) do
-				local leader = cg[1]
-				if live(leader) and not job_for_site(record.jobs, leader) then
-					local member = cg[2]
-					local el = IsValid(member) and IsValid(member.broken) and member.broken or false
-					record.jobs[#record.jobs + 1] = { kind = "repair", site = leader, el = el, track = track,
-						found = now, started = false, deadline = false, drone = false, held = false, waiting = false }
-				end
+-- One job per native group (owner d230bd4). Reach comes from the live member walk,
+-- including repairs on mixed tracks; neither repair_cgs nor old job.track grants access.
+local function discover_work(record, sites, now)
+	for leader, target in pairs(sites) do
+		local job = job_for_site(record.jobs, leader)
+		if not job then
+			local count = 0
+			for i = 2, #(leader.construction_group or empty_table) do
+				if live(leader.construction_group[i]) then count = count + 1 end
 			end
+			job = { kind = target.kind, site = leader, elements = count, found = now,
+				started = false, deadline = false, drone = false, held = false, waiting = false }
+			record.jobs[#record.jobs + 1] = job
 		end
-	end
-end
-
--- Build 5, owner d230bd4: one native construction group is one job, at its outstanding
--- normal price. The graph records unfinished incident tracks as false, never as traversable
--- edges. Thus a queued line cannot enroll its far station before it is actually built.
-local function discover_builds(self, record, tracks, now)
-	for track, physical in pairs(tracks) do
-		if not physical then
-			for _, member in ipairs(track.elements_under_construction or empty_table) do
-				local cg = live(member) and not IsValid(member.broken) and member.construction_group
-				local leader = cg and cg[1]
-				if live(leader) and not job_for_site(record.jobs, leader) then
-					local count = 0
-					for i = 2, #cg do
-						if live(cg[i]) then count = count + 1 end
-					end
-					record.jobs[#record.jobs + 1] = { kind = "build", site = leader, el = member,
-						track = track, elements = count, found = now, started = false,
-						deadline = false, drone = false, held = false, waiting = false }
-				end
-			end
-		end
+		-- Native completion/cutting can move members to another TrackBase or remove the old
+		-- target. Refresh unlaunched jobs without changing any group's accounting or membership.
+		if not job.deadline then job.el, job.track = target.el, target.track end
 	end
 end
 
@@ -2613,8 +2628,9 @@ local function schedule_trip(self, job, now, what)
 	job.deadline = now + tune.LaunchTime + travel + repair_work_time() + build_extra_time(job)
 	job.drone = false
 	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
-	print(string.format("[TrainHubDev] %s %s: elements %d, %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d",
-		job.kind, what, job.elements or 0, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time() + build_extra_time(job), now))
+	print(string.format("[TrainHubDev] %s %s: elements %d, %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d site=%s track=%s",
+		job.kind, what, job.elements or 0, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time() + build_extra_time(job), now,
+		tostring(job.site and job.site.handle), tostring(job.track and job.track.handle)))
 end
 
 local function dispatch_job(self, job, now)
@@ -3043,11 +3059,11 @@ local function live_wasp(job)
 	return IsValid(d) and not record.lost and d == job.drone and d.command ~= "Dead" or false
 end
 
-local function service_job(self, record, job, now, tracks, dispatched_now)
+local function service_job(self, record, job, now, sites, dispatched_now)
 	if job.kind ~= "repair" and job.kind ~= "build" then return true, dispatched_now end
 	if not live(job.site) then return false, dispatched_now end
 	if not job.deadline then
-		local reachable = job.kind == "build" and tracks[job.track] ~= nil or tracks[job.track]
+		local reachable = sites[job.site] and sites[job.site].kind == job.kind
 		if not can_dispatch(self, record) or not reachable or dispatched_now then
 			return true, dispatched_now
 		end
@@ -3057,7 +3073,16 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 		-- builds the table with no demand, so an empty table still dispatches.
 		if not job.site.construction_resources then return true, dispatched_now end
 		local fleet, dispatched, _ = slot_counts(self, record.jobs)
-		if fleet + dispatched >= Floor.HubRepairTune.MaxDrones then return true, dispatched_now end
+		local tune = Floor.HubRepairTune
+		local cap = tune.MaxDrones
+		if job.kind == "build" then
+			local repairs = 0
+			for _, other in ipairs(record.jobs) do
+				if other.kind == "repair" and other.deadline then repairs = repairs + 1 end
+			end
+			cap = cap - Max(0, tune.RepairReserve - repairs)
+		end
+		if fleet + dispatched >= cap then return true, dispatched_now end
 		local launched = dispatch_job(self, job, now) -- one launch per tick, so the pit is not crowded
 		if launched then ensure_visual(self, job, now) end
 		return true, launched
@@ -3082,12 +3107,13 @@ local function service_job(self, record, job, now, tracks, dispatched_now)
 			local cap = job.deadline + MulDivRound(job.deadline - (job.started or job.deadline), Floor.HubRepairTune.FlightGrace, 100)
 			if now < cap then return true, dispatched_now end
 		end
+		local site_handle = job.site.handle
 		local result, res = complete_job(self, job)
 		if result == "done" or result == "gone" then
 			-- the Wasp's stage at completion: "out" = deadline early, "work" = on time, "back" = late
 			local record = flights[job]
-			print(string.format("[TrainHubDev] %s %s: elements %d, elapsed %d ms, %d ms after the deadline, the Wasp's stage %s",
-				job.kind, result, job.elements or 0, now - (job.started or now), now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp")))
+			print(string.format("[TrainHubDev] %s %s: elements %d, elapsed %d ms, %d ms after the deadline, the Wasp's stage %s at t=%d site=%s",
+				job.kind, result, job.elements or 0, now - (job.started or now), now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp"), now, tostring(site_handle)))
 			return false, dispatched_now
 		end
 		job.waiting = res
@@ -3104,21 +3130,25 @@ function SMROptInTrainHubBase:HubTrackWorkTick()
 	local F = flight_api()
 	if F and F.OnWorkDone ~= on_work_done then F.OnWorkDone = on_work_done end
 	local record = track_work(self)
-	local nodes, tracks = self:HubTrackGraph()
+	local nodes, _, sites = self:HubTrackGraph()
 	register_remote_stations(self, nodes)
-	discover_breaks(self, record, tracks, now)
-	discover_builds(self, record, tracks, now)
+	discover_work(record, sites, now)
 	local jobs = record.jobs
 	local dispatched_now, waiting_any = false, false
-	for i = #jobs, 1, -1 do
-		local job = jobs[i]
-		local keep
-		keep, dispatched_now = service_job(self, record, job, now, tracks, dispatched_now)
-		if not keep then
-			release_held(self, job)
-			table.remove(jobs, i)
-		elseif job.waiting then
-			waiting_any = job.waiting
+	-- Repairs get the tick's launch before any build, regardless of insertion order.
+	for _, kind in ipairs({ "repair", "build" }) do
+		for i = #jobs, 1, -1 do
+			local job = jobs[i]
+			if job.kind == kind then
+				local keep
+				keep, dispatched_now = service_job(self, record, job, now, sites, dispatched_now)
+				if not keep then
+					release_held(self, job)
+					table.remove(jobs, i)
+				elseif job.waiting then
+					waiting_any = job.waiting
+				end
+			end
 		end
 	end
 	if self.AttachSign then self:AttachSign(waiting_any and true or false, "SignNoConsumptionResource") end
