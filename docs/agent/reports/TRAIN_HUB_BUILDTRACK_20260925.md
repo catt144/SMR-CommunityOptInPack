@@ -1,15 +1,19 @@
-# Train hub build 5 — pass 2 implemented, acceptance smoke pending
+# Train hub build 5 — pass 2 attended smoke closed
 
-The original implementation receipt below describes pass 1. Pass 2's diagnosis, changes and
-current attended predictions follow it; the stopped pass-1 sitting is in spec §10.
+The original implementation receipt below describes pass 1. Pass 2's diagnosis, changes,
+predictions and attended results follow it; the stopped pass-1 sitting is in spec §10.
+The four pass-2 acceptance cases are closed in this colony, with the owner's case-3
+shortage/refill waiver and the case-1 unmatched Wasp completion stated below. This is
+a dev-mod acceptance record, not a shipping claim. Brief 04 can return to its orchestrator.
 
 Authority: owner `d230bd4`, "1 is fine": a line uses native construction-group accounting
 and completion. Element-by-element completion and pricing are not authorised. Pulled with
 `git pull --ff-only` (already current); distribution prototype commit `d2609dd` landed in the
 shared tree during implementation. Its metadata edit is excluded from this build commit.
 
-Implemented in the dev hub only. No native game was launched for this build; no line timings,
-save-file result, visual acceptance or shipping status are claimed. Brief 04 remains live.
+Pass 1 was implemented in the dev hub only. No native game was launched for that
+initial implementation receipt; its then-unmeasured line timing, save and appearance
+claims were settled or bounded by the later pass-2 results below. No shipping status is claimed.
 
 ## Behavior
 
@@ -332,3 +336,45 @@ byte-preserved running checkpoint is `case4_on_snapshot_Mars.exe-20260926-13.24.
 `pass2_case4_on.json` records command/filter, HEAD `a8c1799`, hash and complete
 leader reconciliation. Append the closed-process log after exit. Fresh case 1
 remains before build 5 closes.
+
+**Case 1 PASS in the final fresh-line round, 2026-09-26.** The owner loaded
+`train_hub_base`, demolished an existing test line and built two fresh lines on
+that hub connection. The first line launched 27 native groups / 130 members
+(25 × 5 + 1 × 3 + 1 × 2). Twenty-six leaders / 125 members have matching Wasp
+done rows. Leader 6630 (5 members) dispatched but has no Wasp done row; its exact
+completion path is unproven. The final paused read at t=19603878 (`:1673`)
+reports no active/waiting jobs, no candidates and errors 0. The second line
+launched and completed all 11 groups / 51 members (10 × 5 + 1 × 1); its final
+paused read at t=19919043 (`:1880`) likewise has no work or errors. No raw Lua
+errors occurred after the last base-save load. This records the observed complete
+lines without claiming that every first-line group was finished by our Wasp.
+
+| Fresh line | First dispatch → last Wasp done (game ms) | Elapsed | Farthest dispatch from hub |
+|---|---|---:|---:|
+| First, more native elements | 19391195 → 19489737 | 98542 ms | 1260 m |
+| Second, farther reach | 19606195 → 19686303 | 80108 ms | 1864 m |
+
+Counts, leader identities and timing use `python scratch/build5_case1_receipt.py`
+at HEAD `5e8059e`, filtering `[TrainHubDev] build dispatched/done` by the two
+post-load slot-1 reads and matching site handles. `pass2_case1.json` carries every
+member row and the unmatched handle. Distances use
+`python scratch/build5_case1_distances.py` at the same HEAD, filtering dispatched
+rows in those same windows; `pass2_case1_distances.json` carries the two reconciled
+sets. The closed session log `Mars.exe-20260926-13.24.29-6aad2d75.log` is archived
+byte-for-byte: 171846 bytes, SHA-256
+`0ef6cc86bb09e85b6b5c3fa216be7fa843b690862522d97e00aa87fce21f9d47`.
+Earlier running checkpoints remain intact. The owner had already accepted the
+chunked appearance and timing in case 2, so the timing dial remains 1000 game ms
+per element. The final fresh-line round did not independently instrument ordinary
+Drone Hub coverage; its layout was owner-staged as requested.
+
+**Handoff.** Case 2's reworked corridor and delayed following line passed; case 3
+was accepted by the owner with shortage/refill unwitnessed; case 4 passed save,
+full restart and toggle; case 1 passed the two fresh lines with the leader-6630
+limit above. All four required desk suites passed on the pass-2 implementation.
+Native repair priority/reserve and the inherited C1–C6/D14(g,h) triggers retain
+their separately stated QA limits; this sitting did not extend their claims.
+TestKit `80_AgentSlots.lua` was cleared at `22477a6` after game exit and all six
+agent slots are free for the next sitting. The existing unrelated train-hub
+metadata worktree edit was not included. Return brief 04 to the orchestrator for
+its declared park/delete lifecycle step; no shipping or publish action occurred.

@@ -3447,3 +3447,20 @@ groups completed, followed by the next line; the final paused read shows no
 remaining work or errors. The build report gives the matched leader identities,
 save/restart evidence and archived log checkpoint. Fresh case 1 is the final
 attended round; build 5 remains open until it is recorded.
+
+**Build 5 pass 2 attended smoke closed, 2026-09-26.** From a throwaway load of
+`train_hub_base`, two fresh lines finished with no final candidates or errors.
+The first launched 27 native groups / 130 members and has one dispatched leader
+without a matching Wasp done row; the final read shows its construction cleared,
+but its completion path is unproven. The second launched and completed all 11
+groups / 51 members. The second reached farther from the hub while the first had
+more native elements; both elapsed game-time measures, the full closed log and
+leader reconciliation are in `TRAIN_HUB_BUILDTRACK_20260925.md`.
+
+All four cases are now closed under their recorded limits: case 2 reworked
+network passed, case 3 was owner-accepted with sustained shortage/refill
+unwitnessed, and case 4 save/restart/toggle passed. The owner accepted the
+chunked look and timing, so the dial stays at 1000 game ms per element. The
+TestKit agent slots were cleared for the next sitting. Brief 04 returns to its
+orchestrator for the declared lifecycle step; this is dev-mod acceptance, not
+a shipping claim or a general proof of all reworked layouts.

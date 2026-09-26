@@ -1,0 +1,29 @@
+{
+  "command": "python scratch/build5_case1_distances.py",
+  "HEAD": "5e8059e2ed31dfae0f527949a12b5fe2d02b0927",
+  "source": "Mars.exe-20260926-13.24.29-6aad2d75.log",
+  "legs": [
+    {
+      "leg": "first",
+      "line_window_exclusive": [
+        1195,
+        1673
+      ],
+      "filter": "[TrainHubDev] build dispatched:",
+      "dispatches": 27,
+      "min_distance_m": 170,
+      "max_distance_m": 1260
+    },
+    {
+      "leg": "second",
+      "line_window_exclusive": [
+        1673,
+        1880
+      ],
+      "filter": "[TrainHubDev] build dispatched:",
+      "dispatches": 11,
+      "min_distance_m": 1369,
+      "max_distance_m": 1864
+    }
+  ]
+}

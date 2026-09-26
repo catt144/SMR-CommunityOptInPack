@@ -1,0 +1,580 @@
+{
+  "command": "python scratch/build5_case1_receipt.py",
+  "HEAD": "5e8059e2ed31dfae0f527949a12b5fe2d02b0927",
+  "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20260926-13.24.29-6aad2d75.log",
+  "archived_log": "Mars.exe-20260926-13.24.29-6aad2d75.log",
+  "bytes": 171846,
+  "sha256": "0ef6cc86bb09e85b6b5c3fa216be7fa843b690862522d97e00aa87fce21f9d47",
+  "filter": "Last Load Game: line 1195 through two post-load [mod] [SMRTK] slot_1 final reads; [TrainHubDev] build dispatched/done grouped by window and site; [LUA ERROR] in same window",
+  "load_boundary_line": 1195,
+  "legs": [
+    {
+      "label": "first",
+      "dispatch_count": 27,
+      "dispatch_members": 130,
+      "done_count": 26,
+      "done_members": 125,
+      "missing_done_sites": [
+        6630
+      ],
+      "first_dispatch": 19391195,
+      "last_done": 19489737,
+      "elapsed_game_ms": 98542,
+      "final_read": {
+        "line": 1673,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=8 game_time=19603878 hub=6430 mark=727 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=19603878 id=371"
+      },
+      "dispatch": [
+        {
+          "line": 1368,
+          "site": 6571,
+          "elements": 5,
+          "game_time": 19391195,
+          "track": 6448
+        },
+        {
+          "line": 1370,
+          "site": 6596,
+          "elements": 5,
+          "game_time": 19396195,
+          "track": 6589
+        },
+        {
+          "line": 1372,
+          "site": 6608,
+          "elements": 5,
+          "game_time": 19401195,
+          "track": 6589
+        },
+        {
+          "line": 1376,
+          "site": 6636,
+          "elements": 5,
+          "game_time": 19406195,
+          "track": 6589
+        },
+        {
+          "line": 1403,
+          "site": 6577,
+          "elements": 3,
+          "game_time": 19411195,
+          "track": 6448
+        },
+        {
+          "line": 1408,
+          "site": 6688,
+          "elements": 5,
+          "game_time": 19415733,
+          "track": 6589
+        },
+        {
+          "line": 1410,
+          "site": 6501,
+          "elements": 5,
+          "game_time": 19416195,
+          "track": 6448
+        },
+        {
+          "line": 1414,
+          "site": 6513,
+          "elements": 5,
+          "game_time": 19421195,
+          "track": 6448
+        },
+        {
+          "line": 1417,
+          "site": 6682,
+          "elements": 5,
+          "game_time": 19421823,
+          "track": 6448
+        },
+        {
+          "line": 1425,
+          "site": 6642,
+          "elements": 5,
+          "game_time": 19426195,
+          "track": 6448
+        },
+        {
+          "line": 1428,
+          "site": 6775,
+          "elements": 5,
+          "game_time": 19427866,
+          "track": 6448
+        },
+        {
+          "line": 1434,
+          "site": 6866,
+          "elements": 5,
+          "game_time": 19431195,
+          "track": 6448
+        },
+        {
+          "line": 1439,
+          "site": 6466,
+          "elements": 5,
+          "game_time": 19434331,
+          "track": 6448
+        },
+        {
+          "line": 1442,
+          "site": 6507,
+          "elements": 5,
+          "game_time": 19435043,
+          "track": 6448
+        },
+        {
+          "line": 1444,
+          "site": 6769,
+          "elements": 5,
+          "game_time": 19436195,
+          "track": 6448
+        },
+        {
+          "line": 1451,
+          "site": 6630,
+          "elements": 5,
+          "game_time": 19438768,
+          "track": 6448
+        },
+        {
+          "line": 1455,
+          "site": 6590,
+          "elements": 5,
+          "game_time": 19441195,
+          "track": 6448
+        },
+        {
+          "line": 1466,
+          "site": 6565,
+          "elements": 5,
+          "game_time": 19444509,
+          "track": 6448
+        },
+        {
+          "line": 1469,
+          "site": 6700,
+          "elements": 5,
+          "game_time": 19445080,
+          "track": 6448
+        },
+        {
+          "line": 1475,
+          "site": 6694,
+          "elements": 5,
+          "game_time": 19446195,
+          "track": 6448
+        },
+        {
+          "line": 1480,
+          "site": 6781,
+          "elements": 5,
+          "game_time": 19451086,
+          "track": 6448
+        },
+        {
+          "line": 1482,
+          "site": 6763,
+          "elements": 5,
+          "game_time": 19451195,
+          "track": 6448
+        },
+        {
+          "line": 1493,
+          "site": 6872,
+          "elements": 5,
+          "game_time": 19454978,
+          "track": 6448
+        },
+        {
+          "line": 1499,
+          "site": 6878,
+          "elements": 5,
+          "game_time": 19456195,
+          "track": 6448
+        },
+        {
+          "line": 1502,
+          "site": 6884,
+          "elements": 2,
+          "game_time": 19456262,
+          "track": 6448
+        },
+        {
+          "line": 1505,
+          "site": 6460,
+          "elements": 5,
+          "game_time": 19457777,
+          "track": 6448
+        },
+        {
+          "line": 1510,
+          "site": 6495,
+          "elements": 5,
+          "game_time": 19459424,
+          "track": 6448
+        }
+      ],
+      "done": [
+        {
+          "line": 1407,
+          "site": 6571,
+          "elements": 5,
+          "game_time": 19415733,
+          "track": null
+        },
+        {
+          "line": 1416,
+          "site": 6596,
+          "elements": 5,
+          "game_time": 19421823,
+          "track": null
+        },
+        {
+          "line": 1427,
+          "site": 6608,
+          "elements": 5,
+          "game_time": 19427866,
+          "track": null
+        },
+        {
+          "line": 1438,
+          "site": 6577,
+          "elements": 3,
+          "game_time": 19434331,
+          "track": null
+        },
+        {
+          "line": 1441,
+          "site": 6636,
+          "elements": 5,
+          "game_time": 19435043,
+          "track": null
+        },
+        {
+          "line": 1450,
+          "site": 6501,
+          "elements": 5,
+          "game_time": 19438768,
+          "track": null
+        },
+        {
+          "line": 1465,
+          "site": 6688,
+          "elements": 5,
+          "game_time": 19444509,
+          "track": null
+        },
+        {
+          "line": 1468,
+          "site": 6513,
+          "elements": 5,
+          "game_time": 19445080,
+          "track": null
+        },
+        {
+          "line": 1479,
+          "site": 6682,
+          "elements": 5,
+          "game_time": 19451086,
+          "track": null
+        },
+        {
+          "line": 1492,
+          "site": 6642,
+          "elements": 5,
+          "game_time": 19454978,
+          "track": null
+        },
+        {
+          "line": 1501,
+          "site": 6466,
+          "elements": 5,
+          "game_time": 19456262,
+          "track": null
+        },
+        {
+          "line": 1504,
+          "site": 6507,
+          "elements": 5,
+          "game_time": 19457777,
+          "track": null
+        },
+        {
+          "line": 1509,
+          "site": 6775,
+          "elements": 5,
+          "game_time": 19459424,
+          "track": null
+        },
+        {
+          "line": 1522,
+          "site": 6866,
+          "elements": 5,
+          "game_time": 19463829,
+          "track": null
+        },
+        {
+          "line": 1528,
+          "site": 6590,
+          "elements": 5,
+          "game_time": 19466156,
+          "track": null
+        },
+        {
+          "line": 1530,
+          "site": 6769,
+          "elements": 5,
+          "game_time": 19467310,
+          "track": null
+        },
+        {
+          "line": 1536,
+          "site": 6565,
+          "elements": 5,
+          "game_time": 19468490,
+          "track": null
+        },
+        {
+          "line": 1546,
+          "site": 6700,
+          "elements": 5,
+          "game_time": 19474477,
+          "track": null
+        },
+        {
+          "line": 1548,
+          "site": 6694,
+          "elements": 5,
+          "game_time": 19474709,
+          "track": null
+        },
+        {
+          "line": 1556,
+          "site": 6460,
+          "elements": 5,
+          "game_time": 19478483,
+          "track": null
+        },
+        {
+          "line": 1562,
+          "site": 6763,
+          "elements": 5,
+          "game_time": 19481538,
+          "track": null
+        },
+        {
+          "line": 1564,
+          "site": 6495,
+          "elements": 5,
+          "game_time": 19481773,
+          "track": null
+        },
+        {
+          "line": 1568,
+          "site": 6781,
+          "elements": 5,
+          "game_time": 19483183,
+          "track": null
+        },
+        {
+          "line": 1576,
+          "site": 6884,
+          "elements": 2,
+          "game_time": 19487868,
+          "track": null
+        },
+        {
+          "line": 1578,
+          "site": 6872,
+          "elements": 5,
+          "game_time": 19487950,
+          "track": null
+        },
+        {
+          "line": 1580,
+          "site": 6878,
+          "elements": 5,
+          "game_time": 19489737,
+          "track": null
+        }
+      ],
+      "raw_lua_errors": 0
+    },
+    {
+      "label": "second",
+      "dispatch_count": 11,
+      "dispatch_members": 51,
+      "done_count": 11,
+      "done_members": 51,
+      "missing_done_sites": [],
+      "first_dispatch": 19606195,
+      "last_done": 19686303,
+      "elapsed_game_ms": 80108,
+      "final_read": {
+        "line": 1880,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=5 game_time=19919043 hub=6430 mark=831 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=19919043 id=413"
+      },
+      "dispatch": [
+        {
+          "line": 1695,
+          "site": 7086,
+          "elements": 5,
+          "game_time": 19606195,
+          "track": 7039
+        },
+        {
+          "line": 1699,
+          "site": 7038,
+          "elements": 5,
+          "game_time": 19611195,
+          "track": 7039
+        },
+        {
+          "line": 1701,
+          "site": 7051,
+          "elements": 5,
+          "game_time": 19616195,
+          "track": 7039
+        },
+        {
+          "line": 1703,
+          "site": 7161,
+          "elements": 5,
+          "game_time": 19621195,
+          "track": 7039
+        },
+        {
+          "line": 1707,
+          "site": 7167,
+          "elements": 1,
+          "game_time": 19626195,
+          "track": 7039
+        },
+        {
+          "line": 1711,
+          "site": 7092,
+          "elements": 5,
+          "game_time": 19631195,
+          "track": 7039
+        },
+        {
+          "line": 1715,
+          "site": 7045,
+          "elements": 5,
+          "game_time": 19636195,
+          "track": 7039
+        },
+        {
+          "line": 1721,
+          "site": 7104,
+          "elements": 5,
+          "game_time": 19641195,
+          "track": 7039
+        },
+        {
+          "line": 1724,
+          "site": 7057,
+          "elements": 5,
+          "game_time": 19644058,
+          "track": 7039
+        },
+        {
+          "line": 1726,
+          "site": 7155,
+          "elements": 5,
+          "game_time": 19646195,
+          "track": 7039
+        },
+        {
+          "line": 1729,
+          "site": 7098,
+          "elements": 5,
+          "game_time": 19647030,
+          "track": 7039
+        }
+      ],
+      "done": [
+        {
+          "line": 1723,
+          "site": 7086,
+          "elements": 5,
+          "game_time": 19644058,
+          "track": null
+        },
+        {
+          "line": 1728,
+          "site": 7038,
+          "elements": 5,
+          "game_time": 19647030,
+          "track": null
+        },
+        {
+          "line": 1733,
+          "site": 7051,
+          "elements": 5,
+          "game_time": 19653221,
+          "track": null
+        },
+        {
+          "line": 1741,
+          "site": 7161,
+          "elements": 5,
+          "game_time": 19661834,
+          "track": null
+        },
+        {
+          "line": 1743,
+          "site": 7167,
+          "elements": 1,
+          "game_time": 19663493,
+          "track": null
+        },
+        {
+          "line": 1753,
+          "site": 7092,
+          "elements": 5,
+          "game_time": 19669685,
+          "track": null
+        },
+        {
+          "line": 1761,
+          "site": 7045,
+          "elements": 5,
+          "game_time": 19672754,
+          "track": null
+        },
+        {
+          "line": 1763,
+          "site": 7104,
+          "elements": 5,
+          "game_time": 19680590,
+          "track": null
+        },
+        {
+          "line": 1765,
+          "site": 7057,
+          "elements": 5,
+          "game_time": 19681190,
+          "track": null
+        },
+        {
+          "line": 1769,
+          "site": 7098,
+          "elements": 5,
+          "game_time": 19685575,
+          "track": null
+        },
+        {
+          "line": 1771,
+          "site": 7155,
+          "elements": 5,
+          "game_time": 19686303,
+          "track": null
+        }
+      ],
+      "raw_lua_errors": 0
+    }
+  ],
+  "disposition": "Two fresh lines completed with no final candidates or errors. First leg has 27 dispatches and 26 Wasp done records; site 6630 lacks a matching Wasp done record, and its completion mechanism is unproven. Second leg matches all 11."
+}
