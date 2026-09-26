@@ -320,3 +320,15 @@ recovery and OFF behavior. ON continuation is still owed before case 4 passes.
 running-process checkpoint; `pass2_case4_off.json` gives the command/filter, HEAD
 `719f174`, hash and reconciled member identities. The full closed log will be
 appended after the process exits.
+
+**Case 4 PASS, 2026-09-26.** In the same restarted process, ON at t=32988754
+(`:859`) released all 17 held native groups / 81 members; each leader has one
+dispatch and one done row with matching member count. The following line then
+dispatched and completed 14 groups / 69 members. Final paused read at t=33218503
+(`:1189`) reports Track work true, no active/waiting jobs, no candidates, cap 60,
+fleet 5 and errors 0. No raw Lua errors appear in the captured process segment.
+This completes the witnessed save, full restart and toggle behavior. The
+byte-preserved running checkpoint is `case4_on_snapshot_Mars.exe-20260926-13.24.29-6aad2d75.log`;
+`pass2_case4_on.json` records command/filter, HEAD `a8c1799`, hash and complete
+leader reconciliation. Append the closed-process log after exit. Fresh case 1
+remains before build 5 closes.

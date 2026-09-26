@@ -3441,3 +3441,9 @@ The subsequent fresh-process check passed recovery and OFF hold: three active
 groups finished, 17 queued groups remained undispatched, and the read reported
 zero errors. The build report preserves identities and the log checkpoint. ON
 continuation remains owed before case 4 passes.
+
+**Case 4 PASS in pass 2, 2026-09-26.** After ON, all 17 previously held native
+groups completed, followed by the next line; the final paused read shows no
+remaining work or errors. The build report gives the matched leader identities,
+save/restart evidence and archived log checkpoint. Fresh case 1 is the final
+attended round; build 5 remains open until it is recorded.

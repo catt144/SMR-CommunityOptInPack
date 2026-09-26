@@ -1,0 +1,326 @@
+{
+  "command": "python scratch/build5_case4_on_receipt.py",
+  "HEAD": "a8c1799dde140b4a14982a7f45001017d0d31b09",
+  "snapshot": "case4_on_snapshot_Mars.exe-20260926-13.24.29-6aad2d75.log",
+  "bytes": 112851,
+  "sha256": "e621b6fe38b1d770399b1917e3f0c75dfc5f2ab2ecb9b9bd6e6f26484bc5cc3a",
+  "filter": "[TrainHubDev] build dispatched/done site identity after ON, reconciled with pass2_case4_off.json queued set; unique [mod] [SMRTK] slot_3/slot_1; [LUA ERROR]",
+  "queued_members": 81,
+  "queued_groups": 17,
+  "queued_dispatch": [
+    {
+      "line": 862,
+      "site": 7378,
+      "elements": 5,
+      "time": 32991195
+    },
+    {
+      "line": 866,
+      "site": 7516,
+      "elements": 5,
+      "time": 32996195
+    },
+    {
+      "line": 868,
+      "site": 7570,
+      "elements": 1,
+      "time": 33001195
+    },
+    {
+      "line": 870,
+      "site": 7359,
+      "elements": 5,
+      "time": 33006195
+    },
+    {
+      "line": 874,
+      "site": 7503,
+      "elements": 5,
+      "time": 33011195
+    },
+    {
+      "line": 876,
+      "site": 7408,
+      "elements": 5,
+      "time": 33016195
+    },
+    {
+      "line": 878,
+      "site": 7558,
+      "elements": 5,
+      "time": 33021195
+    },
+    {
+      "line": 885,
+      "site": 7479,
+      "elements": 5,
+      "time": 33023519
+    },
+    {
+      "line": 889,
+      "site": 7491,
+      "elements": 5,
+      "time": 33026195
+    },
+    {
+      "line": 891,
+      "site": 7485,
+      "elements": 5,
+      "time": 33031195
+    },
+    {
+      "line": 894,
+      "site": 7564,
+      "elements": 5,
+      "time": 33033471
+    },
+    {
+      "line": 897,
+      "site": 7372,
+      "elements": 5,
+      "time": 33035127
+    },
+    {
+      "line": 901,
+      "site": 7497,
+      "elements": 5,
+      "time": 33036195
+    },
+    {
+      "line": 906,
+      "site": 7426,
+      "elements": 5,
+      "time": 33036762
+    },
+    {
+      "line": 910,
+      "site": 7414,
+      "elements": 5,
+      "time": 33041195
+    },
+    {
+      "line": 916,
+      "site": 7366,
+      "elements": 5,
+      "time": 33046195
+    },
+    {
+      "line": 921,
+      "site": 7552,
+      "elements": 5,
+      "time": 33049153
+    }
+  ],
+  "queued_done": [
+    {
+      "line": 884,
+      "site": 7378,
+      "elements": 5,
+      "time": 33023519
+    },
+    {
+      "line": 893,
+      "site": 7570,
+      "elements": 1,
+      "time": 33033471
+    },
+    {
+      "line": 896,
+      "site": 7516,
+      "elements": 5,
+      "time": 33035127
+    },
+    {
+      "line": 905,
+      "site": 7359,
+      "elements": 5,
+      "time": 33036762
+    },
+    {
+      "line": 920,
+      "site": 7408,
+      "elements": 5,
+      "time": 33049153
+    },
+    {
+      "line": 925,
+      "site": 7503,
+      "elements": 5,
+      "time": 33050078
+    },
+    {
+      "line": 939,
+      "site": 7479,
+      "elements": 5,
+      "time": 33058196
+    },
+    {
+      "line": 943,
+      "site": 7558,
+      "elements": 5,
+      "time": 33059014
+    },
+    {
+      "line": 947,
+      "site": 7491,
+      "elements": 5,
+      "time": 33061802
+    },
+    {
+      "line": 953,
+      "site": 7485,
+      "elements": 5,
+      "time": 33066316
+    },
+    {
+      "line": 955,
+      "site": 7372,
+      "elements": 5,
+      "time": 33066875
+    },
+    {
+      "line": 957,
+      "site": 7564,
+      "elements": 5,
+      "time": 33070236
+    },
+    {
+      "line": 959,
+      "site": 7426,
+      "elements": 5,
+      "time": 33071522
+    },
+    {
+      "line": 962,
+      "site": 7497,
+      "elements": 5,
+      "time": 33072093
+    },
+    {
+      "line": 966,
+      "site": 7414,
+      "elements": 5,
+      "time": 33074702
+    },
+    {
+      "line": 970,
+      "site": 7366,
+      "elements": 5,
+      "time": 33077159
+    },
+    {
+      "line": 980,
+      "site": 7552,
+      "elements": 5,
+      "time": 33087610
+    }
+  ],
+  "following_dispatch": [
+    {
+      "line": 1010,
+      "site": 7199,
+      "elements": 5,
+      "time": 33091195
+    },
+    {
+      "line": 1012,
+      "site": 7187,
+      "elements": 5,
+      "time": 33096195
+    },
+    {
+      "line": 1014,
+      "site": 7181,
+      "elements": 5,
+      "time": 33101195
+    },
+    {
+      "line": 1016,
+      "site": 7193,
+      "elements": 5,
+      "time": 33106195
+    },
+    {
+      "line": 1020,
+      "site": 7256,
+      "elements": 5,
+      "time": 33111195
+    },
+    {
+      "line": 1022,
+      "site": 7262,
+      "elements": 5,
+      "time": 33116195
+    },
+    {
+      "line": 1026,
+      "site": 7152,
+      "elements": 5,
+      "time": 33121195
+    },
+    {
+      "line": 1030,
+      "site": 7341,
+      "elements": 5,
+      "time": 33126195
+    },
+    {
+      "line": 1034,
+      "site": 7268,
+      "elements": 5,
+      "time": 33131195
+    },
+    {
+      "line": 1037,
+      "site": 7347,
+      "elements": 4,
+      "time": 33131265
+    },
+    {
+      "line": 1042,
+      "site": 7250,
+      "elements": 5,
+      "time": 33135975
+    },
+    {
+      "line": 1044,
+      "site": 7140,
+      "elements": 5,
+      "time": 33136195
+    },
+    {
+      "line": 1049,
+      "site": 7146,
+      "elements": 5,
+      "time": 33140989
+    },
+    {
+      "line": 1051,
+      "site": 7133,
+      "elements": 5,
+      "time": 33141195
+    }
+  ],
+  "following_groups": 14,
+  "following_members": 69,
+  "actions": [
+    {
+      "line": 471,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=3 candidate_elements=96 candidate_groups=20 errors=0 fleet=5 game_time=32793440 hub=6430 mark=51 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=17 t=32793440 id=105"
+    },
+    {
+      "line": 678,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=81 candidate_groups=17 errors=0 fleet=5 game_time=32988754 hub=6430 mark=167 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=false waiting=17 t=32988754 id=189"
+    },
+    {
+      "line": 859,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_3 active=0 candidate_elements=81 candidate_groups=17 errors=0 fleet=5 game_time=32988754 hub=6430 mark=254 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=17 t=32988754 id=276"
+    },
+    {
+      "line": 1189,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 active=0 candidate_elements=0 candidate_groups=0 errors=0 fleet=5 game_time=33218503 hub=6430 mark=480 max_drones=60 sitting=build5_pass2_smoke status=OK track_work=true waiting=0 t=33218503 id=311"
+    }
+  ],
+  "lua_error_count": 0,
+  "disposition": "Case 4 PASS: OFF hold, fresh-process recovery, ON continuation. Snapshot while game running."
+}
