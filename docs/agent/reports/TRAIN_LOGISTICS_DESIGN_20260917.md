@@ -230,7 +230,10 @@ moving it"*. Asked, the owner chose a four-state left-click and a slider on ever
 - **One left-click on the row's hex cycles four states: Balanced → Export → Import → Not accepted
   (vanilla's red X) → Balanced.** Each state changes the hex icon and the row's title text (e.g.
   **Metals · Export**), as the births row does. Not accepted is vanilla's own disabled state, reached
-  through vanilla's own path. Ctrl + click keeps vanilla's meaning: apply to every station.
+  through vanilla's own path. ⚖️ **Ctrl + click does not advance the state** (owner, 2026-09-27,
+  after seeing it cycle): it applies the clicked station's **current** state to every other station
+  — *"can we make control click not change it also, just make it apply the current selected option
+  to all other stations"*. Whether the slider value travels with it is not yet ruled.
 - **A thin vanilla slider on every row**, Balanced included — Balanced keeps its pinned amount
   (§4.8's table). ⚖️ **No drag bubble** (owner, 2026-09-27, over the first look at `67bbf45`): the
   bubble rendered as an empty dark box beside the Passengers row, and *"it can go instead of being
@@ -528,8 +531,16 @@ command receipts and the unrelated existing traffic failure are in the report be
 The build, rung table, exact hub-header line owed, command receipts and next sitting
 predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`. **The orchestrator runs the
 next sitting from `build6_capacity`, hub standing and capacity upgrade on: uncovered
-spoke export at 20% of 120 predicts a floor of 24, still <<PENDING-RUN>> live.** This
-also supplies the distribution/capacity live pairing. The existing traffic-smoke
+spoke export at 20% of 120 predicts a floor of 24.** ✅ **MEASURED LIVE 2026-09-27** (`67bbf45`,
+`build6_capacity`, orchestrator-attended, log in `docs/archive/train_distribution_20260926/sittings/`):
+slot 4 read `mode=export percent=20 cap=120000 target=24000 covered=false` after one native hex
+click; slot 5 took the spoke 120 → **24** (`verdict=at_target`, spoke calls 2), then on re-arm a
+new spoke call (calls 3) left it at **24**. no LUA ERROR, traceback or `attempt to` in the closed 650-line log. This is also the
+distribution/capacity live pairing (spokes 120, hub 480). **Not shown:** full-hub refusal — slot 6's
+first press filled the hub (220 → 480), traffic had drained it to 325 by the trigger and two trains
+still carried 96 each, so the log cannot say whether the spoke shipped into a full hub. Seen by eye
+the same sitting: the four-state cycle with its titles and icons, per-state tooltips, off-network
+stations untouched, Ctrl-click reaching other network stations. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY

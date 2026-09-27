@@ -15,3 +15,15 @@ Mars.exe-20260926-21.21.51-6aad2d75.log  20193 B  376 lines
   The owner then ruled the native row design (spec 4.7) and sent 09 back before any test.
 
 The export-floor test has not run in any of these sittings.
+
+Fourth sitting, 2026-09-27 00:03, on 67bbf45 from build6_capacity (orchestrator-attended).
+Closed-process log copied byte-for-byte after the owner exited the game (cp -p; cmp exit 0).
+
+Mars.exe-20260927-00.03.18-6aad2d75.log  70061 B  650 lines
+  sha256 aea41c5e147d28a3e965bbf06947472569925cd503339327eba0fb32d030c0d9
+  :153 native storage-row UI registered. Slot 4 mode proof: Metals mode=export percent=20
+  cap=120000 target=24000 covered=false. :561 slot 5 verdict=at_target, 120000 -> 24000,
+  calls=2. :604 re-arm verdict=at_target, calls=3, stock 24000. EXPORT FLOOR PASS.
+  :477 slot 6 filled the hub (220000 -> 480000); full-hub refusal not isolated.
+  :615-645 the owner's by-eye checks (quick-built off-network station 6445, stations 1994/2007).
+  grep -ciE 'LUA ERROR|traceback|attempt to' = 0.

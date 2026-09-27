@@ -1,0 +1,650 @@
+					Render 0:00:00:010
+*** executable info
+					Render 0:00:00:011
+Timestamp:     	6aad2d75
+Date:          	Fri Sep 18 08:24:21 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	33%
+Disk Free      	1225651 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:078
+Steam initialized (AppId 3215050)
+					Render 0:00:00:083
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:02:377
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:02:637
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:03:023
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:04:443
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:04:445
+Lua revision: 405907
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.405907
+Build branch:  Release
+						Lua 0:00:16:820
+Account storage loaded successfully in 5 ms
+						Lua 0:00:16:821
+DLC norman loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:16:822
+DLC thomas loaded, lua revision 405907, assets revision 33225
+						Lua 0:00:16:830
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-024) unpacked from appdata
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-053) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) unpacked from appdata
+						Lua 0:00:17:411
+[mod] [CommunityFixPack] LoadFirst: already first of 5 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityOptInPack, SMR_RailShaftDev_20260923); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+						Lua 0:00:17:412
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+						Lua 0:00:17:413
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:17:414
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+						Lua 0:00:17:415
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+						Lua 0:00:17:416
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+						Lua 0:00:17:417
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:17:418
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+						Lua 0:00:17:419
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:17:420
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:17:421
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+						Lua 0:00:17:422
+[mod] [CommunityFixPack] SequenceLatents: applied
+						Lua 0:00:17:423
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:17:424
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:17:425
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+						Lua 0:00:17:426
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+						Lua 0:00:17:427
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:17:428
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:17:429
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+						Lua 0:00:17:430
+[mod] [CommunityFixPack] GhostPowerCells: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:17:431
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:436
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=11157 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=11157 id=1
+						Lua 0:00:17:441
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:17:443
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:17:444
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] hub settings and transient train allocation loaded
+						Lua 0:00:17:445
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+						Lua 0:00:17:446
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[RailShaftDev] loaded: cross-map train tunnel prototype. UNVERIFIED IN GAME.
+						Lua 0:00:18:317
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:18:421
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:18:532
+Reloading done in 1702 ms
+						Lua 0:00:18:535
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:18:591
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=11157 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=11157 id=2
+						Lua 0:00:19:179
+[preset] Preset postprocess took 252 ms.
+						Lua 0:00:19:273
+482 / 482 particle streams loaded in 85 ms.
+						Lua 0:00:19:275
+5 / 5 particle streams loaded in 2 ms.
+						Lua 0:00:19:277
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:19:551
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2						Lua 0:00:19:552
+
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:19:656
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=11157 id=3
+						Lua 0:00:19:697
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=11157 id=4
+						Lua 0:00:19:719
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_CommunityOptInPack, SMR_RailShaftDev_20260923
+						Lua 0:00:20:037
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:20:146
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=11157 id=5
+						Lua 0:00:20:491
+[PdxSDK] Started up. Took 1117
+						Lua 0:00:20:896
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:21:000
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init						Lua 0:00:21:001
+
+						Lua 0:00:25:427
+Load Game: 
+	lua_revision: 405907 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923 
+						Lua 0:00:25:434
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:29:138
+*** Assets reloaded in 3.7 s, read 359.0 MB, read speed 96.9 MB/s, average read 8136 bytes.
+						Lua 0:00:30:413
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=15942 id=6
+						Lua 0:00:31:429
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=15942 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=15942 id=7
+						Lua 0:00:34:029
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:00:34:030
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:00:34:031
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:00:34:032
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:00:34:033
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:00:34:035
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:34:045
+[RailShaftDev] loaded; underground is locked in this save, so the tunnel stays surface-only.
+[RailShaftDev] ready. SMRRailShaft.Status() for where things stand.
+						Lua 0:00:34:164
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, paradox, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:34:364
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=20 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=145
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 8938 ms
+						Lua 0:00:34:365
+[mod] [SMRTK] SMRTK_PROVENANCE actions=46 last=section_attach last_id=139 present=true session=1790465381:253654148:360647659:1364593902 t=19714958 id=8
+[SMRTK] SMRTK_PROVENANCE actions=46 last=section_attach last_id=139 present=true session=1790465381:253654148:360647659:1364593902 t=19714958 id=8
+						Lua 0:00:34:376
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19714958 id=9
+						Lua 0:00:34:394
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=19714958 id=10
+						Lua 0:00:34:400
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:34:541
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19714958 id=11
+						Lua 0:00:35:009
+Game loaded on map BlankBig_01 in 9742 ms
+						Lua 0:00:38:753
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19714958 id=12
+						Lua 0:06:46:591
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19714958 id=13
+						Lua 0:06:55:302
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipSurfaceDeposit object=SurfaceDepositMetals(2000000000) status=OK t=19714958 id=14
+						Lua 0:06:57:892
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipSurfaceDeposit object=SurfaceDepositMetals(2000000000) status=OK t=19714958 id=15
+						Lua 0:06:59:169
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19714958 id=16
+						Lua 0:07:02:388
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19714958 id=17
+						Lua 0:07:13:530
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=19714958 id=18
+						Lua 0:07:26:222
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=UniversalStorageDepot(6443) status=OK t=19714958 id=19
+						Lua 0:07:27:322
+[mod] [SMRTK] SMRTK_ACTION action=selected_empty after=0 before=300000 method=CheatEmpty object=UniversalStorageDepot(6443) resource=multiple resources=10 status=OK valid_after=true t=19714958 id=20
+[SMRTK] SMRTK_ACTION action=selected_empty after=0 before=300000 method=CheatEmpty object=UniversalStorageDepot(6443) resource=multiple resources=10 status=OK valid_after=true t=19714958 id=20
+						Lua 0:07:28:746
+[mod] [SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=UniversalStorageDepot(6443) status=OK valid_after=false t=19714958 id=21
+[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=UniversalStorageDepot(6443) status=OK valid_after=false t=19714958 id=21
+						Lua 0:07:29:512
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=19714958 id=22
+						Lua 0:07:53:430
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19714958 id=23
+						Lua 0:12:07:607
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+						Lua 0:12:09:054
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2007) status=OK t=19754341 id=24
+						Lua 0:12:12:426
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2008) status=OK t=19757709 id=25
+						Lua 0:12:18:838
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2012) status=OK t=19764121 id=26
+						Lua 0:12:22:393
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(6243) status=OK t=19767671 id=27
+						Lua 0:12:24:233
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipTrackElement object=TrackGridElement(6194) status=OK t=19769529 id=28
+						Lua 0:12:24:962
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(6243) status=OK t=19770248 id=29
+						Lua 0:12:28:945
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2011) status=OK t=19774232 id=30
+						Lua 0:12:32:377
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationBig(2009) status=OK t=19777661 id=31
+						Lua 0:12:58:516
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=19821934 id=32
+						Lua 0:17:19:705
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=UniversalDragonRocket(1050) status=OK t=19821934 id=33
+						Lua 0:37:17:274
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19821934 id=34
+						Lua 0:37:38:422
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=Agent t=19821934 id=35
+						Lua 0:37:39:971
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_READ mark=72 status=OK t=19821934 id=36
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_READ mark=72 status=OK t=19821934 id=36
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=37
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=37
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=38
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=38
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=39
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=39
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=120000 enabled=true hub=6430 hub_room=260000 hub_stock=220000 mode=export percent=20 phase=READ res=Metals sitting=distribution_pass2 station=1994 stock=0 supply_desired=120000 supply_target=0 target=24000 t=19821934 id=40
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=120000 enabled=true hub=6430 hub_room=260000 hub_stock=220000 mode=export percent=20 phase=READ res=Metals sitting=distribution_pass2 station=1994 stock=0 supply_desired=120000 supply_target=0 target=24000 t=19821934 id=40
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=READ res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=41
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=READ res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=41
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=42
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=42
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=43
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=43
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=READ res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=44
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=READ res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=44
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=READ res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=45
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=READ res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=45
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=46
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=46
+						Lua 0:37:39:972
+[mod] [SMRTK] SMRTK_ACTION action=slot_4 errors=0 game_time=19821934 mark=72 phase=READ rows=6 runtime_error=none sitting=distribution_pass2 station=1994 status=OK t=19821934 id=47
+[SMRTK] SMRTK_ACTION action=slot_4 errors=0 game_time=19821934 mark=72 phase=READ rows=6 runtime_error=none sitting=distribution_pass2 station=1994 status=OK t=19821934 id=47
+						Lua 0:37:45:623
+[mod] [SMRTK] SMRTK_MARK action=mark label=CAPACITY_FILL mark=84 status=OK t=19821934 id=48
+[SMRTK] SMRTK_MARK action=mark label=CAPACITY_FILL mark=84 status=OK t=19821934 id=48
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=49
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=49
+						Lua 0:37:45:625
+[mod] [SMRTK] SMRTK_DUMP added=120000 after=120000 before=0 cap=120000 object=1994 row=fill t=19821934 id=50
+[SMRTK] SMRTK_DUMP added=120000 after=120000 before=0 cap=120000 object=1994 row=fill t=19821934 id=50
+[mod] [SMRTK] SMRTK_MARK action=mark label=CAPACITY_FILLED mark=87 status=OK t=19821934 id=51
+[SMRTK] SMRTK_MARK action=mark label=CAPACITY_FILLED mark=87 status=OK t=19821934 id=51
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=52
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=52
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=0 leg=FILLED object=1994 res=Metals row=stock slider_max=120 stored=120000 t=19821934 id=53
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=0 leg=FILLED object=1994 res=Metals row=stock slider_max=120 stored=120000 t=19821934 id=53
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2007 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=54
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2007 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=54
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=98000 leg=FILLED object=2008 res=Metals row=stock slider_max=120 stored=22000 t=19821934 id=55
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=98000 leg=FILLED object=2008 res=Metals row=stock slider_max=120 stored=22000 t=19821934 id=55
+[mod] [SMRTK] SMRTK_DUMP cap=240000 class=StationBig demand=240000 leg=FILLED object=2009 res=Metals row=stock slider_max=240 stored=0 t=19821934 id=56
+[SMRTK] SMRTK_DUMP cap=240000 class=StationBig demand=240000 leg=FILLED object=2009 res=Metals row=stock slider_max=240 stored=0 t=19821934 id=56
+[mod] [SMRTK] SMRTK_DUMP cap=240000 class=StationBig demand=215000 leg=FILLED object=2009 res=Spices row=stock slider_max=240 stored=25000 t=19821934 id=57
+[SMRTK] SMRTK_DUMP cap=240000 class=StationBig demand=215000 leg=FILLED object=2009 res=Spices row=stock slider_max=240 stored=25000 t=19821934 id=57
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2011 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=58
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2011 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=58
+						Lua 0:37:45:626
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2012 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=59
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=2012 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=59
+[mod] [SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=6243 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=60
+[SMRTK] SMRTK_DUMP cap=120000 class=StationSmall demand=120000 leg=FILLED object=6243 res=Metals row=stock slider_max=120 stored=0 t=19821934 id=60
+[mod] [SMRTK] SMRTK_DUMP answers=true building=false can_switch=true destroyed=false leg=FILLED max_storage=480000 max_z=9 object=6430 on=true own=true row=hub slider_max=480 working=true t=19821934 id=61
+[SMRTK] SMRTK_DUMP answers=true building=false can_switch=true destroyed=false leg=FILLED max_storage=480000 max_z=9 object=6430 on=true own=true row=hub slider_max=480 working=true t=19821934 id=61
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=320000 leg=FILLED object=6430 res=Herbs row=stock slider_max=480 stored=160000 t=19821934 id=62
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=320000 leg=FILLED object=6430 res=Herbs row=stock slider_max=480 stored=160000 t=19821934 id=62
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=260000 leg=FILLED object=6430 res=Metals row=stock slider_max=480 stored=220000 t=19821934 id=63
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=260000 leg=FILLED object=6430 res=Metals row=stock slider_max=480 stored=220000 t=19821934 id=63
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=260000 leg=FILLED object=6430 res=Concrete row=stock slider_max=480 stored=220000 t=19821934 id=64
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=260000 leg=FILLED object=6430 res=Concrete row=stock slider_max=480 stored=220000 t=19821934 id=64
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=265000 leg=FILLED object=6430 res=Spices row=stock slider_max=480 stored=215000 t=19821934 id=65
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=265000 leg=FILLED object=6430 res=Spices row=stock slider_max=480 stored=215000 t=19821934 id=65
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=288000 leg=FILLED object=6430 res=Food row=stock slider_max=480 stored=192000 t=19821934 id=66
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=288000 leg=FILLED object=6430 res=Food row=stock slider_max=480 stored=192000 t=19821934 id=66
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=288000 leg=FILLED object=6430 res=Sugar row=stock slider_max=480 stored=192000 t=19821934 id=67
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=288000 leg=FILLED object=6430 res=Sugar row=stock slider_max=480 stored=192000 t=19821934 id=67
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=249000 leg=FILLED object=6430 res=Butter row=stock slider_max=480 stored=231000 t=19821934 id=68
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=249000 leg=FILLED object=6430 res=Butter row=stock slider_max=480 stored=231000 t=19821934 id=68
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=PreciousMetals row=stock slider_max=480 stored=240000 t=19821934 id=69
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=PreciousMetals row=stock slider_max=480 stored=240000 t=19821934 id=69
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Bread row=stock slider_max=480 stored=240000 t=19821934 id=70
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Bread row=stock slider_max=480 stored=240000 t=19821934 id=70
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=PreciousMinerals row=stock slider_max=480 stored=240000 t=19821934 id=71
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=PreciousMinerals row=stock slider_max=480 stored=240000 t=19821934 id=71
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Cheese row=stock slider_max=480 stored=240000 t=19821934 id=72
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Cheese row=stock slider_max=480 stored=240000 t=19821934 id=72
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Polymers row=stock slider_max=480 stored=240000 t=19821934 id=73
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Polymers row=stock slider_max=480 stored=240000 t=19821934 id=73
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Coffee row=stock slider_max=480 stored=240000 t=19821934 id=74
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Coffee row=stock slider_max=480 stored=240000 t=19821934 id=74
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=MachineParts row=stock slider_max=480 stored=240000 t=19821934 id=75
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=MachineParts row=stock slider_max=480 stored=240000 t=19821934 id=75
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Electronics row=stock slider_max=480 stored=240000 t=19821934 id=76
+						Lua 0:37:45:627
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Electronics row=stock slider_max=480 stored=240000 t=19821934 id=76
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Meat row=stock slider_max=480 stored=240000 t=19821934 id=77
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Meat row=stock slider_max=480 stored=240000 t=19821934 id=77
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Fuel row=stock slider_max=480 stored=240000 t=19821934 id=78
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Fuel row=stock slider_max=480 stored=240000 t=19821934 id=78
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Seeds row=stock slider_max=480 stored=240000 t=19821934 id=79
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=Seeds row=stock slider_max=480 stored=240000 t=19821934 id=79
+[mod] [SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=WasteRock row=stock slider_max=480 stored=240000 t=19821934 id=80
+[SMRTK] SMRTK_DUMP cap=480000 class=hub demand=240000 leg=FILLED object=6430 res=WasteRock row=stock slider_max=480 stored=240000 t=19821934 id=80
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001652 passenger_cap=30 passengers=0 row=train t=19821934 id=81
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001652 passenger_cap=30 passengers=0 row=train t=19821934 id=81
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001844 passenger_cap=30 passengers=0 row=train t=19821934 id=82
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001844 passenger_cap=30 passengers=0 row=train t=19821934 id=82
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001845 passenger_cap=30 passengers=0 row=train t=19821934 id=83
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001845 passenger_cap=30 passengers=0 row=train t=19821934 id=83
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001846 passenger_cap=30 passengers=0 row=train t=19821934 id=84
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001846 passenger_cap=30 passengers=0 row=train t=19821934 id=84
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001847 passenger_cap=30 passengers=0 row=train t=19821934 id=85
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001847 passenger_cap=30 passengers=0 row=train t=19821934 id=85
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001848 passenger_cap=30 passengers=0 row=train t=19821934 id=86
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001848 passenger_cap=30 passengers=0 row=train t=19821934 id=86
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001849 passenger_cap=30 passengers=0 row=train t=19821934 id=87
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001849 passenger_cap=30 passengers=0 row=train t=19821934 id=87
+[mod] [SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001850 passenger_cap=30 passengers=0 row=train t=19821934 id=88
+[SMRTK] SMRTK_DUMP cargo_cap=105000 leg=FILLED object=2000001850 passenger_cap=30 passengers=0 row=train t=19821934 id=88
+[mod] [SMRTK] SMRTK_DUMP amount=0 applied=true label=Train leg=FILLED percent=100 prop=max_colonists_to_transport row=modifier t=19821934 id=89
+[SMRTK] SMRTK_DUMP amount=0 applied=true label=Train leg=FILLED percent=100 prop=max_colonists_to_transport row=modifier t=19821934 id=89
+[mod] [SMRTK] SMRTK_DUMP amount=0 applied=true label=Train leg=FILLED percent=100 prop=max_shared_storage row=modifier t=19821934 id=90
+[SMRTK] SMRTK_DUMP amount=0 applied=true label=Train leg=FILLED percent=100 prop=max_shared_storage row=modifier t=19821934 id=90
+[mod] [SMRTK] SMRTK_DUMP amount=0 applied=true label=Station leg=FILLED percent=100 prop=max_storage_per_resource row=modifier t=19821934 id=91
+[SMRTK] SMRTK_DUMP amount=0 applied=true label=Station leg=FILLED percent=100 prop=max_storage_per_resource row=modifier t=19821934 id=91
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 applied=3 errors=0 game_time=19821934 hubs=1 mark=87 modifiers=3 owner=6430 phase=FILLED sitting=build6_capacity stations=7 status=OK storage_StationBig=240000 storage_StationSmall=120000,120000,120000,120000,120000,120000 storage_hub=480000 trains=8 unlocked=true t=19821934 id=92
+[SMRTK] SMRTK_ACTION action=slot_2 applied=3 errors=0 game_time=19821934 hubs=1 mark=87 modifiers=3 owner=6430 phase=FILLED sitting=build6_capacity stations=7 status=OK storage_StationBig=240000 storage_StationSmall=120000,120000,120000,120000,120000,120000 storage_hub=480000 trains=8 unlocked=true t=19821934 id=92
+						Lua 0:37:50:475
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_HUB_STOCK mark=129 status=OK t=19821934 id=93
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_HUB_STOCK mark=129 status=OK t=19821934 id=93
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=94
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=94
+[mod] [SMRTK] SMRTK_DUMP after=480000 before=220000 hub=6430 row=hub_fixture sitting=distribution_pass2 target=480000 t=19821934 id=95
+[SMRTK] SMRTK_DUMP after=480000 before=220000 hub=6430 row=hub_fixture sitting=distribution_pass2 target=480000 t=19821934 id=95
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_HUB_STOCK_DONE mark=132 status=OK t=19821934 id=96
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_HUB_STOCK_DONE mark=132 status=OK t=19821934 id=96
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=97
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=97
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 after=480000 before=220000 hub=6430 mark=129 status=OK t=19821934 id=98
+[SMRTK] SMRTK_ACTION action=slot_6 after=480000 before=220000 hub=6430 mark=129 status=OK t=19821934 id=98
+						Lua 0:37:56:007
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_READ mark=135 status=OK t=19821934 id=99
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_READ mark=135 status=OK t=19821934 id=99
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=100
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=100
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=101
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=101
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=102
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=102
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=0 enabled=true hub=6430 hub_room=0 hub_stock=480000 mode=export percent=20 phase=READ res=Metals sitting=distribution_pass2 station=1994 stock=120000 supply_desired=120000 supply_target=120000 target=24000 t=19821934 id=103
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=0 enabled=true hub=6430 hub_room=0 hub_stock=480000 mode=export percent=20 phase=READ res=Metals sitting=distribution_pass2 station=1994 stock=120000 supply_desired=120000 supply_target=120000 target=24000 t=19821934 id=103
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=READ res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=104
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=READ res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=104
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=105
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=105
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=106
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=READ res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=106
+						Lua 0:37:56:008
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=READ res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=107
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=READ res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=107
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=READ res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=108
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=READ res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=108
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=109
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=109
+[mod] [SMRTK] SMRTK_ACTION action=slot_4 errors=0 game_time=19821934 mark=135 phase=READ rows=6 runtime_error=none sitting=distribution_pass2 station=1994 status=OK t=19821934 id=110
+[SMRTK] SMRTK_ACTION action=slot_4 errors=0 game_time=19821934 mark=135 phase=READ rows=6 runtime_error=none sitting=distribution_pass2 station=1994 status=OK t=19821934 id=110
+						Lua 0:38:00:033
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_WATCH_START mark=147 status=OK t=19821934 id=111
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_WATCH_START mark=147 status=OK t=19821934 id=111
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=112
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19821934 id=112
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=113
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19821934 id=113
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=114
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19821934 id=114
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=0 enabled=true hub=6430 hub_room=0 hub_stock=480000 mode=export percent=20 phase=WATCH_START res=Metals sitting=distribution_pass2 station=1994 stock=120000 supply_desired=120000 supply_target=120000 target=24000 t=19821934 id=115
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=0 demand_target=0 enabled=true hub=6430 hub_room=0 hub_stock=480000 mode=export percent=20 phase=WATCH_START res=Metals sitting=distribution_pass2 station=1994 stock=120000 supply_desired=120000 supply_target=120000 target=24000 t=19821934 id=115
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=WATCH_START res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=116
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=60000 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=50 phase=WATCH_START res=PreciousMetals sitting=distribution_pass2 station=1994 stock=0 supply_desired=60000 supply_target=0 target=60000 t=19821934 id=116
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=117
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=117
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=118
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19821934 id=118
+						Lua 0:38:00:034
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=WATCH_START res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=119
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=WATCH_START res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19821934 id=119
+[mod] [SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=WATCH_START res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=120
+[SMRTK] SMRTK_DUMP calls=1 cap=120000 covered=false demand_desired=61200 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=49 phase=WATCH_START res=Electronics sitting=distribution_pass2 station=1994 stock=0 supply_desired=58800 supply_target=0 target=58800 t=19821934 id=120
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=121
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=98000 object=2000001845 row=train sitting=distribution_pass2 station=2012 t=19821934 id=121
+[mod] [SMRTK] SMRTK_ARM action=distribution_target before=120000 cadence=100 deadline=20121934 mode=export once=true percent=20 station=1994 status=OK trigger=distribution_target t=19821934 id=122
+[SMRTK] SMRTK_ARM action=distribution_target before=120000 cadence=100 deadline=20121934 mode=export once=true percent=20 station=1994 status=OK trigger=distribution_target t=19821934 id=122
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=19821934 id=123
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=19821934 id=123
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 autosave="re-press slot 5 after a save" deadline=20121934 mark=147 station=1994 status=OK trigger=distribution_target t=19821934 id=124
+[SMRTK] SMRTK_ACTION action=slot_5 autosave="re-press slot 5 after a save" deadline=20121934 mark=147 station=1994 status=OK trigger=distribution_target t=19821934 id=124
+						Lua 0:38:00:415
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:38:00:416
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:38:00:417
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:38:00:418
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:38:00:921
+[mod] [SMRTK] SMRTK_MARK action=mark label="Distribution: Metals reaches slider" mark=177 status=OK t=19874030 id=125
+[SMRTK] SMRTK_MARK action=mark label="Distribution: Metals reaches slider" mark=177 status=OK t=19874030 id=125
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19874030 id=126
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19874030 id=126
+						Lua 0:38:00:922
+[mod] [SMRTK] SMRTK_TRIGGER action=distribution_target before=120000 calls=2 covered=false game_time=19873834 hub_calls=1 label="Distribution: Metals reaches slider" mark=177 mode=export pause=true sound=true station=1994 status=OK stock=24000 target=24000 trigger=distribution_target verdict=at_target t=19874030 id=127
+[SMRTK] SMRTK_TRIGGER action=distribution_target before=120000 calls=2 covered=false game_time=19873834 hub_calls=1 label="Distribution: Metals reaches slider" mark=177 mode=export pause=true sound=true station=1994 status=OK stock=24000 target=24000 trigger=distribution_target verdict=at_target t=19874030 id=127
+[mod] [SMRTK] SMRTK_DISARM action=distribution_target reason="trigger complete" status=OK trigger=distribution_target t=19874030 id=128
+[SMRTK] SMRTK_DISARM action=distribution_target reason="trigger complete" status=OK trigger=distribution_target t=19874030 id=128
+						Lua 0:38:02:291
+[mod] [SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_WATCH_START mark=181 status=OK t=19874030 id=129
+[SMRTK] SMRTK_MARK action=mark label=DISTRIBUTION_WATCH_START mark=181 status=OK t=19874030 id=129
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19874030 id=130
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19874030 id=130
+[mod] [SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19874030 id=131
+[SMRTK] SMRTK_TAINT_READ action=taint_read status=OK used=false t=19874030 id=131
+[mod] [SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19874030 id=132
+[SMRTK] SMRTK_ELIGIBILITY action=eligibility reason=UNAVAILABLE:sandbox status=OK t=19874030 id=132
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=0 demand_target=96000 enabled=true hub=6430 hub_room=59000 hub_stock=325000 mode=export percent=20 phase=WATCH_START res=Metals sitting=distribution_pass2 station=1994 stock=24000 supply_desired=120000 supply_target=24000 target=24000 t=19874030 id=133
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=0 demand_target=96000 enabled=true hub=6430 hub_room=59000 hub_stock=325000 mode=export percent=20 phase=WATCH_START res=Metals sitting=distribution_pass2 station=1994 stock=24000 supply_desired=120000 supply_target=24000 target=24000 t=19874030 id=133
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=60000 demand_target=60000 enabled=true hub=6430 hub_room=300000 hub_stock=180000 mode=balanced percent=50 phase=WATCH_START res=PreciousMetals sitting=distribution_pass2 station=1994 stock=60000 supply_desired=60000 supply_target=60000 target=60000 t=19874030 id=134
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=60000 demand_target=60000 enabled=true hub=6430 hub_room=300000 hub_stock=180000 mode=balanced percent=50 phase=WATCH_START res=PreciousMetals sitting=distribution_pass2 station=1994 stock=60000 supply_desired=60000 supply_target=60000 target=60000 t=19874030 id=134
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=286000 hub_stock=194000 mode=balanced percent=8 phase=WATCH_START res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19874030 id=135
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=286000 hub_stock=194000 mode=balanced percent=8 phase=WATCH_START res=PreciousMinerals sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19874030 id=135
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19874030 id=136
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=110400 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=8 phase=WATCH_START res=Polymers sitting=distribution_pass2 station=1994 stock=0 supply_desired=9600 supply_target=0 target=9600 t=19874030 id=136
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=WATCH_START res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19874030 id=137
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=88800 demand_target=120000 enabled=true hub=6430 hub_room=240000 hub_stock=240000 mode=balanced percent=26 phase=WATCH_START res=MachineParts sitting=distribution_pass2 station=1994 stock=0 supply_desired=31200 supply_target=0 target=31200 t=19874030 id=137
+[mod] [SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=61200 demand_target=75000 enabled=true hub=6430 hub_room=285000 hub_stock=195000 mode=balanced percent=49 phase=WATCH_START res=Electronics sitting=distribution_pass2 station=1994 stock=45000 supply_desired=58800 supply_target=45000 target=58800 t=19874030 id=138
+[SMRTK] SMRTK_DUMP calls=2 cap=120000 covered=false demand_desired=61200 demand_target=75000 enabled=true hub=6430 hub_room=285000 hub_stock=195000 mode=balanced percent=49 phase=WATCH_START res=Electronics sitting=distribution_pass2 station=1994 stock=45000 supply_desired=58800 supply_target=45000 target=58800 t=19874030 id=138
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=59000 object=2000001847 row=train sitting=distribution_pass2 station=6430 t=19874030 id=139
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=59000 object=2000001847 row=train sitting=distribution_pass2 station=6430 t=19874030 id=139
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=96000 object=2000001848 row=train sitting=distribution_pass2 station=2007 t=19874030 id=140
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=96000 object=2000001848 row=train sitting=distribution_pass2 station=2007 t=19874030 id=140
+[mod] [SMRTK] SMRTK_DUMP assigned_here=0 cargo=96000 object=2000001850 row=train sitting=distribution_pass2 station=1994 t=19874030 id=141
+[SMRTK] SMRTK_DUMP assigned_here=0 cargo=96000 object=2000001850 row=train sitting=distribution_pass2 station=1994 t=19874030 id=141
+						Lua 0:38:02:292
+[mod] [SMRTK] SMRTK_ARM action=distribution_target before=24000 cadence=100 deadline=20174030 mode=export once=true percent=20 station=1994 status=OK trigger=distribution_target t=19874030 id=142
+[SMRTK] SMRTK_ARM action=distribution_target before=24000 cadence=100 deadline=20174030 mode=export once=true percent=20 station=1994 status=OK trigger=distribution_target t=19874030 id=142
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=19874030 id=143
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=19874030 id=143
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 autosave="re-press slot 5 after a save" deadline=20174030 mark=181 station=1994 status=OK trigger=distribution_target t=19874030 id=144
+[SMRTK] SMRTK_ACTION action=slot_5 autosave="re-press slot 5 after a save" deadline=20174030 mark=181 station=1994 status=OK trigger=distribution_target t=19874030 id=144
+						Lua 0:38:02:965
+[mod] [SMRTK] SMRTK_MARK action=mark label="Distribution: Metals reaches slider" mark=197 status=OK t=19915630 id=145
+[SMRTK] SMRTK_MARK action=mark label="Distribution: Metals reaches slider" mark=197 status=OK t=19915630 id=145
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19915630 id=146
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=43/43 game=405907 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_RailShaftDev_20260923,SMR_TrainHubDev_20260918 pack_version=24 read="live registry" save=build6_capacity.savegame.sav sol=28 status=OK t=19915630 id=146
+[mod] [SMRTK] SMRTK_TRIGGER action=distribution_target before=24000 calls=3 covered=false game_time=19915130 hub_calls=1 label="Distribution: Metals reaches slider" mark=197 mode=export pause=true sound=true station=1994 status=OK stock=24000 target=24000 trigger=distribution_target verdict=at_target t=19915630 id=147
+[SMRTK] SMRTK_TRIGGER action=distribution_target before=24000 calls=3 covered=false game_time=19915130 hub_calls=1 label="Distribution: Metals reaches slider" mark=197 mode=export pause=true sound=true station=1994 status=OK stock=24000 target=24000 trigger=distribution_target verdict=at_target t=19915630 id=147
+[mod] [SMRTK] SMRTK_DISARM action=distribution_target reason="trigger complete" status=OK trigger=distribution_target t=19915630 id=148						Lua 0:38:02:966
+
+[SMRTK] SMRTK_DISARM action=distribution_target reason="trigger complete" status=OK trigger=distribution_target t=19915630 id=148
+						Lua 0:38:06:654
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=197 lines=4 status=OK truncated=false t=19915630 id=149
+[SMRTK] SMRTK_COPY action=copy flushed=true from=197 lines=4 status=OK truncated=false t=19915630 id=149
+						Lua 0:38:13:621
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=197 lines=5 status=OK truncated=false t=19915630 id=150
+[SMRTK] SMRTK_COPY action=copy flushed=true from=197 lines=5 status=OK truncated=false t=19915630 id=150
+						Lua 0:40:15:161
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=19915630 id=151						Lua 0:40:15:162
+
+						Lua 0:40:16:073
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(6444) status=OK t=19915630 id=152
+						Lua 0:40:16:970
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(6444) leader_valid_after=false object=ConstructionSite(6444) selected_valid_after=false status=OK t=19915630 id=153
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=StationSmall completed=true group_members=0 leader=ConstructionSite(6444) leader_valid_after=false object=ConstructionSite(6444) selected_valid_after=false status=OK t=19915630 id=153
+						Lua 0:40:16:985
+
+!!! Quick Build !!!
+						Lua 0:40:16:997
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(6445) status=OK t=19915630 id=154
+						Lua 0:40:33:879
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19915630 id=155
+						Lua 0:40:42:137
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(2007) status=OK t=19915630 id=156
+						Lua 0:40:44:660
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(1994) status=OK t=19915630 id=157
+						Lua 0:42:47:194
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:42:47:196
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:42:47:567
+
+
+*** Debug::Done()
+Time (ms)	2567567
+
+
