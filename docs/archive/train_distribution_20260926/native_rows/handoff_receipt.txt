@@ -1,0 +1,27 @@
+HEAD 79c0ec96dad4189403a3d1510e5ad1acb4c2839d
+COMMAND: Python subprocess git diff/show and Path.read_bytes; assertions below; scoped to this task.
+PASS git diff 79c0ec9 -- tools/devmods/train_hub/Code/20_TrainHub.lua tools/devmods/train_hub/Code/30_TrainHubDrones.lua tools/devmods/train_hub/Code/BuildingTemplate Code tools/devmods/train_hub/Code/10_TrainFloor.lua tools/devmods/train_hub/Code/40_TrainDistribution.lua is empty
+PASS spec changes confined to section 4.8; owner wording in 4.7 byte-equivalent after newline normalization
+PASS metadata description-only; editor version/hash/save fields retained
+TestKit HEAD bf759836cdc294745dee27ca42b59ca35cc49a54; git status --porcelain empty; no slot file changed
+PASS installed dev mod junction resolves to B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub
+PASS plain UTF-8 source filter ['XText:new', 'XTextButton:new', 'XCheckButton:new', 'idTrainDistribution', 'local function label', 'RGBA(', 'RGB('] absent; native slider/tooltip/row callback present
+PASS existing evidence docs/archive/train_hub_capacity_20260926/Mars.exe-20260926-19.29.34-6aad2d75.log:818 contains assigned_resources
+PASS existing evidence docs/archive/train_distribution_20260926/sittings/Mars.exe-20260926-21.21.51-6aad2d75.log:178 contains station import/export section loaded
+PASS no tracked archive bytes changed; new desk outputs only
+REPORT_BYTES command len(git show 79c0ec9:docs/agent/reports/TRAIN_DISTRIBUTION_PASS2_20260926.md) / len(Path.read_bytes): before=15715 after=18905 delta=+3190
+Finding/block | evidence | home | next action/trigger | disposition
+Authority/status/model | 79c0ec9 final ruling; transcript GPT-6 | report introduction | orchestrator attended sitting | updated; floor NOT RUN and model preserved
+First sitting crash | original log line 818; repair receipts | First sitting and crash repair | new-train live check | kept; no re-archive
+Second/third sittings | ui_load_order receipts; sittings receipt and third log line 178 | Second sitting section | native visual check | kept load-order finding; added observed label failure
+Allocator and limits | distribution_smoke.py in final_suite2 | Result and mechanism | attended modes and native routing | kept every mechanism/reservation/route/rewrite limit
+Retired UI description | 79c0ec9 spec4.7 ruling | Native row UI section; spec4.8 | native row visual acceptance | replaced current separate-section instructions; history remains in named receipts/commits
+Save ladder/residuals | unchanged 40/10; metadata disclosure | Save ladder and residuals | native save/load test | kept; real-time UI fade is rung 0; disabled flags remain vanilla-written
+Verification/scope | final_suite2, prelaunch_gates, this receipt | Verification and scope | next sitting; existing traffic failure separate | updated counts by captured member list; fences preserved
+Hub header line owed | rg SMROptIn_distribution tools/devmods/train_hub/Code/20_TrainHub.lua gives no match | Verification and scope exact line | orchestrator owns fenced edit | kept exact owed line
+Slots and predictions | unchanged TestKit bf75983; distribution_slots_smoke.py | Attended predictions | restart build6_capacity; one click then slot 4; export floor 24 twice | updated UI route; kept automated witness/deadline/autosave conditions
+Remaining live work | brief09 remaining end states and report reviewed | Remaining live checks; spec4.8 | orchestrator records attended results | kept covered/uncovered/import/balanced/full/disable/save-load and both-configuration obligations
+Reconciliation: 10/10 blocks traced; unhomed content dropped=0; no unresolved filing destination
+final_suite.txt sha256 e8ef2601cb6e18131a82aa34d709b584031b7a347ffd4d052c1d66feaa28bef9
+final_suite2.txt sha256 48a9294d6ae662e4abfa618b7a257bf6d3f9d668b769d9fc05510f9d1761ba53
+prelaunch_gates.txt sha256 60391b80eb45ec90f09753e184d0d3dcdd9598754066b2083275657d76bd005b

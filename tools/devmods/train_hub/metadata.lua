@@ -1,6 +1,6 @@
 return PlaceObj('ModDef', {
 	'title', "DEV ONLY - Train Hub (Module B build)",
-	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, the imported hub body, a built-in drone controller and a Metals maintenance reserve. Each connected station has an Import / Export section with resource tabs, mode controls, slider values and stored/max readouts. Removing the mod can leave vanilla drone desired amounts at their last setting until a vanilla dial, storage toggle or capacity change rewrites them. Placed hubs retain their existing removal limitations. Test colonies only until it ships inside the Opt-In Modules mod.",
+	'description', "Development build of the Relaunched Fix Pack: Opt-In Modules train hub: six connectors, the imported hub body, a built-in drone controller and a Metals maintenance reserve. Connected stations use vanilla storage rows with a Balanced / Export / Import / Not accepted cycle and per-resource sliders. Removing the mod can leave vanilla drone desired amounts at their last setting until a vanilla dial, storage toggle or capacity change rewrites them. Placed hubs retain their existing removal limitations. Test colonies only until it ships inside the Opt-In Modules mod.",
 	'short_description', "DEV ONLY: six-connector train hub with its own drones and a maintenance reserve.",
 	'id', "SMR_TrainHubDev_20260918",
 	'author', "catt144",

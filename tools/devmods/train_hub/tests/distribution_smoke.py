@@ -148,7 +148,7 @@ MultiResourceDepotBase.RegisterResourceRequest=MultiResourceCubeVisuals.Register
         ("function MultiResourceDepotBase:RecalculateAfterResourceListChange(", "function MultiResourceDepotBase:ResourceRequestsEnabled("),
     ])
     source_parts(lua, "Buildings/Station.lua", [
-        ("function Station:SetDesiredAmount(", "function Station:GetResAcceptIcon("),
+        ("function Station:SetDesiredAmount(", "function Station:SetAcceptResourceState("),
         ("function Station:SetAcceptResourceState(", "function Station:TrainTraverse("),
     ])
     # The fixup is the final function in this archived file.

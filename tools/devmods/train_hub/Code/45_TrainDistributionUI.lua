@@ -1,14 +1,15 @@
--- UI only: an independent section on a station's ipBuilding, following the
--- TestKit's section_attach / DialogOpen route. No resource-row method is wrapped.
--- Owner ruling 94bb535, spec 4.7: own tabs, visible slider value, header hover help.
--- Archived 1.1.1.405907: Lua/Resources.lua:86-162 (groups/hidden resources),
--- Lua/X/Infopanel.lua:104-109,428-445 (native refresh), and
--- Lua/XDef/InfopanelSection.generated.lua, InfopanelSlider.generated.lua.
+-- Native storage-row extension, owner ruling 79c0ec9 / spec 4.7.
+-- Archived 1.1.1.405907: Data/XDef/sectionStorageRow.lua and sectionDome.lua;
+-- Lua/XDef/InfopanelActiveSection.generated.lua (idSectionTitles),
+-- InfopanelSlider.generated.lua; Buildings/Station.lua:1003-1059.
+-- XDefs ship compiled constructors, not evaluated XTemplate trees. Chain the
+-- compiled row's context callback; keep its constructor, activation and children.
+-- XDef checks/install happen at runtime, never as a file-level early return.
 local D = rawget(_G, "SMROptInTrainDistribution")
-if not D or not D.active then return end
-
+if not D or not D.active or D.native_ui_registered then return end
+D.native_ui_registered = true
 local reported = {}
-local function ui_failure(reason)
+local function failure(reason)
 	D.ui_error = reason
 	if not reported[reason] then
 		reported[reason] = true
@@ -16,235 +17,253 @@ local function ui_failure(reason)
 	end
 end
 
-local tabs = {
-	{ "BasicResources", "Basic" }, { "AdvancedResources", "Advanced" },
-	{ "MealIngredients", "Delicacies" }, { "OtherResources", "Other" },
+-- Declaring methods used below. UI entries are checked only after XDefs exist.
+D.UIRequire = {
+	{ "Station", "ToggleAcceptResource" }, { "Station", "SetAcceptResourceState" },
+	{ "Station", "GetResAcceptIcon" }, { "Station", "ResourceRolloverText" },
+	{ "sectionStorageRow", "OnContextUpdate" },
+	{ "InfopanelSlider", "ScrollTo" }, { "InfopanelSlider", "OnShortcut" },
+	{ "XScrollControl", "OnMouseButtonDown" },
 }
-local HELP = "Export: local drones fill the station; trains take stock above Keep to the hub."
-	.. "<newline>Import: trains fill to the selected amount; local drones may drain it to zero."
-	.. "<newline>Neither checked: Balanced; trains hold the selected amount and drones use it as their target."
-	.. "<newline>The value is a percentage of current station capacity. A full hub refuses exports."
-	.. "<newline>Enable a resource in the vanilla storage section to change its distribution controls."
-
-local function named_child(parent, id)
-	local child = parent and parent:ResolveId(id)
-	local cursor = child
-	while cursor and cursor ~= parent do cursor = cursor.parent end
-	return cursor == parent and child or nil
+local function network(st)
+	return IsValid(st) and IsKindOf(st, "Station") and D.HubFor(st)
 end
-
-local function label(parent, text, props)
-	props = props or {}
-	props.Text, props.TextStyle, props.Translate = text, "InfopanelText", true
-	props.HandleMouse = props.HandleMouse or false
-	return XText:new(props, parent)
-end
-
-local function row_state(st, res)
+local titles = { balanced = "Balanced", export = "Export", import = "Import", disabled = "Not accepted" }
+local following = { balanced = "export", export = "import", import = "disabled", disabled = "balanced" }
+local icons = {
+	balanced = "UI/IconsRemaster/Sections/resource_storing.tga",
+	export = "UI/IconsRemaster/Sections/elevator_resource_up.png",
+	import = "UI/IconsRemaster/Sections/elevator_resource_down.png",
+}
+local help = {
+	balanced = "Balanced: trains hold the selected amount; local drones use it as their desired amount.",
+	export = "Export: trains take stock above the selected minimum to the hub. Local drones fill this station. A full hub refuses exports.",
+	import = "Import: trains bring stock from the hub up to the selected amount. Local drones may drain this station to zero.",
+	disabled = "Not accepted: vanilla storage is disabled for this resource. Trains and drones may carry its remaining stock away.",
+}
+function D.RowState(st, res)
 	local entry = D.Get(st, res)
 	local cap = st:GetMaxStorage(res)
 	local percent = entry and entry.percent or (cap > 0
 		and Clamp(MulDivRound(st.desired_amount or 0, 100, cap), 0, 100) or 0)
-	return entry and entry.mode or "balanced", percent, cap
+	return not st:IsResourceEnabled(res) and "disabled" or entry and entry.mode or "balanced", percent, cap
 end
 
-local function resource_groups(st)
-	local visible = {}
-	for _, res in ipairs(st.storable_resources or empty_table) do
-		if Resources[res] and GetPresetLockStateAndText(Resources[res], st.player) ~= "hidden" then
-			visible[#visible + 1] = res
+local station_installed, row_installed
+local function install_station()
+	if station_installed then return true end
+	for i = 1, 4 do
+		local pair = D.UIRequire[i]
+		local class = rawget(_G, pair[1])
+		if not class or type(class[pair[2]]) ~= "function" then
+			failure(pair[1] .. "." .. pair[2] .. " unavailable")
+			return
 		end
 	end
-	-- Keep a lone resource in its named tab; vanilla's IP helper flattens singleton
-	-- groups into Other, which would make these independent tabs change meaning.
-	local groups = GroupResourcesForSelector(visible, false)
-	local result = { BasicResources = {}, AdvancedResources = {}, MealIngredients = {}, OtherResources = {} }
-	for _, group in ipairs(groups) do
-		local target = result[group.id] or result.OtherResources
-		for _, res in ipairs(group.items or { group.id }) do target[#target + 1] = res end
+	local toggle = Station.ToggleAcceptResource
+	local set_accept = Station.SetAcceptResourceState
+	local icon = Station.GetResAcceptIcon
+	local rollover = Station.ResourceRolloverText
+	Station.ToggleAcceptResource = function(st, res, broadcast, ...)
+		if not network(st) then return toggle(st, res, broadcast, ...) end
+		local next_mode = following[D.RowState(st, res)]
+		-- Preserve vanilla's city-wide scope and its own disabled/request-flag path.
+		set_accept(st, res, next_mode == "disabled" and "disabled" or "store", broadcast)
+		for _, target in ipairs(broadcast and st.city.labels.Station or { st }) do
+			if network(target) and next_mode ~= "disabled" then
+				local _, percent = D.RowState(target, res)
+				D.Set(target, res, next_mode, percent)
+			end
+			ObjModified(target)
+		end
 	end
-	local signature = {}
-	for _, tab in ipairs(tabs) do
-		table.sort(result[tab[1]], ResourceCmp)
-		signature[#signature + 1] = table.concat(result[tab[1]], ",")
+	Station.GetResAcceptIcon = function(st, res, ...)
+		if not network(st) then return icon(st, res, ...) end
+		return icons[D.RowState(st, res)] or "UI/IconsRemaster/Sections/resource_no_accept.png"
 	end
-	return result, table.concat(signature, "|")
+	Station.ResourceRolloverText = function(st, res, ...)
+		if not network(st) then return rollover(st, res, ...) end
+		local mode, percent, cap = D.RowState(st, res)
+		local text = help[mode] .. "<newline><newline>Slider: " .. tostring(percent)
+			.. "% of current capacity (" .. tostring(MulDivRound(cap, percent, 100) / const.ResourceScale) .. ")."
+		if not D.HasDroneCoverage(st) then text = text .. "<newline><newline>No drones in range — trains only." end
+		return Untranslated(text)
+	end
+	station_installed = true
+	return true
 end
 
-local refresh
-local function resource_row(section, parent, res)
-	local st = section.station
-	local row = XWindow:new({ LayoutMethod = "VList", LayoutVSpacing = 2,
-		Margins = box(0, 0, 0, 8), RolloverTemplate = "" }, parent)
-	row.resource = res
-	local heading = XWindow:new({ MinHeight = 24, MaxHeight = 24 }, row)
-	row.stock = label(heading, "", { Dock = "right", TextHAlign = "right", MinWidth = 85 })
-	row.name = label(heading, Resources[res].display_name, { Dock = "box", Shorten = true })
-	local line = XWindow:new({ MinHeight = 24, MaxHeight = 24 }, row)
-	row.value = label(line, "", { Dock = "right", TextHAlign = "right", MinWidth = 116 })
-	local toggles = XWindow:new({ Dock = "box", LayoutMethod = "HList", LayoutHSpacing = 4 }, line)
-	local function checkbox(text, mode)
-		return XCheckButton:new({ Text = Untranslated(text), TextStyle = "InfopanelText",
-			TextColor = RGB(255, 255, 255), IconColor = RGB(255, 255, 255),
-			MinWidth = 80, MaxWidth = 80, MinHeight = 24, MaxHeight = 24,
-			IconScale = point(420, 420), VAlign = "center",
-			RolloverTemplate = "", RolloverOnFocus = false,
-			OnChange = function(button, checked)
-				if section.refreshing then return end
-				local _, percent = row_state(st, res)
-				D.Set(st, res, checked and mode or "balanced", percent)
-				refresh(section)
-			end,
-		}, toggles)
+-- Native tooltip constructor/art/text; only its width is reduced. It is owned
+-- by the slider, so closing the row also closes it. Dock=ignore adds no row size.
+local function bubble(slider, st, res)
+	local _, percent, cap = D.RowState(st, res)
+	slider:SetRolloverText(Untranslated(string.format("%g (%g%%)",
+		MulDivRound(cap, percent, 100) / const.ResourceScale, percent)))
+	local win = slider.distribution_bubble
+	if not win or win.window_state == "destroying" then
+		win = MarsRollover:new({ Dock = "ignore", RefreshInterval = false, FadeOutTime = 200 }, slider,
+			{ control = slider, RolloverAnchor = "top", gamepad = false })
+		win.idContent.idText:SetMinWidth(0)
+		win.idContent.idText:SetMaxWidth(160)
+		win:Open()
+		slider.distribution_bubble = win
+	else
+		win:UpdateRolloverContent()
 	end
-	row.import = checkbox("Import", "import")
-	row.export = checkbox("Export", "export")
-	row.slider = InfopanelSlider:new({ Min = 0, Max = 100, StepSize = 1,
-		Margins = box(0, 0, 0, 0), RolloverTemplate = "", RolloverOnFocus = false,
-		ScrollTo = function(slider, value)
-			local result = InfopanelSlider.ScrollTo(slider, value)
-			if not section.refreshing then
-				local mode = row_state(st, res)
-				D.Set(st, res, mode, slider:GetScroll())
-				refresh(section)
-			end
+	-- XWindow threads are real-time and die with their owning window.
+	win:DeleteThread("distribution_fade")
+	win:CreateThread("distribution_fade", function()
+		Sleep(450)
+		if slider.distribution_bubble == win then slider.distribution_bubble = nil end
+		win:Close()
+	end)
+end
+
+local function make_slider(row, context)
+	local title, right = row.idSectionTitle, row.idSectionTitleRight
+	if not title or not right or title.parent ~= right.parent then
+		failure("sectionStorageRow title line unavailable")
+		return
+	end
+	local saved = { title_dock = title.Dock, title_width = title.MaxWidth,
+		title_shorten = title.Shorten, right_dock = right.Dock,
+		title = row:GetTitle(), hint = row.RolloverHint, gamepad_hint = row.RolloverHintGamepad,
+		focus_help = row.RolloverOnFocus }
+	row.distribution_native = saved
+	-- Reserve the native right title first; the existing left title and the new
+	-- slider share the remaining line. Neither the row nor idContent gains height.
+	right:SetDock("right")
+	title:SetDock("left")
+	title:SetMaxWidth(154)
+	title:SetShorten(true)
+	-- XWindow.UpdateMeasure clamps to MaxHeight, while SetLayoutSpace with
+	-- VAlign=stretch takes the parent's height. Contribute zero height, then fill
+	-- the native title line: the slider cannot make even a short row taller.
+	-- Archived 1.1.1.405907 CommonLua/X/XWindow.lua:623-665,744-794.
+	local slider = InfopanelSlider:new({ Id = "idDistributionSlider", Dock = "box", VAlign = "stretch",
+		MinWidth = 64, MinHeight = 0, MaxHeight = 0, Margins = box(6, 0, 6, 0),
+		Min = 0, Max = 100, StepSize = 1, RolloverTemplate = "", RolloverOnFocus = false,
+		OnScroll = function(self, value)
+			local ctx = row.context
+			local st, res = ctx[1], ctx.res
+			if not network(st) then return end
+			local mode = D.RowState(st, res)
+			if mode ~= "disabled" and D.Set(st, res, mode, value) then bubble(self, st, res) end
+		end,
+		OnMouseButtonDown = function(self, pt, button)
+			local result = XScrollControl.OnMouseButtonDown(self, pt, button)
+			local ctx = row.context
+			if button == "L" and self:GetEnabled() and network(ctx[1]) then bubble(self, ctx[1], ctx.res) end
 			return result
 		end,
-		OnShortcut = function(slider, shortcut, source)
+		OnShortcut = function(self, shortcut, source)
 			if shortcut == "LeftShoulder" or shortcut == "RightShoulder" then
-				slider:ScrollTo(Clamp(slider:GetScroll() + (shortcut == "LeftShoulder" and -1 or 1), 0, 100))
+				if self:GetEnabled() then
+					self:ScrollTo(Clamp(self:GetScroll() + (shortcut == "LeftShoulder" and -1 or 1), 0, 100))
+				end
 				return "break"
 			end
-			return InfopanelSlider.OnShortcut(slider, shortcut, source)
+			return InfopanelSlider.OnShortcut(self, shortcut, source)
 		end,
-	}, row)
-	-- Fit the native art to this section, including when a scrollbar is present.
-	row.slider.idBar:SetMinWidth(0)
-	for _, child in ipairs(row.slider.idBar) do child:SetMinWidth(0) end
-	row.note = label(row, "", { FoldWhenHidden = true })
-	return row
+	}, title.parent, context)
+	-- The native slider's art has a 320px minimum at both levels.
+	slider.idBar:SetMinWidth(0)
+	for _, child in ipairs(slider.idBar) do child:SetMinWidth(0) end
+	row.distribution_slider = slider
+	if row.window_state == "open" then slider:Open() end
+	return slider
 end
 
-refresh = function(section)
-	if not section.rows_host or section.refreshing then return end
-	local st = section.station
-	local hub = IsValid(st) and not st.destroyed and D.HubFor(st)
-	section:SetVisible(not not hub)
-	if not hub then return end
-	section.refreshing = true
-	section.coverage:SetVisible(not D.HasDroneCoverage(st))
-	local groups, signature = resource_groups(st)
-	if signature ~= section.signature then
-		section.rows_host:DeleteChildren()
-		section.pages, section.rows, section.signature = {}, {}, signature
-		for _, tab in ipairs(tabs) do
-			local page = XWindow:new({ LayoutMethod = "VList", FoldWhenHidden = true }, section.rows_host)
-			section.pages[tab[1]] = page
-			for _, res in ipairs(groups[tab[1]]) do
-				section.rows[res] = resource_row(section, page, res)
-			end
-			if #groups[tab[1]] == 0 then label(page, Untranslated("No resources in this group.")) end
-			if section.window_state == "open" then page:Open() end
+local function update_row(row, context)
+	local st, res = context and context[1], context and context.res
+	if not st or not res or not network(st) then
+		local saved = row.distribution_native
+		if saved then
+			row.distribution_slider:delete()
+			row.distribution_slider, row.distribution_native = nil, nil
+			row.idSectionTitle:SetDock(saved.title_dock)
+			row.idSectionTitle:SetMaxWidth(saved.title_width)
+			row.idSectionTitle:SetShorten(saved.title_shorten)
+			row.idSectionTitleRight:SetDock(saved.right_dock)
+			row:SetTitle(saved.title)
+			row:SetRolloverHint(saved.hint)
+			row:SetRolloverHintGamepad(saved.gamepad_hint)
+			row:SetRolloverOnFocus(saved.focus_help)
+		end
+		return
+	end
+	local slider = row.distribution_slider or make_slider(row, context)
+	if not slider then return end
+	local mode, percent = D.RowState(st, res)
+	row:SetTitle(T{Untranslated("<resource(res)> · " .. titles[mode]), context})
+	row:SetRolloverOnFocus(false)
+	row:SetRolloverHint(Untranslated("<left_click> " .. titles[following[mode]]
+		.. "<newline><em>Ctrl + <left_click></em> Apply to all stations"))
+	row:SetRolloverHintGamepad(Untranslated("<ButtonA> " .. titles[following[mode]]
+		.. "<newline><ButtonY> Apply to all stations"))
+	slider:SetEnabled(mode ~= "disabled")
+	-- SetScroll does not invoke OnScroll: merely opening/refreshing a row saves nothing.
+	slider:SetScroll(percent)
+	if slider.window_state == "open" then slider:UpdateProgress() end
+end
+
+local function install_row()
+	if row_installed then return true end
+	for i = 5, #D.UIRequire do
+		local pair = D.UIRequire[i]
+		local class = rawget(_G, pair[1])
+		if not class or type(class[pair[2]]) ~= "function" then
+			failure(pair[1] .. "." .. pair[2] .. " unavailable")
+			return
 		end
 	end
-	for _, tab in ipairs(tabs) do
-		local selected = section.tab == tab[1]
-		section.pages[tab[1]]:SetVisible(selected)
-		section.tabs[tab[1]]:SetBackground(selected and RGBA(64, 101, 119, 255) or RGBA(35, 47, 57, 255))
+	if not MarsRollover or type(MarsRollover.new) ~= "function" then
+		failure("MarsRollover unavailable")
+		return
 	end
-	for res, row in pairs(section.rows) do
-		local mode, percent, cap = row_state(st, res)
-		local s, d = st.supply and st.supply[res], st.demand and st.demand[res]
-		local enabled = not not (s and d and st:IsResourceEnabled(res))
-		row.import:SetCheck(mode == "import")
-		row.export:SetCheck(mode == "export")
-		row.import:SetEnabled(enabled)
-		row.export:SetEnabled(enabled)
-		row.slider:SetEnabled(enabled)
-		row.slider:SetScroll(percent)
-		if row.slider.window_state == "open" then row.slider:UpdateProgress() end
-		local verb = mode == "export" and "Keep" or mode == "import" and "Fill to" or "Hold"
-		row.value:SetText(Untranslated(string.format("%s %g (%g%%)", verb,
-			MulDivRound(cap, percent, 100) / const.ResourceScale, percent)))
-		row.stock:SetText(Untranslated(string.format("%g/%g", (s and s:GetActualAmount() or 0)
-			/ const.ResourceScale, cap / const.ResourceScale)))
-		local full = hub.demand and hub.demand[res] and hub.demand[res]:GetTargetAmount() <= 0
-		local note = not enabled and "Resource disabled in storage" or mode == "export" and full and "Hub full" or ""
-		row.note:SetText(Untranslated(note))
-		row.note:SetVisible(note ~= "")
+	local previous = sectionStorageRow.OnContextUpdate
+	sectionStorageRow.OnContextUpdate = function(row, context, ...)
+		local result = table.pack(previous(row, context, ...))
+		update_row(row, context)
+		return table.unpack(result, 1, result.n)
 	end
-	section.refreshing = false
+	row_installed = true
+	return true
 end
 
-function D.AttachStationSection(dlg)
+-- Data/XDef/Infopanel.lua's AdjustConstrainedScale is a per-instance function.
+-- Preserve its snapping, then clamp only a network station's local scale.
+D.PanelScaleFloor = 800
+local function walk(win, fn)
+	fn(win)
+	for _, child in ipairs(win) do walk(child, fn) end
+end
+function D.AttachStationRows(dlg)
 	if not dlg or dlg.window_state == "destroying" or not IsKindOf(dlg, "ipBuilding") then return end
 	local st = ResolvePropObj(dlg.context)
-	if not IsValid(st) or not IsKindOf(st, "Station") or IsKindOf(st, "SMROptInTrainHubBase") then return end
-	-- XDef classes are built after mod code loads. Register the callback at load;
-	-- check the class only when a station card actually opens, and allow a retry.
-	if not InfopanelSection or type(InfopanelSection.new) ~= "function" then
-		ui_failure("InfopanelSection unavailable")
-		return
-	end
-	local host = named_child(dlg, "idContent")
-	if not host then
-		ui_failure("station ipBuilding has no contained idContent")
-		return
-	end
+	if not IsValid(st) or not IsKindOf(st, "Station") then return end
+	if not install_station() or not install_row() then return end
 	D.ui_error = nil
-	local existing = named_child(host, "idTrainDistribution")
-	if existing then return existing end
-	local section = InfopanelSection:new({ Id = "idTrainDistribution", IdNode = true,
-		Title = Untranslated("Import / Export"), ShowRightTitle = false,
-		Icon = "UI/IconsRemaster/Buildings/group_basic_resources.png",
-		RolloverTemplate = "", RolloverText = "", RolloverOnFocus = false,
-		OnContextUpdate = refresh,
-		-- Navigate to a row before changing it; the base section's shoulder
-		-- shortcut otherwise edits its first slider even when that tab is hidden.
-		OnShortcut = XSection.OnShortcut,
-	}, host, dlg.context)
-	section.station, section.tab, section.tabs = st, "BasicResources", {}
-	-- The title container belongs to this new section. Docking the help chip
-	-- reserves header space; its rollover is mouse-only and has no click action.
-	section.help = label(section.idSectionTitle.parent, Untranslated("?"), {
-		Dock = "right", MinWidth = 26, MaxWidth = 26, TextHAlign = "center",
-		HandleMouse = true, RolloverTemplate = "Rollover", RolloverOnFocus = false,
-		RolloverTitle = Untranslated("Import / Export"), RolloverText = Untranslated(HELP),
-	})
-	section.coverage = label(section.idContent, Untranslated("No drones in range — trains only"),
-		{ FoldWhenHidden = true, Margins = box(0, 0, 0, 4) })
-	local tab_bar = XWindow:new({ LayoutMethod = "HList", LayoutHSpacing = 3,
-		Margins = box(0, 0, 0, 6) }, section.idContent)
-	for _, tab in ipairs(tabs) do
-		local id = tab[1]
-		section.tabs[id] = XTextButton:new({ Text = Untranslated(tab[2]), TextStyle = "InfopanelText",
-			TextColor = RGB(255, 255, 255), Padding = box(5, 2, 5, 2),
-			MinHeight = 26, MaxHeight = 26, RolloverTemplate = "", RolloverOnFocus = false,
-			RolloverBackground = RGBA(78, 111, 128, 255),
-			OnPress = function()
-				section.tab = id
-				refresh(section)
-				section.rows_host:ScrollTo(0, 0)
-			end,
-		}, tab_bar)
-	end
-	local frame = XWindow:new({ IdNode = true, MinHeight = 80, MaxHeight = 300 }, section.idContent)
-	XSleekScroll:new({ Id = "idScroll", Target = "idRows", Dock = "right", AutoHide = true }, frame)
-	section.rows_host = XScrollArea:new({ Id = "idRows", Dock = "box", LayoutMethod = "VList",
-		VScroll = "idScroll" }, frame)
-	-- Put the new section next to storage; never reparent or edit vanilla rows.
-	for at, child in ipairs(host) do
-		if IsKindOf(child, "sectionMultiResourceStorage") then
-			table.remove_entry(host, section)
-			table.insert(host, at + 1, section)
-			break
+	walk(dlg, function(win)
+		if IsKindOf(win, "sectionStorageRow") then win:OnContextUpdate(win.context) end
+		if IsKindOf(win, "XSizeConstrainedWindow") and not win.distribution_scale then
+			-- Guard the actual per-template instance member, not the unused base default.
+			local previous = rawget(win, "AdjustConstrainedScale")
+			if type(previous) ~= "function" then failure("Infopanel scale callback unavailable"); return end
+			win.distribution_scale = true
+			win.AdjustConstrainedScale = function(self, x, y)
+				x, y = previous(self, x, y)
+				if network(ResolvePropObj(dlg.context)) then
+					return Max(x, D.PanelScaleFloor), Max(y, D.PanelScaleFloor)
+				end
+				return x, y
+			end
+			win:InvalidateMeasure()
 		end
-	end
-	refresh(section)
-	section:Open()
-	return section
+	end)
 end
 
-function OnMsg.DialogOpen(dlg) D.AttachStationSection(dlg) end
-
-print("[TrainDistribution] station import/export section loaded")
+function OnMsg.DialogOpen(dlg) D.AttachStationRows(dlg) end
+-- Station methods exist at code load; XDefs deliberately do not need to.
+install_station()
+print("[TrainDistribution] native storage-row UI registered")

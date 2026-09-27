@@ -1,21 +1,20 @@
-# Distribution — crash repair, section UI and next sitting
+# Distribution — native storage rows and next sitting
 
 Authority: `prompts/Train_Hub_Project/09_TRAIN_HUB_DISTRIBUTION_high.md`, pass 2;
-spec §4.8's owner delegation (`e1daef6`), §4.7's UI ruling (`94bb535`),
-and the owner's orchestrator relay of 2026-09-26. Pass 2 landed in `c90a670`;
-this desk repair starts after the pull to `813b0ea`. The nil-cargo fix is
-`0a41767`; the section UI is `969c7c3`. This follow-up moves its XDef check to
-runtime after the second sitting's load-order failure.
+spec §4.8's owner delegation (`e1daef6`), §4.7's final UI ruling (`79c0ec9`),
+and the owner's orchestrator relay of 2026-09-26. This rework starts at `79c0ec9`.
+Pass 2's allocation is `c90a670`; the nil-cargo fix is `0a41767`. The separate
+section (`969c7c3`, load-order repair `057320e`) is removed by the final ruling.
 Executed model: GPT-6 as exposed by session instructions; no more specific model
 identifier was exposed in the transcript. No subagents.
 
-**Desk repair complete; hand back to the orchestrator. Export to the floor has
-NOT RUN live.** The first sitting exposed the crash below and rejected the row UI;
-the second stopped at step 1 because the section never registered. Neither sitting
-ran the floor test. The late-class guard now passes the corrected desk harness.
+**Desk rework complete; hand back to the orchestrator. Export to the floor has
+NOT RUN live.** The first sitting exposed the crash below; the second stopped
+because the section never registered; the third displayed invisible label text.
+The owner then chose vanilla storage rows. No sitting has run the floor test.
 The next sitting starts from the owner's `build6_capacity` save, hub standing and
-capacity upgrade on, with uncovered-spoke export as its headline. Native section
-appearance, mode acceptance and save/load remain owed; this is not a ship test.
+capacity upgrade on, with uncovered-spoke export as its headline. Native visual
+fit, mode acceptance and save/load remain owed; this is not a ship test.
 
 ## First sitting and crash repair
 
@@ -55,7 +54,13 @@ or contained host now prints once per reason per module load; retry succeeds aft
 the class becomes available and clears `D.ui_error`. The startup marker confirms
 callback registration, not native rendering. Before/after outputs are
 `ui_load_order/regression_before.txt` and `ui_load_order/final_suite.txt` under
-`docs/archive/train_distribution_20260926/`. The same sitting plan below stands.
+`docs/archive/train_distribution_20260926/`.
+
+The orchestrator's later sitting evidence is in
+[`sittings/receipt.txt`](../../archive/train_distribution_20260926/sittings/receipt.txt).
+The third log, `sittings/Mars.exe-20260926-21.21.51-6aad2d75.log:178`, records section
+registration, but the owner saw invisible `label()` text and rejected that UI.
+No slot read or floor test followed. Existing logs were not archived again.
 
 ## Result and mechanism
 
@@ -86,8 +91,9 @@ amount-only replacement were needed.
 current reachable track walk. No routing junction was added. A station connected
 only through another route needs vanilla trains to reach the hub on their route;
 graph membership alone is not a new cargo route. Unconfigured resources retain
-vanilla behavior. Both unchecked after setting the slider means a configured
-balanced row; an untouched row retains vanilla's current dial until adjusted.
+vanilla behavior. Moving an untouched Balanced slider configures its pinned
+amount; merely opening the card does not create settings. The displayed default
+percentage is derived from the current native dial and live capacity.
 
 **MEASURED, desk:** the six rewrite paths reapply drone baselines through archived
 `Station:SetDesiredAmount`, including a recreated request reached through the
@@ -96,19 +102,54 @@ depot alias; both it and the declaring method receive the transient wrapper.
 Network-wide doubling changes the tested export floor 12 to 24 and the hub max
 240 to 480. This is the harness-driven rewrite, not the live upgrade pairing.
 
-**SOURCE / MEASURED with UI doubles and archived grouping:** `45_TrainDistributionUI.lua`
-attaches one `InfopanelSection` to the station's contained `ipBuilding.idContent`,
-using TestKit's `section_attach` / `DialogOpen` pattern. Vanilla row methods and
-children are untouched. The section owns Basic / Advanced / Delicacies / Other
-tabs, independently of vanilla expansion. A lone resource stays in its named tab;
-hidden resources stay hidden until unlocked. The no-drones line precedes the tabs.
-Each resource shows its name, `stored/max`, mutually exclusive Import / Export,
-and a slider with a changing amount/percentage label, e.g. `Keep 24 (20%)`.
-Neither checked is Balanced. Disabled resources cannot change settings; full hubs
-are identified on export rows. A mouse-only `?` on the header owns all help text.
-No standing popup or new update thread is created; native context updates refresh
-the section. The hub has no controls. Native rendering, hit boxes, hover dismissal,
-scrolling and gamepad focus still need the attended check.
+## Native row UI — desk rework after `79c0ec9`
+
+`45_TrainDistributionUI.lua` now extends vanilla's `sectionStorageRow`. There is
+no separate section, tab bar, help button, checkbox or handmade text widget.
+Vanilla still creates the groups, rows, hex, title and `stored/max`. Its compiled
+row context callback is chained after XDefs exist, and its constructor and click
+callbacks are retained. This is a small patch to the compiled template, not a
+replacement row. **SOURCE, archived 1.1.1.405907:**
+`CommonLua/X/XTemplate.lua:1496` spawns the generated XDef class before considering
+an XTemplate tree; `Lua/XDef/sectionResourceGroupStorage.generated.lua:85` constructs
+`sectionStorageRow` directly. Editing preset data alone would not change that call.
+
+For a hub-network station, the hex cycles Balanced → Export → Import → Not accepted
+→ Balanced. The existing title changes with it, e.g. **Metals · Export**. Icons are
+vanilla's storage crate, elevator resource up, elevator resource down, and native
+red X respectively; the owner judges that icon choice in the sitting. The disabled
+leg calls vanilla `SetAcceptResourceState("disabled")`, including its native flags.
+Ctrl-click applies the chosen state across vanilla's city-wide Station list, keeping
+each connected station's own percentage. Other stations receive the native enabled
+or disabled state and acquire no hub setting. Their own clicks remain two-state.
+
+The native `InfopanelSlider` shares `idSectionTitles` with the original titles;
+the right title stays at the right edge. Its vertical margins are zero, its native
+bar/track minima are released, and the left title is capped at 154 layout units.
+It contributes zero measured height and uses native stretch layout to take the
+title line's height (`CommonLua/X/XWindow.lua:623-665,744-794`, build 1.1.1.405907).
+No additional line is created. Balanced has an active slider; Not accepted leaves
+it visible but disabled. During interaction, a narrowed native `MarsRollover` shows
+the live amount and percentage. After 450 ms without movement it closes with a
+200 ms native fade. The tooltip and its real-time timer belong to the slider and
+die with it. This adds no persisted game thread. Help remains the row's per-mode
+hover tooltip, including **No drones in range — trains only** when applicable.
+
+The panel's existing per-instance `AdjustConstrainedScale` callback still snaps
+the scale, then clamps a connected station to **800/1000 (80%)**. This is a starting
+value for the owner's eye, not a measured visual acceptance result. Disconnection
+restores the native row and removes the scale floor; the hub and unrelated panels
+keep native scale behavior. Very tall panels may run offscreen at the floor.
+
+**MEASURED, desk:** the harness loads the mod before XDefs, then executes archived
+native row, slider and tooltip constructors/callbacks with engine window doubles.
+It checks the four states and distinct icons/titles, native disabled flags, late
+class retry/log-once, Ctrl-click scope, Balanced slider, tooltip contents and idle
+close, live capacity/coverage changes, and disconnect/reconnect restoration. Slot 4
+reads an Export setting made by the native row's click, then the train fixture keeps
+24 on both visits at capacity 120. No direct `D.Set` substitutes for that UI action.
+Pixels, font metrics, actual mouse hit boxes, tooltip positioning/fade animation
+and controller focus remain unmeasured in the engine.
 
 ## Save ladder and residuals
 
@@ -117,12 +158,12 @@ scrolling and gamepad focus still need the attended check.
 | Train allocation and old-cargo unload limits | 0 | Archived-body tests above achieve the floor and import target with temporary getter answers and claims; no higher rung needed. SaveGameStart injection observes original enabled/capacity answers and released claims. |
 | Drone desired amounts | 1 | The owner's 2026-09-25 sitting measured drone hauling from installed native desired amounts; pass 1's transient sample restored them and supplied no standing drone behavior. This build calls vanilla's writer for each configured resource. |
 | Player settings | 2 | Pass 1's session-local configuration could not represent a loaded game's choices. The one hub field holds station/resource mode and percentage; a desk load event rebuilds desired amounts from it. Native serialization remains to be witnessed. |
-| Section UI and counters | 0 | Widgets, callbacks, selected tab and diagnostic counts are runtime-only; no saved building field or new persisted class. |
+| Row UI and counters | 0 | Native widgets, their real-time fade callback and diagnostic counts are runtime-only; no saved building field or new persisted class. |
 
 The mod description discloses the rung-1 residual: without the mod, desired amounts
 can remain as last set until a vanilla dial, resource toggle or capacity rewrite.
 Hub removal retains the hub's already accepted content-removal limitations. No
-custom station field, standing distribution claim, request-flag write or custom
+custom station field, standing distribution claim, custom request-flag write or custom
 persisted class was introduced. `SaveGameStart` clears active view state and releases
 transient scopes exactly once; `SaveGameDone` / load reapply baselines. Request
 doubles and a simulated message are not proof of native save serialization.
@@ -130,12 +171,12 @@ doubles and a simulated message are not proof of native save serialization.
 ## Verification and scope
 
 Current commands, HEAD, hashes and captured output:
-[`ui_load_order/final_suite.txt`](../../archive/train_distribution_20260926/ui_load_order/final_suite.txt).
+[`native_rows/final_suite2.txt`](../../archive/train_distribution_20260926/native_rows/final_suite2.txt).
 The explicit `tests/*smoke.py` list (including UI and sitting callbacks), dev parsecheck
 and wrap-target check reconcile to **13 passes, 1 failure, 14 commands**. The full
-suite also ran immediately after the crash fix and after the section rewrite.
-`repair/scope_receipt.txt` checks
-fenced paths and unchanged capacity bindings. Historical pass-2 measurements remain
+suite was rerun after this native-row rework. `native_rows/handoff_receipt.txt`
+checks fenced paths, unchanged TestKit bindings and preserved handoff obligations.
+Historical pass-2 measurements remain
 in `docs/archive/train_distribution_20260926/pass2/`.
 
 The failure remains `traffic_smoke.py`, `-10800 != 0` at its arrival assertion,
@@ -163,7 +204,7 @@ TestKit bindings are local at `bf75983` (on `a8352dc`), with no remote. Slot 5 n
 requires a new **spoke** transfer call for export; a hub-only call cannot pass a
 floor recheck. The desk case exercises that rejection and the subsequent spoke
 visit. Scratch and capacity slots 1–3 are unchanged. Current fingerprint and
-pre-sitting checks are in `ui_load_order/prelaunch_gates.txt`; read them for the installed
+pre-sitting checks are in `native_rows/prelaunch_gates.txt`; read them for the installed
 build rather than carrying forward an old fingerprint. Existing doccheck warnings:
 
 ```text
@@ -194,17 +235,21 @@ missing fixture or error is a stop/read, not a rerun for a preferred result.
 
 First batch, orchestrator-guided:
 
-1. Load `build6_capacity` and pause. Select the uncovered spoke and open its own
-   **Import / Export → Basic** tab. Vanilla resource rows should retain their old
-   appearance. The no-drones line should be above the tabs. Check the header `?`:
-   hover shows help, moving away dismisses it; no explanation stays over controls.
-2. Set Metals to Export, **20%**. Import clears and the label reads **Keep 24 (20%)**.
-   Slot 4 should report `cap=120000`, `percent=20`, `target=24000`,
+1. Load `build6_capacity` and pause. Select the uncovered spoke and expand vanilla's
+   Basic storage group. There should be no separate Import / Export section. Inspect
+   the Metals title and slider on the same line as `stored/max`; hover explains the
+   current mode and says no drones are in range. Judge icon clarity and the 80% shrink
+   floor with groups expanded; use Screenshot + Mark if fit fails.
+2. From **Metals · Balanced**, left-click its hex **once**: expect **Metals · Export**
+   and the up-arrow resource icon. If the loaded row has a saved mode, cycle to Balanced
+   first. Drag to **20%**: expect a **24 (20%)** bubble that fades when movement stops.
+   **Slot 4 is the mode proof:** expect `mode=export`, `enabled=true`,
+   `cap=120000`, `percent=20`, `target=24000`,
    `supply_desired=120000`, `demand_desired=0`, `covered=false` (ledger units).
 3. Slot 2 fills the selected station to **120**. Slot 6 makes hub room (if a press
-   fills it, the next empties it). Slot 4 records setup; the section reads `120/120`.
+   fills it, the next empties it). Slot 4 records setup; the native row reads `120/120`.
 4. Slot 5 runs to the target or deadline. Prediction: trains remove **96**, leaving
-   **24**, with the section reading `24/120`. At pause, use slot 4 and Screenshot +
+   **24**, with the native row reading `24/120`. At pause, use slot 4 and Screenshot +
    Mark. Re-arm slot 5: it must see another call at that spoke, with stock still
    **24**, before reporting the return-trip pass. A hub call alone is insufficient.
 5. Flush + copy. The orchestrator reads the newest log and inspects the screenshot.
@@ -220,8 +265,9 @@ After the headline floor leg: new-train arrival at a configured Concrete row;
 import at its percentage with stock at the hub; Balanced; full-hub refusal; covered
 drone drain/fill with a wanting/supplying local depot as in the 2026-09-25 fixture;
 uncovered import with its warning; resource disable/re-enable; and a separate test
-save/reload with modes and cargo outstanding. Observe native UI fit and tab/slider
-operation, not just the desk callbacks. Resource-policy and capacity rewrites have
+save/reload with modes and cargo outstanding. Observe the complete four-state cycle,
+Ctrl-click scope, native group expansion, title/slider fit, hover dismissal and value
+bubble in play, not just the desk callbacks. Resource-policy and capacity rewrites have
 desk coverage; native baselines and serialization still need their live witnesses.
 
 No game was launched during this repair. The first sitting's log above stays its

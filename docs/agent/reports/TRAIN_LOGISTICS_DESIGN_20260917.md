@@ -314,11 +314,10 @@ station into our own building: it would force players to rebuild their network t
 and mix two kinds of station in one line.
 
 **Where the UI lives: on each STATION's own card, not on the hub's.** §4.7 already settles the
-shape — the controls have their own Import / Export section and group tabs. Vanilla resource
-rows are untouched. The hub's card gets a
-summary line at most (owner, 2026-09-24: the hub's card is already busy and the game shrinks it as
-the network grows). A card can be extended without altering the building: infopanel XTemplates are
-UI data, nothing persists, and the TestKit already attaches sections to vanilla `ipBuilding` panels.
+shape — a four-state hex cycle, per-state native title and an inline native slider in vanilla's
+storage rows, only for stations on a hub network. The separate section is retired. The hub's card
+gets no controls (owner, 2026-09-24: it is already busy and the game shrinks it as the network grows).
+The row extension is UI-only; no UI field persists on the station.
 **Storage location and UI location are independent**; the row's control writes to the hub's table.
 
 ⛔ **The save rule for claims.** Requests are saved, so a standing claim on a vanilla station could
@@ -491,14 +490,10 @@ The mod description names the lingering native drone desired amounts after remov
 The new-train arrival at StationSmall(1994)'s configured Concrete row crashed on a
 nil `assigned_resources` before acquiring a transient claim. The single archived
 sitting log is `docs/archive/train_hub_capacity_20260926/Mars.exe-20260926-19.29.34-6aad2d75.log:818`;
-its receipt is beside it. The owner rejected the row UI and ruled §4.7's separate
-section. Export to the floor never ran in that sitting.
+its receipt is beside it. Export to the floor never ran in that sitting.
 
 **MEASURED, desk repair:** the new-train case fails before the nil guard and passes
-after it (`0a41767`), with native `UnloadAll` initializing the cargo map. The replacement
-UI attaches its own station section by TestKit's pattern, leaves native rows alone,
-and provides independent tabs, slider amounts/percentages, stored/max, top coverage
-note and header-only hover help. Native rendering and help dismissal are still untested.
+after it (`0a41767`), with native `UnloadAll` initializing the cargo map.
 Capacity-120 export/floor-return and sitting-callback cases pass on the desk.
 
 **Second sitting stopped at step 1; no mode test ran.** In
@@ -509,6 +504,23 @@ The follow-up moves that check into runtime attachment and logs failures once.
 Its desk harness now loads mod code before defining XDefs, then opens the card;
 it reproduces the old failure and passes the repair, including retry after a
 missing class and suppression of repeated diagnostics. Live appearance is still owed.
+
+**Third sitting stopped before tests.** The section registered but its hand-built labels
+were invisible; the owner then settled §4.7's native-row design in `79c0ec9`. Logs and
+the orchestrator's receipt are already in `docs/archive/train_distribution_20260926/sittings/`.
+No slot reading or floor test ran. The separate section is now removed. The desk rework
+chains the compiled native row's update callback, retaining its constructor and activation;
+adds the slider to its original title line; cycles the native hex and title; and uses vanilla's
+disabled path and city-wide Ctrl-click scope. A native tooltip shows the slider's amount and
+percentage, then fades after movement stops. A starting 80% floor on native panel shrink is
+restricted to hub-network station panels. Other stations keep the two-state native UI.
+
+**MEASURED, desk only:** archived native constructors/callbacks pass the late-XDef load,
+cycle, native flag, inline structure, tooltip-content/fade-callback, Ctrl-click, capacity,
+coverage and disconnect/reconnect cases. A native hex click sets Export as read by slot 4;
+the capacity-120 fixture then retains 24 on both visits. Native visual fit, tooltip positioning,
+fade animation and input hit boxes remain the next sitting's work. The whole suite reran;
+command receipts and the unrelated existing traffic failure are in the report below.
 
 The build, rung table, exact hub-header line owed, command receipts and next sitting
 predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`. **The orchestrator runs the
