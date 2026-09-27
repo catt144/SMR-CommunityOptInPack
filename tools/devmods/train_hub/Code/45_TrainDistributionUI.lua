@@ -66,14 +66,20 @@ local function install_station()
 	local rollover = Station.ResourceRolloverText
 	Station.ToggleAcceptResource = function(st, res, broadcast, ...)
 		if not network(st) then return toggle(st, res, broadcast, ...) end
-		local mode = D.RowState(st, res)
+		local mode, percent = D.RowState(st, res)
 		if not broadcast then mode = following[mode] end
 		-- Preserve vanilla's city-wide scope and its own disabled/request-flag path.
 		for _, target in ipairs(broadcast and st.city.labels.Station or { st }) do
 			if not broadcast or target ~= st then
+				if broadcast and mode == "disabled" and network(target) then
+					-- D.Set uses enabled requests. Copy the remembered slider first,
+					-- then finish through vanilla's disabled path, without yielding.
+					local entry = D.Get(st, res)
+					set_accept(target, res, "store", false)
+					D.Set(target, res, entry and entry.mode or "balanced", percent)
+				end
 				set_accept(target, res, mode == "disabled" and "disabled" or "store", false)
 				if network(target) and mode ~= "disabled" then
-					local _, percent = D.RowState(target, res)
 					D.Set(target, res, mode, percent)
 				end
 				ObjModified(target)

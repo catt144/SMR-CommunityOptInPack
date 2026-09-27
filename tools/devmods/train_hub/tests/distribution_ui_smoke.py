@@ -292,17 +292,29 @@ assert(D.Set(peer,'Metals','balanced',50))
 local source_entry=D.Get(s,'Metals')
 mass=true;row:OnActivate(row.context);mass=false -- Copy Export, without advancing it.
 assert(D.Get(s,'Metals')==source_entry and D.Get(s,'Metals').mode=='export' and D.Get(peer,'Metals').mode=='export')
-assert(D.Get(peer,'Metals').percent==50 and not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals'))
+assert(D.Get(s,'Metals').percent==20 and D.Get(peer,'Metals').percent==20)
+assert(peer.supply.Metals:GetDesiredAmount()==60000 and peer.demand.Metals:GetDesiredAmount()==0)
+assert(not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals'))
+assert(D.Set(peer,'Metals','balanced',50))
 row:OnActivate(row.context) -- Import.
+assert(D.Get(s,'Metals').percent==20 and D.Get(peer,'Metals').percent==50) -- Plain click stays local.
 mass=true;row:OnActivate(row.context);mass=false
 assert(D.Get(s,'Metals').mode=='import' and D.Get(peer,'Metals').mode=='import')
+assert(D.Get(peer,'Metals').percent==20)
+assert(D.Set(peer,'Metals','balanced',50))
+peer:SetAcceptResourceState('Metals','disabled') -- An already-disabled destination also gets the percent.
 row:OnActivate(row.context) -- Not accepted.
+source_entry=D.Get(s,'Metals')
 mass=true;row:OnActivate(row.context);mass=false
 assert(not outside:IsResourceEnabled('Metals') and not peer:IsResourceEnabled('Metals') and not h:IsResourceEnabled('Metals'))
 assert(not s:IsResourceEnabled('Metals'))
+assert(D.Get(s,'Metals')==source_entry and D.Get(peer,'Metals').percent==20)
+assert(peer.demand.Metals:IsAnyFlagSet(const.rfSuspended))
 row:OnActivate(row.context) -- Balanced.
 mass=true;row:OnActivate(row.context);mass=false
 assert(D.Get(s,'Metals').mode=='balanced' and D.Get(peer,'Metals').mode=='balanced')
+assert(D.Get(peer,'Metals').percent==20 and peer.supply.Metals:GetDesiredAmount()==12000)
+assert(peer.demand.Metals:GetDesiredAmount()==48000) -- Same percent, destination's own capacity.
 outside:ToggleAcceptResource('Metals',false);assert(not outside:IsResourceEnabled('Metals'))
 outside:ToggleAcceptResource('Metals',false);assert(outside:IsResourceEnabled('Metals') and not D.Get(outside,'Metals'))
 local vanilla,vr,vs=dialog(outside);OnMsg.DialogOpen(vanilla)
@@ -318,7 +330,7 @@ assert(not row.distribution_slider and row:GetTitle()==native_title and #row.idS
 x,y=scale:AdjustConstrainedScale(450,450);assert(x==450 and y==450)
 h.nodes[s]=true;D.Refresh();row:OnContextUpdate(row.context);assert(row.distribution_slider)
 assert(rawget(s,D.FIELD)==nil and not D.error)
-print('PASS Ctrl copies each current state without advancing or rewriting source; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
+print('PASS Ctrl copies each current state and percent without advancing or rewriting source, including disabled; plain click stays local; destination uses its own capacity; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
 ''')
     print('NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus', flush=True)
 

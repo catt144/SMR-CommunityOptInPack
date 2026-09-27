@@ -3,7 +3,8 @@
 Authority: `prompts/Train_Hub_Project/09_TRAIN_HUB_DISTRIBUTION_high.md`, pass 2;
 spec §4.8's owner delegation (`e1daef6`), §4.7's final UI ruling (`79c0ec9`),
 and the owner's orchestrator relays of 2026-09-26/27. UI refinements follow
-`817b778` (remove bubble, wrap between words) and `a55fba4` (Ctrl copies current state).
+`817b778` (remove bubble, wrap between words), `a55fba4` (Ctrl copies current state),
+and `7f10c96` (Ctrl also copies the slider percentage).
 Pass 2's allocation is `c90a670`; the nil-cargo fix is `0a41767`. The separate
 section (`969c7c3`, load-order repair `057320e`) is removed by the final ruling.
 Executed model: GPT-6 as exposed by session instructions; no more specific model
@@ -18,9 +19,9 @@ the already-active capacity upgrade; it does not witness toggling that upgrade.
 The first three sittings stopped before the floor test, as recorded below.
 
 The next desk build removes the drag bubble, prevents mid-word title wrapping,
-and makes Ctrl-click copy the current state without advancing it. **Whether Ctrl
-also copies the slider value remains open for the next owner relay**; this build
-retains destination percentages pending that ruling. Full-hub refusal was not
+and makes Ctrl-click copy the current state and slider percentage without advancing
+it. This includes the remembered percentage when Not accepted is selected;
+destinations calculate amounts from their own capacity. Full-hub refusal was not
 witnessed: traffic drained the one-shot filled hub. The new slot 6 holds it full
 through the run. These refinements and the refusal fixture await the next sitting;
 import, Balanced, covered-drone behavior and save/load still need live witnesses.
@@ -129,9 +130,11 @@ For a hub-network station, the hex cycles Balanced → Export → Import → Not
 vanilla's storage crate, elevator resource up, elevator resource down, and native
 red X respectively; the owner accepted those icons on `67bbf45`. The disabled
 leg calls vanilla `SetAcceptResourceState("disabled")`, including its native flags.
-Ctrl-click copies the clicked station's **current** state across vanilla's city-wide
-Station list without advancing or rewriting the source. Destination percentages
-are retained until the owner's pending slider-copy ruling. Other stations receive the native enabled
+Ctrl-click copies the clicked station's **current state and percentage** across
+vanilla's city-wide Station list without advancing or rewriting the source. A
+disabled network destination receives the remembered setting through `D.Set`
+before finishing in vanilla's disabled path; no yielding occurs between those
+steps. Plain clicks still cycle only the clicked station. Other stations receive the native enabled
 or disabled state and acquire no hub setting. Their own clicks remain two-state.
 
 The native `InfopanelSlider` shares `idSectionTitles` with the original titles;
@@ -158,7 +161,7 @@ keep native scale behavior. Very tall panels may run offscreen at the floor.
 **MEASURED, desk:** the harness loads the mod before XDefs, then executes archived
 native row and slider constructors/callbacks with engine window doubles.
 It checks the four states and distinct icons/titles, native disabled flags, late
-class retry/log-once, current-state Ctrl-copy without source mutation, Balanced
+class retry/log-once, current-state/percentage Ctrl-copy without source mutation, Balanced
 slider, row-tooltip readout without a bubble or timer, live capacity/coverage
 changes, and disconnect/reconnect restoration. Native word splitting reproduces
 as a control, then whole words fit across font-size/scale doubles with a two-line
@@ -188,7 +191,7 @@ doubles and a simulated message are not proof of native save serialization.
 
 ## Verification and scope
 
-Current commands, HEAD, hashes and captured output:
+Commands, HEAD, hashes and captured output for the UI refinements:
 [`ui_refinement_20260927/final_suite.txt`](../../archive/train_distribution_20260926/ui_refinement_20260927/final_suite.txt).
 The explicit `tests/*smoke.py` list (including UI and sitting callbacks), parsechecks
 for dev/shipping/TestKit code, and wrap-target check reconcile to **15 passes,
@@ -198,6 +201,10 @@ with thread/ledger doubles: competing claims and hub visits cannot drain the
 held stock; a source visit witnesses refusal; completion, save, cancellation and
 deadline release the claim. Existing incoming/outgoing reservations refuse setup;
 fixture corruption cannot pass. This does not measure the engine's ledger.
+The percentage-copy follow-up has its own receipt,
+[`ctrl_percent_20260927.txt`](../../archive/train_distribution_20260926/ui_refinement_20260927/ctrl_percent_20260927.txt),
+including the four-state percentage assertions, unchanged plain click, and a
+different-capacity destination. TestKit's preloaded refusal slots are unchanged.
 Historical pass-2 measurements remain
 in `docs/archive/train_distribution_20260926/pass2/`.
 
@@ -259,9 +266,10 @@ First batch, orchestrator-guided:
 2. Put Metals in Export at 20%. **Slot 4 is the mode proof:** `mode=export`,
    `enabled=true`, `cap=120000`, `percent=20`, `target=24000`, `covered=false`.
    Ctrl-click once: the clicked row must remain Export. Slot 4 on that station
-   and another network station must show Export. Repeat on other modes if the
-   orchestrator needs their witnesses. **Slider-copy expectation is unresolved**;
-   this build retains each destination's value and does not call that settled.
+   and another network station must show Export and **20%**, even if the other
+   station previously had a different percentage. The copied amount uses that
+   station's own capacity. The same state-and-percentage copy applies to the
+   other modes; a plain click still changes only the clicked station.
 3. Still paused, select the uncovered Export spoke and use slot 2 to fill Metals
    to 120 (skip if already full). Slot 4 records the setup. Slot 6 validates that
    hub Metals has no existing supply or delivery reservation, fills its stock to
@@ -301,8 +309,8 @@ Balanced; covered drone drain/fill with a wanting/supplying local depot as in th
 2026-09-25 fixture; uncovered import with its warning; disable/re-enable; and a
 separate test save/reload with modes and cargo outstanding. Native group expansion
 and controller focus have only the coverage actually witnessed; resource-policy
-and capacity rewrites still need their live witnesses. The slider-copy decision
-waits on the owner's promised relay.
+and capacity rewrites still need their live witnesses. State-and-percentage
+Ctrl-copy is settled by `7f10c96` and awaits its live witness.
 
 No game was launched during this refinement. The original crash log keeps its
 single archive copy cited above. The orchestrator records the next sitting and
