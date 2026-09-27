@@ -51,44 +51,38 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator 2026-09-26 (second session)** (Claude Opus 5,
-     `claude-opus-5`). The fire order is this folder's [`README.md`](README.md); keep it current.
-     **Build 5 is done and its brief deleted**: pass 2 (`3e8176b`) fixed reworked-network
-     discovery and added `MaxDrones` 60 and repair priority; the attended smoke closed all four
-     cases with the owner accepting look and timing (spec §10 "Build 5 pass 2 attended smoke
-     closed", `reports/TRAIN_HUB_BUILDTRACK_20260925.md`, whose limits stand: leader 6630's
-     completion path unproven, case 3's shortage/refill waived, native repair priority unwitnessed).
-     **2026-09-26, evening (Claude Opus 5.5, `claude-opus-5-5`): the orchestrator now runs the
-     attended sittings with the owner and relays to the build agents** (owner: *"we are going to do
-     each sitting together and you will relay a message to them"*). A build agent whose session runs
-     another model family (`09` ran on GPT-6) cannot be messaged; the orchestrator hands the owner
-     paste-ready text instead. **Capacity (spec §4.10) is BUILT and smoked, PASS** — brief `08`
-     deleted; record in `reports/TRAIN_HUB_CAPACITY_20260926.md` with its limits (toggle-off seen not
-     read; the salvaged-but-standing state not read). Open from it: **drones will not build an
-     upgrade from a station's own storage** (owner's finding; likely vanilla) — fix or describe, not
-     yet briefed. **Distribution (spec §4.8) is `09` pass 2, sent back** after its first sitting for
-     a new-train crash (`40_TrainDistribution.lua:271`, nil `assigned_resources` before vanilla's
-     first unload), then twice more in the evening sittings: its separate section never loaded
-     (`InfopanelSection` checked at file load, fixed `057320e`), then loaded with invisible text. The
-     owner's UI ruling settled on **vanilla's own resource rows**: a four-state hex cycle (Balanced →
-     Export → Import → Not accepted), per-state title, a thin slider on every row with a fading number
-     bubble, help in the row tooltip (spec §4.7). The floor test has still not run. Its save-boundary ruling and six-rung ladder are in spec §4.8
-     and `FIX_POLICY` §0. ⚠️ **The live pairing is still owed:** capacity's rewrite fires on every
-     station at once; run the distribution sitting from the owner's `build6_capacity` save, which
-     has the hub standing with the upgrade on.
-     The owner can ask the orchestrator to guide an attended sitting and read the game log on
-     "flushed". The owner's open asks live on
-     [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
-   - **The distribution centre's own rulings, spec §4.8** — read §4.8 and §4.9 before briefing
-     anything further in this area. They carry the mechanism (baseline numbers are the drones' view,
-     a transient claim during the train's evaluation is the trains'), the decisions already taken
-     (per resource not per station, state on the hub, controls in the station card's existing rows,
-     claims kept out of saves), the owner's sitting of 2026-09-25 that MEASURED its three unproven
-     things (§4.8 "Owner's sitting"), and the owner's three rulings of 2026-09-26: a full hub
-     refuses; no presets, no "suggest" and no overview, just two checkboxes and a slider per resource
-     row; an uncovered spoke gets the train half only with its row saying so, and link 4's
-     maintenance-only filter stays shut. **Still open: whether the hub places the trains it builds**
-     (§4.9, not authorised).
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-26, late** (Claude Opus 5
+     `claude-opus-5`, then Fable 5.1 `claude-fable-5-1`, then Opus 5.5 `claude-opus-5-5`, switched
+     by the owner). The fire order is this folder's [`README.md`](README.md); keep it current.
+     **How sittings run now** (owner, 2026-09-26: *"we are going to do each sitting together and
+     you will relay a message to them"*): the orchestrator guides the owner through a build's
+     attended smoke from the build's own predictions, reads the log on "flushed", records the
+     result, archives the closed log, and relays fixes to the build agent. A build session on
+     another model family (`09` runs on GPT-6) cannot be messaged: hand the owner paste-ready
+     text, and say which earlier message it replaces.
+     **Next: `09`'s UI rework landed at `67bbf45` (pushed), unverified by the orchestrator.** Check
+     it once against the owner's ruling in spec §4.7 — the four-state hex cycle on vanilla's own
+     storage rows, per-state title, a slider inside each row's line with a fading value bubble,
+     help in the row tooltip, the 80% shrink floor on hub-network station panels only. Note its
+     claim that XDef rows are compiled class calls, so it chained the row's context callback rather
+     than patching the template. Then run the sitting from `reports/TRAIN_DISTRIBUTION_PASS2_20260926.md`'s
+     predictions, restarting the game and loading **`build6_capacity`** (spec §10): the owner
+     judges the look by eye, and the **export-floor test has never run** — Export 20% on an uncovered
+     spoke at capacity 120 must keep 24, and still 24 on the next train visit. Running from that
+     save is also the **live pairing with capacity** that neither brief could claim. Earlier
+     sittings' logs: `docs/archive/train_hub_capacity_20260926/` (the new-train crash, `:818`) and
+     `docs/archive/train_distribution_20260926/sittings/`.
+     **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
+     `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
+     drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
+     for outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe; propose an
+     investigation or description lines when the owner has room. TestKit `bf75983` still holds
+     capacity's slots 1–3 and Scratch; they are finished and free to overwrite.
+     The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
+   - **The distribution centre's rulings live in spec §4.7 (the UI) and §4.8 (everything else,
+     including the save-boundary ladder)** — read both, and §4.9, before briefing anything further
+     in this area. **Still open: whether the hub places the trains it builds** (§4.9, not
+     authorised).
    - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
      `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
      `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules

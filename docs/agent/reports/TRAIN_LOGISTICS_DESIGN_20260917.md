@@ -3250,6 +3250,19 @@ other station is empty. **The hub is powered off**, to keep trains from firing a
 unattended leg must switch it on itself. Both saves are otherwise identical: the same stations,
 trains and Stirlings (owner, 2026-09-20). Not yet recorded: the saves' build and mods.
 
+**Read from `train_hub_base` in the capacity sitting, 2026-09-26** (slot reads, log archived under
+`docs/archive/train_hub_capacity_20260926/`): the colony has **one +50% train cargo tech
+researched** — a train reads 63000 cargo / 18 passengers against a 42000 / 12 base — so any
+prediction of train capacity starts from 63 / 18, not the base. The capacity slot's count read
+`trains=1` at load, which does not match the owner's account of several prebuilt trains; the slot's
+counting was not checked, so treat train count as unread.
+
+**`build6_capacity` (owner, 2026-09-26).** Saved in the capacity sitting from `train_hub_base`,
+before any distribution setting: hub 6430 built and holding the **Capacity Network Upgrade**
+(stations 120 / 240, hub 480), cheat-filled to 240 of each of 21 resources; a Universal Storage
+Depot (6443) beside it; one small station's Metals filled to 120. The distribution sittings start
+from it, which also makes them the live pairing with the upgrade. Never save over it.
+
 **Owner observation, 2026-09-20, from building that variant.** With train construction as the only
 task, drones do haul the materials from the train yard's storage pad to the train under
 construction. The owner had missed it earlier because of high game speed and how close the drones
