@@ -618,6 +618,13 @@ Zero `LUA ERROR` in the closed 566-line log. Brief 09 is finished and deleted; c
 **5d desk build, 2026-09-27:** `TRAIN_ROUTING_5D_20260927.md` records the
 single-hub hop rule, archived-body chain and dual-line cases, save rung and
 next-sitting predictions. Its live sitting remains owed to the orchestrator.
+❌ **LIVE 2026-09-27 on `6e187dd`: FAIL, a network-wide freeze** (`build6_capacity_covered_pass3`,
+fresh boot; log and receipt in `docs/archive/train_routing_5d_20260927/sittings/`). Over about 1.2
+sols nothing moved: 6243, 2012, 2011 and 2009 stayed at 0 against a target of 10, and hub Metals stayed
+at 220, with 55–57 counted calls at the stations where our code stepped in and 0 at 6243. The owner saw
+trains flipping rapidly between Idle and "Loading cargo for Train Hub", with old cargo aboard (Butter 69).
+0 `LUA ERROR`. The pass-4 sitting on the same save moved stock, so this is a 5d regression; relayed to
+brief 10 as a decision loop to reproduce at the desk.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 

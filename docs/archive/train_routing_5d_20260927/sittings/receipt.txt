@@ -1,0 +1,12 @@
+5d routing (brief 10), orchestrator-attended sitting 2026-09-27 19:13 on 6e187dd,
+fresh boot, build6_capacity_covered_pass3, both mods. Closed-process log copied
+byte-for-byte after the owner exited (cp -p; cmp exit 0). The log is untracked
+(.gitignore *.log), kept on disk beside this receipt.
+
+Mars.exe-20260927-19.13.24-6aad2d75.log  167647 B  1074 lines
+  sha256 c47638702da61db12ee18ae4244c0ac8be1892a0b17a4fb68600d653d9ca444f
+  FAIL, regression: t 19717493 -> 20571893, Metals at 6243/2012/2011/2009 0 -> 0 (untouched,
+  target 10000); hub 220000 -> 220000; D.CallsFor 2012 57, 2011 55, 2009 55, 6243 0.
+  Train 2000001844 cargo=98000 assigned_here=49000 at start (2008) and end (2012).
+  Owner, on screen: trains flip rapidly between Idle and "Loading cargo for Train Hub";
+  Train 2000001847 carrying Butter 69/105, trip N/A. grep -c 'LUA ERROR' = 0.
