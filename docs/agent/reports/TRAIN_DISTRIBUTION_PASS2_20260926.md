@@ -18,13 +18,12 @@ and confirmed off-network stations stay vanilla. This pairs distribution with
 the already-active capacity upgrade; it does not witness toggling that upgrade.
 The first three sittings stopped before the floor test, as recorded below.
 
-The next desk build removes the drag bubble, prevents mid-word title wrapping,
-and makes Ctrl-click copy the current state and slider percentage without advancing
-it. This includes the remembered percentage when Not accepted is selected;
-destinations calculate amounts from their own capacity. Full-hub refusal was not
-witnessed: traffic drained the one-shot filled hub. The new slot 6 holds it full
-through the run. These refinements and the refusal fixture await the next sitting;
-import, Balanced, covered-drone behavior and save/load still need live witnesses.
+**Current handback: pass 3, covered-station crash repair, desk only.** The second
+2026-09-27 sitting on `fef640a` passed full-hub refusal, uncovered Import and
+Balanced, save/reload with cargo, disable/re-enable, new trains and the UI
+refinements (spec §4.8; `sittings/receipt.txt`). It exposed the fractional-order
+division by zero. The reproduction, fix and covered-leg predictions are appended
+below. Earlier sitting predictions remain historical, not a list of tests still owed.
 
 ## First sitting and crash repair
 
@@ -302,18 +301,117 @@ room remain full/zero; it does not witness ordinary hub draining while unreserve
 
 ## Remaining live checks
 
-The uncovered Export floor and return trip passed on `67bbf45`; do not label them
-pending. Still owed: the refinements and full-hub fixture above; new-train arrival
-at a configured Concrete row; import at its percentage with stock at the hub;
-Balanced; covered drone drain/fill with a wanting/supplying local depot as in the
-2026-09-25 fixture; uncovered import with its warning; disable/re-enable; and a
-separate test save/reload with modes and cargo outstanding. Native group expansion
-and controller focus have only the coverage actually witnessed; resource-policy
-and capacity rewrites still need their live witnesses. State-and-percentage
-Ctrl-copy is settled by `7f10c96` and awaits its live witness.
+Covered drone drain/fill with a wanting/supplying local depot remains owed, now
+with the pass-3 repair and predictions below. The uncovered modes and other
+second-sitting results are recorded in spec §4.8. Native group expansion and
+controller focus have only the coverage actually witnessed; resource-policy and
+capacity rewrites still need their live witnesses. The uncovered tooltip warning
+has desk coverage; the relay does not supply a separate live witness for its text.
+The whole hub's both-configuration ship test remains owed to its own lane.
 
-No game was launched during this refinement. The original crash log keeps its
-single archive copy cited above. The orchestrator records the next sitting and
-folds its measured mode/station/coverage into spec section 4.8. Brief 09 stays live;
-retirement belongs to the orchestrator. The whole hub's both-configuration ship
-test remains owed.
+## Pass 3 — fractional-order crash repair, 2026-09-27
+
+**MEASURED, desk:** the unchanged distribution code at `f989887` fails with
+`Division by zero` when a covered Import spoke at 59.6 requests 60 from a hub
+holding 113.5. The order is 400 milliresources. The harness now translates every
+`/ scale` in its extracted archived train bodies to `// scale`, asserting that
+these are all their division sites, and its `MulDivRound` double rejects a zero
+denominator. This models the nonnegative integer resource arithmetic; it is not
+a general engine emulator. Before/after commands, HEAD and source hashes are in
+[`covered_20260927/regression_before.txt`](../../archive/train_distribution_20260926/covered_20260927/regression_before.txt)
+and [`regression_after.txt`](../../archive/train_distribution_20260926/covered_20260927/regression_after.txt).
+
+**SOURCE, archived game 1.1.1.405907:** `Lua/Units/Train.lua:894-897` sums each
+enabled station's desire and capacity after dividing by scale. At `:946`, positive
+aggregate desire reaches `MulDivRound` with aggregate storage as denominator.
+The old answer contributes desire 1 and storage 0 for a sub-unit order.
+**MEASURED, desk fix:** positive transient capacities now answer at least
+`const.ResourceScale`; disabled answered rows report zero desire. The existing
+demand claim keeps the exact order, so the larger capacity answer does not permit
+an oversized delivery. A zero order stays disabled, preserving full-hub refusal.
+
+**SOURCE / MEASURED, desk:** `Train:UnloadAll` (`:787-831`, same archive) uses
+unscaled demand amounts and enabled answers; its distribution wrapper does not
+substitute capacity. It has no matching divided-capacity failure. Fractional old
+cargo unloads when it fits an Import/Balanced target, remains assigned when it
+would exceed that target or the row is Export, and can unload at the hub later.
+The added smoke cases verify these paths and released temporary claims.
+
+**Corrected measurement limit:** earlier exact fractional-floor assertions used
+standard Lua floating division. Vanilla's positive-desire loading lane moves
+whole resource units (`Train.lua:935,943-952,1027-1028`, same archive). Under the
+corrected harness, the capacity-60 Export fixture with a 1% floor of 0.6 retains
+1.0; the return trip leaves it there. Integer floors retain their earlier results.
+Fractional import deficits below one unit likewise wait for more demand; this fix
+does not invent fractional loading or round the requested delivery upward.
+Covered drones can keep changing the stock, so an exact instantaneous slider
+reading is not the live acceptance criterion while they are hauling.
+
+**MEASURED:** the explicit `tests/*smoke.py` glob plus dev/shipping/TestKit
+parsechecks and the wrap-target check reconcile to **15 passes, 1 failure,
+16 commands**. The failure is still `traffic_smoke.py`, `-10800 != 0`.
+[`covered_20260927/final_suite.txt`](../../archive/train_distribution_20260926/covered_20260927/final_suite.txt)
+lists every command, exit status and the summed result, with HEAD and file hashes.
+It includes the integer-arithmetic Import/Balanced/Export boundary cases, the
+existing allocation controls, full-hub refusal, aliases, UI and sitting callbacks.
+
+The repair itself is rung 0. Overall distribution remains **rung 2**, with only
+`SMROptIn_distribution` on the hub. The rung-1 native drone desired amounts can
+linger after removal until vanilla rewrites them; the hub retains its accepted
+content-removal residual. No new persisted name or copied runtime train body.
+No game was launched. Executed model: GPT-6, as exposed by the session
+instructions; no finer executed-model identifier was available. No subagents.
+
+## Next sitting — covered drain/fill predictions, not results
+
+**<<PENDING-RUN>>**, orchestrator-attended. Restart for the committed Lua. Load
+`build6_capacity`, which has no drone coverage at its stations. Quick-build a
+Drone Hub and a Metals depot beside a connected spoke, with both in the working
+hub's range and drones available. Save this fixture once as
+**`build6_capacity_covered_distribution_pass3`**; keep `build6_capacity` intact.
+The new save is a requested future fixture name, not a claim that it exists.
+Record actual handles, coverage, stock and capacity; the original fixture predicts
+spoke capacity 120 and hub capacity 480. Both mods and cheats stay as configured.
+
+The preloaded TestKit is unchanged, at `fed769c`; its slot source hash is in the
+suite receipt. Slot 4, **Distribution read: selected station**, predicts
+`SMRTK_ACTION action=slot_4 status=OK` and DUMP fields `res=Metals`, `mode`,
+`percent`, `target`, `stock`, `supply_desired`, `demand_desired`, `cap`,
+`covered=true`, `hub_stock` and `hub_room`. Contrary to the brief's shorthand,
+the installed reader also emits other configured resources: use the Metals row.
+Slot 2, **Fill selected station's Metals to its cap**, can provision the selected
+hub while paused; its DUMP records the exact amount added. Use it only if the
+hub lacks stock for the Import leg. Slots 1–3 and Scratch retain their capacity
+bindings. Slot 5's exact-target watch is unsuitable while drones are changing
+stock; slot 6's refusal fixture deliberately rejects covered stations.
+
+For each leg: MARK, make the setup, run, pause for slot 4 plus Screenshot + Mark,
+then end MARK and Flush + copy. The expected mode behavior follows the build's
+own row tooltip:
+
+| Leg | Setup and first witness | Prediction |
+|---|---|---|
+| Import | Metals Import 50%; local depot wants Metals and has room; hub has supply. Slot 4: target 60000, supply desired 0, demand desired 120000. | Trains bring Metals toward 60; local drones carry it from the station to the depot, potentially toward zero between arrivals. The row has no no-drones warning. A dip below 60 while drones haul is expected. Record station-to-depot drone work and train delivery separately. |
+| Export | Use the Metals accumulated at the depot in the Import leg; lower the depot's desired amount to zero. Set station Metals Export 20%; hub has room. Slot 4: target 24000, supply desired 120000, demand desired 0. | Drones haul depot-to-station; trains take stock above the 24 floor to the hub and do not replenish the exporter. Stock can rise again after a train visit. No train departure crosses below the floor; less than one unit of fractional excess may remain. |
+| Balanced | Set Metals Balanced 20%. Vary the local depot's desired amount to provide a wanting or supplying counterpart. Slot 4: target 24000, supply desired 24000, demand desired 96000. | The slider is the local drones' desired amount; trains fill a shortage or remove excess toward 24. Drones use ordinary desired-amount balancing, not Import's drain-to-zero or Export's fill-to-capacity baseline. |
+
+Expected first useful witness: a train visit and a local drone delivery during
+the first sol with a working, supplied fixture. If either is missing after three
+sols, pause and return that missing witness; an unchanged stock read alone is not
+a result. Provisioning cost is the quick-built Drone Hub/depot and any slot-2
+Metals addition; these are intentional fixture mutations, recorded by the sitting.
+
+The crash check runs **at least one full sol at top speed with fractional Metals
+stock in play**, using the toolkit Run page's target-sol control. Start/end MARKs
+record the sol/time; intermediate slot-4 DUMPs must show a stock not divisible by
+1000. At least one active train route and local drone haul remain necessary.
+Predict **zero `LUA ERROR` lines** across the run and no transient-claim failure
+or distribution error. The orchestrator counts the complete closed-process log
+with its exact error filter and reconciles matches, rather than treating a clean
+screen or a truncated ring copy as evidence. Stop on the first unexpected engine
+error, taint or fixture change; archive the result without rerunning for a pass.
+
+The brief's console fallback is unnecessary for these Metals reads because slot
+4 fits them. The orchestrator records measured results in spec §4.8, then handles
+brief 09's retirement and prompt-map row. This handback claims the desk
+reproduction and repair only; covered drone drain/fill remains unwitnessed.

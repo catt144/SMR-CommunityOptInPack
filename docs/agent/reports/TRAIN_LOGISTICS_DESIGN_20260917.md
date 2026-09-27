@@ -555,6 +555,20 @@ as 0 storage while `GetResDesiredAmount` answers 1, and the load step divides by
 covered drain/fill leg is not witnessed and reruns after the fix. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
 
+**MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
+with their resource divisions modeled as integer division, reproduce the crash
+on the unchanged `f989887` code with a 400-milliresource receiving order. Positive
+temporary capacities now answer at least one resource unit; demand claims retain
+the exact order and disabled answers have zero desire. The case and existing
+controls pass after the fix. `UnloadAll` uses unscaled demand and retains its
+fractional old-cargo behavior. Overall save rung stays 2 with the same hub field
+and lingering vanilla drone baselines. Corrected integer arithmetic also shows
+that an Export floor of 0.6 can leave 1.0 under vanilla's whole-unit loader;
+sub-unit import deficits wait rather than overfill. Full suite commands, the
+unchanged traffic failure and the next covered-fixture predictions are in
+`TRAIN_DISTRIBUTION_PASS2_20260926.md` §"Pass 3" and §"Next sitting". This is desk
+evidence only; the covered drain/fill leg still needs the orchestrator's sitting.
+
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in

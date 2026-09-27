@@ -20,6 +20,15 @@ def source_parts(lua, name, sections):
     print("source:", name, "sha256:", hashlib.sha256(path.read_bytes()).hexdigest(), flush=True)
     chunks = [text[text.index(start):text.index(end, text.index(start))]
               for start, end in sections]
+    if name == "Units/Train.lua":
+        # Engine integer resource arithmetic (EF-116). All divisions in these
+        # pinned bodies are nonnegative resource amounts / scale. Fail closed
+        # if an archive change introduces another shape. Never edit the archive.
+        body = "\n".join(chunks)
+        assert body.count("/ scale") == 12
+        assert body.count("/") == 12
+        chunks = [body.replace("/ scale", "// scale")]
+        print("arithmetic: Train.lua resource divisions use // scale (12 sites)", flush=True)
     lua.execute("local ResourceScale=const.ResourceScale\n"
                 "local rfSuspended=const.rfSuspended\n"
                 "local rfPostInQueue=const.rfPostInQueue\n"
@@ -32,7 +41,10 @@ def runtime():
 Min=function(a,b) if a==nil then return b end if b==nil then return a end return math.min(a,b) end
 Max=math.max
 Clamp=function(n,a,b) return math.min(math.max(n,a),b) end
-MulDivRound=function(a,b,c) return math.floor(a*b/c+0.5) end
+MulDivRound=function(a,b,c)
+    assert(c~=0,'Division by zero')
+    return math.floor(a*b/c+0.5)
+end
 const={ResourceScale=1000,trfInclusive=1,trfBidirectional=2,rfSuspended=1,rfPostInQueue=2,rfStorageDepot=4}
 empty_table={}; Train={}; MultiResourceCubeVisuals={}; MultiResourceDepotBase={}
 Station=setmetatable({}, {__index=MultiResourceDepotBase})
@@ -185,6 +197,69 @@ def main():
     lua.execute(r'''
 local D,F=SMROptInTrainDistribution,SMROptInTrainFloor
 assert(ResourceScale==nil)
+-- Covered drones leave milliresource stock. With an order of 400, the old
+-- view contributes desire=1 and storage=0 to the archived train allocator.
+do
+    local train,spoke,hub=fixture(60,114,120,480)
+    spoke:AddResource(-400,'Metals');hub:AddResource(-500,'Metals')
+    spoke.command_centers={{CanCommandDrones=function() return true end,IsInWorkRange=function() return true end}}
+    assert(D.Set(spoke,'Metals','import',50) and D.HasDroneCoverage(spoke))
+    train.current_station=hub
+    checked_transfer(train)
+    assert(stock(spoke)==59600 and stock(hub)==113500)
+    assert((train.stockpiled_amount.Metals or 0)==0)
+    assert(spoke.demand.Metals.target==60400 and hub.supply.Metals.target==113500)
+    print('PASS covered sub-unit order: desire/storage safe, order=400, spoke=59600, hub=113500, claims released')
+end
+-- Both directions and the whole-unit boundary: rounding capacity up must not
+-- create cargo, overfill an order, or retain a temporary request reservation.
+for _,order in ipairs({0,1,400,999,1000,1400}) do
+    for _,mode in ipairs({'import','balanced','export'}) do
+        local train,spoke,hub=fixture(60,114,120,480)
+        local dest,source
+        if mode=='export' then
+            hub:AddResource(366000-order,'Metals');dest=hub;source=spoke
+        else
+            spoke:AddResource(-order,'Metals');dest=spoke;source=hub
+            train.current_station=hub
+        end
+        assert(D.Set(spoke,'Metals',mode,50))
+        -- Export needs source stock above its floor.
+        if mode=='export' then spoke:AddResource(10000,'Metals') end
+        local before,from=stock(dest),stock(source)
+        local load=(order//1000)*1000
+        checked_transfer(train)
+        assert((train.stockpiled_amount.Metals or 0)==load)
+        assert(stock(source)==from-load and stock(dest)==before)
+        deliver(train,dest)
+        assert(not D.error and stock(dest)==before+load)
+        assert(dest.demand.Metals.target==dest.demand.Metals.actual)
+        assert(source.supply.Metals.target==stock(source))
+        train.current_station=source;checked_transfer(train)
+        assert((train.stockpiled_amount.Metals or 0)==0)
+    end
+end
+print('PASS order boundaries 0/1/400/999/1000/1400: import, balanced, export; exact demand cap and return stop')
+-- Native UnloadAll uses unscaled demand, not the allocator's divided capacity.
+-- Fractional old cargo still unloads whole when it fits; otherwise it stays aboard.
+for _,mode in ipairs({'import','balanced','export'}) do
+    for _,room in ipairs({100,400}) do
+        local train,spoke,hub=fixture(60,0,120,480)
+        spoke:AddResource(-room,'Metals')
+        assert(D.Set(spoke,'Metals',mode,50))
+        train.stockpiled_amount.Metals=400;train.assigned_resources[spoke]={Metals=400}
+        assert(spoke.demand.Metals:AssignUnit(400))
+        deliver(train,spoke)
+        local fits=mode~='export' and room==400
+        assert(not D.error)
+        assert(stock(spoke)==60000-room+(fits and 400 or 0))
+        assert(train.stockpiled_amount.Metals==(fits and 0 or 400))
+        assert(spoke.demand.Metals.actual-spoke.demand.Metals.target==(fits and 0 or 400))
+        assert(spoke:GetMaxStorage('Metals')==120000 and spoke:IsResourceEnabled('Metals'))
+        if not fits then deliver(train,hub);assert(stock(hub)==400) end
+    end
+end
+print('PASS fractional old-cargo unload: exact-fit import/balanced, over-target/export refused, native capacities restored')
 -- First arrival of a newly placed train: vanilla initializes assigned_resources
 -- inside UnloadAll, after our configured-row inspection. Match the sitting's Concrete row.
 do
@@ -241,16 +316,19 @@ for _,caps in ipairs({{60,240},{60,480},{100,100},{120,480}}) do
     assert(D.Set(s,'Metals','export',percent))
     local n=math.floor(caps[1]*1000*percent/100+0.5)
     checked_transfer(t)
-    assert(stock(s)==n,stock(s)..' != '..n)
+    -- Vanilla's positive-desire lane loads whole resource units. A fractional
+    -- slider can leave less than one unit above its floor, never below it.
+    local retained=caps[1]*1000-((caps[1]*1000-n)//1000)*1000
+    assert(stock(s)==retained,stock(s)..' != '..retained)
     deliver(t,h);t.current_station=s;checked_transfer(t)
-    assert(stock(s)==n and (t.stockpiled_amount.Metals or 0)==0)
+    assert(stock(s)==retained and (t.stockpiled_amount.Metals or 0)==0)
     assert(s:IsResourceEnabled('Metals') and s:GetMaxStorage('Metals')==caps[1]*1000)
     assert(s.supply.Metals.target==stock(s))
     assert(s.supply.Metals.desired==caps[1]*1000 and s.demand.Metals.desired==0)
     assert(rawget(s,D.FIELD)==nil and rawget(h,D.FIELD)[s].Metals.percent==percent)
   end
 end
-print('PASS export: exact floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100, 120/480; return trip stops')
+print('PASS export: whole-unit allocation at floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100, 120/480; return stops, fractional residue <1000')
 for _,mode in ipairs({'import','balanced'}) do
     t,s,h=fixture(0,80,100,100)
     assert(D.Set(s,'Metals',mode,80))

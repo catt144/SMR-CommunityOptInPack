@@ -1,0 +1,44 @@
+HEAD: f989887cabff69033277c19d88ecc9d31d13c44f
+BUILD: archived game 1.1.1.405907
+B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src\Lua\Units\Train.lua sha256=5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+B:\Dev\SMR\SMR-OptInPack\docs\archive\train_distribution_20260926\sittings\Mars.exe-20260927-12.55.25-6aad2d75.log sha256=e58b9b3a62782e7cdfe74c388f50f7f3c0da466ff7adf87714cbf0d9a66d3fd0
+COMMAND: rg -n "/ scale|function Train:UnloadAll|local function room_for|room = room \+ amount" B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src\Lua\Units\Train.lua
+787:function Train:UnloadAll()
+789:	local function room_for(res)
+808:				room = room + amount -- the room for our own cargo is already reserved in the request
+894:			res_data.total[res] = res_data.total[res] + (s_req:GetActualAmount() / scale)
+896:				res_data.desired[res] = res_data.desired[res] + st:GetResDesiredAmount(res) / scale
+897:				res_data.storage[res] = res_data.storage[res] + st:GetMaxStorage(res) / scale
+906:			res_data.total[res] = (res_data.total[res] or 0) + (amount / scale)
+928:				local my_storage = station:GetMaxStorage(res) / scale
+935:					available = Min(station.supply[res]:GetTargetAmount(), station.supply[res]:GetActualAmount()) / scale
+943:					local stored = dest.supply[res]:GetTargetAmount() / scale
+944:					local storage = dest:GetMaxStorage(res) / scale
+947:					target = Min(target, dest:GetMaxStorage(res) / scale)
+949:					load_amount = Min(load_amount, self:GetEmptyStorage(res) / scale)
+950:					load_amount = Min(load_amount, dest.demand[res]:GetTargetAmount() / scale)
+1027:			local stored = station.supply[res]:GetTargetAmount() / scale
+EXIT: 0
+COMMAND: rg -n "\[LUA ERROR\] Division by zero" B:\Dev\SMR\SMR-OptInPack\docs\archive\train_distribution_20260926\sittings\Mars.exe-20260927-12.55.25-6aad2d75.log
+1762:[LUA ERROR] Division by zero.
+1810:[LUA ERROR] Division by zero.
+1874:[LUA ERROR] Division by zero.
+1918:[LUA ERROR] Division by zero.
+1962:[LUA ERROR] Division by zero.
+2006:[LUA ERROR] Division by zero.
+2051:[LUA ERROR] Division by zero.
+2095:[LUA ERROR] Division by zero.
+2139:[LUA ERROR] Division by zero.
+2183:[LUA ERROR] Division by zero.
+2227:[LUA ERROR] Division by zero.
+2271:[LUA ERROR] Division by zero.
+2334:[LUA ERROR] Division by zero.
+2378:[LUA ERROR] Division by zero.
+2423:[LUA ERROR] Division by zero.
+2467:[LUA ERROR] Division by zero.
+2511:[LUA ERROR] Division by zero.
+2555:[LUA ERROR] Division by zero.
+2599:[LUA ERROR] Division by zero.
+2643:[LUA ERROR] Division by zero.
+EXIT: 0
+MATCH COUNT: 20; members are the numbered matches above.

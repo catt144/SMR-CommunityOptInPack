@@ -4,7 +4,8 @@
 -- Buildings/Station.lua:964-997; MultiResourceDepot.lua:217-245,380-407.
 -- No train body copy. Synchronous getter answers + claims supply vanilla's
 -- allocator with a source having no capacity share and destinations whose
--- effective capacity is their remaining order. Vanilla owns every cargo write.
+-- effective capacity is their remaining order (at least one resource unit).
+-- Demand claims retain the exact order. Vanilla owns every cargo write.
 -- Rung 0: these answers/claims; rung 1: vanilla-written drone desired amounts;
 -- rung 2: SMROptIn_distribution, one table on each hub, keyed by station object,
 -- then resource, containing {mode, percent}. No custom field on vanilla objects.
@@ -136,7 +137,7 @@ local desired = Station.GetResDesiredAmount
 function Station:GetResDesiredAmount(res)
 	local row = view and view[self] and view[self][res]
 	-- Keep the positive-desire lane open despite an import's zero drone target.
-	if row and row.enabled then return const.ResourceScale end
+	if row then return row.enabled and const.ResourceScale or 0 end
 	return desired(self, res)
 end
 
@@ -323,7 +324,12 @@ local function train_view(train, track)
 						end
 					end
 					answers[dest] = answers[dest] or {}
-					answers[dest][res] = { enabled = order > 0, capacity = order }
+					-- Vanilla divides capacity by ResourceScale before allocating.
+					-- Positive desire with a sub-unit capacity would divide by zero
+					-- (archived 1.1.1.405907 Train.lua:896-897,946). Demand below
+					-- still caps the real order; this does not round up a delivery.
+					answers[dest][res] = { enabled = order > 0,
+						capacity = order > 0 and Max(order, const.ResourceScale) or 0 }
 					if dest ~= st then
 						-- Capacity is an order, so its matching stored value is zero.
 						-- Actual stock still contributes to vanilla's line total.
