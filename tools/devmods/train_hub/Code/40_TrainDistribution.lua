@@ -268,7 +268,7 @@ function Train:UnloadAll(...)
 		if ready(st, res) then
 			local s, d = st.supply[res], st.demand[res]
 			local room = Max(amount(st, res, entry) - s:GetActualAmount(), 0)
-			local own = (self.assigned_resources[st] or empty_table)[res] or 0
+			local own = ((self.assigned_resources or empty_table)[st] or empty_table)[res] or 0
 			answers[st][res] = { enabled = entry.mode ~= "export" and own <= room }
 			local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
 			claims[#claims + 1] = { d, Max(d:GetTargetAmount() - Max(room - reserved, 0), 0) }

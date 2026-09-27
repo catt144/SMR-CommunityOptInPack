@@ -42,7 +42,8 @@ IsValid=function(o) return type(o)=='table' and not o.invalid end
 IsKindOf=function(o,c) return o and (o.class==c or (c=='Station' and o.hub) or (c=='SMROptInTrainHubBase' and o.hub)) end
 table.find=function(t,v) for i,x in ipairs(t) do if x==v then return i end end end
 table.copy=function(t) local r={} for k,v in pairs(t) do r[k]=v end return r end
-table.keys=function(t) local r={} for k in pairs(t) do r[#r+1]=k end return r end
+-- Engine table.keys accepts nil (1.1.1.405907 CommonLua/LuaExportedDocs/Global/table.lua:215-226).
+table.keys=function(t) local r={} for k in pairs(t or empty_table) do r[#r+1]=k end return r end
 ripairs=function(t) local i=#t+1 return function() i=i-1 if i>0 then return i,t[i] end end end
 bor=function(a,b) return a|b end
 GetLRManager=function() end
@@ -184,6 +185,28 @@ def main():
     lua.execute(r'''
 local D,F=SMROptInTrainDistribution,SMROptInTrainFloor
 assert(ResourceScale==nil)
+-- First arrival of a newly placed train: vanilla initializes assigned_resources
+-- inside UnloadAll, after our configured-row inspection. Match the sitting's Concrete row.
+do
+    local train,spoke,hub=fixture(0,0,120,480)
+    for _,st in ipairs({spoke,hub}) do
+        table.insert(st.storable_resources,'Concrete');st.storable_resources.Concrete=true
+        local cap=st:GetMaxStorage('Concrete')
+        local initial=st==spoke and cap or 0
+        st.supply.Concrete=request(initial,10000)
+        st.demand.Concrete=request(cap-initial,cap-10000)
+    end
+    train.assigned_resources=nil
+    assert(D.Set(spoke,'Concrete','export',20))
+    checked_transfer(train)
+    assert(type(train.assigned_resources)=='table')
+    assert(stock(spoke,'Concrete')==24000 and train.stockpiled_amount.Concrete==96000)
+    assert(spoke.supply.Concrete.target==24000 and spoke.demand.Concrete.target==96000)
+    deliver(train,hub)
+    train.current_station=spoke;checked_transfer(train)
+    assert(stock(spoke,'Concrete')==24000 and train.stockpiled_amount.Concrete==0)
+    print('PASS new train with nil assigned_resources: configured Concrete, capacity 120, floor 24, return stops')
+end
 local r=request(80000,50000)
 local returns=table.pack(F.WithTransientClaims({{r,20000}},function(a)
     assert(a==7 and r.target==60000 and r.actual==80000)
