@@ -27,3 +27,21 @@ Mars.exe-20260927-00.03.18-6aad2d75.log  70061 B  650 lines
   :477 slot 6 filled the hub (220000 -> 480000); full-hub refusal not isolated.
   :615-645 the owner's by-eye checks (quick-built off-network station 6445, stations 1994/2007).
   grep -ciE 'LUA ERROR|traceback|attempt to' = 0.
+
+Fifth sitting, 2026-09-27 12:55, on fef640a from build6_capacity (orchestrator-attended).
+Closed-process log copied byte-for-byte after the owner exited the game (cp -p; cmp exit 0).
+
+Mars.exe-20260927-12.55.25-6aad2d75.log  267314 B  2710 lines
+  sha256 e58b9b3a62782e7cdfe74c388f50f7f3c0da466ff7adf87714cbf0d9a66d3fd0
+  :480  full-hub leg, 1 train: verdict=deadline, calls=0 (no witness).
+  :1044 owner re-ran with 9 trains, other stations' Metals filled: verdict=full_refused,
+        calls 0->1, spoke 120000, hub 480000 room 0; train 2000001844 at 1994 cargo=0.
+  :1232 reload; Import 50% on 1994: verdict=at_target 0 -> 60000.
+  :1302 Balanced 20%: verdict=at_target 60000 -> 24000.
+  Save SMRTK_A.sav reloaded: Balanced 20%, stock 24000, 36000 still aboard a train at 1994.
+  Not accepted -> enabled=false; back to Balanced -> enabled=true percent=20.
+  :1612 DISTREAD 1994 Concrete import 50 -> 60000 (uncovered; new trains bought).
+  :1671 DISTREAD 2007 Metals covered=true after Drone Hub + Metals depot quick-built.
+  :1762-:2643 20x [LUA ERROR] Division by zero, vanilla Train.lua:946 under
+        40_TrainDistribution.lua:244 / 10_TrainFloor.lua:92; hub, Metals, storage=0.
+  grep -c 'LUA ERROR' = 20; none before :1762.

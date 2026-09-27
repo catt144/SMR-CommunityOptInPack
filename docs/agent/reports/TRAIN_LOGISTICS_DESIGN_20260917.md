@@ -540,7 +540,19 @@ distribution/capacity live pairing (spokes 120, hub 480). **Not shown:** full-hu
 first press filled the hub (220 → 480), traffic had drained it to 325 by the trigger and two trains
 still carried 96 each, so the log cannot say whether the spoke shipped into a full hub. Seen by eye
 the same sitting: the four-state cycle with its titles and icons, per-state tooltips, off-network
-stations untouched, Ctrl-click reaching other network stations. The existing traffic-smoke
+stations untouched, Ctrl-click reaching other network stations.
+✅ **MEASURED LIVE 2026-09-27, second sitting** (`fef640a`, same save, log and receipt in the same
+folder): **full-hub refusal** — with the hub held at 480, room 0, a train called at the export spoke
+and left with `cargo=0`, spoke still 120 (`verdict=full_refused`; the first try with one train timed
+out with no call and is not a result). **Import** 0 → 60 at 50% (Metals, then Concrete);
+**Balanced** 60 → 24 at 20%; **save/reload** kept Balanced 20%, stock 24 and 36 aboard a train;
+**Not accepted** → `enabled=false`, re-enable restores the slider; **Ctrl + click** copies state and
+percent; titles wrap between words; no bubble; **new trains** bought mid-sitting ran without error.
+❌ **Covered station: 20× division by zero** at vanilla `Train.lua:946`, under this module's
+`train_view`, once drones moved fractional stock. Orchestrator's reading, relayed to 09 for a desk
+reproduction: an order under one unit answers `capacity` < 1000, vanilla's integer division sums it
+as 0 storage while `GetResDesiredAmount` answers 1, and the load step divides by that zero. The
+covered drain/fill leg is not witnessed and reruns after the fix. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
