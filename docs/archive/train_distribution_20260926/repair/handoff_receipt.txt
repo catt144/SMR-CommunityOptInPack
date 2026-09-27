@@ -1,0 +1,18 @@
+HEAD: 0a4176704b8ebd8f024dd50c9995b5a3fa6d66c1
+command: len(Path(report).read_bytes()), compared with scope_receipt.txt before measurement
+report bytes after: 14172
+report delta: 3372
+command: reconcile conversation/diff finding inventory with the revised report and spec passages
+1. Authority/base/model | evidence: user relay, 94bb535, 0a41767 | home: report opening | next: keep current scope and executed model | disposition: update
+2. Native allocation results/mechanism/route limits | evidence: pass2 archive and current tests | home: report Result and mechanism | next: needed for next sitting interpretation | disposition: keep
+3. Old row UI and new owner ruling | evidence: spec4.7 and newUItest | home: report UI paragraph; spec4.8 | next: native appearance still owed | disposition: replace obsolete presentation; preserve untested limit
+4. Save ladder/residuals | evidence: unchanged40 plus guard | home: report Save ladder | next: native save/load still owed | disposition: keep with section UI label
+5. Whole suite / traffic / capacity | evidence: repair outputs | home: report Verification | next: known failure separate; distribution live pairing owed | disposition: update
+6. Code registration/fenced scope | evidence: git diff | home: report Verification | next: orchestrator still owes hub header | disposition: keep obligation
+7. Old fixture and sitting sequence | evidence: owner relay | home: report Attended predictions | next: next sitting build6_capacity uncovered export first | disposition: replace
+8. Toolkit slots/timing/safety/setup | evidence: 80 callbacks and tests | home: report Attended predictions | next: orchestrator drives; preserve other slots | disposition: keep and update source-visit witness
+9. First-sitting pending statement | evidence: archived log818 and owner | home: report Crash and next sitting status | next: nil repair live check and floor not run | disposition: replace with evidence; do not duplicate log
+10. Remaining mode/drone/full/save/uninstall/ship obligations | evidence: brief09/spec4.8/report old | home: report Remaining live checks | next: owner/orchestrator next sitting/later ship | disposition: keep
+Traced blocks: 10/10; unhomed content dropped: 0.
+No pending finding requires an owner ruling. Live mode/UI/save checks and ship test remain in the report.
+Executed model: GPT-6 as exposed in the transcript; no subagents.

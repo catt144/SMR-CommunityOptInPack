@@ -235,7 +235,7 @@ vanilla_transfer(t,nil,true)
 assert(t.stockpiled_amount.Metals==40000)
 print('CONTROL import: available=80 requested=80 allocated=40')
 -- Live hub shape and equal twins; slider endpoints and fractional unit floor.
-for _,caps in ipairs({{60,240},{60,480},{100,100}}) do
+for _,caps in ipairs({{60,240},{60,480},{100,100},{120,480}}) do
   for _,percent in ipairs({0,1,20,50,99,100}) do
     t,s,h=fixture(caps[1],0,caps[1],caps[2])
     assert(D.Set(s,'Metals','export',percent))
@@ -250,7 +250,7 @@ for _,caps in ipairs({{60,240},{60,480},{100,100}}) do
     assert(rawget(s,D.FIELD)==nil and rawget(h,D.FIELD)[s].Metals.percent==percent)
   end
 end
-print('PASS export: exact floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100; return trip stops')
+print('PASS export: exact floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100, 120/480; return trip stops')
 for _,mode in ipairs({'import','balanced'}) do
     t,s,h=fixture(0,80,100,100)
     assert(D.Set(s,'Metals',mode,80))

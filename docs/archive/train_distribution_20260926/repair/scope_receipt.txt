@@ -1,0 +1,11 @@
+command: git diff --exit-code 813b0ea -- [fenced paths + traffic test listed below]; compare TestKit capacity prefix and slot-3 suffix with a8352dc
+HEAD: 0a4176704b8ebd8f024dd50c9995b5a3fa6d66c1
+unchanged: tools/devmods/train_hub/Code/20_TrainHub.lua
+unchanged: tools/devmods/train_hub/Code/30_TrainHubDrones.lua
+unchanged: tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua
+unchanged: tools/devmods/train_hub/tests/traffic_smoke.py
+PASS TestKit Scratch and capacity slots 1-3 unchanged
+command: len(Path(report).read_bytes())
+report bytes before: 10800
+command: capacity * percent / 100; capacity - floor
+prediction arithmetic: capacity=120, percent=20, floor=24, exportable=96

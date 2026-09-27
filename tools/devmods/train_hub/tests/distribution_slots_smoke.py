@@ -30,7 +30,7 @@ function context(s) return {sel=s,mark=function() return 1 end,log=function() en
     lua.execute((kit/'Code/80_AgentSlots.lua').read_text(encoding='utf8'))
     lua.execute(r'''
 local T,D=SMRTK,SMROptInTrainDistribution
-local t,s,h=fixture(60,0,60,240)
+local t,s,h=fixture(120,0,120,480)
 assert(D.Set(s,'Metals','export',20))
 local ctx=context(s)
 assert(T.slots[4].fn(ctx).rows==1)
@@ -39,11 +39,19 @@ local watch=T.armed.distribution_target
 assert(not T.triggers.distribution_target.when(watch))
 checked_transfer(t)
 local fired,result=T.triggers.distribution_target.when(watch)
-assert(fired and result.verdict=='at_target' and result.stock==12000)
-assert(T.slots[6].fn(ctx).after==240000)
+assert(fired and result.verdict=='at_target' and result.stock==24000 and result.target==24000)
+deliver(t,h)
+assert(T.slots[5].fn(ctx).trigger=='distribution_target')
+watch=T.armed.distribution_target
+checked_transfer(t) -- A hub call alone cannot witness the export-floor return trip.
+assert(not T.triggers.distribution_target.when(watch))
+t.current_station=s;checked_transfer(t)
+fired,result=T.triggers.distribution_target.when(watch)
+assert(fired and result.stock==24000 and result.calls>watch.state.calls)
+assert(T.slots[6].fn(ctx).after==480000)
 assert(T.slots[6].fn(ctx).after==0)
 assert(T.slots[1] and T.slots[2] and T.slots[3])
-print('PASS slot 4 reads, slot 5 arms and sees actual transfer witness, slot 6 explicitly fills/empties; capacity slots retained')
+print('PASS capacity 120: slot 4 reads, slot 5 witnesses floor 24 plus a source return (rejects hub-only witness), slot 6 fills hub to 480/empties; capacity slots retained')
 ''')
     print('NOT TESTED: native kit dispatch, trigger timing and actual game UI',flush=True)
 

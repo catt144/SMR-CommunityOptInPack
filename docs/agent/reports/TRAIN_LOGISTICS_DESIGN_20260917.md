@@ -290,7 +290,8 @@ station into our own building: it would force players to rebuild their network t
 and mix two kinds of station in one line.
 
 **Where the UI lives: on each STATION's own card, not on the hub's.** §4.7 already settles the
-shape — the control belongs in the resource row the panel already draws. The hub's card gets a
+shape — the controls have their own Import / Export section and group tabs. Vanilla resource
+rows are untouched. The hub's card gets a
 summary line at most (owner, 2026-09-24: the hub's card is already busy and the game shrinks it as
 the network grows). A card can be extended without altering the building: infopanel XTemplates are
 UI data, nothing persists, and the TestKit already attaches sections to vanilla `ipBuilding` panels.
@@ -359,7 +360,7 @@ station full or to distribute an import station's stock outward, so on such a st
 train half of the design does anything. Link 4 made the hub a controller for far stations'
 **maintenance requests only** (`20_TrainHub.lua:2171-2178`) precisely because joining every request
 turned the hub's fleet into a resource balancer between stations. ⚖️ Ruling 3 above settles it: the
-train half only, the row says so, and the filter stays shut.
+train half only, the section says so, and the filter stays shut.
 
 **What is unproven, and must be measured before any of this is believed**
 
@@ -444,7 +445,7 @@ implemented. Evidence, scope, proposed cost and the unrelated traffic-smoke fail
 `TRAIN_DISTRIBUTION_BUILD_20260926.md`. Captured command outputs:
 `docs/archive/train_distribution_20260926/`.
 
-#### Second pass, 2026-09-26 — desk build, attended pending
+#### Second pass, 2026-09-26 — desk build
 
 **MEASURED, desk:** transient enabled/capacity answers around vanilla's existing
 transfer body overcome the stacked floor/share bound. Export reaches the slider
@@ -459,11 +460,27 @@ hub settings table. Baselines are re-derived on load; transient claims and answe
 clear at SaveGameStart. Native serialization and the row's visual fit remain untested.
 The mod description names the lingering native drone desired amounts after removal.
 
-The build, evidence, rung table, exact hub-header line owed to the orchestrator,
-limits and preloaded sitting predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`.
-**Attended smoke is still owed.** Desk counts are in the report's linked command
-receipt; the existing traffic-smoke failure is retained separately. Capacity's live
-pairing and the whole hub's ship test are not discharged here.
+#### First sitting and desk repair, 2026-09-26 — floor NOT RUN live
+
+The new-train arrival at StationSmall(1994)'s configured Concrete row crashed on a
+nil `assigned_resources` before acquiring a transient claim. The single archived
+sitting log is `docs/archive/train_hub_capacity_20260926/Mars.exe-20260926-19.29.34-6aad2d75.log:818`;
+its receipt is beside it. The owner rejected the row UI and ruled §4.7's separate
+section. Export to the floor never ran in that sitting.
+
+**MEASURED, desk repair:** the new-train case fails before the nil guard and passes
+after it (`0a41767`), with native `UnloadAll` initializing the cargo map. The replacement
+UI attaches its own station section by TestKit's pattern, leaves native rows alone,
+and provides independent tabs, slider amounts/percentages, stored/max, top coverage
+note and header-only hover help. Native rendering and help dismissal are still untested.
+Capacity-120 export/floor-return and sitting-callback cases pass on the desk.
+
+The build, rung table, exact hub-header line owed, command receipts and next sitting
+predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`. **The orchestrator runs the
+next sitting from `build6_capacity`, hub standing and capacity upgrade on: uncovered
+spoke export at 20% of 120 predicts a floor of 24, still <<PENDING-RUN>> live.** This
+also supplies the distribution/capacity live pairing. The existing traffic-smoke
+failure and the whole hub's both-configuration ship test remain separate.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
