@@ -78,6 +78,50 @@ Fixture: the standing `train_hub_base` save (spec §10); never saved over. Every
 Normal time is about five minutes per step and 15 minutes aborts it; the step then goes to the log.
 A console error, taint, or any figure other than these stops the sitting for a read.
 
-## Attended smoke
+## Attended smoke — closed 2026-09-26, PASS with one state unread
 
-<<PENDING-RUN>> Not yet run.
+Guided by the orchestrator, not by this brief's agent; the owner played. Game 1.1.1.405907, both
+mods loaded, dev mod v53 after the owner's Mod Editor re-save (`8a3c921`: all eighteen
+`upgrade1_*` fields survived, reordered; `code_hash` moved), TestKit `a8352dc`. Fixture
+`train_hub_base`, hub built each round (spec §10); never saved over. One process, one log:
+`Mars.exe-20260926-19.29.34-6aad2d75.log`, archived byte-for-byte under
+`docs/archive/train_hub_capacity_20260926/` (size and hash in that folder's `receipt.txt`). Line
+numbers below are that file's.
+
+| step | reading | result |
+|---|---|---|
+| 1 | Scratch on load (`:361`): `unlocked=true owner=none modifiers=0` | ✓ as predicted |
+| 2 | slot 1 before (`:389`): small 60000 × 6, big 120000, hub 240000 | ✓ |
+| 2 | slot 1 after the upgrade (`:551`): 120000 × 6 / 240000 / 480000; `owner=6430 modifiers=3 applied=3`, three modifier rows at 100%; hub `max_z` 9 before and after (the 150 look) | ✓ |
+| 3 | train (`:387` → `:543`): cargo 63000 → **105000**, passengers 18 → **30** | ✓ mechanism; ✗ the prediction's figures |
+| 4 | toggle off / on | **owner-witnessed by eye, no slot read** (owner: correct, "nothing lost") |
+| 4 | named save, reload (`:648`), slot 1 (`:807`): still doubled, `on=true own=true unlocked=true` | ✓ |
+| 5 | second hub 6445 (`:973`): `own=false answers=true can_switch=false`; hubs 480000 + 480000, stations 120000 — nothing doubled twice | ✓ |
+| 5 | first hub salvaged, ruins standing: figures still doubled | **not read** — no slot press in that state. Owner: the ruins stayed standing until a Drone Hub was built (quick-built at `t=19728517`, before `:1028`) |
+| 5 | ruins cleared (`:1028`): base 60000 / 120000 / 240000, trains 63000 / 18, `owner=none modifiers=0`; hub 6445 `can_switch=true` | ✓ |
+| 5 | upgrade built on hub 6445 (`:1151`): doubled once, `owner=6445 modifiers=3` | ✓ |
+
+**The train row was a wrong prediction, not a defect.** The fixture already carries one +50% cargo
+tech: 63000 = 42000 × 1.5 and 18 = 12 × 1.5. The upgrade then added +100% of base, 42000 × 2.5 =
+105000 and 12 × 2.5 = 30 — spec §4.10's additive stacking, which the owner accepted on 2026-09-25.
+The prediction assumed a tech-free base.
+
+**Limits.** The toggle-off state (capacity halved under stock: `cap=60000`, stored 120000, demand
+0) was seen, not read. The salvaged-but-standing state — the case the "ends when the ruins are
+cleared" ruling is about — was not read; the cleared read proves release, not persistence through
+salvage. `errors=1` from `:818` onward is the distribution build's crash (brief 09's relay), not
+this build's; no capacity read carried an error of its own.
+
+**Finding, owner, in the sitting: a salvaged hub's ruins wait for outside drones.** The hub is its
+own Drone Controller, so salvaging it leaves no drones to clear its ruins; they stood until the
+owner built a Drone Hub. Under the 2026-09-26 ruling the bonus ends only when the ruins are cleared,
+so in a colony with no other controller in range **the bonus stays on indefinitely after salvage**.
+Vanilla-consistent, and worth a line in the description.
+
+**Finding, owner, in the sitting: drones will not build an upgrade from a station's own storage.**
+On the hub and on vanilla stations, the upgrade's Metals and Concrete were not taken from the
+building's internal stock; the owner built a Universal Depot, the drones filled it from the hub, and
+then built from the depot. This predicted stall is what the step-4 fallback anticipated. Stations
+carry the same storage request flags as a depot (`Buildings/MultiResourceDepot.lua:33-34`,
+1.1.1.405907), so the refusal is in the engine's pairing, not in our code — a source read, not
+measured. Open in spec §4.10; the product question is fix versus a line in the description.

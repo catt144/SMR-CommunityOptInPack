@@ -1,0 +1,12 @@
+Capacity Network Upgrade attended smoke, 2026-09-26 — orchestrator-guided, owner played.
+Closed-process session log, copied byte-for-byte after the owner exited the game.
+
+source   %APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-20260926-19.29.34-6aad2d75.log
+bytes    125212
+lines    1172
+sha256   aad1c16604064af98d6dc408216afa3947f018194aa07f3ae8b7f8b1713f1bd8
+command  cp -p <source> <archive>; cmp <source> <archive> (exit 0); sha256sum; wc -l
+HEAD     8a3c921 (before this archive's commit)
+
+The same log also carries the distribution build's first-sitting crash at line 818
+(brief 09 pass 2). This is the one archived copy; brief 09 cites it here, not a duplicate.

@@ -58,24 +58,21 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      cases with the owner accepting look and timing (spec §10 "Build 5 pass 2 attended smoke
      closed", `reports/TRAIN_HUB_BUILDTRACK_20260925.md`, whose limits stand: leader 6630's
      completion path unproven, case 3's shortage/refill waived, native repair priority unwitnessed).
-     ⚖️ **TWO BUILD BRIEFS ARE NOW LIVE IN PARALLEL** (owner, 2026-09-26: *"lets do capacity"*, and
-     *"while capacity is running we need to get the distribution center built"*): `08` for the
-     **Capacity Network Upgrade (spec §4.10)** and `09` for the **distribution centre (spec §4.8)**.
-     Their file sets are disjoint — `08` owns `20_TrainHub.lua` and the building template, `09` owns
-     `10_TrainFloor.lua` and `40_TrainDistribution.lua` — which is how the one-brief-at-a-time rule on
-     `20_TrainHub.lua` is kept. `metadata.lua` is the only shared file. ⚠️ **When both land, schedule
-     the live pairing neither brief may claim:** `08`'s upgrade fires §4.5's request-rewrite path on
-     every station at once, which is the new blast radius `09` only tests from its harness.
-     **Later the same day:** `08`'s desk half is committed (`c6108c9`, `daef3ec`) and its attended
-     smoke waits on the owner. `09` pass 1 (`5afdbe6`) hit its stop correctly — retained = slider +
-     vanilla's capacity share, the two stack (`Train.lua:929-951`) — and is **rewritten as pass 2**
-     on the orchestrator's source reads: `needed` is skipped for a source that answers disabled
-     (`:929-932`), so a transient per-resource enabled-state lie plus the claim lands the floor exactly;
-     persistent "disabled" inverts the drone half and is not the route. ⚖️ **Owner ruling 2026-09-26,
-     recorded in spec §4.8 with a six-rung contamination ladder and pointed to from `FIX_POLICY`
-     §0: the distribution centre may cross the save boundary without stopping to offer it, minimally.**
-     OI-31 was retired by delegation: the route is the agent's, transient lies first, amount-only
-     allocation through vanilla's own loader second, a copied body still a stop.
+     **2026-09-26, evening (Claude Opus 5.5, `claude-opus-5-5`): the orchestrator now runs the
+     attended sittings with the owner and relays to the build agents** (owner: *"we are going to do
+     each sitting together and you will relay a message to them"*). A build agent whose session runs
+     another model family (`09` ran on GPT-6) cannot be messaged; the orchestrator hands the owner
+     paste-ready text instead. **Capacity (spec §4.10) is BUILT and smoked, PASS** — brief `08`
+     deleted; record in `reports/TRAIN_HUB_CAPACITY_20260926.md` with its limits (toggle-off seen not
+     read; the salvaged-but-standing state not read). Open from it: **drones will not build an
+     upgrade from a station's own storage** (owner's finding; likely vanilla) — fix or describe, not
+     yet briefed. **Distribution (spec §4.8) is `09` pass 2, sent back** after its first sitting for
+     a new-train crash (`40_TrainDistribution.lua:271`, nil `assigned_resources` before vanilla's
+     first unload) and the owner's UI ruling (`94bb535`: its own station-card section, not vanilla's
+     rows). The floor test never ran. Its save-boundary ruling and six-rung ladder are in spec §4.8
+     and `FIX_POLICY` §0. ⚠️ **The live pairing is still owed:** capacity's rewrite fires on every
+     station at once; run the distribution sitting from the owner's `build6_capacity` save, which
+     has the hub standing with the upgrade on.
      The owner can ask the orchestrator to guide an attended sitting and read the game log on
      "flushed". The owner's open asks live on
      [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).

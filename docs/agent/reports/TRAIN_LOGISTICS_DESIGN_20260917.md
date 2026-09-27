@@ -494,11 +494,27 @@ correctly for connectors 5 and 6.
 
 ---
 
-### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — ⚖️ AUTHORISED 2026-09-26, BUILD LIVE
+### 4.10 Hub capacity upgrades (owner's design, 2026-09-25) — BUILT; dev-mod smoke PASS 2026-09-26
 
-⚖️ **Owner, 2026-09-26, answering OI-30: build it** — *"lets do capacity"*. The brief is
-`prompts/Train_Hub_Project/08_TRAIN_HUB_CAPACITY_high.md`, which owns `20_TrainHub.lua` while it
-runs and is parallel to the distribution centre (§4.8). Nothing is built until it records its smoke.
+⚖️ **Owner, 2026-09-26, answering OI-30: build it** — *"lets do capacity"*. Built by brief 08
+(`c6108c9`, `daef3ec`; retired), template re-saved by the owner (`8a3c921`). **Attended smoke
+closed 2026-09-26, PASS with one state unread** — record and log lines in
+`reports/TRAIN_HUB_CAPACITY_20260926.md`: every station and hub doubled once, three modifiers,
+the second hub spent, release on clearing the ruins and re-buy on the second hub, save/reload
+holding. Trains read 63 → 105 and 18 → 30 because the fixture carries a +50% cargo tech; that is
+the additive stacking below, not a defect. Seen but not read: the toggle-off state. Not read at
+all: the salvaged-but-standing state the ruins ruling is about. **The owner saw the ruins stand
+until a Drone Hub was built**: the hub is its own controller, so after salvage nothing clears its
+ruins, and with no other controller in range the bonus stays on indefinitely — vanilla-consistent
+under the ruling, a line for the description. A dev-mod acceptance, not a ship test;
+`20_TrainHub.lua` is free again.
+
+**Open, the owner's finding in the sitting: drones will not build an upgrade from the building's
+own storage** — on the hub and on vanilla stations alike; the owner had to build a Universal Depot,
+let the drones fill it, and build from that. Stations carry a depot's request flags
+(`Buildings/MultiResourceDepot.lua:33-34`), so the refusal is likely the engine's pairing and
+vanilla behaviour (source read, not measured). A player without a depot sees the upgrade stall with
+no explanation. To decide: investigate and fix, or say so in the description.
 
 **One** upgrade on the hub, the **Capacity Network Upgrade**: **+100% storage on every train
 station, the hub included, and +100% cargo on every train**. ⚖️ Owner, 2026-09-25: one upgrade, not
