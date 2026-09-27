@@ -228,9 +228,37 @@ no visual indicator how much its on."* So:
 - **One import/export section** attached to the station's `ipBuilding` panel (the TestKit's
   `section_attach` is the proven pattern), with **its own group tabs** — Basic · Advanced ·
   Delicacies · Other — rather than following vanilla's expanded group, which can be several or none.
-- Each of its rows: the resource, the import and export toggles, the slider **with its value shown**,
-  and the station's `stored/max` repeated so the player need not look back up.
+- Each of its rows: the resource, its mode, the slider **with its value shown**, and the station's
+  `stored/max` repeated so the player need not look back up.
 - **Help is a "?" on the section's own header, shown on hover.** Never a standing popup over controls.
+
+⚖️ **Owner, 2026-09-26, later in the same sitting: it must look native.** On pass 2's section (its
+text rendered invisible, a doubled header icon, plain checkboxes): *"I also still don't like the
+plain white text boxes or the font. I want it to feel like the same quality and feel of vanilla It
+should feel like it belongs to the panel not something just thrown together"*, and *"it doesn't look
+like we are using all the space very well"*. This supersedes the checkbox form of §4.8 ruling 2 —
+the three states and full manual control stand; the widget changes:
+
+- **Each resource is one vanilla three-state cycle row**, modelled on the dome's births toggle
+  (`Data/XDef/sectionDome.lua`, `InfopanelActiveSection`, 1.1.1.405907), which the owner showed:
+  *"rows with the material name and then a icon that changes as you click it and even better if the
+  text could change as you click it so import export and balance mode could all be a single clean
+  click with vanillas flavor"*. One click cycles **Balanced → Export → Import**; each state sets its
+  own hex frame (`SetIconBack`), glyph (`SetIcon`), title text (`SetTitle`) and per-state rollover
+  with the click hint, as the births row does. Proposed for the owner to judge by eye: Balanced on
+  vanilla's neutral `ip_sections_base` frame, Import green (`ip_sections_on`), Export yellow
+  (`ip_sections_limit`), red kept out because vanilla reads it as forbidden; Ctrl + click applies to
+  every station, vanilla's broadcast convention.
+- **The slider is vanilla's `InfopanelSlider`** at full width, its value carried in the row's right
+  title the way a vanilla slider section carries it (`Data/XDef/customSubsurfaceHeater.lua`,
+  `TitleRight`), alongside `stored/max`.
+- **Native parts only:** vanilla sections, text styles, frames and icons. No hand-built text,
+  checkboxes or buttons, and no custom colours or fonts.
+- **The "?" is the game's own question-mark icon**, `UI/InfopanelRemaster/encyclopedia.png` (the
+  panel's bottom-right Encyclopedia button, `Data/XDef/Infopanel.lua`, two frames: normal and
+  hover), at the **right-hand end of the "Import / Export" header row**, showing help on hover and
+  doing nothing on click. Owner: *"on the top row at the other end of the import / export"*,
+  *"like the games question icon"*.
 - The "no drones in range" note for an uncovered spoke is one line at the top of the section.
 - Offered with the recommendation, **not yet ruled**: a "marked only" view listing just the resources
   with a mode set.
@@ -338,10 +366,11 @@ haul in. Nothing is marked for the player; see ruling 2 above.
    drained). The excess sits at the spoke and the player sees a full hub.
 2. **No central overview**, and no sector presets and no "suggest" pre-tick either. ⚖️ *"I don't want
    auto selected presets, I want to give full control to players everything is check the import box,
-   check the export box, or no check and balanced. And the slider"* — so the control is **two
-   toggles and a slider per resource**, neither toggle on being balanced, import and export mutually
-   exclusive. Every §4.8 interaction idea below is refused; the player does it all by hand. **Where
-   the control sits is §4.7's 2026-09-26 ruling: its own section, not vanilla's rows.**
+   check the export box, or no check and balanced. And the slider"* — so the control is **three
+   states and a slider per resource**: Balanced, Export, Import, set by the player alone. Every §4.8
+   interaction idea below is refused; the player does it all by hand. **Where it sits and what it
+   looks like are §4.7's 2026-09-26 rulings:** its own section, and a vanilla three-state cycle row
+   in place of the two checkboxes.
 3. **An uncovered spoke gets the train half only, and its card says so.** A station with no Drone
    Controller in range keeps working on the train side; the drone half does nothing there and the
    distribution section shows there are no drones in range. ⛔ This does **not** reopen link 4's filter — the hub's fleet

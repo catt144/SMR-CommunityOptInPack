@@ -116,9 +116,14 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
 7. **UI in its own section on the station card** — ⚖️ owner, 2026-09-26, in the sitting, reversing the
    in-row placement (spec §4.7 holds the ruling and the owner's words). Vanilla's resource rows are
    left untouched. One import/export section attached to `ipBuilding`, with its own Basic · Advanced ·
-   Delicacies · Other tabs; each row carries the resource, the two toggles, the slider **with its
-   value shown**, and `stored/max`. Help is a **"?" on the section header, on hover only** — no
-   standing popup over controls. An uncovered station shows its no-drones line at the top of the
+   Delicacies · Other tabs. ⚖️ **It must look native** (owner, later the same sitting; spec §4.7
+   holds the words): each resource is **one vanilla three-state cycle row modelled on the dome's
+   births toggle** (`sectionDome.lua`) — one click cycles Balanced → Export → Import, changing the
+   hex frame, glyph, title text and rollover — with vanilla's `InfopanelSlider` at full width and the
+   value plus `stored/max` in the right title. Native parts only: no hand-built text, checkboxes or
+   buttons, no custom colours or fonts. Help is the **game's own `?` icon**
+   (`UI/InfopanelRemaster/encyclopedia.png`) at the **right-hand end of the section header**, on
+   hover only — no standing popup over controls. An uncovered station shows its no-drones line at the top of the
    section. The hub's card gets nothing. Infopanel XTemplates are UI data; nothing of ours persists
    there. The pass-2 row controls come out.
 8. **Survives §4.5's six rewrite paths and §4.6's alias trap**, including the network-wide capacity
