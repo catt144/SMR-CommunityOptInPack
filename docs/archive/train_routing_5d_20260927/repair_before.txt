@@ -1,0 +1,40 @@
+command: C:\Python313\python.exe tools/devmods/train_hub/tests/distribution_departure_smoke.py
+HEAD: cad784f6414c48151a08f487784ba8d41d6634e1
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 26a647727c39b737e3360e37dfacfde44c0561f06297a5548173c93d91079497
+TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+archived LoadTrain + ForEachStationAlongTrack; nil length=0; engine assert observed; waits/movement doubled
+LOAD Butter parent=nil colony_routes=nil
+Traceback (most recent call last):
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_departure_smoke.py", line 130, in <module>
+    main()
+    ~~~~^^
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_departure_smoke.py", line 34, in main
+        lua.execute(r'''
+        ~~~~~~~~~~~^^^^^
+    local D=SMROptInTrainDistribution
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<89 lines>...
+    print('PASS empty chain at load: native commands fetch Metals and return old Butter via intermediate; both pins 10; claims released')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "lupa/lua55.pyx", line 466, in lupa.lua55.LuaRuntime.execute
+  File "lupa/lua55.pyx", line 1897, in lupa.lua55.run_lua
+  File "lupa/lua55.pyx", line 1911, in lupa.lua55.call_lua
+  File "lupa/lua55.pyx", line 1938, in lupa.lua55.execute_lua_call
+  File "lupa/lua55.pyx", line 1819, in lupa.lua55.raise_lua_error
+lupa.lua55.LuaError: [string "<python>"]:40: Butter: watchdog: three LoadTrain calls at one station without departure; command=GotoStation calls=3 engine_assertions=3
+stack traceback:
+	[string "<python>"]:58: in main chunk
+	[string "<python>"]:40: in local 'depart'
+	[C]: in global 'error'
+
+EXIT: 1

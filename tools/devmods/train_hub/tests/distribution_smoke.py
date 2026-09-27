@@ -126,7 +126,9 @@ function fixture(stock,hubstock,cap,hubcap)
     local track={members={s,h},trains={}}
     function track:GetDestStation(st) return st==s and h or s end
     local city={train_track_routes={[track]=track.members},labels={Station=track.members}}
-    s.city=city;h.city=city;h.nodes={[s]=true,[h]=true};UIColony=city
+    s.city=city;h.city=city;h.nodes={[s]=true,[h]=true}
+    -- Colony holds aggregate labels; routes belong to the map's City.
+    UIColony={labels=city.labels}
     local t=setmetatable({current_station=s,track=track,city=city,
         stockpiled_amount={},assigned_resources={},units={},is_stopping=false}, {__index=Train})
     function t:GetEmptyStorage() local n=0 for _,v in pairs(self.stockpiled_amount) do n=n+v end return 1000000-n end

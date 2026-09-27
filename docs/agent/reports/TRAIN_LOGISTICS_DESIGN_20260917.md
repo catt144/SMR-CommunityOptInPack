@@ -626,6 +626,11 @@ trains flipping rapidly between Idle and "Loading cargo for Train Hub", with old
 0 `LUA ERROR`. The pass-4 sitting on the same save moved stock, so this is a 5d regression; relayed to
 brief 10 as a decision loop to reproduce at the desk.
 
+**5d departure repair, desk only:** `TRAIN_ROUTING_5D_20260927.md` §"First sitting
+failure and departure repair" records the separate City/Colony reproduction,
+retained-cargo departure watchdog, repair receipts and replacement sitting
+predictions. The repaired build still needs the orchestrator's live result.
+
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in

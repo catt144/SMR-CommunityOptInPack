@@ -76,8 +76,10 @@ function D.Refresh()
 	end
 	-- One hop is one train line. A breadth-first tree gives every station one
 	-- upstream stop; ties use station handle order. Nothing persists.
-	local routes = colony and colony.train_track_routes or empty_table
 	for _, hub in ipairs(hubs) do
+		-- Routes are map-local City state, not Colony state (archived
+		-- 1.1.1.405907 City.lua:33, TrainTransport.lua:305-308).
+		local routes = hub.city and hub.city.train_track_routes or empty_table
 		local distance, queue = { [hub] = 0 }, { hub }
 		local cursor = 1
 		while queue[cursor] do
@@ -478,22 +480,46 @@ local function train_view(train, track)
 		end
 	end
 	if not next(answers) then return end
-	return answers, claims
+	-- Allocation hides destination stock, so vanilla cannot also use that
+	-- view to discover an empty pickup trip. Retained old cargo likewise
+	-- produces has_work without next_stop when no new load is possible.
+	-- Use LoadTrain's existing should-move input to make the native walk pick
+	-- a stop for these trips (1.1.1.405907 Train.lua:250-264,914-918).
+	local depart = false
+	for dest in pairs(can_receive) do
+		if dest ~= st then
+			for _, res in ipairs(st.storable_resources or empty_table) do
+				if ready(dest, res) then
+					if (train.stockpiled_amount[res] or 0) > 0 then depart = true end
+					if upstream and dest == parents[st] and branch_need(st, res) > 0 then
+						local entry = effective(dest, res, hub)
+						local floor = entry and amount(dest, res, entry) or 0
+						if dest.supply[res]:GetTargetAmount() > floor
+							or (ready(hub, res) and hub.supply[res]:GetTargetAmount() > 0) then depart = true end
+					elseif not upstream and parents[dest] == st and branch_need(dest, res) < 0 then
+						depart = true
+					end
+				end
+			end
+		end
+	end
+	return answers, claims, depart
 end
 
 local transfer = Train.TransferCargo
-function Train:TransferCargo(...)
-	if saving or view then return transfer(self, ...) end
+function Train:TransferCargo(next_track, train_inbound, ...)
+	if saving or view then return transfer(self, next_track, train_inbound, ...) end
 	local st = self.current_station
-	if not IsValid(st) or not (is_hub(st) or D.HubFor(st)) then return transfer(self, ...) end
+	if not IsValid(st) or not (is_hub(st) or D.HubFor(st)) then return transfer(self, next_track, train_inbound, ...) end
 	-- Include this train's own delivery before computing floors and orders.
 	self:UnloadAll()
 	if is_hub(st) then Floor.Reconcile(st) end
-	local answers, claims = train_view(self, select(1, ...) or self.track)
-	if not answers then return transfer(self, ...) end
+	local answers, claims, depart = train_view(self, next_track or self.track)
+	if not answers then return transfer(self, next_track, train_inbound, ...) end
 	D.calls = D.calls + 1
 	calls_by_station[st] = D.CallsFor(st) + 1
-	return with_view(answers, claims, transfer, self, ...)
+	return with_view(answers, claims, transfer, self, next_track,
+		train_inbound or (depart and not self.is_stopping), ...)
 end
 
 function D.HasDroneCoverage(st)
