@@ -58,3 +58,9 @@ Mars.exe-20260927-18.03.22-6aad2d75.log  16764 B  319 lines
   A short launch that the owner quit before loading a save (Ctrl-Shift-F11 console, then exit).
 The following log (18.04.23, the Balanced leg and slot 4 on every station) is still open and
 is added below when the game exits.
+Mars.exe-20260927-18.04.23-6aad2d75.log  67649 B  726 lines  (closed after the owner exited)
+  sha256 7f2b84a31d97f9d8fdf03e4cbd618137a4dafbadd443aaa8f0279a68d62a775a
+  Loaded build6_capacity_covered_pass3; Balanced 20% on 2007 (covered): 0 -> 16159 over ~3 sols,
+  moving up and down with the depot drawing. Slot 4 on every station at t=21860725: untouched
+  2008/2011/2012/6243/1994 mode=vanilla holding 40000-49000; hub 177000/480000; 2009 Balanced 4%
+  holding 80000; D.CallsFor 0 everywhere but 2007 (37) and the hub (41). grep -c 'LUA ERROR' = 0.
