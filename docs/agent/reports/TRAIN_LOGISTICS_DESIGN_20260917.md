@@ -475,6 +475,15 @@ and provides independent tabs, slider amounts/percentages, stored/max, top cover
 note and header-only hover help. Native rendering and help dismissal are still untested.
 Capacity-120 export/floor-return and sitting-callback cases pass on the desk.
 
+**Second sitting stopped at step 1; no mode test ran.** In
+`docs/archive/train_distribution_20260926/ui_load_order/Mars.exe-20260926-20.43.45-6aad2d75.log`,
+line 141 shows core load, but there is no section-load marker or Lua error.
+The file-level XDef-class guard returned before registering the UI callback.
+The follow-up moves that check into runtime attachment and logs failures once.
+Its desk harness now loads mod code before defining XDefs, then opens the card;
+it reproduces the old failure and passes the repair, including retry after a
+missing class and suppression of repeated diagnostics. Live appearance is still owed.
+
 The build, rung table, exact hub-header line owed, command receipts and next sitting
 predictions are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`. **The orchestrator runs the
 next sitting from `build6_capacity`, hub standing and capacity upgrade on: uncovered

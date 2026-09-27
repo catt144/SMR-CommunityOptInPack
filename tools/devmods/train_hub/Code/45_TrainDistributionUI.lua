@@ -6,9 +6,14 @@
 -- Lua/XDef/InfopanelSection.generated.lua, InfopanelSlider.generated.lua.
 local D = rawget(_G, "SMROptInTrainDistribution")
 if not D or not D.active then return end
-if not InfopanelSection or type(InfopanelSection.new) ~= "function" then
-	D.ui_error = "InfopanelSection unavailable"
-	return
+
+local reported = {}
+local function ui_failure(reason)
+	D.ui_error = reason
+	if not reported[reason] then
+		reported[reason] = true
+		print("[TrainDistribution] " .. reason)
+	end
 end
 
 local tabs = {
@@ -175,12 +180,18 @@ function D.AttachStationSection(dlg)
 	if not dlg or dlg.window_state == "destroying" or not IsKindOf(dlg, "ipBuilding") then return end
 	local st = ResolvePropObj(dlg.context)
 	if not IsValid(st) or not IsKindOf(st, "Station") or IsKindOf(st, "SMROptInTrainHubBase") then return end
-	local host = named_child(dlg, "idContent")
-	if not host then
-		D.ui_error = "station ipBuilding has no contained idContent"
-		print("[TrainDistribution] " .. D.ui_error)
+	-- XDef classes are built after mod code loads. Register the callback at load;
+	-- check the class only when a station card actually opens, and allow a retry.
+	if not InfopanelSection or type(InfopanelSection.new) ~= "function" then
+		ui_failure("InfopanelSection unavailable")
 		return
 	end
+	local host = named_child(dlg, "idContent")
+	if not host then
+		ui_failure("station ipBuilding has no contained idContent")
+		return
+	end
+	D.ui_error = nil
 	local existing = named_child(host, "idTrainDistribution")
 	if existing then return existing end
 	local section = InfopanelSection:new({ Id = "idTrainDistribution", IdNode = true,

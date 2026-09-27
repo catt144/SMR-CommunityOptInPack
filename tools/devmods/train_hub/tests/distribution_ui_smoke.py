@@ -78,11 +78,24 @@ XWindow=class('XWindow');XText=class('XText');XCheckButton=class('XCheckButton')
 XTextButton=class('XTextButton');XScrollArea=class('XScrollArea');XSleekScroll=class('XSleekScroll')
 XSection={OnShortcut=function() end}
 function XScrollArea:ScrollTo(x,y) self.scroll_x=x;self.scroll_y=y end
-InfopanelSlider=class('InfopanelSlider');InfopanelSection=class('InfopanelSection')
-function InfopanelSlider:ScrollTo(v) self:SetScroll(v);self:UpdateProgress() end
-function InfopanelSlider:OnShortcut() end
 native_row_update=function(self) self.native_updates=(self.native_updates or 0)+1 end
-sectionStorageRow={OnContextUpdate=native_row_update}
+function build_xdef_classes()
+    InfopanelSlider=class('InfopanelSlider');InfopanelSection=class('InfopanelSection')
+    function InfopanelSlider:ScrollTo(v) self:SetScroll(v);self:UpdateProgress() end
+    function InfopanelSlider:OnShortcut() end
+    sectionStorageRow={OnContextUpdate=native_row_update}
+end
+local native_print=print
+local ui_messages={}
+print=function(message,...)
+    ui_messages[#ui_messages+1]=tostring(message)
+    return native_print(message,...)
+end
+function message_count(message)
+    local n=0
+    for _,text in ipairs(ui_messages) do if text==message then n=n+1 end end
+    return n
+end
 function dialog(st)
     local dlg=XWindow:new({class='ipBuilding',IdNode=true},nil,{object=st})
     local host=XWindow:new({Id='idContent'},dlg)
@@ -102,11 +115,16 @@ function add_resource(st,res,group,hidden)
 end
 ''')
     path = MOD/'Code/45_TrainDistributionUI.lua'
+    lua.execute('assert(InfopanelSection==nil and InfopanelSlider==nil and sectionStorageRow==nil)')
     lua.execute(path.read_text(encoding='utf8'))
     print(path.name, 'sha256:', hashlib.sha256(path.read_bytes()).hexdigest(), flush=True)
     lua.execute(r'''
 local D=SMROptInTrainDistribution
+assert(type(D.AttachStationSection)=='function' and type(OnMsg.DialogOpen)=='function',
+    'UI module must register before XDef classes exist')
 assert(not D.ui_error)
+assert(message_count('[TrainDistribution] station import/export section loaded')==1)
+build_xdef_classes() -- The engine builds XDefs after mod code, before the station card opens.
 local t,s,h=fixture(60,0,60,240)
 add_resource(s,'Metals','BasicResources')
 add_resource(s,'Food','BasicResources')
@@ -195,9 +213,22 @@ h.nodes={[h]=true};D.Refresh();p:OnContextUpdate(p.context);assert(not p.visible
 h.nodes[s]=true;D.Refresh();p:OnContextUpdate(p.context);assert(p.visible)
 local bad=XWindow:new({class='ipBuilding',idContent=host},nil,{object=s})
 assert(not D.AttachStationSection(bad) and D.ui_error:find('contained idContent',1,true))
-D.ui_error=nil
+assert(not D.AttachStationSection(bad))
+assert(message_count('[TrainDistribution] station ipBuilding has no contained idContent')==1)
+assert(D.AttachStationSection(dlg)==p and not D.ui_error)
+local available=InfopanelSection
+local late=dialog(s)
+InfopanelSection=nil
+OnMsg.DialogOpen(late);OnMsg.DialogOpen(late)
+assert(not late:ResolveId('idTrainDistribution') and D.ui_error=='InfopanelSection unavailable')
+InfopanelSection={new=false};OnMsg.DialogOpen(late)
+assert(message_count('[TrainDistribution] InfopanelSection unavailable')==1)
+InfopanelSection=available
+OnMsg.DialogOpen(late)
+assert(late:ResolveId('idTrainDistribution') and not D.ui_error)
 assert(not D.error and not SMROptInTrainFloor.stats.last_error)
 print('PASS live resource unlock, disconnected/reconnected section, hub/non-station exclusion, foreign-host rejection; no saved UI state')
+print('PASS mod loads before XDefs; runtime missing-class/host failures print once each; attachment recovers when the class is available')
 ''')
     print('NOT TESTED: native rendering, mouse hit boxes, hover dismissal, scrolling and gamepad focus', flush=True)
 

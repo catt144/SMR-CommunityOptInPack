@@ -1,0 +1,39 @@
+HEAD: 969c7c3dd96b54137728dbc656ad418f5143407c (working diff: load-order regression only)
+command: C:\Python313\python.exe tools/devmods/train_hub/tests/distribution_ui_smoke.py
+command: C:\Python313\python.exe tools/devmods/train_hub/tests/distribution_ui_smoke.py
+HEAD: 969c7c3dd96b54137728dbc656ad418f5143407c
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 7b1c371a31bfccd1f380681cdb2ff0bcfcdafa28c7658cd5cb02e052934b05b3
+source: Resources.lua sha256: 7506bc19fbe6046f5b94edce4c12025251baa59ddeeb2e637e5678d7e474faff
+45_TrainDistributionUI.lua sha256: ed4d3ab2121f3e0c3508d139e0e6a68659ca37f845d0006ea931b6fc8fb941e4
+Traceback (most recent call last):
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_ui_smoke.py", line 237, in <module>
+    main()
+    ~~~~^^
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_ui_smoke.py", line 121, in main
+        lua.execute(r'''
+        ~~~~~~~~~~~^^^^^
+    local D=SMROptInTrainDistribution
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<108 lines>...
+    print('PASS mod loads before XDefs; runtime missing-class/host failures print once each; attachment recovers when the class is available')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "lupa/lua55.pyx", line 466, in lupa.lua55.LuaRuntime.execute
+  File "lupa/lua55.pyx", line 1897, in lupa.lua55.run_lua
+  File "lupa/lua55.pyx", line 1911, in lupa.lua55.call_lua
+  File "lupa/lua55.pyx", line 1938, in lupa.lua55.execute_lua_call
+  File "lupa/lua55.pyx", line 1819, in lupa.lua55.raise_lua_error
+lupa.lua55.LuaError: [string "<python>"]:3: UI module must register before XDef classes exist
+stack traceback:
+	[string "<python>"]:3: in main chunk
+	[C]: in global 'assert'
+
+exit: 1

@@ -4,19 +4,22 @@ Authority: `prompts/Train_Hub_Project/09_TRAIN_HUB_DISTRIBUTION_high.md`, pass 2
 spec §4.8's owner delegation (`e1daef6`), §4.7's UI ruling (`94bb535`),
 and the owner's orchestrator relay of 2026-09-26. Pass 2 landed in `c90a670`;
 this desk repair starts after the pull to `813b0ea`. The nil-cargo fix is
-`0a41767`; the section UI and updated predictions are this commit's diff.
+`0a41767`; the section UI is `969c7c3`. This follow-up moves its XDef check to
+runtime after the second sitting's load-order failure.
 Executed model: GPT-6 as exposed by session instructions; no more specific model
 identifier was exposed in the transcript. No subagents.
 
 **Desk repair complete; hand back to the orchestrator. Export to the floor has
-NOT RUN live.** The first sitting exposed the crash below and rejected the row UI.
+NOT RUN live.** The first sitting exposed the crash below and rejected the row UI;
+the second stopped at step 1 because the section never registered. Neither sitting
+ran the floor test. The late-class guard now passes the corrected desk harness.
 The next sitting starts from the owner's `build6_capacity` save, hub standing and
 capacity upgrade on, with uncovered-spoke export as its headline. Native section
 appearance, mode acceptance and save/load remain owed; this is not a ship test.
 
 ## First sitting and crash repair
 
-The single existing log is
+The first sitting's log is
 [`Mars.exe-20260926-19.29.34-6aad2d75.log`](../../archive/train_hub_capacity_20260926/Mars.exe-20260926-19.29.34-6aad2d75.log).
 Its receipt is beside it; no duplicate was archived. Line 818 is the
 `assigned_resources` nil error at `40_TrainDistribution.lua:271`, reached through
@@ -35,6 +38,24 @@ reproduces the exact failure before the guard, then drains capacity 120 to the 2
 floor of 24 and holds it on return after the guard. Native code creates the map;
 claims release. Before/after receipts: `repair/crash_regression_before.txt` and
 `repair/crash_fix_suite.txt` under `docs/archive/train_distribution_20260926/`.
+
+## Second sitting — section load order, no mode test ran
+
+The owner stopped at step 1. The closed-process log is archived once at
+[`ui_load_order/Mars.exe-20260926-20.43.45-6aad2d75.log`](../../archive/train_distribution_20260926/ui_load_order/Mars.exe-20260926-20.43.45-6aad2d75.log),
+with its byte/hash/filter receipt beside it. Line 141 reports the distribution core
+loaded; the section-loaded marker is absent, with no Lua error. The file-level
+`InfopanelSection` guard silently returned before registering `DialogOpen` because
+XDef classes are not built at mod-code load. The earlier harness created them too early.
+
+**MEASURED, desk:** the corrected harness loads the UI file without its XDef classes,
+then defines them before opening the station card. It fails against `969c7c3` and
+passes with the check inside `D.AttachStationSection`. Missing class/constructor
+or contained host now prints once per reason per module load; retry succeeds after
+the class becomes available and clears `D.ui_error`. The startup marker confirms
+callback registration, not native rendering. Before/after outputs are
+`ui_load_order/regression_before.txt` and `ui_load_order/final_suite.txt` under
+`docs/archive/train_distribution_20260926/`. The same sitting plan below stands.
 
 ## Result and mechanism
 
@@ -109,10 +130,11 @@ doubles and a simulated message are not proof of native save serialization.
 ## Verification and scope
 
 Current commands, HEAD, hashes and captured output:
-[`repair/final_suite.txt`](../../archive/train_distribution_20260926/repair/final_suite.txt).
+[`ui_load_order/final_suite.txt`](../../archive/train_distribution_20260926/ui_load_order/final_suite.txt).
 The explicit `tests/*smoke.py` list (including UI and sitting callbacks), dev parsecheck
 and wrap-target check reconcile to **13 passes, 1 failure, 14 commands**. The full
-suite also ran immediately after the crash fix. `repair/scope_receipt.txt` checks
+suite also ran immediately after the crash fix and after the section rewrite.
+`repair/scope_receipt.txt` checks
 fenced paths and unchanged capacity bindings. Historical pass-2 measurements remain
 in `docs/archive/train_distribution_20260926/pass2/`.
 
@@ -141,7 +163,7 @@ TestKit bindings are local at `bf75983` (on `a8352dc`), with no remote. Slot 5 n
 requires a new **spoke** transfer call for export; a hub-only call cannot pass a
 floor recheck. The desk case exercises that rejection and the subsequent spoke
 visit. Scratch and capacity slots 1–3 are unchanged. Current fingerprint and
-pre-sitting checks are in `repair/prelaunch_gates.txt`; read them for the installed
+pre-sitting checks are in `ui_load_order/prelaunch_gates.txt`; read them for the installed
 build rather than carrying forward an old fingerprint. Existing doccheck warnings:
 
 ```text

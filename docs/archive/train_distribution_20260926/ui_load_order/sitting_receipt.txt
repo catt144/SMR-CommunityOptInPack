@@ -1,0 +1,11 @@
+HEAD: 969c7c3dd96b54137728dbc656ad418f5143407c
+Source: C:\Users\stkot\AppData\Roaming\Surviving Mars Relaunched\logs\Mars.exe-20260926-20.43.45-6aad2d75.log
+Command: read_bytes; exclusive destination write; byte comparison; sha256; splitlines; filter [TrainDistribution] and [LUA ERROR]
+Closed process: tasklist /FI "IMAGENAME eq Mars.exe" returned no matching tasks before copy.
+Bytes: 16946
+Lines: 308
+SHA256: 1c57b8d8679c10b2b849769a8f91610ae5c9678dd6a6fe0602388501abffd509
+TrainDistribution matches: 1 (line 141: core loaded)
+Section-loaded matches: 0
+LUA ERROR matches: 0
+Second sitting stopped at step 1 per owner relay; no mode/floor test ran.
