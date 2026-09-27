@@ -613,7 +613,7 @@ the orchestrator; 5d forwarding is still outside this build.
 ✅ **MEASURED LIVE 2026-09-27, fourth sitting** (`182d8f3`, `build6_capacity_covered_pass3`,
 orchestrator-attended): untouched 1994 went from 0 to **10.000** (`configured=false mode=balanced
 target=10000`, 66 train calls) and untouched 2008 held **10.000** (25 calls); the hub rose 220 → 241.
-Zero `LUA ERROR` in 549 lines. Brief 09 is finished and deleted; chained stations go to brief 10 (5d).
+Zero `LUA ERROR` in the closed 566-line log. Brief 09 is finished and deleted; chained stations go to brief 10 (5d).
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
