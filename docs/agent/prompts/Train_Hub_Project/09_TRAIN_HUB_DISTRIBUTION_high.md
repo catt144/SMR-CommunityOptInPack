@@ -123,7 +123,8 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
    value plus `stored/max` in the right title. Native parts only: no hand-built text, checkboxes or
    buttons, no custom colours or fonts. Help is the **game's own `?` icon**
    (`UI/InfopanelRemaster/encyclopedia.png`) at the **right-hand end of the section header**, on
-   hover only — no standing popup over controls. An uncovered station shows its no-drones line at the top of the
+   hover only — no standing popup over controls. If per-state title text proves impossible, the
+   owner's fallback is custom `IM` / `EX` / `BAL` icons with a key on each tab (spec §4.7). An uncovered station shows its no-drones line at the top of the
    section. The hub's card gets nothing. Infopanel XTemplates are UI data; nothing of ours persists
    there. The pass-2 row controls come out.
 8. **Survives §4.5's six rewrite paths and §4.6's alias trap**, including the network-wide capacity

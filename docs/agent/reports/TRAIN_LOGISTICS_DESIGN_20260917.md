@@ -249,6 +249,10 @@ the three states and full manual control stand; the widget changes:
   vanilla's neutral `ip_sections_base` frame, Import green (`ip_sections_on`), Export yellow
   (`ip_sections_limit`), red kept out because vanilla reads it as forbidden; Ctrl + click applies to
   every station, vanilla's broadcast convention.
+- **The owner's fallback, only if per-state title text proves impossible:** custom `IM` / `EX` /
+  `BAL` icons, with a key line on each tab (*"IM = Import BAL = Balanced EX = Export"*). Not
+  expected — vanilla's births row changes its title per state with `SetTitle` — and custom icons
+  add asset files, which OI-18's ship-size question still governs.
 - **The slider is vanilla's `InfopanelSlider`** at full width, its value carried in the row's right
   title the way a vanilla slider section carries it (`Data/XDef/customSubsurfaceHeater.lua`,
   `TitleRight`), alongside `stored/max`.
