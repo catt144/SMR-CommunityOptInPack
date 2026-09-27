@@ -10,6 +10,7 @@
 --   SMROptInTrainHub6Base    the six's object_class, and a city label
 --   SMROptInTrainHub4 / SMROptInTrainHub4Base   RESERVED for the four; not built
 --   SMROptIn_floor_hold      field on hub objects (10_TrainFloor.lua)
+--   SMROptIn_distribution   per-station/resource mode + percent on hubs (40_TrainDistribution.lua)
 --   SMROptIn_track_work      field on hub objects: the track-repair toggle and the
 --       pending list (build 4; the TRACK WORK section below is its record)
 --   "SMROptInTrainHub6Base:SMROptInTrainHub6"   the object's persist key: the

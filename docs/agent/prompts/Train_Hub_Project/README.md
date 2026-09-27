@@ -6,8 +6,8 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **`09` is the one live build brief**, sent back
-after its first attended sitting (2026-09-26) for a crash fix and the owner's UI ruling. `08`, the
+`00` is live; `03_Drones/` is closed reference. **`09` is the one live build brief**, rewritten
+for a fresh session as pass 3 (2026-09-27): the covered-station fix. `08`, the
 Capacity Network Upgrade, is built, smoked and deleted (2026-09-26); `20_TrainHub.lua` is free, and
 only one brief that edits it runs at a time. `09` owns `10_TrainFloor.lua` and the distribution files.
 
@@ -17,7 +17,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
-| `09_TRAIN_HUB_DISTRIBUTION_high.md` | The distribution centre, spec §4.8: per-resource import/export/balanced on every station with the hub as sink, state on the hub, controls on vanilla's own resource rows (spec §4.7). Owns `10_TrainFloor.lua`, `40_TrainDistribution.lua` and `45_TrainDistributionUI.lua`. | **LIVE, pass 2 back for the UI rework** (2026-09-26): four-state cycle and slider on vanilla's rows (spec §4.7); the floor test has not run |
+| `09_TRAIN_HUB_DISTRIBUTION_high.md` | The distribution centre, spec §4.8: per-resource import/export/balanced on every station with the hub as sink, state on the hub, controls on vanilla's own resource rows (spec §4.7). Owns `10_TrainFloor.lua`, `40_TrainDistribution.lua` and `45_TrainDistributionUI.lua`. | **LIVE, pass 3** (2026-09-27): every mode passed live on uncovered stations; fix the covered-station divide by zero at vanilla `Train.lua:946`, then predictions for the covered drain/fill leg |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

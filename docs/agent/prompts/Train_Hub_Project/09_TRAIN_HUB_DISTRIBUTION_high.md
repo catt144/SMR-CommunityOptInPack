@@ -1,207 +1,110 @@
-# The distribution centre — second pass
+# The distribution centre — pass 3: the covered-station fix
 
-**LIVE: pass 2** (2026-09-26). Pass 1 is `5afdbe6`, its receipt
-`reports/TRAIN_DISTRIBUTION_BUILD_20260926.md`. It reached the brief's first stop correctly: with
-the claim mechanism as specified, a floor of 20 left 60 or 36 depending on the sink, and returning
-trains took no more. The feature is unbuilt. This pass starts from that stop, from the orchestrator's
-source reads below, and from two owner rulings taken today. Read spec §4.1 through §4.9 of
-`docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` before the first write; §4.8 carries every
-ruling and is what this brief obeys.
-
-⚠️ **A parallel brief is live.** `08_TRAIN_HUB_CAPACITY_high.md` owns `20_TrainHub.lua` and the
-building template; its desk half is committed (`c6108c9`, `daef3ec`) and its attended smoke waits on
-the owner. You must not edit `20_TrainHub.lua` — not one line. The Scope section is a hard fence.
-"Keeping off the hub file" says how you hold hub state anyway.
+**LIVE: pass 3** (2026-09-27), for a fresh session. Passes 1 and 2 built the feature. The dev mod
+is `tools/devmods/train_hub/`, and your files are `Code/40_TrainDistribution.lua`,
+`Code/45_TrainDistributionUI.lua` and `Code/10_TrainFloor.lua`. The owner's live sittings of
+2026-09-27 passed every mode on uncovered stations. They also turned up one fault, which this pass
+fixes: **a station inside a drone hub's range throws a division by zero in vanilla's train loading
+code**. Read spec §4.7 and §4.8 of `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` (every
+ruling, the save-boundary ladder, both sittings' results) and
+`docs/agent/reports/TRAIN_DISTRIBUTION_PASS2_20260926.md` (the mechanism, the rung table, the desk
+suite) before the first write.
 
 ## Authority
 
-- ⚖️ **Owner, 2026-09-24 and 2026-09-26, the whole of §4.8.** Per-resource, never per-station. The
-  hub is the sink and the source. State on the hub, controls in each station's own resource row: two
-  checkboxes and a slider, neither checked is balanced, import and export mutually exclusive. No
-  presets, no "suggest", no overview. A full hub refuses. An uncovered spoke gets the train half only
-  and its row says so; link 4's maintenance-only filter stays shut.
-- ⚖️ **Owner, 2026-09-26: the save boundary may be crossed for this feature, minimally** (§4.8
-  "Owner ruling, 2026-09-26: the save boundary"). *"this peice we are working on is a corner stone
-  for the mod, its the single most requested thing the community wants … if we hit a wall where to
-  achieve our goals we have to contaminate saves we will. The goal then becomes contaminate minimally
-  to achieve our goal"*. You no longer stop to offer a crossing. You take the **lowest rung of §4.8's
-  ladder that achieves the goal**, and your report says which rung each part reached and what
-  measurement showed the rung below could not do it. Rung 4 or 5 also goes in the module description.
-- ⚖️ **OI-31 is retired by delegation, not by a yes.** The owner's direction is the most control for
-  the least contamination. Within that, **the route is yours**, in this order of preference, and you
-  do not come back between steps: (1) transient lies told to vanilla's own arithmetic inside the
-  `TransferCargo` call we already wrap; (2) an amount-only allocation that hands its number to
-  vanilla's own `Train:LoadResourceForStation`, so every saved byte is vanilla-written (rung 1). A
-  copied `TransferCargo` body is still a stop.
+- ⚖️ **Spec §4.8 in full (owner, 2026-09-24/26).** Per-resource modes with the hub as sink and
+  source, state on the hub, a full hub refuses, and an uncovered spoke gets the train half only. The
+  save boundary may be crossed **minimally**, at the lowest rung of §4.8's ladder that works. The
+  current build sits at rung 2 with one persisted name, `SMROptIn_distribution`, and this pass adds
+  no new one.
+- ⚖️ **Spec §4.7, the UI (owner, 2026-09-26/27), is built and accepted by eye.** It covers the
+  four-state hex cycle on vanilla's rows, per-state titles, the slider in the row's line, **no drag
+  bubble**, titles that wrap only between words, Ctrl + click copying **state and slider value**
+  without advancing, and the 80% shrink floor. Change the UI only to fix a fault.
 - `FIX_POLICY` §0, §1's technique ranking and §2 (the alias rule, gated by
-  `tools/harvest_wrap_targets.py --check`) apply. Both bans bind. Testing depth: **a smoke test
-  only**; the full battery runs once, on the final build. Method: small and rough, then dial in by eye.
+  `tools/harvest_wrap_targets.py --check`) apply, and both bans bind. Testing depth is **smoke only**.
+  Method: small and rough.
 
-## What the orchestrator read in the source — claims to confirm, not re-derive
+## The fault — orchestrator's reading, a claim to confirm by desk reproduction
 
-All from the archived **1.1.1.405907** tree, `Src/Lua/`. Each is a source read; where it says
-MEASURED it is from pass 1's harness or the owner's 2026-09-25 sitting. Re-derive every line with
-`grep -n` before you cite it.
+Sitting log `docs/archive/train_distribution_20260926/sittings/Mars.exe-20260927-12.55.25-6aad2d75.log`
+(on disk, untracked; its receipt is beside it) holds **20× `[LUA ERROR] Division by zero`**, from its
+line 1762 on. Every one has this stack: vanilla `Lua/Units/Train.lua(946)` ← `TrainTransport.lua(448)
+ForEachStationAlongTrack` ← `Train.lua(913)` ← `10_TrainFloor.lua(92) WithTransientClaims` ←
+`40_TrainDistribution.lua(244)`. Locals: `station` = the hub (`SMROptInTrainHub6`), `res = Metals`,
+`storage = 0`, `available = 53`, `target = nil`. Setup: the owner quick-built a Drone Hub and a
+Metals depot next to spoke 2007 (`covered=true`), and drones moved **fractional** stock (22.6 at the
+spoke, 113.5 at the hub). There were no errors in any uncovered run.
 
-1. **The law behind the stop: retained = slider + vanilla's share.** `Units/Train.lua:929-951`:
-   `needed = MulDivRound(total, my_storage, line_storage)` is the source's capacity-proportional
-   entitlement to the line's stock; `load_amount = Min(target − stored, available − needed)`. A claim
-   shrinks `available` (via `AssignUnit`, engine) and leaves `needed` alone, so the two **stack**. Pass
-   1's rows (100/100 → keeps 60; 100/400 → keeps 36) are `20 + 40` and `20 + 16` exactly. A claim can
-   only ever make a station keep *more* than vanilla would.
-2. **`needed` is computed only for an enabled source.** `Train.lua:929-932`:
-   `if station:IsResourceEnabled(res) and res_data.storage[res] > 0 then needed = …`. `available` is
-   computed whenever the line desires the resource (`:934`), regardless of the source's own state. So a
-   source that *answers* disabled for that one resource, inside that one call, has `needed = 0` and a
-   claim of `floor` retains exactly `floor`. **This is the first thing to test.** Side effect: the
-   source's capacity and dial leave the line totals for that evaluation (`:886-900`), so every other
-   station's share rises — the right direction for an exporter feeding a hub, but measure it.
-3. **Persistent "disabled" is NOT your export mode.** `Buildings/MultiResourceDepot.lua:265-274`:
-   turning a resource off puts `rfSuspended` on the demand request and `rfPostInQueue` on the supply
-   — drones stop delivering and actively carry it away. That is the owner's export table inverted on
-   the drone half. It also flips the train policy to `"send"` (`Buildings/Station.lua:1078-1082`). So
-   the enabled-state lie must be **transient and per resource**, never the saved toggle.
-4. **Import may be share-bounded too.** The fill target is
-   `target = MulDivRound(total, dest_storage, line_storage)`, capped at the destination's max
-   (`Train.lua:943-946`); opening demand raises a different bound (`:949`), not that one. **Unmeasured.**
-   Measure the ceiling before designing import; if it binds, the same family of lies (the destination
-   answering a larger capacity for that call) is the first candidate.
-5. **Everything that decides is Lua; only the ledger is engine.** The arithmetic, the line walk
-   (`TrainTransport.lua:371`), the priority lanes (`Train.lua:729-731`) and the loading loop are
-   script. `AssignUnit` / `UnassignUnit` / `GetTargetAmount` / `GetActualAmount` / `Request_New` have
-   no Lua definition anywhere in `Lua/` or `CommonLua/` and are C++: callable, not changeable. The
-   station's capacity getter is `MultiResourceCubeVisuals:GetMaxStorage` (`:571`), Lua — the §4.6
-   alias-trap class, so any wrap goes on the declaring class. `IsResourceEnabled`'s declaring class
-   is yours to find.
-6. **Share-aware claims are the fallback for the shrink direction:** claim `slider − needed`, computing
-   `needed` with vanilla's own formula over the same walk. Exact above the share, a patch-tracking
-   duty (gate it by source hash), and still walled below the share. Prefer item 2.
-7. **Pass 1's fixture was the worst case, not the owner's game.** Equal-capacity twins make the share
-   half the stock. On the owner's lines the hub (240, 480 after brief 08) dwarfs a 60-cap spoke: the
-   share is about a fifth. **Build the desk fixture in that shape**, and keep the equal-twin case as the
-   adversarial one.
-
-## Keeping off the hub file
-
-The precedent is `SMROptIn_floor_hold`: a field on hub objects owned entirely by `10_TrainFloor.lua`
-(`local FIELD = …`), not declared in the `SMROptInTrainHubBase` class table. Verify with
-`grep -n SMROptIn_floor_hold tools/devmods/train_hub/Code/`, then own your field the same way from
-your own file. One persisted name covers the feature (§4.8, rung 2). The header inventory comment in
-`20_TrainHub.lua` is owed: **report the exact line, do not write it** — the orchestrator lands it
-after brief `08` closes.
-
-## ⚠️ The parallel brief changes your blast radius
-
-§4.5's `OnModifiableValueChanged` → `UpdateRequestCapacity` rewrites every resource's desired amounts
-from the dial on a capacity change. Brief `08`'s upgrade raises `max_storage_per_resource` on **every
-station at once** (spec §4.10), so that rewrite becomes a network-wide event. Store every floor and
-amount relative to the live `GetMaxStorage(res)` (§4.7) and re-apply after each of §4.5's six paths.
-Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness; you do not need
-`08`'s code.
+The reading, against the archived **1.1.1.405907** `Src/Lua/Units/Train.lua` (re-derive with
+`grep -n`):
+- Vanilla builds `res_data` by adding `GetResDesiredAmount(res) / scale` and
+  `GetMaxStorage(res) / scale` for each enabled station on the line (the loop near `:886-900`).
+- `:946` then divides by `res_data.storage[res]` whenever `res_data.desired[res] > 0`.
+- `train_view` in `40_TrainDistribution.lua` answers `{ enabled = order > 0, capacity = order }`,
+  and `Station:GetResDesiredAmount` answers `const.ResourceScale` for any enabled row.
+- The engine uses integer division (EF-116 in `docs/agent/facts/`; lupa does not reproduce it), so
+  an `order` under 1000 adds 0 to storage while desire adds 1, and the loader divides by zero.
+- Confirm or overturn this with a desk case before fixing. Check `Train:UnloadAll`'s answers for the
+  same shape.
 
 ## End state
 
-1. **The export floor binds exactly**, at any slider value, on the hub-sized fixture and on the
-   equal-twin one, via the lowest rung that does it (item 2 first). The pass-1 rows reproduce as the
-   control, then the fix makes retained = slider.
-2. **The import ceiling is measured** (item 4) and, if it binds, lifted by the same family; if it does
-   not, say so with the numbers.
-3. **Balanced pins to the number** — vanilla with both sides claimed at the slider.
-4. **A full hub refuses** that resource.
-5. **The drone half is the baseline numbers**, written only through vanilla's own
-   `Station:SetDesiredAmount` path (rung 1) and re-derived from the hub's table on load. OI-29
-   (owner, 2026-09-25: "yes") already admits the baseline into the save; the residual is a station
-   that behaves as last set until the player touches its dial, and the description says so.
-6. **State on the hub**, one persisted name, from your own file.
-7. **UI in vanilla's own resource rows** — ⚖️ owner, 2026-09-26, settled over the sitting; spec §4.7
-   holds the ruling, the owner's words and the Lua hooks. **Retire the separate section** (tabs, `?`,
-   its rows). On each storage row of a station on a hub's network: **one left-click on the hex cycles
-   Balanced → Export → Import → Not accepted (vanilla's red X)**, the hex icon and the title text
-   (e.g. **Metals · Export**) changing per state as the dome's births row does. ⚖️ **Ctrl + click
-   applies the clicked station's current state and slider value to every other station without
-   advancing it** (owner, 2026-09-27; spec §4.7). **A thin vanilla slider on every row**, Balanced included, **inside the
-   row's own line** so the panel gets no taller. ⚖️ **No drag bubble** (owner, 2026-09-27: it drew as
-   an empty box and *"it can go instead of being fixed"*; the row tooltip is the readout), and **a
-   title wraps only between words**, never *Electronics · Balance / d* (spec §4.7). **Prototype a floor on vanilla's panel
-   shrink** (`AdjustConstrainedScale`), for hub-network station panels only, at a starting value the
-   owner judges by eye (spec §4.7 "The panel's size"). Help
-   is the row's own per-mode hover tooltip, which also says when no drones are in range. Native parts
-   only: no hand-built text, checkboxes or buttons, no custom colours or fonts. Stations not on a
-   hub's network keep vanilla's two-state row exactly. If per-state title text proves impossible,
-   the owner's fallback is custom `IM` / `EX` / `BAL` icons with a key (spec §4.7). Infopanel
-   templates are UI data; nothing of ours persists there. The hub's card gets nothing.
-8. **Survives §4.5's six rewrite paths and §4.6's alias trap**, including the network-wide capacity
-   change above; `harvest_wrap_targets.py --check` passes.
-9. **Desk smoke** extending `distribution_smoke.py`: both fixtures; all three modes; the floor
-   binding; the import ceiling; a full hub; each rewrite path; the network-wide doubling; save/load
-   with a lie mid-call (it must not be there at `SaveGameStart`); an uncovered station. Rerun the whole
-   existing suite plus `python tools/parsecheck.py`, preserving every output with its command and HEAD.
-   The existing traffic-smoke failure pass 1 recorded separately stays recorded, not silently fixed.
-10. **The attended smoke with the owner** (below), then a build report, spec §4.8 folded, the session
-    log archived byte-for-byte under `docs/archive/train_distribution_<date>/`, and the rung table:
-    one row per part, its rung, the measurement that closed the rung below. Hand back to the
-    orchestrator.
-
-## The attended smoke, from the owner's seat
-
-Preload every reading into TestKit slots under `tools/SMRTK.md` before launch. **The owner clicks;
-they do not type.** A hand-typed console line or a wait measured in real minutes each needs a stated
-reason no slot can do it. Use the standing `train_hub_base` fixture and do not save over it (spec §10
-"The standing test save"). Read the console yourself from the newest
-`%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-*.log` when the owner says "flushed". After an
-autosave the owner re-presses the armed slot. About **five steps at a time**.
-
-Cover, in this order: the boxes and slider on a covered station; **export draining to the floor and
-stopping there** — the pass-1 failure, now the headline; import filling and holding at the slider; a
-covered station's drone half working both ways; an uncovered station doing the train half only with
-its row saying so; the hub filling and refusing; a save/reload with modes set and a train
-mid-transfer. Ask the owner whether the rows **read** right and whether the modes do what they expect
-by eye.
+1. **A desk reproduction of the fault** with a sub-unit order: it fails before the fix and passes
+   after. The suite's harness must model integer division where the engine does, or the case proves
+   nothing.
+2. **The fix**, so that no answered row can report desire without at least one whole unit of
+   capacity. The approach is your judgement, at the same rung. Exports, imports, Balanced and the
+   full-hub refusal must still measure as before; the existing cases are the control.
+3. **The whole suite rerun** plus `python tools/parsecheck.py` and `harvest_wrap_targets.py
+   --check`, with every output preserved with its command and HEAD. The known `traffic_smoke`
+   failure (`-10800 != 0`) stays recorded, not silently fixed.
+4. **Next-sitting predictions** appended to `TRAIN_DISTRIBUTION_PASS2_20260926.md`, for the
+   **covered drain/fill leg**, the one leg of spec §4.8 not yet witnessed. The build's own tooltip
+   text states what it should show: in Import, local drones may drain the station toward zero; in
+   Export, local drones fill the station and trains take anything above the floor; in Balanced, the
+   slider is the drones' desired amount.
+   - **The fixture:** from `build6_capacity`, which has no drone coverage at any station, the owner
+     quick-builds a Drone Hub and a Metals depot beside a network spoke, then saves it once under a
+     new name. Name that save in the predictions.
+   - **Sitting mechanics:** the orchestrator runs the sitting with the owner and relays results; you
+     do not attend. Preload slots under `tools/SMRTK.md`; slot 4 reads only Metals now. The owner
+     accepts a console line where no slot fits (2026-09-27). The orchestrator's generic read is:
+     `local D,s,r=SMROptInTrainDistribution,SelectedObj,"Metals"; local m,p,c=D.RowState(s,r); print("DISTREAD",s.handle,r,m,p,c,s.supply[r] and s.supply[r]:GetActualAmount(),D.HasDroneCoverage(s))`
+   - **Predictions must include zero `LUA ERROR` lines** across a run of at least one sol at top
+     speed with fractional stock in play.
+5. **Hand back** with the commit and a short relay the orchestrator can read in one pass.
 
 ## Start
 
-`git log`, `git status`, `git pull --ff-only`. Authored on `daef3ec`. An empty
-`git diff --stat daef3ec..HEAD -- tools/devmods/train_hub/Code/10_TrainFloor.lua tools/devmods/train_hub/Code/40_TrainDistribution.lua`
-means the code facts above hold; otherwise re-derive every cited line with `grep -n`. Brief `08`
-commits to this tree at the same time: `git pull --ff-only` before **every** commit, commit with a
-pathspec, and re-read `metadata.lua` immediately before each write to it. Put the work in the todo
-tool before the first write, one item per commit-and-verify unit.
+`git log --oneline -5`, `git status`, `git pull --ff-only`. Authored on `6759fc4`. Put the work in
+the todo tool before the first write, one item per commit-and-verify unit. Commit with a pathspec.
 
 ## Scope
 
-**In:** `Code/40_TrainDistribution.lua`, `Code/10_TrainFloor.lua`, a new UI file of your own naming
-under `Code/`, `tests/distribution_smoke.py` and any test beside it, `metadata.lua`, TestKit slots,
-the sitting, `FIX_POLICY`'s inventory row for your persisted name, spec §4.8, your own report.
+**In:** `Code/40_TrainDistribution.lua`, `Code/45_TrainDistributionUI.lua`, `Code/10_TrainFloor.lua`,
+the distribution tests under `tests/`, TestKit slots, `TRAIN_DISTRIBUTION_PASS2_20260926.md`, and
+spec §4.8's result lines.
 
-**Out:** ⛔ `Code/20_TrainHub.lua`, the building template and `Code/30_TrainHubDrones.lua`. The
-Capacity Network Upgrade itself (brief `08`). Presets, "suggest", any overview. Train construction or
-placement at the hub (§4.9). Routing 5c/5d. The shipping `Code/` tree. `FIX_POLICY` §8's
-both-configuration ship test, owed for the whole hub and not yours to discharge. Report anything
+**Out:** ⛔ `Code/20_TrainHub.lua` and `Code/30_TrainHubDrones.lua`. The header inventory line for
+`SMROptIn_distribution` is already landed. Also out: the Capacity Network Upgrade, train
+construction or placement (§4.9), routing, the shipping `Code/` tree, and `FIX_POLICY` §8's
+both-configuration ship test, which is owed for the whole hub and is not yours. Report anything
 outside this fence without editing it.
 
 ## Stops
 
-- Neither the transient route nor amount-only allocation through vanilla's own loader can make the
-  slider true, and the only thing left is a copied `TransferCargo` body: report the measurements, not
-  the copy.
-- A part needs rung 5 (our own persisted class referenced from a vanilla object): report the part,
-  the rung-4 attempt and its measurement, before writing it.
-- The storage row cannot take the four-state cycle, per-state title or the slider without replacing
-  vanilla's `sectionStorageRow` wholesale: report what was tried, with a screenshot, before
-  replacing it.
+- The fix needs a rung above 2, or a copied vanilla body: report the measurement before writing it.
+- The desk harness cannot reproduce the fault: report what it took to try, and do not ship a guess.
 
 ## Do not claim
 
-- ⛔ Not "the distribution centre works". Claim the modes measured, on the stations tested, in that
-  colony, with the drone coverage each actually had.
-- ⛔ Not "save-safe". Claim the rung each part reached, by the ladder, with the residual named.
-- ⛔ Not that the drone half works on uncovered spokes; by ruling it does nothing there.
-- ⛔ Not a balance result; nothing here is tuned.
-- ⛔ Not that it survives the Capacity Network Upgrade in play; only the harness-driven rewrite. The
-  live pairing is the orchestrator's to schedule once both briefs land.
+- ⛔ Not "the covered case works". Claim the desk reproduction and fix; the live leg is the
+  orchestrator's.
+- ⛔ Not "save-safe". Claim the rung, with the residual named.
 
 ## Lifecycle
 
-Done when the attended smoke is recorded and spec §4.8 carries the result and the rung table. The
-orchestrator then parks or deletes this brief and moves its row in `README.md` in one commit (owner,
-2026-09-21). Build agents do not delete or move their own brief.
+Done when the fix and predictions are committed and handed back. The orchestrator runs the sitting,
+then parks or deletes this brief and moves its row in `README.md` in one commit (owner, 2026-09-21).
+Build agents do not delete or move their own brief.
