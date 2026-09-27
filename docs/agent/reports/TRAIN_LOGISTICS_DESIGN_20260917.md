@@ -232,9 +232,12 @@ moving it"*. Asked, the owner chose a four-state left-click and a slider on ever
   **Metals · Export**), as the births row does. Not accepted is vanilla's own disabled state, reached
   through vanilla's own path. Ctrl + click keeps vanilla's meaning: apply to every station.
 - **A thin vanilla slider on every row**, Balanced included — Balanced keeps its pinned amount
-  (§4.8's table). While the player drags it, **a small bubble in vanilla's tooltip frame shows the
-  number, and fades when they stop.** Nothing else on the row changes; `stored/max` stays where
-  vanilla puts it.
+  (§4.8's table). ⚖️ **No drag bubble** (owner, 2026-09-27, over the first look at `67bbf45`): the
+  bubble rendered as an empty dark box beside the Passengers row, and *"it can go instead of being
+  fixed"* — the row's own tooltip, which already shows the slider's percent and amount, is the
+  readout. Nothing else on the row changes; `stored/max` stays where vanilla puts it.
+- **A title breaks only between words** (same look): *Machine Parts · Balanced* wrapping to two
+  lines reads fine; *Electronics · Balance / d*, broken mid-word, is the defect.
 - **The panel's size.** Owner: *"The ui gets big and smaller as more stuff is there can we manipulate
   that in any way, make sure it doesn't get to small or have it expand out"*. SOURCE: the infopanel's
   content sits in a vanilla `XSizeConstrainedWindow` (`CommonLua/X/XControl.lua`) that scales the

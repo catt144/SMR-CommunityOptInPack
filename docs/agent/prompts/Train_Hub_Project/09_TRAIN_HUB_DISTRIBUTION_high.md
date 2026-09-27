@@ -119,8 +119,9 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
    Balanced → Export → Import → Not accepted (vanilla's red X)**, the hex icon and the title text
    (e.g. **Metals · Export**) changing per state as the dome's births row does; Ctrl + click keeps
    vanilla's apply-to-all. **A thin vanilla slider on every row**, Balanced included, **inside the
-   row's own line** so the panel gets no taller, with **a small number bubble in vanilla's tooltip
-   frame while dragging that fades when the player stops**. **Prototype a floor on vanilla's panel
+   row's own line** so the panel gets no taller. ⚖️ **No drag bubble** (owner, 2026-09-27: it drew as
+   an empty box and *"it can go instead of being fixed"*; the row tooltip is the readout), and **a
+   title wraps only between words**, never *Electronics · Balance / d* (spec §4.7). **Prototype a floor on vanilla's panel
    shrink** (`AdjustConstrainedScale`), for hub-network station panels only, at a starting value the
    owner judges by eye (spec §4.7 "The panel's size"). Help
    is the row's own per-mode hover tooltip, which also says when no drones are in range. Native parts
