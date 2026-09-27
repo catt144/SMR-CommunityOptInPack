@@ -68,8 +68,11 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      upgrade from a station's own storage** (owner's finding; likely vanilla) — fix or describe, not
      yet briefed. **Distribution (spec §4.8) is `09` pass 2, sent back** after its first sitting for
      a new-train crash (`40_TrainDistribution.lua:271`, nil `assigned_resources` before vanilla's
-     first unload) and the owner's UI ruling (`94bb535`: its own station-card section, not vanilla's
-     rows). The floor test never ran. Its save-boundary ruling and six-rung ladder are in spec §4.8
+     first unload), then twice more in the evening sittings: its separate section never loaded
+     (`InfopanelSection` checked at file load, fixed `057320e`), then loaded with invisible text. The
+     owner's UI ruling settled on **vanilla's own resource rows**: a four-state hex cycle (Balanced →
+     Export → Import → Not accepted), per-state title, a thin slider on every row with a fading number
+     bubble, help in the row tooltip (spec §4.7). The floor test has still not run. Its save-boundary ruling and six-rung ladder are in spec §4.8
      and `FIX_POLICY` §0. ⚠️ **The live pairing is still owed:** capacity's rewrite fires on every
      station at once; run the distribution sitting from the owner's `build6_capacity` save, which
      has the hub standing with the upgrade on.

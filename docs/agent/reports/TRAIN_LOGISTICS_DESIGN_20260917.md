@@ -214,58 +214,50 @@ This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
 with an icon button at the left and `stored/max` plus the resource glyph at the right.
 
-⚖️ **Owner, 2026-09-26, in the distribution sitting: the control moves OUT of those rows into its
-own section on the station card.** This reverses the 2026-09-18 "in that row, not a new panel"
-direction. Pass 2 put two labelled checkboxes and a slider in each row: the labels printed over the
-resource names, the slider showed no value, and a permanent explanation popup sat over the buttons
-with no way to dismiss it. The owner: *"could we just make an import export subpanel that just
-controls that and changes the offerin as you cycle basic, adv delicacies"*, then *"We can continue
-and try your recommended. this popout is very ugly as well and no way to dismiss it. That just just be
-a question mark hove on the new card. Not a perma one over the buttons. The slider isn't had but has
-no visual indicator how much its on."* So:
+⚖️ **Owner, 2026-09-26, settled over the distribution sitting: the control lives IN vanilla's own
+resource rows, as a vanilla-feeling cycle, with a thin slider.** The day's route: pass 2's in-row
+checkboxes overlapped the names; a separate section (tabs, `?`) rendered its text invisibly and still
+read as bolted on — *"I want it to feel like the same quality and feel of vanilla It should feel like
+it belongs to the panel not something just thrown together"*. The owner showed the dome's births
+toggle (`Data/XDef/sectionDome.lua`, an `InfopanelActiveSection` whose icon frame, glyph, title and
+rollover change per state on one click), then saw that vanilla's storage row already changes its hex
+on click (crate ↔ red X): *"maybe we don't need the new row then if we can do that then we can just
+change the base ones on top. And if we can have just a small version of the hover box that shows up
+as you scroll the slider that shows the number as you move the slider and disappears when you aren't
+moving it"*. Asked, the owner chose a four-state left-click and a slider on every row. So:
 
-- **Vanilla's resource rows are left untouched.**
-- **One import/export section** attached to the station's `ipBuilding` panel (the TestKit's
-  `section_attach` is the proven pattern), with **its own group tabs** — Basic · Advanced ·
-  Delicacies · Other — rather than following vanilla's expanded group, which can be several or none.
-- Each of its rows: the resource, its mode, the slider **with its value shown**, and the station's
-  `stored/max` repeated so the player need not look back up.
-- **Help is a "?" on the section's own header, shown on hover.** Never a standing popup over controls.
-
-⚖️ **Owner, 2026-09-26, later in the same sitting: it must look native.** On pass 2's section (its
-text rendered invisible, a doubled header icon, plain checkboxes): *"I also still don't like the
-plain white text boxes or the font. I want it to feel like the same quality and feel of vanilla It
-should feel like it belongs to the panel not something just thrown together"*, and *"it doesn't look
-like we are using all the space very well"*. This supersedes the checkbox form of §4.8 ruling 2 —
-the three states and full manual control stand; the widget changes:
-
-- **Each resource is one vanilla three-state cycle row**, modelled on the dome's births toggle
-  (`Data/XDef/sectionDome.lua`, `InfopanelActiveSection`, 1.1.1.405907), which the owner showed:
-  *"rows with the material name and then a icon that changes as you click it and even better if the
-  text could change as you click it so import export and balance mode could all be a single clean
-  click with vanillas flavor"*. One click cycles **Balanced → Export → Import**; each state sets its
-  own hex frame (`SetIconBack`), glyph (`SetIcon`), title text (`SetTitle`) and per-state rollover
-  with the click hint, as the births row does. Proposed for the owner to judge by eye: Balanced on
-  vanilla's neutral `ip_sections_base` frame, Import green (`ip_sections_on`), Export yellow
-  (`ip_sections_limit`), red kept out because vanilla reads it as forbidden; Ctrl + click applies to
-  every station, vanilla's broadcast convention.
+- **No separate section.** The section, its tabs and its `?` are retired.
+- **One left-click on the row's hex cycles four states: Balanced → Export → Import → Not accepted
+  (vanilla's red X) → Balanced.** Each state changes the hex icon and the row's title text (e.g.
+  **Metals · Export**), as the births row does. Not accepted is vanilla's own disabled state, reached
+  through vanilla's own path. Ctrl + click keeps vanilla's meaning: apply to every station.
+- **A thin vanilla slider on every row**, Balanced included — Balanced keeps its pinned amount
+  (§4.8's table). While the player drags it, **a small bubble in vanilla's tooltip frame shows the
+  number, and fades when they stop.** Nothing else on the row changes; `stored/max` stays where
+  vanilla puts it.
+- **The panel's size.** Owner: *"The ui gets big and smaller as more stuff is there can we manipulate
+  that in any way, make sure it doesn't get to small or have it expand out"*. SOURCE: the infopanel's
+  content sits in a vanilla `XSizeConstrainedWindow` (`CommonLua/X/XControl.lua`) that scales the
+  whole panel down to fit the screen, with no scrolling and no real minimum — the template's
+  `AdjustConstrainedScale` (`Data/XDef/Infopanel.lua`) only snaps to a step; the width is fixed at
+  418. So: (1) **the slider sits inside the row's own line**, in the space between the title and
+  `stored/max`, and **our change adds no height** to the panel; (2) **a floor on the shrink** through
+  `AdjustConstrainedScale`, for station panels on a hub's network only, is prototyped at a starting
+  value for the owner to judge by eye — past the floor a very tall panel runs off the screen, since
+  vanilla has no scroll. Every other building's panel stays vanilla.
+- **Help is the row's own hover tooltip**, per mode, with the click hint — vanilla's pattern.
+- **Native parts only:** vanilla icons, frames, text styles and slider; no hand-built text,
+  checkboxes or buttons, no custom colours or fonts. Icon choice per state is the builder's, judged
+  by the owner's eye; red belongs to Not accepted only.
+- **The hooks, all Lua on 1.1.1.405907:** the row asks the station for its icon
+  (`Station:GetResAcceptIcon`, `Buildings/Station.lua:1003`), its tooltip
+  (`Station:ResourceRolloverText`, `:1007`) and its click (`Station:ToggleAcceptResource`, called
+  from `Data/XDef/sectionStorageRow.lua`'s `OnActivate`); the title text and the slider need a patch
+  to the `sectionStorageRow` template (`FIX_POLICY` §1 technique 1). Vanilla's own unfinished cycle
+  for exactly this, `Station:ToggleTransportResource` (§4.2), was never wired to the row.
 - **The owner's fallback, only if per-state title text proves impossible:** custom `IM` / `EX` /
-  `BAL` icons, with a key line on each tab (*"IM = Import BAL = Balanced EX = Export"*). Not
-  expected — vanilla's births row changes its title per state with `SetTitle` — and custom icons
-  add asset files, which OI-18's ship-size question still governs.
-- **The slider is vanilla's `InfopanelSlider`** at full width, its value carried in the row's right
-  title the way a vanilla slider section carries it (`Data/XDef/customSubsurfaceHeater.lua`,
-  `TitleRight`), alongside `stored/max`.
-- **Native parts only:** vanilla sections, text styles, frames and icons. No hand-built text,
-  checkboxes or buttons, and no custom colours or fonts.
-- **The "?" is the game's own question-mark icon**, `UI/InfopanelRemaster/encyclopedia.png` (the
-  panel's bottom-right Encyclopedia button, `Data/XDef/Infopanel.lua`, two frames: normal and
-  hover), at the **right-hand end of the "Import / Export" header row**, showing help on hover and
-  doing nothing on click. Owner: *"on the top row at the other end of the import / export"*,
-  *"like the games question icon"*.
-- The "no drones in range" note for an uncovered spoke is one line at the top of the section.
-- Offered with the recommendation, **not yet ruled**: a "marked only" view listing just the resources
-  with a mode set.
+  `BAL` icons with a key line. Custom icons add asset files, which OI-18's ship-size question still
+  governs.
 
 **Capacity is not fixed.** Expanded Warehousing doubles the per-resource max (60 → 120 on a
 `StationSmall`), and §4.5's upgrade path rewrites every resource's desired amounts when it lands.
@@ -372,13 +364,14 @@ haul in. Nothing is marked for the player; see ruling 2 above.
    auto selected presets, I want to give full control to players everything is check the import box,
    check the export box, or no check and balanced. And the slider"* — so the control is **three
    states and a slider per resource**: Balanced, Export, Import, set by the player alone. Every §4.8
-   interaction idea below is refused; the player does it all by hand. **Where it sits and what it
-   looks like are §4.7's 2026-09-26 rulings:** its own section, and a vanilla three-state cycle row
-   in place of the two checkboxes.
-3. **An uncovered spoke gets the train half only, and its card says so.** A station with no Drone
-   Controller in range keeps working on the train side; the drone half does nothing there and the
-   distribution section shows there are no drones in range. ⛔ This does **not** reopen link 4's filter — the hub's fleet
-   stays maintenance-only for far stations, and is not to serve these modes at distance.
+   interaction idea below is refused; the player does it all by hand. **What it looks like is §4.7's
+   2026-09-26 ruling:** a four-state cycle on vanilla's own resource row, and a thin slider on every
+   row, in place of the two checkboxes.
+3. **An uncovered spoke gets the train half only, and its rows say so.** A station with no Drone
+   Controller in range keeps working on the train side; the drone half does nothing there, and each
+   row's hover tooltip says there are no drones in range, so only trains follow the mode. ⛔ This does
+   **not** reopen link 4's filter — the hub's fleet stays maintenance-only for far stations, and is
+   not to serve these modes at distance.
 
 **Still open**
 

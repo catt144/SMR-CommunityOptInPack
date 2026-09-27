@@ -113,20 +113,21 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
    (owner, 2026-09-25: "yes") already admits the baseline into the save; the residual is a station
    that behaves as last set until the player touches its dial, and the description says so.
 6. **State on the hub**, one persisted name, from your own file.
-7. **UI in its own section on the station card** — ⚖️ owner, 2026-09-26, in the sitting, reversing the
-   in-row placement (spec §4.7 holds the ruling and the owner's words). Vanilla's resource rows are
-   left untouched. One import/export section attached to `ipBuilding`, with its own Basic · Advanced ·
-   Delicacies · Other tabs. ⚖️ **It must look native** (owner, later the same sitting; spec §4.7
-   holds the words): each resource is **one vanilla three-state cycle row modelled on the dome's
-   births toggle** (`sectionDome.lua`) — one click cycles Balanced → Export → Import, changing the
-   hex frame, glyph, title text and rollover — with vanilla's `InfopanelSlider` at full width and the
-   value plus `stored/max` in the right title. Native parts only: no hand-built text, checkboxes or
-   buttons, no custom colours or fonts. Help is the **game's own `?` icon**
-   (`UI/InfopanelRemaster/encyclopedia.png`) at the **right-hand end of the section header**, on
-   hover only — no standing popup over controls. If per-state title text proves impossible, the
-   owner's fallback is custom `IM` / `EX` / `BAL` icons with a key on each tab (spec §4.7). An uncovered station shows its no-drones line at the top of the
-   section. The hub's card gets nothing. Infopanel XTemplates are UI data; nothing of ours persists
-   there. The pass-2 row controls come out.
+7. **UI in vanilla's own resource rows** — ⚖️ owner, 2026-09-26, settled over the sitting; spec §4.7
+   holds the ruling, the owner's words and the Lua hooks. **Retire the separate section** (tabs, `?`,
+   its rows). On each storage row of a station on a hub's network: **one left-click on the hex cycles
+   Balanced → Export → Import → Not accepted (vanilla's red X)**, the hex icon and the title text
+   (e.g. **Metals · Export**) changing per state as the dome's births row does; Ctrl + click keeps
+   vanilla's apply-to-all. **A thin vanilla slider on every row**, Balanced included, **inside the
+   row's own line** so the panel gets no taller, with **a small number bubble in vanilla's tooltip
+   frame while dragging that fades when the player stops**. **Prototype a floor on vanilla's panel
+   shrink** (`AdjustConstrainedScale`), for hub-network station panels only, at a starting value the
+   owner judges by eye (spec §4.7 "The panel's size"). Help
+   is the row's own per-mode hover tooltip, which also says when no drones are in range. Native parts
+   only: no hand-built text, checkboxes or buttons, no custom colours or fonts. Stations not on a
+   hub's network keep vanilla's two-state row exactly. If per-state title text proves impossible,
+   the owner's fallback is custom `IM` / `EX` / `BAL` icons with a key (spec §4.7). Infopanel
+   templates are UI data; nothing of ours persists there. The hub's card gets nothing.
 8. **Survives §4.5's six rewrite paths and §4.6's alias trap**, including the network-wide capacity
    change above; `harvest_wrap_targets.py --check` passes.
 9. **Desk smoke** extending `distribution_smoke.py`: both fixtures; all three modes; the floor
@@ -183,8 +184,9 @@ outside this fence without editing it.
   the copy.
 - A part needs rung 5 (our own persisted class referenced from a vanilla object): report the part,
   the rung-4 attempt and its measurement, before writing it.
-- The section cannot be attached to vanilla stations' `ipBuilding` panel the way the TestKit's is:
-  report what was tried, with a screenshot, before placing controls anywhere else.
+- The storage row cannot take the four-state cycle, per-state title or the slider without replacing
+  vanilla's `sectionStorageRow` wholesale: report what was tried, with a screenshot, before
+  replacing it.
 
 ## Do not claim
 

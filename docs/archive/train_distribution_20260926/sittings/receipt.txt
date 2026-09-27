@@ -1,0 +1,17 @@
+Distribution centre (brief 09 pass 2), orchestrator-guided sittings of 2026-09-26 evening.
+Closed-process logs copied byte-for-byte after the owner exited the game (cp -p; cmp exit 0).
+The first sitting's log (the new-train crash, line 818) is archived once under
+docs/archive/train_hub_capacity_20260926/ and is not duplicated here.
+
+Mars.exe-20260926-20.43.45-6aad2d75.log  16946 B  308 lines
+  sha256 1c57b8d8679c10b2b849769a8f91610ae5c9678dd6a6fe0602388501abffd509
+  Second sitting, stopped at step 1: no "section loaded" line; :291 is the owner's console read
+  print(SMROptInTrainDistribution.ui_error) -> "InfopanelSection unavailable". No LUA ERROR.
+
+Mars.exe-20260926-21.21.51-6aad2d75.log  20193 B  376 lines
+  sha256 c1b81983b76b6a290ef58f0b2505052ae6d0841297ebef0bf8813697a3d88d70
+  Third sitting after 057320e: :178 "station import/export section loaded"; the section showed
+  with invisible label() text (owner's screenshots, not archived). No slot reads, no LUA ERROR.
+  The owner then ruled the native row design (spec 4.7) and sent 09 back before any test.
+
+The export-floor test has not run in any of these sittings.
