@@ -46,7 +46,8 @@ function D.RowState(st, res)
 	local cap = st:GetMaxStorage(res)
 	local percent = entry and entry.percent or (cap > 0
 		and Clamp(MulDivRound(st.desired_amount or 0, 100, cap), 0, 100) or 0)
-	return not st:IsResourceEnabled(res) and "disabled" or entry and entry.mode or "balanced", percent, cap
+	local target = entry and MulDivRound(cap, percent, 100) or st.desired_amount or 0
+	return not st:IsResourceEnabled(res) and "disabled" or entry and entry.mode or "balanced", percent, cap, target
 end
 
 local station_installed, row_installed
@@ -92,9 +93,9 @@ local function install_station()
 	end
 	Station.ResourceRolloverText = function(st, res, ...)
 		if not network(st) then return rollover(st, res, ...) end
-		local mode, percent, cap = D.RowState(st, res)
+		local mode, percent, cap, target = D.RowState(st, res)
 		local text = help[mode] .. "<newline><newline>Slider: " .. tostring(percent)
-			.. "% of current capacity (" .. tostring(MulDivRound(cap, percent, 100) / const.ResourceScale) .. ")."
+			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
 		if not D.HasDroneCoverage(st) then text = text .. "<newline><newline>No drones in range — trains only." end
 		return Untranslated(text)
 	end

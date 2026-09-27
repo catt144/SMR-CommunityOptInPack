@@ -197,6 +197,78 @@ def main():
     lua.execute(r'''
 local D,F=SMROptInTrainDistribution,SMROptInTrainFloor
 assert(ResourceScale==nil)
+-- Untouched spokes use their live absolute dial without creating settings.
+do
+    local train,spoke,hub=fixture(48,177,120,480)
+    checked_transfer(train)
+    assert(stock(spoke)==10000,'untouched Balanced must retain 10, got '..stock(spoke))
+    deliver(train,hub)
+    local other=station(0,120);other.handle=3;other.city=spoke.city
+    table.insert(train.track.members,other);hub.nodes[other]=true;D.Refresh()
+    checked_transfer(train);deliver(train,other)
+    assert(stock(other)==10000 and stock(hub)==205000)
+    spoke:SetDesiredAmount(25000)
+    train.current_station=hub;checked_transfer(train);deliver(train,spoke)
+    assert(stock(spoke)==25000 and stock(hub)==190000)
+    spoke:SetDesiredAmount(5000)
+    checked_transfer(train);deliver(train,hub)
+    assert(stock(spoke)==5000 and stock(hub)==210000)
+    for _,st in ipairs(train.track.members) do
+        st.max_storage_per_resource=st.max_storage_per_resource*2
+        st:OnModifiableValueChanged('max_storage_per_resource')
+    end
+    checked_transfer(train)
+    assert((train.stockpiled_amount.Metals or 0)==0)
+    assert(stock(spoke)==5000 and stock(other)==10000 and stock(hub)==210000)
+    assert(spoke.supply.Metals.desired==5000 and other.supply.Metals.desired==10000)
+    OnMsg.SaveGameStart();OnMsg.SaveGameDone();OnMsg.LoadGame()
+    for _,st in ipairs(train.track.members) do
+        assert(rawget(st,D.FIELD)==nil)
+        assert(st.supply.Metals.target==stock(st))
+        assert(st.demand.Metals.target==st.demand.Metals.actual)
+    end
+    print('PASS untouched spokes: 10 each, remainder at hub; dial 25 then 5; doubling keeps absolute 5/10; no saved settings or claims')
+end
+-- Untouched defaults do not reach disconnected or chained-only lines, nor
+-- override disabled rows. Compare their complete Metals outcome to vanilla.
+for _,kind in ipairs({'outside','chained','disabled'}) do
+    local function run(native)
+        local train,spoke,hub=fixture(48,177,120,480)
+        if kind=='outside' then hub.nodes[spoke]=nil;D.Refresh() end
+        if kind=='chained' then
+            local peer=station(0,120);peer.city=spoke.city;peer.handle=3
+            train.track.members={spoke,peer};hub.nodes[peer]=true;D.Refresh()
+        end
+        if kind=='disabled' then spoke:SetAcceptResourceState('Metals','disabled') end
+        if native then vanilla_transfer(train,nil,true) else checked_transfer(train) end
+        assert(rawget(hub,D.FIELD)==nil and rawget(spoke,D.FIELD)==nil)
+        return stock(spoke),train.stockpiled_amount.Metals or 0,spoke.supply.Metals.target
+    end
+    local a,b,c=run(true);local x,y,z=run(false)
+    assert(a==x and b==y and c==z,kind..' differs from vanilla')
+end
+-- Existing cargo must respect the new default on a hub line, while cargo on
+-- a chained-only line still unloads normally until routing is built.
+for _,on_line in ipairs({true,false}) do
+    local train,spoke,hub=fixture(9,0,120,480)
+    train.stockpiled_amount.Metals=2000;train.assigned_resources[spoke]={Metals=2000}
+    assert(spoke.demand.Metals:AssignUnit(2000))
+    if not on_line then train.track.members={spoke} end
+    deliver(train,spoke)
+    assert(stock(spoke)==(on_line and 9000 or 11000))
+    assert(train.stockpiled_amount.Metals==(on_line and 2000 or 0))
+    if on_line then deliver(train,hub);assert(stock(hub)==2000) end
+    assert(rawget(hub,D.FIELD)==nil)
+end
+do
+    local train,spoke,hub=fixture(0,30,120,480)
+    assert(spoke.demand.Metals:AssignUnit(4000))
+    train.current_station=hub;checked_transfer(train)
+    assert(train.stockpiled_amount.Metals==6000)
+    deliver(train,spoke);assert(stock(spoke)==6000 and spoke.demand.Metals.target==110000)
+    assert(rawget(hub,D.FIELD)==nil)
+end
+print('PASS untouched scope: disconnected/chained/disabled vanilla controls; old cargo capped only on hub lines; reservations reduce orders')
 -- Covered drones leave milliresource stock. With an order of 400, the old
 -- view contributes desire=1 and storage=0 to the archived train allocator.
 do
@@ -350,7 +422,7 @@ t.current_station=h;checked_transfer(t)
 assert(t.assigned_resources[s].Metals==30000 and t.assigned_resources[other].Metals==10000)
 assert(t.stockpiled_amount.Metals==40000)
 assert(s.supply.Food.desired==10000 and s:IsResourceEnabled('Food'))
-print('PASS several receivers get separate bounded orders; other resource stays vanilla')
+print('PASS several receivers get separate bounded orders; untouched resource keeps vanilla drone baseline')
 t,s,h=fixture(80,0,100,400)
 assert(D.Set(s,'Metals','balanced',20));checked_transfer(t)
 assert(stock(s)==20000)

@@ -1,0 +1,37 @@
+command: C:\Python313\python.exe tools/devmods/train_hub/tests/distribution_smoke.py
+HEAD: 66a1a82cf6e079f7d83e8bfb9fd4b1197bdb282c
+PASS owned dev Lua parses; code registration agrees with ModItemCode source
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 53a7f5dde7099ecb36e4dfcf18eac5c6309277f2a708d45cc4c85255d711bfd7
+Traceback (most recent call last):
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_smoke.py", line 488, in <module>
+    main()
+    ~~~~^^
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\distribution_smoke.py", line 197, in main
+        lua.execute(r'''
+        ~~~~~~~~~~~^^^^^
+    local D,F=SMROptInTrainDistribution,SMROptInTrainFloor
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<283 lines>...
+    print('PASS invalid controls and reset; no outstanding test errors')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "lupa/lua55.pyx", line 466, in lupa.lua55.LuaRuntime.execute
+  File "lupa/lua55.pyx", line 1897, in lupa.lua55.run_lua
+  File "lupa/lua55.pyx", line 1911, in lupa.lua55.call_lua
+  File "lupa/lua55.pyx", line 1938, in lupa.lua55.execute_lua_call
+  File "lupa/lua55.pyx", line 1819, in lupa.lua55.raise_lua_error
+lupa.lua55.LuaError: [string "<python>"]:8: untouched Balanced must retain 10, got 45000
+stack traceback:
+	[string "<python>"]:8: in main chunk
+	[C]: in global 'assert'
+
+EXIT: 1

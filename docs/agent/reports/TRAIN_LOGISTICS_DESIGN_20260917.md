@@ -597,6 +597,20 @@ unchanged traffic failure and the next covered-fixture predictions are in
 `TRAIN_DISTRIBUTION_PASS2_20260926.md` §"Pass 3" and §"Next sitting". This is desk
 evidence only; the covered drain/fill leg still needs the orchestrator's sitting.
 
+**MEASURED, pass-4 desk build, 2026-09-27:** untouched resources on hub lines now
+use the live vanilla dial as an absolute Balanced target. The regression retains
+45 instead of 10 on `66a1a82`; after the change, untouched spokes hold their dials,
+return excess to the hub and fill shortages from it. Moving the dial and doubling
+network capacity preserve the absolute target. Configured modes, disabled rows,
+disconnected stations and chained-only lines pass their controls. No default
+settings are saved; the addition is rung 0 within the existing rung-2 feature,
+with its lingering vanilla drone baselines and hub-removal residual unchanged.
+Slot 4 reads untouched rows as effective Balanced with their exact amount.
+Commands, hashes, the known traffic-smoke failure and predictions from
+`build6_capacity_covered_pass3` are in `TRAIN_DISTRIBUTION_PASS2_20260926.md`
+§"Pass 4" and §"Next sitting — pass 4". This pass's live result remains owed to
+the orchestrator; 5d forwarding is still outside this build.
+
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in

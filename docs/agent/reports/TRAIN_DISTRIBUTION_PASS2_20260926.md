@@ -96,11 +96,11 @@ shares fill them; with a shortage, its allocator divides the stock. The native
 loader owns cargo, stock and destination reservations. No copied train body and no
 amount-only replacement were needed.
 
-**SOURCE:** orders travel between configured spokes and their hub on vanilla's
+**SOURCE:** orders travel between enabled spokes and their hub on vanilla's
 current reachable track walk. No routing junction was added. A station connected
 only through another route needs vanilla trains to reach the hub on their route;
-graph membership alone is not a new cargo route. Unconfigured resources retain
-vanilla behavior. Moving an untouched Balanced slider configures its pinned
+graph membership alone is not a new cargo route. Pass 4 makes untouched resources
+Balanced at the live vanilla dial on hub lines. Moving an untouched slider configures its pinned
 amount; merely opening the card does not create settings. The displayed default
 percentage is derived from the current native dial and live capacity.
 
@@ -415,3 +415,85 @@ The brief's console fallback is unnecessary for these Metals reads because slot
 4 fits them. The orchestrator records measured results in spec §4.8, then handles
 brief 09's retirement and prompt-map row. This handback claims the desk
 reproduction and repair only; covered drone drain/fill remains unwitnessed.
+
+## Pass 4 — untouched Balanced at the live dial, 2026-09-27
+
+**MEASURED, desk:** the regression on `66a1a82` retains 45 Metals at an untouched
+spoke whose dial is 10. The revised archived-body harness holds that spoke and a
+second untouched spoke at 10, with the remainder at the hub. Moving the first
+dial to 25 fills from the hub; moving it to 5 returns the excess. Doubling every
+station's capacity leaves those absolute targets at 5 and 10. Requests release
+their temporary claims and no distribution table is created, including across
+simulated save/load messages. Before and final receipts:
+[`untouched_20260927/regression_before.txt`](../../archive/train_distribution_20260926/untouched_20260927/regression_before.txt),
+[`untouched_20260927/final_suite.txt`](../../archive/train_distribution_20260926/untouched_20260927/final_suite.txt).
+
+**SOURCE / MEASURED, desk:** `D.Get` still reads only saved choices; `D.Effective`
+adds a call-local Balanced default from `desired_amount`. Train allocation and
+old-cargo unloading consume that default only on a line containing the hub.
+Configured rows retain their existing behavior. Disconnected, chained-only and
+disabled controls match vanilla; old cargo exceeding an untouched target stays
+aboard on a hub line and can unload at the hub. Existing inbound reservations
+reduce the new order. Drone baselines, flags and scheduling are unchanged.
+The tooltip keeps the derived integer percentage but shows the exact amount:
+at capacity 120, the default reads 8% and 10, rather than implying a 9.6 target.
+
+**MEASURED:** the explicit `tests/*smoke.py` glob, dev/shipping/TestKit parsechecks
+and wrap-target check reconcile to **15 passes, 1 failure, 16 commands** in the
+final receipt, with every command, exit status, both HEADs and input hashes.
+The failure remains `traffic_smoke.py`, `-10800 != 0`. The shipping wrap check
+scans shipping code; the standalone dev file's declaring/alias guards and owned
+Lua are exercised by the distribution harness. Native request objects, scheduling
+and this pass's gameplay are not measured by these doubles.
+
+The new default is **rung 0**. Overall distribution remains **rung 2**, with the
+same `SMROptIn_distribution` hub field for player choices. Existing vanilla drone
+desired amounts can linger after removal until vanilla rewrites them; the hub
+retains its accepted content-removal residual. No new persisted name, default
+settings entry, standing claim or train-body copy was added. `10_TrainFloor.lua`,
+`20_TrainHub.lua`, `30_TrainHubDrones.lua` and shipping `Code/` were not edited.
+
+## Next sitting — pass 4 predictions, not results
+
+**<<PENDING-RUN>>**, orchestrator-attended, from **`build6_capacity_covered_pass3`**.
+Restart for the committed Lua; keep the source save intact. Both mods and cheats
+remain the fixture. The third sitting in spec §4.8 already witnessed pass 3's
+covered drain/fill; this sitting tests the untouched-row correction.
+
+Slot 4 remains **Distribution read: selected station**. One press emits every
+resource row with live requests on a network station, including untouched rows.
+The preload is TestKit commit `f3ab13c` (local-only); its tested source hash is in
+the final suite receipt. The slot gates and doccheck output are archived in
+[`untouched_20260927/gates.txt`](../../archive/train_distribution_20260926/untouched_20260927/gates.txt).
+It adds `configured=false` for defaults, with `mode=balanced`, `target=10000`,
+`percent=8`, `cap=120000` when the live dial is 10 and capacity 120. Configured
+rows retain their mode, percentage and target, with `configured=true`. The slot
+smoke witnesses the exact target after dial and capacity changes, and confirms
+that reading does not create settings. Slots 1–3, 5–6 and Scratch retain their
+bindings. Slot 5 still requires a configured Metals row; use slot 4 and the Run
+page's target-sol control for untouched rows. No provisioning is needed.
+
+1. MARK, pause, select an untouched spoke whose line reaches the hub, and press
+   slot 4. Predict `SMRTK_ACTION action=slot_4 status=OK` and the fields above,
+   using actual handles and live dial/capacity. The row tooltip shows the same
+   absolute target. A chained-only station may display that intent but is not
+   an enforcement witness; its forwarding still waits for build 5d.
+2. Run at top speed, pause and read after train visits. Untouched, uncovered
+   spokes on hub lines predict **10 Metals**, with the excess held by the hub;
+   a changed vanilla dial predicts that dial instead. Configured rows retain
+   their measured behavior. Local drones remain free: a covered spoke can move
+   away from the pin between train visits. Expected first witness is within
+   one sol with active traffic and hub stock/room; after three sols without it,
+   return the missing witness. Do not move a per-resource slider to test the
+   default, because that creates a configured percentage row.
+3. Run at least one full sol at top speed, with MARKs bracketing the interval.
+   Predict **zero `LUA ERROR`** and no distribution runtime error. Slot 4 before
+   and after supplies calls, stock and exact targets; Screenshot + Mark and
+   Flush + copy supply the relay. The orchestrator counts the complete closed
+   log with the literal `LUA ERROR` filter and reports matches with the command
+   and build identity. Stop on the first unexpected error or fixture change.
+
+No game was launched by this build session. Executed model: GPT-6, as exposed
+by the session instructions; no finer executed-model identifier was available.
+No subagents. The orchestrator owns the sitting and brief 09's lifecycle; the
+brief and map remain in place. The both-configuration ship test remains separate.

@@ -1,4 +1,4 @@
--- Distribution centre, dev only. Authority: Train_Hub_Project/09, pass 2;
+-- Distribution centre, dev only. Authority: Train_Hub_Project/09, pass 4;
 -- owner rulings in TRAIN_LOGISTICS_DESIGN_20260917.md section 4.8.
 -- Archived game 1.1.1.405907: Units/Train.lua:744-831,862-1043;
 -- Buildings/Station.lua:964-997; MultiResourceDepot.lua:217-245,380-407.
@@ -98,7 +98,32 @@ local function ready(st, res)
 end
 
 local function amount(st, res, entry)
+	if entry.amount ~= nil then return entry.amount end
 	return MulDivRound(st:GetMaxStorage(res), entry.percent, 100)
+end
+
+-- An untouched row is Balanced at the live vanilla dial, not at a rounded
+-- percentage. This value exists only for the call; D.Get still reads settings.
+local function effective(st, res, hub)
+	if not hub or is_hub(st) then return end
+	local rows = rawget(hub, FIELD)
+	local entry = rows and rows[st] and rows[st][res]
+	if entry then return entry end
+	if D.HubFor(st) == hub then return { mode = "balanced", amount = st.desired_amount or 0 } end
+end
+
+function D.Effective(st, res)
+	local hub = D.HubFor(st)
+	return effective(st, res, hub), hub
+end
+
+local function line_has_hub(train, track, hub)
+	if not hub or not (train.city and train.city.train_track_routes[track]) then return false end
+	local found = false
+	ForEachStationAlongTrack(train.current_station, track, const.trfInclusive | const.trfBidirectional, function(st)
+		if st == hub then found = true end
+	end)
+	return found
 end
 
 -- IsResourceEnabled is an alias of IsStoring. Wrap the consumed alias, never
@@ -256,17 +281,19 @@ function Train:UnloadAll(...)
 	local hub = IsValid(st) and D.HubFor(st)
 	local rows = hub and rawget(hub, FIELD)
 	rows = rows and rows[st]
+	local defaults = line_has_hub(self, self.track, hub)
 	local old = view
 	view = false
-	if saving or not rows then
+	if saving or not (rows or defaults) then
 		local result = table.pack(pcall(unload, self, ...))
 		view = saving and false or old
 		if not result[1] then D.error = tostring(result[2]) return end
 		return table.unpack(result, 2, result.n)
 	end
 	local answers, claims = { [st] = {} }, {}
-	for res, entry in pairs(rows) do
-		if ready(st, res) then
+	for _, res in ipairs(st.storable_resources or empty_table) do
+		local entry = defaults and effective(st, res, hub) or rows and rows[res]
+		if entry and ready(st, res) then
 			local s, d = st.supply[res], st.demand[res]
 			local room = Max(amount(st, res, entry) - s:GetActualAmount(), 0)
 			local own = ((self.assigned_resources or empty_table)[st] or empty_table)[res] or 0
@@ -294,14 +321,13 @@ local function train_view(train, track)
 		if mode ~= "people" then can_receive[o] = true end
 	end)
 	if not members[hub] then return end
-	local rows = rawget(hub, FIELD) or empty_table
 	local answers, claims = {}, {}
 	for _, res in ipairs(st.storable_resources or empty_table) do
-		local entry = rows[st] and rows[st][res]
+		local entry = effective(st, res, hub)
 		local configured = entry and ready(st, res)
 		if st == hub then
 			for dest in pairs(members) do
-				if rows[dest] and rows[dest][res] and ready(dest, res) then configured = true break end
+				if effective(dest, res, hub) and ready(dest, res) then configured = true break end
 			end
 		end
 		if configured and ready(st, res) then
@@ -315,7 +341,7 @@ local function train_view(train, track)
 						if dest == hub and entry and entry.mode ~= "import" then
 							order = Max(dest.demand[res]:GetTargetAmount(), 0)
 						elseif st == hub then
-							local target = rows[dest] and rows[dest][res]
+							local target = effective(dest, res, hub)
 							if target and target.mode ~= "export" then
 								local reserved = Max(dest.demand[res]:GetActualAmount() - dest.demand[res]:GetTargetAmount(), 0)
 								order = Max(amount(dest, res, target) - dest.supply[res]:GetActualAmount() - reserved, 0)
@@ -367,8 +393,8 @@ function D.HasDroneCoverage(st)
 end
 
 function D.Status(st, res)
-	local entry, hub = D.Get(st, res)
-	if not entry or not ready(st, res) then return false, "resource is not configured/enabled" end
+	local entry, hub = D.Effective(st, res)
+	if not entry or not ready(st, res) then return false, "resource is not on a hub network/enabled" end
 	local s, d, scale = st.supply[res], st.demand[res], const.ResourceScale
 	local result = { mode = entry.mode, percent = entry.percent, slider = amount(st, res, entry),
 		stock = s:GetActualAmount(), supply_target = s:GetTargetAmount(), demand_target = d:GetTargetAmount(),

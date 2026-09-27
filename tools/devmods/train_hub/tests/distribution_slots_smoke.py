@@ -64,9 +64,28 @@ local dlg,row=dialog(s);OnMsg.DialogOpen(dlg)
 row:OnActivate(row.context) -- One native hex click: Balanced -> Export.
 row.distribution_slider:ScrollTo(20)
 local ctx=context(s)
-assert(T.slots[4].fn(ctx).rows==1)
+assert(T.slots[4].fn(ctx).rows==2)
 assert(ctx.readings[1].mode=='export' and ctx.readings[1].enabled==true)
 assert(ctx.readings[1].percent==20 and ctx.readings[1].target==24000)
+assert(ctx.readings[1].configured and ctx.readings[2].res=='Food')
+assert(ctx.readings[2].mode=='balanced' and ctx.readings[2].target==10000 and not ctx.readings[2].configured)
+assert(not D.Get(s,'Food'))
+do
+    local train,spoke,hub=fixture(48,177,120,480)
+    local read=context(spoke)
+    assert(T.slots[4].fn(read).rows==2)
+    for _,v in ipairs(read.readings) do
+        assert(v.mode=='balanced' and v.percent==8 and v.target==10000 and not v.configured)
+    end
+    spoke:SetDesiredAmount(25000);read=context(spoke);T.slots[4].fn(read)
+    assert(read.readings[1].target==25000 and read.readings[1].percent==21)
+    spoke.max_storage_per_resource=240000;spoke:OnModifiableValueChanged('max_storage_per_resource')
+    read=context(spoke);T.slots[4].fn(read)
+    assert(read.readings[1].target==25000 and read.readings[1].percent==10)
+    assert(rawget(hub,D.FIELD)==nil and rawget(spoke,D.FIELD)==nil)
+    UIColony=s.city;D.Refresh()
+    print('PASS slot 4 reads every untouched row as effective Balanced, exact live dial with derived percent; no settings written')
+end
 assert(T.slots[5].fn(ctx).trigger=='distribution_target')
 local watch=T.armed.distribution_target
 assert(not T.specs.distribution_target.when(watch))
