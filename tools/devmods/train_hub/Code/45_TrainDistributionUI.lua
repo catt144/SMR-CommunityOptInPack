@@ -1,4 +1,4 @@
--- Native storage-row extension, owner ruling 79c0ec9 / spec 4.7.
+-- Native storage-row extension, owner rulings 79c0ec9, 817b778 / spec 4.7.
 -- Archived 1.1.1.405907: Data/XDef/sectionStorageRow.lua and sectionDome.lua;
 -- Lua/XDef/InfopanelActiveSection.generated.lua (idSectionTitles),
 -- InfopanelSlider.generated.lua; Buildings/Station.lua:1003-1059.
@@ -23,7 +23,7 @@ D.UIRequire = {
 	{ "Station", "GetResAcceptIcon" }, { "Station", "ResourceRolloverText" },
 	{ "sectionStorageRow", "OnContextUpdate" },
 	{ "InfopanelSlider", "ScrollTo" }, { "InfopanelSlider", "OnShortcut" },
-	{ "XScrollControl", "OnMouseButtonDown" },
+	{ "XFontControl", "GetFontId" },
 }
 local function network(st)
 	return IsValid(st) and IsKindOf(st, "Station") and D.HubFor(st)
@@ -66,15 +66,18 @@ local function install_station()
 	local rollover = Station.ResourceRolloverText
 	Station.ToggleAcceptResource = function(st, res, broadcast, ...)
 		if not network(st) then return toggle(st, res, broadcast, ...) end
-		local next_mode = following[D.RowState(st, res)]
+		local mode = D.RowState(st, res)
+		if not broadcast then mode = following[mode] end
 		-- Preserve vanilla's city-wide scope and its own disabled/request-flag path.
-		set_accept(st, res, next_mode == "disabled" and "disabled" or "store", broadcast)
 		for _, target in ipairs(broadcast and st.city.labels.Station or { st }) do
-			if network(target) and next_mode ~= "disabled" then
-				local _, percent = D.RowState(target, res)
-				D.Set(target, res, next_mode, percent)
+			if not broadcast or target ~= st then
+				set_accept(target, res, mode == "disabled" and "disabled" or "store", false)
+				if network(target) and mode ~= "disabled" then
+					local _, percent = D.RowState(target, res)
+					D.Set(target, res, mode, percent)
+				end
+				ObjModified(target)
 			end
-			ObjModified(target)
 		end
 	end
 	Station.GetResAcceptIcon = function(st, res, ...)
@@ -93,30 +96,22 @@ local function install_station()
 	return true
 end
 
--- Native tooltip constructor/art/text; only its width is reduced. It is owned
--- by the slider, so closing the row also closes it. Dock=ignore adds no row size.
-local function bubble(slider, st, res)
-	local _, percent, cap = D.RowState(st, res)
-	slider:SetRolloverText(Untranslated(string.format("%g (%g%%)",
-		MulDivRound(cap, percent, 100) / const.ResourceScale, percent)))
-	local win = slider.distribution_bubble
-	if not win or win.window_state == "destroying" then
-		win = MarsRollover:new({ Dock = "ignore", RefreshInterval = false, FadeOutTime = 200 }, slider,
-			{ control = slider, RolloverAnchor = "top", gamepad = false })
-		win.idContent.idText:SetMinWidth(0)
-		win.idContent.idText:SetMaxWidth(160)
-		win:Open()
-		slider.distribution_bubble = win
-	else
-		win:UpdateRolloverContent()
+-- Native word wrapping splits a word only when it cannot fit a whole line
+-- (1.1.1.405907 CommonLua/X/XTextParser.lua:1057-1107). Keep the title's
+-- allocated width from collapsing to the width of a shorter wrapped line.
+local function fit_title(title)
+	local font = title:GetFontId()
+	local sx, sy = title.scale:xy()
+	local padding = title:GetPadding()
+	local width = 154
+	for word in (title.text or ""):gsub("<[^>]*>", ""):gmatch("%S+") do
+		width = Max(width, math.ceil((UIL.MeasureText(word, font) + 1) * 1000 / sx)
+			+ padding:minx() + padding:maxx())
 	end
-	-- XWindow threads are real-time and die with their owning window.
-	win:DeleteThread("distribution_fade")
-	win:CreateThread("distribution_fade", function()
-		Sleep(450)
-		if slider.distribution_bubble == win then slider.distribution_bubble = nil end
-		win:Close()
-	end)
+	title:SetMinWidth(width)
+	title:SetMaxWidth(width)
+	title:SetMaxHeight(math.ceil(2 * title.font_height * 1000 / sy)
+		+ padding:miny() + padding:maxy())
 end
 
 local function make_slider(row, context)
@@ -126,6 +121,7 @@ local function make_slider(row, context)
 		return
 	end
 	local saved = { title_dock = title.Dock, title_width = title.MaxWidth,
+		title_min_width = title.MinWidth, title_height = title.MaxHeight,
 		title_shorten = title.Shorten, right_dock = right.Dock,
 		title = row:GetTitle(), hint = row.RolloverHint, gamepad_hint = row.RolloverHintGamepad,
 		focus_help = row.RolloverOnFocus }
@@ -148,13 +144,7 @@ local function make_slider(row, context)
 			local st, res = ctx[1], ctx.res
 			if not network(st) then return end
 			local mode = D.RowState(st, res)
-			if mode ~= "disabled" and D.Set(st, res, mode, value) then bubble(self, st, res) end
-		end,
-		OnMouseButtonDown = function(self, pt, button)
-			local result = XScrollControl.OnMouseButtonDown(self, pt, button)
-			local ctx = row.context
-			if button == "L" and self:GetEnabled() and network(ctx[1]) then bubble(self, ctx[1], ctx.res) end
-			return result
+			if mode ~= "disabled" then D.Set(st, res, mode, value) end
 		end,
 		OnShortcut = function(self, shortcut, source)
 			if shortcut == "LeftShoulder" or shortcut == "RightShoulder" then
@@ -182,7 +172,9 @@ local function update_row(row, context)
 			row.distribution_slider:delete()
 			row.distribution_slider, row.distribution_native = nil, nil
 			row.idSectionTitle:SetDock(saved.title_dock)
+			row.idSectionTitle:SetMinWidth(saved.title_min_width)
 			row.idSectionTitle:SetMaxWidth(saved.title_width)
+			row.idSectionTitle:SetMaxHeight(saved.title_height)
 			row.idSectionTitle:SetShorten(saved.title_shorten)
 			row.idSectionTitleRight:SetDock(saved.right_dock)
 			row:SetTitle(saved.title)
@@ -196,6 +188,7 @@ local function update_row(row, context)
 	if not slider then return end
 	local mode, percent = D.RowState(st, res)
 	row:SetTitle(T{Untranslated("<resource(res)> · " .. titles[mode]), context})
+	fit_title(row.idSectionTitle)
 	row:SetRolloverOnFocus(false)
 	row:SetRolloverHint(Untranslated("<left_click> " .. titles[following[mode]]
 		.. "<newline><em>Ctrl + <left_click></em> Apply to all stations"))
@@ -216,10 +209,6 @@ local function install_row()
 			failure(pair[1] .. "." .. pair[2] .. " unavailable")
 			return
 		end
-	end
-	if not MarsRollover or type(MarsRollover.new) ~= "function" then
-		failure("MarsRollover unavailable")
-		return
 	end
 	local previous = sectionStorageRow.OnContextUpdate
 	sectionStorageRow.OnContextUpdate = function(row, context, ...)

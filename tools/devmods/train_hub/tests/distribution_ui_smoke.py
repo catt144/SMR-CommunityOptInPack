@@ -1,4 +1,4 @@
-"""Native compiled row/slider/tooltip constructors and callbacks; engine window doubles.
+"""Native compiled row/slider constructors and word-wrap helper and callbacks; engine window doubles.
 
 Checks structure and data flow, not engine pixels, font metrics or hit testing.
 """
@@ -21,7 +21,7 @@ T=function(id,text)
     return text or id
 end
 RGB=function(...) return 1 end; RGBA=RGB
-local rect={minx=function(s) return s[1] end,miny=function(s) return s[2] end,
+local rect={maxx=function(s) return s[3] end,maxy=function(s) return s[4] end,minx=function(s) return s[1] end,miny=function(s) return s[2] end,
     sizex=function(s) return s[3]-s[1] end,sizey=function(s) return s[4]-s[2] end}
 box=function(...) return setmetatable({...},{__index=rect,__add=function(a,b) return a end}) end
 point=function(x,y) return {xy=function() return x,y end,x=function() return x end,y=function() return y end} end
@@ -29,7 +29,7 @@ ResolvePropObj=function(ctx) return ctx.object or ctx end
 g_UINoTransparencyReasons={}
 mass=false;IsMassUIModifierPressed=function() return mass end
 Sleep=function(ms) coroutine.yield(ms) end
-local widget={IdNode=false,Dock=false,MaxWidth=1000000,Shorten=false,Visible=true,
+local widget={IdNode=false,Dock=false,MinWidth=0,MaxWidth=1000000,MaxHeight=1000000,Padding=box(2,2,2,2),Shorten=false,Visible=true,
     RolloverText='',RolloverTitle='',RolloverHint='',RolloverHintGamepad='',
     RolloverDisabledText='',RolloverDisabledTitle='',RolloverDisabledHint='',RolloverDisabledHintGamepad='',
     RolloverWarning='',RolloverOffset=box(0,0,0,0),Margins=box(0,0,0,0),
@@ -45,6 +45,19 @@ for _,key in ipairs({'RolloverOffset','RolloverDisabledHint','RolloverDisabledHi
 end
 function widget:SetText(v) self.Text=v or '';self.text=self.Text end
 function widget:GetText() return self.Text end
+function widget:GetPadding() return self.Padding end
+function widget:GetFontId() self.font_height=22*self.scale:y()/1000;return self.scale:y()/1000 end
+XFontControl={GetFontId=widget.GetFontId}
+char_width=9
+UIL={MeasureText=function(text,font,first,last)
+    return utf8.len(text:sub(first or 1,last or #text))*char_width*font
+end}
+utf8.Advance=function(text,idx,n) return utf8.offset(text,n+1,idx) or #text+1 end
+utf8.FindNextLineBreakCandidate=function(text,idx)
+    if idx>#text then return end
+    if text:sub(idx,idx)==' ' then idx=idx+1 end
+    return text:find(' ',idx,true) or #text+1
+end
 function widget:SetEnabled(v) self.enabled=v end
 function widget:GetEnabled() return self.enabled end
 function widget:SetScroll(v) local old=self.Scroll;self.Scroll=v;return old~=v end
@@ -97,12 +110,7 @@ end
 function widget:Close() self.closed=true;self:delete() end
 function widget:OnShortcut() end
 function widget:DeleteThread(name) if self.threads then self.threads[name]=nil end end
-function widget:CreateThread(name,fn,...)
-    self.threads=self.threads or {};local co=coroutine.create(fn);self.threads[name]=co
-    local ok,delay=coroutine.resume(co,...);assert(ok,delay);self.delay=delay
-end
-function widget:Expire(name) local ok,why=coroutine.resume(self.threads[name]);assert(ok,why) end
-function widget:UpdateRolloverContent() self.idContent:OnContextUpdate(self.idContent.context) end
+function widget:CreateThread() error('UI must not start a timer') end
 local function define(name,c)
     c.class=name
     for _,p in ipairs(c.properties or {}) do c[p.id]=p.default end
@@ -142,13 +150,17 @@ function Station:GetStoredAmount(res) return self.supply[res].actual end
     lua.execute('assert(type(OnMsg.DialogOpen)=="function" and not SMROptInTrainDistribution.ui_error)')
     # These are the archived constructors, not a handwritten approximation of their children.
     for name in ['InfopanelSectionTitle', 'InfopanelActiveSection', 'sectionStorageRow',
-                 'InfopanelSlider', 'RolloverTitleSection', 'MarsRollover']:
+                 'InfopanelSlider']:
         path = ARCHIVE/f'XDef/{name}.generated.lua'
         lua.execute(path.read_text(encoding='utf8'))
         print('native XDef:', name, 'sha256:', hashlib.sha256(path.read_bytes()).hexdigest(), flush=True)
-    source_parts(lua, '../CommonLua/X/XRollover.lua', [
-        ('function XRolloverWindow:Init(', 'function XRolloverWindow:ControlMove('),
-    ])
+    parser_path = ARCHIVE/'../CommonLua/X/XTextParser.lua'
+    parser = parser_path.read_text(encoding='utf8')
+    start = parser.index('local MeasureText = UIL.MeasureText')
+    end = parser.index('function BlockLayouter:FinalizeLine()', start)
+    lua.execute('local FindNextLineBreakCandidate=utf8.FindNextLineBreakCandidate\n' +
+                parser[start:end] + '\nnative_fit=FindTextThatFitsIn')
+    print('native word wrapper sha256:', hashlib.sha256(parser_path.read_bytes()).hexdigest(), flush=True)
     source_parts(lua, '../CommonLua/X/XWindow.lua', [
         ('function XWindow:SetLayoutSpace(', 'function XWindow:SetScaleModifier('),
     ])
@@ -212,6 +224,28 @@ assert(row.RolloverOnFocus==false and row.RolloverTemplate=='InfopanelSectionRol
 assert(s:ResourceRolloverText('Metals'):find('No drones in range',1,true))
 local x,y=scale:AdjustConstrainedScale(450,450);assert(x==800 and y==800)
 x,y=scale:AdjustConstrainedScale(950,950);assert(x==950 and y==950)
+-- Native fallback control: a narrow line splits Balanced into Balance / d.
+local w=UIL.MeasureText('Balanced',1)
+assert(native_fit('Balanced',1,1,w-1,0,w-1)=='Balance')
+for _,cw in ipairs({9,18}) do
+    char_width=cw
+    for _,scale in ipairs({800,1000,1200}) do
+        row.idSectionTitle.scale=point(scale,scale)
+        for _,name in ipairs({'Electronics','Machine Parts','Rare Metals'}) do
+            s.supply[name]=request(0,0);s.demand[name]=request(120000,0)
+            row.context.res=name;row:OnContextUpdate(row.context)
+            local title=row.idSectionTitle
+            local available=(title.MinWidth-4)*scale/1000
+            for word in title.text:gmatch('%S+') do
+                assert(native_fit(word,1,scale/1000,available,0,available)==word, title.text..' word='..word..' available='..available..' fit='..native_fit(word,1,scale/1000,available,0,available))
+            end
+            assert(title.MaxHeight==48 and title.MinWidth==title.MaxWidth)
+        end
+    end
+end
+char_width=9;row.idSectionTitle.scale=point(1000,1000)
+row.context.res='Metals';row:OnContextUpdate(row.context)
+print('PASS native narrow-line Balance/d reproduction; whole Electronics/Machine Parts/Rare Metals/mode words fit reserved width across font/scale doubles; title capped at two font lines')
 print('PASS late XDef load/retry/log-once; original native constructor/click/right-title retained; slider in original title line; 80% panel floor')
 
 local seen={}
@@ -234,34 +268,42 @@ end
 slider:ScrollTo(20) -- Balanced must configure its pinned amount too.
 assert(D.Get(s,'Metals').mode=='balanced' and D.Get(s,'Metals').percent==20)
 assert(s.supply.Metals.desired==24000 and s.demand.Metals.desired==96000)
-local b=slider.distribution_bubble
-assert(b and b.class=='MarsRollover' and b.FadeOutTime==200 and b.delay==450)
-assert(b.idContent.idText.Text=='24 (20%)' and b.idContent.idText.Translate)
-assert(b.idContent.idText.TextStyle=='RolloverDescriptionStyle' and b.idContent.idText.MinWidth==0)
-assert(b.idBackgroundFrame.Image=='UI/CommonRemaster/rollover_background_s.png')
-slider:ScrollTo(21);assert(slider.distribution_bubble==b and b.idContent.idText.Text=='25.2 (21%)')
-b:Expire('distribution_fade');assert(b.closed and not slider.distribution_bubble)
-slider:OnMouseButtonDown(20,'L');assert(slider.distribution_bubble)
+assert(s:ResourceRolloverText('Metals'):find('20% of current capacity (24',1,true))
+local children=#slider
+slider:ScrollTo(21)
+assert(s:ResourceRolloverText('Metals'):find('21% of current capacity (25.2',1,true))
+XScrollControl.OnMouseButtonDown(slider,20,'L')
+assert(#slider==children and not slider.distribution_bubble and not slider.threads)
 row:OnActivate(row.context);row:OnContextUpdate(row.context)
 assert(D.Get(s,'Metals').mode=='export' and s.supply.Metals.desired==120000 and s.demand.Metals.desired==0)
 checked_transfer(t);assert(stock(s)==24000);deliver(t,h);t.current_station=s;checked_transfer(t);assert(stock(s)==24000)
 s.max_storage_per_resource=240000;s:OnModifiableValueChanged('max_storage_per_resource')
 row:OnContextUpdate(row.context);assert(D.Get(s,'Metals').percent==20)
-slider:OnMouseButtonDown(20,'L');assert(slider.distribution_bubble.idContent.idText.Text=='48 (20%)')
+assert(s:ResourceRolloverText('Metals'):find('20% of current capacity (48',1,true))
 s.command_centers={{CanCommandDrones=function() return true end,IsInWorkRange=function() return true end}}
 assert(not s:ResourceRolloverText('Metals'):find('No drones in range',1,true))
-print('PASS four distinct native icons/titles; native disabled flags; Balanced slider; native tooltip content/update/idle fade; UI-configured capacity-120 floor 24 and return; live capacity/coverage refresh')
+print('PASS four distinct native icons/titles; native disabled flags; Balanced slider; row-tooltip amount/percent readout without bubble/timer; UI-configured capacity-120 floor 24 and return; live capacity/coverage refresh')
 
 local outside=station(0,60);outside.city=s.city;outside.task_requests={outside.demand.Metals}
 table.insert(s.city.labels.Station,outside)
 local peer=station(0,60);peer.city=s.city;peer.handle=3;h.nodes[peer]=true
 table.insert(s.city.labels.Station,peer);D.Refresh()
 assert(D.Set(peer,'Metals','balanced',50))
-mass=true;row:OnActivate(row.context);mass=false -- Export -> Import applied city-wide.
-assert(D.Get(s,'Metals').mode=='import' and D.Get(peer,'Metals').mode=='import')
+local source_entry=D.Get(s,'Metals')
+mass=true;row:OnActivate(row.context);mass=false -- Copy Export, without advancing it.
+assert(D.Get(s,'Metals')==source_entry and D.Get(s,'Metals').mode=='export' and D.Get(peer,'Metals').mode=='export')
 assert(D.Get(peer,'Metals').percent==50 and not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals'))
+row:OnActivate(row.context) -- Import.
+mass=true;row:OnActivate(row.context);mass=false
+assert(D.Get(s,'Metals').mode=='import' and D.Get(peer,'Metals').mode=='import')
+row:OnActivate(row.context) -- Not accepted.
 mass=true;row:OnActivate(row.context);mass=false
 assert(not outside:IsResourceEnabled('Metals') and not peer:IsResourceEnabled('Metals') and not h:IsResourceEnabled('Metals'))
+assert(not s:IsResourceEnabled('Metals'))
+row:OnActivate(row.context) -- Balanced.
+mass=true;row:OnActivate(row.context);mass=false
+assert(D.Get(s,'Metals').mode=='balanced' and D.Get(peer,'Metals').mode=='balanced')
+outside:ToggleAcceptResource('Metals',false);assert(not outside:IsResourceEnabled('Metals'))
 outside:ToggleAcceptResource('Metals',false);assert(outside:IsResourceEnabled('Metals') and not D.Get(outside,'Metals'))
 local vanilla,vr,vs=dialog(outside);OnMsg.DialogOpen(vanilla)
 assert(not vr.distribution_slider and vr:GetTitle()==native_title and vr:GetTitleRight()==native_right)
@@ -276,9 +318,9 @@ assert(not row.distribution_slider and row:GetTitle()==native_title and #row.idS
 x,y=scale:AdjustConstrainedScale(450,450);assert(x==450 and y==450)
 h.nodes[s]=true;D.Refresh();row:OnContextUpdate(row.context);assert(row.distribution_slider)
 assert(rawget(s,D.FIELD)==nil and not D.error)
-print('PASS Ctrl applies chosen state to city stations, preserves per-station percentages; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
+print('PASS Ctrl copies each current state without advancing or rewriting source; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
 ''')
-    print('NOT TESTED: engine pixel layout/font metrics, native tooltip positioning/fade animation, mouse hit boxes and controller focus', flush=True)
+    print('NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus', flush=True)
 
 
 if __name__ == '__main__':

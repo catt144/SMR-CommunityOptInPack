@@ -1,0 +1,33 @@
+UTC: 2026-09-27T04:57:33.785294+00:00
+COMMAND: git rev-parse HEAD
+a55fba4d1ef4f051f96544537dbeadf482228f59
+
+EXIT: 0
+COMMAND: git -C B:\Dev\SMR\SMR-BugFixPack-TestKit rev-parse HEAD
+bf759836cdc294745dee27ca42b59ca35cc49a54
+
+EXIT: 0
+COMMAND: tasklist /FI "IMAGENAME eq Mars.exe"
+INFO: No tasks are running which match the specified criteria.
+
+EXIT: 0
+COMMAND: rg -n NetSyncEvent|LogCheatUsed B:\Dev\SMR\SMR-BugFixPack-TestKit\Code -g 7*_SMRTK*.lua -g 80_AgentSlots.lua
+
+EXIT: 1
+COMMAND: rg -n ^\s*print\( B:\Dev\SMR\SMR-BugFixPack-TestKit\Code -g 7*_SMRTK*.lua -g 80_AgentSlots.lua
+
+EXIT: 1
+COMMAND: rg -n distribution_full_hub|full_watch.disarm B:\Dev\SMR\SMR-BugFixPack-TestKit\Code\80_AgentSlots.lua
+201:    if T.armed.distribution_full_hub then return false, "cancel the full-hub run first" end
+219:local full_watch = T.Trigger { id = "distribution_full_hub", label = "Full hub refuses export", cadence = 100,
+286:local stop_full_watch = full_watch.disarm
+287:full_watch.disarm = function(ctx)
+307:    if T.armed.distribution_full_hub then return false, "cancel the current full-hub run first" end
+309:    local ok, result = T.Arm("distribution_full_hub", ctx.sel)
+312:    if not ran then T.Disarm("distribution_full_hub", "speed refused"); return false, speed.reason end
+
+EXIT: 0
+COMMAND: git diff --exit-code a55fba4 -- tools/devmods/train_hub/Code/20_TrainHub.lua tools/devmods/train_hub/Code/30_TrainHubDrones.lua tools/devmods/train_hub/BuildingTemplates tools/devmods/train_hub/metadata.lua Code
+
+EXIT: 0
+PASS capacity slots 1-3 and Scratch byte-identical to TestKit HEAD; only sitting distribution definitions and header comment changed.

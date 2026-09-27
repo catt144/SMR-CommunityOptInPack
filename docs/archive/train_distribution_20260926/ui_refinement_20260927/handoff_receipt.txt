@@ -1,0 +1,38 @@
+UTC: 2026-09-27T04:59:12.562070+00:00
+CWD B:\Dev\SMR\SMR-OptInPack COMMAND git rev-parse HEAD
+a55fba4d1ef4f051f96544537dbeadf482228f59
+
+CWD B:\Dev\SMR\SMR-OptInPack COMMAND git status --short
+ M docs/agent/reports/TRAIN_DISTRIBUTION_PASS2_20260926.md
+ M tools/devmods/train_hub/Code/45_TrainDistributionUI.lua
+ M tools/devmods/train_hub/tests/distribution_slots_smoke.py
+ M tools/devmods/train_hub/tests/distribution_ui_smoke.py
+?? docs/archive/train_distribution_20260926/ui_refinement_20260927/
+
+CWD B:\Dev\SMR\SMR-BugFixPack-TestKit COMMAND git rev-parse HEAD
+fed769c0ea1d613c766add4ecdd08826e13ee9a3
+
+CWD B:\Dev\SMR\SMR-BugFixPack-TestKit COMMAND git status --short
+
+final_suite.txt sha256=50149f1b7d3d2479cec159b92c8e31bbc4476d334f7559fcc24141ec048adb92
+prelaunch_gates.txt sha256=0b079a895be66934f9edf8ceb4959f4414ccbf2573b0e25f14dc33a6e7b9a7d0
+doccheck.txt sha256=7dd15db440aced02a1c459a8b099f7154e362ca44ec057638125696d2afa8342
+COMMAND rg -n MarsRollover|distribution_bubble|distribution_fade|CreateThread|Sleep B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\Code\45_TrainDistributionUI.lua
+EXIT 1
+POSITIVE CONTROL COMMAND rg -n "fit_title|target ~= st|ResourceRolloverText" B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\Code\45_TrainDistributionUI.lua
+23:	{ "Station", "GetResAcceptIcon" }, { "Station", "ResourceRolloverText" },
+66:	local rollover = Station.ResourceRolloverText
+73:			if not broadcast or target ~= st then
+87:	Station.ResourceRolloverText = function(st, res, ...)
+102:local function fit_title(title)
+191:	fit_title(row.idSectionTitle)
+EXIT 0
+MEASURE git show a55fba4:docs/agent/reports/TRAIN_DISTRIBUTION_PASS2_20260926.md vs Path.read_bytes(): before=18905 after=21148 sha256=bb6df0d5ca9615c7f6fc6d3fdc1936030fb12766139655406d821d1c1d910770
+MEASURE git show a55fba4:tools/devmods/train_hub/Code/45_TrainDistributionUI.lua vs Path.read_bytes(): before=11773 after=11293 sha256=a48d186b521b9c29160a969fdd78bfc3c0b22bdaa540a7111c59fe93be0f3c4a
+MEASURE git show a55fba4:tools/devmods/train_hub/tests/distribution_ui_smoke.py vs Path.read_bytes(): before=16172 after=18450 sha256=54d861a89770160f2df3bb2a90c4907dd43b8e49de27ae80595514fdd9de3a5b
+MEASURE git show a55fba4:tools/devmods/train_hub/tests/distribution_slots_smoke.py vs Path.read_bytes(): before=3099 after=6954 sha256=d010c18450b1e7d68db249031c15c364406c0e0d22fa2818efa5c8fdfc8768ad
+Full suite members and individual exits in final_suite.txt: 16 = 15 PASS + 1 known traffic failure (-10800 != 0).
+Executed model: GPT-6 per transcript; no finer executed model identifier exposed; no subagents.
+Live export floor witness is owner relay / a55fba4 on tested build 67bbf45, not a new desk claim: 120 -> 24 -> 24, zero errors reported. Sitting log/receipt belong to orchestrator; untouched here.
+Open: owner ruling whether Ctrl copies percent. Current code retains destination percent. New title fit/bubble removal/current-state Ctrl and held-full hub fixture await attended witness.
+Preserved: Concrete new-train live check, import/Balanced/drone/disable/save-load and capacity rewrite witnesses; whole-hub both-configuration ship test; original crash log path; hub-header inventory request; brief retirement remains orchestrator-owned.
