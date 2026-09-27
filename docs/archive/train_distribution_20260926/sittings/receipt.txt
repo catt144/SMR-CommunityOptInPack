@@ -45,3 +45,16 @@ Mars.exe-20260927-12.55.25-6aad2d75.log  267314 B  2710 lines
   :1762-:2643 20x [LUA ERROR] Division by zero, vanilla Train.lua:946 under
         40_TrainDistribution.lua:244 / 10_TrainFloor.lua:92; hub, Metals, storage=0.
   grep -c 'LUA ERROR' = 20; none before :1762.
+
+Sixth sitting, 2026-09-27 afternoon, on d568983 (orchestrator-attended). Closed-process logs
+copied byte-for-byte (cp -p; cmp exit 0). grep -c 'LUA ERROR' = 0 in each.
+
+Mars.exe-20260927-15.04.41-6aad2d75.log  82651 B  951 lines
+  sha256 784eef03d5f38ed08e940040f76527dfd514aa52cfef0fa062fd70ef9ff467fd
+  build6_capacity + quick-built Drone Hub and Metals depot beside 2007 (covered=true); the owner
+  saved it as build6_capacity_covered_pass3. Import 50%: calls 22, spoke 34333, hub 220000 -> 101000.
+  Export 20%: spoke 24000 after a sol, calls 36, hub 101000 -> 222000. Balanced 20% start read only.
+Mars.exe-20260927-18.03.22-6aad2d75.log  16764 B  319 lines
+  A short launch that the owner quit before loading a save (Ctrl-Shift-F11 console, then exit).
+The following log (18.04.23, the Balanced leg and slot 4 on every station) is still open and
+is added below when the game exits.

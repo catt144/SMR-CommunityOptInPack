@@ -552,7 +552,35 @@ percent; titles wrap between words; no bubble; **new trains** bought mid-sitting
 `train_view`, once drones moved fractional stock. Orchestrator's reading, relayed to 09 for a desk
 reproduction: an order under one unit answers `capacity` < 1000, vanilla's integer division sums it
 as 0 storage while `GetResDesiredAmount` answers 1, and the load step divides by that zero. The
-covered drain/fill leg is not witnessed and reruns after the fix. The existing traffic-smoke
+covered drain/fill leg is not witnessed and reruns after the fix.
+
+✅ **MEASURED LIVE 2026-09-27, third sitting** (`d568983`, fixture `build6_capacity_covered_pass3`,
+the owner's save of `build6_capacity` plus a quick-built Drone Hub and Metals depot beside spoke 2007):
+**covered drain/fill PASS, zero `LUA ERROR`.** Import 50%: 22 train calls, hub 220 → 101, spoke at a
+fractional 34.333 as drones carried it to the depot. Export 20%: spoke **24.000** after a sol while the
+hub rose 101 → 222 — about 110 units drone-fed through the spoke above the floor. Balanced 20%:
+start read correct; the spoke then moved up and down toward 24 while the depot (still wanting Metals
+in the save) drew it off. The owner judged the slow climb a fixture side effect (empty stations, a
+full hub, all traffic at one priority), not a fault.
+
+⚖️ **Owner rulings, 2026-09-27, over that sitting** — they bind the next builds:
+1. **The hub's network is every station connected to the hub through any chain of lines.** *"they
+   are all part of the hubs network and it should reach them. The only exception should be stations
+   that are not connected to the hub in any way"*. `D.HubFor`'s graph membership already matches;
+   what does not is enforcement, which acts only at a stop whose train line includes the hub (the
+   slot-4 call counters were 0 everywhere but 2007 and the hub).
+2. **Build 5d routing next** (§6's option 5d) so chained stations obey their rows.
+3. **Balanced is the hub's pin:** *"balanced up to that amount, if its over the hub wants it back to
+   keep or send to others, if its under the hub wants to fill it to the amount its set."* The hub is
+   the holder unless a station needs stock.
+4. **Local drones stay free in every mode**, Balanced included: *"drones should be able to take,
+   other wise its just resources sitting there for no reason."* A covered Balanced station may dip
+   below its number between train visits.
+5. **An untouched row is real Balanced, at vanilla's dial** (10 units by default, the dial the
+   player sets; not a fixed percentage). This reverses the build's "unconfigured resources retain
+   vanilla behavior": rows that read Balanced but ran vanilla's capacity-share spread (40–49 held on
+   untouched 120-cap spokes against a shown ~8%) are the defect. Stations off the hub's network keep
+   vanilla. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
