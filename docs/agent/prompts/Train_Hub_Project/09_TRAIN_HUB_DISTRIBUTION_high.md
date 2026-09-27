@@ -118,8 +118,8 @@ Your desk smoke drives `OnModifiableValueChanged` network-wide from the harness;
    its rows). On each storage row of a station on a hub's network: **one left-click on the hex cycles
    Balanced → Export → Import → Not accepted (vanilla's red X)**, the hex icon and the title text
    (e.g. **Metals · Export**) changing per state as the dome's births row does. ⚖️ **Ctrl + click
-   applies the clicked station's current state to every other station without advancing it** (owner,
-   2026-09-27; spec §4.7). **A thin vanilla slider on every row**, Balanced included, **inside the
+   applies the clicked station's current state and slider value to every other station without
+   advancing it** (owner, 2026-09-27; spec §4.7). **A thin vanilla slider on every row**, Balanced included, **inside the
    row's own line** so the panel gets no taller. ⚖️ **No drag bubble** (owner, 2026-09-27: it drew as
    an empty box and *"it can go instead of being fixed"*; the row tooltip is the readout), and **a
    title wraps only between words**, never *Electronics · Balance / d* (spec §4.7). **Prototype a floor on vanilla's panel

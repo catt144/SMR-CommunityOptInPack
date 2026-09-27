@@ -233,7 +233,7 @@ moving it"*. Asked, the owner chose a four-state left-click and a slider on ever
   through vanilla's own path. ⚖️ **Ctrl + click does not advance the state** (owner, 2026-09-27,
   after seeing it cycle): it applies the clicked station's **current** state to every other station
   — *"can we make control click not change it also, just make it apply the current selected option
-  to all other stations"*. Whether the slider value travels with it is not yet ruled.
+  to all other stations"*. **The slider value travels with it** (owner, 2026-09-27: *"Have it do both"*).
 - **A thin vanilla slider on every row**, Balanced included — Balanced keeps its pinned amount
   (§4.8's table). ⚖️ **No drag bubble** (owner, 2026-09-27, over the first look at `67bbf45`): the
   bubble rendered as an empty dark box beside the Passengers row, and *"it can go instead of being
