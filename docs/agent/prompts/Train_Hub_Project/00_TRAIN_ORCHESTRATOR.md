@@ -51,27 +51,21 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-26, late** (Claude Opus 5
-     `claude-opus-5`, then Fable 5.1 `claude-fable-5-1`, then Opus 5.5 `claude-opus-5-5`, switched
-     by the owner). The fire order is this folder's [`README.md`](README.md); keep it current.
-     **How sittings run now** (owner, 2026-09-26: *"we are going to do each sitting together and
-     you will relay a message to them"*): the orchestrator guides the owner through a build's
-     attended smoke from the build's own predictions, reads the log on "flushed", records the
-     result, archives the closed log, and relays fixes to the build agent. A build session on
-     another model family (`09` runs on GPT-6) cannot be messaged: hand the owner paste-ready
-     text, and say which earlier message it replaces.
-     **Next: `09`'s UI rework landed at `67bbf45` (pushed), unverified by the orchestrator.** Check
-     it once against the owner's ruling in spec §4.7 — the four-state hex cycle on vanilla's own
-     storage rows, per-state title, a slider inside each row's line with a fading value bubble,
-     help in the row tooltip, the 80% shrink floor on hub-network station panels only. Note its
-     claim that XDef rows are compiled class calls, so it chained the row's context callback rather
-     than patching the template. Then run the sitting from `reports/TRAIN_DISTRIBUTION_PASS2_20260926.md`'s
-     predictions, restarting the game and loading **`build6_capacity`** (spec §10): the owner
-     judges the look by eye, and the **export-floor test has never run** — Export 20% on an uncovered
-     spoke at capacity 120 must keep 24, and still 24 on the next train visit. Running from that
-     save is also the **live pairing with capacity** that neither brief could claim. Earlier
-     sittings' logs: `docs/archive/train_hub_capacity_20260926/` (the new-train crash, `:818`) and
-     `docs/archive/train_distribution_20260926/sittings/`.
+   - **WHERE THE PROJECT STANDS, orchestrator 2026-09-27** (Opus 5.5 `claude-opus-5-5`). The fire
+     order is this folder's [`README.md`](README.md); keep it current.
+     **How sittings run** (owner, 2026-09-26: *"we are going to do each sitting together and you
+     will relay a message to them"*): the orchestrator guides the owner through a build's attended
+     smoke from the build's own predictions, reads the log on "flushed" (re-read the file: the owner
+     keeps playing after a flush), records the result, archives the closed log with a receipt line,
+     and relays fixes. A build session on another model family (GPT-6 via Codex) cannot be messaged:
+     hand the owner paste-ready text, and say which earlier message it replaces. Console lines are
+     acceptable where no slot fits (owner, 2026-09-27).
+     **The distribution centre is DONE on hub lines** (brief 09 deleted 2026-09-27; four sittings in
+     spec §4.8, logs and receipt in `docs/archive/train_distribution_20260926/sittings/`). The owner's
+     fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
+     **Next: brief `10`, 5d routing** (spec §4.8 rulings of 2026-09-27): stations chained to the hub
+     through another station's line (6243 via 2012; 2009 via a small station) must obey their rows.
+     When it hands back, check it once and run its sitting.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
