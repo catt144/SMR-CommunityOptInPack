@@ -615,6 +615,10 @@ orchestrator-attended): untouched 1994 went from 0 to **10.000** (`configured=fa
 target=10000`, 66 train calls) and untouched 2008 held **10.000** (25 calls); the hub rose 220 → 241.
 Zero `LUA ERROR` in the closed 566-line log. Brief 09 is finished and deleted; chained stations go to brief 10 (5d).
 
+**5d desk build, 2026-09-27:** `TRAIN_ROUTING_5D_20260927.md` records the
+single-hub hop rule, archived-body chain and dual-line cases, save rung and
+next-sitting predictions. Its live sitting remains owed to the orchestrator.
+
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in

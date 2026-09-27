@@ -331,6 +331,12 @@ h.nodes[s]=nil;D.Refresh();row:OnContextUpdate(row.context)
 assert(not row.distribution_slider and row:GetTitle()==native_title and #row.idSectionTitles==2)
 x,y=scale:AdjustConstrainedScale(450,450);assert(x==450 and y==450)
 h.nodes[s]=true;D.Refresh();row:OnContextUpdate(row.context);assert(row.distribution_slider)
+local chained=station(0,60);chained.handle=6243;chained.city=s.city
+s.city.labels.Station={s,h,outside,peer,chained};h.nodes[chained]=true
+local chainline={members={peer,chained}}
+s.city.train_track_routes[chainline]=chainline.members
+D.Refresh();assert(D.Parent(chained)==peer)
+assert(chained:ResourceRolloverText('Metals'):find('through station 3',1,true))
 assert(rawget(s,D.FIELD)==nil and not D.error)
 print('PASS Ctrl copies each current state and percent without advancing or rewriting source, including disabled; plain click stays local; destination uses its own capacity; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
 ''')

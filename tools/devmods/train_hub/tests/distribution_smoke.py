@@ -229,16 +229,11 @@ do
     end
     print('PASS untouched spokes: 10 each, remainder at hub; dial 25 then 5; doubling keeps absolute 5/10; no saved settings or claims')
 end
--- Untouched defaults do not reach disconnected or chained-only lines, nor
--- override disabled rows. Compare their complete Metals outcome to vanilla.
-for _,kind in ipairs({'outside','chained','disabled'}) do
+-- Disconnected lines and disabled rows still follow vanilla.
+for _,kind in ipairs({'outside','disabled'}) do
     local function run(native)
         local train,spoke,hub=fixture(48,177,120,480)
         if kind=='outside' then hub.nodes[spoke]=nil;D.Refresh() end
-        if kind=='chained' then
-            local peer=station(0,120);peer.city=spoke.city;peer.handle=3
-            train.track.members={spoke,peer};hub.nodes[peer]=true;D.Refresh()
-        end
         if kind=='disabled' then spoke:SetAcceptResourceState('Metals','disabled') end
         if native then vanilla_transfer(train,nil,true) else checked_transfer(train) end
         assert(rawget(hub,D.FIELD)==nil and rawget(spoke,D.FIELD)==nil)
@@ -247,8 +242,8 @@ for _,kind in ipairs({'outside','chained','disabled'}) do
     local a,b,c=run(true);local x,y,z=run(false)
     assert(a==x and b==y and c==z,kind..' differs from vanilla')
 end
--- Existing cargo must respect the new default on a hub line, while cargo on
--- a chained-only line still unloads normally until routing is built.
+-- Existing cargo respects the default on a hub line. A disconnected train
+-- retains vanilla unloading.
 for _,on_line in ipairs({true,false}) do
     local train,spoke,hub=fixture(9,0,120,480)
     train.stockpiled_amount.Metals=2000;train.assigned_resources[spoke]={Metals=2000}
@@ -268,7 +263,79 @@ do
     deliver(train,spoke);assert(stock(spoke)==6000 and spoke.demand.Metals.target==110000)
     assert(rawget(hub,D.FIELD)==nil)
 end
-print('PASS untouched scope: disconnected/chained/disabled vanilla controls; old cargo capped only on hub lines; reservations reduce orders')
+print('PASS untouched scope: disconnected/disabled vanilla controls; old cargo capped only on hub lines; reservations reduce orders')
+local function chain(child_stock,middle_stock,hub_stock)
+    local trunk,middle,hub=fixture(middle_stock,hub_stock,120,480)
+    local child=station(child_stock,120);child.handle=6243;child.city=middle.city
+    middle.handle=2012;hub.handle=1000
+    middle.city.labels.Station={middle,hub,child};hub.nodes[child]=true
+    local spur={members={child,middle},trains={}}
+    function spur:GetDestStation(st) return st==child and middle or child end
+    middle.city.train_track_routes[spur]=spur.members
+    local train=setmetatable({current_station=child,track=spur,city=middle.city,
+        stockpiled_amount={},assigned_resources={},units={},is_stopping=false,
+        GetEmptyStorage=trunk.GetEmptyStorage,AddResource=trunk.AddResource,
+        LogCargo=trunk.LogCargo,PushDestructor=trunk.PushDestructor,
+        PopDestructor=trunk.PopDestructor},{__index=Train})
+    spur.trains={train};D.Refresh()
+    assert(D.Parent(child)==middle and D.Parent(middle)==hub)
+    return train,trunk,child,middle,hub
+end
+for _,mode in ipairs({'export','balanced','untouched'}) do
+    local spur,trunk,child,middle,hub=chain(60,10,0)
+    if mode~='untouched' then assert(D.Set(child,'Metals',mode,20)) end
+    checked_transfer(spur)
+    assert(stock(child)==(mode=='untouched' and 10000 or 24000),mode..' child='..stock(child))
+    deliver(spur,middle)
+    assert(stock(middle)==(mode=='untouched' and 60000 or 46000),mode..' middle='..stock(middle))
+    if mode=='balanced' then
+        OnMsg.SaveGameStart();OnMsg.SaveGameDone();OnMsg.LoadGame()
+        assert(stock(middle)==46000 and D.Parent(child)==middle)
+    end
+    checked_transfer(trunk);deliver(trunk,hub)
+    assert(stock(middle)==10000 and stock(hub)==(mode=='untouched' and 50000 or 36000))
+    assert(D.CallsFor(child)>0 and D.CallsFor(middle)>0)
+end
+do
+    local spur,trunk,child,middle,hub=chain(0,10,100)
+    assert(D.Set(child,'Metals','import',25))
+    trunk.current_station=hub;checked_transfer(trunk);deliver(trunk,middle)
+    assert(stock(middle)==40000,'import middle='..stock(middle))
+    spur.current_station=middle;checked_transfer(spur);deliver(spur,child)
+    assert(stock(child)==30000 and stock(middle)==10000 and stock(hub)==70000,
+        'import child='..stock(child)..' middle='..stock(middle)..' hub='..stock(hub))
+end
+do
+    local spur,trunk,child,middle,hub=chain(60,10,480)
+    assert(D.Set(child,'Metals','export',20))
+    checked_transfer(spur)
+    assert(stock(child)==60000 and stock(middle)==10000 and stock(hub)==480000)
+end
+do
+    local spur,trunk,small,big,hub=chain(10,50,0)
+    big.handle=2009
+    local direct={members={small,hub},trains={}}
+    big.city.train_track_routes[direct]=direct.members
+    D.Refresh()
+    assert(D.Parent(small)==hub and D.Parent(big)==hub)
+    assert(D.Set(big,'Metals','balanced',20))
+    checked_transfer(spur)
+    assert(stock(big)==50000 and stock(small)==10000,
+        'the sideways line must not erase either row')
+    checked_transfer(trunk);deliver(trunk,hub)
+    assert(stock(big)==24000 and stock(hub)==26000)
+end
+do
+    local spur,trunk,child,middle,hub=chain(0,24,100)
+    assert(D.Set(middle,'Metals','import',20))
+    assert(D.Set(child,'Metals','import',25))
+    trunk.current_station=hub;checked_transfer(trunk);deliver(trunk,middle)
+    assert(stock(middle)==54000)
+    spur.current_station=middle;checked_transfer(spur);deliver(spur,child)
+    assert(stock(middle)==24000 and stock(child)==30000)
+end
+print('PASS one-hop chain: Export/Balanced/untouched forward excess, Import fills through 2012, full hub refuses')
+print('PASS dual-line 2009 uses direct hub route; sideways line keeps both pins; Import intermediate passes transit')
 -- Covered drones leave milliresource stock. With an order of 400, the old
 -- view contributes desire=1 and storage=0 to the archived train allocator.
 do

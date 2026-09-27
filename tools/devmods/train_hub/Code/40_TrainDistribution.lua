@@ -18,7 +18,7 @@ local Floor = rawget(_G, "SMROptInTrainFloor")
 local FIELD = "SMROptIn_distribution"
 D.FIELD, D.calls = FIELD, 0
 local view, baseline, saving = false, false, false
-local owners, hubs, cache_time = {}, {}, false
+local owners, hubs, parents, children, cache_time = {}, {}, {}, {}, false
 local applied = setmetatable({}, { __mode = "k" })
 local calls_by_station = setmetatable({}, { __mode = "k" })
 function D.CallsFor(st) return calls_by_station[st] or 0 end
@@ -57,7 +57,7 @@ local function is_hub(o)
 end
 
 function D.Refresh()
-	owners, hubs = {}, {}
+	owners, hubs, parents, children = {}, {}, {}, {}
 	local colony = rawget(_G, "UIColony")
 	for _, st in ipairs(colony and colony.labels.Station or empty_table) do
 		if is_hub(st) and not st.destroyed then hubs[#hubs + 1] = st end
@@ -74,8 +74,41 @@ function D.Refresh()
 			end
 		end
 	end
+	-- One hop is one train line. A breadth-first tree gives every station one
+	-- upstream stop; ties use station handle order. Nothing persists.
+	local routes = colony and colony.train_track_routes or empty_table
+	for _, hub in ipairs(hubs) do
+		local distance, queue = { [hub] = 0 }, { hub }
+		local cursor = 1
+		while queue[cursor] do
+			local source = queue[cursor]
+			cursor = cursor + 1
+			local adjacent = {}
+			for _, line in pairs(routes) do
+				if table.find(line, source) then
+					for _, dest in ipairs(line) do
+						if dest ~= source and (dest == hub or owners[dest] == hub) then
+							adjacent[#adjacent + 1] = dest
+						end
+					end
+				end
+			end
+			table.sort(adjacent, function(a, b) return a.handle < b.handle end)
+			for _, dest in ipairs(adjacent) do
+				if not distance[dest] then
+					distance[dest] = distance[source] + 1
+					parents[dest] = source
+					children[source] = children[source] or {}
+					children[source][#children[source] + 1] = dest
+					queue[#queue + 1] = dest
+				end
+			end
+		end
+	end
 	cache_time = GameTime()
 end
+
+function D.Parent(st) return parents[st] end
 
 function D.HubFor(st)
 	if not IsValid(st) or is_hub(st) then return end
@@ -122,6 +155,20 @@ local function line_has_hub(train, track, hub)
 	local found = false
 	ForEachStationAlongTrack(train.current_station, track, const.trfInclusive | const.trfBidirectional, function(st)
 		if st == hub then found = true end
+	end)
+	return found
+end
+
+local function line_managed(train, track, st, hub)
+	if not hub or not (train.city and train.city.train_track_routes[track]) then return false end
+	if line_has_hub(train, track, hub) then return true end
+	local found = false
+	ForEachStationAlongTrack(st, track, const.trfInclusive | const.trfBidirectional, function(o)
+		if o == parents[st] then found = true end
+		if o ~= st and owners[o] == hub then found = true end
+		for _, child in ipairs(children[st] or empty_table) do
+			if o == child then found = true end
+		end
 	end)
 	return found
 end
@@ -272,6 +319,34 @@ local function with_view(answers, claims, fn, ...)
 	return table.unpack(result, 1, result.n)
 end
 
+-- Net need of a branch. A surplus can feed a sibling before the hub supplies
+-- it; an Export below its floor does not request a train delivery for itself.
+local function branch_need(st, res)
+	local net = 0
+	if not is_hub(st) then
+		local entry = effective(st, res, D.HubFor(st))
+		if entry and ready(st, res) then
+			local stock = st.supply[res]:GetActualAmount()
+			local reserved = Max(st.demand[res]:GetActualAmount() - st.demand[res]:GetTargetAmount(), 0)
+			local target = amount(st, res, entry)
+			net = entry.mode == "export" and -Max(stock - target, 0)
+				or target - stock - reserved
+		end
+	end
+	for _, child in ipairs(children[st] or empty_table) do
+		net = net + branch_need(child, res)
+	end
+	return net
+end
+
+local function child_need(st, res)
+	local n = 0
+	for _, child in ipairs(children[st] or empty_table) do
+		n = n + Max(branch_need(child, res), 0)
+	end
+	return n
+end
+
 -- Old inbound reservations may predate a mode change. Vanilla keeps a cargo
 -- entry aboard if it no longer fits; the hub can receive it later. No custom
 -- writes to assigned_resources, request flags or transport_policy.
@@ -281,7 +356,7 @@ function Train:UnloadAll(...)
 	local hub = IsValid(st) and D.HubFor(st)
 	local rows = hub and rawget(hub, FIELD)
 	rows = rows and rows[st]
-	local defaults = line_has_hub(self, self.track, hub)
+	local defaults = line_managed(self, self.track, st, hub)
 	local old = view
 	view = false
 	if saving or not (rows or defaults) then
@@ -295,9 +370,18 @@ function Train:UnloadAll(...)
 		local entry = defaults and effective(st, res, hub) or rows and rows[res]
 		if entry and ready(st, res) then
 			local s, d = st.supply[res], st.demand[res]
-			local room = Max(amount(st, res, entry) - s:GetActualAmount(), 0)
+			local from_child = false
+			ForEachStationAlongTrack(st, self.track, const.trfInclusive | const.trfBidirectional, function(o)
+				for _, child in ipairs(children[st] or empty_table) do
+					if o == child then from_child = true end
+				end
+			end)
+			local limit = from_child and st:GetMaxStorage(res)
+				or amount(st, res, entry) + child_need(st, res)
+			local room = Max(Min(limit, st:GetMaxStorage(res)) - s:GetActualAmount(), 0)
 			local own = ((self.assigned_resources or empty_table)[st] or empty_table)[res] or 0
-			answers[st][res] = { enabled = entry.mode ~= "export" and own <= room }
+			answers[st][res] = { enabled = (entry.mode ~= "export" or from_child or child_need(st, res) > 0)
+				and own <= room }
 			local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
 			claims[#claims + 1] = { d, Max(d:GetTargetAmount() - Max(room - reserved, 0), 0) }
 		end
@@ -320,33 +404,60 @@ local function train_view(train, track)
 	ForEachStationAlongTrack(st, track, 0, function(o, mode)
 		if mode ~= "people" then can_receive[o] = true end
 	end)
-	if not members[hub] then return end
+	local upstream = st ~= hub and members[parents[st]]
+	if not members[hub] and not upstream then
+		local has_child = false
+		for _, child in ipairs(children[st] or empty_table) do
+			if members[child] then has_child = true break end
+		end
+		local has_peer = false
+		for dest in pairs(members) do
+			if dest ~= st and owners[dest] == hub then has_peer = true break end
+		end
+		if not has_child and not has_peer then return end
+	end
 	local answers, claims = {}, {}
 	for _, res in ipairs(st.storable_resources or empty_table) do
 		local entry = effective(st, res, hub)
 		local configured = entry and ready(st, res)
 		if st == hub then
 			for dest in pairs(members) do
-				if effective(dest, res, hub) and ready(dest, res) then configured = true break end
+				if parents[dest] == st and effective(dest, res, hub) and ready(dest, res) then configured = true break end
 			end
 		end
 		if configured and ready(st, res) then
-			local floor = entry and (entry.mode == "import" and st.supply[res]:GetActualAmount()
-				or amount(st, res, entry)) or 0
+			local floor = entry and amount(st, res, entry) or 0
+			local routed = upstream or st == hub
+			if not routed then
+				for _, child in ipairs(children[st] or empty_table) do
+					if members[child] then routed = true break end
+				end
+			end
+			if not routed then floor = st.supply[res]:GetActualAmount() end
+			-- A leaf Import never becomes a train source. An intermediate
+			-- Import may forward stock above its own pin.
+			if entry and entry.mode == "import" and not children[st] then
+				floor = Max(floor, st.supply[res]:GetActualAmount())
+			end
+			if upstream then floor = floor + child_need(st, res) end
 			claims[#claims + 1] = { st.supply[res], floor }
 			for dest in pairs(members) do
 				if dest.supply and dest.supply[res] and dest.demand and dest.demand[res] then
 					local order = 0
 					if dest ~= st and can_receive[dest] and ready(dest, res) then
-						if dest == hub and entry and entry.mode ~= "import" then
+						if upstream and dest == parents[st] then
+							-- Export only stock beyond this station's floor and its
+							-- downstream orders. The hub's native demand refuses a full hub.
 							order = Max(dest.demand[res]:GetTargetAmount(), 0)
-						elseif st == hub then
-							local target = effective(dest, res, hub)
-							if target and target.mode ~= "export" then
-								local reserved = Max(dest.demand[res]:GetActualAmount() - dest.demand[res]:GetTargetAmount(), 0)
-								order = Max(amount(dest, res, target) - dest.supply[res]:GetActualAmount() - reserved, 0)
-								order = Min(order, Max(dest.demand[res]:GetTargetAmount(), 0))
+							if dest ~= hub and hub.demand[res] and hub.demand[res]:GetTargetAmount() <= 0 then
+								local own = effective(dest, res, hub)
+								local want = own and own.mode ~= "export"
+									and Max(amount(dest, res, own) - dest.supply[res]:GetActualAmount(), 0) or 0
+								order = Min(order, want + child_need(dest, res))
 							end
+						elseif not upstream and parents[dest] == st then
+							order = Max(branch_need(dest, res), 0)
+							order = Min(order, Max(dest.demand[res]:GetTargetAmount(), 0))
 						end
 					end
 					answers[dest] = answers[dest] or {}

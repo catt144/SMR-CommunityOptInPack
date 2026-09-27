@@ -96,6 +96,11 @@ local function install_station()
 		local mode, percent, cap, target = D.RowState(st, res)
 		local text = help[mode] .. "<newline><newline>Slider: " .. tostring(percent)
 			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
+		local parent = D.Parent(st)
+		if parent and parent ~= D.HubFor(st) then
+			text = text .. "<newline><newline>Trains forward this resource through station "
+				.. tostring(parent.handle) .. " on its way to or from the hub. Transit may use that station's free storage."
+		end
 		if not D.HasDroneCoverage(st) then text = text .. "<newline><newline>No drones in range — trains only." end
 		return Untranslated(text)
 	end
