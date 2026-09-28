@@ -351,6 +351,8 @@ local function child_need(st, res)
 	end
 	return n
 end
+-- Read-only exports for the train bay's need signal (brief Train_Hub_Project/13).
+D.BranchNeed, D.ChildNeed = branch_need, child_need
 
 local function dump_route(train, hub)
 	local members, gateway, depth = {}, nil, nil

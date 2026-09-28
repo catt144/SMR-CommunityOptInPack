@@ -20,12 +20,12 @@ return {
 		'CodeFileName', "Code/45_TrainDistributionUI.lua",
 	}),
 	PlaceObj('ModItemCode', {
-		'name', "50_TrainHubDispatchProbe",
-		'CodeFileName', "Code/50_TrainHubDispatchProbe.lua",
-	}),
-	PlaceObj('ModItemCode', {
 		'name', "60_StationSpoilage",
 		'CodeFileName', "Code/60_StationSpoilage.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "70_TrainBay",
+		'CodeFileName', "Code/70_TrainBay.lua",
 	}),
 	PlaceObj('ModItemRef', {1} --[[SMROptInTrainHub6 SMROptInTrainHub6Base]]),
 	PlaceObj('ModItemRef', {2} --[[SMROptInTrainHub6]]),
