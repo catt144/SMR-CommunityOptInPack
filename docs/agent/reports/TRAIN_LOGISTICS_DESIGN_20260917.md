@@ -863,7 +863,10 @@ ruins; on completion the new building is created, `ApplyCopyParams` runs and onl
 are `DoneObject`-ed (`ConstructionSite.lua:1736-1745`), so the upgrade is carried from ruins to new
 hub at that moment. The player pays vanilla's rebuild cost only. (c) **Clearing the ruins** releases
 the claim as before; any hub may buy it again.
-Build audited 2026-09-28 (brief 14): desk PASS WITH FIXES, not merged, not yet played —
+⚖️ **Owner, 2026-09-28: a Ctrl+click on the upgrade from a hub that does not own it is inert**
+(answering brief 14's finding that it switched an owner left off back on). Only the owner's own
+click or its own broadcast switches it.
+Build audited 2026-09-28 (brief 14): desk PASS WITH FIXES, merged `7dcef3e`, not yet played —
 `docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`.
 
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:

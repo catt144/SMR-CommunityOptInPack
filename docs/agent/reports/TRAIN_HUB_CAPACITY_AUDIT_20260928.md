@@ -5,11 +5,19 @@ model: Claude Fable 5.1 (`claude-fable-5-1`). The capacity change was built on O
 Sonnet. Source reads were made on 1.1.1.405907, from `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src`.
 A desk PASS means the mocked vanilla bodies agree. It does not mean the change works in the game.
 
-## 1. Capacity salvage/rebuild — **PASS WITH FIXES**, verified in the worktree, NOT merged
+## 1. Capacity salvage/rebuild — **PASS WITH FIXES**, merged as `7dcef3e`
 
 Branch `worktree-agent-af033497203ef0c8a`. `37b9e30` is the builder's change committed unchanged.
-`0ec0631` holds the audit fixes. **Not merged:** the merge waits for the owner to say no sitting is
-running, because the game reads the dev mod from `main` through a junction.
+`0ec0631` holds the audit fixes. `9fcdabc` implements the owner's ruling (below). The owner said
+no sitting was running, and the branch was merged as `7dcef3e`; all 19 `tests/*_smoke.py` exit 0
+on the merged `main`.
+
+**Owner ruling, 2026-09-28: a Ctrl+click from a spent hub is inert** (`9fcdabc`). Before this, a
+Ctrl+click on the upgrade from spent hub B switched an owner that was left off back on, because
+`enable` came from B's empty state. Both panels broadcast with the clicked hub selected, so the
+owner now refuses a switch while another train hub without the upgrade is `SelectedObj`, and logs
+the refusal. The rebuild carry calls `Building.ToggleUpgradeOnOff` directly, so the carry does not
+depend on what is selected. Ten mutations, each exit 1.
 
 | check | command | exit / result |
 |---|---|---|
@@ -63,7 +71,8 @@ addendum to `TRAIN_HUB_CAPACITY_20260926.md`. They correct the train figures for
 
 **Slot 6 does not show capacities** (TestKit `a4b122b`). It streams stock, cargo and passenger
 count only. Station cap: slot 4. Train caps and the upgrade rows: only `read()`, which is behind
-slot 2's fill. A read-only slot for `read()` is needed; it was not added (TestKit out of scope).
+slot 2's fill. A read-only slot for `read()` is needed; it is handed to the orchestrator (owner,
+2026-09-28).
 
 ## 2. Doc-checker COLLAPSE gate — **PASS WITH FIXES**, on `main`
 
@@ -81,9 +90,6 @@ same house pattern as `eol_report`. No threshold moved.
 
 ## Outside findings, not edited
 
-- **Pre-existing, 2026-09-26 design.** A Ctrl+click on the upgrade from spent hub B while the live
-  owner A is OFF turns A **on**: `enable` is computed from B's empty state. B shows no switch, but
-  its broadcast switches the owner. This ruling does not cover it; it needs an owner call.
 - **A fresh worktree's doccheck is RED on LOCAL.** `local/README.md` lists the ignored
   `local/retired-modules/`, which exists only in the main checkout. I created it empty in this
   worktree so the pre-commit hook could run.

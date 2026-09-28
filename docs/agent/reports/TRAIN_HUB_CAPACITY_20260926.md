@@ -129,9 +129,9 @@ measured. Open in spec §4.10; the product question is fix versus a line in the 
 ## Addendum 2026-09-28 — salvage/rebuild steps, not yet played
 
 For spec §4.10's ruling "amending the 2026-09-26 one". The builder's five steps, corrected by brief
-14's audit (`docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`). The code is worktree
-branch `worktree-agent-af033497203ef0c8a` at `0ec0631`. **These steps cannot run until it is merged**,
-and the merge waits for the owner to say no sitting is running. Fixture `train_hub_base`, as on
+14's audit (`docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`). The code is on `main` since
+merge `7dcef3e`, including the owner's 2026-09-28 ruling that a Ctrl+click from a spent hub is
+inert. Fixture `train_hub_base`, as on
 2026-09-26. Its +50% cargo tech makes the train figures 63000/18 at base and 105000/30 doubled, not
 the builder's 42/12 and 84/24.
 
@@ -141,12 +141,14 @@ and passenger count, and its station rows carry stock only (TestKit `a4b122b`,
 station (read-only, logs `cap`). Train caps and the upgrade rows (owner, `on`, `destroyed`,
 modifiers applied): only the capacity `read()`, which is reachable **only through slot 2, which
 first fills the selected station's Metals** (a mutation). The read-only read these steps need is
-`read()` bound to its own slot; not added (TestKit out of scope). Until then, read train caps by
+`read()` bound to its own slot, handed to the orchestrator (owner, 2026-09-28). Until then, read train caps by
 eye in the train's infopanel, or press slot 2 on a station whose fill does not matter. Ownership
 events are in the log as `[TrainHubDev] capacity upgrade: ...`.
 
 1. Load a save where hub A owns the upgrade and it is on. Predict: small station 120000 (slot 4),
    trains 105000/30. Any pre-ruling ruins that still hold the upgrade turn off on load (no log line).
+   Toggle A off, then Ctrl+click the upgrade on B. Predict: A stays off at 60000, and the log shows
+   `capacity upgrade: switch from hub <B> refused, hub <A> owns it`. Toggle A on from its own panel.
 2. Salvage A. Predict the log line `capacity upgrade: hub <A> ruined, bonus off, claim held`;
    stations 60000, trains 63000/18, over-cap stock kept (demand 0). Hub B reads "Upgrade already
    constructed" with no switch; a construct try on B logs `refused on hub <B>, hub <A> holds it`.
