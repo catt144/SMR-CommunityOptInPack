@@ -6,8 +6,10 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **`10` is the one live build brief**: 5d routing,
-so stations chained to the hub obey their rows (owner, 2026-09-27). `09`, the distribution centre,
+`00` is live; `03_Drones/` is closed reference. **`10` is the live build brief**: 5d routing,
+so stations chained to the hub obey their rows (owner, 2026-09-27); it is fixing stranded cargo.
+**`11` runs alongside it**: a dispatch investigation that edits none of `10`'s files. 5d's remaining
+live legs wait on `11`'s answer (owner, 2026-09-27). `09`, the distribution centre,
 is built, passed live on every hub-line station and deleted (2026-09-27); spec §4.7/§4.8 and
 `reports/TRAIN_DISTRIBUTION_PASS2_20260926.md` hold its record. `10` owns `10_TrainFloor.lua` and the
 distribution files; `20_TrainHub.lua` is free, and only one brief that edits it runs at a time.
@@ -19,6 +21,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `10_TRAIN_HUB_ROUTING_5D_high.md` | 5d cargo routing, spec §6 OPTION 5 and the §4.8 rulings of 2026-09-27: stations chained to the hub through another station's line obey their distribution rows, forwarded hop by hop. No route-model change. Owns `10_TrainFloor.lua`, `40_TrainDistribution.lua` and `45_TrainDistributionUI.lua`. | **LIVE** (2026-09-27), not yet fired |
+| `11_TRAIN_HUB_DISPATCH_INVESTIGATION_high.md` | Investigation: can the hub put a train standing on it onto another of its lines and have vanilla serve it, so the hub dispatches trains by need (spec §4.8 ruling 7)? Feasibility, evidence and a design sketch or the wall; no dispatcher build. | **LIVE** (2026-09-27), parallel to `10` |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

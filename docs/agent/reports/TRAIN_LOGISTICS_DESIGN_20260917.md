@@ -580,7 +580,18 @@ full hub, all traffic at one priority), not a fault.
    player sets; not a fixed percentage). This reverses the build's "unconfigured resources retain
    vanilla behavior": rows that read Balanced but ran vanilla's capacity-share spread (40–49 held on
    untouched 120-cap spokes against a shown ~8%) are the defect. Stations off the hub's network keep
-   vanilla. The existing traffic-smoke
+   vanilla.
+6. **Stranded cargo is dumped, hub first** (owner, 2026-09-27, over the 5d repair sitting): cargo a
+   train must get rid of goes to the **hub first**; *"if a train needs to get rid of materials it can
+   take a station over its slotted amount IF there isn't room for it to dump in the hub."* Vanilla's
+   own rule (`Train:UnloadAll`, 1.1.1.405907 `Train.lua:787-830`) unloads only unassigned cargo up
+   to demand room and assigned cargo only whole, so cargo assigned to an off-line station stays
+   aboard (train 2000001844, 98, all sitting).
+7. **Hub dispatch is a candidate, investigated before 5d's remaining live legs** (owner, 2026-09-27):
+   the hub assigns trains to its lines by need — a quiet station topped up occasionally, a busy one
+   served by several trains. Sequencing, the owner's: settle dispatch before re-testing chained
+   routing under a different dispatcher. Per-stop arithmetic (floors, pins, refusal) is
+   dispatcher-independent; line service, timing and chained forwarding are not. Brief `11`. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
