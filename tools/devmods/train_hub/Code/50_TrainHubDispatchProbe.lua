@@ -95,7 +95,16 @@ function P.Run(train, want_idx)
 			if not chosen or (chosen.occupied and not line.occupied) then chosen = line end
 		end
 	end
-	if not chosen then return say({ refused = "no other hub line with vanilla route room", train = h(train), lines = #P.Lines(hub) }) end
+	if not chosen then
+		-- Name each line's route load so a refusal says which cap is full (idx:station:trains/cap, * = own route).
+		local detail = {}
+		for _, line in ipairs(P.Lines(hub)) do
+			detail[#detail + 1] = line.idx .. ":" .. h(line.station) .. ":" .. line.trains .. "/" .. line.cap
+				.. (line.route == old_route and "*" or "")
+		end
+		return say({ refused = "no other hub line with vanilla route room", train = h(train),
+			lines = table.concat(detail, ",") })
+	end
 	local before = { old_track = h(old), old_idx = tostring(IsValid(old) and hub:GetConnectionSpot(old)),
 		arrival_idx = tostring(train.station_arrival_track), command = tostring(train.command) }
 	-- Vanilla's own placement order (Track.lua:448-455): the link's cap gate, then the membership move.
