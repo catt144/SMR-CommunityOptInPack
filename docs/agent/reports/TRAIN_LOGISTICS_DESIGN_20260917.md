@@ -644,6 +644,12 @@ failure and the whole hub's both-configuration ship test remain separate.
      "right in the middle of the hub kind off center onto another loading platform". Whether that
      is exactly the siding a parked train uses is not settled.
    - Built 2026-09-28 (desk only; live smoke owed): `TRAIN_HUB_BAY_20260928.md`.
+   - **Amended by the owner, 2026-09-28** (*"both of those are fine"*, on brief 13's calls). (a) The
+     save storing and its undo run **inside the save snapshot** (`PersistGame`), not at
+     `SaveGameStart`/`SaveGameDone`. Autosaves run game time between those messages, and bug-report
+     saves skip them. (b) An extra recalled having carried nothing pauses its line's deploys for
+     **2 game hours**. The need check every 10 game minutes stays as built (owner, *"ok thats
+     fine"*); it is one line, `B.tick_minutes`, for tuning by eye.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash
