@@ -100,10 +100,10 @@ assert(not T.specs.distribution_target.when(watch))
 t.current_station=s;checked_transfer(t)
 fired,result=T.specs.distribution_target.when(watch)
 assert(fired and result.stock==24000 and result.calls>watch.state.calls)
-assert(T.slots[6].fn(ctx)==false) -- At the floor is no refusal witness.
+assert(T.DistributionFullHubLeg(ctx)==false) -- At the floor is no refusal witness.
 T.DisarmAll('new fixture')
 t,s,h=fixture(120,0,120,480);D.Set(s,'Metals','export',20);ctx=context(s)
-assert(T.slots[6].fn(ctx).held==480000)
+assert(T.DistributionFullHubLeg(ctx).held==480000)
 assert(h.supply.Metals:GetActualAmount()==480000 and h.supply.Metals:GetTargetAmount()==0)
 assert(not h.supply.Metals:AssignUnit(1000)) -- Competing hauler cannot drain the hub.
 t.current_station=h;checked_transfer(t);poll('distribution_full_hub')
@@ -113,32 +113,32 @@ local ready,reading=T.specs.distribution_full_hub.when(T.armed.distribution_full
 assert(ready and reading.verdict=='full_refused' and reading.stock==120000 and reading.hub_stock==480000)
 poll('distribution_full_hub') -- Actual native trigger + dispatcher completion cleanup.
 assert(not T.armed.distribution_full_hub and h.supply.Metals:GetTargetAmount()==480000 and speed==0)
-assert(T.slots[6].fn(ctx).held==480000)
+assert(T.DistributionFullHubLeg(ctx).held==480000)
 OnMsg.SaveGameStart()
 assert(not T.armed.distribution_full_hub and h.supply.Metals:GetTargetAmount()==480000)
 for _,reason in ipairs({'cancel','PreLoadGame','ChangeMap','DoneGame'}) do
-    assert(T.slots[6].fn(ctx).held==480000);T.DisarmAll(reason)
+    assert(T.DistributionFullHubLeg(ctx).held==480000);T.DisarmAll(reason)
     assert(h.supply.Metals:GetTargetAmount()==480000)
 end
 assert(h.supply.Metals:AssignUnit(1000))
-assert(T.slots[6].fn(ctx)==false) -- Existing outgoing reservation is refused without changing it.
+assert(T.DistributionFullHubLeg(ctx)==false) -- Existing outgoing reservation is refused without changing it.
 assert(h.supply.Metals:GetTargetAmount()==479000)
 h.supply.Metals:UnassignUnit(1000,false)
 h:AddResource(-1000,'Metals');assert(h.demand.Metals:AssignUnit(1000))
-assert(T.slots[6].fn(ctx)==false) -- Existing incoming cargo must settle first.
+assert(T.DistributionFullHubLeg(ctx)==false) -- Existing incoming cargo must settle first.
 h.demand.Metals:UnassignUnit(1000,false)
-assert(T.slots[6].fn(ctx).held==480000)
+assert(T.DistributionFullHubLeg(ctx).held==480000)
 h:AddResource(-1000,'Metals') -- External fixture corruption must not count as refusal.
 ready,reading=T.specs.distribution_full_hub.when(T.armed.distribution_full_hub)
 assert(ready and reading.verdict=='hold_broken')
 poll('distribution_full_hub');assert(h.supply.Metals:GetTargetAmount()==479000)
-assert(T.slots[6].fn(ctx).held==480000)
+assert(T.DistributionFullHubLeg(ctx).held==480000)
 local old_time=GameTime;GameTime=function() return 300000 end
 ready,reading=T.specs.distribution_full_hub.when(T.armed.distribution_full_hub)
 assert(ready and reading.verdict=='deadline');poll('distribution_full_hub');GameTime=old_time
 assert(h.supply.Metals:GetTargetAmount()==480000)
 h.supply.Metals.reject=true
-assert(T.slots[6].fn(ctx)==false and not T.armed.distribution_full_hub)
+assert(T.DistributionFullHubLeg(ctx)==false and not T.armed.distribution_full_hub)
 h.supply.Metals.reject=nil
 assert(h.supply.Metals:GetTargetAmount()==480000)
 do -- Scratch balances and slot 1 empties every non-hub station (owner, 2026-09-28).
@@ -170,8 +170,37 @@ do -- Scratch balances and slot 1 empties every non-hub station (owner, 2026-09-
     GetTimeFactor=tf;IsKindOf=kind;SMROptInTrainHubBase=nil
     print('PASS Scratch balances non-hub rows to target and slot 1 empties them through AddResource; hub untouched; reserved stock and room kept and counted; train cargo counted; paused only')
 end
-assert(T.slots[1] and T.slots[2] and T.slots[3] and T.scratch)
-print('PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; slot 6 holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; slots 1-3 and Scratch bound')
+do -- Slot 6 streams every train and station row that changed (owner, 2026-09-28).
+    local tr,sp,hb=fixture(120,0,120,480)
+    UIColony.labels.Train={tr}
+    function tr.track:GetStartStation() return hb end
+    function tr.track:GetEndStation() return sp end
+    local logged,real_log={},T.Log
+    T.Log=function(verb,kv,screen) logged[#logged+1]={verb=verb,kv=kv,screen=screen} end
+    local sleep=Sleep;Sleep=function() coroutine.yield() end
+    local ctx=context(sp);ctx.state={}
+    local out=T.slots[6].fn(ctx)
+    local trains,stocks=0,0
+    for _,l in ipairs(logged) do
+        assert(l.verb=='STREAM' and l.screen==false)
+        if l.kv.row=='train' then trains=trains+1 elseif l.kv.row=='stock' then stocks=stocks+1 end
+    end
+    assert(trains==1 and stocks==4 and out.baseline==5 and out.rows==5, 'baseline '..trains..' '..stocks)
+    logged={};assert(coroutine.resume(ctx.state.thread));assert(#logged==0) -- Quiet tick: nothing changed.
+    sp:AddResource(-3000,'Metals');tr:AddResource(3000,'Metals');tr.assigned_resources={[hb]={Metals=3000}}
+    assert(coroutine.resume(ctx.state.thread))
+    assert(#logged==2, 'changes '..#logged)
+    local st,tn=logged[1].kv,logged[2].kv
+    if st.row~='stock' then st,tn=tn,st end
+    assert(st.res=='Metals' and st.stock==117000 and st.before==120000 and st.target==10000)
+    assert(tn.cargo=='Metals:3000' and tn.assigned:match(':Metals:3000$'))
+    ctx.state.cancelled=true;assert(coroutine.resume(ctx.state.thread))
+    assert(coroutine.status(ctx.state.thread)=='dead')
+    T.Log,Sleep=real_log,sleep
+    print('PASS slot 6 streams a full baseline, then only changed train and stock rows, file-only; stops when disarmed')
+end
+assert(T.slots[1] and T.slots[2] and T.slots[3] and T.slots[6] and T.scratch)
+print('PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; the full-hub leg holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; slots 1-3, 6 and Scratch bound')
 ''')
     print('NOT TESTED: native engine ledger, thread scheduling and actual game UI',flush=True)
 
