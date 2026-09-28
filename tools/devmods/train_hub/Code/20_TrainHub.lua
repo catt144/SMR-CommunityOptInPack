@@ -3520,21 +3520,25 @@ end
 
 local hub_capacity_upgrade = "SMROptInTrainHub6_CapacityNetwork" -- save contract, FIX_POLICY inventory
 SMROptInTrainHubBase.hub_capacity_upgrade = hub_capacity_upgrade
+local hub_cargo_upgrade = "SMROptInTrainHub6_TrainCargo" -- save contract, FIX_POLICY inventory
+SMROptInTrainHubBase.hub_cargo_upgrade = hub_cargo_upgrade
+local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }
+local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end
 
 local function unlock_capacity_upgrade()
-	if UIColony and not UIColony:IsUpgradeUnlocked(hub_capacity_upgrade) then
-		UIColony:UnlockUpgrade(hub_capacity_upgrade)
+	for _, id in ipairs(hub_upgrades) do
+		if UIColony and not UIColony:IsUpgradeUnlocked(id) then UIColony:UnlockUpgrade(id) end
 	end
 end
 
 -- Another hub that has built the upgrade ("built") or has it under construction, cancelled or not
 -- ("started"), since a cancelled one keeps its delivered resources and may resume
 -- (Building:StopUpgradeConstruction, Building.lua:2149-2170).
-local function other_capacity_hub(self, started)
+local function other_upgrade_hub(self, id, started)
 	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
 		if hub ~= self and IsKindOf(hub, "SMROptInTrainHubBase") then
-			if Building.HasUpgrade(hub, hub_capacity_upgrade) then return hub end
-			if started and hub.upgrades_under_construction and hub.upgrades_under_construction[hub_capacity_upgrade] then
+			if Building.HasUpgrade(hub, id) then return hub end
+			if started and hub.upgrades_under_construction and hub.upgrades_under_construction[id] then
 				return hub
 			end
 		end
@@ -3543,7 +3547,7 @@ end
 
 function SMROptInTrainHubBase:HasUpgrade(id)
 	local own = Building.HasUpgrade(self, id)
-	if own or id ~= hub_capacity_upgrade or not other_capacity_hub(self) then return own end
+	if own or not network_upgrade(id) or not other_upgrade_hub(self, id) then return own end
 	-- The panel's Ctrl+click reads this table raw once HasUpgrade is true (sectionUpgrades
 	-- .generated.lua:74-84); ApplyUpgrade would have made it on the owner.
 	self.upgrade_on_off_state = self.upgrade_on_off_state or {}
@@ -3553,7 +3557,7 @@ end
 -- A spent upgrade shows as "Upgrade already constructed", with no switch
 -- (UpgradableBuilding.lua:256-261, sectionUpgrades.generated.lua:41-45); the owner hub switches it.
 function SMROptInTrainHubBase:CanDisableUpgrade(id)
-	if id == hub_capacity_upgrade and not Building.HasUpgrade(self, id) and other_capacity_hub(self) then return false end
+	if network_upgrade(id) and not Building.HasUpgrade(self, id) and other_upgrade_hub(self, id) then return false end
 	return Building.CanDisableUpgrade(self, id)
 end
 
@@ -3567,12 +3571,12 @@ end
 -- another train hub that does not own the upgrade is selected. Its own click and its own
 -- broadcast still switch it.
 function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
-	if id == hub_capacity_upgrade then
+	if network_upgrade(id) then
 		if self.destroyed then return end
 		local sel = SelectedObj
 		if Building.HasUpgrade(self, id) and sel ~= self and IsKindOf(sel, "SMROptInTrainHubBase")
 			and not Building.HasUpgrade(sel, id) then
-			print(string.format("[TrainHubDev] capacity upgrade: switch from hub %s refused, hub %s owns it",
+			print(string.format("[TrainHubDev] network upgrade: switch from hub %s refused, hub %s owns it",
 				tostring(sel.handle), tostring(self.handle)))
 			return
 		end
@@ -3582,7 +3586,7 @@ end
 
 -- Ruins never carry the bonus (owner, 2026-09-28), whatever reaches the modifiers.
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
-	if id == hub_capacity_upgrade and self.destroyed then return end
+	if network_upgrade(id) and self.destroyed then return end
 	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
 end
 
@@ -3593,10 +3597,10 @@ end
 -- Every construct and cancel, single or Ctrl+click broadcast, comes through here
 -- (Building.lua:2078-2092). A hub may cancel its own; it may not start one another hub holds.
 function SMROptInTrainHubBase:ConstructUpgrade(id)
-	if id == hub_capacity_upgrade and not self:IsUpgradeBeingConstructed(id) then
-		local other = other_capacity_hub(self, "started")
+	if network_upgrade(id) and not self:IsUpgradeBeingConstructed(id) then
+		local other = other_upgrade_hub(self, id, "started")
 		if other then
-			print(string.format("[TrainHubDev] capacity upgrade: refused on hub %s, hub %s holds it", tostring(self.handle), tostring(other.handle)))
+			print(string.format("[TrainHubDev] network upgrade: refused on hub %s, hub %s holds it", tostring(self.handle), tostring(other.handle)))
 			return
 		end
 	end
@@ -3607,15 +3611,20 @@ end
 -- sends BuildingDemolished (Building.lua:910-919; Destroy's only caller is :912). The state stays
 -- as the player left it, so a rebuild restores it on or off.
 local function ruins_bonus_off(hub)
-	if IsKindOf(hub, "SMROptInTrainHubBase") and hub.destroyed and Building.HasUpgrade(hub, hub_capacity_upgrade) then
-		hub:StopUpgradeModifiersForUpgrade(hub_capacity_upgrade)
-		return true
+	if not IsKindOf(hub, "SMROptInTrainHubBase") or not hub.destroyed then return end
+	local held = false
+	for _, id in ipairs(hub_upgrades) do
+		if Building.HasUpgrade(hub, id) then
+			hub:StopUpgradeModifiersForUpgrade(id)
+			held = true
+		end
 	end
+	return held
 end
 
 function OnMsg.BuildingDemolished(bld)
 	if ruins_bonus_off(bld) then
-		print(string.format("[TrainHubDev] capacity upgrade: hub %s ruined, bonus off, claim held", tostring(bld.handle)))
+		print(string.format("[TrainHubDev] network upgrade: hub %s ruined, bonus off, claim held", tostring(bld.handle)))
 	end
 end
 
@@ -3625,23 +3634,27 @@ end
 -- method (BaseBuilding.lua:2, classes.lua:1847), so this adds to the chain. Only one hub holds the
 -- upgrade; if it is ruins standing where this hub now stands, on this hub's map (UIColony's labels
 -- span every map), they are this hub's.
-function SMROptInTrainHubBase:ApplyCopyParams(params)
-	if Building.HasUpgrade(self, hub_capacity_upgrade) then return end
-	local ruins = other_capacity_hub(self)
+local function carry_upgrade(self, id)
+	if Building.HasUpgrade(self, id) then return end
+	local ruins = other_upgrade_hub(self, id)
 	if not ruins or not ruins.destroyed or ruins:GetMap() ~= self:GetMap() then return end
 	local x, y = self:GetPos():xy()
 	local rx, ry = ruins:GetPos():xy()
 	if x ~= rx or y ~= ry then return end
-	local on = ruins:IsUpgradeOn(hub_capacity_upgrade)
-	local tier = self:GetUpgradeTier(hub_capacity_upgrade)
-	ruins:StopUpgradeModifiersForUpgrade(hub_capacity_upgrade)
-	ruins.upgrades_built[hub_capacity_upgrade] = nil
+	local on = ruins:IsUpgradeOn(id)
+	local tier = self:GetUpgradeTier(id)
+	ruins:StopUpgradeModifiersForUpgrade(id)
+	ruins.upgrades_built[id] = nil
 	ruins.upgrades_built[tier] = nil
 	self:ApplyUpgrade(tier)
 	-- Vanilla's toggle, not this class's: whatever the player has selected, the carry keeps the state.
-	if not on then Building.ToggleUpgradeOnOff(self, hub_capacity_upgrade) end
-	print(string.format("[TrainHubDev] capacity upgrade: carried from ruins %s to rebuilt hub %s, %s",
+	if not on then Building.ToggleUpgradeOnOff(self, id) end
+	print(string.format("[TrainHubDev] network upgrade: carried from ruins %s to rebuilt hub %s, %s",
 		tostring(ruins.handle), tostring(self.handle), on and "on" or "off"))
+end
+
+function SMROptInTrainHubBase:ApplyCopyParams(params)
+	for _, id in ipairs(hub_upgrades) do carry_upgrade(self, id) end
 end
 
 function SMROptInTrainHubBase:InitHubCapacityUpgrade()
@@ -3659,5 +3672,47 @@ function OnMsg.LoadGame()
 		ruins_bonus_off(hub)
 	end
 end
+
+-- Train Cargo Upgrade speed: archived 1.1.1.405907 Units/Train.lua:593-613.
+-- Speed is not modifiable (:21-28). Multiply the chained result after all vanilla
+-- tech, cold and law adjustments, including its matching turn-animation speed.
+-- Hub movement already reads GetNominalMoveSpeed at each leg (:630-825 above);
+-- no route, curve, clearance or acceleration algorithm is replaced.
+-- Read the owner's actual applied cargo modifier: power loss leaves it applied;
+-- toggle, salvage and Done switch it off, including the brief rebuild window.
+local function cargo_speed_on(train)
+	local city = train.city
+	for _, hub in ipairs(city and city.labels.Station or empty_table) do
+		if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") and not hub.destroyed
+			and Building.HasUpgrade(hub, hub_cargo_upgrade) then
+			for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[hub_cargo_upgrade] or empty_table) do
+				if mod:IsApplied() then return true end
+			end
+		end
+	end
+	return false
+end
+
+local Require = { { "Train", "GetNominalMoveSpeed" } }
+local function install_cargo_speed()
+	for _, pair in ipairs(Require) do
+		local class = rawget(_G, pair[1])
+		if not class or type(class[pair[2]]) ~= "function" then
+			print("[TrainHubDev] cargo speed unavailable: " .. pair[1] .. "." .. pair[2])
+			return
+		end
+	end
+	if Floor.HubCargoSpeedInstalled then return end
+	local previous = Train.GetNominalMoveSpeed
+	Train.GetNominalMoveSpeed = function(self, ...)
+		if not cargo_speed_on(self) then return previous(self, ...) end
+		local result = table.pack(previous(self, ...))
+		result[1] = MulDivRound(result[1], 125, 100)
+		result[2] = MulDivRound(result[2], 125, 100)
+		return table.unpack(result, 1, result.n)
+	end
+	Floor.HubCargoSpeedInstalled = true
+end
+install_cargo_speed()
 
 print("[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve")
