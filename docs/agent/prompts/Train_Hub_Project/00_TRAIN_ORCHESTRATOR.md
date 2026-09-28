@@ -56,13 +56,15 @@ is delegated to another agent through a brief.**
      a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
      The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
      Scratch, then half a sol at top speed, reliably leaves train 2000001844 empty and parked on the hub.
-     **FIRST, at the next launch: brief `13` has handed back, unchecked.** The owner wants to
-     discuss it with you. It is code `9947552` (new `Code/70_TrainBay.lua`; probe `50_` retired;
-     `HubTrain` added to `FIX_POLICY`'s inventory), report `reports/TRAIN_HUB_BAY_20260928.md`
-     (`14b1bf3`, with its sitting steps) and TestKit `a4b122b`. Check it once against ruling 9 and
-     its desk receipts, then run its sitting. Four game logs written after its hand-back are
-     **unread**: `Mars.exe-20260928-12.06.47`, `12.27.00`, `12.36.00` and `12.57.37`. Ask the owner
-     what they were before treating any as a sitting.
+     **FIRST: brief `13`'s sitting** (report `reports/TRAIN_HUB_BAY_20260928.md`, its five steps).
+     Checked 2026-09-28: `bay_smoke.py` 7 PASS at `ba34d73`; the owner accepted its calls (ruling 9
+     amendment, `5e44b44`). Placement is unsettled: the desk says a spawn lands exactly on the
+     arm's parked spot, the owner saw it off centre; step 1 settles it.
+     **Held for merge after that sitting:** the capacity salvage/rebuild change (spec §4.10 ruling
+     2026-09-28, `023eaa1`), built in worktree `.claude/worktrees/agent-af033497203ef0c8a`
+     (`20_TrainHub.lua` + `capacity_smoke.py`, PASS, uncommitted; its five in-game steps are in
+     that agent's hand-back, not yet filed). Give the merge to a subagent.
+     Eight game logs 2026-09-28 12.06.47 to 13.25.51 are unread; ask the owner what they were.
      **Where things stand:**
      - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
        seen on 2000001844 (cargo confirmed Metals). **Held:** its chained Export/Import legs, until
@@ -112,6 +114,13 @@ is delegated to another agent through a brief.**
    decide: **park it** in `Parked/` if it is worth keeping for possible touch-up work, or **delete
    it**. Move or delete its row in this folder's `README.md` in the same commit, and say which and
    why in the commit message. Build agents do not delete or move their own brief.
+
+**The orchestrator does not investigate or build** (owner, 2026-09-28, after a session spent its
+cheap context on source reads, feasibility checks and merges while the sitting waited). Source
+reads, feasibility questions, desk checks and merges go to a subagent; the orchestrator answers
+the owner from what it already holds, and says "an agent will check" rather than checking. Keep
+the orchestrator's own context under about 30%. When the owner is ready to play, the sitting comes
+first and background work runs beside it, not before it.
 
 **Method (owner, 2026-09-20): quick and iterative, never "try to be perfect".** *"Right now we are
 doing extremely heavy builds each pass and then having to rewrite all the steps, and then do another
