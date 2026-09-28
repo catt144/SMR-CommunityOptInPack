@@ -66,11 +66,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      **Both briefs have handed back (2026-09-27, night):**
      - **`10`, 5d routing**: the stranded-cargo repair `7c829a6` **PASSED live** (spec §4.8's
        third 5d paragraph). The brief stays live: its chained Export/Import legs are still owed.
-     - **`11`, the dispatch investigation** (`e0f8bb8`, report
-       `reports/TRAIN_HUB_DISPATCH_20260927.md`): feasible by source; its probe sitting (five
-       steps, TestKit slot 3, a fresh load) is **the next sitting**. It registered the probe in
-       `metadata.lua` only; `004ee26` added the `items.lua` entry. Delete the brief once its
-       sitting is recorded; the report holds everything.
+     - **`11`, the dispatch investigation**: done and deleted 2026-09-28; its report
+       `reports/TRAIN_HUB_DISPATCH_20260927.md` holds the need-signal sketch that `13` reuses.
 
      **Hold 5d's chained Export and Import legs until the probe sitting is in and the owner has
      ruled on building the dispatcher** (ruling 7).
@@ -80,9 +77,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      command, as vanilla's NewHour does.
      **Dispatch is now a train bay (owner ruling 9, spec §4.8).** It supersedes brief `11`'s move sketch;
      that probe showed a reassignment holds but never saw a departure. **Next sitting: the bay probe** (slot 3:
-     store a parked empty hub train, deploy one at the hub). Once the spawn at the hub is shown, delete
-     `11` and write the bay **build** brief for another agent (owner, 2026-09-28: a big change is
-     delegated). Five-train extras, recall-when-idle, the save-time storing and auto-fill are all in ruling 9.
+     store a parked empty hub train, deploy one at the hub). **Ran 2026-09-28: store and deploy work;**
+     the spawn lands on the hub (exactly on the siding is unsettled; a departure is not yet seen).
+     `11` deleted; **brief `13` builds the bay** (delegated, owner 2026-09-28). When it hands back, check
+     it once and run its sitting with slot 6's stream on.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
