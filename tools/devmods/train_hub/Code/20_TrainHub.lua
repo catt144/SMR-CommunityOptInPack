@@ -2054,6 +2054,38 @@ function SMROptInTrainHubBase:GetCubePosRelative(idx, placement_offset, resource
 	return Rotate(spot_pos - self:GetPos(), -self:GetAngle()) + in_bed + point(0, 0, z * (self.box_height + self.spacing_z))
 end
 
+-- Owner report 2026-09-27 (report TRAIN_HUB_PALLETS_20260927): stocked resources drew on a
+-- fraction of the beds. The column split (`capacity_columns`, `visual_col_start`) and `max_z`
+-- are persisted state, and vanilla recomputes the split only at placement or on a
+-- storable-list change (MultiResourceDepot.lua:156-182, :380-408 on 1.1.1.405907) — never
+-- when the column count under it moves (stand-in sub-depots to the asset's own pallets, a
+-- pallet-count change, or an epoch this code cannot foresee). Re-derive on every load, the
+-- way vanilla's own savegame fixup re-runs ReallocateVisualColumns
+-- (MultiResourceCubeVisuals.lua:604-611), and log what moved ONCE so a stale save's old
+-- split reaches the log before the repair erases it. No new persisted name: every field
+-- written here is vanilla's own.
+function SMROptInTrainHubBase:HealCargoColumns()
+	if not self.has_visual_cubes then return end
+	local old_cols, old_start, old_max_z = self.capacity_columns, self.visual_col_start, self.max_z
+	self:RecalculateCapacityColumns()
+	self:RecalculateDerivedMaxZ()
+	local moved = self.max_z ~= old_max_z
+		and ("max_z " .. tostring(old_max_z) .. ">" .. tostring(self.max_z)) or nil
+	for _, res in ipairs(self.storable_resources or empty_table) do
+		if (old_cols and old_cols[res]) ~= self.capacity_columns[res]
+			or (old_start and old_start[res]) ~= self.visual_col_start[res] then
+			moved = (moved and (moved .. " ") or "") .. res
+				.. " " .. tostring(old_cols and old_cols[res]) .. "@" .. tostring(old_start and old_start[res])
+				.. ">" .. tostring(self.capacity_columns[res]) .. "@" .. tostring(self.visual_col_start[res])
+		end
+	end
+	if moved then
+		print(string.format("[TrainHubDev] hub %s cargo columns re-derived (total_cols=%s): %s",
+			tostring(self.handle), tostring(self:GetTotalStorageColumns()), moved))
+	end
+	self:ReallocateVisualColumns()
+end
+
 -- ===========================================================================
 -- Load. Markers and the reactor helper are unsaved. Radius 15 is authoritative
 -- over every saved slider value, and an old working charger becomes a plain pad.
@@ -2074,6 +2106,7 @@ local function heal_after_load(hub)
 	hub:InitHubSidingGlass()
 	hub:InitHubLights()
 	Floor.Reconcile(hub)
+	hub:HealCargoColumns()
 end
 
 function OnMsg.LoadGame()

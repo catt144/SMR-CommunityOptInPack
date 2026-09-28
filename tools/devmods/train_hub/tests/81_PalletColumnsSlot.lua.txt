@@ -1,0 +1,44 @@
+-- STAGED, NOT LOADED. Brief Train_Hub_Project/12 (2026-09-28): the slot-2 rebind for the
+-- pallet-visuals report, held out of the TestKit while the owner's probe sitting runs
+-- (the sitting uses slot 2's Metals fill; orchestrator's brief amendment, 5a42508).
+-- After that sitting ends, replace the TestKit's T.Bind(2, "Fill selected station's
+-- Metals to its cap", ...) block in Code/80_AgentSlots.lua with the block below, and
+-- update the header line that describes slot 2. distribution_slots_smoke asserts only
+-- that slot 2 is bound, so it stays passing.
+--
+-- A pure read: the selected hub's cargo-column state. The dev mod's load heal logs any
+-- stale split it repairs ("[TrainHubDev] ... cargo columns re-derived"); this slot reads
+-- what is live after it. Source: archived 1.1.1.405907
+-- Buildings/MultiResourceCubeVisuals.lua:224-257 (RecalculateCapacityColumns),
+-- :165-197 (SetCountColumnAlloc); the dev mod's own_pallets/GetCubePosRelative.
+
+T.Bind(2, "Pallet visuals: read selected hub's cargo columns (paused)", function(ctx)
+    local h = ctx.sel
+    if not IsValid(h) or not IsKindOf(h, "SMROptInTrainHubBase") then return false, "select the train hub" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local mark = ctx.mark("PALLET_COLUMNS_" .. id(h))
+    local drawn_total, stored_total, rows = 0, 0, 0
+    for _, res in ipairs(h.storable_resources or empty_table) do
+        local sup = h.supply and h.supply[res]
+        local stored = sup and sup:GetActualAmount() or 0
+        local drawn = 0
+        for _, cube in ipairs((h.visual_cubes or empty_table)[res] or empty_table) do
+            if IsValid(cube) then drawn = drawn + 1 end
+        end
+        drawn_total, stored_total = drawn_total + drawn, stored_total + stored
+        if stored > 0 or drawn > 0 or (h.visual_col_start or empty_table)[res] then
+            rows = rows + 1
+            ctx.log("DUMP", { row = "pallet", res = res, stored = stored, drawn = drawn,
+                cols = (h.capacity_columns or empty_table)[res] or "none",
+                col_start = (h.visual_col_start or empty_table)[res] or "none" })
+        end
+    end
+    local first, last = false, false
+    if CObject.HasSpot(h, "Box1") then first, last = h:GetSpotRange("Box1") end
+    return { sitting = "pallet_visuals", mark = mark, object = id(h), max_z = h.max_z,
+        total_cols = h:GetTotalStorageColumns(),
+        depot_attaches = #(h:GetAttaches("StorageDepotFood") or empty_table),
+        spot_first = first or "none", spot_last = last or "none",
+        max_x = h.max_x, max_y = h.max_y, rows = rows, drawn_cubes = drawn_total,
+        stored = stored_total, game_time = GameTime(), errors = T.error_count }
+end, { mode = "once", needs = "selected" })

@@ -3660,6 +3660,8 @@ bind build 5 and any later hub work:
   on `build6_capacity_covered_pass3` with the capacity upgrade on, many pallets are empty while the
   panel shows every resource stocked (Metals 251/480; Basic 902, Advanced 700, Delicacies 1,318,
   Other 360). The owner had not looked at the hub for some time, so when it started is unknown.
+  Cause found and repaired at desk 2026-09-28 (brief 12): a stale persisted column split, healed on
+  every load; live smoke owed — `TRAIN_HUB_PALLETS_20260927.md`.
 - **Far stations get maintenance only**: their upgrades and other requests stay vanilla's (confirmed
   2026-09-25).
 - **Deferred to the import/export and dials work:** `DESIGN.md` §6 train construction (the 1.1.1
