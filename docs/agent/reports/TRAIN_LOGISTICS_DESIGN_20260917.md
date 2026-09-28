@@ -654,8 +654,16 @@ predictions. The sitting above confirmed departures but exposed stranded cargo.
 **5d stranded-cargo repair, desk only:** `TRAIN_ROUTING_5D_20260927.md`
 §"Second sitting failure and stranded-cargo repair" records the delivery-watchdog
 reproduction, hub-first overflow admission, sideways-line handoff and rung-0
-repair. Its next sitting predictions remain untested; ruling 7 still puts the
-dispatch investigation before the remaining chained Export/Import live legs.
+repair. Ruling 7 still puts the dispatch investigation before the remaining chained
+Export/Import live legs.
+
+✅ **LIVE 2026-09-27 on `004ee26` (the stranded-cargo repair `7c829a6` plus the probe's
+registration): PASS.** Same save, fresh boot, both mods; log and receipt in the same archive folder.
+After about one sol at top speed (t 19717493 → 21089490), every one of the 19 rows at 6243 and at
+2012 holds its target of 10, Metals included (calls: 6243 36, 2012 81). Train 2000001844 reads
+`cargo=0` at 2012, and the owner saw it empty and idle. Where the old load landed was not read:
+slot 4 reads stations only and refused the train twice. The cargo type stays unconfirmed. 0 `LUA
+ERROR`. The chained Export/Import legs remain held for brief 11's sitting.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
@@ -3646,7 +3654,12 @@ bind build 5 and any later hub work:
 - **A meteor damages the hub and never destroys it.** A demolished hub's ruin needs a vanilla
   controller to clear it, as any ruin does.
 - **Storage is 240000 a resource; the cargo stacks are capped at the height 150000 drew** (owner,
-  2026-09-25): the stock past the cap is stored and not drawn (`ca586d1`).
+  2026-09-25): the stock past the cap is stored and not drawn (`ca586d1`). The intended look
+  (owner, 2026-09-27): *"the plan was is for them to fill up and then any exceess me invisiblly
+  stored which is how vanilla handles expansions"*. ⚠️ **Owner finding, 2026-09-27, not briefed:**
+  on `build6_capacity_covered_pass3` with the capacity upgrade on, many pallets are empty while the
+  panel shows every resource stocked (Metals 251/480; Basic 902, Advanced 700, Delicacies 1,318,
+  Other 360). The owner had not looked at the hub for some time, so when it started is unknown.
 - **Far stations get maintenance only**: their upgrades and other requests stay vanilla's (confirmed
   2026-09-25).
 - **Deferred to the import/export and dials work:** `DESIGN.md` §6 train construction (the 1.1.1

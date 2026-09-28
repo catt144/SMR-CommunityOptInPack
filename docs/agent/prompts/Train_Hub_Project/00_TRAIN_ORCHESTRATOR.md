@@ -63,19 +63,20 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      **The distribution centre is DONE on hub lines** (brief 09 deleted 2026-09-27; four sittings in
      spec §4.8, logs and receipt in `docs/archive/train_distribution_20260926/sittings/`). The owner's
      fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
-     **Two briefs are out, in parallel (close-out 2026-09-27, late):**
-     - **`10`, 5d routing**, was sent back after its second sitting with relays #4 and #5: cargo
-       stranded aboard a train (2000001844, 98, assigned off-line), and ruling 6's hub-first dump
-       order. Evidence is in spec §4.8's two 5d sitting paragraphs and
-       `docs/archive/train_routing_5d_20260927/sittings/receipt.txt`. The cargo being Metals is
-       inferred; the owner has not confirmed it.
-     - **`11`, the dispatch investigation**, was fired 2026-09-27. It answers whether the hub can
-       put a train onto another of its lines (ruling 7).
+     **Both briefs have handed back (2026-09-27, night):**
+     - **`10`, 5d routing**: the stranded-cargo repair `7c829a6` **PASSED live** (spec §4.8's
+       third 5d paragraph). The brief stays live: its chained Export/Import legs are still owed.
+     - **`11`, the dispatch investigation** (`e0f8bb8`, report
+       `reports/TRAIN_HUB_DISPATCH_20260927.md`): feasible by source; its probe sitting (five
+       steps, TestKit slot 3, a fresh load) is **the next sitting**. It registered the probe in
+       `metadata.lua` only; `004ee26` added the `items.lua` entry. Delete the brief once its
+       sitting is recorded; the report holds everything.
 
-     When either hands back, check it once against its evidence. **Hold 5d's remaining live legs
-     (chained Export and Import) until `11`'s answer is in** (the owner's sequencing, ruling 7). A
-     fix-verification smoke of `10` is not held: rerun 2012 and 6243 at their dial from
-     `build6_capacity_covered_pass3`.
+     **Hold 5d's chained Export and Import legs until the probe sitting is in and the owner has
+     ruled on building the dispatcher** (ruling 7).
+     **Owner finding, 2026-09-27, not briefed: many hub pallets draw empty** while the hub is
+     stocked (spec §10, the storage-cap bullet, with the owner's intended look). Propose a small
+     in-game investigation brief after the probe sitting.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
