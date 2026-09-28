@@ -2142,6 +2142,12 @@ def check_collapse(out):
                        "lines) — looks collapsed, not edited"
                        % (rel, size, nlines, COLLAPSE_MIN_SIZE_BYTES,
                           COLLAPSE_MIN_LINES))
+    if not checked:
+        # This repo always tracks Markdown; zero means the enumeration broke,
+        # and a PASS over nothing would be a gate that cannot fail.
+        out.append("COLLAPSE: RED  0 tracked *.md files read — the file list "
+                   "is broken, not clean")
+        return False
     if not red:
         out.append("COLLAPSE: PASS — %d tracked *.md file(s), none over %d "
                    "bytes fall under %d lines"
