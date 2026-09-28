@@ -21,3 +21,12 @@ Mars.exe-20260927-21.40.11-6aad2d75.log  195251 B  1247 lines
   Train 2000001844: cargo=98000 throughout; assigned_here=49000 at 2008 (t=19714958) and at 2012
   (t=23766195, 23768286), then assigned_here=0 at 2012 from t=23773639 to 23894491.
   Cargo type NOT confirmed by the owner (Metals is inferred). grep -c 'LUA ERROR' = 0.
+
+Third 5d sitting, 2026-09-27 23:35 on 004ee26 (stranded-cargo repair 7c829a6 + probe registration),
+fresh boot, build6_capacity_covered_pass3, both mods. Closed log copied after exit (cp -p; cmp exit 0).
+Mars.exe-20260927-23.35.38-6aad2d75.log  111045 B  791 lines
+  sha256 10e94d10bf913980c78dc7500da8e91bc42b963556e734ec282a6adf35a16ad5
+  PASS: t 19717493 -> 21089490; all 19 rows at 6243 and 2012 stock=10000 (target 10000), Metals
+  included; D.CallsFor 6243 36, 2012 81. Train 2000001844 cargo=0 at 2012 (t=21089490); owner saw
+  it empty and idle. Slot 4 refused the train twice ("select a station"); landing point not read.
+  Cargo type still NOT confirmed. Owner finding: many hub pallets draw empty. grep -c 'LUA ERROR' = 0.
