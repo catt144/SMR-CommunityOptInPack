@@ -1,0 +1,167 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\bay_gates_smoke.py
+HEAD: 378bd39c08bb39c0057a5e5845b864477dc88472
+TestKit HEAD: 63c94bafeabf0ae39816f88f1bf1765ce2030142
+exit: 0
+
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\bay_gates_smoke.py
+HEAD: 378bd39c08bb39c0057a5e5845b864477dc88472
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=360000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=360000
+[TrainBay] deploy train=2005 hub=1 arm=1 line=1:1-2 pool=7 t=420000
+[TrainBay] spawn train=2005 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=420000
+[TrainBay] deploy train=2006 hub=1 arm=1 line=1:1-2 pool=6 t=779999
+[TrainBay] spawn train=2006 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=779999
+[TrainBay] deploy train=2007 hub=1 arm=1 line=1:1-2 pool=5 t=899999
+[TrainBay] spawn train=2007 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=899999
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+PASS vanilla-first: settle, continuous shortfall, working state, reset, zero-vanilla and shared route
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=179999
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=179999
+PASS mutation rejected: settle
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=180000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+PASS mutation rejected: working
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=300000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=300000
+PASS mutation rejected: persistence
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=300000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=300000
+PASS mutation rejected: recovery
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=360000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=360000
+[TrainBay] deploy train=2005 hub=1 arm=1 line=1:1-2 pool=7 t=420000
+[TrainBay] spawn train=2005 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=420000
+[TrainBay] deploy train=2006 hub=1 arm=1 line=1:1-2 pool=6 t=779999
+[TrainBay] spawn train=2006 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=779999
+[TrainBay] deploy train=2007 hub=1 arm=1 line=1:1-2 pool=5 t=899999
+[TrainBay] spawn train=2007 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=899999
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+PASS mutation rejected: one-per-line

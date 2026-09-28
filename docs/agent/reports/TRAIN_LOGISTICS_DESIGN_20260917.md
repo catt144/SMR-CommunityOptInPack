@@ -663,6 +663,7 @@ failure and the whole hub's both-configuration ship test remain separate.
      1 game hour, tunable by eye) with the vanilla trains running; (c) at most one extra per line
      per check, so extras ramp up; (d) no deploys for the first **3 game hours** after a load or a
      new game, while the need settles.
+   - Brief 15 desk changes and attended smoke: [TRAIN_BAY_FIXES_20260928.md](TRAIN_BAY_FIXES_20260928.md); vanilla-first and cube-render regressions pass; spawn placement candidate needs live diagnosis; baseline traffic smoke remains red.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash

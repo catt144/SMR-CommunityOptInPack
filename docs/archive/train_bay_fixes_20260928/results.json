@@ -1,0 +1,87 @@
+{
+  "head": "378bd39c08bb39c0057a5e5845b864477dc88472",
+  "testkit_head": "63c94bafeabf0ae39816f88f1bf1765ce2030142",
+  "filter": "tools/devmods/train_hub/tests/*_smoke.py",
+  "total": 19,
+  "passed": 18,
+  "failed": 1,
+  "members": [
+    {
+      "test": "art_spec_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "bay_gates_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "bay_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "bay_spawn_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "buildtrack_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "capacity_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "cargo_view_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "distribution_departure_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "distribution_slots_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "distribution_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "distribution_ui_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "dwell_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "flight_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "look_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "move_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "pallet_visuals_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "repair_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "spoilage_smoke.py",
+      "exit": 0
+    },
+    {
+      "test": "traffic_smoke.py",
+      "exit": 1
+    }
+  ],
+  "traffic_baseline_matches": true
+}

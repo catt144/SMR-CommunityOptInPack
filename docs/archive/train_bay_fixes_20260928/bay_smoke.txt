@@ -1,0 +1,57 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\bay_smoke.py
+HEAD: 378bd39c08bb39c0057a5e5845b864477dc88472
+TestKit HEAD: 63c94bafeabf0ae39816f88f1bf1765ce2030142
+exit: 0
+
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\bay_smoke.py
+HEAD: 378bd39c08bb39c0057a5e5845b864477dc88472
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 520f92bb64fd10f28d3f70020b6edae4c4e8aaa02e90c8fa4e9cf13c90a36e59
+PASS need exports: BranchNeed/ChildNeed read brief 10's stop arithmetic (+10 empty, -30 over its dial)
+20_TrainHub.lua sha256: 866ad1de3a1abd2f20d5678353a0e05398ad5002875ca5868fc63cc3f01efa43
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+PASS spawn spot math: archived GetSpawnPoint with mocked native spot lookup agrees with Stop and outward facing (72 arm/rotation/end cases); not engine placement proof. Final object placement is tested in bay_spawn_smoke.py
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: hub extras up to 5 per hub route; HubTrain class defined
+70_TrainBay.lua sha256: cdcbbee91813480df451823057abdebd7db2dba53b82877ceac636bb9e6cf84e
+[TrainBay] deploy train=2003 hub=1 arm=1 line=1:1-2 pool=9 t=180000
+[TrainBay] spawn train=2003 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2004 hub=1 arm=1 line=1:1-2 pool=8 t=180000
+[TrainBay] spawn train=2004 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2005 hub=1 arm=1 line=1:1-2 pool=7 t=180000
+[TrainBay] spawn train=2005 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2006 hub=1 arm=1 line=1:1-2 pool=6 t=180000
+[TrainBay] spawn train=2006 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=180000
+[TrainBay] deploy train=2007 hub=1 arm=1 line=1:1-2 pool=5 t=240000
+[TrainBay] spawn train=2007 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=240000
+PASS extras: vanilla AssignTrain spawns HubTrains past the cap up to 5 per line; route reads 2/2 and refuses the player; one spawn per free arm
+[TrainBay] recall train=2003 station=2 worked=false pool_before=5 t=240000
+[TrainBay] deploy train=2008 hub=1 arm=1 line=1:1-2 pool=5 t=360001
+[TrainBay] spawn train=2008 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=360001
+PASS recall: an idle empty extra returns to the pool at once; a no-work recall cools its line 2 h; cargo keeps a train
+[TrainBay] save: stored=3 kept=2 t=360001
+[TrainBay] save: stored=3 kept=2 t=360001
+PASS save: 3 empty extras on the delete-on-load list and in the pool inside the snapshot only; load deletes them via Train:Done; loaded and LoadTrain extras persist; a failed save undoes
+PASS class fallback: HubTrain persists under Train:HubTrain and resolves to Train when the class is missing
+[TrainBay] fill line=1:1-2-3 arm=1 pool=8 t=360001
+[TrainBay] spawn train=2009 hub=1 arm=1 before=pos:Spawn1 before_angle=out:Spawn1 target=pos:Spawn1 angle=out:Spawn1 actual=pos:Spawn1 actual_angle=out:Spawn1 t=360001
+PASS auto-fill: a station joining a hub route gets one plain train from the pool into its new vanilla slot
+NOT TESTED: the engine's ChangeClass, the real serializer, hub movement after a spawn, a live departure, the in-game tick and every UI count; live smoke owed

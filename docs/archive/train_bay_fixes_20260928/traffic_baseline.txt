@@ -1,0 +1,30 @@
+command: C:\Python313\python.exe -c "import sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); import traffic_smoke as t; t.SOURCE=Path(sys.argv[2]); t.run()" B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests C:\Users\stkot\AppData\Local\Temp\train_bay_baseline_qlliwig2\20_TrainHub.lua
+baseline: d0f2b8a
+exit: 1
+
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); import traffic_smoke as t; t.SOURCE=Path(sys.argv[2]); t.run()
+                                                                                                                                 ~~~~~^^
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\traffic_smoke.py", line 167, in run
+        checks = lua.execute(r'''
+                 ~~~~~~~~~~~^^^^^
+    local results={}
+    ^^^^^^^^^^^^^^^^
+    ...<32 lines>...
+    return results
+    ^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "lupa/lua55.pyx", line 466, in lupa.lua55.LuaRuntime.execute
+  File "lupa/lua55.pyx", line 1897, in lupa.lua55.run_lua
+  File "lupa/lua55.pyx", line 1911, in lupa.lua55.call_lua
+  File "lupa/lua55.pyx", line 1938, in lupa.lua55.execute_lua_call
+  File "lupa/lua55.pyx", line 1819, in lupa.lua55.raise_lua_error
+lupa.lua55.LuaError: [string "<python>"]:109: -10800 != 0
+stack traceback:
+	[string "<python>"]:19: in main chunk
+	[string "<python>"]:109: in global 'assertclose'
+	[C]: in global 'assert'
