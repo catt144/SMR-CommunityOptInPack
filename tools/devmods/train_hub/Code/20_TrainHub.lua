@@ -3681,7 +3681,7 @@ end
 
 -- Train Cargo Upgrade speed: archived 1.1.1.405907 Units/Train.lua:593-613.
 -- Speed is not modifiable (:21-28). Multiply the chained result after all vanilla
--- tech, cold and law adjustments, including its matching turn-animation speed.
+-- tech and law adjustments, including its matching turn-animation speed.
 -- Hub movement already reads GetNominalMoveSpeed at each leg (:630-825 above);
 -- no route, curve, clearance or acceleration algorithm is replaced.
 -- Read the owner's actual applied cargo modifier: power loss leaves it applied;
@@ -3699,6 +3699,21 @@ local function cargo_speed_on(train)
 	return false
 end
 
+-- Owner, 2026-09-28 (spec §4.10, `also warms the network`): no cold penalty while it is on.
+-- Vanilla's cold branch (:602-605) is its only heat read and the only cold effect on a
+-- train's movement. It reads warm for this one non-yielding call, so tech, law, rounding
+-- and the turn-animation speed stay vanilla's own. The real GetHeatAt returns even on error.
+local function warm_heat() return const.MaxHeat end
+local function warm_speed(previous, ...)
+	local heat = rawget(_G, "GetHeatAt")
+	if type(heat) ~= "function" then return table.pack(previous(...)) end
+	_G.GetHeatAt = warm_heat
+	local result = table.pack(pcall(previous, ...))
+	_G.GetHeatAt = heat
+	if not result[1] then error(result[2], 0) end
+	return table.pack(table.unpack(result, 2, result.n))
+end
+
 local Require = { { "Train", "GetNominalMoveSpeed" } }
 local function install_cargo_speed()
 	for _, pair in ipairs(Require) do
@@ -3712,7 +3727,7 @@ local function install_cargo_speed()
 	local previous = Train.GetNominalMoveSpeed
 	Train.GetNominalMoveSpeed = function(self, ...)
 		if not cargo_speed_on(self) then return previous(self, ...) end
-		local result = table.pack(previous(self, ...))
+		local result = warm_speed(previous, self, ...)
 		result[1] = MulDivRound(result[1], 125, 100)
 		result[2] = MulDivRound(result[2], 125, 100)
 		return table.unpack(result, 1, result.n)

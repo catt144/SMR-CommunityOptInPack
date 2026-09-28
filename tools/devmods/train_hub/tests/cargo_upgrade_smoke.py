@@ -34,6 +34,11 @@ generated = dict(re.findall(r'^\t(upgrade2_\w+) = (.*),$',
 if generated or '--require-generated' in sys.argv:
     for key, value in expected.items():
         assert generated.get(key) == value, ('Mod Editor regeneration owed or incorrect', key, generated.get(key), value)
+# The warm-network wording (owner, 2026-09-28) is authored in Data; only the editor regenerates it.
+assert 'warms the network' in fields['upgrade2_description'], 'description lacks the warm network'
+description_current = generated.get('upgrade2_description') == fields['upgrade2_description']
+if '--require-generated' in sys.argv:
+    assert description_current, ('Mod Editor regeneration owed: upgrade2_description', generated.get('upgrade2_description'))
 template = '\n'.join('h[%r] = %s' % (k, v) for k, v in expected.items())
 
 SPEED_SETUP = r'''
@@ -44,6 +49,7 @@ Techs={FasterTrains=tech({param1=100,param2=70}),EvenFasterTrains=tech({speed=50
 research={}; heat=100; ActiveLaws={}
 function UIColony:IsTechResearched(id) return research[id] end
 function GetHeatAt(o) last_heat_object=o; return heat end
+real_heat=GetHeatAt; const=const or {}; const.MaxHeat=const.MaxHeat or 256
 law={ResolveValue=function() return 33 end}
 '''
 
@@ -88,7 +94,7 @@ B.working=false; assert(speed()==875, 'vanilla power behavior')
 local el={}
 local r=table.pack(speed(T1,el))
 assert(r.n==4 and r[1]==875 and r[2]==2625 and r[3]==nil and r[4]=='prior-wrapper')
-assert(last_heat_object==el, 'element argument chained')
+assert(last_element==el, 'element argument chained')
 local foreign={city={labels={Station={}}}}
 assert(speed(foreign)==700, 'foreign city delegates unchanged')
 SelectedObj=A; B:ToggleUpgradeOnOff(CARGO)
@@ -102,9 +108,22 @@ B:ToggleUpgradeOnOff(CARGO)
 research.FasterTrains=true; assert(speed()==1250, 'Faster Trains')
 research.EvenFasterTrains=true; assert(speed()==1875, 'Vacuum Rail')
 ActiveLaws.TrainSpeedStandards=law; assert(speed()==2494, 'law rounds after vanilla')
-heat=0; assert(speed()==831, 'cold applies before cargo multiplier')
-research.SafeTransport=true; assert(speed()==1663, 'safe cold transport')
-heat=100; research={}; ActiveLaws={}
+local warm=table.pack(speed(T1,el))
+-- Warm network (owner, 2026-09-28): on, cold reads warm; off, vanilla's cold returns.
+heat=0; assert(speed()==2494, 'upgrade on: cold reads warm')
+assert(GetHeatAt==real_heat, 'heat read restored')
+research.SafeTransport=true; assert(speed()==2494, 'upgrade on: safe cold reads warm')
+local cold=table.pack(speed(T1,el))
+assert(cold.n==4 and cold[1]==warm[1] and cold[2]==warm[2] and cold[4]=='prior-wrapper' and last_element==el, 'cold returns chained')
+local faster=Techs.FasterTrains; Techs.FasterTrains=nil
+assert(not pcall(speed) and GetHeatAt==real_heat, 'heat read restored after an error'); Techs.FasterTrains=faster
+SelectedObj=B; B:ToggleUpgradeOnOff(CARGO)
+assert(speed()==1330, 'upgrade off: vanilla safe cold')
+research.SafeTransport=nil; assert(speed()==665, 'upgrade off: vanilla cold')
+heat=100; assert(speed()==1995, 'upgrade off: vanilla warm')
+B:ToggleUpgradeOnOff(CARGO); heat=0; research={}; ActiveLaws={}
+assert(speed()==875, 'upgrade on: cold reads warm without tech')
+heat=100
 local tech=LabelModifier:new{container=city,label='Train',prop='max_shared_storage',percent=50,amount=0}
 tech:TurnOn()
 assert(T1.max_shared_storage==147000, 'fixture +50% tech adds to both upgrades')
@@ -155,7 +174,7 @@ def run(code, extra_cases=''):
     script = script.replace('lua.execute(section)', '''lua.execute(SPEED_SETUP)
 speed_source = (ARCHIVE / 'Units/Train.lua').read_text(encoding='utf8')
 lua.execute(extract(speed_source, 'Train:GetNominalMoveSpeed'))
-lua.execute("local original=Train.GetNominalMoveSpeed; Train.GetNominalMoveSpeed=function(...) local a,b=original(...); return a,b,nil,'prior-wrapper' end")
+lua.execute("local original=Train.GetNominalMoveSpeed; Train.GetNominalMoveSpeed=function(...) last_element=select(2,...); local a,b=original(...); return a,b,nil,'prior-wrapper' end")
 lua.execute('local Floor = SMROptInTrainFloor\\n' + section)''')
     env['supplied_code'] = code
     with contextlib.redirect_stdout(io.StringIO()):
@@ -172,10 +191,13 @@ def main():
     run(code)
     print('PASS cargo: additive 126000; with +50% cargo tech 147000; passengers/stations unchanged by cargo')
     print('PASS independent claims, construction/cancel, spent click, toggle, power, salvage/rebuild, load, clear/re-buy')
-    print('PASS chained speed and animation, extra returns, tech/law/cold, foreign city')
+    print('PASS chained speed and animation, extra returns, tech/law, foreign city')
+    print('PASS warm network: on, cold and safe cold read warm; off, vanilla cold; heat read restored')
     mutations = {
         'speed multiplier': ('MulDivRound(result[1], 125, 100)', 'MulDivRound(result[1], 100, 100)'),
         'animation multiplier': ('MulDivRound(result[2], 125, 100)', 'MulDivRound(result[2], 100, 100)'),
+        'warm network': ('local result = warm_speed(previous, self, ...)', 'local result = table.pack(previous(self, ...))'),
+        'heat restore': ('\t_G.GetHeatAt = heat\n', '\n'),
         'salvage cargo': ('hub:StopUpgradeModifiersForUpgrade(id)', 'if id ~= hub_cargo_upgrade then hub:StopUpgradeModifiersForUpgrade(id) end'),
         'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
         'rebuild cargo': ('do carry_upgrade(self, id) end', 'do if id ~= hub_cargo_upgrade then carry_upgrade(self, id) end end'),
@@ -187,12 +209,15 @@ def main():
             run(code.replace(before, after, 1))
         except LuaError as exc:
             assert 'assertion failed' in str(exc) or any(s in str(exc) for s in [
-                'one cargo modifier', 'salvage stops', 'cargo construction claim', 'off state carried']), str(exc)
+                'one cargo modifier', 'salvage stops', 'cargo construction claim', 'off state carried',
+                'cold reads warm', 'heat read restored']), str(exc)
             print('PASS mutation rejected:', name)
         else:
             raise AssertionError('mutation survived: ' + name)
     print('Generated cargo fields match source' if generated else
           'OWNER STEP OWED: Mod Editor regenerate from Data; no generated bytes/code_hash claimed')
+    print('Generated description matches source' if description_current else
+          'OWNER STEP OWED: Mod Editor save for the warm-network description')
 
 
 if __name__ == '__main__':
