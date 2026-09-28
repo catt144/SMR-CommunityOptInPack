@@ -663,6 +663,16 @@ failure and the whole hub's both-configuration ship test remain separate.
      1 game hour, tunable by eye) with the vanilla trains running; (c) at most one extra per line
      per check, so extras ramp up; (d) no deploys for the first **3 game hours** after a load or a
      new game, while the need settles.
+   - **Brief 15's sitting, 2026-09-28:** no extra deployed during the whole run, so neither the
+     gates nor the spawn correction were exercised live. Its stack-display fix (`9ed5f4f`) is
+     independent of the bay and stays.
+10. ⚖️ **Hub extras are cut and archived, not deleted** (owner, 2026-09-28, after brief 15's
+    sitting: *"so many moving pieces"*; *"instead of fully burning it we archive the work, that way
+    if we decide to revisit it, it's not nearly as much work"*). This supersedes ruling 9's extras,
+    need checks, recall, hidden count, save-time storing and `HubTrain`. **Kept:** auto-fill (a
+    station joining a hub route gets one plain train from the pool) and placing a spawned train on
+    its arm's siding. The route's capacity problem is answered instead by a second, expensive train
+    cargo upgrade (§4.10, grep `Train Cargo Upgrade`).
    - Brief 15 desk changes and attended smoke: [TRAIN_BAY_FIXES_20260928.md](TRAIN_BAY_FIXES_20260928.md); vanilla-first and cube-render regressions pass; spawn placement candidate needs live diagnosis; baseline traffic smoke remains red.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
@@ -868,6 +878,19 @@ the claim as before; any hub may buy it again.
 click or its own broadcast switches it.
 Build audited 2026-09-28 (brief 14): desk PASS WITH FIXES, merged `7dcef3e`, not yet played —
 `docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`.
+
+⚖️ **Owner ruling, 2026-09-28: a second hub upgrade, the Train Cargo Upgrade** (it replaces the
+cut hub extras, §4.8 ruling 10). **+100% train cargo** (`Train` `max_shared_storage`) **and +25% train speed** (owner, same day, after
+the vanilla boosts were listed: Faster Trains 70→100%, Vacuum Rail +50%, Train Track Standards law
++33%, multiplicative); station storage and passengers are unchanged. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
+colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
+salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
+re-buyable, no tech.
+
+**Owner sighting, 2026-09-28: a structure near the hub flashes unpainted for a frame or two**
+(brown instead of its blue palette), seen only by frame-stepping a screen recording, and
+apparently tied to changing game speed. Screenshots are in the orchestrator session. Which object
+it is, and whether it happens without the mods, is not established.
 
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds

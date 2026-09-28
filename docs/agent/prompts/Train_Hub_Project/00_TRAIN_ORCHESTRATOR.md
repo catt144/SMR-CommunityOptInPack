@@ -56,16 +56,13 @@ is delegated to another agent through a brief.**
      a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
      The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
      Scratch, then half a sol at top speed, reliably leaves train 2000001844 empty and parked on the hub.
-     **Brief `13`'s sitting ran 2026-09-28 and failed three ways** (spec ruling 9, grep `Bay
-     sitting 2026-09-28`): misplaced spawns, empty-looking hub stacks, deploys that ignore vanilla
-     (new owner ruling, vanilla first + 3 h settle). Brief `15` fixes them; `13` is deleted or
-     parked once `15`'s sitting passes. Archive log `Mars.exe-20260928-14.27.05` with a receipt once
-     the owner has closed the game.
-     **Held for merge after that sitting:** the capacity salvage/rebuild change (spec §4.10 ruling
-     2026-09-28, `023eaa1`), built in worktree `.claude/worktrees/agent-af033497203ef0c8a`
-     (`20_TrainHub.lua` + `capacity_smoke.py`, PASS, uncommitted; its five in-game steps are in
-     that agent's hand-back, not yet filed). **It was built at the orchestrator's low effort**, below
-build tier: have it reviewed at build tier before merging.
+     **Bay cut (ruling 10, 2026-09-28).** Briefs 13-15 are deleted: the bay's first sitting misplaced
+     spawns, brief 15's gated rerun never deployed an extra, and the owner cut the extras to an
+     archive and asked for a Train Cargo Upgrade (+100% cargo, +25% speed, 40 Metals + 20 Polymers;
+     spec §4.10). Brief `16` merges the audited capacity worktree, archives and cuts the extras, and
+     builds the upgrade; its sitting is next. Archive the 2026-09-28 sitting logs (`14.27.05` and
+     brief 15's run) with a receipt once the owner has closed the game. The owner's frame-flash
+     sighting (spec §4.10, grep `flashes unpainted`) is recorded, not briefed.
      Eight game logs 2026-09-28 12.06.47 to 13.25.51 are unread; ask the owner what they were.
      **Where things stand:**
      - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
