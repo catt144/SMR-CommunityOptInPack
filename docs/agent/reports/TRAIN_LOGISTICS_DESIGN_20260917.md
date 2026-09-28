@@ -593,6 +593,7 @@ full hub, all traffic at one priority), not a fault.
    routing under a different dispatcher. Per-stop arithmetic (floors, pins, refusal) is
    dispatcher-independent; line service, timing and chained forwarding are not. Brief `11`. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
+   Investigated 2026-09-27, `TRAIN_HUB_DISPATCH_20260927.md`: feasible by source (a train is bound to a line only by its `track`) and by 3b's measured 60°/120° departures; vanilla's own loading on the new line has a built prototype and a five-step sitting owed; sketch is one `LoadTrain` wrapper at rung 1.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash

@@ -19,6 +19,7 @@ return PlaceObj('ModDef', {
 		"Code/10_TrainFloor.lua",
 		"Code/40_TrainDistribution.lua",
 		"Code/45_TrainDistributionUI.lua",
+		"Code/50_TrainHubDispatchProbe.lua",
 		"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
 		"Code/_EntityData.generated.lua",
 	},
