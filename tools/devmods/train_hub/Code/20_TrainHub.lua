@@ -3488,7 +3488,16 @@ function SMROptInTrainHubBase:CanDisableUpgrade(id)
 	return Building.CanDisableUpgrade(self, id)
 end
 
--- Ruins never carry the bonus (owner, 2026-09-28), whatever toggles them (a Ctrl+click broadcast).
+-- Ruins keep the on/off state the player left for the rebuild (owner, 2026-09-28: "keeping an off
+-- toggle off"). A Ctrl+click on a spent hub broadcasts `enable = true` to every hub of the class
+-- that passes GetUIInteractionState, ruins included (sectionUpgrades.generated.lua:69-92,
+-- BaseBuilding.lua:541-552; Destroy leaves ui_interaction_state alone), so ruins refuse the switch.
+function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
+	if id == hub_capacity_upgrade and self.destroyed then return end
+	return Building.ToggleUpgradeOnOff(self, id)
+end
+
+-- Ruins never carry the bonus (owner, 2026-09-28), whatever reaches the modifiers.
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
 	if id == hub_capacity_upgrade and self.destroyed then return end
 	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
@@ -3531,11 +3540,12 @@ end
 -- only then DoneObject-s `rebuild`, the ruins (ConstructionSite.lua:1724-1745; Building:Rebuild
 -- :1788-1810 passes params.rebuild and orig_state's copy_params, :1602). ApplyCopyParams is a call-all combined
 -- method (BaseBuilding.lua:2, classes.lua:1847), so this adds to the chain. Only one hub holds the
--- upgrade; if it is ruins standing where this hub now stands, they are this hub's.
+-- upgrade; if it is ruins standing where this hub now stands, on this hub's map (UIColony's labels
+-- span every map), they are this hub's.
 function SMROptInTrainHubBase:ApplyCopyParams(params)
 	if Building.HasUpgrade(self, hub_capacity_upgrade) then return end
 	local ruins = other_capacity_hub(self)
-	if not ruins or not ruins.destroyed then return end
+	if not ruins or not ruins.destroyed or ruins:GetMap() ~= self:GetMap() then return end
 	local x, y = self:GetPos():xy()
 	local rx, ry = ruins:GetPos():xy()
 	if x ~= rx or y ~= ry then return end

@@ -232,6 +232,8 @@ local function hub(handle, x)
   function h:GetAttaches() return {} end
   local pos = { xy = function() return x or handle * 1000, 0 end }
   function h:GetPos() return pos end
+  h.map = "surface"
+  function h:GetMap() return self.map end
   return h
 end
 local function train(handle)
@@ -325,6 +327,10 @@ assert(count_mods() == 0 and small.max_storage_per_resource == 60000, "no toggle
 salvaged = { small.max_storage_per_resource, big.max_storage_per_resource, T1.max_shared_storage, T1.max_colonists_to_transport }
 -- A hub standing elsewhere never takes the ruins' upgrade.
 B:ApplyCopyParams({}); assert(not Building.HasUpgrade(B, ID) and Building.HasUpgrade(A, ID))
+-- Nor one on another map at the same x, y (UIColony's labels span maps).
+local F = hub(206, (A:GetPos():xy())); F.map = "underground"
+F:ApplyCopyParams({}); assert(not Building.HasUpgrade(F, ID) and Building.HasUpgrade(A, ID), "other map")
+remove(city.labels.Station, F)
 
 -- 6b. Rebuild: the new hub owns it, built once, on as it was, without buying it again.
 local D = rebuild(A, 204)
@@ -339,6 +345,21 @@ rebuilt_on = { small.max_storage_per_resource, big.max_storage_per_resource, T1.
 -- 6c. Toggled off before salvage: it comes back built but still off; the owner may switch it on.
 D:ToggleUpgradeOnOff(ID); assert(not D:IsUpgradeOn(ID) and small.max_storage_per_resource == 60000)
 salvage(D)
+-- The panel's Ctrl+click on a spent hub (sectionUpgrades.generated.lua:69-92): `enable` is the
+-- clicked hub's state negated, sent to every hub of the class; ruins pass BroadcastAction's
+-- GetUIInteractionState filter (BaseBuilding.lua:541-552). They must keep the off state.
+local function broadcast_toggle(from)
+  local enable = not from.upgrade_on_off_state[ID]
+  for _, bld in ipairs(city.labels.Station) do
+    if IsKindOf(bld, "SMROptInTrainHubBase") and bld:HasUpgrade(ID) and bld.upgrade_on_off_state[ID] ~= enable then
+      bld:ToggleUpgradeOnOff(ID)
+    end
+  end
+end
+broadcast_toggle(B)
+assert(not D:IsUpgradeOn(ID) and count_mods() == 0 and small.max_storage_per_resource == 60000, "ruins keep off")
+-- The modifier guard stands on its own, whatever reaches it (Building.lua:1145, TechTree.lua:1438).
+D:ApplyUpgradeModifiersForUpgrade(ID); assert(count_mods() == 0, "ruins never apply")
 local E = rebuild(D, 205)
 assert(Building.HasUpgrade(E, ID) and not E:IsUpgradeOn(ID), "built, still off")
 assert(count_mods() == 0 and small.max_storage_per_resource == 60000 and T1.max_shared_storage == 42000)
