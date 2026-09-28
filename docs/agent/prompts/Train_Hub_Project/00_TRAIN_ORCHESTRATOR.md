@@ -12,47 +12,36 @@
 ## Authority
 
 The owner, 2026-09-18: this session is the project's **orchestrator**. Build work goes to other
-agents through briefs; the orchestrator holds the big picture. It does not build modules itself.
-The trains are Module A (per-resource station import/export) and Module B (the train hub).
+agents through briefs; the orchestrator holds the big picture. The trains are Module A
+(per-resource station import/export) and Module B (the train hub). The owner, 2026-09-28: a simple
+change the owner asks for, the orchestrator may make itself or give to a subagent; **a big change
+is delegated to another agent through a brief.**
 
 ## Read first
 
-- The spec, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`: §7.2 holds the measured
-  results, §6 the options and the owner's direction (the routing target in OPTION 5), and §10 the
-  prototype.
-- The live briefs in `docs/agent/prompts/README.md`. The hub prototype returned a **qualified
-  GO** (owner, 2026-09-18). The real hub build (fired and retired) committed its dev mod
-  and design record (`886926b`, `d9be297`, `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`).
-  Its smoke test was played with the owner on 2026-09-19 (the report's §"Sitting result").
-  Its owner decisions are OI-18 and OI-19 in `docs/PLAYTEST_CHECKLIST.md`; the radius was ruled
-  in the sitting (spec §10).
-- The 2026-09-19 sitting, its measurements, source facts and the owner's rulings behind builds 3 to 5:
-  `docs/agent/reports/TRAIN_HUB_SITTING_20260919.md`.
-- The owner's asset: the shape was approved on 2026-09-18 and imported into the dev mod on
-  2026-09-19, on the hex grid (`06b5a62`). Spec §9 holds the pipeline, the measured axis mapping,
-  the owner's look direction and what only the game can answer. The Blender and Mod Editor
-  steps are in `B:\Dev\SMR\SMR-Assets\trainhub\blender\README.md`.
+- The spec, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`. §4.7 and §4.8 hold the
+  distribution and dispatch rulings (4.8 numbers them, 1 to 9, and carries the save-boundary ladder).
+  §4.9 is train construction, §4.10 capacity, §6 the options and the owner's routing direction
+  (OPTION 5), §7.2 the measured results, §9 the asset and ship size, §10 the hub prototype and its
+  standing rulings. Read the relevant sections before briefing anything in their area.
+- The fire order: this folder's [`README.md`](README.md). The owner's open asks:
+  [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
 
 ## Each run
 
 1. `git log`, `git status`, `git pull`. Find what build agents have committed or reported since
    the last orchestrator commit that touched the spec.
 2. Treat each report as a claim. Confirm each result against its log and commits with one check
-   before believing it.
-   **Take the cheap direct measurement before anything rests on a derived one** (owner,
-   2026-09-20). In this game that is a **superimposed build cursor, which makes the 10 m hex grid
-   visible** — the owner sized a train that way in seconds. It cost a gated build, an owner
-   checklist item and about six hours of costed redesign options to learn: all of it stood on a
-   41.5 m train length from one `GetEntityBBox()` call on an entity with no mesh of its own
-   (report §13). Distrust any dimension read off an entity whose `mesh_bbox` is null or that
-   auto-attaches parts, and when an owner observation disagrees with an agent-derived figure, the
-   observation governs.
+   before believing it. **Take the cheap direct measurement before anything rests on a derived
+   one** (owner, 2026-09-20): in this game, a superimposed build cursor shows the 10 m hex grid.
+   A 41.5 m train length read with `GetEntityBBox()` on an assembly with no mesh of its own cost a
+   gated build and hours of redesign (`GEOMETRY_ORACLE_20260919.md` §13). When an owner
+   observation disagrees with an agent-derived figure, the observation governs.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-28** (Opus 5.5 `claude-opus-5-5`). The
-     fire order is this folder's [`README.md`](README.md); keep it current.
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-28** (Opus 5.5 `claude-opus-5-5`).
      **How sittings run** (owner, 2026-09-26: *"we are going to do each sitting together and you
      will relay a message to them"*): the orchestrator guides the owner through a build's attended
      smoke from the build's own predictions, reads the log on "flushed" (re-read the file: the owner
@@ -65,8 +54,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      "stream on, play, flushed" and read units from the stream; do not have the owner select them.
      Other slots: Scratch balances every non-hub station to its row target, 1 empties them, 2 fills
      a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
-     The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007); Scratch then half a sol at top speed
-     reliably leaves train 2000001844 empty and parked on the hub.
+     The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
+     Scratch, then half a sol at top speed, reliably leaves train 2000001844 empty and parked on the hub.
      **FIRST, at the next launch: brief `13` has handed back, unchecked.** The owner wants to
      discuss it with you. It is code `9947552` (new `Code/70_TrainBay.lua`; probe `50_` retired;
      `HubTrain` added to `FIX_POLICY`'s inventory), report `reports/TRAIN_HUB_BAY_20260928.md`
@@ -74,8 +63,7 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      its desk receipts, then run its sitting. Four game logs written after its hand-back are
      **unread**: `Mars.exe-20260928-12.06.47`, `12.27.00`, `12.36.00` and `12.57.37`. Ask the owner
      what they were before treating any as a sitting.
-     **Where things stand** (spec §4.8 rulings 6-9, §10):
-     - Distribution centre done on hub lines (brief 09 deleted 2026-09-27).
+     **Where things stand:**
      - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
        seen on 2000001844 (cargo confirmed Metals). **Held:** its chained Export/Import legs, until
        the bay (`13`) has passed its smoke (ruling 7's sequencing).
@@ -84,108 +72,40 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      - Dispatch is a train bay (ruling 9). The probes proved the reassignment holds and that a
        train stored and redeployed at the hub departs and serves its line. **Open:** whether the
        spawn sits exactly on the arm's siding (the owner saw it "off center").
-     - Pallets are fixed and the owner accepts the look (brief `12` deleted). The heal never logged
-       a change, so the stale-split cause is unconfirmed.
-     - The owner has not answered: doccheck passed `README.md` collapsed onto one line (`7d7d0c2`,
-       repaired in `04513e7`). Offered as a tooling fix for an agent; no decision yet.
-     - Ruling 9 may also answer §4.9 (the hub places trains it builds: into the bay, deployed by
-       need). This was said to the owner but not recorded as ruled. Ask before treating it as settled.
-     **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
-     `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
-     drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
-     for outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe; propose an
-     investigation or description lines when the owner has room.
-     The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
-   - **The distribution centre's rulings live in spec §4.7 (the UI) and §4.8 (everything else,
-     including the save-boundary ladder)** — read both, and §4.9, before briefing anything further
-     in this area. **Still open: whether the hub places the trains it builds** (§4.9, not
-     authorised).
-   - **The geometry oracle ran the night of 2026-09-19** (`GEOMETRY_ORACLE_high.md`; its report is
-     `docs/agent/reports/GEOMETRY_ORACLE_20260919.md`, the instrument
-     `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py`, its measured rules
-     `_shared/IMPORTER_FACTS.md`, its game reads TestKit slot 6 `geometry_reads`). Read it before
-     any hub geometry or train work: it found `hub_connector_directions` wrong for indices 1-4
-     against the imported body, which puts four of six lines' train spots on another line and past
-     `Station.lua:1105`'s 50 m teleport. Its run B (report §10) measured a whole train at 41.5 m by
-     4.16 m, four times the length and twice the width every earlier clearance figure assumed, and
-     found that a track element's `Enter1`/`Enter2` side depends on the track's angle and the
-     train's direction of travel. The paths run (report §11, 2026-09-20) folded that into the
-     oracle and re-ran it under the corrected table: §11's numbered list is what 3b still has to
-     solve and it lifted §10's "not to be used" from the three path verdicts. ⛔ **But its item 6
-     (a stopped train is longer than a half-line) rested on a train length the owner has since
-     DISPUTED** (report §13, owner 2026-09-20): a hex-grid measurement gives about two hexes
-     (~20 m) against §10's 41.5 m, and `TrainCCP3` has no mesh of its own, so the `GetEntityBBox`
-     read was taken on an assembly. R-TRAIN is disputed, §12's gate verdict is set aside and OI-22
-     was withdrawn from the owner's list. **The resolution: park position is a tunable in our own
-     Lua**, tuned by eye and judged in the smoke — no asset change. 3b is re-scoped on that, is
-     live, and owes the clean length measurement. ⛔ Do not revive the withdrawn options
-     (`SetScale`, alternating lines, a tunnel hood, resizing the dome): every one was generated
-     downstream of the disputed figure. **The longer stub is not one of them**: the owner measured
-     the stub at one hex on 2026-09-20 and directed one more (spec §9), which moves the connectors
-     to radius 5 on the owner's own measurement. The oracle stays the check instrument for
-     spot changes, but its `--train-length-m` default inherits the doubt;
-   - **The hub's ship size** (OI-18, and spec §9): `upload_preflight.py` admits no asset file types
-     at all. ⭐ MEASURED 2026-09-21, the bar fell on its own: the concept maps are 2048 where the old
-     ones were 4096, and the dev mod's compiled textures are **14 MB, not 44** (three dead 4096 maps
-     were deleted with them unreferenced). The glass and reactor will add a little. MEASURED 2026-09-20: **that 5 MB
-     is our own constant, not a platform limit** — vanilla buildings use 2048 maps where ours are
-     4096, packs are zstd-compressed and our three maps compress to about 3.3 MB, and Steam carries
-     Surviving Mars mods at 103 MB. Spec §9 holds the decode and what is still undetermined. The
-     owner was researching this on 2026-09-20; it is their ruling, not an agent's;
-   - **the audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner, 2026-09-19;
-     the owner changes the model themselves): treat every build
-     report as a claim and check it against its commits and logs. Cover: the persisted-name
-     inventory (ban 1: the repair list's name and kind field are the new ones); `FIX_POLICY` §8's
-     both-configuration ship test and the toggle test as §0 defines it for content, which the
-     smokes do not cover; the
-     spec §10 and hub report agreeing with the code; the settled 19 request-backed resources
-     against 21 nominal candidates; and that each fired brief and its map row were deleted at its
-     lifecycle; build 3's sitting-report §6 audit records how every mid-run ruling landed;
-   - the Blender texture pass is done (owner, 2026-09-19: Tripo dropped); its brief is retired.
-     The owner's GFXMaterial item and re-import ride build 3's footprint fix, from the steps in
-     `B:\Dev\SMR\SMR-Assets\trainhub\blender\README.md`. Spec §9 records the result and what was
-     not checked (§5 of the sitting report);
-   - OI-18 and OI-19 on the owner's list;
-   - **the movement work is FINISHED** (owner, 2026-09-21, restated 2026-09-21): centreline entry
-     and mirrored exit, the six-siding transition and rejoin, the exit slide and vanilla handoff,
-     the cold-start power fix (working for a long time) and the 6 s dwell. It may reopen once, at the
-     final pre-launch test, if the owner wants some moves slightly tweaked.
-     `Parked/TRAIN_HUB_MOVE_high.md` is PARKED for that and is not fired before it; never treat it as a
-     gate on anything. Do not re-derive a movement fault from an old report.
-   - **Loading policy and full queueing** are the owner's own next pass, deferred 2026-09-20.
-   - **Speed is NOT the trains' problem (MEASURED 2026-09-20; spec §10).** A train and a shuttle
-     cruise at the same units per game second, and the train's best samples beat the shuttle's.
-     ⛔ **Never compare `move_speed` constants across unit types** — a shuttle is a `FlyingObject`
-     with no `Movable` and no `GetSpeed`, so its constant feeds another system; reading the
-     constants alone produced two wrong orchestrator tables that the owner's eye overturned. What
-     costs a train time is stops, track path and braking, which is what Module B is for. The cold
-     x1/3 fires **only in a cold wave**. Not measured: door-to-door trip time, the number a player
-     feels;
-   - **Candidate, the owner's (2026-09-20, thinking about it, not briefed): a heated track
-     upgrade** — hub-connected track gets a heated bonus so a network keeps moving through a cold
-     wave. Spec §10 holds the open questions. Decide after the movement prototype;
-   - before the final build's full battery, brief a TestKit fix for the crossing witness
-     (the hub report's §"Sitting result");
-   - **Train construction at the hub is spec 4.9**, DESIGN ONLY: the hub can already build trains;
-     the work worth doing is having it PLACE them. It is the one question §4.8 still leaves open.
-     Module A's A1 and A2 are brief `09`'s, above; `accept` with a consumer in drone range was
-     MEASURED in the owner's 2026-09-25 sitting, so §4.3's retest is discharged.
-   - routing 5d or 5c, once the owner has played the 5a network.
-   - **"Follow the track" no longer binds on its own (owner, 2026-09-23).** The 2026-09-19 ruling
-     -- *"never drone pathing, so it cannot cut across open ground"* -- is not by itself a reason to
-     take the flight back from the engine: *"Not unless we have another reason to go back to our
-     flight path, it would have to be that plus something else. Right now that reason is the only
-     reason for our own flight path."* So engine mode stands and the drones cross open ground.
-     Reachability moves to dispatch, which is the only thing still enforcing it.
-   - **`OI-26` is PARKED (owner, 2026-09-23)** until the hub is built and running: *"Lets park
-     that until we get everything else built and running thats alot of poking and proding for
-     something that might basically be unnoticible under real conditions and i am leaning towards
-     not worth changing its state"*. Engine mode ships as built meanwhile; the Wasp's 7 m ride on
-     engine-flown legs is unchanged. **Answered in link 5's smoke (owner, 2026-09-25): kept as
-     built** ("2 agreed", with no complaint across the sitting). If it ever does read wrong, the choice is three-way, not two: accept it, take the
-     flight back (scripted, the tag), or give the drone our own `FlyingDrone` subclass with a
-     higher `hover_height` — which keeps the engine flying but ends "it is just a vanilla Wasp",
-     the standing protection for a save loaded without the mod.
+     - **§4.9, whether the hub places the trains it builds, is not authorised.** Ruling 9 may
+       answer it (a new train goes into the bay and deploys by need). This was said to the owner
+       but not ruled; ask before treating it as settled.
+     **Pending proposals for the owner, when they have room:**
+     - Two capacity findings, neither briefed (`reports/TRAIN_HUB_CAPACITY_20260926.md`): drones
+       will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait for
+       outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe.
+     - doccheck passed `README.md` collapsed onto one line (`7d7d0c2`, repaired in `04513e7`). It
+       was offered to the owner as a tooling fix for an agent; no decision yet.
+     - The owner's heated-track candidate (spec §10, grep `a heated`): not briefed, not a ruling.
+   - **Standing constraints:**
+     - **Movement is FINISHED** (owner, 2026-09-21). It may reopen once, at the final pre-launch
+       test, if the owner wants moves tweaked; `Parked/TRAIN_HUB_MOVE_high.md` waits for that and
+       is never a gate. Do not re-derive a movement fault from an old report.
+     - **Loading policy and full queueing** are the owner's own later pass (deferred 2026-09-20).
+     - **Speed is not the trains' problem**, and `move_speed` constants must never be compared
+       across unit types (spec §10, grep `must not be compared across unit types`).
+     - **Geometry:** the oracle `B:\Dev\SMR\SMR-Assets\_shared\geometry\hub_oracle.py` stays the
+       check instrument for spot changes, but its `--train-length-m` default inherits the disputed
+       41.5 m. Do not revive the options withdrawn with that figure (`GEOMETRY_ORACLE_20260919.md`
+       §13 and the list at grep `SetScale`).
+     - **The hub's ship size** is the owner's ruling (OI-18; spec §9, grep `OUR OWN GUARD`).
+   - **The audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner,
+     2026-09-19; the owner changes the model themselves). Treat every build report as a claim and
+     check it against its commits and logs. Cover:
+     - the persisted-name inventory (ban 1);
+     - `FIX_POLICY` §8's both-configuration ship test and the toggle test as §0 defines it for
+       content, which the smokes do not cover;
+     - spec §10 and the hub report agreeing with the code;
+     - the settled 19 request-backed resources against the 21 nominal candidates;
+     - that each fired brief and its map row were deleted at its lifecycle;
+     - build 3's sitting-report §6 audit of how every mid-run ruling landed.
+     Before the final build's full battery, brief a TestKit fix for the crossing witness
+     (`TRAIN_HUB_BUILD_20260918.md`, grep `crossing witness cannot prove`).
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
 5. **You own every brief's lifecycle** (owner, 2026-09-21). Once a fired brief's work is done,
