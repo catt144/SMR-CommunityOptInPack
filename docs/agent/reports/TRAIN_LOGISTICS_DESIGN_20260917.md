@@ -893,7 +893,15 @@ Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
 on hub 6430, all 15 trains cargo 105000 → 147000 and speed 1500 → 1875; hub 6495 spent
 (`can_switch=false`); toggled off 105000/1500, back on 147000/1875. Owner: trains through the hub
 at the new speed "looked fine, not stuttering" (the stream had stopped; seen, not logged).
-Owed: step 4 salvage/rebuild and step 5 save/reload.
+Step 4, same log: salvage of 6430 turned both bonuses off, claim held (owner: "correct").
+**The ruins' Rebuild button is greyed**; only Clear and a new placement from the build menu work.
+Vanilla's button gates only on a tutorial flag and `bulldozed` (lookup, `Data/XDef/ipBuilding.lua:391`
+on 1.1.1.405907, not re-read); the hub's meteor guard (`20_TrainHub.lua`, grep `never destroys it`)
+is scoped to reason `meteor` and is not on the salvage path. ⚖️ **Owner, 2026-09-28: the hub is not
+rebuilt the normal way — "other large buildings cannot be rebuilt either … we can just stick with
+that".** So the salvage/rebuild ruling's (b) is dormant: after salvage the bonuses stay off until the
+ruins are cleared, then any hub may buy again. The rebuild-carry code stays (harmless if unreached).
+Owed: clear-ruins re-buy and step 5 save/reload.
 Extras archived/cut with legacy `HubTrain` compatibility; cargo/speed desk checks pass.
 The owner's Mod Editor save and attended smoke remain owed; the report names both.
 
