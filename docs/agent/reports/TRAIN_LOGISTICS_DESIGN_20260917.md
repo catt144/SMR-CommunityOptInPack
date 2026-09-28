@@ -884,7 +884,12 @@ Build audited 2026-09-28 (brief 14): desk PASS WITH FIXES, merged `7dcef3e`, not
 ⚖️ **Owner ruling, 2026-09-28: a second hub upgrade, the Train Cargo Upgrade** (it replaces the
 cut hub extras, §4.8 ruling 10). **+100% train cargo** (`Train` `max_shared_storage`) **and +25% train speed** (owner, same day, after
 the vanilla boosts were listed: Faster Trains 70→100%, Vacuum Rail +50%, Train Track Standards law
-+33%, multiplicative); station storage and passengers are unchanged. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
++33%, multiplicative); station storage and passengers are unchanged.
+⚖️ **Owner, 2026-09-28: the Train Cargo Upgrade also warms the network** (*"we should do warm
+network but add it onto … the 2nd more expensive upgrade"*). While it is on, trains take no cold
+penalty (vanilla: ×1/3 at heat ≤ 90, ×2/3 with Safe Transport, `Units/Train.lua:602-604` by
+lookup). Scope as the upgrade's cargo and speed, every train in the colony, unless the owner
+narrows it. It rides the existing `GetNominalMoveSpeed` chain; no new modifier slot. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
 colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
 salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
 re-buyable, no tech.
@@ -3439,7 +3444,8 @@ does not fire in normal weather (owner confirmed in play, 2026-09-20; `Drone.lua
 `HasColdWave` gate). An earlier orchestrator claim that trains always run at a third speed was wrong.
 
 **Candidate, the owner's, 2026-09-20 (thinking about it; not briefed and not a ruling): a heated
-track upgrade.** Cold waves cut the speed of everything, and the train branch above is a x1/3 during
+track upgrade.** ⚖️ **Decided 2026-09-28: warm network, part of the Train Cargo Upgrade** (§4.10, grep `warm
+network`). Cold waves cut the speed of everything, and the train branch above is a x1/3 during
 one. Track connected to our hub would get a heated bonus, so a hub network keeps moving through a
 cold wave. Open: whether it warms the heat grid (the hub would act as a `heater`, `Heat.lua`
 `heaters`) or wraps the speed for trains on our network; what it costs; and whether it also helps
