@@ -635,6 +635,7 @@ failure and the whole hub's both-configuration ship test remain separate.
      the new vanilla slot, if the pool has one.
    - Next: a bay probe (store a parked hub train, deploy one at the hub) to prove the spawn at the
      hub, the one untested link. Then a build brief.
+   - Built 2026-09-28 (desk only; live smoke owed): `TRAIN_HUB_BAY_20260928.md`.
    ✅ **LIVE 2026-09-28 on `296f6ff`** (fresh boot, `build6_capacity_covered_pass3`, Scratch balance, one
    sol at top speed, TestKit slot 6 stream): no station food row changed after the baseline, the hub's
    food spoiled once at the day boundary (240 → 230 per type), no single-unit food trips. 0 `LUA
