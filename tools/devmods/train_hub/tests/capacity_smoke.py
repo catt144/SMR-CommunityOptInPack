@@ -120,6 +120,7 @@ function RebuildInfopanel() end
 function CreateGameTimeThread() end
 function GetPropScale() return 1 end
 function print(...) printed = (printed or 0) + 1 end
+SelectedObj = false
 UpgradeModifierModifiers = {}; BuildingTemplates = {}
 function table.get(t, k) return t and t[k] end
 g_Classes = {}
@@ -290,6 +291,21 @@ B:ApplyUpgrade(1); assert(count_mods() == 3 and small.max_storage_per_resource =
 B:StopUpgradeModifiersForUpgrade(ID); B:ApplyUpgradeModifiersForUpgrade(ID)
 assert(small.max_storage_per_resource == 120000)
 
+-- The panel's Ctrl+click (sectionUpgrades.generated.lua:69-92, UpgradableBuilding.lua:368-392): the
+-- clicked hub is selected, `enable` is its raw state negated, sent to every hub of the class;
+-- ruins pass BroadcastAction's GetUIInteractionState filter (BaseBuilding.lua:541-552).
+local function broadcast_toggle(from)
+  local was = SelectedObj
+  SelectedObj = from
+  local enable = not from.upgrade_on_off_state[ID]
+  for _, bld in ipairs(city.labels.Station) do
+    if IsKindOf(bld, "SMROptInTrainHubBase") and bld:HasUpgrade(ID) and bld.upgrade_on_off_state[ID] ~= enable then
+      bld:ToggleUpgradeOnOff(ID)
+    end
+  end
+  SelectedObj = was
+end
+
 -- 5. Toggle off and on on the owner; the over-capacity drop keeps the stock.
 A:ToggleUpgradeOnOff(ID)
 assert(not A:IsUpgradeOn(ID) and A:HasUpgrade(ID) and B:HasUpgrade(ID), "off is still spent")
@@ -299,7 +315,13 @@ assert(small.max_storage_per_resource == 60000 and A.max_storage_per_resource ==
 assert(T1.max_shared_storage == 42000 and T1.max_colonists_to_transport == 12)
 assert(small.demand.Metals.amount == 0 and small.supply.Metals.actual == 100000, "demand 0, no stock lost")
 assert(small.desire_slider_max == 60)
-A:ToggleUpgradeOnOff(ID)
+-- A Ctrl+click from spent B is inert (owner, 2026-09-28): the owner stays off, and it is logged.
+local p5 = printed or 0
+broadcast_toggle(B)
+assert(not A:IsUpgradeOn(ID) and count_mods() == 0 and small.max_storage_per_resource == 60000, "B's broadcast inert")
+assert(printed == p5 + 1, "refusal logged once")
+-- The owner's own Ctrl+click still switches it.
+broadcast_toggle(A)
 assert(A:IsUpgradeOn(ID) and small.max_storage_per_resource == 120000 and T1.max_colonists_to_transport == 24)
 
 -- 6. Salvaged (Building:OnDemolish -> Destroy, then Msg BuildingDemolished, Building.lua:910-919):
@@ -345,22 +367,17 @@ rebuilt_on = { small.max_storage_per_resource, big.max_storage_per_resource, T1.
 -- 6c. Toggled off before salvage: it comes back built but still off; the owner may switch it on.
 D:ToggleUpgradeOnOff(ID); assert(not D:IsUpgradeOn(ID) and small.max_storage_per_resource == 60000)
 salvage(D)
--- The panel's Ctrl+click on a spent hub (sectionUpgrades.generated.lua:69-92): `enable` is the
--- clicked hub's state negated, sent to every hub of the class; ruins pass BroadcastAction's
--- GetUIInteractionState filter (BaseBuilding.lua:541-552). They must keep the off state.
-local function broadcast_toggle(from)
-  local enable = not from.upgrade_on_off_state[ID]
-  for _, bld in ipairs(city.labels.Station) do
-    if IsKindOf(bld, "SMROptInTrainHubBase") and bld:HasUpgrade(ID) and bld.upgrade_on_off_state[ID] ~= enable then
-      bld:ToggleUpgradeOnOff(ID)
-    end
-  end
-end
+-- A Ctrl+click from spent B on the ruins: they keep the off state.
 broadcast_toggle(B)
 assert(not D:IsUpgradeOn(ID) and count_mods() == 0 and small.max_storage_per_resource == 60000, "ruins keep off")
+-- Nor a direct switch with no spent hub selected (the ruins' own panel or hotkey).
+D:ToggleUpgradeOnOff(ID); assert(not D:IsUpgradeOn(ID), "ruins refuse their own switch")
 -- The modifier guard stands on its own, whatever reaches it (Building.lua:1145, TechTree.lua:1438).
 D:ApplyUpgradeModifiersForUpgrade(ID); assert(count_mods() == 0, "ruins never apply")
+-- Rebuild completing while spent B is selected: the carry still keeps the state off.
+SelectedObj = B
 local E = rebuild(D, 205)
+SelectedObj = false
 assert(Building.HasUpgrade(E, ID) and not E:IsUpgradeOn(ID), "built, still off")
 assert(count_mods() == 0 and small.max_storage_per_resource == 60000 and T1.max_shared_storage == 42000)
 assert(B:HasUpgrade(ID) and B:CanDisableUpgrade(ID) == false)

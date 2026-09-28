@@ -3492,8 +3492,22 @@ end
 -- toggle off"). A Ctrl+click on a spent hub broadcasts `enable = true` to every hub of the class
 -- that passes GetUIInteractionState, ruins included (sectionUpgrades.generated.lua:69-92,
 -- BaseBuilding.lua:541-552; Destroy leaves ui_interaction_state alone), so ruins refuse the switch.
+-- Owner, 2026-09-28: that Ctrl+click from a spent hub is inert. Both panels send it with the
+-- clicked hub selected and give the target no other mark of its origin (sectionUpgrades
+-- .generated.lua:69-92, UpgradableBuilding.lua:368-392), so the owner refuses a switch while
+-- another train hub that does not own the upgrade is selected. Its own click and its own
+-- broadcast still switch it.
 function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
-	if id == hub_capacity_upgrade and self.destroyed then return end
+	if id == hub_capacity_upgrade then
+		if self.destroyed then return end
+		local sel = SelectedObj
+		if Building.HasUpgrade(self, id) and sel ~= self and IsKindOf(sel, "SMROptInTrainHubBase")
+			and not Building.HasUpgrade(sel, id) then
+			print(string.format("[TrainHubDev] capacity upgrade: switch from hub %s refused, hub %s owns it",
+				tostring(sel.handle), tostring(self.handle)))
+			return
+		end
+	end
 	return Building.ToggleUpgradeOnOff(self, id)
 end
 
@@ -3555,7 +3569,8 @@ function SMROptInTrainHubBase:ApplyCopyParams(params)
 	ruins.upgrades_built[hub_capacity_upgrade] = nil
 	ruins.upgrades_built[tier] = nil
 	self:ApplyUpgrade(tier)
-	if not on then self:ToggleUpgradeOnOff(hub_capacity_upgrade) end
+	-- Vanilla's toggle, not this class's: whatever the player has selected, the carry keeps the state.
+	if not on then Building.ToggleUpgradeOnOff(self, hub_capacity_upgrade) end
 	print(string.format("[TrainHubDev] capacity upgrade: carried from ruins %s to rebuilt hub %s, %s",
 		tostring(ruins.handle), tostring(self.handle), on and "on" or "off"))
 end
