@@ -754,6 +754,8 @@ other train idled, re-evaluating once a game hour. The cargo type is now confirm
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
+⚖️ **Owner, 2026-09-28: no — the hub does not build trains.** This design stays as record only.
+
 The hub inherits train construction from `Station` already: `build_category = "Stations"` puts it in
 `labels.Stations` and therefore in `RebuildTrainRoutes`, and nothing gates `ConstructTrain` on
 anything but the class. Cost is `g_Consts.TrainMetalCost` 5 Metals + `g_Consts.TrainMPCost` 1

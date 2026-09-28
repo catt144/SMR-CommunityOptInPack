@@ -23,6 +23,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `10_TRAIN_HUB_ROUTING_5D_high.md` | 5d cargo routing, spec §6 OPTION 5 and the §4.8 rulings of 2026-09-27: stations chained to the hub through another station's line obey their distribution rows, forwarded hop by hop. No route-model change. Owns `10_TrainFloor.lua`, `40_TrainDistribution.lua` and `45_TrainDistributionUI.lua`. | **LIVE**; chained Export/Import legs owed |
 | `17_REACTOR_FLASH_INVESTIGATION_medium.md` | Owner sighting 2026-09-28: the hub's mini reactor flashes unpainted for a frame on a game-speed change. Find the cause, fix if small, one short attended check. Can run beside `16` (reactor code only). | **Ready to fire** (owner, 2026-09-28) |
+| `18_TRAFFIC_SMOKE_REPAIR_medium.md` | Make `traffic_smoke.py` pass again (owner 2026-09-28): decide whether its -180° arrival expectation is stale against the accepted movement; fix the test only; movement code is out of scope. | **Ready to fire** (owner, 2026-09-28) |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire
