@@ -768,16 +768,17 @@ holding. Trains read 63 → 105 and 18 → 30 because the fixture carries a +50%
 the additive stacking below, not a defect. Seen but not read: the toggle-off state. Not read at
 all: the salvaged-but-standing state the ruins ruling is about. **The owner saw the ruins stand
 until a Drone Hub was built**: the hub is its own controller, so after salvage nothing clears its
-ruins, and with no other controller in range the bonus stays on indefinitely — vanilla-consistent
-under the ruling, a line for the description. A dev-mod acceptance, not a ship test;
+ruins, and with no other controller in range the bonus stays on indefinitely — answered by the
+owner's 2026-09-28 ruling below (off at salvage, back on rebuild). A dev-mod acceptance, not a ship test;
 `20_TrainHub.lua` is free again.
 
-**Open, the owner's finding in the sitting: drones will not build an upgrade from the building's
+**The owner's finding in the sitting: drones will not build an upgrade from the building's
 own storage** — on the hub and on vanilla stations alike; the owner had to build a Universal Depot,
 let the drones fill it, and build from that. Stations carry a depot's request flags
 (`Buildings/MultiResourceDepot.lua:33-34`), so the refusal is likely the engine's pairing and
-vanilla behaviour (source read, not measured). A player without a depot sees the upgrade stall with
-no explanation. To decide: investigate and fix, or say so in the description.
+vanilla behaviour (source read, not measured). ⚖️ **Owner, 2026-09-28: describe it, do not fix.**
+The module description says an upgrade on a station or the hub needs its Metals and Concrete in a
+depot the drones can reach, not in the building's own storage.
 
 **One** upgrade on the hub, the **Capacity Network Upgrade**: **+100% storage on every train
 station, the hub included, and +100% cargo on every train**. ⚖️ Owner, 2026-09-25: one upgrade, not
@@ -836,6 +837,18 @@ cleared** — pure vanilla. The hub has `use_demolished_state`, so salvage or de
 `Building:Done` does (`:529-534`), when drones clear the ruins. So a ruined owner hub keeps the
 +100% and the claim, and another hub may buy the upgrade once the ruins are gone. This refines
 ruling 2's "only demolition … removes it" and ruling 3's "after the owning hub is demolished".
+
+⚖️ **Owner ruling, 2026-09-28, amending the 2026-09-26 one** (asked after the sitting showed a
+salvaged hub's ruins stand until an outside Drone Hub clears them, so the bonus stayed on
+indefinitely): *"Can the bonus just be inactive at salvage, but reactived on a salvage rebuild
+without the need to fully buy it again?"* — yes, by source. (a) **Salvage or destruction switches
+the bonus off**; the ruins keep the claim (their `upgrades_built`), so no other hub may buy it while
+they stand. (b) **Rebuilding the ruins restores it** without buying it again: vanilla
+`Building:Rebuild` (`Building.lua:1788`) places a construction site with `params.rebuild` = the
+ruins; on completion the new building is created, `ApplyCopyParams` runs and only then the ruins
+are `DoneObject`-ed (`ConstructionSite.lua:1736-1745`), so the upgrade is carried from ruins to new
+hub at that moment. The player pays vanilla's rebuild cost only. (c) **Clearing the ruins** releases
+the claim as before; any hub may buy it again.
 
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
