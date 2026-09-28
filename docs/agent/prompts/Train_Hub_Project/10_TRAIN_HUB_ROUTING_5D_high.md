@@ -8,6 +8,16 @@ has its own line to the hub. Big station 2009 has one line to a small station th
 hub, and a second line straight to the hub. Today a train on a line without the hub gets vanilla
 behaviour, so those stations ignore their rows.
 
+**Sent back 2026-09-27 (late), after `9a2d470`'s sitting.** The loop is fixed and routing reaches
+6243, but cargo is stranded aboard a train. Train 2000001844 kept 98 aboard all sitting, assigned to
+a station off its line and never unloaded, so 2012 and 6243 got no Metals. Fix it per spec §4.8
+ruling 6: stranded cargo is dumped **at the hub first**, and into a station above its slider only
+when the hub has no room. Add a desk case (old cargo assigned off-line, a full hub, cargo landing
+over a pin), and extend the watchdog so every resource aboard reaches a station within N calls. The
+evidence is in spec §4.8's second 5d sitting paragraph. Brief `11` (dispatch) runs in parallel and
+edits none of your files. The chained Export/Import live legs wait for its answer; the fix's own
+smoke does not.
+
 Read before the first write:
 - spec `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` §4.7, §4.8 (every ruling, including
   the 2026-09-27 block), §5.2–§5.3 and §6 OPTION 5;
