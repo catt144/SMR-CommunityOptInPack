@@ -125,3 +125,35 @@ then built from the depot. This predicted stall is what the step-4 fallback anti
 carry the same storage request flags as a depot (`Buildings/MultiResourceDepot.lua:33-34`,
 1.1.1.405907), so the refusal is in the engine's pairing, not in our code — a source read, not
 measured. Open in spec §4.10; the product question is fix versus a line in the description.
+
+## Addendum 2026-09-28 — salvage/rebuild steps, not yet played
+
+For spec §4.10's ruling "amending the 2026-09-26 one". The builder's five steps, corrected by brief
+14's audit (`docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`). The code is worktree
+branch `worktree-agent-af033497203ef0c8a` at `0ec0631`. **These steps cannot run until it is merged**,
+and the merge waits for the owner to say no sitting is running. Fixture `train_hub_base`, as on
+2026-09-26. Its +50% cargo tech makes the train figures 63000/18 at base and 105000/30 doubled, not
+the builder's 42/12 and 84/24.
+
+**Reads.** Slot 6's stream does **not** show capacities. Its train rows carry cargo, assignments
+and passenger count, and its station rows carry stock only (TestKit `a4b122b`,
+`Code/80_AgentSlots.lua` `train_row`/`stream_tick`). Station cap: **slot 4** on a selected small
+station (read-only, logs `cap`). Train caps and the upgrade rows (owner, `on`, `destroyed`,
+modifiers applied): only the capacity `read()`, which is reachable **only through slot 2, which
+first fills the selected station's Metals** (a mutation). The read-only read these steps need is
+`read()` bound to its own slot; not added (TestKit out of scope). Until then, read train caps by
+eye in the train's infopanel, or press slot 2 on a station whose fill does not matter. Ownership
+events are in the log as `[TrainHubDev] capacity upgrade: ...`.
+
+1. Load a save where hub A owns the upgrade and it is on. Predict: small station 120000 (slot 4),
+   trains 105000/30. Any pre-ruling ruins that still hold the upgrade turn off on load (no log line).
+2. Salvage A. Predict the log line `capacity upgrade: hub <A> ruined, bonus off, claim held`;
+   stations 60000, trains 63000/18, over-cap stock kept (demand 0). Hub B reads "Upgrade already
+   constructed" with no switch; a construct try on B logs `refused on hub <B>, hub <A> holds it`.
+3. Ctrl+click the upgrade on B. Predict: capacities stay 60000 and 63000/18, and the ruins keep their
+   state (audit fix: ruins refuse the toggle).
+4. Rebuild A's ruins. Predict `carried from ruins <A> to rebuilt hub <new>, on`; 120000 and
+   105000/30 (not 180000); only vanilla's rebuild cost is charged, not the upgrade's.
+5. On the new hub, toggle off (60000), salvage, **Ctrl+click on B once more**, then rebuild. Predict
+   `..., off` and 60000; toggling on gives 120000. Salvage again, clear the ruins with a Drone Hub.
+   Predict: 60000 and 63000/18, and B can build the upgrade (it pays the full cost).
