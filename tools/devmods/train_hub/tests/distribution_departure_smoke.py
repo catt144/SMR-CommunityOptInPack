@@ -149,6 +149,122 @@ for _,st in ipairs({child,middle,hub}) do
     end
 end
 print('PASS empty chain at load: native commands fetch Metals and return old Butter via intermediate; both pins 10; claims released')
+
+-- Departure alone misses cargo which circles forever. Count native unloads,
+-- independently for every resource present at load; fresh loads cannot satisfy
+-- the watchdog. No manual delivery destination is used.
+local function watch_old(t)
+    local left=table.copy(t.stockpiled_amount)
+    local add=t.AddResource
+    t.landings={};t.visits={}
+    function t:AddResource(n,res)
+        if n<0 and (left[res] or 0)>0 then
+            local delivered=math.min(-n,left[res])
+            left[res]=left[res]-delivered
+            self.landings[#self.landings+1]={station=self.current_station,res=res,amount=delivered,call=#self.visits}
+        end
+        add(self,n,res)
+    end
+    return function(label)
+        for call=1,6 do
+            -- Unload can satisfy the final call even if no further trip is needed.
+            t.visits[#t.visits+1]=t.current_station
+            t:LoadTrain()
+            assert(not D.error and not SMROptInTrainFloor.stats.last_error)
+            local complete=true
+            for _,n in pairs(left) do if n>0 then complete=false end end
+            if complete then
+                print('PASS delivery watchdog '..label..' calls='..call)
+                assert(engine_assertions==0)
+                return
+            end
+            assert(t.command=='GotoStation' and t.next_stop~=t.current_station,
+                label..': retained cargo without departure')
+            t.current_station=t.next_stop
+        end
+        error(label..': delivery watchdog: old cargo remains after six LoadTrain calls')
+    end
+end
+
+for _,loose in ipairs({false,true}) do
+    for _,full in ipairs({false,true}) do
+        local t,s,h=fixture(10,full and 480 or 220,120,480);setup(t)
+        -- Off-line reservations survive load; native UnloadAll must release them.
+        local off=station(0,120);off.handle=2008
+        off.supply.Butter=request(0,10000);off.demand.Butter=request(120000,110000)
+        h:AddResource(full and 480000 or 200000,'Butter')
+        t.stockpiled_amount={Metals=98000,Butter=7000}
+        if not loose then
+            t.assigned_resources={[off]={Metals=98000,Butter=7000}}
+            assert(off.demand.Metals:AssignUnit(98000) and off.demand.Butter:AssignUnit(7000))
+        end
+        -- Keep both pins already satisfied, including untouched Butter.
+        s:AddResource(10000,'Butter')
+        OnMsg.LoadGame()
+        local run=watch_old(t)
+        run((loose and 'unassigned' or 'off-line')..(full and ' full hub' or ' hub room'))
+        for _,event in ipairs(t.landings) do
+            assert(event.station==(full and s or h),'hub must be attempted before over-pin dumping')
+            if full then assert(t.visits[event.call-1]==h,'overflow preceded actual hub attempt') end
+        end
+        if full then assert(stock(s)==108000 and stock(s,'Butter')==17000) end
+        assert(off.demand.Metals.actual==off.demand.Metals.target)
+        assert(off.demand.Butter.actual==off.demand.Butter.target)
+    end
+end
+
+-- A reservation for this line can also become unreachable when its pin shrinks.
+-- Hub refusal evidence must be reconsidered if room opens or a save is loaded.
+for _,change in ipairs({'none','room','load'}) do
+    local t,s,h=fixture(10,480,120,480);setup(t)
+    t.stockpiled_amount={Metals=98000};t.assigned_resources={[s]={Metals=98000}}
+    assert(s.demand.Metals:AssignUnit(98000));OnMsg.LoadGame()
+    assert(depart(t,'shrunken pin to hub')==h)
+    assert(depart(t,'hub refused shrunken pin')==s)
+    if change=='room' then h:AddResource(-98000,'Metals') end
+    if change=='load' then OnMsg.LoadGame() end
+    local run=watch_old(t)
+    run('shrunken pin '..change)
+    if change=='room' then
+        assert(t.landings[1].station==h and stock(s)==10000,'new hub room takes precedence')
+    else
+        assert(t.landings[1].station==s and stock(s)==108000)
+        if change=='load' then assert(t.visits[2]==h and t.landings[1].call==3) end
+    end
+    assert(s.demand.Metals.actual==s.demand.Metals.target)
+end
+
+-- Both endpoints have independent hub lines: neither is the other's parent.
+-- Cargo from an obsolete off-line assignment needs a deterministic handoff.
+for _,full in ipairs({false,true}) do
+    local trunk,gateway,hub=fixture(10,full and 480 or 220,120,480);setup(trunk)
+    local peer=station(10,120);peer.handle=2012;peer.city=gateway.city
+    local off=station(0,120);off.handle=2008
+    local side={members={peer,gateway},trains={}}
+    function side:GetDestStation(st) return st==peer and gateway or peer end
+    local peer_hub={members={peer,hub},trains={}}
+    gateway.city.train_track_routes[side]=side.members
+    gateway.city.train_track_routes[peer_hub]=peer_hub.members
+    gateway.city.labels.Station={gateway,hub,peer};hub.nodes[peer]=true
+    local t=setmetatable({current_station=peer,track=side,city=gateway.city,
+        stockpiled_amount={Metals=98000},assigned_resources={[off]={Metals=98000}},
+        units={},is_stopping=false,AddResource=trunk.AddResource,LogCargo=trunk.LogCargo,
+        PushDestructor=trunk.PushDestructor,PopDestructor=trunk.PopDestructor},{__index=Train})
+    side.trains={t};setup(t);assert(off.demand.Metals:AssignUnit(98000));OnMsg.LoadGame()
+    assert(D.Parent(peer)==hub and D.Parent(gateway)==hub)
+    watch_old(t)('sideways off-line '..(full and 'full hub' or 'hub room'))
+    assert(t.landings[1].station==gateway and stock(gateway)==108000)
+    assert(off.demand.Metals.actual==off.demand.Metals.target)
+    if not full then
+        assert(depart(trunk,'gateway forwards dump')==hub)
+        trunk:UnloadAll()
+        assert(stock(gateway)==10000 and stock(hub)==318000)
+    else
+        trunk:LoadTrain()
+        assert(trunk.command=='Idle' and stock(gateway)==108000,'full hub must refuse new export')
+    end
+    print('PASS sideways gateway '..(full and 'holds overflow after full hub refusal' or 'forwards excess to hub'))
+end
 ''')
 
 

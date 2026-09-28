@@ -6,8 +6,9 @@ Each connected train line is one hop. A runtime breadth-first tree rooted at the
 distribution hub chooses the nearest upstream station; equal-length choices use
 station handle order. The next hop for 6243 is 2012, then the hub. A station with
 a direct hub line uses that line for its upstream hop. A sideways line between two
-stations already directly connected to the hub carries no managed cargo. Trains
-remain on their own vanilla lines.
+stations already directly connected to the hub creates no new managed load. Old
+stranded cargo hands off at its nearest hubward station, with handle order breaking
+ties, for that station's upstream train to collect. Trains remain on their own lines.
 
 A station's own row target has first claim on its stock. Its free physical storage
 may temporarily hold **up to the remaining capacity** as transit stock. Excess
@@ -39,6 +40,7 @@ the tree; routing between different hubs is outside this build.
 | Drone baselines | 1 | Existing distribution implementation: the 2026-09-25 live sitting measured drones responding to vanilla-written desired amounts; session-only samples did not leave that behavior. No new writer added here. |
 | Player row settings | 2 | Existing `SMROptIn_distribution` on the hub; session-only settings could not retain player choices across load. This build adds no key or field. |
 | UI tooltip and routing counters | 0 | Tooltip reads the runtime parent; counters and parent tree are rebuilt in memory. |
+| Stranded-cargo admission and hub refusal | 0 | Native unload releases obsolete assignments; runtime refusal evidence permits overflow after a hub visit. Reload clears the evidence and the train attempts the hub again. Delivery watchdog receipt below. |
 
 Overall distribution remains at rung 2. The existing rung-1 residual remains:
 native drone desired amounts may linger after removal until vanilla rewrites them.
@@ -161,6 +163,9 @@ GPT-6 as declared by this session; the exact variant is not exposed.
 
 ## Repair sitting predictions — not results
 
+These were the predictions for `9a2d470`; the second sitting below disproved the
+delivery claim while confirming the departure repair.
+
 **<<PENDING-RUN>>** Fresh boot of `build6_capacity_covered_pass3`, both mods. Keep
 the existing slot 4 reads and slot 5 configured-Metals watch.
 
@@ -178,3 +183,96 @@ the existing slot 4 reads and slot 5 configured-Metals watch.
    chained Export/Import targets and at least one sol at top speed. Predict the
    row targets are reached and the closed log has zero `LUA ERROR`. The
    orchestrator retains and archives the log and relays the result.
+
+## Second sitting failure and stranded-cargo repair
+
+**RELAY, owner/orchestrator, 2026-09-27 21:40, `9a2d470`: departures repaired,
+delivery incomplete.** The sitting reached 6243 and filled the other untouched
+rows, but Metals at 2012 and 6243 stayed empty while train 2000001844 retained
+`cargo=98000`, `assigned_here=0`. Spec §4.8 retains the sitting measurements and
+the owner's hub-first dump ruling; the orchestrator retains the closed log.
+The live cargo's resource identity remains inferred. The desk fixture explicitly
+uses Metals plus untouched Butter.
+
+The previous departure watchdog accepted a train that circled with unchanged
+cargo. Native **1.1.1.405907** `Lua/Units/Train.lua:787-830` unloads assigned cargo
+only as a whole, releases its original destination's request even when landing
+elsewhere, and limits unassigned cargo to available demand. A pin can therefore
+make an old assignment unreachable. Sideways lines had no admission for old
+cargo when neither endpoint was the other's parent.
+
+**MEASURED before repair:**
+[`dump_before.txt`](../../archive/train_routing_5d_20260927/dump_before.txt)
+reproduces an off-line assignment remaining aboard after the delivery watchdog's
+six `LoadTrain` calls, despite departures. Hub-room control passes on the old code;
+full-hub overflow fails. The repaired admission still delegates every cargo and
+assignment write to the archived native body:
+
+- A train on a hub line first attempts a real hub unload. Remaining cargo records
+  a runtime refusal for that train/resource/hub. If the hub still cannot take it,
+  the return stop admits it up to physical room, including above the row's pin.
+- Actual room is checked outside the allocation view. A nested native unload's
+  transient demand claims cannot authorize overflow. Room becoming available at
+  the hub sends cargo there; reload requires a fresh hub visit.
+- On a line without the hub, the nearest hubward stop admits stranded cargo as
+  transit. This extends the existing child-line transit rule to sideways lines;
+  the upstream train carries the excess to the hub. A full hub refuses a new
+  upstream load, leaving the overflow at that station under the owner's ruling.
+- While a resource has an obsolete, unreachable or unassigned load aboard, the
+  allocation view prevents another load of that resource. Native departure
+  selection and the ordinary order calculation resume once it clears.
+
+The extended `distribution_departure_smoke.py` counts native unload quantities
+for each resource aboard at load, follows only native `GotoStation` commands,
+and fails on retained cargo without departure or without delivery within six
+calls. It checks the actual hub visit before direct-line overflow, both resources'
+obsolete reservations releasing, and physical landing stock. Measured cases:
+
+| Loaded state | Calls to clear watched cargo | Witness |
+|---|---:|---|
+| Off-line assignment or unassigned, hub room | 2 each | Metals 98 and Butter 7 land at hub |
+| Off-line assignment or unassigned, full hub | 3 each | Hub attempted first; spoke Metals 10 → 108, Butter 10 → 17 |
+| Assignment blocked by shrunken pin, hub already refused | 1 | Old Metals 98 lands above pin |
+| Same, hub room opens before return unload | 2 | Hub receives cargo; spoke stays 10 |
+| Same, reload after refusal | 3 | Fresh hub attempt before overflow |
+| Sideways off-line assignment, hub room or full | 2 each | Gateway receives 98; with room its upstream train forwards all 98; when full gateway holds 108 |
+
+Call counts exclude the setup hub visit in the shrunken-pin cases. This is a
+bounded smoke for the named shapes with sufficient physical landing capacity,
+not a bound for every network, disabled resource or full physical storage.
+Requests, movement, waits and loading a serialized save remain doubled. No
+persisted name, callback, thread, assigned-cargo writer or copied train body is
+introduced. Repair rung 0; overall distribution remains rung 2.
+
+The first full-suite attempt is preserved as
+[`dump_suite.txt`](../../archive/train_routing_5d_20260927/dump_suite.txt).
+It caught concurrent brief-11 registration work between metadata and items, as
+well as the known `traffic_smoke.py` failure. The final receipt,
+[`dump_suite_final.txt`](../../archive/train_routing_5d_20260927/dump_suite_final.txt),
+reconciles its sorted `tests/*smoke.py` filter plus shipping/dev/TestKit parsechecks
+and wrap check to **17 commands: 16 pass, one known failure**, `traffic_smoke.py`,
+`-10800 != 0`. For `distribution_smoke.py` only, a temporary snapshot combines
+HEAD's consistent items/metadata registration with byte-identical working Lua;
+the receipt includes its full runnable command and hashes. The other commands
+read the shared working tree. Brief 11's unfinished registration is excluded
+from that registration assertion, and its files were not edited by this repair.
+[`dump_gates.txt`](../../archive/train_routing_5d_20260927/dump_gates.txt) records
+GREEN doccheck and a clean `git diff --check`.
+Executed model: GPT-6 as declared by this session; exact variant unavailable.
+
+## Stranded-cargo sitting predictions — not results
+
+**<<PENDING-RUN>>** Fresh boot of `build6_capacity_covered_pass3`, both mods;
+orchestrator attends and retains the log. Existing TestKit slots need no edit.
+
+1. Watch train 2000001844's cargo and station stock through visits using slot 4.
+   Predict the old load reaches the hub, or hands off at the hubward station on
+   a line without the hub. Cargo must change as stock lands; repeated departures
+   with the same load fail this repair.
+2. With a full hub, predict an actual hub attempt on a direct line before the
+   return station rises above its slider. Unassigned cargo and untouched Butter
+   follow the same admission. If hub room opens, it takes precedence over overflow.
+3. Predict Metals reaches 2012 and 6243 after the old load clears. The chained
+   Export/Import legs and their sol at top speed remain owed, with zero `LUA ERROR`
+   predicted; spec §4.8 ruling 7 puts brief 11's dispatch investigation before
+   those remaining live legs. This fix's own smoke can run now.

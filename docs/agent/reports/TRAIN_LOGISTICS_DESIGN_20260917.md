@@ -648,7 +648,13 @@ as Metals, not confirmed. 0 `LUA ERROR`. Relayed to brief 10 with ruling 6 below
 **5d departure repair, desk only:** `TRAIN_ROUTING_5D_20260927.md` §"First sitting
 failure and departure repair" records the separate City/Colony reproduction,
 retained-cargo departure watchdog, repair receipts and replacement sitting
-predictions. The repaired build still needs the orchestrator's live result.
+predictions. The sitting above confirmed departures but exposed stranded cargo.
+
+**5d stranded-cargo repair, desk only:** `TRAIN_ROUTING_5D_20260927.md`
+§"Second sitting failure and stranded-cargo repair" records the delivery-watchdog
+reproduction, hub-first overflow admission, sideways-line handoff and rung-0
+repair. Its next sitting predictions remain untested; ruling 7 still puts the
+dispatch investigation before the remaining chained Export/Import live legs.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 

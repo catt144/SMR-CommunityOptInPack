@@ -21,6 +21,9 @@ local view, baseline, saving = false, false, false
 local owners, hubs, parents, children, cache_time = {}, {}, {}, {}, false
 local applied = setmetatable({}, { __mode = "k" })
 local calls_by_station = setmetatable({}, { __mode = "k" })
+-- An actual hub unload refusal, not an allocation view, authorizes overflow
+-- on the return trip. Runtime only: loading a save requires a new hub attempt.
+local refused = setmetatable({}, { __mode = "k" })
 function D.CallsFor(st) return calls_by_station[st] or 0 end
 
 -- Standalone dev-mod Require: no dependency on the shipping pack. Include
@@ -349,6 +352,36 @@ local function child_need(st, res)
 	return n
 end
 
+local function dump_route(train, hub)
+	local members, gateway, depth = {}, nil, nil
+	ForEachStationAlongTrack(train.current_station, train.track,
+		const.trfInclusive | const.trfBidirectional, function(st)
+			members[st] = true
+			local at, n = st, 0
+			while at and at ~= hub do at, n = parents[at], n + 1 end
+			if at == hub and (not depth or n < depth or n == depth and st.handle < gateway.handle) then
+				gateway, depth = st, n
+			end
+		end)
+	return members, gateway
+end
+
+local function needs_dump(train, res, members, hub)
+	local loose = (train.stockpiled_amount or empty_table)[res] or 0
+	if loose <= 0 then return false end
+	for dest, cargo in pairs(train.assigned_resources or empty_table) do
+		local n = cargo[res] or 0
+		loose = loose - n
+		if n > 0 then
+			if not members[dest] or not ready(dest, res) then return true end
+			local entry = effective(dest, res, hub)
+			if entry and (entry.mode == "export" or n > Max(amount(dest, res, entry)
+				+ child_need(dest, res) - dest.supply[res]:GetActualAmount(), 0)) then return true end
+		end
+	end
+	return loose > 0
+end
+
 -- Old inbound reservations may predate a mode change. Vanilla keeps a cargo
 -- entry aboard if it no longer fits; the hub can receive it later. No custom
 -- writes to assigned_resources, request flags or transport_policy.
@@ -363,11 +396,19 @@ function Train:UnloadAll(...)
 	view = false
 	if saving or not (rows or defaults) then
 		local result = table.pack(pcall(unload, self, ...))
+		if result[1] and not saving and not old and is_hub(st) then
+			local remaining = {}
+			for res, n in pairs(self.stockpiled_amount or empty_table) do
+				if n > 0 then remaining[res] = st end
+			end
+			refused[self] = remaining
+		end
 		view = saving and false or old
 		if not result[1] then D.error = tostring(result[2]) return end
 		return table.unpack(result, 2, result.n)
 	end
 	local answers, claims = { [st] = {} }, {}
+	local members, gateway = dump_route(self, hub)
 	for _, res in ipairs(st.storable_resources or empty_table) do
 		local entry = defaults and effective(st, res, hub) or rows and rows[res]
 		if entry and ready(st, res) then
@@ -378,17 +419,32 @@ function Train:UnloadAll(...)
 					if o == child then from_child = true end
 				end
 			end)
-			local limit = from_child and st:GetMaxStorage(res)
+			local cargo = (self.stockpiled_amount or empty_table)[res] or 0
+			local rejected = (refused[self] or empty_table)[res] == hub
+			local hub_room = ready(hub, res) and hub.demand[res]:GetTargetAmount() or 0
+			local hub_own = ((self.assigned_resources or empty_table)[hub] or empty_table)[res] or 0
+			-- Nested native unloads see allocation claims on the hub's demand.
+			-- Only the outer call can decide whether real room is still absent.
+			local overflow = not old and cargo > 0 and rejected and hub_room + hub_own < cargo
+			-- A train cannot leave its line. Old cargo on a sideways line must
+			-- enter the hubward station as transit so its upstream train can
+			-- carry it to the hub. Same physical bound as child-line transit.
+			local transit = not members[hub] and gateway == st and needs_dump(self, res, members, hub)
+			local admit = from_child or transit or overflow
+			local limit = admit and st:GetMaxStorage(res)
 				or amount(st, res, entry) + child_need(st, res)
 			local room = Max(Min(limit, st:GetMaxStorage(res)) - s:GetActualAmount(), 0)
 			local own = ((self.assigned_resources or empty_table)[st] or empty_table)[res] or 0
-			answers[st][res] = { enabled = (entry.mode ~= "export" or from_child or child_need(st, res) > 0)
+			answers[st][res] = { enabled = (entry.mode ~= "export" or admit or child_need(st, res) > 0)
 				and own <= room }
 			local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
 			claims[#claims + 1] = { d, Max(d:GetTargetAmount() - Max(room - reserved, 0), 0) }
 		end
 	end
 	local result = table.pack(with_view(answers, claims, unload, self, ...))
+	for res in pairs(refused[self] or empty_table) do
+		if (self.stockpiled_amount[res] or 0) <= 0 then refused[self][res] = nil end
+	end
 	view = saving and false or old
 	return table.unpack(result, 1, result.n)
 end
@@ -428,6 +484,8 @@ local function train_view(train, track)
 			end
 		end
 		if configured and ready(st, res) then
+			local dumping = needs_dump(train, res, members, hub)
+				or (refused[train] or empty_table)[res] == hub
 			local floor = entry and amount(st, res, entry) or 0
 			local routed = upstream or st == hub
 			if not routed then
@@ -442,11 +500,13 @@ local function train_view(train, track)
 				floor = Max(floor, st.supply[res]:GetActualAmount())
 			end
 			if upstream then floor = floor + child_need(st, res) end
+			-- Clear retained cargo before adding another load of that resource.
+			if dumping then floor = st.supply[res]:GetActualAmount() end
 			claims[#claims + 1] = { st.supply[res], floor }
 			for dest in pairs(members) do
 				if dest.supply and dest.supply[res] and dest.demand and dest.demand[res] then
 					local order = 0
-					if dest ~= st and can_receive[dest] and ready(dest, res) then
+					if not dumping and dest ~= st and can_receive[dest] and ready(dest, res) then
 						if upstream and dest == parents[st] then
 							-- Export only stock beyond this station's floor and its
 							-- downstream orders. The hub's native demand refuses a full hub.
@@ -561,12 +621,14 @@ function OnMsg.SaveGameDone()
 end
 function OnMsg.LoadGame()
 	saving, view, baseline = false, false, false
+	refused = setmetatable({}, { __mode = "k" })
 	applied = setmetatable({}, { __mode = "k" })
 	D.Reapply()
 end
 function OnMsg.CityStart() D.Reapply() end
 function OnMsg.DoneGame()
 	view, baseline, cache_time = false, false, false
+	refused = setmetatable({}, { __mode = "k" })
 	owners, hubs = {}, {}
 end
 
