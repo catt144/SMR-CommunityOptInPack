@@ -901,7 +901,9 @@ is scoped to reason `meteor` and is not on the salvage path. ⚖️ **Owner, 202
 rebuilt the normal way — "other large buildings cannot be rebuilt either … we can just stick with
 that".** So the salvage/rebuild ruling's (b) is dormant: after salvage the bonuses stay off until the
 ruins are cleared, then any hub may buy again. The rebuild-carry code stays (harmless if unreached).
-Owed: clear-ruins re-buy and step 5 save/reload.
+**Sitting closed, PASS** (owner: "everything looked good"): ruins cleared, hub 6495 then bought
+Train Cargo (last slot 3 read t=23096666: `own=true on=true`, 14 trains 147000 / 1875); save/reload
+by the owner, same log, 9,619 lines, 0 `LUA ERROR`. Dev-mod acceptance, not the ship test.
 Extras archived/cut with legacy `HubTrain` compatibility; cargo/speed desk checks pass.
 The owner's Mod Editor save and attended smoke remain owed; the report names both.
 
