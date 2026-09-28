@@ -1,0 +1,12 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\pallet_visuals_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\pallet_visuals_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+[desk] stale picture: 1611 cubes, beds 0-3 only
+[TrainHubDev] hub 6430 cargo columns re-derived (total_cols=360): BlackCube 12@nil>18@nil MysteryResource 12@nil>18@nil Metals 13@0>19@0 Concrete 13@13>19@19 Food 13@26>19@38 PreciousMetals 13@39>19@57 PreciousMinerals 13@52>19@76 Polymers 13@65>19@95 MachineParts 13@78>19@114 Electronics 13@91>19@133 Fuel 13@104>19@152 Seeds 13@117>19@171 WasteRock 13@130>19@190 Herbs 13@143>19@209 Spices 12@156>19@228 Sugar 12@168>19@247 Butter 12@180>19@266 Bread 12@192>19@285 Cheese 12@204>19@304 Coffee 12@216>19@323 Meat 12@228>18@342
+[desk] healed picture: 2352 cubes over all six beds
+PASS stale 240-column split reproduces the report (four beds drawn, two bare, max_z 9 by the upgrade's own re-derive); HealCargoColumns restores 19/18-column slabs over all six beds, logs the old split once, and is a silent no-op when clean
+NOT TESTED: the live save's actual epoch (slot 2 reads it), engine spot geometry, and the game's own load order

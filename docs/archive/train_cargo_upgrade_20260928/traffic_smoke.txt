@@ -1,0 +1,27 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\traffic_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+Traceback (most recent call last):
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\traffic_smoke.py", line 318, in <module>
+    result = run()
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\traffic_smoke.py", line 167, in run
+        checks = lua.execute(r'''
+                 ~~~~~~~~~~~^^^^^
+    local results={}
+    ^^^^^^^^^^^^^^^^
+    ...<32 lines>...
+    return results
+    ^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "lupa/lua55.pyx", line 466, in lupa.lua55.LuaRuntime.execute
+  File "lupa/lua55.pyx", line 1897, in lupa.lua55.run_lua
+  File "lupa/lua55.pyx", line 1911, in lupa.lua55.call_lua
+  File "lupa/lua55.pyx", line 1938, in lupa.lua55.execute_lua_call
+  File "lupa/lua55.pyx", line 1819, in lupa.lua55.raise_lua_error
+lupa.lua55.LuaError: [string "<python>"]:109: -10800 != 0
+stack traceback:
+	[string "<python>"]:19: in main chunk
+	[string "<python>"]:109: in global 'assertclose'
+	[C]: in global 'assert'

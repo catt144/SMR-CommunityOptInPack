@@ -887,6 +887,10 @@ colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-0
 salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
 re-buyable, no tech.
 
+Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
+Extras archived/cut with legacy `HubTrain` compatibility; cargo/speed desk checks pass.
+The owner's Mod Editor save and attended smoke remain owed; the report names both.
+
 **Owner sighting, 2026-09-28: a structure near the hub flashes unpainted for a frame or two**
 (brown instead of its blue palette), seen only by frame-stepping a screen recording, and
 apparently tied to changing game speed. Screenshots are in the orchestrator session. Which object

@@ -1,0 +1,33 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_departure_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_departure_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 520f92bb64fd10f28d3f70020b6edae4c4e8aaa02e90c8fa4e9cf13c90a36e59
+TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+archived LoadTrain + ForEachStationAlongTrack; nil length=0; engine assert observed; waits/movement doubled
+LOAD Butter parent=1 colony_routes=nil
+LOAD ButterLoose parent=1 colony_routes=nil
+LOAD Metals parent=1 colony_routes=nil
+LOAD empty parent=1 colony_routes=nil
+PASS load + native departure watchdog: Butter 69, Metals 98, train capacity 105, and empty train fetch; hub starts at Metals 220
+PASS quiet controls: satisfied pin and full-hub refusal create no phantom departure
+PASS empty chain at load: native commands fetch Metals and return old Butter via intermediate; both pins 10; claims released
+PASS delivery watchdog off-line hub room calls=2
+PASS delivery watchdog off-line full hub calls=3
+PASS delivery watchdog unassigned hub room calls=2
+PASS delivery watchdog unassigned full hub calls=3
+PASS delivery watchdog shrunken pin none calls=1
+PASS delivery watchdog shrunken pin room calls=2
+PASS delivery watchdog shrunken pin load calls=3
+PASS delivery watchdog sideways off-line hub room calls=2
+PASS sideways gateway forwards excess to hub
+PASS delivery watchdog sideways off-line full hub calls=2
+PASS sideways gateway holds overflow after full hub refusal

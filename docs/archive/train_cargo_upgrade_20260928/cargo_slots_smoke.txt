@@ -1,0 +1,7 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_slots_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_slots_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+TestKit HEAD: 19824aea686deb4c780e81b2af411f9b7e02510b
+slots_sha256: 7ed8626185f1960f38b4329ab8c4d82a6e0ff9b1957fdccfa44df33bca45a2e0
+PASS slot 3: both upgrade states/modifiers, capacities, speed/animation, paused gate; no fill/toggle/UI allocation

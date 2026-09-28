@@ -1,0 +1,6 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\art_spec_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\art_spec_smoke.py
+HEAD 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+PASS: retail skips only the hub's three specs; other specs and editor delegate
+LIMIT: real retail load still needs the owner's session log

@@ -1,0 +1,41 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+PASS owned dev Lua parses; code registration agrees with ModItemCode source
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: 520f92bb64fd10f28d3f70020b6edae4c4e8aaa02e90c8fa4e9cf13c90a36e59
+PASS untouched spokes: 10 each, remainder at hub; dial 25 then 5; doubling keeps absolute 5/10; no saved settings or claims
+PASS untouched scope: disconnected/disabled vanilla controls; old cargo capped only on hub lines; reservations reduce orders
+PASS one-hop chain: Export/Balanced/untouched forward excess, Import fills through 2012, full hub refuses
+PASS dual-line 2009 uses direct hub route; sideways line keeps both pins; Import intermediate passes transit
+PASS covered sub-unit order: desire/storage safe, order=400, spoke=59600, hub=113500, claims released
+PASS order boundaries 0/1/400/999/1000/1400: import, balanced, export; exact demand cap and return stop
+PASS fractional old-cargo unload: exact-fit import/balanced, over-target/export refused, native capacities restored
+PASS new train with nil assigned_resources: configured Concrete, capacity 120, floor 24, return stops
+[TrainHubDev] transient claim failed: [string "<python>"]:237: attempt to index a nil value (local 'absent')
+PASS claim cleanup on rejection/error, nil returns, independent reservations
+CONTROL floor=20 sink=100 retained=60.0
+CONTROL floor=20 sink=400 retained=36.0
+CONTROL import: available=80 requested=80 allocated=40
+PASS export: whole-unit allocation at floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100, 120/480; return stops, fractional residue <1000
+PASS import ceiling lifted: 80 allocated and retained; balanced fills to 80
+PASS several receivers get separate bounded orders; untouched resource keeps vanilla drone baseline
+PASS balanced export excess leaves 20
+PASS existing standing hub reserve is retained
+[TrainDistribution] station=2 res=Metals mode=export slider=12.000 stock=60.000 supply=60.000/60.000 demand=0.000/0.000 covered=false hub_full=true calls=116
+PASS full hub refuses, does not bounce stock to exporter
+PASS existing inbound reservations; export does not unload old cargo
+PASS uncovered spoke gets train behavior; remote hub is not local drone coverage
+[TrainDistribution] station=2 res=Metals mode=export slider=24.000 stock=12.000 supply=12.000/120.000 demand=108.000/0.000 covered=true hub_full=false calls=119
+PASS six rewrite paths, captured request alias, network-wide capacity doubling
+PASS save hook removes in-call lies/claims; load rebuilds baselines from hub table
+PASS invalid controls and reset; no outstanding test errors
+PASS desk only: native requests, drone scheduling, UI and engine serialization remain attended

@@ -1,0 +1,7 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\move_smoke.py
+HEAD: 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+HEAD 1fb6785cba592cf12b39ab6cb9f7dd332015b048
+PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived dwell commands and vanilla control.
+This test does not certify native clearance or save/load; owner results are recorded in D14.
