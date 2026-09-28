@@ -22,10 +22,10 @@ Spec `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`:
 
 ## Work
 
-1. **Merge the audited capacity change first.** Brief 14 found it PASS WITH FIXES in worktree
-   branch `worktree-agent-af033497203ef0c8a` at `0ec0631`, unmerged (report
-   `docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`). Bring it onto `main`, run
-   `capacity_smoke.py`, commit, then remove the worktree and branch.
+1. **The capacity salvage/rebuild change is already on `main`** (`7dcef3e`, audited by brief 14;
+   spent-hub Ctrl+click ruling `9fcdabc`, recorded `c951c76`). Build on it. Remove the leftover
+   worktree `.claude/worktrees/agent-af033497203ef0c8a` and its branch once you have confirmed
+   nothing in it is missing from `main`.
 2. **Archive, then cut, the extras.** Put the removed code and its tests under a new
    `docs/archive/train_bay_extras_20260928/`, with a short README a later builder can revive from:
    what each piece did, the commits (`9947552`, `989bd56`, `9b58888`, `378bd39`), the reports
@@ -38,7 +38,7 @@ Spec `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`:
    - Keep the stack-display fix (`9ed5f4f`) and `40_TrainDistribution.lua`'s exports.
 3. **Build the Train Cargo Upgrade** beside the Capacity Network Upgrade in `20_TrainHub.lua`,
    by the same mechanism (a `Train` label modifier on `city`, once-per-colony ownership, and
-   salvage/rebuild as merged in step 1). Cargo is additive with the first upgrade (percentages
+   salvage/rebuild as on `main`). Cargo is additive with the first upgrade (percentages
    sum, §4.10 "Stacking"); report the resulting figures. Extend `capacity_smoke.py` or add a
    sibling test, with a mutation that fails it.
    **Speed is not a modifiable property on `Train`** (archived 1.1.1.405907 `Units/Train.lua:21-28`:
@@ -66,7 +66,8 @@ Stop and report instead of continuing if:
 - the speed boost changes how trains move through the hub in a way the hub's moves were not
   built for;
 - removing `HubTrain` or the save-time storing would break a save made with the bay; or
-- the capacity merge does not apply without redoing it.
+- the upgrade cannot share the first upgrade's ownership and salvage/rebuild path without
+  reworking it.
 
 Claim limit: a desk PASS means the mocked vanilla agrees, not that it works in the game.
 

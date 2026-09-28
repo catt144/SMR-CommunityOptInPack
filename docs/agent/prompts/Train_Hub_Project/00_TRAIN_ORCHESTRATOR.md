@@ -59,8 +59,8 @@ is delegated to another agent through a brief.**
      **Bay cut (ruling 10, 2026-09-28).** Briefs 13-15 are deleted: the bay's first sitting misplaced
      spawns, brief 15's gated rerun never deployed an extra, and the owner cut the extras to an
      archive and asked for a Train Cargo Upgrade (+100% cargo, +25% speed, 40 Metals + 20 Polymers;
-     spec §4.10). Brief `16` merges the audited capacity worktree, archives and cuts the extras, and
-     builds the upgrade; its sitting is next. Archive the 2026-09-28 sitting logs (`14.27.05` and
+     spec §4.10). The capacity salvage/rebuild change is merged (`7dcef3e`). Brief `16` archives and
+     cuts the extras and builds the upgrade; its sitting is next. Archive the 2026-09-28 sitting logs (`14.27.05` and
      brief 15's run) with a receipt once the owner has closed the game. The owner's frame-flash
      sighting (spec §4.10, grep `flashes unpainted`) is recorded, not briefed.
      Eight game logs 2026-09-28 12.06.47 to 13.25.51 are unread; ask the owner what they were.
