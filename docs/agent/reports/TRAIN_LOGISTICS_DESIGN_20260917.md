@@ -605,6 +605,10 @@ failure and the whole hub's both-configuration ship test remain separate.
    `60_StationSpoilage.lua`; desk `tests/spoilage_smoke.py`. **Held, not built:** a minimum
    shipment (no top-up until a row is short by a set amount), for if covered stations' real drone
    demand still makes trips too frequent.
+   ✅ **LIVE 2026-09-28 on `296f6ff`** (fresh boot, `build6_capacity_covered_pass3`, Scratch balance, one
+   sol at top speed, TestKit slot 6 stream): no station food row changed after the baseline, the hub's
+   food spoiled once at the day boundary (240 → 230 per type), no single-unit food trips. 0 `LUA
+   ERROR`. The closed log is in `docs/archive/train_routing_5d_20260927/sittings/`.
 9. **Hub dispatch is a train bay** (owner, 2026-09-28, *"yes"* to the orchestrator's summary after
    the owner proposed the bay, the hidden extras and the save-time storing). This supersedes brief
    11's move-between-lines sketch, whose live probe showed the reassignment holds
@@ -633,13 +637,13 @@ failure and the whole hub's both-configuration ship test remain separate.
      description. All SOURCE; the no-mod load is owed at the ship test.
    - **Auto-fill:** when a station joins a hub route, the hub deploys one train from the pool into
      the new vanilla slot, if the pool has one.
-   - Next: a bay probe (store a parked hub train, deploy one at the hub) to prove the spawn at the
-     hub, the one untested link. Then a build brief.
+   - **Bay probe LIVE 2026-09-28 on `e2ed447`** (log `Mars.exe-20260928-11.52.17`, archived with
+     receipt): vanilla `DestroySilent` stored 2000001844 (pool 6 → 7) and `AssignTrain` spawned
+     2000001890 on the hub on arm 1 (the 2008 line), in `LoadTrain`. It departed 6 game s later
+     (`GotoStation`, t=20226493) and reached 2008 (`UnloadTrain`, t=20262493). The owner saw the spawn
+     "right in the middle of the hub kind off center onto another loading platform". Whether that
+     is exactly the siding a parked train uses is not settled.
    - Built 2026-09-28 (desk only; live smoke owed): `TRAIN_HUB_BAY_20260928.md`.
-   ✅ **LIVE 2026-09-28 on `296f6ff`** (fresh boot, `build6_capacity_covered_pass3`, Scratch balance, one
-   sol at top speed, TestKit slot 6 stream): no station food row changed after the baseline, the hub's
-   food spoiled once at the day boundary (240 → 230 per type), no single-unit food trips. 0 `LUA
-   ERROR`. The closed log is in `docs/archive/train_routing_5d_20260927/sittings/`.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash

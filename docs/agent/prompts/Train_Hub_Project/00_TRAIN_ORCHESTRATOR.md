@@ -51,8 +51,8 @@ The trains are Module A (per-resource station import/export) and Module B (the t
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator 2026-09-27** (Opus 5.5 `claude-opus-5-5`). The fire
-     order is this folder's [`README.md`](README.md); keep it current.
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-28** (Opus 5.5 `claude-opus-5-5`). The
+     fire order is this folder's [`README.md`](README.md); keep it current.
      **How sittings run** (owner, 2026-09-26: *"we are going to do each sitting together and you
      will relay a message to them"*): the orchestrator guides the owner through a build's attended
      smoke from the build's own predictions, reads the log on "flushed" (re-read the file: the owner
@@ -60,36 +60,41 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      and relays fixes. A build session on another model family (GPT-6 via Codex) cannot be messaged:
      hand the owner paste-ready text, and say which earlier message it replaces. Console lines are
      acceptable where no slot fits (owner, 2026-09-27).
-     **The distribution centre is DONE on hub lines** (brief 09 deleted 2026-09-27; four sittings in
-     spec §4.8, logs and receipt in `docs/archive/train_distribution_20260926/sittings/`). The owner's
-     fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
-     **Both briefs have handed back (2026-09-27, night):**
-     - **`10`, 5d routing**: the stranded-cargo repair `7c829a6` **PASSED live** (spec §4.8's
-       third 5d paragraph). The brief stays live: its chained Export/Import legs are still owed.
-     - **`11`, the dispatch investigation**: done and deleted 2026-09-28; its report
-       `reports/TRAIN_HUB_DISPATCH_20260927.md` holds the need-signal sketch that `13` reuses.
-
-     **Hold 5d's chained Export and Import legs until the probe sitting is in and the owner has
-     ruled on building the dispatcher** (ruling 7).
-     **2026-09-28:** the hub pallets are fixed and the owner accepts the look (brief `12`, deleted; spec §10).
-     Stations no longer spoil food (ruling 8, spec §4.8), live PASS. Ruling 6's hub-first dump is
-     witnessed live on train 2000001844. The probe needed one fix: it now accepts an idle train with no
-     command, as vanilla's NewHour does.
-     **Dispatch is now a train bay (owner ruling 9, spec §4.8).** It supersedes brief `11`'s move sketch;
-     that probe showed a reassignment holds but never saw a departure. **Next sitting: the bay probe** (slot 3:
-     store a parked empty hub train, deploy one at the hub). **Ran 2026-09-28: store and deploy work;**
-     the spawn lands on the hub (exactly on the siding is unsettled; a departure is not yet seen).
-     `11` deleted; **brief `13` builds the bay** (delegated, owner 2026-09-28). When it hands back, check
-     it once and run its sitting with slot 6's stream on.
+     **Sittings are stream-first** (owner, 2026-09-28): TestKit slot 6 streams every train and
+     station change to the log, on/off, and must be re-pressed after an autosave. Write steps as
+     "stream on, play, flushed" and read units from the stream; do not have the owner select them.
+     Other slots: Scratch balances every non-hub station to its row target, 1 empties them, 2 fills
+     a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
+     The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007); Scratch then half a sol at top speed
+     reliably leaves train 2000001844 empty and parked on the hub.
+     **FIRST, at the next launch: brief `13` has handed back, unchecked.** The owner wants to
+     discuss it with you. It is code `9947552` (new `Code/70_TrainBay.lua`; probe `50_` retired;
+     `HubTrain` added to `FIX_POLICY`'s inventory), report `reports/TRAIN_HUB_BAY_20260928.md`
+     (`14b1bf3`, with its sitting steps) and TestKit `a4b122b`. Check it once against ruling 9 and
+     its desk receipts, then run its sitting. Four game logs written after its hand-back are
+     **unread**: `Mars.exe-20260928-12.06.47`, `12.27.00`, `12.36.00` and `12.57.37`. Ask the owner
+     what they were before treating any as a sitting.
+     **Where things stand** (spec §4.8 rulings 6-9, §10):
+     - Distribution centre done on hub lines (brief 09 deleted 2026-09-27).
+     - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
+       seen on 2000001844 (cargo confirmed Metals). **Held:** its chained Export/Import legs, until
+       the bay (`13`) has passed its smoke (ruling 7's sequencing).
+     - Stations do not spoil food, and the hub does (ruling 8, live PASS). A minimum shipment is
+       held unless covered stations' drone demand makes trips too frequent.
+     - Dispatch is a train bay (ruling 9). The probes proved the reassignment holds and that a
+       train stored and redeployed at the hub departs and serves its line. **Open:** whether the
+       spawn sits exactly on the arm's siding (the owner saw it "off center").
+     - Pallets are fixed and the owner accepts the look (brief `12` deleted). The heal never logged
+       a change, so the stale-split cause is unconfirmed.
+     - The owner has not answered: doccheck passed `README.md` collapsed onto one line (`7d7d0c2`,
+       repaired in `04513e7`). Offered as a tooling fix for an agent; no decision yet.
+     - Ruling 9 may also answer §4.9 (the hub places trains it builds: into the bay, deployed by
+       need). This was said to the owner but not recorded as ruled. Ask before treating it as settled.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
      for outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe; propose an
-     investigation or description lines when the owner has room. TestKit slots (owner,
-     2026-09-28): Scratch balances every non-hub station to its row target, slot 1 empties them, slot 2
-     fills a station's Metals, 3 is brief 11's probe, 4–5 are brief 10's, and 6 streams every
-     train and station change to the log (on/off; re-press after an autosave). Prefer 6's stream
-     to selecting units one by one.
+     investigation or description lines when the owner has room.
      The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
    - **The distribution centre's rulings live in spec §4.7 (the UI) and §4.8 (everything else,
      including the save-boundary ladder)** — read both, and §4.9, before briefing anything further

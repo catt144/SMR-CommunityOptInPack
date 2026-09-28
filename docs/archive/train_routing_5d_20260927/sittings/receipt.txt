@@ -54,3 +54,15 @@ Mars.exe-20260928-11.11.49-6aad2d75.log  190706 B  1555 lines
   CORRECTION (2026-09-28): the 10.09.22 log above booted at HEAD db64a78 (committed 00:28), not
   5a42508: brief 12's pallet heal was already loaded. That log has no "cargo columns" re-derive
   line either (grep: 0), so the heal was silent on every 2026-09-28 load.
+Mars.exe-20260928-11.17.16-6aad2d75.log  152862 B  1303 lines
+  sha256 520d139432012b17793b33a310ce1cf491c62d97643f07790928ff61a666d49b
+  On 0e8a9ae. Owner deleted train 2000001652 (2011-2009). Slot 3 P.Run moved 2000001844 from arm 2
+  to arm 3 (new_station 2009, route 4/5). Stream: line 2009-6430 held through eight hourly
+  LoadTrain re-checks at the hub; no work on the line, so no departure. grep -c 'LUA ERROR' = 0.
+Mars.exe-20260928-11.52.17-6aad2d75.log  201115 B  1726 lines
+  sha256 421b6b81c3f9814cb1316b7260bbcee48706f2075aa63107a95c0c63ed7cfaad
+  On e2ed447 (bay probe). Two loads (ChangeMap between them). Slot 3 P.Bay: DestroySilent stored
+  2000001844, pool 6 -> 7; AssignTrain on arm 1 (2008 line, own route) spawned 2000001890 at the
+  hub in LoadTrain; GotoStation t=20226493, UnloadTrain at 2008 t=20262493. Owner screenshots
+  SMRTK_0084/0085 (B:/Dev/SMR/SMR-ScreenCaptures): spawn "in the middle of the hub kind off center".
+  grep -c 'LUA ERROR' = 0.
