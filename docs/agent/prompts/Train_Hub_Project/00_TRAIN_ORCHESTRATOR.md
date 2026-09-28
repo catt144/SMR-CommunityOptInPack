@@ -78,6 +78,11 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      Stations no longer spoil food (ruling 8, spec §4.8), live PASS. Ruling 6's hub-first dump is
      witnessed live on train 2000001844. The probe needed one fix: it now accepts an idle train with no
      command, as vanilla's NewHour does.
+     **Dispatch is now a train bay (owner ruling 9, spec §4.8).** It supersedes brief `11`'s move sketch;
+     that probe showed a reassignment holds but never saw a departure. **Next sitting: the bay probe** (slot 3:
+     store a parked empty hub train, deploy one at the hub). Once the spawn at the hub is shown, delete
+     `11` and write the bay **build** brief for another agent (owner, 2026-09-28: a big change is
+     delegated). Five-train extras, recall-when-idle, the save-time storing and auto-fill are all in ruling 9.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait

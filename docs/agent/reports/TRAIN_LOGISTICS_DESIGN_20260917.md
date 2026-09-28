@@ -605,6 +605,36 @@ failure and the whole hub's both-configuration ship test remain separate.
    `60_StationSpoilage.lua`; desk `tests/spoilage_smoke.py`. **Held, not built:** a minimum
    shipment (no top-up until a row is short by a set amount), for if covered stations' real drone
    demand still makes trips too frequent.
+9. **Hub dispatch is a train bay** (owner, 2026-09-28, *"yes"* to the orchestrator's summary after
+   the owner proposed the bay, the hidden extras and the save-time storing). This supersedes brief
+   11's move-between-lines sketch, whose live probe showed the reassignment holds
+   (`2009-6430`, eight hourly re-checks) but never exercised a departure. The rules:
+   - **The bay is the colony's stored-train pool** (`ColonyAddPrefabs("Train")`). The hub stores a
+     train with vanilla's `Train:DestroySilent` (`Train.lua:157-186`, prefab via `:188-192`) and
+     deploys with `TrackBase:AssignTrain` (`Track.lua:428-457`), spawning at the hub.
+   - **The player sees vanilla.** Their placement and the route's train count keep the vanilla cap
+     (trains ≤ stations on the route, `TrainTransport.lua:492-537`); hub extras are left out of it.
+   - **Hub extras:** up to **5** per hub route (tunable by eye), deployed by need and **recalled to
+     the bay as soon as idle**. Why recall is the safety: vanilla has no signals. The developers'
+     own note is `Track.lua:448`. A train waits on the line for a free platform (`Train.lua:313-324`,
+     `:616-625`), and an idle train holds its platform. Head-on trains pass through each other; the
+     only track rule is same-direction (`Track.lua:357-365`). So extra trains mean brief queues,
+     and permanent blocks come only from idle trains, which the recall removes.
+   - **Save:** at `SaveGameStart` every **empty** hub train goes on the engine's delete-on-load list
+     (`DeleteOnLoadGame`, `CommonLua/Core/persist.lua:188-200`, which runs without the mod) and the
+     colony pool rises by the same count. `SaveGameDone` undoes both, so play continues. On load the
+     engine deletes them cleanly (`Train:Done`, `Train.lua:86-97`: off its track, platforms cleared)
+     and the pool holds them: with the hub, it redeploys; without the mod, the player has them as
+     stored trains. Rung 1. **Loaded** hub trains stay real trains in the save, as class `HubTrain`
+     with `persist_baseclass = "Train"`: a missing class loads as its declared base
+     (`persist.lua:73-84, 163-165`; `_cobject.lua:135-138`). `Train:Done` would drop their cargo on
+     the ground and leave the destination's booking standing, so they are not stored. Without the
+     mod they become ordinary trains, so a route can be briefly over cap; that goes in the module
+     description. All SOURCE; the no-mod load is owed at the ship test.
+   - **Auto-fill:** when a station joins a hub route, the hub deploys one train from the pool into
+     the new vanilla slot, if the pool has one.
+   - Next: a bay probe (store a parked hub train, deploy one at the hub) to prove the spawn at the
+     hub, the one untested link. Then a build brief.
    ✅ **LIVE 2026-09-28 on `296f6ff`** (fresh boot, `build6_capacity_covered_pass3`, Scratch balance, one
    sol at top speed, TestKit slot 6 stream): no station food row changed after the baseline, the hub's
    food spoiled once at the day boundary (240 → 230 per type), no single-unit food trips. 0 `LUA

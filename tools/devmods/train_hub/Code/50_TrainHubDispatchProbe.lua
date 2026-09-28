@@ -127,4 +127,42 @@ end
 
 function P.Forget() P.last = false return say({ forgot = true }) end
 
-print("[HubDispatchProbe] loaded; Run/Read/Forget on SMROptInHubDispatchProbe")
+-- Bay probe (owner ruling 9, 2026-09-28): store one empty hub train into the colony pool
+-- with vanilla's DestroySilent (Train.lua:157-186, prefab via OnDemolish :188-192), then
+-- deploy one from the pool AT THE HUB with vanilla's TrackBase:AssignTrain
+-- (Track.lua:428-457). The one untested link is the spawn on the hub's own spots and
+-- movement. Prefers another hub route with room, else the stored train's own route.
+-- AssignTrain runs in a game-time thread: the new train appears once time runs.
+function P.Bay(train)
+	train = train or SelectedObj
+	if not IsValid(train) or not IsKindOf(train, "Train") then return say({ refused = "select a train" }) end
+	local hub = train.current_station
+	if not is_hub(hub) or not train.at_station then return say({ refused = "train is not parked at a hub", train = h(train) }) end
+	if train.command and train.command ~= "Idle" and train.command ~= "LoadTrain" then return say({ refused = "command is " .. tostring(train.command), train = h(train) }) end
+	if next(train.assigned_resources or empty_table) or cargo_of(train) > 0 then return say({ refused = "train carries cargo", train = h(train) }) end
+	if #(train.units or empty_table) > 0 then return say({ refused = "train carries passengers", train = h(train) }) end
+	local city, old = hub.city, train.track
+	local old_route = IsValid(old) and city.train_track_routes[old]
+	local stored, before = h(train), ColonyGetPrefabs("Train", city)
+	train:DestroySilent()
+	local after = ColonyGetPrefabs("Train", city)
+	local chosen, own
+	for _, line in ipairs(P.Lines(hub)) do
+		if line.trains < line.cap and not line.occupied then
+			if line.route ~= old_route then
+				if not chosen then chosen = line end
+			elseif not own then own = line end
+		end
+	end
+	chosen = chosen or own
+	if not chosen then return say({ refused = "stored, but no hub line with room and a free arm", stored = stored,
+		pool_before = before, pool_after = after }) end
+	chosen.track:AssignTrain(hub)
+	P.bay = { hub = hub.handle, track = h(chosen.track), idx = chosen.idx, game_time = GameTime() }
+	return say({ mutation = "DestroySilent+AssignTrain", stored = stored, hub = h(hub), pool_before = before,
+		pool_after = after, deploy_idx = chosen.idx, deploy_track = h(chosen.track), deploy_station = h(chosen.station),
+		other_route = chosen.route ~= old_route, route_trains = chosen.trains, route_cap = chosen.cap,
+		game_time = GameTime() })
+end
+
+print("[HubDispatchProbe] loaded; Run/Read/Forget/Bay on SMROptInHubDispatchProbe")
