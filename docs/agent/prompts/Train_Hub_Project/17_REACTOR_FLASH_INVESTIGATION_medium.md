@@ -19,6 +19,10 @@ those details as claims and re-read them.
 
 What makes the reactor lose its palette for a frame, and what is the smallest fix? Leads, not
 prescriptions:
+- **the owner's read, first:** *"honestly it sorta looks like a building covered in dust"*. Vanilla
+  draws dust on buildings (the maintenance/dust-storm look). Check whether the attached reactor
+  gets a building's dust state or dust material reset, or briefly fully dusted, when game speed
+  changes, and whether the hub passes its own dust to its attaches;
 - something re-creating or re-colouring attaches on a speed change or a `SetGameSpeed` message;
 - a periodic re-apply of the palette with a gap between the reset and the set;
 - the `FusionReactor` entity's own state or animation switching;
