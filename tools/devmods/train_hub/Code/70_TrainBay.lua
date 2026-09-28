@@ -169,14 +169,30 @@ end
 
 function OnMsg.TransportLinkChanged(link, vehicle, action)
 	local p = pending[link]
-	if action ~= "add" or not p then return end
-	if IsValid(vehicle) and vehicle.current_station == p.hub and vehicle.at_spawn_track
+	if action ~= "add" or not IsValid(vehicle) then return end
+	local hub = vehicle.current_station
+	if not is_hub(hub) or not vehicle.at_spawn_track then return end
+	if p and hub == p.hub
 		and not is_extra(vehicle) then
 		pending[link] = nil
 		vehicle:ChangeClass("HubTrain")
 		B.stats.deployed = B.stats.deployed + 1
 		print(string.format("[TrainBay] deploy train=%s hub=%s arm=%s line=%s pool=%d t=%d",
 			h(vehicle), h(p.hub), tostring(p.idx), p.key, ColonyGetPrefabs("Train", p.hub.city), GameTime()))
+	end
+	-- AssignTrain has placed the object, but has not assigned its track or
+	-- started LoadTrain yet. Place AFTER ChangeClass, for both bay extras and
+	-- vanilla/auto-fill spawns. Never reposition a travelling/arriving train.
+	local floor = rawget(_G, "SMROptInTrainFloor")
+	local idx = hub:GetConnectionSpot(link)
+	if floor and floor.HubSpawnLocation and idx then
+		local before, before_angle = vehicle:GetPos(), vehicle:GetAngle()
+		local pos, angle = floor.HubSpawnLocation(hub, idx)
+		vehicle:SetPos(pos)
+		vehicle:SetAngle(angle)
+		print(string.format("[TrainBay] spawn train=%s hub=%s arm=%s before=%s before_angle=%s target=%s angle=%s actual=%s actual_angle=%s t=%d",
+			h(vehicle), h(hub), tostring(idx), tostring(before), tostring(before_angle), tostring(pos),
+			tostring(angle), tostring(vehicle:GetPos()), tostring(vehicle:GetAngle()), GameTime()))
 	end
 end
 

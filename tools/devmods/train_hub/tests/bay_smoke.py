@@ -125,8 +125,9 @@ function Train:SetCommand(c) self.command=c end
 function Train:Idle() self.idled=true end -- CommandObject:Idle stands here
 function Train:SetPos(p) self.pos=p end
 function Train:SetAngle(a) self.angle=a end
+function Train:GetPos() return self.pos end
 function Train:GetAttach() end
-function Train:GetVisualPos() end; function Train:GetMap() end; function Train:GetAngle() end
+function Train:GetVisualPos() end; function Train:GetMap() end; function Train:GetAngle() return self.angle end
 function Train:SetStoredAmount(res,n) self.stockpiled_amount[res]=n end
 dropped=0
 PlaceResourceStockpile_Delayed=function(_,_,_,qty) dropped=dropped+qty end
@@ -181,6 +182,7 @@ function hub:GetOccupyingTrain(t) return self.track_busy[t.idx] end
 function hub:AddOccupyingTrain(t) self.track_busy[t.track.idx]=t end
 function hub:GetSpotBeginIndex(name) return name end
 function hub:GetSpotLoc(spot) return 'pos:'..spot, 'out:'..spot end
+SMROptInTrainFloor={HubSpawnLocation=function(h,idx) return 'pos:Spawn'..idx,'out:Spawn'..idx end}
 function set_route(...)
     local r={...}; r.edges={{tracks={track}}}
     city.train_track_routes={[track]=r}
