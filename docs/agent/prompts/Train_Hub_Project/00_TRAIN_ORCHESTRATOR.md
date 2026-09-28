@@ -63,7 +63,8 @@ is delegated to another agent through a brief.**
      **Held for merge after that sitting:** the capacity salvage/rebuild change (spec §4.10 ruling
      2026-09-28, `023eaa1`), built in worktree `.claude/worktrees/agent-af033497203ef0c8a`
      (`20_TrainHub.lua` + `capacity_smoke.py`, PASS, uncommitted; its five in-game steps are in
-     that agent's hand-back, not yet filed). Give the merge to a subagent.
+     that agent's hand-back, not yet filed). **It was built at the orchestrator's low effort**, below
+build tier: have it reviewed at build tier before merging.
      Eight game logs 2026-09-28 12.06.47 to 13.25.51 are unread; ask the owner what they were.
      **Where things stand:**
      - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
@@ -119,7 +120,10 @@ is delegated to another agent through a brief.**
 cheap context on source reads, feasibility checks and merges while the sitting waited). Source
 reads, feasibility questions, desk checks and merges go to a subagent; the orchestrator answers
 the owner from what it already holds, and says "an agent will check" rather than checking. Keep
-the orchestrator's own context under about 30%. When the owner is ready to play, the sitting comes
+the orchestrator's own context under about 30%. The owner runs this session at **low effort on
+purpose** (authoring and recording) and switches it to high only for a task they name; builds run
+at high Opus or medium/high Fable/Astra. A subagent launched from here without a pinned effort
+inherits low, which is below build tier: build through a brief the owner fires, not from here. When the owner is ready to play, the sitting comes
 first and background work runs beside it, not before it.
 
 **Method (owner, 2026-09-20): quick and iterative, never "try to be perfect".** *"Right now we are
