@@ -2067,6 +2067,125 @@ def eol_fix(paths, out):
                    "converted files with an empty diff" % exc)
 
 
+# ---------------------------------------------------------------------------
+# Collapsed-document guard.
+#
+# Incident: 7d7d0c2 collapsed docs/agent/prompts/Train_Hub_Project/README.md
+# (34 lines, 3,588 B on disk today) onto a single 3,918 B line with ZERO
+# embedded newlines -- a row-lookup-and-replace that matched the whole file --
+# and doccheck stayed GREEN throughout. Nothing above reads a document's own
+# shape: every other check compares STRUCTURED content (front matter, index
+# rows, rule headers), which a collapse does not disturb until something
+# downstream needs the line breaks that are gone. 04513e7 repaired it by hand
+# (its commit body has the diagnosis); this gate is what a session runs
+# instead of a human re-deriving the same fix a second time.
+#
+# MEASURED 2026-09-28 over every tracked *.md (`git ls-files *.md`, 226
+# files): the tightest current file over 500 B is docs/agent/support/
+# README.md at 621 B / 11 lines, and every file over 300 B already carries at
+# least 10 lines. The thresholds below sit with a 3-line margin under that
+# floor, and are dwarfed by the incident's own shape on the other side (3,918
+# B on 1 line vs. a 500 B / 8 line gate) -- there is room to tighten either
+# number a great deal before it would ever mistake a real document for a
+# collapse. docs/archive/ is NOT excluded: every tracked archived *.md
+# measured the same day clears the gate by a wide margin (the tightest is
+# docs/archive/SESSION_LOG.md, 24,177 B over 347 lines), so excluding it would
+# only hide a real collapse landing there.
+COLLAPSE_MIN_SIZE_BYTES = 500
+COLLAPSE_MIN_LINES = 8
+
+
+def _md_files():
+    """-> every tracked *.md path (POSIX-separated), or None if git did not run."""
+    try:
+        text = subprocess.check_output(["git", "ls-files", "*.md"], cwd=REPO,
+                                       text=True, encoding="utf-8", errors="replace")
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return [p.replace("\\", "/") for p in text.splitlines() if p.strip()]
+
+
+def collapsed_shape(data):
+    """-> (looks collapsed?, size, line count) for one file's raw bytes.
+
+    `nlines` counts the same thing `wc -l` does (embedded newlines) plus one
+    for a final unterminated line, so a file collapsed onto a single line with
+    no trailing newline at all still reads as 1 line, never as 0 and never
+    silently forgiven as "no full line yet"."""
+    size = len(data)
+    nlines = data.count(b"\n")
+    if data and not data.endswith(b"\n"):
+        nlines += 1
+    return (size > COLLAPSE_MIN_SIZE_BYTES and nlines < COLLAPSE_MIN_LINES,
+            size, nlines)
+
+
+def check_collapse(out):
+    """RED on a tracked *.md file collapsed onto one or very few lines."""
+    files = _md_files()
+    if files is None:
+        out.append("COLLAPSE: not checked (git ls-files did not run) — this "
+                   "run says nothing about document shape")
+        return True
+    red = []
+    checked = 0
+    for rel in files:
+        path = os.path.join(REPO, *rel.split("/"))
+        if not os.path.isfile(path):
+            continue                                    # deleted-but-staged, etc.
+        checked += 1
+        with open(path, "rb") as fh:
+            data = fh.read()
+        collapsed, size, nlines = collapsed_shape(data)
+        if collapsed:
+            red.append("%s: %d bytes on %d line(s) (over %d B, under %d "
+                       "lines) — looks collapsed, not edited"
+                       % (rel, size, nlines, COLLAPSE_MIN_SIZE_BYTES,
+                          COLLAPSE_MIN_LINES))
+    if not red:
+        out.append("COLLAPSE: PASS — %d tracked *.md file(s), none over %d "
+                   "bytes fall under %d lines"
+                   % (checked, COLLAPSE_MIN_SIZE_BYTES, COLLAPSE_MIN_LINES))
+        return True
+    for line in red:
+        out.append("  RED  " + line)
+    out.append("COLLAPSE: RED  %d file(s) collapsed onto one or very few lines"
+               % len(red))
+    return False
+
+
+def collapse_guard_selftest(out):
+    """Feeds collapsed_shape() a collapsed sample and a normal sample and
+    asserts fail/pass, so COLLAPSE is trusted only while it still tells a
+    collapsed document from a normal one. No tools/*.py exists for this gate
+    to spawn (collapsed_shape() is pure), so the control lives inline here —
+    the same standing as eol_report()'s own _EOL_CONTROL positive control.
+    """
+    bad = []
+
+    collapsed_sample = b"A" * (COLLAPSE_MIN_SIZE_BYTES + 100)  # one line, no \n
+    hit, size, nlines = collapsed_shape(collapsed_sample)
+    if not hit:
+        bad.append("collapsed sample (%d B, %d line(s)) did not fire"
+                   % (size, nlines))
+
+    normal_sample = b"\n".join(
+        [b"# Sample heading"] +
+        [b"Line %d of a normal document, padded so the file clears the "
+         b"byte floor on its own merits." % n for n in range(1, 12)]
+    ) + b"\n"
+    hit2, size2, nlines2 = collapsed_shape(normal_sample)
+    if hit2:
+        bad.append("normal sample (%d B, %d line(s)) fired" % (size2, nlines2))
+
+    if not bad:
+        out.append("COLLAPSE SELFTEST: PASS (collapsed sample fails, normal "
+                   "sample passes)")
+        return True
+    out.append("COLLAPSE SELFTEST: RED — %s" % "; ".join(bad))
+    return False
+
+
 STATE_DOOR = "docs/agent/prompts/perma/STATE_EVICTION.md"
 
 
@@ -2761,6 +2880,8 @@ def main():
     ok = flpk_selftest(out) and ok
     ok = check_tools_catalog(out) and ok
     ok = eol_report(out) and ok
+    ok = check_collapse(out) and ok
+    ok = collapse_guard_selftest(out) and ok
     ok = check_state(out) and ok
     ok = check_state_admission(out) and ok
     push_set_report(out)
