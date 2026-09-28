@@ -16,7 +16,7 @@ def main():
     lua.execute(r'''
 SMRTK={slots={},triggers={},armed={},actions={},after_record={},fires={},error_count=0,trigger_revision=0}
 function SMRTK.Bind(n,label,fn) SMRTK.slots[n]={label=label,fn=fn} end
-function SMRTK.BindScratch() end
+function SMRTK.BindScratch(label,fn) SMRTK.scratch={label=label,fn=fn} end
 SMRTK.Taint=function() return false end
 SMRTK.Log=function(kind,data) SMRTK.last_log=data end
 SMRTK.Mark=function() return 1 end
@@ -141,8 +141,37 @@ h.supply.Metals.reject=true
 assert(T.slots[6].fn(ctx)==false and not T.armed.distribution_full_hub)
 h.supply.Metals.reject=nil
 assert(h.supply.Metals:GetTargetAmount()==480000)
-assert(T.slots[1] and T.slots[2] and T.slots[3])
-print('PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; slot 6 holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; capacity slots retained')
+do -- Scratch balances and slot 1 empties every non-hub station (owner, 2026-09-28).
+    SMROptInTrainHubBase={}
+    local kind=IsKindOf
+    IsKindOf=function(o,c) if c=='SMROptInTrainHubBase' then return o.hub==true end return kind and kind(o,c) end
+    local tr,sp,hb=fixture(120,0,120,480)
+    local ctx=context(sp)
+    local out=T.scratch.fn(ctx)
+    assert(out.stations==1 and out.removed==110000 and out.added==10000 and out.held==0)
+    assert(sp.supply.Metals:GetActualAmount()==10000 and sp.supply.Food:GetActualAmount()==10000)
+    assert(sp.demand.Metals:GetActualAmount()==110000 and hb.supply.Metals:GetActualAmount()==0)
+    tr:AddResource(5000,'Metals');UIColony.labels.Train={tr}
+    out=T.slots[1].fn(context(sp))
+    assert(out.removed==20000 and out.trains_loaded==1 and out.train_cargo==5000)
+    assert(sp.supply.Metals:GetActualAmount()==0 and sp.supply.Food:GetActualAmount()==0)
+    tr,sp,hb=fixture(120,0,120,480)
+    assert(sp.supply.Metals:AssignUnit(115000)) -- A hauler's claim is never taken away.
+    ctx=context(sp);out=T.scratch.fn(ctx)
+    assert(out.removed==5000 and out.held==105000 and sp.supply.Metals:GetActualAmount()==115000)
+    assert(sp.supply.Metals:GetTargetAmount()==0 and ctx.readings[1].row=='held')
+    assert(sp.demand.Metals:AssignUnit(sp.demand.Metals:GetTargetAmount())) -- Incoming cargo keeps its room.
+    T.slots[1].fn(context(sp));assert(sp.supply.Food:GetActualAmount()==0)
+    assert(sp.demand.Food:AssignUnit(sp.demand.Food:GetTargetAmount()))
+    out=T.scratch.fn(context(sp))
+    assert(sp.supply.Food:GetActualAmount()==0 and sp.demand.Food:GetTargetAmount()==0 and out.held>=10000)
+    local tf=GetTimeFactor;GetTimeFactor=function() return 1000 end
+    assert(T.scratch.fn(context(sp))==false and T.slots[1].fn(context(sp))==false)
+    GetTimeFactor=tf;IsKindOf=kind;SMROptInTrainHubBase=nil
+    print('PASS Scratch balances non-hub rows to target and slot 1 empties them through AddResource; hub untouched; reserved stock and room kept and counted; train cargo counted; paused only')
+end
+assert(T.slots[1] and T.slots[2] and T.slots[3] and T.scratch)
+print('PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; slot 6 holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; slots 1-3 and Scratch bound')
 ''')
     print('NOT TESTED: native engine ledger, thread scheduling and actual game UI',flush=True)
 

@@ -81,8 +81,9 @@ The trains are Module A (per-resource station import/export) and Module B (the t
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait
      for outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe; propose an
-     investigation or description lines when the owner has room. TestKit `bf75983` still holds
-     capacity's slots 1–3 and Scratch; they are finished and free to overwrite.
+     investigation or description lines when the owner has room. TestKit slots (owner,
+     2026-09-28): Scratch balances every non-hub station to its row target, slot 1 empties them, slot 2
+     fills a station's Metals, 3 is brief 11's probe, 4–6 are brief 10's.
      The owner's open asks live on [`docs/PLAYTEST_CHECKLIST.md`](../../../PLAYTEST_CHECKLIST.md).
    - **The distribution centre's rulings live in spec §4.7 (the UI) and §4.8 (everything else,
      including the save-boundary ladder)** — read both, and §4.9, before briefing anything further

@@ -57,10 +57,11 @@ owner's ruling). Report findings outside the fence without editing.
 
 **The owner is in a sitting while you work.** Editing files on disk does not change the running
 game, but do not ask the owner for anything mid-sitting; hand the orchestrator what you need.
-**TestKit** (`B:\Dev\SMR\SMR-BugFixPack-TestKit`, shared): only **slots 1 and 2** are free
-(capacity's, finished). Slot 3 is brief 11's probe, slots 4–6 are brief 10's, and Scratch is
-read-only and in use: leave them. Keep `tools/devmods/train_hub/tests/distribution_slots_smoke.py`
-passing, and update its capacity-slot assertion if you rebind 1 or 2. For sitting steps, follow
+**TestKit** (`B:\Dev\SMR\SMR-BugFixPack-TestKit`, shared): only **slot 2** is yours, and only
+after the owner's probe sitting ends (it fills a station's Metals, which that sitting uses). Scratch
+and slot 1 are the owner's fixture setters (balance every station, empty every station; 2026-09-28),
+slot 3 is brief 11's probe and slots 4–6 are brief 10's: leave them. You may use Scratch and slot 1
+as they are. Keep `tools/devmods/train_hub/tests/distribution_slots_smoke.py` passing. For sitting steps, follow
 `tools/SMRTK.md` and the prompt-authoring skill's attended-sitting rules: slots, not console lines.
 
 ## Rules that apply
