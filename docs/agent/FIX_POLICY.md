@@ -176,7 +176,7 @@ contract. New persisted names join this table.
 | 12 | `SMROptIn_hub_native_waiter` | save metadata marker: `1` means the snapshot mapped `cthread.WaitWakeup` to the captured native waiter | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `OnMsg.GatherGameMetadata` when the snapshot guard is installed | same file, `OnMsg.PreLoadGame`; unmarked existing hub saves retain the legacy Lua mapping |
 | 13 | `SMROptInTrainHub6_CapacityNetwork` | **upgrade id**: a key in the owning dev hub's vanilla `upgrades_built`, `upgrade_on_off_state`, `upgrade_modifiers`, `upgrade_id_to_modifiers` (and `upgrades_under_construction` while it is being built), and in `UIColony.unlocked_upgrades`; its modifiers' `upgrade_id` | the template's `upgrade1_id` (`tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua`) through vanilla `Building:ApplyUpgrade`; `20_TrainHub.lua` §Capacity Network Upgrade (`UnlockUpgrade`) | vanilla's upgrade panel and toggle; same section (`hub_capacity_upgrade`, once per colony); `tests/capacity_smoke.py` |
 | 14 | `SMROptIn_distribution` | table on a dev hub: station object keys, then resource keys, then `{mode, percent}`; no field on a vanilla station | `tools/devmods/train_hub/Code/40_TrainDistribution.lua`, `Set` / `Reset` | same file, train view and baseline reconciliation; `45_TrainDistributionUI.lua` through `Get` |
-| 15 | `HubTrain` | **class name** of a hub extra train, with `persist_baseclass = "Train"`: a loaded extra in the save is this class; empty extras are never in a save (delete-on-load list) | `tools/devmods/train_hub/Code/70_TrainBay.lua` (`DefineClass.HubTrain`; vanilla `TrackBase:AssignTrain` spawns a `Train`, then `ChangeClass`) | same file (`GetTrainsOnRoute` hides it, `HubTrain:Idle` recalls it); vanilla's persist fallback resolves `Train:HubTrain` to `Train` without the mod; `tests/bay_smoke.py` |
+| 15 | `HubTrain` | **class name**, with `persist_baseclass = "Train"`; retained for old bay saves | Writer retired by spec §4.8 ruling 10 (owner, 2026-09-28); original code in `docs/archive/train_bay_extras_20260928/` | `tools/devmods/train_hub/Code/70_TrainBay.lua` keeps a bare class inheriting vanilla `Train`; vanilla's persist fallback resolves `Train:HubTrain` to `Train` without the mod; `tests/train_fill_smoke.py` |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -203,6 +203,12 @@ vanilla's `SavegameFixups.RemoveLeakedUpgradeModifiers` (`Building.lua:1323` on 
 which runs once per save: the hub's general uninstall problem.
 
 Row 15 is the train bay's hub extra (spec §4.8 ruling 9, owner 2026-09-28, which names the class). Without the mod a loaded extra becomes an ordinary `Train` and its route can be briefly over the vanilla cap; that residual is in the dev mod's description. SOURCE only until the ship test's no-mod load.
+
+Ruling 10 retires its writer and keeps the bare class for existing saves. Legacy extras now
+inherit vanilla Idle and count toward the route cap; their cargo and passengers remain.
+The old snapshot's empty extras still use vanilla's delete-on-load list and its already-credited
+pool. No new save-time storing is installed. Desk coverage is `tests/train_fill_smoke.py`;
+a real old-bay save/load remains an attended check.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 
