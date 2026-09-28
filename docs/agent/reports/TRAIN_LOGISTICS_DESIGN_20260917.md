@@ -888,6 +888,12 @@ salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla
 re-buyable, no tech.
 
 Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
+**Attended smoke steps 1-3 LIVE PASS 2026-09-28** on `607bc08` (owner's Mod Editor save;
+`--require-generated` exit 0), log `Mars.exe-20260928-17.13.10`, 0 `LUA ERROR`, slot 3 reads: bought
+on hub 6430, all 15 trains cargo 105000 → 147000 and speed 1500 → 1875; hub 6495 spent
+(`can_switch=false`); toggled off 105000/1500, back on 147000/1875. Owner: trains through the hub
+at the new speed "looked fine, not stuttering" (the stream had stopped; seen, not logged).
+Owed: step 4 salvage/rebuild and step 5 save/reload.
 Extras archived/cut with legacy `HubTrain` compatibility; cargo/speed desk checks pass.
 The owner's Mod Editor save and attended smoke remain owed; the report names both.
 
