@@ -30,3 +30,24 @@ Mars.exe-20260927-23.35.38-6aad2d75.log  111045 B  791 lines
   included; D.CallsFor 6243 36, 2012 81. Train 2000001844 cargo=0 at 2012 (t=21089490); owner saw
   it empty and idle. Slot 4 refused the train twice ("select a station"); landing point not read.
   Cargo type still NOT confirmed. Owner finding: many hub pallets draw empty. grep -c 'LUA ERROR' = 0.
+
+2026-09-28 sittings, build6_capacity_covered_pass3, both mods, fresh boots. Closed logs copied
+after each process exited (cp -p; cmp exit 0). Mars.exe-20260928-10.55.56 was the owner's discarded
+configuration launch and is not archived.
+Mars.exe-20260928-10.09.22-6aad2d75.log  111763 B  1068 lines
+  sha256 3d71fbfbf3317e77ac710d30c4213d3cd6fce3f627c051024e41611cec979bba
+  On 5a42508 (pre-spoilage fix). First Scratch balance: 7 stations, +1320000 / -12000, held 0.
+  A second balance after ~22 game h added 9834 (the spoilage drip). Owner: a full train
+  2000001844 (Metals 49, Polymers 40, MachineParts 16) loops "Loading cargo for Train Hub" at 2012.
+  No read was taken before the restart. grep -c 'LUA ERROR' = 0.
+Mars.exe-20260928-10.58.53-6aad2d75.log  159035 B  1337 lines
+  sha256 dd1b007f05b0f6d1ceaae195e7bae85a4831584ab0cce696c68dcac221aec143
+  On 296f6ff (spoilage 60_StationSpoilage + pallet heal + slot 6 stream). Stream 939 ticks.
+  No station food row changed; hub food spoiled 240000 -> 230000 at the day boundary.
+  Train 2000001844 Metals 98000 (49 each to 2012 and 6243) went 2012, 6243, 2012, was reassigned to 6430
+  and unloaded at the hub (hub Metals 220000 -> 318000, t=19927493), then idled there. No
+  pallet re-derive line; the owner accepts the look. grep -c 'LUA ERROR' = 0.
+Mars.exe-20260928-11.11.49-6aad2d75.log  190706 B  1555 lines
+  sha256 742b1ebd09f041f2ad84736b0454fc68ed88bb984e1e092ddd6a3504a0860fac
+  On 7d7d0c2 (probe accepts command=false). Slot 3 twice: REFUSED "no other hub line with
+  vanilla route room" (lines=6); every other route at the vanilla cap. grep -c 'LUA ERROR' = 0.
