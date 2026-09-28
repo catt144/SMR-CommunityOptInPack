@@ -10,3 +10,14 @@ Mars.exe-20260927-19.13.24-6aad2d75.log  167647 B  1074 lines
   Train 2000001844 cargo=98000 assigned_here=49000 at start (2008) and end (2012).
   Owner, on screen: trains flip rapidly between Idle and "Loading cargo for Train Hub";
   Train 2000001847 carrying Butter 69/105, trip N/A. grep -c 'LUA ERROR' = 0.
+
+Second 5d sitting, 2026-09-27 21:40 on 9a2d470 (City route lookup + departure repair), fresh boot,
+build6_capacity_covered_pass3, both mods. Closed log copied after exit (cp -p; cmp exit 0).
+Mars.exe-20260927-21.40.11-6aad2d75.log  195251 B  1247 lines
+  sha256 ede86dc68abd5944eb2f96a0e3582d5e8cdd99f6eab987337a80646ec5de7150
+  Loop fixed and routing reaches 6243 (D.CallsFor 2012 141, 6243 82). Metals 10000 at 2011, 2009,
+  2008, 2007 and 1994 (untouched, target 10000); every other resource at 10 on every station per
+  the owner. Metals at 2012 and 6243 = 0. Hub Metals 220000 -> 134300.
+  Train 2000001844: cargo=98000 throughout; assigned_here=49000 at 2008 (t=19714958) and at 2012
+  (t=23766195, 23768286), then assigned_here=0 at 2012 from t=23773639 to 23894491.
+  Cargo type NOT confirmed by the owner (Metals is inferred). grep -c 'LUA ERROR' = 0.

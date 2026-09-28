@@ -636,6 +636,14 @@ at 220, with 55–57 counted calls at the stations where our code stepped in and
 trains flipping rapidly between Idle and "Loading cargo for Train Hub", with old cargo aboard (Butter 69).
 0 `LUA ERROR`. The pass-4 sitting on the same save moved stock, so this is a 5d regression; relayed to
 brief 10 as a decision loop to reproduce at the desk.
+⚠️ **LIVE 2026-09-27 on `9a2d470` (the City route lookup and departure repair): loop FIXED, one
+gap.** Same save, fresh boot, same archive folder. Routing now reaches 6243 (calls: 2012 141, 6243 82),
+and every untouched station on the network holds exactly 10 Metals (2011, 2009, 2008, 2007, 1994);
+the owner reports every other resource at 10 everywhere. **Metals at 2012 and 6243 stayed at 0**, with
+hub Metals at 134.3. Train 2000001844 on 2012's line kept `cargo=98000` all sitting, assigned 49 to
+2008 at load, then `assigned_here=0` at 2012: cargo assigned to a station off its line, never
+unloaded, and counted in the line's total so the hub sent 2012 nothing. The cargo type is inferred
+as Metals, not confirmed. 0 `LUA ERROR`. Relayed to brief 10 with ruling 6 below.
 
 **5d departure repair, desk only:** `TRAIN_ROUTING_5D_20260927.md` §"First sitting
 failure and departure repair" records the separate City/Colony reproduction,
