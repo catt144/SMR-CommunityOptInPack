@@ -605,6 +605,10 @@ failure and the whole hub's both-configuration ship test remain separate.
    `60_StationSpoilage.lua`; desk `tests/spoilage_smoke.py`. **Held, not built:** a minimum
    shipment (no top-up until a row is short by a set amount), for if covered stations' real drone
    demand still makes trips too frequent.
+   ✅ **LIVE 2026-09-28 on `296f6ff`** (fresh boot, `build6_capacity_covered_pass3`, Scratch balance, one
+   sol at top speed, TestKit slot 6 stream): no station food row changed after the baseline, the hub's
+   food spoiled once at the day boundary (240 → 230 per type), no single-unit food trips. 0 `LUA
+   ERROR`. The closed log is in `docs/archive/train_routing_5d_20260927/sittings/`.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash
@@ -675,6 +679,13 @@ After about one sol at top speed (t 19717493 → 21089490), every one of the 19 
 `cargo=0` at 2012, and the owner saw it empty and idle. Where the old load landed was not read:
 slot 4 reads stations only and refused the train twice. The cargo type stays unconfirmed. 0 `LUA
 ERROR`. The chained Export/Import legs remain held for brief 11's sitting.
+
+✅ **LIVE 2026-09-28 on `296f6ff`: ruling 6's hub-first dump witnessed on the original train**
+(slot 6 stream, same save and archive folder as ruling 8's live line). After the Scratch balance filled 2012 and
+6243 to target, train 2000001844 still held `Metals:98000` assigned 49 to each. It tried 2012,
+6243 and 2012 again. At 2012 the assignment became `6430:Metals:98000`, and it unloaded all 98 at the hub
+(hub Metals 220 → 318, t=19927493), about 7 game hours from load. It then idled empty at the hub. Every
+other train idled, re-evaluating once a game hour. The cargo type is now confirmed: **Metals**.
 
 ### 4.9 Train construction at the hub (2026-09-24, SOURCE) — DESIGN ONLY
 
@@ -3672,7 +3683,10 @@ bind build 5 and any later hub work:
   panel shows every resource stocked (Metals 251/480; Basic 902, Advanced 700, Delicacies 1,318,
   Other 360). The owner had not looked at the hub for some time, so when it started is unknown.
   Cause found and repaired at desk 2026-09-28 (brief 12): a stale persisted column split, healed on
-  every load; live smoke owed — `TRAIN_HUB_PALLETS_20260927.md`.
+  every load — `TRAIN_HUB_PALLETS_20260927.md`. **LIVE 2026-09-28: the owner accepts the look**
+  (*"Yes"*). But the predicted `cargo columns re-derived` line never appeared: the split had
+  not moved. The stale-split cause is therefore **not confirmed**. What changed is the unconditional
+  `ReallocateVisualColumns` at the end of the heal.
 - **Far stations get maintenance only**: their upgrades and other requests stay vanilla's (confirmed
   2026-09-25).
 - **Deferred to the import/export and dials work:** `DESIGN.md` §6 train construction (the 1.1.1

@@ -74,9 +74,10 @@ The trains are Module A (per-resource station import/export) and Module B (the t
 
      **Hold 5d's chained Export and Import legs until the probe sitting is in and the owner has
      ruled on building the dispatcher** (ruling 7).
-     **Owner finding, 2026-09-27, not briefed: many hub pallets draw empty** while the hub is
-     stocked (spec §10, the storage-cap bullet, with the owner's intended look). Brief `12` was
-     fired for it 2026-09-27 (owner), in parallel with the probe sitting; check its hand-back once.
+     **2026-09-28:** the hub pallets are fixed and the owner accepts the look (brief `12`, deleted; spec §10).
+     Stations no longer spoil food (ruling 8, spec §4.8), live PASS. Ruling 6's hub-first dump is
+     witnessed live on train 2000001844. The probe needed one fix: it now accepts an idle train with no
+     command, as vanilla's NewHour does.
      **Capacity (spec §4.10) is built and smoked, PASS**; brief `08` deleted; record and limits in
      `reports/TRAIN_HUB_CAPACITY_20260926.md`. It left **two owner findings, neither briefed**:
      drones will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait

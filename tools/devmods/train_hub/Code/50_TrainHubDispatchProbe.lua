@@ -81,7 +81,8 @@ function P.Run(train, want_idx)
 	local hub = train.current_station
 	if not is_hub(hub) or not train.at_station then return say({ refused = "train is not parked at a hub", train = h(train) }) end
 	if P.last and P.last.train == train.handle then return say({ refused = "already dispatched; Read it, or Forget() first", train = h(train) }) end
-	if train.command ~= "Idle" and train.command ~= "LoadTrain" then return say({ refused = "command is " .. tostring(train.command), train = h(train) }) end
+	-- A parked idle train has no command at all; vanilla's NewHour treats that as idle (Train.lua:63).
+	if train.command and train.command ~= "Idle" and train.command ~= "LoadTrain" then return say({ refused = "command is " .. tostring(train.command), train = h(train) }) end
 	if next(train.assigned_resources or empty_table) then return say({ refused = "train carries cargo assigned to a station", train = h(train) }) end
 	if #(train.units or empty_table) > 0 then return say({ refused = "train carries passengers", train = h(train) }) end
 	if train.is_stopping then return say({ refused = "train is headed for refab", train = h(train) }) end
