@@ -1270,6 +1270,11 @@ function SMROptInTrainHubBase:InitHubReactorVisual()
 	if not IsValidEntity(entity) then return end
 	local visual = PlaceObjectIn("ShapeshifterAutoAttach", self:GetMap())
 	visual:ChangeEntity(entity)
+	-- No-dust visual: prevent vanilla's SetObjDust from writing dust in the first place.
+	-- Same no-op setter as GridTile (Construction.lua:3890, build 1.1.1.405907).
+	-- Vanilla function reference only; this DeleteOnLoadGame helper is recreated on load.
+	visual:SetDust(0, const.DustMaterialExterior)
+	visual.SetDust = empty_func
 	apply_hub_reactor_palette(visual)
 	visual.fx_actor_class = reactor_fallback_entity -- preserve the existing Working FX actor
 	visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
@@ -1287,7 +1292,8 @@ end
 -- -> `ApplyToObjAndAttaches(self, SetObjDust, ...)` (Lua/Buildings/BuildingComponents.lua:326-337,
 -- Building.lua:1711-1719, SupplyGrid.lua:256-260 on 1.1.0.403908). Our body and glass entities have
 -- no dust channel, so they show nothing; the vanilla FusionReactor entity does, so the reactor alone
--- wore the hub's dust. Let vanilla run, then zero the reactor attach the same way it was set.
+-- wore the hub's dust. New visuals now reject dust at creation; keep this cleanup for an
+-- existing visual created before that change. No rendered-frame claim: brief 17's report.
 function SMROptInTrainHubBase:SetDustVisuals(dust, in_dome)
 	local result = Station.SetDustVisuals(self, dust, in_dome)
 	for _, visual in ipairs(self:GetAttaches("ShapeshifterAutoAttach") or empty_table) do

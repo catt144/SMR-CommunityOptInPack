@@ -896,6 +896,9 @@ The owner's Mod Editor save and attended smoke remain owed; the report names bot
 apparently tied to changing game speed. It is our model (the owner identified it). Screenshots are
 in the orchestrator session. Cause not established; brief `17` investigates.
 
+Investigation: [reactor flash report](TRAIN_HUB_REACTOR_FLASH_20260928.md) — SOURCE dust-write
+sequence repaired; speed-change/rendered cause unconfirmed; short dust-reference check staged.
+
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
 60 × 3 = 180, not 240, and a train with Extended Cargo Carriages and Train Loading Standards

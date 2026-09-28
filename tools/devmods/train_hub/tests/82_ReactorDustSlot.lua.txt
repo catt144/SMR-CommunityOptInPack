@@ -1,0 +1,55 @@
+-- STAGED, NOT LOADED. Brief 17, 2026-09-28. At the next reactor sitting, with
+-- Mars.exe closed, replace slot 2's binding in TestKit Code/80_AgentSlots.lua
+-- with this block. Slot 2 currently fills Metals: retain that sitting until done.
+-- One press holds a dust reference for 2 real seconds, then restores clean.
+-- Native setter deliberately bypasses the new per-object no-op, on this visual only.
+-- No maintenance, palette, stock, game-speed or class mutation.
+local reactor_testkit = SMRTK
+reactor_testkit.Bind(2, "Reactor: show dust reference for 2 seconds", function(ctx)
+    local hub = ctx.sel
+    if not IsValid(hub) or not IsKindOf(hub, "SMROptInTrainHubBase") then
+        return false, "select the train hub"
+    end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local visual
+    for _, obj in ipairs(hub:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+        local entity = obj:GetEntity()
+        if entity == "SMROptInTrainHubReactor" or entity == "FusionReactor" then
+            if visual then return false, "multiple reactor visuals; investigate before testing" end
+            visual = obj
+        end
+    end
+    if not IsValid(visual) then return false, "reactor visual missing" end
+    if visual.SetDust ~= empty_func or visual:GetDust() ~= 0 then
+        return false, "restart with the reactor dust fix; expected protected clean visual"
+    end
+    local state = ctx.state
+    state.visual = visual
+    state.mark = ctx.mark("REACTOR_DUST_REFERENCE")
+    ctx.mutated = true
+    CObject.SetDust(visual, 255, const.DustMaterialExterior)
+    ctx.log("DUMP", { row = "reactor_dust_reference", entity = visual:GetEntity(),
+        object = tostring(visual.handle), dust = visual:GetDust(), mark = state.mark })
+    state.thread = CreateRealTimeThread(function()
+        Sleep(2000)
+        local active = reactor_testkit.armed.slot_2
+        if active and active.state == state then
+            reactor_testkit.Disarm("slot_2", "dust reference complete")
+        end
+    end)
+    return { mark = state.mark, hold_real_ms = 2000, expected_dust = 255 }
+end, { mode = "armed", needs = "selected", on_disarm = function(ctx)
+    local state = ctx.state
+    local thread = state.thread
+    state.thread = nil
+    if thread and IsValidThread(thread) and thread ~= CurrentThread() then DeleteThread(thread) end
+    local dust = "visual removed"
+    if IsValid(state.visual) then
+        CObject.SetDust(state.visual, 0, const.DustMaterialExterior)
+        dust = state.visual:GetDust()
+    end
+    state.visual = nil
+    local mark = ctx.mark("REACTOR_DUST_RESTORED")
+    ctx.log("DUMP", { row = "reactor_dust_restored", dust = dust, mark = mark })
+    return { dust = dust, mark = mark }
+end })
