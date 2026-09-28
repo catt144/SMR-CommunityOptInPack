@@ -137,8 +137,69 @@ function assertclose(a,b,epsilon) assert(math.abs(a-b)<=(epsilon or 2), tostring
 '''
 
 
+# HubRouteTrain ends on vanilla's WaitTraverseElement leg past the connector
+# (since 2026-09-20). This is move_smoke.py's track fixture with one change:
+# an element's angle points toward its track's START station, because
+# WaitTraverseElement faces el:GetAngle()+10800 when step==1 (1.1.0.403908
+# Train.lua:589-591). move_smoke only builds end-side hubs, where it is outward.
+TRACK_FIXTURE = r'''
+-- Extend the old fixture with real track ordering beyond each connector.
+local oldhub,oldtrain=newhub,newtrain
+function newhub(rotation,is_start)
+ local h=oldhub(rotation,is_start)
+ for i,tr in ipairs(h.tracks) do
+  local connector=h.elements[i]
+  connector.direction=0; connector.traverse_pitch=0
+  function connector:GetAngle()
+   if is_start then return CalcOrientation(self.pos,h:GetPos()) end
+   return CalcOrientation(h:GetPos(),self.pos)
+  end
+  local radial=MulDivRound(connector.pos-h:GetPos(),1,6)
+  radial=point(radial:x(),radial:y(),0)
+  local function outside(n)
+   local e={valid=true,direction=0,traverse_pitch=0,pos=connector.pos+MulDivRound(radial,n,1)}
+   function e:GetPos() return self.pos end
+   function e:GetAngle() return connector:GetAngle() end
+   e.GetSpotBeginIndex=connector.GetSpotBeginIndex
+   function e:GetSpotPos(spot) return connector:GetSpotPos(spot)+MulDivRound(radial,n,1) end
+   return e
+  end
+  local near,far=outside(1),outside(2)
+  tr.elements=is_start and {connector,near,far} or {far,near,connector}
+  tr.first_outside=near
+ end
+ return h
+end
+function newtrain(h,k)
+ local t=oldtrain(h,k)
+ t.WaitTraverseElement=Train.WaitTraverseElement; t.Traverse=Train.Traverse
+ function t:GetDepartedStation() return self.current_station end
+ function t:CheckValidDest() return true end
+ function t:ShouldStopOnTrack() return false end
+ function t:SetMoveSpeed(speed) self.speed=speed end
+ function t:GetRollPitchYaw() return 0,0,self.yaw end
+ function t:SetRollPitchYaw(_,_,yaw) self.yaw=yaw end
+ function t:SetState() end
+ function t:DestroySilent() self.valid=false end
+ return t
+end
+function HandleTrainOnBrokenTrack() return false end
+local world_to_hex=WorldToHex
+function WorldToHex(p) return world_to_hex(p.pos or p) end
+function ResolveMap() return {object_hex_grid={}} end
+function IsPointStationTrackConnection() return nil end
+'''
+
+
 def between(text, start, end):
     return text[text.index(start):text.index(end)]
+
+
+def six_hex(stubs):
+    """The accepted body: connectors 60 m out, beyond the 48 m transition pause.
+    STUBS itself keeps the retired four-hex outline for its importers."""
+    return (stubs.replace("for k=1,4 do", "for k=1,6 do")
+            .replace("s<200 and 4 or 5", "s<200 and 6 or 7"))
 
 
 def plain(value):
@@ -152,7 +213,8 @@ def plain(value):
 
 def run():
     lua = LuaRuntime(unpack_returned_tuples=True)
-    lua.execute(STUBS)
+    lua.execute(six_hex(STUBS))
+    lua.execute("sqrt=math.sqrt; Min=math.min")
     code = SOURCE.read_text(encoding="utf-8")
     lua.execute(code[:code.index("-- Vanilla creates only indices 0..4")])
     lua.execute(between(code, "DefineClass.SMROptInTrainHub6Base =", "-- The BuildingTemplate companion"))
@@ -160,30 +222,58 @@ def run():
     train = (ARCHIVE / "Lua/Units/Train.lua").read_text(encoding="utf-8")
     lua.execute("Train={}")
     lua.execute(between(train, "function Train:GotoSpot(", "function Train:WaitTraverseElement("))
-    lua.execute(between(station, "function Station:TrainArrive(", "function Station:AddOccupyingTrain("))
+    lua.execute(between(train, "function Train:WaitTraverseElement(", "function Train:GetNominalMoveSpeed("))
+    lua.execute(between(train, "function Train:Traverse(", "function Train:GetNextStationName("))
+    lua.execute(TRACK_FIXTURE)
     lua.execute(between(station, "function Station:RemoveOccupyingTrain(", "function Station:GetOccupyingTrain("))
     lua.execute("TEST_DEFAULT_PARK=SMROptInTrainFloor.HubParkDistance")
+    # Train.lua:390 calls next_station:TrainArrive, so the hub's own override is
+    # the arrival the game runs; vanilla Station:TrainArrive never runs here.
+    # Accepted arrival (owner, 2026-09-21): nose inward the whole way, no turn,
+    # never backwards; the radial legs run straight down the line, while the
+    # 150 ms samples are the sideways lane and siding slides.
+    lua.execute(r'''
+function arrival_heading(h,t,k)
+ local inward=(h.hub_connector_directions[k]*3600+h.angle+10800)%21600
+ if #t.turns>0 then return false,'arrival turned' end
+ local delta=(t.yaw-inward+10800)%21600-10800
+ if math.abs(delta)>2 then return false,'parked facing '..delta..' off inward' end
+ local ux,uy=math.cos(math.rad(inward/60)),math.sin(math.rad(inward/60))
+ local forward=0
+ for i,s in ipairs(t.segments) do
+  if s.time<=0 then return false,'arrival teleported' end
+  if s.to[3]~=h.pos.zz+800 then return false,'left the deck' end
+  local dx,dy=s.to[1]-s.from[1],s.to[2]-s.from[2]
+  local along=dx*ux+dy*uy
+  if along<-2 then return false,'segment '..i..' moved backwards '..round(along) end
+  if s.time~=150 and dx*dx+dy*dy>4 then
+   local yaw=CalcOrientation(point(s.from[1],s.from[2]),point(s.to[1],s.to[2]))
+   local off=(yaw-inward+10800)%21600-10800
+   if math.abs(off)>5 then return false,'leg '..i..' heads '..off..' off the line' end
+  end
+  forward=forward+along
+ end
+ if forward<=0 then return false,'never advanced' end
+ local stop=h:GetSpotPos(h:GetSpotBeginIndex('Stop'..k))
+ if math.abs(t.pos.xx-stop.xx)>2 or math.abs(t.pos.yy-stop.yy)>2 then return false,'not parked at Stop'..k end
+ return true
+end
+''')
     # All rotations, connector directions, and both track start/end states.
     checks = lua.execute(r'''
 local results={}
 for rotation=0,5 do for _,start in ipairs({true,false}) do for k=1,6 do
  local h=newhub(rotation,start); local t=newtrain(h,k)
  h:AddOccupyingTrain(t,h.tracks[k],true)
- local arriving=t.pos
- Station.TrainArrive(h,t,h.tracks[k])
+ h:TrainArrive(t,h.tracks[k])
  local stop=h:GetSpotPos(h:GetSpotBeginIndex('Stop'..k))
  local spawn=h:GetSpotPos(h:GetSpotBeginIndex('Spawn'..k))
  assertclose(stop.xx,spawn.xx,0); assertclose(stop.yy,spawn.yy,0)
  local _,angle=h:GetSpotAxisAngle(h:GetSpotBeginIndex('Spawn'..k))
  assertclose(angle%21600,(h.hub_connector_directions[k]*3600+h.angle)%21600,2)
  assert(t.at_station and t.current_station==h)
- for _,s in ipairs(t.segments) do
-  assert(s.time>0,'arrival teleported')
-  assertclose(s.to[3],h.pos.zz+800,0)
-  local yaw=CalcOrientation(point(s.from[1],s.from[2]),point(s.to[1],s.to[2]))
-  local delta=(yaw-t.yaw+10800)%21600-10800
-  assertclose(delta,0,5)
- end
+ assert(#t.segments>=10,'arrival skipped its slides')
+ assert(arrival_heading(h,t,k))
  assert(h:GetOccupyingTrain(h.tracks[k],true)==t)
  -- The old opposite-key save normalizes to its actual arrival connector.
  h.track_busy={[k%2==1 and k+1 or k-1]=t}
@@ -200,6 +290,35 @@ for rotation=0,5 do for _,start in ipairs({true,false}) do for k=1,6 do
 end end end
 return results
 ''')
+    # Mutations the arrival check must reject; each restores what it changed.
+    mutations = plain(lua.execute(r'''
+local out={}
+local function arrive(rotation,start,k,mutate)
+ local h=newhub(rotation,start); local t=newtrain(h,k)
+ h:AddOccupyingTrain(t,h.tracks[k],true)
+ local undo=mutate(h,t)
+ h:TrainArrive(t,h.tracks[k])
+ if undo then undo() end
+ local ok,why=arrival_heading(h,t,k)
+ assert(not ok,'mutation passed the arrival check')
+ return why
+end
+for rotation=0,5 do for _,start in ipairs({true,false}) do for k=1,6 do
+ -- The -10800 failure's own shape: a pause spot beyond the connector makes
+ -- the first leg run outward (the retired 40 m body under a 48 m pause).
+ out[#out+1]={name='pause_beyond_connector',why=arrive(rotation,start,k,function()
+  local old=SMROptInTrainFloor.HubTransitionPauseDistance
+  SMROptInTrainFloor.HubTransitionPauseDistance=70*guim
+  return function() SMROptInTrainFloor.HubTransitionPauseDistance=old end
+ end)}
+ out[#out+1]={name='backs_in',why=arrive(rotation,start,k,function(h,t) t.yaw=(t.yaw+10800)%21600 end)}
+ out[#out+1]={name='turns_on_arrival',why=arrive(rotation,start,k,function(h,t)
+  local move=h.HubMoveTrain
+  function h:HubMoveTrain(train,pos,speed) return move(self,train,pos,speed,train.yaw) end
+ end)}
+end end end
+return out
+'''))
     paths = {}
     for mode in ("stop", "pass"):
         for k in range(1, 7):
@@ -211,14 +330,16 @@ return results
                 row = plain(lua.execute(r'''
 local h=newhub(0,true); local t=newtrain(h,k)
 if mode=='stop' then
- h:AddOccupyingTrain(t,k,true); Station.TrainArrive(h,t,h.tracks[k])
+ h:AddOccupyingTrain(t,k,true); h:TrainArrive(t,h.tracks[k])
  t.track=h.tracks[j]; h:TrainDepart(t,h.tracks[j])
 else h:TrainPassThrough(t,h.tracks[k],h.tracks[j]) end
 assert(not h:HubCrossingTrain(),'lock leaked')
 assert(next(h.track_busy)==nil,'reservation leaked')
-local target=h.elements[j]:GetSpotPos(1)
+-- The hub hands the train on to the next element's Enter spot (this start-side
+-- hub steps +1, so Enter1); see HubRouteTrain's WaitTraverseElement leg.
+local target=h.tracks[j].first_outside:GetSpotPos(1)
 assertclose(t.pos.xx,target.xx,0); assertclose(t.pos.yy,target.yy,0)
-assertclose(t.yaw,(h.hub_connector_directions[j]*3600)%21600,3)
+assertclose(t.yaw%21600,(h.hub_connector_directions[j]*3600)%21600,3)
 for _,s in ipairs(t.segments) do assert(s.time>0,'position teleport'); assertclose(s.to[3],10800,0) end
 for _,turn in ipairs(t.turns) do assert(turn.time>0 or (mode=='stop' and k==j),'untimed centre turn') end
 return {segments=t.segments,turns=t.turns}
@@ -302,11 +423,12 @@ return {exclusive=true,restore_field_retained=true,interruption_blocks=true,wait
         "inputs": {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in
                    (SOURCE, Path(__file__), ORACLE, ARCHIVE / "Lua/Buildings/Station.lua", ARCHIVE / "Lua/Units/Train.lua")},
         "limitations": "Mocked engine; width-only spatial conflicts, not time simulation, length, mesh clearance or observed motion. R-TRAIN remains disputed.",
-        "lane_reservation_checks": plain(checks), "concurrency": concurrency,
+        "lane_reservation_checks": plain(checks), "arrival_mutations": mutations, "concurrency": concurrency,
         "paths": {str(k): v for k, v in paths.items()}, "two_train": model.two_train,
         "compared_pairs": compared,
     }
-    print(f"PASS: {len(checks)} lane/reservation cases; {len(paths)} executed routes; concurrency assertions passed.")
+    print(f"PASS: {len(checks)} lane/reservation cases; {len(mutations)} arrival mutations rejected; "
+          f"{len(paths)} executed routes; concurrency assertions passed.")
     print("TWO-TRAIN (unlocked spatial prediction):", model.two_train)
     return result
 
