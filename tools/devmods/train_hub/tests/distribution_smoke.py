@@ -35,7 +35,7 @@ def source_parts(lua, name, sections):
                 "local rfStorageDepot=const.rfStorageDepot\n" + "\n".join(chunks))
 
 
-def runtime():
+def runtime(before_mods=None):
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.execute(r'''
 Min=function(a,b) if a==nil then return b end if b==nil then return a end return math.min(a,b) end
@@ -173,6 +173,8 @@ MultiResourceDepotBase.RegisterResourceRequest=MultiResourceCubeVisuals.Register
         ("function Train:TransferCargo(", "function Train:OnContinuousTaskTick("),
     ])
     lua.execute("vanilla_transfer=Train.TransferCargo")
+    if before_mods:
+        before_mods(lua)
     for name in ["10_TrainFloor.lua", "40_TrainDistribution.lua"]:
         path = MOD / "Code" / name
         lua.execute(path.read_text(encoding="utf8"))

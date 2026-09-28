@@ -1,6 +1,7 @@
 """Vanilla-first regression and mutation controls, with bay_smoke's archived bodies."""
 import subprocess
 import sys
+from lupa import LuaError
 from bay_smoke import CODE, ROOT, runtime
 
 CASES = r'''
@@ -65,12 +66,17 @@ local B=SMROptInTrainBay
 local h2=setmetatable(station(9),SMROptInTrainHubBase)
 h2.first_connector_idx,h2.last_connector_idx=1,1
 h2.supply,h2.demand=hub.supply,hub.demand
-h2.GetConnectorElement=hub.GetConnectorElement
 h2.GetOccupyingTrain=hub.GetOccupyingTrain
+local track2=setmetatable({idx=1,city=city,assigned_vehicles={}},TrackBase)
+function h2:GetConnectorElement() return {track_obj=track2} end
+route=set_route(hub,s1,h2)
+city.train_track_routes[track2]=route
+route.edges[1].tracks[2]=track2
 local original=B.LineNeed
 B.LineNeed=function(h,l) return original(hub,l) end
 local requests=0
 function track:AssignTrain() requests=requests+1 end
+track2.AssignTrain=track.AssignTrain
 B.Tick(); now=B.settle_delay; B.Tick()
 assert(requests==1,'shared route: one request per check across hubs')
 ''')
@@ -82,17 +88,18 @@ def main():
     run(code)
     print('PASS vanilla-first: settle, continuous shortfall, working state, reset, zero-vanilla and shared route')
     mutations={
-        'settle': ('or row.settle > 0', 'or false'),
-        'working': ('not row.working', 'false'),
-        'persistence': ('GameTime() - shortfall[line.key] < B.shortfall_delay', 'false'),
-        'recovery': ('shortfall[line.key] = nil\n\t\treturn', 'return'),
+        'settle': ('or row.settle > 0', 'or false', 'settle: no extra'),
+        'working': ('not row.working', 'false', 'idle vanilla blocks'),
+        'persistence': ('GameTime() - shortfall[line.key] < B.shortfall_delay', 'false', 'fresh shortfall'),
+        'recovery': ('shortfall[line.key] = nil\n\t\treturn', 'return', 'fresh shortfall'),
+        'one-per-line': ('not checked[line.set]', 'true', 'shared route: one request'),
     }
-    for name,(before,after) in mutations.items():
+    for name,(before,after,expected) in mutations.items():
         assert before in code
         try:
             run(code.replace(before,after,1))
-        except Exception as exc:
-            assert 'assertion' in str(exc) or '.lua' in str(exc) or 'stack traceback' in str(exc), str(exc)
+        except LuaError as exc:
+            assert expected in str(exc), str(exc)
             print('PASS mutation rejected:',name)
         else:
             raise AssertionError('surviving mutation: '+name)

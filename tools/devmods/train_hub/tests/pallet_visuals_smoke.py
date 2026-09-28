@@ -119,6 +119,8 @@ CObject = {
         lua.execute(body)
     lua.execute(r'''
 SMROptInTrainHubBase = {}
+MultiResourceDepotBase.SetCount = MultiResourceCubeVisuals.SetCount
+MultiResourceDepotBase.GetMaxStorage = MultiResourceCubeVisuals.GetMaxStorage
 ''')
     lua.execute(cargo)
     lua.execute(r'''

@@ -2061,6 +2061,35 @@ function SMROptInTrainHubBase:GetCubePosRelative(idx, placement_offset, resource
 	return Rotate(spot_pos - self:GetPos(), -self:GetAngle()) + in_bed + point(0, 0, z * (self.box_height + self.spacing_z))
 end
 
+-- Cube rendering needs physical storage, not distribution's synchronous
+-- allocation capacity (which is zero for a source hub). Archived 1.1.1.405907
+-- MultiResourceCubeVisuals:SetCountColumnAlloc reads GetMaxStorage while
+-- Train:TransferCargo -> AddResource is still inside that allocation view.
+-- Scope only this receiver's non-yielding draw; normal allocation reads keep
+-- delegating to the live depot getter. No object field or save state is added.
+local cargo_drawing = setmetatable({}, { __mode = "k" })
+function SMROptInTrainHubBase:GetMaxStorage(...)
+	if cargo_drawing[self] then
+		-- This hub is per-resource storage. Use vanilla's physical formula
+		-- directly so Mod Editor code reordering cannot capture a view wrapper.
+		local resource = ...
+		if resource then
+			return self.storable_resources and self.storable_resources[resource] and self.max_storage_per_resource or 0
+		end
+		return self.max_storage_per_resource * #self.storable_resources
+	end
+	return MultiResourceDepotBase.GetMaxStorage(self, ...)
+end
+
+function SMROptInTrainHubBase:SetCount(...)
+	local before = cargo_drawing[self]
+	cargo_drawing[self] = true
+	local result = table.pack(pcall(MultiResourceDepotBase.SetCount, self, ...))
+	cargo_drawing[self] = before
+	if not result[1] then error(result[2], 0) end
+	return table.unpack(result, 2, result.n)
+end
+
 -- Owner report 2026-09-27 (report TRAIN_HUB_PALLETS_20260927): stocked resources drew on a
 -- fraction of the beds. The column split (`capacity_columns`, `visual_col_start`) and `max_z`
 -- are persisted state, and vanilla recomputes the split only at placement or on a
