@@ -13,8 +13,10 @@ What this holds: the unlock from the start; the three modifiers applied (small 6
 through OnModifiableValueChanged with the hub's cargo look still capped at 150; a second hub
 reading the upgrade as spent and unable to build, switch or double it; a start refused while
 another hub builds, cancelled or not; toggle off and on; the over-capacity drop (demand 0, stock
-kept); ruins keeping the bonus and clearing them releasing it for re-purchase (owner,
-2026-09-26); static gates on the section. No game, no save file, no native claim.
+kept); salvage switching the bonus off while the ruins keep the claim, a rebuild carrying it to
+the new hub built once and in the on/off state the ruins held, and clearing the ruins releasing it
+for re-purchase (owner, 2026-09-26 amended 2026-09-28); static gates on the section. No game, no
+save file, no native claim.
 """
 import hashlib
 import json
@@ -28,7 +30,10 @@ from lupa import LuaRuntime
 ROOT = Path(__file__).resolve().parents[4]
 MOD = ROOT / "tools/devmods/train_hub"
 SOURCE = MOD / "Code/20_TrainHub.lua"
-ARCHIVE = ROOT.parent / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src/Lua"
+# The sibling SMR-Shared checkout; a nested checkout sits deeper, so take the nearest ancestor that has it.
+ARCHIVE = next((d / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src/Lua" for d in ROOT.parents
+                if (d / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src/Lua").is_dir()),
+               ROOT.parent / "SMR-Shared/SMR-SrcArchive/1.1.1.405907/Src/Lua")
 VANILLA = {
     "Buildings/Building.lua": [
         "Building:ApplyUpgrade", "Building:ToggleUpgradeOnOff", "Building:OnUpgradeToggled",
@@ -70,7 +75,8 @@ hub_ovc = code[code.index("function SMROptInTrainHubBase:OnModifiableValueChange
 hub_ovc = hub_ovc[:hub_ovc.index("\nend\n")]
 assert "max_storage_per_resource" not in hub_ovc and "MultiResourceDepotBase" not in hub_ovc, \
     "the hub's combined OnModifiableValueChanged leaves the resize to vanilla's body"
-assert "Building:Destroy" not in plain and "OnDestroyed" not in plain, "ruins keep the bonus (owner, 2026-09-26)"
+assert "Building:Destroy" not in plain and "OnDestroyed" not in plain, "no override of an auto-resolved destroy method"
+assert "function OnMsg.BuildingDemolished" in plain and "function SMROptInTrainHubBase:ApplyCopyParams" in plain
 
 # The template half: both files carry the same upgrade, and its id is the section's.
 fields = {}
@@ -209,7 +215,7 @@ local function depot(cls, handle, cap, labels, extra)
   for k, v in pairs(extra or empty_table) do o[k] = v end
   return o
 end
-local function hub(handle)
+local function hub(handle, x)
   local h = depot(SMROptInTrainHubBase, handle, 240000, { "Station" }, {
     has_visual_cubes = true, upgrade1_id = ID, upgrade1_can_disable = true,
     upgrade1_upgrade_cost_Metals = 20000, upgrade1_upgrade_cost_Concrete = 20000 })
@@ -224,6 +230,8 @@ local function hub(handle)
   for t = 2, 6 do h["upgrade" .. t .. "_id"] = "" h["upgrade" .. t .. "_mod_prop_id_1"] = "" end
   function h:PartitionVisualResources() return nil, nil, 1 end
   function h:GetAttaches() return {} end
+  local pos = { xy = function() return x or handle * 1000, 0 end }
+  function h:GetPos() return pos end
   return h
 end
 local function train(handle)
@@ -292,13 +300,60 @@ assert(small.desire_slider_max == 60)
 A:ToggleUpgradeOnOff(ID)
 assert(A:IsUpgradeOn(ID) and small.max_storage_per_resource == 120000 and T1.max_colonists_to_transport == 24)
 
--- 6. Salvaged: the ruins keep the bonus and the claim (owner, 2026-09-26).
-A.destroyed = true
-assert(small.max_storage_per_resource == 120000 and B:HasUpgrade(ID))
-B:ConstructUpgrade(ID); assert(not B.upgrades_under_construction)
--- Ruins cleared: Building:Done runs vanilla's StopUpgradeModifiers (Building.lua:534) and
--- CityObject's Done takes it out of its labels.
-A:StopUpgradeModifiers(); remove(city.labels.Station, A); A.deleted = true
+-- 6. Salvaged (Building:OnDemolish -> Destroy, then Msg BuildingDemolished, Building.lua:910-919):
+-- the bonus goes off, the ruins keep the claim (owner, 2026-09-28).
+local function salvage(h) h.destroyed = true; OnMsg.BuildingDemolished(h) end
+-- Vanilla completion order (ConstructionSite.lua:1724-1745): new building placed at the site,
+-- ApplyCopyParams, then DoneObject(ruins) -> Building:Done's StopUpgradeModifiers (:534) and the
+-- label removal; the new hub joins the Station label at its GameInit, later.
+local function rebuild(ruins, handle)
+  local n = hub(handle, (ruins:GetPos():xy()))
+  n:ApplyCopyParams({})
+  ruins:StopUpgradeModifiers(); remove(city.labels.Station, ruins); ruins.deleted = true
+  table.insert(city.labels.Station, n)
+  return n
+end
+salvage(A)
+assert(small.max_storage_per_resource == 60000 and big.max_storage_per_resource == 120000, "bonus off at salvage")
+assert(T1.max_shared_storage == 42000 and T1.max_colonists_to_transport == 12 and count_mods() == 0)
+assert(small.demand.Metals.amount == 0 and small.supply.Metals.actual == 100000, "demand 0, no stock lost")
+assert(A:IsUpgradeOn(ID), "the state the player left stays for the rebuild")
+assert(B:HasUpgrade(ID) and B:CanDisableUpgrade(ID) == false, "claim held by the ruins")
+B:ConstructUpgrade(ID); assert(not B.upgrades_under_construction, "second hub refused")
+A:ToggleUpgradeOnOff(ID); A:ToggleUpgradeOnOff(ID); B:ToggleUpgradeOnOff(ID)
+assert(count_mods() == 0 and small.max_storage_per_resource == 60000, "no toggle revives it on ruins")
+salvaged = { small.max_storage_per_resource, big.max_storage_per_resource, T1.max_shared_storage, T1.max_colonists_to_transport }
+-- A hub standing elsewhere never takes the ruins' upgrade.
+B:ApplyCopyParams({}); assert(not Building.HasUpgrade(B, ID) and Building.HasUpgrade(A, ID))
+
+-- 6b. Rebuild: the new hub owns it, built once, on as it was, without buying it again.
+local D = rebuild(A, 204)
+assert(Building.HasUpgrade(D, ID) and D:IsUpgradeOn(ID) and not A.upgrades_built[ID])
+assert(count_mods() == 3 and small.max_storage_per_resource == 120000 and big.max_storage_per_resource == 240000, "doubled once")
+assert(T1.max_shared_storage == 84000 and T1.max_colonists_to_transport == 24)
+assert(not D.upgrades_under_construction, "not bought again")
+assert(B:HasUpgrade(ID) and B:CanDisableUpgrade(ID) == false and D:CanDisableUpgrade(ID) == true)
+D:ApplyCopyParams({}); assert(count_mods() == 3 and small.max_storage_per_resource == 120000, "idempotent")
+rebuilt_on = { small.max_storage_per_resource, big.max_storage_per_resource, T1.max_shared_storage, T1.max_colonists_to_transport }
+
+-- 6c. Toggled off before salvage: it comes back built but still off; the owner may switch it on.
+D:ToggleUpgradeOnOff(ID); assert(not D:IsUpgradeOn(ID) and small.max_storage_per_resource == 60000)
+salvage(D)
+local E = rebuild(D, 205)
+assert(Building.HasUpgrade(E, ID) and not E:IsUpgradeOn(ID), "built, still off")
+assert(count_mods() == 0 and small.max_storage_per_resource == 60000 and T1.max_shared_storage == 42000)
+assert(B:HasUpgrade(ID) and B:CanDisableUpgrade(ID) == false)
+E:ToggleUpgradeOnOff(ID); assert(E:IsUpgradeOn(ID) and count_mods() == 3 and small.max_storage_per_resource == 120000)
+rebuilt_off = { small.max_storage_per_resource, T1.max_shared_storage }
+
+-- 6d. Load of a save whose ruins still carry the bonus (made before this ruling): switched off.
+E.destroyed = true
+assert(small.max_storage_per_resource == 120000)
+OnMsg.LoadGame(); assert(count_mods() == 0 and small.max_storage_per_resource == 60000, "off on load")
+
+-- 6e. Ruins cleared: Building:Done runs vanilla's StopUpgradeModifiers (Building.lua:534) and
+-- CityObject's Done takes it out of its labels. The claim is released.
+E:StopUpgradeModifiers(); remove(city.labels.Station, E); E.deleted = true
 released = { small.max_storage_per_resource, big.max_storage_per_resource, B.max_storage_per_resource,
   T1.max_shared_storage, T1.max_colonists_to_transport }
 assert(small.max_storage_per_resource == 60000 and B.max_storage_per_resource == 240000 and T1.max_shared_storage == 42000)
@@ -330,6 +385,9 @@ result = {
     "scope": "vanilla 1.1.1.405907 upgrade and resize bodies over mocked modifiers and labels; no native run, no save file",
     "applied (small, big, hub A, hub B, train cargo, train passengers)": list(g.applied.values()),
     "toggled off (small, big, hub A, train cargo, train passengers)": list(g.toggled_off.values()),
+    "salvaged (small, big, train cargo, train passengers)": list(g.salvaged.values()),
+    "rebuilt, was on (small, big, train cargo, train passengers)": list(g.rebuilt_on.values()),
+    "rebuilt, was off, then switched on (small, train cargo)": list(g.rebuilt_off.values()),
     "ruins cleared (small, big, hub B, train cargo, train passengers)": list(g.released.values()),
     "re-bought on B (small, hub B, hub C, train cargo, train passengers)": list(g.rebought.values()),
     "result": "PASS",

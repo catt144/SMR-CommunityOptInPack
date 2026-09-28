@@ -3442,9 +3442,11 @@ end
 -- What this file adds is only what vanilla has no field for:
 --   * Unlocked from the start, no tech (owner ruling 4). UIColony's unlock list persists it.
 --   * Once per colony (owner ruling 1). The owner is the hub whose own `upgrades_built` holds it,
---     ruins included: a salvaged hub keeps the bonus until its ruins are cleared, which is when
---     vanilla's Done stops the modifiers (owner, 2026-09-26: "When ruins are cleared"). Any other
---     hub answers HasUpgrade with "spent" and cannot switch it; nothing new is persisted.
+--     ruins included. Any other hub answers HasUpgrade with "spent" and cannot switch it.
+--   * Owner, 2026-09-28 (amending 2026-09-26): salvage or destruction switches the bonus OFF, the
+--     ruins keeping the claim; clearing the ruins releases it (vanilla's Done, Building.lua:534);
+--     rebuilding them carries it to the new hub, built, in the on/off state the ruins held.
+--     Nothing new is persisted: only vanilla's `upgrades_built`/`upgrade_on_off_state` move.
 -- ===========================================================================
 
 local hub_capacity_upgrade = "SMROptInTrainHub6_CapacityNetwork" -- save contract, FIX_POLICY inventory
@@ -3486,7 +3488,9 @@ function SMROptInTrainHubBase:CanDisableUpgrade(id)
 	return Building.CanDisableUpgrade(self, id)
 end
 
+-- Ruins never carry the bonus (owner, 2026-09-28), whatever toggles them (a Ctrl+click broadcast).
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
+	if id == hub_capacity_upgrade and self.destroyed then return end
 	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
 end
 
@@ -3507,6 +3511,45 @@ function SMROptInTrainHubBase:ConstructUpgrade(id)
 	return Building.ConstructUpgrade(self, id)
 end
 
+-- Salvage and destruction both end in Building:OnDemolish, which runs Destroy (the ruins) and then
+-- sends BuildingDemolished (Building.lua:910-919; Destroy's only caller is :912). The state stays
+-- as the player left it, so a rebuild restores it on or off.
+local function ruins_bonus_off(hub)
+	if IsKindOf(hub, "SMROptInTrainHubBase") and hub.destroyed and Building.HasUpgrade(hub, hub_capacity_upgrade) then
+		hub:StopUpgradeModifiersForUpgrade(hub_capacity_upgrade)
+		return true
+	end
+end
+
+function OnMsg.BuildingDemolished(bld)
+	if ruins_bonus_off(bld) then
+		print(string.format("[TrainHubDev] capacity upgrade: hub %s ruined, bonus off, claim held", tostring(bld.handle)))
+	end
+end
+
+-- Rebuild: ConstructionSite:Complete places the new building at the site, runs ApplyCopyParams and
+-- only then DoneObject-s `rebuild`, the ruins (ConstructionSite.lua:1724-1745; Building:Rebuild
+-- :1788-1810 passes params.rebuild and orig_state's copy_params, :1602). ApplyCopyParams is a call-all combined
+-- method (BaseBuilding.lua:2, classes.lua:1847), so this adds to the chain. Only one hub holds the
+-- upgrade; if it is ruins standing where this hub now stands, they are this hub's.
+function SMROptInTrainHubBase:ApplyCopyParams(params)
+	if Building.HasUpgrade(self, hub_capacity_upgrade) then return end
+	local ruins = other_capacity_hub(self)
+	if not ruins or not ruins.destroyed then return end
+	local x, y = self:GetPos():xy()
+	local rx, ry = ruins:GetPos():xy()
+	if x ~= rx or y ~= ry then return end
+	local on = ruins:IsUpgradeOn(hub_capacity_upgrade)
+	local tier = self:GetUpgradeTier(hub_capacity_upgrade)
+	ruins:StopUpgradeModifiersForUpgrade(hub_capacity_upgrade)
+	ruins.upgrades_built[hub_capacity_upgrade] = nil
+	ruins.upgrades_built[tier] = nil
+	self:ApplyUpgrade(tier)
+	if not on then self:ToggleUpgradeOnOff(hub_capacity_upgrade) end
+	print(string.format("[TrainHubDev] capacity upgrade: carried from ruins %s to rebuilt hub %s, %s",
+		tostring(ruins.handle), tostring(self.handle), on and "on" or "off"))
+end
+
 function SMROptInTrainHubBase:InitHubCapacityUpgrade()
 	unlock_capacity_upgrade()
 end
@@ -3515,8 +3558,12 @@ function OnMsg.CityStart()
 	unlock_capacity_upgrade()
 end
 
+-- Ruins saved before the 2026-09-28 ruling still carry the bonus; switch it off on load.
 function OnMsg.LoadGame()
 	unlock_capacity_upgrade()
+	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
+		ruins_bonus_off(hub)
+	end
 end
 
 print("[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve")
