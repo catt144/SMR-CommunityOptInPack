@@ -594,6 +594,17 @@ full hub, all traffic at one priority), not a fault.
    dispatcher-independent; line service, timing and chained forwarding are not. Brief `11`. The existing traffic-smoke
 failure and the whole hub's both-configuration ship test remain separate.
    Investigated 2026-09-27, `TRAIN_HUB_DISPATCH_20260927.md`: feasible by source (a train is bound to a line only by its `track`) and by 3b's measured 60°/120° departures; vanilla's own loading on the new line has a built prototype and a five-step sitting owed; sketch is one `LoadTrain` wrapper at rung 1.
+8. **Train stations do not spoil food; the hub does** (owner, 2026-09-28): *"I think we go with your
+   suggestion but hold off on the minimum shipment for now."* SOURCE, 1.1.1.405907: Food and every
+   delicacy lose `FoodDecay` (4) % of stored stock a sol, rounded to whole units at random
+   (`Spoilage.lua:17-34`, `__const.lua` `FoodDecay`); a station inherits it through the combined
+   `BuildingDailyUpdate` (`Building.lua:2`, `StorageDepot.lua:116-132`); trains never spoil. Owner
+   observation in the 2026-09-28 sitting: trains carrying a single Food to top a row back up. A
+   station's stock is cargo in transit; the hub is a 480-per-resource warehouse whose losses send no
+   train, so it keeps spoilage, as do all ordinary depots. Built in the dev mod as
+   `60_StationSpoilage.lua`; desk `tests/spoilage_smoke.py`. **Held, not built:** a minimum
+   shipment (no top-up until a row is short by a set amount), for if covered stations' real drone
+   demand still makes trips too frequent.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash
