@@ -51,3 +51,6 @@ Mars.exe-20260928-11.11.49-6aad2d75.log  190706 B  1555 lines
   sha256 742b1ebd09f041f2ad84736b0454fc68ed88bb984e1e092ddd6a3504a0860fac
   On 7d7d0c2 (probe accepts command=false). Slot 3 twice: REFUSED "no other hub line with
   vanilla route room" (lines=6); every other route at the vanilla cap. grep -c 'LUA ERROR' = 0.
+  CORRECTION (2026-09-28): the 10.09.22 log above booted at HEAD db64a78 (committed 00:28), not
+  5a42508: brief 12's pallet heal was already loaded. That log has no "cargo columns" re-derive
+  line either (grep: 0), so the heal was silent on every 2026-09-28 load.
