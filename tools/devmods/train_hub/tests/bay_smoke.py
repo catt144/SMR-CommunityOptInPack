@@ -192,7 +192,7 @@ SMROptInTrainDistribution={active=true,
     HubFor=function(st) return hub end, Parent=function(st) return hub end,
     BranchNeed=function(st,res) return st==s1 and need or 0 end}
 for i=1,2 do -- two vanilla trains, both out on the line
-    local t=PlaceObjectIn('Train',hub); t:AssignToTrack(track); t.at_station=false; t.current_station=s1
+    local t=PlaceObjectIn('Train',hub); t:AssignToTrack(track); t.at_station=false; t.current_station=s1; t.command='GotoStation'
 end
 function extras() local n=0 for _,t in ipairs(city.labels.Train) do if IsKindOf(t,'HubTrain') then n=n+1 end end return n end
 function leave(t) hub:RemoveOccupyingTrain(t); t.at_spawn_track=false; t.at_station=false; t.current_station=s1 end
@@ -201,7 +201,7 @@ pool=function() return city.available_prefabs.Train or 0 end
 '''
 
 
-def bay():
+def runtime(code=None):
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.execute(STUBS)
     transport = text("Lua/TrainTransport.lua")
@@ -230,15 +230,22 @@ def bay():
     lua.execute("function register(permanents, direction)\n" + loop + "\nend")
     lua.execute(body(text("CommonLua/Classes/_cobject.lua"), "function MapObject:UnpersistMissingClass("))
     lua.execute(FIXTURE)
-    lua.execute(CODE.read_text(encoding="utf8"))
+    lua.execute(code if code is not None else CODE.read_text(encoding="utf8"))
     print("70_TrainBay.lua sha256:", hashlib.sha256(CODE.read_bytes()).hexdigest(), flush=True)
     lua.execute("assert(SMROptInTrainBay.active, SMROptInTrainBay.error); Msg('LoadGame')")
+    return lua
+
+
+def bay():
+    lua = runtime()
 
     lua.execute(r'''
 local B=SMROptInTrainBay
 assert(GetTrainsOnRoute(track)==2 and not track:CanAddVehicle(),'fixture: route at the vanilla cap')
 local p0=pool()
 B.Tick()
+assert(extras()==0,'load settle blocks immediate dispatch')
+now=B.settle_delay; B.Tick()
 local e=newest()
 assert(IsKindOf(e,'HubTrain') and extras()==1 and pool()==p0-1,'one extra from the pool')
 assert(e.at_spawn_track and e.current_station==hub and e.track==track and hub.track_busy[1]==e)
@@ -249,6 +256,7 @@ B.Tick(); assert(extras()==1,'occupied arm: no second spawn')
 for i=1,6 do leave(newest()); B.Tick() end
 assert(extras()==4 and B.Read().lines[1].wanted==4,'need 6 loads - 2 vanilla = 4 extras')
 need=40*42000
+B.Tick(); now=now+B.shortfall_delay
 for i=1,6 do leave(newest()); B.Tick() end
 assert(extras()==5,'ceiling of 5 per hub route')
 local seen={}

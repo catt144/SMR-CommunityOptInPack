@@ -25,6 +25,8 @@ B.max_extras = 5 -- per hub route (owner: tunable by eye)
 B.tick_minutes = 10 -- game minutes between need checks
 B.cooldown = const.HourDuration * 2 -- after an extra is recalled without work
 B.fill_window = const.HourDuration * 2 -- an owed auto-fill is retried this long
+B.shortfall_delay = const.HourDuration -- continuous need with vanilla working
+B.settle_delay = const.HourDuration * 3 -- after load / new game
 B.stats = { requested = 0, deployed = 0, recalled = 0, filled = 0, stored = 0, kept = 0 }
 B.error = false
 
@@ -60,6 +62,8 @@ local owed = {} -- route key -> game time a station joined it
 local cooldown = {} -- station-set key -> game time deploys resume
 local worked = setmetatable({}, { __mode = "k" }) -- extra -> carried cargo
 local snapshot = false -- hub -> arm idx -> station count on its route
+local shortfall = {} -- line key -> first qualifying check; runtime only
+local settle_until = GameTime() + B.settle_delay
 
 local function h(o) return IsValid(o) and tostring(o.handle) or "none" end
 local function is_hub(o) return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase") and not o.destroyed end
@@ -235,6 +239,21 @@ local function free_arm(hub, line)
 	end
 end
 
+local function vanilla_working(hub, line, expected)
+	local n = 0
+	local routes = hub.city.train_track_routes or empty_table
+	for _, t in ipairs(hub.city.labels.Train or empty_table) do
+		if IsValid(t) and not t.destroyed and not is_extra(t) and routes[t.track] == line.route then
+			n = n + 1
+			local travelling = t.command == "GotoStation" and not t.at_station
+			local handling = (t.command == "LoadTrain" or t.command == "UnloadTrain") and not empty(t)
+			if not travelling and not handling then return false end
+		end
+	end
+	-- Missing/unknown trains fail closed; an empty line is vanilla's to serve first.
+	return n > 0 and n == expected
+end
+
 function B.LineRow(hub, line)
 	local vanilla, cap = GetTrainsOnRoute(line.arms[1].track)
 	local extras = extras_on(line.route, hub.city)
@@ -244,6 +263,9 @@ function B.LineRow(hub, line)
 	local wanted = Min(Max(loads - vanilla, 0), B.max_extras)
 	return { line = line.key, stations = line.stations, vanilla = vanilla, cap = cap, extras = extras,
 		need = need, loads = loads, wanted = wanted, arms = #line.arms,
+		working = vanilla_working(hub, line, vanilla),
+		shortfall = shortfall[line.key] and Max(GameTime() - shortfall[line.key], 0) or 0,
+		settle = Max(settle_until - GameTime(), 0),
 		cooldown = Max((cooldown[line.set] or 0) - GameTime(), 0),
 		owed = owed[line.key] and true or false }
 end
@@ -262,27 +284,36 @@ local function try_fill(hub, line)
 end
 
 local function try_extra(hub, line)
-	if not hub.working or ColonyGetPrefabs("Train", hub.city) <= 0 then return end
-	if GameTime() < (cooldown[line.set] or 0) then return end
 	local row = B.LineRow(hub, line)
-	if row.extras >= row.wanted then return end
+	if not hub.working or not row.working or row.extras >= row.wanted then
+		shortfall[line.key] = nil
+		return
+	end
+	shortfall[line.key] = shortfall[line.key] or GameTime()
+	if GameTime() - shortfall[line.key] < B.shortfall_delay or row.settle > 0 then return end
+	if ColonyGetPrefabs("Train", hub.city) <= 0 or row.cooldown > 0 then return end
 	local arm = free_arm(hub, line)
 	if not arm then return end
 	pending[arm.track] = { hub = hub, idx = arm.idx, key = line.key, time = GameTime() }
 	B.stats.requested = B.stats.requested + 1
 	arm.track:AssignTrain(hub)
+	return true
 end
 
 function B.Tick()
 	for track, p in pairs(pending) do
 		if not IsValid(track) or GameTime() - p.time > 1000 then pending[track] = nil end
 	end
+	local checked, live = {}, {}
 	each_hub(function(hub)
 		for _, line in ipairs(hub_lines(hub)) do
+			live[line.key] = true
 			if owed[line.key] then try_fill(hub, line) end
-			try_extra(hub, line)
+			-- A route through multiple hubs still gets at most one extra per check.
+			if not checked[line.set] and try_extra(hub, line) then checked[line.set] = true end
 		end
 	end)
+	for key in pairs(shortfall) do if not live[key] then shortfall[key] = nil end end
 end
 
 function OnMsg.NewMinute(hour, minute)
@@ -314,6 +345,7 @@ local function take_snapshot(owe)
 end
 
 function OnMsg.TrainRoutesRebuilt()
+	shortfall = {}
 	if B.active then take_snapshot(snapshot and true or false) end
 end
 
@@ -368,6 +400,7 @@ end
 
 local function reset()
 	pending, owed, cooldown, snapshot = {}, {}, {}, false
+	shortfall, settle_until = {}, GameTime() + B.settle_delay
 	worked = setmetatable({}, { __mode = "k" })
 end
 function OnMsg.LoadGame() reset(); take_snapshot(false) end
