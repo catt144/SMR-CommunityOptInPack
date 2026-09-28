@@ -78,8 +78,9 @@ for rotation=0,5 do for _,start in ipairs({true,false}) do for k=1,6 do
  n=n+1
 end end end
 return n''')
-    print(f"PASS spawn spot: archived GetSpawnPoint on the dev hub puts a spawned train exactly on the parked "
-          f"train's Stop spot of its own arm, facing out ({n} arm/rotation/end cases)", flush=True)
+    print(f"PASS spawn spot math: archived GetSpawnPoint with mocked native spot lookup agrees with Stop "
+          f"and outward facing ({n} arm/rotation/end cases); not engine placement proof. "
+          "Final object placement is tested in bay_spawn_smoke.py", flush=True)
 
 
 STUBS = r'''

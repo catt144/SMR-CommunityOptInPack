@@ -194,6 +194,17 @@ do -- Slot 6 streams every train and station row that changed (owner, 2026-09-28
     if st.row~='stock' then st,tn=tn,st end
     assert(st.res=='Metals' and st.stock==117000 and st.before==120000 and st.target==10000)
     assert(tn.cargo=='Metals:3000' and tn.assigned:match(':Metals:3000$'))
+    SMROptInTrainHubBase={}
+    hb:AddResource(120000,'Metals')
+    hb.capacity_columns={Metals=20}; hb.visual_col_start={Metals=0}; hb.max_z=9
+    hb.visual_cubes.Metals={}
+    for i=1,120 do hb.visual_cubes.Metals[i]={} end
+    logged={};assert(coroutine.resume(ctx.state.thread))
+    assert(#logged==1 and logged[1].kv.cubes==120 and logged[1].kv.expected_cubes==120)
+    hb.visual_cubes.Metals={}
+    logged={};assert(coroutine.resume(ctx.state.thread))
+    assert(#logged==1 and logged[1].kv.stock==120000 and logged[1].kv.cubes==0
+        and logged[1].kv.expected_cubes==120,'visual-only regression reaches stream without a stock change')
     ctx.state.cancelled=true;assert(coroutine.resume(ctx.state.thread))
     assert(coroutine.status(ctx.state.thread)=='dead')
     T.Log,Sleep=real_log,sleep
