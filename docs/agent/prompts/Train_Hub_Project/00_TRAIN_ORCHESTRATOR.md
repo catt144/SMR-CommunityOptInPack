@@ -56,10 +56,11 @@ is delegated to another agent through a brief.**
      a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
      The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
      Scratch, then half a sol at top speed, reliably leaves train 2000001844 empty and parked on the hub.
-     **FIRST: brief `13`'s sitting** (report `reports/TRAIN_HUB_BAY_20260928.md`, its five steps).
-     Checked 2026-09-28: `bay_smoke.py` 7 PASS at `ba34d73`; the owner accepted its calls (ruling 9
-     amendment, `5e44b44`). Placement is unsettled: the desk says a spawn lands exactly on the
-     arm's parked spot, the owner saw it off centre; step 1 settles it.
+     **Brief `13`'s sitting ran 2026-09-28 and failed three ways** (spec ruling 9, grep `Bay
+     sitting 2026-09-28`): misplaced spawns, empty-looking hub stacks, deploys that ignore vanilla
+     (new owner ruling, vanilla first + 3 h settle). Brief `15` fixes them; `13` is deleted or
+     parked once `15`'s sitting passes. Archive log `Mars.exe-20260928-14.27.05` with a receipt once
+     the owner has closed the game.
      **Held for merge after that sitting:** the capacity salvage/rebuild change (spec §4.10 ruling
      2026-09-28, `023eaa1`), built in worktree `.claude/worktrees/agent-af033497203ef0c8a`
      (`20_TrainHub.lua` + `capacity_smoke.py`, PASS, uncommitted; its five in-game steps are in

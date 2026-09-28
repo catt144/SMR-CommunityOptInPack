@@ -650,6 +650,19 @@ failure and the whole hub's both-configuration ship test remain separate.
      saves skip them. (b) An extra recalled having carried nothing pauses its line's deploys for
      **2 game hours**. The need check every 10 game minutes stays as built (owner, *"ok thats
      fine"*); it is one line, `B.tick_minutes`, for tuning by eye.
+   - **Bay sitting 2026-09-28** (log `Mars.exe-20260928-14.27.05`, 0 `LUA ERROR`): 4 extras deployed
+     at the first tick after slot 1 emptied the stations; one recalled `worked=true`. **Owner:
+     spawned trains sit bunched and angled at the hub centre, not on the arm sidings** (screenshot;
+     the desk `GetSpawnPoint` prediction was wrong, the observation governs). **Owner: hub stacks
+     read visually empty on several resources while holding over 100** (a regression). Slot 3 was
+     not pressed (slot 2 filled 2007 twice), so no BAY rows exist.
+   - ⚖️ **Owner, 2026-09-28: the hub operates as vanilla until it knows there is a need** (*"All
+     of the above and can we do an on load settle for like 3 game hours to let the need bake
+     in?"*). An extra deploys only when all hold: (a) every vanilla train on that line is already
+     out working, none idle at a station; (b) the shortfall has persisted a set time (start at
+     1 game hour, tunable by eye) with the vanilla trains running; (c) at most one extra per line
+     per check, so extras ramp up; (d) no deploys for the first **3 game hours** after a load or a
+     new game, while the need settles.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash
@@ -849,6 +862,8 @@ ruins; on completion the new building is created, `ApplyCopyParams` runs and onl
 are `DoneObject`-ed (`ConstructionSite.lua:1736-1745`), so the upgrade is carried from ruins to new
 hub at that moment. The player pays vanilla's rebuild cost only. (c) **Clearing the ruins** releases
 the claim as before; any hub may buy it again.
+Build audited 2026-09-28 (brief 14): desk PASS WITH FIXES, not merged, not yet played —
+`docs/agent/reports/TRAIN_HUB_CAPACITY_AUDIT_20260928.md`.
 
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
