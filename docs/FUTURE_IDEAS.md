@@ -526,12 +526,3 @@ line is to reach places the drone network does not, and stations accumulate main
 
 **Where the material lives.** The train logistics spec,
 `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`, whose tests surfaced it.
-
-## 12. Which traits a service building pays — parked 2026-09-28
-
-**What.** Beside a service building's interests (D15, `Opt_ServiceInterestTags`), name the traits
-that pay a bonus there: Gamer on Gaming, Extrovert on Social (+10 Sanity on entering a working
-building, `Units/Colonist.lua:2671-2678` on 1.1.1.405907).
-
-**Why it is parked.** The owner's 2026-09-28 brief put it out of scope: report it as a follow-up,
-don't build it. Nothing is scoped or costed.

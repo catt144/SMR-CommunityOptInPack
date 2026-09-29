@@ -1,22 +1,25 @@
 """Desk check for Code/Opt_ServiceInterestTags.lua (D15). Desk-verified only: no game runs.
 
-It runs the game's own 1.1.1.405907 bodies, taken from the archived tree at run time rather
-than copied: the service description funnel and its three GetIPDescription callers, the
-interest predicate (with the Medical override), the interest names, the two generated
-infopanel sections whole, and the real BuildingTemplate data files. The module and this
-repo's 00_Core.lua load on top of them. Mocked, and so not evidence: T rendering (eager, to
-plain strings), the class system (__index chains standing in for flattening), window
-construction, and a few leaf getters (capacity, stats, workers, shifts).
+It runs the game's own 1.1.1.405907 code and data, taken from the archived tree at run time
+rather than copied: the service description funnel and its three GetIPDescription callers, the
+interest predicate (with the Medical override), the interest names, the two generated infopanel
+sections whole, ColonistStat and ColonistFilterDisplayName, every TraitPreset, and the real
+BuildingTemplate data files. The module and this repo's 00_Core.lua load on top of them.
+Mocked, and so not evidence: T rendering (eager, to plain strings), the class system (__index
+chains standing in for flattening), window construction (append to the parent, then Init, as
+XWindow:Init does), g_Consts, and a few leaf getters (capacity, stats, workers, shifts).
 
 Four passes over the same buildings:
   vanilla    module not loaded
   off        module loaded, toggle off   -> must equal vanilla byte for byte
   on         toggle turned on through the real ApplyModOptions reconciler
   off-again  toggle turned off the same way -> must equal vanilla byte for byte
-On: the build-menu hover gains the Interests line (under "Service <category>", or its own
-block for a food service with no category), the placed building's Visitors section (or the
-food service block) gains one Interests row, and the Encyclopedia call and the placed
-building's description stay vanilla.
+On (owner rulings 2026-09-28 and 2026-09-29): the build-menu hover gains the Interests line
+(under "Service <category>", or its own block for a food service with no category); the placed
+building gains exactly one "Interests" section, directly after its Visitors section (or the food
+section for a Diner or Grocer), whose body is the interest list and whose popout carries the
+description, category, visitor filter and the trait effects that apply there. Vanilla sections'
+own rows, the Encyclopedia call and the placed building's description stay vanilla.
 
 Run: python tools/deskchecks/service_interest_tags_deskcheck.py [--show]
 Exit 0 = every assertion held. --show prints each surface for the record.
@@ -32,20 +35,29 @@ SRC = Path(r'B:\Dev\SMR\SMR-Shared\SMR-SrcArchive') / BUILD / 'Src'
 SHOW = '--show' in sys.argv
 
 TEMPLATES = ['ShopsElectronics', 'CasinoComplex', 'Spacebar', 'MedicalCenter', 'Infirmary',
-             'Diner', 'ShopsFood', 'MegaMall', 'GardenStone', 'LightDecorationSmall']
-# (building, object class, host expected on the placed building, interests expected, in order)
+             'Diner', 'ShopsFood', 'MegaMall', 'GardenStone', 'OpenAirGym', 'Playground',
+             'LightDecorationSmall']
+# (building, host section, interests body, trait display names in order, filter line or None,
+#  category line expected)
 CASES = [
-    ('ShopsElectronics', 'visitors', 'Gaming, Shopping'),
-    ('CasinoComplex', 'visitors', 'Social, Gaming, Luxury\nGambling'),
-    ('MedicalCenter', 'visitors', 'Medical Checks'),
-    ('Infirmary', 'visitors', 'Medical Checks'),
-    ('Diner', 'food', 'Social, Dining, Food'),
-    ('ShopsFood', 'food', 'Food'),
+    ('ShopsElectronics', 'visitors', 'Gaming, Shopping', ['Gamer'], 'Adults', True),
+    ('CasinoComplex', 'visitors', 'Social, Gaming, Luxury\nGambling',
+     ['Gamer', 'Party Animal', 'Gambler'], 'Adults', True),
+    ('MedicalCenter', 'visitors', 'Medical Checks', [], None, True),
+    ('Infirmary', 'visitors', 'Medical Checks', [], None, True),
+    ('Diner', 'food', 'Social, Dining, Food', ['Party Animal', 'Glutton', 'Vegan'], None, False),
+    ('ShopsFood', 'food', 'Food', ['Glutton', 'Vegan'], None, False),
     ('MegaMall', 'visitors', 'Social, Relaxation, Exercise\nGaming, Shopping, Luxury\n'
-                             'Drinking, Gambling, Playing\nDining, Food'),
-    ('GardenStone', 'visitors', 'Relaxation, Exercise, Playing'),
-    ('LightDecorationSmall', None, None),
+                             'Drinking, Gambling, Playing\nDining, Food',
+     ['Gamer', 'Party Animal', 'Glutton', 'Vegan'], None, True),
+    ('GardenStone', 'visitors', 'Relaxation, Exercise, Playing', ['Hippie'], None, True),
+    ('OpenAirGym', 'visitors', 'Social, Exercise', ['Party Animal', 'Fit'], 'Adults', True),
+    ('Playground', 'visitors', 'Playing', ['Child'], 'Children', True),
+    ('LightDecorationSmall', None, None, None, None, None),
 ]
+# The popout's trait lines must carry the trait's number the game's way.
+TRAIT_AMOUNT = {'Gamer': '+10', 'Party Animal': '+10', 'Gambler': '-20', 'Hippie': '+10',
+                'Fit': '10%', 'Child': '100%'}
 
 receipts = []
 
@@ -68,6 +80,11 @@ g = lua.globals()
 lua.execute(r'''
 -- ---- mocks: T values render eagerly to strings --------------------------------------
 local function render(text, params, ctx)
+  text = text:gsub("<delta%(([%w_]+)%)>", function(tag)
+    local v = params and tonumber(params[tag])
+    if v == nil then return nil end
+    return (v > 0 and "+" or "") .. tostring(v)
+  end)
   return (text:gsub("<([%w_]+)>", function(tag)
     local v = params and params[tag]
     if v == nil and type(ctx) == "table" then
@@ -93,6 +110,9 @@ function TList(list, sep) return table.concat(list, sep or ", ") end
 function set(...) local t = {} for _, v in ipairs({...}) do t[v] = true end return t end
 function range(a, b) return {a, b} end
 function IsValid(o) return type(o) == "table" and rawget(o, "__valid") == true end
+stat_scale = 1000
+const = { Scale = { Stat = 1000 } }
+g_Consts = { positive_playground_chance = 100 }  -- Lua/__const.lua:326-329, mocked
 
 -- ---- mock class system: __index chains stand in for flattening -------------------------
 classes = {}
@@ -125,16 +145,21 @@ function IsKindOf(o, want) return type(o) == "table" and type(o.class) == "strin
 function IsKindOfClasses(o, ...) for _, w in ipairs({...}) do if IsKindOf(o, w) then return true end end return false end
 IsContextOfKind = IsKindOf
 
--- windows: new() builds the instance, appends it to its parent, then runs Init
+-- windows: new() appends the instance to its parent, then runs Init (XWindow:Init's order)
 local function new_window(cls, args, parent, context)
   local o = setmetatable(args or {}, cls)
   o.context = context
+  o.parent = parent
   o.idContent = {}
+  o.visible = true
   if parent then parent[#parent + 1] = o end
   if o.Init then o:Init(parent, context) end
   return o
 end
 DefineClassNamed("XWindow", { new = new_window })
+function XWindow:SetVisible(v) self.visible = v end
+function XWindow:SetRolloverText(t) self.RolloverText = t end
+function XWindow:SetTitle(t) self.Title = t end
 DefineClassNamed("InfopanelSection", { __parents = { "XWindow" }, new = new_window })
 function InfopanelSection.__content(parent) return parent.idContent end
 DefineClassNamed("InfopanelText", { __parents = { "XWindow" }, new = new_window })
@@ -167,10 +192,12 @@ DefineClassNamed("Decoration", { __parents = { "Building" } })
 DefineClassNamed("DecorationService", { __parents = { "Decoration", "Service" } })
 DefineClassNamed("FlowerLamp", { __parents = { "DecorationService" } })
 DefineClassNamed("FlowerLampSmall", { __parents = { "FlowerLamp" } })
+DefineClassNamed("FitService", { __parents = { "Service" } })
+DefineClassNamed("OpenAirGymBase", { __parents = { "FitService" } })
+DefineClassNamed("PlaygroundBase", { __parents = { "Service" } })
 
 -- leaf getters (mocked)
 function GetModifierObject() return { ModifyValue = function(_, v) return v end } end
-ColonistFilterDisplayName = {}
 function ShiftsBuilding:GetUIDescriptionShifts()
   local n = 0
   for i = 1, 3 do if self["enabled_shift_" .. i] ~= false then n = n + 1 end end
@@ -191,6 +218,7 @@ end
 function FoodServiceBuilding:GetServeableIngredients() return {} end
 function Building:IsUpgradeOn(id) return self.upgrades_on and self.upgrades_on[id] or false end
 BuildingTemplates = {}
+TraitPresets = {}
 
 -- the Mod runtime the core reads
 OnMsg = {}
@@ -202,6 +230,9 @@ vanilla = [
     ('Lua/Interests.lua', 'ServiceInterestsList = {', '}'),
     ('Lua/Interests.lua', 'Interests = {', '}'),
     ('Lua/Interests.lua', 'function GetInterestDisplayName(', 'end'),
+    ('Lua/Stats.lua', 'ColonistFilterDisplayName = {', '}'),
+    ('Lua/Units/Colonist.lua', 'ColonistStat =', '}'),
+    ('Lua/Units/Colonist.lua', 'for stat_name, stat in pairs(ColonistStat) do', 'end'),
     ('Lua/ServiceBase.lua', 'function ServiceBase:GetServiceCategory(', 'end'),
     ('Lua/ServiceBase.lua', 'function GetServiceCategoryDisplayName(', 'end'),
     ('Lua/ServiceBase.lua', 'function ServiceBase:IsOneOfInterests(', 'end'),
@@ -219,10 +250,14 @@ for rel in ('Lua/XDef/sectionVisitors.generated.lua', 'Lua/XDef/sectionFoodServi
     receipts.append('%s:1-%d  (whole file)' % (rel, len(text.splitlines())))
     lua.execute(text)
 
-# Real template data: each becomes a class over its object_class, and BuildingTemplates[id]
+# Real data. Each template becomes a class over its object_class, and BuildingTemplates[id]
 # is the same shape the game builds (Buildings/Building.lua:2701).
 lua.execute(r'''
-function PlaceObj(_, t) LoadedTemplate = t end
+function PlaceObj(class, t)
+  if class == "TraitPreset" then TraitPresets[t.id] = t end
+  LoadedTemplate = t
+  return t
+end
 function MakeTemplate(t)
   local id = t.id
   t.__parents = { t.object_class }
@@ -230,6 +265,8 @@ function MakeTemplate(t)
   BuildingTemplates[id] = setmetatable({ template_name = id }, classes[id])
 end
 ''')
+lua.execute((SRC / 'Data/TraitPreset.lua').read_text(encoding='utf8'))
+receipts.append('Data/TraitPreset.lua  (data, %d traits)' % len(list(g.TraitPresets.keys())))
 for tid in TEMPLATES:
     rel = 'Data/BuildingTemplate/%s.lua' % tid
     lua.execute((SRC / rel).read_text(encoding='utf8'))
@@ -247,7 +284,7 @@ function RowTexts(section)
   local function collect(win)
     for _, child in ipairs(win) do
       if IsKindOf(child, "InfopanelText") then
-        out[#out + 1] = RenderT(child.Text, nil, child.context)
+        out[#out + 1] = RenderT(child.Text or "", nil, child.context)
       end
       if child.idContent then collect(child.idContent) end
       collect(child)
@@ -259,18 +296,37 @@ function RowTexts(section)
   end
   return table.concat(out, " | ")
 end
+-- the panel as ipBuilding builds it: both sections into one content window, in order
 function Surfaces(id, upgrades)
   local tmpl = BuildingTemplates[id]
   local oc = classes[tmpl.object_class]
   local obj = Placed(id, upgrades)
-  local visitors = sectionVisitors:new(nil, nil, obj)
-  local food = sectionFoodService:new(nil, nil, obj)
+  local content = {}
+  local visitors = sectionVisitors:new(nil, content, obj)
+  local food = sectionFoodService:new(nil, content, obj)
+  local order, interests = {}, {}
+  for i, child in ipairs(content) do
+    if child == visitors then order[#order + 1] = "visitors"
+    elseif child == food then order[#order + 1] = "food"
+    elseif child.Title == "Interests" then
+      order[#order + 1] = "interests"
+      interests[#interests + 1] = child
+    else order[#order + 1] = "other" end
+  end
+  local sec = interests[1]
   return {
     build_menu = oc.GetIPDescription(tmpl),
     encyclopedia = oc.GetIPDescription(tmpl, ": ", true),
     placed_description = obj:GetIPDescription(),
     visitors = visitors and RowTexts(visitors) or "(no section)",
     food = food and RowTexts(food) or "(no section)",
+    order = table.concat(order, ","),
+    interests_count = #interests,
+    interests_visible = sec and tostring(sec.visible) or "",
+    interests_body = sec and RowTexts(sec) or "",
+    interests_icon = sec and sec.Icon or "",
+    popout = sec and (sec.RolloverText or "") or "",
+    description = RenderT(tmpl.description or "", nil, obj),
   }
 end
 ''')
@@ -278,9 +334,9 @@ end
 
 def snapshot():
     out = {}
-    for tid, _, _ in CASES:
-        s = lua.eval('Surfaces')(tid)
-        out[tid] = {k: s[k] for k in s.keys()}
+    for case in CASES:
+        s = lua.eval('Surfaces')(case[0])
+        out[case[0]] = {k: s[k] for k in s.keys()}
     s = lua.eval('Surfaces')('MedicalCenter', lua.table_from({'MedicalCenter_RejuvenationTreatment': True}))
     out['MedicalCenter+rejuvenation'] = {k: s[k] for k in s.keys()}
     return out
@@ -316,18 +372,21 @@ van, on = passes['vanilla'], passes['on']
 for name in ('off', 'off-again'):
     check(passes[name] == van, '%s differs from vanilla' % name)
 
-for tid, host, want in CASES + [('MedicalCenter+rejuvenation', 'visitors', 'Relaxation, Medical Checks')]:
+rejuv = ('MedicalCenter+rejuvenation', 'visitors', 'Relaxation, Medical Checks', [], None, True)
+for tid, host, want, traits, filt, has_cat in CASES + [rejuv]:
     v, o = van[tid], on[tid]
-    for surface in ('encyclopedia', 'placed_description'):
+    for surface in ('encyclopedia', 'placed_description', 'visitors', 'food'):
         check(o[surface] == v[surface], '%s %s changed with the toggle on' % (tid, surface))
     if want is None:
         for surface in v:
             check(o[surface] == v[surface], '%s %s changed (not covered, must stay vanilla)' % (tid, surface))
         continue
-    line = 'Interests<right>' + want
+
+    # build menu: one line, placed as before
     # The build menu hovers the template, which never has an upgrade on: Rejuvenation's
     # Relaxation shows on the placed building only.
-    bm_line = 'Interests<right>Medical Checks' if tid == 'MedicalCenter+rejuvenation' else line
+    bm_want = 'Medical Checks' if tid == 'MedicalCenter+rejuvenation' else want
+    bm_line = 'Interests<right>' + bm_want
     bm_v = v['build_menu'].split('<newline><left>')
     bm_o = o['build_menu'].split('<newline><left>')
     check(bm_o.count(bm_line) == 1, '%s build menu lacks %r' % (tid, bm_line))
@@ -340,37 +399,61 @@ for tid, host, want in CASES + [('MedicalCenter+rejuvenation', 'visitors', 'Rela
         else:
             check(bm_o[i - 1] == '' and rest[:i - 1] == bm_v[:i - 1] and rest[i:] == bm_v[i - 1:],
                   '%s food block: want "" + line added before the Meals block' % tid)
-    other = 'food' if host == 'visitors' else 'visitors'
-    check(o[other] == v[other], '%s %s host changed (want no row there)' % (tid, other))
-    check(o[host] == (v[host] + ' | ' if v[host] else '') + line,
-          '%s %s: want vanilla rows then the Interests row, got %r' % (tid, host, o[host]))
 
-# The row follows the building live: turn Rejuvenation on under an open Visitors section.
+    # placed building: one section, straight after its host, vanilla order otherwise
+    # MegaMall is a food service with a category: Visitors, then the food section
+    want_v = 'visitors,food' if tid == 'MegaMall' else host
+    want_o = want_v.replace(host, host + ',interests')
+    check(v['order'] == want_v, '%s vanilla panel order %r, want %r' % (tid, v['order'], want_v))
+    check(o['order'] == want_o, '%s panel order %r, want %r' % (tid, o['order'], want_o))
+    check(o['interests_count'] == 1, '%s has %d Interests sections' % (tid, o['interests_count']))
+    check(o['interests_visible'] == 'true', '%s Interests section hidden' % tid)
+    check(o['interests_body'] == want, '%s section body %r, want %r' % (tid, o['interests_body'], want))
+    check(o['interests_icon'].startswith('UI/IconsRemaster/Sections/'), '%s icon %r' % (tid, o['interests_icon']))
+
+    pop = o['popout'].split('<newline><left>')
+    desc = v['description']
+    check(bool(desc) and pop[0] == desc, '%s popout does not open with the description' % tid)
+    cat_lines = [l for l in pop if l.startswith('Service<right><em>')]
+    check(len(cat_lines) == (1 if has_cat else 0), '%s category lines %r' % (tid, cat_lines))
+    filt_lines = [l for l in pop if l.startswith('Visitors<right>')]
+    check(filt_lines == (['Visitors<right>' + filt] if filt else []), '%s filter lines %r' % (tid, filt_lines))
+    trait_names = [l.split('<right>')[0] for l in pop[pop.index('<em>Traits</em>') + 1:]] \
+        if '<em>Traits</em>' in pop else []
+    check(trait_names == traits, '%s traits %r, want %r' % (tid, trait_names, traits))
+    for l in pop:
+        name = l.split('<right>')[0]
+        if name in TRAIT_AMOUNT and name in traits:
+            check(TRAIT_AMOUNT[name] in l, '%s %s line lacks %s: %r' % (tid, name, TRAIT_AMOUNT[name], l))
+
+# The section follows the building live: turn Rejuvenation on under an open panel.
 g.CurrentModOptions.ServiceInterestTags = True
 lua.eval('OnMsg.ApplyModOptions')('SMR_CommunityOptInPack')
 live = lua.eval('''(function()
   local obj = Placed("MedicalCenter")
-  local sec = sectionVisitors:new(nil, nil, obj)
-  local row = sec.idContent[#sec.idContent]
-  local before = row.Text
+  local content = {}
+  sectionVisitors:new(nil, content, obj)
+  local sec = content[#content]
+  local before = RowTexts(sec)
   obj.upgrades_on = { MedicalCenter_RejuvenationTreatment = true }
   obj.city = { colony = { IsTechResearched = function() return true end } }
-  row:OnContextUpdate(obj)
-  return before, row.Text
+  sec:OnContextUpdate(obj)
+  return before, RowTexts(sec)
 end)()''')
-check(live == ('Interests<right>Medical Checks', 'Interests<right>Relaxation, Medical Checks'),
-      'live context update: %r' % (live,))
+check(live == ('Medical Checks', 'Relaxation, Medical Checks'), 'live context update: %r' % (live,))
 
-print('Desk check: Opt_ServiceInterestTags (D15), vanilla bodies from %s' % BUILD)
+print('Desk check: Opt_ServiceInterestTags (D15), vanilla code and data from %s' % BUILD)
 print('Ran, from the archived tree:')
 for r in receipts:
     print('  ' + r)
 if SHOW:
     for tid in on:
         print('\n== %s' % tid)
-        for surface in ('build_menu', 'visitors', 'food'):
-            print('  [%s] vanilla: %s' % (surface, van[tid][surface].replace('<newline><left>', ' / ')))
-            print('  [%s] on:      %s' % (surface, on[tid][surface].replace('<newline><left>', ' / ')))
+        print('  [build_menu] on: %s' % on[tid]['build_menu'].replace('<newline><left>', ' / '))
+        print('  [panel]      vanilla: %s   on: %s' % (van[tid]['order'], on[tid]['order']))
+        print('  [section]    %s' % on[tid]['interests_body'].replace('\n', ' / '))
+        for line in on[tid]['popout'].split('<newline><left>'):
+            print('  [popout]     %s' % line)
     print('\n  live update: %r -> %r' % live)
 n_cases = len(CASES) + 1
 if failures:
@@ -378,5 +461,6 @@ if failures:
     for f in failures:
         print('  - ' + f)
     sys.exit(1)
-print('PASS: %d buildings x 4 passes (vanilla / off / on / off-again), 5 surfaces each, '
-      'plus the live Rejuvenation update' % n_cases)
+print('PASS: %d buildings x 4 passes (vanilla / off / on / off-again): build-menu hover, '
+      'Encyclopedia, placed description, vanilla section rows, the Interests section '
+      '(place, body, popout), plus the live Rejuvenation update' % n_cases)

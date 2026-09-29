@@ -2,8 +2,10 @@
 --
 -- Owner ruling 2026-09-28 (verbatim in docs/agent/bugs/D15.md): show each service
 -- building's interests in the build-menu hover and in the placed building's
--- infopanel. Display only — nothing about how colonists choose or use a
--- service changes.
+-- infopanel. Owner ruling 2026-09-29 (same file): on the placed building that
+-- is an "Interests" SECTION of its own whose popout carries the building's
+-- description, category, visitor filter and the trait effects. Display only —
+-- nothing about how colonists choose or use a service changes.
 --
 -- Enable it in-game: Options → Mod Options → Relaunched Fix Pack: Opt-In Modules (D05).
 -- Toggles take effect immediately in both directions: every hook below checks
@@ -49,18 +51,29 @@
 --      service with no category (Diner, Grocer: same_category_as "Ignore", so
 --      vanilla writes no service block at all) gets its own blank-separated
 --      block, ahead of the Meals block.
---   2. PLACED BUILDING — post-wraps of two generated infopanel Inits that add
---      one InfopanelText row; neither section is replaced:
---        * sectionVisitors:Init (XDef/sectionVisitors.generated.lua:20-51):
---          the row goes last, after "Service effect" / "Tips". This section
---          exists for every ServiceBase except same_category_as "Ignore" (:13-18).
---        * sectionFoodService:Init (XDef/sectionFoodService.generated.lua):
---          for the "Ignore" food services only (the exact complement, so no
---          building shows the row twice), inside the section's LAST
---          InfopanelSection child: for a FoodServiceBuilding that is the
---          untitled service block holding "Meals served last Sol" (:95-108).
---      The row recomputes on every context update, so a Medical building that
---      turns on Rejuvenation shows Relaxation without reselecting.
+--   2. PLACED BUILDING — an "Interests" InfopanelSection, created as a SIBLING
+--      straight after the service section by post-wraps of two generated
+--      Inits; no vanilla section is replaced or edited:
+--        * sectionVisitors:Init (XDef/sectionVisitors.generated.lua:20-51),
+--          built for every ServiceBase except same_category_as "Ignore" (:13-18);
+--        * sectionFoodService:Init (XDef/sectionFoodService.generated.lua), for
+--          the "Ignore" food services only (Diner, Grocer) — the exact
+--          complement, so no building gets the section twice.
+--      Init is a combined parents-first method (CommonLua/PropertyObject.lua:1741)
+--      and XWindow:Init appends the window to its parent first, so when the
+--      wrapper runs the host section is the last child of ipBuilding's content
+--      window and the new section lands directly after it. RebuildInfopanel
+--      only posts ObjModified and never re-runs Init (X/Infopanel.lua:428-447).
+--      Body: the interest list. Popout (the section's RolloverText): the
+--      building's description, service category, visitor filter, and the trait
+--      effects that apply there (TRAIT RULES below). Both recompute on every
+--      context update, so Rejuvenation turning on shows Relaxation live. With
+--      no interests the section hides itself, and a hidden section is not
+--      counted by Infopanel:OnContextUpdate's description rule.
+--      Accepted cost (owner, 2026-09-29): a panel with exactly two visible
+--      sections (the Open Air Gym) loses its inline description block, which
+--      shows only while two or fewer are visible (XDef/Infopanel.generated.lua:
+--      666-669); that block's unique lines are in the popout.
 --
 -- Which interests: ServiceInterestsList filtered by the building's own
 -- IsOneOfInterests — the predicate the game itself uses for the daily-interest
@@ -71,14 +84,29 @@
 -- Gaming while the Gamer bonus still pays on it. Food and Medical Checks are
 -- listed: they are interests colonists visit for.
 --
--- Not covered: Ignore-category services that are not food services (the
--- Fireflies mystery's flower lamps) — vanilla gives them no service section to
--- host the row, and adding a section is a bigger UI change than the ruling asks.
+-- TRAIT RULES — every per-colonist effect a service visit has on 1.1.1.405907
+-- (research 2026-09-29; the full table, DLC and law cases included, is in D15):
+--   Gamer      interestGaming           +param Sanity per visit  Units/Colonist.lua:2671-2674
+--   Extrovert  interestSocial           +param Sanity per visit  Units/Colonist.lua:2675-2678
+--   Gambler    CasinoComplexBase        -param Sanity, 50% roll  Buildings/CasinoComplex.lua:4-9
+--   Fit        FitService (gym, TaiChi) param% chance to gain    Buildings/OpenAirGym.lua:6-15
+--   Hippie     GardenStone category     +param Comfort at rest   Data/TraitPreset.lua:338-341
+--   Child      PlaygroundBase           Perk when grown          Buildings/Playground.lua:5-7
+--   Glutton    FoodServiceBuilding      double portion           Units/Colonist.lua:4925-4927
+--   Vegan      FoodServiceBuilding      vegan delicacies only    Buildings/FoodServiceBuilding.lua:517-522
+-- Numbers come from TraitPresets[id].param and g_Consts at call time, so a
+-- balance patch shows through. Hard-coded in vanilla and so here: Gambler's 50%.
+-- Left out: DLC and law effects (Foodie, Coffee Enthusiast, Food Tours) and the
+-- mystery-only Infected cure.
 --
--- Strings: the label is new text, so Untranslated per FIX_POLICY §6 (built as
--- T{..., untranslated = true} so it can carry the list parameter — the shape
--- Untranslated itself returns). Interest names are the game's own localized
--- T values (Interests.lua, GetInterestDisplayName).
+-- Not covered: Ignore-category services that are not food services (the
+-- Fireflies mystery's Wisp Lamps) — neither hooked section exists for them.
+--
+-- Strings: labels and sentences are new text, so Untranslated per FIX_POLICY §6
+-- (built as T{..., untranslated = true} where they carry parameters — the shape
+-- Untranslated itself returns). Interest, trait, stat, category and filter
+-- names are the game's own localized T values; a stat amount uses vanilla's
+-- own "<icon><delta(amount)>" T (Stats.lua:30), unchanged.
 --
 -- Savegame footprint: none. Every hook is synchronous UI code that writes no
 -- field, stores no function value and starts no thread (FIX_POLICY §3a tier 1).
@@ -146,13 +174,115 @@ local function after_description(self, texts, start, label_separator, ...)
 	return ...
 end
 
-local function add_row(parent, context)
-	InfopanelText:new({
-		Text = interests_line(context) or "",
+local function untranslated(text, params)
+	params = params or {}
+	params[1] = text
+	params.untranslated = true
+	return T(params)
+end
+
+-- vanilla's stat amount, icon and colour: StatValues:GetUIStatText's part (Stats.lua:30)
+local function stat(amount, id)
+	return T{948271635221, "<icon><delta(amount)>", icon = ColonistStat[id].icon_tag, amount = amount}
+end
+
+local function trait_line(lines, id, effect_text, params)
+	local trait = TraitPresets[id]
+	if not trait then return end
+	params = params or {}
+	params.name = trait.display_name
+	params.param = trait.param
+	lines[#lines + 1] = untranslated("<name><right>" .. effect_text, params)
+end
+
+local function trait_param(id)
+	local trait = TraitPresets[id]
+	return trait and trait.param or 0
+end
+
+local function trait_lines(obj)
+	local lines = {}
+	if obj:IsOneOfInterests("interestGaming") then
+		trait_line(lines, "Gamer", "<stat> per visit", { stat = stat(trait_param("Gamer"), "Sanity") })
+	end
+	if obj:IsOneOfInterests("interestSocial") then
+		trait_line(lines, "Extrovert", "<stat> per visit", { stat = stat(trait_param("Extrovert"), "Sanity") })
+	end
+	if IsKindOf(obj, "CasinoComplexBase") then
+		trait_line(lines, "Gambler", "<stat> per visit, 50% chance", { stat = stat(-trait_param("Gambler"), "Sanity") })
+	end
+	if IsKindOf(obj, "FitService") then
+		trait_line(lines, "Fit", "<param>% chance to gain, per visit")
+	end
+	if obj:GetServiceCategory() == "GardenStone" then
+		trait_line(lines, "Hippie", "<stat> living in this Dome", { stat = stat(trait_param("Hippie"), "Comfort") })
+	end
+	if IsKindOf(obj, "PlaygroundBase") then
+		local consts = rawget(_G, "g_Consts")
+		local chance = type(consts) == "table" and consts.positive_playground_chance
+		if chance then
+			trait_line(lines, "Child", "<chance>% chance of a Perk when grown", { chance = chance })
+		else
+			trait_line(lines, "Child", "a Perk when grown")
+		end
+	end
+	if IsKindOf(obj, "FoodServiceBuilding") then
+		trait_line(lines, "Glutton", "eats a double portion")
+		trait_line(lines, "Vegan", "eats vegan delicacies only")
+	end
+	return lines
+end
+
+local function popout_text(obj)
+	local lines = {}
+	if (obj.description or "") ~= "" then
+		lines[#lines + 1] = T{obj.description, obj}
+		lines[#lines + 1] = ""
+	end
+	local cat = obj:GetServiceCategory()
+	if cat then
+		lines[#lines + 1] = untranslated("Service<right><em><category></em>",
+			{ category = GetServiceCategoryDisplayName(cat) })
+	end
+	local filter_name = ColonistFilterDisplayName[obj.filter_visitors or ""]
+	if filter_name then
+		lines[#lines + 1] = untranslated("Visitors<right><filter>", { filter = filter_name })
+	end
+	lines[#lines + 1] = untranslated("Colonists come here when their daily interest is one of these.")
+	local traits = trait_lines(obj)
+	if #traits > 0 then
+		lines[#lines + 1] = ""
+		lines[#lines + 1] = untranslated("<em>Traits</em>")
+		for _, line in ipairs(traits) do
+			lines[#lines + 1] = line
+		end
+	end
+	return TList(lines, "<newline><left>")
+end
+
+local function refresh_section(section, obj)
+	local list = interests_text(obj)
+	section:SetVisible(list and true or false)
+	local body = rawget(section, "idSMROptInInterestsBody")
+	if body then
+		body:SetText(list or "")
+	end
+	local ok, text = pcall(popout_text, obj)
+	section:SetRolloverText(ok and text or "")
+end
+
+-- host = ipBuilding's content window; the new section is appended after the
+-- service section that is being initialised.
+local function add_section(host, context)
+	local section = InfopanelSection:new({
+		Title = untranslated("Interests"),
+		Icon = "UI/IconsRemaster/Sections/traits.png",
 		OnContextUpdate = function(self, context)
-			self:SetText(interests_line(context) or "")
+			refresh_section(self, context)
 		end,
-	}, parent, context)
+	}, host, context)
+	rawset(section, "idSMROptInInterestsBody", InfopanelText:new({}, section.idContent, context))
+	refresh_section(section, context)
 end
 
 -- Hooks, at FILE SCOPE (FIX_POLICY §5), each behind the existence check apply()
@@ -177,7 +307,7 @@ do
 		function SV:Init(parent, context, ...)
 			local r = orig(self, parent, context, ...)
 			if module_active() and IsKindOf(context, "ServiceBase") then
-				pcall(add_row, self.idContent, context)
+				pcall(add_section, self.parent or parent, context)
 			end
 			return r
 		end
@@ -190,14 +320,7 @@ do
 			local r = orig(self, parent, context, ...)
 			if module_active() and IsKindOf(context, "ServiceBase")
 					and context.same_category_as == "Ignore" then
-				pcall(function()
-					for i = #self, 1, -1 do
-						if IsKindOf(self[i], "InfopanelSection") then
-							add_row(self[i].idContent, context)
-							return
-						end
-					end
-				end)
+				pcall(add_section, self.parent or parent, context)
 			end
 			return r
 		end
@@ -224,6 +347,11 @@ SMROptInPack.Register(FIX_ID, {
 			{ global = "ServiceInterestsList", kind = "table" },
 			{ global = "GetInterestDisplayName" },
 			{ global = "TList" },
+			{ class = "InfopanelSection" },
+			{ class = "InfopanelText" },
+			{ global = "ColonistStat", kind = "table" },
+			{ global = "ColonistFilterDisplayName", kind = "table" },
+			{ global = "GetServiceCategoryDisplayName" },
 		})
 		if err then return err end
 	end,
