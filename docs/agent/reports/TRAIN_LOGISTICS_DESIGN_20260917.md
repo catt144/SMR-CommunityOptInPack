@@ -889,7 +889,13 @@ the vanilla boosts were listed: Faster Trains 70→100%, Vacuum Rail +50%, Train
 network but add it onto … the 2nd more expensive upgrade"*). While it is on, trains take no cold
 penalty (vanilla: ×1/3 at heat ≤ 90, ×2/3 with Safe Transport, `Units/Train.lua:602-604` by
 lookup). Scope as the upgrade's cargo and speed, every train in the colony, unless the owner
-narrows it. It rides the existing `GetNominalMoveSpeed` chain; no new modifier slot. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
+narrows it. It rides the existing `GetNominalMoveSpeed` chain; no new modifier slot.
+⚖️ **Owner, 2026-09-28 (same day, before its sitting): the warm upgrade also heats the ground
+around the hub** (*"the warm upgrade should give the hub itself a large radius, lets say whatever
+the drones range is for the hub I think 20?"*). While Train Cargo is on, the hub warms the area
+within **its own drone service range** (the owner's recollection is 20; the build reads the real
+value) in a cold wave, as a Subsurface Heater does, so drones, rovers, buildings and trains near
+the hub keep warm. No upkeep beyond the hub's own was stated. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
 colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
 salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
 re-buyable, no tech.
