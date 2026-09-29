@@ -86,6 +86,10 @@ References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skill `doc-e
    penalty that step 1 predicts it shows. The step-1 train-speed check needs a reader that
    reports the effective speed, and a TestKit fix for that goes in the fix brief.
 
+3. **Owner, by eye, during the cold wave (2026-09-28): the trains look right.** The second flush
+   of the same log has no console read. Its only heat read is still the pre-cold one at line 344,
+   so the ≤ 90 cold heat and the 75 on the hub without Power remain unmeasured.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when

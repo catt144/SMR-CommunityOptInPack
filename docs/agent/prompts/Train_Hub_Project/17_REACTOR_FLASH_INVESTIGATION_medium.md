@@ -57,6 +57,12 @@ claim to the owner's check.
 References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skills `doc-editing`,
 `smr-bug-library`.
 
+## Sitting (2026-09-28, log `Mars.exe-20260928-22.20.16-6aad2d75.log`)
+
+Slot 2 armed on a `FusionReactor` with `dust=255` for 2000 ms and restored `dust=0` (lines
+3330 to 3342). Owner: *"slot 2 is also correct, that's the exact look I think."* The game-speed
+change watch has not been reported. The brief is kept until the owner accepts without "I think".
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it, with its README row, once the owner accepts the fix or the
