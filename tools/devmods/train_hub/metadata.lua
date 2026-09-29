@@ -4,7 +4,7 @@ return PlaceObj('ModDef', {
 	'short_description', "DEV ONLY: six-connector train hub with its own drones and a maintenance reserve.",
 	'id', "SMR_TrainHubDev_20260918",
 	'author', "catt144",
-	'version', 56,
+	'version', 57,
 	'lua_revision', 350453,
 	'saved_with_revision', 405907,
 	'optional_mod', true,
@@ -25,8 +25,8 @@ return PlaceObj('ModDef', {
 		"Code/_EntityData.generated.lua",
 	},
 	'has_data', true,
-	'saved', 1790642900,
-	'code_hash', -8007533369939007252,
+	'saved', 1790648330,
+	'code_hash', -6234347207917490349,
 	'affected_resources', {
 		PlaceObj('ModResourcePreset', {
 			'Class', "BuildingTemplate",

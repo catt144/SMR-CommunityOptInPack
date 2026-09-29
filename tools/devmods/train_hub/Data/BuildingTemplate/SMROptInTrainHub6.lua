@@ -42,15 +42,12 @@ PlaceObj('ModItemBuildingTemplate', {
 	'upgrade2_upgrade_cost_Metals', 40000,
 	'upgrade2_upgrade_cost_Polymers', 20000,
 	'upgrade3_id', "SMROptInTrainHub6_Power",
-	'upgrade3_display_name', Untranslated("Power Upgrade"),
-	'upgrade3_description', Untranslated("Raises this hub's power production from 75 to 150 and heats the ground within its drone range. Trains throughout the colony take no cold penalty while any hub has this upgrade on. Each hub can buy its own. Build with 30 Metals and 20 Electronics from a depot within drone reach; the hub's own storage cannot supply its upgrade."),
-	'upgrade3_icon', "UI/IconsRemaster/Upgrades/amplify_01.png",
-	'upgrade3_mod_target_1', "self",
+	'upgrade3_display_name', T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade3_display_name]] "Power Upgrade"),
+	'upgrade3_description', T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade3_description]] "Raises this hub's power production from 75 to 150 and heats the ground within its drone range. Trains throughout the colony take no cold penalty while any hub has this upgrade on. Each hub can buy its own. Build with 30 Metals and 20 Electronics from a depot within drone reach; the hub's own storage cannot supply its upgrade."),
 	'upgrade3_mod_prop_id_1', "electricity_production",
 	'upgrade3_add_value_1', 75000,
 	'upgrade3_upgrade_cost_Metals', 30000,
 	'upgrade3_upgrade_cost_Electronics', 20000,
-	'electricity_production', 75000,
 	'use_demolished_state', true,
 	'can_refab', false,
 	'maintenance_resource_type', "Electronics",
@@ -74,3 +71,4 @@ PlaceObj('ModItemBuildingTemplate', {
 	'desired_amount', 10000,
 	'max_storage_per_resource', 240000,
 })
+
