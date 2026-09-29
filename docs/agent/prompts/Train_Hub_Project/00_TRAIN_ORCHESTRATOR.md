@@ -2,7 +2,8 @@
 
 > ⛔ **PURGE WHEN THE TRAINS PROJECT IS COMPLETE AND TESTED** (owner, 2026-09-18). Complete
 > means every train module the owner keeps is built and has passed its ship test (`FIX_POLICY`
-> §8: both configurations, both toggle directions), or the owner has parked or killed the rest.
+> §8: both configurations, both toggle directions), or the owner has parked or killed the rest, and the rail shaft's F vs G is ruled with any module
+> it gets briefed or shipped.
 > Then delete the whole `Train_Hub_Project/` folder and its row in `docs/agent/prompts/README.md`
 > in one commit.
 
@@ -15,7 +16,10 @@ The owner, 2026-09-18: this session is the project's **orchestrator**. Build wor
 agents through briefs; the orchestrator holds the big picture. The trains are Module A
 (per-resource station import/export) and Module B (the train hub). The owner, 2026-09-28: a simple
 change the owner asks for, the orchestrator may make itself or give to a subagent; **a big change
-is delegated to another agent through a brief.**
+is delegated to another agent through a brief.** The owner, 2026-09-29: **the rail shaft project
+is the orchestrator's too**, since it touches the hub; its live handoff is this folder's
+`RAIL_SHAFT_PROTOTYPE_high.md`. Plan hub and shaft together: check each brief on either side
+against the other before it fires.
 
 ## Read first
 
@@ -56,9 +60,10 @@ is delegated to another agent through a brief.**
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
      trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
      **Next, in order:**
-     1. **Brief `22` (hub storage fixes)**, fired by the owner. Check its handback once, have the
+     1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
         owner do the Mod Editor save for slot 4 (`cargo_upgrade_smoke.py --require-generated`),
-        then run its sitting.
+        then run its sitting. Then brief `23` (OI-27's drone map guard), fired by the owner.
+        Hub sittings run with `SMR_RailShaftDev` disabled (rail handoff work list item 1).
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout

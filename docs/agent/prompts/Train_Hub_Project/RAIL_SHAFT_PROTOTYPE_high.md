@@ -49,7 +49,7 @@ Evidence and citations: `reports/RAIL_SHAFT_PROTOTYPE.md` §5 (sitting), §7 (bi
 1. **Owner, now:** disable `SMR_RailShaftDev` for hub sessions. Safe for every save loaded since
    09-24 (none held a shaft). The one exception is the shaft save: `Unlink()` it first, or it
    keeps a cross-map `linked_obj` with no guards.
-2. **Hub build:** implement OI-27 at `SMROptInTrainHubBase:HubTrackGraph` and `F.Route` so repair
+2. **Hub build, briefed as `23_OI27_DRONE_MAP_GUARD_high.md`:** implement OI-27 at `SMROptInTrainHubBase:HubTrackGraph` and `F.Route` so repair
    drones never take work, a target or a flight leg across a cross-map `linked_obj`. Control per
    `bugs/D14.md` (b): the shaft fixture beside the same-map tunnel case.
 3. **Owner call, when the hub sitting makes it takeable:** does a surface hub's membership and
