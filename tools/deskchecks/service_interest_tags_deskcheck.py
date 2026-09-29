@@ -442,6 +442,97 @@ live = lua.eval('''(function()
 end)()''')
 check(live == ('Medical Checks', 'Relaxation, Medical Checks'), 'live context update: %r' % (live,))
 
+
+# Conditional lines (owner, 2026-09-29): the norman DLC's data, then the Food Tours law.
+# Everything above ran without either, so their lines were already proven absent.
+def traits_of(popout):
+    pop = popout.split('<newline><left>')
+    if '<em>Traits</em>' not in pop:
+        return [], pop
+    rest = pop[pop.index('<em>Traits</em>') + 1:]
+    return [l.split('<right>')[0] for l in rest], rest
+
+
+lua.execute(r'''
+StatsImpacts = {}
+function PlaceObj(class, t)
+  if type(t[1]) == "string" then          -- array-style key/value pairs
+    local kv = {}
+    for i = 1, #t, 2 do kv[t[i]] = t[i + 1] end
+    t = kv
+  end
+  if class == "TraitPreset" then TraitPresets[t.id] = t end
+  if class:find("^StatsImpact") and t.id then StatsImpacts[t.id] = t end
+  if class == "LawDef" then LoadedLaws = LoadedLaws or {} LoadedLaws[t.id] = t end
+  LoadedTemplate = t
+  return t
+end
+DefineClassNamed("BaristaCafe", { __parents = { "ServiceWorkplace" } })
+''')
+for rel in ('DLC/norman/Presets/TraitPreset.lua', 'DLC/norman/Presets/StatsImpact.lua'):
+    lua.execute((SRC / rel).read_text(encoding='utf8'))
+    receipts.append('%s  (data, norman DLC)' % rel)
+for tid in ('CoffeeVendingMachine', 'BaristaCafe'):
+    rel = 'DLC/norman/Presets/BuildingTemplate/%s.lua' % tid
+    lua.execute((SRC / rel).read_text(encoding='utf8'))
+    receipts.append('%s  (data, norman DLC)' % rel)
+    lua.eval('MakeTemplate')(g.LoadedTemplate)
+rel = 'DLC/norman/Presets/LawDef/LawDef-Food.lua'
+lua.execute((SRC / rel).read_text(encoding='utf8'))
+receipts.append('%s  (data, norman DLC)' % rel)
+
+conditional = {}
+for label, law_on in (('dlc', False), ('dlc+law', True), ('dlc+law-off', False)):
+    lua.execute('ActiveLaws = %s' % ('{ Policy_FoodTours = LoadedLaws.Policy_FoodTours }' if law_on else '{}'))
+    conditional[label] = {tid: lua.eval('Surfaces')(tid)['popout']
+                          for tid in ('Diner', 'ShopsFood', 'MegaMall', 'BaristaCafe', 'ShopsElectronics')}
+
+want = {
+    'dlc': {
+        'Diner': ['Party Animal', 'Glutton', 'Vegan', 'Foodie'],
+        'ShopsFood': ['Glutton', 'Vegan', 'Foodie'],
+        'MegaMall': ['Gamer', 'Party Animal', 'Glutton', 'Vegan', 'Foodie'],
+        'BaristaCafe': ['Party Animal', 'Coffee Enthusiast'],
+        'ShopsElectronics': ['Gamer'],
+    },
+}
+want['dlc+law'] = {k: v + ['Tourist'] if k in ('Diner', 'ShopsFood', 'MegaMall') else v
+                   for k, v in want['dlc'].items()}
+want['dlc+law-off'] = want['dlc']
+for label, per in want.items():
+    for tid, names in per.items():
+        got, lines = traits_of(conditional[label][tid])
+        check(got == names, '%s %s traits %r, want %r' % (label, tid, got, names))
+        for l in lines:
+            if l.startswith('Foodie<right>'):
+                check('+5' in l and 'delicacies' in l, '%s %s Foodie line %r' % (label, tid, l))
+            if l.startswith('Coffee Enthusiast<right>'):
+                check('+10' in l and '-10 without' in l and 'Coffee' in l, '%s %s Coffee line %r' % (label, tid, l))
+            if l.startswith('Tourist<right>'):
+                check('+10' in l and '3x' in l and 'Food Tours' in l, '%s %s Tourist line %r' % (label, tid, l))
+
+# the law line follows the law live under one open panel
+live_law = lua.eval('''(function()
+  ActiveLaws = {}
+  local obj = Placed("Diner")
+  local content = {}
+  sectionFoodService:new(nil, content, obj)
+  local sec = content[#content]
+  local function has() return (sec.RolloverText or ""):find("Tourist<right>", 1, true) ~= nil end
+  local before = has()
+  ActiveLaws = { Policy_FoodTours = LoadedLaws.Policy_FoodTours }
+  sec:OnContextUpdate(obj)
+  local enacted = has()
+  ActiveLaws = {}
+  sec:OnContextUpdate(obj)
+  return before, enacted, has()
+end)()''')
+check(live_law == (False, True, False), 'live law toggle (before, enacted, repealed): %r' % (live_law,))
+if SHOW:
+    for label in conditional:
+        for tid in ('Diner', 'BaristaCafe'):
+            print('  [%s %s] %s' % (label, tid, ' | '.join(traits_of(conditional[label][tid])[1])))
+
 print('Desk check: Opt_ServiceInterestTags (D15), vanilla code and data from %s' % BUILD)
 print('Ran, from the archived tree:')
 for r in receipts:
@@ -463,4 +554,5 @@ if failures:
     sys.exit(1)
 print('PASS: %d buildings x 4 passes (vanilla / off / on / off-again): build-menu hover, '
       'Encyclopedia, placed description, vanilla section rows, the Interests section '
-      '(place, body, popout), plus the live Rejuvenation update' % n_cases)
+      '(place, body, popout), the live Rejuvenation update, and the conditional lines '
+      '(norman DLC data loaded; Food Tours law on, off, and toggled live)' % n_cases)

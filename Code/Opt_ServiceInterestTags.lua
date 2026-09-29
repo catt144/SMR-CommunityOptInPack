@@ -94,10 +94,16 @@
 --   Child      PlaygroundBase           Perk when grown          Buildings/Playground.lua:5-7
 --   Glutton    FoodServiceBuilding      double portion           Units/Colonist.lua:4925-4927
 --   Vegan      FoodServiceBuilding      vegan delicacies only    Buildings/FoodServiceBuilding.lua:517-522
--- Numbers come from TraitPresets[id].param and g_Consts at call time, so a
--- balance patch shows through. Hard-coded in vanilla and so here: Gambler's 50%.
--- Left out: DLC and law effects (Foodie, Coffee Enthusiast, Food Tours) and the
--- mystery-only Infected cure.
+-- Conditional (owner, 2026-09-29), each shown only while its condition holds:
+--   Foodie      FoodServiceBuilding, norman DLC data   +Comfort with delicacies
+--               DLC/norman/Presets/TraitPreset.lua:51-58 (parameter Comfort)
+--   CoffeeEnth. consumes Coffee (norman DLC buildings) +/-Comfort at rest
+--               DLC/norman/Presets/StatsImpact.lua:40-55 (StatsImpacts, Comfort)
+--   Tourist     FoodServiceBuilding, WHILE the Food Tours law is active
+--               ActiveLaws.Policy_FoodTours, Units/Colonist.lua:2702-2705, :4931-4933
+-- Numbers come from TraitPresets[id].param, preset parameters and g_Consts at
+-- call time, so a balance patch shows through. Hard-coded in vanilla and so
+-- here: Gambler's 50%. Left out (owner): the mystery-only Infected cure.
 --
 -- Not covered: Ignore-category services that are not food services (the
 -- Fireflies mystery's Wisp Lamps) — neither hooked section exists for them.
@@ -195,6 +201,16 @@ local function trait_line(lines, id, effect_text, params)
 	lines[#lines + 1] = untranslated("<name><right>" .. effect_text, params)
 end
 
+-- a preset's named parameter (CommonLua/Preset.lua:544-552)
+local function preset_param(preset, key)
+	if type(preset.GetParameterValue) == "function" then
+		return preset:GetParameterValue(key)
+	end
+	for _, param in ipairs(preset.Parameters or {}) do
+		if param.Name == key then return param.Value end
+	end
+end
+
 local function trait_param(id)
 	local trait = TraitPresets[id]
 	return trait and trait.param or 0
@@ -229,6 +245,41 @@ local function trait_lines(obj)
 	if IsKindOf(obj, "FoodServiceBuilding") then
 		trait_line(lines, "Glutton", "eats a double portion")
 		trait_line(lines, "Vegan", "eats vegan delicacies only")
+	end
+	-- Conditional lines (owner, 2026-09-29): each shows only while its condition
+	-- holds; the popout is rebuilt on every context update, so they come and go live.
+	-- Stat presets store scaled values; `//` keeps them integers in the game's Lua
+	-- and in a standard one alike (EF-116).
+	local scale = const.Scale.Stat
+	if IsKindOf(obj, "FoodServiceBuilding") then
+		-- norman DLC trait: present only when the DLC's data is loaded
+		local comfort = TraitPresets.Foodie and preset_param(TraitPresets.Foodie, "Comfort")
+		if comfort then
+			trait_line(lines, "Foodie", "<stat> when served delicacies",
+				{ stat = stat(comfort // scale, "Comfort") })
+		end
+		-- the law, only while it is active: the game's own test (Units/Colonist.lua:2702)
+		local laws = rawget(_G, "ActiveLaws")
+		local law = type(laws) == "table" and laws.Policy_FoodTours
+		if law then
+			trait_line(lines, "Tourist", "<stat> per meal, eats <meals>x (<law>)", {
+				stat = stat(preset_param(law, "MoraleIncrease") or 0, "Morale"),
+				meals = preset_param(law, "MealsMultiplier") or 1,
+				law = law.display_name,
+			})
+		end
+	end
+	-- norman DLC: only its buildings consume Coffee (Buildings/Dome.lua:2109-2117)
+	if obj.consumption_resource_type == "Coffee" then
+		local impacts = rawget(_G, "StatsImpacts")
+		local impact = type(impacts) == "table" and impacts.CoffeeEnthusiast
+		if impact and impact.Comfort then
+			-- a swing: +Comfort with a stocked Coffee service in the Dome, -Comfort without (:43-44)
+			trait_line(lines, "CoffeeEnthusiast", "<stat> living in this Dome with Coffee, <minus> without", {
+				stat = stat(impact.Comfort // scale, "Comfort"),
+				minus = stat(-(impact.Comfort // scale), "Comfort"),
+			})
+		end
 	end
 	return lines
 end
