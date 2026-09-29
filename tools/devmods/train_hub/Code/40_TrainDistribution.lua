@@ -34,6 +34,8 @@ D.Require = {
 	{ "Station", "GetResDesiredAmount" }, { "Station", "SetAcceptResourceState" },
 	{ "Station", "BuildingUpdate" },
 	{ "MultiResourceCubeVisuals", "GetMaxStorage" },
+	{ "MultiResourceCubeVisuals", "SetCount" },
+	{ "MultiResourceDepotBase", "SetCount" },
 	{ "MultiResourceCubeVisuals", "GetMaxStorageForAnyOneResource" },
 	{ "MultiResourceDepotBase", "GetMaxStorage" },
 	{ "MultiResourceDepotBase", "GetMaxStorageForAnyOneResource" },
@@ -186,9 +188,26 @@ function MultiResourceDepotBase:IsResourceEnabled(res)
 	return enabled(self, res)
 end
 
+-- Drawing is synchronous inside TransferCargo's allocation view. Give only
+-- that receiver physical capacity while vanilla draws; keep allocation intact.
+local drawing = setmetatable({}, { __mode = "k" })
+local function draw_wrapper(previous)
+	return function(self, ...)
+		if not (view and view[self]) or is_hub(self) then return previous(self, ...) end
+		local before = drawing[self]
+		drawing[self] = true
+		local result = table.pack(pcall(previous, self, ...))
+		drawing[self] = before
+		if not result[1] then error(result[2], 0) end
+		return table.unpack(result, 2, result.n)
+	end
+end
+MultiResourceCubeVisuals.SetCount = draw_wrapper(MultiResourceCubeVisuals.SetCount)
+MultiResourceDepotBase.SetCount = draw_wrapper(MultiResourceDepotBase.SetCount)
+
 local function capacity_wrapper(previous)
 	return function(self, res, ...)
-		local row = view and view[self] and view[self][res]
+		local row = not drawing[self] and view and view[self] and view[self][res]
 		if row and row.capacity then return row.capacity end
 		return previous(self, res, ...)
 	end

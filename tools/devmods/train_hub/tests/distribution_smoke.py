@@ -149,11 +149,13 @@ function checked_transfer(t)
 end
 ''')
     source_parts(lua, "Buildings/MultiResourceCubeVisuals.lua", [
+        ("function MultiResourceCubeVisuals:SetCount(", "function MultiResourceCubeVisuals:SetCountSharedPool("),
         ("function MultiResourceCubeVisuals:GetMaxStorage(", "MultiResourceCubeVisuals.AddDepotResource ="),
         ("function MultiResourceCubeVisuals:RegisterResourceRequest(", "function MultiResourceCubeVisuals:FinalizePendingRemoval("),
     ])
     lua.execute('''
 MultiResourceDepotBase.GetMaxStorage=MultiResourceCubeVisuals.GetMaxStorage
+MultiResourceDepotBase.SetCount=MultiResourceCubeVisuals.SetCount
 MultiResourceDepotBase.GetMaxStorageForAnyOneResource=MultiResourceCubeVisuals.GetMaxStorageForAnyOneResource
 MultiResourceDepotBase.RegisterResourceRequest=MultiResourceCubeVisuals.RegisterResourceRequest
 ''')
