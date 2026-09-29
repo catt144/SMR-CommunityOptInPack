@@ -1,0 +1,25 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_heater_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_heater_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+source_sha256: a9c793a25cc300a07c0954517463d224e0c5b24d66cbea1e54fe75b85028eec0
+PASS Power: colony 75/150, shared controls, later hub, heat, cold immunity, salvage persistence, load, zero hubs
+PASS mutation rejected: no heat
+PASS mutation rejected: wrong range
+PASS mutation rejected: heat gated on Cargo
+PASS mutation rejected: warm network
+PASS mutation rejected: heat restore
+PASS mutation rejected: base output
+PASS mutation rejected: production notification
+PASS mutation rejected: power output
+PASS mutation rejected: per-hub display
+PASS mutation rejected: receiver switch refused
+PASS mutation rejected: raw display
+PASS mutation rejected: later hub heat
+PASS mutation rejected: salvage persistence
+PASS mutation rejected: zero hubs persistence
+PASS mutation rejected: power unlock
+PASS mutation rejected: saved-base migration
+PASS mutation rejected: saved-base scope
+PASS mutation rejected: Power output addition

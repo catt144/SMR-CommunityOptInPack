@@ -19,7 +19,7 @@ DATA = HERE.parent / 'Data/BuildingTemplate/SMROptInTrainHub6.lua'
 harness = (HERE / 'capacity_smoke.py').read_text(encoding='utf8')
 prefix, rest = harness.split("lua.execute(r'''\nlocal ID =", 1)
 fixture = 'local ID =' + rest.split('-- 1. Unlocked from the start', 1)[0]
-fields = dict(re.findall(r"^\t'(upgrade[123]_\w+|electricity_production)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
+fields = dict(re.findall(r"^\t'(upgrade[1234]_\w+|electricity_production|max_storage_per_resource)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
 # Mod Editor may omit values equal to the property's default. Compare effective fields:
 # self is UpgradableBuilding's default target; output inherits the hub's class value.
 class_power = re.search(r'^\telectricity_production = (\d+),$', SOURCE.read_text(encoding='utf8'), re.M)[1]
@@ -35,17 +35,21 @@ expected = {
     'upgrade3_add_value_1': '75000',
     'upgrade3_upgrade_cost_Metals': '30000', 'upgrade3_upgrade_cost_Electronics': '20000',
     'electricity_production': '75000',
+    'max_storage_per_resource': '1000000',
+    'upgrade4_id': '"SMROptInTrainHub6_StorageHub"',
+    'upgrade4_upgrade_cost_Metals': '60000',
+    'upgrade4_upgrade_cost_MachineParts': '30000',
 }
 for key, value in expected.items():
     assert fields.get(key) == value, (key, fields.get(key), value)
 assert not any('mod_prop_id' in k and k.startswith(('upgrade2_', 'upgrade3_')) and k not in ('upgrade2_mod_prop_id_1', 'upgrade3_mod_prop_id_1') for k in fields)
 assert not any('require' in k or 'unlock' in k for k in fields), 'no tech requirement'
-generated = dict(re.findall(r'^\t(upgrade[123]_\w+|electricity_production) = (.*),$',
+generated = dict(re.findall(r'^\t(upgrade[1234]_\w+|electricity_production|max_storage_per_resource) = (.*),$',
     (HERE.parent / 'Code/BuildingTemplate/SMROptInTrainHub6.generated.lua').read_text(encoding='utf8'), re.M))
 generated = defaults | generated
 assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
 assert '75 to 150' in fields['upgrade3_description']
-for tier in range(1,4):
+for tier in range(1,5):
     desc=fields[f'upgrade{tier}_description']
     assert 'hub can switch' in desc and 'salvage does not change it' in desc, (tier, desc)
 generated_current = generated == fields
@@ -176,7 +180,7 @@ def main():
         'animation multiplier': ('MulDivRound(result[2], 125, 100)', 'MulDivRound(result[2], 100, 100)'),
         'cargo must not warm': ('power_warm_on(self)', 'cargo_speed_on(self)'),
         'receiver switch': ('entry.on = not entry.on', 'if not SelectedObj or self == SelectedObj then return end'),
-        'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
+        'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade or id == hub_storage_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
         'global display': ('return colony_upgrade_on(self.city.colony, id)', 'return false'),
         'cargo salvage': ('if IsKindOf(bld, "SMROptInTrainHubBase") then sync_colony_upgrades(bld.city and bld.city.colony) end', 'if IsKindOf(bld, "SMROptInTrainHubBase") then bld.city.colony.SMROptIn_hub_upgrades[hub_cargo_upgrade].on = false; sync_colony_upgrades(bld.city.colony) end'),
     }
@@ -191,8 +195,8 @@ def main():
             print('PASS mutation rejected:', name)
         else:
             raise AssertionError('mutation survived: ' + name)
-    print('Generated upgrade slots 1/2/3 and base power match source' if generated_current else
-          'OWNER STEP OWED: Mod Editor save for all three global-upgrade descriptions; code_hash remains editor-owned')
+    print('Generated upgrade slots 1/2/3/4, base storage and power match source' if generated_current else
+          'OWNER STEP OWED: Mod Editor save for slot 4 and base storage; code_hash remains editor-owned')
 
 
 if __name__ == '__main__':

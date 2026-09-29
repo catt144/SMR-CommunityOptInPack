@@ -1,0 +1,14 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\station_visuals_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] hub settings and transient train allocation loaded
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] hub settings and transient train allocation loaded
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] hub settings and transient train allocation loaded
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\station_visuals_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+PASS normal station: export leaves 60.4/120, vanilla draws 60 cubes; foreign delegation
+PASS mutation rejected: allocation capacity leaked into station drawing
+PASS mutation rejected: saved empty station display not repaired

@@ -113,7 +113,7 @@ function table.get(t, k) return t and t[k] end
 g_Classes = {}
 
 -- A label container with vanilla's modifier arithmetic (Modifiers.lua, Modifiable comment :20-26).
-local function recompute(obj, prop)
+function recompute(obj, prop)
   local p, a = 0, 0
   for _, m in ipairs(obj.mods[prop] or empty_table) do p = p + m.percent; a = a + m.amount end
   local old = obj[prop]
@@ -168,6 +168,10 @@ lua.execute(r'''
 for k, v in pairs(UpgradableBuilding) do if Building[k] == nil then Building[k] = v end end
 for k, v in pairs(MultiResourceDepotBase) do if Building[k] == nil then Building[k] = v end end
 function Building:GetPropertyMetadata() return nil end
+function Building:SetBase(prop,value)
+  self['base_'..prop]=value; self.base[prop]=value
+  recompute(self,prop)
+end
 function Building:CreateUpgradeUpkeepObject() end
 function Building:UpdateWorking() end
 function Building:StartUpgradeConstruction(id)
@@ -209,7 +213,8 @@ local function depot(cls, handle, cap, labels, extra)
   return o
 end
 local function hub(handle, x)
-  local h = depot(SMROptInTrainHubBase, handle, 240000, { "Station" }, {
+  local h = depot(SMROptInTrainHubBase, handle, 1000000, { "Station" }, {
+    base_max_storage_per_resource = 1000000, base_electricity_consumption = 10000, electricity_consumption = 10000,
     has_visual_cubes = true, upgrade1_id = ID, upgrade1_can_disable = true,
     upgrade1_upgrade_cost_Metals = 20000, upgrade1_upgrade_cost_Concrete = 20000 })
   h.kinds = { SMROptInTrainHubBase = true }
@@ -260,7 +265,7 @@ assert(not B:IsUpgradeBeingConstructed(ID),'cancelled construction claim')
 A:ApplyUpgrade(1)
 assert(count_mods()==3 and UIColony.label_modifiers.Station['201_upgrade1_mod_1'],'vanilla modifier id retained on colony')
 assert(small.max_storage_per_resource==120000 and big.max_storage_per_resource==240000)
-assert(A.max_storage_per_resource==480000 and B.max_storage_per_resource==480000)
+assert(A.max_storage_per_resource==2000000 and B.max_storage_per_resource==2000000)
 assert(T1.max_shared_storage==84000 and T1.max_colonists_to_transport==24)
 assert(small.demand.Metals.amount==20000 and small.desire_slider_max==120,'native request resize')
 assert(math.floor(A.max_z)==math.floor(maxz0),'cargo visual cap unchanged')
@@ -279,7 +284,7 @@ A.destroyed=true; OnMsg.BuildingDemolished(A); A:StopUpgradeModifiers()
 remove(city.labels.Station,A); A.deleted=true
 assert(count_mods()==3 and T1.max_shared_storage==84000,'buyer salvage and clear preserve effects')
 local later=hub(203); local T2=train(302)
-assert(later:IsUpgradeOn(ID) and later:CanDisableUpgrade(ID) and later.max_storage_per_resource==480000,'later hub inherits')
+assert(later:IsUpgradeOn(ID) and later:CanDisableUpgrade(ID) and later.max_storage_per_resource==2000000,'later hub inherits')
 assert(T2.max_shared_storage==84000 and T2.max_colonists_to_transport==24,'later train inherits')
 B:ToggleUpgradeOnOff(ID)
 for _,h in ipairs({B,later}) do h:StopUpgradeModifiers(); remove(city.labels.Station,h); h.deleted=true end

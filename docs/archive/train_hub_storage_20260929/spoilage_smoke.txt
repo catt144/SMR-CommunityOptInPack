@@ -1,0 +1,8 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\spoilage_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\spoilage_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+CONTROL vanilla: depot, station and hub each lose 4% of Food and Butter a sol; Metals keeps
+PASS stations keep Food and delicacies over three sols; hub and ordinary depots still spoil
+NOT TESTED: the engine's class build, the combined-method dispatch and a live sol

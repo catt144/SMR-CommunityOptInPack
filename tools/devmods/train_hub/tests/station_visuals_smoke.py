@@ -22,6 +22,9 @@ checked_transfer(t)
 assert(stock(s)==60400 and t.stockpiled_amount.Metals==10000,'transfer unchanged')
 assert(#s.visual_cubes.Metals==60,'station at 60.4/120 lost cargo cubes')
 assert(s:GetMaxStorage('Metals')==120000,'physical capacity outside transfer')
+s.has_visual_cubes=true; s.visual_cubes.Metals={}
+OnMsg.LoadGame()
+assert(stock(s)==60400 and #s.visual_cubes.Metals==60,'station saved empty display repaired on load')
 -- Unmanaged stations delegate, including their original return shape.
 local foreign=station(7,60)
 install_visuals(foreign);setmetatable(foreign,{__index=Station})
@@ -52,5 +55,14 @@ def main():
         print('PASS mutation rejected: allocation capacity leaked into station drawing')
     else:
         raise AssertionError('station display mutation survived')
+    old='station:UpdateVisualCount(resource)'
+    assert code.count(old)==1
+    try:
+        run(code.replace(old,'-- omit saved display repair'))
+    except LuaError as exc:
+        assert 'station saved empty display repaired on load' in str(exc),str(exc)
+        print('PASS mutation rejected: saved empty station display not repaired')
+    else:
+        raise AssertionError('saved station display mutation survived')
 
 if __name__=='__main__': main()

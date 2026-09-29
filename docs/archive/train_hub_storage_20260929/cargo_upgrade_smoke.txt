@@ -1,0 +1,19 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_upgrade_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_upgrade_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+source_sha256: a9c793a25cc300a07c0954517463d224e0c5b24d66cbea1e54fe75b85028eec0
+template_source_sha256: aa306ef65eeb757695337ac13cfa4c2a7eba1516cd26d3b3b3fe18679c1b962d
+PASS cargo: additive 126000; with +50% cargo tech 147000; passengers/stations unchanged by cargo
+PASS independent claims, construction/cancel, shared display/toggle, salvage/clear persistence, future hubs, load
+PASS chained speed and animation, extra returns, tech/law, foreign city
+PASS cargo alone: vanilla cold penalty retained with and without Safe Transport and tech
+PASS mutation rejected: speed multiplier
+PASS mutation rejected: animation multiplier
+PASS mutation rejected: cargo must not warm
+PASS mutation rejected: receiver switch
+PASS mutation rejected: cargo ownership
+PASS mutation rejected: global display
+PASS mutation rejected: cargo salvage
+OWNER STEP OWED: Mod Editor save for slot 4 and base storage; code_hash remains editor-owned

@@ -1,0 +1,19 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\storage_upgrade_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\storage_upgrade_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+PASS storage 1000/2000/4000, +19 grid consumption and off, slot 4 and costs, station/train scope
+PASS legacy 240/480 stock and requests, shared controls, future on/off, salvage, zero hubs, repeated load
+PASS mutation rejected: base
+PASS mutation rejected: doubling
+PASS mutation rejected: power on
+PASS mutation rejected: power off
+PASS mutation rejected: migration
+PASS mutation rejected: stock retention
+PASS mutation rejected: shared state
+PASS mutation rejected: future
+PASS mutation rejected: salvage
+PASS mutation rejected: station scope
+PASS mutation rejected: Metals cost
+PASS mutation rejected: Machine Parts cost

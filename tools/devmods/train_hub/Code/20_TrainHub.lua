@@ -3521,8 +3521,10 @@ local hub_cargo_upgrade = "SMROptInTrainHub6_TrainCargo" -- save contract, FIX_P
 SMROptInTrainHubBase.hub_cargo_upgrade = hub_cargo_upgrade
 local hub_power_upgrade = "SMROptInTrainHub6_Power" -- save contract, FIX_POLICY inventory
 SMROptInTrainHubBase.hub_power_upgrade = hub_power_upgrade
-local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }
-local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end
+local hub_storage_upgrade = "SMROptInTrainHub6_StorageHub" -- save contract, FIX_POLICY inventory
+SMROptInTrainHubBase.hub_storage_upgrade = hub_storage_upgrade
+local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade, hub_storage_upgrade }
+local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade or id == hub_storage_upgrade end
 local function colony_upgrades(colony)
 	return colony and colony.SMROptIn_hub_upgrades or empty_table
 end
@@ -3532,6 +3534,18 @@ local function colony_upgrade_on(colony, id)
 end
 local function colony_power_on(colony)
 	return colony_upgrade_on(colony, hub_power_upgrade)
+end
+
+-- Storage Hub doubles the hub's base, before native Capacity Network's +100%.
+-- SetBase preserves modifiers and stock: vanilla resizes demand, never supply.
+-- Reconciliation also migrates placement-time 240000 bases on existing saves.
+-- Consumption uses its native base so cold/performance modifiers still apply.
+local function sync_hub_storage(hub)
+	local on = colony_upgrade_on(hub.city and hub.city.colony, hub_storage_upgrade)
+	local storage = on and 2000000 or 1000000
+	local consumption = on and 29000 or 10000
+	if hub.base_max_storage_per_resource ~= storage then hub:SetBase("max_storage_per_resource", storage) end
+	if hub.base_electricity_consumption ~= consumption then hub:SetBase("electricity_consumption", consumption) end
 end
 
 -- Existing hubs saved their placement-time base (70), even after the class moved to 75.
@@ -3629,6 +3643,7 @@ local function sync_colony_upgrades(colony)
 	for _, hub in ipairs(colony.labels.Station or empty_table) do
 		if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") then
 			mirror_upgrades(hub, state)
+			sync_hub_storage(hub)
 			sync_power_heat(hub)
 			if hub.HubUpdateProduction then hub:HubUpdateProduction() end
 			if ObjModified then ObjModified(hub) end
@@ -3666,7 +3681,7 @@ local function adopt_colony_upgrades(colony)
 						end
 					end
 				end
-				if id ~= hub_power_upgrade then
+				if id ~= hub_power_upgrade and id ~= hub_storage_upgrade then
 					for _, mod in ipairs(selected) do
 						mod.container = colony
 						entry.modifiers[#entry.modifiers + 1] = mod
@@ -3753,6 +3768,7 @@ end
 function SMROptInTrainHubBase:InitHubCapacityUpgrade()
 	unlock_capacity_upgrade()
 	mirror_upgrades(self, colony_upgrades(self.city and self.city.colony))
+	sync_hub_storage(self)
 	sync_power_heat(self)
 	if self.HubUpdateProduction then self:HubUpdateProduction() end
 end

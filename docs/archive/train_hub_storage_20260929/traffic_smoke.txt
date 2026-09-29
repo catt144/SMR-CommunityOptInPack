@@ -1,0 +1,7 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\traffic_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+PASS: 72 lane/reservation cases; 216 arrival mutations rejected; 66 executed routes; concurrency assertions passed.
+TWO-TRAIN (unlocked spatial prediction): {'pairs': 1995, 'within_a_train_width': 1740, 'closest': [('pass1->2', 'pass2->3', 0.0), ('pass1->2', 'pass2->4', 0.0), ('pass1->2', 'pass2->5', 0.0), ('pass1->2', 'pass2->6', 0.0), ('pass1->2', 'pass3->1', 0.0), ('pass1->2', 'pass3->2', 0.0), ('pass1->2', 'pass3->4', 0.0), ('pass1->2', 'pass3->5', 0.0)], 'furthest_apart': [('stop1->1', 'stop2->2', 2377.9), ('stop5->5', 'stop6->6', 2377.6), ('stop3->3', 'stop4->4', 2377.0), ('stop1->1', 'stop4->4', 2040.2), ('stop2->2', 'stop3->3', 2040.2), ('stop1->1', 'stop5->5', 2039.6), ('stop2->2', 'stop6->6', 2039.6), ('stop3->3', 'stop6->6', 2039.6)]}

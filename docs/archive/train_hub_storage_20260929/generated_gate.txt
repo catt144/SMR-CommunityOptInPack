@@ -1,0 +1,8 @@
+command: C:\Python313\python.exe tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 1
+Traceback (most recent call last):
+  File "B:\Dev\SMR\SMR-OptInPack\tools\devmods\train_hub\tests\cargo_upgrade_smoke.py", line 57, in <module>
+    assert generated_current, ('Mod Editor regeneration owed',
+           ^^^^^^^^^^^^^^^^^
+AssertionError: ('Mod Editor regeneration owed', {'upgrade4_upgrade_cost_Metals': (None, '60000'), 'max_storage_per_resource': ('240000', '1000000'), 'upgrade4_description': (None, 'T("Doubles every hub\'s storage: 2,000 per resource, or 4,000 with Capacity Network. Adds 19 power consumption per hub while on. Buy once per colony; any hub can switch it for the colony. Future hubs inherit its state; salvage does not change it. Build with 60 Metals and 30 Machine Parts from a depot within drone reach; the hub\'s own storage cannot supply its upgrade.")'), 'upgrade4_icon': (None, '"UI/IconsRemaster/Upgrades/expanded_warehousing_01.png"'), 'upgrade4_display_name': (None, 'T("Storage Hub")'), 'upgrade4_upgrade_cost_MachineParts': (None, '30000'), 'upgrade4_id': (None, '"SMROptInTrainHub6_StorageHub"')})

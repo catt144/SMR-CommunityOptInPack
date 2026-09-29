@@ -1,0 +1,6 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\capacity_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\capacity_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+PASS Capacity: global display/switch, broadcast, construction, native resize, salvage/clear, zero hubs, future hubs/trains, load

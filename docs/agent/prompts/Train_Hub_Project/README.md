@@ -18,7 +18,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
-| `22_HUB_STORAGE_FIXES_high.md` | Owner 2026-09-29, pre-audit fix list: upgraded stations show no cargo; hub base storage 1,000 (2,000 with Capacity Network); a fourth, once-per-colony Storage Hub upgrade to 4,000 (60 Metals + 30 Machine Parts, +19 power while on). | **Live**; fire next |
+| `22_HUB_STORAGE_FIXES_high.md` | Owner 2026-09-29, pre-audit fix list: upgraded stations show no cargo; hub base storage 1,000 (2,000 with Capacity Network); a fourth, once-per-colony Storage Hub upgrade to 4,000 (60 Metals + 30 Machine Parts, +19 power while on). | **Built, desk-tested**; Mod Editor save and attended smoke owed: [report](../../reports/TRAIN_HUB_STORAGE_20260929.md) |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

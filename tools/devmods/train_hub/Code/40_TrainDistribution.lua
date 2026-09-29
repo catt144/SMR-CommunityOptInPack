@@ -645,6 +645,15 @@ function OnMsg.LoadGame()
 	refused = setmetatable({}, { __mode = "k" })
 	applied = setmetatable({}, { __mode = "k" })
 	D.Reapply()
+	-- Saved empty cube arrays can outlive the transfer that erased them.
+	-- Refresh managed station visuals from physical stock after clearing the view.
+	for station in pairs(owners) do
+		if IsValid(station) and station.has_visual_cubes then
+			for _, resource in ipairs(station.storable_resources or empty_table) do
+				station:UpdateVisualCount(resource)
+			end
+		end
+	end
 end
 function OnMsg.CityStart() D.Reapply() end
 function OnMsg.DoneGame()

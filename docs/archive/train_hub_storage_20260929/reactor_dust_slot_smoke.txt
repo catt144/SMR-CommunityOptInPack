@@ -1,0 +1,4 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\reactor_dust_slot_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+{"command": "python tools/devmods/train_hub/tests/reactor_dust_slot_smoke.py", "head": "b36d7581c2de9f34a83e0c95c7bb55be6de65ddf", "status": "PASS: fixture refusals, timed restore, cancellation, removed visual, stale timer", "limit": "mocked lifecycle; native dust appearance and toolkit integration NOT RUN"}

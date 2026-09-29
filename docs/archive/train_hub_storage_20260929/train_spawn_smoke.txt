@@ -1,0 +1,40 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\train_spawn_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 4 4 4 4 4 4
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\train_spawn_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+asset sha256: 225b2166601530944a6509fe06c3affdd4cb5cfeadcdee623eb3f220a3f88be1 connectors=6 Spawn/Stop=0; no baked-spawn cause established
+PASS computed siding geometry: arms x rotations x track ends = 72
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: vanilla auto-fill and siding placement; legacy HubTrain compatibility
+70_TrainBay.lua sha256: ffb1ef4787fbdd536794f9bb7b057e23ade6276eba64fe657b15416309b04d90
+[TrainBay] fill line=1:1-2-3 arm=1 pool=10 t=0
+[TrainBay] spawn train=2003 hub=1 arm=1 before=centre before_angle=123 target=table: 000001672068EAC0 angle=14400 actual=table: 000001672068EAC0 actual_angle=14400 t=0
+PASS final placement: vanilla fill, travelling/removal controls
+source: Lua/TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+source: Lua/Demolishable.lua sha256: 98793b0d737f651294a169eebd1e3be8b802bd815b1102a337e6dd3c15ee22dd
+source: Lua/City.lua sha256: ce0aed45c980eda7cbb37bffcc138ba220510ee6970e9c423dd0e5adbd93e66e
+source: Lua/Colony.lua sha256: b4c6e86fe71372a6ea30e830dab5b9057e2645e95f91343806fc348ca6e8fd48
+source: CommonLua/Classes/_object.lua sha256: d93595ca4457bbf1506b7ecc94fd1afd8ed12b401eccc799efde39eaece6d323
+source: CommonLua/Core/persist.lua sha256: 953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7
+source: CommonLua/Classes/_cobject.lua sha256: ea344d206ed71f9e9699cb62ada4cff6047c4e775fca15edb22871d354d24d07
+[TrainBay] loaded: vanilla auto-fill and siding placement; legacy HubTrain compatibility
+70_TrainBay.lua sha256: ffb1ef4787fbdd536794f9bb7b057e23ade6276eba64fe657b15416309b04d90
+[TrainBay] fill line=1:1-2-3 arm=1 pool=10 t=0
+[TrainBay] spawn train=2003 hub=1 arm=1 before=centre before_angle=123 target=table: 000001672027B760 angle=14400 actual=centre actual_angle=14400 t=0
+PASS mutation rejected: no final placement
+LIVE OWED: spawn log before/target/actual pose plus owner sighting before departure; native cause unresolved

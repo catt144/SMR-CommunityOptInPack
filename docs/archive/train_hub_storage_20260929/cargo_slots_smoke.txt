@@ -1,0 +1,10 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_slots_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\cargo_slots_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+TestKit HEAD: 587f474354ad8d4543aa7c0339917cbc77b1f1bb
+slots_sha256: 58af931e0f5fd16655cd9364d786550585b442b180b2d7339235c061f1543c04
+PASS mutation rejected: duplicate modifier rows
+PASS mutation rejected: no-hub off modifiers
+PASS slot 3: both upgrade states/modifiers, capacities, speed/animation, paused gate; no fill/toggle/UI allocation

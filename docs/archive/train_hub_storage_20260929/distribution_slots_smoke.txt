@@ -1,0 +1,32 @@
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_slots_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+exit: 0
+command: C:\Python313\python.exe tools\devmods\train_hub\tests\distribution_slots_smoke.py
+HEAD: b36d7581c2de9f34a83e0c95c7bb55be6de65ddf
+TestKit HEAD: 587f474354ad8d4543aa7c0339917cbc77b1f1bb
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHubDev] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 93fbe10954c9145d7415aecd00e4fcddaf2cede318729aae496a9cea8e1374ed
+[TrainDistribution] hub settings and transient train allocation loaded
+40_TrainDistribution.lua sha256: b43408ab206678e5851378ce09bde31916a12266802fce1a1c7454b765c6c492
+[TrainDistribution] native storage-row UI registered
+45_TrainDistributionUI.lua sha256: 87b482cff4c98999ef6099f538374a76a2b4bc0338c9817cd5254ca760fa5684
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+70_SMRTK_Core.lua sha256: a71f8199755eb83ae088c8ddd4588558d7111676bb1a1556414319cba2e22f3d
+74_SMRTK_Agent.lua sha256: 62abce9c55b53921fcb55438b7b2fc09dd351b85c9242b1706471f16bf96e8d6
+80_AgentSlots.lua sha256: 58af931e0f5fd16655cd9364d786550585b442b180b2d7339235c061f1543c04
+PASS slot 4 reads every untouched row as effective Balanced, exact live dial with derived percent; no settings written
+PASS Scratch balances non-hub rows to target and slot 1 empties them through AddResource; hub untouched; reserved stock and room kept and counted; train cargo counted; paused only
+PASS slot 6 streams a full baseline, then only changed train and stock rows, file-only; stops when disarmed
+PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; the full-hub leg holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; slots 1-3, 6 and Scratch bound
+NOT TESTED: native engine ledger, thread scheduling and actual game UI
+PASS mutation rejected: slot 6 nominal speed substituted for effective speed

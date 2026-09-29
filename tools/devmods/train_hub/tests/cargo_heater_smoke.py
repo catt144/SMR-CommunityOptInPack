@@ -241,10 +241,10 @@ if __name__ == '__main__':
         'per-hub display': ('return colony_upgrade_on(self.city.colony, id)', 'return true'),
         'receiver switch refused': ('entry.on = not entry.on', 'if self.handle == 601 then return end\n\tentry.on = not entry.on'),
         'raw display': ('hub.upgrade_on_off_state[id] = entry.on', 'hub.upgrade_on_off_state[id] = true'),
-        'later hub heat': ('\tmirror_upgrades(self, colony_upgrades(self.city and self.city.colony))\n\tsync_power_heat(self)', '\tmirror_upgrades(self, colony_upgrades(self.city and self.city.colony))'),
+        'later hub heat': ('\tsync_power_heat(self)', '\t-- no future hub heat'),
         'salvage persistence': ('if IsKindOf(bld, "SMROptInTrainHubBase") then sync_colony_upgrades(bld.city and bld.city.colony) end', 'if IsKindOf(bld, "SMROptInTrainHubBase") then local e = colony_upgrades(bld.city.colony)[hub_power_upgrade]; if e then e.on = false end; sync_colony_upgrades(bld.city.colony) end'),
         'zero hubs persistence': ('local state = colony_upgrades(colony)', 'if #colony.labels.Station == 1 then colony.SMROptIn_hub_upgrades = nil end\n\tlocal state = colony_upgrades(colony)'),
-        'power unlock': ('local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }', 'local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }'),
+        'power unlock': ('local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade, hub_storage_upgrade }', 'local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }'),
         'saved-base migration': ('then rebase_hub_power(hub) end', 'then --[[ no rebase ]] end'),
         'saved-base scope': ('if hub.base_electricity_production ~= 70000 then return end', 'if false then return end'),
     }

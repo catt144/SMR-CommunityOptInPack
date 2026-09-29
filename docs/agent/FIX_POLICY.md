@@ -180,7 +180,8 @@ contract. New persisted names join this table.
 | 16 | `SMROptInTrainHub6_TrainCargo` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Train Cargo Upgrade, spec §4.10 owner ruling 2026-09-28; template `upgrade2_id` and `20_TrainHub.lua` unlock | Vanilla upgrade panel/modifiers; `20_TrainHub.lua` shared ownership, salvage/rebuild and speed wrapper; `tests/cargo_upgrade_smoke.py` |
 | 17 | `SMROptInTrainHub6_Power` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Power Upgrade, spec §4.10 and brief 21, owner 2026-09-28; template `upgrade3_id` and `20_TrainHub.lua` unlock | Vanilla upgrade panel mirrors; `20_TrainHub.lua` colony output, heat and train cold immunity; `tests/cargo_heater_smoke.py` |
 
-| 18 | `SMROptIn_hub_upgrades` | table on `UIColony`, keyed by the existing three upgrade ids; each entry has `on` (boolean) and `modifiers` (array of native `LabelModifier` references; empty for Power) | `20_TrainHub.lua`, `adopt_colony_upgrades` and `ToggleUpgradeOnOff` | same section: mirror/panel, native modifier reconciliation, output and speed gates; `tests/global_upgrade_smoke.py` |
+| 18 | `SMROptIn_hub_upgrades` | table on `UIColony`, keyed by the upgrade ids in rows 13, 16, 17 and 19; each entry has `on` (boolean) and `modifiers` (array of native `LabelModifier` references; empty for Power and Storage Hub) | `20_TrainHub.lua`, `adopt_colony_upgrades` and `ToggleUpgradeOnOff` | same section: mirror/panel, native modifier reconciliation, output, storage and speed gates; `tests/global_upgrade_smoke.py`, `tests/storage_upgrade_smoke.py` |
+| 19 | `SMROptInTrainHub6_StorageHub` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13, and row 18's colony receipt | Storage Hub, spec §4.10 and brief 22, owner 2026-09-29; template `upgrade4_id` and `20_TrainHub.lua` unlock/adoption | Vanilla upgrade panel; `20_TrainHub.lua` shared switch and hub base storage/consumption reconciliation; `tests/storage_upgrade_smoke.py` |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -225,7 +226,16 @@ all hubs, retaining ON or OFF, and a future hub cannot be charged again. Vanilla
 receipts disappear with the last building. Brief 21 permits an unavoidable new persisted
 name when inventoried with its reason. This bounded table holds only booleans and native
 modifier references, never functions, threads, custom classes or dead hub references.
-The three existing upgrade ids are its keys and remain exact-byte contracts.
+The upgrade ids in rows 13, 16, 17 and 19 are its keys and remain exact-byte contracts.
+
+Row 19 is necessary for the owner's fourth purchasable upgrade (brief 22): native
+construction and the shared purchase/switch require a stable id. It adds no modifier
+object, function or thread. Storage Hub changes the hub's native storage base from
+1,000 to 2,000 per resource, before Capacity Network, and consumption base from 10 to 29.
+Load reconciliation migrates saved 240/480 hubs through native `SetBase`, retaining
+stock and existing modifiers. Switching off can leave over-capacity stock; vanilla
+holds demand at zero until stock drains. Native save/load and the owner's visual
+check remain owed; desk evidence is in `reports/TRAIN_HUB_STORAGE_20260929.md`.
 
 An old save without row 18 is adopted from paid vanilla hub receipts, including ruins;
 ON wins if duplicate old receipts disagree. Existing modifier identities and amounts survive,
