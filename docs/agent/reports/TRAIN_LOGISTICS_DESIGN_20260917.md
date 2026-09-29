@@ -948,6 +948,14 @@ vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21
    suspected cause is that the cube display scales stock to the doubled capacity; this is not yet
    checked. Stream rows for the hub carry `cubes`/`expected_cubes`, but none have been read for a
    small station.
+2. **The hub's storage is too small for the trains that feed it.** Per resource, 480 (240
+   base, doubled by Capacity Network). The owner's full-depot Export test looked like a failure:
+   the hub was full, so trains had nowhere to take the Metals. Brief 10's log shows the hub's
+   Metals peaking at ~479800. The owner: *"we did our capacity network upgrade before we planned
+   other upgrades like the train cargo upgrade and the speed upgrades. Trains can carry so much so
+   fast the hub can be filled in seconds at high speed. And if you look at a major storage base
+   the game has 480 doesn't even come close to that"*. A vanilla Mechanized Depot holds
+   **4,000** of one resource (owner's screenshot). The new figure is the owner's to set.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
