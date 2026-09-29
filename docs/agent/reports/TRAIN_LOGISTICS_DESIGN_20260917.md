@@ -903,23 +903,24 @@ with cold wave protection, which will double the power output of the fusion reac
 ground), but a cold wave cut power and left the other train buildings short. **Train Cargo goes
 back to +100% cargo and +25% speed only.** The Power Upgrade: **doubles the hub's reactor output**,
 heats the ground within the hub's drone range (15 hexes), and removes the trains' cold penalty.
-**Cost 30 Metals + 20 Electronics. Per hub**, not once per colony: each hub buys it for its own
-reactor and ground. Salvage/ruins switch it off like the other upgrades.
+**Cost 30 Metals + 20 Electronics.** Once per colony, like the other two upgrades (owner
+ruling below, which replaces the first per-hub ruling).
 ⚖️ **Owner, same day, the numbers:** doubling 70 would give 140; *"lets make it a little more
 even and do 75 for base and 75 for upgrade to equal out to 150 power"*. **Hub power production:
 75 base, +75 with the Power Upgrade = 150.** This changes the base hub's figure (70 → 75) too.
-⚖️ **Owner, 2026-09-28 (rerun sitting): train cold protection is per hub, on that hub's lines.**
-It was built colony-wide, where any hub with Power shielded every train. The owner called that
-*"a miss"*: *"part of the extreme cost of the 'heated protection' is the upgrade. And its a
-little miss leading. Plus how would the tracks get 'hot' without the upgrade."* The ruling: a
-hub's Power Upgrade protects every train running on **lines that belong to that hub**, along the
-whole route. Trains on another hub's lines are not protected. Open: which hub a line between two
-hubs belongs to.
+⚖️ **Owner, 2026-09-28 (rerun sitting): all three hub upgrades work the same way: buy once,
+never buy again for future hubs.** *"Lets just make all 3 upgrades the same style. buy once, and
+never have to buy again for future hubs. Thats the simplist situation."* This came after the
+sitting showed Power's train protection was colony-wide while its power and heat were per hub,
+which the owner called *"a miss … a little miss leading"*. So the Power Upgrade takes the
+Capacity Network and Train Cargo rulings: once per colony, spent for later hubs, salvage and
+ruins as the others, no tech. Bought once, it gives **every hub, present and future, 150 power
+and ground heat in its range**, and **removes the cold penalty for every train**.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:
-once per colony, vanilla on power, re-buyable, no tech. Power is per hub, costs 30 Metals +
-20 Electronics and needs no tech, as brief 21 specifies.
+once per colony, vanilla on power, re-buyable, no tech. Power follows the same rulings (owner,
+2026-09-28, above), costs 30 Metals + 20 Electronics and needs no tech.
 
 Power build and combined attended check (brief 21):
 [TRAIN_HUB_POWER_UPGRADE_20260928.md](TRAIN_HUB_POWER_UPGRADE_20260928.md).

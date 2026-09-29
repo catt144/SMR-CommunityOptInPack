@@ -18,8 +18,10 @@ Power Upgrade`.
     brief 20 built;
   - removes the trains' cold penalty, as brief 19 built.
 - **Cost 30 Metals + 20 Electronics.** No tech.
-- **Per hub**, not once per colony: each hub can buy it. So there is no spent-hub claim. The
-  once-per-colony machinery of the other two upgrades must not apply to it.
+- **Once per colony, like the other two** (owner, 2026-09-28, replacing the first per-hub
+  ruling; spec §4.10, grep `all three hub upgrades work the same way`): *"buy once, and never
+  have to buy again for future hubs."* It uses the other two's spent-hub claim. Bought once, it
+  gives every hub, present and future, 150 power and ground heat, and every train cold immunity.
 - Salvage or ruins switch it off, as they do the others. The hub is not rebuilt the normal way
   (owner, 2026-09-28).
 
@@ -31,9 +33,8 @@ Power Upgrade`.
 - Brief 20, the hub heater: `0ed1d87`, report `reports/TRAIN_CARGO_HEATER_20260928.md`. It is
   vanilla `BaseHeater:ApplyHeat` driven by the cargo modifier's state.
 - Both are gated on Train Cargo today. Re-gate both on the Power Upgrade. Keep the +25% speed
-  gated on Train Cargo alone. A train's cold immunity follows **whether the hub its line belongs
-  to has Power on** (owner, 2026-09-28; spec §4.10, grep `on that hub's lines`). It is not
-  colony-wide. For a line between two hubs, stop and ask the owner. Its heat
+  gated on Train Cargo alone. Cold immunity, power and heat all follow **whether the colony's
+  Power Upgrade is bought and on**, applied to every hub and train. Its heat
   reads Power, not Cargo. Leaving either on Train Cargo is a defect.
 - The live panel, owner's screenshot 2026-09-28: the hub read **70** power production, and
   insufficient power during a cold wave. Find where the hub's production is set, make the base 75,
@@ -44,9 +45,10 @@ Power Upgrade`.
 
 ## Done
 
-- Desk tests: Train Cargo gives cargo and speed only, with no heat or cold effect. Power, per
-  hub, gives 150 power (75 without it), ground heat within range and cold immunity for trains on that hub's lines. Toggling it
-  off, salvaging or ruins removes all three. A second hub can buy its own. Each test has a
+- Desk tests: Train Cargo gives cargo and speed only, with no heat or cold effect. Power, once
+  per colony, gives every hub 150 power (75 without it) and ground heat within range, and every
+  train cold immunity; a hub built after the purchase gets them without buying. Toggling it
+  off, or the owning hub's salvage or ruins, removes all three, as the other two upgrades do. Each test has a
   mutation that fails it. Run every train hub smoke and report members = passing + failing.
 - No new persisted name, unless unavoidable: then stop, unless it goes on `FIX_POLICY`'s
   inventory with a reason.
@@ -61,8 +63,8 @@ Run `python tools/doccheck.py` before each doc commit. Keep a live todo list bef
 
 **In:** the three upgrade effects' gating, the reactor output, the template fields and the tests.
 **Out:** hub movement, distribution, and the reactor's look (brief 17). Stop and report if
-raising the output needs a copied vanilla body, or if per-hub ownership conflicts with how
-vanilla stores upgrades.
+raising the output needs a copied vanilla body, or if applying one colony purchase to every
+hub conflicts with how vanilla stores upgrades.
 
 Claim limit: desk PASS means the mocked vanilla agrees; the live claim is the cold-wave sitting.
 
@@ -120,11 +122,13 @@ The owner's method: Power on one hub and off on the other, read before and after
 - **Seen, not predicted:** the panel reads consumption 10 on the hub with Power and 20 on the
   hub without it.
 
-**Repair 2 (owner, 2026-09-28):** make train cold protection per hub, on that hub's lines,
-per the Authority clause above. Cover it with a mutation that fails the old colony-wide gate.
-The rerun's heat and 150/75 results stand. The next sitting checks with slot 6 that trains on
-the hub without Power's lines slow in the cold, while trains on the hub with Power's lines do
-not. The consumption difference, 10 against 20, goes into the report, explained or found wrong.
+**Repair 2 (owner, 2026-09-28):** make Power once per colony, like the other two upgrades,
+per the Authority clause above: every hub gets 150 and heat, and every train keeps its warm speed.
+Cover it with mutations that fail a per-hub power or heat gate and a missed later-built hub.
+The next sitting: buy Power on one hub, then check that both hubs read 150 and heat, that the
+other hub shows it spent, and that slot 6 shows trains keeping warm speed in a cold wave with
+Power on and slowing with it off. The consumption difference, 10 against 20, goes into the
+report, explained or found wrong.
 
 ## Lifecycle
 
