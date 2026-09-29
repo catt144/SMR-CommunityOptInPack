@@ -961,10 +961,11 @@ vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21
    game storage system. Should be a cost of metals and machine parts"*. **The hub's base is 1,000
    per resource. Capacity Network doubles it to 2,000.** A new fourth upgrade, **Storage Hub**,
    is late game and doubles the hub again to **4,000**. It affects the hub only, not stations or
-   trains. **Cost: Metals + Machine Parts**, with the amounts still the owner's to set. It follows
-   the all-upgrades style: bought once for the colony, one shared state, salvage changes nothing.
-   Not yet checked: whether the hub's template can hold a fourth upgrade slot (vanilla templates
-   carry `upgrade1` to `upgrade3`). If it cannot, the build stops and asks.
+   trains. **Cost: 60 Metals + 30 Machine Parts** (owner, same day). **While on, it raises the hub's power
+   consumption by 19**, one per stored resource (the owner: *"if possible … one per resource"*).
+   It follows the all-upgrades style: bought once for the colony, one shared state, salvage
+   changes nothing. On a fourth slot, the owner: vanilla's Excavator carries **six** upgrades
+   (owner's screenshot), so more than three is a shape the game already has.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
