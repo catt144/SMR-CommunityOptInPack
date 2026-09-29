@@ -955,7 +955,16 @@ vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21
    other upgrades like the train cargo upgrade and the speed upgrades. Trains can carry so much so
    fast the hub can be filled in seconds at high speed. And if you look at a major storage base
    the game has 480 doesn't even come close to that"*. A vanilla Mechanized Depot holds
-   **4,000** of one resource (owner's screenshot). The new figure is the owner's to set.
+   **4,000** of one resource (owner's screenshot). ⚖️ **Owner ruling, same day:** *"a base of 1000 since capacity just doubles everything
+   that will make it 2k for the hub. Then we can have a new late game upgrade. "Storage Hub" that
+   doubles the hubs capacity again (does not touch stations or trains taking it two 4k same as a
+   game storage system. Should be a cost of metals and machine parts"*. **The hub's base is 1,000
+   per resource. Capacity Network doubles it to 2,000.** A new fourth upgrade, **Storage Hub**,
+   is late game and doubles the hub again to **4,000**. It affects the hub only, not stations or
+   trains. **Cost: Metals + Machine Parts**, with the amounts still the owner's to set. It follows
+   the all-upgrades style: bought once for the colony, one shared state, salvage changes nothing.
+   Not yet checked: whether the hub's template can hold a fourth upgrade slot (vanilla templates
+   carry `upgrade1` to `upgrade3`). If it cannot, the build stops and asks.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
