@@ -166,7 +166,12 @@ mutations that fail a per-hub display and a switch refused on a non-buying hub.
   worked as expected for me"*). The log shows 0 `LUA ERROR`/`attempt to`/traceback lines and
   slot 6 armed at line 594. No cold wave or console read is logged, so heat and cold speed rest on
   the owner's observation.
-- Owed: report steps 3 to 5 (all three controls, salvage and reload, removing the last hub).
+- Report steps 3 to 5, same log: 0 error lines across 6606 lines. There are two save/reloads
+  (`SaveGameStart` at lines 2558 and 5610, `PreLoadGame` at 2580 and 5632) and three hub
+  spawns (reactor palette lines 2591, 3532 and 5691). The last three slot 3 reads all show
+  `owner=colony applied=4 modifiers=4 errors=0`, with `hubs=2`, `hubs=2`, then `hubs=1` after
+  the second reload. The purchase and its modifiers survived the salvage, the reloads and the
+  rebuild. The owner's eye verdict on these steps is owed.
 
 ## Lifecycle
 
