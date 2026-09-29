@@ -81,6 +81,9 @@ return PlaceObj('ModDef', {
 		AcknowledgedWarnings = false,
 		ResidencyControl = false,
 		MultipleSuns = false,
+		-- D15 (owner, 2026-09-28): a NEW key, not a donor lift; account contract
+		-- from here on (FIX_POLICY §3 inventory row 8).
+		ServiceInterestTags = false,
 		DroneSpeedDial = "1x (base)",
 		DroneCarryDial = "+0 (base)",
 	},
@@ -104,6 +107,7 @@ return PlaceObj('ModDef', {
 		"Code/Opt_ResidencyControl.lua",
 		"Code/Opt_MultipleSuns.lua",
 		"Code/Opt_DroneStatDials.lua",
+		"Code/Opt_ServiceInterestTags.lua",
 	},
 	'TagGameplay', true,
 })

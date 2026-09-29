@@ -61,6 +61,10 @@ return {
 		'name', "Opt_DroneStatDials",
 		'CodeFileName', "Code/Opt_DroneStatDials.lua",
 	}),
+	PlaceObj('ModItemCode', {
+		'name', "Opt_ServiceInterestTags",
+		'CodeFileName', "Code/Opt_ServiceInterestTags.lua",
+	}),
 	PlaceObj('ModItemOptionToggle', {
 		'name', "AcknowledgedWarnings",
 		'DisplayName', "Acknowledged warnings",
@@ -77,6 +81,14 @@ return {
 		'name', "MultipleSuns",
 		'DisplayName', "Multiple Artificial Suns",
 		'Help', "Lets you build more than one Artificial Sun, and fixes the base-game bug where solar panels only ever check the first sun for night-time light. Turning it off restores the one-per-colony limit (existing suns keep working).",
+		'DefaultValue', false,
+	}),
+	-- D15 (owner, 2026-09-28): a new name, not lifted from the fix pack; the
+	-- same account/save contract as the names above from its first ship.
+	PlaceObj('ModItemOptionToggle', {
+		'name', "ServiceInterestTags",
+		'DisplayName', "Service interest tags",
+		'Help', 'Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" row in the Visitors section of a placed building (the Food section for Diners and Grocers). Display only: how Colonists choose and use services does not change.',
 		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionChoice', {
