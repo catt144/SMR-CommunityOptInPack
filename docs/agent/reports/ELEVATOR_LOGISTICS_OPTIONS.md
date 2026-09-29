@@ -199,6 +199,57 @@ underground. It touches nothing in this report: the elevator is unchanged and F 
 with A, B or C, it removes the need for them at scale. A dev-only prototype is built and
 installed but **has not been run**; the mechanism, the bill for a real module and the sitting that
 would measure it are in `reports/RAIL_SHAFT_PROTOTYPE.md`. Nothing about F is established yet.
+*Update 2026-09-23: the prototype ran — a train crossed both ways on retail (that report, §5).*
+
+### G · A rail elevator: our own elevator with a train link (owner direction, 2026-09-23)
+
+**Owner's direction, in their words:** *"we could leave the base elevator no need to alter
+vanilla's asset, we just copy their asset, built our own, and offer it beside the vanilla one"*;
+*"people would only use one or the other. They would do the exact same thing, just ours would have
+a train link"*; *"We wont need a resource buffer … a train will go into the elevator, at one in,
+come out the other and link a station."* Vanilla's elevator is untouched, so the 2026-09-21
+*"the elevator is not altered"* holds. This is **direction, not a build ruling**: F vs G for the
+module is unruled, and a build needs a ruling recorded for this mod and a `bugs/` entry
+(`FIX_POLICY.md` §4).
+
+**Shape.** A new class that *is* a vanilla elevator plus a tunnel-mouth train pass-through. Units
+keep vanilla's `UseElevator` (`Elevator.lua:961-1002`); trains get F's proven hop with `self.other`
+for `linked_obj` — the elevator already crosses maps with the same `TransferToMap`
+(`Elevator.lua:982`). Trains never unload into the elevator, so its shared depot and 50 buffer
+stay vanilla and play no part.
+
+**What vanilla gives for free** (all read on 1.1.1.405907, `SMR-SrcArchive\1.1.1.405907\Src`):
+- Two-map placement and pairing: the player places the surface half; `ElevatorBase:PlaceConstructionSite`
+  places the other at the paired passage (`Elevator.lua:774-784`). This retires F's largest bill
+  item (`RAIL_SHAFT_PROTOTYPE.md` §7 item 1).
+- The unlock: `OnMsg.ConstructionComplete` tests `IsKindOf(bld, "ElevatorBase")` on `MainMap`
+  (`Colony.lua:947-951`).
+- A terminus at each end by construction (one connector per half), so §7 item 0's branch risk
+  cannot arise at the elevator — only where its feed track joins the network.
+- Removal: a template's class gets `__parents = { object_class }` (`Composite.lua:404`) and
+  `persist_baseclass = object_class` (`:522-523`); a missing class loads as that base
+  (`_cobject.lua:135-138`, `persist.lua:73-84`). With `object_class = "Elevator"`, a save whose
+  mod is gone loads ours as a working vanilla `Elevator`.
+
+**Three things it must do on purpose:**
+1. Derive from the concrete `Elevator`, not `ElevatorBase`: colonist route planning tests
+   `IsKindOf(node, "Elevator")` (`Colonist.lua:3584`, `:3695`, `:3702`).
+2. Join the `Elevator` label by hand: `Building:AddToCityLabels` adds only `self.class`
+   (`Building.lua:461`), and `labels.Elevator` is read in `Dome.lua:356`, `:424`,
+   `Station.lua:384`, `City.lua:585`, `CargoTransporter.lua:222`, `Building.lua:3933` and
+   `Elevator.lua:275`, `:1828`, `:1844`.
+3. Be a tunnel mouth to the route code, which recognises mouths by class: `TrackTunnelBase` at
+   `TrainTransport.lua:264`, `Track.lua:323`, `Train.lua:411`, `:454`, and the concrete pair
+   `"TrackTunnel", "UniversalTunnel"` at `TrainTransport.lua:239`. So a base class with parents
+   `{ "Elevator", "TrackTunnelBase" }` and one wrap of `GetArrivalTrack` (a FIX_POLICY §2 wrap).
+
+**Unverified, check before building:** that the elevator entities lack track connector spots
+(then synthetic spots, as the train hub does); that the `Elevator` + `TrackTunnelBase` diamond
+behaves (`TunnelBase` notes diamond inheritance, but not this pair); the passage count off the
+random-map generator — it places 2 pairs (`RandomMapGenerator_Picard.lua:144`), and a passage
+takes one elevator (`ElevatorPassage:CanSnapTo`, `SurfacePassage.lua:19-21`), but hand-made maps
+are unread. Position is fixed by the map's passage, not chosen by the player. The train hub's
+cross-map touchpoints apply to G exactly as to F (`RAIL_SHAFT_PROTOTYPE.md` §6 step 6).
 
 ---
 

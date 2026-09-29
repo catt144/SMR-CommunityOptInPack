@@ -294,10 +294,19 @@ connected route, which is the point of the next paragraph.
 the guard firing for both mouths on load — `AddPFTunnel skipped for rail-shaft mouth 6753 / 6770`
 (18:10 log :227-228). No `[RailShaftDev]` error or abort in either log; 3 hops, 3 completions.
 
-**Then trains that never touched the shaft stalled — silently.** At high speed, several of the
-owner's hub-line trains stopped moving. Nothing in the log names a stall: no error, no abort, no
-`Idle` print. The cause is derived from source and recorded in §7 item 0 with its falsifier; it is
-*not* yet measured, because the owner had to step away. Two peer diagnoses circulated in the same
+**Then trains that never touched the shaft stalled — silently, cause unattributed.** At high
+speed, several of the owner's hub-line trains stopped moving. Nothing in the log names a stall: no
+error, no abort, no `Idle` print. §7 item 0 derives one candidate (a route-table overwrite) from
+source; it was never measured on this save. **Correction, 2026-09-29:** the next morning the Codex
+audit (`TRAIN_HUB_AUDIT_111_20260923.md` §9) ran `Sweep()` on a stalled autosave of the *same
+colony* (same hub, stations 1994/2007/2012) and measured a **hub siding deadlock** — four parked
+trains each holding another's exit siding — with **all 8 trains `route_ok true`**; the siding
+guard fixed it and the owner confirmed the trains unstuck. That save had the underground locked
+and no shaft (archived `docs/archive/train_hub_load_crash_20260924/Mars.exe-20260924-10.49.56-6aad2d75.log`
+:255, :322-330; no `AddPFTunnel skipped` line), so it does not falsify the overwrite on the shaft
+save — but the siding deadlock, measured in the same hub code on the same colony, is now the
+likelier cause of the 09-23 stall, and the audit itself calls the cross-map branch story "a poor
+default explanation". Only `Routes()`/`Sweep()` on the shaft save can settle it. Two peer diagnoses circulated in the same
 window and are recorded here as claims, not findings: *"the link deleted two live mouths"* is
 contradicted by the pre-link track probe (both disposed mouths were dead-end, `none / none`), and
 *"the train's destination reads as a tunnel handle"* is a misread of the stage log — `station` is
@@ -340,11 +349,15 @@ reached. **The next sitting starts with the stall, not with freight**, on the re
    Second shape, later: a connector whose opposite carries a line, so the shaft *extends* that
    line underground. A pass turns §7 item 0 into a measured rule; a `BROKEN` line here means the
    rule is incomplete.
-6. **Hand-off to the hub's owner before that sitting:** the hub's drone-dispatch graph follows a
-   tunnel's `linked_obj` with no map check (`20_TrainHub.lua:2124-2128`) and enrols every station
-   on the graph as hub-commanded (`:2133`). A shaft on the hub puts underground stations in that
-   graph; drones cannot fly there. It wants an `IsSameMap(node, far)` guard at `:2125`. Their
-   file; not edited here.
+6. **Hub touchpoints (state 2026-09-29, by symbol — line numbers drift).** Three hub sites follow
+   a tunnel's `linked_obj` or a city route table with no map check: `SMROptInTrainHubBase:HubTrackGraph`
+   (station enrolment, `20_TrainHub.lua`), `F.Route` (drone flight legs through a tunnel,
+   `30_TrainHubDrones.lua`) and `D.Refresh` (distribution tree over `hub.city.train_track_routes`,
+   `40_TrainDistribution.lua`, whose own comment assumes routes are map-local). **Owner ruling
+   OI-27, 2026-09-29** (spec §10): hub repair drones see nothing on another map — not yet built.
+   Whether far-map stations count toward hub membership or distribution is **not ruled**. The
+   audit's D14(b) holds the control: a hub connected through a shaft to a far-map station,
+   compared against the same-map tunnel case.
 
 The original batch list follows for the record. Both mods are normally loaded, so grep the log
 with the full token — `[RailShaftDev]` for this prototype, `[CommunityOptInPack]` for the pack.
@@ -411,8 +424,9 @@ mods loaded.
 
 Beyond the prototype, in rough order of cost. None of this is designed; it is the bill.
 
-0. **A shaft must not be a branch off a through-station. This is the finding of the sitting,
-   and it is the first thing a real module has to solve.** Vanilla's route model is a *linear
+0. **A shaft must not be a branch off a through-station.** *Status 2026-09-29: an untested
+   source-derived risk and a free placement rule, not the established cause of any observed
+   stall — see the §5 correction.* Vanilla's route model is a *linear
    chain*: `Station:GetConnectedTrack` passes a train straight through only — it looks for a
    connector on the opposite side (`Station.lua:931-962`) — and `RebuildTrainRoutes` writes every
    segment of every enumerated route with `routes[segment] = route` (`TrainTransport.lua:331`),
@@ -469,10 +483,10 @@ Beyond the prototype, in rough order of cost. None of this is designed; it is th
 
 - **(1) train cannot survive a transfer** — **CLOSED, does not fire.** Measured 2026-09-23: three
   hops, three completions, stages 4–7 all after the transfer, on retail (§5).
-- **NEW, open — the link stalls trains that never use the shaft.** Observed by the owner, not yet
-  measured; mechanism and falsifier in §7 item 0 and §6. Until `Routes()` has been read on the
-  reloaded save, the shaft is to be treated as **not safe on a live line**: link only where the
-  keeper mouth is a terminus, and `Unlink()` before ending a sitting.
+- **Open — hub-line trains stalled after the link, cause unattributed.** Candidates: the hub
+  siding deadlock (measured on a sibling save, since fixed) and the route-table overwrite (§7 item
+  0, source only). Until `Routes()` has been read on the shaft save, link only where the keeper
+  mouth is a terminus, and `Unlink()` before ending a sitting.
 - **(2) two-map placement needs an unreachable state** — **not reached.** The prototype avoids
   placement entirely; §7 item 1 is where it would be decided.
 - **(3) installed build no longer 24995074** — **FIRED.** Handled per §0 by re-deriving against
@@ -487,10 +501,11 @@ the fix pack (`B:\Dev\SMR\SMR-BugFixPack`) and minting one here alone is what ca
 2026-08-16 collision. Grepping `facts/INDEX.md` shows neither is recorded yet; `EF-114` is the
 nearest neighbour and is about track reachability, not this.
 
-1. **A cross-map unit transfer belongs inside a destructor.** The evidence is in §1. **Do not file
-   it until the sitting runs** — the destructor's necessity is inferred from two shipped callers
-   plus one un-rechecked console observation, and §6 batch 4 either confirms it or overturns it.
-   Filing it now would record a prediction as a fact. (Corroborating, already filed: `EF-104`
+1. **A cross-map unit transfer belongs inside a destructor.** The evidence is in §1. *Update
+   2026-09-29: the sitting ran and measured the positive half — a train's command thread survives
+   `TransferToMap` inside a destructor, 3 hops of 3 (§5) — so this is fileable now, through the fix
+   pack's `EF-` allocation. Not measured: that it fails OUTSIDE one; the 09-21 console hop is the
+   only negative, on an older build, and its log is gone.* (Corroborating, already filed: `EF-104`
    records `thread_running_destructors` as a real, observable state the engine filters on.)
 2. **The `disabled_in_environment` runtime table has two traps** —
    `UndisableInEnvironment` is a no-op while `DisabledInEnvironment[id]` is nil, so a read must
@@ -498,3 +513,34 @@ nearest neighbour and is about track reachability, not this.
    This one is pure source, settled, and independent of the sitting; it is fileable now. It is
    recorded in §3 and in the prototype's file header meanwhile, which is where the next person on
    this job will read it.
+
+---
+
+## 10 · After the sitting, 2026-09-24 → 29, and the hand-over
+
+**The dev mod rode along in every hub session.** A scan of the ~40 newest logs (27–29 Sept;
+earlier ones had rotated) found `SMR_RailShaftDev_20260923` in every `Loaded mod items for:`
+line, with 0 hops and 0 `AddPFTunnel skipped` on load — no loaded save contained a shaft, so its
+three wraps passed straight through to vanilla. The Codex audit also ran with it on 09-24 (§5
+correction). Its load hook was not inert: in 5 sessions on 09-28 (`12.06.47`, `12.27.00`,
+`12.36.00`, `13.00.44`, `14.56.05`; 11 `allowed underground = true` lines) it wrote
+`DisabledInEnvironment["UniversalTunnel"]["Underground"]` into saves whose underground was
+unlocked. Harmless to trains and the hub; a save mutation no hub record names. Recount:
+`grep -c "allowed underground = true"` over `%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-2026092[4-9]*.log`.
+
+**The shaft session's evidence is now only this report.** `Mars.exe-20260923-17.45.25-6aad2d75.log`
+and `…18.10.18…` rotated off disk and were never archived; §5's line numbers cannot be rechecked.
+**Which save file holds the linked shaft is unknown** — no save is stamped 23 Sept 17:45-18:12;
+the colony was SpaceY / politician. With the mod enabled, loading the right save logs
+`AddPFTunnel skipped for rail-shaft mouth` twice, and `SMRRailShaft.Status()` reads
+`cross-map mouths: 2`.
+
+**Design direction moved to a rail elevator** — owner, 2026-09-23; recorded as option G in
+`ELEVATOR_LOGISTICS_OPTIONS.md`. The tunnel prototype stays the proof of the crossing; the module
+shape (F or G) is not ruled.
+
+**Hand-over.** Owner, 2026-09-29: the project passes to the train hub coordinator *"since their
+surfaces touch"*. The live remainder is the brief `prompts/RAIL_SHAFT_PROTOTYPE_high.md`,
+rewritten as that handoff. Executed models this session: `claude-opus-5` (research, prototype,
+sitting batches 1-4) and `claude-fable-5-1` (stall analysis onward, and this close-out), from
+the transcript; no subagents.
