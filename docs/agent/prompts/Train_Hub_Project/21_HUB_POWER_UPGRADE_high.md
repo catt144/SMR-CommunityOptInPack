@@ -134,6 +134,20 @@ other hub shows it spent, and that slot 6 shows trains keeping warm speed in a c
 Power on and slowing with it off. The consumption difference, 10 against 20, goes into the
 report, explained or found wrong.
 
+## Rerun after `1622b29` (owner, 2026-09-29, log `Mars.exe-20260929-12.03.53-6aad2d75.log`)
+
+- Owner's Mod Editor save: `cargo_upgrade_smoke.py --require-generated` exit 0 ("Generated
+  upgrade slots 2/3 and base power match source").
+- Load (lines 282 and 283): both hubs `base 70000>75000, output 75000>75000`, so Power was off at load.
+- Cold wave at line 332; slot 6 armed at line 617. Slot 3 at line 2008 lists only
+  CapacityNetwork modifiers, and trains cruise without the Cargo bonus in this copy.
+- **Power's train protection, PASS by slot 6:** moving `GotoStation` trains go from about
+  **3000** in the cold (t 20.5M) to **4500 to 4507** after Power was bought (t ≥ 21.0M). 4500 is
+  the warm speed without Cargo (5617 ≈ 4500 × 1.25; 3000 ≈ 4500 × 2/3, the same ratio as 3758 to
+  5617).
+- No console read in this log: both hubs at 150, their heat and the spent display rest on the
+  owner's panels.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
