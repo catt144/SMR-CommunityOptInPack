@@ -916,7 +916,9 @@ once per colony, vanilla on power, re-buyable, no tech. Power is per hub, costs 
 
 Power build and combined attended check (brief 21):
 [TRAIN_HUB_POWER_UPGRADE_20260928.md](TRAIN_HUB_POWER_UPGRADE_20260928.md).
-Desk-tested; Mod Editor save and sitting owed. Implementation decision delegated by brief 21:
+Desk-tested; template saved in `5128fec`. The sitting failed at 145 power; the report now
+holds the saved-base repair, slot 6 effective-speed reader and full rerun owed.
+Implementation decision delegated by brief 21:
 each hub owns its reactor and ground heat; any intact hub with Power applied keeps trains
 throughout its colony warm. This preserves the requested network protection without giving
 other hubs reactor output or local ground heat for free.

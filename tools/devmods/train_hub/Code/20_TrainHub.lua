@@ -3533,6 +3533,17 @@ SMROptInTrainHubBase.hub_power_upgrade = hub_power_upgrade
 local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }
 local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end
 
+-- Existing hubs saved their placement-time base (70), even after the class moved to 75.
+-- Modifiable:InitBaseProperties/SetBase, archived 1.1.1.405907 Modifiers.lua:30-37,120-128.
+-- One-shot by old value: preserve all modifiers and their on/off state; no saved marker.
+local function rebase_hub_power(hub)
+	if hub.base_electricity_production ~= 70000 then return end
+	local before = hub.electricity_production
+	hub:SetBase("electricity_production", 75000)
+	print(string.format("[TrainHubDev] hub %s power base 70000>75000, output %s>%s",
+		tostring(hub.handle), tostring(before), tostring(hub.electricity_production)))
+end
+
 -- Power is per hub: vanilla's self ObjectModifier adds 75000 electricity_production.
 -- It never participates in the other upgrades' colony claim or rebuild carry.
 local function upgrade_applied(hub, id)
@@ -3738,6 +3749,7 @@ end
 function OnMsg.LoadGame()
 	unlock_capacity_upgrade()
 	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
+		if IsKindOf(hub, "SMROptInTrainHubBase") then rebase_hub_power(hub) end
 		ruins_bonus_off(hub)
 		if IsKindOf(hub, "SMROptInTrainHubBase") then sync_power_heat(hub) end
 	end

@@ -47,15 +47,18 @@ ObjectModifier.TurnOn=ObjectModifier.Add; ObjectModifier.TurnOff=ObjectModifier.
 function ObjectModifier:new(t) setmetatable(t,self); t:Init(); return t end
 function Building:GetProperty(key) return self[key] end
 function Building:HasMember(key) return self[key]~=nil end
-function Building:UpdateModifier(op,mod)
- local list=self.mods[mod.prop] or {}; self.mods[mod.prop]=list
- if op=='add' then table.insert(list,mod)
- else for i=#list,1,-1 do if list[i]==mod then table.remove(list,i) end end end
- local amount,percent=0,0
- for _,m in ipairs(list) do amount=amount+m.amount; percent=percent+m.percent end
- self[mod.prop]=self.base[mod.prop]*(100+percent)//100+amount
- self:Notify(mod.prop)
+function table.remove_entry(list,value)
+ for i=#list,1,-1 do if list[i]==value then table.remove(list,i) end end
 end
+function DirectlyModifiedConstValue() end
+Modifiable={}; min_int64=-(2^63); max_int64=2^63-1
+'''
+for method in ['UpdateModifier', 'ModifyValue', 'SetBase']:
+    SETUP += extract('Modifiers.lua', 'Modifiable:' + method)
+SETUP += '''
+Building.UpdateModifier=Modifiable.UpdateModifier
+Building.ModifyValue=Modifiable.ModifyValue
+Building.SetBase=Modifiable.SetBase
 '''
 SETUP += extract('ElectricityProducer.lua', 'ElectricityProducer:GetPerformanceModifiedElectricityProduction')
 
@@ -72,7 +75,7 @@ hub=function(...)
   h['upgrade3_add_value_'..i]=h['upgrade3_add_value_'..i] or 0
  end
  h.upgrade3_can_disable=true
- h.base.electricity_production=h.electricity_production
+ h.base_electricity_production=h.electricity_production
  h.electricity={SetProduction=function(self,n) self.production=n end}
  h.GetPerformanceModifiedElectricityProduction=ElectricityProducer.GetPerformanceModifiedElectricityProduction
  h.ui_working=true
@@ -109,10 +112,37 @@ both:ToggleUpgradeOnOff(CARGO)
 local P,Q=hub(501),hub(601)
 local function power(h,n) assert(h.electricity_production==n*1000,'power property'); assert(h.electricity.production==n*1000,'grid production') end
 power(P,75); power(Q,75)
+-- Existing-save regression: class 75 does not replace a saved placement base of 70.
+local legacy=hub(6430)
+legacy:SetBase('electricity_production',70000); legacy:ApplyUpgrade(3)
+power(legacy,145) -- actual vanilla Modifiable arithmetic, the reported failure
+local mods=legacy.upgrade_modifiers[POWER]; local modifier=mods[1]
+OnMsg.LoadGame(); power(legacy,150)
+assert(legacy.base_electricity_production==75000 and legacy.upgrade_modifiers[POWER]==mods
+ and mods[1]==modifier and modifier:IsApplied(),'rebase preserves upgrade identity/state')
+SelectedObj=legacy; legacy:ToggleUpgradeOnOff(POWER); power(legacy,75)
+legacy:SetBase('electricity_production',70000); OnMsg.LoadGame(); power(legacy,75)
+assert(not modifier:IsApplied() and not legacy:IsUpgradeOn(POWER),'rebase preserves off state')
+local bare=hub(6431); bare:SetBase('electricity_production',70000); OnMsg.LoadGame(); power(bare,75)
+local extra=ObjectModifier:new{target=bare,prop='electricity_production',amount=10000,percent=20}
+bare:SetBase('electricity_production',70000); OnMsg.LoadGame(); power(bare,100)
+assert(extra:IsApplied() and #bare.modifications.electricity_production==1,'rebase retains unrelated modifiers')
+bare:SetBase('electricity_production',80000); OnMsg.LoadGame(); power(bare,106)
+assert(bare.base_electricity_production==80000,'rebase only old 70')
+local before_mods=bare.modifications.electricity_production
+OnMsg.LoadGame(); assert(bare.modifications.electricity_production==before_mods,'rebase idempotence')
+extra:TurnOff(); power(bare,80)
+local ruined=hub(6432); ruined:SetBase('electricity_production',70000); ruined:ApplyUpgrade(3)
+ruined.destroyed=true; OnMsg.LoadGame()
+assert(ruined.base_electricity_production==75000 and ruined.electricity_production==75000
+ and ruined.electricity.production==0,'old ruin rebased but inactive')
+check(ruined,false)
 -- Construction at one hub, even cancelled with delivered resources, cannot claim the other.
 P.reqs_pending={{GetResource=function() return 'Metals' end,GetActualAmount=function() return 0 end}}
 Q.reqs_pending=P.reqs_pending
-P:ConstructUpgrade(POWER); P:StopUpgradeConstruction(POWER); Q:ConstructUpgrade(POWER)
+P:ConstructUpgrade(POWER)
+assert(P.upgrades_under_construction and P.upgrades_under_construction[POWER],'independent power construction start')
+P:StopUpgradeConstruction(POWER); Q:ConstructUpgrade(POWER)
 assert(P.upgrades_under_construction and P.upgrades_under_construction[POWER] and Q.upgrades_under_construction and Q.upgrades_under_construction[POWER],'independent power construction')
 P:ApplyUpgrade(3); power(P,150); power(Q,75); check(P,true); check(Q,false)
 assert(not Q:HasUpgrade(POWER),'power is not spent on another hub')
@@ -203,6 +233,8 @@ if __name__ == '__main__':
         'colony scope': ('local colony = train.city and train.city.colony', 'local colony = train.city'),
         'ruins bulk guard': ('\tif self.destroyed then return end\n\tlocal result = table.pack(Building.ApplyUpgradeModifiers', '\tlocal result = table.pack(Building.ApplyUpgradeModifiers'),
         'Power unlock': ('local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }', 'local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }'),
+        'saved-base migration': ('then rebase_hub_power(hub) end', 'then --[[ no rebase ]] end'),
+        'saved-base scope': ('if hub.base_electricity_production ~= 70000 then return end', 'if false then return end'),
     }
     for name, (before, after) in mutations.items():
         assert before in code, name
@@ -210,7 +242,7 @@ if __name__ == '__main__':
             run(code.replace(before, after, 1))
         except (LuaError, AssertionError) as exc:
             assert any(s in str(exc) for s in ['heater registration', 'heater geometry', 'outside stays cold', 'assertion failed',
-                'Power', 'power', 'heat read restored', 'base output', 'grid production']), str(exc)
+        'Power', 'power', 'heat read restored', 'base output', 'grid production', 'rebase']), str(exc)
             print('PASS mutation rejected:', name)
         else:
             raise AssertionError('mutation survived: ' + name)

@@ -56,7 +56,12 @@ function poll(id)
     assert(coroutine.resume(co))
 end
 ''')
-    lua.execute((kit/'Code/80_AgentSlots.lua').read_text(encoding='utf8'))
+    slots=(kit/'Code/80_AgentSlots.lua').read_text(encoding='utf8')
+    print('80_AgentSlots.lua sha256:',hashlib.sha256(slots.encode()).hexdigest(),flush=True)
+    if '--mutate-effective-speed' in sys.argv:
+        assert 'effective_speed = t:GetVelocity()' in slots
+        slots=slots.replace('effective_speed = t:GetVelocity()', 'effective_speed = t:GetNominalMoveSpeed()', 1)
+    lua.execute(slots)
     lua.execute(r'''
 local T,D=SMRTK,SMROptInTrainDistribution
 local t,s,h=fixture(120,0,120,480)
@@ -172,6 +177,9 @@ do -- Scratch balances and slot 1 empties every non-hub station (owner, 2026-09-
 end
 do -- Slot 6 streams every train and station row that changed (owner, 2026-09-28).
     local tr,sp,hb=fixture(120,0,120,480)
+    tr.velocity=1500
+    function tr:GetVelocity() return self.velocity end
+    function tr:GetNominalMoveSpeed() error('slot 6 must read actual movement') end
     UIColony.labels.Train={tr}
     function tr.track:GetStartStation() return hb end
     function tr.track:GetEndStation() return sp end
@@ -186,7 +194,14 @@ do -- Slot 6 streams every train and station row that changed (owner, 2026-09-28
         if l.kv.row=='train' then trains=trains+1 elseif l.kv.row=='stock' then stocks=stocks+1 end
     end
     assert(trains==1 and stocks==4 and out.baseline==5 and out.rows==5, 'baseline '..trains..' '..stocks)
+    assert(ctx.state.trains[tostring(tr.handle)].effective_speed==1500,'effective speed baseline')
     logged={};assert(coroutine.resume(ctx.state.thread));assert(#logged==0) -- Quiet tick: nothing changed.
+    for _,v in ipairs({500,0,1000,1500}) do
+        tr.velocity=v; logged={}; assert(coroutine.resume(ctx.state.thread))
+        assert(#logged==1 and logged[1].kv.row=='train' and logged[1].kv.effective_speed==v,
+            'effective-speed-only change reaches stream')
+    end
+    logged={}; assert(coroutine.resume(ctx.state.thread)); assert(#logged==0,'unchanged speed is quiet')
     sp:AddResource(-3000,'Metals');tr:AddResource(3000,'Metals');tr.assigned_resources={[hb]={Metals=3000}}
     assert(coroutine.resume(ctx.state.thread))
     assert(#logged==2, 'changes '..#logged)
@@ -218,3 +233,7 @@ print('PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; the f
 
 if __name__=='__main__':
     main()
+    if '--mutate-effective-speed' not in sys.argv:
+        mutant=subprocess.run([sys.executable,__file__,'--mutate-effective-speed'],capture_output=True,text=True)
+        assert mutant.returncode!=0 and 'slot 6 must read actual movement' in mutant.stderr, mutant.stdout+mutant.stderr
+        print('PASS mutation rejected: slot 6 nominal speed substituted for effective speed',flush=True)
