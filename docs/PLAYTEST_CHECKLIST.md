@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-27 · opened 2026-09-24
-When a rail shaft connects the hub to another map, should hub drones stop at the shaft?
-- The graph enrolls far-map stations, but a Wasp's stock flight stays on its own map.
-- Recommend restricting drone work to the hub's map, retaining ordinary same-map tunnels.
-- Alternatively, keep that combined fixture parked until cross-map service is designed.
-- The audit did not add a map restriction to your network-wide service rule.
-Home: `docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md`, `docs/agent/bugs/D14.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

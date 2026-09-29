@@ -3757,7 +3757,12 @@ coverage.
 Reachability cannot use `ForEachConnectedTrack` as the authority: it is one-hop and its
 `GetDestStation` call rejects a track while the break's construction site is present. Build 4 needs
 a visited physical connector graph over `GetStartStation`/`GetEndStation` plus tunnel `linked_obj`
-edges, retaining existing broken tracks and excluding a truly isolated component. Save layer 1
+edges, retaining existing broken tracks and excluding a truly isolated component. **Owner ruling
+OI-27, 2026-09-29:** *"I think it would be best if they don't see anything on another map as far as
+repair drones go."* Hub repair drones get no work, target or flight leg on any map but the hub's
+own: a tunnel `linked_obj` edge whose far mouth is on another map (a rail shaft) is not followed
+for drone work. Same-map tunnels are unaffected. The ruling covers repair drones only; whether
+far-map stations count toward hub membership or distribution is not ruled. Save layer 1
 keeps only pending data + absolute deadline, gates respawn from `SaveGameStart` through
 `SaveGameDone`, and rebuilds from remaining time; `EF-070` makes that gate necessary on autosave.
 `CanBeControlled` is chained and returns false only for a Wasp whose live controller is the hub.
