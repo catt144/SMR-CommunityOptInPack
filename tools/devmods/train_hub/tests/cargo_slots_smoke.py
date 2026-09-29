@@ -34,6 +34,7 @@ local claim=both.upgrades_built
 local onoff=both.upgrade_on_off_state
 local out=SMRTK.slots[3].fn(ctx)
 assert(out.cargo_unlocked and out.trains==1)
+assert(out.owner=='colony' and out.modifiers==4 and out.applied==3,'colony modifier dedup and off state')
 local train_read,cargo_read,capacity_mod,cargo_mod=false,false,false,false
 for _,r in ipairs(rows) do
  if r.row=='train' then
@@ -49,9 +50,27 @@ end
 assert(train_read and cargo_read and capacity_mod and cargo_mod,'slot must expose both upgrade modifier groups')
 assert(T1.max_shared_storage==before and both.upgrades_built==claim and both.upgrade_on_off_state==onoff)
 assert(not both:IsUpgradeOn(CARGO),'read did not change off state')
+for i=#city.labels.Station,1,-1 do
+ if IsKindOf(city.labels.Station[i],'SMROptInTrainHubBase') then table.remove(city.labels.Station,i) end
+end
+rows={}; out=SMRTK.slots[3].fn(ctx)
+assert(out.owner=='colony' and out.hubs==0 and out.modifiers==4 and out.applied==3,'colony read without hubs')
 factor=1
 local ok,why=SMRTK.slots[3].fn(ctx)
 assert(ok==false and why=='pause first')
 '''
-run(SOURCE.read_text(encoding='utf8'), setup + '\n' + slots.read_text(encoding='utf8') + '\n' + cases)
+source=SOURCE.read_text(encoding='utf8')
+slot_code=slots.read_text(encoding='utf8')
+run(source, setup + '\n' + slot_code + '\n' + cases)
+from lupa import LuaError
+for name,before,after in [
+    ('duplicate modifier rows','if seen[m] then return end','-- no dedup'),
+    ('no-hub off modifiers','pairs(UIColony.SMROptIn_hub_upgrades or empty_table)','pairs(empty_table)'),
+]:
+    assert before in slot_code
+    try: run(source,setup+'\n'+slot_code.replace(before,after,1)+'\n'+cases)
+    except LuaError as e:
+        assert 'colony' in str(e),str(e)
+        print('PASS mutation rejected:',name)
+    else: raise AssertionError('mutation survived: '+name)
 print('PASS slot 3: both upgrade states/modifiers, capacities, speed/animation, paused gate; no fill/toggle/UI allocation')

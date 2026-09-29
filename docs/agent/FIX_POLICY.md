@@ -174,11 +174,13 @@ contract. New persisted names join this table.
 | 10 | `SMROptIn_hub_crossing` | Train reference (or false) on a dev hub; survives a mid-crossing save | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `HubAcquireCrossing` / `RemoveOccupyingTrain` | same file, `HubCrossingTrain`; TestKit smoke reads it |
 | 11 | `SMROptIn_track_work` | table (or false) on a dev hub: `repair` (the Track work toggle, construction and repair) and `jobs` (the pending list; each job `kind`, `site`, `el`, `track`, `found`, `started`, `deadline`, `drone`, `held`, `waiting`; build jobs also `elements`) | `tools/devmods/train_hub/Code/20_TrainHub.lua`, the TRACK WORK section (`track_work`, the tick, `SetHubTrackRepair`) | same file (`track_jobs`, the tick, the panel line); `tests/repair_smoke.py` walks its shape |
 | 12 | `SMROptIn_hub_native_waiter` | save metadata marker: `1` means the snapshot mapped `cthread.WaitWakeup` to the captured native waiter | `tools/devmods/train_hub/Code/20_TrainHub.lua`, `OnMsg.GatherGameMetadata` when the snapshot guard is installed | same file, `OnMsg.PreLoadGame`; unmarked existing hub saves retain the legacy Lua mapping |
-| 13 | `SMROptInTrainHub6_CapacityNetwork` | **upgrade id**: a key in the owning dev hub's vanilla `upgrades_built`, `upgrade_on_off_state`, `upgrade_modifiers`, `upgrade_id_to_modifiers` (and `upgrades_under_construction` while it is being built), and in `UIColony.unlocked_upgrades`; its modifiers' `upgrade_id` | the template's `upgrade1_id` (`tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua`) through vanilla `Building:ApplyUpgrade`; `20_TrainHub.lua` §Capacity Network Upgrade (`UnlockUpgrade`) | vanilla's upgrade panel and toggle; same section (`hub_capacity_upgrade`, once per colony); `tests/capacity_smoke.py` |
+| 13 | `SMROptInTrainHub6_CapacityNetwork` | **upgrade id**: a key in each dev hub's mirrored vanilla `upgrades_built`, `upgrade_on_off_state`, `upgrade_modifiers`, `upgrade_id_to_modifiers` (and `upgrades_under_construction` while it is being built), and in `UIColony.unlocked_upgrades`; its modifiers' `upgrade_id` | the template's `upgrade1_id` (`tools/devmods/train_hub/Code/BuildingTemplate/SMROptInTrainHub6.generated.lua`) through vanilla `Building:ApplyUpgrade`; `20_TrainHub.lua` §Capacity Network Upgrade (`UnlockUpgrade`) | vanilla's upgrade panel and toggle; same section (`hub_capacity_upgrade`, once per colony); `tests/capacity_smoke.py` |
 | 14 | `SMROptIn_distribution` | table on a dev hub: station object keys, then resource keys, then `{mode, percent}`; no field on a vanilla station | `tools/devmods/train_hub/Code/40_TrainDistribution.lua`, `Set` / `Reset` | same file, train view and baseline reconciliation; `45_TrainDistributionUI.lua` through `Get` |
 | 15 | `HubTrain` | **class name**, with `persist_baseclass = "Train"`; retained for old bay saves | Writer retired by spec §4.8 ruling 10 (owner, 2026-09-28); original code in `docs/archive/train_bay_extras_20260928/` | `tools/devmods/train_hub/Code/70_TrainBay.lua` keeps a bare class inheriting vanilla `Train`; vanilla's persist fallback resolves `Train:HubTrain` to `Train` without the mod; `tests/train_fill_smoke.py` |
 | 16 | `SMROptInTrainHub6_TrainCargo` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Train Cargo Upgrade, spec §4.10 owner ruling 2026-09-28; template `upgrade2_id` and `20_TrainHub.lua` unlock | Vanilla upgrade panel/modifiers; `20_TrainHub.lua` shared ownership, salvage/rebuild and speed wrapper; `tests/cargo_upgrade_smoke.py` |
-| 17 | `SMROptInTrainHub6_Power` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Power Upgrade, spec §4.10 and brief 21, owner 2026-09-28; template `upgrade3_id` and `20_TrainHub.lua` unlock | Vanilla per-building upgrade panel and `ObjectModifier`; `20_TrainHub.lua` power heat and colony train cold immunity; `tests/cargo_heater_smoke.py` |
+| 17 | `SMROptInTrainHub6_Power` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Power Upgrade, spec §4.10 and brief 21, owner 2026-09-28; template `upgrade3_id` and `20_TrainHub.lua` unlock | Vanilla upgrade panel mirrors; `20_TrainHub.lua` colony output, heat and train cold immunity; `tests/cargo_heater_smoke.py` |
+
+| 18 | `SMROptIn_hub_upgrades` | table on `UIColony`, keyed by the existing three upgrade ids; each entry has `on` (boolean) and `modifiers` (array of native `LabelModifier` references; empty for Power) | `20_TrainHub.lua`, `adopt_colony_upgrades` and `ToggleUpgradeOnOff` | same section: mirror/panel, native modifier reconciliation, output and speed gates; `tests/global_upgrade_smoke.py` |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -198,11 +200,12 @@ element, the track, the flight's Wasp, the stock claim's supply request. A job w
 is dropped on the next tick; the deadline is the only authority for completion. The tick runs in
 vanilla's per-building update thread, so no thread of ours rides the save.
 
-Row 13 is the Capacity Network Upgrade (spec §4.10, authorised by it; brief 08, 2026-09-26). Its
-modifiers are vanilla `LabelModifier`s on the city with the game's own ids
-(`<handle>_upgrade1_mod_<i>`), not names of ours. Removing the mod from a save leaves them to
-vanilla's `SavegameFixups.RemoveLeakedUpgradeModifiers` (`Building.lua:1323` on 1.1.1.405907),
-which runs once per save: the hub's general uninstall problem.
+Rows 13 and 16 retain their vanilla-generated modifier ids
+(`<handle>_upgrade<tier>_mod_<i>`) and native `LabelModifier` objects. Repair 3 (owner,
+2026-09-29, train spec section 4.10) moves their container from city to colony, with references
+held only in row 18; every hub mirrors the purchase and switch, with empty local modifier
+arrays. Native label membership applies their effects to future stations and trains on every
+map. No new modifier id.
 
 Row 15 is the train bay's hub extra (spec §4.8 ruling 9, owner 2026-09-28, which names the class). Without the mod a loaded extra becomes an ordinary `Train` and its route can be briefly over the vanilla cap; that residual is in the dev mod's description. SOURCE only until the ship test's no-mod load.
 
@@ -212,17 +215,27 @@ The old snapshot's empty extras still use vanilla's delete-on-load list and its 
 pool. No new save-time storing is installed. Desk coverage is `tests/train_fill_smoke.py`;
 a real old-bay save/load remains an attended check.
 
-Row 16 uses vanilla's city `Train` label modifier and generated modifier id, as row 13.
-The speed wrapper reads that modifier's applied state and writes no saved field or thread.
-The owner's Mod Editor re-save is required to generate the template bytes and code hash.
+Row 17 remains the separately purchasable Power id. Repair 3 retires its old local
+`ObjectModifier` during adoption; output and cold immunity read the colony switch instead.
+Ground heat still uses the existing heat grid's hub reference and numeric geometry.
 
-Row 17 is unavoidable for a separately purchasable, saved vanilla upgrade: reusing either
-existing id would conflate its purchase and toggle with Capacity or Cargo. Brief 21 permits
-the new name when inventoried with a reason. Vanilla's self `ObjectModifier` changes only
-the owning hub's `electricity_production`; no custom modifier id, saved field or thread is
-added. Ground heat uses the existing heat grid's hub reference and numeric geometry;
-train cold immunity reads applied Power state synchronously. This is the hub's existing
-content residual under §0, not a clean-uninstall claim.
+Row 18 is necessary for the owner's 2026-09-29 ruling: bought upgrades survive removal of
+all hubs, retaining ON or OFF, and a future hub cannot be charged again. Vanilla's
+`unlocked_upgrades` marks research availability, not purchase or switch state; per-building
+receipts disappear with the last building. Brief 21 permits an unavoidable new persisted
+name when inventoried with its reason. This bounded table holds only booleans and native
+modifier references, never functions, threads, custom classes or dead hub references.
+The three existing upgrade ids are its keys and remain exact-byte contracts.
+
+An old save without row 18 is adopted from paid vanilla hub receipts, including ruins;
+ON wins if duplicate old receipts disagree. Existing modifier identities and amounts survive,
+and their former city registrations are removed before colony application. The vanilla
+`RemoveLeakedUpgradeModifiers` fixup can remove their registrations when no hubs remain;
+load reconciliation restores them from the colony receipt. Missing mod code leaves a plain
+table and native modifier objects, not callable mod code. Capacity effects may remain after
+removing the mod if the once-per-save native cleanup has already run: this is the existing
+content-mod residual under section 0, not a clean-uninstall claim. Normal native save/load
+and removal remain attended/release checks; no new no-mod safety claim is made.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 

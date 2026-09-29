@@ -3505,23 +3505,14 @@ end
 --   }
 
 -- ===========================================================================
--- The Capacity Network Upgrade (spec §4.10; owner, 2026-09-25 and 2026-09-26). The template's
--- upgrade1 carries it: three LabelModifiers on the city, +100% `max_storage_per_resource` on the
--- `Station` label (the hub joins it, AddToCityLabels above), +100% `max_shared_storage` and
--- `max_colonists_to_transport` on `Train`. Vanilla applies, toggles and removes them
--- (Building:ApplyUpgrade / ToggleUpgradeOnOff / Done -> StopUpgradeModifiers, Building.lua
--- :1151-1250, :1261, :529-534 on 1.1.1.405907), and a live station resizes through
--- MultiResourceDepotBase:OnModifiableValueChanged (MultiResourceDepot.lua:225-240), which reaches
--- this hub's capped RecalculateDerivedMaxZ above.
---
--- What this file adds is only what vanilla has no field for:
---   * Unlocked from the start, no tech (owner ruling 4). UIColony's unlock list persists it.
---   * Once per colony (owner ruling 1). The owner is the hub whose own `upgrades_built` holds it,
---     ruins included. Any other hub answers HasUpgrade with "spent" and cannot switch it.
---   * Owner, 2026-09-28 (amending 2026-09-26): salvage or destruction switches the bonus OFF, the
---     ruins keeping the claim; clearing the ruins releases it (vanilla's Done, Building.lua:534);
---     rebuilding them carries it to the new hub, built, in the on/off state the ruins held.
---     Nothing new is persisted: only vanilla's `upgrades_built`/`upgrade_on_off_state` move.
+-- The Capacity Network Upgrade and its siblings (spec 4.10, owner 2026-09-29).
+-- A purchase is colony-owned, survives every hub's removal, and has one switch
+-- state mirrored to vanilla's panel fields on every hub. Vanilla still builds
+-- the upgrade and its modifiers; we retain those native objects on the colony,
+-- retarget Capacity/Cargo's LabelModifiers from city to colony, and derive Power.
+-- Save footprint: SMROptIn_hub_upgrades (FIX_POLICY inventory); existing upgrade
+-- ids and vanilla-generated modifier ids are unchanged. No new saved function,
+-- class or thread. LabelModifier/LabelContainer remain the native effect engine.
 -- ===========================================================================
 
 local hub_capacity_upgrade = "SMROptInTrainHub6_CapacityNetwork" -- save contract, FIX_POLICY inventory
@@ -3532,6 +3523,16 @@ local hub_power_upgrade = "SMROptInTrainHub6_Power" -- save contract, FIX_POLICY
 SMROptInTrainHubBase.hub_power_upgrade = hub_power_upgrade
 local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }
 local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end
+local function colony_upgrades(colony)
+	return colony and colony.SMROptIn_hub_upgrades or empty_table
+end
+local function colony_upgrade_on(colony, id)
+	local entry = colony_upgrades(colony)[id]
+	return entry and entry.on or false
+end
+local function colony_power_on(colony)
+	return colony_upgrade_on(colony, hub_power_upgrade)
+end
 
 -- Existing hubs saved their placement-time base (70), even after the class moved to 75.
 -- Modifiable:InitBaseProperties/SetBase, archived 1.1.1.405907 Modifiers.lua:30-37,120-128.
@@ -3544,29 +3545,12 @@ local function rebase_hub_power(hub)
 		tostring(hub.handle), tostring(before), tostring(hub.electricity_production)))
 end
 
--- The buyer retains vanilla's self ObjectModifier and saved purchase. Other hubs
--- derive the same additive output without duplicating the purchase or saving new state.
-local function upgrade_applied(hub, id)
-	if not IsValid(hub) or hub.destroyed or not Building.HasUpgrade(hub, id) then return false end
-	for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[id] or empty_table) do
-		if mod:IsApplied() then return true end
-	end
-	return false
-end
-
-local function colony_power_on(colony)
-	for _, hub in ipairs(colony and colony.labels.Station or empty_table) do
-		if IsKindOf(hub, "SMROptInTrainHubBase") and upgrade_applied(hub, hub_power_upgrade) then return true end
-	end
-	return false
-end
 
 local hub_previous_production = ElectricityProducer and ElectricityProducer.GetPerformanceModifiedElectricityProduction
 if type(hub_previous_production) == "function" then
 	function SMROptInTrainHubBase:GetPerformanceModifiedElectricityProduction(...)
 		local result = table.pack(hub_previous_production(self, ...))
-		if not self.destroyed and not upgrade_applied(self, hub_power_upgrade)
-			and colony_power_on(self.city and self.city.colony) then
+		if not self.destroyed and colony_power_on(self.city and self.city.colony) then
 			result[1] = result[1] + MulDivRound(75000, self:HasMember("performance") and self.performance or 100, 100)
 		end
 		return table.unpack(result, 1, result.n)
@@ -3602,11 +3586,52 @@ local function sync_power_heat(hub)
 	hub:ApplyHeat(on)
 end
 
-local function sync_colony_power()
-	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
-		if IsKindOf(hub, "SMROptInTrainHubBase") then
+
+-- Mirror raw tables as well as getters: both vanilla panels' Ctrl+click paths
+-- read upgrade_on_off_state directly. Synchronous publication makes a broadcast
+-- change the colony once; subsequent recipients already match the requested state.
+local function mirror_upgrades(hub, state)
+	hub.upgrades_built = hub.upgrades_built or {}
+	hub.upgrade_on_off_state = hub.upgrade_on_off_state or {}
+	hub.upgrade_modifiers = hub.upgrade_modifiers or {}
+	hub.upgrade_id_to_modifiers = hub.upgrade_id_to_modifiers or {}
+	for _, id in ipairs(hub_upgrades) do
+		local entry = state[id]
+		if entry then
+			hub.upgrades_built[id] = true
+			local tier = hub:GetUpgradeTier(id)
+			if tier then hub.upgrades_built[tier] = true end
+			hub.upgrade_on_off_state[id] = entry.on
+			-- Only the colony owns the modifiers. Native per-building cleanup and
+			-- upgrade-modifier scans must not replay one modifier for every hub.
+			hub.upgrade_modifiers[id] = {}
+			hub.upgrade_id_to_modifiers[id] = {}
+		end
+	end
+end
+
+local function sync_colony_upgrades(colony)
+	if not colony then return end
+	local state = colony_upgrades(colony)
+	for _, id in ipairs(hub_upgrades) do
+		local entry = state[id]
+		for _, mod in ipairs(entry and entry.modifiers or empty_table) do
+			local registered = colony.label_modifiers[mod.label] and colony.label_modifiers[mod.label][mod.id] == mod
+			if entry.on then
+				-- A vanilla old-save leak fixup may have removed the registration when
+				-- no hubs existed. The colony receipt still owns the native modifier.
+				if not mod:IsApplied() or not registered then mod:TurnOn() end
+			elseif mod:IsApplied() or registered then
+				mod:TurnOff()
+			end
+		end
+	end
+	for _, hub in ipairs(colony.labels.Station or empty_table) do
+		if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") then
+			mirror_upgrades(hub, state)
 			sync_power_heat(hub)
 			if hub.HubUpdateProduction then hub:HubUpdateProduction() end
+			if ObjModified then ObjModified(hub) end
 		end
 	end
 end
@@ -3617,226 +3642,139 @@ local function unlock_capacity_upgrade()
 	end
 end
 
--- Another hub that has built the upgrade ("built") or has it under construction, cancelled or not
--- ("started"), since a cancelled one keeps its delivered resources and may resume
--- (Building:StopUpgradeConstruction, Building.lua:2149-2170).
-local function other_upgrade_hub(self, id, started)
-	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
-		if hub ~= self and IsKindOf(hub, "SMROptInTrainHubBase") then
-			if Building.HasUpgrade(hub, id) then return hub end
-			if started and hub.upgrades_under_construction and hub.upgrades_under_construction[id] then
-				return hub
+-- Adopt actual paid receipts before publishing mirrors. For duplicate legacy
+-- receipts prefer an ON purchase, otherwise retain OFF. Ruins' saved switch is
+-- respected: salvage no longer revokes the purchase or changes that switch.
+local function adopt_colony_upgrades(colony)
+	if not colony then return end
+	for _, id in ipairs(hub_upgrades) do
+		if not colony_upgrades(colony)[id] then
+			local buyer
+			for _, hub in ipairs(colony.labels.Station or empty_table) do
+				if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") and Building.HasUpgrade(hub, id) then
+					buyer = buyer or hub
+					if Building.IsUpgradeOn(hub, id) then buyer = hub; break end
+				end
+			end
+			if buyer then
+				local entry = { on = Building.IsUpgradeOn(buyer, id) and true or false, modifiers = {} }
+				local selected = buyer.upgrade_modifiers and buyer.upgrade_modifiers[id] or empty_table
+				for _, hub in ipairs(colony.labels.Station or empty_table) do
+					if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") and Building.HasUpgrade(hub, id) then
+						for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[id] or empty_table) do
+							mod:TurnOff()
+						end
+					end
+				end
+				if id ~= hub_power_upgrade then
+					for _, mod in ipairs(selected) do
+						mod.container = colony
+						entry.modifiers[#entry.modifiers + 1] = mod
+					end
+				end
+				colony.SMROptIn_hub_upgrades = colony.SMROptIn_hub_upgrades or {}
+				colony.SMROptIn_hub_upgrades[id] = entry
 			end
 		end
 	end
 end
 
 function SMROptInTrainHubBase:HasUpgrade(id)
-	local own = Building.HasUpgrade(self, id)
-	if own or not network_upgrade(id) or not other_upgrade_hub(self, id) then return own end
-	-- The panel's Ctrl+click reads this table raw once HasUpgrade is true (sectionUpgrades
-	-- .generated.lua:74-84); ApplyUpgrade would have made it on the owner.
-	self.upgrade_on_off_state = self.upgrade_on_off_state or {}
-	return true
+	if network_upgrade(id) and colony_upgrades(self.city and self.city.colony)[id] then return true end
+	return Building.HasUpgrade(self, id)
 end
-
--- A spent upgrade shows as "Upgrade already constructed", with no switch
--- (UpgradableBuilding.lua:256-261, sectionUpgrades.generated.lua:41-45); the owner hub switches it.
+function SMROptInTrainHubBase:IsUpgradeOn(id)
+	if network_upgrade(id) and colony_upgrades(self.city and self.city.colony)[id] then
+		return colony_upgrade_on(self.city.colony, id)
+	end
+	return Building.IsUpgradeOn(self, id)
+end
 function SMROptInTrainHubBase:CanDisableUpgrade(id)
-	if network_upgrade(id) and not Building.HasUpgrade(self, id) and other_upgrade_hub(self, id) then return false end
+	if network_upgrade(id) and colony_upgrades(self.city and self.city.colony)[id] then return true end
 	return Building.CanDisableUpgrade(self, id)
 end
-
--- Ruins keep the on/off state the player left for the rebuild (owner, 2026-09-28: "keeping an off
--- toggle off"). A Ctrl+click on a spent hub broadcasts `enable = true` to every hub of the class
--- that passes GetUIInteractionState, ruins included (sectionUpgrades.generated.lua:69-92,
--- BaseBuilding.lua:541-552; Destroy leaves ui_interaction_state alone), so ruins refuse the switch.
--- Owner, 2026-09-28: that Ctrl+click from a spent hub is inert. Both panels send it with the
--- clicked hub selected and give the target no other mark of its origin (sectionUpgrades
--- .generated.lua:69-92, UpgradableBuilding.lua:368-392), so the owner refuses a switch while
--- another train hub that does not own the upgrade is selected. Its own click and its own
--- broadcast still switch it.
 function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
-	if id == hub_power_upgrade and self.destroyed then return end
-	if network_upgrade(id) then
-		if self.destroyed then return end
-		local sel = SelectedObj
-		if Building.HasUpgrade(self, id) and sel ~= self and IsKindOf(sel, "SMROptInTrainHubBase")
-			and not Building.HasUpgrade(sel, id) then
-			print(string.format("[TrainHubDev] network upgrade: switch from hub %s refused, hub %s owns it",
-				tostring(sel.handle), tostring(self.handle)))
-			return
-		end
-	end
-	return Building.ToggleUpgradeOnOff(self, id)
+	local colony = self.city and self.city.colony
+	local entry = network_upgrade(id) and colony_upgrades(colony)[id]
+	if not entry then return Building.ToggleUpgradeOnOff(self, id) end
+	entry.on = not entry.on
+	sync_colony_upgrades(colony)
+	self:OnUpgradeToggled(id, entry.on)
 end
 
--- Ruins never carry the bonus (owner, 2026-09-28), whatever reaches the modifiers.
 function SMROptInTrainHubBase:ApplyUpgrade(...)
 	local result = table.pack(Building.ApplyUpgrade(self, ...))
-	sync_colony_power()
+	local colony = self.city and self.city.colony
+	adopt_colony_upgrades(colony)
+	sync_colony_upgrades(colony)
 	return table.unpack(result, 1, result.n)
 end
 
+-- These vanilla bulk/single paths are also used by building shutdown, Done and
+-- tech refresh. Reconcile to the colony switch, never infer a toggle from them.
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
-	if (network_upgrade(id) or id == hub_power_upgrade) and self.destroyed then return end
-	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
-	if id == hub_power_upgrade then sync_colony_power() end
+	if self.upgrade_modifiers and self.upgrade_modifiers[id] then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
+	sync_colony_upgrades(self.city and self.city.colony)
 end
-
 function SMROptInTrainHubBase:StopUpgradeModifiersForUpgrade(id)
-	if Building.HasUpgrade(self, id) then Building.StopUpgradeModifiersForUpgrade(self, id) end
-	if id == hub_power_upgrade then sync_colony_power() end
+	if self.upgrade_modifiers and self.upgrade_modifiers[id] then Building.StopUpgradeModifiersForUpgrade(self, id) end
+	sync_colony_upgrades(self.city and self.city.colony)
 end
-
--- Building:Done uses the bulk path directly (Building.lua:534,1323), not the pair above.
 function SMROptInTrainHubBase:StopUpgradeModifiers(...)
-	local result = table.pack(Building.StopUpgradeModifiers(self, ...))
-	sync_colony_power()
-	-- Done still has this receiver in the labels; remove its heat before deletion.
+	local result = self.upgrade_modifiers and table.pack(Building.StopUpgradeModifiers(self, ...)) or { n = 0 }
+	sync_colony_upgrades(self.city and self.city.colony)
+	-- Done still has this hub in the labels until the combined cleanup finishes.
 	if hub_heat_ready then self:ApplyHeat(false) end
 	return table.unpack(result, 1, result.n)
 end
 function SMROptInTrainHubBase:ApplyUpgradeModifiers(...)
-	if self.destroyed then return end
-	local result = table.pack(Building.ApplyUpgradeModifiers(self, ...))
-	sync_colony_power()
+	local result = self.upgrade_id_to_modifiers and table.pack(Building.ApplyUpgradeModifiers(self, ...)) or { n = 0 }
+	sync_colony_upgrades(self.city and self.city.colony)
 	return table.unpack(result, 1, result.n)
 end
 
--- Every construct and cancel, single or Ctrl+click broadcast, comes through here
--- (Building.lua:2078-2092). A hub may cancel its own; it may not start one another hub holds.
 function SMROptInTrainHubBase:ConstructUpgrade(id)
-	if network_upgrade(id) and not self:IsUpgradeBeingConstructed(id) then
-		local other = other_upgrade_hub(self, id, "started")
-		if other then
-			print(string.format("[TrainHubDev] network upgrade: refused on hub %s, hub %s holds it", tostring(self.handle), tostring(other.handle)))
-			return
+	if network_upgrade(id) then
+		if self:HasUpgrade(id) then return end
+		for _, hub in ipairs(self.city.colony.labels.Station or empty_table) do
+			if hub ~= self and IsKindOf(hub, "SMROptInTrainHubBase")
+				and hub.upgrades_under_construction and hub.upgrades_under_construction[id] then return end
 		end
 	end
 	return Building.ConstructUpgrade(self, id)
 end
 
--- Salvage and destruction both end in Building:OnDemolish, which runs Destroy (the ruins) and then
--- sends BuildingDemolished (Building.lua:910-919; Destroy's only caller is :912). The state stays
--- as the player left it, so a rebuild restores it on or off.
-local function ruins_bonus_off(hub)
-	if not IsKindOf(hub, "SMROptInTrainHubBase") or not hub.destroyed then return end
-	local held = false
-	for _, id in ipairs(hub_upgrades) do
-		if Building.HasUpgrade(hub, id) then
-			hub:StopUpgradeModifiersForUpgrade(id)
-			held = true
-		end
-	end
-	return held
-end
-
 function OnMsg.BuildingDemolished(bld)
-	if ruins_bonus_off(bld) then
-		print(string.format("[TrainHubDev] hub %s ruined, upgrade bonuses off", tostring(bld.handle)))
-	end
-	if IsKindOf(bld, "SMROptInTrainHubBase") then sync_colony_power() end
+	if IsKindOf(bld, "SMROptInTrainHubBase") then sync_colony_upgrades(bld.city and bld.city.colony) end
 end
-
--- Rebuild: ConstructionSite:Complete places the new building at the site, runs ApplyCopyParams and
--- only then DoneObject-s `rebuild`, the ruins (ConstructionSite.lua:1724-1745; Building:Rebuild
--- :1788-1810 passes params.rebuild and orig_state's copy_params, :1602). ApplyCopyParams is a call-all combined
--- method (BaseBuilding.lua:2, classes.lua:1847), so this adds to the chain. Only one hub holds the
--- upgrade; if it is ruins standing where this hub now stands, on this hub's map (UIColony's labels
--- span every map), they are this hub's.
-local function carry_upgrade(self, id)
-	if Building.HasUpgrade(self, id) then return end
-	local ruins = other_upgrade_hub(self, id)
-	if not ruins or not ruins.destroyed or ruins:GetMap() ~= self:GetMap() then return end
-	local x, y = self:GetPos():xy()
-	local rx, ry = ruins:GetPos():xy()
-	if x ~= rx or y ~= ry then return end
-	local on = ruins:IsUpgradeOn(id)
-	local tier = self:GetUpgradeTier(id)
-	ruins:StopUpgradeModifiersForUpgrade(id)
-	ruins.upgrades_built[id] = nil
-	ruins.upgrades_built[tier] = nil
-	self:ApplyUpgrade(tier)
-	-- Vanilla's toggle, not this class's: whatever the player has selected, the carry keeps the state.
-	if not on then Building.ToggleUpgradeOnOff(self, id) end
-	print(string.format("[TrainHubDev] network upgrade: carried from ruins %s to rebuilt hub %s, %s",
-		tostring(ruins.handle), tostring(self.handle), on and "on" or "off"))
-end
-
 function SMROptInTrainHubBase:ApplyCopyParams(params)
-	for _, id in ipairs(hub_upgrades) do carry_upgrade(self, id) end
+	sync_colony_upgrades(self.city and self.city.colony)
 end
-
 function SMROptInTrainHubBase:InitHubCapacityUpgrade()
 	unlock_capacity_upgrade()
+	mirror_upgrades(self, colony_upgrades(self.city and self.city.colony))
 	sync_power_heat(self)
 	if self.HubUpdateProduction then self:HubUpdateProduction() end
 end
-
 function OnMsg.CityStart()
 	unlock_capacity_upgrade()
 end
-
--- The earlier per-hub build allowed duplicate Power purchases. Keep an active
--- buyer if one exists, otherwise the first saved claim; recipients now benefit
--- without their old local purchase. Only vanilla upgrade bookkeeping is changed.
-local function reconcile_power_claim()
-	local owner
-	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
-		if IsKindOf(hub, "SMROptInTrainHubBase") and Building.HasUpgrade(hub, hub_power_upgrade) then
-			owner = owner or hub
-			if upgrade_applied(hub, hub_power_upgrade) then owner = hub; break end
-		end
-	end
-	if not owner then return end
-	for _, hub in ipairs(UIColony.labels.Station) do
-		if hub ~= owner and IsKindOf(hub, "SMROptInTrainHubBase") and Building.HasUpgrade(hub, hub_power_upgrade) then
-			Building.StopUpgradeModifiersForUpgrade(hub, hub_power_upgrade)
-			hub.upgrades_built[hub:GetUpgradeTier(hub_power_upgrade)] = nil
-			hub.upgrades_built[hub_power_upgrade] = nil
-			hub.upgrade_on_off_state[hub_power_upgrade] = nil
-			hub.upgrade_modifiers[hub_power_upgrade] = nil
-			hub.upgrade_id_to_modifiers[hub_power_upgrade] = nil
-			print(string.format("[TrainHubDev] Power claim kept on hub %s; hub %s now receives colony effects",
-				tostring(owner.handle), tostring(hub.handle)))
-		end
-	end
-end
-
--- Ruins saved before the 2026-09-28 ruling still carry the bonus; switch it off on load.
 function OnMsg.LoadGame()
 	unlock_capacity_upgrade()
 	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
 		if IsKindOf(hub, "SMROptInTrainHubBase") then rebase_hub_power(hub) end
-		ruins_bonus_off(hub)
 	end
-	reconcile_power_claim()
-	sync_colony_power()
+	adopt_colony_upgrades(UIColony)
+	sync_colony_upgrades(UIColony)
 end
 
--- Train Cargo Upgrade speed: archived 1.1.1.405907 Units/Train.lua:593-613.
--- Speed is not modifiable (:21-28). Multiply the chained result after all vanilla
--- tech and law adjustments, including its matching turn-animation speed.
--- Hub movement already reads GetNominalMoveSpeed at each leg (:630-825 above);
--- no route, curve, clearance or acceleration algorithm is replaced.
--- Read the owner's actual applied cargo modifier: power loss leaves it applied;
--- toggle, salvage and Done switch it off, including the brief rebuild window.
+-- Train Cargo's existing numeric effects remain independent of Power. Both
+-- speed gates read the colony receipt, even when every hub has been removed.
 local function cargo_speed_on(train)
-	local city = train.city
-	for _, hub in ipairs(city and city.labels.Station or empty_table) do
-		if IsKindOf(hub, "SMROptInTrainHubBase") and upgrade_applied(hub, hub_cargo_upgrade) then
-			return true
-		end
-	end
-	return false
+	return colony_upgrade_on(train.city and train.city.colony, hub_cargo_upgrade)
 end
-
--- Power's cold immunity is colony-wide while ANY intact hub has its Power modifier on.
--- City.colony spans maps (archived 1.1.1.405907 City.lua:43,83); cargo stays city-labelled.
 local function power_warm_on(train)
-	local colony = train.city and train.city.colony
-	return colony_power_on(colony)
+	return colony_power_on(train.city and train.city.colony)
 end
 
 -- Owner, 2026-09-28 (spec §4.10, Power Upgrade): no cold penalty while Power is on.

@@ -928,16 +928,16 @@ keep the upgrade in its current on or off state. This replaces the 2026-09-28 sa
 rulings above for all three upgrades.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
-Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:
-once per colony, vanilla on power, re-buyable, no tech. Power follows the same rulings (owner,
-2026-09-28, above), costs 30 Metals + 20 Electronics and needs no tech.
+All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
+any hub controls the shared state, and salvage preserves it. Power costs 30 Metals +
+20 Electronics; all three remain available without tech.
 
-Power build and combined attended check (brief 21):
+Power build and combined attended check (brief 21 repair 3):
+[TRAIN_HUB_POWER_UPGRADE_20260929.md](TRAIN_HUB_POWER_UPGRADE_20260929.md).
+Desk-tested global controls and durable purchases, including old-save migration and zero
+remaining hubs. The report holds the new persisted-name reason, Mod Editor step and
+combined attended rerun still owed. Earlier output/heat work remains in
 [TRAIN_HUB_POWER_UPGRADE_20260928.md](TRAIN_HUB_POWER_UPGRADE_20260928.md).
-Repair 2 implements the once-per-colony ruling above: shared output and heat, spent
-claims for other and later-built hubs, unchanged colony train protection. Desk-tested;
-the report holds legacy-save handling, the consumption explanation, Mod Editor save
-and the combined attended rerun still owed.
 
 Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
 Warm network build (brief 19, 2026-09-28): `reports/TRAIN_CARGO_WARM_20260928.md`.

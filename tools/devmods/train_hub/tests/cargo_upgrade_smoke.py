@@ -19,7 +19,7 @@ DATA = HERE.parent / 'Data/BuildingTemplate/SMROptInTrainHub6.lua'
 harness = (HERE / 'capacity_smoke.py').read_text(encoding='utf8')
 prefix, rest = harness.split("lua.execute(r'''\nlocal ID =", 1)
 fixture = 'local ID =' + rest.split('-- 1. Unlocked from the start', 1)[0]
-fields = dict(re.findall(r"^\t'(upgrade[23]_\w+|electricity_production)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
+fields = dict(re.findall(r"^\t'(upgrade[123]_\w+|electricity_production)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
 # Mod Editor may omit values equal to the property's default. Compare effective fields:
 # self is UpgradableBuilding's default target; output inherits the hub's class value.
 class_power = re.search(r'^\telectricity_production = (\d+),$', SOURCE.read_text(encoding='utf8'), re.M)[1]
@@ -38,13 +38,16 @@ expected = {
 }
 for key, value in expected.items():
     assert fields.get(key) == value, (key, fields.get(key), value)
-assert not any('mod_prop_id' in k and k not in ('upgrade2_mod_prop_id_1', 'upgrade3_mod_prop_id_1') for k in fields)
+assert not any('mod_prop_id' in k and k.startswith(('upgrade2_', 'upgrade3_')) and k not in ('upgrade2_mod_prop_id_1', 'upgrade3_mod_prop_id_1') for k in fields)
 assert not any('require' in k or 'unlock' in k for k in fields), 'no tech requirement'
-generated = dict(re.findall(r'^\t(upgrade[23]_\w+|electricity_production) = (.*),$',
+generated = dict(re.findall(r'^\t(upgrade[123]_\w+|electricity_production) = (.*),$',
     (HERE.parent / 'Code/BuildingTemplate/SMROptInTrainHub6.generated.lua').read_text(encoding='utf8'), re.M))
 generated = defaults | generated
 assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
-assert '75 to 150' in fields['upgrade3_description'] and 'Buy once per colony' in fields['upgrade3_description']
+assert '75 to 150' in fields['upgrade3_description']
+for tier in range(1,4):
+    desc=fields[f'upgrade{tier}_description']
+    assert 'hub can switch' in desc and 'salvage does not change it' in desc, (tier, desc)
 generated_current = generated == fields
 if '--require-generated' in sys.argv:
     assert generated_current, ('Mod Editor regeneration owed',
@@ -70,13 +73,7 @@ hub=function(...)
  local h=old_hub(...)
  TEMPLATE
  h.upgrade2_add_value_1=0; h.upgrade2_can_disable=true
- -- The native label container applies active modifiers to new members.
- for _,m in pairs(city.label_modifiers.Station or {}) do
-  if m:IsApplied() then
-   h.mods[m.prop]=h.mods[m.prop] or {}; table.insert(h.mods[m.prop],m)
-   h[m.prop]=h[m.prop]+h.base[m.prop]*m.percent//100+m.amount
-  end
- end
+ h:InitHubCapacityUpgrade()
  return h
 end
 OnMsg.CityStart()
@@ -98,7 +95,7 @@ B.reqs_pending=false; B:ApplyUpgrade(2)
 assert(T1.max_shared_storage==126000 and T1.max_colonists_to_transport==24, 'additive cargo; passengers unchanged')
 assert(small.max_storage_per_resource==120000, 'cargo does not change station storage')
 assert(count_mods()==4 and speed()==875, 'one cargo modifier and speed boost')
-assert(A:HasUpgrade(CARGO) and not A:CanDisableUpgrade(CARGO), 'other hub spent')
+assert(A:HasUpgrade(CARGO) and A:CanDisableUpgrade(CARGO), 'other hub can switch')
 B.working=false; assert(speed()==875, 'vanilla power behavior')
 -- Every prior return is retained; both speed outputs scale, extra nil/value survive.
 local el={}
@@ -107,9 +104,8 @@ assert(r.n==4 and r[1]==875 and r[2]==2625 and r[3]==nil and r[4]=='prior-wrappe
 assert(last_element==el, 'element argument chained')
 local foreign={city={labels={Station={}}}}
 assert(speed(foreign)==700, 'foreign city delegates unchanged')
-SelectedObj=A; B:ToggleUpgradeOnOff(CARGO)
-assert(speed()==875, 'spent-hub broadcast inert')
-SelectedObj=B; B:ToggleUpgradeOnOff(CARGO)
+SelectedObj=A; A:ToggleUpgradeOnOff(CARGO)
+assert(not A:IsUpgradeOn(CARGO) and not B:IsUpgradeOn(CARGO), 'global off display')
 assert(speed()==700 and T1.max_shared_storage==84000, 'toggle off')
 local off=table.pack(speed())
 assert(off.n==4 and off[2]==2100 and off[3]==nil and off[4]=='prior-wrapper')
@@ -132,46 +128,20 @@ heat=100; assert(speed()==1995, 'upgrade off: vanilla warm')
 B:ToggleUpgradeOnOff(CARGO); heat=0; research={}; ActiveLaws={}
 assert(speed()==291, 'cargo alone: cold penalty without tech')
 heat=100
-local tech=LabelModifier:new{container=city,label='Train',prop='max_shared_storage',percent=50,amount=0}
+local tech=LabelModifier:new{container=city,label='Train',id='fixture-tech',prop='max_shared_storage',percent=50,amount=0}
 tech:TurnOn()
 assert(T1.max_shared_storage==147000, 'fixture +50% tech adds to both upgrades')
--- Salvage disables both boosts immediately; ruins hold cargo, A still owns capacity.
+-- Salvage changes neither purchase nor effects; any survivor can switch.
 B.destroyed=true; OnMsg.BuildingDemolished(B)
-assert(T1.max_shared_storage==105000 and speed()==700, 'salvage stops cargo and speed')
-B:ApplyUpgradeModifiersForUpgrade(CARGO)
-assert(speed()==700 and T1.max_shared_storage==105000, 'ruins cannot reactivate')
-A:ConstructUpgrade(CARGO)
-assert(not Building.HasUpgrade(A,CARGO), 'ruins retain claim')
-local wrong=hub(210,202000); wrong.map='underground'; wrong:ApplyCopyParams({})
-assert(not Building.HasUpgrade(wrong,CARGO), 'rebuild map guard')
-wrong.map='surface'; wrong=hub(211,202001); wrong:ApplyCopyParams({})
-assert(not Building.HasUpgrade(wrong,CARGO), 'rebuild position guard')
-local R=hub(203,202000); R:ApplyCopyParams({})
-assert(Building.HasUpgrade(R,CARGO) and not Building.HasUpgrade(B,CARGO))
-assert(T1.max_shared_storage==147000 and speed()==875, 'rebuild restores once')
-R:ApplyCopyParams({}); assert(T1.max_shared_storage==147000, 'idempotent carry')
-SelectedObj=R; R:ToggleUpgradeOnOff(CARGO)
-R.destroyed=true; OnMsg.BuildingDemolished(R)
-local R2=hub(204,202000); R2:ApplyCopyParams({})
-assert(Building.HasUpgrade(R2,CARGO) and not R2:IsUpgradeOn(CARGO) and speed()==700, 'off state carried')
-SelectedObj=R2; R2:ToggleUpgradeOnOff(CARGO)
-OnMsg.LoadGame(); assert(speed()==875 and T1.max_shared_storage==147000, 'load no doubling')
-R2.destroyed=true; OnMsg.BuildingDemolished(R2)
--- Simulate a pre-fix ruin with its modifier on, then run the real LoadGame fixup.
-Building.ApplyUpgradeModifiersForUpgrade(R2,CARGO)
-OnMsg.LoadGame()
-assert(T1.max_shared_storage==105000 and speed()==700, 'ruins load fixup')
-R2:StopUpgradeModifiers(); remove(city.labels.Station,R2); R2.deleted=true
-A:ConstructUpgrade(CARGO)
-assert(A:IsUpgradeBeingConstructed(CARGO), 'claim released after clearing')
-A:ApplyUpgrade(2)
-assert(Building.HasUpgrade(A,CARGO) and speed()==875 and T1.max_shared_storage==147000, 'clear and re-buy')
--- Both claims on one owner transfer independently; OFF cargo stays off.
-SelectedObj=A; A:ToggleUpgradeOnOff(CARGO)
-A.destroyed=true; OnMsg.BuildingDemolished(A)
-local both=hub(220,201000); both:ApplyCopyParams({})
-assert(Building.HasUpgrade(both,ID) and Building.HasUpgrade(both,CARGO), 'both upgrades carry')
-assert(both:IsUpgradeOn(ID) and not both:IsUpgradeOn(CARGO) and speed()==700)
+assert(T1.max_shared_storage==147000 and speed()==875,'cargo survives buyer salvage')
+B:StopUpgradeModifiers(); remove(city.labels.Station,B); B.deleted=true
+assert(T1.max_shared_storage==147000 and speed()==875,'cargo survives buyer clear')
+A:ToggleUpgradeOnOff(CARGO)
+assert(T1.max_shared_storage==105000 and speed()==700 and not A:IsUpgradeOn(CARGO),'receiver turns global cargo off')
+local both=hub(220)
+assert(both:HasUpgrade(ID) and both:HasUpgrade(CARGO) and both:CanDisableUpgrade(CARGO),'future hub inherits purchase and switch')
+assert(both:IsUpgradeOn(ID) and not both:IsUpgradeOn(CARGO) and speed()==700,'future hub mirrors off')
+OnMsg.LoadGame(); assert(T1.max_shared_storage==105000 and speed()==700,'load preserves independent off')
 '''.replace('TEMPLATE', template)
 
 
@@ -198,17 +168,17 @@ def main():
     print('template_source_sha256:', hashlib.sha256(DATA.read_bytes()).hexdigest())
     run(code)
     print('PASS cargo: additive 126000; with +50% cargo tech 147000; passengers/stations unchanged by cargo')
-    print('PASS independent claims, construction/cancel, spent click, toggle, power, salvage/rebuild, load, clear/re-buy')
+    print('PASS independent claims, construction/cancel, shared display/toggle, salvage/clear persistence, future hubs, load')
     print('PASS chained speed and animation, extra returns, tech/law, foreign city')
     print('PASS cargo alone: vanilla cold penalty retained with and without Safe Transport and tech')
     mutations = {
         'speed multiplier': ('MulDivRound(result[1], 125, 100)', 'MulDivRound(result[1], 100, 100)'),
         'animation multiplier': ('MulDivRound(result[2], 125, 100)', 'MulDivRound(result[2], 100, 100)'),
         'cargo must not warm': ('power_warm_on(self)', 'cargo_speed_on(self)'),
-        'salvage cargo': ('hub:StopUpgradeModifiersForUpgrade(id)', 'if id ~= hub_cargo_upgrade then hub:StopUpgradeModifiersForUpgrade(id) end'),
+        'receiver switch': ('entry.on = not entry.on', 'if not SelectedObj or self == SelectedObj then return end'),
         'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
-        'rebuild cargo': ('do carry_upgrade(self, id) end', 'do if id ~= hub_cargo_upgrade then carry_upgrade(self, id) end end'),
-        'off state carry': ('if not on then Building.ToggleUpgradeOnOff(self, id) end', '-- lost off state'),
+        'global display': ('return colony_upgrade_on(self.city.colony, id)', 'return false'),
+        'cargo salvage': ('if IsKindOf(bld, "SMROptInTrainHubBase") then sync_colony_upgrades(bld.city and bld.city.colony) end', 'if IsKindOf(bld, "SMROptInTrainHubBase") then bld.city.colony.SMROptIn_hub_upgrades[hub_cargo_upgrade].on = false; sync_colony_upgrades(bld.city.colony) end'),
     }
     for name, (before, after) in mutations.items():
         assert before in code, name
@@ -216,13 +186,13 @@ def main():
             run(code.replace(before, after, 1))
         except LuaError as exc:
             assert 'assertion failed' in str(exc) or any(s in str(exc) for s in [
-                'one cargo modifier', 'salvage stops', 'cargo construction claim', 'off state carried',
-                'cold penalty']), str(exc)
+                'one cargo modifier', 'cargo survives', 'cargo construction claim', 'global off display', 'receiver',
+                'cold penalty', 'future hub']), str(exc)
             print('PASS mutation rejected:', name)
         else:
             raise AssertionError('mutation survived: ' + name)
-    print('Generated upgrade slots 2/3 and base power match source' if generated_current else
-          'OWNER STEP OWED: Mod Editor save for Cargo description, Power slot 3 and base power; code_hash remains editor-owned')
+    print('Generated upgrade slots 1/2/3 and base power match source' if generated_current else
+          'OWNER STEP OWED: Mod Editor save for all three global-upgrade descriptions; code_hash remains editor-owned')
 
 
 if __name__ == '__main__':
