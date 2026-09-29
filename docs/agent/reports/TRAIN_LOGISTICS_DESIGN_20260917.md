@@ -940,6 +940,15 @@ one purchase; unpowered cold slowing trains to about 2/3 of warm speed (5617 to 
 switch displays rest on the owner's eye and panels. Cold-ground consumption 20 against 10 is
 vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21 was deleted at this pass.
 
+**Owner's fix list before the audit, 2026-09-29** (collected in the orchestrator sitting; not yet briefed):
+1. **An upgraded station shows no cargo.** A small station holds Metals **60.4/120** (Export,
+   Capacity Network on) but its pads show nothing (owner's screenshot). The owner, in their own
+   words: *"adjusting the vanilla stations capacities may have carried over the issue where a
+   station doesn't show its cargo when upgraded … because compared to its capacity its small."* The
+   suspected cause is that the cube display scales stock to the doubled capacity; this is not yet
+   checked. Stream rows for the hub carry `cubes`/`expected_cubes`, but none have been read for a
+   small station.
+
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
 any hub controls the shared state, and salvage preserves it. Power costs 30 Metals +
