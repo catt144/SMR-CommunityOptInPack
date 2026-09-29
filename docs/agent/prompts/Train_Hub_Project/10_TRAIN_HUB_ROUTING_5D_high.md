@@ -160,6 +160,17 @@ lines. **The "row tooltip names 2012 as its hop" prediction is stale:** no such 
 (owner's screenshot, 2026-09-29: *"I don't think we had ever build into next stop checks in
 tooltips?"*). It was written before ruling 10 made dispatch vanilla. Not a fault.
 
+## Sitting 2026-09-29, leg 2 (same log, orchestrator read)
+
+Metals set to Export 50% on 6243 and Import 50% on 2008. Slot 4 (lines 944 and 998) reads
+`mode=export percent=50 target=60000 stock=10000` on 6243 and `mode=import percent=50
+target=60000 stock=10000` on 2008. **Import, PASS:** slot 5 (armed line 1055) fired
+`SMRTK_TRIGGER … station=2008 stock=60000 target=60000 calls=2 hub_calls=2 covered=false` at
+t=20131386, about 44 s of game time after arming. Hub 6430's Metals went 269500 to 219500 in the
+stream (line ~1060, t=20105086), so the 50 came from the hub. No 2012 hop was seen. The Export
+floor on 6243 and 2012 returning to its own number were not read in this flush. 0 Lua error lines
+in 1221.
+
 ## Lifecycle
 
 A one-off. Done when the build and predictions are committed and handed back. The orchestrator runs
