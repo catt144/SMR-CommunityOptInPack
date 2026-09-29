@@ -674,6 +674,11 @@ failure and the whole hub's both-configuration ship test remain separate.
     its arm's siding. The route's capacity problem is answered instead by a second, expensive train
     cargo upgrade (§4.10, grep `Train Cargo Upgrade`).
    - Brief 15 desk changes and attended smoke: [TRAIN_BAY_FIXES_20260928.md](TRAIN_BAY_FIXES_20260928.md); vanilla-first and cube-render regressions pass; spawn placement candidate needs live diagnosis; baseline traffic smoke remains red.
+   - **Brief 10's chained sitting, PASS, 2026-09-29** (log `Mars.exe-20260929-13.36.00`, 0 Lua
+     errors over about 6.4 sols). Untouched rows sit `balanced` at their station's dial. A 50%
+     Import on the small station reached its target with Metals from the hub. The owner's
+     full-depot 50% Export on 6243 kept sending Metals to the hub, cycling 60 to 120. Under vanilla
+     dispatch no 2012 hop was seen, and the hop tooltip was never built. Brief 10 was deleted.
 
 **MEASURED, pass-3 desk repair, 2026-09-27:** the archived 1.1.1.405907 train bodies,
 with their resource divisions modeled as integer division, reproduce the crash
