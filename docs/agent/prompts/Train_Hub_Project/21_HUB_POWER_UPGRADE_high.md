@@ -90,6 +90,17 @@ References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skill `doc-e
    of the same log has no console read. Its only heat read is still the pre-cold one at line 344,
    so the ≤ 90 cold heat and the 75 on the hub without Power remain unmeasured.
 
+4. **Console reads during the cold wave, same log.** Line 3382 (the other hub) reads
+   `75 0 0 0`: 75 power and cold ground, as predicted. Line 3386 (the first hub) reads
+   `145 255 255 0`: 145 power, the center and service edge warm, and cold just outside. That is
+   Power's heat footprint, at the wrong power figure. The owner stopped the sitting here on
+   2026-09-28 because the build goes back for repair first, and steps 2 to 5 are unrun.
+
+**Repair asked for (owner, 2026-09-28):** the first hub must read 75 or 150, never 145. Find
+where 145 comes from in the live save; the desk smokes pass, so they do not model it. Add a
+TestKit read of *effective* train speed, not nominal, so the next sitting can check the cold
+slowdown by slot. Then hand back for a rerun of the whole combined sitting.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
