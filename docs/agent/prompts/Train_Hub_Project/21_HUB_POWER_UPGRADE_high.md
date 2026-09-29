@@ -31,8 +31,9 @@ Power Upgrade`.
 - Brief 20, the hub heater: `0ed1d87`, report `reports/TRAIN_CARGO_HEATER_20260928.md`. It is
   vanilla `BaseHeater:ApplyHeat` driven by the cargo modifier's state.
 - Both are gated on Train Cargo today. Re-gate both on the Power Upgrade. Keep the +25% speed
-  gated on Train Cargo alone. A train's cold immunity must follow **whether its colony has any
-  hub with Power on**; decide and record whether that is right for a per-hub upgrade. Its heat
+  gated on Train Cargo alone. A train's cold immunity follows **whether the hub its line belongs
+  to has Power on** (owner, 2026-09-28; spec §4.10, grep `on that hub's lines`). It is not
+  colony-wide. For a line between two hubs, stop and ask the owner. Its heat
   reads Power, not Cargo. Leaving either on Train Cargo is a defect.
 - The live panel, owner's screenshot 2026-09-28: the hub read **70** power production, and
   insufficient power during a cold wave. Find where the hub's production is set, make the base 75,
@@ -44,7 +45,7 @@ Power Upgrade`.
 ## Done
 
 - Desk tests: Train Cargo gives cargo and speed only, with no heat or cold effect. Power, per
-  hub, gives 150 power (75 without it), ground heat within range and trains' cold immunity. Toggling it
+  hub, gives 150 power (75 without it), ground heat within range and cold immunity for trains on that hub's lines. Toggling it
   off, salvaging or ruins removes all three. A second hub can buy its own. Each test has a
   mutation that fails it. Run every train hub smoke and report members = passing + failing.
 - No new persisted name, unless unavoidable: then stop, unless it goes on `FIX_POLICY`'s
@@ -118,6 +119,12 @@ The owner's method: Power on one hub and off on the other, read before and after
   steady speed does not separate Power's colony protection from no cold penalty at all.
 - **Seen, not predicted:** the panel reads consumption 10 on the hub with Power and 20 on the
   hub without it.
+
+**Repair 2 (owner, 2026-09-28):** make train cold protection per hub, on that hub's lines,
+per the Authority clause above. Cover it with a mutation that fails the old colony-wide gate.
+The rerun's heat and 150/75 results stand. The next sitting checks with slot 6 that trains on
+the hub without Power's lines slow in the cold, while trains on the hub with Power's lines do
+not. The consumption difference, 10 against 20, goes into the report, explained or found wrong.
 
 ## Lifecycle
 

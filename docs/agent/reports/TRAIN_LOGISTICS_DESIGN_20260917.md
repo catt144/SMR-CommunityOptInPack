@@ -908,6 +908,13 @@ reactor and ground. Salvage/ruins switch it off like the other upgrades.
 ⚖️ **Owner, same day, the numbers:** doubling 70 would give 140; *"lets make it a little more
 even and do 75 for base and 75 for upgrade to equal out to 150 power"*. **Hub power production:
 75 base, +75 with the Power Upgrade = 150.** This changes the base hub's figure (70 → 75) too.
+⚖️ **Owner, 2026-09-28 (rerun sitting): train cold protection is per hub, on that hub's lines.**
+It was built colony-wide, where any hub with Power shielded every train. The owner called that
+*"a miss"*: *"part of the extreme cost of the 'heated protection' is the upgrade. And its a
+little miss leading. Plus how would the tracks get 'hot' without the upgrade."* The ruling: a
+hub's Power Upgrade protects every train running on **lines that belong to that hub**, along the
+whole route. Trains on another hub's lines are not protected. Open: which hub a line between two
+hubs belongs to.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:
