@@ -895,7 +895,16 @@ around the hub** (*"the warm upgrade should give the hub itself a large radius, 
 the drones range is for the hub I think 20?"*). While Train Cargo is on, the hub warms the area
 within **its own drone service range** (the owner's recollection is 20; the build reads the real
 value) in a cold wave, as a Subsurface Heater does, so drones, rovers, buildings and trains near
-the hub keep warm. No upkeep beyond the hub's own was stated. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
+the hub keep warm. No upkeep beyond the hub's own was stated.
+⚖️ **Owner, 2026-09-28, superseding the two warm rulings above: all cold protection moves to a
+third hub upgrade, the Power Upgrade** (*"lets not give it away for free … make it a power upgrade
+with cold wave protection, which will double the power output of the fusion reactor in the hub"*;
+*"that makes far more sense thematically"*). Seen live first: the heater worked (warm ring on the
+ground), but a cold wave cut power and left the other train buildings short. **Train Cargo goes
+back to +100% cargo and +25% speed only.** The Power Upgrade: **doubles the hub's reactor output**,
+heats the ground within the hub's drone range (15 hexes), and removes the trains' cold penalty.
+**Cost 30 Metals + 20 Electronics. Per hub**, not once per colony: each hub buys it for its own
+reactor and ground. Salvage/ruins switch it off like the other upgrades. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
 colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
 salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
 re-buyable, no tech.
