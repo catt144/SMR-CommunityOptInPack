@@ -1,121 +1,84 @@
-# Rail shaft — research the map transfer, build a throwaway prototype · _high
+# Rail shaft — handoff to the train hub coordinator · _high
 
-> **STATE 2026-09-23 — partly consumed; only the sitting is left. Do not redo the research.**
-> The research and the prototype are done and recorded in
-> `docs/agent/reports/RAIL_SHAFT_PROTOTYPE.md`; the dev mod is built, parses, and is junctioned in
-> at `tools/devmods/rail_shaft/`. **Stop (3) fired**: the game patched to 1.1.1.405907 / build
-> **25390750** on 2026-09-23, so every source citation below describes a tree the rig no longer
-> has. Rather than stop dead, every claim was re-derived against the installed tree and the report
-> carries the new line numbers — read §1-§3 of the report, not the "What is already known" section
-> below, which is now superseded. The 2026-09-21 log this brief cites has rotated off disk and
-> cannot be re-checked. **What is owed: the sitting**, written out step by step as report §6, plus
-> recording its result in report §5. Fire this brief only for that.
+**Owner, 2026-09-29:** this project passes to the train hub coordinator *"since their surfaces
+touch"*. You now own its next steps. This file is the live remainder; the evidence lives in the
+reports it links, not here.
 
-**Decided (owner, 2026-09-21).** The elevator cargo pain is an Opt-In Modules matter
-(`docs/agent/reports/ELEVATOR_LOGISTICS_OPTIONS.md`). The owner now wants the bypass explored: a
-train tunnel whose two ends sit on different maps, so a surface train runs down to the underground.
-The elevator is **not** altered. Console testing is on hold: *"author a small prototype mod that
-tests this properly, and explore the mechanism the elevator uses to transfer things and see if we
-can reverse-engineer that for the tunnel."* Owner's method ruling: **prototype first** — rough and in
-the game fast, the owner looks, then we adjust. No polish, no art, no gates between the owner and
-something they can watch.
+Authored at `98168aa` plus the close-out commit that rewrote this file. Start with
+`git log --oneline -3` and `git pull`; re-derive any line number with `grep -n` before you rely on
+it (the hub files move daily), and re-read the installed build with
+`python tools/doccheck.py --emit-fingerprint` (25390750 / 1.1.1.405907 at hand-over).
 
-This is a **dev-only prototype**, not a module: nothing ships, nothing enters `Code/`, no module
-record. MODULE FREEZE is lifted repo-wide and is not in play. `FIX_POLICY.md` still shapes the
-design notes you leave for a real build.
+## Settled — do not reopen
 
-## End state
-1. A dev mod under `tools/devmods/rail_shaft/` (sibling of `train_hub`; junction it into
-   `%AppData%\Surviving Mars Relaunched\Mods`) that lets the owner build a cross-map train tunnel
-   and watch a train go down, unload, and come back — or shows exactly where it stops.
-2. A report, `docs/agent/reports/RAIL_SHAFT_PROTOTYPE.md`: how a map transfer works for a unit,
-   what a train needs that a rover does not, what the prototype does, what the owner saw, and what
-   a real module would have to change. Append a short **option F** pointer to the elevator report.
-3. One sitting with the owner, steps in batches of about five, then the result recorded.
-Commit each with a pathspec. If time runs out, drop the report polish first, never the sitting.
+- **2026-09-21:** the elevator's cargo pain is an Opt-In matter; explore a train crossing between
+  maps; vanilla's elevator is not altered; prototype first. (`reports/ELEVATOR_LOGISTICS_OPTIONS.md` head)
+- **2026-09-23:** a shaft on the hub attaches to a hub connector whose opposite is empty, so it
+  terminates at the hub. (`reports/RAIL_SHAFT_PROTOTYPE.md` §6 step 5)
+- **2026-09-23, direction:** the real thing is likely a *rail elevator* — our own class that is
+  vanilla's elevator plus a train pass-through, vanilla's left untouched, no buffer because trains
+  pass straight through. Recorded with its source facts and bill as **option G** in
+  `reports/ELEVATOR_LOGISTICS_OPTIONS.md`. Direction only: F (tunnel) vs G is **not ruled**.
+- **2026-09-29, OI-27:** hub repair drones see nothing on another map (spec
+  `TRAIN_LOGISTICS_DESIGN_20260917.md` §10). **Not built.** Far-map hub membership and
+  distribution are **not ruled**.
 
-Keep a live todo list. Start: `git log -3`, `git pull`; authoring sha `4ec0ed0`. An empty
-`git diff --stat 4ec0ed0..HEAD -- docs/agent/reports/ELEVATOR_LOGISTICS_OPTIONS.md` and an
-installed `buildid 24995074` (`python tools/doccheck.py --emit-fingerprint`) mean the facts below
-hold. Cite from `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.0.403908\Src\`.
+## Where it stands
 
-## What is already known (each is a claim; one check clears it)
+Evidence and citations: `reports/RAIL_SHAFT_PROTOTYPE.md` §5 (sitting), §7 (bill), §10 (since).
 
-**Source, read 2026-09-21.**
-- The game ships a train tunnel. `UniversalTunnel` (buildable) and `TrackTunnel` (hidden) both use
-  `TrackTunnelBase` (`Lua/Buildings/TrackTunnel.lua`). The hop, `TrainTraverse` `:40-79`, drives the
-  train into one mouth, `SetPos`-teleports it to the linked mouth, drives it out and sets
-  `train.current_station`. It runs inside the train's own `GotoStation` command thread
-  (`Lua/Units/Train.lua:338-413`, call at `:405`), which then carries on along the far track.
-- Route building follows `linked_obj` with no map check (`Lua/TrainTransport.lua:251-300`,
-  `Lua/Buildings/Track.lua:320-335`); `RebuildTrainRoutes` (`:302-358`) fills every city's
-  `train_track_routes`. Routes and station lookups are otherwise per city
-  (`TrainTransport.lua:227`, `Train.lua:94`, `:134`, `:839`).
-- The engine's base tunnel already knows the cross-map case:
-  `PFTunnel:TraverseTunnel` calls `unit:TransferToMap(end_point_map, end_point)`
-  (`CommonLua/Movable.lua:620-627`). The signature is `(map, pos)`; shipped callers also pass an
-  object on the target map (`Lua/Buildings/Elevator.lua:960`, `Lua/Units/Unit.lua:1025-1026`).
-- The elevator's crossing is `ElevatorBase:UseElevator` (`Elevator.lua:939-979`): the whole body
-  runs in `PushDestructor` / `PopAndCallDestructor`, and does `LeadIn` → `OnEnterElevator` →
-  `TransferToMap(self.other)` → `SetHolder` → `Sleep` → `Disembark` → `OnLeaveElevator`. The stock
-  rover tunnel uses the same destructor shape (`Lua/Buildings/Tunnel.lua:211-258`). `Train` is a
-  `Unit` (`Vehicle`, `Unit.lua:1070`) and has destructors.
-- Transfer hooks that fire per class: `_cobject.lua:157-170` (recursive over attaches),
-  `CityObject.lua:73-84` (city and labels), `Unit.lua:934-944` (clears the command queue, drops a
-  holder on the wrong map), `PinnableObject.lua:124`, `RevealDarkness.lua:275`, plus Drone,
-  Colonist and RCRover overrides. `Train` defines none of its own.
-- A stock tunnel's power/water link and rover path are single-map: `g_TunnelsAdjacency` is keyed on
-  hex with no map (`Tunnel.lua:40-66`, read by C), and `pf.AddTunnel` (`:193-205`). A cross-map pair
-  must skip both. Stock pairing and construction are single-map (`Tunnel.lua:23-31`,
-  `Lua/Construction/TunnelConstruction.lua:254`); the elevator's two-map construction group is the
-  precedent (`Elevator.lua:747-780`), but it relies on pre-made passage markers.
-- `UniversalTunnel` cannot be built underground: the template leaves `disabled_in_environment` at
-  its default, `set("Underground","Asteroid")` (`Lua/Buildings/Building.lua:252`); track and
-  stations override it to Asteroid only. Runtime table: `DisableInEnvironment` /
-  `UndisableInEnvironment` / `IsBuildingAllowedIn` (`Building.lua:89-104`).
-- The gate the owner asked for exists: `UIColony.underground_map_unlocked` (`Lua/Colony.lua:16`),
-  set one-way by `Colony:UnlockUnderground()` when a surface elevator completes (`:940-944`), read
-  by the map switcher (`Lua/MapSwitch.lua:7-12`). Read it; never set it.
+- **Measured, retail, 2026-09-23:** a train crosses maps both ways; its command thread survives
+  `TransferToMap` inside a destructor (3 hops of 3); routing resolves on both legs; save/reload
+  keeps the linked pair and the `AddPFTunnel` guard fires. Stop (1) of the original brief is
+  closed.
+- **Unattributed:** hub-line trains stalled after the link. The next day's Codex audit
+  (`TRAIN_HUB_AUDIT_111_20260923.md` §9) measured a hub siding deadlock, since fixed, on a
+  sibling save of the same colony with every train `route_ok true` — the likelier cause. The
+  report's route-overwrite mechanism (§7 item 0) is an untested source risk, kept as a free
+  placement rule. Do not claim either as the cause.
+- **Untested:** freight, passengers, wagon attaches, more than one lap, any hand-made map.
+- **Dev mod:** `tools/devmods/rail_shaft/` (`SMRRailShaft.Status / List / Link / Routes / Sweep /
+  Unlink / Kill`), junctioned as `SMR-RailShaftDev`. It has been **enabled in every session since
+  09-23** — inert on same-map tunnels, but on 09-28 it wrote the underground-tunnel flag into
+  saves from 5 sessions (report §10).
+- **Shaft save unknown; its logs are gone.** Neither shaft-session log was archived. Loading the
+  right save with the mod on logs `AddPFTunnel skipped for rail-shaft mouth` twice.
 
-**Measured in the owner's game, 2026-09-21** (log
-`%AppData%\Surviving Mars Relaunched\logs\Mars.exe-20260921-18.06.04-6a91a190.log`, lines
-1188-1207; grep `TRAINPROBE|POSPROBE`). Two `UniversalTunnel` pairs, one per map, cross-linked from
-the console; a console pre-hook called `train:TransferToMap(linked_obj)` with **no position**, then
-the stock hop.
-- The train (handle 2000002165) changed map and city: underground → surface. Transfer works on a
-  train and the city bookkeeping follows.
-- It kept its underground coordinates — (362000, 280873) against the underground mouth at
-  (360000, 280584) — and never finished the hop: `current_station` and `track` still underground,
-  command label `GotoStation`, position unchanged between two probes. No Lua error was logged.
-- The owner cannot select it, so cannot demolish it. It is stranded in that throwaway save.
-- A rewritten hop that passes the far mouth's position and runs in a destructor was written but
-  **never run**. Whether the command thread survives a transfer is therefore still open.
-- The console there has no `debug` library, and it does not log typed lines.
+## Work list — keep it live with the todo tool, one item per commit-and-verify unit
 
-## The question
-How does a unit actually cross maps here, and what is the smallest change that carries a train —
-with cargo, passengers and wagon attaches — through a tunnel to the other map, keeps it routing,
-and brings it back? Free rein on what to read, run or instrument. The console hop above is a lead,
-not the route. Your call on the prototype's shape: a new tunnel template of our own (underground
-allowed, no grid link, no rover path, two-map placement) or the cheapest thing that gets a train
-across for the owner to watch first. Gate building on `underground_map_unlocked`. Give the
-prototype a way to find and remove a stranded train (a label sweep is enough), and a logged line at
-each stage of the hop so a stall names itself.
+1. **Owner, now:** disable `SMR_RailShaftDev` for hub sessions. Safe for every save loaded since
+   09-24 (none held a shaft). The one exception is the shaft save: `Unlink()` it first, or it
+   keeps a cross-map `linked_obj` with no guards.
+2. **Hub build:** implement OI-27 at `SMROptInTrainHubBase:HubTrackGraph` and `F.Route` so repair
+   drones never take work, a target or a flight leg across a cross-map `linked_obj`. Control per
+   `bugs/D14.md` (b): the shaft fixture beside the same-map tunnel case.
+3. **Owner call, when the hub sitting makes it takeable:** does a surface hub's membership and
+   distribution (`D.Refresh` over `hub.city.train_track_routes`, which a shaft makes span both
+   maps) reach underground stations through a shaft? Raise it as an `OI-` item then, not before —
+   it is only answerable with the fixture in front of the owner.
+4. **Rail sitting, after the hub ships** — preload it into SMRTK slots (`tools/SMRTK.md`); the
+   owner clicks, does not type:
+   - find the shaft save (item 1's log line), then `Sweep()` and `Routes()` on it, then `Unlink()`
+     — this settles the stall attribution;
+   - the positive control: a new shaft on a hub connector with an empty opposite, the underground
+     end on a line end; `Routes()` 0 broken, every train `route_ok true`, then a freight round trip;
+   - archive every log of it under `docs/archive/` in the same commit that records it.
+5. **Owner call, after item 4:** F or G for the module. G's pre-build checks are listed in option
+   G ("Unverified, check before building").
+6. **Optional, any time:** file the destructor fact (report §9 item 1) and the
+   `disabled_in_environment` trap (§9 item 2) as engine facts — `EF-` ids come from the fix pack
+   first (`smr-bug-library`).
 
-**Scope.** In: the cross-map train tunnel prototype, the transfer mechanism, the sitting. Out:
-edits to either pack's `Code/`, the elevator, the train hub dev mod (a peer is working in
-`tools/devmods/train_hub/` — recheck shared paths before writing), art.
-**Stops** — report instead of pushing on if: (1) a train cannot be made to survive a transfer
-without replacing `Train:GotoStation` wholesale; (2) the two-map placement needs a state retail
-players cannot reach; (3) the installed build is no longer 24995074.
-**Do not claim** "trains can run between maps". Write what was seen: which legs of the round trip
-completed, on which save, with which mods loaded, and that routing, cargo and passengers beyond
-that run are untested. A MarsDebug pass is not retail evidence (EF-044).
+## Scope, stops, claim limits
 
-**Sitting notes.** Use a throwaway copy of a save with trains researched and the underground
-unlocked; look for one before asking the owner to build it. Probe sweep first (WORKFLOW, Probe
-hygiene). Owner-typed console lines follow `prompt-authoring`'s console rules. Both mods are
-normally loaded; grep with the full `[CommunityOptInPack]` token. Skills: `doc-editing` before the
-report, `smr-bug-library` if a finding is an engine fact worth filing.
+- In: the cross-map crossing, its hub touchpoints, the sitting, the F-vs-G decision. Out: building
+  either module before a recorded ruling; editing vanilla's elevator.
+- Stop and report if: the build is no longer 25390750; OI-27's guard cannot be placed without
+  changing same-map tunnel behaviour; the shaft save cannot be found and item 4's first bullet has
+  no fixture (then run the positive control alone and say the attribution stays open).
+- Do not claim "trains run between maps" or that a shaft causes stalls. Supported: which legs of
+  which round trips completed, on which save, with which mods loaded.
 
-**Lifecycle:** one-off; delete this brief and its map row when fired.
+Skills: `doc-editing` for the reports, `smr-bug-library` for facts, `prompt-authoring` for any
+brief you cut from this. **Lifecycle:** one-off; delete this file and its map row when item 5 is
+ruled and the module, if any, has its own brief.
