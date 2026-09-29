@@ -158,6 +158,16 @@ changes nothing (owner, 2026-09-29). Remaining and future hubs keep the state, a
 re-buy. Cover it with
 mutations that fail a per-hub display and a switch refused on a non-buying hub.
 
+## Rerun after `0855b57` (owner, 2026-09-29, log `Mars.exe-20260929-12.55.28-6aad2d75.log`)
+
+- Owner's Mod Editor save: `--require-generated` exit 0.
+- Report steps 1 and 2 (off from either hub shows off on both at 75; on from the non-buying hub
+  gives both 150; off and on from each hub changes both): **PASS, by the owner's eye** (*"all
+  worked as expected for me"*). The log shows 0 `LUA ERROR`/`attempt to`/traceback lines and
+  slot 6 armed at line 594. No cold wave or console read is logged, so heat and cold speed rest on
+  the owner's observation.
+- Owed: report steps 3 to 5 (all three controls, salvage and reload, removing the last hub).
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
