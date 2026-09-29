@@ -22,7 +22,7 @@ Power Upgrade`.
   ruling; spec §4.10, grep `all three hub upgrades work the same way`): *"buy once, and never
   have to buy again for future hubs."* It uses the other two's spent-hub claim. Bought once, it
   gives every hub, present and future, 150 power and ground heat, and every train cold immunity.
-- Salvage or ruins switch it off, as they do the others. The hub is not rebuilt the normal way
+- Salvage or ruins change nothing once it is bought (owner, 2026-09-29; repair 3). The hub is not rebuilt the normal way
   (owner, 2026-09-28).
 
 ## What exists to move (claims; re-derive)
