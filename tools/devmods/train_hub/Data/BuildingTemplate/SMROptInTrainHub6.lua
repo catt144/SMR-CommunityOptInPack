@@ -43,7 +43,7 @@ PlaceObj('ModItemBuildingTemplate', {
 	'upgrade2_upgrade_cost_Polymers', 20000,
 	'upgrade3_id', "SMROptInTrainHub6_Power",
 	'upgrade3_display_name', T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade3_display_name]] "Power Upgrade"),
-	'upgrade3_description', T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade3_description]] "Raises this hub's power production from 75 to 150 and heats the ground within its drone range. Trains throughout the colony take no cold penalty while any hub has this upgrade on. Each hub can buy its own. Build with 30 Metals and 20 Electronics from a depot within drone reach; the hub's own storage cannot supply its upgrade."),
+	'upgrade3_description', T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade3_description]] "Buy once per colony. While on, raises every hub's power production from 75 to 150, heats the ground within each hub's drone range, and removes every train's cold penalty. Future hubs benefit automatically. Only the purchasing hub can switch it; salvage switches it off. Build with 30 Metals and 20 Electronics from a depot within drone reach; the hub's own storage cannot supply its upgrade."),
 	'upgrade3_mod_prop_id_1', "electricity_production",
 	'upgrade3_add_value_1', 75000,
 	'upgrade3_upgrade_cost_Metals', 30000,

@@ -44,7 +44,7 @@ generated = dict(re.findall(r'^\t(upgrade[23]_\w+|electricity_production) = (.*)
     (HERE.parent / 'Code/BuildingTemplate/SMROptInTrainHub6.generated.lua').read_text(encoding='utf8'), re.M))
 generated = defaults | generated
 assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
-assert '75 to 150' in fields['upgrade3_description'] and 'Each hub' in fields['upgrade3_description']
+assert '75 to 150' in fields['upgrade3_description'] and 'Buy once per colony' in fields['upgrade3_description']
 generated_current = generated == fields
 if '--require-generated' in sys.argv:
     assert generated_current, ('Mod Editor regeneration owed',
@@ -206,7 +206,7 @@ def main():
         'animation multiplier': ('MulDivRound(result[2], 125, 100)', 'MulDivRound(result[2], 100, 100)'),
         'cargo must not warm': ('power_warm_on(self)', 'cargo_speed_on(self)'),
         'salvage cargo': ('hub:StopUpgradeModifiersForUpgrade(id)', 'if id ~= hub_cargo_upgrade then hub:StopUpgradeModifiersForUpgrade(id) end'),
-        'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
+        'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
         'rebuild cargo': ('do carry_upgrade(self, id) end', 'do if id ~= hub_cargo_upgrade then carry_upgrade(self, id) end end'),
         'off state carry': ('if not on then Building.ToggleUpgradeOnOff(self, id) end', '-- lost off state'),
     }

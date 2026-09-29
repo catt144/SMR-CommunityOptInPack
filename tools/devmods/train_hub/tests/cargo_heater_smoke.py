@@ -61,6 +61,13 @@ Building.ModifyValue=Modifiable.ModifyValue
 Building.SetBase=Modifiable.SetBase
 '''
 SETUP += extract('ElectricityProducer.lua', 'ElectricityProducer:GetPerformanceModifiedElectricityProduction')
+SETUP += extract('ElectricityProducer.lua', 'ElectricityProducer:GetUIPowerProduction')
+SETUP += r'''
+local prior=ElectricityProducer.GetPerformanceModifiedElectricityProduction
+ElectricityProducer.GetPerformanceModifiedElectricityProduction=function(...)
+ return prior(...),nil,'prior-production'
+end
+'''
 
 FIXTURE = r'''
 local surface={heat_grid=setmetatable({heaters={},grid_target={},map_width=1000000,map_height=1000000}, {__index=HeatGrid})}
@@ -74,15 +81,17 @@ hub=function(...)
   h['upgrade3_mul_value_'..i]=h['upgrade3_mul_value_'..i] or 0
   h['upgrade3_add_value_'..i]=h['upgrade3_add_value_'..i] or 0
  end
+ h.upgrade_modifiers={} -- fixture bulk-cleanup table, normally made by ApplyUpgrade
  h.upgrade3_can_disable=true
  h.base_electricity_production=h.electricity_production
  h.electricity={SetProduction=function(self,n) self.production=n end}
- h.GetPerformanceModifiedElectricityProduction=ElectricityProducer.GetPerformanceModifiedElectricityProduction
+ h.GetUIPowerProduction=ElectricityProducer.GetUIPowerProduction
  h.ui_working=true
  h.Notify=function(self,prop) Building.Notify(self,prop); self:OnModifiableValueChanged(prop) end
  h:HubUpdateProduction()
  h.map=surface; h.work_radius=15
  function h:GetVisualPosXYZ() return self:GetPos():xy() end
+ h:InitHubCapacityUpgrade()
  return h
 end
 '''.replace('POWER_TEMPLATE', '\n'.join('h[%r] = %s' % (k, v) for k, v in cargo.expected.items()
@@ -110,7 +119,12 @@ SelectedObj=both; both:ToggleUpgradeOnOff(CARGO); check(both,false)
 both:ApplyHeat(true); OnMsg.LoadGame(); check(both,false)
 both:ToggleUpgradeOnOff(CARGO)
 local P,Q=hub(501),hub(601)
-local function power(h,n) assert(h.electricity_production==n*1000,'power property'); assert(h.electricity.production==n*1000,'grid production') end
+local function power(h,n)
+ assert(h.electricity.production==n*1000,'power grid production: '..tostring(h.handle)..' got '..tostring(h.electricity.production)..' expected '..n*1000)
+ assert(h:GetUIPowerProduction()==n*1000,'power panel output')
+ local r=table.pack(h:GetPerformanceModifiedElectricityProduction())
+ assert(r.n==3 and r[2]==nil and r[3]=='prior-production','power prior returns preserved')
+end
 power(P,75); power(Q,75)
 -- Existing-save regression: class 75 does not replace a saved placement base of 70.
 local legacy=hub(6430)
@@ -132,22 +146,36 @@ assert(bare.base_electricity_production==80000,'rebase only old 70')
 local before_mods=bare.modifications.electricity_production
 OnMsg.LoadGame(); assert(bare.modifications.electricity_production==before_mods,'rebase idempotence')
 extra:TurnOff(); power(bare,80)
+legacy:StopUpgradeModifiers(); remove(city.labels.Station,legacy); legacy.deleted=true
 local ruined=hub(6432); ruined:SetBase('electricity_production',70000); ruined:ApplyUpgrade(3)
 ruined.destroyed=true; OnMsg.LoadGame()
 assert(ruined.base_electricity_production==75000 and ruined.electricity_production==75000
  and ruined.electricity.production==0,'old ruin rebased but inactive')
 check(ruined,false)
--- Construction at one hub, even cancelled with delivered resources, cannot claim the other.
+ruined:StopUpgradeModifiers(); remove(city.labels.Station,ruined); ruined.deleted=true
+-- Cancelled construction retains the colony claim, as with Cargo and Capacity.
 P.reqs_pending={{GetResource=function() return 'Metals' end,GetActualAmount=function() return 0 end}}
 Q.reqs_pending=P.reqs_pending
 P:ConstructUpgrade(POWER)
-assert(P.upgrades_under_construction and P.upgrades_under_construction[POWER],'independent power construction start')
+assert(P.upgrades_under_construction and P.upgrades_under_construction[POWER],'power construction start')
 P:StopUpgradeConstruction(POWER); Q:ConstructUpgrade(POWER)
-assert(P.upgrades_under_construction and P.upgrades_under_construction[POWER] and Q.upgrades_under_construction and Q.upgrades_under_construction[POWER],'independent power construction')
-P:ApplyUpgrade(3); power(P,150); power(Q,75); check(P,true); check(Q,false)
-assert(not Q:HasUpgrade(POWER),'power is not spent on another hub')
-Q:ApplyUpgrade(3); power(P,150); power(Q,150); check(Q,true)
-assert(P:CanDisableUpgrade(POWER) and Q:CanDisableUpgrade(POWER),'both power owners can switch')
+assert(not Q.upgrades_under_construction or not Q.upgrades_under_construction[POWER],'power colony construction claim')
+P:ApplyUpgrade(3); power(P,150); power(Q,150); check(P,true); check(Q,true)
+assert(Q:HasUpgrade(POWER) and not Q:CanDisableUpgrade(POWER),'power spent on other hub')
+Q:ApplyUpgrade(3); assert(not Building.HasUpgrade(Q,POWER),'power cannot buy twice')
+SelectedObj=Q; P:ToggleUpgradeOnOff(POWER); power(P,150); power(Q,150)
+local later=hub(701); power(later,150); check(later,true)
+assert(later:HasUpgrade(POWER) and not later:CanDisableUpgrade(POWER),'later hub spent')
+-- Another map's hub receives output and heat from the same colony.
+local remote_hub=hub(801); remote_hub.city={labels={Station={remote_hub}},colony=UIColony}
+OnMsg.LoadGame(); power(remote_hub,150); check(remote_hub,true)
+Q.performance=120; Q:HubUpdateProduction(); power(Q,180)
+Q.performance=nil; Q:HubUpdateProduction()
+local doomed=hub(851); doomed.destroyed=true; OnMsg.BuildingDemolished(doomed)
+assert(doomed:GetUIPowerProduction()==0,'Power receiver ruins production'); check(doomed,false)
+power(P,150); power(Q,150)
+local foreign_hub=hub(901); foreign_hub.city={labels={Station={foreign_hub}},colony={labels={Station={foreign_hub}}}}
+foreign_hub:InitHubCapacityUpgrade(); power(foreign_hub,75); check(foreign_hub,false)
 heat=0; research={}; ActiveLaws={}
 assert(speed()==700,'Power alone: warm without cargo boost')
 local remote={city={labels={Station={}},colony=UIColony}}
@@ -156,10 +184,10 @@ local foreign={city={labels={Station={}},colony={labels={Station={}}}}}
 assert(speed(foreign)==233,'Power does not warm another colony')
 SelectedObj=both; both:ToggleUpgradeOnOff(CARGO)
 assert(speed()==875,'both effects compose')
-SelectedObj=P; Q:ToggleUpgradeOnOff(POWER); power(Q,75); check(Q,false)
-assert(speed()==875,'one Power owner keeps network warm')
-P:ToggleUpgradeOnOff(POWER); power(P,75); check(P,false)
-assert(speed()==291,'last Power off restores cold with cargo bonus')
+SelectedObj=P; Q:ToggleUpgradeOnOff(POWER); power(Q,150); check(Q,true)
+P:ToggleUpgradeOnOff(POWER); power(P,75); power(Q,75); power(later,75)
+check(P,false); check(Q,false); check(later,false)
+assert(speed()==291,'Power off restores cold with cargo bonus')
 SelectedObj=both; both:ToggleUpgradeOnOff(CARGO)
 assert(speed()==233,'neither upgrade uses vanilla cold')
 SelectedObj=P; P:ToggleUpgradeOnOff(POWER); power(P,150); check(P,true)
@@ -188,17 +216,39 @@ assert(P.electricity_production==75000,'ruins cannot reactivate Power'); check(P
 -- Pre-fix saved ruins with active modifiers are reconciled on load.
 Building.ApplyUpgradeModifiersForUpgrade(P,POWER); OnMsg.LoadGame(); check(P,false)
 assert(P.electricity_production==75000,'loaded ruin Power removed')
+Q:ConstructUpgrade(POWER)
+assert(not Q.upgrades_under_construction or not Q.upgrades_under_construction[POWER],'Power ruins hold claim')
+-- The existing rebuild carry remains symmetric; normal hub rebuild is not a live requirement.
 local rebuilt=hub(502,501000); rebuilt:ApplyCopyParams({})
-assert(not rebuilt:HasUpgrade(POWER),'Power never carries from ruins'); check(rebuilt,false); power(rebuilt,75)
-rebuilt:ApplyUpgrade(3); power(rebuilt,150); check(rebuilt,true)
-P:StopUpgradeModifiers(); check(rebuilt,true) -- old ruin cannot remove new hub heat
-SelectedObj=Q; Q:ToggleUpgradeOnOff(POWER); check(Q,true)
+assert(Building.HasUpgrade(rebuilt,POWER),'Power carries existing shared claim')
+power(rebuilt,150); power(Q,150); check(rebuilt,true); check(Q,true)
+P:StopUpgradeModifiers(); check(rebuilt,true)
+Q:StopUpgradeModifiers(); check(Q,false) -- non-owning Done removes its own heater
+remove(city.labels.Station,Q); Q.deleted=true
+assert(speed()==1995,'receiver deletion preserves colony Power')
 rebuilt:StopUpgradeModifiers(); remove(city.labels.Station,rebuilt); rebuilt.deleted=true
-assert(speed()==1995,'second hub survives first deletion')
-SelectedObj=Q; Q:ToggleUpgradeOnOff(POWER); check(Q,false); power(Q,75)
-assert(speed()==665,'all Power off after deletion')
+power(later,75); check(later,false); assert(speed()==665,'owner deletion removes colony Power')
+later:ApplyUpgrade(3); power(later,150); check(later,true)
+SelectedObj=later; later:ToggleUpgradeOnOff(POWER); power(later,75); check(later,false)
+-- Old per-hub saves may contain two receipts. Preserve the active buyer,
+-- demote the inactive receipt to spent, and do not stack or recreate modifiers.
+local duplicate=hub(1001); duplicate.HasUpgrade=Building.HasUpgrade
+Building.ApplyUpgrade(duplicate,3); duplicate.HasUpgrade=nil
+local receipt=duplicate.upgrade_modifiers[POWER][1]
+OnMsg.LoadGame()
+assert(Building.HasUpgrade(duplicate,POWER) and not Building.HasUpgrade(later,POWER),'Power active legacy buyer retained')
+assert(later:HasUpgrade(POWER) and not later:CanDisableUpgrade(POWER),'Power duplicate becomes spent')
+power(later,150); power(duplicate,150); check(later,true)
+OnMsg.LoadGame(); assert(duplicate.upgrade_modifiers[POWER][1]==receipt,'Power claim repair idempotent')
+SelectedObj=duplicate; duplicate:ToggleUpgradeOnOff(POWER); power(later,75); check(later,false)
+-- All-off duplicate receipts stay off after consolidation.
+later.HasUpgrade=Building.HasUpgrade; Building.ApplyUpgrade(later,3); later.HasUpgrade=nil
+Building.ToggleUpgradeOnOff(later,POWER)
+OnMsg.LoadGame(); power(later,75); power(duplicate,75)
+assert(Building.HasUpgrade(later,POWER) and not Building.HasUpgrade(duplicate,POWER),'Power first off claim retained')
+SelectedObj=later
 local underground={heat_grid=false}
-Q.map=underground; Q:ToggleUpgradeOnOff(POWER) -- no heat grid: safe
+later.map=underground; later:ToggleUpgradeOnOff(POWER) -- no heat grid: safe
 '''
 
 
@@ -217,22 +267,26 @@ if __name__ == '__main__':
     code = cargo.SOURCE.read_text(encoding='utf8')
     print('source_sha256:', hashlib.sha256(cargo.SOURCE.read_bytes()).hexdigest())
     run(code)
-    print('PASS Power: per-hub 75/150, construction, toggles, heat, colony cold immunity, salvage, load, no carry, deletion')
+    print('PASS Power: colony 75/150, spent claim, later hub, heat, cold immunity, salvage, load, carry, deletion')
     mutations = {
         'no heat': ('hub:ApplyHeat(on)', 'hub:ApplyHeat(false)'),
         'wrong range': ('return self.work_radius * const.GridSpacing', 'return 20 * const.GridSpacing'),
         'bulk cleanup': ('table.pack(Building.StopUpgradeModifiers(self, ...))', 'table.pack()'),
-        'heat gated on Cargo': ('local on = upgrade_applied(hub, hub_power_upgrade)', 'local on = upgrade_applied(hub, hub_cargo_upgrade)'),
+        'heat gated on Cargo': ('local on = not hub.destroyed and colony_power_on(hub.city and hub.city.colony)', 'local on = upgrade_applied(hub, hub_cargo_upgrade)'),
         'warm network': ('if power then result = warm_speed(previous, self, ...)', 'if power then result = table.pack(previous(self, ...))'),
         'heat restore': ('\t_G.GetHeatAt = heat\n', '\n'),
         'base output': ('electricity_production = 75000', 'electricity_production = 70000'),
         'production notification': ('if prop == "electricity_production" or prop == "performance" then', 'if prop == "performance" then'),
-        'power ownership': ('return id == hub_capacity_upgrade or id == hub_cargo_upgrade end', 'return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end'),
+        'power ownership': ('return id == hub_capacity_upgrade or id == hub_cargo_upgrade or id == hub_power_upgrade end', 'return id == hub_capacity_upgrade or id == hub_cargo_upgrade end'),
+        'per-hub power': ('result[1] = result[1] + MulDivRound(75000', 'result[1] = result[1] + MulDivRound(0'),
+        'per-hub heat': ('local on = not hub.destroyed and colony_power_on(hub.city and hub.city.colony)', 'local on = upgrade_applied(hub, hub_power_upgrade)'),
+        'later hub': ('\tunlock_capacity_upgrade()\n\tsync_power_heat(self)\n\tif self.HubUpdateProduction then self:HubUpdateProduction() end', '\tunlock_capacity_upgrade()'),
         'salvage Power': ('hub:StopUpgradeModifiersForUpgrade(id)', 'if id ~= hub_power_upgrade then hub:StopUpgradeModifiersForUpgrade(id) end'),
-        'Power must not carry': ('ipairs({ hub_capacity_upgrade, hub_cargo_upgrade }) do carry_upgrade', 'ipairs(hub_upgrades) do carry_upgrade'),
+        'Power carry': ('ipairs(hub_upgrades) do carry_upgrade', 'ipairs({ hub_capacity_upgrade, hub_cargo_upgrade }) do carry_upgrade'),
         'colony scope': ('local colony = train.city and train.city.colony', 'local colony = train.city'),
         'ruins bulk guard': ('\tif self.destroyed then return end\n\tlocal result = table.pack(Building.ApplyUpgradeModifiers', '\tlocal result = table.pack(Building.ApplyUpgradeModifiers'),
         'Power unlock': ('local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }', 'local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }'),
+        'duplicate claim': ('\treconcile_power_claim()\n', '\n'),
         'saved-base migration': ('then rebase_hub_power(hub) end', 'then --[[ no rebase ]] end'),
         'saved-base scope': ('if hub.base_electricity_production ~= 70000 then return end', 'if false then return end'),
     }
@@ -251,7 +305,7 @@ if __name__ == '__main__':
     try:
         run(code, FIXTURE.replace(before, "h['upgrade3_add_value_1'] = 0"))
     except LuaError as exc:
-        assert 'power property' in str(exc), str(exc)
+        assert 'power grid production' in str(exc), str(exc)
         print('PASS mutation rejected: Power output addition')
     else:
         raise AssertionError('mutation survived: Power output addition')
