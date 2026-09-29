@@ -74,6 +74,18 @@ References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skill `doc-e
    predicts 75 without Power and 150 with it; 145 matches neither. The owner ruled it a fail and
    sent it back. The sitting continues, so later findings are added here.
 
+2. **Log `Mars.exe-20260928-22.20.16-6aad2d75.log`, first flush (read by the orchestrator).**
+   The console read's only output, at line 344 and before any cold wave, was `145 255 255 255`:
+   power 145, with center, edge and outside heat all at 255. The panel's 145 is therefore the
+   hub's own `GetUIPowerProduction()` and not a panel artefact. The cold wave was sent twice
+   through TestKit's `SMRTK_DISASTER action=cold_wave setting=ColdWave_GameRule` (lines 731 and
+   1130), not through the report's `CheatColdWave("ColdWave_High")`, and no heat read followed
+   it. Slot 3 read three times (marks 94, 290 and 1017). All 15 trains show `cargo_cap=105000`,
+   `nominal_speed=1500` and `turn_anim_speed=4500` each time, and the only modifier listed is
+   `SMROptInTrainHub6_CapacityNetwork`. Slot 3 reads nominal speed, so it cannot show the cold
+   penalty that step 1 predicts it shows. The step-1 train-speed check needs a reader that
+   reports the effective speed, and a TestKit fix for that goes in the fix brief.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
