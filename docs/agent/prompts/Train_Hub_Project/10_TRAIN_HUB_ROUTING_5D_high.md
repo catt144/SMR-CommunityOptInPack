@@ -149,6 +149,17 @@ Report anything outside this fence without editing it.
 - ⛔ Not multi-hub routing.
 - ⛔ Not "save-safe". Claim the rung each part reached, with the residual named.
 
+## Sitting 2026-09-29, leg 1 (log `Mars.exe-20260929-13.36.00-6aad2d75.log`, orchestrator read)
+
+Fresh boot of `build6_capacity_covered_pass3`. Slot 4 `status=OK rows=19` on 6243 (marks 277
+and 302), 2012 (329), 2009 (360) and the small station 2008 (388). Every row reads
+`configured=false mode=balanced`, with `target=10000`, the station's dial: 8% of 120 on the smalls
+and 4% on 2009. Stock sits at the target except rows in flight (6243's first read: Meat, Fuel,
+Seeds and WasteRock at 0, Electronics and Spices at 5000; 2012 Polymers at 5000). 0 Lua error
+lines. **The "row tooltip names 2012 as its hop" prediction is stale:** no such line exists
+(owner's screenshot, 2026-09-29: *"I don't think we had ever build into next stop checks in
+tooltips?"*). It was written before ruling 10 made dispatch vanilla. Not a fault.
+
 ## Lifecycle
 
 A one-off. Done when the build and predictions are committed and handed back. The orchestrator runs
