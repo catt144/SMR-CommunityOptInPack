@@ -6,14 +6,11 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **`10` is the live build brief**: 5d routing,
-so stations chained to the hub obey their rows (owner, 2026-09-27); its stranded-cargo repair passed live
-2026-09-27; its chained Export/Import legs are still owed. The train bay (ruling 9) was built by `13`,
-audited alongside by `14` and fixed by `15`, all deleted 2026-09-28; ruling 10 then cut the hub extras
-to an archive and asked for a second train upgrade, which `16` built (live PASS 2026-09-28, deleted). `09`, the distribution centre,
-is built, passed live on every hub-line station and deleted (2026-09-27); spec §4.7/§4.8 and
-`reports/TRAIN_DISTRIBUTION_PASS2_20260926.md` hold its record. `10` owns `10_TrainFloor.lua` and the
-distribution files; only one brief that edits `20_TrainHub.lua` runs at a time.
+`00` is live; `03_Drones/` is closed reference. **`22` is the live build brief**: the owner's
+pre-audit fix list (station cargo display, hub storage 1,000/2,000, the Storage Hub upgrade; owner,
+2026-09-29). Briefs 10 (5d routing), 17 (reactor flash) and 21 (Power Upgrade) passed live and were
+deleted 2026-09-29; spec §4.8 ruling 10, §4.10 and their reports hold the record. Only one brief
+that edits `20_TrainHub.lua` runs at a time.
 
 The earlier `05`, the portal doors, was fired, built and then cut by the owner on 2026-09-22; its
 survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at `8aef5de`.
@@ -21,6 +18,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
+| `22_HUB_STORAGE_FIXES_high.md` | Owner 2026-09-29, pre-audit fix list: upgraded stations show no cargo; hub base storage 1,000 (2,000 with Capacity Network); a fourth, once-per-colony Storage Hub upgrade to 4,000 (60 Metals + 30 Machine Parts, +19 power while on). | **Live**; fire next |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire
