@@ -171,6 +171,18 @@ stream (line ~1060, t=20105086), so the 50 came from the hub. No 2012 hop was se
 floor on 6243 and 2012 returning to its own number were not read in this flush. 0 Lua error lines
 in 1221.
 
+## Sitting 2026-09-29, leg 3 and the sol (same log, 8946 lines, orchestrator read)
+
+**Owner's own export scenario:** *"a station exporting metals with full metal storages to see if it
+will continuously send it to the hub … that seemed to work well"*. TestKit filled 6243 (line 1513)
+and Metals depots 6491 to 6493 beside it (lines 4325 to 4335). In the stream, 6243's Metals
+repeatedly cycles between **60000**, its Export target of 50%, and 120000 as the depots refill it
+and trains take it away, from t≈22.84M to 24.63M. Hub 6430's Metals rose from 269500 to a peak
+of ~479800 at t≈23.3M to 23.4M and later read 190k to 250k. 2012 held about its own 10 (9300 to
+10000). The log spans t 20087086 to 24705016, about 6.4 sols, with **0** `LUA ERROR`/`attempt to`/traceback
+lines. **Export, the top-speed sol and zero errors: PASS.** This read does not attribute the hub's
+later drain.
+
 ## Lifecycle
 
 A one-off. Done when the build and predictions are committed and handed back. The orchestrator runs
