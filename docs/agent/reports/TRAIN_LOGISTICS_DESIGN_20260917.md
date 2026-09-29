@@ -926,6 +926,14 @@ switch it. The purchase belongs to the colony, not to the buying hub. **Salvage*
 day, asked): salvaging any hub, the buyer included, changes nothing. Remaining and future hubs
 keep the upgrade in its current on or off state. This replaces the 2026-09-28 salvage/ruins
 rulings above for all three upgrades.
+**Sitting PASS, 2026-09-29** (owner: *"Everything worked as expected"*), at `0855b57` with
+the owner's Mod Editor save `7702c0a`. Logs `Mars.exe-20260928-22.57.28`, `-20260929-12.03.53`
+and `-12.55.28` show: legacy hubs rebased to base 75; both hubs at 150 and consumption 10 from
+one purchase; unpowered cold slowing trains to about 2/3 of warm speed (5617 to 3758 with Cargo,
+4500 to 3000 without) and Power restoring it; shared on/off from either hub; and slot 3
+`owner=colony applied=4` across salvage, two reloads and a rebuild, with 0 Lua errors. Heat and the
+switch displays rest on the owner's eye and panels. Cold-ground consumption 20 against 10 is
+vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21 was deleted at this pass.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
