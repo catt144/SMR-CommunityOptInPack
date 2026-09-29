@@ -1,4 +1,4 @@
-# Hub Power Upgrade: double reactor output and cold-wave protection, moved off Train Cargo
+# Hub Power Upgrade: hub power 75 to 150 and cold-wave protection, moved off Train Cargo
 
 **Fire with:** `task docs/agent/prompts/Train_Hub_Project/21_HUB_POWER_UPGRADE_high.md` in a fresh
 session rooted at `B:\Dev\SMR\SMR-OptInPack`. Start with `git log --oneline -5`, `git status` and
