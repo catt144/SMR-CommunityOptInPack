@@ -41,48 +41,46 @@ is delegated to another agent through a brief.**
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-28** (Opus 5.5 `claude-opus-5-5`).
-     **How sittings run** (owner, 2026-09-26: *"we are going to do each sitting together and you
-     will relay a message to them"*): the orchestrator guides the owner through a build's attended
-     smoke from the build's own predictions, reads the log on "flushed" (re-read the file: the owner
-     keeps playing after a flush), records the result, archives the closed log with a receipt line,
-     and relays fixes. A build session on another model family (GPT-6 via Codex) cannot be messaged:
-     hand the owner paste-ready text, and say which earlier message it replaces. Console lines are
-     acceptable where no slot fits (owner, 2026-09-27).
-     **Sittings are stream-first** (owner, 2026-09-28): TestKit slot 6 streams every train and
-     station change to the log, on/off, and must be re-pressed after an autosave. Write steps as
-     "stream on, play, flushed" and read units from the stream; do not have the owner select them.
-     Other slots: Scratch balances every non-hub station to its row target, 1 empties them, 2 fills
-     a selected station's Metals, 3 is brief 13's bay read (TestKit `a4b122b`), 4-5 are brief 10's.
-     The fixture is **`build6_capacity_covered_pass3`** (a Drone Hub and Metals depot beside 2007).
-     Scratch, then half a sol at top speed, reliably leaves train 2000001844 empty and parked on the hub.
-     **Bay cut (ruling 10, 2026-09-28).** Briefs 13-15 are deleted: the bay's first sitting misplaced
-     spawns, brief 15's gated rerun never deployed an extra, and the owner cut the extras to an
-     archive and asked for a Train Cargo Upgrade (+100% cargo, +25% speed, 40 Metals + 20 Polymers;
-     spec §4.10). The capacity salvage/rebuild change is merged (`7dcef3e`). Brief `16` archives and
-     cuts the extras and builds the upgrade; its sitting is next. Archive the 2026-09-28 sitting logs (`14.27.05` and
-     brief 15's run) with a receipt once the owner has closed the game. The owner's frame-flash
-     sighting (spec §4.10, grep `flashes unpainted`) is recorded, not briefed.
-     Eight game logs 2026-09-28 12.06.47 to 13.25.51 are unread; ask the owner what they were.
-     **Where things stand:**
-     - 5d (brief `10`, live): stranded-cargo repair PASSED live, and ruling 6's hub-first dump was
-       seen on 2000001844 (cargo confirmed Metals). **Held:** its chained Export/Import legs, until
-       the bay (`13`) has passed its smoke (ruling 7's sequencing).
-     - Stations do not spoil food, and the hub does (ruling 8, live PASS). A minimum shipment is
-       held unless covered stations' drone demand makes trips too frequent.
-     - Dispatch is a train bay (ruling 9). The probes proved the reassignment holds and that a
-       train stored and redeployed at the hub departs and serves its line. **Open:** whether the
-       spawn sits exactly on the arm's siding (the owner saw it "off center").
-     - **§4.9, whether the hub places the trains it builds, is not authorised.** Ruling 9 may
-       answer it (a new train goes into the bay and deploys by need). This was said to the owner
-       but not ruled; ask before treating it as settled.
-     **Pending proposals for the owner, when they have room:**
-     - Two capacity findings, neither briefed (`reports/TRAIN_HUB_CAPACITY_20260926.md`): drones
-       will not build an upgrade from a station's own storage, and a salvaged hub's ruins wait for
-       outside drones, so its bonus can stay on indefinitely. Both are fix-or-describe.
-     - doccheck passed `README.md` collapsed onto one line (`7d7d0c2`, repaired in `04513e7`). It
-       was offered to the owner as a tooling fix for an agent; no decision yet.
-     - The owner's heated-track candidate (spec §10, grep `a heated`): not briefed, not a ruling.
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-28 (evening)** (Opus 5.5
+     `claude-opus-5-5`). Rulings of the day are in the spec: §4.8 ruling 10 (hub extras cut to
+     `docs/archive/train_bay_extras_20260928/`; auto-fill and siding placement kept), §4.9 (the hub
+     builds no trains), §4.10 (Train Cargo Upgrade; Power Upgrade; salvage off, no normal rebuild).
+     **How sittings run** (owner, 2026-09-26): the orchestrator guides the owner through a build's
+     attended smoke from the build's own predictions, reads the log on "flushed" (re-read the file:
+     the owner keeps playing after a flush), records the result in the spec, archives the closed log
+     with a receipt line, and relays fixes. A Codex build session cannot be messaged: hand the owner
+     paste-ready text. Console lines are acceptable where no slot fits (owner, 2026-09-27).
+     **Stream-first** (owner, 2026-09-28): TestKit slot 6 streams trains and stations and must be
+     re-pressed after an autosave or load. **Name each slot's function beside its number** in every
+     step (a sitting was lost to slot 2 pressed for slot 3). Slots at TestKit `e09efa0`: Scratch
+     balances non-hub stations; 1 empties them; 2 is brief 17's reactor dust reference (2 s); 3 reads
+     upgrades, train capacities and speed; 4 reads a selected station's distribution rows; 5 runs
+     until a selected station's Metals reaches its slider; 6 streams. Fixture
+     **`build6_capacity_covered_pass3`**; the owner also has a two-hub save (hubs 6430 and 6495).
+     **Next, in order** (owner, 2026-09-28: *"get all our sittings done now and then fire the audit,
+     remove its dev tags and then do our final full test"*):
+     1. **Brief `21` (Power Upgrade) has handed back, unchecked**: `57ee0f7`, report
+        `reports/TRAIN_HUB_POWER_UPGRADE_20260928.md`. Check it once, have the owner do the Mod
+        Editor save (`cargo_upgrade_smoke.py --require-generated`), then run its combined
+        cold-wave sitting (it supersedes briefs 19/20's, deleted).
+     2. **Brief `10`'s chained Export/Import legs** plus one sol at top speed, on the fixture:
+        slot 4 baselines on 6243, 2012, 2009 and the small station; Metals Export on 6243 and Import on
+        the small station; slot 5; then the sol. Its report's "Initial sitting predictions" hold the
+        predictions. No longer held: dispatch is vanilla since ruling 10.
+     3. **Brief `17`'s reactor check** in the same boot: slot 2 on the hub, compare with the owner's
+        flash; then change game speeds while watching. Delete `17` on the owner's acceptance.
+     4. **The audit**, below; then **"remove its dev tags"**, which is not yet defined. Ask the
+        owner whether it means moving the hub out of `SMR_TrainHubDev_20260918` into the shipping
+        Opt-In Pack as modules, and brief it before the final full battery, which runs on the
+        shipping layout.
+     **Owner questions still open:** whether auto-fill stays (kept until answered; placement at the
+     hub needs the siding correction either way); the hub-economy candidate (OI-19, spec grep
+     `hub's economy becomes an upgrade`); accepting the look (`Parked/TRAIN_HUB_LOOK_high.md`).
+     **Housekeeping:** archive the 2026-09-28 sitting logs with a receipt, the game being closed:
+     `14.27.05` (bay sitting), brief 15's run, `17.13.10` (cargo upgrade PASS) and the evening
+     cold-wave logs (`19.07.48`, `20.00.03`, `20.45.30`, `20.48.36`; ask the owner which were
+     sittings). Logs `12.06.47` to `13.25.51` were never read; ask before treating any as a sitting.
+     The spawn-on-siding correction has not been seen live; watch the next hub spawn.
    - **Standing constraints:**
      - **Movement is FINISHED** (owner, 2026-09-21). It may reopen once, at the final pre-launch
        test, if the owner wants moves tweaked; `Parked/TRAIN_HUB_MOVE_high.md` waits for that and
@@ -95,8 +93,8 @@ is delegated to another agent through a brief.**
        41.5 m. Do not revive the options withdrawn with that figure (`GEOMETRY_ORACLE_20260919.md`
        §13 and the list at grep `SetScale`).
      - **The hub's ship size** is the owner's ruling (OI-18; spec §9, grep `OUR OWN GUARD`).
-   - **The audit sweep, only when the owner says builds 3, 4 and 5 are done** (owner,
-     2026-09-19; the owner changes the model themselves). Treat every build report as a claim and
+   - **The audit sweep, authorised to follow the sittings above** (owner, 2026-09-28; the owner
+     changes the model themselves). Treat every build report as a claim and
      check it against its commits and logs. Cover:
      - the persisted-name inventory (ban 1);
      - `FIX_POLICY` §8's both-configuration ship test and the toggle test as §0 defines it for
