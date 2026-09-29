@@ -21,7 +21,6 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 | brief | what it is for | state |
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
-| `17_REACTOR_FLASH_INVESTIGATION_medium.md` | Owner sighting 2026-09-28: the hub's mini reactor flashes unpainted for a frame on a game-speed change. Find the cause, fix if small, one short attended check. Can run beside `16` (reactor code only). | **Ready to fire** (owner, 2026-09-28) |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
 
 ## `Parked/` — do not fire

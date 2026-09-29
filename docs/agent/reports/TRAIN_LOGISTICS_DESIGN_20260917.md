@@ -981,6 +981,8 @@ in the orchestrator session. Cause not established; brief `17` investigates.
 
 Investigation: [reactor flash report](TRAIN_HUB_REACTOR_FLASH_20260928.md) — SOURCE dust-write
 sequence repaired; speed-change/rendered cause unconfirmed; short dust-reference check staged.
+**Closed, owner, 2026-09-29:** slot 2's dust reference is *"the exact look"*, and after the repair
+*"No flash i checked it multiple times at various speeds."* Brief 17 was deleted.
 
 **Stacking, SOURCE:** percentages sum before they multiply (`Lua/Modifiers.lua:25,63,100`:
 `base × (100 + Σpercent) / 100 + Σamount`), so with Expanded Warehousing a small station holds
