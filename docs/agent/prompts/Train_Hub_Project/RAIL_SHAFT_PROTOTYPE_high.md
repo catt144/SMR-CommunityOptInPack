@@ -46,9 +46,11 @@ Evidence and citations: `reports/RAIL_SHAFT_PROTOTYPE.md` §5 (sitting), §7 (bi
 
 ## Work list — keep it live with the todo tool, one item per commit-and-verify unit
 
-1. **Owner, now:** disable `SMR_RailShaftDev` for hub sessions. Safe for every save loaded since
-   09-24 (none held a shaft). The one exception is the shaft save: `Unlink()` it first, or it
-   keeps a cross-map `linked_obj` with no guards.
+1. **Owner, 2026-09-29: the dev mod stays enabled**; hub testing folds into the crossing's
+   sittings, one full battery at the end. The shape question is brief
+   `24_ELEVATOR_SHAPE_INVESTIGATION_high.md`. No save loaded since 09-24 held a
+   shaft. The shaft save stays unguarded until brief `23` lands: do not load it with the hub
+   before then, or `Unlink()` it first.
 2. **Hub build, briefed as `23_OI27_DRONE_MAP_GUARD_high.md`:** implement OI-27 at `SMROptInTrainHubBase:HubTrackGraph` and `F.Route` so repair
    drones never take work, a target or a flight leg across a cross-map `linked_obj`. Control per
    `bugs/D14.md` (b): the shaft fixture beside the same-map tunnel case.
