@@ -4045,3 +4045,31 @@ chunked look and timing, so the dial stays at 1000 game ms per element. The
 TestKit agent slots were cleared for the next sitting. Brief 04 returns to its
 orchestrator for the declared lifecycle step; this is dev-mod acceptance, not
 a shipping claim or a general proof of all reworked layouts.
+
+## 11 · The Elevator Station — the cross-map crossing (owner, 2026-09-29)
+
+**Owner ruling, 2026-09-29** (built up over one conversation; the owner's closing word: *"Do
+it"*): the crossing between the surface and the underground is an **Elevator Station pair
+with shared storage. Trains never change maps; cargo does.** This replaces the 2026-09-23
+direction of trains passing straight through (options F and G,
+`reports/ELEVATOR_LOGISTICS_OPTIONS.md`). The rail shaft is parked as an experiment. The
+owner's words: *"keep it simplified"*, *"Maybe just keep it the same as the stations? Keep our
+table simple"*.
+
+| | The ruling |
+|---|---|
+| Tracks | The same as a vanilla station: one connector at each end, nothing special. |
+| Build | Our own station class based on vanilla's. Trains stop, load and unload as they do now; no drive-through or custom movement. |
+| Storage | One store, shared by the surface and underground stations. The size starts rough, and the owner tunes it by eye. |
+| Placement | Within an existing vanilla elevator's service area. The underground twin is placed beside the elevator's underground half automatically where there is room, otherwise by hand within range. |
+| Look | A small version of the hub dome, with a storage facility at its centre and a cargo-lift column rising from it (underground, into the cave ceiling), so it reads as a cargo elevator for trains. A stand-in model is acceptable first. |
+| Independence | Vanilla's elevator is not altered (the 2026-09-21 ruling stands): the station only reads its position and its `other` partner. The station does not need the hub, and the hub serves it like any other member station. |
+
+The owner's either-mod-alone requirement: each mod works identically with the other absent,
+whether the underground is locked, unlocked but untouched, or in use. The shape
+investigation's state matrix, touch list and source facts are in
+`reports/CROSSING_SHAPE_20260929.md` (§2 S1/S2/S6, §5, §7), audited 2026-09-29. Its warnings
+about trains crossing between maps (§6) no longer apply to this design.
+**Order (owner, 2026-09-29):** *"Lets start with design before wiring, thats going to be the hardest
+peice because it needs visual confirmation."* The look is brief 25; the store, range rule and
+twin come after the owner accepts it.

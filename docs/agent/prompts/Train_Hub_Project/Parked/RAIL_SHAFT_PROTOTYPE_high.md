@@ -1,5 +1,7 @@
 # Rail shaft — handoff to the train hub coordinator · _high
 
+> **PARKED 2026-09-29.** The owner ruled the Elevator Station instead: trains never change maps, and a shared store carries the cargo (spec `TRAIN_LOGISTICS_DESIGN_20260917.md` §11). What follows is kept as the record of the experiment; do not fire it as a build.
+
 **Owner, 2026-09-29:** this project passes to the train hub coordinator *"since their surfaces
 touch"*. You now own its next steps. This file is the live remainder; the evidence lives in the
 reports it links, not here.

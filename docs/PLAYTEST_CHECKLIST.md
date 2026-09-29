@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-32 · opened 2026-09-29
-After the fit sitting, which shape should the cross-map train crossing take?
-- **H** (recommended): our own rail terminals beside an existing vanilla elevator; the elevator itself is unchanged.
-- **G**: our own complete rail elevator. It can't go on a passage that already has an elevator.
-- **F**: the tunnel shaft. Kept as the experiment and the fallback.
-- Decide once the fit sitting shows whether terminals and track fit beside an elevator on both maps.
-Home: `docs/agent/reports/CROSSING_SHAPE_20260929.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

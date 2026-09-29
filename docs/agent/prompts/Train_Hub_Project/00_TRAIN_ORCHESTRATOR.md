@@ -2,8 +2,8 @@
 
 > ⛔ **PURGE WHEN THE TRAINS PROJECT IS COMPLETE AND TESTED** (owner, 2026-09-18). Complete
 > means every train module the owner keeps is built and has passed its ship test (`FIX_POLICY`
-> §8: both configurations, both toggle directions), or the owner has parked or killed the rest, and the rail shaft's F vs G is ruled with any module
-> it gets briefed or shipped.
+> §8: both configurations, both toggle directions), or the owner has parked or killed the rest; the Elevator Station
+> (spec §11) is one of those modules.
 > Then delete the whole `Train_Hub_Project/` folder and its row in `docs/agent/prompts/README.md`
 > in one commit.
 
@@ -16,10 +16,11 @@ The owner, 2026-09-18: this session is the project's **orchestrator**. Build wor
 agents through briefs; the orchestrator holds the big picture. The trains are Module A
 (per-resource station import/export) and Module B (the train hub). The owner, 2026-09-28: a simple
 change the owner asks for, the orchestrator may make itself or give to a subagent; **a big change
-is delegated to another agent through a brief.** The owner, 2026-09-29: **the rail shaft project
-is the orchestrator's too**, since it touches the hub; its live handoff is this folder's
-`RAIL_SHAFT_PROTOTYPE_high.md`. Plan hub and shaft together: check each brief on either side
-against the other before it fires.
+is delegated to another agent through a brief.** The owner, 2026-09-29: **the crossing between the
+surface and the underground is the orchestrator's too**, since it touches the hub. It is now the
+Elevator Station (spec §11); the rail shaft's handoff is `Parked/RAIL_SHAFT_PROTOTYPE_high.md`.
+Plan the hub and the crossing together: check each brief on either side against the other
+before it fires.
 
 ## Read first
 
@@ -62,12 +63,14 @@ against the other before it fires.
      **Next, in order:**
      1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
         owner do the Mod Editor save for slot 4 (`cargo_upgrade_smoke.py --require-generated`),
-        Brief `23` (OI-27's drone map guard), fired by the owner.
-        **Owner, 2026-09-29:** the hub is nearly done; `SMR_RailShaftDev` stays enabled; the
-        crossing is built next, `22`'s and `23`'s smokes and the hub's remaining minor tests fold
-        into the crossing's sittings, and one full battery runs at the end. The shape
-        investigation (brief 24, deleted) is in `reports/CROSSING_SHAPE_20260929.md`, audited.
-        Next: the §8.1 fit sitting, then the owner's shape call (OI-32), then the crossing build.
+        **Owner, 2026-09-29:** the hub is nearly done; the crossing is built next; `22`'s smoke
+        and the hub's remaining minor tests fold into the crossing's sittings, and one full
+        battery runs at the end. The crossing is the **Elevator Station** (spec §11; the shape
+        investigation behind it is `reports/CROSSING_SHAPE_20260929.md`). **Design before
+        wiring** (owner): brief `25` (the look, placeable for visual sign-off), then a wiring
+        brief (the shared store, the elevator range rule, the underground twin). The rail shaft
+        and brief `23` are parked. `SMR_RailShaftDev` was ruled to stay enabled while the shaft
+        was the plan; ask the owner whether to disable it now.
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout
