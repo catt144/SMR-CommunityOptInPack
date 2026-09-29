@@ -145,8 +145,9 @@ report, explained or found wrong.
   **3000** in the cold (t 20.5M) to **4500 to 4507** after Power was bought (t ≥ 21.0M). 4500 is
   the warm speed without Cargo (5617 ≈ 4500 × 1.25; 3000 ≈ 4500 × 2/3, the same ratio as 3758 to
   5617).
-- No console read in this log: both hubs at 150, their heat and the spent display rest on the
-  owner's panels.
+- **Once per colony, PASS by panel** (owner's screenshots): both hubs read Power production
+  **150**, consumption **10**, and show the Power Upgrade row lit. Train Cargo is unbought on both.
+  There was no console heat read; consumption 10 on cold ground implies heat above the penalty line.
 
 ## Lifecycle
 
