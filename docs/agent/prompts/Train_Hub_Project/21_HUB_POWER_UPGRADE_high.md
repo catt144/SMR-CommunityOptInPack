@@ -67,6 +67,13 @@ Claim limit: desk PASS means the mocked vanilla agrees; the live claim is the co
 
 References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skill `doc-editing`.
 
+## Sitting findings (owner, 2026-09-28; goes back to the build)
+
+1. **FAIL: hub power.** In the combined cold-wave sitting, hub `SMROptInTrainHub6(6430)` shows
+   **Power production 145** and consumption 10 in its panel (owner's screenshot). The report
+   predicts 75 without Power and 150 with it; 145 matches neither. The owner ruled it a fail and
+   sent it back. The sitting continues, so later findings are added here.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
