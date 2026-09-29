@@ -916,6 +916,14 @@ which the owner called *"a miss … a little miss leading"*. So the Power Upgrad
 Capacity Network and Train Cargo rulings: once per colony, spent for later hubs, salvage and
 ruins as the others, no tech. Bought once, it gives **every hub, present and future, 150 power
 and ground heat in its range**, and **removes the cold penalty for every train**.
+⚖️ **Owner, 2026-09-29 (rerun sitting): a bought upgrade is a global unlock, one state on every
+hub.** Seen: Power switched off on the buying hub showed off there and still lit on the other
+hub. *"once a global upgrade is bought once, it should match state globally, so if its turned
+off at one it should show off at any other, and any other should be able to turn it back on. Its
+been bought and paid for it should be a global unlock since its a global upgrade."* This applies
+to all three upgrades. Once bought, every hub shows the same on or off state, and any hub can
+switch it. The purchase belongs to the colony, not to the buying hub. Open, asked 2026-09-29:
+whether salvaging the buying hub still switches it off.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:

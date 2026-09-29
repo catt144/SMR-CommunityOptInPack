@@ -149,6 +149,14 @@ report, explained or found wrong.
   **150**, consumption **10**, and show the Power Upgrade row lit. Train Cargo is unbought on both.
   There was no console heat read; consumption 10 on cold ground implies heat above the penalty line.
 
+**Repair 3 (owner, 2026-09-29; spec §4.10, grep `a bought upgrade is a global unlock`):** after
+the purchase, all three upgrades are one colony-wide state. Every hub, present and future, shows
+the same on or off, and any hub's switch turns it on or off for all. The spent display that
+lets only the buying hub switch it goes. Seen: Power switched off on the buying hub showed
+red there and lit on the other hub (owner's screenshots). Salvage of the buying hub follows the
+owner's answer to the open question in the spec; stop and ask if it is still open. Cover it with
+mutations that fail a per-hub display and a switch refused on a non-buying hub.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
