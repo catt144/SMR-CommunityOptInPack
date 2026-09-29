@@ -114,11 +114,15 @@ The owner's method: Power on one hub and off on the other, read before and after
   (owner's screenshots). The console reads during the cold wave: line 3357 (without Power) is
   `75 0 0 0`, and line 3363 (with Power) is `150 255 255 0`, heated at the center and the
   service edge and cold just outside.
-- **Train speed:** slot 6 `effective_speed` for moving trains is 5617 by mode both before the
-  cold wave (dispatched at line 1998) and to the end of the log (t 20525756 to 23045369).
-  The owner, by eye: they look right.
-- **Not yet shown:** that trains slow in the cold with no Power anywhere. Without that, the
-  steady speed does not separate Power's colony protection from no cold penalty at all.
+- **Train speed with Power on one hub:** slot 6 `effective_speed` for moving trains is 5617 by
+  mode both before the cold wave (dispatched at line 1998) and after it. The stream has almost no
+  rows after t≈20.9M and was disarmed by an autosave at t=21715379 (line 5304), so it covers
+  about 0.5 sol of cold. An earlier "to the end of the log" reading was wrong. The owner, by eye:
+  they look right.
+- **Cold with no Power on (owner turned it off; same log):** after `CheatStopDisaster` (line
+  5451), a fresh cold wave (line 5619) and slot 6 re-armed (line 5911), trains on `GotoStation`
+  drop from 5617/5612 to **3758/3754** by t≥23150000. The cold penalty is real and Power's removal
+  of it is what held the 5617.
 - **Seen, not predicted:** the panel reads consumption 10 on the hub with Power and 20 on the
   hub without it.
 
