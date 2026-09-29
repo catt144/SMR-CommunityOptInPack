@@ -12,7 +12,8 @@ Power Upgrade`.
 - **Train Cargo goes back to +100% cargo and +25% train speed only.** Its live-passed behaviour
   (2026-09-28) must not change.
 - **A new, third hub upgrade: the Power Upgrade.** While it is on, it:
-  - **doubles the hub's reactor output**;
+  - **raises the hub's power production from 75 to 150** (owner's figures: base 75, +75 with
+    the upgrade; the base hub changes from today's 70 to 75);
   - heats the ground within the hub's drone service range (15 hexes, read from `work_radius`), as
     brief 20 built;
   - removes the trains' cold penalty, as brief 19 built.
@@ -34,8 +35,8 @@ Power Upgrade`.
   hub with Power on**; decide and record whether that is right for a per-hub upgrade. Its heat
   reads Power, not Cargo. Leaving either on Train Cargo is a defect.
 - The live panel, owner's screenshot 2026-09-28: the hub read **70** power production, and
-  insufficient power during a cold wave. Find what the "reactor output" is in our code: the
-  mini reactor's contribution against the hub's base. Double that part, and record the figures.
+  insufficient power during a cold wave. Find where the hub's production is set, make the base 75,
+  and make the Power Upgrade add +75, for 150. Record the figures before and after.
 - Template: slot 2's description currently says it "warms the network". Revert it, and add slot 3
   for the Power Upgrade. The owner's Mod Editor save regenerates the class and hash; check it
   with `cargo_upgrade_smoke.py --require-generated`, extended to cover slot 3.
@@ -43,7 +44,7 @@ Power Upgrade`.
 ## Done
 
 - Desk tests: Train Cargo gives cargo and speed only, with no heat or cold effect. Power, per
-  hub, gives doubled output, ground heat within range and trains' cold immunity. Toggling it
+  hub, gives 150 power (75 without it), ground heat within range and trains' cold immunity. Toggling it
   off, salvaging or ruins removes all three. A second hub can buy its own. Each test has a
   mutation that fails it. Run every train hub smoke and report members = passing + failing.
 - No new persisted name, unless unavoidable: then stop, unless it goes on `FIX_POLICY`'s
@@ -59,7 +60,7 @@ Run `python tools/doccheck.py` before each doc commit. Keep a live todo list bef
 
 **In:** the three upgrade effects' gating, the reactor output, the template fields and the tests.
 **Out:** hub movement, distribution, and the reactor's look (brief 17). Stop and report if
-doubling the output needs a copied vanilla body, or if per-hub ownership conflicts with how
+raising the output needs a copied vanilla body, or if per-hub ownership conflicts with how
 vanilla stores upgrades.
 
 Claim limit: desk PASS means the mocked vanilla agrees; the live claim is the cold-wave sitting.

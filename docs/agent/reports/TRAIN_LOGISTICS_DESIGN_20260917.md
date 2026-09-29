@@ -904,7 +904,10 @@ ground), but a cold wave cut power and left the other train buildings short. **T
 back to +100% cargo and +25% speed only.** The Power Upgrade: **doubles the hub's reactor output**,
 heats the ground within the hub's drone range (15 hexes), and removes the trains' cold penalty.
 **Cost 30 Metals + 20 Electronics. Per hub**, not once per colony: each hub buys it for its own
-reactor and ground. Salvage/ruins switch it off like the other upgrades. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
+reactor and ground. Salvage/ruins switch it off like the other upgrades.
+⚖️ **Owner, same day, the numbers:** doubling 70 would give 140; *"lets make it a little more
+even and do 75 for base and 75 for upgrade to equal out to 150 power"*. **Hub power production:
+75 base, +75 with the Power Upgrade = 150.** This changes the base hub's figure (70 → 75) too. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
 colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
 salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
 re-buyable, no tech.
