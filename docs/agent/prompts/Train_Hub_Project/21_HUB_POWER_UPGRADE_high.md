@@ -97,9 +97,10 @@ References: `CLAUDE.md`, `docs/agent/FIX_POLICY.md` (header first), skill `doc-e
    2026-09-28 because the build goes back for repair first, and steps 2 to 5 are unrun.
 
 **Repair asked for (owner, 2026-09-28):** the first hub must read 75 or 150, never 145. Find
-where 145 comes from in the live save; the desk smokes pass, so they do not model it. Add a
-TestKit read of *effective* train speed, not nominal, so the next sitting can check the cold
-slowdown by slot. Then hand back for a rerun of the whole combined sitting.
+where 145 comes from in the live save; the desk smokes pass, so they do not model it. Add each
+train's *effective* speed, not nominal, to TestKit slot 6's live stream (owner, 2026-09-28: no
+new slot), so the next sitting can watch the cold slowdown. The TestKit is shared with the fix
+pack (`B:\Dev\SMR\SMR-BugFixPack-TestKit`). Then hand back for a rerun of the whole combined sitting.
 
 ## Lifecycle
 
