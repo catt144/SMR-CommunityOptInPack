@@ -922,8 +922,10 @@ hub. *"once a global upgrade is bought once, it should match state globally, so 
 off at one it should show off at any other, and any other should be able to turn it back on. Its
 been bought and paid for it should be a global unlock since its a global upgrade."* This applies
 to all three upgrades. Once bought, every hub shows the same on or off state, and any hub can
-switch it. The purchase belongs to the colony, not to the buying hub. Open, asked 2026-09-29:
-whether salvaging the buying hub still switches it off.
+switch it. The purchase belongs to the colony, not to the buying hub. **Salvage** (owner, same
+day, asked): salvaging any hub, the buyer included, changes nothing. Remaining and future hubs
+keep the upgrade in its current on or off state. This replaces the 2026-09-28 salvage/ruins
+rulings above for all three upgrades.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:

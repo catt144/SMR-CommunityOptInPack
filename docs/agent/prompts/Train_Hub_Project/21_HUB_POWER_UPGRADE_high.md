@@ -48,7 +48,7 @@ Power Upgrade`.
 - Desk tests: Train Cargo gives cargo and speed only, with no heat or cold effect. Power, once
   per colony, gives every hub 150 power (75 without it) and ground heat within range, and every
   train cold immunity; a hub built after the purchase gets them without buying. Toggling it
-  off, or the owning hub's salvage or ruins, removes all three, as the other two upgrades do. Each test has a
+  off on any hub removes all three for every hub; salvage or ruins change nothing (repair 3). Each test has a
   mutation that fails it. Run every train hub smoke and report members = passing + failing.
 - No new persisted name, unless unavoidable: then stop, unless it goes on `FIX_POLICY`'s
   inventory with a reason.
@@ -153,8 +153,9 @@ report, explained or found wrong.
 the purchase, all three upgrades are one colony-wide state. Every hub, present and future, shows
 the same on or off, and any hub's switch turns it on or off for all. The spent display that
 lets only the buying hub switch it goes. Seen: Power switched off on the buying hub showed
-red there and lit on the other hub (owner's screenshots). Salvage of the buying hub follows the
-owner's answer to the open question in the spec; stop and ask if it is still open. Cover it with
+red there and lit on the other hub (owner's screenshots). Salvaging any hub, the buyer included,
+changes nothing (owner, 2026-09-29). Remaining and future hubs keep the state, and there is no
+re-buy. Cover it with
 mutations that fail a per-hub display and a switch refused on a non-buying hub.
 
 ## Lifecycle
