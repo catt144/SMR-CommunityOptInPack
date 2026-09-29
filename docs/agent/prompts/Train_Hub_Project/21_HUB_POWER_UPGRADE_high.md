@@ -102,6 +102,23 @@ train's *effective* speed, not nominal, to TestKit slot 6's live stream (owner, 
 new slot), so the next sitting can watch the cold slowdown. The TestKit is shared with the fix
 pack (`B:\Dev\SMR\SMR-BugFixPack-TestKit`). Then hand back for a rerun of the whole combined sitting.
 
+## Rerun after `9bffa5c` / TestKit `4a31982` (owner, 2026-09-28, log `Mars.exe-20260928-22.57.28-6aad2d75.log`)
+
+The owner's method: Power on one hub and off on the other, read before and after one cold wave.
+- **Load repair:** lines 276 and 277 read `hub 6430 power base 70000>75000, output 75000>75000`
+  and the same for 6495.
+- **Power, PASS:** the panels read 150 on the hub with Power and 75 on the hub without it
+  (owner's screenshots). The console reads during the cold wave: line 3357 (without Power) is
+  `75 0 0 0`, and line 3363 (with Power) is `150 255 255 0`, heated at the center and the
+  service edge and cold just outside.
+- **Train speed:** slot 6 `effective_speed` for moving trains is 5617 by mode both before the
+  cold wave (dispatched at line 1998) and to the end of the log (t 20525756 to 23045369).
+  The owner, by eye: they look right.
+- **Not yet shown:** that trains slow in the cold with no Power anywhere. Without that, the
+  steady speed does not separate Power's colony protection from no cold penalty at all.
+- **Seen, not predicted:** the panel reads consumption 10 on the hub with Power and 20 on the
+  hub without it.
+
 ## Lifecycle
 
 One-off. The orchestrator deletes it once its sitting passes. Briefs 19 and 20 were deleted when
