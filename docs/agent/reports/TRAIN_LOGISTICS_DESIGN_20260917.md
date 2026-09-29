@@ -902,6 +902,7 @@ re-buyable, no tech.
 
 Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
 Warm network build (brief 19, 2026-09-28): `reports/TRAIN_CARGO_WARM_20260928.md`.
+Ground heater build and combined briefs 19/20 sitting: `reports/TRAIN_CARGO_HEATER_20260928.md`.
 **Attended smoke steps 1-3 LIVE PASS 2026-09-28** on `607bc08` (owner's Mod Editor save;
 `--require-generated` exit 0), log `Mars.exe-20260928-17.13.10`, 0 `LUA ERROR`, slot 3 reads: bought
 on hub 6430, all 15 trains cargo 105000 → 147000 and speed 1500 → 1875; hub 6495 spent

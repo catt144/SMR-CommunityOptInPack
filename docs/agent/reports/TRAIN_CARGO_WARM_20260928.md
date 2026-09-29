@@ -63,6 +63,9 @@ warm-network sentence, **save the mod**, and restart the game. The agent's check
 
 ## Attended check (about three steps) — [NEVER RUN for this build]
 
+Run the combined sitting in `TRAIN_CARGO_HEATER_20260928.md` instead of a separate
+warm-network sitting; it preserves the train check below and adds hub ground heat.
+
 Load a copy of a save that has the Train Cargo Upgrade on and a train standing on open ground,
 away from heaters and domes. Both mods and the TestKit are loaded.
 

@@ -3531,6 +3531,40 @@ SMROptInTrainHubBase.hub_cargo_upgrade = hub_cargo_upgrade
 local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }
 local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end
 
+-- Ground heat (owner, 2026-09-28, spec 4.10). Reuse synchronous vanilla machinery:
+-- archived 1.1.1.405907 Heater.lua:31-72, strength from SubsurfaceHeaterBase (:81).
+-- No BaseHeater parent: its OnSetWorking would incorrectly tie heat to power.
+-- HeatGrid persists its existing heaters table, keyed by this existing hub, with numeric
+-- geometry only. No new saved name, function, helper object or thread; no extra upkeep.
+local hub_heat_ready = BaseHeater and SubsurfaceHeaterBase
+	and type(BaseHeater.ApplyHeat) == "function" and type(BaseHeater.ApplyForm) == "function"
+	and type(BaseHeater.GetHeatCenter) == "function" and type(SubsurfaceHeaterBase.heat) == "number"
+if hub_heat_ready then
+	SMROptInTrainHubBase.heat = SubsurfaceHeaterBase.heat
+	SMROptInTrainHubBase.is_static = false
+	SMROptInTrainHubBase.ApplyHeat = BaseHeater.ApplyHeat
+	SMROptInTrainHubBase.ApplyForm = BaseHeater.ApplyForm
+	SMROptInTrainHubBase.GetHeatCenter = BaseHeater.GetHeatCenter
+else
+	print("[TrainHubDev] cargo ground heat unavailable: vanilla heater contract missing")
+end
+function SMROptInTrainHubBase:GetHeatRange()
+	return self.work_radius * const.GridSpacing
+end
+function SMROptInTrainHubBase:GetHeatBorder()
+	return 0 -- full warmth through the service radius, no inward fading band
+end
+local function sync_cargo_heat(hub)
+	if not hub_heat_ready then return end
+	local on = false
+	if not hub.destroyed and Building.HasUpgrade(hub, hub_cargo_upgrade) then
+		for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[hub_cargo_upgrade] or empty_table) do
+			if mod:IsApplied() then on = true; break end
+		end
+	end
+	hub:ApplyHeat(on)
+end
+
 local function unlock_capacity_upgrade()
 	for _, id in ipairs(hub_upgrades) do
 		if UIColony and not UIColony:IsUpgradeUnlocked(id) then UIColony:UnlockUpgrade(id) end
@@ -3591,13 +3625,33 @@ function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
 end
 
 -- Ruins never carry the bonus (owner, 2026-09-28), whatever reaches the modifiers.
+function SMROptInTrainHubBase:ApplyUpgrade(...)
+	local result = table.pack(Building.ApplyUpgrade(self, ...))
+	sync_cargo_heat(self)
+	return table.unpack(result, 1, result.n)
+end
+
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
 	if network_upgrade(id) and self.destroyed then return end
 	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
+	if id == hub_cargo_upgrade then sync_cargo_heat(self) end
 end
 
 function SMROptInTrainHubBase:StopUpgradeModifiersForUpgrade(id)
 	if Building.HasUpgrade(self, id) then Building.StopUpgradeModifiersForUpgrade(self, id) end
+	if id == hub_cargo_upgrade then sync_cargo_heat(self) end
+end
+
+-- Building:Done uses the bulk path directly (Building.lua:534,1323), not the pair above.
+function SMROptInTrainHubBase:StopUpgradeModifiers(...)
+	local result = table.pack(Building.StopUpgradeModifiers(self, ...))
+	sync_cargo_heat(self)
+	return table.unpack(result, 1, result.n)
+end
+function SMROptInTrainHubBase:ApplyUpgradeModifiers(...)
+	local result = table.pack(Building.ApplyUpgradeModifiers(self, ...))
+	sync_cargo_heat(self)
+	return table.unpack(result, 1, result.n)
 end
 
 -- Every construct and cancel, single or Ctrl+click broadcast, comes through here
@@ -3676,6 +3730,7 @@ function OnMsg.LoadGame()
 	unlock_capacity_upgrade()
 	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
 		ruins_bonus_off(hub)
+		if IsKindOf(hub, "SMROptInTrainHubBase") then sync_cargo_heat(hub) end
 	end
 end
 

@@ -167,9 +167,9 @@ assert(both:IsUpgradeOn(ID) and not both:IsUpgradeOn(CARGO) and speed()==700)
 '''.replace('TEMPLATE', template)
 
 
-def run(code, extra_cases=''):
+def run(code, extra_cases='', heater_setup='', heater_fixture=''):
     # Reuse the existing fixture without executing its first-upgrade scenario.
-    env = {'__file__': str(HERE / 'capacity_smoke.py'), 'SPEED_SETUP': SPEED_SETUP}
+    env = {'__file__': str(HERE / 'capacity_smoke.py'), 'SPEED_SETUP': SPEED_SETUP + heater_setup}
     script = prefix.replace('code = SOURCE.read_text(encoding="utf8")', 'code = supplied_code')
     script = script.replace('lua.execute(section)', '''lua.execute(SPEED_SETUP)
 speed_source = (ARCHIVE / 'Units/Train.lua').read_text(encoding='utf8')
@@ -179,7 +179,7 @@ lua.execute('local Floor = SMROptInTrainFloor\\n' + section)''')
     env['supplied_code'] = code
     with contextlib.redirect_stdout(io.StringIO()):
         exec(compile(script, str(HERE / 'capacity_smoke.py'), 'exec'), env)
-    env['lua'].execute(fixture + CASES + extra_cases)
+    env['lua'].execute(fixture + heater_fixture + CASES + extra_cases)
 
 
 def main():
