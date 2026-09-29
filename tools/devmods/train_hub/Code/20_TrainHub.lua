@@ -234,7 +234,7 @@ DefineClass.SMROptInTrainHubBase = {
 	work_radius = hub_work_radius,
 	charging_stations = false,
 	electricity_consumption = 10000,
-	electricity_production = 70000,
+	electricity_production = 75000,
 
 	-- Maintenance reserve: this many maintenances' worth of the maintenance
 	-- resource is held back from trains and drones (10_TrainFloor.lua).
@@ -1819,8 +1819,8 @@ function OnMsg.LightmodelChange(map, view, lm, time, prev_lm)
 end
 
 -- A train station is normally only an ElectricityConsumer. This hub is both a
--- 70-power producer and a 10-power consumer on one grid element, so its stated
--- output covers itself plus six 10-power large stations. SupplyGridElement and
+-- 75-power producer (150 with Power Upgrade) and a 10-power consumer on one grid
+-- element. Its base covers itself plus six 10-power large stations. SupplyGridElement and
 -- SupplyGridFragment natively support an element appearing in both lists
 -- (SupplyGrid.lua:12-34, :537-553; build 1.1.0.403908).
 function SMROptInTrainHubBase:CreateElectricityElement()
@@ -3477,7 +3477,7 @@ function OnMsg.ClassesPostprocess()
 		class.maintenance_resource_type = "Electronics"
 		class.maintenance_resource_amount = 2000
 		class.electricity_consumption = 10000
-		class.electricity_production = 70000
+		class.electricity_production = 75000
 		class.description = T(909018002004, "A <em>Station</em> where three straight lines cross, so cargo can change routes. It powers itself and six large stations, has its own small <em>Drone</em> crew, and keeps back enough Electronics to maintain itself.")
 	end
 	local template = BuildingTemplates and BuildingTemplates.SMROptInTrainHub6
@@ -3490,7 +3490,7 @@ function OnMsg.ClassesPostprocess()
 		template.maintenance_resource_type = "Electronics"
 		template.maintenance_resource_amount = 2000
 		template.electricity_consumption = 10000
-		template.electricity_production = 70000
+		template.electricity_production = 75000
 		template.description = T(909018002004, "A <em>Station</em> where three straight lines cross, so cargo can change routes. It powers itself and six large stations, has its own small <em>Drone</em> crew, and keeps back enough Electronics to maintain itself.")
 	end
 end
@@ -3528,8 +3528,20 @@ local hub_capacity_upgrade = "SMROptInTrainHub6_CapacityNetwork" -- save contrac
 SMROptInTrainHubBase.hub_capacity_upgrade = hub_capacity_upgrade
 local hub_cargo_upgrade = "SMROptInTrainHub6_TrainCargo" -- save contract, FIX_POLICY inventory
 SMROptInTrainHubBase.hub_cargo_upgrade = hub_cargo_upgrade
-local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade }
+local hub_power_upgrade = "SMROptInTrainHub6_Power" -- save contract, FIX_POLICY inventory
+SMROptInTrainHubBase.hub_power_upgrade = hub_power_upgrade
+local hub_upgrades = { hub_capacity_upgrade, hub_cargo_upgrade, hub_power_upgrade }
 local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end
+
+-- Power is per hub: vanilla's self ObjectModifier adds 75000 electricity_production.
+-- It never participates in the other upgrades' colony claim or rebuild carry.
+local function upgrade_applied(hub, id)
+	if not IsValid(hub) or hub.destroyed or not Building.HasUpgrade(hub, id) then return false end
+	for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[id] or empty_table) do
+		if mod:IsApplied() then return true end
+	end
+	return false
+end
 
 -- Ground heat (owner, 2026-09-28, spec 4.10). Reuse synchronous vanilla machinery:
 -- archived 1.1.1.405907 Heater.lua:31-72, strength from SubsurfaceHeaterBase (:81).
@@ -3546,7 +3558,7 @@ if hub_heat_ready then
 	SMROptInTrainHubBase.ApplyForm = BaseHeater.ApplyForm
 	SMROptInTrainHubBase.GetHeatCenter = BaseHeater.GetHeatCenter
 else
-	print("[TrainHubDev] cargo ground heat unavailable: vanilla heater contract missing")
+	print("[TrainHubDev] power ground heat unavailable: vanilla heater contract missing")
 end
 function SMROptInTrainHubBase:GetHeatRange()
 	return self.work_radius * const.GridSpacing
@@ -3554,14 +3566,9 @@ end
 function SMROptInTrainHubBase:GetHeatBorder()
 	return 0 -- full warmth through the service radius, no inward fading band
 end
-local function sync_cargo_heat(hub)
+local function sync_power_heat(hub)
 	if not hub_heat_ready then return end
-	local on = false
-	if not hub.destroyed and Building.HasUpgrade(hub, hub_cargo_upgrade) then
-		for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[hub_cargo_upgrade] or empty_table) do
-			if mod:IsApplied() then on = true; break end
-		end
-	end
+	local on = upgrade_applied(hub, hub_power_upgrade)
 	hub:ApplyHeat(on)
 end
 
@@ -3611,6 +3618,7 @@ end
 -- another train hub that does not own the upgrade is selected. Its own click and its own
 -- broadcast still switch it.
 function SMROptInTrainHubBase:ToggleUpgradeOnOff(id)
+	if id == hub_power_upgrade and self.destroyed then return end
 	if network_upgrade(id) then
 		if self.destroyed then return end
 		local sel = SelectedObj
@@ -3627,30 +3635,31 @@ end
 -- Ruins never carry the bonus (owner, 2026-09-28), whatever reaches the modifiers.
 function SMROptInTrainHubBase:ApplyUpgrade(...)
 	local result = table.pack(Building.ApplyUpgrade(self, ...))
-	sync_cargo_heat(self)
+	sync_power_heat(self)
 	return table.unpack(result, 1, result.n)
 end
 
 function SMROptInTrainHubBase:ApplyUpgradeModifiersForUpgrade(id)
-	if network_upgrade(id) and self.destroyed then return end
+	if (network_upgrade(id) or id == hub_power_upgrade) and self.destroyed then return end
 	if Building.HasUpgrade(self, id) then Building.ApplyUpgradeModifiersForUpgrade(self, id) end
-	if id == hub_cargo_upgrade then sync_cargo_heat(self) end
+	if id == hub_power_upgrade then sync_power_heat(self) end
 end
 
 function SMROptInTrainHubBase:StopUpgradeModifiersForUpgrade(id)
 	if Building.HasUpgrade(self, id) then Building.StopUpgradeModifiersForUpgrade(self, id) end
-	if id == hub_cargo_upgrade then sync_cargo_heat(self) end
+	if id == hub_power_upgrade then sync_power_heat(self) end
 end
 
 -- Building:Done uses the bulk path directly (Building.lua:534,1323), not the pair above.
 function SMROptInTrainHubBase:StopUpgradeModifiers(...)
 	local result = table.pack(Building.StopUpgradeModifiers(self, ...))
-	sync_cargo_heat(self)
+	sync_power_heat(self)
 	return table.unpack(result, 1, result.n)
 end
 function SMROptInTrainHubBase:ApplyUpgradeModifiers(...)
+	if self.destroyed then return end
 	local result = table.pack(Building.ApplyUpgradeModifiers(self, ...))
-	sync_cargo_heat(self)
+	sync_power_heat(self)
 	return table.unpack(result, 1, result.n)
 end
 
@@ -3684,7 +3693,7 @@ end
 
 function OnMsg.BuildingDemolished(bld)
 	if ruins_bonus_off(bld) then
-		print(string.format("[TrainHubDev] network upgrade: hub %s ruined, bonus off, claim held", tostring(bld.handle)))
+		print(string.format("[TrainHubDev] hub %s ruined, upgrade bonuses off", tostring(bld.handle)))
 	end
 end
 
@@ -3714,7 +3723,7 @@ local function carry_upgrade(self, id)
 end
 
 function SMROptInTrainHubBase:ApplyCopyParams(params)
-	for _, id in ipairs(hub_upgrades) do carry_upgrade(self, id) end
+	for _, id in ipairs({ hub_capacity_upgrade, hub_cargo_upgrade }) do carry_upgrade(self, id) end
 end
 
 function SMROptInTrainHubBase:InitHubCapacityUpgrade()
@@ -3730,7 +3739,7 @@ function OnMsg.LoadGame()
 	unlock_capacity_upgrade()
 	for _, hub in ipairs(UIColony and UIColony.labels.Station or empty_table) do
 		ruins_bonus_off(hub)
-		if IsKindOf(hub, "SMROptInTrainHubBase") then sync_cargo_heat(hub) end
+		if IsKindOf(hub, "SMROptInTrainHubBase") then sync_power_heat(hub) end
 	end
 end
 
@@ -3744,17 +3753,26 @@ end
 local function cargo_speed_on(train)
 	local city = train.city
 	for _, hub in ipairs(city and city.labels.Station or empty_table) do
-		if IsValid(hub) and IsKindOf(hub, "SMROptInTrainHubBase") and not hub.destroyed
-			and Building.HasUpgrade(hub, hub_cargo_upgrade) then
-			for _, mod in ipairs(hub.upgrade_modifiers and hub.upgrade_modifiers[hub_cargo_upgrade] or empty_table) do
-				if mod:IsApplied() then return true end
-			end
+		if IsKindOf(hub, "SMROptInTrainHubBase") and upgrade_applied(hub, hub_cargo_upgrade) then
+			return true
 		end
 	end
 	return false
 end
 
--- Owner, 2026-09-28 (spec §4.10, `also warms the network`): no cold penalty while it is on.
+-- Power's cold immunity is colony-wide while ANY intact hub has its Power modifier on.
+-- City.colony spans maps (archived 1.1.1.405907 City.lua:43,83); cargo stays city-labelled.
+local function power_warm_on(train)
+	local colony = train.city and train.city.colony
+	for _, hub in ipairs(colony and colony.labels.Station or empty_table) do
+		if IsKindOf(hub, "SMROptInTrainHubBase") and upgrade_applied(hub, hub_power_upgrade) then
+			return true
+		end
+	end
+	return false
+end
+
+-- Owner, 2026-09-28 (spec §4.10, Power Upgrade): no cold penalty while Power is on.
 -- Vanilla's cold branch (:602-605) is its only heat read and the only cold effect on a
 -- train's movement. It reads warm for this one non-yielding call, so tech, law, rounding
 -- and the turn-animation speed stay vanilla's own. The real GetHeatAt returns even on error.
@@ -3781,10 +3799,15 @@ local function install_cargo_speed()
 	if Floor.HubCargoSpeedInstalled then return end
 	local previous = Train.GetNominalMoveSpeed
 	Train.GetNominalMoveSpeed = function(self, ...)
-		if not cargo_speed_on(self) then return previous(self, ...) end
-		local result = warm_speed(previous, self, ...)
-		result[1] = MulDivRound(result[1], 125, 100)
-		result[2] = MulDivRound(result[2], 125, 100)
+		local cargo, power = cargo_speed_on(self), power_warm_on(self)
+		if not cargo and not power then return previous(self, ...) end
+		local result
+		if power then result = warm_speed(previous, self, ...)
+		else result = table.pack(previous(self, ...)) end
+		if cargo then
+			result[1] = MulDivRound(result[1], 125, 100)
+			result[2] = MulDivRound(result[2], 125, 100)
+		end
 		return table.unpack(result, 1, result.n)
 	end
 	Floor.HubCargoSpeedInstalled = true

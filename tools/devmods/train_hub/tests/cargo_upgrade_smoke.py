@@ -19,27 +19,37 @@ DATA = HERE.parent / 'Data/BuildingTemplate/SMROptInTrainHub6.lua'
 harness = (HERE / 'capacity_smoke.py').read_text(encoding='utf8')
 prefix, rest = harness.split("lua.execute(r'''\nlocal ID =", 1)
 fixture = 'local ID =' + rest.split('-- 1. Unlocked from the start', 1)[0]
-fields = dict(re.findall(r"^\t'(upgrade2_\w+)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
+fields = dict(re.findall(r"^\t'(upgrade[23]_\w+|electricity_production)', (.*),$", DATA.read_text(encoding='utf8'), re.M))
+# Mod Editor may omit values equal to the property's default. Compare effective fields:
+# self is UpgradableBuilding's default target; output inherits the hub's class value.
+class_power = re.search(r'^\telectricity_production = (\d+),$', SOURCE.read_text(encoding='utf8'), re.M)[1]
+defaults = {'upgrade3_mod_target_1': '"self"', 'electricity_production': class_power}
+fields = defaults | fields
 expected = {
     'upgrade2_id': '"SMROptInTrainHub6_TrainCargo"',
     'upgrade2_mod_target_1': '"city"', 'upgrade2_mod_label_1': '"Train"',
     'upgrade2_mod_prop_id_1': '"max_shared_storage"', 'upgrade2_mul_value_1': '100',
     'upgrade2_upgrade_cost_Metals': '40000', 'upgrade2_upgrade_cost_Polymers': '20000',
+    'upgrade3_id': '"SMROptInTrainHub6_Power"',
+    'upgrade3_mod_target_1': '"self"', 'upgrade3_mod_prop_id_1': '"electricity_production"',
+    'upgrade3_add_value_1': '75000',
+    'upgrade3_upgrade_cost_Metals': '30000', 'upgrade3_upgrade_cost_Electronics': '20000',
+    'electricity_production': '75000',
 }
 for key, value in expected.items():
     assert fields.get(key) == value, (key, fields.get(key), value)
-assert not any('mod_prop_id' in k and k != 'upgrade2_mod_prop_id_1' for k in fields)
-generated = dict(re.findall(r'^\t(upgrade2_\w+) = (.*),$',
+assert not any('mod_prop_id' in k and k not in ('upgrade2_mod_prop_id_1', 'upgrade3_mod_prop_id_1') for k in fields)
+assert not any('require' in k or 'unlock' in k for k in fields), 'no tech requirement'
+generated = dict(re.findall(r'^\t(upgrade[23]_\w+|electricity_production) = (.*),$',
     (HERE.parent / 'Code/BuildingTemplate/SMROptInTrainHub6.generated.lua').read_text(encoding='utf8'), re.M))
-if generated or '--require-generated' in sys.argv:
-    for key, value in expected.items():
-        assert generated.get(key) == value, ('Mod Editor regeneration owed or incorrect', key, generated.get(key), value)
-# The warm-network wording (owner, 2026-09-28) is authored in Data; only the editor regenerates it.
-assert 'warms the network' in fields['upgrade2_description'], 'description lacks the warm network'
-description_current = generated.get('upgrade2_description') == fields['upgrade2_description']
+generated = defaults | generated
+assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
+assert '75 to 150' in fields['upgrade3_description'] and 'Each hub' in fields['upgrade3_description']
+generated_current = generated == fields
 if '--require-generated' in sys.argv:
-    assert description_current, ('Mod Editor regeneration owed: upgrade2_description', generated.get('upgrade2_description'))
-template = '\n'.join('h[%r] = %s' % (k, v) for k, v in expected.items())
+    assert generated_current, ('Mod Editor regeneration owed',
+        {k: (generated.get(k), fields.get(k)) for k in generated.keys() | fields.keys() if generated.get(k) != fields.get(k)})
+template = '\n'.join('h[%r] = %s' % (k, v) for k, v in expected.items() if k.startswith('upgrade2_'))
 
 SPEED_SETUP = r'''
 SMROptInTrainFloor = {}; Train={move_speed=1000}
@@ -109,20 +119,18 @@ research.FasterTrains=true; assert(speed()==1250, 'Faster Trains')
 research.EvenFasterTrains=true; assert(speed()==1875, 'Vacuum Rail')
 ActiveLaws.TrainSpeedStandards=law; assert(speed()==2494, 'law rounds after vanilla')
 local warm=table.pack(speed(T1,el))
--- Warm network (owner, 2026-09-28): on, cold reads warm; off, vanilla's cold returns.
-heat=0; assert(speed()==2494, 'upgrade on: cold reads warm')
-assert(GetHeatAt==real_heat, 'heat read restored')
-research.SafeTransport=true; assert(speed()==2494, 'upgrade on: safe cold reads warm')
+-- Cargo no longer warms trains: the bonus multiplies vanilla's actual cold result.
+heat=0; assert(speed()==831, 'cargo alone: cold penalty retained')
+assert(GetHeatAt==real_heat, 'cargo leaves heat unchanged')
+research.SafeTransport=true; assert(speed()==1663, 'cargo alone: safe cold penalty retained')
 local cold=table.pack(speed(T1,el))
-assert(cold.n==4 and cold[1]==warm[1] and cold[2]==warm[2] and cold[4]=='prior-wrapper' and last_element==el, 'cold returns chained')
-local faster=Techs.FasterTrains; Techs.FasterTrains=nil
-assert(not pcall(speed) and GetHeatAt==real_heat, 'heat read restored after an error'); Techs.FasterTrains=faster
+assert(cold.n==4 and cold[1]==1663 and cold[2]==4988 and cold[3]==nil and cold[4]=='prior-wrapper' and last_element==el, 'cold returns chained')
 SelectedObj=B; B:ToggleUpgradeOnOff(CARGO)
 assert(speed()==1330, 'upgrade off: vanilla safe cold')
 research.SafeTransport=nil; assert(speed()==665, 'upgrade off: vanilla cold')
 heat=100; assert(speed()==1995, 'upgrade off: vanilla warm')
 B:ToggleUpgradeOnOff(CARGO); heat=0; research={}; ActiveLaws={}
-assert(speed()==875, 'upgrade on: cold reads warm without tech')
+assert(speed()==291, 'cargo alone: cold penalty without tech')
 heat=100
 local tech=LabelModifier:new{container=city,label='Train',prop='max_shared_storage',percent=50,amount=0}
 tech:TurnOn()
@@ -192,12 +200,11 @@ def main():
     print('PASS cargo: additive 126000; with +50% cargo tech 147000; passengers/stations unchanged by cargo')
     print('PASS independent claims, construction/cancel, spent click, toggle, power, salvage/rebuild, load, clear/re-buy')
     print('PASS chained speed and animation, extra returns, tech/law, foreign city')
-    print('PASS warm network: on, cold and safe cold read warm; off, vanilla cold; heat read restored')
+    print('PASS cargo alone: vanilla cold penalty retained with and without Safe Transport and tech')
     mutations = {
         'speed multiplier': ('MulDivRound(result[1], 125, 100)', 'MulDivRound(result[1], 100, 100)'),
         'animation multiplier': ('MulDivRound(result[2], 125, 100)', 'MulDivRound(result[2], 100, 100)'),
-        'warm network': ('local result = warm_speed(previous, self, ...)', 'local result = table.pack(previous(self, ...))'),
-        'heat restore': ('\t_G.GetHeatAt = heat\n', '\n'),
+        'cargo must not warm': ('power_warm_on(self)', 'cargo_speed_on(self)'),
         'salvage cargo': ('hub:StopUpgradeModifiersForUpgrade(id)', 'if id ~= hub_cargo_upgrade then hub:StopUpgradeModifiersForUpgrade(id) end'),
         'cargo ownership': ('local function network_upgrade(id) return id == hub_capacity_upgrade or id == hub_cargo_upgrade end', 'local function network_upgrade(id) return id == hub_capacity_upgrade end'),
         'rebuild cargo': ('do carry_upgrade(self, id) end', 'do if id ~= hub_cargo_upgrade then carry_upgrade(self, id) end end'),
@@ -210,14 +217,12 @@ def main():
         except LuaError as exc:
             assert 'assertion failed' in str(exc) or any(s in str(exc) for s in [
                 'one cargo modifier', 'salvage stops', 'cargo construction claim', 'off state carried',
-                'cold reads warm', 'heat read restored']), str(exc)
+                'cold penalty']), str(exc)
             print('PASS mutation rejected:', name)
         else:
             raise AssertionError('mutation survived: ' + name)
-    print('Generated cargo fields match source' if generated else
-          'OWNER STEP OWED: Mod Editor regenerate from Data; no generated bytes/code_hash claimed')
-    print('Generated description matches source' if description_current else
-          'OWNER STEP OWED: Mod Editor save for the warm-network description')
+    print('Generated upgrade slots 2/3 and base power match source' if generated_current else
+          'OWNER STEP OWED: Mod Editor save for Cargo description, Power slot 3 and base power; code_hash remains editor-owned')
 
 
 if __name__ == '__main__':

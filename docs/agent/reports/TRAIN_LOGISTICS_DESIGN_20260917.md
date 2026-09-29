@@ -907,10 +907,19 @@ heats the ground within the hub's drone range (15 hexes), and removes the trains
 reactor and ground. Salvage/ruins switch it off like the other upgrades.
 ⚖️ **Owner, same day, the numbers:** doubling 70 would give 140; *"lets make it a little more
 even and do 75 for base and 75 for upgrade to equal out to 150 power"*. **Hub power production:
-75 base, +75 with the Power Upgrade = 150.** This changes the base hub's figure (70 → 75) too. **Cost 40 Metals + 20 Polymers**, aimed at mid-to-late
-colonies. Unstated, so it follows the first upgrade's rulings 1-4 and the 2026-09-28
-salvage/rebuild ruling unless the owner says otherwise: once per colony, vanilla on power,
-re-buyable, no tech.
+75 base, +75 with the Power Upgrade = 150.** This changes the base hub's figure (70 → 75) too.
+
+**Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
+Train Cargo follows the first upgrade's rulings 1-4 and the 2026-09-28 salvage/rebuild ruling:
+once per colony, vanilla on power, re-buyable, no tech. Power is per hub, costs 30 Metals +
+20 Electronics and needs no tech, as brief 21 specifies.
+
+Power build and combined attended check (brief 21):
+[TRAIN_HUB_POWER_UPGRADE_20260928.md](TRAIN_HUB_POWER_UPGRADE_20260928.md).
+Desk-tested; Mod Editor save and sitting owed. Implementation decision delegated by brief 21:
+each hub owns its reactor and ground heat; any intact hub with Power applied keeps trains
+throughout its colony warm. This preserves the requested network protection without giving
+other hubs reactor output or local ground heat for free.
 
 Build record (brief 16, 2026-09-28): `reports/TRAIN_CARGO_UPGRADE_20260928.md`.
 Warm network build (brief 19, 2026-09-28): `reports/TRAIN_CARGO_WARM_20260928.md`.
@@ -932,7 +941,7 @@ ruins are cleared, then any hub may buy again. The rebuild-carry code stays (har
 Train Cargo (last slot 3 read t=23096666: `own=true on=true`, 14 trains 147000 / 1875); save/reload
 by the owner, same log, 9,619 lines, 0 `LUA ERROR`. Dev-mod acceptance, not the ship test.
 Extras archived/cut with legacy `HubTrain` compatibility; cargo/speed desk checks pass.
-The owner's Mod Editor save and attended smoke remain owed; the report names both.
+The Power Upgrade's Mod Editor save and attended smoke remain owed; its report names both.
 
 **Owner sighting, 2026-09-28: the hub's mini reactor flashes unpainted for a frame or two**
 (brown instead of its blue reactor palette), seen only by frame-stepping a screen recording, and

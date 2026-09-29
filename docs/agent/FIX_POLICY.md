@@ -178,6 +178,7 @@ contract. New persisted names join this table.
 | 14 | `SMROptIn_distribution` | table on a dev hub: station object keys, then resource keys, then `{mode, percent}`; no field on a vanilla station | `tools/devmods/train_hub/Code/40_TrainDistribution.lua`, `Set` / `Reset` | same file, train view and baseline reconciliation; `45_TrainDistributionUI.lua` through `Get` |
 | 15 | `HubTrain` | **class name**, with `persist_baseclass = "Train"`; retained for old bay saves | Writer retired by spec §4.8 ruling 10 (owner, 2026-09-28); original code in `docs/archive/train_bay_extras_20260928/` | `tools/devmods/train_hub/Code/70_TrainBay.lua` keeps a bare class inheriting vanilla `Train`; vanilla's persist fallback resolves `Train:HubTrain` to `Train` without the mod; `tests/train_fill_smoke.py` |
 | 16 | `SMROptInTrainHub6_TrainCargo` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Train Cargo Upgrade, spec §4.10 owner ruling 2026-09-28; template `upgrade2_id` and `20_TrainHub.lua` unlock | Vanilla upgrade panel/modifiers; `20_TrainHub.lua` shared ownership, salvage/rebuild and speed wrapper; `tests/cargo_upgrade_smoke.py` |
+| 17 | `SMROptInTrainHub6_Power` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13 | Power Upgrade, spec §4.10 and brief 21, owner 2026-09-28; template `upgrade3_id` and `20_TrainHub.lua` unlock | Vanilla per-building upgrade panel and `ObjectModifier`; `20_TrainHub.lua` power heat and colony train cold immunity; `tests/cargo_heater_smoke.py` |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still
@@ -214,6 +215,14 @@ a real old-bay save/load remains an attended check.
 Row 16 uses vanilla's city `Train` label modifier and generated modifier id, as row 13.
 The speed wrapper reads that modifier's applied state and writes no saved field or thread.
 The owner's Mod Editor re-save is required to generate the template bytes and code hash.
+
+Row 17 is unavoidable for a separately purchasable, saved vanilla upgrade: reusing either
+existing id would conflate its purchase and toggle with Capacity or Cargo. Brief 21 permits
+the new name when inventoried with a reason. Vanilla's self `ObjectModifier` changes only
+the owning hub's `electricity_production`; no custom modifier id, saved field or thread is
+added. Ground heat uses the existing heat grid's hub reference and numeric geometry;
+train cold immunity reads applied Power state synchronously. This is the hub's existing
+content residual under §0, not a clean-uninstall claim.
 
 ### 3a. Save safety — the save carries as little of us as possible, and the exit cleans the rest
 
