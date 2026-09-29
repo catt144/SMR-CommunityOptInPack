@@ -65,8 +65,9 @@ against the other before it fires.
         Brief `23` (OI-27's drone map guard), fired by the owner.
         **Owner, 2026-09-29:** the hub is nearly done; `SMR_RailShaftDev` stays enabled; the
         crossing is built next, `22`'s and `23`'s smokes and the hub's remaining minor tests fold
-        into the crossing's sittings, and one full battery runs at the end. Brief `24` (the
-        crossing's shape investigation) comes before any crossing build.
+        into the crossing's sittings, and one full battery runs at the end. The shape
+        investigation (brief 24, deleted) is in `reports/CROSSING_SHAPE_20260929.md`, audited.
+        Next: the §8.1 fit sitting, then the owner's shape call (OI-32), then the crossing build.
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout

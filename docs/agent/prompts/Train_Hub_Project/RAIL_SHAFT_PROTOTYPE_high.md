@@ -47,8 +47,7 @@ Evidence and citations: `reports/RAIL_SHAFT_PROTOTYPE.md` §5 (sitting), §7 (bi
 ## Work list — keep it live with the todo tool, one item per commit-and-verify unit
 
 1. **Owner, 2026-09-29: the dev mod stays enabled**; hub testing folds into the crossing's
-   sittings, one full battery at the end. The shape question is brief
-   `24_ELEVATOR_SHAPE_INVESTIGATION_high.md`. No save loaded since 09-24 held a
+   sittings, one full battery at the end. The shape question is item 5. No save loaded since 09-24 held a
    shaft. The shaft save stays unguarded until brief `23` lands: do not load it with the hub
    before then, or `Unlink()` it first.
 2. **Hub build, briefed as `23_OI27_DRONE_MAP_GUARD_high.md`:** implement OI-27 at `SMROptInTrainHubBase:HubTrackGraph` and `F.Route` so repair
@@ -65,8 +64,17 @@ Evidence and citations: `reports/RAIL_SHAFT_PROTOTYPE.md` §5 (sitting), §7 (bi
    - the positive control: a new shaft on a hub connector with an empty opposite, the underground
      end on a line end; `Routes()` 0 broken, every train `route_ok true`, then a freight round trip;
    - archive every log of it under `docs/archive/` in the same commit that records it.
-5. **Owner call, after item 4:** F or G for the module. G's pre-build checks are listed in option
-   G ("Unverified, check before building").
+5. **Owner call, after the fit sitting (OI-32):** the shape. Brief 24's investigation,
+   `reports/CROSSING_SHAPE_20260929.md` (`787e525`), recommends **H**, our own rail terminals
+   beside an existing vanilla elevator pair, reading its `other` and changing nothing on it. The
+   recommendation is conditional on its §8.1 fit sitting; G (our own rail elevator) and F (this
+   shaft) are the fallbacks. It settles G's unverified list (§3), the state matrix (§5), the
+   mid-hop save exposures (§6) and the touch list (§7). Audited by the orchestrator on Opus,
+   2026-09-29: claims S1, S2, the `other` link, `MergeGrids`, `D.Refresh` sharing `HubTrackGraph`,
+   the bay's prefab spend and the SaveGameStart gap are all CONFIRMED against build 25390750.
+   The fit of terminals beside an elevator is UNCLEAR from the desk. Generation clears a 3-hex
+   ring (`SurfacePassage.lua:134-141`), but a colony's own buildings may fill it. One stretch is
+   INFERRED, not ruled: §7 extends OI-27 to drone-task registration, saved jobs and payment.
 6. **Optional, any time:** file the destructor fact (report §9 item 1) and the
    `disabled_in_environment` trap (§9 item 2) as engine facts — `EF-` ids come from the fix pack
    first (`smr-bug-library`).
