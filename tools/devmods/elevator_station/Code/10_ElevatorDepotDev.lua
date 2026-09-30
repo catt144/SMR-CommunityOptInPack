@@ -142,6 +142,8 @@ end
 
 local function unselectable(o)
 	o:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	-- never saved: a saved rope outlived its deleted depot and came back on every load (2026-09-30)
+	o:ClearGameFlags(const.gofPermanent)
 end
 
 local function free_prop(class, map, pos, scale)
@@ -318,7 +320,16 @@ function D.Sweep()
 	end
 	local orphans = 0
 	AllMapsForEach("map", "Object", function(o)
-		if o.smr_depot_prop and not owned[o] then DoneObject(o); orphans = orphans + 1 end
+		if owned[o] or not IsValid(o) then return end
+		local class = o.class
+		local ours = o.smr_depot_prop
+		-- a rope or cabin nobody owns, away from vanilla's wonder: a leftover written into a save
+		if not ours and (class == "SpaceElevatorRope" or class == "SpaceElevatorCabin") and not o:GetParent() then
+			local near_wonder = false
+			o:GetMap():MapForEach(o, 100 * guim, "SpaceElevator", function() near_wonder = true end)
+			ours = not near_wonder
+		end
+		if ours then DoneObject(o); orphans = orphans + 1 end
 	end)
 	print(log_prefix, "swept", n, "props of gone depots and", orphans, "orphaned props")
 end
