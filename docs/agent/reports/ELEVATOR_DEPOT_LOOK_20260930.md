@@ -433,6 +433,10 @@ Screenshots: `SMR-Assets/elevatorstation/owner_feedback/sitting_20260930_undergr
   trains regularly** (owner). So the hub does serve a station chained behind another; the early
   gap is not diagnosed (queue order or the Balanced target settling). Not a blocker.
 - No drones (the depot's crew is wiring work).
+- **Vanilla elevator's per-resource marks** (red X, green arrow, ticks on its depot rows): the owner
+  asked whether these are import/export/off settings or stock state; not answered. The wiring
+  brief's author checks the source and, if they are modes, matches the depot's row vocabulary to
+  them so both panels read the same way.
 - The underground depot's panel shows no import/export/balanced controls.
 - ~~Service-range ring off-centre~~ **Resolved, not a defect:** the ring is the vanilla elevator's drone service
   area, shown in white because the selected depot lies inside it (vanilla range display); selecting the

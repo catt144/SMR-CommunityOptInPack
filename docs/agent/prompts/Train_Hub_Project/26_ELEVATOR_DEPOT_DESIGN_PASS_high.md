@@ -44,7 +44,8 @@ orchestrator's reading.
    the way the pads do, with a skirt or apron that reads as the same structure.
 6. **The core on the surface when the cabin is down.** The central ring shows sand through its
    hole (`designpass_04…`, second arrow). Owner: *"The elevator when it's below ground should
-   look more like a shaft, not bare ground."* A shaft: dark opening and shaft walls, never terrain.
+   look more like a shaft, not bare ground."* A shaft: dark opening and shaft walls, never terrain. The frame seen inside the core
+   (`owner_feedback/later_core_frame.png`, the earlier deferred item) is part of this item.
 7. **All of the above on the underground depot too.** Owner: *"All of these problems also exist
    on the below-ground version."* Fix both; the sitting checks both.
 8. **The core underground while the cabin is away.** Owner: *"when the elevator is moving and not

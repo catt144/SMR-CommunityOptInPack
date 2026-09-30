@@ -46,7 +46,9 @@ before it fires.
    order:
    - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
      sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-09-29** (Opus 5.5 `claude-opus-5-5`).
+   - **WHERE THE PROJECT STANDS, orchestrator close-outs 2026-09-29 and 2026-09-30** (09-29: Opus 5.5
+     `claude-opus-5-5`; 09-29 evening to 09-30: Fable 5.1 `claude-fable-5-1`, switched by the owner
+     mid-session). The 2026-09-30 block is inside item 1 below.
      All the sittings from the 2026-09-28 order have passed, and their briefs are deleted: `21`
      (Power, once per colony, one shared state, salvage changes nothing; spec §4.10), `10` (chained
      legs; §4.8 ruling 10) and `17` (reactor flash, no flash at any speed). New rulings are in
@@ -98,6 +100,8 @@ before it fires.
      **Owner questions still open:** whether auto-fill stays; the hub-economy candidate (OI-19,
      spec grep `hub's economy becomes an upgrade`); accepting the look (`Parked/TRAIN_HUB_LOOK_high.md`).
      **Housekeeping, owed:** archive the closed sitting logs with a receipt, the game being closed.
+     From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
+     `11.47.37` (its first placement); the `13.xx` logs are brief 26's agent, ask.
      From 2026-09-28: `14.27.05`, `17.13.10`, `19.07.48`, `20.00.03`, `20.45.30`, `20.48.36`
      (ask which were sittings; `12.06.47` to `13.25.51` never read), `22.20.16` (brief 21's first
      sitting, already archived by `9bffa5c` under `docs/archive/power_upgrade_20260928/`) and
