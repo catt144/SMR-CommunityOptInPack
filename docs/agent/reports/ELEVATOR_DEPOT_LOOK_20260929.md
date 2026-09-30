@@ -13,9 +13,10 @@ Source citations are from the archived tree `B:\Dev\SMR\SMR-Shared\SMR-SrcArchiv
 `TrackElement.lua`, `Train.lua`, `SpaceElevator.lua` and `Building.lua`; its two load-bearing
 findings (the slot pairing and the label gap) were re-read here before the design used them.
 
-**State: built, export-verified and parse-checked at the desk; nothing is imported, placed or seen
-in game.** The owner's one-entity Mod Editor import (§5, batch A) comes first, then the viewing
-sitting. Nothing here says the look is accepted, and nothing here moves cargo.
+**State: the owner imported and placed the first depot, rejected its look, and the shape was
+rebuilt the same evening as a tube on one of the elevator's pads (§6); that rebuild is
+export-verified at the desk and waits for the owner's one-step re-import.** Nothing here says the
+look is accepted, and nothing here moves cargo. §1–§5 record the first depot as built.
 
 ## Commits and files
 
@@ -182,3 +183,60 @@ lands in `%APPDATA%\Surviving Mars Relaunched\logs\Mars.exe-*.log` as `[Elevator
 
 A save made with a depot needs this dev mod to load it; **demolish every depot before removing the
 mod**.
+
+## 6. The first view, and the turn (2026-09-29, later)
+
+**Batch A** went through on the owner's rig: the Art Spec step had been skipped at first (the
+Importer said *ArtSpec Entity SMROptInElevatorDepot not found*), then Ctrl-Alt-A, save, Import.
+On disk: `Entities/SMROptInElevatorDepot.entjson` with the 14 spots at the designed positions and
+the three surfaces, the shared material compiled; the editor's save renumbered the mod handles and
+regenerated the template (OptInPack `0793c9a`).
+
+**The first placement showed the plinth and the outline alone.** Cause, from the source: a placed
+building carries no `template_name` field (`Building.lua:2701` sets it only on the
+`BuildingTemplates` registry wrapper), so the dressing hook's check was false and no visual was
+attached. Fixed to a class check, with a `dressed` log line (`815b6f1`); the log then read
+`elevator=true tunnel=true cabin=true ropes=0 scale=75` and the owner saw the depot.
+
+**What the owner saw and said.** The 75 % elevator and the 75 % vanilla tunnel side by side, the
+tunnel as long as the elevator is wide, its mound swallowing one pad: *"still has graphic errors,
+and not a fan of this look at all i wanted a much smaller tunnel that gets out in one of the three
+corners of the elevator basically making the tunnel the tunnel just big enough to fit the train
+into and still look clean"*. The graphic errors were not itemised; the plinth's hexes showing
+round the mound's skirt is the one this session can name.
+
+**The turn (this session's design, the owner's words as the rule).** The vanilla tunnel art is out.
+The elevator's platform is a tripod: three round pads of radius 12.2 m at 75 %, centred 23.1 m
+out at 30.3°, 150.2° and 269.8° (circles fitted to the `hex_shape` arcs), and nothing on it stands
+above 6.7 m while a train rides at 8 m, so only a tube can hide a train. The elevator visual is
+turned 30° (`elevator_angle`), which puts one pad's centre at (−2313, −8): on the track axis,
+8 units off. The mouth is the base entity's own tube on that pad: 11.6 m wide outside, floor at
+6.6 m on the pad's top, apex 14.4 m, from the pad's rim at x −36 m to x −8 m short of the cabin,
+with a portal rim carrying the blue line and TrackCCP3's beam profile inside. The connector is on
+the axis at (−4000, 0), so the track's own element ends at the mouth and no stub is needed; the
+buried second connector is at (1000, 0) with its direction at the origin. A positive attach angle
+turns counter-clockwise in the game's (x, y): the hub's reactor at offset (3897, 2250) faces the
+centre with attach angle 210 (`20_TrainHub.lua:1144, :1283`).
+
+Measured (`depot_build.py`, then `verify_depot.py` PASS with its own turn and membership tests):
+
+| count | rule | result |
+|---|---|---|
+| footprint hexes | centre rule over the turned elevator, plus the tube rectangle and the connector hex | **21** (17 elevator only, 1 connector hex, 3 both) |
+| the same, re-derived independently | complex-number turn, half-plane test | **21**, identical cell set |
+| spot error | 14 spots | 0.0 units, angles exact |
+| tube z range | the rim included | 6.4..14.8 m |
+
+| spot | position | angle | spot | position | angle |
+|---|---|---:|---|---|---:|
+| `Trackconnector1` | (−4000, 0, 800) | 180 | `Trackdirection1` | (−5000, 0, 800) | 180 |
+| `Trackconnector2` | (1000, 0, 800) | 180 | `Trackdirection2` | (0, 0, 800) | 180 |
+| `Ramparrive1` | (−3200, −335, 800) | 180 | `Rampdepart1` | (−3100, 335, 800) | 180 |
+| `Stop1` = `Spawn2` | (−2200, −335, 800) | 0 | `Spawn1` = `Stop2` | (−2000, 335, 800) | 180 |
+| `Ramparrive2` | (−1200, 335, 800) | 180 | `Rampdepart2` | (−1400, −335, 800) | 0 |
+
+The train's length now decides the look: the tube hides 28 m. The owner's two-hex train fits; the
+disputed 41.5 m would show 13 m of tail. The sitting reads it.
+
+**Owed:** the owner's re-import (Open in Importer on `mesh`, Import, save), a restart for the
+Lua, then batches B–E of §5 on the new shape.
