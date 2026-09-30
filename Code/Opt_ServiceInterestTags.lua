@@ -105,8 +105,9 @@
 -- call time, so a balance patch shows through. Hard-coded in vanilla and so
 -- here: Gambler's 50%. Left out (owner): the mystery-only Infected cure.
 --
--- Not covered: Ignore-category services that are not food services (the
--- Fireflies mystery's Wisp Lamps) — neither hooked section exists for them.
+-- Not covered, by owner ruling 2026-09-30 (mystery content stays out): the
+-- Fireflies mystery's Wisp Lamps, prefab-only Ignore-category services that
+-- neither hooked section exists for.
 --
 -- Strings: labels and sentences are new text, so Untranslated per FIX_POLICY §6
 -- (built as T{..., untranslated = true} where they carry parameters — the shape
