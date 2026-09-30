@@ -21,6 +21,9 @@ Desktop.ini
 # Train hub dev mod: the Mod Editor copies the textures in as DDS (44 MB); they regenerate on every import
 tools/devmods/train_hub/Textures/
 tools/devmods/train_hub/Fallbacks/
+# Elevator Station look dev mod (brief 25): the same, rebuilt by station_build.py and the owner's import
+tools/devmods/elevator_station/Textures/
+tools/devmods/elevator_station/Fallbacks/
 
 # Agent/subagent working space: write freely, never committed, never cited.
 # The eviction prompt sweeps files older than 14 days (STATE_EVICTION.md).
