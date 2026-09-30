@@ -189,3 +189,112 @@ function D.Measure(radius_m)
 	end)
 	print(log_prefix, "elevators on this map", elevators)
 end
+
+-- ---- Scale preview: the owner's 2026-09-29 idea, a mini space elevator as the cargo lift ----
+-- Vanilla's own Space Elevator art, scaled, dropped on the hex under the cursor. Its cabin runs
+-- the rope with vanilla's ElevatorMoving sound on both the building and the cabin, as the wonder
+-- does (SpaceElevator.lua:391-410 and :652-659, 1.1.1.405907). Visual only: no building, no
+-- footprint, no cargo. Nothing is kept: every prop is DeleteOnLoadGame, and the cycle thread
+-- stops at each save and restarts after it, so no thread of ours enters a save.
+--   SMRElevatorStationDev.Preview(scale, mode, rope_m)
+--     scale   percent of vanilla size (50 by default; vanilla's footprint is 38 hexes at 100)
+--     mode    "up" (into the sky or the cave ceiling) or "down" (into the ground);
+--             default "up" underground, "down" on the surface
+--     rope_m  rope height in metres; default 300 for "up", 0 for "down"
+--   SMRElevatorStationDev.ClearPreview()   removes every preview on every map
+D.previews = D.previews or {}
+local preview_tick = 250                     -- game ms between cabin moves
+local preview_travel = 20000                 -- game ms per leg (vanilla's leg is one game hour)
+local preview_dwell = 8000                   -- game ms parked at each end
+
+local function preview_cycle(p)
+	if IsValidThread(p.thread) then return end
+	p.thread = CreateGameTimeThread(function(p)
+		local steps = preview_travel / preview_tick
+		while IsValid(p.cabin) and IsValid(p.visual) do
+			for _, target in ipairs{ p.far, p.base } do
+				PlayFX("ElevatorMoving", "start", p.visual)
+				PlayFX("ElevatorMoving", "start", p.cabin)
+				local from = p.cabin:GetPos()
+				for i = 1, steps do
+					if not IsValid(p.cabin) then return end
+					p.cabin:SetPos(point(from:x(), from:y(), from:z() + MulDivRound(target:z() - from:z(), i, steps)), preview_tick)
+					Sleep(preview_tick)
+				end
+				PlayFX("ElevatorMoving", "end", p.visual)
+				PlayFX("ElevatorMoving", "end", p.cabin)
+				Sleep(preview_dwell)
+			end
+		end
+	end, p)
+end
+
+local function preview_prop(class, map, pos, scale)
+	local o = PlaceObjectIn(class, map)
+	o:SetPos(pos)
+	o:SetScale(scale)
+	o:SetGameFlags(const.gofAlwaysGatherForVisibility)
+	o:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	DeleteOnLoadGame(o)
+	return o
+end
+
+function D.Preview(scale, mode, rope_m)
+	local map = CurrentMap
+	scale = scale or 50
+	local underground = GetEnvironment(map) == "Underground"
+	mode = mode or (underground and "up" or "down")
+	rope_m = rope_m or (mode == "up" and 300 or 0)
+	local pos = point(HexToWorld(WorldToHex(GetTerrainCursor())))
+	pos = pos:SetZ(terrain.GetHeight(map, pos))
+	local p = { scale = scale, mode = mode, base = pos, ropes = {} }
+	p.visual = PlaceObjectIn("ShapeshifterAutoAttach", map)
+	p.visual:ChangeEntity("SpaceElevator")          -- brings the wonder's own auto-attaches
+	p.visual.fx_actor_class = "SpaceElevator"
+	p.visual:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	p.visual:SetPos(pos)
+	p.visual:SetScale(scale)
+	DeleteOnLoadGame(p.visual)
+	p.cabin = preview_prop("SpaceElevatorCabin", map, pos, scale)
+	local rope_step = MulDivRound(100 * guim, scale, 100)   -- vanilla lays a rope tile every 100 m
+	local z = 0
+	while z < rope_m * guim do
+		p.ropes[#p.ropes + 1] = preview_prop("SpaceElevatorRope", map, pos + point(0, 0, z), scale)
+		z = z + rope_step
+	end
+	local reach = mode == "up" and Max(rope_m, 120) * guim or -60 * guim
+	p.far = pos + point(0, 0, reach)
+	D.previews[#D.previews + 1] = p
+	preview_cycle(p)
+	print(string.format("%s preview %d: %d%% at %s env=%s mode=%s rope %d m (%d tiles), cabin travels %d m",
+		log_prefix, #D.previews, scale, tostring(pos), GetEnvironment(map), mode, rope_m, #p.ropes, reach / guim))
+	return p
+end
+
+function D.ClearPreview()
+	for _, p in ipairs(D.previews) do
+		if IsValidThread(p.thread) then DeleteThread(p.thread) end
+		for _, o in ipairs(p.ropes) do if IsValid(o) then DoneObject(o) end end
+		if IsValid(p.cabin) then DoneObject(p.cabin) end
+		if IsValid(p.visual) then DoneObject(p.visual) end
+	end
+	print(log_prefix, "previews cleared", #D.previews)
+	D.previews = {}
+end
+
+function OnMsg.SaveGameStart()
+	for _, p in ipairs(D.previews) do
+		if IsValidThread(p.thread) then DeleteThread(p.thread) end
+		p.thread = false
+	end
+end
+
+function OnMsg.SaveGameDone()
+	for _, p in ipairs(D.previews) do
+		if IsValid(p.cabin) then preview_cycle(p) end
+	end
+end
+
+function OnMsg.LoadGame()
+	D.previews = {}                          -- the props were DeleteOnLoadGame
+end
