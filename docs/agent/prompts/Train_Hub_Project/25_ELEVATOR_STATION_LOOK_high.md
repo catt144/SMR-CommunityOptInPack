@@ -20,21 +20,20 @@
 - **The method** (owner, 2026-09-20): rough and fast; the owner dials it in by eye; no gate between
   the owner and something to look at. Design comes before wiring (§11's order).
 
-**The owner's calls, made when firing** (ask once, in one message at the start, if they are not
-answered here):
+**The owner's calls, answered 2026-09-29 before firing** (these are rulings; do not re-ask):
 
 | # | decision | options | answer |
 |---|---|---|---|
-| D1 | Surface cabin direction | up into the sky (vanilla) · down into the ground | _owner_ |
-| D2 | Tunnel art | `TrainTunnelUniversal` (the owner's screenshot, with drone doors) · `TrainTunnel` | _owner_ |
-| D3 | Stand-in in the owner's normal game is a working vanilla Station, so trains can drive in | yes · no (plain building, look only) | _owner_ |
-| D4 | The dome model (first build of this brief) | retire it · keep it on hold | _owner_ |
+| D1 | Surface cabin direction | up into the sky (vanilla) · down into the ground | **Down into the ground** |
+| D2 | Tunnel art | `TrainTunnelUniversal` (the owner's screenshot, with drone doors) · `TrainTunnel` | **`TrainTunnelUniversal`** |
+| D3 | Stand-in in the owner's normal game is a working vanilla Station, so trains can drive in | yes · no (plain building, look only) | **Yes** |
+| D4 | The dome model (first build of this brief) | retire it · keep it on hold | **Hold**: *"lets atleast get to the point of testing before we retire"*. Leave its assets and dev-mod sources in place |
 
 **Done when** the owner places the **Elevator Depot** on both maps in their normal game and sees
 three things:
 - the 75 % elevator and the tunnel mouth on one base;
-- the cabin running its rope with vanilla's sound: up into the cave ceiling underground, and D1's
-  way on the surface;
+- the cabin running its rope with vanilla's sound: up into the cave ceiling underground, and down
+  into the ground on the surface (D1);
 - **a vanilla train driving into the mouth, stopping out of sight and coming back out** (with D3
   yes).
 

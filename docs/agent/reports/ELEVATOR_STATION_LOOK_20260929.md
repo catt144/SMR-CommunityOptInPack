@@ -264,3 +264,11 @@ What does not scale:
 
 `SMRElevatorStationDev.PreviewTunnel(scale, lift_m, angle_deg, entity)` (OptInPack `45e19ff`)
 shows the scaled tunnel art in game.
+
+**Owner rulings for the handoff (brief 25, rewritten 2026-09-29 as the Elevator Depot brief).**
+The rulings are D1–D4 in the brief's table:
+- D1: the surface cabin goes down into the ground.
+- D2: the tunnel art is `TrainTunnelUniversal`.
+- D3: the stand-in is a working vanilla station, so trains drive in.
+- D4: the dome model stays **on hold**, not retired: *"lets atleast get to the point of testing
+  before we retire"*.
