@@ -15,14 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-33 · opened 2026-09-30
-Elevator Depot: keep the rounded portal in the render, or name a shape/placement change?
-- Open `B:\Dev\SMR\SMR-Assets\elevatorstation\blender\review_descent\index.html` for concept and candidate together.
-- The portal is the actual candidate mesh; the elevator is a dimensioned stand-in for this render.
-- The candidate has not been imported. Brief 25 requires your render decision first.
-- Train departure clearance remains agent work: the proposed spots overlap the roof in the desk study.
-Home: `docs/agent/reports/ELEVATOR_DEPOT_LOOK_20260930.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

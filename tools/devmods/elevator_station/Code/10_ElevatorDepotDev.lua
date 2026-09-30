@@ -1,22 +1,20 @@
 -- DEV ONLY: the Elevator Depot's look (brief 25, owner rulings 2026-09-29, spec section 11).
 -- One placeable stand-in on both maps: our own station class based on vanilla's Station, on our own
 -- base entity (SMROptInElevatorDepot: footprint, plinth and the 14 vanilla train spots, built by
--- SMR-Assets/elevatorstation/blender/depot_build.py). The look is two scaled vanilla visuals the
--- code attaches at run time, so vanilla's elevator is untouched and nothing of ours but the
+-- SMR-Assets/elevatorstation/blender/depot_build.py). The code attaches the scaled vanilla elevator
+-- at run time, so vanilla's elevator is untouched and nothing of ours but the
 -- template's class enters a save. Demolish every stand-in before removing this mod.
 --
 --   * vanilla's Space Elevator art at 75 % on the origin, with a SpaceElevatorCabin running a rope of
 --     SpaceElevatorRope tiles and the ElevatorMoving FX on both, as the wonder does
 --     (SpaceElevator.lua:56-74, :391-410, :652-655 at 1.1.1.405907). D1: on the surface the cabin
 --     goes DOWN into the ground; underground it goes UP into the cave ceiling.
---   * the train mouth is the base entity's own tube, sized to a train, on one of the elevator's
---     three round pads (the visual is turned 30 degrees so that pad sits on the track axis). The
---     owner cut the vanilla tunnel art after seeing it (2026-09-29 evening: "a much smaller tunnel
---     that gets out in one of the three corners of the elevator ... just big enough to fit the
---     train"); Set("tunnel_entity", "TrainTunnelUniversal") brings it back for comparison. Trains
---     drive in and back out on vanilla Station code (D3): Ramparrive1/Stop1 inside the tube,
---     Spawn1/Rampdepart1 the way out. Trackconnector2 is buried in the core with its Trackdirection2
---     inside the footprint, so no track can ever reach it (TrackElement.lua:345-348; Tracks.lua:240).
+--   * the owner-approved (2026-09-30) rounded mouth tapers into the base between the front pads;
+--     the elevator turns 90 degrees. The below-grade Stop/Spawn and Rampdepart spots request a
+--     descent and ascent using vanilla Station alone. This prepared revision still needs a live
+--     train run; the desk clearance model is conditional, not a runtime result. Trackconnector2
+--     and its direction remain inside the footprint, so no track can reach that end
+--     (TrackElement.lua:345-348; Tracks.lua:240, archived build 25390750).
 --
 -- Cargo, per-resource modes, the drone crew and the underground twin are the next brief.
 --
@@ -45,9 +43,9 @@ D.layout = D.layout or {
 	scale = 75,                         -- both vanilla arts, percent
 	elevator_entity = "SpaceElevator",
 	elevator_x = 0, elevator_y = 0, elevator_z = 0,
-	elevator_angle = 30,                -- turns one round pad onto the track axis (depot_build.py)
-	tunnel_entity = false,              -- the mouth is the entity's own tube on that pad (owner,
-	                                    -- 2026-09-29 evening); Set("tunnel_entity", "TrainTunnelUniversal")
+	elevator_angle = 90,                -- approved portal between the two front pads (2026-09-30)
+	tunnel_entity = false,              -- the mouth is the entity's own rounded descending shell;
+	                                    -- Set("tunnel_entity", "TrainTunnelUniversal")
 	                                    -- brings the vanilla art back for comparison
 	tunnel_x = -750, tunnel_y = -2598, tunnel_lift = 200, tunnel_angle = 180,
 	rope_surface_m = 0,                 -- D1: the surface cabin goes down, so no rope above by default
@@ -63,12 +61,12 @@ D.layout = D.layout or {
 -- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
 -- Report() can say whether the imported entity carries what was designed.
 local design_spots = {
-	Trackconnector1 = point(-4000, 0, 800), Trackdirection1 = point(-5000, 0, 800),
+	Trackconnector1 = point(-5000, 0, 800), Trackdirection1 = point(-6000, 0, 800),
 	Trackconnector2 = point(1000, 0, 800), Trackdirection2 = point(0, 0, 800),
-	Ramparrive1 = point(-3200, -335, 800), Stop1 = point(-2200, -335, 800), Spawn2 = point(-2200, -335, 800),
-	Spawn1 = point(-2000, 335, 800), Stop2 = point(-2000, 335, 800), Rampdepart1 = point(-3100, 335, 800),
-	Ramparrive2 = point(-1200, 335, 800), Rampdepart2 = point(-1400, -335, 800),
-	Sign1 = point(-4000, 0, 0), Sign2 = point(1000, 0, 0),
+	Ramparrive1 = point(-3600, -335, 800), Stop1 = point(-500, -335, -1400), Spawn2 = point(-500, -335, -1400),
+	Spawn1 = point(-500, 335, -1400), Stop2 = point(-500, 335, -1400), Rampdepart1 = point(0, 335, -1400),
+	Ramparrive2 = point(900, 335, -1400), Rampdepart2 = point(800, -335, -1400),
+	Sign1 = point(-5000, 0, 0), Sign2 = point(1000, 0, 0),
 }
 
 -- ---- the class ---------------------------------------------------------------------------------

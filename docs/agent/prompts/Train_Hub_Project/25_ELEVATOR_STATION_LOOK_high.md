@@ -12,8 +12,8 @@ three reference images in `B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` bef
   elevator, bigger than the elevator, its mound swallowing a pad. Rejected.
 - `rejected_2_box_tube_with_arrow.png` — build two: a plain box tube lying across a pad. Rejected.
   **The red arrow the owner drew marks where the tunnel goes** (on the orchestrator's reading: the
-  front of the base, at the foot of the central ring between the two front pads; confirm it
-  against the image, and ask the owner if it reads differently to you).
+  front of the base, at the foot of the central ring between the two front pads; this placement
+  was approved with the rendered candidate on 2026-09-30).
 
 **The owner's words, 2026-09-30, the rule for this brief:** *"this is the concept I send in that I
 wanted basically a shrunk tunnel in one of the corners of the elevator and blended in to look
@@ -92,7 +92,7 @@ renumbers `mod_handle`s and regenerates the template, its class and `_EntityData
   `.Show()`, `.Set("key", value)` (re-dresses every depot), `.Redress()`, `.Preview(scale, mode,
   rope_m)`, `.PreviewTunnel(scale, lift_m, angle_deg, entity)`, `.ClearPreview()`.
   `SMRElevatorStationDev` is an alias. Layout keys: `scale`, `elevator_entity`, `elevator_x/y/z`,
-  `elevator_angle` (30), `tunnel_entity` (false; a vanilla entity name brings that art back),
+  `elevator_angle` (90), `tunnel_entity` (false; a vanilla entity name brings that art back),
   `tunnel_x/y/lift/angle`, `rope_surface_m` (0), `rope_underground_m` (300), `travel_down_m`
   (60), `travel_up_m` (0 = the rope), `leg_ms`, `dwell_ms`, `tick_ms`, `cabin_on`.
 - The dome entities' import items and materials stay (D4). The depot reuses the dome body's
@@ -100,40 +100,50 @@ renumbers `mod_handle`s and regenerates the template, its class and `_EntityData
 
 **The base entity and its pipeline** `B:\Dev\SMR\SMR-Assets\elevatorstation\blender\` (Blender 5.2,
 headless; its `README.md` "The Elevator Depot" has the commands and the owner's one-entity import).
-- `depot_build.py`: every number the owner's eye may move is a constant at its top (`SCALE`,
-  `ELEVATOR_ANGLE`, the connector hex, `TUBE_X0/X1`, `TUBE_HALF_W`, `TUBE_FLOOR`,
-  `TUBE_WALL_TOP`, `TUBE_APEX`, `PORTAL_D`, the beam profile, `STOP_X`, `SPAWN_X`, the ramp
-  distances). It writes the FBX, `export/depot_proof.json` and the dev mod's import item.
+- `depot_build.py`: the prepared vanilla spot layout, beam and footprint. Shell constants are
+  in `depot_candidate.py`; shared import helpers and elevator triangles are in `depot_geometry.py`.
+  The builder writes the live FBX, `export/depot_proof.json` and the dev mod's import item.
 - `verify_depot.py`: re-imports the FBX and re-derives the footprint and the turn its own way;
-  restates the spot table as literals, so a drift in either file shows. **Update its literals with
-  every layout change**, or it fails on purpose.
+  restates the spot table as literals, checks the dev Lua and compares exterior faces/UVs with
+  the tracked approved blend at Assets `7f087ce`. **Update its literals with every layout change**,
+  or it fails on purpose. `study_depot_motion.py` holds the conditional sampled clearance study.
 - A change lands as: edit the constants → build → verify → the owner re-imports (Mod Editor: the
   Art Spec's MeshSpec `mesh`, Open in Importer, Import, save the mod: one step, no new
   EntitySpec) → restart if `Code/` changed → look. The dev Lua's `layout` defaults and its
   `design_spots` table must follow the constants by hand.
 
-**State at handoff, 2026-09-30.** The rejected tube is still the imported entity;
-`Trackconnector1` was read at (−4000, 0, 800), within 0.001 units, on OptInPack `de9ac7c`.
-The owner's rejection and replacement concept are recorded verbatim in the reports; do not ask
-them to repeat that feedback. No train has driven in yet. The ceiling is still NOT MEASURED.
+**State at handoff, 2026-09-30, after approval.** Owner: **"approved"** in reply to the
+rendered shape and placement at Assets `7f087ce`. OI-33 is ruled and removed; the render gate
+is cleared. Do not ask for that approval again. Final in-game acceptance remains open.
 
-A separate rounded, descending portal candidate now sits **between** the pads, with the elevator
-turned 90°. Open `SMR-Assets/elevatorstation/blender/review_descent/index.html`: concept beside
-render, plus mouth/top views. The portal is actual export geometry; the elevator is a dimensioned
-render-only proxy, so the exact vanilla-mesh join remains unverified. `depot_candidate.py` builds
-only `ElevatorDepot_candidate.blend` and `export/candidate_descent/`; it does not touch the dev mod.
-`verify_depot_candidate.py` re-imports that FBX: static PASS. Full commands, hashes, dimensions and
-spot table are in [the 20260930 report](../../reports/ELEVATOR_DEPOT_LOOK_20260930.md).
+The approved exterior is now in the prepared build, Assets **`172e992`**. Independent FBX
+verification confirms its shell/UVs are preserved, allowing only removal of the raised internal
+sill and replacement of the beam. The connector moves to (−5000, 0, 800), direction to
+(−6000, 0, 800); arrival stays at track height, the Stop/Spawn pairs and first departure leg are
+below grade. The Lua uses the same spots and a 90° elevator turn. Full members, dimensions,
+source hashes and the prepared spot table are in
+[the report](../../reports/ELEVATOR_DEPOT_LOOK_20260930.md#prepared-revision-what-changed-and-what-passed).
 
-**Next: OI-33, the owner's render decision.** The proposed below-grade movement layout is held:
-`study_depot_departure.py` finds conservative train envelopes overlapping the roof at the proposed
-departure ramp. This is a desk check of these spots, not an observed game collision or proof that
-every vanilla layout fails. After the shape decision, finish the vanilla spot/swept-clearance work
-under this brief's stops, synchronize the production builder/verifier and dev Lua, and checkpoint
-before one import. No custom movement was written. The live Lua still matches the rejected import.
+`study_depot_motion.py` samples arrival and departure against the exported shell/flat grade.
+It clears the owner's approximately 20 m train envelope with centred origin assumed. Native
+interpolation, actual origin/mesh, lateral/yaw motion and visual rail following remain untested.
+The disputed 41.5 m assembled bbox is sensitivity data, **not** a reinstated length gate
+(`GEOMETRY_ORACLE_20260919.md` §13). No custom train movement was added.
 
-**Records.** `reports/ELEVATOR_DEPOT_LOOK_20260930.md` (candidate renders, export proof and the
-departure hold); `reports/ELEVATOR_DEPOT_LOOK_20260929.md` (§1–§5 the first depot, §6 the first view,
+**Next is the owner's existing-entity import**, then the agent reads the regenerated entity and
+metadata code list before playing. Use the report's short first batch: existing
+`SMROptInElevatorDepot` → `mesh` → Open in Importer → Import → save. Restart, and use a **fresh
+placement** because the connector/footprint changed. The shared-game sitting is **ck221** in
+the fix pack's owner checklist. Surface, train, cabin/sound and underground rope/ceiling checks
+are still owed; the ceiling is NOT MEASURED. No import or live train run occurred in this pass.
+The rejected tube remains the last imported entity until that import.
+
+`review_descent/index.html` preserves the original approved comparison and links the prepared
+concept/mouth renders under `review_prepared/`. Portal: actual geometry. Elevator and approach:
+dimensioned proxies, so the exact vanilla-art join remains for the sitting. The original
+candidate blend/proofs remain unchanged; do not overwrite that approved comparison snapshot.
+
+**Records.** `reports/ELEVATOR_DEPOT_LOOK_20260930.md` (approved render, prepared export and conditional motion proof); `reports/ELEVATOR_DEPOT_LOOK_20260929.md` (§1–§5 the first depot, §6 the first view,
 the dressing fix and the tube shape, §7 the owner's concept); `reports/ELEVATOR_STATION_LOOK_20260929.md`
 (the dome build and the owner's evening rulings). Brief 25's row is in this folder's `README.md`.
 
@@ -142,7 +152,7 @@ the dressing fix and the tube shape, §7 the owner's concept); `reports/ELEVATOR
 Sources are `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.405907\Src` (build 25390750); re-derive any
 line number with `grep -n` before you lean on it. Entity data is `Packs/BinAssets.fpk:entities.dat`
 (sha256 `64b68206…`), decoded with `SMR-Assets/_shared/geometry/entities_dat.py` as in
-`reports/CROSSING_SHAPE_20260929.md` §9; `depot_build.py` and `verify_depot.py` restate the
+`reports/CROSSING_SHAPE_20260929.md` §9; `depot_geometry.py` and `verify_depot.py` restate the
 elevator's 19 `hex_shape` triangles from it.
 
 **The elevator's platform** (100 % values; ×0.75 in game). A tripod: three round pads of radius
@@ -171,20 +181,22 @@ faces the centre with attach angle 210 (`20_TrainHub.lua:1144, :1283`).
   458-463`); `Train.lua:94, :134` walk that label. Stations keep 10 hexes apart
   (`Station.lua:59`): the owner places the depot at least 100 m from another station.
 - Trains slide to a spot's full position (`Train.lua:507-512`); the hub's proven spots sit at
-  z 800 (`corpus/current_5002a49.entjson`), so the depot's do too.
+  z 800 (`corpus/current_5002a49.entjson`). The prepared depot keeps connector/arrival at that
+  height and uses below-grade Stop/Spawn and departure-ramp spots for the descent trial.
 - A placed building has **no `template_name` field** (`Building.lua:2701` sets it only on the
   `BuildingTemplates` wrapper): test a building with `IsKindOf`, never that field. This cost the
   first placement its visuals.
 
-**Footprints do not scale with art.** The game reads exactly the inset hex faces drawn
-(`IMPORTER_FACTS`: the hub predicted 66 and read 66). The tube shape is **21 hexes** by the centre
-rule (17 elevator, 1 the connector hex, 3 both), derived twice (`depot_proof.json`,
-`verify_depot.json`). Falsify: the `[ElevatorDepotDev]` footprint in game, or slot 6's read.
+**Footprints do not scale with art.** The game reads the inset hex faces drawn (`IMPORTER_FACTS`).
+The prepared footprint's count and reconciled member sets are in `depot_proof.json` and
+`verify_depot.json`, with commands and input HEAD, summarized in the report. The old tube's
+footprint is historical; use a fresh placement to test the new connector. Falsify with the
+in-game entity/footprint read or slot 6.
 
-**The train's length decides the look.** Vanilla track runs 8 m up; the train's box in its own
-frame is x −1332..2818 (41.5 m, one in-game `GetEntityBBox` read on an assembled object), which
-the owner disputes at about two hexes. The tube from x −36 m to −8 m hides 28 m. Take the cheap
-read first: a superimposed build cursor shows the 10 m hex grid.
+**Train length authority.** Vanilla track runs 8 m up. The owner measured approximately two
+hexes/20 m against the grid; that governs over the disputed assembled `GetEntityBBox` length
+(`GEOMETRY_ORACLE_20260919.md` §13). The desk model assumes a centred origin; the live sitting
+settles native appearance and clearance. Do not revive the withdrawn bbox redesign gate.
 
 **The importer.** One mesh node and one material per entity; `hex_shape` faces inset 0.9;
 Blender (x, y) → game (−y, −x) × 100; a spot's game angle is −(Blender rot_z). The editor keeps no
@@ -233,15 +245,15 @@ it is. The owner accepts console lines where no slot is free (2026-09-27). About
 time; the owner clicks and reads, you read the log. Output: `[ElevatorDepotDev]` lines after a
 flush, a screenshot, any Lua error first.
 
-- **B — surface look, after the accepted candidate is ready and imported.** Load the normal game;
-  the placed depot re-dresses on load. Look by day at the portal and its join to the base;
+- **B — surface look, after import, generated-file check and restart.** Load the normal game;
+  place a fresh depot for the moved connector/footprint. Look by day at the portal and base join;
   `SMRElevatorDepotDev.Report()`; flush. Ask what moves.
 - **C — the train.** Drag a track from a line's end to the mouth; set one depot row to Import so
   trains have work; slot 6's stream on; watch one train enter, vanish, come back out; flush.
 - **D — underground.** Switch maps, place one, `Measure()` then `Report()`, zoom fully out at the
   lowest pitch: the rope must vanish into the ceiling. Move `rope_underground_m` by `Set()`.
 - **E — by eye.** `Set()` for what the Lua owns (scale, turn, offsets, rope, timing); the tube's
-  geometry and the spots are constants in `depot_build.py`: regenerate, verify, one-step
+  geometry is in `depot_candidate.py`, and the spots are in `depot_build.py`: regenerate, verify, one-step
   re-import. Bake what the owner keeps.
 
 ## Hand back
