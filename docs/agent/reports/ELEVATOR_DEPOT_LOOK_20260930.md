@@ -415,3 +415,50 @@ This receipt commit includes the imported entity/mesh, editor metadata/import it
 repairs and proof files. Unrelated fix-pack prompt-map/casebook work and the untracked Assets
 trainhub Blender backups remain outside it. The new source archive is local and outside git,
 as its README specifies. The remaining task work is ck221's attended game sitting.
+
+## Sitting 2026-09-30, orchestrator-guided (log `Mars.exe-20260930-12.23.04-6aba6e65.log`)
+
+Fixture: the owner's new save **double hub+elev** (the double hub build plus a vanilla elevator
+and a ready track at its underground half). Build 25579348.
+
+**Batch 1, surface and underground look — PASS as a test model.** Owner: *"both ends build,
+sounds seem right. animation works."* `Report()` read two depots, all 14 spots on each MATCH
+the design at 0 cm, surface connector 1 carrying a `TrackGridElement`; no Lua error.
+Screenshots: `SMR-Assets/elevatorstation/reference/sitting_20260930_underground.png`,
+`sitting_20260930_range_off_centre.png`.
+
+**Findings, routed to the wiring brief, not defects of the look:**
+- Trains: on Balanced with zero stock the depot got deliveries only while the hub was filling its
+  other stations, then none; **after the owner let it run a while it began balancing and now gets
+  trains regularly** (owner). So the hub does serve a station chained behind another; the early
+  gap is not diagnosed (queue order or the Balanced target settling). Not a blocker.
+- No drones (the depot's crew is wiring work).
+- The underground depot's panel shows no import/export/balanced controls.
+- ~~Service-range ring off-centre~~ **Resolved, not a defect:** the ring is the vanilla elevator's drone service
+  area, shown in white because the selected depot lies inside it (vanilla range display); selecting the
+  elevator shows the same ring in blue. The depot has no service area of its own yet (no crew).
+- Owner: *"when we get to multiple, design tweaks are needed"* — for the next design pass; the
+  tweaks are not yet named.
+
+**Batch 2, the train — PASS as a test model.** Slot 6 streamed 191 ticks of a train on the depot's
+line (`7985-7873`), 12 of them `at_station=true` at the depot (surface, id 7985). The visual
+of the train at the mouth is **design feedback, deferred by the owner** to the design-pass list.
+
+**Batch 3, underground — PASS; the rope is accepted as is.** `Measure()` on the underground map:
+vanilla `ElevatorUnderground` shaft top 12,861 cm over its base; the nearest cliffs top at
+13,896 cm; our `SpaceElevatorRope` x8 runs 0..22,500 cm, top 50,254 cm (`rope_underground_m`
+300, unchanged). Owner: *"the cable looks about as good as i think it can, it goes very high up;
+only when you are zoomed out to the whole sector view does it look a little odd but I think that
+is about as good as we can expect. When you are at max normal view it looks very clean."*
+Screenshot `reference/sitting_20260930_rope_underground.png`. The ceiling itself was not read as
+a height (no ceiling object in the sweep); the rope's top is what matters and it is accepted.
+
+**Batch 4, brief 22's smoke — NOT RUN, deferred by the owner.** Its slot 4 needs a Mod Editor save
+of `SMR_TrainHubDev` made after `81efabf` (2026-09-29 14:28); the generated template on disk
+dates from 12:54 that day and the owner's later editor save was of the Elevator Depot mod, not
+the hub's. Owner, 2026-09-30: *"we will move onto the next redesign. If we are going through the
+full editor and import, design should just be folded into it"*: the hub mod's editor save and
+brief 22's five steps run in the next design pass's editor-and-import session.
+
+**Sitting result:** the depot is a working test model on both maps (look, cabin, sound, rope,
+trains). Next: the design pass, from the owner's list.
