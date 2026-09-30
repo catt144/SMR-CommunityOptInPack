@@ -69,8 +69,9 @@ before it fires.
         investigation behind it is `reports/CROSSING_SHAPE_20260929.md`). **Design before
         wiring** (owner): brief `25` (the look, placeable for visual sign-off), then a wiring
         brief (the shared store, the elevator range rule, the underground twin). The rail shaft
-        and brief `23` are parked. `SMR_RailShaftDev` was ruled to stay enabled while the shaft
-        was the plan; ask the owner whether to disable it now.
+        and brief `23` are parked. `SMR_RailShaftDev` and the 09-18 `SMR_TrainHubPrototype` junctions were removed from
+        the game's Mods folder on 2026-09-30 (owner: clean up unused mods); the repo folders
+        stay. Do not load the old shaft save with the hub.
         **2026-09-30, where it stands:** the crossing is the **Elevator Depot** (a 75 % space
         elevator; the train drives into a portal between the pads and down under it; spec §11 and
         `reports/ELEVATOR_DEPOT_LOOK_20260929.md` §7 hold the owner's picture). Brief `25`'s
