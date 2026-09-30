@@ -1,47 +1,71 @@
-# Brief 25 — the Elevator Depot: a 75 % space elevator with a tube mouth on one pad (handoff, continued 2026-09-30) · _high
+# Brief 25 — the Elevator Depot: a train tunnel that dives under the elevator (rewritten by the orchestrator, 2026-09-30) · _high
 
 ## Authority and outcome
 
-**Owner rulings.** The earlier ones are in spec §11 of
-`docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` and in
-`reports/ELEVATOR_STATION_LOOK_20260929.md` §6; the evening of 2026-09-29 is in
-`reports/ELEVATOR_DEPOT_LOOK_20260929.md` §6. Do not reopen them.
+**Two builds missed the owner's picture. This rewrite carries the picture itself.** Look at the
+three reference images in `B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` before anything else:
 
-- **Kept from §11:** trains never change maps; cargo does · our own station class based on
-  vanilla's · vanilla's elevator is not altered · each mod works with the other absent.
-- **The look:** vanilla's Space Elevator at **75 %** (*"lets try the 75% one"*).
-- **What it is:** *"More of a depot. Trains still dont goto new maps it enters the elevator, and the
-  cargo transfers from the elvator."* Trains and drones may both serve it, by player setup.
-- **D1** the surface cabin goes **down into the ground**; underground it goes up into the ceiling.
-- **D2 superseded** (owner, 2026-09-29, after seeing the first depot with vanilla's tunnel at
-  75 % beside the elevator): *"still has graphic errors, and not a fan of this look at all i
-  wanted a much smaller tunnel that gets out in one of the three corners of the elevator
-  basically making the tunnel the tunnel just big enough to fit the train into and still look
-  clean"*. So the mouth is **the base entity's own tube on one of the elevator's three round
-  pads**, sized to a train; the vanilla tunnel art is out.
-- **D3** the stand-in is a working vanilla station, so trains drive in. **D4** the dome model of
-  the first build stays on hold, not retired; its assets and dev-mod sources stay in place.
-- **The method** (owner, 2026-09-20): rough and fast; the owner dials it in by eye; no gate between
-  the owner and something to look at. Expose tunables; bake what the owner keeps.
+- `concept_owner_20260930.png` — **the owner's concept**, what to build toward: vanilla's tunnel
+  mouth, shrunk to train size, at one corner of the space elevator, blended in so it looks like
+  one clean building.
+- `rejected_1_vanilla_tunnel_beside.png` — build one: the vanilla tunnel at 75 % beside the
+  elevator, bigger than the elevator, its mound swallowing a pad. Rejected.
+- `rejected_2_box_tube_with_arrow.png` — build two: a plain box tube lying across a pad. Rejected.
+  **The red arrow the owner drew marks where the tunnel goes** (on the orchestrator's reading: the
+  front of the base, at the foot of the central ring between the two front pads; confirm it
+  against the image, and ask the owner if it reads differently to you).
 
-**Done when** the owner places the **Elevator Depot** on both maps in their normal game and sees
-three things:
-- the 75 % elevator with the tube mouth on one pad, on one base, looking clean;
-- the cabin running its rope with vanilla's sound: down into the ground on the surface, up into
-  the cave ceiling underground;
-- **a vanilla train driving into the mouth, stopping out of sight and coming back out**.
+**The owner's words, 2026-09-30, the rule for this brief:** *"this is the concept I send in that I
+wanted basically a shrunk tunnel in one of the corners of the elevator and blended in to look
+natural and clean."* *"I am fine creating our own custom one, but the quality of the train hub is
+the bar for a custom module. I am fine with using vanilla's tunnel if it works, or slightly
+cleaned up and updated looks. But it also needs to look right. With the shrunk elevator the tunnel
+is bigger than the elevator. We need to blend whatever design we are doing so that it sits high
+enough for the train to go into it, and tapers down towards the ground to make it look like the
+train is going under the elevator in its storage hold to offload and then up and back out."*
 
-The owner then accepts the look or names changes, and you iterate. **This brief continues because
-the owner has more changes to name** (2026-09-30, first thing): ask what they saw and what moves,
-record the words in the report before changing anything, then change it.
+So the look is:
 
-**Not this brief** (the wiring brief, written after acceptance): the cabin carrying cargo between
-maps, per-resource modes, the depot's own drone crew, the underground twin and its placement rule.
-The owner's rulings for that brief are already in `reports/ELEVATOR_STATION_LOOK_20260929.md` §6.
+1. **A tunnel mouth, not a tube on top.** The train enters at track height at the elevator's edge
+   and **goes down under the elevator** into its hold; the portal tapers down to the ground. The
+   train vanishes because it goes below grade, not because a tube is long. Lead, not a ruling:
+   `Train.lua:507-512` slides a train to a spot's full position, so `Stop` spots below grade may
+   take the train down and out of sight with vanilla movement alone. Prove it or report it.
+2. **Sized to the train**, smaller than the elevator, never competing with it.
+3. **Blended into the elevator's base**: one building, a skirt or apron joining portal to plinth,
+   no mound swallowing a pad, no art floating on a pad.
+4. **Quality bar: the train hub** (`B:\Dev\SMR\SMR-Assets\trainhub\`). Vanilla's tunnel art at a
+   smaller scale, cleaned up, is acceptable if it reaches that bar. A primitive is not.
+5. The rest stands: the 75 % space elevator, D1 (the surface cabin goes down into the ground,
+   the underground one up into the ceiling), D3 (a working vanilla station, trains drive in),
+   D4 (the dome build on hold). Spec §11's rulings stand: trains never change maps; cargo does;
+   vanilla's elevator is untouched; each mod works with the other absent.
+
+**How to work so the third build lands** (the orchestrator's instruction, from the two misses):
+
+- **Show before you import.** Render the candidate from the concept image's angle beside
+  the concept, in the repo, and put the render in your report. The owner says yes or names the
+  change. Only then the Mod Editor import. One import per accepted render, not one per idea.
+- **Do not invent a different shape** to sidestep a problem (the box tube was one). If the
+  concept cannot be met, stop 2 below: report the options with numbers and pictures.
+- Record the owner's words verbatim in the report before changing anything.
+- The method still holds (owner, 2026-09-20): rough and fast, no gate between the owner and
+  something to look at. A render is faster than an import; that is why it comes first.
+
+**Done when** the owner places the Elevator Depot on both maps in their normal game and sees:
+- the elevator with the tunnel mouth at the marked corner, one clean building;
+- the cabin running its rope with vanilla's sound, D1;
+- **a vanilla train driving into the mouth, going down out of sight, and coming back up and out**;
+and says the look is accepted, in words.
+
+**Not this brief** (the wiring brief, after acceptance): the cabin carrying cargo between maps,
+per-resource modes, the depot's own drone crew, the underground twin and its placement rule. The
+owner's rulings for that are in `reports/ELEVATOR_STATION_LOOK_20260929.md` §6.
 
 ## Start
 
-Authored on top of OptInPack `1606f3c` and SMR-Assets `ac0233a`. Run `git log --oneline -3` and
+Rewritten on top of OptInPack `63ae577` (the tube-on-pad import) and the SMR-Assets HEAD at that
+time; the reference images are uncommitted there until the next Assets commit. Run `git log --oneline -3` and
 `git pull` in both, and keep a live todo list, one item per commit-and-verify unit, one in
 progress. Game build must be **25390750** (`python tools/doccheck.py --emit-fingerprint`). Check
 whether the game runs before writing the dev mod's `Code/` (PowerShell:
@@ -160,19 +184,21 @@ tools/devmods/elevator_station/Code` is the Lua syntax gate. The game log is
 
 ## Scope
 
-- **In:** the tube's shape, size and placement, the elevator's turn, scale and offset, the cabin,
-  rope and timing, the train spots and the footprint, all by the owner's eye; the placeable dev
-  building on both maps with trains in and out; live tunables; renders only if they help; the
-  sitting.
+- **In:** the tunnel mouth's shape, size, position and its blend into the base, the descent under
+  the elevator, the elevator's turn, scale and offset, the cabin, rope and timing, the train spots
+  and the footprint, all by the owner's eye; the renders before each import; the placeable dev
+  building on both maps with trains in, down and out; live tunables; the sitting.
 - **Out:** cargo between maps, store modes and the drone crew; the twin and its placement rule;
   vanilla's elevator; hub code and the hub's asset; the rail shaft.
 
 ## Stops — report instead of continuing if
 
-1. A train will not enter, stop and leave through the mouth with vanilla `Station` code (it refuses
-   the route, teleports or sticks). Report with the log; do not write custom train movement.
-2. The shape the owner names cannot hide the train at any tube length under about 40 m, or needs
-   vanilla's platform art changed. Report the options with their numbers.
+1. A train will not enter, go down, stop and come back out through the mouth with vanilla
+   `Station` code (it refuses the route, teleports, clips or sticks). Report with the log; do not
+   write custom train movement.
+2. The concept cannot be met at the hub's quality bar without changing vanilla's platform art, or
+   the train cannot be hidden by the descent. Report the options with numbers and renders; do not
+   substitute a different shape.
 3. The installed build is no longer 25390750.
 
 ## Claim limits

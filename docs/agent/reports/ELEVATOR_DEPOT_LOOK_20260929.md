@@ -240,3 +240,27 @@ disputed 41.5 m would show 13 m of tail. The sitting reads it.
 
 **Owed:** the owner's re-import (Open in Importer on `mesh`, Import, save), a restart for the
 Lua, then batches B–E of §5 on the new shape.
+
+## 7. The owner's concept, restated with pictures (2026-09-30, orchestrator)
+
+The tube-on-pad shape (§6) was rejected on sight. The owner then sent their original concept and
+the two builds side by side; the three images are in
+`B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` (`concept_owner_20260930.png`,
+`rejected_1_vanilla_tunnel_beside.png`, `rejected_2_box_tube_with_arrow.png`, the arrow marking
+where the tunnel goes). The owner's words, verbatim:
+
+> "Ok this is the concept I send in that I wanted basically a shrunk tunnel in one of the coreners
+> of the elevator and blended in to look natural and clean. 2nd screenshot is what I got back. So I
+> reexplained it and my frustrations. And the 3rd is what I got back the next time. The arrow I
+> drew on it is where i want the tunnel."
+
+> "I am fine creating our own custom one, but the quailty of the train hub is the bar for a custom
+> module. I am fine with using vanillas tunnel if it works, or slightly cleaned up and updated
+> looks. But it also needs to look right. With the shrunk elevator the tunnel is bigger that the
+> elevator. We need to blend whatever design we are doing so that it sits high enough for the
+> train to go into it, and tappers down towards the groun to make it look like the train is going
+> under the elevator in its storage hold to offload and then up and back out."
+
+Brief 25 was rewritten around this: the train goes **down under the elevator**, the mouth is
+train-sized and blended into the base, the hub is the quality bar, and a render is shown before
+each import.
