@@ -10,7 +10,7 @@ rulings in brief `25` stand: the 75 % space elevator, the train-sized portal bet
 that dives under the elevator, vanilla-station track ends, the hub as the quality bar, vanilla's
 elevator untouched. Do not reopen the shape.
 
-Reference images are in `B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` (the `designpass_*`
+Reference images are in `B:\Dev\SMR\SMR-Assets\elevatorstation\owner_feedback\` (the `designpass_*`
 files carry the owner's arrows). Look at each before touching its item.
 
 **The list, in the order to work it.** The owner's words are the rule; the rest is the

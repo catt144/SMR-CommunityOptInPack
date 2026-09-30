@@ -450,7 +450,7 @@ vanilla `ElevatorUnderground` shaft top 12,861 cm over its base; the nearest cli
 300, unchanged). Owner: *"the cable looks about as good as i think it can, it goes very high up;
 only when you are zoomed out to the whole sector view does it look a little odd but I think that
 is about as good as we can expect. When you are at max normal view it looks very clean."*
-Screenshot `reference/sitting_20260930_rope_underground.png`. The ceiling itself was not read as
+Screenshot `owner_feedback/sitting_20260930_rope_underground.png`. The ceiling itself was not read as
 a height (no ceiling object in the sweep); the rope's top is what matters and it is accepted.
 
 **Batch 4, brief 22's smoke — NOT RUN, deferred by the owner.** Its slot 4 needs a Mod Editor save

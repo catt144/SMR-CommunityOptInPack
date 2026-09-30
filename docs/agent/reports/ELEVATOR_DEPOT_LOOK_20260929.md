@@ -245,7 +245,7 @@ Lua, then batches B–E of §5 on the new shape.
 
 The tube-on-pad shape (§6) was rejected on sight. The owner then sent their original concept and
 the two builds side by side; the three images are in
-`B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` (`concept_owner_20260930.png`,
+`B:\Dev\SMR\SMR-Assets\elevatorstation\owner_feedback\` (`concept_owner_20260930.png`,
 `rejected_1_vanilla_tunnel_beside.png`, `rejected_2_box_tube_with_arrow.png`, the arrow marking
 where the tunnel goes). The owner's words, verbatim:
 
