@@ -26,6 +26,7 @@
 --                                          Set("scale", 80), Set("rope_underground_m", 400),
 --                                          Set("receiver_z", -250), Set("signs", true); re-dresses all
 --   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
+--   SMRElevatorDepotDev.Sweep()            delete every rope/cabin/receiver prop whose depot is gone
 --   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
 -- SMRElevatorStationDev is kept as an alias, so the earlier console lines still run.
 
@@ -35,6 +36,7 @@ local D = SMRElevatorDepotDev
 
 local template_id = "SMROptInElevatorDepotDev"
 local entity_id = "SMROptInElevatorDepot"
+local mod_entities = { SMROptInElevatorDepot = true, SMROptInElevatorDepotReceiver = true }
 local log_prefix = "[ElevatorDepotDev]"
 
 -- ArtSpecEditor.lua:565-573 (archived 1.1.1.406343) calls an editor-only helper on retail
@@ -45,7 +47,7 @@ local function install_depot_art_spec_guard()
 	local previous = spec and rawget(spec, "OnPresetPostLoad")
 	if type(previous) ~= "function" or previous == D.ArtSpecGuard then return end
 	local wrapper = function(self, ...)
-		if self.id == entity_id and type(rawget(_G, "EntitySpecPathToEntity")) ~= "function" then return end
+		if mod_entities[self.id] and type(rawget(_G, "EntitySpecPathToEntity")) ~= "function" then return end
 		return previous(self, ...)
 	end
 	spec.OnPresetPostLoad = wrapper
@@ -149,6 +151,22 @@ local function free_prop(class, map, pos, scale)
 	o:SetGameFlags(const.gofAlwaysGatherForVisibility)
 	unselectable(o)
 	DeleteOnLoadGame(o)
+	o.smr_depot_prop = true   -- ours, never vanilla's wonder: Sweep() deletes only marked props
+	return o
+end
+
+-- A rope tile never moves, so it rides as an attachment and dies with the depot in the engine
+-- itself (2026-09-30: rope tiles outlived a deleted underground depot).
+local function attached_prop(bld, class, offset, scale)
+	local o = PlaceObjectIn(class, bld:GetMap())
+	o:SetScale(scale)
+	o:SetGameFlags(const.gofAlwaysGatherForVisibility)
+	unselectable(o)
+	local spot = bld:GetSpotBeginIndex("Origin")
+	if spot and spot >= 0 then bld:Attach(o, spot) else bld:Attach(o) end
+	o:SetAttachOffset(offset)
+	DeleteOnLoadGame(o)
+	o.smr_depot_prop = true
 	return o
 end
 
@@ -254,7 +272,7 @@ function D.Dress(bld)
 		local rope_step = MulDivRound(100 * guim, L.scale, 100)   -- vanilla lays a tile every 100 m
 		local z = 0
 		while z < rope_m * guim do
-			rig.ropes[#rig.ropes + 1] = free_prop("SpaceElevatorRope", map, base + point(0, 0, z), L.scale)
+			rig.ropes[#rig.ropes + 1] = attached_prop(bld, "SpaceElevatorRope", point(L.elevator_x, L.elevator_y, L.elevator_z + z), L.scale)
 			z = z + rope_step
 		end
 		local reach
@@ -266,11 +284,55 @@ function D.Dress(bld)
 		rig.far = base + point(0, 0, reach)
 		start_cycle(rig)
 	end
+	rig.bld = bld
 	D.rigs[bld] = rig
 	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d",
 		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
 		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale, tostring(IsValid(rig.receiver)),
 		#(bld:GetAttaches("UnderconstructionSign") or empty_table)))
+end
+
+-- Props whose depot is gone (any delete path) are removed by this sweep; Sweep() runs it now and
+-- also clears every marked prop on every map that no live rig owns.
+local function sweep_rigs()
+	local n = 0
+	for bld, rig in pairs(D.rigs) do
+		if not IsValid(bld) then
+			stop_cycle(rig)
+			for _, o in ipairs(rig.ropes or empty_table) do if IsValid(o) then DoneObject(o); n = n + 1 end end
+			for _, k in ipairs{ "cabin", "receiver", "tunnel", "elevator" } do
+				if IsValid(rig[k]) then DoneObject(rig[k]); n = n + 1 end
+			end
+			D.rigs[bld] = nil
+		end
+	end
+	return n
+end
+
+function D.Sweep()
+	local n = sweep_rigs()
+	local owned = {}
+	for _, rig in pairs(D.rigs) do
+		for _, o in ipairs(rig.ropes or empty_table) do owned[o] = true end
+		for _, k in ipairs{ "cabin", "receiver", "tunnel", "elevator" } do if rig[k] then owned[rig[k]] = true end end
+	end
+	local orphans = 0
+	AllMapsForEach("map", "Object", function(o)
+		if o.smr_depot_prop and not owned[o] then DoneObject(o); orphans = orphans + 1 end
+	end)
+	print(log_prefix, "swept", n, "props of gone depots and", orphans, "orphaned props")
+end
+
+if not IsValidThread(rawget(D, "sweeper")) then
+	D.sweeper = CreateGameTimeThread(function()
+		while true do
+			Sleep(2000)
+			if next(D.rigs) then
+				local n = sweep_rigs()
+				if n > 0 then print(log_prefix, "sweeper removed", n, "props of a deleted depot") end
+			end
+		end
+	end)
 end
 
 local function for_each_depot(fn)
