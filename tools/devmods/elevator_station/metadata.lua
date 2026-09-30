@@ -4,7 +4,7 @@ return PlaceObj('ModDef', {
 	'short_description', "DEV ONLY: the Elevator Depot's look, a working station placeable on both maps.",
 	'id', "SMR_ElevatorStationDev_20260929",
 	'author', "catt144",
-	'version', 4,
+	'version', 5,
 	'lua_revision', 350453,
 	'saved_with_revision', 405907,
 	'optional_mod', true,
@@ -17,8 +17,8 @@ return PlaceObj('ModDef', {
 		"Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua",
 	},
 	'has_data', true,
-	'saved', 1790738670,
-	'code_hash', 6439189215364233901,
+	'saved', 1790748485,
+	'code_hash', 5524373636416358041,
 	'affected_resources', {
 		PlaceObj('ModResourceEntity', {
 			'Entity', "SMROptInElevatorDepot",
