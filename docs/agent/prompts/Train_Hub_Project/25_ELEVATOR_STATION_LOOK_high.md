@@ -58,6 +58,8 @@ So the look is:
 - **a vanilla train driving into the mouth, going down out of sight, and coming back up and out**;
 and says the look is accepted, in words.
 
+**Deferred to a later design pass, by the owner (2026-09-30), so they do not eat this brief:** the elevator's core shows bare sandy ground inside its ring, and the frame seen inside the core reads wrong (`reference/later_core_shows_sand.png`, `later_core_frame.png`). Owner: *"this is minor we can save it for another design pass"*. Note them in the report; do not work them.
+
 **Not this brief** (the wiring brief, after acceptance): the cabin carrying cargo between maps,
 per-resource modes, the depot's own drone crew, the underground twin and its placement rule. The
 owner's rulings for that are in `reports/ELEVATOR_STATION_LOOK_20260929.md` §6.
