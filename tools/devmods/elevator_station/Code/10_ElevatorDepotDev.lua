@@ -1,0 +1,418 @@
+-- DEV ONLY: the Elevator Depot's look (brief 25, owner rulings 2026-09-29, spec section 11).
+-- One placeable stand-in on both maps: our own station class based on vanilla's Station, on our own
+-- base entity (SMROptInElevatorDepot: footprint, plinth and the 14 vanilla train spots, built by
+-- SMR-Assets/elevatorstation/blender/depot_build.py). The look is two scaled vanilla visuals the
+-- code attaches at run time, so vanilla's elevator is untouched and nothing of ours but the
+-- template's class enters a save. Demolish every stand-in before removing this mod.
+--
+--   * vanilla's Space Elevator art at 75 % on the origin, with a SpaceElevatorCabin running a rope of
+--     SpaceElevatorRope tiles and the ElevatorMoving FX on both, as the wonder does
+--     (SpaceElevator.lua:56-74, :391-410, :652-655 at 1.1.1.405907). D1: on the surface the cabin
+--     goes DOWN into the ground; underground it goes UP into the cave ceiling.
+--   * vanilla's TrainTunnelUniversal art at 75 % (D2), lifted 2 m so its 6 m rail stub meets vanilla's
+--     8 m track, its mouth on the entity's Trackconnector1 hex. Trains drive in and back out on
+--     vanilla Station code (D3): Ramparrive1/Stop1 inside the mound, Spawn1/Rampdepart1 the way out.
+--     Trackconnector2 is buried in the mound with its Trackdirection2 inside the footprint, so no
+--     track can ever reach it (TrackElement.lua:345-348; Tracks.lua:240).
+--
+-- Cargo, per-resource modes, the drone crew and the underground twin are the next brief.
+--
+-- Console, for the owner's sitting (output lands in the game log as [ElevatorDepotDev]):
+--   SMRElevatorDepotDev.Report()           every depot: map, hex, label, its 14 spots, connector elements
+--   SMRElevatorDepotDev.Measure()          the current map's camera, elevators and ceiling objects
+--   SMRElevatorDepotDev.Show()             the live layout table
+--   SMRElevatorDepotDev.Set("key", value)  move a visual by eye, e.g. Set("tunnel_lift", 250),
+--                                          Set("scale", 80), Set("rope_underground_m", 400); re-dresses all
+--   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
+--   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
+-- SMRElevatorStationDev is kept as an alias, so the earlier console lines still run.
+
+SMRElevatorDepotDev = rawget(_G, "SMRElevatorDepotDev") or {}
+SMRElevatorStationDev = SMRElevatorDepotDev
+local D = SMRElevatorDepotDev
+
+local template_id = "SMROptInElevatorDepotDev"
+local entity_id = "SMROptInElevatorDepot"
+local log_prefix = "[ElevatorDepotDev]"
+
+-- The layout: depot_build.py's numbers, game units (cm) and degrees. The entity's spots and
+-- footprint are baked from the same constants; a Set() here moves only a visual. A move the owner
+-- keeps goes back into depot_build.py for a regenerate and re-import, so the spots follow.
+D.layout = D.layout or {
+	scale = 75,                         -- both vanilla arts, percent
+	elevator_entity = "SpaceElevator",
+	elevator_x = 0, elevator_y = 0, elevator_z = 0, elevator_angle = 0,
+	tunnel_entity = "TrainTunnelUniversal",   -- D2
+	tunnel_x = -750, tunnel_y = -2598, tunnel_lift = 200, tunnel_angle = 180,
+	rope_surface_m = 0,                 -- D1: the surface cabin goes down, so no rope above by default
+	rope_underground_m = 300,           -- the cabin goes up into the cave ceiling; the sitting measures it
+	travel_down_m = 60,                 -- surface: how deep the cabin sinks
+	travel_up_m = 0,                    -- underground: 0 means the rope's height
+	leg_ms = 20000,                     -- game ms per leg (vanilla's leg is one game hour)
+	dwell_ms = 8000,                    -- parked at each end
+	tick_ms = 250,
+	cabin_on = true,
+}
+
+-- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
+-- Report() can say whether the imported entity carries what was designed.
+local design_spots = {
+	Trackconnector1 = point(-4500, -2598, 800), Trackdirection1 = point(-5500, -2598, 800),
+	Trackconnector2 = point(1500, -2598, 800), Trackdirection2 = point(500, -2598, 800),
+	Ramparrive1 = point(-2600, -2933, 800), Stop1 = point(-700, -2933, 800), Spawn2 = point(-700, -2933, 800),
+	Spawn1 = point(200, -2263, 800), Stop2 = point(200, -2263, 800), Rampdepart1 = point(-1800, -2263, 800),
+	Ramparrive2 = point(-400, -2263, 800), Rampdepart2 = point(-1000, -2933, 800),
+	Sign1 = point(-4500, -2598, 0), Sign2 = point(1500, -2598, 0),
+}
+
+-- ---- the class ---------------------------------------------------------------------------------
+DefineClass.SMROptInElevatorDepotDevBase = {
+	__parents = { "Station" },
+}
+
+-- City labels, as the hub does it: Building.lua:435-447 adds only the class and object_class, so a
+-- template whose object_class is not "Station" never joins the "Station" label that Train.lua:94,
+-- :134 walk to free a platform. AddToCityLabels is a combined method, so this adds.
+function SMROptInElevatorDepotDevBase:AddToCityLabels()
+	self.city:AddToLabel("Station", self)
+end
+
+function SMROptInElevatorDepotDevBase:RemoveFromCityLabels()
+	self.city:RemoveFromLabel("Station", self)
+end
+
+function SMROptInElevatorDepotDevBase:GameInit()
+	D.Dress(self)
+end
+
+function SMROptInElevatorDepotDevBase:Done()
+	D.Undress(self)
+end
+
+function SMROptInElevatorDepotDevBase:OnDestroyed()
+	D.Undress(self)
+end
+
+-- ---- the visuals ------------------------------------------------------------------------------
+D.rigs = D.rigs or setmetatable({}, { __mode = "k" })   -- depot -> { elevator, tunnel, cabin, ropes, thread }
+
+local function is_depot(obj)
+	return IsValid(obj) and obj.template_name == template_id
+end
+
+local function environment_of(obj)
+	return GetEnvironment(obj:GetMap())
+end
+
+local function unselectable(o)
+	o:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+end
+
+local function free_prop(class, map, pos, scale)
+	local o = PlaceObjectIn(class, map)
+	o:SetPos(pos)
+	o:SetScale(scale)
+	o:SetGameFlags(const.gofAlwaysGatherForVisibility)
+	unselectable(o)
+	DeleteOnLoadGame(o)
+	return o
+end
+
+local function attach_visual(bld, entity, offset, angle_deg, scale, actor)
+	if not IsValidEntity(entity) then
+		print(log_prefix, "no such entity", entity)
+		return
+	end
+	local v = PlaceObjectIn("ShapeshifterAutoAttach", bld:GetMap())
+	v:ChangeEntity(entity)                 -- brings the art's own auto-attaches (AutoAttach.lua:2606-2619)
+	if actor then v.fx_actor_class = actor end
+	unselectable(v)
+	bld:Attach(v, bld:GetSpotBeginIndex("Origin"))
+	v:SetAttachOffset(offset)
+	v:SetAttachAngle(angle_deg * 60)
+	v:SetScale(scale)
+	DeleteOnLoadGame(v)
+	return v
+end
+
+local function stop_cycle(rig)
+	if rig and IsValidThread(rig.thread) then DeleteThread(rig.thread) end
+	if rig then rig.thread = false end
+end
+
+local function start_cycle(rig)
+	if not rig or not IsValid(rig.cabin) or IsValidThread(rig.thread) then return end
+	rig.thread = CreateGameTimeThread(function(rig)
+		local L = D.layout
+		local steps = Max(1, L.leg_ms / L.tick_ms)
+		while IsValid(rig.cabin) and IsValid(rig.elevator) do
+			for _, target in ipairs{ rig.far, rig.base } do
+				PlayFX("ElevatorMoving", "start", rig.elevator)
+				PlayFX("ElevatorMoving", "start", rig.cabin)
+				local from = rig.cabin:GetPos()
+				for i = 1, steps do
+					if not IsValid(rig.cabin) then return end
+					rig.cabin:SetPos(point(from:x(), from:y(), from:z() + MulDivRound(target:z() - from:z(), i, steps)), L.tick_ms)
+					Sleep(L.tick_ms)
+				end
+				if not IsValid(rig.elevator) or not IsValid(rig.cabin) then return end
+				PlayFX("ElevatorMoving", "end", rig.elevator)
+				PlayFX("ElevatorMoving", "end", rig.cabin)
+				Sleep(L.dwell_ms)
+			end
+		end
+	end, rig)
+end
+
+function D.Undress(bld)
+	local rig = D.rigs[bld]
+	if not rig then return end
+	stop_cycle(rig)
+	for _, o in ipairs(rig.ropes or empty_table) do
+		if IsValid(o) then DoneObject(o) end
+	end
+	if IsValid(rig.cabin) then DoneObject(rig.cabin) end
+	if IsValid(rig.tunnel) then DoneObject(rig.tunnel) end
+	if IsValid(rig.elevator) then DoneObject(rig.elevator) end
+	D.rigs[bld] = nil
+end
+
+function D.Dress(bld)
+	if not is_depot(bld) or IsKindOf(bld, "ConstructionSite") then return end
+	D.Undress(bld)
+	local L = D.layout
+	local map = bld:GetMap()
+	local underground = environment_of(bld) == "Underground"
+	local rig = { ropes = {} }
+	rig.elevator = attach_visual(bld, L.elevator_entity, point(L.elevator_x, L.elevator_y, L.elevator_z),
+		L.elevator_angle, L.scale, "SpaceElevator")
+	rig.tunnel = attach_visual(bld, L.tunnel_entity, point(L.tunnel_x, L.tunnel_y, L.tunnel_lift),
+		L.tunnel_angle, L.scale)
+	if rig.elevator and L.cabin_on then
+		-- the cabin and rope are free objects at the elevator's world position, as vanilla's are
+		local base = bld:GetRelativePoint(point(L.elevator_x, L.elevator_y, L.elevator_z))
+		rig.base = base
+		rig.cabin = free_prop("SpaceElevatorCabin", map, base, L.scale)
+		local rope_m = underground and L.rope_underground_m or L.rope_surface_m
+		local rope_step = MulDivRound(100 * guim, L.scale, 100)   -- vanilla lays a tile every 100 m
+		local z = 0
+		while z < rope_m * guim do
+			rig.ropes[#rig.ropes + 1] = free_prop("SpaceElevatorRope", map, base + point(0, 0, z), L.scale)
+			z = z + rope_step
+		end
+		local reach
+		if underground then
+			reach = (L.travel_up_m > 0 and L.travel_up_m or rope_m) * guim   -- up into the ceiling
+		else
+			reach = -L.travel_down_m * guim                                  -- D1: down into the ground
+		end
+		rig.far = base + point(0, 0, reach)
+		start_cycle(rig)
+	end
+	D.rigs[bld] = rig
+end
+
+local function for_each_depot(fn)
+	AllMapsForEach("map", "Building", function(bld)
+		if is_depot(bld) then fn(bld) end
+	end)
+end
+
+function D.Redress()
+	local n = 0
+	for_each_depot(function(bld) D.Dress(bld); n = n + 1 end)
+	print(log_prefix, "redressed", n)
+end
+
+function D.Set(key, value)
+	if D.layout[key] == nil then
+		print(log_prefix, "no such layout key", tostring(key))
+		return
+	end
+	D.layout[key] = value
+	print(log_prefix, "layout", key, "=", tostring(value))
+	D.Redress()
+end
+
+function D.Show()
+	for _, k in ipairs(table.keys(D.layout, true)) do
+		print(log_prefix, "layout", k, "=", tostring(D.layout[k]))
+	end
+end
+
+function OnMsg.LoadGame()
+	D.rigs = setmetatable({}, { __mode = "k" })   -- the visuals were DeleteOnLoadGame
+	D.previews = {}
+	for_each_depot(D.Dress)
+end
+
+-- No thread of ours enters a save: the cycles stop before it and restart after it (the previews'
+-- pattern, 2026-09-29).
+function OnMsg.SaveGameStart()
+	for _, rig in pairs(D.rigs) do stop_cycle(rig) end
+	for _, p in ipairs(D.previews or empty_table) do stop_cycle(p) end
+end
+
+function OnMsg.SaveGameDone()
+	for _, rig in pairs(D.rigs) do start_cycle(rig) end
+	for _, p in ipairs(D.previews or empty_table) do start_cycle(p) end
+end
+
+-- ---- reads ----------------------------------------------------------------------------------
+function D.Report()
+	local n = 0
+	for_each_depot(function(bld)
+		n = n + 1
+		local pos = bld:GetPos()
+		local q, r = WorldToHex(pos)
+		local rig = D.rigs[bld] or {}
+		local labelled = bld.city and table.find(bld.city.labels.Station or empty_table, bld) and "yes" or "NO"
+		print(string.format("%s depot %d slot=%s env=%s pos=%s hex=(%d,%d) angle=%d entity=%s valid=%s working=%s label.Station=%s elevator=%s tunnel=%s cabin=%s ropes=%d",
+			log_prefix, n, tostring(bld:GetMapSlot()), environment_of(bld), tostring(pos), q, r,
+			bld:GetAngle() / 60, bld:GetEntity(), tostring(IsValidEntity(bld:GetEntity())), tostring(bld.working),
+			labelled, tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
+			IsValid(rig.cabin) and tostring(rig.cabin:GetPos()) or "none", #(rig.ropes or empty_table)))
+		for _, name in ipairs(table.keys(design_spots, true)) do
+			local idx = bld:GetSpotBeginIndex(name)
+			local want = bld:GetRelativePoint(design_spots[name])
+			local wq, wr = WorldToHex(want)
+			if idx and idx >= 0 then
+				local got = bld:GetSpotPos(idx)
+				local gq, gr = WorldToHex(got)
+				print(string.format("%s   %-16s spot=%s hex=(%d,%d) design=%s off=%d cm %s", log_prefix, name,
+					tostring(got), gq, gr, tostring(want), got:Dist(want),
+					(gq == wq and gr == wr and got:Dist(want) < 100) and "MATCH" or "DIFFERENT"))
+			else
+				print(string.format("%s   %-16s MISSING on the entity; design hex=(%d,%d)", log_prefix, name, wq, wr))
+			end
+		end
+		for i = 1, 2 do
+			local el = bld.GetConnectorElement and bld:GetConnectorElement(i)
+			print(string.format("%s   connector %d element=%s pos=%s", log_prefix, i,
+				IsValid(el) and el.class or "none", IsValid(el) and tostring(el:GetPos()) or "-"))
+		end
+	end)
+	print(log_prefix, "depots", n)
+end
+
+-- The ceiling read (brief 25: size the rope so it never visibly stops short, and report what was
+-- measured). Prints the camera, every elevator on the current map with its own shaft top, and,
+-- within radius_m of each, every object group standing well above the ground there, by entity: the
+-- stalactites and cave pillars hang from the ceiling, so their heights are the ceiling's.
+function D.Measure(radius_m)
+	local map = CurrentMap
+	local radius = (radius_m or 150) * guim
+	local eye, lookat = cameraRTS.GetPosLookAt()
+	local ground_eye = terrain.GetHeight(map, eye)
+	local ground_look = terrain.GetHeight(map, lookat)
+	local zoom = cameraRTS.GetZoom()
+	local zmin, zmax = cameraRTS.GetZoomLimits()
+	print(string.format("%s measure env=%s camera eye z=%d, %d cm over the ground under it; look-at z=%d, ground there %d; eye over look-at ground %d cm; zoom %s of %s..%s",
+		log_prefix, GetEnvironment(map), eye:z(), eye:z() - ground_eye, lookat:z(), ground_look,
+		eye:z() - ground_look, tostring(zoom), tostring(zmin), tostring(zmax)))
+	local elevators = 0
+	map:MapForEach("map", "ElevatorBase", function(el)
+		elevators = elevators + 1
+		local p = el:GetPos()
+		local ground = terrain.GetHeight(map, p)
+		local bb = el:GetEntityBBox()
+		print(string.format("%s elevator %d entity=%s pos=%s ground=%d shaft top %d cm over its base",
+			log_prefix, elevators, el:GetEntity(), tostring(p), ground, (bb and bb:IsValid()) and bb:maxz() or -1))
+		local groups = {}
+		map:MapForEach(el, radius, "CObject", function(o)
+			if o == el then return end
+			local e = o:GetEntity() or ""
+			local oz = o:GetPos():z() - ground
+			local obb = e ~= "" and o:GetEntityBBox()
+			local top = oz + ((obb and obb:IsValid()) and obb:maxz() or 0) * o:GetScale() / 100
+			if oz > 20 * guim or top > 40 * guim or e:find("Stalactite") or e:find("Pillar") then
+				local g = groups[e] or { n = 0, lo = max_int, hi = min_int, top = min_int }
+				g.n, g.lo, g.hi, g.top = g.n + 1, Min(g.lo, oz), Max(g.hi, oz), Max(g.top, top)
+				groups[e] = g
+			end
+		end)
+		local keys = table.keys(groups, true)
+		if #keys == 0 then
+			print(log_prefix, "   nothing stands above 20 m within", radius / guim, "m")
+		end
+		for _, e in ipairs(keys) do
+			local g = groups[e]
+			print(string.format("%s   %-44s x%d  pos %d..%d cm over the elevator's ground, top %d cm",
+				log_prefix, e, g.n, g.lo, g.hi, g.top))
+		end
+	end)
+	print(log_prefix, "elevators on this map", elevators)
+end
+
+-- ---- free-standing previews (2026-09-29, kept): scaled vanilla art on the hex under the cursor,
+-- for comparing by eye. Visual only; nothing is kept across a load.
+--   SMRElevatorDepotDev.Preview(scale, mode, rope_m)         the elevator with its cabin cycle
+--   SMRElevatorDepotDev.PreviewTunnel(scale, lift_m, angle_deg, entity)
+--   SMRElevatorDepotDev.ClearPreview()
+D.previews = D.previews or {}
+
+function D.Preview(scale, mode, rope_m)
+	local map = CurrentMap
+	local L = D.layout
+	scale = scale or L.scale
+	local underground = GetEnvironment(map) == "Underground"
+	mode = mode or (underground and "up" or "down")
+	rope_m = rope_m or (mode == "up" and L.rope_underground_m or L.rope_surface_m)
+	local pos = point(HexToWorld(WorldToHex(GetTerrainCursor())))
+	pos = pos:SetZ(terrain.GetHeight(map, pos))
+	local p = { scale = scale, mode = mode, base = pos, ropes = {} }
+	p.elevator = PlaceObjectIn("ShapeshifterAutoAttach", map)
+	p.elevator:ChangeEntity(L.elevator_entity)
+	p.elevator.fx_actor_class = "SpaceElevator"
+	unselectable(p.elevator)
+	p.elevator:SetPos(pos)
+	p.elevator:SetScale(scale)
+	DeleteOnLoadGame(p.elevator)
+	p.cabin = free_prop("SpaceElevatorCabin", map, pos, scale)
+	local rope_step = MulDivRound(100 * guim, scale, 100)
+	local z = 0
+	while z < rope_m * guim do
+		p.ropes[#p.ropes + 1] = free_prop("SpaceElevatorRope", map, pos + point(0, 0, z), scale)
+		z = z + rope_step
+	end
+	local reach = mode == "up" and Max(rope_m, 120) * guim or -L.travel_down_m * guim
+	p.far = pos + point(0, 0, reach)
+	D.previews[#D.previews + 1] = p
+	start_cycle(p)
+	print(string.format("%s preview %d: %d%% at %s env=%s mode=%s rope %d m (%d tiles), cabin travels %d m",
+		log_prefix, #D.previews, scale, tostring(pos), GetEnvironment(map), mode, rope_m, #p.ropes, reach / guim))
+	return p
+end
+
+function D.PreviewTunnel(scale, lift_m, angle_deg, entity)
+	local map = CurrentMap
+	local L = D.layout
+	scale = scale or L.scale
+	entity = entity or L.tunnel_entity
+	local lift = lift_m and (lift_m * guim) or L.tunnel_lift
+	local pos = point(HexToWorld(WorldToHex(GetTerrainCursor())))
+	pos = pos:SetZ(terrain.GetHeight(map, pos) + lift)
+	local v = PlaceObjectIn("ShapeshifterAutoAttach", map)
+	v:ChangeEntity(entity)
+	unselectable(v)
+	v:SetPos(pos)
+	v:SetAngle((angle_deg or L.tunnel_angle) * 60)
+	v:SetScale(scale)
+	DeleteOnLoadGame(v)
+	D.previews[#D.previews + 1] = { elevator = v, ropes = {} }
+	local mouth = MulDivRound(50 * guim, scale, 100)   -- Trackconnector0 at (5000, 0, 0), entities.dat 25390750
+	print(string.format("%s tunnel preview %d: %s at %d%%, lifted %d cm; its rail meets vanilla track (800 cm) at %d cm here; mouth connector %d cm from its centre (a hex is 1000)",
+		log_prefix, #D.previews, entity, scale, lift, MulDivRound(800, scale, 100) + lift, mouth))
+	return v
+end
+
+function D.ClearPreview()
+	for _, p in ipairs(D.previews) do
+		stop_cycle(p)
+		for _, o in ipairs(p.ropes or empty_table) do if IsValid(o) then DoneObject(o) end end
+		if IsValid(p.cabin) then DoneObject(p.cabin) end
+		if IsValid(p.elevator) then DoneObject(p.elevator) end
+	end
+	print(log_prefix, "previews cleared", #D.previews)
+	D.previews = {}
+end
