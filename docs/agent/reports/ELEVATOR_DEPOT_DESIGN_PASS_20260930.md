@@ -69,6 +69,7 @@ From brief 26, verbatim:
 | the approach strip stays in `Collision`, leaves `Selection` | picking the deck still selects the depot; the outline no longer lies on the sand |
 | the deck starts at **-5485**, vanilla profile, dark top channel, one pillar at -4750 with vanilla's base | no gap, no plank; the owner asked for vanilla's look |
 | a real pit under the interior and a well under the core, through a `terrain_hole` surface | the hub's accepted mechanism; vanilla's own elevator expects the hole |
+| the rear cap at x -1560, 2.1 m inside the shell's end | vanilla's core ring wall (r 1508) intrudes into the shell's last 1.6 m; the cap now hides it (owner's render comment) |
 | the pit floor follows the descent 3.54 m under the track; dark-grey walls; a **black** rear cap; blue guide lines; the box continues under the ring to a black end wall past the hold | reads as a ramp going below grade; the train is never visible under the ring (no hole there) |
 | the well: r 4.55 m, floor **-8.8 m**, two blue rings, a plate under the ring's floor; the hole disc r 8.6 m (75 % of vanilla's) | the floor stays 41 cm above the parked train's roof; the cabin sinks through the black floor and is hidden |
 | the receiver is a **second entity** (`SMROptInElevatorDepotReceiver`), attached by the Lua at `receiver_z` -300, underground only | one body cannot look different per map; the owner tunes its height live (`Set("receiver_z", …)`) |
@@ -88,7 +89,7 @@ entity's hole cut out, which is what the game's hole grid should do. Blender lig
 | item | render | what changed | owner |
 |---|---|---|---|
 | 1 floating element | `sheet_1_floating_element_and_open_back.png` | `Sign2` gone from the entity; `Sign1`'s sign destroyed after `Station:GameInit` and on load | not yet seen |
-| 2 open back | same sheet (right) | one closed slab behind the last ring, black inside, ivory outside, to 0.4 m below grade; the verifier's nine rays from behind all stop at x -1350 | not yet seen |
+| 2 open back | same sheet (right), `sheet_2_portal_interior.png` | one closed slab across the shell at **x -1560**, black inside, ivory outside, to 0.4 m below grade; the verifier's nine rays from behind all stop at x -1554. First cut sat at -1349, and the owner's look at that render: *"the back side looks a little un natural like its bleed through from the model behind it"*: vanilla's ring wall (r 1508 at 75 %) stands inside the shell's last 1.6 m, so the cap moved in front of it (Assets `718390f`) | render seen, cap moved; game not yet |
 | 3 interior | `sheet_2_portal_interior.png`, `sheet_5_interior.png` | a dark-grey deck at grade for 5 m, then the pit floor descending with the track (3.54 m under it) to -11.5 m at the rear wall and -17.5 m under the hold, dark-grey walls, blue guide lines at wagon height, black rear cap, black end wall at +12 m | not yet seen |
 | 4 track join | `sheet_3_track_join.png` | deck from -5485 to the mouth and on down the descent; 2.04 m wide, 8.53..10.69 m, dark channel on top, pillar at -4750 with vanilla's base; no approach strip in `Selection` | not yet seen |
 | 5 blend | `sheet_4_blend_and_core.png` | the apron along both feet, wings at the mouth, navy stripe | not yet seen |
@@ -192,6 +193,8 @@ export. Predictions are in that report; the fixture is the owner's hub save with
   liner there and adds nothing beyond it. Recorded as `engine_inside_solid_below_grade_informational: 10`.
 - **The receiver's fit** to the cabin's underside is a guess (55 cm under the cabin's lowest point at
   rest, cradles 30 high): `receiver_z` is live for that reason.
+- The ring wall's real radius at 75 % is the footprint fit (1508), not a mesh measurement; if the art's wall is
+  smaller, the cap simply sits 2 m early, sealed either way.
 - The renders' elevator is a proxy; the dark ring floor's real height is unknown, so the well's plate
   (z -5..-15) and wall top (-5) may sit a little above or below vanilla's floor edge. Cheap to move.
 - Not done: any wiring, drone crew, twin placement, train movement; the dome build; the rail shaft.
