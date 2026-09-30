@@ -1,0 +1,1375 @@
+					Render 0:00:00:007
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	45%
+Disk Free      	1219571 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:096
+Steam initialized (AppId 3215050)
+					Render 0:00:00:099
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:02:000
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:02:168
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:416
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:624
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+Lua revision: 406343
+Assets revision: 33225
+						Lua 0:00:03:625
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:17:131
+Account storage loaded successfully in 3 ms
+						Lua 0:00:17:132
+DLC norman loaded, lua revision 406343, assets revision 33225
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:17:136
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-010) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-061) unpacked from appdata
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+						Lua 0:00:17:531
+[mod] [CommunityFixPack] LoadFirst: already first of 5 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_ElevatorStationDev_20260929, SMR_CommunityOptInPack); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+						Lua 0:00:17:532
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+						Lua 0:00:17:533
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:17:534
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:17:535
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:17:536
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:17:537
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:17:538
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] GhostPowerCells: applied
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:17:539
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:544
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+						Lua 0:00:17:548
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:17:550
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:17:552
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] hub settings and transient train allocation loaded
+[TrainDistribution] native storage-row UI registered
+						Lua 0:00:17:553
+[TrainBay] loaded: vanilla auto-fill and siding placement; legacy HubTrain compatibility
+						Lua 0:00:17:554
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied						Lua 0:00:17:555
+
+						Lua 0:00:18:260
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:18:353
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:18:450
+Reloading done in 1313 ms
+						Lua 0:00:18:451
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:18:497
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=2
+						Lua 0:00:18:948
+[preset] Preset postprocess took 222 ms.
+						Lua 0:00:18:993
+482 / 482 particle streams loaded in 38 ms.
+						Lua 0:00:18:995
+5 / 5 particle streams loaded in 2 ms.
+						Lua 0:00:18:996
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+						Lua 0:00:18:997
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:19:208
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:19:300
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=3
+						Lua 0:00:19:333
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=4
+						Lua 0:00:19:351
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_ElevatorStationDev_20260929, SMR_CommunityOptInPack
+						Lua 0:00:19:602
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:19:698
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=5
+						Lua 0:00:20:166
+[PdxSDK] Started up. Took 1099
+						Lua 0:00:20:579
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:20:591
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:703
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:27:622
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:00:27:627
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:30:846
+*** Assets reloaded in 3.2 s, read 359.0 MB, read speed 111.5 MB/s, average read 8137 bytes.
+						Lua 0:00:31:887
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=19631 id=6
+						Lua 0:00:32:779
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=19631 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=19631 id=7
+						Lua 0:00:33:454
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-060), which is loaded with a different version 0.00-061
+[mod] Savegame references Mod DEV ONLY - Rail Shaft (cross-map train tunnel prototype) (id SMR_RailShaftDev_20260923, v0.00-001) which is not present
+[mod] This savegame tries to load Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-006), which is loaded with a different version 0.00-010
+[mod] Savegame references Mod DEV ONLY - Train Hub Prototype (id SMR_TrainHubPrototype_20260918, v0.00-002) which is not present
+						Lua 0:00:34:781
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 2 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:00:34:782
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:00:34:783
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:00:34:784
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:34:850
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:00:34:851
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:00:34:852
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:00:34:864
+[ElevatorDepotDev] dressed table: 00000149527864E8 env=Surface elevator=true tunnel=false cabin=true ropes=0 scale=75 receiver=false signs=0
+						Lua 0:00:34:867
+[ElevatorDepotDev] dressed table: 000001495567BD68 env=Underground elevator=true tunnel=false cabin=true ropes=4 scale=75 receiver=true signs=0
+						Lua 0:00:34:963
+game_settings:
+						Lua 0:00:34:964
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: NASA, paradox, Brazil
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:35:115
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=28 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=116
+						Lua 0:00:35:116
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 7495 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=24 last=section_attach last_id=45 present=true session=1790784979:573248334:377362876:189945307 t=21936244 id=8
+[SMRTK] SMRTK_PROVENANCE actions=24 last=section_attach last_id=45 present=true session=1790784979:573248334:377362876:189945307 t=21936244 id=8
+						Lua 0:00:35:127
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=21936244 id=9
+						Lua 0:00:35:140
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=21936244 id=10
+						Lua 0:00:35:145
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:35:258
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=21936244 id=11
+						Lua 0:00:35:651
+Game loaded on map BlankBig_01 in 8165 ms
+						Lua 0:01:00:396
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:00:408
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=21961345 id=12
+						Lua 0:01:04:242
+[ElevatorDepotDev] prop inspect index=1 object=table: 0000014955CF0360 class=UndergroundPassage entity=ElevatorBuildIndicator_Surface slot=1 env=Surface pos=(281000, 225160, 10000) visual=(281000, 225160, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38315789794705412 enumflags=295256331 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=2 object=table: 00000149564CAEB8 class=ElevatorBuildIndicator_SurfaceDecal entity=ElevatorBuildIndicator_SurfaceDecal slot=1 env=Surface pos=(281000, 225160, 10000) visual=(281000, 225160, 10000) scale=100 parent=table: 0000014955CF0360 owner=UNOWNED Object=nil permanent=false gameflags=36064050110562304 enumflags=335544347 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=3 object=table: 0000014954C0E208 class=SpacebarElevator entity=SpacebarElevator slot=1 env=Surface pos=(318000, 277120, 10000) visual=(318000, 277120, 10000) scale=100 parent=table: 0000014954B1E1C8 owner=UNOWNED Object=true permanent=false gameflags=42819449551618048 enumflags=277151755 delete_on_load=false
+						Lua 0:01:04:243
+[ElevatorDepotDev] prop inspect index=4 object=table: 000001495C337088 class=SpacebarElevator entity=SpacebarElevator slot=1 env=Surface pos=(318000, 277120, 10000) visual=(318000, 277120, 10000) scale=100 parent=table: 0000014954B1E1C8 owner=UNOWNED Object=true permanent=false gameflags=42819449551618048 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=5 object=table: 000001495C33C5B8 class=SpacebarElevator entity=SpacebarElevator slot=1 env=Surface pos=(318000, 277120, 10000) visual=(318000, 277120, 10000) scale=100 parent=table: 0000014954B1E1C8 owner=UNOWNED Object=true permanent=false gameflags=42819449551618048 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=6 object=table: 00000149533A2798 class=UndergroundPassage entity=ElevatorBuildIndicator_Surface slot=1 env=Surface pos=(391500, 290110, 10000) visual=(391500, 290110, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38315789794705412 enumflags=295256323 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=7 object=table: 0000014956994448 class=ElevatorBuildIndicator_SurfaceDecal entity=ElevatorBuildIndicator_SurfaceDecal slot=1 env=Surface pos=(391500, 290110, 10000) visual=(391500, 290110, 10000) scale=100 parent=table: 00000149533A2798 owner=UNOWNED Object=nil permanent=false gameflags=36028865738473472 enumflags=335544347 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=8 object=table: 0000014956F63250 class=Elevator entity=ElevatorSurface slot=1 env=Surface pos=(391500, 290110, 10000) visual=(391500, 290110, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38316340624261124 enumflags=295502091 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=9 object=table: 00000149577EE400 class=ElevatorSurfaceCabin entity=ElevatorSurfaceCabin slot=1 env=Surface pos=(391500, 290110, 10000) visual=(391500, 290110, 10000) scale=100 parent=table: 0000014956F63250 owner=UNOWNED Object=true permanent=false gameflags=42819450625359872 enumflags=8716299 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=10 object=table: 000001495363E610 class=ElevatorSurfaceDoor entity=ElevatorSurfaceDoor slot=1 env=Surface pos=(391500, 290110, 10000) visual=(391500, 290110, 10000) scale=100 parent=table: 0000014956F63250 owner=UNOWNED Object=true permanent=false gameflags=36063982465351680 enumflags=262155 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=11 object=table: 00000149527864E8 class=SMROptInElevatorDepotDev entity=SMROptInElevatorDepot slot=1 env=Surface pos=(407500, 291842, 10000) visual=(407500, 291842, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38316339550519300 enumflags=27066635 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=12 object=table: 0000014957395B28 class=ShapeshifterAutoAttach entity=SpaceElevator slot=1 env=Surface pos=(407500, 291842, 10000) visual=(407500, 291842, 10000) scale=75 parent=table: 00000149527864E8 owner=depot:7985 Object=true permanent=false gameflags=36046389205041152 enumflags=276889611 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=13 object=table: 0000014957396188 class=ShapeshifterAutoAttach entity=SpaceElevatorLights slot=1 env=Surface pos=(407500, 291842, 10000) visual=(407500, 291842, 10000) scale=100 parent=table: 0000014957395B28 owner=UNOWNED Object=true permanent=false gameflags=40550057551888384 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=14 object=table: 0000014957397D38 class=SpaceElevatorCabinLights entity=SpaceElevatorCabinLights slot=1 env=Surface pos=(407500, 291842, 4225) visual=(407500, 291842, 4277) scale=100 parent=table: 0000014957397710 owner=UNOWNED Object=true permanent=false gameflags=328762841517555840 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=15 object=table: 0000014957397710 class=SpaceElevatorCabin entity=SpaceElevatorCabin slot=1 env=Surface pos=(407500, 291842, 4300) visual=(407500, 291842, 4277) scale=75 parent=nil owner=depot:7985 Object=true permanent=false gameflags=36063981391085704 enumflags=293666847 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=16 object=table: 0000014953977080 class=SurfacePassage entity=ElevatorBuildIndicator_Underground slot=2 env=Underground pos=(281000, 225160) visual=(281000, 225160, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=39441689701548036 enumflags=293667083 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=17 object=table: 000001495D2E04C8 class=ElevatorBuildIndicator_UndergroundPassageImprint entity=ElevatorBuildIndicator_UndergroundPassageImprint slot=2 env=Underground pos=(281000, 225160, 10000) visual=(281000, 225160, 10000) scale=100 parent=table: 0000014953977080 owner=UNOWNED Object=nil permanent=false gameflags=36064050110562304 enumflags=335544347 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=18 object=table: 000001495567BD68 class=SMROptInElevatorDepotDev entity=SMROptInElevatorDepot slot=2 env=Underground pos=(384000, 303100, 10000) visual=(384000, 303100, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38316339550519300 enumflags=27066635 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=19 object=table: 0000014957398F58 class=ShapeshifterAutoAttach entity=SpaceElevator slot=2 env=Underground pos=(384000, 303100, 10000) visual=(384000, 303100, 10000) scale=75 parent=table: 000001495567BD68 owner=depot:8404 Object=true permanent=false gameflags=36046389205041152 enumflags=276889611 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=20 object=table: 0000014957399830 class=ShapeshifterAutoAttach entity=SpaceElevatorLights slot=2 env=Underground pos=(384000, 303100, 10000) visual=(384000, 303100, 10000) scale=100 parent=table: 0000014957398F58 owner=UNOWNED Object=true permanent=false gameflags=40550057551888384 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=21 object=table: 0000014957399F10 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 10000) visual=(384000, 303100, 10000) scale=75 parent=table: 000001495567BD68 owner=depot:8404 Object=nil permanent=false gameflags=36028797018996744 enumflags=268435483 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=22 object=table: 000001495DF43058 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 10000) visual=(384000, 303100, 10000) scale=75 parent=nil owner=UNOWNED Object=nil permanent=false gameflags=36028797018996744 enumflags=285212699 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=23 object=table: 000001495739AD80 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 17500) visual=(384000, 303100, 17500) scale=75 parent=table: 000001495567BD68 owner=depot:8404 Object=nil permanent=false gameflags=36028797018996744 enumflags=268435483 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=24 object=table: 000001495DF22A90 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 17500) visual=(384000, 303100, 17500) scale=75 parent=nil owner=UNOWNED Object=nil permanent=false gameflags=36028797018996744 enumflags=285212699 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=25 object=table: 000001495739AE00 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 25000) visual=(384000, 303100, 25000) scale=75 parent=table: 000001495567BD68 owner=depot:8404 Object=nil permanent=false gameflags=36028797018996744 enumflags=268435483 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=26 object=table: 000001495DF228F8 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 25000) visual=(384000, 303100, 25000) scale=75 parent=nil owner=UNOWNED Object=nil permanent=false gameflags=36028797018996744 enumflags=285212699 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=27 object=table: 000001495739AE80 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 32500) visual=(384000, 303100, 32500) scale=75 parent=table: 000001495567BD68 owner=depot:8404 Object=nil permanent=false gameflags=36028797018996744 enumflags=268435483 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=28 object=table: 000001495DF211D8 class=SpaceElevatorRope entity=SpaceElevatorRope slot=2 env=Underground pos=(384000, 303100, 32500) visual=(384000, 303100, 32500) scale=75 parent=nil owner=UNOWNED Object=nil permanent=false gameflags=36028797018996744 enumflags=285212699 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=29 object=table: 000001495739A038 class=SpaceElevatorCabin entity=SpaceElevatorCabin slot=2 env=Underground pos=(384000, 303100, 38500) visual=(384000, 303100, 38614) scale=75 parent=nil owner=depot:8404 Object=true permanent=false gameflags=36063981391085704 enumflags=293666847 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=30 object=table: 000001495739A078 class=SpaceElevatorCabinLights entity=SpaceElevatorCabinLights slot=2 env=Underground pos=(384000, 303100, 38875) visual=(384000, 303100, 38614) scale=100 parent=table: 000001495739A038 owner=UNOWNED Object=true permanent=false gameflags=328762841517555840 enumflags=277151755 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=31 object=table: 0000014957399950 class=ShapeshifterAutoAttach entity=SMROptInElevatorDepotReceiver slot=2 env=Underground pos=(384000, 303100, 9700) visual=(384000, 303100, 9700) scale=100 parent=table: 000001495567BD68 owner=depot:8404 Object=true permanent=false gameflags=36046389205041152 enumflags=8454155 delete_on_load=true
+[ElevatorDepotDev] prop inspect index=32 object=table: 000001495344F2E0 class=SurfacePassage entity=ElevatorBuildIndicator_UndergroundImprint slot=2 env=Underground pos=(388500, 290110) visual=(388500, 290110, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=39441689701548036 enumflags=293667075 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=33 object=table: 000001495DEB7BD0 class=ElevatorBuildIndicator_UndergroundPassageImprint entity=ElevatorBuildIndicator_UndergroundPassageImprint slot=2 env=Underground pos=(388500, 290110, 10000) visual=(388500, 290110, 10000) scale=100 parent=table: 000001495344F2E0 owner=UNOWNED Object=nil permanent=false gameflags=36064050110562304 enumflags=335544347 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=34 object=table: 000001495A214140 class=Elevator entity=ElevatorUnderground slot=2 env=Underground pos=(388500, 290110, 10000) visual=(388500, 290110, 10000) scale=100 parent=nil owner=UNOWNED Object=true permanent=true gameflags=38316340624261124 enumflags=295502091 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=35 object=table: 00000149577BBC78 class=ElevatorUndergroundCabin entity=ElevatorUndergroundCabin slot=2 env=Underground pos=(388500, 290110, 10000) visual=(388500, 290110, 10000) scale=100 parent=table: 000001495A214140 owner=UNOWNED Object=true permanent=false gameflags=42819450625359872 enumflags=8716299 delete_on_load=false
+[ElevatorDepotDev] prop inspect index=36 object=table: 00000149559C4430 class=ElevatorUndergroundDoor entity=ElevatorUndergroundDoor slot=2 env=Underground pos=(388500, 290110, 10000) visual=(388500, 290110, 10000) scale=100 parent=table: 000001495A214140 owner=UNOWNED Object=true permanent=false gameflags=36063982465351680 enumflags=262155 delete_on_load=false
+[ElevatorDepotDev] prop census CObjects=20871 elevator_entities=36 ropes=8 ropes_outside_Object=8 parentless_unowned_ropes=4; read-only
+						Lua 0:01:04:245
+{
+    {
+        entity = ElevatorBuildIndicator_Surface
+        map = {
+            BehaviorAreaUpdate = {}
+            BehaviorLabels = {}
+            BehaviorLabelsUpdate = {}
+            BiomeGrid = false
+            CameraState = {...}
+            City = {...}
+            Collections = {}
+            CollectionsByName = {}
+            ConstructableArea = (5000, 5000)-(609400, 609400)
+            ContourReasons = false
+            CurrentLightmodel = {...}
+            DomeSoundEnhanced = outside
+            DoneInSuspendPassObjs = false
+            DroneUnreachablesVersion = 8637
+            EditorCursorObjs = {}
+            ErrorOnSave = false
+            FXBehaviorNotifyRadius = {}
+            FXCameraSounds = {}
+            FXSourceStates = false
+            FXSourceToUpdate = {}
+            FlightCache = {...}
+            FlightSystem = {...}
+            ForcedImpassableMarkers = false
+            ForcedTemplateObjs = {}
+            ForcedWindAngle = false
+            GameInitAfterLoading = false
+            GameTimeAdvanced = true
+            GameTimeStarted = 0
+            Groups = {}
+            Height = 614400
+            HiddenSpawnedObjects = false
+            HorizonWaterObj = false
+            InvisibleReasons = {}
+            Landscapes = {}
+            LastSetLightmodel = {...}
+            LerpHeatGridThread = thread: 0000014956B231C8
+            LightmodelListNames = {...}
+            LightmodelOverrides = {}
+            LightningThreads = false
+            MapGenSkipGrid = false
+            MapHighestZ = 10268
+            MapLoadRandom = 5208738866396844417
+            MapLowestZ = 6787
+            MapPassable = true
+            MapPlayers = {...}
+            MapStates = {...}
+            MarkerObjs = false
+            MinimumElevationMarker = false
+            NightLightsState = false
+            NightLightsThread = false
+            PRG_BldSlotData = {...}
+            ParSystemsForceLooped = {}
+            PartialEditStopReasons = {}
+            PassTypeMaxCount = 0
+            PassTypeMaxRadius = -1
+            PassVersion = 3186
+            PathCache = {}
+            PlacedCloudsPresetId = false
+            PlacedMountainsPresetId = false
+            PlacedOutsiderObjects = {}
+            PlayArea = (102400, 102400, 0)-(512000, 512000, 65535)
+            PropertyHelpers = {}
+            PropertyHelpers_Refs = {}
+            Region = {}
+            RegionId = false
+            RepeatThreads = {...}
+            ResourceDeliverers = {}
+            ResourceOverviewCity = {...}
+            RevealDarknessFastObjects = false
+            RevealDarknessObjects = false
+            Seed = -5126203103602600386
+            SoundSourcesCover = {...}
+            SuspendPassEditsReasons = {}
+            SuspendProcessReasons = {...}
+            SuspendTerrainInvalidationReasons = {}
+            SuspendedProcessing = false
+            TemplateSpawn = {}
+            TerrainClipPlanesCache = {}
+            TerrainDepositCircles = {}
+            TerrainDepositGrid = userdata: 00000149516B3C40
+            TutorialSaveLoaded = false
+            UIMapPlayer = {...}
+            Width = 614400
+            WindChangeLast = 5700
+            WindChangeNext = 5700
+            WindChangeTime = 21957900
+            WindOff = false
+            __shown_planes = {}
+            buildable = {...}
+            camera_shake_max_offset = 0
+            camera_shake_thread = false
+            cooldowns = {}
+            folder = Maps/BlankBig_01/
+            fx_colorization = {}
+            g_CameraObj = {...}
+            g_CollideLuaObjects = false
+            g_DontBuildHere = {...}
+            g_DustDevils = {}
+            g_IncomingMissiles = {}
+            g_RefugeeOutcome = {}
+            g_RocketLanded = true
+            g_SetpieceActors = {}
+            g_ShowCollectionLimitWarning = true
+            heat_grid = {...}
+            hex_height = 710
+            hex_width = 615
+            l_DomeLastOpened = false
+            landscape_grid = userdata: 0000014958344FF8
+            lr_manager = {...}
+            mapdata = {...}
+            name = BlankBig_01
+            object_hex_grid = userdata: 0000014954B31CE0
+            pinned = {...}
+            s_DelayedBindMomentsThread = false
+            s_FrostStrengths = {...}
+            s_SelectedWires = false
+            slot = 1
+            supply_connection_grid = {...}
+            supply_overlay_grid = userdata: 00000149529FD6A0
+            true = 1
+        }
+        object = {
+            accumulate_maintenance_points = false
+            accumulated_maintenance_points = 0
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            city = {...}
+            command_centers = {...}
+            creation_time = 0
+            fx_working = true
+            grids_applied = true
+            handle = 1002
+            input_shortage_time = 0
+            modifications = {...}
+            other = {...}
+            resource_spots = {...}
+            revealed = true
+            update_thread = thread: 0000014955B27F60
+            working = true
+            true = userdata: 00000149123F82B0
+        }
+        pos = (281000, 225160, 10000)
+        scale = 100
+    }
+    { entity = ElevatorBuildIndicator_SurfaceDecal, map = {loop!}, object = { true = userdata: 00000149123F83E0 }, pos = (281000, 225160, 10000), scale = 100 }
+    {
+        entity = SpacebarElevator
+        map = {loop!}
+        object = { handle = 2000000633, wp_door1 = {...}, wp_door2 = {...}, wp_queue1 = {...}, true = userdata: 00000149124D8A38 }
+        pos = (318000, 277120, 10000)
+        scale = 100
+    }
+    {
+        entity = SpacebarElevator
+        map = {loop!}
+        object = { handle = 2000000634, wp_door1 = {...}, wp_door2 = {...}, wp_queue1 = {...}, true = userdata: 00000149124D8990 }
+        pos = (318000, 277120, 10000)
+        scale = 100
+    }
+    {
+        entity = SpacebarElevator
+        map = {loop!}
+        object = { handle = 2000000632, wp_door1 = {...}, wp_door2 = {...}, wp_queue1 = {...}, true = userdata: 00000149124D8AE0 }
+        pos = (318000, 277120, 10000)
+        scale = 100
+    }
+    {
+        entity = ElevatorBuildIndicator_Surface
+        map = {loop!}
+        object = {
+            accumulate_maintenance_points = false
+            accumulated_maintenance_points = 0
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            city = {...}
+            command_centers = {...}
+            creation_time = 0
+            elevator = {...}
+            elevator_construction = false
+            fx_working = true
+            grids_applied = true
+            handle = 1004
+            input_shortage_time = 0
+            modifications = {...}
+            other = {...}
+            resource_spots = {...}
+            revealed = true
+            update_thread = thread: 0000014951814E58
+            working = true
+            true = userdata: 000001491250B990
+        }
+        pos = (391500, 290110, 10000)
+        scale = 100
+    }
+    { entity = ElevatorBuildIndicator_SurfaceDecal, map = {loop!}, object = { true = userdata: 000001491250BAC0 }, pos = (391500, 290110, 10000), scale = 100 }
+    {
+        entity = ElevatorSurface
+        map = {loop!}
+        object = {
+            UIWorkRadius = 35
+            accumulated_maintenance_points = 64800
+            are_requesters_connected = true
+            auto_connect = true
+            base_build_points = 20000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 10000
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 2000
+            base_construction_cost_Metals = 5000
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_electricity_consumption = 0
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_electricity_consumption = 5000
+            base_heating_circuits = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_penalty_pct = 100
+            base_salvage_modifier = 100
+            base_show_service_area = true
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_starting_drones = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_radius = 35
+            base_work_sanity_protection = 0
+            charging_stations = {...}
+            city = {...}
+            command_centers = {...}
+            connected_stations = {...}
+            connected_task_requesters = {...}
+            connections_skin_name = Default
+            constructions = {}
+            creation_time = 20344961
+            deficit_table = {...}
+            deficit_thread = thread: 0000014955074B48
+            demand_queues = {...}
+            drones = {}
+            electricity = {...}
+            electricity_base_consumption = 5000
+            electricity_consumption = 0
+            free_landing_slots = 2
+            fx_working = true
+            grids_applied = true
+            handle = 7828
+            has_free_landing_slots = true
+            init_with_skin = false
+            input_shortage_time = 0
+            landing_slots = {...}
+            lap_start = 20344961
+            last_maintenance_points_accumulation_ts = 20344961
+            load_samples = {...}
+            load_samples_pos = 12
+            load_samples_sum = 48
+            maintenance_request_lookup = {...}
+            maintenance_resource_amount = 700
+            maintenance_resource_request = demand "MachineParts" from Elevator actual:0 (target:0)
+            maintenance_threshold_base = 120000
+            maintenance_threshold_current = 108000
+            maintenance_work_request = work "repair" from Elevator actual:0 (target:0)
+            max_colorization_materials_attaches = 3
+            modifications = {...}
+            name = 
+            notified_can_command_drones = true
+            other = {...}
+            passage = {...}
+            priority_queue = {...}
+            queued_shuttles = {}
+            recent_task_drones = {}
+            resource_spots = {...}
+            restrictor_tables = {...}
+            restrictor_update_mask = 0
+            restrictor_update_thread = thread: 0000014955BAFFD8
+            serviced_rockets = {}
+            serviced_wasterock_dumps = {}
+            shared_depot = {...}
+            signs = {}
+            supply_queues = {...}
+            task_requests = {...}
+            under_construction = {}
+            units = {}
+            update_constructions_thread = thread: 0000014959777B08
+            update_thread = thread: 0000014955A04B10
+            water = {...}
+            waypoint_chains = {...}
+            work_radius = 35
+            working = true
+            true = userdata: 00000149124FF598
+        }
+        pos = (391500, 290110, 10000)
+        scale = 100
+    }
+    {
+        entity = ElevatorSurfaceCabin
+        map = {loop!}
+        object = { handle = 2000002547, wp_queue1 = false, wp_queue2 = false, true = userdata: 0000014912500928 }
+        pos = (391500, 290110, 10000)
+        scale = 100
+    }
+    {
+        entity = ElevatorSurfaceDoor
+        map = {loop!}
+        object = { handle = 5575402356, open_counter = 0, true = userdata: 00000149124FF7C8 }
+        pos = (391500, 290110, 10000)
+        scale = 100
+    }
+    {
+        entity = SMROptInElevatorDepot
+        map = {loop!}
+        object = {
+            accumulate_maintenance_points = false
+            active_resource_groups = {...}
+            base_build_points = 1000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_electricity_consumption = 0
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_electricity_consumption = 0
+            base_heating_circuits = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_max_storage_per_resource = 60000
+            base_penalty_pct = 100
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            box_height = 100
+            capacity_columns = {...}
+            city = {...}
+            colonists_inbound = {}
+            command_centers = {...}
+            construction_data = {}
+            construction_queue = {}
+            creation_time = 21238594
+            demand = {...}
+            desire_slider_max = 120
+            desired_amount = 10000
+            electricity = {...}
+            free_landing_slots = 0
+            full_today = 0
+            full_yesterday = 0
+            fx_actor_class = TrainStation
+            fx_working = true
+            grids_applied = true
+            grouped_resources_for_ip = {...}
+            handle = 7985
+            has_free_landing_slots = false
+            initialized = true
+            input_shortage_time = 0
+            interest1 = needFood
+            label_effects = {}
+            label_modifiers = {}
+            labels = {...}
+            landing_slots = {}
+            last_reset = 31
+            maintenance_resource_amount = 700
+            maintenance_threshold_base = 120000
+            max_storage_per_resource = 120000
+            max_z = 40
+            modifications = {...}
+            orig_terrain1 = 15
+            orig_terrain2 = 22
+            pending_removal = {}
+            placed_cubes = {}
+            queued_shuttles = {}
+            resource = {...}
+            resource_spots = {...}
+            serviced_range_buildings = false
+            signs = {}
+            spent_time_values = {}
+            stockpiled_amount = {...}
+            storable_resources = {...}
+            supply = {...}
+            task_requests = {...}
+            track_busy = {}
+            train_construction_request_metal = demand "Metals" from SMROptInElevatorDepotDev actual:0 (target:0)
+            train_construction_request_mp = demand "Electronics" from SMROptInElevatorDepotDev actual:0 (target:0)
+            transport_policy = {}
+            transport_request_metal = supply "Metals" from SMROptInElevatorDepotDev actual:0 (target:0)
+            transport_request_mp = supply "Electronics" from SMROptInElevatorDepotDev actual:0 (target:0)
+            update_thread = thread: 0000014956325808
+            visitors_per_day = 0
+            visual_col_start = {...}
+            visual_cubes = {...}
+            waiting_for_train = {}
+            working = true
+            true = userdata: 0000014912500F30
+        }
+        pos = (407500, 291842, 10000)
+        scale = 100
+    }
+    {
+        entity = SpaceElevator
+        map = {loop!}
+        object = { auto_attach_mapping = {}, fx_actor_class = SpaceElevator, handle = 5355507075, true = userdata: 00000149127B6920 }
+        pos = (407500, 291842, 10000)
+        scale = 75
+    }
+    {
+        entity = SpaceElevatorLights
+        map = {loop!}
+        object = { auto_attach_mapping = {}, handle = 5593798998, true = userdata: 00000149128406F0 }
+        pos = (407500, 291842, 10000)
+        scale = 100
+    }
+    { entity = SpaceElevatorCabinLights, map = {loop!}, object = { handle = 5448563888, true = userdata: 00000149128407C0 }, pos = (407500, 291842, 4225), scale = 100 }
+    {
+        entity = SpaceElevatorCabin
+        map = {loop!}
+        object = { handle = 5487386460, smr_depot_prop = true, true = userdata: 0000014913A7E880 }
+        pos = (407500, 291842, 4300)
+        scale = 75
+    }
+    {
+        entity = ElevatorBuildIndicator_Underground
+        map = {
+            BehaviorAreaUpdate = {}
+            BehaviorLabels = {}
+            BehaviorLabelsUpdate = {}
+            BiomeGrid = false
+            CameraState = {...}
+            City = {...}
+            Collections = {...}
+            CollectionsByName = {...}
+            ConstructableArea = (5000, 5000)-(609400, 609400)
+            ContourReasons = false
+            CurrentLightmodel = {...}
+            DomeSoundEnhanced = outside
+            DoneInSuspendPassObjs = false
+            DroneUnreachablesVersion = 13
+            EditorCursorObjs = {}
+            ErrorOnSave = false
+            FXBehaviorNotifyRadius = {}
+            FXCameraSounds = {}
+            FXSourceStates = false
+            FXSourceToUpdate = {}
+            FlightCache = {...}
+            FlightSystem = {...}
+            ForcedImpassableMarkers = false
+            ForcedTemplateObjs = {}
+            ForcedWindAngle = false
+            GameInitAfterLoading = false
+            GameTimeAdvanced = true
+            GameTimeStarted = 0
+            Groups = {}
+            Height = 614400
+            HiddenSpawnedObjects = false
+            HorizonWaterObj = false
+            InvisibleReasons = {}
+            Landscapes = {}
+            LastSetLightmodel = {...}
+            LerpHeatGridThread = false
+            LightmodelListNames = {...}
+            LightmodelOverrides = {}
+            LightningThreads = false
+            MapGenSkipGrid = false
+            MapHighestZ = 10015
+            MapLoadRandom = -2395606312287006160
+            MapLowestZ = 10000
+            MapPassable = true
+            MapPlayers = {...}
+            MapStates = {...}
+            MarkerObjs = false
+            MinimumElevationMarker = false
+            NightLightsState = true
+            NightLightsThread = false
+            PRG_BldSlotData = {}
+            ParSystemsForceLooped = {}
+            PartialEditStopReasons = {}
+            PassTypeMaxCount = 0
+            PassTypeMaxRadius = -1
+            PassVersion = 12
+            PathCache = {}
+            PlacedCloudsPresetId = false
+            PlacedMountainsPresetId = false
+            PlacedOutsiderObjects = {}
+            PlayArea = (102400, 102400, 0)-(512000, 512000, 65535)
+            PropertyHelpers = {}
+            PropertyHelpers_Refs = {}
+            Region = {}
+            RegionId = false
+            RepeatThreads = {...}
+            ResourceDeliverers = {}
+            ResourceOverviewCity = {...}
+            RevealDarknessFastObjects = {}
+            RevealDarknessObjects = {...}
+            Seed = -6226186484581625573
+            SoundSourcesCover = {...}
+            SuspendPassEditsReasons = {}
+            SuspendProcessReasons = {...}
+            SuspendTerrainInvalidationReasons = {}
+            SuspendedProcessing = false
+            TemplateSpawn = {}
+            TerrainClipPlanesCache = {}
+            TerrainDepositCircles = {}
+            TerrainDepositGrid = userdata: 00000149569B1C00
+            TutorialSaveLoaded = false
+            UIMapPlayer = {...}
+            Width = 614400
+            WindChangeLast = 1000
+            WindChangeNext = 1000
+            WindChangeTime = 21963000
+            WindOff = false
+            __shown_planes = {}
+            buildable = {...}
+            camera_shake_max_offset = 0
+            camera_shake_thread = false
+            cooldowns = {}
+            folder = Maps/BlankUnderground_01/
+            fx_colorization = {}
+            g_CameraObj = {...}
+            g_CollideLuaObjects = false
+            g_DontBuildHere = {...}
+            g_DustDevils = {}
+            g_IncomingMissiles = {}
+            g_RefugeeOutcome = {}
+            g_RocketLanded = false
+            g_SetpieceActors = {}
+            g_ShowCollectionLimitWarning = true
+            heat_grid = false
+            hex_height = 710
+            hex_width = 615
+            l_DomeLastOpened = false
+            landscape_grid = userdata: 0000014952B12138
+            lr_manager = {...}
+            mapdata = {...}
+            name = BlankUnderground_01
+            object_hex_grid = userdata: 00000149569B6FB8
+            pinned = {}
+            regenerated = true
+            s_DelayedBindMomentsThread = false
+            s_FrostStrengths = {...}
+            s_SelectedWires = false
+            slot = 2
+            supply_connection_grid = {...}
+            supply_overlay_grid = userdata: 0000014954C9FBA8
+            true = 2
+        }
+        object = {
+            accumulate_maintenance_points = false
+            accumulated_maintenance_points = 0
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            city = {...}
+            creation_time = 0
+            fx_working = true
+            grids_applied = true
+            handle = 1003
+            modifications = {...}
+            other = {...}
+            resource_spots = {...}
+            revealed = true
+            working = true
+            true = userdata: 00000149125D68D8
+        }
+        pos = (281000, 225160)
+        scale = 100
+    }
+    { entity = ElevatorBuildIndicator_UndergroundPassageImprint, map = {loop!}, object = { true = userdata: 00000149125D6A08 }, pos = (281000, 225160, 10000), scale = 100 }
+    {
+        entity = SMROptInElevatorDepot
+        map = {loop!}
+        object = {
+            accumulate_maintenance_points = false
+            active_resource_groups = {...}
+            base_build_points = 1000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_electricity_consumption = 0
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_electricity_consumption = 0
+            base_heating_circuits = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_max_storage_per_resource = 60000
+            base_penalty_pct = 100
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            box_height = 100
+            capacity_columns = {...}
+            city = {...}
+            colonists_inbound = {}
+            command_centers = {...}
+            construction_data = {}
+            construction_queue = {}
+            creation_time = 21709955
+            demand = {...}
+            desire_slider_max = 120
+            desired_amount = 10000
+            electricity = {...}
+            free_landing_slots = 0
+            full_today = 0
+            full_yesterday = 0
+            fx_actor_class = TrainStation
+            fx_working = true
+            grids_applied = true
+            grouped_resources_for_ip = {...}
+            handle = 8404
+            has_free_landing_slots = false
+            initialized = true
+            input_shortage_time = 0
+            interest1 = needFood
+            label_effects = {}
+            label_modifiers = {}
+            labels = {...}
+            landing_slots = {}
+            last_reset = 31
+            maintenance_resource_amount = 700
+            maintenance_threshold_base = 120000
+            max_storage_per_resource = 120000
+            max_z = 40
+            modifications = {...}
+            orig_terrain1 = 80
+            orig_terrain2 = 76
+            pending_removal = {}
+            placed_cubes = {}
+            queued_shuttles = {}
+            resource = {...}
+            resource_spots = {...}
+            serviced_range_buildings = false
+            signs = {...}
+            spatial_data = {...}
+            spent_time_values = {}
+            stockpiled_amount = {...}
+            storable_resources = {...}
+            supply = {...}
+            task_requests = {...}
+            track_busy = {}
+            train_construction_request_metal = demand "Metals" from SMROptInElevatorDepotDev actual:0 (target:0)
+            train_construction_request_mp = demand "Electronics" from SMROptInElevatorDepotDev actual:0 (target:0)
+            transport_policy = {}
+            transport_request_metal = supply "Metals" from SMROptInElevatorDepotDev actual:0 (target:0)
+            transport_request_mp = supply "Electronics" from SMROptInElevatorDepotDev actual:0 (target:0)
+            update_thread = thread: 000001495339BF08
+            visitors_per_day = 0
+            visual_col_start = {...}
+            visual_cubes = {...}
+            waiting_for_train = {}
+            working = true
+            true = userdata: 00000149125E7E10
+        }
+        pos = (384000, 303100, 10000)
+        scale = 100
+    }
+    {
+        entity = SpaceElevator
+        map = {loop!}
+        object = { auto_attach_mapping = {}, fx_actor_class = SpaceElevator, handle = 10142170587, true = userdata: 0000014912796510 }
+        pos = (384000, 303100, 10000)
+        scale = 75
+    }
+    {
+        entity = SpaceElevatorLights
+        map = {loop!}
+        object = { auto_attach_mapping = {}, handle = 9732687116, true = userdata: 0000014912F56B88 }
+        pos = (384000, 303100, 10000)
+        scale = 100
+    }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { smr_depot_prop = true, true = userdata: 0000014912B202D8 }, pos = (384000, 303100, 10000), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { true = userdata: 00000149125E8C88 }, pos = (384000, 303100, 10000), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { smr_depot_prop = true, true = userdata: 0000014912898288 }, pos = (384000, 303100, 17500), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { true = userdata: 00000149125E8CF0 }, pos = (384000, 303100, 17500), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { smr_depot_prop = true, true = userdata: 0000014912898330 }, pos = (384000, 303100, 25000), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { true = userdata: 00000149125E8D58 }, pos = (384000, 303100, 25000), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { smr_depot_prop = true, true = userdata: 00000149128983D8 }, pos = (384000, 303100, 32500), scale = 75 }
+    { entity = SpaceElevatorRope, map = {loop!}, object = { true = userdata: 00000149125E8DC0 }, pos = (384000, 303100, 32500), scale = 75 }
+    {
+        entity = SpaceElevatorCabin
+        map = {loop!}
+        object = { handle = 10340928398, smr_depot_prop = true, true = userdata: 0000014913A6DE68 }
+        pos = (384000, 303100, 38500)
+        scale = 75
+    }
+    { entity = SpaceElevatorCabinLights, map = {loop!}, object = { handle = 10180817159, true = userdata: 0000014912B20208 }, pos = (384000, 303100, 38875), scale = 100 }
+    {
+        entity = SMROptInElevatorDepotReceiver
+        map = {loop!}
+        object = { auto_attach_mapping = {}, handle = 10443158517, true = userdata: 0000014912F56C58 }
+        pos = (384000, 303100, 9700)
+        scale = 100
+    }
+    {
+        entity = ElevatorBuildIndicator_UndergroundImprint
+        map = {loop!}
+        object = {
+            accumulate_maintenance_points = false
+            accumulated_maintenance_points = 0
+            base_build_points = 10000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 0
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 0
+            base_construction_cost_Metals = 0
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_salvage_modifier = 100
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_sanity_protection = 0
+            city = {...}
+            command_centers = {...}
+            creation_time = 0
+            elevator = {...}
+            elevator_construction = false
+            fx_working = true
+            grids_applied = true
+            handle = 1005
+            modifications = {...}
+            other = {...}
+            resource_spots = {...}
+            revealed = true
+            working = true
+            true = userdata: 00000149125E6F50
+        }
+        pos = (388500, 290110)
+        scale = 100
+    }
+    { entity = ElevatorBuildIndicator_UndergroundPassageImprint, map = {loop!}, object = { true = userdata: 00000149125E7080 }, pos = (388500, 290110, 10000), scale = 100 }
+    {
+        entity = ElevatorUnderground
+        map = {loop!}
+        object = {
+            accumulated_maintenance_points = 64800
+            are_requesters_connected = true
+            auto_connect = true
+            base_build_points = 20000
+            base_construction_cost_BlackCube = 0
+            base_construction_cost_Concrete = 10000
+            base_construction_cost_Electronics = 0
+            base_construction_cost_MachineParts = 2000
+            base_construction_cost_Metals = 5000
+            base_construction_cost_Polymers = 0
+            base_construction_cost_PreciousMetals = 0
+            base_construction_cost_PreciousMinerals = 0
+            base_construction_cost_WasteRock = 0
+            base_consumption_amount = 1000
+            base_disable_electricity_consumption = 0
+            base_disable_maintenance = 0
+            base_dome_comfort = 0
+            base_dome_morale = 0
+            base_electricity_consumption = 5000
+            base_heating_circuits = 0
+            base_in_dome_construction_modifier = 100
+            base_maintenance_build_up_per_hr = 600
+            base_maintenance_resource_amount = 1000
+            base_maintenance_threshold_base = 100000
+            base_penalty_pct = 100
+            base_salvage_modifier = 100
+            base_show_service_area = true
+            base_sight_satisfaction = 0
+            base_sight_visible_size = 0
+            base_starting_drones = 0
+            base_upgrade1_consumption_amount = 1000
+            base_upgrade2_consumption_amount = 1000
+            base_upgrade3_consumption_amount = 1000
+            base_upgrade4_consumption_amount = 1000
+            base_upgrade5_consumption_amount = 1000
+            base_upgrade6_consumption_amount = 1000
+            base_work_comfort_gain = 0
+            base_work_radius = 35
+            base_work_sanity_protection = 0
+            charging_stations = {...}
+            city = {...}
+            command_centers = {...}
+            connected_stations = {...}
+            connected_task_requesters = {...}
+            connections_skin_name = Default
+            construction_cost_at_completion = {...}
+            constructions = {}
+            creation_time = 20344961
+            deficit_table = {...}
+            deficit_thread = thread: 00000149558CD5F0
+            demand_queues = {...}
+            drones = {}
+            electricity = {...}
+            electricity_base_consumption = 5000
+            electricity_consumption = 5000
+            free_landing_slots = 2
+            fx_working = true
+            grids_applied = true
+            handle = 7829
+            has_free_landing_slots = true
+            init_with_skin = false
+            input_shortage_time = 0
+            landing_slots = {...}
+            lap_start = 20344961
+            last_maintenance_points_accumulation_ts = 20344961
+            load_samples = {...}
+            load_samples_pos = 12
+            load_samples_sum = 48
+            maintenance_request_lookup = {...}
+            maintenance_resource_amount = 700
+            maintenance_resource_request = demand "MachineParts" from Elevator actual:0 (target:0)
+            maintenance_threshold_base = 120000
+            maintenance_threshold_current = 108000
+            maintenance_work_request = work "repair" from Elevator actual:0 (target:0)
+            max_colorization_materials_attaches = 3
+            modifications = {...}
+            name = 
+            notified_can_command_drones = true
+            other = {...}
+            passage = {...}
+            priority_queue = {...}
+            queued_shuttles = {}
+            recent_task_drones = {}
+            resource_spots = {...}
+            restrictor_tables = {...}
+            restrictor_update_mask = 0
+            restrictor_update_thread = thread: 0000014955A9BCB8
+            serviced_rockets = {}
+            serviced_wasterock_dumps = {}
+            shared_depot = {...}
+            signs = {}
+            spatial_data = {...}
+            subsurface_elevator = true
+            supply_queues = {...}
+            task_requests = {...}
+            under_construction = {}
+            update_constructions_thread = thread: 0000014952E7B3B8
+            update_thread = thread: 0000014953160CF8
+            water = {...}
+            waypoint_chains = {...}
+            working = true
+            true = userdata: 00000149125DFC58
+        }
+        pos = (388500, 290110, 10000)
+        scale = 100
+    }
+    {
+        entity = ElevatorUndergroundCabin
+        map = {loop!}
+        object = { handle = 2000002548, wp_queue1 = false, wp_queue2 = false, true = userdata: 00000149125E2180 }
+        pos = (388500, 290110, 10000)
+        scale = 100
+    }
+    { entity = ElevatorUndergroundDoor, map = {loop!}, object = { handle = 9900897191, true = userdata: 00000149125E0EE8 }, pos = (388500, 290110, 10000), scale = 100 }
+}
+						Lua 0:01:12:131
+[mod] [SMRTK] SMRTK_PANEL action=panel_toggle open=true status=OK tab=Agent t=21973079 id=13
+						Lua 0:01:14:565
+[mod] [SMRTK] SMRTK_CLEAR action=clear status=OK t=21975514 id=14
+						Lua 0:01:15:043
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=110 status=OK truncated=false t=21975992 id=15
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=110 status=OK truncated=false t=21975992 id=15
+						Lua 0:01:25:541
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:01:25:870
+
+
+*** Debug::Done()
+Time (ms)	85870
+
+

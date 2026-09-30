@@ -7,9 +7,10 @@ tree `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src`. Executed model: Cl
 
 **State: built, desk-verified, renders approved by the owner (2026-09-30: *"approved"*). Editor session
 done, hub save done and smoke PASS. Sitting stopped in batch A on an open defect: a rope outlives its
-deleted depot; two fixes did not remove it. The refired investigation checkpoint `493f518` supplies a
-read-only CObject inventory and individual inspected-rope removal; the actual saved object still needs
-that live inventory. See "Refired investigation" below.** No item is accepted
+deleted depot; two fixes did not remove it. The live inventory on `493f518` identified the saved set:
+four unowned CObject rope tiles overlap the underground depot's four current attached tiles. The scoped
+`Sweep()` repair is desk-tested; native removal/save/reload is next (R2). See "Refired investigation"
+below.** No item is accepted
 in the game yet: only the owner's words in their game do that.
 
 ## Commits
@@ -226,7 +227,7 @@ and no new Mod Editor session is needed for this checkpoint.
   `CommonLua/Classes/EntityClass.lua:9-12,50-65` supplies `EntityClass -> CObject`.
   `CommonLua/Classes/_object.lua:3-9` distinguishes `Object` with Lua storage from `CObject`.
   Thus the old `AllMapsForEach("map", "Object", ...)` excludes this generated rope class.
-  The actual object's runtime `Object=false` reading remains the live confirmation.
+  R1 below confirms the actual ropes return `Object=nil` (false membership) at runtime.
 - **SOURCE:** `CommonLua/Core/persist.lua:188-200` makes `DeleteOnLoadGame` a persisted list followed by
   destruction in `PersistPostLoad`; it does not prevent initial serialization. Clearing `gofPermanent`
   alone has not been proven to keep these visuals out of a save. The previous commit's "never saved"
@@ -261,7 +262,7 @@ same build. The census is read-only and retains its rows for the current loaded 
 `RemoveInspectedRope(index)` removes only that inspected object: entity `SpaceElevatorRope`, 75% scale,
 underground, parentless and unowned, with map, position, entity and scale unchanged since inspection.
 It re-reads ownership, prints the exact pre-delete row and `valid_after`, and rejects stale/owned rows.
-It never runs on load. The older broad `Sweep()` remains unchanged while the actual residual is unknown.
+It never runs on load. At `493f518`, the older broad `Sweep()` was left unchanged pending R1's identity.
 The load handler clears inspection rows. Identifying a row in the owner's game precedes its removal.
 
 Commands run at `d7bd329` plus the code/test diff committed as `493f518`:
@@ -273,24 +274,61 @@ Commands run at `d7bd329` plus the code/test diff committed as `493f518`:
 | `python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated` | PASS; generated upgrade fields still match. No hub code change. |
 | `git diff --check`; commit hook `python tools/doccheck.py` | PASS; doccheck GREEN. |
 
+### Native identification and scoped sweep, after R1
+
+Owner: **"flushed"**. The
+[17:32 log](../../archive/elevator_rope_20260930/Mars.exe-20260930-17.32.07-6aba6e65.log):342-349,358
+identifies `SpaceElevatorRope` as both class and entity, map slot 2 / Underground, scale 75, x 384000,
+y 303100. All return `Object=nil`. Each height has one attached, owned tile and one parentless,
+unowned tile:
+
+| world Z | current row, owner `depot:8404` | old row, parent nil / owner UNOWNED |
+|---|---|---|
+| 10000 | 21 | 22 |
+| 17500 | 23 | 24 |
+| 25000 | 25 | 26 |
+| 32500 | 27 | 28 |
+
+**MEASURED:** `python docs/archive/elevator_rope_20260930/check_identified_rope_log.py` at `36fb1c9`
+reconciles **8 = 4 current + 4 unowned** using exact `prop inspect` / `entity=SpaceElevatorRope` rows,
+checks the coordinates and heights, and agrees with the log's census summary. The owned tiles have
+`delete_on_load=true`; the unowned tiles have `delete_on_load=false`. Both sets are already
+`permanent=false`: that flag cannot distinguish or remove this residual. No `[LUA ERROR]` token occurs
+in this flushed log. Identity and the old sweep's class-filter omission are now observed; successful
+removal and durable save cleanup are not yet observed.
+
+The process check after the flush found Mars closed. Row indices and object references are tied to
+that old process, so R2 uses the revised `Sweep()` rather than asking the owner to reuse them.
+The sweep enumerates `CObject` and re-reads depot, preview and vanilla ownership. Its unmarked-legacy
+branch matches the observed class/entity, map slot, environment, scale, non-permanent flag and exact
+positions above, and still requires no parent or owner. Each deletion prints the object's identity.
+Other unmarked ropes/cabins are left alone; the old distance-from-wonder heuristic is removed.
+Existing explicitly marked orphan cleanup remains. No automatic load repair is installed.
+
+Validation at `36fb1c9` plus this repair diff: `props_smoke.py` PASS with the native-shaped duplicate
+set, current/preview/vanilla ownership protection, wrong position/height/map/scale/class/entity/flag
+controls and a second sweep that removes nothing. The existing individual-removal, nil-Z and load-reset
+checks still pass. `python tools/parsecheck.py --dir tools/devmods/elevator_station/Code` PASS;
+`git diff --check` PASS. `python tools/doccheck.py --emit-fingerprint` re-read build 25579348, GREEN.
+The exact recovery coordinates are local to this dev fixture, not a general orphan classification.
+
 ### First live batch, before A3
 
 Console use remains authorized by brief 26: the shared SMRTK slots carry the hub sitting and do not
 have this new inventory. The owner clicks/reads; the agent reads the flushed log.
 
-1. **R1 [NEVER RUN]:** start the game on checkpoint `493f518`, load **double hub+elev**, switch
-   underground, run `SMRElevatorDepotDev.InspectProps()`, then SMRTK Sitting **Flush + copy**.
-   Prediction: rope rows include `Object=false`; current attached ropes show their depot/parent, while
-   a leftover at the reported bare-floor position has `owner=UNOWNED` and no parent. A failed prediction
-   is new evidence, not permission to widen deletion. Native identity is still PENDING.
-2. **R2 [NEVER RUN; depends on R1]:** the agent supplies the exact row index or indices from that run
-   after reconciling map, position and ownership with the visible leftover. Run
-   `SMRElevatorDepotDev.RemoveInspectedRope(index)` for those rows. Prediction: only the identified
-   leftover disappears, with `valid_after false`; the existing depot and vanilla elevator retain
-   their ropes/cabins. Re-running the census or reloading invalidates previously supplied indices.
-3. **R3 [NEVER RUN]:** run `SMRElevatorDepotDev.InspectProps()` again and flush. Prediction: the removed
-   rows are absent; owned ropes remain. Save under a new name, **double hub+elev rope check**, and reload
-   that new save. The original remains available as the reproduction fixture.
+1. **R1 [RAN 2026-09-30, log `Mars.exe-20260930-17.32.07-6aba6e65.log`]:**
+   `SMRElevatorDepotDev.InspectProps()` identified the four old tiles, as reconciled above. The
+   prediction passed except that native `IsKindOf` returns nil, rather than literal false, for
+   non-membership. Both mean the old Object query excludes them. No deletion was attempted.
+2. **R2 [NEVER RUN]:** start with the revised sweep, load **double hub+elev**, switch underground,
+   run `SMRElevatorDepotDev.Sweep()`, then `SMRElevatorDepotDev.InspectProps()` and flush.
+   Prediction: `swept 0 props of gone depots and 4 orphaned props`; census shows the four current
+   owned ropes and no parentless unowned rope. The working depot still draws its rope because its
+   current tiles overlap the removed duplicates. No Mod Editor session is needed.
+3. **R3 [NEVER RUN]:** after the agent verifies R2's log, save under a new name,
+   **double hub+elev rope check**, and reload that new save. Prediction: the repaired game loads with
+   the depot still dressed. The original remains available as the reproduction fixture.
 4. **R4 [NEVER RUN]:** repeat the inventory and the bare-floor view after reload, then flush. Prediction:
    no rope returns at the repaired position and no new Lua error. Only this establishes a durable repair
    of the saved leftover; it does not establish prevention for fresh depots.
@@ -303,7 +341,7 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
 
 | finding/work | home and next action | disposition |
 |---|---|---|
-| saved rope, Object-filter omission, legacy persistence uncertainty | this section; R1 identifies, R2-R4 repair/verify, R5 tests current deletion | source issue established; native result pending |
+| saved rope, Object-filter omission, legacy persistence uncertainty | this section; R1 passed, R2-R4 repair/verify, R5 tests current deletion | native identity established; scoped repair desk-tested; removal/reload pending |
 | Measure nil-Z crash | checkpoint `493f518`; next underground `Measure()` | desk repaired, native reading pending |
 | missing `Top` spot | brief 26's existing handoff; add at shell crown at the next needed re-import | deferred; no new import requested |
 | receiver root `ReceiverOrigin` | existing handoff, Assets `2c47118`, already-imported item | settled; preserved |
@@ -311,5 +349,5 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
 | eight game looks and brief 22 smoke | B/C/D above, after R batch and A3 | owner acceptance remains open |
 
 The inherited handoff was retained and linked to this section; no unhomed content was removed.
-No fresh game run, original-save modification, geometry/import, vanilla-art change, movement change or
-hub-code change occurred in this investigation checkpoint.
+R1 is the native inspection run; removal/reload remains unrun. No original-save modification,
+geometry/import, vanilla-art change, movement change or hub-code change occurred in these checkpoints.

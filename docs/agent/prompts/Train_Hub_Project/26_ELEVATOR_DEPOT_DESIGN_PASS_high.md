@@ -119,14 +119,15 @@ depot mod; the hub's plain save works as it always did.
 
 **Then continue with batch A step 3 onward** (report, "The sitting"), on the owner's schedule.
 
-### Refired checkpoint, 2026-09-30: live identification next
+### Refired checkpoint, 2026-09-30: identified, removal/reload next
 
 OptInPack `493f518` adds `SMRElevatorDepotDev.InspectProps()` (read-only, CObject census with ownership)
-and individual `RemoveInspectedRope(index)`, guarded against owned/attached/stale objects. The source
-confirms the old `Object` sweep excludes the generated rope class, but the actual saved object still
-needs its live row before removal. The report's
+and individual `RemoveInspectedRope(index)`, guarded against owned/attached/stale objects. R1 ran:
+`Mars.exe-20260930-17.32.07` identifies four old parentless CObject rope tiles overlapping the four
+current attached tiles at underground depot 8404. The revised `Sweep()` enumerates CObject and matches
+only that observed legacy set, re-reading ownership so it works after a new boot. The report's
 [Refired investigation](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#refired-investigation-2026-09-30)
-holds the source evidence, desk checks and first live batch R1-R5. **Start at R1, then return to A3.**
+holds the source/log evidence, desk checks and live batch R1-R5. **Start at R2, then return to A3.**
 No Mod Editor session is needed. `Measure()`'s line-354 failure was nil `GetPos():z()`, rather than the
 handoff's scale/bbox lead; the checkpoint uses terrain-resolved `GetVisualPos()` and passes that desk
 case. Native removal, save/reload, fresh-depot deletion and B/C/D acceptance remain open. The render

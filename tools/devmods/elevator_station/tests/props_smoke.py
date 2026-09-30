@@ -137,6 +137,39 @@ table.remove(D.rigs[depot].ropes)
 assert(D.RemoveInspectedRope(i) and not ghost.valid and deleted==1,'exact orphan removal')
 assert(not D.RemoveInspectedRope(i),'repeated removal must refuse')
 assert(not D.RemoveInspectedRope(9999),'unknown index must refuse')
+-- Native log: four parentless tiles exactly overlap four attached/current tiles.
+-- A new process loses the inspection indices; Sweep re-identifies the saved set.
+local legacy={}
+for _,z in ipairs{10000,17500,25000,32500} do
+  local o=obj('SpaceElevatorRope','SpaceElevatorRope')
+  o.pos=point(384000,303100,z); o.flags=0; legacy[#legacy+1]=o
+  local live=obj('SpaceElevatorRope','SpaceElevatorRope')
+  live.pos=point(384000,303100,z); live.flags=0; live.parent=depot
+  D.rigs[depot].ropes[#D.rigs[depot].ropes+1]=live
+end
+-- Ownership wins even if a protected prop matches the complete legacy signature.
+for _,o in ipairs{owned,preview,native,attached,surfaced,fullsize,cabin,shifted} do
+  o.pos=point(384000,303100,10000); o.flags=0
+end
+preview.smr_depot_prop=true
+local unrelated=obj('SpaceElevatorRope','SpaceElevatorRope')
+unrelated.pos=point(384001,303100,10000); unrelated.flags=0
+local wrong_z=obj('SpaceElevatorRope','SpaceElevatorRope')
+wrong_z.pos=point(384000,303100,10001); wrong_z.flags=0
+local other_map=obj('SpaceElevatorRope','SpaceElevatorRope',new_map(3,'Underground'))
+other_map.pos=point(384000,303100,10000); other_map.flags=0
+local permanent=obj('SpaceElevatorRope','SpaceElevatorRope')
+permanent.pos=point(384000,303100,10000)
+D.inspected_props=nil; logs={}; D.Sweep()
+assert(deleted==5,'sweep must remove the four identified tiles only')
+assert(has_log('0 props of gone depots and 4 orphaned props'),'native-shaped removal count')
+for _,o in ipairs(legacy) do assert(not o.valid,'legacy tile missed') end
+for _,o in ipairs{owned,preview,native,attached,surfaced,fullsize,cabin,shifted,unrelated,wrong_z,other_map,permanent} do
+  assert(o.valid,'sweep removed a protected or unmatched object')
+end
+for _,o in ipairs(D.rigs[depot].ropes) do assert(o.valid,'sweep removed a current rope') end
+logs={}; D.Sweep()
+assert(deleted==5 and has_log('0 props of gone depots and 0 orphaned props'),'repeat sweep must be inert')
 -- The historical Measure line subtracted nil from ground for terrain-relative objects.
 local lift=obj('ElevatorBase','ElevatorUnderground',cave,true); lift.kinds.ElevatorBase=true
 local terrain_relative=obj('Rock','PillarTest',cave,false); terrain_relative.pos=point(1,2)
@@ -146,8 +179,8 @@ assert(has_log('elevators on this map 1') and has_log('PillarTest'),'nil-Z censu
 -- Invalid/stale inspection handles do not survive the module's load handler.
 OnMsg.LoadGame()
 assert(D.inspected_props==nil,'load must invalidate the inspection list')
-assert(deleted==1,'load must not apply the individual repair automatically')
+assert(deleted==5,'load must not apply repairs automatically')
 ''')
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 print(f'props_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')
-print('Covered: CObject enumeration, read-only census, exact repair, owner/parent/map/scale/entity/stale guards, nil-Z measurement, load reset.')
+print('Covered: CObject census, exact repair, identified legacy sweep, ownership/signature/stale guards, repeat sweep, nil-Z measurement, load reset.')

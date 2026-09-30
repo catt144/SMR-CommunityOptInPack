@@ -26,7 +26,7 @@
 --                                          Set("scale", 80), Set("rope_underground_m", 400),
 --                                          Set("receiver_z", -250), Set("signs", true); re-dresses all
 --   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
---   SMRElevatorDepotDev.Sweep()            delete every rope/cabin/receiver prop whose depot is gone
+--   SMRElevatorDepotDev.Sweep()            clear gone-depot props and the identified legacy rope tiles
 --   SMRElevatorDepotDev.InspectProps()     read-only census, including CObject ropes and attachments
 --   SMRElevatorDepotDev.RemoveInspectedRope(n)  remove ONE inspected, unowned underground 75% rope
 --   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
@@ -313,29 +313,6 @@ local function sweep_rigs()
 	return n
 end
 
-function D.Sweep()
-	local n = sweep_rigs()
-	local owned = {}
-	for _, rig in pairs(D.rigs) do
-		for _, o in ipairs(rig.ropes or empty_table) do owned[o] = true end
-		for _, k in ipairs{ "cabin", "receiver", "tunnel", "elevator" } do if rig[k] then owned[rig[k]] = true end end
-	end
-	local orphans = 0
-	AllMapsForEach("map", "Object", function(o)
-		if owned[o] or not IsValid(o) then return end
-		local class = o.class
-		local ours = o.smr_depot_prop
-		-- a rope or cabin nobody owns, away from vanilla's wonder: a leftover written into a save
-		if not ours and (class == "SpaceElevatorRope" or class == "SpaceElevatorCabin") and not o:GetParent() then
-			local near_wonder = false
-			o:GetMap():MapForEach(o, 100 * guim, "SpaceElevator", function() near_wonder = true end)
-			ours = not near_wonder
-		end
-		if ours then DoneObject(o); orphans = orphans + 1 end
-	end)
-	print(log_prefix, "swept", n, "props of gone depots and", orphans, "orphaned props")
-end
-
 -- Brief 26's saved-rope investigation. SpaceElevatorRope has no class_parent in
 -- Lua/_EntityData.generated.lua:20651; EntityClass.lua:9-12,50 makes it a CObject,
 -- not an Object (archived build 25579348 / 1.1.1.406343). Inspect by ENTITY before
@@ -371,6 +348,39 @@ local function print_prop(row, index, owner, action)
 		tostring(row.scale), tostring(o:GetParent()), owner or "UNOWNED",
 		tostring(IsKindOf(o, "Object")), tostring(o:GetGameFlags(const.gofPermanent) ~= 0),
 		tostring(o:GetGameFlags()), tostring(o:GetEnumFlags()), delete_on_load))
+end
+
+-- Recovery signature from the owner's actual InspectProps() result, build 25579348:
+-- Mars.exe-20260930-17.32.07-6aba6e65.log:343,345,347,349 (archived with brief 26).
+-- These parentless duplicates are outside DeleteOnLoadGame and already non-permanent.
+-- This identifies that saved rig only; a rope elsewhere needs its own inspection.
+local function identified_legacy_rope(o)
+	if o.class ~= "SpaceElevatorRope" or o:GetEntity() ~= "SpaceElevatorRope"
+		or o:GetMapSlot() ~= 2 or environment_of(o) ~= "Underground" or o:GetScale() ~= 75
+		or o:GetParent() or o:GetGameFlags(const.gofPermanent) ~= 0 then return false end
+	local p = o:GetPos()
+	local z = p:z()
+	return p:x() == 384000 and p:y() == 303100
+		and (z == 10000 or z == 17500 or z == 25000 or z == 32500)
+end
+
+function D.Sweep()
+	local n = sweep_rigs()
+	local owners, candidates = prop_owners(), {}
+	AllMapsForEach(true, "CObject", function(o)
+		if not IsValid(o) or owners[o] then return end
+		if o.smr_depot_prop or identified_legacy_rope(o) then candidates[#candidates + 1] = o end
+	end)
+	local orphans = 0
+	for i, o in ipairs(candidates) do
+		if IsValid(o) then
+			print_prop({ object = o, entity = o:GetEntity(), pos = o:GetPos(), scale = o:GetScale() },
+				i, owners[o], "sweep")
+			DoneObject(o)
+			if not IsValid(o) then orphans = orphans + 1 end
+		end
+	end
+	print(log_prefix, "swept", n, "props of gone depots and", orphans, "orphaned props")
 end
 
 function D.InspectProps()
