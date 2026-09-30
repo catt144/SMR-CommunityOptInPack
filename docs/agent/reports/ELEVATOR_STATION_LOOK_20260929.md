@@ -321,8 +321,11 @@ proposals, with the timer changed:**
 elevator, it can only have one "pair" that way players done complicate things by building a dozen
 of them or something."* So: **one depot pair per colony**, one half on each map, placed anywhere
 (the earlier "anywhere" ruling stands), each half placed by the player in either order. With one
-of each there is nothing to link: the two halves find each other. Implementation note for the
-wiring brief: vanilla's `build_once` counts by template, so a single template shared by both maps
-would refuse the second half; use one template per map or a per-map count. Demolishing a half is
-the worker's call to design (the survivor behaves as a plain station until the other half is
-rebuilt), recorded in the commit message.
+of each there is nothing to link: the two halves find each other. **Owner, same evening: *"Let the build come up with
+recomendations for those two details."*** The wiring brief's worker recommends, with reasons in
+its report, and the owner rules from the recommendation:
+- how the one-pair limit is enforced: vanilla's `build_once` counts by template, so a single
+  template shared by both maps would refuse the second half (one template per map, a per-map
+  count, or another way);
+- what happens when a player demolishes one half (for instance, the survivor behaves as a plain
+  station until the other half is rebuilt).
