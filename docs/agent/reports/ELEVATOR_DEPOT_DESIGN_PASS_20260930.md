@@ -6,12 +6,12 @@ tree `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src`. Executed model: Cl
 (`tasklist`: `Mars.exe` PID 25584); nothing under `Code/` is loaded until the owner's restart.
 
 **State: built, desk-verified, renders approved by the owner (2026-09-30: *"approved"*). Editor session
-done, hub save done and smoke PASS. Sitting stopped in batch A on an open defect: a rope outlives its
-deleted depot; two fixes did not remove it. The live inventory on `493f518` identified the saved set:
-four unowned CObject rope tiles overlap the underground depot's four current attached tiles. The scoped
-`Sweep()` repair is desk-tested; native removal/save/reload is next (R2). See "Refired investigation"
-below.** No item is accepted
-in the game yet: only the owner's words in their game do that.
+done, hub save done and smoke PASS. The rope blocker is resolved for the owner's current setup:
+owner, 2026-09-30: "flushed, everything is working correctly now". The latest native census has four
+owned attached ropes and no orphan; the session includes a save/load and replacement depots. The sweep
+removed nothing in that session, so removal of the original saved set is not attributed to it.
+Resume B/C's visual checks and D's hub smoke.** This confirmation was given in the rope-check exchange;
+item-by-item acceptance of the eight visual changes remains to be recorded.
 
 ## Commits
 
@@ -19,7 +19,8 @@ in the game yet: only the owner's words in their game do that.
 |---|---|---|
 | SMR-Assets | `c5a8189` | `depot_build.py` (the design pass), `verify_depot.py`, `depot_design_render.py`, `compose_design_pass.py`, the rebuilt blend, exports, proofs, renders and sheets, README |
 | SMR-OptInPack | `072f8f0` (code), this report in the commit after it | the dev Lua (signs, receiver, attach listing, `Report()` additions), the two import items, this report, brief 26's row |
-| SMR-OptInPack | `493f518` | read-only prop inventory, guarded individual rope removal, terrain-relative `Measure()` repair and desk regression checks; native identification/removal/reload pending |
+| SMR-OptInPack | `493f518` | read-only prop inventory, guarded individual rope removal, terrain-relative `Measure()` repair and desk regression checks; native identification passed in the 17:32 log |
+| SMR-OptInPack | `3b1d7bd` | scoped legacy-rope sweep through CObject, native identification evidence and regression checks; latest current-fixture census is clean, legacy-removal branch not exercised |
 
 ## The owner's words, recorded before anything changed
 
@@ -312,7 +313,32 @@ checks still pass. `python tools/parsecheck.py --dir tools/devmods/elevator_stat
 `git diff --check` PASS. `python tools/doccheck.py --emit-fingerprint` re-read build 25579348, GREEN.
 The exact recovery coordinates are local to this dev fixture, not a general orphan classification.
 
-### First live batch, before A3
+### Owner confirmation and clean current fixture
+
+Owner, verbatim after the second requested flush: **"flushed, everything is working correctly now"**.
+Record the rope blocker as resolved for the current setup. The
+[17:56 log](../../archive/elevator_rope_20260930/Mars.exe-20260930-17.56.44-6aba6e65.log):1134-1168
+shows `swept 0 props of gone depots and 0 orphaned props`, then **4 ropes = 4 attached to and owned by
+depot 9041 + 0 parentless unowned**. Members are rows 21, 22, 24 and 26, at world Z 10000, 17500,
+25000 and 32500; all have `delete_on_load=true`. Current surface depot: 9036. The old 7985/8404 pair
+is no longer the pair in the census.
+
+RAN at `3b1d7bd`: Python filtered `prop inspect` plus exact `entity=SpaceElevatorRope`, asserted the
+four members, ownership, heights, census reconciliation, successful slot-A save/load and no
+`[LUA ERROR]` token, and archived the flushed snapshot. The reproducible log read is:
+
+```powershell
+rg -n '\[ElevatorDepotDev\] (prop inspect.* entity=SpaceElevatorRope |prop census|swept)|SMRTK_(SAVE|LOAD).*status=OK' docs/archive/elevator_rope_20260930/Mars.exe-20260930-17.56.44-6aba6e65.log
+```
+
+The session records successful **SMRTK_A.sav save/load** at lines 738/963, followed by replacement
+depot dressing at 1083/1092 and the clean census. It therefore does not show a four-tile cleanup of
+the original fixture, or a reload after that cleanup. The observed clean state and the owner's
+confirmation settle the current blocker. The old-save recovery branch remains desk-tested reference,
+reopened if that original residual returns; no repeat of the original-save exercise is owed now.
+The known missing `Top` warning remains at line 360 and is still deferred to the next needed import.
+
+### Rope sitting record and continuation
 
 Console use remains authorized by brief 26: the shared SMRTK slots carry the hub sitting and do not
 have this new inventory. The owner clicks/reads; the agent reads the flushed log.
@@ -321,27 +347,22 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
    `SMRElevatorDepotDev.InspectProps()` identified the four old tiles, as reconciled above. The
    prediction passed except that native `IsKindOf` returns nil, rather than literal false, for
    non-membership. Both mean the old Object query excludes them. No deletion was attempted.
-2. **R2 [NEVER RUN]:** start with the revised sweep, load **double hub+elev**, switch underground,
-   run `SMRElevatorDepotDev.Sweep()`, then `SMRElevatorDepotDev.InspectProps()` and flush.
-   Prediction: `swept 0 props of gone depots and 4 orphaned props`; census shows the four current
-   owned ropes and no parentless unowned rope. The working depot still draws its rope because its
-   current tiles overlap the removed duplicates. No Mod Editor session is needed.
-3. **R3 [NEVER RUN]:** after the agent verifies R2's log, save under a new name,
-   **double hub+elev rope check**, and reload that new save. Prediction: the repaired game loads with
-   the depot still dressed. The original remains available as the reproduction fixture.
-4. **R4 [NEVER RUN]:** repeat the inventory and the bare-floor view after reload, then flush. Prediction:
-   no rope returns at the repaired position and no new Lua error. Only this establishes a durable repair
-   of the saved leftover; it does not establish prevention for fresh depots.
-5. **R5 [NEVER RUN]:** resume A3, remove the old depots, and inspect before/after to check their attached
-   ropes are destroyed. Then begin B/C's fresh placements and looks, followed by D's hub smoke.
-   Prediction: fresh deletion leaves no unowned rope. Native save/cleanup behavior remains open until
-   these observations pass.
+2. **R2 [RAN 2026-09-30, log `Mars.exe-20260930-17.56.44-6aba6e65.log`]:** `Sweep()` and `InspectProps()`
+   ran on the current replacement pair. Result: zero removed, four current owned ropes, no orphan.
+   The clean-state prediction passed; the original-set removal prediction was not exercised.
+3. **R3/R4, observed alternate path:** the owner saved/loaded **SMRTK_A.sav** and later replaced depots,
+   then supplied the clean census and confirmation above. An original-fixture recovery/reload remains
+   unproven, with reopening condition above; the owner is not asked to repeat it after this resolution.
+4. **R5/A3, current state:** the final census contains replacement pair 9036/9041 and no orphan rope.
+   This supports proceeding with B/C; it is not a controlled proof of every deletion path. Continue
+   the existing visual checks, then D's hub smoke.
 
 ### Open work and finding disposition
 
 | finding/work | home and next action | disposition |
 |---|---|---|
-| saved rope, Object-filter omission, legacy persistence uncertainty | this section; R1 passed, R2-R4 repair/verify, R5 tests current deletion | native identity established; scoped repair desk-tested; removal/reload pending |
+| rope blocker in current setup | owner confirmation and clean census above | resolved by owner; four owned ropes, no orphan |
+| original saved-set recovery and persistence mechanism | scoped sweep above; reopen if the original residual returns | dormant; legacy-removal branch not exercised in the clean run |
 | Measure nil-Z crash | checkpoint `493f518`; next underground `Measure()` | desk repaired, native reading pending |
 | missing `Top` spot | brief 26's existing handoff; add at shell crown at the next needed re-import | deferred; no new import requested |
 | receiver root `ReceiverOrigin` | existing handoff, Assets `2c47118`, already-imported item | settled; preserved |
@@ -349,5 +370,5 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
 | eight game looks and brief 22 smoke | B/C/D above, after R batch and A3 | owner acceptance remains open |
 
 The inherited handoff was retained and linked to this section; no unhomed content was removed.
-R1 is the native inspection run; removal/reload remains unrun. No original-save modification,
-geometry/import, vanilla-art change, movement change or hub-code change occurred in these checkpoints.
+The native sitting observations and their limits are above. No agent-side save edit, geometry/import,
+vanilla-art change, movement change or hub-code change occurred in these checkpoints.

@@ -119,19 +119,18 @@ depot mod; the hub's plain save works as it always did.
 
 **Then continue with batch A step 3 onward** (report, "The sitting"), on the owner's schedule.
 
-### Refired checkpoint, 2026-09-30: identified, removal/reload next
+### Current continuation, 2026-09-30: rope blocker resolved
 
-OptInPack `493f518` adds `SMRElevatorDepotDev.InspectProps()` (read-only, CObject census with ownership)
-and individual `RemoveInspectedRope(index)`, guarded against owned/attached/stale objects. R1 ran:
-`Mars.exe-20260930-17.32.07` identifies four old parentless CObject rope tiles overlapping the four
-current attached tiles at underground depot 8404. The revised `Sweep()` enumerates CObject and matches
-only that observed legacy set, re-reading ownership so it works after a new boot. The report's
-[Refired investigation](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#refired-investigation-2026-09-30)
-holds the source/log evidence, desk checks and live batch R1-R5. **Start at R2, then return to A3.**
-No Mod Editor session is needed. `Measure()`'s line-354 failure was nil `GetPos():z()`, rather than the
-handoff's scale/bbox lead; the checkpoint uses terrain-resolved `GetVisualPos()` and passes that desk
-case. Native removal, save/reload, fresh-depot deletion and B/C/D acceptance remain open. The render
-approval, successful imports and hub save remain settled; `Top` still waits for the next needed import.
+Owner: **"flushed, everything is working correctly now"**, in the rope-check exchange. The
+`Mars.exe-20260930-17.56.44` census shows four attached ropes owned by the current underground depot
+9041 and no orphan; the current surface depot is 9036. The session includes SMRTK_A save/load and
+replacement placements. `Sweep()` removed zero, so the original saved-set removal/reload is not
+claimed; its recovery branch (`3b1d7bd`) is dormant unless that residual returns. **Resume B/C's visual
+checks, then D's hub smoke.** Do not repeat the resolved rope exercise. The report's
+[Owner confirmation](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#owner-confirmation-and-clean-current-fixture)
+holds the exact evidence and limits. The earlier investigation and individual-removal path are homed
+there too. `Measure()`'s nil-Z crash is desk-repaired in `493f518`; its native ceiling reading remains
+open. The render approval, imports and hub save remain settled; `Top` waits for the next needed import.
 
 ## Start
 
