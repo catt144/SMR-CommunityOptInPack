@@ -1,0 +1,15 @@
+{
+  "command": "python docs/agent/reports/elevator_depot_import_20260930/archive_source.py",
+  "optin_head": "457ab7fb94d25116931a616ab45b623e6f885023",
+  "script_sha256": "2a864f7f8931acc4d541d4f97d96afc7815fb9db4b547e0e48c3a33aaec813c4",
+  "build": "25579348",
+  "build_source": "A:\\SteamLibrary\\steamapps\\appmanifest_3215050.acf",
+  "version": "1.1.1.406343",
+  "source": "A:\\SteamLibrary\\steamapps\\common\\Project Spark\\ModTools\\Src",
+  "archive": "B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343",
+  "filter": "all files recursively under Src",
+  "file_count": 4719,
+  "member_manifest": "B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\MANIFEST.sha256",
+  "tree_digest": "d753f949af92e2b753f44163a2e47229e371f810ef3c2752d30a98953af2663c",
+  "source_copy_manifest_match": true
+}

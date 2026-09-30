@@ -1,4 +1,4 @@
-# Elevator Depot — approved shell and prepared import (brief 25)
+# Elevator Depot — approved shell, verified import and sitting (brief 25)
 
 Brief: [25_ELEVATOR_STATION_LOOK_high.md](../prompts/Train_Hub_Project/25_ELEVATOR_STATION_LOOK_high.md).
 Previous builds and the original owner record: [20260929 report §7](ELEVATOR_DEPOT_LOOK_20260929.md#7-the-owners-concept-restated-with-pictures-2026-09-30-orchestrator).
@@ -42,7 +42,10 @@ No todo tool is exposed in this session; this is the live list, one commit-and-v
 - [x] OI-33: owner replied **"approved"**, 2026-09-30, to the rendered shape and placement.
 - [x] Record approval and prepare the vanilla spot layout with a conditional sampled clearance check.
 - [x] Accepted shell, builder/verifier and renders checkpoint: Assets `172e992`; synchronized dev Lua and this handoff in the OptInPack commit.
-- [ ] **Next, owner hands (ck221):** existing-entity import, then surface/train/underground sitting; final in-game acceptance remains open.
+- [x] Owner replied **"done"** after import/save; imported entity and metadata audit PASS (receipt below).
+- [x] Owner carried the brief to hotfix build 25579348; relevant source fingerprints unchanged; OI-34 resolved.
+- [x] Import receipt, source archive and bounded startup repairs verified; checkpoint with this handoff.
+- [ ] ck221 surface/train/underground sitting; final in-game acceptance remains open.
 
 ## Movement evidence
 
@@ -162,7 +165,7 @@ ruling; the approval is not asked for again.
 
 After that decision, the approved shell was promoted into the live builder, with revised spots,
 beam and footprint. The dev Lua now uses the same spot table and a 90° elevator turn. The
-prepared FBX and import source are ready; the game still contains the rejected tube until import.
+prepared FBX and import source were ready at this checkpoint; the completed import is recorded below.
 
 ## Prepared revision: what changed and what passed
 
@@ -244,26 +247,112 @@ Both were rendered and inspected; the portal is the prepared mesh, and the eleva
 remain explicitly dimensioned proxies. `review_prepared/render_manifest.json` identifies their
 blend/FBX inputs. The original approved render, blend and proof files remain unchanged.
 
-## Next sitting: first batch
+## Import receipt and hotfix continuation, 2026-09-30
+
+Owner replied **"done"** to the existing-entity import/save batch. Input checkpoint: OptInPack
+`457ab7f`, Assets `172e992`. This completes the import and generated-file check, not a live
+placement, train run or final look acceptance.
+
+`python tools/doccheck.py --emit-fingerprint` reads installed Steam build
+**25579348**, and both latest main executable logs identify **1.1.1.406343**. The saved metadata
+also records revision 406343. The prior stop 3 named 25390750, prompting OI-34's build question.
+The owner replied:
+
+> "There should be no issues, this is a minor hotfix specifically targeted only at linux systems. No game content changed"
+
+That reply carries the brief forward to **25579348**; OI-34 is resolved and removed. The checker
+below compares **6 source files** against both archives and the installed ModTools tree:
+`Lua/Buildings/Station.lua`, `Lua/Units/Train.lua`, `Lua/Tracks.lua`,
+`Lua/Buildings/TrackElement.lua`, `Lua/Buildings/SpaceElevator.lua` and
+`CommonLua/Editor/ArtSpecEditor.lua`. All hashes match, with members and hashes in `result.json`.
+The existing source/motion evidence retains its original build; unchanged source fingerprints
+carry the relevant code findings forward. The next action is the fresh surface placement.
+
+`python docs/agent/reports/elevator_depot_import_20260930/archive_source.py` copied and verified
+the newly observed version at `B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.1.406343/`.
+[Archive receipt](elevator_depot_import_20260930/archive_receipt.json): **4,719 files**, all files
+recursively under `Src`, reconciled against the sorted `MANIFEST.sha256`; installed tree and
+copy match. Tree digest: `d753f949af92e2b753f44163a2e47229e371f810ef3c2752d30a98953af2663c`.
+`Get-FileHash -Algorithm SHA256 -LiteralPath 'B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.1.405907/MANIFEST.sha256'`
+returns that same digest for the prior manifest. Input OptInPack HEAD for these commands is `457ab7f`.
+
+Read-only command:
+
+```text
+python docs/agent/reports/elevator_depot_import_20260930/check.py
+```
+
+[Result and member sets](elevator_depot_import_20260930/result.json) ·
+[Log excerpts with source hashes and line numbers](elevator_depot_import_20260930/log_excerpt.txt).
+The checker measures the installed build from the Steam manifest, compares the imported
+`.entjson` against the prepared export proof and records the source fingerprints. It does not
+load the game; runtime behavior remains for the owner's sitting.
+
+| imported reading | command/filter | result |
+|---|---|---|
+| named spots | checker, exact attaches vs prepared proof; complete members in result JSON | **14**, all positions/angles match within 0.01 game units; worst error **3.67394e−13**; Stop/Spawn pairs coincide |
+| footprint | checker, independently map imported triangle centroids to the hex lattice; compare member sets | **24 = 20 elevator + 2 portal + 1 approach + 1 connector**; direction outside, buried end inside |
+| surfaces | checker, imported surface type counts and per-cell membership | **142 = 96 hex + 23 collision + 23 selection**; **96 = 24 × 4** hex triangles; agrees with the editor's 142 |
+| body import | checker, linked mesh/material files, FBX hash and imported bbox vs prepared proof | expected files present; maximum bbox error **0.000263184 units** |
+| metadata code list | checker, exact names plus file existence | **3**: `10_ElevatorDepotDev.lua`, `_EntityData.generated.lua`, `BuildingTemplate/SMROptInElevatorDepotDev.generated.lua`; none dropped |
+| generated code/template/spec at import receipt | `git diff --exit-code -- tools/devmods/elevator_station/{Code,Data,items.lua,SourceData/ArtSpec-mod.lua}` (paths expanded in PowerShell, before the guard below) | unchanged from the checkpoint by the editor save |
+
+Entity SHA-256: `5e2e49efe214542b7e5c5df982e45261245bf45d483eca015faafa4e8ab35984`.
+Compiled mesh SHA-256: `7739a4cb20f560b3311e90d5c09086334c44d5448cad4a127f78f7ca68f5a2d4`.
+Editor log `MarsDebug.exe-20260930-10.58.36-6aba6e9d.log` lines 315–330 identifies the depot,
+successful mesh/material export, spots/surfaces and **Importing Mesh Done**. The normal log
+`Mars.exe-20260930-10.54.44-6aba6e65.log` predates the import; both are captured by the excerpt
+generator. `tasklist` for both `Mars.exe` and `MarsDebug.exe` found no running process during
+this read.
+
+### Startup findings, separate from the completed mesh import
+
+- **Opt-In startup syntax defect, repaired:** editor log line 198 reports failure to load the
+  main mod's `items.lua`; its locals identify line 91, an unescaped apostrophe in the
+  ServiceInterestTags Help string (`building's`). The existing source at input HEAD `457ab7f`
+  reproduces the same error with `python tools/parsecheck.py --dir .`. Escaping that apostrophe
+  restores parsing without changing the displayed sentence, option names or intended behavior.
+  The same command then passes; the dev `Code/` parse check passes too. This is a syntax repair,
+  not a current-build Station compatibility claim. A clean game startup after it remains unrun.
+- **Existing EntitySpec startup path, guarded for the depot:** the normal log's
+  `ArtSpecEditor.lua:573 / EntitySpecPathToEntity` error names `SMROptInElevatorDepot`.
+  [D14(e)](../bugs/D14.md) already records this path and the hub's scoped guard; that guard covers
+  the hub's specs. The depot now installs the same narrow pattern at `ClassesPostprocess`: skip
+  its own EntitySpec's editor post-load only when the helper is missing, otherwise delegate to
+  the prior method. Its generated ArtSpec has no legacy color properties. Source:
+  `CommonLua/Editor/ArtSpecEditor.lua:565–573`, archived **1.1.1.406343 / build 25579348**; hash above.
+  `python docs/agent/reports/elevator_depot_import_20260930/guard_smoke.py` runs the actual depot
+  Lua and existing hub guard in both installation orders. [Results](elevator_depot_import_20260930/guard_smoke.json)
+  pass own/hub skipping without the helper, unrelated-spec delegation, editor delegation with
+  arguments/returns, reinstall and helper transitions. These are stubbed Lua checks; normal-game
+  startup with the imported entity still needs observation. Generated ArtSpec remains unchanged.
+
+The editor rewrote its generated import source by removing the builder comment and restoring
+its usual trailing blank line. It is preserved as editor output. `git diff --check` reports
+that one generated EOF blank-line warning; the hand-edited files pass their scoped check.
+No generated source was manually normalized.
+
+## Next sitting: first surface batch
 
 The shared-game owner action is **ck221** in the fix pack's `docs/PLAYTEST_CHECKLIST.md`, homed in
 `docs/agent/reports/OPTIN_ELEVATOR_DEPOT_LOOK_20260930.md` there. The approval does not need repeating.
 
-1. Open **DEV ONLY - Elevator Depot (look prototype)** in Mod Editor.
-2. Existing EntitySpec **SMROptInElevatorDepot** → **mesh** → **Open in Importer**.
-   ScenePath is `B:/Dev/SMR/SMR-Assets/elevatorstation/blender/export/SMROptInElevatorDepot.fbx`;
-   material stays `SMROptInElevatorStation`. **Import**, then **save the mod**.
-3. Let the agent check the generated entity and metadata code list after the save. They still
-   describe the previous import before this step.
-4. Restart, load the normal game and place a **fresh** depot at least 100 m from another station.
+The owner completed the existing EntitySpec `SMROptInElevatorDepot` → mesh → Open in Importer
+→ Import → save flow, using `export/SMROptInElevatorDepot.fbx` and material
+`SMROptInElevatorStation`. The generated-file audit is complete; no repeat import is needed.
+
+1. Restart, load the normal game and place a **fresh** depot at least 100 m from another station.
    The connector/footprint moved, so an old placed depot is not the connection fixture.
-5. Look at the surface join and cabin; run `SMRElevatorDepotDev.Report()`, then flush the log.
-   The next batch is the vanilla train test with slot 6's existing stream, then underground
-   `Measure()` / `Report()` and the lowest-pitch, fully-zoomed-out rope view.
+2. Look at the surface join by day and watch the cabin descend; check its sound.
+3. Run `SMRElevatorDepotDev.Report()`, then flush the log and report what needs moving.
+
+The next batch is the vanilla train test with slot 6's existing stream, then underground
+`Measure()` / `Report()` and the lowest-pitch, fully-zoomed-out rope view.
 
 `tasklist /FI "IMAGENAME eq Mars.exe"` found the game closed immediately before the dev Lua edit.
 `python tools/parsecheck.py --dir tools/devmods/elevator_station/Code` passed.
-No import, game launch, train run, cabin/sound verification or ceiling measurement was performed.
+The agent did not launch the game; the owner's import logs supply the receipt above.
+No post-repair startup, train run, cabin/sound verification or ceiling measurement occurred.
 The underground rope remains the prior unmeasured 300 m default. Cabin timing, cargo wiring,
 drone crew, twin placement, vanilla elevator, hub and rail-shaft code/art, and deferred core
 sand/frame were not changed.
@@ -273,10 +362,13 @@ sand/frame were not changed.
 | finding/block | evidence and home | next action | disposition |
 |---|---|---|---|
 | owner concept and arrow | verbatim authority above; original report §7 and reference images | execute approved shape | OI-33 ruled "approved" |
-| approved shell/export | Assets `172e992`, independent comparison and prepared renders above | owner existing-entity import | desk preparation complete; live acceptance open |
+| approved shell/import | Assets `172e992`, imported entity and receipt above | ck221 sitting | owner import and disk audit complete; live acceptance open |
 | movement | source and conditional `depot_motion.json` above | ck221 vanilla train batch | sampled model clear; actual native behavior open |
-| imported baseline/Lua synchronization | prepared FBX + verifier match dev Lua; game entity still old | import, then inspect generated files and restart | checkpoint prepared |
-| surface/cabin/train/underground sitting | brief 25 done-condition and ck221 | first batch above, then remaining batches | all still owed |
+| imported entity/Lua | import receipt matches prepared spots, footprint and metadata | fresh placement | imported and synchronized |
+| hotfix build | owner ruling, fingerprint 25579348 and source hashes above | run on the new target | OI-34 resolved; source archived |
+| surface/cabin/train/underground sitting | brief 25 done-condition and ck221 | next surface batch above | all live checks still owed |
+| main-mod startup quote | editor log and root parse fail→pass above | verify next startup | repaired in this import-receipt commit |
+| depot EntitySpec startup error | normal log, D14(e), guard smoke results above | verify next normal startup | depot-scoped guard added; stubbed checks pass |
 | core sand/frame and cargo wiring | owner deferral above; prior station report §6 | later design/wiring pass | preserved, untouched |
 
 Executed agent: **Codex, GPT-6 family as identified by the session instructions**. The exact
@@ -290,8 +382,10 @@ Assets changes. `python tools/doccheck.py` ran GREEN on 2026-09-30 with these do
 | SMR-Assets | `7f087ce` | candidate generator/workfile, independent FBX proof, renders/review sheet, departure study and pipeline README |
 | OptInPack | `6327ccd` | first report, OI-33, brief 25 handoff and its map row |
 | SMR-Assets | `172e992` | approved shell promotion, revised vanilla route, independent verification and prepared renders |
-| OptInPack | this approval-continuation commit | OI-33 ruled, dev Lua synchronized, import source regenerated, report and brief/map |
+| OptInPack | `457ab7f` | OI-33 ruled, dev Lua synchronized, import source regenerated, report and brief/map |
 | Fix pack | `3fdee71` | ck221 shared-game owner import and attended sitting, with a local report pointer; pushed |
+| SMR-Assets | `05fc97e` | completed import receipt, hotfix continuation and next surface placement in pipeline/review docs |
+| Fix pack | `0bf8700` | ck221 import step complete, owner hotfix ruling and fresh surface batch; pushed |
 
 First-pass handoff byte measurement at `6327ccd`, both by `len(Path(...).read_bytes())`: brief 25 was **17,567 → 18,801
 bytes** (+1,234). The removed stale request to repeat owner feedback is homed in the verbatim
@@ -299,10 +393,25 @@ authority above and the prior report §7. Imported-entity evidence, model/import
 the full sitting remain linked in the brief; no open obligation was dropped. The pre-existing
 untracked trainhub backups remain untouched.
 
-Approval-continuation verification: `python tools/doccheck.py` GREEN in both documentation repos;
+Historical approval-continuation verification at `457ab7f`: `python tools/doccheck.py` GREEN in both documentation repos;
 the final `--emit-fingerprint` run still reads installed build **25390750**. The dev metadata
 still lists `10_ElevatorDepotDev.lua`, `_EntityData.generated.lua` and the generated depot template
 (`rg -n` for those exact paths); recheck after the editor save. Brief 25 measures **18,801 →
 19,789 bytes** (+988), by `len(git show 6327ccd:<brief>)` versus `len(Path(<brief>).read_bytes())`.
 The superseded tube constants/footprint and pending render decision became the prepared source
 map, ruled approval and ck221 sitting; historical evidence remains in the first-pass sections.
+
+Import-continuation verification on input OptInPack `457ab7f`: import/source audit PASS, root
+and dev Lua parsing PASS, guard smoke PASS, documentation checks GREEN in both repos, and the
+hand-edited diff checks pass. The editor-generated EOF warning is recorded above. Brief 25
+measures **19,789 → 20,339 bytes** (+550), by
+`len(git show 457ab7f:<brief>)` versus `len(Path(<brief>).read_bytes())`.
+The pending-import block is replaced by its verified receipt; the prior build target is replaced
+by the owner's recorded hotfix continuation. Both superseded obligations are traced to the
+import/continuation section above: **2/2**, with **0 unhomed content dropped**. The sitting and
+its original acceptance conditions remain live. No unresolved filing remains within this pass.
+
+This receipt commit includes the imported entity/mesh, editor metadata/import item, startup
+repairs and proof files. Unrelated fix-pack prompt-map/casebook work and the untracked Assets
+trainhub Blender backups remain outside it. The new source archive is local and outside git,
+as its README specifies. The remaining task work is ck221's attended game sitting.

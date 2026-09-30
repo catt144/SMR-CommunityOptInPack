@@ -1,0 +1,26 @@
+{
+  "command": "python docs/agent/reports/elevator_depot_import_20260930/guard_smoke.py",
+  "optin_head": "457ab7fb94d25116931a616ab45b623e6f885023",
+  "source_sha256": {
+    "tools\\devmods\\elevator_station\\Code\\10_ElevatorDepotDev.lua": "b08cd844a18ddee2f90d6934689207ede25ecfbd7ba746b0d92f64a84e0c1561",
+    "tools\\devmods\\train_hub\\Code\\20_TrainHub.lua": "a9c793a25cc300a07c0954517463d224e0c5b24d66cbea1e54fe75b85028eec0",
+    "docs\\agent\\reports\\elevator_depot_import_20260930\\guard_smoke.py": "9b601dbd9ea29c4bcb213687a950fe9d03413b32c860731e7a13c721a3144951"
+  },
+  "checks": [
+    {
+      "order": "depot_first",
+      "retail_own_and_hub_skip": "PASS",
+      "foreign_delegation": "PASS",
+      "editor_delegation_and_returns": "PASS",
+      "reinstall_and_helper_transition": "PASS"
+    },
+    {
+      "order": "hub_first",
+      "retail_own_and_hub_skip": "PASS",
+      "foreign_delegation": "PASS",
+      "editor_delegation_and_returns": "PASS",
+      "reinstall_and_helper_transition": "PASS"
+    }
+  ],
+  "limit": "Stubbed Lua callbacks; actual normal-game startup remains for the owner sitting."
+}

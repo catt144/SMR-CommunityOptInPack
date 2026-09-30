@@ -69,7 +69,8 @@ owner's rulings for that are in `reports/ELEVATOR_STATION_LOOK_20260929.md` §6.
 Rewritten on top of OptInPack `63ae577` (the tube-on-pad import) and the SMR-Assets HEAD at that
 time; the reference images are uncommitted there until the next Assets commit. Run `git log --oneline -3` and
 `git pull` in both, and keep a live todo list, one item per commit-and-verify unit, one in
-progress. Game build must be **25390750** (`python tools/doccheck.py --emit-fingerprint`). Check
+progress. Game build must be **25579348** (`python tools/doccheck.py --emit-fingerprint`), carried
+forward on the owner's hotfix ruling below. Check
 whether the game runs before writing the dev mod's `Code/` (PowerShell:
 `tasklist /FI "IMAGENAME eq Mars.exe"`; Git Bash mangles the `/FI`), and tell the owner a restart
 is needed when it does. Commit a checkpoint before every Mod Editor session: an editor save
@@ -130,13 +131,19 @@ interpolation, actual origin/mesh, lateral/yaw motion and visual rail following 
 The disputed 41.5 m assembled bbox is sensitivity data, **not** a reinstated length gate
 (`GEOMETRY_ORACLE_20260919.md` §13). No custom train movement was added.
 
-**Next is the owner's existing-entity import**, then the agent reads the regenerated entity and
-metadata code list before playing. Use the report's short first batch: existing
-`SMROptInElevatorDepot` → `mesh` → Open in Importer → Import → save. Restart, and use a **fresh
-placement** because the connector/footprint changed. The shared-game sitting is **ck221** in
-the fix pack's owner checklist. Surface, train, cabin/sound and underground rope/ceiling checks
-are still owed; the ceiling is NOT MEASURED. No import or live train run occurred in this pass.
-The rejected tube remains the last imported entity until that import.
+**Import completed, 2026-09-30:** owner replied **"done"**. The editor log and on-disk audit
+confirm the prepared spots, footprint and metadata code list. The rejected tube is replaced.
+Owner's reply to the build question: **"There should be no issues, this is a minor hotfix
+specifically targeted only at linux systems. No game content changed"**. This carries the brief
+forward to **25579348 / 1.1.1.406343**; OI-34 is resolved. The report's import checker confirms
+the Station, Train, Tracks, TrackElement, SpaceElevator and ArtSpecEditor source fingerprints
+match the prior archive. The new source version is archived. The approved shape stands; do not
+repeat its approval or its successful import.
+
+Restart and use a **fresh placement** because the connector and footprint moved. The shared-game
+sitting remains **ck221**. Surface, train, cabin/sound and underground rope/ceiling checks are
+still owed; the ceiling is NOT MEASURED. The report records the repaired root `items.lua` quote
+and the depot-scoped EntitySpec startup guard; a clean normal-game startup remains to be observed.
 
 `review_descent/index.html` preserves the original approved comparison and links the prepared
 concept/mouth renders under `review_prepared/`. Portal: actual geometry. Elevator and approach:
@@ -228,7 +235,7 @@ tools/devmods/elevator_station/Code` is the Lua syntax gate. The game log is
 2. The concept cannot be met at the hub's quality bar without changing vanilla's platform art, or
    the train cannot be hidden by the descent. Report the options with numbers and renders; do not
    substitute a different shape.
-3. The installed build is no longer 25390750.
+3. The installed build is no longer 25579348 (owner's hotfix continuation, 2026-09-30).
 
 ## Claim limits
 

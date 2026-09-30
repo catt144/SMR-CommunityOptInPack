@@ -36,6 +36,25 @@ local template_id = "SMROptInElevatorDepotDev"
 local entity_id = "SMROptInElevatorDepot"
 local log_prefix = "[ElevatorDepotDev]"
 
+-- ArtSpecEditor.lua:565-573 (archived 1.1.1.406343) calls an editor-only helper on retail
+-- mod load. This spec has no legacy color properties to migrate; skip only its editor load
+-- when that helper is absent. Preserve other specs and the hub's existing wrapper (D14(e)).
+local function install_depot_art_spec_guard()
+	local spec = g_Classes and g_Classes.EntitySpec
+	local previous = spec and rawget(spec, "OnPresetPostLoad")
+	if type(previous) ~= "function" or previous == D.ArtSpecGuard then return end
+	local wrapper = function(self, ...)
+		if self.id == entity_id and type(rawget(_G, "EntitySpecPathToEntity")) ~= "function" then return end
+		return previous(self, ...)
+	end
+	spec.OnPresetPostLoad = wrapper
+	D.ArtSpecGuard = wrapper
+end
+
+function OnMsg.ClassesPostprocess()
+	install_depot_art_spec_guard()
+end
+
 -- The layout: depot_build.py's numbers, game units (cm) and degrees. The entity's spots and
 -- footprint are baked from the same constants; a Set() here moves only a visual. A move the owner
 -- keeps goes back into depot_build.py for a regenerate and re-import, so the spots follow.

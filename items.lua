@@ -88,7 +88,7 @@ return {
 	PlaceObj('ModItemOptionToggle', {
 		'name', "ServiceInterestTags",
 		'DisplayName', "Service interest tags",
-		'Help', 'Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the building's details and the traits that gain or lose something there (Gamer, Party Animal, Gambler, Fit and more). Display only: how Colonists choose and use services does not change.',
+		'Help', 'Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the building\'s details and the traits that gain or lose something there (Gamer, Party Animal, Gambler, Fit and more). Display only: how Colonists choose and use services does not change.',
 		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionChoice', {

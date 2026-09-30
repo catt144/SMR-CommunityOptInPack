@@ -1,0 +1,51 @@
+Mars.exe-20260930-10.54.44-6aba6e65.log sha256=c9fb016fc4e869e466f0b8b38ec3ba416142759aabac0b7188972cc7ec7310c3
+51: Lua revision: 406343
+55: Build version: 1.1.1.406343
+191: [LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+192:   CommonLua/Editor/ArtSpecEditor.lua(573):   <>
+193:   CommonLua/Preset.lua(541):  upvalue f1
+194:   CommonLua/Core/classes.lua(170):  method PostLoad
+195:   CommonLua/Modding/ModItem.lua(2518):   <>
+196:   [C](-1):  global sprocall
+197:   CommonLua/Modding/Mod.lua(666):   <>
+198:   CommonLua/Modding/Mod.lua(740):   <>
+199:   CommonLua/Modding/Mod.lua(664):  method LoadItems
+200:   CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+201:   CommonLua/Dlc.lua(603):  global LoadDlcs
+202:   CommonLua/Core/autorun.lua(447):  local StartupSequence
+203:   CommonLua/Core/autorun.lua(516):   <>
+204:         --- end of stack
+205: Locals:
+206: 	                self |   object EntitySpec 'SMROptInElevatorDepot'
+207: 						Lua 0:00:18:986
+MarsDebug.exe-20260930-10.58.36-6aba6e9d.log sha256=78c5e18b49baba62bbd6f7d01f8ccaa90933ffa02b3c8d15c584c016cc9a9282
+59: Lua revision: 406343
+62: Build version: 1.1.1.406343
+198: [LUA ERROR] Failed to load items.lua for mod Relaunched Fix Pack: Opt-In Modules
+199:   CommonLua/Modding/Mod.lua(604):  method LoadItems
+200:   CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+201:   CommonLua/Dlc.lua(603):  global LoadDlcs
+202:   CommonLua/Core/autorun.lua(447):  local StartupSequence
+203:   CommonLua/Core/autorun.lua(516):   <>
+204:         --- end of stack
+205: Locals:
+206: 	                self |   object ModDef 'SMR_CommunityOptInPack'
+207: 	        content_path |   string Mod/SMR_CommunityOptInPack/
+208: 	                path |   string Mod/SMR_CommunityOptInPack/items.lua
+209: 	                  ok |  boolean false
+210: 	               items |   string Mod/SMR_CommunityOptInPack/items.lua:91: '}' expected (to close '{' at line 88) near 's'
+211: 	    FixRelativePaths | function 0x000002415B67DBC0
+212: [mod] [SMRTK] SMRTK_ERROR kind=lua message="Failed to load items.lua for mod Relaunched Fix Pack: Opt-In Modules" stack="  CommonLua/Modding/Mod.lua(604):  method LoadItems\n  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems\n  CommonLua/Dlc.lua(603):  global LoadDlcs\n  CommonLua/Core/autorun.lua(447):  local StartupSequence\n  CommonLua/Core/autorun.lua(516):   <>\n        --- end of stack" t=0 id=5
+213: [SMRTK] SMRTK_ERROR kind=lua message="Failed to load items.lua for mod Relaunched Fix Pack: Opt-In Modules" stack="  CommonLua/Modding/Mod.lua(604):  method LoadItems\n  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems\n  CommonLua/Dlc.lua(603):  global LoadDlcs\n  CommonLua/Core/autorun.lua(447):  local StartupSequence\n  CommonLua/Core/autorun.lua(516):   <>\n        --- end of stack" t=0 id=5
+214: 							Lua 0:00:12:128
+315: [IMPORT] Collected 1 import items and 1 scenes
+317: [IMPORT] Importing entity 'SMROptInElevatorDepot' mesh 'mesh'
+319: [IMPORT] Exporting material 'SMROptInElevatorStation'
+320: [IMPORT] Export materials: OK!
+321: [IMPORT] Exporting 1 node with origin 1
+323: [IMPORT] ExportMeshes: OK!
+325: [IMPORT] Found spots 14
+326: [IMPORT] Found colliders 0
+327: [IMPORT] Found surfaces 142
+328: [IMPORT] EntityPersist links patched.
+330: [IMPORT] Importing Mesh Done!
