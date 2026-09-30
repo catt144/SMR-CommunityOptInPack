@@ -112,14 +112,29 @@ headless; its `README.md` "The Elevator Depot" has the commands and the owner's 
   EntitySpec) → restart if `Code/` changed → look. The dev Lua's `layout` defaults and its
   `design_spots` table must follow the constants by hand.
 
-**State at handoff.** The tube shape is imported: `Entities/SMROptInElevatorDepot.entjson` carries
-`Trackconnector1` at (−4000, 0, 800), written 2026-09-30 02:07 (falsify:
-`python -c "import json;d=json.load(open('tools/devmods/elevator_station/Entities/SMROptInElevatorDepot.entjson'));print([a['spotPos'] for a in d['$value']['meshDescriptions'][0]['attaches'] if a['name']=='Trackconnector1'])"`).
-What the owner saw of it and the changes they want are **not recorded**: they are the first thing
-to ask. No train has driven in yet. The ceiling read is still NOT MEASURED.
+**State at handoff, 2026-09-30.** The rejected tube is still the imported entity;
+`Trackconnector1` was read at (−4000, 0, 800), within 0.001 units, on OptInPack `de9ac7c`.
+The owner's rejection and replacement concept are recorded verbatim in the reports; do not ask
+them to repeat that feedback. No train has driven in yet. The ceiling is still NOT MEASURED.
 
-**Records.** `reports/ELEVATOR_DEPOT_LOOK_20260929.md` (§1–§5 the first depot, §6 the first view,
-the dressing fix and the tube shape with its numbers); `reports/ELEVATOR_STATION_LOOK_20260929.md`
+A separate rounded, descending portal candidate now sits **between** the pads, with the elevator
+turned 90°. Open `SMR-Assets/elevatorstation/blender/review_descent/index.html`: concept beside
+render, plus mouth/top views. The portal is actual export geometry; the elevator is a dimensioned
+render-only proxy, so the exact vanilla-mesh join remains unverified. `depot_candidate.py` builds
+only `ElevatorDepot_candidate.blend` and `export/candidate_descent/`; it does not touch the dev mod.
+`verify_depot_candidate.py` re-imports that FBX: static PASS. Full commands, hashes, dimensions and
+spot table are in [the 20260930 report](../../reports/ELEVATOR_DEPOT_LOOK_20260930.md).
+
+**Next: OI-33, the owner's render decision.** The proposed below-grade movement layout is held:
+`study_depot_departure.py` finds conservative train envelopes overlapping the roof at the proposed
+departure ramp. This is a desk check of these spots, not an observed game collision or proof that
+every vanilla layout fails. After the shape decision, finish the vanilla spot/swept-clearance work
+under this brief's stops, synchronize the production builder/verifier and dev Lua, and checkpoint
+before one import. No custom movement was written. The live Lua still matches the rejected import.
+
+**Records.** `reports/ELEVATOR_DEPOT_LOOK_20260930.md` (candidate renders, export proof and the
+departure hold); `reports/ELEVATOR_DEPOT_LOOK_20260929.md` (§1–§5 the first depot, §6 the first view,
+the dressing fix and the tube shape, §7 the owner's concept); `reports/ELEVATOR_STATION_LOOK_20260929.md`
 (the dome build and the owner's evening rulings). Brief 25's row is in this folder's `README.md`.
 
 ## Evidence
@@ -218,8 +233,9 @@ it is. The owner accepts console lines where no slot is free (2026-09-27). About
 time; the owner clicks and reads, you read the log. Output: `[ElevatorDepotDev]` lines after a
 flush, a screenshot, any Lua error first.
 
-- **B — surface look.** Load the normal game; the placed depot re-dresses on load. Look by day at
-  the tube on its pad; `SMRElevatorDepotDev.Report()`; flush. Ask what moves.
+- **B — surface look, after the accepted candidate is ready and imported.** Load the normal game;
+  the placed depot re-dresses on load. Look by day at the portal and its join to the base;
+  `SMRElevatorDepotDev.Report()`; flush. Ask what moves.
 - **C — the train.** Drag a track from a line's end to the mouth; set one depot row to Import so
   trains have work; slot 6's stream on; watch one train enter, vanish, come back out; flush.
 - **D — underground.** Switch maps, place one, `Measure()` then `Report()`, zoom fully out at the
