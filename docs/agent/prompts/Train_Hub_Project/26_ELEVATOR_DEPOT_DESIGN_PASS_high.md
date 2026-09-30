@@ -76,6 +76,49 @@ Brief `22`'s five smoke steps (`reports/TRAIN_HUB_STORAGE_20260929.md`, "Short a
 then run in this pass's sitting, after the look checks. Fixture: the owner's save **double
 hub+elev** (two hubs, Capacity Network, a vanilla elevator, the depot pair placed).
 
+
+## Handoff, 2026-09-30 evening (session 1 of this brief; the owner refired it for a thorough investigation)
+
+**Where it stands.** Built, desk-verified, renders **approved by the owner** (*"approved"*; render gate
+cleared, do not ask again). The owner's Mod Editor session is done: the depot mesh with the
+`terrain_hole` surface and the receiver entity are imported (OptInPack `e3e0832`), the hub mod's save
+for brief 22 is done and `cargo_upgrade_smoke.py --require-generated` PASSes (`468d74d`). The game
+loads both mods clean; on load the depots dress `surface … ropes=0 receiver=false signs=0` and
+`underground … ropes=4 receiver=true signs=0`. Report:
+`reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md` (facts, design calls, verify figures, sitting
+batches A-D). Renders and sheets: `SMR-Assets/elevatorstation/blender/review_design_pass/index.html`.
+Assets commits `c5a8189`, `718390f`, `2c47118`; OptInPack `072f8f0`, `09507b0`, `f20212d`, `e68d374`,
+`e3e0832`, `468d74d`, `0811edf`, `7e84783`.
+
+**Open defect, first thing to investigate: a rope that outlives its depot.** Owner's screenshots,
+underground map: a single rope standing on bare cave floor with no depot under it, after the depot
+there was deleted earlier in the day (TestKit `selected_delete method=CheatDelete`, log
+`Mars.exe-20260930-15.27.38`). It survives every reload of the owner's save **double hub+elev**, so
+it is written into the save. Two fixes did NOT remove it (`0811edf`, `7e84783`): rope tiles now ride
+as attachments, our props clear `gofPermanent`, a sweeper deletes props of invalid depots, and
+`SMRElevatorDepotDev.Sweep()` also deletes parentless `SpaceElevatorRope`/`SpaceElevatorCabin`
+objects with no vanilla `SpaceElevator` within 100 m. With the rope on screen the sweep printed
+`swept 0 props of gone depots and 0 orphaned props` (log `Mars.exe-20260930-15.52.26:373`). Leads,
+untested: (a) the sweep enumerates `AllMapsForEach("map", "Object", …)`; if the rope's class derives
+from `CObject` only, it is never visited: enumerate `"CObject"` and match on `GetEntity()`; (b) the
+rope may be the only thing left of an older, already-saved rig (surface `rope_surface_m` is 0, so
+it is the underground one's, 4 tiles of 208 m at 75 %); (c) identify it directly in the console:
+the object under the cursor, its class, entity, parent, `GetGameFlags` (permanent?), position, then
+`DoneObject` it and save. Do not guess again: name the object first, then fix, then verify with a
+reload. The old depots in that save are still placed (their hexes predate the footprint change) and
+must be deleted for fresh placements; the sitting has not gone past batch A.
+
+**Smaller findings, routed here, not yet filed:** a `[LUA ERROR] 10_ElevatorDepotDev.lua:354 attempt
+to perform arithmetic on a nil value` in `Measure()` from the orchestrator's 12:23 sitting log (an
+object with no scale or bbox in the sweep; not touched); vanilla prints `Missing spot 'Top' in
+'SMROptInElevatorDepotDev'` when a depot is selected (its warning signs want a `Top` spot: add one
+at the shell's crown at the next re-import); the receiver's import item first said `Origin` while
+its FBX root is `ReceiverOrigin` (fixed in the generator, Assets `2c47118`; the editor's saved item
+already says `ReceiverOrigin`). The two previous hub-save failures were the owner saving only the
+depot mod; the hub's plain save works as it always did.
+
+**Then continue with batch A step 3 onward** (report, "The sitting"), on the owner's schedule.
+
 ## Start
 
 Read brief `25_ELEVATOR_STATION_LOOK_high.md` "What exists" and "Evidence" first: the dev mod

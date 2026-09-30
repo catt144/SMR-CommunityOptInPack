@@ -5,10 +5,11 @@ tree `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src`. Executed model: Cl
 (`claude-fable-5-1`), the brief's `_high` session. The game was running when the desk work started
 (`tasklist`: `Mars.exe` PID 25584); nothing under `Code/` is loaded until the owner's restart.
 
-**State: built and desk-verified; renders approved by the owner (2026-09-30: *"approved"*, after the
-rear cap moved at their render comment). The render gate is cleared; do not ask for it again. Next is
-the Mod Editor session, then the sitting.** No item is accepted in the game yet: only the owner's words
-in their game do that.
+**State: built, desk-verified, renders approved by the owner (2026-09-30: *"approved"*). Editor session
+done, hub save done and smoke PASS. Sitting stopped in batch A on an open defect: a rope written into the
+owner's save outlives its deleted depot; two fixes did not remove it. The brief's "Handoff" section carries
+the evidence and leads; the owner refired the brief for a thorough investigation.** No item is accepted
+in the game yet: only the owner's words in their game do that.
 
 ## Commits
 
