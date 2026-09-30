@@ -199,3 +199,46 @@ removing the mod**.
     does not enter the map's object radius. A real station attaching it elsewhere should keep that
     order.
   - The rack crates are mesh, not cube spots.
+
+## 6. Owner direction after the build (2026-09-29, evening) — the design turns
+
+The owner, having seen vanilla's Space Elevator in play: *"Make a mini space elevator, and underground
+to surface cargo elevator. It already handles the cargo internally, we don't have to show it or have
+plates. Drones service it and when it comes back down drone come in and get the cargo out. Then
+playes can decide if they want a train station there. Drone hub there, handle it how they want to."*
+This session answered with source evidence:
+- The cabin is a separate `SpaceElevatorCabin` moved by Lua `SetPos`, and the rope is stacked
+  `SpaceElevatorRope` tiles every 100 m (`SpaceElevator.lua:56-73, 391-410`).
+- The sound is the `ElevatorMoving` FX on the building and the cabin (`:395-407, 652-659`).
+- A scaled vanilla visual keeps its auto-attaches (`AutoAttach.lua:2606-2619`; the hub's reactor
+  runs at 75 %).
+- The footprint does not scale with the art. Vanilla's SpaceElevator `hex_shape`, counted as in §2:
+
+| scale | centre rule | touch union | extent |
+|---|---:|---:|---|
+| 100 % | 38 | 61 | 85 × 79 m |
+| 75 % | 19 | 40 | 64 × 59 m |
+| 50 % | 9 | 22 | 42 × 40 m |
+
+The Train Station is 24 / 41 (82 × 47 m).
+`SMRElevatorStationDev.Preview(scale, mode, rope_m)` (OptInPack `c49f3a4`) shows the scaled art
+with its cabin cycle and sound in game. It is visual only.
+
+**Owner ruling, 2026-09-29: *"lets try the 75% one."*** The crossing's look becomes vanilla's Space
+Elevator at 75 %, on a footprint of our own drawn to cover it. The dome model of §1 is **on hold,
+not imported**; this report's §4 batch A is suspended.
+
+The owner's follow-up questions, not yet ruled:
+- the elevator's own internal drones;
+- a **companion station** "designed to play by our elevator rules", so that a station on either
+  side is loaded or unloaded by its Import / Export / Balanced settings.
+
+Facts for that answer:
+- The four modes live today in the hub dev mod's `40_TrainDistribution.lua`.
+- The hub itself is `{ "Station", "DroneControl", "ElectricityProducer" }` (`20_TrainHub.lua:209`):
+  a station with its own drone crew, already running in game.
+
+Still open from this session's list:
+- which way the surface cabin travels, up or down;
+- per-trip cargo versus a shared store;
+- placement: beside a vanilla elevator, or anywhere.
