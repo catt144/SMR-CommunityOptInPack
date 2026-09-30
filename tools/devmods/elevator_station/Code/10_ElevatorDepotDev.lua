@@ -9,11 +9,14 @@
 --     SpaceElevatorRope tiles and the ElevatorMoving FX on both, as the wonder does
 --     (SpaceElevator.lua:56-74, :391-410, :652-655 at 1.1.1.405907). D1: on the surface the cabin
 --     goes DOWN into the ground; underground it goes UP into the cave ceiling.
---   * vanilla's TrainTunnelUniversal art at 75 % (D2), lifted 2 m so its 6 m rail stub meets vanilla's
---     8 m track, its mouth on the entity's Trackconnector1 hex. Trains drive in and back out on
---     vanilla Station code (D3): Ramparrive1/Stop1 inside the mound, Spawn1/Rampdepart1 the way out.
---     Trackconnector2 is buried in the mound with its Trackdirection2 inside the footprint, so no
---     track can ever reach it (TrackElement.lua:345-348; Tracks.lua:240).
+--   * the train mouth is the base entity's own tube, sized to a train, on one of the elevator's
+--     three round pads (the visual is turned 30 degrees so that pad sits on the track axis). The
+--     owner cut the vanilla tunnel art after seeing it (2026-09-29 evening: "a much smaller tunnel
+--     that gets out in one of the three corners of the elevator ... just big enough to fit the
+--     train"); Set("tunnel_entity", "TrainTunnelUniversal") brings it back for comparison. Trains
+--     drive in and back out on vanilla Station code (D3): Ramparrive1/Stop1 inside the tube,
+--     Spawn1/Rampdepart1 the way out. Trackconnector2 is buried in the core with its Trackdirection2
+--     inside the footprint, so no track can ever reach it (TrackElement.lua:345-348; Tracks.lua:240).
 --
 -- Cargo, per-resource modes, the drone crew and the underground twin are the next brief.
 --
@@ -41,8 +44,11 @@ local log_prefix = "[ElevatorDepotDev]"
 D.layout = D.layout or {
 	scale = 75,                         -- both vanilla arts, percent
 	elevator_entity = "SpaceElevator",
-	elevator_x = 0, elevator_y = 0, elevator_z = 0, elevator_angle = 0,
-	tunnel_entity = "TrainTunnelUniversal",   -- D2
+	elevator_x = 0, elevator_y = 0, elevator_z = 0,
+	elevator_angle = 30,                -- turns one round pad onto the track axis (depot_build.py)
+	tunnel_entity = false,              -- the mouth is the entity's own tube on that pad (owner,
+	                                    -- 2026-09-29 evening); Set("tunnel_entity", "TrainTunnelUniversal")
+	                                    -- brings the vanilla art back for comparison
 	tunnel_x = -750, tunnel_y = -2598, tunnel_lift = 200, tunnel_angle = 180,
 	rope_surface_m = 0,                 -- D1: the surface cabin goes down, so no rope above by default
 	rope_underground_m = 300,           -- the cabin goes up into the cave ceiling; the sitting measures it
@@ -57,12 +63,12 @@ D.layout = D.layout or {
 -- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
 -- Report() can say whether the imported entity carries what was designed.
 local design_spots = {
-	Trackconnector1 = point(-4500, -2598, 800), Trackdirection1 = point(-5500, -2598, 800),
-	Trackconnector2 = point(1500, -2598, 800), Trackdirection2 = point(500, -2598, 800),
-	Ramparrive1 = point(-2600, -2933, 800), Stop1 = point(-700, -2933, 800), Spawn2 = point(-700, -2933, 800),
-	Spawn1 = point(200, -2263, 800), Stop2 = point(200, -2263, 800), Rampdepart1 = point(-1800, -2263, 800),
-	Ramparrive2 = point(-400, -2263, 800), Rampdepart2 = point(-1000, -2933, 800),
-	Sign1 = point(-4500, -2598, 0), Sign2 = point(1500, -2598, 0),
+	Trackconnector1 = point(-4000, 0, 800), Trackdirection1 = point(-5000, 0, 800),
+	Trackconnector2 = point(1000, 0, 800), Trackdirection2 = point(0, 0, 800),
+	Ramparrive1 = point(-3200, -335, 800), Stop1 = point(-2200, -335, 800), Spawn2 = point(-2200, -335, 800),
+	Spawn1 = point(-2000, 335, 800), Stop2 = point(-2000, 335, 800), Rampdepart1 = point(-3100, 335, 800),
+	Ramparrive2 = point(-1200, 335, 800), Rampdepart2 = point(-1400, -335, 800),
+	Sign1 = point(-4000, 0, 0), Sign2 = point(1000, 0, 0),
 }
 
 -- ---- the class ---------------------------------------------------------------------------------
@@ -187,8 +193,10 @@ function D.Dress(bld)
 	local rig = { ropes = {} }
 	rig.elevator = attach_visual(bld, L.elevator_entity, point(L.elevator_x, L.elevator_y, L.elevator_z),
 		L.elevator_angle, L.scale, "SpaceElevator")
-	rig.tunnel = attach_visual(bld, L.tunnel_entity, point(L.tunnel_x, L.tunnel_y, L.tunnel_lift),
-		L.tunnel_angle, L.scale)
+	if L.tunnel_entity then
+		rig.tunnel = attach_visual(bld, L.tunnel_entity, point(L.tunnel_x, L.tunnel_y, L.tunnel_lift),
+			L.tunnel_angle, L.scale)
+	end
 	if rig.elevator and L.cabin_on then
 		-- the cabin and rope are free objects at the elevator's world position, as vanilla's are
 		local base = bld:GetRelativePoint(point(L.elevator_x, L.elevator_y, L.elevator_z))
@@ -392,7 +400,7 @@ function D.PreviewTunnel(scale, lift_m, angle_deg, entity)
 	local map = CurrentMap
 	local L = D.layout
 	scale = scale or L.scale
-	entity = entity or L.tunnel_entity
+	entity = entity or L.tunnel_entity or "TrainTunnelUniversal"
 	local lift = lift_m and (lift_m * guim) or L.tunnel_lift
 	local pos = point(HexToWorld(WorldToHex(GetTerrainCursor())))
 	pos = pos:SetZ(terrain.GetHeight(map, pos) + lift)
