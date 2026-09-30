@@ -87,7 +87,8 @@ before it fires.
         **Sitting 2026-09-30 done** (`reports/ELEVATOR_DEPOT_LOOK_20260930.md`, "Sitting"): look,
         cabin, sound, rope and trains PASS as a test model; brief `22`'s smoke NOT RUN (owner):
         its `SMR_TrainHubDev` Mod Editor save and its five steps fold into the **next design
-        pass's** editor-and-import session. Next: brief the design pass from the owner's list.
+        pass's** editor-and-import session. The design pass is **brief `26`** (eight items, the owner's words), fired by the owner;
+        the orchestrator guides its sitting, which ends with brief `22`'s five steps.
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout
