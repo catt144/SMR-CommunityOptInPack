@@ -316,3 +316,13 @@ proposals, with the timer changed:**
    better then the standard elevator."* So: one leg per game hour on a fixed schedule, alternating
    down and up, and the cabin's capacity is the balancing knob. Leg time, pause and capacity
    remain live tunables.
+
+**Owner ruling, 2026-09-29, closing the placement question:** *"lets make it like the vanilla space
+elevator, it can only have one "pair" that way players done complicate things by building a dozen
+of them or something."* So: **one depot pair per colony**, one half on each map, placed anywhere
+(the earlier "anywhere" ruling stands), each half placed by the player in either order. With one
+of each there is nothing to link: the two halves find each other. Implementation note for the
+wiring brief: vanilla's `build_once` counts by template, so a single template shared by both maps
+would refuse the second half; use one template per map or a per-map count. Demolishing a half is
+the worker's call to design (the survivor behaves as a plain station until the other half is
+rebuilt), recorded in the commit message.
