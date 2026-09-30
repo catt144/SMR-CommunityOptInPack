@@ -298,3 +298,33 @@ end
 function OnMsg.LoadGame()
 	D.previews = {}                          -- the props were DeleteOnLoadGame
 end
+
+-- ---- Tunnel preview: the owner's 2026-09-29 follow-up, a scaled vanilla tunnel blended into
+-- the elevator as its train mouth. Visual only, like Preview(). What does not scale: vanilla
+-- track runs 8 m up (TrackCCP3's Enter spots, IMPORTER_FACTS) and the train keeps its size, while
+-- the tunnel's rail stub and mouth scale with the art. `lift_m` raises the art to test a podium.
+--   SMRElevatorStationDev.PreviewTunnel(scale, lift_m, angle_deg, entity)
+--     scale 75, lift 0, angle 0 (the mouth faces game +x), entity "TrainTunnelUniversal"
+--     ("TrainTunnel" is the plain rail tunnel). ClearPreview() removes it with the rest.
+local tunnel_connector_m = 50                -- Trackconnector0 at (5000, 0, 0), entities.dat 25390750
+
+function D.PreviewTunnel(scale, lift_m, angle_deg, entity)
+	local map = CurrentMap
+	scale = scale or 75
+	local lift = math.floor((lift_m or 0) * guim + 0.5)
+	local pos = point(HexToWorld(WorldToHex(GetTerrainCursor())))
+	pos = pos:SetZ(terrain.GetHeight(map, pos) + lift)
+	local v = PlaceObjectIn("ShapeshifterAutoAttach", map)
+	v:ChangeEntity(entity or "TrainTunnelUniversal")
+	v:ClearEnumFlags(const.efCollision + const.efApplyToGrids + const.efWalkable + const.efSelectable)
+	v:SetPos(pos)
+	v:SetAngle((angle_deg or 0) * 60)
+	v:SetScale(scale)
+	DeleteOnLoadGame(v)
+	D.previews[#D.previews + 1] = { visual = v, ropes = {} }
+	local mouth = MulDivRound(tunnel_connector_m * guim, scale, 100)
+	print(string.format("%s tunnel preview %d: %s at %d%%, lifted %d cm; its rail meets vanilla track (800 cm) at %d cm here; mouth connector %d cm from its centre (a hex is 1000)",
+		log_prefix, #D.previews, entity or "TrainTunnelUniversal", scale, lift,
+		MulDivRound(800, scale, 100) + lift, mouth))
+	return v
+end
