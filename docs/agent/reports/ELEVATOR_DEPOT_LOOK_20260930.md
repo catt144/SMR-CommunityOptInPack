@@ -424,7 +424,7 @@ and a ready track at its underground half). Build 25579348.
 **Batch 1, surface and underground look — PASS as a test model.** Owner: *"both ends build,
 sounds seem right. animation works."* `Report()` read two depots, all 14 spots on each MATCH
 the design at 0 cm, surface connector 1 carrying a `TrackGridElement`; no Lua error.
-Screenshots: `SMR-Assets/elevatorstation/reference/sitting_20260930_underground.png`,
+Screenshots: `SMR-Assets/elevatorstation/owner_feedback/sitting_20260930_underground.png`,
 `sitting_20260930_range_off_centre.png`.
 
 **Findings, routed to the wiring brief, not defects of the look:**
