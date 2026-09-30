@@ -242,3 +242,25 @@ Still open from this session's list:
 - which way the surface cabin travels, up or down;
 - per-trip cargo versus a shared store;
 - placement: beside a vanilla elevator, or anywhere.
+
+**Owner, 2026-09-29, later the same evening — the train mouth.** In place of a companion
+station: *"we borrow the asset of a tunnel make it smaller, and blend it into the elevator. So its
+already train ready. Traints can deliver into or out of it. Drones can as well. Depending on player
+setup. Gives players the most agency. Then with the tunnels design we still don't have to deal
+with internal cargo visuals, the train just goes "inside" and comes out"*. Clarified: *"More of a
+depot. Trains still dont goto new maps it enters the elevator, and the cargo transfers from the
+elvator"*. §11's rule that trains never change maps stands.
+
+Desk facts, `entities.dat` at 25390750:
+- `TrainTunnel` and `TrainTunnelUniversal` measure 110 × 43 m, with a 49-hex footprint (centre
+  rule).
+- Their one connector is `Trackconnector0` at (5000, 0, 0).
+- At 75 % the tunnel takes 25 hexes. Butted into the 75 % elevator, the pair takes about 35–44.
+
+What does not scale:
+- Vanilla track runs 8 m up. A 75 % tunnel's rail stub lands at 6 m, and its connector at 37.5 m,
+  off the hex lattice.
+- The train keeps its full size.
+
+`SMRElevatorStationDev.PreviewTunnel(scale, lift_m, angle_deg, entity)` (OptInPack `45e19ff`)
+shows the scaled tunnel art in game.
