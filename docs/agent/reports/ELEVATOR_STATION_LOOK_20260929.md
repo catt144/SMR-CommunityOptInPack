@@ -272,3 +272,30 @@ The rulings are D1–D4 in the brief's table:
 - D3: the stand-in is a working vanilla station, so trains drive in.
 - D4: the dome model stays **on hold**, not retired: *"lets atleast get to the point of testing
   before we retire"*.
+
+**Owner, 2026-09-29, for the wiring brief after the depot's look.**
+
+Ruled:
+- **Drone crew:** *"TBD agent can make its best choice and we can balanced from there"*. The worker
+  sizes it; the owner balances it.
+- **Row modes:** *"we should match the other stations "Import/Export/Balanced/Not accepted on the
+  depot's own rows;" unless you see an issue"*. Two issues were raised with the owner; see below.
+
+Leaning, not ruled:
+- **Placement:** *"leaning towards anywhere"*.
+
+Asked, not ruled:
+- per-trip cabin loads against one shared store;
+- the cabin timer (*"I don't want it to be as long as the space elevator, and thematically it
+  shouldn't be"*).
+
+This session's evidence for the timer: vanilla runs one course per Sol, with each leg a full game
+hour. `SpaceElevatorTripInterval` is 1 sol (`SpaceElevator.lua:194-199`) and `travel_time` is one
+hour (`:6`).
+
+The two issues raised on the row modes:
+1. The four modes live today only in the hub dev mod's `40_TrainDistribution.lua`. The depot needs
+   its own copy to work without the hub, and one owner of each row's setting when the hub is
+   present.
+2. Across the pair, a half's Import or Export must also say which way the cabin carries the
+   resource.
