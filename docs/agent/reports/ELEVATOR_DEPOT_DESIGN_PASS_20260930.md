@@ -364,11 +364,12 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
 | rope blocker in current setup | owner confirmation and clean census above | resolved by owner; four owned ropes, no orphan |
 | original saved-set recovery and persistence mechanism | scoped sweep above; reopen if the original residual returns | dormant; legacy-removal branch not exercised in the clean run |
 | Measure nil-Z crash | checkpoint `493f518`; next underground `Measure()` | desk repaired, native reading pending |
-| missing `Top` spot | brief 26's existing handoff; add at shell crown at the next needed re-import | deferred; no new import requested |
-| receiver root `ReceiverOrigin` | existing handoff, Assets `2c47118`, already-imported item | settled; preserved |
+| missing `Top` spot | add at shell crown at the next needed re-import | deferred; no new import requested |
+| receiver root `ReceiverOrigin` | Assets `2c47118` fixes the generator's `Origin`; the editor's saved item already names the FBX root `ReceiverOrigin` | settled; preserved |
 | renders/import and hub save | this report's editor section and hub smoke above | settled; no repeated approval/save request |
-| eight game looks and brief 22 smoke | B/C/D above, after R batch and A3 | owner acceptance remains open |
+| eight game looks and brief 22 smoke | resume B/C/D above from the current replacement pair | owner acceptance remains open |
 
-The inherited handoff was retained and linked to this section; no unhomed content was removed.
+The earlier hub-save failures came from saving only the depot mod; saving the hub itself succeeded.
+Brief 26 remains in place at the owner's close-out request; its handoff resumes B/C/D.
 The native sitting observations and their limits are above. No agent-side save edit, geometry/import,
 vanilla-art change, movement change or hub-code change occurred in these checkpoints.
