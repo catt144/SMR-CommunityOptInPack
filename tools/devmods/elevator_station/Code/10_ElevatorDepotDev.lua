@@ -97,7 +97,7 @@ end
 D.rigs = D.rigs or setmetatable({}, { __mode = "k" })   -- depot -> { elevator, tunnel, cabin, ropes, thread }
 
 local function is_depot(obj)
-	return IsValid(obj) and obj.template_name == template_id
+	return IsValid(obj) and IsKindOf(obj, "SMROptInElevatorDepotDevBase")
 end
 
 local function environment_of(obj)
@@ -127,7 +127,8 @@ local function attach_visual(bld, entity, offset, angle_deg, scale, actor)
 	v:ChangeEntity(entity)                 -- brings the art's own auto-attaches (AutoAttach.lua:2606-2619)
 	if actor then v.fx_actor_class = actor end
 	unselectable(v)
-	bld:Attach(v, bld:GetSpotBeginIndex("Origin"))
+	local spot = bld:GetSpotBeginIndex("Origin")
+	if spot and spot >= 0 then bld:Attach(v, spot) else bld:Attach(v) end
 	v:SetAttachOffset(offset)
 	v:SetAttachAngle(angle_deg * 60)
 	v:SetScale(scale)
@@ -210,6 +211,9 @@ function D.Dress(bld)
 		start_cycle(rig)
 	end
 	D.rigs[bld] = rig
+	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d",
+		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
+		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale))
 end
 
 local function for_each_depot(fn)
