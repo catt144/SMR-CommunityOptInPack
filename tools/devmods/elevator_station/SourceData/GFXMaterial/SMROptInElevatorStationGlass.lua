@@ -12,7 +12,7 @@ PlaceObj('GFXMaterial', {
 	SI = "B:\\Dev\\SMR\\SMR-Assets\\elevatorstation\\blender\\textures\\SMROptInElevatorStationGlass_SI.tga",
 	TwoSidedShading = true,
 	id = "SMROptInElevatorStationGlass",
-	mod_handle = 4,
+	mod_handle = 5,
 	save_in = "Mod/SMR_ElevatorStationDev_20260929",
 })
 

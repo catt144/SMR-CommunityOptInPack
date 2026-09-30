@@ -4,7 +4,8 @@ return {
 		'CodeFileName', "Code/10_ElevatorDepotDev.lua",
 	}),
 	PlaceObj('ModItemRef', {1} --[[SMROptInElevatorDepot]]),
-	PlaceObj('ModItemRef', {2} --[[SMROptInElevatorDepotDev SMROptInElevatorDepotDevBase]]),
-	PlaceObj('ModItemRef', {3} --[[SMROptInElevatorStation refs: 3]]),
-	PlaceObj('ModItemRef', {4} --[[SMROptInElevatorStationGlass refs: 1]]),
+	PlaceObj('ModItemRef', {2} --[[SMROptInElevatorDepotReceiver]]),
+	PlaceObj('ModItemRef', {3} --[[SMROptInElevatorDepotDev SMROptInElevatorDepotDevBase]]),
+	PlaceObj('ModItemRef', {4} --[[SMROptInElevatorStation refs: 4]]),
+	PlaceObj('ModItemRef', {5} --[[SMROptInElevatorStationGlass refs: 1]]),
 }

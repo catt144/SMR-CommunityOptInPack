@@ -10,3 +10,8 @@ EntityData["SMROptInElevatorDepot"] = {
 		class_parent = "BuildingEntityClass",
 	},
 }
+EntityData["SMROptInElevatorDepotReceiver"] = {
+	editor_artset = "Mods",
+	editor_category = "Buildings",
+	editor_subcategory = "Common",
+}

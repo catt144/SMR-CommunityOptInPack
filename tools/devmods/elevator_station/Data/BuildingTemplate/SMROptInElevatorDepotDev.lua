@@ -4,7 +4,7 @@ PlaceObj('ModItemBuildingTemplate', {
 	'Group', "Logistics",
 	'Id', "SMROptInElevatorDepotDev",
 	'SaveIn', "Mod/SMR_ElevatorStationDev_20260929",
-	'mod_handle', 2,
+	'mod_handle', 3,
 	'object_class', "SMROptInElevatorDepotDevBase",
 	'build_points', 1000,
 	'instant_build', true,

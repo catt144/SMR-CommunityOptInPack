@@ -6,7 +6,7 @@ PlaceObj('GFXMaterial', {
 	RM = "B:\\Dev\\SMR\\SMR-Assets\\elevatorstation\\blender\\textures\\SMROptInElevatorStation_RM.tga",
 	SI = "B:\\Dev\\SMR\\SMR-Assets\\elevatorstation\\blender\\textures\\SMROptInElevatorStation_SI.tga",
 	id = "SMROptInElevatorStation",
-	mod_handle = 3,
+	mod_handle = 4,
 	save_in = "Mod/SMR_ElevatorStationDev_20260929",
 })
 

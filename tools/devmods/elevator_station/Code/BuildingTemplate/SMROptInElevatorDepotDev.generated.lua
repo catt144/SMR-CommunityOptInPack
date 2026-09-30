@@ -6,7 +6,7 @@ DefineClass.SMROptInElevatorDepotDev = {
 	__generated_by_class = "ModItemBuildingTemplate",
 
 
-	mod_handle = 2,
+	mod_handle = 3,
 	object_class = "SMROptInElevatorDepotDevBase",
 	build_points = 1000,
 	instant_build = true,

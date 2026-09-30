@@ -9,3 +9,11 @@ PlaceObj('EntitySpec', {
 	save_in = "Mod/SMR_ElevatorStationDev_20260929",
 })
 
+PlaceObj('EntitySpec', {
+	editor_category = "Buildings",
+	id = "SMROptInElevatorDepotReceiver",
+	last_change_time = 1790811206,
+	mod_handle = 2,
+	save_in = "Mod/SMR_ElevatorStationDev_20260929",
+})
+
