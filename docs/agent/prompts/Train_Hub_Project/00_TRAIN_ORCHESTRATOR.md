@@ -71,6 +71,19 @@ before it fires.
         brief (the shared store, the elevator range rule, the underground twin). The rail shaft
         and brief `23` are parked. `SMR_RailShaftDev` was ruled to stay enabled while the shaft
         was the plan; ask the owner whether to disable it now.
+        **2026-09-30, where it stands:** the crossing is the **Elevator Depot** (a 75 % space
+        elevator; the train drives into a portal between the pads and down under it; spec §11 and
+        `reports/ELEVATOR_DEPOT_LOOK_20260929.md` §7 hold the owner's picture). Brief `25`'s
+        portal is imported and **HELD for another design pass** (owner): good enough to test, not
+        complete. The game moved to hotfix build **25579348** (owner: content unchanged). The
+        combined sitting is next, guided by the orchestrator: (1) the owner's Mod Editor save of
+        the train hub dev mod, which brief `22`'s
+        `tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated` still fails
+        without; (2) the depot's surface look, cabin and sound on a fresh placement; (3) a vanilla
+        train in, down and out (slot 6 streams); (4) underground `Measure()`, `Report()` and the
+        rope at the lowest pitch; (5) brief `22`'s five smoke steps
+        (`reports/TRAIN_HUB_STORAGE_20260929.md`). Then the wiring brief, then the next design
+        pass (deferred: the core's bare ground and frame, plus what the sitting shows).
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout

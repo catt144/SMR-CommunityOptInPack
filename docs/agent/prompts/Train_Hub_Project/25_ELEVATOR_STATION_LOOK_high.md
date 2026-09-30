@@ -2,6 +2,13 @@
 
 ## Authority and outcome
 
+> **HELD for another design pass (owner, 2026-09-30):** *"I think we have a good enough model for
+> testing, it will need another design pass so instead of completed, it needs to be held for
+> another pass. But we can proceed with testing."* The approved portal (Assets `172e992`, imported)
+> is the test model. This brief is not complete and not fired again as it stands; the next design
+> pass is briefed from it, with the deferred items below and whatever the testing shows. Testing
+> is the orchestrator's sitting (`00_TRAIN_ORCHESTRATOR.md`, "Next, in order").
+
 **Two builds missed the owner's picture. This rewrite carries the picture itself.** Look at the
 three reference images in `B:\Dev\SMR\SMR-Assets\elevatorstation\reference\` before anything else:
 
