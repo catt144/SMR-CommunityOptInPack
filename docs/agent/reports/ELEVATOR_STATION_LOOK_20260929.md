@@ -299,3 +299,20 @@ The two issues raised on the row modes:
    present.
 2. Across the pair, a half's Import or Export must also say which way the cabin carries the
    resource.
+
+**Owner rulings, 2026-09-29, closing the evening — *"Yes to all"* to this session's four
+proposals, with the timer changed:**
+1. **Per-trip loads.** Each half has its own storage and the cabin carries the cargo; nothing
+   crosses while it travels.
+2. **Row modes** as at every other station (Import / Export / Balanced / Not accepted), on the
+   depot's own rows: the depot owns the setting and the hub reads it. A half on Import gathers a
+   resource from its own map for the cabin; the other half on Export hands it out; Balanced on
+   both evens them; Not accepted is never carried. Linking the pair, so one setting sets both, is
+   the worker's option.
+3. **Placement anywhere**, the player placing each half on its own map and the two linking;
+   balanced by cost and unlock (the underground tech); needs the underground unlocked.
+4. **Timer — the owner's variant:** *"an hour timer, hour ticks over and the elevator goes down,
+   next hour it goes up. repeat. We can compensate with higher capacity moves. Still way way
+   better then the standard elevator."* So: one leg per game hour on a fixed schedule, alternating
+   down and up, and the cabin's capacity is the balancing knob. Leg time, pause and capacity
+   remain live tunables.

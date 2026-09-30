@@ -4073,3 +4073,11 @@ about trains crossing between maps (§6) no longer apply to this design.
 **Order (owner, 2026-09-29):** *"Lets start with design before wiring, thats going to be the hardest
 peice because it needs visual confirmation."* The look is brief 25; the store, range rule and
 twin come after the owner accepts it.
+**The design turned the same evening (owner, 2026-09-29).** The look is vanilla's Space Elevator at
+75 % with a smaller vanilla tunnel blended in as the train mouth: *"More of a depot. Trains still
+dont goto new maps it enters the elevator, and the cargo transfers from the elvator."* Per-trip
+cabin loads on a fixed hourly schedule, the stations' four row modes on the depot's own rows,
+placement anywhere with each half placed by the player, and an agent-sized drone crew. The
+table above stands where it is not contradicted; the rulings and the evidence are in
+`reports/ELEVATOR_STATION_LOOK_20260929.md` §6 until the orchestrator folds them here. Brief 25 is
+the depot's look handoff.
