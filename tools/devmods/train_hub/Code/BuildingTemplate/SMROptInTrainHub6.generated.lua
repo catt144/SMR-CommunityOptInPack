@@ -50,6 +50,12 @@ DefineClass.SMROptInTrainHub6 = {
 	upgrade3_add_value_1 = 75000,
 	upgrade3_upgrade_cost_Metals = 30000,
 	upgrade3_upgrade_cost_Electronics = 20000,
+	upgrade4_id = "SMROptInTrainHub6_StorageHub",
+	upgrade4_display_name = T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade4_display_name]] "Storage Hub"),
+	upgrade4_description = T(--[[ModItemBuildingTemplate SMROptInTrainHub6 upgrade4_description]] "Doubles every hub's storage: 2,000 per resource, or 4,000 with Capacity Network. Adds 19 power consumption per hub while on. Buy once per colony; any hub can switch it for the colony. Future hubs inherit its state; salvage does not change it. Build with 60 Metals and 30 Machine Parts from a depot within drone reach; the hub's own storage cannot supply its upgrade."),
+	upgrade4_icon = "UI/IconsRemaster/Upgrades/expanded_warehousing_01.png",
+	upgrade4_upgrade_cost_Metals = 60000,
+	upgrade4_upgrade_cost_MachineParts = 30000,
 	use_demolished_state = true,
 	can_refab = false,
 	maintenance_resource_type = "Electronics",
@@ -71,7 +77,7 @@ DefineClass.SMROptInTrainHub6 = {
 	disabled_in_environment = set( "Asteroid" ),
 	desire_slider_max = 120,
 	desired_amount = 10000,
-	max_storage_per_resource = 240000,
+	max_storage_per_resource = 1000000,
 	persist_baseclass = "SMROptInTrainHub6Base",
 }
 
