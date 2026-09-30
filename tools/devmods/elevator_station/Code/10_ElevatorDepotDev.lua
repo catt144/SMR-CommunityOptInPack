@@ -23,7 +23,8 @@
 --   SMRElevatorDepotDev.Measure()          the current map's camera, elevators and ceiling objects
 --   SMRElevatorDepotDev.Show()             the live layout table
 --   SMRElevatorDepotDev.Set("key", value)  move a visual by eye, e.g. Set("tunnel_lift", 250),
---                                          Set("scale", 80), Set("rope_underground_m", 400); re-dresses all
+--                                          Set("scale", 80), Set("rope_underground_m", 400),
+--                                          Set("receiver_z", -250), Set("signs", true); re-dresses all
 --   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
 --   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
 -- SMRElevatorStationDev is kept as an alias, so the earlier console lines still run.
@@ -75,6 +76,16 @@ D.layout = D.layout or {
 	dwell_ms = 8000,                    -- parked at each end
 	tick_ms = 250,
 	cabin_on = true,
+	-- brief 26 (owner's list, 2026-09-30)
+	signs = false,                      -- vanilla hangs an UnderconstructionSignCCP3 8.4..13.3 m over every
+	                                    -- Sign<i> spot (UnderconstructionSign.lua:41-56): the "floating
+	                                    -- element". false removes them; true puts vanilla's back
+	receiver_entity = "SMROptInElevatorDepotReceiver",   -- item 8: the landing floor in the well, underground only
+	receiver_z = -300,                  -- cm under the origin; the cabin's underside rests 245 below it
+	receiver_scale = 100,
+	receiver_underground_only = true,   -- false shows it on the surface too, for comparison
+	elevator_hide = "",                 -- item 6, the frame in the core: entity names (comma-separated) of the
+	                                    -- elevator art's own auto-attaches to remove; Report() lists them
 }
 
 -- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
@@ -85,7 +96,7 @@ local design_spots = {
 	Ramparrive1 = point(-3600, -335, 800), Stop1 = point(-500, -335, -1400), Spawn2 = point(-500, -335, -1400),
 	Spawn1 = point(-500, 335, -1400), Stop2 = point(-500, 335, -1400), Rampdepart1 = point(0, 335, -1400),
 	Ramparrive2 = point(900, 335, -1400), Rampdepart2 = point(800, -335, -1400),
-	Sign1 = point(-5000, 0, 0), Sign2 = point(1000, 0, 0),
+	Sign1 = point(-5000, 0, 0),   -- Sign2 dropped (brief 26, item 1): connector 2 is buried
 }
 
 -- ---- the class ---------------------------------------------------------------------------------
@@ -196,6 +207,7 @@ function D.Undress(bld)
 		if IsValid(o) then DoneObject(o) end
 	end
 	if IsValid(rig.cabin) then DoneObject(rig.cabin) end
+	if IsValid(rig.receiver) then DoneObject(rig.receiver) end
 	if IsValid(rig.tunnel) then DoneObject(rig.tunnel) end
 	if IsValid(rig.elevator) then DoneObject(rig.elevator) end
 	D.rigs[bld] = nil
@@ -210,9 +222,28 @@ function D.Dress(bld)
 	local rig = { ropes = {} }
 	rig.elevator = attach_visual(bld, L.elevator_entity, point(L.elevator_x, L.elevator_y, L.elevator_z),
 		L.elevator_angle, L.scale, "SpaceElevator")
+	if rig.elevator and L.elevator_hide ~= "" then
+		local hide = {}
+		for name in tostring(L.elevator_hide):gmatch("[^,%s]+") do hide[name] = true end
+		local gone = 0
+		rig.elevator:ForEachAttach(function(a)
+			if hide[a:GetEntity() or ""] then DoneObject(a); gone = gone + 1 end
+		end)
+		print(log_prefix, "elevator attaches hidden:", gone, "(", L.elevator_hide, ")")
+	end
 	if L.tunnel_entity then
 		rig.tunnel = attach_visual(bld, L.tunnel_entity, point(L.tunnel_x, L.tunnel_y, L.tunnel_lift),
 			L.tunnel_angle, L.scale)
+	end
+	-- brief 26, item 8: the receiver sits in the well; the surface keeps the bare shaft
+	if L.receiver_entity and (underground or not L.receiver_underground_only) then
+		rig.receiver = attach_visual(bld, L.receiver_entity, point(0, 0, L.receiver_z), 0, L.receiver_scale)
+	end
+	-- brief 26, item 1: vanilla's end-of-track barrier signs (Station.lua:132 places one per Sign<i>
+	-- spot; every handler finds them through GetAttaches, so removing the attaches is enough)
+	bld:DestroyAttaches("UnderconstructionSign")
+	if L.signs and rawget(_G, "PlaceUnderconstructionSigns") then
+		PlaceUnderconstructionSigns(bld)
 	end
 	if rig.elevator and L.cabin_on then
 		-- the cabin and rope are free objects at the elevator's world position, as vanilla's are
@@ -236,9 +267,10 @@ function D.Dress(bld)
 		start_cycle(rig)
 	end
 	D.rigs[bld] = rig
-	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d",
+	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d",
 		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
-		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale))
+		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale, tostring(IsValid(rig.receiver)),
+		#(bld:GetAttaches("UnderconstructionSign") or empty_table)))
 end
 
 local function for_each_depot(fn)
@@ -301,6 +333,27 @@ function D.Report()
 			bld:GetAngle() / 60, bld:GetEntity(), tostring(IsValidEntity(bld:GetEntity())), tostring(bld.working),
 			labelled, tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
 			IsValid(rig.cabin) and tostring(rig.cabin:GetPos()) or "none", #(rig.ropes or empty_table)))
+		-- brief 26: the terrain hole the entity carries (the pit and the well render only through it),
+		-- the receiver, and vanilla's signs
+		local hole = HasAnySurfaces(bld, EntitySurfaces.TerrainHole, true)
+		local hole_box = hole and GetEntitySurfacesBBox(bld:GetEntity(), EntitySurfaces.TerrainHole, EntitySurfaces.TerrainHole, bld:GetState())
+		print(string.format("%s   terrain_hole=%s bbox=%s receiver=%s (%s) signs=%d hexes=%d",
+			log_prefix, tostring(hole), hole_box and tostring(hole_box) or "-",
+			IsValid(rig.receiver) and tostring(rig.receiver:GetEntity()) or "none",
+			IsValidEntity(D.layout.receiver_entity or "") and "entity imported" or "ENTITY MISSING: import it",
+			#(bld:GetAttaches("UnderconstructionSign") or empty_table), #(bld:GetEntityOutlineShape() or empty_table)))
+		-- the elevator art's own auto-attaches (item 6: which one is the frame in the core, if any is)
+		if IsValid(rig.elevator) then
+			local n_att = 0
+			rig.elevator:ForEachAttach(function(a)
+				n_att = n_att + 1
+				local bb = a:GetEntityBBox()
+				print(string.format("%s   elevator attach %d entity=%s class=%s offset=%s spot=%s bbox_z=%d..%d", log_prefix, n_att,
+					tostring(a:GetEntity()), a.class, tostring(a:GetAttachOffset()), tostring(a:GetAttachSpot()),
+					(bb and bb:IsValid()) and bb:minz() or 0, (bb and bb:IsValid()) and bb:maxz() or 0))
+			end)
+			print(log_prefix, "   elevator attaches", n_att)
+		end
 		for _, name in ipairs(table.keys(design_spots, true)) do
 			local idx = bld:GetSpotBeginIndex(name)
 			local want = bld:GetRelativePoint(design_spots[name])
