@@ -27,6 +27,8 @@
 --                                          Set("receiver_z", -250), Set("signs", true); re-dresses all
 --   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
 --   SMRElevatorDepotDev.Sweep()            delete every rope/cabin/receiver prop whose depot is gone
+--   SMRElevatorDepotDev.InspectProps()     read-only census, including CObject ropes and attachments
+--   SMRElevatorDepotDev.RemoveInspectedRope(n)  remove ONE inspected, unowned underground 75% rope
 --   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
 -- SMRElevatorStationDev is kept as an alias, so the earlier console lines still run.
 
@@ -334,6 +336,100 @@ function D.Sweep()
 	print(log_prefix, "swept", n, "props of gone depots and", orphans, "orphaned props")
 end
 
+-- Brief 26's saved-rope investigation. SpaceElevatorRope has no class_parent in
+-- Lua/_EntityData.generated.lua:20651; EntityClass.lua:9-12,50 makes it a CObject,
+-- not an Object (archived build 25579348 / 1.1.1.406343). Inspect by ENTITY before
+-- removing anything. Native ownership comes from SpaceElevatorBase.pod/ropes
+-- (Lua/Buildings/SpaceElevator.lua:56-69), not the old sweep's distance heuristic.
+local function prop_owners()
+	local owners = {}
+	local function add(rig, label)
+		for _, key in ipairs{ "elevator", "tunnel", "cabin", "receiver", "pod" } do
+			if IsValid(rig[key]) then owners[rig[key]] = label end
+		end
+		for _, o in ipairs(rig.ropes or empty_table) do
+			if IsValid(o) then owners[o] = label end
+		end
+	end
+	for bld, rig in pairs(D.rigs) do
+		if is_depot(bld) then add(rig, "depot:" .. tostring(bld.handle)) end
+	end
+	for i, rig in ipairs(D.previews or empty_table) do add(rig, "preview:" .. i) end
+	AllMapsForEach(true, "SpaceElevatorBase", function(bld)
+		add(bld, "vanilla:" .. tostring(bld.handle))
+	end)
+	return owners
+end
+
+local function print_prop(row, index, owner, action)
+	local o = row.object
+	local delete_list = rawget(_G, "ObjsToDeleteOnLoadGame")
+	local delete_on_load = type(delete_list) == "table" and tostring(not not delete_list[o]) or "unavailable"
+	print(string.format("%s prop %s index=%d object=%s class=%s entity=%s slot=%s env=%s pos=%s visual=%s scale=%s parent=%s owner=%s Object=%s permanent=%s gameflags=%s enumflags=%s delete_on_load=%s",
+		log_prefix, action, index, tostring(o), tostring(o.class), row.entity,
+		tostring(o:GetMapSlot()), environment_of(o), tostring(row.pos), tostring(o:GetVisualPos()),
+		tostring(row.scale), tostring(o:GetParent()), owner or "UNOWNED",
+		tostring(IsKindOf(o, "Object")), tostring(o:GetGameFlags(const.gofPermanent) ~= 0),
+		tostring(o:GetGameFlags()), tostring(o:GetEnumFlags()), delete_on_load))
+end
+
+function D.InspectProps()
+	local owners, rows, seen = prop_owners(), {}, {}
+	local visited = 0
+	local function visit(o)
+		if not IsValid(o) or seen[o] then return end
+		seen[o] = true
+		visited = visited + 1
+		local entity = o:GetEntity() or ""
+		if entity:find("Elevator", 1, true) then
+			rows[#rows + 1] = { object = o, entity = entity, map = o:GetMap(),
+				pos = o:GetPos(), scale = o:GetScale() }
+		end
+		if o.ForEachAttach then o:ForEachAttach(visit) end
+	end
+	AllMapsForEach(true, "CObject", visit)
+	table.sort(rows, function(a, b)
+		local ak = tostring(a.object:GetMapSlot()) .. ":" .. tostring(a.pos) .. ":" .. a.entity .. ":" .. tostring(a.object)
+		local bk = tostring(b.object:GetMapSlot()) .. ":" .. tostring(b.pos) .. ":" .. b.entity .. ":" .. tostring(b.object)
+		return ak < bk
+	end)
+	D.inspected_props = rows
+	local ropes, unowned, non_object = 0, 0, 0
+	for i, row in ipairs(rows) do
+		local o = row.object
+		print_prop(row, i, owners[o], "inspect")
+		if row.entity == "SpaceElevatorRope" then
+			ropes = ropes + 1
+			if not IsKindOf(o, "Object") then non_object = non_object + 1 end
+			if not owners[o] and not o:GetParent() then unowned = unowned + 1 end
+		end
+	end
+	print(string.format("%s prop census CObjects=%d elevator_entities=%d ropes=%d ropes_outside_Object=%d parentless_unowned_ropes=%d; read-only",
+		log_prefix, visited, #rows, ropes, non_object, unowned))
+	return rows
+end
+
+-- Only called after the owner/agent has identified a row in InspectProps()'s log.
+-- Re-read ownership and identity: an old index cannot delete a replacement or a
+-- rope that has since joined a live rig. No load handler calls this repair.
+function D.RemoveInspectedRope(index)
+	local row = (D.inspected_props or empty_table)[index]
+	local o = row and row.object
+	if not IsValid(o) then print(log_prefix, "rope removal refused: inspect again"); return false end
+	local owner = prop_owners()[o]
+	if row.entity ~= "SpaceElevatorRope" or o:GetEntity() ~= row.entity or o:GetMap() ~= row.map
+		or o:GetPos() ~= row.pos or o:GetScale() ~= row.scale or row.scale ~= 75
+		or environment_of(o) ~= "Underground" or owner or o:GetParent() then
+		print(log_prefix, "rope removal refused: changed, owned, attached, or not an underground 75% rope", index)
+		return false
+	end
+	print_prop(row, index, owner, "remove")
+	DoneObject(o)
+	local removed = not IsValid(o)
+	print(log_prefix, "rope removal index", index, "valid_after", not removed)
+	return removed
+end
+
 if not IsValidThread(rawget(D, "sweeper")) then
 	D.sweeper = CreateGameTimeThread(function()
 		while true do
@@ -377,6 +473,7 @@ end
 function OnMsg.LoadGame()
 	D.rigs = setmetatable({}, { __mode = "k" })   -- the visuals were DeleteOnLoadGame
 	D.previews = {}
+	D.inspected_props = nil
 	for_each_depot(D.Dress)
 end
 
@@ -477,7 +574,9 @@ function D.Measure(radius_m)
 		map:MapForEach(el, radius, "CObject", function(o)
 			if o == el then return end
 			local e = o:GetEntity() or ""
-			local oz = o:GetPos():z() - ground
+			-- Terrain-relative GetPos() has no Z. GetVisualPos supplies terrain Z
+			-- (GameObject.lua:510-515, archived build 25579348 / 1.1.1.406343).
+			local oz = o:GetVisualPos():z() - ground
 			local obb = e ~= "" and o:GetEntityBBox()
 			local top = oz + ((obb and obb:IsValid()) and obb:maxz() or 0) * o:GetScale() / 100
 			if oz > 20 * guim or top > 40 * guim or e:find("Stalactite") or e:find("Pillar") then
