@@ -32,6 +32,12 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
    Balanced|Not accepted`, the target-value slider, stock/capacity. The underground rows show the
    same title read-only, no slider. The depot draws this itself, hub or no hub; the hub draws nothing
    extra on a depot row.
+   **Words and modes (owner, 2026-10-01, sitting C):** one word for the pair, the surface's, shown
+   unchanged on both panels; Import = goes down, Export = comes up (*"underground it makes it seem
+   like I am importing rare metals and food to the underground even though thats not what it is"*).
+   **Balanced is cut** (*"Make it so the elevator only brings down or sends up"*): rows cycle Import /
+   Export / Not accepted; an unset row is Not accepted (orchestrator's reading). This supersedes the
+   four-mode and the inverted-word wording above.
 4. **One pair per colony**, each half placed anywhere on its own map by the player, in either order;
    needs the underground unlocked; balanced by cost and unlock. This supersedes the morning table's
    placement within a vanilla elevator's service area and the automatic twin: there is **no range
