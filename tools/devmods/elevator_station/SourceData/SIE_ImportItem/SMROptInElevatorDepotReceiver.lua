@@ -15,7 +15,7 @@ PlaceObj('SIE_ImportItem_Mesh', {
 			PlaceObj('SIE_ImportItemSelector', {
 				'name', "SMROptInElevatorDepotReceiver",
 				'ImportMesh', true,
-				'Material', "SMROptInElevatorStation",
+				'Material', "SMROptInElevatorDepot",
 			}, {
 				}),
 			}),
