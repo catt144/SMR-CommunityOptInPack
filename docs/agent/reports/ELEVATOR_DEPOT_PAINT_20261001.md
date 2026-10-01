@@ -330,7 +330,7 @@ elevator banded like vanilla's; the night glow scaled x8 for the eye.
 | the receiver | `sheet_9_interior`, `sheet_8_night` | the landing's outer annulus in colour 1 round the plates |
 | two schemes | `sheet_10_schemes` | Space_Y beside the default scheme: the depot follows the scheme; the glow, silver and gunmetal do not |
 
-What the owner said about run B: nothing yet. The renders are theirs to judge before the import.
+What the owner said about run B, 2026-10-01, shown the sheets beside their screenshots and asked for a yes or what reads wrong: *"pass"*. Read as the yes on the renders (OI-39 closed by it); the import may run. The look itself is still the game's to decide at the sitting.
 
 ### For the orchestrator (brief 27's files; reported, not written)
 
@@ -426,6 +426,6 @@ The orchestrator, `063a10d`: with brief 27 closed, items 1 and 2 of "For the orc
   at the dress (`palette=` at least 3 on the surface: elevator, cabin, ropes; the receiver adds one
   underground), no longer plain. Before the import, the shell's own entity has no mask and stays
   as it is; the pads paint regardless.
-- **Still owed.** The owner's yes on the renders, re-asked as OI-39: OI-36 left the owner's list
-  with brief 27's close (`d0a46ce`) before the owner had acted on it. Then the import, then the
-  sitting.
+- **Still owed.** The owner's yes on the renders was re-asked as OI-39 (OI-36 left the owner's list
+  with brief 27's close, `d0a46ce`, before the owner had acted on it) and came the same day:
+  *"pass"*. Owed now: the import (steps above), then the sitting on both maps, day and night.
