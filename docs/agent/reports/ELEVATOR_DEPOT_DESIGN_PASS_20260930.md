@@ -515,3 +515,13 @@ Handed to the orchestrator at B2 (owner, 2026-10-01: *"I will have the orchestra
 your context is short"*). Next: B2-B5 of the sitting batches, then C and D. Executed model for this
 session's close: Claude Fable 5.1 (`claude-fable-5-1`).
 
+
+### The owner's acceptance, 2026-10-01
+
+Owner, verbatim, after B1's pass: **"I did a full check of the desing, I think we look good at this
+point. atleast until we get through testing and we do paint and final checks"**. The orchestrator
+reads this as the eight items accepted on both maps for this pass, with paint and final checks still
+to come after testing; the owner gave no per-item verdict, and B2-B5 and C were not run as scripted
+steps. Still open: `Measure()`'s native underground reading (nil-Z repair `493f518`), the
+`receiver_z` tune, and whether the core's frame (vanilla mesh, stop 1) stays. Next: D, brief 22's
+five steps.
