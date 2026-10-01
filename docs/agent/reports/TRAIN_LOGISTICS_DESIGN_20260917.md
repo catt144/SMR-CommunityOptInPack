@@ -4146,6 +4146,19 @@ you are trying to get those resourced below ground"*. Asked whether linked means
 the owner chose **mirrored**: one setting per resource for the pair, **surface Import = underground
 Export and the reverse**; changing either depot's row sets its twin's. The underground depot gets the
 stations' import/export rows. Both in the wiring brief.
+⚖️ **Owner ruling, 2026-10-01 (after brief 27's build, before its sitting): the surface half owns the
+settings; the underground half's rows are read-only.** Asked whether the underground panel should
+carry no buttons and only show each resource's stock and capacity, a fixed arrow for leaving or
+arriving and a mark for Balanced or Not accepted, with every change made on the surface half, the
+owner: *"I think we do that and have its infotip say its current info and something like to change
+you must use the surface elevator"*. So: one writer, the surface depot's rows; the underground panel
+shows per resource its stock/capacity, the direction (up = leaves this half, down = arrives here),
+Balanced or Not accepted, and its row infotip states the current setting and that changes are made
+on the surface Elevator Depot. The underground half keeps a read-only cached copy of the setting that a
+new surface twin adopts (the orchestrator's reading, given to the owner with the recommendation).
+Drone Access and Shuttle Access stay clickable on both halves: drone hubs are per map. This
+supersedes the mirrored-link ruling above for the underground half's rows; the surface Import =
+underground Export meaning is unchanged.
 ⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
 well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
 depot's own, the Drone Access toggle kept** (default off). This supersedes the 09-29 crew ruling.

@@ -16,9 +16,16 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
 3. **Mirrored link** (owner, 2026-10-01). One setting per resource for the pair: surface Import =
    underground Export, and the reverse. The owner: *"if you change one on the above ground it
    should be match the below ground one, since importing on the above ground means you are trying
-   to get those resourced below ground"*. Changing either half's row sets its twin's (the
-   orchestrator's reading, given to the owner). The underground half gets the rows; the owner
-   found it has none today.
+   to get those resourced below ground"*. **Amended (owner, 2026-10-01, after the build, before
+   the sitting): the surface half owns the settings; the underground half's rows are read-only.**
+   The owner: *"I think we do that and have its infotip say its current info and something like to
+   change you must use the surface elevator"*. The underground panel shows per resource its
+   stock/capacity, a fixed arrow (up = leaves this half, down = arrives here) or a Balanced / Not
+   accepted mark, nothing clickable on the rows; its row infotip states the current setting and that
+   changes are made on the surface Elevator Depot. One writer: the surface rows. The underground
+   half keeps a read-only cached copy a new surface twin adopts. Drone Access and Shuttle Access
+   stay clickable on both halves. The reconcile pass and the `mirror=ok` witness go with the second
+   writer; the sitting's batch B is rewritten to match.
 4. **One pair per colony**, each half placed anywhere on its own map by the player, in either order;
    needs the underground unlocked; balanced by cost and unlock. This supersedes the morning table's
    placement within a vanilla elevator's service area and the automatic twin: there is **no range
