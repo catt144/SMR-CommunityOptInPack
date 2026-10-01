@@ -391,9 +391,12 @@ D.AttachDroneButton(dlg)
 local b = host[5]
 assert(b and b.Id=='idSMRDepotDroneAccess' and b.window_state=='open', 'button created and opened')
 assert(b.ZOrder==2 and salvage.ZOrder==3 and lrt.ZOrder==1 and prio.ZOrder==1, 'ordered right after Shuttle Access')
-assert(b.color=='red' and b.text:find('OFF'), 'off by default, red')
+assert(b.color=='red' and b.text:find('OFF') and b.icon=='UI/IconsRemaster/IPButtons/drone_balacing_off.tga',
+  'off by default: the red-filled vanilla icon, red rollover (StorageDepot.lua:306-314 shape)')
+assert(b.Icon==b.icon, 'created with the off icon, no plain-hex flash')
 b:OnPress(false); b:OnContextUpdate(S3)
-assert(rawget(S3,'SMROptIn_depot_drones')==true and b.color=='green', 'pressed: on, green')
+assert(rawget(S3,'SMROptIn_depot_drones')==true and b.color=='green' and b.icon=='UI/IconsRemaster/IPButtons/drone_balacing_on.tga',
+  'pressed: the green-filled vanilla icon, green rollover')
 D.AttachDroneButton(dlg); assert(host[6]==nil, 'never twice')
 ''')
 # 11 the staged sitting slots run against the same world (the kit itself is mocked)

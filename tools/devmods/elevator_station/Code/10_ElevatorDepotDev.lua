@@ -1104,9 +1104,17 @@ function Base:ToggleDroneAccess(broadcast)
 	D.SetDroneAccess(self, not rawget(self, DRONES))
 end
 
+-- Vanilla's on/off look (owner, 2026-10-01: "at a glance its impossible to tell"): the filled
+-- green/red hex is baked into the icon image, swapped per state, plus the rollover colour; that is
+-- StorageDepot:ToggleLRTService_Update's shuttle_allowed/shuttle_forbidden pair (StorageDepot.lua:306-314,
+-- archived build 25579348). The plain drone.png carries its own dark hex and cannot be filled, so the
+-- drone glyph is vanilla's filled drone pair drone_balacing_on/off (UI.fpk IconsRemaster/IPButtons,
+-- shipped and unreferenced by vanilla Lua on that build).
+D.drone_icons = { on = "UI/IconsRemaster/IPButtons/drone_balacing_on.tga",
+	off = "UI/IconsRemaster/IPButtons/drone_balacing_off.tga" }
 function Base:ToggleDroneAccess_Update(button)
 	local on = rawget(self, DRONES) and true or false
-	button:SetIcon("UI/IconsRemaster/IPButtons/drone.png")
+	button:SetIcon(on and D.drone_icons.on or D.drone_icons.off)
 	button:SetRolloverImageColor(on and "green" or "red")
 	button:SetRolloverText(Untranslated("Depots with forbidden Drone Access are never serviced by Drones from Drone Hubs. Trains and the cabin still move this half's cargo; maintenance stays vanilla.<newline><newline>Current status:<right><em>"
 		.. (on and "ON" or "OFF") .. "</em>"))
@@ -1143,7 +1151,7 @@ function D.AttachDroneButton(dlg)
 				RebuildInfopanel(self.context)
 			end
 		end,
-		Icon = "UI/IconsRemaster/IPButtons/drone.png",
+		Icon = D.drone_icons.off,
 	}, lrt or dlg, dlg.context)
 	if not button then print(log_prefix, "drone access button: no button row on this panel") return end
 	local host = button.parent
