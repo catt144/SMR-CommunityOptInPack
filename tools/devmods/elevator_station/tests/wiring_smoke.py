@@ -164,7 +164,7 @@ locks={}; OnMsg.GetAdditionalBuildingLocks({template_name='DroneHub'}, locks)
 assert(locks.smr_depot_needs_underground==nil, 'other templates untouched')
 UIColony.underground_map_unlocked=true
 
--- 2 the pair forms; every unset row is Not accepted; Drone Access default off re-registers both halves once
+-- 2 the pair forms; every unset row is Import; Drone Access default off re-registers both halves once
 local U = depot(cave, {Metals=0})
 local hub = {kinds={DroneControl=true}, drones={}}
 S.command_centers={hub}; U.command_centers={hub}
@@ -172,9 +172,16 @@ D.Tick(5)
 assert(has_log('pair formed: surface '..S.handle..' underground '..U.handle), 'pair formed line')
 assert(S.reconnects==1 and U.reconnects==1, 'first tick re-registers both halves (old fixtures pick up the default)')
 for _, res in ipairs(RESOURCES) do
-  assert(D.State(S,res)=='disabled' and D.State(U,res)=='disabled' and S.enabled[res]==false and U.enabled[res]==false,
-    'an unset row is Not accepted on both halves (old Balanced rows load this way): '..res)
+  assert(D.State(S,res)=='to_underground' and D.State(U,res)=='to_underground' and S.enabled[res] and U.enabled[res]
+    and D.RowWord(U,res)=='import', 'an unset row is Import, vanilla storage on (old Balanced rows load this way): '..res)
 end
+assert(next(rawget(S,'SMROptIn_depot_rows'))==nil, 'nothing stored for the default')
+-- Not accepted is stored explicitly; the later sections keep Concrete and Polymers Not accepted
+assert(D.SetRow(S,'Concrete','disabled') and D.SetRow(S,'Polymers','disabled'))
+assert(rawget(S,'SMROptIn_depot_rows').Concrete=='disabled' and rawget(U,'SMROptIn_depot_rows').Polymers=='disabled'
+  and U.enabled.Concrete==false and S.enabled.Polymers==false, 'explicit Not accepted, copied, vanilla off')
+-- an earlier build's explicit "disabled" still reads Not accepted; an unknown stored value reads as the default
+assert(D.State(S,'Concrete')=='disabled')
 D.Tick(6); assert(S.reconnects==1, 'no repeat re-registration')
 CurrentMap=cave; assert(Base.CanBuildOnlyOnce({})==true, 'one per map: the underground is now taken')
 
@@ -187,7 +194,9 @@ assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, lr_map)==true, 'shuttl
 local drone={d_request=S.demand.Metals}; hub.drones={drone}
 assert(D.SetDroneAccess(S, true) and rawget(S,'SMROptIn_depot_drones')==true, 'on is stored')
 assert(S.reconnects==2 and S.interrupts==1 and drone.d_request==false, 'toggle resets drones on storage, re-registers')
-assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==true, 'on + Not accepted: vanilla rules')
+assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==false and S:ShouldAddRequestToCommandCenter(S.demand.Metals, hub)==true,
+  'on + Import (the default): drones bring in only')
+assert(S:ShouldAddRequestToCommandCenter(S.supply.Concrete, hub)==true, 'on + Not accepted: vanilla rules')
 assert(rawget(U,'SMROptIn_depot_drones')==nil, 'each half has its own toggle')
 Base.ToggleDroneAccess(U, true)   -- Ctrl+click is a plain click: drone hubs are per map
 assert(rawget(U,'SMROptIn_depot_drones')==true and rawget(S,'SMROptIn_depot_drones')==true, 'U on, S untouched (was on)')
@@ -200,7 +209,7 @@ assert(rawget(S,'SMROptIn_depot_drones')==true, 'both on again')
 assert(D.SetRow(S,'Metals','import'))
 assert(D.State(S,'Metals')=='to_underground' and D.State(U,'Metals')=='to_underground', 'the underground reads the surface')
 assert(S.enabled.Metals and U.enabled.Metals, 'a chosen row enables vanilla storage on both halves')
-assert(rawget(U,'SMROptIn_depot_rows').Metals=='to_underground', 'its read-only copy follows')
+assert(rawget(U,'SMROptIn_depot_rows').Metals==nil and rawget(U,'SMROptIn_depot_rows').Concrete=='disabled', 'its read-only copy follows (Import stored as absence)')
 assert(D.RowWord(S,'Metals')=='import' and D.RowWord(U,'Metals')=='import', 'one word on both panels: Import = goes down')
 assert(D.HalfWord(S,'Metals')=='gather' and D.HalfWord(U,'Metals')=='hand_out', 'the flows behind it')
 assert(S.transport_policy.Metals=='send' and U.transport_policy.Metals=='accept', 'drone desires follow the flow')

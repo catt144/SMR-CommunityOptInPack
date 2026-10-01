@@ -748,7 +748,7 @@ end
 --    Lua/XDef/ipBuilding.generated.lua:348-370 the Shuttle Access button (ToggleLRTServiceButton).
 -- Persisted names (ban 1; inventory rows in reports/ELEVATOR_DEPOT_WIRING_20261001.md): the three
 -- fields below on our own depot objects, each written only by this file's surface-row, toggle and
--- cabin code. Each tolerates its absence: an old save loads every unset row as Not accepted,
+-- cabin code. Each tolerates its absence: an old save loads every unset row as Import,
 -- Drone Access off and a fresh cabin at the surface.
 
 local ROWS, DRONES, CABIN = "SMROptIn_depot_rows", "SMROptIn_depot_drones", "SMROptIn_depot_cabin"
@@ -764,8 +764,9 @@ end
 -- The pair's three settings (owner, 2026-10-01, sitting C: "maybe we should cut balanced from this. Make
 -- it so the elevator only brings down or sends up"), in vanilla's elevator vocabulary (Elevator.lua:192-197,
 -- its "bidirectional" dropped): to_underground (Import: goes down), to_surface (Export: comes up),
--- disabled (Not accepted). A row with no stored value is Not accepted: nothing crosses until the player
--- chooses (an old save's unset, formerly Balanced, rows load as Not accepted).
+-- disabled (Not accepted). A row with no stored value is Import (owner, 2026-10-01, sitting C: "default
+-- them to import since thats how most peoples first build out will be"): vanilla storage stays on, an old
+-- save's unset (formerly Balanced) rows load as Import, and Not accepted is stored explicitly.
 local states = { "to_surface", "to_underground", "disabled" }
 local state_index = { to_surface = 1, to_underground = 2, disabled = 3 }
 local up, down = "UI/IconsRemaster/Sections/elevator_resource_up.png", "UI/IconsRemaster/Sections/elevator_resource_down.png"
@@ -783,7 +784,7 @@ local word_next = { export = "import", import = "disabled", disabled = "export" 
 local policy_of = { gather = "send", hand_out = "accept", plain = "default" }
 
 local function normal_state(state)
-	return (state == "to_surface" or state == "to_underground") and state or "disabled"
+	return (state == "to_surface" or state == "disabled") and state or "to_underground"
 end
 
 -- the pair's word, the surface's, shown on both panels
@@ -963,7 +964,7 @@ function D.SetRow(o, res, value)
 	local state = state_index[value] and value or state_of(value)
 	if not state then return false, "unknown mode " .. tostring(value) end
 	local rows = rawget(o, ROWS) or {}
-	rows[res] = state ~= "disabled" and state or nil
+	rows[res] = state ~= "to_underground" and state or nil   -- Import is the default, stored as absence
 	rawset(o, ROWS, rows)
 	local twin = D.TwinOf(o)
 	if twin then rawset(twin, ROWS, table.copy(rows)) end
@@ -1435,7 +1436,8 @@ local function load_cabin(rec, origin, dest, carried)
 	return moved
 end
 
--- (No seeding: an unset row is Not accepted, which keeps a vanilla refusal as it was.)
+-- (No seeding: an unset row is Import. A vanilla refusal on a never-wired half is not kept; an earlier
+-- build's explicit "disabled" still reads Not accepted.)
 
 -- A pair forms or breaks. A surface half with a setting keeps it; a surface half with none (newly
 -- placed) adopts the underground's copy; the underground then holds a copy of the result. Vanilla
