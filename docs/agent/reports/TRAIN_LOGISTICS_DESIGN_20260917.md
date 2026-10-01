@@ -4128,3 +4128,11 @@ defult should be off"*. **The Elevator Depot gets a Drone Access toggle beside i
 default OFF; stations keep vanilla drone service.** Screenshot: SMR-Assets
 `owner_feedback/drone_access_01_shuttle_access_toggle.png`. It goes into the wiring brief; how drones
 are kept off the depot's store is the brief's to find. The toggle's state is a persisted name (ban 1).
+⚖️ **Owner rulings, same conversation:** *"And both above and below ground."* The Drone Access toggle
+is on **both** depots. *"Also while we are implementing that we need our below ground one to have the
+import export slider settings. Ideally it should be linked to the above ground one if you change one
+on the above ground it should be match the below ground one, since importing on the above ground means
+you are trying to get those resourced below ground"*. Asked whether linked means identical or mirrored,
+the owner chose **mirrored**: one setting per resource for the pair, **surface Import = underground
+Export and the reverse**; changing either depot's row sets its twin's. The underground depot gets the
+stations' import/export rows. Both in the wiring brief.
