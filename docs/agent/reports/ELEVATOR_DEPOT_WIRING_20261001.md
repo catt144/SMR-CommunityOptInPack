@@ -9,7 +9,10 @@ commit adds brief 28, which leaves `10_ElevatorDepotDev.lua` to this brief. `tas
 `Mars.exe` before the first `Code/` write. Executed model: Claude Opus 5.5 (`claude-opus-5-5[1m]`), the
 brief's build agent. No writing git command was run; the orchestrator commits the units listed at the end.
 
-**State: built, desk PASS, attended sitting pending.** Nothing below is observed in game.
+**State: built; the attended sitting ran 2026-10-01 (batches A-E, results under each batch). The done-when
+items passed in game: Import crosses on the hourly cabin; one word on both panels; Drone Access off keeps hub
+drones away (registered 0) and on lets them in (registered 64); the passenger chain was watched end to end.**
+Open: the long-title layout (hub-identical, a hub check owed), and the NOT RUN steps listed under each batch.
 
 **Amended the same day (owner ruling, `6dbf705`, spec §11 and brief 27 ruling 3): the surface half owns
 the row settings; the underground half's rows are read-only.** The first build landed as `3131ad2`,
@@ -281,7 +284,22 @@ patch is applied before batch B.
 - A5 Pause; press Scratch (pair read). *Prediction:* `surface=<S> underground=<U>`, `cabin=at_top` (or
   a moving leg if an hour has passed), both halves `drone_access=off registered=0`, `underground_panel=matches`, `copy=current`.
 
-<<SITTING PENDING>>
+*Results, batch A* (orchestrator's notes; log `Mars.exe-20261001-14.22.48-6aba6e65.log`; slots swapped into the
+kit at 14:21 with the game closed):
+- A1 **PASS.** The `SMR_TrainHubDev` editor save landed: generated template plus metadata version 61 → 62,
+  commit `47f2fc6`.
+- A2 **PASS.** `cargo_upgrade_smoke.py --require-generated` exit 0, "Generated upgrade slots 1/2/3/4,
+  base storage and power match source".
+- A3 **PASS.** Log line 419: `pair surface=9036 underground=9041 cabin=up legs=3` (the owner had run past
+  an hour). "LUA ERROR" over the log: 0 hits.
+- A4 **DEFECT, fixed at the desk.** Each text is one line, in shape, but the ⚡ glyph rendered as a broken box
+  in the Power Upgrade and Storage Hub tooltips (owner screenshots 1.png, 2.png). The fix is in `Data/`
+  only (vanilla's inline `<icon_Power>`), and its own editor save is still owed (see the risks below).
+- A5 **PASS.** Scratch, log 449: `cabin=up`, `drone_access=off` on both halves, `registered=0`,
+  `underground_panel=matches`, "19 rows match the surface setting, 0 differ; read-only copy current".
+  The cabin was not `at_top` because legs had already run.
+- Observation, now moot: every row was Balanced then and carried toward the target (aboard WasteRock 18 units).
+  The sitting C ruling cut Balanced.
 
 **B. The panel: station-shaped rows, one word for the pair, set on the surface (paused)**
 - B1 Select the surface depot. *Prediction:* the drone button stands right of Shuttle Access as a filled
@@ -309,7 +327,21 @@ patch is applied before batch B.
   *Prediction:* the titles keep the station words; in elevator words both infotips lead with "Status:
   Underground."
 
-<<SITTING PENDING>>
+*Results, batch B* (first instance, log `Mars.exe-20261001-14.22.48-6aba6e65.log`; then a restart at 15:40 after
+`62ca05f`, log `Mars.exe-20261001-15.40.40-6aba6e65.log`, with the station-row build, the filled toggle and an
+older staged copy of the slots):
+- B1 **DEFECT ×2, fixed.** The drone button stood right of Shuttle Access with hover "Drone Access" OFF, but
+  showed a grey hex with a rim only: look rejected, ruling `8b41ece`, fix `730188f`. The rows were bare
+  (arrow, name, stock only): ruling `624955f`, fix `34a4ee6` (the station-row shape). The final look was
+  checked in batch E.
+- B2 **PASS.** Rows set on the surface logged "set on the surface half 9036; underground 9041 copy
+  updated" (lines 675-679: MachineParts, Electronics; Metals set earlier).
+- B3/B4 **PASS** for the witness: slot 3 on the underground half (line 857) read `panel_shows=down
+  surface_says=down infotip_ok=true copy_current=true word=export twin_word=import`. That was the build
+  before the one-word ruling; the inverted twin word in it is what ruling `57bac5d` removed. **NOT
+  CONFIRMED:** the underground row click itself left no log line.
+- B5 **dropped.** Recommendation 3 was settled by the station-words ruling (titles take the stations'
+  words).
 
 **C. The hourly cabin, down**
 - C1 Select the surface depot; press slot 1. *Prediction:* `added_tenths=200`, and `after_tenths` is
@@ -328,7 +360,20 @@ patch is applied before batch B.
 - C5 Slot 4 with the drone-covered half selected (one game hour). *Prediction:* `drone_access=off`,
   `max_registered=0`, `max_drones_busy=0`. Off keeps hub drones away.
 
-<<SITTING PENDING>>
+*Results, batch C* (log `Mars.exe-20261001-15.40.40-6aba6e65.log`):
+- C1 **PASS.** Slot 1 on the surface (line 826): added 200, 250 → 450. The owner also pressed slot 1 on the
+  underground half (849): 222 → 422.
+- C2 **PASS.** Slot 6 (867-872): `departed down` leg 27, `loaded Metals=42000`, which is the 42-unit
+  capacity.
+- C3 **PASS.** Slot 2 (888-891): `arrived underground` leg 27, `delivered Metals=42000`, aboard none.
+- C4 **NOT RUN.** The owner did not report on the cabin art at normal speed.
+- C5 **PASS, run in batch E.** Slot 4 with Drone Access off (log `Mars.exe-20261001-16.20.31-6aba6e65.log`
+  line 383): `drone_access=off registered=0`.
+- Observation, now moot: up legs carried Food, PreciousMetals and Sugar on Balanced rows below target.
+  Balanced was later cut. "LUA ERROR" count: 0.
+- The owner's screenshots of the station-row panel led to rulings `57bac5d` (one word for the pair on
+  both panels, Balanced cut) and `497a726` (unset rows default to Import); fixes `2471213` and
+  `941632e`.
 
 **D. The hourly cabin, up, and Drone Access on**
 - D1 On the surface panel, click Metals twice ("Metals · Not accepted", then "Metals · Export"); the
@@ -348,7 +393,20 @@ patch is applied before batch B.
   each click logs one `drone access <map> <handle>` line for that half only; the twin's button is
   unchanged. Ctrl+click behaves as a plain click. Both end off.
 
-<<SITTING PENDING>>
+*Results, batch D* (restart at 16:20, after the last commit `941632e` at 16:17; log
+`Mars.exe-20261001-16.20.31-6aba6e65.log`):
+- The owner: *"Drones work, import export works"*.
+- D1 **PASS** (screenshots `depot_rows_05/06`, SMR-Assets `250d0bf`). The surface sets Export rows ("Food ·
+  Export", "Rare Metals · Export") and both halves read the surface's word. Not run as the scripted click
+  sequence.
+- D2/D3 **NOT RUN as scripted.** No slot 6 up-departure read is in the logs; the up direction rests on the
+  owner's words above.
+- D4 **PASS.** Slot 4 off (line 383): `drone_access=off registered=0`. Slot 4 on (line 408):
+  `drone_access=on registered=64`. "drone access underground 9041 on" (line 344) and "off" (346); the toggle
+  was also logged for surface 9036. (The notes' batch D entry says slot 4 was not found in that log; their
+  batch E entry gives lines 383 and 408, and this report follows the later entry.)
+- D5 **NOT RUN as scripted.** The toggle is logged per half, but nobody read whether the twin was
+  unaffected. "LUA ERROR" count: 0.
 
 **E. Limits and passengers**
 - E1 On each map, open Stations in the build menu. *Prediction:* the Elevator Depot item is greyed with
@@ -368,7 +426,33 @@ patch is applied before batch B.
   underground <U> rows Metals=to_surface,...`: the new surface adopted the copy, and Scratch reads
   `underground_panel=matches copy=current`. Finish with Load A.
 
-<<SITTING PENDING>>
+*Results, batch E* (final build `941632e`, log `Mars.exe-20261001-16.20.31-6aba6e65.log`):
+- Panels **PASS** (`depot_rows_05/06`): both halves read the surface's word, there is no Balanced, and Drone
+  Access shows filled red when off.
+- **DEFECT (open, not blocking):** the surface row "Exotic Minerals · Not accepted" truncates to
+  "Exotic Minerals · N…" in red, and the row grows to double height with the slider pushed down
+  (`depot_rows_06`). The underground's "Exotic Minerals · Import" fits (`depot_rows_05`). Desk outcome
+  below, under "The long-title defect".
+- E1 **PASS** (`depot_build_once_01.png`): the item is greyed with "You can build this building only once."
+  The template description still says "no cargo crosses maps yet"; that needs a depot editor session,
+  and brief 28 owns the editor import.
+- E2 **PASS.** The owner: *"on 5 I watched the entire process end to end"*. Passengers were re-verified by
+  the owner's eye on the final build.
+- E3-E5 **NOT RUN** (the survivor steps). "LUA ERROR" count: 0.
+
+**The long-title defect, desk outcome.** The depot's title fit is the hub's `fit_title`
+(`45_TrainDistributionUI.lua:114-130`). Before this fix the depot rounded where the hub's engine
+division truncates (EF-116). That made the depot's box equal to the hub's or one unit larger, never
+smaller: the smoke found one case, 30 against 29. It now uses the hub's floor exactly, and
+`wiring_smoke.py` runs the hub's own function, read from the hub file, against the depot's on 60 title,
+scale and font cases with identical results. So the depot lays out a long title exactly as a hub station
+row would. A hub station row titled "Exotic Minerals · Not accepted" (red style) would be expected to
+truncate the same way. The owner's hub screenshot showed a shorter, Balanced title ("Rare / Metals ·
+Balanced"), which wraps within the hub's two-line height cap. If the hub truncates too, the hub's
+`fit_title` is what is wrong, so I report it rather than diverge the depot from it. **Owed:** one look at
+a hub station whose Exotic Minerals row is set to Not accepted. If it truncates the same way, a joint
+fix in both copies follows (the height cap, the `Shorten` flag or a third line), and the owner rules on
+it.
 
 ## What I did not do, and the risks the sitting carries
 
