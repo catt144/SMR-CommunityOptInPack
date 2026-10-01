@@ -4092,3 +4092,9 @@ good at this point. atleast until we get through testing and we do paint and fin
 record is `reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md`; briefs 25 and 26 are parked for the paint
 pass. Open there: `Measure()`'s underground reading, the `receiver_z` tune, and the frame inside the
 core, which is vanilla's mesh (removing it is a change to vanilla's elevator). The wiring brief is next.
+**Passengers, an open question (owner, 2026-10-01).** Building an underground fixture, the owner
+found colonists have no way down by train: *"colonist don't have a way down currently. so a player
+right now has to create a train station, or rely solely on shuttles + our elevator. So they need
+both to get passengers down there"*. Asked whether passengers can ride the depot. The first wiring
+brief stays cargo-only until a read-only feasibility check (launched 2026-10-01) reports whether the
+game has a colonist map transfer the depot could hand passengers to.
