@@ -26,6 +26,12 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
    half keeps a read-only cached copy a new surface twin adopts. Drone Access and Shuttle Access
    stay clickable on both halves. The reconcile pass and the `mirror=ok` witness go with the second
    writer; the sitting's batch B is rewritten to match.
+   **Row shape (owner, 2026-10-01, sitting B):** *"We still need the sliders for target values, and I
+   would like the text to resemble our station ones, actually saying import / export / balanced / not
+   accepted"*. The surface rows take the hub station row's shape: title `<Resource> · Import|Export|
+   Balanced|Not accepted`, the target-value slider, stock/capacity. The underground rows show the
+   same title read-only, no slider. The depot draws this itself, hub or no hub; the hub draws nothing
+   extra on a depot row.
 4. **One pair per colony**, each half placed anywhere on its own map by the player, in either order;
    needs the underground unlocked; balanced by cost and unlock. This supersedes the morning table's
    placement within a vanilla elevator's service area and the automatic twin: there is **no range

@@ -4164,6 +4164,15 @@ on/off at a glance exactly as vanilla's Shuttle Access toggle does, a filled gre
 filled red hex when off; the build's rim-only look was rejected: *"The icons are there but they should
 look more like vanillas, at a glance its impossible to tell if they are off or on"* (screenshots 3-6,
 SMR-Assets owner_feedback).
+⚖️ **Owner ruling, 2026-10-01 (brief 27 sitting, batch B):** the depot's rows take the **station row
+shape**: *"We still need the sliders for target values, and I would like the text to resemble our
+station ones, actually saying import / export / balanced / not accepted"*. So the surface half's rows
+carry the title text `<Resource> · Import|Export|Balanced|Not accepted`, the target-value slider and
+stock/capacity exactly as a hub station row does (the owner's two screenshots, a hub station's rows
+"Metals · Import 240/240" with slider beside the depot's bare "Metals 47.6/120" rows, were sent in chat
+and not kept on disk); the underground half shows the same title text read-only with no slider (the orchestrator's reading
+of the read-only ruling above). The depot owns this UI itself so it works without the hub; the hub
+does not draw a second slider or title on a depot row.
 ⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
 well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
 depot's own, the Drone Access toggle kept** (default off). This supersedes the 09-29 crew ruling.
