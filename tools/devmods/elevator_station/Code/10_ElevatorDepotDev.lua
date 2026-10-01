@@ -1098,28 +1098,33 @@ function D.RowWord(o, res)
 	return word_of(D.State(o, res))
 end
 
--- The hub's engine arithmetic exactly: `math.ceil(a * b / c)` on integers is the engine's integer
--- division, which truncates (EF-116), so math.ceil does nothing; this is that floor, without a bare /.
-local function mul_div_floor(a, b, c)
+-- The hub's fit_title (train_hub 45_TrainDistributionUI.lua:114-130) with the ceiling its author wrote
+-- (`math.ceil(... / sx)`, `:124`, `:129`). In the engine int/int truncates (EF-116), so the hub's math.ceil
+-- gets an already-floored integer and the box can lose a unit; XWindow then scales MaxHeight and the
+-- padding to pixels separately through ScaleXY (CommonLua/X/XWindow.lua:766-784, archived build 25579348),
+-- which can lose another. At scale 1000 both are exact; at the depot panel's larger scale two lines no
+-- longer fit and the label shortened "Exotic Minerals · Not accepted" to "Exotic Minerals · N..." (sitting
+-- E, depot_rows_06; the hub station at its scale wraps it, depot_rows_07). So: a real ceiling, plus
+-- FIT_SLACK units for the scaling truncation (2 units: far below a third line, which needs ~35).
+local FIT_SLACK = 2
+local function mul_div_ceil(a, b, c)
 	local q = MulDivRound(a, b, c)
-	if q * c > a * b then q = q - 1 end
+	if q * c < a * b then q = q + 1 end
 	return q
 end
 
--- hub fit_title (train_hub 45_TrainDistributionUI.lua:114-130), bit-exact (sitting E: a long title's
--- layout must match a hub station row's; tests/wiring_smoke.py runs the hub's own function against this)
 local function fit_title(title)
 	local font = title:GetFontId()
 	local sx, sy = title.scale:xy()
 	local padding = title:GetPadding()
 	local width = 154
 	for word in (title.text or ""):gsub("<[^>]*>", ""):gmatch("%S+") do
-		width = Max(width, mul_div_floor(UIL.MeasureText(word, font) + 1, 1000, sx)
+		width = Max(width, mul_div_ceil(UIL.MeasureText(word, font) + 1, 1000, sx) + FIT_SLACK
 			+ padding:minx() + padding:maxx())
 	end
 	title:SetMinWidth(width)
 	title:SetMaxWidth(width)
-	title:SetMaxHeight(mul_div_floor(2 * title.font_height, 1000, sy)
+	title:SetMaxHeight(mul_div_ceil(2 * title.font_height, 1000, sy) + FIT_SLACK
 		+ padding:miny() + padding:maxy())
 end
 D.FitTitle = fit_title

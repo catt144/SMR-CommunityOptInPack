@@ -487,9 +487,11 @@ local wrapped = scaler.AdjustConstrainedScale; OnMsg.DialogOpen(dlg2); assert(sc
 local other = {kinds={XSizeConstrainedWindow=true}}; other.AdjustConstrainedScale = function(self, x, y) return x, y end
 OnMsg.DialogOpen({kinds={ipBuilding=true}, context={kinds={}}, other}); assert(not other.depot_scale, 'a non-depot panel is untouched')
 ''')
-# 10b long titles lay out exactly as a hub station row's (sitting E): run the hub's own fit_title
-# (45_TrainDistributionUI.lua, read-only) with the engine's integer division (EF-116: int/int truncates,
-# emulated here as //) against the depot's copy, on the same mock titles.
+# 10b long titles: the hub's own fit_title (45_TrainDistributionUI.lua, read-only) run with the engine's
+# integer division (EF-116: int/int truncates, emulated as //), against the depot's, on the same mock
+# titles; then both boxes scaled to pixels the way XWindow does (ScaleXY per value, truncating). The
+# depot's box must hold two lines and the widest word at every scale; the hub's floor loses at some
+# scales (sitting E: the depot panel at its larger scale shortened the title, the hub's at 1000 wrapped).
 HUB_UI = ROOT / 'tools/devmods/train_hub/Code/45_TrainDistributionUI.lua'
 hub_text = HUB_UI.read_text(encoding='utf-8')
 start = hub_text.index('local function fit_title(title)')
@@ -499,33 +501,47 @@ assert hub_fit.count(' / ') == 2, 'the hub fit_title has two divisions'
 lua.execute(hub_fit.replace(' / ', ' // '))
 lua.execute(r"""
 local D = SMRElevatorDepotDev
-local function title(text, sx, sy, fh, pad)
-  local t = {text=text, font_height=fh, scale={xy=function() return sx, sy end}}
+local PAD = 3
+local function title(text, sx, sy)
+  local t = {text=text, font_height=(36 * sy) // 1000, scale={xy=function() return sx, sy end}}
   function t:GetFontId() return 1 end
-  function t:GetPadding() return {minx=function() return pad end, maxx=function() return pad end, miny=function() return pad end, maxy=function() return pad end} end
+  function t:GetPadding() return {minx=function() return PAD end, maxx=function() return PAD end, miny=function() return PAD end, maxy=function() return PAD end} end
   function t:SetMinWidth(v) self.minw=v end
   function t:SetMaxWidth(v) self.maxw=v end
   function t:SetMaxHeight(v) self.maxh=v end
   return t
 end
-UIL = {MeasureText=function(word) return #word * 17 + 3 end}
-local n = 0
+local cur_sx = 1000
+UIL = {MeasureText=function(word) return (#word * 17 * cur_sx) // 1000 + 3 end}
+local function px(units, sc) return (units * sc) // 1000 end   -- ScaleXY, truncating
+local function fits(t, sx, sy)
+  local h = px(t.maxh, sy) - 2 * px(PAD, sy) >= 2 * t.font_height
+  local w = true
+  for word in t.text:gmatch('%S+') do
+    if px(t.maxw, sx) - 2 * px(PAD, sx) < UIL.MeasureText(word) + 1 then w = false end
+  end
+  return h and w
+end
+local n, hub_short, hub_1000_ok = 0, 0, true
 for _, text in ipairs{'Exotic Minerals · Not accepted', 'Rare Metals · Balanced', 'Metals · Import', 'Machine Parts · Export'} do
-  for _, sc in ipairs{{1000,1000}, {1700,1700}, {1333,1333}, {700,900}, {2160,2160}} do
-    for _, fh in ipairs{20, 27, 33} do
-      local a, b = title(text, sc[1], sc[2], fh, 3), title(text, sc[1], sc[2], fh, 3)
-      hub_fit_title(a); D.FitTitle(b)
-      assert(a.minw==b.minw and a.maxw==b.maxw and a.maxh==b.maxh,
-        ('fit_title differs from the hub: %s %d/%d fh %d: hub %s/%s depot %s/%s'):format(text, sc[1], sc[2], fh,
-        tostring(a.maxw), tostring(a.maxh), tostring(b.maxw), tostring(b.maxh)))
-      assert(math.type(b.maxw)=='integer' and math.type(b.maxh)=='integer')
-      n = n + 1
-    end
+  for sc = 800, 2200, 50 do
+    cur_sx = sc
+    local a, b = title(text, sc, sc), title(text, sc, sc)
+    hub_fit_title(a); D.FitTitle(b)
+    assert(fits(b, sc, sc), ('the depot box loses a line or a word at scale %d: %s (maxh %d)'):format(sc, text, b.maxh))
+    assert(b.maxh >= a.maxh and b.maxw >= a.maxw and b.maxh < a.maxh + 36, 'never smaller than the hub, never a third line')
+    assert(math.type(b.maxw)=='integer' and math.type(b.maxh)=='integer')
+    if not fits(a, sc, sc) then hub_short = hub_short + 1 end
+    if sc == 1000 and not fits(a, sc, sc) then hub_1000_ok = false end
+    n = n + 1
   end
 end
-fit_cases = n
+fit_cases, hub_short_cases, hub_1000 = n, hub_short, hub_1000_ok
 """)
-assert lua.eval('fit_cases') == 60
+assert lua.eval('fit_cases') == 116
+assert lua.eval('hub_1000'), "the hub's box fits at scale 1000, as the hub station showed"
+assert lua.eval('hub_short_cases') > 0, "the hub's floored box must fall short at some scale (the defect being fixed)"
+print('fit_title: depot fits at every scale 800..2200; hub floor short in', lua.eval('hub_short_cases'), 'of', lua.eval('fit_cases'), 'cases')
 
 # 11 the staged sitting slots run against the same world (the kit itself is mocked)
 SLOTS = ROOT / 'tools/devmods/elevator_station/tests/80_AgentSlots_depot.lua.txt'
@@ -582,4 +598,4 @@ head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True
 print(f'wiring_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')
 print('Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the '
       'read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, '
-      'half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, the staged slots, fit_title bit-exact with the hub (60 cases); no bare /.')
+      'half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, the staged slots, fit_title holds two lines at every scale (the hub floor does not); no bare /.')
