@@ -74,6 +74,13 @@ owner's import steps.
   beside `47f2fc6`) accepted the pre-written material: it rewrote the source in its own format with
   handle 6 and the four map paths intact, and `items.lua` now reads `SMROptInElevatorDepot refs: 2`
   (both import items). No depot DDS or `.mtljson` was compiled: that is the import's step.
+- **Carried in from brief 27 (owner, 2026-10-01: *"I will fold your editor reload in with the art
+  import"*).** Your Mod Editor session also saves **`SMR_TrainHubDev`** (change nothing): the hub's
+  Power and Storage Hub upgrade texts now use `<icon_Power>` (`3a15701`) and the generated template
+  still holds the old glyph. After the save, `python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py
+  --require-generated` must PASS before the restart. In the depot's own editor session, replace the
+  template description's "Its cabin runs for show only; no cargo crosses maps yet." with the wired
+  truth (cargo crosses on the hourly cabin; rows set on the surface half); keep the rest.
 - Brief 26's three carried items (`receiver_z`, the native underground `Measure()`, the core's
   frame) are still the sitting's: batches P3-P5 in the report.
 
@@ -154,12 +161,11 @@ The hub's art and bake scripts are in `SMR-Assets/trainhub/blender/`.
 
 ## Running beside brief 27
 
-Brief `27` (the wiring) may be live; its row in this folder's `README.md` says. It owns
-`tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua` and the template's behaviour fields. If
-your work needs Lua, report it instead. **Do not run the depot's Mod Editor import while `27` is live**:
-art, renders and the owner's yes go ahead in SMR-Assets; when you reach the import with `27` still
-live, commit, write the import steps into your report and hand back to the orchestrator. Recheck
-shared paths before every write.
+Brief `27` (the wiring) **closed on 2026-10-01** (its row in this folder's `README.md`; report
+`reports/ELEVATOR_DEPOT_WIRING_20261001.md`). The depot's Mod Editor import may now run. Brief 27's
+code, `tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua` and the template's behaviour
+fields, is not yours to change: if your work needs Lua, report it instead. Recheck shared paths
+before every write.
 
 ## Stops — report instead of continuing if
 

@@ -62,6 +62,19 @@ before it fires.
      console read is pasted into the TestKit **command box**, not a slot. Name each slot's function
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
      trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
+     **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-01** (Fable 5.1 `claude-fable-5-1`;
+     the build ran as an Opus 5.5 subagent). **Brief `27` is done:** the Elevator Depot pair is
+     wired in the dev mod and its attended sitting passed on the final build (report
+     `reports/ELEVATOR_DEPOT_WIRING_20261001.md`). Rulings taken that day are in spec §11: the surface
+     half owns the rows, the underground shows them read-only with a surface-pointing infotip; rows
+     take the hub's station shape with a target slider; one word for the pair on both panels
+     (Import = goes down, Export = comes up); Balanced cut, unset rows Import; Drone Access on both
+     halves in vanilla's filled on/off look; the hub reads the depot's rows and never writes one
+     (`c54dfeb`). Open: OI-37 (one-pair limit and survivor rule), OI-38 (unrun sitting steps); the
+     `SMR_TrainHubDev` editor save and the depot template text are carried into `28`; the hub's own
+     `fit_title` carries the floored-ceiling fault the depot fixed at `1122115` (report §"long title")
+     and belongs on the hub's next brief; four persisted names (`SMROptIn_depot_rows`, `_drones`,
+     `_cabin`, `_targets`) go into FIX_POLICY's inventory when the depot ships.
      **Next, in order:**
      1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
         owner do the Mod Editor save for slot 4 (`cargo_upgrade_smoke.py --require-generated`),

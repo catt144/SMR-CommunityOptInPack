@@ -8,6 +8,7 @@ at OptInPack `48b4e63` and SMR-Assets `642943a`. OptInPack moved to `1972103` du
 commit adds brief 28, which leaves `10_ElevatorDepotDev.lua` to this brief. `tasklist` found no
 `Mars.exe` before the first `Code/` write. Executed model: Claude Opus 5.5 (`claude-opus-5-5[1m]`), the
 brief's build agent. No writing git command was run; the orchestrator commits the units listed at the end.
+Orchestrator session that ran the sitting and committed: Claude Fable 5.1 (`claude-fable-5-1`).
 
 **State: built; the attended sitting ran 2026-10-01 (batches A-E, results under each batch). The done-when
 items passed in game: Import crosses on the hourly cabin; one word on both panels; Drone Access off keeps hub

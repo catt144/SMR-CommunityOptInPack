@@ -15,14 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-36 · opened 2026-10-01
-Brief 28 run B: do the depot's new renders earn the yes, or does it want another pass?
-- Open `B:/Dev/SMR/SMR-Assets/elevatorstation/blender/review_paint/index.html`; sheets 0, 0b and 10 first.
-- The hull, bands, skirt and trims now take the colony scheme through a mask, as vanilla's elevator does.
-- The renders simulate Space_Y, the scheme that matches your screenshots; sheet 10 shows the default one.
-- Say "yes", or what reads wrong: a band's place or width, the share of blue, the panels' frames.
-- The import waits for brief 27; the attached pads stay plain until a one-line Lua item in 27's file lands.
-Home: `docs/agent/reports/ELEVATOR_DEPOT_PAINT_20261001.md`
+### OI-37 · opened 2026-10-01
+Brief 27's two open recommendations: do the one-pair limit and the surviving-half rule stand as built?
+- One-pair limit as built: the depot is build-once on any map with a live one; vanilla greys the item.
+- Construction cost is unset; vanilla's elevator cost is suggested.
+- Surviving half as built: cabin cargo lands on the survivor, overflow as a pile beside it.
+- The survivor keeps its rows and works as a plain station; a new twin adopts the rows.
+- Recommendation 3 (the words) is settled by your station-words ruling.
+- Say "accept both", or name the change; the survivor rule was not tested in the sitting (OI-38).
+Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
 
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
@@ -74,6 +75,15 @@ Train hub: accept the remaining economic/module-off defaults, or name changes?
 Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
 
 ## Run
+
+### OI-38 · opened 2026-10-01
+When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
+- E3-E5: salvage a half with cargo aboard, then place a new twin (the survivor rule, OI-37).
+- C4: the cabin art at normal speed on both cores.
+- D5: toggling Drone Access on one half leaves the twin's button unchanged.
+- The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
+- The long-title fix (`1122115`) and the hub tooltips' power icon, once brief 28's editor save lands.
+Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
 
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.
