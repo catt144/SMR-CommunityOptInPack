@@ -45,6 +45,11 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
 8. **Independence.** Vanilla's elevator is not altered. The depot works without the hub, and the
    hub serves it like any member station. Either mod works alone in every underground state
    (`reports/CROSSING_SHAPE_20260929.md` §2 S1/S2/S6, §5, §7).
+   **Amended (owner, 2026-10-01, after the build):** the fixture's depots are on the hub network
+   (the owner: *"the save fixture is part of the hub network"*), so the hub change the report
+   §"The hub change the depot needs" describes, the hub reading the depot's rows and never writing
+   one, **is applied under this brief** before the sitting's batch B. The hub's upgrade texts stay
+   untouched. The out-of-scope line on hub code below yields to this.
 
 **Yours to recommend, with reasons in the report; the owner rules from it:**
 - how the one-pair limit is enforced (vanilla's `build_once` counts by template);
@@ -110,7 +115,8 @@ Smoke depth (spec §10): one prediction per step, about five steps a batch, the 
 orchestrator reads the log on flush. Preload SMRTK slots where a slot fits (`tools/SMRTK.md`); a
 console line needs a stated reason no slot fits. Use the time controls, not owner minutes, to reach
 the hourly legs. The fixture is the owner's underground save with both depots and the vanilla
-elevator; ask the owner to name it. A Mod Editor save, if a template changes, gets step-by-step owner
+elevator; ask the owner to name it. **Named (owner, 2026-10-01):** `double hub+elev Built+underground
+setup`, on the hub network. A Mod Editor save, if a template changes, gets step-by-step owner
 instructions and the check that proves it landed.
 
 **Carried in (owner, 2026-10-01):** the hub's four upgrade texts were rewritten at `6c53b46` (Data/ only,
