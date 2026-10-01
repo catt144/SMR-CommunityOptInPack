@@ -40,6 +40,9 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
    **No drone crew of its own** (owner, 2026-10-01): *"I think we cut the drones from the elevator,
    let it do one job really well. We can revist it later if we find a real need"*; asked, the owner
    chose no crew and the toggle kept. This supersedes the 09-29 crew ruling.
+   **Look (owner, 2026-10-01, sitting B1):** the toggle reads on/off at a glance exactly as vanilla's
+   Shuttle Access one, a filled green hex on and a filled red hex off; a rim only on hover was
+   rejected (*"at a glance its impossible to tell if they are off or on"*).
 7. **Passengers need no depot code.** The owner watched the chain end to end on 2026-10-01: train
    to the depot, walk to vanilla's elevator, down, board an underground station. Keep it working.
 8. **Independence.** Vanilla's elevator is not altered. The depot works without the hub, and the

@@ -4159,6 +4159,11 @@ new surface twin adopts (the orchestrator's reading, given to the owner with the
 Drone Access and Shuttle Access stay clickable on both halves: drone hubs are per map. This
 supersedes the mirrored-link ruling above for the underground half's rows; the surface Import =
 underground Export meaning is unchanged.
+⚖️ **Owner ruling, 2026-10-01 (brief 27 sitting, batch B1):** the Drone Access toggle must read
+on/off at a glance exactly as vanilla's Shuttle Access toggle does, a filled green hex when on and a
+filled red hex when off; the build's rim-only look was rejected: *"The icons are there but they should
+look more like vanillas, at a glance its impossible to tell if they are off or on"* (screenshots 3-6,
+SMR-Assets owner_feedback).
 ⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
 well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
 depot's own, the Drone Access toggle kept** (default off). This supersedes the 09-29 crew ruling.
