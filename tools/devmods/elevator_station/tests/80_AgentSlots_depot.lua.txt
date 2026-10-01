@@ -1,0 +1,243 @@
+-- STAGED, NOT LOADED. Brief 27 (the Elevator Depot's wiring), attended smoke, 2026-10-01.
+-- Report and predictions: OptInPack docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md,
+-- "The sitting". To load: with Mars.exe closed, keep a copy of TestKit Code/80_AgentSlots.lua
+-- (the 2026-09-26 capacity sitting), replace it with this file, start the game; restore after.
+-- Mutations only on explicit presses: slot 1 puts Metals into the selected depot half.
+-- Slots 2, 4 and 6 run game time at Ultra until their trigger pauses. Scratch, 3 and 5 are reads.
+-- Nothing arms or mutates at load. Depot API: SMRElevatorDepotDev.Pair / HalfWord / State /
+-- DroneReach / CABIN (tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua, WIRING).
+local T = SMRTK
+local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
+local function dev()
+    local d = rawget(_G, "SMRElevatorDepotDev")
+    return d and type(d.Pair) == "function" and d or nil
+end
+local function is_half(o) return IsValid(o) and IsKindOf(o, "SMROptInElevatorDepotDevBase") end
+local function env(o) return GetEnvironment(o:GetMap()) end
+local function units(n) return n and n >= 0 and MulDivRound(n, 10, const.ResourceScale) or -1 end  -- tenths
+
+local function cabin(d)
+    local s, u = d.PairOf()
+    local rec = s and rawget(s, d.CABIN)
+    return s, u, type(rec) == "table" and rec or nil
+end
+
+local function half_fields(d, o, res)
+    local controllers, registered, busy = d.DroneReach(o)
+    return { half = id(o), map = env(o), working = tostring(o.working),
+        drone_access = rawget(o, d.DRONES) and "on" or "off", controllers = controllers,
+        registered = registered, drones_busy = busy, row = res, state = d.State(o, res),
+        word = d.HalfWord(o, res), enabled = tostring(o:IsResourceEnabled(res)),
+        stock_tenths = units(o.supply and o.supply[res] and o.supply[res]:GetActualAmount()) }
+end
+
+T.BindScratch("Depot pair read (pause first)", function(ctx)
+    local d = dev()
+    if not d then return false, "the Elevator Depot dev mod is not loaded" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local mark = ctx.mark("DEPOT_PAIR_READ")
+    local out = d.Pair()
+    local s, u, rec = cabin(d)
+    for _, o in ipairs({ s, u }) do
+        if IsValid(o) then ctx.log("DUMP", half_fields(d, o, "Metals")) end
+    end
+    return { mark = mark, surface = id(s), underground = id(u), extras = out.extras,
+        cabin = rec and rec.phase or "none", legs = rec and rec.legs or 0,
+        aboard_metals_tenths = units(rec and rec.cargo and rec.cargo.Metals or 0),
+        game_time = GameTime(), errors = T.error_count }
+end, { mode = "once" })
+
+T.Bind(1, "Put 20 Metals into the selected depot half (paused)", function(ctx)
+    local d = dev()
+    if not d then return false, "the Elevator Depot dev mod is not loaded" end
+    local o = ctx.sel
+    if not is_half(o) then return false, "select a depot half" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local s, dm = o.supply and o.supply.Metals, o.demand and o.demand.Metals
+    if not s or not dm or not o:IsResourceEnabled("Metals") then return false, "Metals is Not accepted here" end
+    local n = Min(20 * const.ResourceScale, Max(dm:GetTargetAmount(), 0))
+    if n <= 0 then return false, "no free Metals room on this half" end
+    local mark = ctx.mark("DEPOT_STOCK_METALS")
+    local before = s:GetActualAmount()
+    ctx.mutated = true
+    o:AddResource(n, "Metals")
+    return { mark = mark, half = id(o), map = env(o), added_tenths = units(n),
+        before_tenths = units(before), after_tenths = units(s:GetActualAmount()) }
+end, { mode = "once", needs = "selected" })
+
+T.Trigger { id = "depot_next_arrival", label = "Depot: the cabin's next arrival", cadence = 250,
+    prepare = function(ctx)
+        local d = dev()
+        if not d then return false, "the Elevator Depot dev mod is not loaded" end
+        local s, u, rec = cabin(d)
+        if not (s and u) then return false, "no depot pair (one half on each map)" end
+        ctx.state.legs = rec and rec.legs or 0
+        ctx.state.deadline = GameTime() + 3 * const.HourDuration
+        ctx.state.surface, ctx.state.underground = s, u
+        return { surface = id(s), underground = id(u), legs = ctx.state.legs,
+            cabin = rec and rec.phase or "none", deadline = ctx.state.deadline }
+    end,
+    when = function(ctx)
+        local d, state = dev(), ctx.state
+        if not d or not IsValid(state.surface) or not IsValid(state.underground) then
+            return true, { verdict = "pair_gone" }
+        end
+        local _, _, rec = cabin(d)
+        local legs = rec and rec.legs or 0
+        local arrived = legs > state.legs
+        if arrived or GameTime() >= state.deadline then
+            local fields = { verdict = arrived and "arrived" or "deadline", legs = legs,
+                cabin = rec and rec.phase or "none", game_time = GameTime() }
+            for _, res in ipairs({ "Metals", "Concrete" }) do
+                fields["s_" .. res] = units(state.surface.supply[res] and state.surface.supply[res]:GetActualAmount())
+                fields["u_" .. res] = units(state.underground.supply[res] and state.underground.supply[res]:GetActualAmount())
+                fields["aboard_" .. res] = units(rec and rec.cargo and rec.cargo[res] or 0)
+            end
+            return true, fields
+        end
+        return false
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+
+T.Bind(2, "Run until the cabin's next arrival (Ultra, pauses itself)", function(ctx)
+    if T.armed.depot_drone_hour or T.armed.depot_next_departure then return false, "cancel the other run first" end
+    if T.armed.depot_next_arrival then T.Disarm("depot_next_arrival", "re-arm from slot 2") end
+    local ok, result = T.Arm("depot_next_arrival")
+    if not ok then return false, result.reason end
+    local ran, speed = T.Run("speed_ultra")
+    if not ran then T.Disarm("depot_next_arrival", "speed refused") return false, speed.reason end
+    return { trigger = "depot_next_arrival", legs = result.legs, cabin = result.cabin,
+        deadline = result.deadline, autosave = "re-press slot 2 after a save" }
+end, { mode = "once" })
+
+T.Bind(3, "Read the selected half: Metals row, stock, drones (pause first)", function(ctx)
+    local d = dev()
+    if not d then return false, "the Elevator Depot dev mod is not loaded" end
+    local o = ctx.sel
+    if not is_half(o) then return false, "select a depot half" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local mark = ctx.mark("DEPOT_HALF_READ")
+    local fields = half_fields(d, o, "Metals")
+    local twin = d.TwinOf(o)
+    fields.twin = id(twin)
+    fields.twin_word = twin and d.HalfWord(twin, "Metals") or "none"
+    fields.mark = mark
+    return fields
+end, { mode = "once", needs = "selected" })
+
+T.Trigger { id = "depot_drone_hour", label = "Depot: one game hour of drone counts", cadence = 250,
+    prepare = function(ctx, o)
+        local d = dev()
+        if not d then return false, "the Elevator Depot dev mod is not loaded" end
+        if not is_half(o) then return false, "select a depot half" end
+        local controllers, registered, busy = d.DroneReach(o)
+        local state = ctx.state
+        state.half, state.max_busy, state.max_registered, state.samples = o, busy, registered, 1
+        state.deadline = GameTime() + const.HourDuration
+        return { half = id(o), map = env(o), drone_access = rawget(o, d.DRONES) and "on" or "off",
+            controllers = controllers, registered = registered, drones_busy = busy, deadline = state.deadline }
+    end,
+    when = function(ctx)
+        local d, state = dev(), ctx.state
+        if not d or not IsValid(state.half) then return true, { verdict = "half_gone" } end
+        local _, registered, busy = d.DroneReach(state.half)
+        state.samples = state.samples + 1
+        state.max_busy = Max(state.max_busy, busy)
+        state.max_registered = Max(state.max_registered, registered)
+        if GameTime() >= state.deadline then
+            return true, { verdict = "hour_done", half = id(state.half),
+                drone_access = rawget(state.half, d.DRONES) and "on" or "off",
+                max_drones_busy = state.max_busy, max_registered = state.max_registered,
+                samples = state.samples, game_time = GameTime() }
+        end
+        return false
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+
+T.Bind(4, "Run one game hour counting drones on the selected half (Ultra)", function(ctx)
+    if T.armed.depot_next_arrival or T.armed.depot_next_departure then return false, "cancel the other run first" end
+    if T.armed.depot_drone_hour then T.Disarm("depot_drone_hour", "re-arm from slot 4") end
+    local ok, result = T.Arm("depot_drone_hour", ctx.sel)
+    if not ok then return false, result.reason end
+    local ran, speed = T.Run("speed_ultra")
+    if not ran then T.Disarm("depot_drone_hour", "speed refused") return false, speed.reason end
+    return { trigger = "depot_drone_hour", half = result.half, drone_access = result.drone_access,
+        registered = result.registered, drones_busy = result.drones_busy, deadline = result.deadline }
+end, { mode = "once", needs = "selected" })
+
+-- Read-only: who is waiting at, and riding to, each depot half (Train.lua:429-462, :977-990 fields,
+-- archived 1.1.1.406343: station.waiting_for_train, train.units, colonist.transport_ticket.dst_station).
+T.Bind(5, "Passenger chain read: depots, trains, vanilla elevators (pause first)", function(ctx)
+    local d = dev()
+    if not d then return false, "the Elevator Depot dev mod is not loaded" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local mark = ctx.mark("DEPOT_PASSENGERS")
+    local s, u = d.PairOf()
+    local rows = 0
+    for _, o in ipairs({ s, u }) do
+        if IsValid(o) then
+            local riding = 0
+            for _, train in ipairs(UIColony.labels.Train or empty_table) do
+                for _, c in ipairs(train.units or empty_table) do
+                    local ticket = rawget(c, "transport_ticket")
+                    if ticket and ticket.dst_station == o then riding = riding + 1 end
+                end
+            end
+            ctx.log("DUMP", { half = id(o), map = env(o), waiting = #(o.waiting_for_train or empty_table),
+                riding_here = riding })
+            rows = rows + 1
+        end
+    end
+    return { mark = mark, halves = rows, vanilla_elevators = #(UIColony.labels.Elevator or empty_table),
+        game_time = GameTime() }
+end, { mode = "once" })
+
+-- Slot 6: the mid-leg witness. Fires at the next departure (the cabin left an end), so the read
+-- shows the cargo aboard while neither half holds it: ruling 1, "nothing crosses while it travels".
+T.Trigger { id = "depot_next_departure", label = "Depot: the cabin's next departure", cadence = 250,
+    prepare = function(ctx)
+        local d = dev()
+        if not d then return false, "the Elevator Depot dev mod is not loaded" end
+        local s, u, rec = cabin(d)
+        if not (s and u) then return false, "no depot pair (one half on each map)" end
+        local state = ctx.state
+        state.surface, state.underground = s, u
+        state.phase, state.ends = rec and rec.phase or "none", rec and rec.ends or -1
+        state.deadline = GameTime() + 3 * const.HourDuration
+        return { surface = id(s), underground = id(u), cabin = state.phase, deadline = state.deadline }
+    end,
+    when = function(ctx)
+        local d, state = dev(), ctx.state
+        if not d or not IsValid(state.surface) or not IsValid(state.underground) then
+            return true, { verdict = "pair_gone" }
+        end
+        local _, _, rec = cabin(d)
+        local phase, ends = rec and rec.phase or "none", rec and rec.ends or -1
+        local departed = (phase == "down" or phase == "up") and (phase ~= state.phase or ends ~= state.ends)
+        if departed or GameTime() >= state.deadline then
+            local fields = { verdict = departed and "departed" or "deadline", cabin = phase,
+                legs = rec and rec.legs or 0, game_time = GameTime() }
+            for _, res in ipairs({ "Metals", "Concrete" }) do
+                fields["s_" .. res] = units(state.surface.supply[res] and state.surface.supply[res]:GetActualAmount())
+                fields["u_" .. res] = units(state.underground.supply[res] and state.underground.supply[res]:GetActualAmount())
+                fields["aboard_" .. res] = units(rec and rec.cargo and rec.cargo[res] or 0)
+            end
+            return true, fields
+        end
+        return false
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+
+T.Bind(6, "Run until the cabin departs (Ultra, pauses itself)", function(ctx)
+    if T.armed.depot_drone_hour or T.armed.depot_next_arrival then return false, "cancel the other run first" end
+    if T.armed.depot_next_departure then T.Disarm("depot_next_departure", "re-arm from slot 6") end
+    local ok, result = T.Arm("depot_next_departure")
+    if not ok then return false, result.reason end
+    local ran, speed = T.Run("speed_ultra")
+    if not ran then T.Disarm("depot_next_departure", "speed refused") return false, speed.reason end
+    return { trigger = "depot_next_departure", cabin = result.cabin, deadline = result.deadline,
+        autosave = "re-press slot 6 after a save" }
+end, { mode = "once" })
