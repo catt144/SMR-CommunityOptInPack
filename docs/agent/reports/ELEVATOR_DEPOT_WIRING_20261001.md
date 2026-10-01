@@ -119,27 +119,31 @@ of the dev mod's own making (`transport_policy[res]`, vanilla accept flags) are 
 names. They follow `FIX_POLICY` §3, and the dev mod's description already says to demolish every depot
 before removing the mod.
 
-## The hub change the depot needs (reported here, not applied by me)
+## The hub change the depot needs (APPLIED)
+
+**Applied in `tools/devmods/train_hub/Code/40_TrainDistribution.lua` and
+`tools/devmods/train_hub/Code/45_TrainDistributionUI.lua`, under brief 27 (`ad01179` lifts the hub-code
+bar for this one change).** The two files carry exactly the diff below. No other hub file changed:
+upgrade texts, `Data/`, templates, items and metadata are untouched.
 
 Rule 2 needs the hub to read the depot's rows and never write one. Without this patch, a depot on a
 hub network:
 - shows the hub's slider and a hub "· Balanced" title on its rows;
 - writes a hub row if that slider is dragged;
-- is treated as Balanced at its dial by the hub's trains.
-
+- is treated as Balanced at its dial by the hub's trains;
 - (since the one-writer amendment) has its vanilla storage flag rewritten by a hub Ctrl+click from
   another station, with no reconcile pass left to undo it.
 
 The depot itself still works. Its icon, click and rollover win, because the depot's class methods
-override the hub's `Station` wrappers. The cabin and vanilla balancing still move cargo. Brief 27 now
-says this change is applied under the brief before batch B (`ad01179`: the fixture is on the hub
-network). I was told not to edit hub code, so it is applied by whoever the orchestrator assigns. It adds
-no field and no persisted name. An old hub row stored for a depot is ignored and is cleared by the
+override the hub's `Station` wrappers. The cabin and vanilla balancing still move cargo. The fixture
+is on the hub network (`ad01179`), so the change had to be in place before batch B. It adds no field
+and no persisted name. An old hub row stored for a depot is ignored and is cleared by the
 hub's own `D.Reset`. The second `45` hunk is new with the amendment.
 
-I applied it, both `45` hunks included, to a scratch copy of `tools/devmods/train_hub/`. There `distribution_smoke.py` (22 PASS),
-`distribution_ui_smoke.py` (4 PASS) and `station_visuals_smoke.py` (3 PASS) all exit 0, the same PASS
-counts as unpatched HEAD. Both files load under `lupa` with 0 errors. These smokes run without the depot
+Run in the repo after applying, at `fdd54b0` + working tree: `distribution_smoke.py` (22 PASS),
+`distribution_ui_smoke.py` (4 PASS) and `station_visuals_smoke.py` (3 PASS) each exit 0, the same PASS
+counts as unpatched HEAD. `parsecheck` over the hub's `Code/` reads 8 files with 0 errors, and
+`cargo_upgrade_smoke.py` is unchanged (11 PASS, then the owed editor step). These smokes run without the depot
 mod, so they cover the hub-alone half of rule 8. The depot-present read is covered on the depot side
 (`D.HubEntry` in `wiring_smoke.py`), not inside the hub.
 
@@ -236,7 +240,9 @@ mod, so they cover the hub-alone half of rule 8. The depot-present read is cover
 | `lupa` `load()` of `tests/80_AgentSlots_depot.lua.txt` | `ok`; 6 `Bind`, 1 `BindScratch`, 3 `Trigger` |
 | `python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py` | exit 0, 11 PASS lines, then `OWNER STEP OWED: Mod Editor save for slot 4 and base storage; code_hash remains editor-owned` |
 | `python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated` | **exit 1 (FAILED, expected):** `AssertionError: ('Mod Editor regeneration owed', ...)`. The four generated descriptions still hold the long texts, and the carried-in editor save (A1) is what clears this. |
-| hub patch (with the new `45` hunk) on a scratch copy: `distribution_smoke.py`, `distribution_ui_smoke.py`, `station_visuals_smoke.py`; `lupa` `load()` of both files | exit 0 each; PASS counts 22 / 4 / 3, the same as unpatched HEAD; both `ok` |
+| hub patch applied in the repo: `distribution_smoke.py`, `distribution_ui_smoke.py`, `station_visuals_smoke.py` | exit 0 each; PASS counts 22 / 4 / 3, the same as unpatched HEAD; `HEAD: fdd54b0...` |
+| `python tools/parsecheck.py --dir tools/devmods/train_hub/Code` (after the patch) | exit 0, `PARSE: 8 file(s) ..., 0 error(s) [Lua 5.5]` |
+| `python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py` (after the patch) | exit 0, 11 PASS, then `OWNER STEP OWED: Mod Editor save for slot 4 and base storage; code_hash remains editor-owned` |
 | byte check of the three written files | CR 0 in each (LF only) |
 
 What the mock does not prove: real drone queues and `InterruptDrones`; the panel's look and the
@@ -353,8 +359,8 @@ patch is applied before batch B.
 
 ## What I did not do, and the risks the sitting carries
 
-- **The hub patch is not applied.** Brief 27 now places it under this brief (`ad01179`), but the
-  coordinator told me not to edit hub code. It is above, tested on a scratch copy.
+- **No hub test with the depot loaded.** The hub smokes run without the depot mod; `D.HubEntry` is
+  tested on the depot side. The hub reading a live depot's rows is the sitting's (batch B onwards).
 - **No `FIX_POLICY.md` inventory edit, no README row, no STATE or checklist edit, no doccheck, no
   commit.** The orchestrator does these by the division of labour.
 - **No construction cost or tech gate** beyond the underground unlock (recommendation 1's last line).
@@ -380,3 +386,9 @@ The one-writer amendment:
    "Brief 27 staged slots: Scratch and slot 3 carry the underground panel witness"
 3. `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
    "Brief 27 report: the one-writer amendment (design calls, recommendations 2 and 3, row 20, hub patch's broadcast hunk, batches B, D1, D5, E5)"
+
+Those three landed as `8ba7ad4`, `f682872`, `fdd54b0`. The hub patch:
+1. `tools/devmods/train_hub/Code/40_TrainDistribution.lua tools/devmods/train_hub/Code/45_TrainDistributionUI.lua`
+   "Train hub dev mod: the hub reads the Elevator Depot's rows and never writes one, and its Ctrl+click broadcast skips depots (brief 27, ad01179); distribution smokes 22/4/3 PASS"
+2. `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
+   "Brief 27 report: the hub patch is applied (40/45), with its verification"
