@@ -38,6 +38,8 @@ editor, and it was left for the next depot editor session.
 | **One state per resource for the pair**, held in vanilla's elevator vocabulary (`bidirectional` / `to_surface` / `to_underground` / `disabled`, `Elevator.lua:192-197` on 406343). Each half derives its station word from the state and its own map: `to_underground` is surface Import and underground Export. | Ruling 3: surface Import = underground Export. A missing row means Balanced, as a missing state means `bidirectional` in vanilla. |
 | **One writer: the surface half's rows** (owner, 2026-10-01). `D.SetRow` refuses an underground half. A paired underground half reads the setting from its surface twin, and its own `SMROptIn_depot_rows` is a read-only copy that only the surface's write path rewrites (whole table, every change). A lone underground half reads its copy, which a new surface twin adopts. | The owner: *"to change you must use the surface elevator"*. The copy is what survives a surface demolition (recommendation 2). |
 | **The underground rows show; they do not act.** A click there writes nothing and logs `underground rows are read-only; change <res> on the surface Elevator Depot`. A row hook, chained at run time on `sectionStorageRow.OnContextUpdate` as the hub's `45_TrainDistributionUI.lua` does, replaces the row's click hint with "Read-only here: change it on the surface Elevator Depot." and makes its `OnActivate` a no-op. The row still shows vanilla's stock/capacity figures and mark (`Data/XDef/sectionStorageRow.lua:16-32`): **up** = it leaves this half on the cabin, **down** = it arrives here, the Balanced mark, or the no-accept X. | The owner's design. The hover highlight of an active section may remain; only the click and its hint are taken away. |
+| **The rows take the hub's station-row shape** (owner, 2026-10-01, sitting B: *"We still need the sliders for target values, and I would like the text to resemble our station ones"*; clarified: the hub's own wording and sliders, verbatim). The title is `T{Untranslated("<resource(res)> · " .. word), context}`, using the hub's four words Import / Export / Balanced / Not accepted (`45_TrainDistributionUI.lua:33-34`, `:206`). The surface rows also carry the hub's slider (Min 0, Max 100, StepSize 1, docked between the left title and vanilla's stock/capacity on the right; `:133-181`), the hub's title fit (`:118-131`) and the hub's next-word click hint (`:209-212`, without its Ctrl line, which does nothing on a depot row). The infotip ends with the hub's line "Slider: N% of current capacity (X)." (`:101-102`). Not accepted keeps vanilla's red X and red text (`Data/XDef/sectionStorageRow.lua:16-32`); the slider is disabled there, as the hub does (`:213`). Underground rows show the same title shape with that half's own word (surface Import reads "Metals · Export" below), vanilla's stock/capacity, no slider and no click. | The hub's row code is `local` to `45_TrainDistributionUI.lua`, so the depot cannot call it without depending on the hub. It is copied into the depot, with the source lines cited in the code. The only changes are the title fit and the infotip amount, which use integer `MulDivRound` (EF-116) where the hub divides. The applied hub patch keeps the hub's own slider and title off depot rows, so nothing is drawn twice. |
+| **The target, and how the depot honours it.** One target per resource, in percent of the surface half's capacity, set by the surface slider. Unset, it is the hub's untouched-row default: the live dial as a percentage (`45_TrainDistributionUI.lua:46-51`). It is the surface half's station target, read exactly as at a hub station: **Import gathers up to it** (a hub fills the surface half to it); **Export hands out down to it** (a hub takes only the stock above it); **Balanced holds it**. The cabin plays the station's local drones. On an Import row it takes everything gathered; on an Export row it delivers all that fits, for trains to hand out above the target. On a Balanced row it holds the surface at the target: down legs carry surface stock above it, up legs bring stock up to it. This replaces "half the difference". The underground half has no slider: its Import gathers to full and its Export hands out everything (`D.HubEntry`). | The hub semantics apply unchanged, and the cabin needs a rule only where no train rule exists, which is Balanced. Without a hub, vanilla trains ignore every target (they balance by capacity, `Train.lua:862-1043`); the cabin's Balanced rule still applies. |
 | **One arrow meaning on both panels: the cabin's direction.** Down for `to_underground` (surface Import: it leaves the surface), up for `to_surface`. That is vanilla's elevator icons and the hub's Import/Export icons at once, so `row_words` now changes only the Balanced mark (the stations' storing mark or vanilla's tick), the words in the infotips and the surface click order. | The underground arrows the owner asked for equal vanilla's elevator marks (recommendation 3). The switch cost nothing to keep. |
 | **The underground infotip** states the setting in words ("Arrives here: each down leg brings it from the surface half; trains … take it away from here.", or "Leaves this half…", "Balanced…", "Not accepted…"), both halves' words and vanilla's word, then "Read-only here: to change it, use the surface Elevator Depot." The surface infotip leads with its word and says how the underground shows it. | Owner: *"have its infotip say its current info"*. |
 | A surface click cycles the surface word in the hub's order (Balanced, Export, Import, Not accepted); `row_words = "elevator"` uses vanilla's order. | Ruling 2, "as at every station". |
@@ -45,7 +47,7 @@ editor, and it was left for the next depot editor session.
 | **The witness replaces `mirror=ok`.** `D.UndergroundPanel(u, s, res)` takes the mark the underground row will draw (vanilla's no-accept X when storage is off, else `GetResAcceptIcon`) and its infotip, and checks both against the surface half's own stored row. `Pair()` prints `u_panel=<shown>(surface says <expected>)` per row and `underground panel: N rows match the surface setting, M differ; read-only copy current/STALE`. Scratch and slot 3 carry it into the sitting. | It can fail: the smoke turns an underground vanilla flag off behind the depot and gets `DIFFERENT`. |
 | **First wiring of an old surface half seeds from vanilla.** A resource it had Not accepted stays so; the rest start Balanced. The underground never seeds: its refusals are overwritten by the surface's setting. | The surface owns it. |
 | **Per-trip loads (ruling 1).** At departure the cabin takes stock off the origin half with `AddResource(-n)`. At arrival it gives everything that fits, measured by the destination's demand target, with `AddResource(+n)`. These are the train's own writes (`Train.lua:744-831`), including the BlackCube count. What does not fit stays aboard and rides back to where it came from. | Nothing is on either half while the cabin travels, and nothing is ever lost. |
-| Loading order on a leg: the carried direction first (`to_underground` going down, `to_surface` going up), then Balanced rows, which move half the stock difference. **Capacity is 42 units a leg, shared by all resources.** | 42 is one vanilla train load (`Train.lua:22`, `max_shared_storage`), a rough start. The owner tunes it live with `Set("cabin_capacity", n)`. |
+| Loading order on a leg: the carried direction first (`to_underground` going down, `to_surface` going up), then Balanced rows, which hold the surface half at its target. **Capacity is 42 units a leg, shared by all resources.** | 42 is one vanilla train load (`Train.lua:22`, `max_shared_storage`), a rough start. The owner tunes it live with `Set("cabin_capacity", n)`. |
 | **The timer (ruling 5).** A state machine (`at_top`, `down`, `at_bottom`, `up`) runs on `OnMsg.NewMinute` (`DayTime.lua:69`), timed by `GameTime`. The first leg leaves on the hour. Leg 60 game minutes, pause 0, both live (`cabin_leg_minutes`, `cabin_pause_minutes`); a changed value applies from the next leg. While either half is switched off, the cabin waits at the end it reached. | No thread of ours rides a save; the record holds plain numbers. Vanilla's own legs are a game hour (`SpaceElevator.lua:7` `travel_time`, `:194` `SpaceElevatorTripInterval` one sol, `:318-322` `NewHour`). |
 | **The cabin art follows the real legs** (`cabin_follows_schedule = true`). The surface cabin rests at its base and sinks through the well on the down leg; the underground cabin waits in the ceiling and comes down to the receiver on the same leg. An unpaired depot keeps the old show cycle. | The owner can see the hourly cabin at a glance. The look itself is brief 28's. |
 | **Drone Access (ruling 6)** works through `ShouldAddRequestToCommandCenter`, the hook every drone controller asks (`DroneControl.lua:741-757`). Off, the half's storage requests are refused to any `DroneControl`; maintenance and train-construction requests keep vanilla service. Shuttles pass a map (`LRManager.lua:74`) and are untouched. On, the filter is MapSharedDepot's direction filter (`Elevator.lua:214-243`): an Import half registers demand only, an Export half supply only. A toggle resets the drones on the half's storage requests and re-registers, as vanilla's elevator does (`Elevator.lua:322-325`). | Off, hub drones never service the depot's storage. The train hub is itself a `DroneControl` (`20_TrainHub.lua:209`), so its drones are covered. RC Commanders are drone controllers too and are also kept off. |
@@ -112,6 +114,7 @@ orchestrator decides.
 |---|---|---|---|---|
 | 20 | `SMROptIn_depot_rows` | table on a depot half: resource id to one of `"to_surface"`, `"to_underground"`, `"disabled"` (`"bidirectional"` is stored as absence). On the surface half, the setting; on the underground half, a read-only copy, written only by the surface's write path (and at pairing), which a new surface twin adopts | `10_ElevatorDepotDev.lua` WIRING: `D.SetRow` (surface only), `seed_rows` (surface only), `D.OnPairChanged` | same file: `D.State` (a paired underground reads its surface), the panel methods, the cabin, `D.HubEntry`, `D.UndergroundPanel`; `tests/wiring_smoke.py` |
 | 21 | `SMROptIn_depot_drones` | `true` on a half whose Drone Access is on; absent when off (the default) | same file, `D.SetDroneAccess` | same file, `ShouldAddRequestToCommandCenter`, the button, `D.Pair` |
+| 23 | `SMROptIn_depot_targets` | table on a depot half: resource id to an integer percent 0–100 of the surface half's capacity (absent means the dial default). On the surface half, the slider's targets; on the underground half, a read-only copy written by the surface's write path and at pairing, which a new surface twin adopts | `10_ElevatorDepotDev.lua` WIRING: `D.SetTarget` (surface only, from the slider), `D.OnPairChanged` | same file: `D.Target`, `D.HubEntry`, the cabin's Balanced rule, the row slider and infotip, `D.Pair`; the staged slots (slot 3) |
 | 22 | `SMROptIn_depot_cabin` | table on the pair's surface half. Keys: `phase` (`"at_top"`, `"down"`, `"at_bottom"`, `"up"`), `ends` and `leg_ms` (game ms), `cargo` (resource id to amount ×1000), `legs` (count), `started` (boolean) | same file, `cabin_of`, `D.Tick`, `D.HalfGone` | same file, `D.Tick`, `D.FollowTarget`, `D.Pair`; the staged slots |
 
 The state strings and key names inside rows 20 and 22 are contract with their fields. Vanilla writes
@@ -278,26 +281,32 @@ patch is applied before batch B.
 
 <<SITTING PENDING>>
 
-**B. The panel: surface rows set, underground rows shown read-only (paused)**
-- B1 Select the surface depot. *Prediction:* a drone button with a red rim stands right of Shuttle
-  Access. Hovering it shows "Drone Access", status OFF.
-- B2 On the surface panel, click the Metals row until its icon is the down arrow (from Balanced: two
-  clicks, passing Export with the up arrow). *Prediction:* log `row Metals = to_underground
-  surface=import underground=export (set on the surface half <S>; underground <U> copy updated)`. The
-  hover starts "Import: this half gathers it for the cabin".
-- B3 Select the underground depot and hover its Metals row. *Prediction:* the row shows its stock and
-  capacity and a down arrow. The infotip starts "Arrives here: each down leg brings it from the surface
-  half" and ends "Read-only here: to change it, use the surface Elevator Depot." The click hint line
-  reads "Read-only here: change it on the surface Elevator Depot."
-- B4 Click the underground Metals row once. *Prediction:* nothing changes on either panel, and the log
-  has `underground rows are read-only; change Metals on the surface Elevator Depot`. Then, with the
-  underground depot selected, press slot 3: `panel_shows=down surface_says=down infotip_ok=true
-  copy_current=true`. The underground panel shows what the surface setting says.
+**B. The panel: station-shaped rows, set on the surface, shown read-only underground (paused)**
+- B1 Select the surface depot. *Prediction:* the drone button stands right of Shuttle Access as a filled
+  red hex (vanilla's off look); hovering it shows "Drone Access", status OFF. Every resource row reads
+  `<Resource> · <word>` (an untouched row: "Metals · Balanced"), with a slider between the title and
+  vanilla's stock/capacity ("47.6/120"). A Not accepted row reads "· Not accepted" in red with the red
+  X, and its slider is greyed.
+- B2 Click the surface Metals row until it reads "Metals · Import" (from Balanced: two clicks, passing
+  "Metals · Export"). Then drag its slider to about 60 %. *Prediction:* log `row Metals = to_underground
+  surface=import underground=export (... copy updated)`, then `target Metals = <n>% (set on the surface
+  half ...; underground ... copy updated)` lines while dragging. The hover starts "Import: this half
+  gathers it for the cabin" and ends "Slider: <n>% of current capacity (<amount>)."
+- B3 Select the underground depot and hover its Metals row. *Prediction:* the row reads "Metals ·
+  Export" with its own stock/capacity and the down arrow, and has no slider. The infotip starts
+  "Arrives here: each down leg brings it from the surface half" and ends "Read-only here: to change
+  it, use the surface Elevator Depot." The click hint reads "Read-only here: change it on the surface
+  Elevator Depot."
+- B4 Click the underground Metals row once, then press slot 3 with the underground depot selected.
+  *Prediction:* nothing changes, and the log has `underground rows are read-only; change Metals on the
+  surface Elevator Depot`. Slot 3: `title_word=export panel_shows=down surface_says=down title_ok=true
+  infotip_ok=true copy_current=true target_percent=<n>`. The underground panel shows what the surface
+  setting says.
 - B5 Console `SMRElevatorDepotDev.Set("row_words", "elevator")`. No slot sets a layout key, which is
   why this is a console line. Hover a Metals row and a Balanced row on each panel, then
-  `Set("row_words", "station")`. *Prediction:* in elevator words the infotips lead with "Status:
-  Underground."; the arrows are unchanged; Balanced rows show vanilla's tick instead of the storing
-  mark. The owner's verdict here settles recommendation 3.
+  `Set("row_words", "station")`. *Prediction:* the titles keep the station words (owner's ruling); in
+  elevator words the infotips lead with "Status: Underground."; Balanced rows show vanilla's tick
+  instead of the storing mark.
 
 <<SITTING PENDING>>
 
@@ -319,11 +328,12 @@ patch is applied before batch B.
 <<SITTING PENDING>>
 
 **D. The hourly cabin, up, and Drone Access on**
-- D1 On the surface panel, click Metals three times (Import to Not accepted, Balanced, Export).
-  *Prediction:* the log ends `row Metals = to_surface surface=export underground=import`.
-  The surface Metals shows the up arrow. On the underground panel Metals shows the up arrow, and its
-  infotip starts "Leaves this half". Slot 3 on the underground half reads `panel_shows=up
-  surface_says=up`.
+- D1 On the surface panel, click Metals three times ("Metals · Not accepted", "· Balanced", "·
+  Export"); the slider keeps B2's target. *Prediction:* the log ends `row Metals = to_surface
+  surface=export underground=import`. The surface row reads "Metals · Export" with the up arrow and an
+  enabled slider. The underground row reads "Metals · Import" with the up arrow and no slider, and its
+  infotip starts "Leaves this half". Slot 3 on the underground half reads `title_word=import
+  panel_shows=up surface_says=up title_ok=true`.
 - D2 Underground selected: slot 1. *Prediction:* `added_tenths=200` on the underground half.
 - D3 Slot 6, then slot 6 again if the first stop is a down departure. *Prediction:* the up departure
   shows `cabin=up`, `aboard_Metals` of at least 200 tenths, and `u_Metals` lowered by it.
@@ -360,6 +370,10 @@ patch is applied before batch B.
 ## What I did not do, and the risks the sitting carries
 
 - **Sitting A defect, fixed in `Data/` only:** the Power Upgrade and Storage Hub texts' U+26A1 rendered as a broken glyph; they now use vanilla's inline `<icon_Power>` (archived 1.1.1.406343 `Lua/Resources.lua:527-531`, `Lua/Buildings/Dome.lua:2177-2179`). That owes one more `SMR_TrainHubDev` Mod Editor save; until then `cargo_upgrade_smoke.py --require-generated` fails.
+- **The slider's look in the real panel is unproven:** the mock checks construction, docking and
+  values, not pixels. The hub's panel-scale floor (`45_TrainDistributionUI.lua:241-269`), which keeps
+  network station panels from shrinking, was not copied. If depot rows look cramped, that is the next
+  copy.
 - **No hub test with the depot loaded.** The hub smokes run without the depot mod; `D.HubEntry` is
   tested on the depot side. The hub reading a live depot's rows is the sitting's (batch B onwards).
 - **No `FIX_POLICY.md` inventory edit, no README row, no STATE or checklist edit, no doccheck, no
