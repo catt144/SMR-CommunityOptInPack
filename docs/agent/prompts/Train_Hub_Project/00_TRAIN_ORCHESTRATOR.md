@@ -95,7 +95,9 @@ before it fires.
         **2026-10-01: both PASSED live** (brief 26's design accepted until the paint pass; brief
         22's five steps): 22 deleted, 25 and 26 parked; spec §4.10 and §11 hold it. **Next: brief
         `27`, the wiring**, authored 2026-10-01 for the owner to fire (passengers passed live on
-        vanilla's elevator, no code; spec §11), and the hub upgrade-text rewrite once the owner approves the style (§4.10).
+        vanilla's elevator, no code; spec §11). The hub upgrade texts are rewritten at `6c53b46`;
+        the owner's next `SMR_TrainHubDev` Mod Editor save makes them live (then
+        `cargo_upgrade_smoke.py --require-generated` PASS).
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout
