@@ -6,10 +6,10 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **No build brief is live.** Briefs 22 (hub storage)
+`00` is live; `03_Drones/` is closed reference. **`27` is the live build brief**, the depot's wiring. Briefs 22 (hub storage)
 and 26 (the depot's design pass) passed live 2026-10-01: 22 was deleted, 25 and 26 parked for the
 paint pass; spec §4.10 and §11 hold the record. Briefs 10, 17 and 21 passed live and were deleted
-2026-09-29. The wiring brief is next. Only one brief
+2026-09-29. Only one brief
 that edits `20_TrainHub.lua` runs at a time.
 
 The earlier `05`, the portal doors, was fired, built and then cut by the owner on 2026-09-22; its
@@ -19,6 +19,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
+| `27_ELEVATOR_DEPOT_WIRING_high.md` | The Elevator Depot's wiring: per-trip cabin loads on an hourly schedule, the four row modes mirrored across the pair, one pair per colony placed anywhere, Drone Access on both halves (default off); passengers stay vanilla. | **Ready to fire** (authored 2026-10-01 at `4a2652f`) |
 
 ## `Parked/` — do not fire
 
