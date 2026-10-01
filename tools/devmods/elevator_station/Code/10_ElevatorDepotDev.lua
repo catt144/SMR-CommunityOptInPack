@@ -726,7 +726,8 @@ end
 --  1 per-trip loads: each half keeps its own storage; the cabin carries the cargo, nothing crosses
 --    while it travels; 2 the four row modes on the depot's own rows (the depot owns them, a hub reads
 --    them through D.HubEntry); 3 one setting per resource for the pair, surface Import = underground
---    Export, and (owner, 2026-10-01, amended) the SURFACE half owns it: its rows are the one writer,
+--    Export, one word for the pair on both panels (Import = goes down, Export = comes up), no Balanced
+--    (owner, 2026-10-01, sitting C), and (owner, 2026-10-01, amended) the SURFACE half owns it: its rows are the one writer,
 --    the underground half's rows are read-only marks whose infotip points to the surface depot, and
 --    the underground keeps a read-only cached copy a new surface twin adopts; 4 one pair per colony, either half anywhere, needs the underground unlocked;
 --    5 one leg per game hour, down then up, repeating; 6 Drone Access on both halves, default off;
@@ -747,7 +748,7 @@ end
 --    Lua/XDef/ipBuilding.generated.lua:348-370 the Shuttle Access button (ToggleLRTServiceButton).
 -- Persisted names (ban 1; inventory rows in reports/ELEVATOR_DEPOT_WIRING_20261001.md): the three
 -- fields below on our own depot objects, each written only by this file's surface-row, toggle and
--- cabin code. Each tolerates its absence: an old save loads Balanced rows (vanilla Not accepted kept),
+-- cabin code. Each tolerates its absence: an old save loads every unset row as Not accepted,
 -- Drone Access off and a fresh cabin at the surface.
 
 local ROWS, DRONES, CABIN = "SMROptIn_depot_rows", "SMROptIn_depot_drones", "SMROptIn_depot_cabin"
@@ -760,38 +761,43 @@ for k, v in pairs{ cabin_leg_minutes = 60, cabin_pause_minutes = 0, cabin_capaci
 	if D.layout[k] == nil then D.layout[k] = v end
 end
 
--- vanilla's elevator order and icons (Elevator.lua:192-197); a missing row means bidirectional there too
-local states = { "bidirectional", "to_surface", "to_underground", "disabled" }
-local state_index = { bidirectional = 1, to_surface = 2, to_underground = 3, disabled = 4 }
+-- The pair's three settings (owner, 2026-10-01, sitting C: "maybe we should cut balanced from this. Make
+-- it so the elevator only brings down or sends up"), in vanilla's elevator vocabulary (Elevator.lua:192-197,
+-- its "bidirectional" dropped): to_underground (Import: goes down), to_surface (Export: comes up),
+-- disabled (Not accepted). A row with no stored value is Not accepted: nothing crosses until the player
+-- chooses (an old save's unset, formerly Balanced, rows load as Not accepted).
+local states = { "to_surface", "to_underground", "disabled" }
+local state_index = { to_surface = 1, to_underground = 2, disabled = 3 }
 local up, down = "UI/IconsRemaster/Sections/elevator_resource_up.png", "UI/IconsRemaster/Sections/elevator_resource_down.png"
 local no_accept = "UI/IconsRemaster/Sections/resource_no_accept.png"
-local state_icons = { bidirectional = "UI/IconsRemaster/Sections/resource_accept.png", to_surface = up,
-	to_underground = down, disabled = no_accept }
-local state_titles = { bidirectional = "ON (both ways)", to_surface = "Surface", to_underground = "Underground",
-	disabled = "OFF" }
+-- One arrow meaning on both panels: the cabin's direction. Down = it goes down (Import), up = it comes up.
+local state_icons = { to_surface = up, to_underground = down, disabled = no_accept }
+local state_titles = { to_surface = "Surface", to_underground = "Underground", disabled = "OFF" }
 -- the stations' words, verbatim from the hub's station rows (train_hub 45_TrainDistributionUI.lua:33-34,
--- `titles` and `following`), per half
-local word_titles = { balanced = "Balanced", import = "Import", export = "Export", disabled = "Not accepted" }
--- One arrow meaning on both panels: the cabin's direction. Up = it leaves the underground half for the
--- surface; down = it leaves the surface for the underground half (it arrives there). Only Balanced's
--- mark differs by vocabulary: the stations' "storing" mark, or vanilla's elevator tick.
-local balanced_marks = { station = "UI/IconsRemaster/Sections/resource_storing.tga", elevator = state_icons.bidirectional }
-local word_next = { balanced = "export", export = "import", import = "disabled", disabled = "balanced" }
--- drone desires per half word (Station.lua:964-995): Import fills like "send", Export drains like "accept"
-local policy_of = { import = "send", export = "accept", balanced = "default" }
+-- `titles` and `following`), "Balanced" removed. ONE word for the pair, the surface's, on both panels
+-- (owner, 2026-10-01, sitting C): Import = goes down, Export = comes up.
+local word_titles = { import = "Import", export = "Export", disabled = "Not accepted" }
+local word_next = { export = "import", import = "disabled", disabled = "export" }
+-- drone desires per half (Station.lua:964-995), from each half's own flow: a half the cabin empties fills
+-- like "send", a half the cabin fills drains like "accept"; a lone half is a plain station ("default").
+local policy_of = { gather = "send", hand_out = "accept", plain = "default" }
 
-local function word_of(state, underground)
-	if state == "disabled" then return "disabled" end
-	if state == "to_underground" then return underground and "export" or "import" end
-	if state == "to_surface" then return underground and "import" or "export" end
-	return "balanced"
+local function normal_state(state)
+	return (state == "to_surface" or state == "to_underground") and state or "disabled"
 end
 
-local function state_of(word, underground)
+-- the pair's word, the surface's, shown on both panels
+local function word_of(state)
+	state = normal_state(state)
+	if state == "to_underground" then return "import" end
+	if state == "to_surface" then return "export" end
+	return "disabled"
+end
+
+local function state_of(word)
+	if word == "import" then return "to_underground" end
+	if word == "export" then return "to_surface" end
 	if word == "disabled" then return "disabled" end
-	if word == "import" then return underground and "to_surface" or "to_underground" end
-	if word == "export" then return underground and "to_underground" or "to_surface" end
-	if word == "balanced" then return "bidirectional" end
 end
 D.WordOf, D.StateOf = word_of, state_of
 
@@ -821,7 +827,7 @@ local function all_depots()
 end
 
 -- The pair: the first live depot by handle on each side. Further depots (an old save, or a path the
--- build-once check does not see) are unpaired extras: no cabin, Balanced to a hub, rows kept.
+-- build-once check does not see) are unpaired extras: no cabin, a plain station to a hub, rows kept.
 local function pair_now()
 	local now = GameTime()
 	if pair_cache and pair_cache.time == now then return pair_cache end
@@ -861,7 +867,7 @@ local function owner_of(o)
 	local s, u = D.PairOf(o)
 	return s and o == u and s or o
 end
-function D.State(o, res) return rows_of(owner_of(o))[res] or "bidirectional" end
+function D.State(o, res) return normal_state(rows_of(owner_of(o))[res]) end
 
 -- The row's target, percent of the surface half's capacity, set by the surface row's slider. Unset, it
 -- is the hub's untouched-row default: the live dial as a percentage (45_TrainDistributionUI.lua:46-51,
@@ -874,12 +880,15 @@ function D.Target(o, res)
 	return cap > 0 and Clamp(MulDivRound(owner.desired_amount or 0, 100, cap), 0, 100) or 0, false
 end
 
--- the half's working word: an unpaired half acts Balanced (its row is kept for the next twin)
+-- A half's own flow, for the hub's read and the drones (never shown): "gather" where the cabin loads
+-- (surface on Import, underground on Export), "hand_out" where it delivers, "plain" for a lone half.
 local function half_word(o, res)
 	local state = D.State(o, res)
 	if state == "disabled" then return "disabled" end
-	if not D.TwinOf(o) then return "balanced" end
-	return word_of(state, is_underground(o))
+	if not D.TwinOf(o) then return "plain" end
+	local ug = is_underground(o)
+	if (state == "to_underground") ~= ug then return "gather" end
+	return "hand_out"
 end
 D.HalfWord = half_word
 
@@ -923,7 +932,7 @@ local function apply_row(o, res)
 		return changed
 	end
 	if not enabled and set_accept then set_accept(o, res, "store"); changed = true end
-	local policy = policy_of[word]
+	local policy = policy_of[word] or "default"
 	o.transport_policy = o.transport_policy or {}
 	if (o.transport_policy[res] or "default") ~= policy or changed then
 		o.transport_policy[res] = policy ~= "default" and policy or nil
@@ -951,10 +960,10 @@ function D.SetRow(o, res, value)
 	if not live_depot(o) then return false, "not a live depot half" end
 	if is_underground(o) then return false, "the underground rows are read-only: change them on the surface Elevator Depot" end
 	if not has_rows(o, res) then return false, "this depot does not store " .. tostring(res) end
-	local state = state_index[value] and value or state_of(value, false)
+	local state = state_index[value] and value or state_of(value)
 	if not state then return false, "unknown mode " .. tostring(value) end
 	local rows = rawget(o, ROWS) or {}
-	rows[res] = state ~= "bidirectional" and state or nil
+	rows[res] = state ~= "disabled" and state or nil
 	rawset(o, ROWS, rows)
 	local twin = D.TwinOf(o)
 	if twin then rawset(twin, ROWS, table.copy(rows)) end
@@ -963,8 +972,8 @@ function D.SetRow(o, res, value)
 		if rawget(half, DRONES) then reconnect(half) end   -- the direction filter changed
 		ObjModified(half)
 	end
-	print(string.format("%s row %s = %s surface=%s underground=%s (set on the surface half %s; underground %s %s)",
-		log_prefix, res, state, word_of(state, false), word_of(state, true), tostring(o.handle),
+	print(string.format("%s row %s = %s word=%s (set on the surface half %s; underground %s %s)",
+		log_prefix, res, state, word_of(state), tostring(o.handle),
 		twin and tostring(twin.handle) or "none", twin and "copy updated" or "absent"))
 	return true
 end
@@ -1004,7 +1013,7 @@ function Base:ToggleAcceptResource(res, broadcast)
 	if D.layout.row_words == "elevator" then
 		nxt = states[state_index[state] % #states + 1]
 	else
-		nxt = state_of(word_next[word_of(state, false)], false)
+		nxt = state_of(word_next[word_of(state)])
 	end
 	D.SetRow(self, res, nxt)
 end
@@ -1021,9 +1030,7 @@ function Base:SetAcceptResourceState(res, state, broadcast)
 end
 
 function Base:GetResAcceptIcon(res)
-	local state = D.State(self, res)
-	if state == "bidirectional" then return balanced_marks[D.layout.row_words] or balanced_marks.station end
-	return state_icons[state]
+	return state_icons[D.State(self, res)]
 end
 
 function Base:GetResAcceptStateText(res)
@@ -1033,38 +1040,33 @@ end
 local surface_help = {
 	import = "this half gathers it for the cabin: trains (and drones, with Drone Access on) bring it here, and each down leg carries it to the underground half.",
 	export = "the cabin brings it up from the underground half on each up leg; trains (and drones, with Drone Access on) take it away from here.",
-	balanced = "the cabin evens out the two halves' stock, a leg at a time.",
 	disabled = "the cabin never carries it; trains take away what is left here.",
 }
--- the underground marks in words (owner: "its infotip say its current info")
+-- the underground half's flow in words (owner: "its infotip say its current info")
 local underground_says = {
 	to_surface = "Leaves this half: trains (and drones, with Drone Access on) bring it here, and each up leg carries it to the surface half.",
 	to_underground = "Arrives here: each down leg brings it from the surface half; trains (and drones, with Drone Access on) take it away from here.",
-	bidirectional = "Balanced: the cabin evens out the two halves' stock, a leg at a time.",
-	disabled = "Not accepted: the cabin never carries it; trains take away what is left here.",
+	disabled = "The cabin never carries it; trains take away what is left here.",
 }
 D.UndergroundSays = underground_says
 
 function D.RowText(o, res)
 	local state, ug = D.State(o, res), is_underground(o)
+	local word = word_titles[word_of(state)]
+	local lead = word
+	if D.layout.row_words == "elevator" then lead = "Status: " .. state_titles[state] .. ".<newline>" .. word end
 	local text
 	if ug then
-		text = underground_says[state]
-		if D.layout.row_words == "elevator" then text = "Status: " .. state_titles[state] .. ".<newline>" .. text end
-		text = text .. string.format("<newline>Setting on the surface Elevator Depot: %s there, %s here (vanilla elevator's word: %s).",
-			word_titles[word_of(state, false)], word_titles[word_of(state, true)], state_titles[state])
+		text = lead .. " (set on the surface Elevator Depot). " .. underground_says[state]
 		if not D.TwinOf(o) then
-			text = text .. "<newline><newline>No surface twin: the cabin is idle and this half acts Balanced; the setting is kept for the next surface depot."
+			text = text .. "<newline><newline>No surface twin: the cabin is idle and this half works as a plain station; the setting is kept for the next surface depot."
 		end
 		text = text .. "<newline><newline>Read-only here: to change it, use the surface Elevator Depot."
 	else
-		local word = word_of(state, false)
-		local lead = word_titles[word]
-		if D.layout.row_words == "elevator" then lead = "Status: " .. state_titles[state] .. ".<newline>" .. lead end
-		text = string.format("%s: %s<newline>The underground half shows it read-only: %s.<newline>Vanilla elevator's word: %s.",
-			lead, surface_help[word], underground_says[state]:match("^[^:]+"), state_titles[state])
+		text = string.format("%s: %s<newline>The underground half shows the same word, read-only.<newline>Vanilla elevator's word: %s.",
+			lead, surface_help[word_of(state)], state_titles[state])
 		if not D.TwinOf(o) then
-			text = text .. "<newline><newline>No underground twin: the cabin is idle; a train hub treats this row as Balanced."
+			text = text .. "<newline><newline>No underground twin: the cabin is idle and this half works as a plain station."
 		end
 		-- the hub's slider line (45_TrainDistributionUI.lua:101-102); the amount via MulDivRound, not a bare /
 		local percent = D.Target(o, res)
@@ -1088,10 +1090,11 @@ end
 -- is drawn twice. Underground rows: the same title, no slider, no click (the read-only ruling).
 local read_only_hint = "Read-only here: change it on the surface Elevator Depot."
 
--- the word the row title shows: the hub's D.RowState rule (disabled when vanilla storage is off)
+-- the word the row title shows, the same on both halves: the hub's D.RowState rule (disabled when vanilla
+-- storage is off), else the pair's word
 function D.RowWord(o, res)
 	if not o:IsResourceEnabled(res) then return "disabled" end
-	return word_of(D.State(o, res), is_underground(o))
+	return word_of(D.State(o, res))
 end
 
 -- hub fit_title; the two divisions are MulDivRound here (this file's integer rule, EF-116)
@@ -1189,23 +1192,20 @@ function D.InstallRowHook()
 end
 
 -- ---- the hub's read (rule 2: the depot owns the row, the hub reads it) ----------------------------
--- nil: not a depot; false: a depot whose row the hub treats as its default (Balanced at the dial);
+-- nil: not a depot; false: a depot row the hub treats as its default (a plain station's row);
 -- a table: the hub's own entry shape {mode, percent} (40_TrainDistribution.lua's amount()).
--- The surface half's slider is its station target, as at any hub station: Import gathers up to it,
--- Export hands out down to it, Balanced holds it. The underground half has no slider: Import gathers to
--- full, Export hands out everything, Balanced is the hub's default.
+-- The slider is the surface half's station target, read as at any hub station: on Import the surface
+-- gathers up to it, on Export it hands out down to it. The underground half has no slider: where the
+-- cabin loads (Export) it gathers to full, where the cabin delivers (Import) it hands out everything.
+-- In the hub's own vocabulary a gathering half is an "import" station and a handing-out half an "export"
+-- one. A lone half and Not accepted rows: false (the hub's default; Not accepted is vanilla-disabled).
 function D.HubEntry(st, res)
 	if not is_depot(st) then return nil end
-	local word = half_word(st, res)
-	if is_underground(st) then
-		if word == "import" then return { mode = "import", percent = 100 } end
-		if word == "export" then return { mode = "export", percent = 0 } end
-		return false
-	end
-	local percent, set = D.Target(st, res)
-	if word == "import" or word == "export" then return { mode = word, percent = percent } end
-	if word == "balanced" and set then return { mode = "balanced", percent = percent } end
-	return false
+	local flow = half_word(st, res)
+	if flow ~= "gather" and flow ~= "hand_out" then return false end
+	local mode = flow == "gather" and "import" or "export"
+	if is_underground(st) then return { mode = mode, percent = mode == "import" and 100 or 0 } end
+	return { mode = mode, percent = (D.Target(st, res)) }
 end
 
 -- ---- Drone Access (ruling 6): both halves, default off ---------------------------------------------
@@ -1214,9 +1214,9 @@ function Base:ShouldAddRequestToCommandCenter(request, command_center, res_id)
 	local res = storage_request(self, request)
 	if not res then return true end            -- maintenance, train construction: vanilla service
 	if not rawget(self, DRONES) then return false end
-	local word = half_word(self, res)
-	if word == "import" then return request == self.demand[res] end   -- drones bring it in only
-	if word == "export" then return request == self.supply[res] end   -- drones take it out only
+	local flow = half_word(self, res)
+	if flow == "gather" then return request == self.demand[res] end     -- drones bring it in only
+	if flow == "hand_out" then return request == self.supply[res] end   -- drones take it out only
 	return true
 end
 
@@ -1300,13 +1300,35 @@ function D.AttachDroneButton(dlg)
 	button:OnContextUpdate(button.context)
 end
 
+-- The hub's panel-scale floor, copied (45_TrainDistributionUI.lua:239-269, D.PanelScaleFloor and the
+-- XSizeConstrainedWindow wrap in D.AttachStationRows): Data/XDef/Infopanel.lua's AdjustConstrainedScale is
+-- a per-instance function; keep its snapping, then clamp a depot panel's scale so its slider rows lay out
+-- as a hub station's (sitting C defect: a long title wrapped and doubled its row). Own marker, so a hub
+-- wrap on the same window (inert for a depot, its network() is false) and this one chain.
+D.PanelScaleFloor = 800
+local function walk(win, fn)
+	fn(win)
+	for _, child in ipairs(win) do walk(child, fn) end
+end
 function OnMsg.DialogOpen(dlg)
 	if IsKindOf(dlg, "ipBuilding") and is_depot(ResolvePropObj(dlg.context)) and D.InstallRowHook() then
-		local function refresh(win)
-			if IsKindOf(win, "sectionStorageRow") then win:OnContextUpdate(win.context) end
-			for _, child in ipairs(win) do refresh(child) end
-		end
-		refresh(dlg)   -- rows built before the hook existed
+		walk(dlg, function(win)
+			if IsKindOf(win, "sectionStorageRow") then win:OnContextUpdate(win.context) end   -- rows built before the hook
+			if IsKindOf(win, "XSizeConstrainedWindow") and not win.depot_scale then
+				-- Guard the actual per-template instance member, not the unused base default.
+				local previous = rawget(win, "AdjustConstrainedScale")
+				if type(previous) ~= "function" then print(log_prefix, "Infopanel scale callback unavailable"); return end
+				win.depot_scale = true
+				win.AdjustConstrainedScale = function(self, x, y)
+					x, y = previous(self, x, y)
+					if is_depot(ResolvePropObj(dlg.context)) then
+						return Max(x, D.PanelScaleFloor), Max(y, D.PanelScaleFloor)
+					end
+					return x, y
+				end
+				win:InvalidateMeasure()
+			end
+		end)
 	end
 	D.AttachDroneButton(dlg)
 end
@@ -1388,7 +1410,7 @@ local function deliver(rec, dest)
 	return moved
 end
 
--- The carried direction first (Import here = Export there), then Balanced rows; capacity is shared.
+-- Only the rows that send this way: Import on the down leg, Export on the up leg; capacity is shared.
 local function load_cabin(rec, origin, dest, carried)
 	local cap = Max(MulDivRound(D.layout.cabin_capacity, const.ResourceScale, 1) - aboard(rec), 0)
 	local moved = {}
@@ -1409,43 +1431,19 @@ local function load_cabin(rec, origin, dest, carried)
 		local s = origin.supply and origin.supply[res]
 		if s and D.State(origin, res) == carried then take(res, s:GetTargetAmount()) end
 	end
-	-- Balanced holds the surface half at its target, the cabin playing the station's local drones
-	-- ("trains hold the selected amount; local drones use it as their desired amount", the hub's help):
-	-- down legs carry surface stock above the target, up legs bring stock up to it.
-	for _, res in ipairs(list) do
-		local s, t = origin.supply and origin.supply[res], dest.supply and dest.supply[res]
-		if s and t and D.State(origin, res) == "bidirectional" then
-			local surface = is_underground(origin) and dest or origin
-			local keep = MulDivRound(surface:GetMaxStorage(res), D.Target(surface, res), 100)
-			if surface == origin then
-				take(res, s:GetActualAmount() - keep)
-			else
-				take(res, keep - t:GetActualAmount())
-			end
-		end
-	end
+	-- nothing else: the cabin carries only what a row sends (no Balanced, owner 2026-10-01, sitting C)
 	return moved
 end
 
--- A surface half never wired (placed before brief 27) starts from vanilla: a resource it had Not
--- accepted stays Not accepted; every other row starts Balanced. The underground never seeds: its rows
--- are only ever a copy of a surface half's.
-local function seed_rows(o)
-	if rawget(o, ROWS) ~= nil or is_underground(o) then return end
-	local rows = {}
-	for _, res in ipairs(o.storable_resources or empty_table) do
-		if has_rows(o, res) and not o:IsResourceEnabled(res) then rows[res] = "disabled" end
-	end
-	rawset(o, ROWS, rows)
-end
+-- (No seeding: an unset row is Not accepted, which keeps a vanilla refusal as it was.)
 
 -- A pair forms or breaks. A surface half with a setting keeps it; a surface half with none (newly
 -- placed) adopts the underground's copy; the underground then holds a copy of the result. Vanilla
 -- follows, both halves re-register (Drone Access), the cabin art switches mode.
 function D.OnPairChanged(surface, underground)
-	if surface then seed_rows(surface) end
 	if surface and underground then
-		local s_rows, u_rows = rawget(surface, ROWS), rawget(underground, ROWS)
+		local s_rows, u_rows = rawget(surface, ROWS) or {}, rawget(underground, ROWS)
+		rawset(surface, ROWS, s_rows)
 		if not next(s_rows) and u_rows and next(u_rows) then
 			s_rows = table.copy(u_rows)
 			rawset(surface, ROWS, s_rows)
@@ -1528,7 +1526,7 @@ end
 
 -- ---- a half demolished or destroyed (recommendation 2) ------------------------------------------
 -- The cargo aboard goes to the surviving half (what does not fit becomes a stockpile beside it, as
--- MapSharedDepot:ReturnStockpiledResources does); the survivor keeps its stock and rows, acts Balanced
+-- MapSharedDepot:ReturnStockpiledResources does); the survivor keeps its stock and rows, works as a plain station
 -- until a new twin is placed, and the new twin adopts its rows.
 function D.HalfGone(o, done_map, why)
 	if done_map or not is_depot(o) or gone[o] then return end
@@ -1646,18 +1644,17 @@ D.DroneReach = drone_reach
 -- a resource, against what the surface half's own row says. The shown mark is what vanilla's row draws
 -- (sectionStorageRow.lua:16-24: the no-accept mark when vanilla storage is off, else GetResAcceptIcon);
 -- the infotip must say the surface setting in words and send the player to the surface depot.
-local mark_names = { [up] = "up", [down] = "down", [no_accept] = "off",
-	[balanced_marks.station] = "balanced", [balanced_marks.elevator] = "balanced" }
-local expected_marks = { to_surface = "up", to_underground = "down", bidirectional = "balanced", disabled = "off" }
+local mark_names = { [up] = "up", [down] = "down", [no_accept] = "off" }
+local expected_marks = { to_surface = "up", to_underground = "down", disabled = "off" }
 function D.UndergroundPanel(u, s, res)
-	local said = rawget(s, ROWS) and rawget(s, ROWS)[res] or "bidirectional"
+	local said = normal_state(rawget(s, ROWS) and rawget(s, ROWS)[res])
 	local shown = u:IsResourceEnabled(res) and (mark_names[Base.GetResAcceptIcon(u, res)] or "?") or "off"
 	local tip = D.RowText(u, res)
 	local tip_ok = tip:find(underground_says[said], 1, true) and tip:find("use the surface Elevator Depot", 1, true) and true or false
-	local copy = (rawget(u, ROWS) or empty_table)[res] or "bidirectional"
-	-- the title word the underground row draws (D.RowWord), against the surface row's word mirrored
+	local copy = normal_state((rawget(u, ROWS) or empty_table)[res])
+	-- the title word the underground row draws (D.RowWord) must be the surface's word, unchanged
 	local title_word = D.RowWord(u, res)
-	local title_ok = title_word == (said == "disabled" and "disabled" or word_of(said, true))
+	local title_ok = title_word == word_of(said)
 	return shown, expected_marks[said], tip_ok, copy == said, said, title_ok, title_word
 end
 
