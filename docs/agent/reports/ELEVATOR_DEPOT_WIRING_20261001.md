@@ -359,6 +359,7 @@ patch is applied before batch B.
 
 ## What I did not do, and the risks the sitting carries
 
+- **Sitting A defect, fixed in `Data/` only:** the Power Upgrade and Storage Hub texts' U+26A1 rendered as a broken glyph; they now use vanilla's inline `<icon_Power>` (archived 1.1.1.406343 `Lua/Resources.lua:527-531`, `Lua/Buildings/Dome.lua:2177-2179`). That owes one more `SMR_TrainHubDev` Mod Editor save; until then `cargo_upgrade_smoke.py --require-generated` fails.
 - **No hub test with the depot loaded.** The hub smokes run without the depot mod; `D.HubEntry` is
   tested on the depot side. The hub reading a live depot's rows is the sitting's (batch B onwards).
 - **No `FIX_POLICY.md` inventory edit, no README row, no STATE or checklist edit, no doccheck, no

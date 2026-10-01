@@ -49,6 +49,13 @@ generated = dict(re.findall(r'^\t(upgrade[1234]_\w+|electricity_production|max_s
 generated = defaults | generated
 assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
 assert '+75' in fields['upgrade3_description'] and 'Production' in fields['upgrade3_description']
+# Power glyph: vanilla's inline tag, never U+26A1 (the UI font lacks it; sitting A, 2026-10-01).
+# <icon_Power> is registered from the Power resource's text_icon (archived 1.1.1.406343
+# Lua/Resources.lua:527-531, Data/Resource.lua:395-398) and written inline after the number
+# (Lua/Buildings/Dome.lua:2177-2179).
+assert '+75<icon_Power> Production per hub;' in fields['upgrade3_description'], fields['upgrade3_description']
+assert '+19<icon_Power> Consumption per hub.' in fields['upgrade4_description'], fields['upgrade4_description']
+assert all(ord(c) < 128 for t in range(1, 5) for c in fields[f'upgrade{t}_description']), 'a glyph the UI font may lack'
 for tier in range(1,5):
     desc=fields[f'upgrade{tier}_description']
     assert 'Colony upgrade: any hub can switch it.' in desc, (tier, desc)
