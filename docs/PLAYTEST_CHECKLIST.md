@@ -15,15 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-35 · opened 2026-10-01
-Brief 28: is the painted Elevator Depot right to import, judged from the renders?
-- Open `SMR-Assets/elevatorstation/blender/review_paint/index.html`: your screenshot beside the render, day and night.
-- The hub's palette: the hull in its off-white in plates like the pads, navy bands, blue glow at the hub's level.
-- Maps at 4096 (47.5 MB raw); a 2048 set is one flag.
-- Say "yes" or name the change: plate size, seam strength, gloss and each colour are one constant each.
-- The import waits for brief 27's sitting; its steps are in the Assets README.
-Home: `docs/agent/reports/ELEVATOR_DEPOT_PAINT_20261001.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

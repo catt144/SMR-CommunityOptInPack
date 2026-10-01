@@ -162,3 +162,16 @@ to vanilla's elevator, stop 1 of this brief. Record the ruling; do nothing else.
   each is one constant in `depot_paint.py` for the owner's next round.
 - Brief 27 owns `10_ElevatorDepotDev.lua`; the one Lua-side item this pass may want (a
   `receiver_z` default once settled) is reported, not written.
+
+## The owner's first look, 2026-10-01: another pass, handed to run B
+
+Owner, verbatim, with three screenshots of vanilla's elevator in their colony: *"Ours looks
+significantly more plain that the vanilla elevator compared to your renders. So I think we need
+another pass, but you are also short on context, so I need your to hand the next run off to another
+session."* Screenshots: SMR-Assets `owner_feedback/paint_01..03_*` (`ad93c4f`). They show the
+elevator white with broad deep-blue bands (pad-top rings, two wall bands, blue plinths, blue hatch
+trim) and our depot plain behind it. The cause, read on the 406343 tree after the verdict: vanilla's
+texture is neutral and the colony scheme colours it through a colourisation mask and the template's
+three palette names; our template names one. The handoff, with the colourisation route first and
+painted bands as the fallback, is brief 28's "Run B" section. OI-35 is closed by this verdict; no
+yes was given, and the import stays unrun.
