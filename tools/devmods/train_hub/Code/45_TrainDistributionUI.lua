@@ -112,6 +112,21 @@ local function install_station()
 	return true
 end
 
+-- The title box in panel units, rounded up. In the engine int/int truncates (EF-116), so the former
+-- `math.ceil(a * 1000 / s)` got an already-floored integer; XWindow then scales MaxHeight and the padding
+-- to pixels separately through ScaleXY (CommonLua/X/XWindow.lua:766-784, archived build 25579348), which
+-- can lose another unit. At scale 1000 both are exact; at other panel scales the box came out short and
+-- the label shortened a long title to one line with "..." (found on the Elevator Depot, sitting E; the
+-- depot's fix is 1122115). So: a true ceiling, plus FIT_SLACK units for the scaling truncation (2 units:
+-- far below a third line, which needs ~35). Kept bit-equal to the depot's copy; tests/distribution_ui_smoke.py
+-- runs both.
+local FIT_SLACK = 2
+local function mul_div_ceil(a, b, c)
+	local q = MulDivRound(a, b, c)
+	if q * c < a * b then q = q + 1 end
+	return q
+end
+
 -- Native word wrapping splits a word only when it cannot fit a whole line
 -- (1.1.1.405907 CommonLua/X/XTextParser.lua:1057-1107). Keep the title's
 -- allocated width from collapsing to the width of a shorter wrapped line.
@@ -121,12 +136,12 @@ local function fit_title(title)
 	local padding = title:GetPadding()
 	local width = 154
 	for word in (title.text or ""):gsub("<[^>]*>", ""):gmatch("%S+") do
-		width = Max(width, math.ceil((UIL.MeasureText(word, font) + 1) * 1000 / sx)
+		width = Max(width, mul_div_ceil(UIL.MeasureText(word, font) + 1, 1000, sx) + FIT_SLACK
 			+ padding:minx() + padding:maxx())
 	end
 	title:SetMinWidth(width)
 	title:SetMaxWidth(width)
-	title:SetMaxHeight(math.ceil(2 * title.font_height * 1000 / sy)
+	title:SetMaxHeight(mul_div_ceil(2 * title.font_height, 1000, sy) + FIT_SLACK
 		+ padding:miny() + padding:maxy())
 end
 

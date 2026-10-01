@@ -6,6 +6,7 @@ import hashlib
 import subprocess
 import sys
 from distribution_smoke import ROOT, MOD, ARCHIVE, runtime, source_parts
+from lupa import LuaRuntime
 
 
 def ui_runtime():
@@ -241,7 +242,7 @@ for _,cw in ipairs({9,18}) do
             for word in title.text:gmatch('%S+') do
                 assert(native_fit(word,1,scale/1000,available,0,available)==word, title.text..' word='..word..' available='..available..' fit='..native_fit(word,1,scale/1000,available,0,available))
             end
-            assert(title.MaxHeight==48 and title.MinWidth==title.MaxWidth)
+            assert(title.MaxHeight==50 and title.MinWidth==title.MaxWidth) -- 44 + FIT_SLACK 2 + padding 4
         end
     end
 end
@@ -340,7 +341,76 @@ assert(chained:ResourceRolloverText('Metals'):find('through station 3',1,true))
 assert(rawget(s,D.FIELD)==nil and not D.error)
 print('PASS Ctrl copies each current state and percent without advancing or rewriting source, including disabled; plain click stays local; destination uses its own capacity; non-network station/hub native rows and scale; disconnect restores row, reconnect extends it')
 ''')
+    long_title_fit()
     print('NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus', flush=True)
+
+
+def fit_slice(path):
+    text = path.read_text(encoding='utf-8')
+    start = text.index('local FIT_SLACK = 2')
+    fit = text.index('local function fit_title(title)', start)
+    end = text.index('\nend\n', fit) + len('\nend\n')
+    code = text[start:end]
+    body = '\n'.join(line.split('--', 1)[0] for line in code.splitlines())
+    assert ' / ' not in body and '//' not in body, f'{path.name} fit_title has a bare division (EF-116)'
+    return code + '\nreturn fit_title\n'
+
+
+def long_title_fit():
+    # The hub's fit_title and the Elevator Depot's (read-only) on the same mock titles, with integer-only
+    # Max/MulDivRound as the engine's are (EF-116); both boxes scaled to pixels the way XWindow does
+    # (ScaleXY per value, truncating; CommonLua/X/XWindow.lua:766-784, archived build 25579348). The hub
+    # must give the depot's answers and hold two lines and the widest word at every scale 800..2200.
+    depot = ROOT / 'tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua'
+    lua = LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(r'''
+local function int(v) assert(math.type(v)=='integer', 'integer expected: '..tostring(v)) return v end
+fit_env = {math=math, ipairs=ipairs,
+    Max=function(a, b) int(a); int(b) return a > b and a or b end,
+    MulDivRound=function(a, b, c) int(a); int(b); int(c) return (a * b + c // 2) // c end,
+    UIL={}}
+function load_fit(code, name) return assert(load(code, name, 't', fit_env))() end
+''')
+    hub_fit = lua.eval('load_fit')(fit_slice(MOD / 'Code/45_TrainDistributionUI.lua'), '45_TrainDistributionUI')
+    depot_fit = lua.eval('load_fit')(fit_slice(depot), '10_ElevatorDepotDev')
+    lua.globals().hub_fit, lua.globals().depot_fit = hub_fit, depot_fit
+    lua.execute(r'''
+local PAD = 3
+local function title(text, sx, sy)
+  local t = {text=text, font_height=(36 * sy) // 1000, scale={xy=function() return sx, sy end}}
+  function t:GetFontId() return 1 end
+  function t:GetPadding() return {minx=function() return PAD end, maxx=function() return PAD end, miny=function() return PAD end, maxy=function() return PAD end} end
+  function t:SetMinWidth(v) self.minw=v end
+  function t:SetMaxWidth(v) self.maxw=v end
+  function t:SetMaxHeight(v) self.maxh=v end
+  return t
+end
+local cur_sx = 1000
+fit_env.UIL.MeasureText = function(word) return (#word * 17 * cur_sx) // 1000 + 3 end
+local function px(units, sc) return (units * sc) // 1000 end
+local function fits(t, sx, sy)
+  if px(t.maxh, sy) - 2 * px(PAD, sy) < 2 * t.font_height then return false end
+  for word in t.text:gmatch('%S+') do
+    if px(t.maxw, sx) - 2 * px(PAD, sx) < fit_env.UIL.MeasureText(word) + 1 then return false end
+  end
+  return true
+end
+fit_cases = 0
+for _, text in ipairs{'Exotic Minerals · Not accepted', 'Rare Metals · Balanced', 'Metals · Import', 'Machine Parts · Export'} do
+  for sc = 800, 2200, 50 do
+    cur_sx = sc
+    local a, b = title(text, sc, sc), title(text, sc, sc)
+    hub_fit(a); depot_fit(b)
+    assert(a.minw == b.minw and a.maxw == b.maxw and a.maxh == b.maxh,
+      ('hub and depot differ at scale %d: %s (hub %d/%d, depot %d/%d)'):format(sc, text, a.maxw, a.maxh, b.maxw, b.maxh))
+    assert(math.type(a.maxw)=='integer' and math.type(a.maxh)=='integer')
+    assert(fits(a, sc, sc), ('the hub box loses a line or a word at scale %d: %s (maxh %d)'):format(sc, text, a.maxh))
+    fit_cases = fit_cases + 1
+  end
+end
+''')
+    assert lua.eval('fit_cases') == 116
+    print('PASS long titles: the hub fit_title gives the Elevator Depot answers and holds two lines and the widest word at every scale 800..2200 (', lua.eval('fit_cases'), 'cases, integer-only helpers, no bare /)', flush=True)
 
 
 if __name__ == '__main__':
