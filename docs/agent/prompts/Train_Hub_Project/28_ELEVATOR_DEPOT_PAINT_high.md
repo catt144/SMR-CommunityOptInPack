@@ -70,6 +70,10 @@ owner's import steps.
   still passes if the strokes keep their colour.
 - The depot's own GFXMaterial `SMROptInElevatorDepot` (handle 6) and both import items are in the
   dev mod (`cffb57a`); the import is NOT done and waits for brief 27's sitting and the owner's yes.
+  The owner's Mod Editor save under brief 27 (mod version 12, 2026-10-01, in the working tree
+  beside `47f2fc6`) accepted the pre-written material: it rewrote the source in its own format with
+  handle 6 and the four map paths intact, and `items.lua` now reads `SMROptInElevatorDepot refs: 2`
+  (both import items). No depot DDS or `.mtljson` was compiled: that is the import's step.
 - Brief 26's three carried items (`receiver_z`, the native underground `Measure()`, the core's
   frame) are still the sitting's: batches P3-P5 in the report.
 
