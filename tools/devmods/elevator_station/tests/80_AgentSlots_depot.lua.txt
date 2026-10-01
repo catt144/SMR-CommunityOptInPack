@@ -1,11 +1,12 @@
 -- STAGED, NOT LOADED. Brief 27 (the Elevator Depot's wiring), attended smoke, 2026-10-01.
+-- Rows: the surface half sets them; the underground panel shows them read-only (owner, 2026-10-01).
 -- Report and predictions: OptInPack docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md,
 -- "The sitting". To load: with Mars.exe closed, keep a copy of TestKit Code/80_AgentSlots.lua
 -- (the 2026-09-26 capacity sitting), replace it with this file, start the game; restore after.
 -- Mutations only on explicit presses: slot 1 puts Metals into the selected depot half.
 -- Slots 2, 4 and 6 run game time at Ultra until their trigger pauses. Scratch, 3 and 5 are reads.
 -- Nothing arms or mutates at load. Depot API: SMRElevatorDepotDev.Pair / HalfWord / State /
--- DroneReach / CABIN (tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua, WIRING).
+-- DroneReach / UndergroundPanel / CABIN (tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua, WIRING).
 local T = SMRTK
 local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
 local function dev()
@@ -42,6 +43,7 @@ T.BindScratch("Depot pair read (pause first)", function(ctx)
         if IsValid(o) then ctx.log("DUMP", half_fields(d, o, "Metals")) end
     end
     return { mark = mark, surface = id(s), underground = id(u), extras = out.extras,
+        underground_panel = out.underground_panel or "no pair", copy = out.copy or "no pair",
         cabin = rec and rec.phase or "none", legs = rec and rec.legs or 0,
         aboard_metals_tenths = units(rec and rec.cargo and rec.cargo.Metals or 0),
         game_time = GameTime(), errors = T.error_count }
@@ -111,6 +113,8 @@ T.Bind(2, "Run until the cabin's next arrival (Ultra, pauses itself)", function(
         deadline = result.deadline, autosave = "re-press slot 2 after a save" }
 end, { mode = "once" })
 
+-- On the underground half it also proves the panel: the mark shown and the infotip, against the
+-- surface row (D.UndergroundPanel).
 T.Bind(3, "Read the selected half: Metals row, stock, drones (pause first)", function(ctx)
     local d = dev()
     if not d then return false, "the Elevator Depot dev mod is not loaded" end
@@ -122,6 +126,12 @@ T.Bind(3, "Read the selected half: Metals row, stock, drones (pause first)", fun
     local twin = d.TwinOf(o)
     fields.twin = id(twin)
     fields.twin_word = twin and d.HalfWord(twin, "Metals") or "none"
+    local s, u = d.PairOf()
+    if u and o == u then
+        local shown, expected, tip_ok, copy_ok = d.UndergroundPanel(u, s, "Metals")
+        fields.panel_shows, fields.surface_says = shown, expected
+        fields.infotip_ok, fields.copy_current = tostring(tip_ok), tostring(copy_ok)
+    end
     fields.mark = mark
     return fields
 end, { mode = "once", needs = "selected" })
