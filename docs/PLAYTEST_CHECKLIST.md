@@ -15,6 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-36 · opened 2026-10-01
+Brief 28 run B: do the depot's new renders earn the yes, or does it want another pass?
+- Open `B:/Dev/SMR/SMR-Assets/elevatorstation/blender/review_paint/index.html`; sheets 0, 0b and 10 first.
+- The hull, bands, skirt and trims now take the colony scheme through a mask, as vanilla's elevator does.
+- The renders simulate Space_Y, the scheme that matches your screenshots; sheet 10 shows the default one.
+- Say "yes", or what reads wrong: a band's place or width, the share of blue, the panels' frames.
+- The import waits for brief 27; the attached pads stay plain until a one-line Lua item in 27's file lands.
+Home: `docs/agent/reports/ELEVATOR_DEPOT_PAINT_20261001.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
