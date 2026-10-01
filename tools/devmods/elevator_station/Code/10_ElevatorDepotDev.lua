@@ -259,6 +259,38 @@ local function start_cycle(rig)
 	end, rig)
 end
 
+-- Brief 28: the colony's palette reaches the attached art. OnPlace paints the building's own
+-- entity and its attaches synchronously (Building.lua:761-772 -> SetPalette :747-749 ->
+-- SetObjectPaletteRecursive, Colorization.lua:846-858, all read on 406343), but Dress runs later,
+-- in GameInit's thread and again after a load, so what it attaches was never painted: the owner's
+-- paint_03 (2026-10-01) shows the depot's pads plain beside vanilla's banded elevator. The template
+-- names vanilla's SpaceElevator's three palette colours, so these are the elevator's own colours.
+-- SetColorizationMaterials is a no-op on an entity without a colourisation mask (:832-838, :881).
+local function paint_rig(bld, rig)
+	if not rawget(_G, "GetBuildingColors") or not rawget(_G, "GetCurrentColonyColorScheme") then return 0 end
+	local cm1, cm2, cm3, cm4 = GetBuildingColors(GetCurrentColonyColorScheme(), bld)
+	local n = 0
+	local function paint(o)
+		if IsValid(o) and o.SetObjectPaletteRecursive then
+			o:SetObjectPaletteRecursive(cm1, cm2, cm3, cm4)
+			n = n + 1
+		end
+	end
+	paint(rig.elevator); paint(rig.tunnel); paint(rig.receiver); paint(rig.cabin)
+	for _, o in ipairs(rig.ropes or empty_table) do paint(o) end
+	return n
+end
+
+-- A scheme change repaints every Building through SetPalette (ColonyColorScheme.lua:95-103); the
+-- recursion reaches the attached visuals and the rope tiles, so only the free cabin needs the hand.
+function SMROptInElevatorDepotDevBase:SetPalette(cm1, cm2, cm3, cm4)
+	Building.SetPalette(self, cm1, cm2, cm3, cm4)
+	local rig = D.rigs[self]
+	if rig and IsValid(rig.cabin) and rig.cabin.SetObjectPaletteRecursive then
+		rig.cabin:SetObjectPaletteRecursive(cm1, cm2, cm3, cm4)
+	end
+end
+
 function D.Undress(bld)
 	local rig = D.rigs[bld]
 	if not rig then return end
@@ -328,10 +360,11 @@ function D.Dress(bld)
 	end
 	rig.bld = bld
 	D.rigs[bld] = rig
-	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d cabin_hide_below=%d",
+	local painted = paint_rig(bld, rig)
+	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d cabin_hide_below=%d palette=%d",
 		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
 		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale, tostring(IsValid(rig.receiver)),
-		#(bld:GetAttaches("UnderconstructionSign") or empty_table), L.cabin_hide_below))
+		#(bld:GetAttaches("UnderconstructionSign") or empty_table), L.cabin_hide_below, painted))
 end
 
 -- Props whose depot is gone (any delete path) are removed by this sweep; Sweep() runs it now and

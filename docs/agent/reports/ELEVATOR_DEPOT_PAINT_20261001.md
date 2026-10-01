@@ -388,3 +388,44 @@ with its colour-1 annulus.
 - `receiver_z`, `Measure()` underground and the core's frame are the sitting's (P3-P5).
 - The render proxy's bands are placed by eye from the owner's night screenshots; the proxy is
   not vanilla's mesh.
+
+### Run B, continued (2026-10-01): the two handed-over items landed
+
+The orchestrator, `063a10d`: with brief 27 closed, items 1 and 2 of "For the orchestrator" are brief
+28's. Both are in the OptInPack commit after `3bed14d`. Executed model as above (Claude Fable 5.1,
+`claude-fable-5-1`, the `_high` session; no subagent in this part).
+
+- **Item 1, the template.** `Data/BuildingTemplate/SMROptInElevatorDepotDev.lua` now names
+  `palette_color1 = "outside_accent_1"`, `palette_color2 = "outside_base"`, `palette_color3 =
+  "electro_accent_2"`; the fourth is unset, as on the elevator. The generated class file
+  (`Code/BuildingTemplate/*.generated.lua`) is the editor's output and was not hand-edited: the
+  owner's Mod Editor save at the import regenerates it, and until that save the game's class still
+  carries `outside_TrainStation`. Desk check after the save: `grep -n palette_color
+  tools/devmods/elevator_station/Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua`
+  prints the three names. In the same source the description's "Its cabin runs for show only; no
+  cargo crosses maps yet." became "Its cabin carries cargo between the maps once an hour; set each
+  resource's rows on the surface half." (the brief carried this into the editor session; the source
+  is what the editor reads, so it is set there and the editor step is a check).
+- **Item 2, the Lua.** `10_ElevatorDepotDev.lua`: `paint_rig(bld, rig)` runs at the end of `D.Dress`:
+  `GetBuildingColors(GetCurrentColonyColorScheme(), bld)`, then `SetObjectPaletteRecursive` on the
+  elevator, the tunnel, the receiver, the cabin and each rope tile; the dressed log line gains
+  `palette=N`, the pieces painted. `SMROptInElevatorDepotDevBase:SetPalette` calls
+  `Building.SetPalette` and then paints the free cabin, so a scheme change (`ReapplyPalettes`,
+  `ColonyColorScheme.lua:95-103`) reaches it too; the attached pieces are reached by vanilla's
+  recursion. Both are guarded with `rawget(_G, …)`, so the smoke's mock world runs them as no-ops.
+  Nothing else of brief 27's behaviour was touched: the diff is two functions, one call and one
+  format string.
+- **Smokes.** `props_smoke.py`: PASS on the live tree. `wiring_smoke.py` on the live tree FAILS at
+  its §10b hub cross-check (`the hub fit_title has two divisions`) before and after this change:
+  brief 29's `b551930` rewrote the hub's `fit_title`, and 29's report (`3bed14d`) records the
+  depot smoke's §10b as 29's owed item. In a scratch mirror holding this Lua, the smoke, its slots
+  file and the hub file at `063a10d` (pre-29): `wiring_smoke: PASS`, every section including the
+  LoadGame re-dress, so the change itself breaks nothing the smoke covers.
+- **What changes above.** The import's step 1 is a check, not typing; after the save, the
+  generated-file check; the sitting's P1 prediction: the attached pads take the colony's colours
+  at the dress (`palette=` at least 3 on the surface: elevator, cabin, ropes; the receiver adds one
+  underground), no longer plain. Before the import, the shell's own entity has no mask and stays
+  as it is; the pads paint regardless.
+- **Still owed.** The owner's yes on the renders, re-asked as OI-39: OI-36 left the owner's list
+  with brief 27's close (`d0a46ce`) before the owner had acted on it. Then the import, then the
+  sitting.
