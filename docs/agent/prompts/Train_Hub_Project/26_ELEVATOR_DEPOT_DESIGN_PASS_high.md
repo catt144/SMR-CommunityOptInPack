@@ -77,18 +77,23 @@ then run in this pass's sitting, after the look checks. Fixture: the owner's sav
 hub+elev** (two hubs, Capacity Network, a vanilla elevator, the depot pair placed).
 
 
-## Refire, 2026-09-30 evening: sitting B stopped
+## Refire, 2026-09-30 evening: sitting B stopped; the three fixes are at the desk
 
 The orchestrator-guided surface sitting stopped on code and art faults; the record and the
 owner's words are in the report's
 [Sitting B](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-surface-2026-09-30-evening-orchestrator-guided-stopped-code-and-art-owed)
-section, screenshots in SMR-Assets `owner_feedback/sittingB_*`. Fix, in order: (1) `Report()`'s
-crash at `10_ElevatorDepotDev.lua:524` (`GetEntityOutlineShape` is nil), so B1 and the frame's name
-can be read; (2) the tunnel, still see-through (owner: *"And the tunnel is still see through which is shouldn't
-be"*; the shell shows no roof from outside); (3) the cabin seen moving in the pit
-(owner: *"can actually see the elevator moving in the tunnel"*). Check the report's further
-readings (saw-tooth pit edges, stray blue lines, the wedge-faced deck) as claims. Then re-render,
-get the owner's yes if the art changed, and resume B from B1.
+section, screenshots in SMR-Assets `owner_feedback/sittingB_*`. All three are fixed at the desk and
+recorded, with the evidence, in the report's
+[three faults](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-bs-three-faults-fixed-at-the-desk-2026-09-30-late-evening)
+section: `Report()` calls `GetEntityOutlineShape` as the global it is (`5a24b04`); the liner now faces
+the tunnel, because the game culls back faces and the roof slopes away from the mouth, so every
+camera under its plane saw through both sheets (`cbfac1f`, Assets; the mesh data had not changed
+between imports, the angles had); the cabin is not drawn below the well's floor
+(`cabin_hide_below`, `5a24b04`). A lip under grade beside the pit answers the saw-teeth; the stray
+lines and the wedge are the roof's absence. The art changed, so in order: (1) the owner looks at
+sheets 7-9 in `review_design_pass/index.html` and says yes or no in words; (2) on yes, the editor
+steps in that report section (the depot mesh only; no receiver, no hub save), then restart; (3)
+resume B from B1 with `Report()` as the first read.
 
 ## Handoff, 2026-09-30 close-out
 
@@ -98,8 +103,9 @@ The eight design items above still need the owner's in-game acceptance. Keep thi
 (owner, 2026-09-30: "Ok do your close out but don't remove the prompt").
 
 Renders are approved; the depot and receiver imports (`e3e0832`) and hub save with generated smoke
-PASS (`468d74d`, rechecked at `493f518`) are settled. Assets remain at `2c47118`. No new Mod Editor
-session is needed. Renders: `SMR-Assets/elevatorstation/blender/review_design_pass/index.html`.
+PASS (`468d74d`, rechecked at `493f518`) are settled. Assets are at `cbfac1f`, which changes the depot
+mesh, so one depot-only Mod Editor import is owed (the refire section above). Renders:
+`SMR-Assets/elevatorstation/blender/review_design_pass/index.html`.
 
 The rope blocker is resolved by the owner's "flushed, everything is working correctly now".
 The current replacement depots and clean native census are recorded in the report's

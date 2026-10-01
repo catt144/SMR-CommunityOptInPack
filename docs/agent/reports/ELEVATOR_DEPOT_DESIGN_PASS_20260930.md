@@ -11,7 +11,9 @@ owner, 2026-09-30: "flushed, everything is working correctly now". The latest na
 owned attached ropes and no orphan; the session includes a save/load and replacement depots. The sweep
 removed nothing in that session, so removal of the original saved set is not attributed to it.
 Resume B/C's visual checks and D's hub smoke.** This confirmation was given in the rope-check exchange;
-item-by-item acceptance of the eight visual changes remains to be recorded.
+item-by-item acceptance of the eight visual changes remains to be recorded. **Sitting B (evening)
+stopped on three faults; all three are fixed at the desk (`cbfac1f`, `5a24b04`, the last section of this
+report): owed are the owner's yes on sheets 7-9, a depot-only re-import, a restart, then B from B1.**
 
 ## Commits
 
@@ -21,6 +23,8 @@ item-by-item acceptance of the eight visual changes remains to be recorded.
 | SMR-OptInPack | `072f8f0` (code), this report in the commit after it | the dev Lua (signs, receiver, attach listing, `Report()` additions), the two import items, this report, brief 26's row |
 | SMR-OptInPack | `493f518` | read-only prop inventory, guarded individual rope removal, terrain-relative `Measure()` repair and desk regression checks; native identification passed in the 17:32 log |
 | SMR-OptInPack | `3b1d7bd` | scoped legacy-rope sweep through CObject, native identification evidence and regression checks; latest current-fixture census is clean, legacy-removal branch not exercised |
+| SMR-Assets | `cbfac1f` | sitting B: the liner wound toward the tunnel, the lip under grade, 14 verifier rays, renders that cull back faces, the three sitting B angles and sheets 7-9, the unfixed geometry's culled renders as evidence |
+| SMR-OptInPack | `5a24b04` (code), this report in the commit after it | `Report()`'s global call, `cabin_hide_below`, the regenerated import items |
 
 ## The owner's words, recorded before anything changed
 
@@ -95,7 +99,7 @@ entity's hole cut out, which is what the game's hole grid should do. Blender lig
 | item | render | what changed | owner |
 |---|---|---|---|
 | 1 floating element | `sheet_1_floating_element_and_open_back.png` | `Sign2` gone from the entity; `Sign1`'s sign destroyed after `Station:GameInit` and on load | not yet seen |
-| 2 open back | same sheet (right), `sheet_2_portal_interior.png` | one closed slab across the shell at **x -1560**, black inside, ivory outside, to 0.4 m below grade; the verifier's nine rays from behind all stop at x -1554. First cut sat at -1349, and the owner's look at that render: *"the back side looks a little un natural like its bleed through from the model behind it"*: vanilla's ring wall (r 1508 at 75 %) stands inside the shell's last 1.6 m, so the cap moved in front of it (Assets `718390f`) | render seen, cap moved; game not yet |
+| 2 open back | same sheet (right), `sheet_2_portal_interior.png` | one closed slab across the shell at **x -1560**, black inside, ivory outside, to 0.4 m below grade; the verifier's nine rays from behind all stop at x -1554. First cut sat at -1349, and the owner's look at that render: *"the back side looks a little un natural like its bleed through from the model behind it"*: vanilla's ring wall (r 1508 at 75 %) stands inside the shell's last 1.6 m, so the cap moved in front of it (Assets `718390f`) | render seen, cap moved; sitting B: *"still see through"*, cause and fix in the last section (`cbfac1f`); game not yet |
 | 3 interior | `sheet_2_portal_interior.png`, `sheet_5_interior.png` | a dark-grey deck at grade for 5 m, then the pit floor descending with the track (3.54 m under it) to -11.5 m at the rear wall and -17.5 m under the hold, dark-grey walls, blue guide lines at wagon height, black rear cap, black end wall at +12 m | not yet seen |
 | 4 track join | `sheet_3_track_join.png` | deck from -5485 to the mouth and on down the descent; 2.04 m wide, 8.53..10.69 m, dark channel on top, pillar at -4750 with vanilla's base; no approach strip in `Selection` | not yet seen |
 | 5 blend | `sheet_4_blend_and_core.png` | the apron along both feet, wings at the mouth, navy stripe | not yet seen |
@@ -399,3 +403,90 @@ NOT accepted. No item is accepted.
   stray blue lines crossing diagonally (`_02`, `_03`, `_04`), not reading as wagon-height guides;
   the descending deck reads as a solid wedge with a flat sand-coloured face (`_01`, `_04`).
 - Not checked: B4's selection outline, B5's cabin cycle, C, D.
+
+### Sitting B's three faults, fixed at the desk (2026-09-30, late evening)
+
+Commits: SMR-Assets `cbfac1f` (the art, the verifier, the renders), SMR-OptInPack `5a24b04` (the dev
+Lua, the regenerated import items), this report in the commit after it. Build 25579348; the game was
+not running (`tasklist`: no `Mars.exe`). Executed model: Claude Fable 5.1 (`claude-fable-5-1`).
+Nothing below is proven in the game: the owner's yes on the renders, one depot-only re-import and a
+restart come before B resumes.
+
+**(1) `Report()`'s crash.** `GetEntityOutlineShape` is a global that takes the entity name
+(`Lua/hex.lua:67`; `Lua/GridObject.lua:141-143` wraps it as `GetShapePoints()`), and line 524 called it
+as a method of the building. It now calls the global with `bld:GetEntity()`; parsecheck 2 files, 0
+errors. The crash's own locals (log line 360) had already shown `hole=true` with the designed bbox
+(-3100,-860,0)..(861,861,1): the terrain hole is applied on the surface depot.
+
+**(2) The see-through tunnel: the mesh never changed, the angles did.**
+- The compiled meshes of the brief 25 import (`0ba4a1e`) and the design-pass import (`e3e0832`) were
+  decoded (format `dhsm`: six streams, positions and UVs sint16, tangent frame unorm8, 20 bytes a
+  vertex, a u32 index count, u16 indices). Before: 31,280 vertices, 15,684 triangles; after: 44,370 and
+  22,304; every skin and liner triangle is present in both, and the 2,716 skin triangles at identical
+  positions carry byte-identical tangent-frame and UV data. No limit was crossed (the hub's compiled
+  mesh is larger: 42,513 vertices, 40,230 triangles) and nothing was dropped.
+- Winding, read in the verifier's game-frame convention: the skin faces away from the tunnel axis
+  (1,586 of 1,632 faces) and **so does the liner (1,494 of 1,632)**, identically in the current FBX, the
+  design-pass blend, the prepared blend (`172e992`) and the approved candidate (`7f087ce`). The liner
+  should face the tunnel; bmesh's `recalc_face_normals` orients an open sheet by a centroid heuristic.
+- The game culls back faces. The roof slopes toward the rear by up to 35 degrees, so a camera under the
+  roof's plane (the track at deck height, the side, above the mouth at the game's pitch) looks at the
+  skin's underside, culled, then at the liner's outer side, culled: sky. From behind and above it sees
+  the skin's outer side: a roof. The ribs stay because they are closed tubes. Brief 25's own screenshots
+  agree: `designpass_01` (from behind) shows a roof, `designpass_02` (from the track) shows the ribs
+  floating in the sky. "Brief 25's shell had a roof at its sitting" was true of one angle.
+- Reproduced before the fix: the culled render of the unfixed geometry from the owner's track angle
+  (`review_design_pass/before_orientation_fix/sittingB_04_front.png`) shows the owner's see-through arch.
+- Fix (`cbfac1f`): `orient_shell_sheets()` in `depot_build.py` runs after the last normal pass and turns
+  the liner toward the axis (1,632 flips) while asserting the skin faces away (0 flips). `verify_depot.py`
+  gains 14 rays (liner crown and walls from inside with the normal pointing back at the ray, skin crown
+  and walls from outside, the lip) so a wrongly wound sheet fails on purpose: 41 rays, PASS, 7,758
+  approved faces preserved, 3,555 added, UV 0/0, footprint 30, 13 spots, hole 60 faces, bbox unchanged.
+  The renders now discard the depot material's back faces as the game does; the earlier renders showed
+  a roof the game did not. Underground is the same entity, so the same fix.
+
+**(3) The cabin in the pit.** `SpaceElevatorCabin`'s bbox at 100 percent is +-689 x +-717 x -327..1374
+(entities.dat, build 25579348): at 75 percent, 10.7 m across, top 10.3 m over its origin, underside
+2.45 m under it. It is wider than the well (r 4.55 m), and once its underside passes the well floor
+(-8.8 m) it is inside the trough under the core, which is open toward the mouth under the rear cap (the
+train's passage, 9.6 m tall there): visible through the mouth and, with the roof gone, from above.
+Fix (`5a24b04`): layout key `cabin_hide_below`, -635 cm under the elevator's base (where the underside
+meets the well floor); below it the cycle clears `efVisible` on the cabin and ends its `ElevatorMoving`
+FX, and crossing back up restores both. `Set("cabin_hide_below", n)` tunes it live; the dressed line
+prints it. The rim between r 4.7 and 5.4 m passes outside the well cup during the first 8.8 m of the
+descent, so an 80 cm sliver of it may show through the mouth from a low camera: the owner judges.
+
+**The further readings, checked as claims.**
+- Black saw-teeth along the pit (`sittingB_02`, `_03`): the hole grid is rasterised to the terrain grid,
+  so the cut overreaches the strip and the void under the terrain shows; the Blender ground cuts at the
+  polygon, so no render shows them. `cbfac1f` adds a lip: a dark plate at z -14..-3 from the trough's
+  outer wall out to |y| 920, x -3250..-1410, under the liner's foot, the skirts and the apron, so it
+  shows only where the hole exposes it. Unproven in the game.
+- Stray blue lines (`_02`, `_03`, `_04`): the pit's two guide lines at wagon height, descending 10 m
+  with the floor; seen from above through the missing roof they project as diagonals. With the roof
+  closed they show only through the mouth (`sittingB_04_front.png`). Kept.
+- The wedge-faced deck (`_01`, `_04`): the beam's 2.16 m side face along the 35 degree descent, seen
+  from the side through the missing roof; inside once the roof is closed (`sittingB_01_side.png`). Not a
+  defect.
+- Not a fault: `elevator attach` lines will print now, so the frame in the core (item 6) gets its name at
+  B1.
+
+**Renders for the owner's yes.** `SMR-Assets/elevatorstation/blender/review_design_pass/index.html`,
+sheets 7-9 (`sheet_7_sittingB_side.png`, `sheet_8_sittingB_top.png`, `sheet_9_sittingB_front.png`): the
+owner's sitting B screenshot beside the culled render from that angle. Sheets 1-6 are re-rendered with
+culling and unchanged in substance. The elevator is still a proxy.
+
+**Editor steps (owner), then restart.** The depot mesh only.
+1. Mod Editor, **DEV ONLY - Elevator Depot (look prototype)**, EntitySpec **`SMROptInElevatorDepot`**,
+   MeshSpec `mesh`, **Open in Importer**: ScenePath `.../export/SMROptInElevatorDepot.fbx` (sha256
+   `4d13c943...`). The selectors show the same 13 spots and four surfaces as before. **Import.**
+2. **Save the mod.** The receiver needs no re-import (its FBX differs by timestamp only; same
+   geometry, proof `f0a041d0...`). The hub mod needs no save.
+3. Quit. The agent checks that `Meshes/SMROptInElevatorDepot_mesh.sub_0.hgrm` is newer than the import
+   and that `Entities/SMROptInElevatorDepot.entjson` still carries 13 attaches, the same bbox and the
+   `eTerrainHole` surfaces, then commits. Restart (`Code/` changed).
+
+**Then resume B from B1.** `Report()` first: 13 spots MATCH, `terrain_hole=true bbox=...`, `entity
+imported`, `hexes=30`, the `elevator attach` lines, no Lua error. B2-B5 as written; at B5 the cabin sinks
+into the well and is gone below its floor. C as written. The three further readings above are checked
+at B3 (teeth, lines) and B2 (the deck).
