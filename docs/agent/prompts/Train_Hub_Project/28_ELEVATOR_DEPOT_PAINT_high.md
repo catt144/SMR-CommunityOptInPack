@@ -167,7 +167,11 @@ Brief `27` (the wiring) **closed on 2026-10-01** (its row in this folder's `READ
 section left in 27's files are yours** before the import: the template's three palette names in
 `Data/BuildingTemplate/SMROptInElevatorDepotDev.lua` (so the owner does not type them) and the
 attached elevator's palette line in `Code/10_ElevatorDepotDev.lua`. Touch nothing else of 27's
-behaviour; keep `wiring_smoke` passing. Recheck shared paths before every write.
+behaviour; keep `wiring_smoke` passing.
+**Also yours (owner, 2026-10-01):** the depot-half cost the owner approved from brief 29's report §2,
+5 Concrete / 2 Metals / 1 Machine Parts / 10000 build points, `instant_build` off: write it into
+`Data/BuildingTemplate/SMROptInElevatorDepotDev.lua`; the next depot Mod Editor save makes it live,
+and the sitting checks the build menu shows it. Recheck shared paths before every write.
 
 ## Stops — report instead of continuing if
 

@@ -130,3 +130,6 @@ this proposal: the brief asks for construction cost only. The depot draws 0 kW t
   failing at HEAD.
 - No STATE, checklist or bug-library edit. Nothing in this brief makes an engine fact that is not
   already filed: EF-116 covers the division.
+
+**The owner's yes, 2026-10-01:** *"yes"* to the proposal in §2, as tabled. Brief 28 writes it
+into the depot template (orchestrator's routing; spec §11).

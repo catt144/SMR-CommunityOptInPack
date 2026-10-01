@@ -4209,3 +4209,7 @@ depot's own, the Drone Access toggle kept** (default off). This supersedes the 0
 built** (`reports/ELEVATOR_DEPOT_WIRING_20261001.md`, "The three recommendations"); OI-38's salvage
 steps still watch the survivor rule live. **A depot half costs less than vanilla's elevator**: an
 agent proposes the numbers for the owner's yes (brief 29).
+**Owner, 2026-10-01: *"yes"*** to brief 29's depot-half cost
+(`reports/HUB_TITLE_AND_DEPOT_COST_20261001.md` §2): **5 Concrete, 2 Metals, 1 Machine Parts and
+10000 build points per half**, `instant_build` off, against vanilla's elevator at 10 / 5 / 2. Brief 28
+writes it into the depot template; the next depot Mod Editor save makes it live.

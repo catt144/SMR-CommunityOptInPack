@@ -73,7 +73,7 @@ before it fires.
      (`c54dfeb`). Open: OI-38 (unrun sitting steps; OI-37 ruled: both stand as built); the
      `SMR_TrainHubDev` editor save and the depot template text are carried into `28`; the hub's own
      `fit_title` carries the floored-ceiling fault the depot fixed at `1122115` (report §"long title")
-     and is brief `29`'s; four persisted names (`SMROptIn_depot_rows`, `_drones`,
+     and brief `29` fixed it (`b551930`); four persisted names (`SMROptIn_depot_rows`, `_drones`,
      `_cabin`, `_targets`) go into FIX_POLICY's inventory when the depot ships.
      **Next, in order:**
      1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
@@ -109,8 +109,9 @@ before it fires.
         22's five steps): 22 and 26 deleted, 25 parked; spec §4.10 and §11 hold it. Brief `27`
         (wiring) passed live and was deleted (report `ELEVATOR_DEPOT_WIRING_20261001.md`; OI-38).
         The hub's upgrade texts landed with 27's sitting (`6c53b46`, `47f2fc6`). **Live: brief `28`**,
-        the paint pass. **Next: brief `29`** (the hub's long-title fix and the depot's cost proposal,
-        owner 2026-10-01), fired beside 28.
+        the paint pass. Brief `29` (the hub's
+        title fix `b551930`, desk only; the depot cost the owner approved, written by `28`) is
+        deleted; its report is `HUB_TITLE_AND_DEPOT_COST_20261001.md`.
      2. **The audit**, below, then **"remove its dev tags"** (owner, 2026-10-01): a brief moving the
         hub and the Elevator Depot out of their dev mods into this mod as modules, carrying OI-18's
         widened `tools/upload_preflight.py`. The owner picks the audit's model. Then the final full
