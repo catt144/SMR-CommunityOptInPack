@@ -80,7 +80,7 @@ state, and `Parked/25_ELEVATOR_STATION_LOOK_high.md` "What exists" for its conso
 
 - In: the pair's cargo, rows and mirror, the hourly cabin, Drone Access on both halves, the one-pair
   limit, a half's demolition, the recommendations above, the sitting script.
-- Out: the look (parked brief 26), train movement, vanilla's elevator and stations, passengers, the
+- Out: the look (parked brief 26), train movement, vanilla's elevator and stations, passengers, editing the
   hub's upgrade texts, moving anything into the shipping layout. If the hub must change to read the
   depot's rows, report it; do not edit hub code.
 
@@ -105,6 +105,13 @@ console line needs a stated reason no slot fits. Use the time controls, not owne
 the hourly legs. The fixture is the owner's underground save with both depots and the vanilla
 elevator; ask the owner to name it. A Mod Editor save, if a template changes, gets step-by-step owner
 instructions and the check that proves it landed.
+
+**Carried in (owner, 2026-10-01):** the hub's four upgrade texts were rewritten at `6c53b46` (Data/ only,
+desk PASS). Whether or not your work needs the editor, the sitting's editor session also **saves
+`SMR_TrainHubDev`** (titled the hub's, not the depot's), then
+`python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated` must PASS before the
+restart, and the smoke includes one step where the owner hovers the four hub upgrades and reads the
+one-line texts. You do not edit the texts.
 
 ## Hand back
 
