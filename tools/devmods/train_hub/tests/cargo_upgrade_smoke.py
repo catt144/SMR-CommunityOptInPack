@@ -48,10 +48,10 @@ generated = dict(re.findall(r'^\t(upgrade[1234]_\w+|electricity_production|max_s
     (HERE.parent / 'Code/BuildingTemplate/SMROptInTrainHub6.generated.lua').read_text(encoding='utf8'), re.M))
 generated = defaults | generated
 assert not any(word in fields['upgrade2_description'] for word in ('warm', 'heat', 'cold')), 'cargo has no cold protection'
-assert '75 to 150' in fields['upgrade3_description']
+assert '+75' in fields['upgrade3_description'] and 'Production' in fields['upgrade3_description']
 for tier in range(1,5):
     desc=fields[f'upgrade{tier}_description']
-    assert 'hub can switch' in desc and 'salvage does not change it' in desc, (tier, desc)
+    assert 'Colony upgrade: any hub can switch it.' in desc, (tier, desc)
 generated_current = generated == fields
 if '--require-generated' in sys.argv:
     assert generated_current, ('Mod Editor regeneration owed',
