@@ -4182,9 +4182,10 @@ describe the flow relative to the underground: **Import = goes down, Export = co
 underground panel shows the surface's word and arrow unchanged, read-only. This supersedes "surface
 Import = underground Export" above. (b) **Balanced is cut from the depot:** *"maybe we should cut
 balanced from this. Make it so the elevator only brings down or sends up."* The depot's rows cycle
-Import / Export / Not accepted; the cabin carries only what a row sends. The orchestrator's reading,
-given to the owner: the default for an unset row is **Not accepted**, so nothing crosses until the
-player chooses. (Screenshots: SMR-Assets owner_feedback `depot_rows_03_surface_station_shape.png`,
+Import / Export / Not accepted; the cabin carries only what a row sends. ⚖️ **Default (owner, same
+sitting):** an unset row is **Import**: *"default them to import since thats how most peoples first
+build out will be"* (chosen over Not accepted, which would have let vanilla's trains carry the
+depots' existing stock away on first load). (Screenshots: SMR-Assets owner_feedback `depot_rows_03_surface_station_shape.png`,
 `depot_rows_04_underground_inverted_word.png`, if the files were kept.)
 ⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
 well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
