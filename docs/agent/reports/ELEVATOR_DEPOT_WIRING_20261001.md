@@ -12,7 +12,7 @@ brief's build agent. No writing git command was run; the orchestrator commits th
 **State: built; the attended sitting ran 2026-10-01 (batches A-E, results under each batch). The done-when
 items passed in game: Import crosses on the hourly cabin; one word on both panels; Drone Access off keeps hub
 drones away (registered 0) and on lets them in (registered 64); the passenger chain was watched end to end.**
-Open: the long-title layout (hub-identical, a hub check owed), and the NOT RUN steps listed under each batch.
+Open: the long-title fix's in-game look (a desk fix, cause found), the hub's latent copy of the same fault (reported), and the NOT RUN steps listed under each batch.
 
 **Amended the same day (owner ruling, `6dbf705`, spec §11 and brief 27 ruling 3): the surface half owns
 the row settings; the underground half's rows are read-only.** The first build landed as `3131ad2`,
@@ -431,7 +431,7 @@ older staged copy of the slots):
   Access shows filled red when off.
 - **DEFECT (open, not blocking):** the surface row "Exotic Minerals · Not accepted" truncates to
   "Exotic Minerals · N…" in red, and the row grows to double height with the slider pushed down
-  (`depot_rows_06`). The underground's "Exotic Minerals · Import" fits (`depot_rows_05`). Desk outcome
+  (`depot_rows_06`). The underground's "Exotic Minerals · Import" fits (`depot_rows_05`). Cause and fix
   below, under "The long-title defect".
 - E1 **PASS** (`depot_build_once_01.png`): the item is greyed with "You can build this building only once."
   The template description still says "no cargo crosses maps yet"; that needs a depot editor session,
@@ -440,19 +440,32 @@ older staged copy of the slots):
   the owner's eye on the final build.
 - E3-E5 **NOT RUN** (the survivor steps). "LUA ERROR" count: 0.
 
-**The long-title defect, desk outcome.** The depot's title fit is the hub's `fit_title`
-(`45_TrainDistributionUI.lua:114-130`). Before this fix the depot rounded where the hub's engine
-division truncates (EF-116). That made the depot's box equal to the hub's or one unit larger, never
-smaller: the smoke found one case, 30 against 29. It now uses the hub's floor exactly, and
-`wiring_smoke.py` runs the hub's own function, read from the hub file, against the depot's on 60 title,
-scale and font cases with identical results. So the depot lays out a long title exactly as a hub station
-row would. A hub station row titled "Exotic Minerals · Not accepted" (red style) would be expected to
-truncate the same way. The owner's hub screenshot showed a shorter, Balanced title ("Rare / Metals ·
-Balanced"), which wraps within the hub's two-line height cap. If the hub truncates too, the hub's
-`fit_title` is what is wrong, so I report it rather than diverge the depot from it. **Owed:** one look at
-a hub station whose Exotic Minerals row is set to Not accepted. If it truncates the same way, a joint
-fix in both copies follows (the height cap, the `Shorten` flag or a third line), and the owner rules on
-it.
+**The long-title defect, found and fixed at the desk.** The hub check is done (owner, `depot_rows_07`): on a
+hub station, "Exotic Minerals · Not accepted" wraps cleanly to "Exotic Minerals · Not" / "accepted". The
+two copies of the row code are line-for-line the same: hub `45_TrainDistributionUI.lua:114-130` (`fit_title`),
+`:133-181` (`make_slider`), `:183-217` (`update_row`) against the depot's `fit_title` (`:1116`), `make_slider`
+(`:1133`) and `D.DecorateRow` (`:1171`) in `10_ElevatorDepotDev.lua`. They share the same shorten flag, the same 154 width with a
+fit, the same two-line height cap, the same docking and margins, and the same text control
+(`sectionStorageRow.idSectionTitle`). The title string's bytes are identical (hub `:206`, depot `:1175`
+and `:1184`). What differs at run time is the panel's scale. In the screenshots the depot panel renders
+about 15 % larger than the hub station's: "Basic Resources" is 222 px against 190 px, and the title boxes
+are about 277 px against 240 px. That scale exposes an arithmetic fault in the shared code. The hub writes
+`math.ceil(2 * title.font_height * 1000 / sy)` (`:129`, and the same for the width at `:124`), but in
+the engine int/int truncates (EF-116), so `math.ceil` gets an already-floored integer. XWindow then turns
+`MaxHeight` and the padding into pixels separately through `ScaleXY` (`CommonLua/X/XWindow.lua:766-784`,
+archived build 25579348). At scale 1000 every step is exact and two lines fit. At other scales the box
+can come out a pixel short, and the shortening label shows one line with "…".
+**Fix (depot only):** the ceiling the hub's author intended (`mul_div_ceil`), plus a 2-unit guard for the
+native `ScaleXY` rounding, which cannot be read and which the mock emulates as truncation. The guard is
+not needed under that emulation, but a third line would need about 35 units. `wiring_smoke.py` runs the
+hub's own `fit_title`, read from the hub file with the engine's integer division, beside the depot's on
+116 cases (four titles at scales 800-2200), and scales both boxes to pixels by truncation. The depot's box
+holds two lines and the widest word at every scale. The hub's fits at 1000, which matches
+`depot_rows_07`, and falls short in 44 cases. Restoring the hub's floor in the depot makes the smoke fail
+at scale 1050 ("the depot box loses a line or a word").
+**Reported, not fixed:** the hub has the same latent fault. A hub station panel drawn at a scale other than
+1000 would shorten long titles the same way. The fix is the same `mul_div_ceil` in `45_TrainDistributionUI.lua`.
+Owed in game: one look at the depot's surface "Exotic Minerals · Not accepted" row after a restart.
 
 ## What I did not do, and the risks the sitting carries
 
