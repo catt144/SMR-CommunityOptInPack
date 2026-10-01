@@ -28,7 +28,7 @@ local function half_fields(d, o, res)
     return { half = id(o), map = env(o), working = tostring(o.working),
         drone_access = rawget(o, d.DRONES) and "on" or "off", controllers = controllers,
         registered = registered, drones_busy = busy, row = res, state = d.State(o, res),
-        word = d.HalfWord(o, res), enabled = tostring(o:IsResourceEnabled(res)),
+        word = d.RowWord(o, res), flow = d.HalfWord(o, res), enabled = tostring(o:IsResourceEnabled(res)),
         stock_tenths = units(o.supply and o.supply[res] and o.supply[res]:GetActualAmount()) }
 end
 
@@ -125,7 +125,6 @@ T.Bind(3, "Read the selected half: Metals row, stock, drones (pause first)", fun
     local fields = half_fields(d, o, "Metals")
     local twin = d.TwinOf(o)
     fields.twin = id(twin)
-    fields.twin_word = twin and d.HalfWord(twin, "Metals") or "none"
     -- the row as drawn (sitting B ruling: the hub's station-row shape): its title word and the target
     fields.title_word = d.RowWord(o, "Metals")
     local target, set = d.Target(o, "Metals")
