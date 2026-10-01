@@ -61,6 +61,19 @@ local function is_hub(o)
 	return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase")
 end
 
+-- Elevator Depot (brief 27, spec section 11 ruling 2): the depot owns its rows and the
+-- hub reads them through its HubEntry; the hub never stores a row for a depot. Absent
+-- depot mod: both answer nil and the hub behaves as before.
+local function is_depot(st)
+	local depot = rawget(_G, "SMRElevatorDepotDev")
+	return depot and type(depot.IsDepot) == "function" and depot.IsDepot(st) or false
+end
+local function depot_entry(st, res)
+	local depot = rawget(_G, "SMRElevatorDepotDev")
+	if depot and type(depot.HubEntry) == "function" then return depot.HubEntry(st, res) end
+end
+D.IsDepotStation = is_depot
+
 function D.Refresh()
 	owners, hubs, parents, children = {}, {}, {}, {}
 	local colony = rawget(_G, "UIColony")
@@ -126,6 +139,8 @@ end
 
 function D.Get(st, res)
 	local hub = D.HubFor(st)
+	local own = depot_entry(st, res)
+	if own ~= nil then return own or nil, hub end
 	local rows = hub and rawget(hub, FIELD)
 	return rows and rows[st] and rows[st][res], hub
 end
@@ -146,7 +161,9 @@ end
 -- percentage. This value exists only for the call; D.Get still reads settings.
 local function effective(st, res, hub)
 	if not hub or is_hub(st) then return end
-	local rows = rawget(hub, FIELD)
+	local own = depot_entry(st, res)
+	if own then return own end
+	local rows = own == nil and rawget(hub, FIELD)
 	local entry = rows and rows[st] and rows[st][res]
 	if entry then return entry end
 	if D.HubFor(st) == hub then return { mode = "balanced", amount = st.desired_amount or 0 } end
@@ -246,7 +263,7 @@ local function restore_baseline()
 end
 
 function D.Apply(st)
-	if saving or baseline or view or not IsValid(st) or is_hub(st) then return end
+	if saving or baseline or view or not IsValid(st) or is_hub(st) or is_depot(st) then return end
 	local hub = D.HubFor(st)
 	local rows = hub and rawget(hub, FIELD)
 	rows = rows and rows[st]
@@ -282,6 +299,7 @@ function D.Set(st, res, mode, percent)
 		return false, "slider must be 0 to 100 percent"
 	end
 	if not ready(st, res) or is_hub(st) then return false, "enable this resource at a station" end
+	if is_depot(st) then return false, "the Elevator Depot owns this row" end
 	D.Refresh()
 	local hub = D.HubFor(st)
 	if not hub then return false, "connect this station to a distribution hub" end
@@ -412,6 +430,7 @@ function Train:UnloadAll(...)
 	local hub = IsValid(st) and D.HubFor(st)
 	local rows = hub and rawget(hub, FIELD)
 	rows = rows and rows[st]
+	if is_depot(st) then rows = nil end
 	local defaults = line_managed(self, self.track, st, hub)
 	local old = view
 	view = false

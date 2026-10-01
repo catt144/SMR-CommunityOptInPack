@@ -26,6 +26,8 @@ D.UIRequire = {
 	{ "XFontControl", "GetFontId" },
 }
 local function network(st)
+	-- an Elevator Depot draws its own rows (brief 27); the hub leaves them alone
+	if D.IsDepotStation and D.IsDepotStation(st) then return false end
 	return IsValid(st) and IsKindOf(st, "Station") and D.HubFor(st)
 end
 local titles = { balanced = "Balanced", export = "Export", import = "Import", disabled = "Not accepted" }
@@ -71,7 +73,9 @@ local function install_station()
 		if not broadcast then mode = following[mode] end
 		-- Preserve vanilla's city-wide scope and its own disabled/request-flag path.
 		for _, target in ipairs(broadcast and st.city.labels.Station or { st }) do
-			if not broadcast or target ~= st then
+			-- an Elevator Depot's setting is written only on its surface panel (brief 27)
+			local depot = D.IsDepotStation and D.IsDepotStation(target)
+			if (not broadcast or target ~= st) and not depot then
 				if broadcast and mode == "disabled" and network(target) then
 					-- D.Set uses enabled requests. Copy the remembered slider first,
 					-- then finish through vanilla's disabled path, without yielding.
