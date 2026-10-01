@@ -4121,6 +4121,10 @@ code; a live test comes before any brief.
 storage of the elevator have a button that makes it either visable or blind to drones? Like right now
 the elevator even though its connected by two train stations their is a drone hub that has both of
 those stations in range. so the drones are constantly at heavy load trying to balance the stations and
-the elevator even though the trains should be doing the work"*. Open: which storage (vanilla's
-elevator, the depot's planned store, or both) and whether stations need the same switch; feasibility
-unchecked.
+the elevator even though the trains should be doing the work"*. ⚖️ **Owner ruling, same day:** *"I
+think just the elevators, we need drones to service stations thats vanilla out elevator already has
+the shuttle one built in like a normal station. we just need it to have a drone one. And I think its
+defult should be off"*. **The Elevator Depot gets a Drone Access toggle beside its Shuttle Access one,
+default OFF; stations keep vanilla drone service.** Screenshot: SMR-Assets
+`owner_feedback/drone_access_01_shuttle_access_toggle.png`. It goes into the wiring brief; how drones
+are kept off the depot's store is the brief's to find. The toggle's state is a persisted name (ban 1).
