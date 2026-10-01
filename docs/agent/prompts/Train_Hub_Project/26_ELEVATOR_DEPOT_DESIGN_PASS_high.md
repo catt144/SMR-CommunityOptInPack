@@ -93,9 +93,14 @@ between imports, the angles had); the cabin is not drawn below the well's floor
 lines and the wedge are the roof's absence. The art changed, so in order: (1) the owner looks at
 sheets 7-9 in `review_design_pass/index.html` and says yes or no in words (owner, 2026-10-01: *"Those
 look good"*: done; do not ask again); (2) the editor
-steps in that report section (the depot mesh only, which also carries the handoff's deferred `Top`
-spot, `fffa61e`; no receiver, no hub save), then restart; (3) resume B from B1 with `Report()` as the
-first read.
+steps in that report section: done 2026-10-01 00:06, mod version 11 (`c7e59aa`), restarted; (3) B1
+PASS on both depots in the report's
+[Sitting B resumed](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-resumed-2026-10-01-0006-orchestrator-guided)
+section. **Owner, 2026-10-01: the orchestrator runs the sitting from here** (*"I will have the
+orchestrator handle the testing"*): B2-B5 as written in the sitting batches, then C and D, with the
+report's sitting B dispositions (the lip at B3, the cabin at B5, the core's frame is vanilla mesh and
+a stop-1 item if the owner wants it gone). This prompt stays in place (owner, 2026-10-01: *"don't
+delete you prompt"*).
 
 ## Handoff, 2026-09-30 close-out
 

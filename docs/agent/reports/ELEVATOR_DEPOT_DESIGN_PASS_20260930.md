@@ -511,4 +511,7 @@ The elevator art's attaches are `SpaceElevatorLights` (bbox z -1359..371) and th
 mesh and `elevator_hide` cannot remove it (stop 1 if the owner wants it gone). Both connectors carry a
 `TrackGridElement` on both depots, the buried connector 2 included (its direction hex is inside the
 footprint, so no track reaches it: `TrackElement.lua:345-348`); a reading, not a fault.
+Handed to the orchestrator at B2 (owner, 2026-10-01: *"I will have the orchestrator handle the testing
+your context is short"*). Next: B2-B5 of the sitting batches, then C and D. Executed model for this
+session's close: Claude Fable 5.1 (`claude-fable-5-1`).
 
