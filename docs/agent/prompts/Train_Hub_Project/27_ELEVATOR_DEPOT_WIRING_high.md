@@ -30,6 +30,9 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
    Stations keep vanilla drone service. The owner's reason: a drone hub covering both stations and
    the elevator runs at heavy load *"trying to balance the stations and the elevator even though
    the trains should be doing the work"*.
+   **No drone crew of its own** (owner, 2026-10-01): *"I think we cut the drones from the elevator,
+   let it do one job really well. We can revist it later if we find a real need"*; asked, the owner
+   chose no crew and the toggle kept. This supersedes the 09-29 crew ruling.
 7. **Passengers need no depot code.** The owner watched the chain end to end on 2026-10-01: train
    to the depot, walk to vanilla's elevator, down, board an underground station. Keep it working.
 8. **Independence.** Vanilla's elevator is not altered. The depot works without the hub, and the
@@ -39,8 +42,6 @@ ruling with the owner's words; `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 (
 **Yours to recommend, with reasons in the report; the owner rules from it:**
 - how the one-pair limit is enforced (vanilla's `build_once` counts by template);
 - what a surviving half does when the other is demolished;
-- the depot's own drone crew, if any, given rule 6 (09-29: *"agent can make its best choice and
-  we can balanced from there"*);
 - the vanilla elevator's per-resource marks (red X, green arrow, ticks): modes or stock state? If
   they are modes, match the depot rows' vocabulary to them so both panels read the same way.
 
@@ -108,7 +109,7 @@ instructions and the check that proves it landed.
 ## Hand back
 
 Report `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md` (dated later if it slips): commits,
-design calls, the four recommendations, the persisted names, the sitting batches, what you did not
+design calls, the three recommendations, the persisted names, the sitting batches, what you did not
 do. Commit with pathspecs in both repos. Update this brief's row in this folder's `README.md`; do not
 delete or move this brief. Skills: `doc-editing`, `smr-bug-library`, `smr-session-close`. House
 rules `CLAUDE.md`, process `docs/agent/WORKFLOW.md`, code `docs/agent/FIX_POLICY.md`.

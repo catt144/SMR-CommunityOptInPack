@@ -4140,3 +4140,6 @@ you are trying to get those resourced below ground"*. Asked whether linked means
 the owner chose **mirrored**: one setting per resource for the pair, **surface Import = underground
 Export and the reverse**; changing either depot's row sets its twin's. The underground depot gets the
 stations' import/export rows. Both in the wiring brief.
+⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
+well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
+depot's own, the Drone Access toggle kept** (default off). This supersedes the 09-29 crew ruling.
