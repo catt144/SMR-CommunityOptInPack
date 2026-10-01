@@ -4057,6 +4057,21 @@ TestKit agent slots were cleared for the next sitting. Brief 04 returns to its
 orchestrator for the declared lifecycle step; this is dev-mod acceptance, not
 a shipping claim or a general proof of all reworked layouts.
 
+**Owner rulings, 2026-10-01 (the orchestrator's decision round, asked one by one):**
+- **Auto-fill stays** (ruling 10's kept feature), into the audit and the final battery.
+- **OI-19: the hub's economic and module-off defaults are accepted**: module off means no new hubs
+  and built hubs keep working; cost 60 Concrete, 40 Metals, 10 Machine Parts, 15 Electronics;
+  maintenance 2 Electronics with a 4-Electronics reserve trains and drones leave alone. The
+  2026-09-20 candidate (grep `hub's economy becomes an upgrade`) is dropped.
+- **The hub's look is accepted for now**, until a final finish pass; the deferred glass and themed
+  reactor (`Parked/TRAIN_HUB_LOOK_high.md`) wait for it.
+- **"Remove its dev tags" means: the audit sweep, then a brief moving the hub and the Elevator Depot
+  out of their dev mods into this mod as modules, then the final full battery.**
+- **OI-18: widen `tools/upload_preflight.py`** so the hub's template and models can ship in this mod;
+  the move brief carries it.
+- **The hub's long-title fault** (`45_TrainDistributionUI.lua` `fit_title`, the wiring report's
+  "Reported, not fixed") is fixed now, in brief 29.
+
 ## 11 · The Elevator Station — the cross-map crossing (owner, 2026-09-29)
 
 **Owner ruling, 2026-09-29** (built up over one conversation; the owner's closing word: *"Do
@@ -4190,3 +4205,7 @@ depots' existing stock away on first load). (Screenshots: SMR-Assets owner_feedb
 ⚖️ **Owner ruling, same day:** *"I think we cut the drones from the elevator, let it do one job really
 well. We can revist it later if we find a real need"*; asked, the owner chose **no drone crew of the
 depot's own, the Drone Access toggle kept** (default off). This supersedes the 09-29 crew ruling.
+**Owner rulings, 2026-10-01 (OI-37):** the one-pair limit and the surviving-half rule **stand as
+built** (`reports/ELEVATOR_DEPOT_WIRING_20261001.md`, "The three recommendations"); OI-38's salvage
+steps still watch the survivor rule live. **A depot half costs less than vanilla's elevator**: an
+agent proposes the numbers for the owner's yes (brief 29).

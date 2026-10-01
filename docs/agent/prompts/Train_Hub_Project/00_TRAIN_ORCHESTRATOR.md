@@ -70,10 +70,10 @@ before it fires.
      take the hub's station shape with a target slider; one word for the pair on both panels
      (Import = goes down, Export = comes up); Balanced cut, unset rows Import; Drone Access on both
      halves in vanilla's filled on/off look; the hub reads the depot's rows and never writes one
-     (`c54dfeb`). Open: OI-37 (one-pair limit and survivor rule), OI-38 (unrun sitting steps); the
+     (`c54dfeb`). Open: OI-38 (unrun sitting steps; OI-37 ruled: both stand as built); the
      `SMR_TrainHubDev` editor save and the depot template text are carried into `28`; the hub's own
      `fit_title` carries the floored-ceiling fault the depot fixed at `1122115` (report §"long title")
-     and belongs on the hub's next brief; four persisted names (`SMROptIn_depot_rows`, `_drones`,
+     and is brief `29`'s; four persisted names (`SMROptIn_depot_rows`, `_drones`,
      `_cabin`, `_targets`) go into FIX_POLICY's inventory when the depot ships.
      **Next, in order:**
      1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
@@ -106,23 +106,16 @@ before it fires.
         pass's** editor-and-import session. The design pass is **brief `26`** (eight items, the owner's words), fired by the owner;
         the orchestrator guides its sitting, which ends with brief `22`'s five steps.
         **2026-10-01: both PASSED live** (brief 26's design accepted until the paint pass; brief
-        22's five steps): 22 and 26 deleted, 25 parked; spec §4.10 and §11 hold it. Brief `27` (wiring) passed live
-        2026-10-01 and was deleted (report `ELEVATOR_DEPOT_WIRING_20261001.md`; OI-37, OI-38). Brief
-        `28`, the paint pass, is live. **Owed, no brief yet:** the hub's latent long-title fault
-        (`45_TrainDistributionUI.lua` `fit_title`, the wiring report's "Reported, not fixed": a hub
-        station panel at a scale other than 1000 shortens long titles), fixed in the hub as `1122115` fixed
-        the depot. **Next: brief
-        `27`, the wiring**, authored 2026-10-01 for the owner to fire (passengers passed live on
-        vanilla's elevator, no code; spec §11). The hub upgrade texts are rewritten at `6c53b46`;
-        the owner's next `SMR_TrainHubDev` Mod Editor save makes them live (then
-        `cargo_upgrade_smoke.py --require-generated` PASS).
-     2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
-        guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
-        the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout
-        first, then brief the move. The owner picks the audit's model. Then the final full battery
-        on the shipping layout.
-     **Owner questions still open:** whether auto-fill stays; the hub-economy candidate (OI-19,
-     spec grep `hub's economy becomes an upgrade`); accepting the look (`Parked/TRAIN_HUB_LOOK_high.md`).
+        22's five steps): 22 and 26 deleted, 25 parked; spec §4.10 and §11 hold it. Brief `27`
+        (wiring) passed live and was deleted (report `ELEVATOR_DEPOT_WIRING_20261001.md`; OI-38).
+        The hub's upgrade texts landed with 27's sitting (`6c53b46`, `47f2fc6`). **Live: brief `28`**,
+        the paint pass. **Next: brief `29`** (the hub's long-title fix and the depot's cost proposal,
+        owner 2026-10-01), fired beside 28.
+     2. **The audit**, below, then **"remove its dev tags"** (owner, 2026-10-01): a brief moving the
+        hub and the Elevator Depot out of their dev mods into this mod as modules, carrying OI-18's
+        widened `tools/upload_preflight.py`. The owner picks the audit's model. Then the final full
+        battery on the shipping layout. The 2026-10-01 rulings (auto-fill stays, OI-19's defaults
+        accepted, the hub's look accepted for now) are in spec §10's last block.
      **Housekeeping, owed:** archive the closed sitting logs with a receipt, the game being closed.
      From 2026-10-01: `00.06.49` (sitting B's B1) and `11.16.04` (batch D); from 2026-09-30 also
      `21.43.16` (sitting B, stopped). From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
@@ -145,7 +138,8 @@ before it fires.
        check instrument for spot changes, but its `--train-length-m` default inherits the disputed
        41.5 m. Do not revive the options withdrawn with that figure (`GEOMETRY_ORACLE_20260919.md`
        §13 and the list at grep `SetScale`).
-     - **The hub's ship size** is the owner's ruling (OI-18; spec §9, grep `OUR OWN GUARD`).
+     - **The hub's ship size** is the owner's ruling (spec §9, grep `OUR OWN GUARD`); OI-18 ruled
+       2026-10-01: widen the preflight tool in the move brief.
    - **The audit sweep, authorised to follow the sittings above** (owner, 2026-09-28; the owner
      changes the model themselves). Treat every build report as a claim and
      check it against its commits and logs. Cover:

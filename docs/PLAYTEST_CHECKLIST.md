@@ -15,16 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-37 · opened 2026-10-01
-Brief 27's two open recommendations: do the one-pair limit and the surviving-half rule stand as built?
-- One-pair limit as built: the depot is build-once on any map with a live one; vanilla greys the item.
-- Construction cost is unset; vanilla's elevator cost is suggested.
-- Surviving half as built: cabin cargo lands on the survivor, overflow as a pile beside it.
-- The survivor keeps its rows and works as a plain station; a new twin adopts the rows.
-- Recommendation 3 (the words) is settled by your station-words ruling.
-- Say "accept both", or name the change; the survivor rule was not tested in the sitting (OI-38).
-Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
@@ -55,30 +45,11 @@ Name `Opt_MultipleSuns`'s `SolarPanelBase.GameInit` capture in its `Require` blo
 - Recommended: (a).
 Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 
-### OI-18 · opened 2026-09-18
-Train hub: widen `tools/upload_preflight.py` so the hub's template and model can ship in this mod (your OI-16 = 4b)?
-- `:188-196` admits only `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview image.
-- That refuses `Data/BuildingTemplate/*.lua` and any entity folder; `:203-211` lists `Code/` non-recursively too.
-- It does not block the sitting or the model import test: the dev mod carries both.
-- Ruled 2026-09-21: the 5 MB guard is the fix pack's and does not bind this mod, so it is no size ceiling here.
-- Untested: the dev mod loads UNPACKED; nothing proven PACKED, and no `FIX_POLICY` §8 run for the hub.
-- Say "widen it" (an agent edits the tool) or "keep the hub a separate mod".
-Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
-
-### OI-19 · opened 2026-09-18
-Train hub: accept the remaining economic/module-off defaults, or name changes?
-- Module off: no new hubs, built hubs keep working (as MultipleSuns). Removing the mod with hubs standing is unsafe.
-- Cost 60 Concrete, 40 Metals, 10 Machine Parts and 15 Electronics.
-- Maintenance is 2 Electronics; the reserve is two maintenances, 4 Electronics, which trains and drones leave alone.
-- Radius 15 and the drones were separately ruled; storage is 240 per resource, stacks drawn to 150 (2026-09-25).
-- Say "accept" or name changes to the module-off rule, cost, maintenance or reserve.
-Home: `docs/agent/reports/TRAIN_HUB_BUILD_20260918.md`
-
 ## Run
 
 ### OI-38 · opened 2026-10-01
 When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
-- E3-E5: salvage a half with cargo aboard, then place a new twin (the survivor rule, OI-37).
+- E3-E5: salvage a half with cargo aboard, then place a new twin (the survivor rule).
 - C4: the cabin art at normal speed on both cores.
 - D5: toggling Drone Access on one half leaves the twin's button unchanged.
 - The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
