@@ -97,8 +97,8 @@ D.layout = D.layout or {
 	                                    -- elevator's base the cabin is not drawn, and it is drawn again on the way up
 }
 
--- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
--- Report() can say whether the imported entity carries what was designed.
+-- The vanilla Station's spot names at the design's positions plus Top (depot_build.py `spots()`),
+-- so Report() can say whether the imported entity carries what was designed.
 local design_spots = {
 	Trackconnector1 = point(-5000, 0, 800), Trackdirection1 = point(-6000, 0, 800),
 	Trackconnector2 = point(1000, 0, 800), Trackdirection2 = point(0, 0, 800),
@@ -106,6 +106,7 @@ local design_spots = {
 	Spawn1 = point(-500, 335, -1400), Stop2 = point(-500, 335, -1400), Rampdepart1 = point(0, 335, -1400),
 	Ramparrive2 = point(900, 335, -1400), Rampdepart2 = point(800, -335, -1400),
 	Sign1 = point(-5000, 0, 0),   -- Sign2 dropped (brief 26, item 1): connector 2 is buried
+	Top = point(-3500, 0, 1780),  -- the loader's required sign spot (Mod.lua:119), 2 m over the mouth crown
 }
 
 -- ---- the class ---------------------------------------------------------------------------------

@@ -70,6 +70,10 @@ PlaceObj('SIE_ImportItem_Mesh', {
 					'SpotName', "Sign1",
 				}),
 				PlaceObj('SIE_ImportItemSelector', {
+					'name', "-Top",
+					'SpotName', "Top",
+				}),
+				PlaceObj('SIE_ImportItemSelector', {
 					'name', "hex_shape",
 					'SurfaceType', "hex_shape",
 				}),
