@@ -125,3 +125,20 @@ rewrite was made (tools/SMRTK.md, Construction). A slot extension is optional;
 the sitting above is runnable with the existing bindings and native panels.
 Brief 22 stays live until the owner passes this sitting; its orchestrator owns
 deleting the brief and map row afterwards.
+
+## Short attended smoke — RUN 2026-10-01 (orchestrator-guided, brief 26's batch D)
+
+Log `Mars.exe-20261001-11.16.04-6aba6e65.log` (live, not archived): 0 `LUA ERROR` / `SMRTK_ERROR`.
+Slot 3's `storage_hub` reads `2000000,2000000` through line 7139 and `4000000,4000000` from line 7889
+on (steps 1 and 3: both hubs 2,000, then 4,000 after one purchase). Owner, verbatim: **"I did the
+whole stack, only see one thing that stood out to me as an issue, the hub requires 29 power before
+the power upgrade is purchased, and once its purchased, and if it off."** The 29 is the step 4
+witness (10 base + 19 while Storage Hub is on); Power Upgrade changes production (75 to 150), not
+consumption. Whether 29 is wrong is the owner's question, open. Step 4's switch-off reading (10)
+is not in the log's slot reads.
+
+Owner, same message, on every hub upgrade's text: **"I also notice in general out upgrade texts for
+what you get, and what it costs feels much much more wordy then vanilla. Its more like reading a
+paragraph then glancing and knowing this is what I get, this is what it costs."** Vanilla's shape,
+from the owner's screenshots: one effect line (*"+50% Concrete Production; +30 ⚡ Consumption."*),
+then the panel's own cost and available-resources lines.
