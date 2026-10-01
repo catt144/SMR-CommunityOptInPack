@@ -24,7 +24,8 @@
 --   SMRElevatorDepotDev.Show()             the live layout table
 --   SMRElevatorDepotDev.Set("key", value)  move a visual by eye, e.g. Set("tunnel_lift", 250),
 --                                          Set("scale", 80), Set("rope_underground_m", 400),
---                                          Set("receiver_z", -250), Set("signs", true); re-dresses all
+--                                          Set("receiver_z", -250), Set("signs", true),
+--                                          Set("cabin_hide_below", -500); re-dresses all
 --   SMRElevatorDepotDev.Redress()          rebuild every depot's visuals from the layout
 --   SMRElevatorDepotDev.Sweep()            clear gone-depot props and the identified legacy rope tiles
 --   SMRElevatorDepotDev.InspectProps()     read-only census, including CObject ropes and attachments
@@ -90,6 +91,10 @@ D.layout = D.layout or {
 	receiver_underground_only = true,   -- false shows it on the surface too, for comparison
 	elevator_hide = "",                 -- item 6, the frame in the core: entity names (comma-separated) of the
 	                                    -- elevator art's own auto-attaches to remove; Report() lists them
+	cabin_hide_below = -635,            -- sitting B (2026-09-30): the cabin (r 537, 10.7 m across at 75 %) showed in
+	                                    -- the pit under the rear cap once it sank through the well's floor (-880);
+	                                    -- its underside is 245 under its origin, so below this many cm under the
+	                                    -- elevator's base the cabin is not drawn, and it is drawn again on the way up
 }
 
 -- The vanilla Station's 14 spot names at the design's positions (depot_build.py `spots()`), so
@@ -209,7 +214,19 @@ local function start_cycle(rig)
 				local from = rig.cabin:GetPos()
 				for i = 1, steps do
 					if not IsValid(rig.cabin) then return end
-					rig.cabin:SetPos(point(from:x(), from:y(), from:z() + MulDivRound(target:z() - from:z(), i, steps)), L.tick_ms)
+					local z = from:z() + MulDivRound(target:z() - from:z(), i, steps)
+					rig.cabin:SetPos(point(from:x(), from:y(), z), L.tick_ms)
+					local hidden = rig.base and z < rig.base:z() + L.cabin_hide_below or false
+					if hidden ~= (rig.cabin_hidden or false) then
+						rig.cabin_hidden = hidden
+						if hidden then
+							PlayFX("ElevatorMoving", "end", rig.cabin)
+							rig.cabin:ClearEnumFlags(const.efVisible)
+						else
+							rig.cabin:SetEnumFlags(const.efVisible)
+							PlayFX("ElevatorMoving", "start", rig.cabin)
+						end
+					end
 					Sleep(L.tick_ms)
 				end
 				if not IsValid(rig.elevator) or not IsValid(rig.cabin) then return end
@@ -290,10 +307,10 @@ function D.Dress(bld)
 	end
 	rig.bld = bld
 	D.rigs[bld] = rig
-	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d",
+	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d cabin_hide_below=%d",
 		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
 		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale, tostring(IsValid(rig.receiver)),
-		#(bld:GetAttaches("UnderconstructionSign") or empty_table)))
+		#(bld:GetAttaches("UnderconstructionSign") or empty_table), L.cabin_hide_below))
 end
 
 -- Props whose depot is gone (any delete path) are removed by this sweep; Sweep() runs it now and
@@ -521,7 +538,7 @@ function D.Report()
 			log_prefix, tostring(hole), hole_box and tostring(hole_box) or "-",
 			IsValid(rig.receiver) and tostring(rig.receiver:GetEntity()) or "none",
 			IsValidEntity(D.layout.receiver_entity or "") and "entity imported" or "ENTITY MISSING: import it",
-			#(bld:GetAttaches("UnderconstructionSign") or empty_table), #(bld:GetEntityOutlineShape() or empty_table)))
+			#(bld:GetAttaches("UnderconstructionSign") or empty_table), #(GetEntityOutlineShape(bld:GetEntity()) or empty_table)))
 		-- the elevator art's own auto-attaches (item 6: which one is the frame in the core, if any is)
 		if IsValid(rig.elevator) then
 			local n_att = 0
