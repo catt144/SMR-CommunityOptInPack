@@ -162,10 +162,12 @@ The hub's art and bake scripts are in `SMR-Assets/trainhub/blender/`.
 ## Running beside brief 27
 
 Brief `27` (the wiring) **closed on 2026-10-01** (its row in this folder's `README.md`; report
-`reports/ELEVATOR_DEPOT_WIRING_20261001.md`). The depot's Mod Editor import may now run. Brief 27's
-code, `tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua` and the template's behaviour
-fields, is not yours to change: if your work needs Lua, report it instead. Recheck shared paths
-before every write.
+`reports/ELEVATOR_DEPOT_WIRING_20261001.md`). The depot's Mod Editor import may now run.
+**The orchestrator, 2026-10-01: with 27 gone, the two items your report's "For the orchestrator"
+section left in 27's files are yours** before the import: the template's three palette names in
+`Data/BuildingTemplate/SMROptInElevatorDepotDev.lua` (so the owner does not type them) and the
+attached elevator's palette line in `Code/10_ElevatorDepotDev.lua`. Touch nothing else of 27's
+behaviour; keep `wiring_smoke` passing. Recheck shared paths before every write.
 
 ## Stops — report instead of continuing if
 
