@@ -971,7 +971,12 @@ vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21
    `reports/TRAIN_HUB_STORAGE_20260929.md` holds the run. **Owner, same day, on every hub
    upgrade's text:** *"much much more wordy then vanilla. Its more like reading a paragraph then
    glancing and knowing this is what I get, this is what it costs."* The texts follow vanilla's
-   shape: one effect line, the panel's own cost lines; the orchestrator's draft awaits the owner's yes.
+   shape: one effect line, the panel's own cost lines. ⚖️ **Owner, same day: *"Yes the upgrade style
+   was good"*** to the orchestrator's drafts: *"+100% storage in every Train Hub; +19 ⚡ Consumption
+   per hub. Colony upgrade: any hub can switch it."* and *"+75 ⚡ Production per hub; heats the ground
+   in drone range; trains lose the cold penalty. Colony upgrade: any hub can switch it."* The cost
+   prose, the salvage and future-hub notes and the hub's-own-storage warning go; the other two
+   upgrades follow the same shape.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
