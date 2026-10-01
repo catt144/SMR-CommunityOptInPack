@@ -80,15 +80,8 @@ before it fires.
         hub and the Elevator Depot out of their dev mods into this mod as modules, carrying OI-18's
         widened `tools/upload_preflight.py`. The owner picks the audit's model. Then the final full
         battery on the shipping layout.
-     **Housekeeping, owed:** archive the closed sitting logs with a receipt, the game being closed.
-     From 2026-10-01: `00.06.49` (sitting B's B1) and `11.16.04` (batch D); from 2026-09-30 also
-     `21.43.16` (sitting B, stopped). From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
-     `11.47.37` (its first placement); the `13.xx` logs are brief 26's agent, ask.
-     From 2026-09-28: `14.27.05`, `17.13.10`, `19.07.48`, `20.00.03`, `20.45.30`, `20.48.36`
-     (ask which were sittings; `12.06.47` to `13.25.51` never read), `22.20.16` (brief 21's first
-     sitting, already archived by `9bffa5c` under `docs/archive/power_upgrade_20260928/`) and
-     `22.57.28`. From 2026-09-29: `12.03.53`, `12.55.28` (brief 21's reruns) and `13.36.00`
-     (brief 10). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
+     **Sitting logs:** no further archiving is owed; the project is near its end (owner,
+     2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
      Brief 10's old report predictions were written before ruling 10; treat any report's
      predictions from before 2026-09-28 as possibly stale.
    - **Standing constraints:**
