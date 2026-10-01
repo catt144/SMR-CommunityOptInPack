@@ -6,7 +6,7 @@
 -- Mutations only on explicit presses: slot 1 puts Metals into the selected depot half.
 -- Slots 2, 4 and 6 run game time at Ultra until their trigger pauses. Scratch, 3 and 5 are reads.
 -- Nothing arms or mutates at load. Depot API: SMRElevatorDepotDev.Pair / HalfWord / State /
--- DroneReach / UndergroundPanel / CABIN (tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua, WIRING).
+-- DroneReach / UndergroundPanel / RowWord / Target / CABIN (tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua, WIRING).
 local T = SMRTK
 local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
 local function dev()
@@ -126,11 +126,16 @@ T.Bind(3, "Read the selected half: Metals row, stock, drones (pause first)", fun
     local twin = d.TwinOf(o)
     fields.twin = id(twin)
     fields.twin_word = twin and d.HalfWord(twin, "Metals") or "none"
+    -- the row as drawn (sitting B ruling: the hub's station-row shape): its title word and the target
+    fields.title_word = d.RowWord(o, "Metals")
+    local target, set = d.Target(o, "Metals")
+    fields.target_percent, fields.target_set = target, tostring(set)
     local s, u = d.PairOf()
     if u and o == u then
-        local shown, expected, tip_ok, copy_ok = d.UndergroundPanel(u, s, "Metals")
+        local shown, expected, tip_ok, copy_ok, _, title_ok = d.UndergroundPanel(u, s, "Metals")
         fields.panel_shows, fields.surface_says = shown, expected
         fields.infotip_ok, fields.copy_current = tostring(tip_ok), tostring(copy_ok)
+        fields.title_ok = tostring(title_ok)
     end
     fields.mark = mark
     return fields
