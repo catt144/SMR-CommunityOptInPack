@@ -1098,20 +1098,31 @@ function D.RowWord(o, res)
 	return word_of(D.State(o, res))
 end
 
--- hub fit_title; the two divisions are MulDivRound here (this file's integer rule, EF-116)
+-- The hub's engine arithmetic exactly: `math.ceil(a * b / c)` on integers is the engine's integer
+-- division, which truncates (EF-116), so math.ceil does nothing; this is that floor, without a bare /.
+local function mul_div_floor(a, b, c)
+	local q = MulDivRound(a, b, c)
+	if q * c > a * b then q = q - 1 end
+	return q
+end
+
+-- hub fit_title (train_hub 45_TrainDistributionUI.lua:114-130), bit-exact (sitting E: a long title's
+-- layout must match a hub station row's; tests/wiring_smoke.py runs the hub's own function against this)
 local function fit_title(title)
 	local font = title:GetFontId()
 	local sx, sy = title.scale:xy()
 	local padding = title:GetPadding()
 	local width = 154
 	for word in (title.text or ""):gsub("<[^>]*>", ""):gmatch("%S+") do
-		width = Max(width, MulDivRound(UIL.MeasureText(word, font) + 1, 1000, sx)
+		width = Max(width, mul_div_floor(UIL.MeasureText(word, font) + 1, 1000, sx)
 			+ padding:minx() + padding:maxx())
 	end
 	title:SetMinWidth(width)
 	title:SetMaxWidth(width)
-	title:SetMaxHeight(MulDivRound(2 * title.font_height, 1000, sy) + padding:miny() + padding:maxy())
+	title:SetMaxHeight(mul_div_floor(2 * title.font_height, 1000, sy)
+		+ padding:miny() + padding:maxy())
 end
+D.FitTitle = fit_title
 
 -- hub make_slider; OnScroll writes the depot's target instead of the hub's row
 local function make_slider(row, context)
