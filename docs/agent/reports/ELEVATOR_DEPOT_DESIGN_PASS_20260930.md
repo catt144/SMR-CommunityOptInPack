@@ -499,3 +499,16 @@ culling and unchanged in substance. The elevator is still a proxy. **Owner, 2026
 imported`, `hexes=30`, the `elevator attach` lines, no Lua error. B2-B5 as written; at B5 the cabin sinks
 into the well and is gone below its floor. C as written. The three further readings above are checked
 at B3 (teeth, lines) and B2 (the deck).
+
+### Sitting B resumed, 2026-10-01 00:06 (orchestrator-guided)
+
+Log `Mars.exe-20261001-00.06.49-6aba6e65.log`, the re-import at mod version 11 (`c7e59aa`). **B1 PASS**
+(lines 365-412): no Lua error; both depots print `terrain_hole=true bbox=(-3100,-860,0)-(861,861,1)`,
+`hexes=30`, the 14 spots MATCH (`Top` included), `receiver=none` surface and
+`receiver=SMROptInElevatorDepotReceiver` underground, dressed lines with `cabin_hide_below=-635`.
+The elevator art's attaches are `SpaceElevatorLights` (bbox z -1359..371) and three
+`LampWallInner_01`: no frame among them, so the frame in the core (item 6) is baked into vanilla's
+mesh and `elevator_hide` cannot remove it (stop 1 if the owner wants it gone). Both connectors carry a
+`TrackGridElement` on both depots, the buried connector 2 included (its direction hex is inside the
+footprint, so no track reaches it: `TrackElement.lua:345-348`); a reading, not a fault.
+
