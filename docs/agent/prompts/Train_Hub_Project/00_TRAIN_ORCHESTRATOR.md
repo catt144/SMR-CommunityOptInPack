@@ -44,17 +44,12 @@ before it fires.
    observation disagrees with an agent-derived figure, the observation governs.
 3. Fold confirmed results into the spec, then propose the next step to the owner. The current
    order:
-   - **On launch, stand by** (owner, 2026-09-19). The owner may bring design questions, rulings or
-     sitting help first. Do not start the audit or assume it is due.
-   - **WHERE THE PROJECT STANDS, orchestrator close-outs 2026-09-29 and 2026-09-30** (09-29: Opus 5.5
-     `claude-opus-5-5`; 09-29 evening to 09-30: Fable 5.1 `claude-fable-5-1`, switched by the owner
-     mid-session). The 2026-09-30 block is inside item 1 below.
-     All the sittings from the 2026-09-28 order have passed, and their briefs are deleted: `21`
-     (Power, once per colony, one shared state, salvage changes nothing; spec §4.10), `10` (chained
-     legs; §4.8 ruling 10) and `17` (reactor flash, no flash at any speed). New rulings are in
-     spec §4.10: all hub upgrades are one colony purchase with one shared switch, and the owner's
-     **pre-audit fix list** (grep `Owner's fix list before the audit`).
-     **How sittings run** (owner, 2026-09-26): the orchestrator guides the owner through a build's
+   - **On launch: open with an overall status** (owner, 2026-10-01): run step 1, check the live
+     brief's latest commits and the working tree once, then give the owner, briefly: where the
+     project stands, what is live, what passed since the last close-out, and **what the owner needs
+     to do next**, in order. Then stand by (owner, 2026-09-19): the owner may bring design
+     questions, rulings or sitting help first. Do not start the audit or assume it is due.
+   - **How sittings run** (owner, 2026-09-26): the orchestrator guides the owner through a build's
      attended smoke from the build's own predictions, reads the log on "flushed" (re-read the file:
      the owner keeps playing after a flush), records the result in the brief, and folds it into
      the spec when the brief passes. A Codex build session cannot be messaged: hand the owner
@@ -62,61 +57,29 @@ before it fires.
      console read is pasted into the TestKit **command box**, not a slot. Name each slot's function
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
      trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
-     **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-01** (Fable 5.1 `claude-fable-5-1`;
-     the build ran as an Opus 5.5 subagent). **Brief `27` is done:** the Elevator Depot pair is
-     wired in the dev mod and its attended sitting passed on the final build (report
-     `reports/ELEVATOR_DEPOT_WIRING_20261001.md`). Rulings taken that day are in spec §11: the surface
-     half owns the rows, the underground shows them read-only with a surface-pointing infotip; rows
-     take the hub's station shape with a target slider; one word for the pair on both panels
-     (Import = goes down, Export = comes up); Balanced cut, unset rows Import; Drone Access on both
-     halves in vanilla's filled on/off look; the hub reads the depot's rows and never writes one
-     (`c54dfeb`). Open: OI-38 (unrun sitting steps; OI-37 ruled: both stand as built); the
-     `SMR_TrainHubDev` editor save and the depot template text are carried into `28`; the hub's own
-     `fit_title` carries the floored-ceiling fault the depot fixed at `1122115` (report §"long title")
-     and brief `29` fixed it (`b551930`); four persisted names (`SMROptIn_depot_rows`, `_drones`,
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-01 evening** (Opus 5.5
+     `claude-opus-5-5`). Passed live 2026-10-01 and deleted: brief `22` (hub storage), `26` (the
+     depot's design, accepted until the paint pass), `27` (the depot's wiring, report
+     `ELEVATOR_DEPOT_WIRING_20261001.md`) and `29` (the hub's title fix `b551930`, desk only; the
+     depot cost, report `HUB_TITLE_AND_DEPOT_COST_20261001.md`). Passengers need no code: vanilla's
+     elevator carries them, train to train (spec §11). The day's owner rulings are the last blocks
+     of spec §10 and §11. Brief `27`'s four persisted names (`SMROptIn_depot_rows`, `_drones`,
      `_cabin`, `_targets`) go into FIX_POLICY's inventory when the depot ships.
      **Next, in order:**
-     1. **Brief `22` (hub storage fixes)**, built. Check its handback once, have the
-        owner do the Mod Editor save for slot 4 (`cargo_upgrade_smoke.py --require-generated`),
-        **Owner, 2026-09-29:** the hub is nearly done; the crossing is built next; `22`'s smoke
-        and the hub's remaining minor tests fold into the crossing's sittings, and one full
-        battery runs at the end. The crossing is the **Elevator Station** (spec §11; the shape
-        investigation behind it is `reports/CROSSING_SHAPE_20260929.md`). **Design before
-        wiring** (owner): brief `25` (the look, placeable for visual sign-off), then a wiring
-        brief (the shared store, the elevator range rule, the underground twin). The rail shaft
-        and brief `23` are parked. `SMR_RailShaftDev` and the 09-18 `SMR_TrainHubPrototype` junctions were removed from
-        the game's Mods folder on 2026-09-30 (owner: clean up unused mods); the repo folders
-        stay. Do not load the old shaft save with the hub.
-        **2026-09-30, where it stands:** the crossing is the **Elevator Depot** (a 75 % space
-        elevator; the train drives into a portal between the pads and down under it; spec §11 and
-        `reports/ELEVATOR_DEPOT_LOOK_20260929.md` §7 hold the owner's picture). Brief `25`'s
-        portal is imported and **HELD for another design pass** (owner): good enough to test, not
-        complete. The game moved to hotfix build **25579348** (owner: content unchanged). The
-        combined sitting is next, guided by the orchestrator: (1) the owner's Mod Editor save of
-        the train hub dev mod, which brief `22`'s
-        `tools/devmods/train_hub/tests/cargo_upgrade_smoke.py --require-generated` still fails
-        without; (2) the depot's surface look, cabin and sound on a fresh placement; (3) a vanilla
-        train in, down and out (slot 6 streams); (4) underground `Measure()`, `Report()` and the
-        rope at the lowest pitch; (5) brief `22`'s five smoke steps
-        (`reports/TRAIN_HUB_STORAGE_20260929.md`). Then the wiring brief, then the next design
-        pass (deferred: the core's bare ground and frame, plus what the sitting shows).
-        **Sitting 2026-09-30 done** (`reports/ELEVATOR_DEPOT_LOOK_20260930.md`, "Sitting"): look,
-        cabin, sound, rope and trains PASS as a test model; brief `22`'s smoke NOT RUN (owner):
-        its `SMR_TrainHubDev` Mod Editor save and its five steps fold into the **next design
-        pass's** editor-and-import session. The design pass is **brief `26`** (eight items, the owner's words), fired by the owner;
-        the orchestrator guides its sitting, which ends with brief `22`'s five steps.
-        **2026-10-01: both PASSED live** (brief 26's design accepted until the paint pass; brief
-        22's five steps): 22 and 26 deleted, 25 parked; spec §4.10 and §11 hold it. Brief `27`
-        (wiring) passed live and was deleted (report `ELEVATOR_DEPOT_WIRING_20261001.md`; OI-38).
-        The hub's upgrade texts landed with 27's sitting (`6c53b46`, `47f2fc6`). **Live: brief `28`**,
-        the paint pass. Brief `29` (the hub's
-        title fix `b551930`, desk only; the depot cost the owner approved, written by `28`) is
-        deleted; its report is `HUB_TITLE_AND_DEPOT_COST_20261001.md`.
-     2. **The audit**, below, then **"remove its dev tags"** (owner, 2026-10-01): a brief moving the
+     1. **Brief `28`, the depot's paint pass, is live.** Run B's renders passed (owner) and the
+        owner did the Mod Editor import at 18:39: depot mod version 13, hub mod version 63. The
+        orchestrator's read-only check passed (material `Colorization`/`Colors = 3`, both entities
+        on the new material, five DDS at the predicted sizes, the three palette names generated,
+        the hub's `--require-generated` PASS), but **the saved files are uncommitted**: brief 28
+        commits them, writes the approved depot cost into its template (one more depot editor save
+        from the owner), then runs its sitting (both maps, day and night). The owner fires 28
+        fresh with `task docs/agent/prompts/Train_Hub_Project/28_ELEVATOR_DEPOT_PAINT_high.md`.
+     2. **OI-38** on the owner's list: brief 27's unrun steps and the two title fixes' in-game
+        glance, at the next sitting on the depot's final build.
+     3. **The audit**, below, then **"remove its dev tags"** (owner, 2026-10-01): a brief moving the
         hub and the Elevator Depot out of their dev mods into this mod as modules, carrying OI-18's
         widened `tools/upload_preflight.py`. The owner picks the audit's model. Then the final full
-        battery on the shipping layout. The 2026-10-01 rulings (auto-fill stays, OI-19's defaults
-        accepted, the hub's look accepted for now) are in spec §10's last block.
+        battery on the shipping layout.
      **Housekeeping, owed:** archive the closed sitting logs with a receipt, the game being closed.
      From 2026-10-01: `00.06.49` (sitting B's B1) and `11.16.04` (batch D); from 2026-09-30 also
      `21.43.16` (sitting B, stopped). From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
