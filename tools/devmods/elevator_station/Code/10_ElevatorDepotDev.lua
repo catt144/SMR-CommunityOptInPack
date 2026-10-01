@@ -751,7 +751,8 @@ end
 -- Drone Access off and a fresh cabin at the surface.
 
 local ROWS, DRONES, CABIN = "SMROptIn_depot_rows", "SMROptIn_depot_drones", "SMROptIn_depot_cabin"
-D.ROWS, D.DRONES, D.CABIN = ROWS, DRONES, CABIN
+local TARGETS = "SMROptIn_depot_targets"   -- the rows' slider targets (owner, 2026-10-01, sitting B)
+D.ROWS, D.DRONES, D.CABIN, D.TARGETS = ROWS, DRONES, CABIN, TARGETS
 local Base = SMROptInElevatorDepotDevBase
 
 for k, v in pairs{ cabin_leg_minutes = 60, cabin_pause_minutes = 0, cabin_capacity = 42,
@@ -768,7 +769,8 @@ local state_icons = { bidirectional = "UI/IconsRemaster/Sections/resource_accept
 	to_underground = down, disabled = no_accept }
 local state_titles = { bidirectional = "ON (both ways)", to_surface = "Surface", to_underground = "Underground",
 	disabled = "OFF" }
--- the stations' words and icons (the hub's 45_TrainDistributionUI.lua), per half
+-- the stations' words, verbatim from the hub's station rows (train_hub 45_TrainDistributionUI.lua:33-34,
+-- `titles` and `following`), per half
 local word_titles = { balanced = "Balanced", import = "Import", export = "Export", disabled = "Not accepted" }
 -- One arrow meaning on both panels: the cabin's direction. Up = it leaves the underground half for the
 -- surface; down = it leaves the surface for the underground half (it arrives there). Only Balanced's
@@ -860,6 +862,17 @@ local function owner_of(o)
 	return s and o == u and s or o
 end
 function D.State(o, res) return rows_of(owner_of(o))[res] or "bidirectional" end
+
+-- The row's target, percent of the surface half's capacity, set by the surface row's slider. Unset, it
+-- is the hub's untouched-row default: the live dial as a percentage (45_TrainDistributionUI.lua:46-51,
+-- D.RowState). A lone underground half reads its read-only copy, which a new surface twin adopts.
+function D.Target(o, res)
+	local owner = owner_of(o)
+	local t = (rawget(owner, TARGETS) or empty_table)[res]
+	if t then return t, true end
+	local cap = owner.GetMaxStorage and owner:GetMaxStorage(res) or 0
+	return cap > 0 and Clamp(MulDivRound(owner.desired_amount or 0, 100, cap), 0, 100) or 0, false
+end
 
 -- the half's working word: an unpaired half acts Balanced (its row is kept for the next twin)
 local function half_word(o, res)
@@ -956,6 +969,28 @@ function D.SetRow(o, res, value)
 	return true
 end
 
+-- The slider (surface rows only). Same bounds and message as the hub's D.Set (40_TrainDistribution.lua:279-283).
+function D.SetTarget(o, res, percent)
+	if not live_depot(o) then return false, "not a live depot half" end
+	if is_underground(o) then return false, "the underground rows are read-only: change them on the surface Elevator Depot" end
+	if not has_rows(o, res) then return false, "this depot does not store " .. tostring(res) end
+	if type(percent) ~= "number" or percent ~= percent or percent < 0 or percent > 100 then
+		return false, "slider must be 0 to 100 percent"
+	end
+	percent = math.tointeger(math.floor(percent + 0.5))
+	local targets = rawget(o, TARGETS) or {}
+	if targets[res] == percent then return true end
+	targets[res] = percent
+	rawset(o, TARGETS, targets)
+	local twin = D.TwinOf(o)
+	if twin then rawset(twin, TARGETS, table.copy(targets)) end
+	print(string.format("%s target %s = %d%% (set on the surface half %s; underground %s)", log_prefix, res, percent,
+		tostring(o.handle), twin and (tostring(twin.handle) .. " copy updated") or "absent"))
+	ObjModified(o)
+	if twin then ObjModified(twin) end
+	return true
+end
+
 -- ---- the rows in the panel (sectionStorageRow calls these; Data/XDef/sectionStorageRow.lua:12-57)
 -- Surface: a click cycles the setting. Underground: nothing to click; the row only shows.
 function Base:ToggleAcceptResource(res, broadcast)
@@ -1031,6 +1066,10 @@ function D.RowText(o, res)
 		if not D.TwinOf(o) then
 			text = text .. "<newline><newline>No underground twin: the cabin is idle; a train hub treats this row as Balanced."
 		end
+		-- the hub's slider line (45_TrainDistributionUI.lua:101-102); the amount via MulDivRound, not a bare /
+		local percent = D.Target(o, res)
+		text = text .. "<newline><newline>Slider: " .. tostring(percent) .. "% of current capacity ("
+			.. tostring(MulDivRound(MulDivRound(o:GetMaxStorage(res), percent, 100), 1, const.ResourceScale)) .. ")."
 	end
 	return text .. "<newline><newline>Drone Access: " .. (rawget(o, DRONES) and "on" or "off") .. "."
 end
@@ -1039,11 +1078,100 @@ function Base:ResourceRolloverText(res)
 	return Untranslated(D.RowText(self, res))
 end
 
--- The underground rows show; they do not act (owner, 2026-10-01): the click does nothing and the hint
--- says where to change it. sectionStorageRow's own update runs first (its compiled OnContextUpdate is
--- chained at run time, as the hub's 45_TrainDistributionUI.lua does). The icon and the stock/capacity
--- figures are vanilla's row (Data/XDef/sectionStorageRow.lua:16-32), from GetResAcceptIcon above.
+-- The rows in the hub's station-row shape (owner, 2026-10-01, sitting B: "We still need the sliders for
+-- target values, and I would like the text to resemble our station ones"): title "<resource> · <word>",
+-- a target slider on the surface rows, vanilla's stock/capacity on the right and its red no-accept look
+-- for Not accepted (Data/XDef/sectionStorageRow.lua:16-32). Copied from the hub's 45_TrainDistributionUI.lua
+-- (fit_title :118-131, make_slider :133-181, update_row :183-217): those are locals of the hub's file, so
+-- the depot cannot call them without depending on the hub; the copies differ only where noted. The hub
+-- patch keeps the hub's own slider and title off depot rows (its network() answers false), so nothing
+-- is drawn twice. Underground rows: the same title, no slider, no click (the read-only ruling).
 local read_only_hint = "Read-only here: change it on the surface Elevator Depot."
+
+-- the word the row title shows: the hub's D.RowState rule (disabled when vanilla storage is off)
+function D.RowWord(o, res)
+	if not o:IsResourceEnabled(res) then return "disabled" end
+	return word_of(D.State(o, res), is_underground(o))
+end
+
+-- hub fit_title; the two divisions are MulDivRound here (this file's integer rule, EF-116)
+local function fit_title(title)
+	local font = title:GetFontId()
+	local sx, sy = title.scale:xy()
+	local padding = title:GetPadding()
+	local width = 154
+	for word in (title.text or ""):gsub("<[^>]*>", ""):gmatch("%S+") do
+		width = Max(width, MulDivRound(UIL.MeasureText(word, font) + 1, 1000, sx)
+			+ padding:minx() + padding:maxx())
+	end
+	title:SetMinWidth(width)
+	title:SetMaxWidth(width)
+	title:SetMaxHeight(MulDivRound(2 * title.font_height, 1000, sy) + padding:miny() + padding:maxy())
+end
+
+-- hub make_slider; OnScroll writes the depot's target instead of the hub's row
+local function make_slider(row, context)
+	local title, right = row.idSectionTitle, row.idSectionTitleRight
+	if not title or not right or title.parent ~= right.parent then
+		print(log_prefix, "sectionStorageRow title line unavailable")
+		return
+	end
+	right:SetDock("right")
+	title:SetDock("left")
+	title:SetMaxWidth(154)
+	title:SetShorten(true)
+	local slider = InfopanelSlider:new({ Id = "idDistributionSlider", Dock = "box", VAlign = "stretch",
+		MinWidth = 64, MinHeight = 0, MaxHeight = 0, Margins = box(6, 0, 6, 0),
+		Min = 0, Max = 100, StepSize = 1, RolloverTemplate = "", RolloverOnFocus = false,
+		OnScroll = function(self, value)
+			local ctx = row.context
+			local st, res = ctx[1], ctx.res
+			if is_depot(st) and not is_underground(st) and D.RowWord(st, res) ~= "disabled" then
+				D.SetTarget(st, res, value)
+			end
+		end,
+		OnShortcut = function(self, shortcut, source)
+			if shortcut == "LeftShoulder" or shortcut == "RightShoulder" then
+				if self:GetEnabled() then
+					self:ScrollTo(Clamp(self:GetScroll() + (shortcut == "LeftShoulder" and -1 or 1), 0, 100))
+				end
+				return "break"
+			end
+			return InfopanelSlider.OnShortcut(self, shortcut, source)
+		end,
+	}, title.parent, context)
+	slider.idBar:SetMinWidth(0)
+	for _, child in ipairs(slider.idBar) do child:SetMinWidth(0) end
+	row.depot_slider = slider
+	if row.window_state == "open" then slider:Open() end
+	return slider
+end
+
+-- hub update_row for a depot row; the Ctrl line of the hub's hint is left out (Ctrl does nothing here)
+function D.DecorateRow(row, context)
+	local o, res = context[1], context.res
+	local word = D.RowWord(o, res)
+	if is_underground(o) then
+		row:SetTitle(T{Untranslated("<resource(res)> · " .. word_titles[word]), context})
+		row:SetRolloverOnFocus(false)
+		row:SetRolloverHint(Untranslated(read_only_hint))
+		row:SetRolloverHintGamepad(Untranslated(read_only_hint))
+		row.OnActivate = empty_func
+		return
+	end
+	local slider = row.depot_slider or make_slider(row, context)
+	if not slider then return end
+	row:SetTitle(T{Untranslated("<resource(res)> · " .. word_titles[word]), context})
+	fit_title(row.idSectionTitle)
+	row:SetRolloverOnFocus(false)
+	row:SetRolloverHint(Untranslated("<left_click> " .. word_titles[word_next[word]]))
+	row:SetRolloverHintGamepad(Untranslated("<ButtonA> " .. word_titles[word_next[word]]))
+	slider:SetEnabled(word ~= "disabled")
+	-- SetScroll does not invoke OnScroll: merely opening/refreshing a row saves nothing (hub, :214)
+	slider:SetScroll(D.Target(o, res))
+	if slider.window_state == "open" then slider:UpdateProgress() end
+end
+
 local row_hook = false
 function D.InstallRowHook()
 	if row_hook then return true end
@@ -1053,11 +1181,7 @@ function D.InstallRowHook()
 	row.OnContextUpdate = function(self, context, ...)
 		local result = table.pack(previous(self, context, ...))
 		local o = type(context) == "table" and context[1]
-		if is_depot(o) and is_underground(o) and context.res then
-			self:SetRolloverHint(Untranslated(read_only_hint))
-			self:SetRolloverHintGamepad(Untranslated(read_only_hint))
-			self.OnActivate = empty_func
-		end
+		if is_depot(o) and context.res and has_rows(o, context.res) then D.DecorateRow(self, context) end
 		return table.unpack(result, 1, result.n)
 	end
 	row_hook = true
@@ -1067,11 +1191,20 @@ end
 -- ---- the hub's read (rule 2: the depot owns the row, the hub reads it) ----------------------------
 -- nil: not a depot; false: a depot whose row the hub treats as its default (Balanced at the dial);
 -- a table: the hub's own entry shape {mode, percent} (40_TrainDistribution.lua's amount()).
+-- The surface half's slider is its station target, as at any hub station: Import gathers up to it,
+-- Export hands out down to it, Balanced holds it. The underground half has no slider: Import gathers to
+-- full, Export hands out everything, Balanced is the hub's default.
 function D.HubEntry(st, res)
 	if not is_depot(st) then return nil end
 	local word = half_word(st, res)
-	if word == "import" then return { mode = "import", percent = 100 } end
-	if word == "export" then return { mode = "export", percent = 0 } end
+	if is_underground(st) then
+		if word == "import" then return { mode = "import", percent = 100 } end
+		if word == "export" then return { mode = "export", percent = 0 } end
+		return false
+	end
+	local percent, set = D.Target(st, res)
+	if word == "import" or word == "export" then return { mode = word, percent = percent } end
+	if word == "balanced" and set then return { mode = "balanced", percent = percent } end
 	return false
 end
 
@@ -1276,10 +1409,19 @@ local function load_cabin(rec, origin, dest, carried)
 		local s = origin.supply and origin.supply[res]
 		if s and D.State(origin, res) == carried then take(res, s:GetTargetAmount()) end
 	end
+	-- Balanced holds the surface half at its target, the cabin playing the station's local drones
+	-- ("trains hold the selected amount; local drones use it as their desired amount", the hub's help):
+	-- down legs carry surface stock above the target, up legs bring stock up to it.
 	for _, res in ipairs(list) do
 		local s, t = origin.supply and origin.supply[res], dest.supply and dest.supply[res]
 		if s and t and D.State(origin, res) == "bidirectional" then
-			take(res, MulDivRound(s:GetActualAmount() - t:GetActualAmount(), 1, 2))
+			local surface = is_underground(origin) and dest or origin
+			local keep = MulDivRound(surface:GetMaxStorage(res), D.Target(surface, res), 100)
+			if surface == origin then
+				take(res, s:GetActualAmount() - keep)
+			else
+				take(res, keep - t:GetActualAmount())
+			end
 		end
 	end
 	return moved
@@ -1309,6 +1451,9 @@ function D.OnPairChanged(surface, underground)
 			rawset(surface, ROWS, s_rows)
 		end
 		rawset(underground, ROWS, table.copy(s_rows))
+		local s_t, u_t = rawget(surface, TARGETS), rawget(underground, TARGETS)
+		if not (s_t and next(s_t)) and u_t and next(u_t) then rawset(surface, TARGETS, table.copy(u_t)) end
+		if rawget(surface, TARGETS) then rawset(underground, TARGETS, table.copy(rawget(surface, TARGETS))) end
 		print(log_prefix, "pair formed: surface", tostring(surface.handle), "underground", tostring(underground.handle),
 			"rows", list_text(s_rows))
 	else
@@ -1510,7 +1655,10 @@ function D.UndergroundPanel(u, s, res)
 	local tip = D.RowText(u, res)
 	local tip_ok = tip:find(underground_says[said], 1, true) and tip:find("use the surface Elevator Depot", 1, true) and true or false
 	local copy = (rawget(u, ROWS) or empty_table)[res] or "bidirectional"
-	return shown, expected_marks[said], tip_ok, copy == said, said
+	-- the title word the underground row draws (D.RowWord), against the surface row's word mirrored
+	local title_word = D.RowWord(u, res)
+	local title_ok = title_word == (said == "disabled" and "disabled" or word_of(said, true))
+	return shown, expected_marks[said], tip_ok, copy == said, said, title_ok, title_word
 end
 
 function D.Pair()
@@ -1547,15 +1695,17 @@ function D.Pair()
 		end
 		local panel = "-"
 		if s and u and has_rows(u, res) then
-			local shown, expected, tip_ok, copy_ok = D.UndergroundPanel(u, s, res)
-			local ok = shown == expected and tip_ok
+			local shown, expected, tip_ok, copy_ok, _, title_ok, title_word = D.UndergroundPanel(u, s, res)
+			local ok = shown == expected and tip_ok and title_ok
 			if ok then match = match + 1 else differ = differ + 1 end
 			if not copy_ok then stale = stale + 1 end
-			panel = string.format("%s(surface says %s)%s%s", shown, expected, tip_ok and "" or " TIP-WRONG", ok and "" or " DIFFERENT")
+			panel = string.format("%s,%s(surface says %s)%s%s%s", shown, word_titles[title_word], expected,
+				tip_ok and "" or " TIP-WRONG", title_ok and "" or " TITLE-WRONG", ok and "" or " DIFFERENT")
 		end
-		print(string.format("%s   row %-12s state=%-14s surface=%-8s underground=%-8s u_panel=%s stock_s=%d stock_u=%d vanilla_s=%s vanilla_u=%s",
+		local target, set = D.Target(half, res)
+		print(string.format("%s   row %-12s state=%-14s surface=%-8s underground=%-8s target=%d%%%s u_panel=%s stock_s=%d stock_u=%d vanilla_s=%s vanilla_u=%s",
 			log_prefix, res, D.State(half, res), s and half_word(s, res) or "-", u and half_word(u, res) or "-",
-			panel, stock(s), stock(u), flag(s), flag(u)))
+			target, set and "" or "(dial)", panel, stock(s), stock(u), flag(s), flag(u)))
 	end
 	if s and u then
 		out.underground_panel = differ == 0 and "matches" or "DIFFERENT"
