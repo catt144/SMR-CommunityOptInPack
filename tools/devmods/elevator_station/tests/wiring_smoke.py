@@ -1,4 +1,4 @@
-"""Desk checks for brief 27's wiring of the Elevator Depot pair; no native claim.
+"""Desk checks for brief 27's wiring of the Elevator Depot pair (surface-owned rows, 2026-10-01); no native claim.
 
 Runs the whole dev Lua under a mock world: two halves (surface, underground),
 their per-resource requests, drone controllers and vanilla's Station setters.
@@ -63,6 +63,7 @@ function DoneObject(o) o.valid=false end
 function ObjModified(o) modified=(modified or 0)+1 end
 function Untranslated(s) return s end
 function PlayFX() end
+function empty_func() end
 function IsValidEntity() return false end   -- the load handler re-dresses; no art in this mock
 function Sleep() end
 function table.keys(t,sort)
@@ -164,19 +165,22 @@ UIColony.underground_map_unlocked=true
 
 -- 2 the pair forms; Drone Access default off re-registers both halves once
 local U = depot(cave, {Metals=0})
-U.enabled.Polymers = false   -- placed before the wiring, Polymers Not accepted in vanilla
+S.enabled.Polymers = false   -- the surface, placed before the wiring, had Polymers Not accepted in vanilla
+U.enabled.Concrete = false   -- an underground vanilla refusal does not count: the surface owns the setting
 local hub = {kinds={DroneControl=true}, drones={}}
 S.command_centers={hub}; U.command_centers={hub}
 D.Tick(5)
 assert(has_log('pair formed: surface '..S.handle..' underground '..U.handle), 'pair formed line')
 assert(S.reconnects==1 and U.reconnects==1, 'first tick re-registers both halves (old fixtures pick up the default)')
-assert(D.State(U,'Polymers')=='disabled' and D.State(S,'Polymers')=='disabled' and S.enabled.Polymers==false,
-  'a vanilla Not accepted survives the first wiring, mirrored to the twin')
+assert(D.State(U,'Polymers')=='disabled' and U.enabled.Polymers==false and S.enabled.Polymers==false,
+  'the surface vanilla Not accepted survives the first wiring and shows underground')
+assert(rawget(U,'SMROptIn_depot_rows').Polymers=='disabled', 'the underground holds a read-only copy')
+assert(D.State(U,'Concrete')=='bidirectional' and U.enabled.Concrete==true, 'the underground never seeds its own setting')
 assert(D.SetRow(S,'Polymers','balanced') and U.enabled.Polymers, 'and is a normal row afterwards')
 D.Tick(6); assert(S.reconnects==1, 'no repeat re-registration')
 CurrentMap=cave; assert(Base.CanBuildOnlyOnce({})==true, 'one per map: the underground is now taken')
 
--- 3 Drone Access: off refuses storage requests to drone controllers only
+-- 3 Drone Access: off refuses storage requests to drone controllers only; one switch per half
 local lr_map = surface_map
 assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==false, 'off: storage supply refused')
 assert(S:ShouldAddRequestToCommandCenter(S.demand.Metals, hub)==false, 'off: storage demand refused')
@@ -187,15 +191,17 @@ assert(D.SetDroneAccess(S, true) and rawget(S,'SMROptIn_depot_drones')==true, 'o
 assert(S.reconnects==2 and S.interrupts==1 and drone.d_request==false, 'toggle resets drones on storage, re-registers')
 assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==true, 'on + Balanced: both ways')
 assert(rawget(U,'SMROptIn_depot_drones')==nil, 'each half has its own toggle')
-Base.ToggleDroneAccess(S, false)
-assert(rawget(S,'SMROptIn_depot_drones')==nil and rawget(U,'SMROptIn_depot_drones')==nil, 'a plain toggle: this half only')
-Base.ToggleDroneAccess(U, true)
-assert(rawget(U,'SMROptIn_depot_drones')==true and rawget(S,'SMROptIn_depot_drones')==true,
-  'Ctrl+toggle sets both halves to the new value')
+Base.ToggleDroneAccess(U, true)   -- Ctrl+click is a plain click: drone hubs are per map
+assert(rawget(U,'SMROptIn_depot_drones')==true and rawget(S,'SMROptIn_depot_drones')==true, 'U on, S untouched (was on)')
+Base.ToggleDroneAccess(S, true)
+assert(rawget(S,'SMROptIn_depot_drones')==nil and rawget(U,'SMROptIn_depot_drones')==true, 'Ctrl on S changes S only')
+Base.ToggleDroneAccess(S)
+assert(rawget(S,'SMROptIn_depot_drones')==true, 'both on again')
 
--- 4 rows: one setting for the pair, mirrored (ruling 3)
+-- 4 rows: one setting for the pair, written on the surface only (ruling 3 as amended 2026-10-01)
 assert(D.SetRow(S,'Metals','import'))
-assert(D.State(S,'Metals')=='to_underground' and D.State(U,'Metals')=='to_underground', 'one state on both halves')
+assert(D.State(S,'Metals')=='to_underground' and D.State(U,'Metals')=='to_underground', 'the underground reads the surface')
+assert(rawget(U,'SMROptIn_depot_rows').Metals=='to_underground', 'its read-only copy follows')
 assert(D.HalfWord(S,'Metals')=='import' and D.HalfWord(U,'Metals')=='export', 'surface Import = underground Export')
 assert(S.transport_policy.Metals=='send' and U.transport_policy.Metals=='accept', 'drone desires follow the half word')
 assert(S:ShouldAddRequestToCommandCenter(S.demand.Metals, hub)==true and S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==false,
@@ -205,31 +211,62 @@ assert(U:ShouldAddRequestToCommandCenter(U.supply.Metals, hub)==true and U:Shoul
 local h = D.HubEntry(S,'Metals'); assert(h.mode=='import' and h.percent==100, 'hub reads Import at full')
 h = D.HubEntry(U,'Metals'); assert(h.mode=='export' and h.percent==0, 'hub reads Export at floor 0')
 assert(D.HubEntry(S,'Concrete')==false, 'Balanced: the hub keeps its default')
--- from the other panel: U's click cycles U's own word (export -> import), S follows
-Base.ToggleAcceptResource(U,'Metals')
-assert(D.HalfWord(U,'Metals')=='import' and D.HalfWord(S,'Metals')=='export' and D.State(S,'Metals')=='to_surface',
-  'the mirror holds from the underground panel')
-assert(Base.GetResAcceptIcon(U,'Metals'):find('down') and Base.GetResAcceptIcon(S,'Metals'):find('up'), 'station icons per half')
+-- the underground cannot write: console refused, a click does nothing
+local ok, why = D.SetRow(U,'Metals','import')
+assert(not ok and why:find('surface Elevator Depot'), 'SetRow on the underground refused')
+logs={}; Base.ToggleAcceptResource(U,'Metals')
+assert(D.State(S,'Metals')=='to_underground' and has_log('underground rows are read-only; change Metals'), 'an underground click writes nothing')
+-- the arrows: down = the cabin takes it down (leaves the surface, arrives underground), on both panels
+assert(Base.GetResAcceptIcon(S,'Metals'):find('down') and Base.GetResAcceptIcon(U,'Metals'):find('down'), 'arrives here: down')
+assert(Base.ResourceRolloverText(U,'Metals'):find('^Arrives here') and Base.ResourceRolloverText(U,'Metals'):find('use the surface Elevator Depot'),
+  'the underground infotip states the setting and where to change it')
+assert(Base.ResourceRolloverText(S,'Metals'):find('^Import'), 'the surface rollover leads with its word')
+-- surface click cycle, station words: Import -> Not accepted -> Balanced -> Export
+Base.ToggleAcceptResource(S,'Metals'); assert(D.State(U,'Metals')=='disabled' and U.enabled.Metals==false, 'Not accepted shows underground')
+Base.ToggleAcceptResource(S,'Metals'); Base.ToggleAcceptResource(S,'Metals')
+assert(D.State(U,'Metals')=='to_surface' and Base.GetResAcceptIcon(U,'Metals'):find('up')
+  and Base.ResourceRolloverText(U,'Metals'):find('^Leaves this half'), 'surface Export: up, leaves the underground half')
+assert(Base.GetResAcceptIcon(U,'Concrete'):find('resource_storing'), 'Balanced mark, station words')
 D.layout.row_words='elevator'
-assert(Base.GetResAcceptIcon(U,'Metals')==Base.GetResAcceptIcon(S,'Metals'), 'elevator words: both panels read the same')
+assert(Base.GetResAcceptIcon(U,'Concrete'):find('resource_accept'), 'Balanced mark, elevator words')
 Base.ToggleAcceptResource(S,'Metals')   -- vanilla order: to_surface -> to_underground
 assert(D.State(U,'Metals')=='to_underground', 'elevator cycle follows vanilla order')
-assert(Base.ResourceRolloverText(S,'Metals'):find('Status: Underground'), 'elevator rollover')
+assert(Base.ResourceRolloverText(S,'Metals'):find('Status: Underground') and Base.ResourceRolloverText(U,'Metals'):find('^Status: Underground'),
+  'elevator words on both panels')
 D.layout.row_words='station'
-assert(Base.ResourceRolloverText(S,'Metals'):find('^Import'), 'station rollover leads with the half word')
-assert(Base.GetResAcceptStateText(S,'Metals')=='Underground')
--- Not accepted: vanilla disabled on both, never carried
-assert(D.SetRow(U,'Polymers','disabled'))
-assert(S.enabled.Polymers==false and U.enabled.Polymers==false, 'Not accepted disables vanilla storage on both')
-assert(D.SetRow(S,'Polymers','balanced') and S.enabled.Polymers and U.enabled.Polymers, 'and back')
--- another station's Ctrl+click arrives as a method call
-Base.SetAcceptResourceState(S,'Polymers','disabled')
-assert(D.State(U,'Polymers')=='disabled', 'a broadcast disable folds into the row, mirrored')
+assert(Base.GetResAcceptStateText(U,'Metals')=='Underground')
+-- the witness: the underground panel shows what the surface row says
+logs={}; local out = D.Pair()
+assert(out.underground_panel=='matches' and out.copy=='current' and has_log('0 differ; read-only copy current'), 'panel witness')
+local shown, expected, tip_ok = D.UndergroundPanel(U, S, 'Metals'); assert(shown=='down' and expected=='down' and tip_ok)
+U.enabled.Polymers=false   -- something switched the underground's vanilla storage off behind the depot
+logs={}; out = D.Pair(); assert(out.underground_panel=='DIFFERENT' and has_log('u_panel=off(surface says balanced) DIFFERENT'), 'the witness can fail')
+-- vanilla's "apply to all" never writes the setting: vanilla is put back to the surface row
 Base.SetAcceptResourceState(U,'Polymers','store')
-assert(D.State(S,'Polymers')=='bidirectional' and S.enabled.Polymers, 'a broadcast store re-enables')
--- a path that writes vanilla directly is reconciled every 10 game minutes
-U.enabled.Metals=false; D.Tick(20)
-assert(U.enabled.Metals==true, 'the row is the authority')
+assert(U.enabled.Polymers==true and D.State(S,'Polymers')=='bidirectional', 'a broadcast store re-applies the row')
+Base.SetAcceptResourceState(S,'Polymers','disabled')
+assert(S.enabled.Polymers==true and D.State(S,'Polymers')=='bidirectional', 'a broadcast disable does not write the row')
+logs={}; out = D.Pair(); assert(out.underground_panel=='matches', 'matches again')
+rawget(U,'SMROptIn_depot_rows').Metals = 'disabled'   -- a stale copy is reported, the panel still reads the surface
+out = D.Pair(); assert(out.copy=='STALE' and out.underground_panel=='matches', 'stale copy reported')
+rawset(U,'SMROptIn_depot_rows', table.copy(rawget(S,'SMROptIn_depot_rows')))
+-- the underground rows show but do not act: the row hook
+local row_class = {OnContextUpdate=function(self, ctx) self.updated=(self.updated or 0)+1 end}
+sectionStorageRow = row_class
+assert(D.InstallRowHook() and D.InstallRowHook(), 'installed once')
+local function row_for(o, res)
+  local r = setmetatable({context={o, res=res}}, {__index=row_class})
+  function r:SetRolloverHint(t) self.hint=t end
+  function r:SetRolloverHintGamepad(t) self.pad=t end
+  function r:OnActivate() self.activated=true end
+  return r
+end
+local ur, sr = row_for(U,'Metals'), row_for(S,'Metals')
+ur:OnContextUpdate(ur.context); sr:OnContextUpdate(sr.context)
+assert(ur.updated==1 and ur.hint:find('surface Elevator Depot') and ur.pad, 'vanilla update ran, read-only hint set')
+ur:OnActivate(); assert(not ur.activated, 'the underground row does not act')
+assert(sr.hint==nil and sr.updated==1, 'the surface row is untouched')
+sr:OnActivate(); assert(sr.activated)
 assert(not D.SetRow(S,'Water','import'), 'unknown resource refused')
 assert(not D.SetRow(S,'Metals','sideways'), 'unknown mode refused')
 
@@ -247,7 +284,7 @@ assert(stock(U,'Metals')==30 and stock(U,'Concrete')==10, 'arrival hands the car
 assert(rec.legs==1 and rec.phase=='up', 'arrived and left again: one leg per hour, pause 0')
 assert(has_log('cabin arrived underground (leg 1) delivered Concrete=10000,Metals=30000'))
 -- capacity is shared and the carried direction loads first
-D.SetRow(U,'Concrete','import')    -- underground Import = carried up
+D.SetRow(S,'Concrete','export')    -- surface Export = underground Import = carried up
 U.supply.Concrete.amount=50000; U.demand.Concrete.amount=10000
 minute_tick(60)
 assert(rec.phase=='down' and rec.legs==2, 'up leg arrived')
@@ -285,7 +322,7 @@ rec.phase='at_top'; assert(D.FollowTarget(rig)==1000 and D.FollowTarget(urig)==3
 
 -- 7 the pair read
 logs={}; local out = D.Pair()
-assert(has_log('pair surface='..S.handle) and has_log('mirror=ok') and has_log('row Metals'), 'Pair() read')
+assert(has_log('pair surface='..S.handle) and has_log('rows=read-only') and has_log('row Metals') and out.underground_panel=='matches', 'Pair() read')
 assert(out[S.handle].drones==true and out.legs==rec.legs)
 
 -- 8 a half demolished mid-leg: the cargo goes to the survivor; overflow becomes a stockpile
@@ -386,9 +423,11 @@ local before = u.supply.Metals:GetActualAmount()
 r = slots[1].fn(ctx_for(u)); assert(r.added_tenths==200 and u.supply.Metals:GetActualAmount()==before+20000, 'slot 1 stocks 20')
 assert(select(1, slots[1].fn(ctx_for({kinds={}})))==false, 'slot 1 refuses a non-depot')
 r = slots[3].fn(ctx_for(u)); assert(r.word==D.HalfWord(u,'Metals') and r.twin==tostring(s.handle), 'slot 3 read')
+assert(r.panel_shows==r.surface_says and r.infotip_ok=='true' and r.copy_current=='true', 'slot 3 proves the underground panel')
+r = slots.scratch.fn(ctx_for(nil)); assert(r.underground_panel=='matches' and r.copy=='current', 'scratch carries the witness')
 r = slots[5].fn(ctx_for(nil)); assert(r.halves==2, 'slot 5 read')
 -- slot 6 then slot 2 on a real leg: the departure read shows the cargo aboard and on neither half
-D.SetRow(u,'Metals','import')                 -- underground Import: carried up
+D.SetRow(s,'Metals','export')                 -- surface Export: carried up
 local rec = rawget(s,'SMROptIn_depot_cabin'); rec.phase, rec.ends, rec.started = 'at_bottom', now, true
 r = slots[6].fn(ctx_for(nil)); assert(r.trigger=='depot_next_departure' and armed_runs[#armed_runs]=='speed_ultra')
 local st = SMRTK.armed.depot_next_departure.state
@@ -409,6 +448,6 @@ assert(fired and f.verdict=='hour_done' and f.samples>=2, 'drone hour')
 ''')
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 print(f'wiring_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')
-print('Covered: pair/limits/lock, Drone Access filter and toggles, mirrored rows in both vocabularies, '
-      'vanilla reconcile, hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, '
+print('Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the '
+      'read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, '
       'half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, the staged slots; no bare /.')

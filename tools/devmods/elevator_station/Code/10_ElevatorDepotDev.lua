@@ -17,7 +17,7 @@
 --     (TrackElement.lua:345-348; Tracks.lua:240, archived build 25390750).
 --
 -- Brief 27 wires the pair (the WIRING section at the end of this file): per-trip cabin loads on an
--- hourly schedule, the four row modes mirrored across the pair, Drone Access on both halves
+-- hourly schedule, the four row modes set on the surface half and shown read-only underground, Drone Access on both halves
 -- (default off), one pair per colony, and what a surviving half does. No drone crew (owner, 2026-10-01).
 --
 -- Console, for the owner's sitting (output lands in the game log as [ElevatorDepotDev]):
@@ -34,7 +34,7 @@
 --   SMRElevatorDepotDev.RemoveInspectedRope(n)  remove ONE inspected, unowned underground 75% rope
 --   SMRElevatorDepotDev.Preview(...)       the earlier free-standing previews still work (see below)
 --   SMRElevatorDepotDev.Pair()             brief 27: the pair, the cabin, every row on both halves, drone reach
---   SMRElevatorDepotDev.SetRow(half, "Metals", "import")  a row by console (either vocabulary); mirrors
+--   SMRElevatorDepotDev.SetRow(surface, "Metals", "import")  a row by console (either vocabulary); surface half only
 --   SMRElevatorDepotDev.SetDroneAccess(half, true)        Drone Access by console
 -- SMRElevatorStationDev is kept as an alias, so the earlier console lines still run.
 
@@ -725,8 +725,10 @@ end
 -- Cargo crosses between the maps in the cabin; trains never change maps. Settled rulings:
 --  1 per-trip loads: each half keeps its own storage; the cabin carries the cargo, nothing crosses
 --    while it travels; 2 the four row modes on the depot's own rows (the depot owns them, a hub reads
---    them through D.HubEntry); 3 mirrored: one setting per resource for the pair, surface Import =
---    underground Export; 4 one pair per colony, either half anywhere, needs the underground unlocked;
+--    them through D.HubEntry); 3 one setting per resource for the pair, surface Import = underground
+--    Export, and (owner, 2026-10-01, amended) the SURFACE half owns it: its rows are the one writer,
+--    the underground half's rows are read-only marks whose infotip points to the surface depot, and
+--    the underground keeps a read-only cached copy a new surface twin adopts; 4 one pair per colony, either half anywhere, needs the underground unlocked;
 --    5 one leg per game hour, down then up, repeating; 6 Drone Access on both halves, default off;
 --    7 passengers need no depot code (none here); 8 vanilla's elevator is not touched.
 -- Source, archived build 25579348 (1.1.1.406343):
@@ -744,7 +746,8 @@ end
 --  Lua/XDef/InfopanelButton.generated.lua:34-39 a button lands in idMainButtons;
 --    Lua/XDef/ipBuilding.generated.lua:348-370 the Shuttle Access button (ToggleLRTServiceButton).
 -- Persisted names (ban 1; inventory rows in reports/ELEVATOR_DEPOT_WIRING_20261001.md): the three
--- fields below on our own depot objects. Each tolerates its absence: an old save loads Balanced rows,
+-- fields below on our own depot objects, each written only by this file's surface-row, toggle and
+-- cabin code. Each tolerates its absence: an old save loads Balanced rows (vanilla Not accepted kept),
 -- Drone Access off and a fresh cabin at the surface.
 
 local ROWS, DRONES, CABIN = "SMROptIn_depot_rows", "SMROptIn_depot_drones", "SMROptIn_depot_cabin"
@@ -767,8 +770,10 @@ local state_titles = { bidirectional = "ON (both ways)", to_surface = "Surface",
 	disabled = "OFF" }
 -- the stations' words and icons (the hub's 45_TrainDistributionUI.lua), per half
 local word_titles = { balanced = "Balanced", import = "Import", export = "Export", disabled = "Not accepted" }
-local word_icons = { balanced = "UI/IconsRemaster/Sections/resource_storing.tga", export = up, import = down,
-	disabled = no_accept }
+-- One arrow meaning on both panels: the cabin's direction. Up = it leaves the underground half for the
+-- surface; down = it leaves the surface for the underground half (it arrives there). Only Balanced's
+-- mark differs by vocabulary: the stations' "storing" mark, or vanilla's elevator tick.
+local balanced_marks = { station = "UI/IconsRemaster/Sections/resource_storing.tga", elevator = state_icons.bidirectional }
 local word_next = { balanced = "export", export = "import", import = "disabled", disabled = "balanced" }
 -- drone desires per half word (Station.lua:964-995): Import fills like "send", Export drains like "accept"
 local policy_of = { import = "send", export = "accept", balanced = "default" }
@@ -848,7 +853,13 @@ end
 function D.IsDepot(o) return is_depot(o) end
 
 local function rows_of(o) return rawget(o, ROWS) or empty_table end
-function D.State(o, res) return rows_of(o)[res] or "bidirectional" end
+-- The setting's owner: a paired underground half reads its surface twin; a lone half reads its own
+-- (for a lone underground half, the read-only copy it keeps for the next surface depot).
+local function owner_of(o)
+	local s, u = D.PairOf(o)
+	return s and o == u and s or o
+end
+function D.State(o, res) return rows_of(owner_of(o))[res] or "bidirectional" end
 
 -- the half's working word: an unpaired half acts Balanced (its row is kept for the next twin)
 local function half_word(o, res)
@@ -921,100 +932,136 @@ local function apply_all(o)
 	return n
 end
 
--- One setting per resource for the pair (ruling 3): write the pair state on both halves.
+-- One setting per resource for the pair, written on the SURFACE half only (ruling 3 as amended
+-- 2026-10-01). The underground half receives a read-only copy of the whole table.
 function D.SetRow(o, res, value)
 	if not live_depot(o) then return false, "not a live depot half" end
+	if is_underground(o) then return false, "the underground rows are read-only: change them on the surface Elevator Depot" end
 	if not has_rows(o, res) then return false, "this depot does not store " .. tostring(res) end
-	local underground = is_underground(o)
-	local state = state_index[value] and value or state_of(value, underground)
+	local state = state_index[value] and value or state_of(value, false)
 	if not state then return false, "unknown mode " .. tostring(value) end
-	local halves = { o }
+	local rows = rawget(o, ROWS) or {}
+	rows[res] = state ~= "bidirectional" and state or nil
+	rawset(o, ROWS, rows)
 	local twin = D.TwinOf(o)
-	if twin then halves[2] = twin end
-	for _, half in ipairs(halves) do
-		local rows = rawget(half, ROWS) or {}
-		rows[res] = state ~= "bidirectional" and state or nil
-		rawset(half, ROWS, rows)
+	if twin then rawset(twin, ROWS, table.copy(rows)) end
+	for _, half in ipairs(twin and { o, twin } or { o }) do
 		apply_row(half, res)
 		if rawget(half, DRONES) then reconnect(half) end   -- the direction filter changed
 		ObjModified(half)
 	end
-	print(string.format("%s row %s = %s surface=%s underground=%s (set on the %s half %s; twin %s)",
-		log_prefix, res, state, word_of(state, false), word_of(state, true), underground and "underground" or "surface",
-		tostring(o.handle), twin and tostring(twin.handle) or "none"))
+	print(string.format("%s row %s = %s surface=%s underground=%s (set on the surface half %s; underground %s %s)",
+		log_prefix, res, state, word_of(state, false), word_of(state, true), tostring(o.handle),
+		twin and tostring(twin.handle) or "none", twin and "copy updated" or "absent"))
 	return true
 end
 
 -- ---- the rows in the panel (sectionStorageRow calls these; Data/XDef/sectionStorageRow.lua:12-57)
+-- Surface: a click cycles the setting. Underground: nothing to click; the row only shows.
 function Base:ToggleAcceptResource(res, broadcast)
 	if not live_depot(self) or not has_rows(self, res) then return end
-	local state, underground = D.State(self, res), is_underground(self)
+	if is_underground(self) then
+		print(log_prefix, "underground rows are read-only; change", res, "on the surface Elevator Depot")
+		return
+	end
+	local state = D.State(self, res)
 	local nxt
 	if D.layout.row_words == "elevator" then
 		nxt = states[state_index[state] % #states + 1]
 	else
-		nxt = state_of(word_next[word_of(state, underground)], underground)
+		nxt = state_of(word_next[word_of(state, false)], false)
 	end
 	D.SetRow(self, res, nxt)
 end
 
--- Another station's Ctrl+click reaches us as a method call (Station.lua:1021-1027): fold it into the row.
+-- Vanilla's "apply to all stations" (Station.lua:1021-1027) reaches us as a method call. It never
+-- writes the depot's setting: vanilla is put back to what the surface row says.
 function Base:SetAcceptResourceState(res, state, broadcast)
 	local set_accept = vanilla("SetAcceptResourceState")
 	if broadcast or not live_depot(self) or not has_rows(self, res) then
 		if set_accept then return set_accept(self, res, state, broadcast) end
 		return
 	end
-	if state == "disabled" then
-		D.SetRow(self, res, "disabled")
-	elseif D.State(self, res) == "disabled" then
-		D.SetRow(self, res, "bidirectional")
-	else
-		apply_row(self, res)
-	end
+	apply_row(self, res)
 end
 
 function Base:GetResAcceptIcon(res)
 	local state = D.State(self, res)
-	if D.layout.row_words == "elevator" then return state_icons[state] end
-	return word_icons[word_of(state, is_underground(self))]
+	if state == "bidirectional" then return balanced_marks[D.layout.row_words] or balanced_marks.station end
+	return state_icons[state]
 end
 
 function Base:GetResAcceptStateText(res)
 	return Untranslated(state_titles[D.State(self, res)])
 end
 
-local word_help = {
-	import = "this half gathers it for the cabin: trains (and drones, with Drone Access on) bring it here, and each %s leg carries it to the %s half.",
-	export = "the cabin brings it from the %s half on each %s leg; trains (and drones, with Drone Access on) take it away from here.",
+local surface_help = {
+	import = "this half gathers it for the cabin: trains (and drones, with Drone Access on) bring it here, and each down leg carries it to the underground half.",
+	export = "the cabin brings it up from the underground half on each up leg; trains (and drones, with Drone Access on) take it away from here.",
 	balanced = "the cabin evens out the two halves' stock, a leg at a time.",
 	disabled = "the cabin never carries it; trains take away what is left here.",
 }
+-- the underground marks in words (owner: "its infotip say its current info")
+local underground_says = {
+	to_surface = "Leaves this half: trains (and drones, with Drone Access on) bring it here, and each up leg carries it to the surface half.",
+	to_underground = "Arrives here: each down leg brings it from the surface half; trains (and drones, with Drone Access on) take it away from here.",
+	bidirectional = "Balanced: the cabin evens out the two halves' stock, a leg at a time.",
+	disabled = "Not accepted: the cabin never carries it; trains take away what is left here.",
+}
+D.UndergroundSays = underground_says
 
 function D.RowText(o, res)
-	local state, underground = D.State(o, res), is_underground(o)
-	local word = word_of(state, underground)
-	local other = underground and "surface" or "underground"
-	local leg = (word == "import") == underground and "up" or "down"
-	local help = string.format(word_help[word], word == "import" and leg or other, word == "import" and other or leg)
-	local twin_word = word_titles[word_of(state, not underground)]
+	local state, ug = D.State(o, res), is_underground(o)
 	local text
-	if D.layout.row_words == "elevator" then
-		text = string.format("Status: %s.<newline>This half: %s, %s<newline>The %s half: %s.",
-			state_titles[state], word_titles[word], help, other, twin_word)
+	if ug then
+		text = underground_says[state]
+		if D.layout.row_words == "elevator" then text = "Status: " .. state_titles[state] .. ".<newline>" .. text end
+		text = text .. string.format("<newline>Setting on the surface Elevator Depot: %s there, %s here (vanilla elevator's word: %s).",
+			word_titles[word_of(state, false)], word_titles[word_of(state, true)], state_titles[state])
+		if not D.TwinOf(o) then
+			text = text .. "<newline><newline>No surface twin: the cabin is idle and this half acts Balanced; the setting is kept for the next surface depot."
+		end
+		text = text .. "<newline><newline>Read-only here: to change it, use the surface Elevator Depot."
 	else
-		text = string.format("%s: %s<newline>The %s half: %s (one setting for the pair).<newline>Vanilla elevator's word: %s.",
-			word_titles[word], help, other, twin_word, state_titles[state])
+		local word = word_of(state, false)
+		local lead = word_titles[word]
+		if D.layout.row_words == "elevator" then lead = "Status: " .. state_titles[state] .. ".<newline>" .. lead end
+		text = string.format("%s: %s<newline>The underground half shows it read-only: %s.<newline>Vanilla elevator's word: %s.",
+			lead, surface_help[word], underground_says[state]:match("^[^:]+"), state_titles[state])
+		if not D.TwinOf(o) then
+			text = text .. "<newline><newline>No underground twin: the cabin is idle; a train hub treats this row as Balanced."
+		end
 	end
-	if not D.TwinOf(o) then
-		text = text .. "<newline><newline>No twin: the cabin is idle. The row is kept for the next twin; a train hub treats it as Balanced."
-	end
-	text = text .. "<newline><newline>Drone Access: " .. (rawget(o, DRONES) and "on" or "off") .. "."
-	return text
+	return text .. "<newline><newline>Drone Access: " .. (rawget(o, DRONES) and "on" or "off") .. "."
 end
 
 function Base:ResourceRolloverText(res)
 	return Untranslated(D.RowText(self, res))
+end
+
+-- The underground rows show; they do not act (owner, 2026-10-01): the click does nothing and the hint
+-- says where to change it. sectionStorageRow's own update runs first (its compiled OnContextUpdate is
+-- chained at run time, as the hub's 45_TrainDistributionUI.lua does). The icon and the stock/capacity
+-- figures are vanilla's row (Data/XDef/sectionStorageRow.lua:16-32), from GetResAcceptIcon above.
+local read_only_hint = "Read-only here: change it on the surface Elevator Depot."
+local row_hook = false
+function D.InstallRowHook()
+	if row_hook then return true end
+	local row = rawget(_G, "sectionStorageRow")
+	local previous = row and row.OnContextUpdate
+	if type(previous) ~= "function" then return false end
+	row.OnContextUpdate = function(self, context, ...)
+		local result = table.pack(previous(self, context, ...))
+		local o = type(context) == "table" and context[1]
+		if is_depot(o) and is_underground(o) and context.res then
+			self:SetRolloverHint(Untranslated(read_only_hint))
+			self:SetRolloverHintGamepad(Untranslated(read_only_hint))
+			self.OnActivate = empty_func
+		end
+		return table.unpack(result, 1, result.n)
+	end
+	row_hook = true
+	return true
 end
 
 -- ---- the hub's read (rule 2: the depot owns the row, the hub reads it) ----------------------------
@@ -1052,11 +1099,9 @@ function D.SetDroneAccess(o, on)
 	return true
 end
 
+-- Each half's own switch: drone hubs are per map. Ctrl+click is a plain click (one depot per map).
 function Base:ToggleDroneAccess(broadcast)
-	local on = not rawget(self, DRONES)
-	D.SetDroneAccess(self, on)
-	local twin = broadcast and D.TwinOf(self)
-	if twin then D.SetDroneAccess(twin, on) end
+	D.SetDroneAccess(self, not rawget(self, DRONES))
 end
 
 function Base:ToggleDroneAccess_Update(button)
@@ -1084,17 +1129,17 @@ function D.AttachDroneButton(dlg)
 	local button = InfopanelButton:new({
 		Id = "idSMRDepotDroneAccess",
 		RolloverTitle = Untranslated("Drone Access"),
-		RolloverHint = Untranslated("<left_click> Toggle <newline><em>Ctrl + <left_click></em> Toggle both halves"),
-		RolloverHintGamepad = Untranslated("<ButtonA> Toggle <newline><ButtonY> Toggle both halves"),
+		RolloverHint = Untranslated("<left_click> Toggle"),
+		RolloverHintGamepad = Untranslated("<ButtonA> Toggle"),
 		OnPressParam = "ToggleDroneAccess",
 		OnPress = function(self, gamepad)
-			self.context:ToggleDroneAccess(not gamepad and IsMassUIModifierPressed())
+			self.context:ToggleDroneAccess()
 			RebuildInfopanel(self.context)
 		end,
 		AltPress = true,
 		OnAltPress = function(self, gamepad)
 			if gamepad then
-				self.context:ToggleDroneAccess(true)
+				self.context:ToggleDroneAccess()
 				RebuildInfopanel(self.context)
 			end
 		end,
@@ -1114,7 +1159,16 @@ function D.AttachDroneButton(dlg)
 	button:OnContextUpdate(button.context)
 end
 
-function OnMsg.DialogOpen(dlg) D.AttachDroneButton(dlg) end
+function OnMsg.DialogOpen(dlg)
+	if IsKindOf(dlg, "ipBuilding") and is_depot(ResolvePropObj(dlg.context)) and D.InstallRowHook() then
+		local function refresh(win)
+			if IsKindOf(win, "sectionStorageRow") then win:OnContextUpdate(win.context) end
+			for _, child in ipairs(win) do refresh(child) end
+		end
+		refresh(dlg)   -- rows built before the hook existed
+	end
+	D.AttachDroneButton(dlg)
+end
 
 -- ---- one pair per colony (ruling 4) ---------------------------------------------------------------
 -- Build-once per map: true once a live depot stands on the map in view, so vanilla greys the menu item
@@ -1223,10 +1277,11 @@ local function load_cabin(rec, origin, dest, carried)
 	return moved
 end
 
--- A half never wired (placed before brief 27) starts from vanilla: a resource it had Not accepted
--- stays Not accepted; every other row starts Balanced.
+-- A surface half never wired (placed before brief 27) starts from vanilla: a resource it had Not
+-- accepted stays Not accepted; every other row starts Balanced. The underground never seeds: its rows
+-- are only ever a copy of a surface half's.
 local function seed_rows(o)
-	if rawget(o, ROWS) ~= nil then return end
+	if rawget(o, ROWS) ~= nil or is_underground(o) then return end
 	local rows = {}
 	for _, res in ipairs(o.storable_resources or empty_table) do
 		if has_rows(o, res) and not o:IsResourceEnabled(res) then rows[res] = "disabled" end
@@ -1234,17 +1289,20 @@ local function seed_rows(o)
 	rawset(o, ROWS, rows)
 end
 
--- A pair forms or breaks: the newer half adopts the rows (the surface's win when both have some),
--- vanilla follows the rows, both halves re-register (Drone Access), the cabin art switches mode.
+-- A pair forms or breaks. A surface half with a setting keeps it; a surface half with none (newly
+-- placed) adopts the underground's copy; the underground then holds a copy of the result. Vanilla
+-- follows, both halves re-register (Drone Access), the cabin art switches mode.
 function D.OnPairChanged(surface, underground)
-	for _, o in ipairs(all_depots()) do seed_rows(o) end
+	if surface then seed_rows(surface) end
 	if surface and underground then
 		local s_rows, u_rows = rawget(surface, ROWS), rawget(underground, ROWS)
-		local rows = s_rows and next(s_rows) and s_rows or u_rows and next(u_rows) and u_rows or nil
-		rawset(surface, ROWS, rows and table.copy(rows) or {})
-		rawset(underground, ROWS, rows and table.copy(rows) or {})
+		if not next(s_rows) and u_rows and next(u_rows) then
+			s_rows = table.copy(u_rows)
+			rawset(surface, ROWS, s_rows)
+		end
+		rawset(underground, ROWS, table.copy(s_rows))
 		print(log_prefix, "pair formed: surface", tostring(surface.handle), "underground", tostring(underground.handle),
-			"rows", list_text(rows or empty_table))
+			"rows", list_text(s_rows))
 	else
 		print(log_prefix, "no pair: surface", surface and tostring(surface.handle) or "none",
 			"underground", underground and tostring(underground.handle) or "none")
@@ -1266,8 +1324,6 @@ function D.Tick(minute)
 	if key ~= D.pair_key then
 		D.pair_key = key
 		D.OnPairChanged(surface, underground)
-	elseif minute and minute % 10 == 0 then
-		for _, o in ipairs(all_depots()) do apply_all(o) end   -- another path changed vanilla's state
 	end
 	if not (surface and underground) then return end
 	local rec, now, L = cabin_of(surface), GameTime(), D.layout
@@ -1433,6 +1489,22 @@ local function drone_reach(o)
 end
 D.DroneReach = drone_reach
 
+-- The witness that replaces the mirror check (owner, 2026-10-01): what the underground panel shows for
+-- a resource, against what the surface half's own row says. The shown mark is what vanilla's row draws
+-- (sectionStorageRow.lua:16-24: the no-accept mark when vanilla storage is off, else GetResAcceptIcon);
+-- the infotip must say the surface setting in words and send the player to the surface depot.
+local mark_names = { [up] = "up", [down] = "down", [no_accept] = "off",
+	[balanced_marks.station] = "balanced", [balanced_marks.elevator] = "balanced" }
+local expected_marks = { to_surface = "up", to_underground = "down", bidirectional = "balanced", disabled = "off" }
+function D.UndergroundPanel(u, s, res)
+	local said = rawget(s, ROWS) and rawget(s, ROWS)[res] or "bidirectional"
+	local shown = u:IsResourceEnabled(res) and (mark_names[Base.GetResAcceptIcon(u, res)] or "?") or "off"
+	local tip = D.RowText(u, res)
+	local tip_ok = tip:find(underground_says[said], 1, true) and tip:find("use the surface Elevator Depot", 1, true) and true or false
+	local copy = (rawget(u, ROWS) or empty_table)[res] or "bidirectional"
+	return shown, expected_marks[said], tip_ok, copy == said, said
+end
+
 function D.Pair()
 	local c = pair_now()
 	local s, u = c.surface, c.underground
@@ -1450,19 +1522,13 @@ function D.Pair()
 	for _, o in ipairs(all_depots()) do
 		local ctrl, reg, busy = drone_reach(o)
 		local twin = D.TwinOf(o)
-		local mirror = "n/a"
-		if twin then
-			mirror = "ok"
-			for _, res in ipairs(o.storable_resources or empty_table) do
-				if D.State(o, res) ~= D.State(twin, res) then mirror = "DIFFERENT" end
-			end
-		end
-		print(string.format("%s   half %s %s working=%s drone_access=%s controllers=%d registered=%d drones_busy=%d twin=%s mirror=%s",
+		print(string.format("%s   half %s %s working=%s drone_access=%s controllers=%d registered=%d drones_busy=%d twin=%s rows=%s",
 			log_prefix, environment_of(o), tostring(o.handle), tostring(o.working), rawget(o, DRONES) and "on" or "off",
-			ctrl, reg, busy, twin and tostring(twin.handle) or "none", mirror))
-		out[o.handle] = { registered = reg, busy = busy, drones = rawget(o, DRONES) and true or false, mirror = mirror }
+			ctrl, reg, busy, twin and tostring(twin.handle) or "none", is_underground(o) and "read-only" or "set here"))
+		out[o.handle] = { registered = reg, busy = busy, drones = rawget(o, DRONES) and true or false }
 	end
 	local half = s or u
+	local match, differ, stale = 0, 0, 0
 	for _, res in ipairs(half and half.storable_resources or empty_table) do
 		local function stock(o)
 			return o and o.supply and o.supply[res] and o.supply[res]:GetActualAmount() or -1
@@ -1471,10 +1537,23 @@ function D.Pair()
 			if not o then return "-" end
 			return (o:IsResourceEnabled(res) and "on" or "OFF") .. "/" .. tostring((o.transport_policy or empty_table)[res] or "default")
 		end
-		local state = D.State(half, res)
-		print(string.format("%s   row %-12s state=%-14s surface=%-8s underground=%-8s stock_s=%d stock_u=%d vanilla_s=%s vanilla_u=%s",
-			log_prefix, res, state, s and half_word(s, res) or "-", u and half_word(u, res) or "-",
-			stock(s), stock(u), flag(s), flag(u)))
+		local panel = "-"
+		if s and u and has_rows(u, res) then
+			local shown, expected, tip_ok, copy_ok = D.UndergroundPanel(u, s, res)
+			local ok = shown == expected and tip_ok
+			if ok then match = match + 1 else differ = differ + 1 end
+			if not copy_ok then stale = stale + 1 end
+			panel = string.format("%s(surface says %s)%s%s", shown, expected, tip_ok and "" or " TIP-WRONG", ok and "" or " DIFFERENT")
+		end
+		print(string.format("%s   row %-12s state=%-14s surface=%-8s underground=%-8s u_panel=%s stock_s=%d stock_u=%d vanilla_s=%s vanilla_u=%s",
+			log_prefix, res, D.State(half, res), s and half_word(s, res) or "-", u and half_word(u, res) or "-",
+			panel, stock(s), stock(u), flag(s), flag(u)))
+	end
+	if s and u then
+		out.underground_panel = differ == 0 and "matches" or "DIFFERENT"
+		out.copy = stale == 0 and "current" or "STALE"
+		print(string.format("%s underground panel: %d rows match the surface setting, %d differ; read-only copy %s",
+			log_prefix, match, differ, out.copy))
 	end
 	return out
 end
