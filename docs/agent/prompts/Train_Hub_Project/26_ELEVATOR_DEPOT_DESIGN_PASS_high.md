@@ -92,8 +92,9 @@ between imports, the angles had); the cabin is not drawn below the well's floor
 (`cabin_hide_below`, `5a24b04`). A lip under grade beside the pit answers the saw-teeth; the stray
 lines and the wedge are the roof's absence. The art changed, so in order: (1) the owner looks at
 sheets 7-9 in `review_design_pass/index.html` and says yes or no in words; (2) on yes, the editor
-steps in that report section (the depot mesh only; no receiver, no hub save), then restart; (3)
-resume B from B1 with `Report()` as the first read.
+steps in that report section (the depot mesh only, which also carries the handoff's deferred `Top`
+spot, `fffa61e`; no receiver, no hub save), then restart; (3) resume B from B1 with `Report()` as the
+first read.
 
 ## Handoff, 2026-09-30 close-out
 
@@ -112,7 +113,6 @@ The current replacement depots and clean native census are recorded in the repor
 [Owner confirmation](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#owner-confirmation-and-clean-current-fixture),
 committed in `d627f3b`. Continue from that state without repeating the rope exercise.
 `Measure()`'s nil-Z repair (`493f518`) still needs its native underground ceiling reading.
-Add the missing `Top` spot at the shell crown at the next needed re-import.
 
 ## Start
 

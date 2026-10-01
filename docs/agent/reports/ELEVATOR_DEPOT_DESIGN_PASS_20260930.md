@@ -25,6 +25,8 @@ report): owed are the owner's yes on sheets 7-9, a depot-only re-import, a resta
 | SMR-OptInPack | `3b1d7bd` | scoped legacy-rope sweep through CObject, native identification evidence and regression checks; latest current-fixture census is clean, legacy-removal branch not exercised |
 | SMR-Assets | `cbfac1f` | sitting B: the liner wound toward the tunnel, the lip under grade, 14 verifier rays, renders that cull back faces, the three sitting B angles and sheets 7-9, the unfixed geometry's culled renders as evidence |
 | SMR-OptInPack | `5a24b04` (code), this report in the commit after it | `Report()`'s global call, `cabin_hide_below`, the regenerated import items |
+| SMR-Assets | `fffa61e` | the `Top` spot (14 spots), `diag_hgrm_depot.py` and `diag_sheet_winding.py`, the two importer facts, re-exports and renders |
+| SMR-OptInPack | `a993ac0` | `Top` in `design_spots`, the depot import item with `-Top` |
 
 ## The owner's words, recorded before anything changed
 
@@ -368,7 +370,7 @@ have this new inventory. The owner clicks/reads; the agent reads the flushed log
 | rope blocker in current setup | owner confirmation and clean census above | resolved by owner; four owned ropes, no orphan |
 | original saved-set recovery and persistence mechanism | scoped sweep above; reopen if the original residual returns | dormant; legacy-removal branch not exercised in the clean run |
 | Measure nil-Z crash | checkpoint `493f518`; next underground `Measure()` | desk repaired, native reading pending |
-| missing `Top` spot | add at shell crown at the next needed re-import | deferred; no new import requested |
+| missing `Top` spot | added at (-3500, 0, 1780) (`fffa61e`, `a993ac0`), imported with the sitting B re-import | done at the desk; the loader's warning ends at that import |
 | receiver root `ReceiverOrigin` | Assets `2c47118` fixes the generator's `Origin`; the editor's saved item already names the FBX root `ReceiverOrigin` | settled; preserved |
 | renders/import and hub save | this report's editor section and hub smoke above | settled; no repeated approval/save request |
 | eight game looks and brief 22 smoke | resume B/C/D above from the current replacement pair | owner acceptance remains open |
@@ -406,8 +408,9 @@ NOT accepted. No item is accepted.
 
 ### Sitting B's three faults, fixed at the desk (2026-09-30, late evening)
 
-Commits: SMR-Assets `cbfac1f` (the art, the verifier, the renders), SMR-OptInPack `5a24b04` (the dev
-Lua, the regenerated import items), this report in the commit after it. Build 25579348; the game was
+Commits: SMR-Assets `cbfac1f` (the art, the verifier, the renders) and `fffa61e` (the `Top` spot, the
+two diagnostics, the importer facts); SMR-OptInPack `5a24b04` (the dev Lua, the regenerated import
+items) and `a993ac0` (`Top` in the design table); this report in the commit after it. Build 25579348; the game was
 not running (`tasklist`: no `Mars.exe`). Executed model: Claude Fable 5.1 (`claude-fable-5-1`).
 Nothing below is proven in the game: the owner's yes on the renders, one depot-only re-import and a
 restart come before B resumes.
@@ -420,12 +423,13 @@ errors. The crash's own locals (log line 360) had already shown `hole=true` with
 
 **(2) The see-through tunnel: the mesh never changed, the angles did.**
 - The compiled meshes of the brief 25 import (`0ba4a1e`) and the design-pass import (`e3e0832`) were
-  decoded (format `dhsm`: six streams, positions and UVs sint16, tangent frame unorm8, 20 bytes a
+  decoded (`SMR-Assets/elevatorstation/blender/diag_hgrm_depot.py`, `fffa61e`; format `dhsm`: six streams, positions and UVs sint16, tangent frame unorm8, 20 bytes a
   vertex, a u32 index count, u16 indices). Before: 31,280 vertices, 15,684 triangles; after: 44,370 and
   22,304; every skin and liner triangle is present in both, and the 2,716 skin triangles at identical
   positions carry byte-identical tangent-frame and UV data. No limit was crossed (the hub's compiled
   mesh is larger: 42,513 vertices, 40,230 triangles) and nothing was dropped.
-- Winding, read in the verifier's game-frame convention: the skin faces away from the tunnel axis
+- Winding, read in the verifier's game-frame convention (`diag_sheet_winding.py`, `fffa61e`): the
+  skin faces away from the tunnel axis
   (1,586 of 1,632 faces) and **so does the liner (1,494 of 1,632)**, identically in the current FBX, the
   design-pass blend, the prepared blend (`172e992`) and the approved candidate (`7f087ce`). The liner
   should face the tunnel; bmesh's `recalc_face_normals` orients an open sheet by a centroid heuristic.
@@ -441,9 +445,13 @@ errors. The crash's own locals (log line 360) had already shown `hole=true` with
   the liner toward the axis (1,632 flips) while asserting the skin faces away (0 flips). `verify_depot.py`
   gains 14 rays (liner crown and walls from inside with the normal pointing back at the ray, skin crown
   and walls from outside, the lip) so a wrongly wound sheet fails on purpose: 41 rays, PASS, 7,758
-  approved faces preserved, 3,555 added, UV 0/0, footprint 30, 13 spots, hole 60 faces, bbox unchanged.
+  approved faces preserved, 3,555 added, UV 0/0, footprint 30, 14 spots, hole 60 faces, bbox unchanged.
+  The 14th is `Top` at (-3500, 0, 1780), the handoff's deferred item due at the next needed re-import:
+  `Mod.lua:119` requires it on a building entity and warned at every load, the status signs hang from
+  it (`BaseBuilding.sign_spot`), vanilla stations carry it and no `Workdrone` (`fffa61e`, `a993ac0`).
   The renders now discard the depot material's back faces as the game does; the earlier renders showed
-  a roof the game did not. Underground is the same entity, so the same fix.
+  a roof the game did not. Underground is the same entity, so the same fix. Both facts, culling and
+  the compiled-mesh layout, are filed in `SMR-Assets/_shared/IMPORTER_FACTS.md` (`fffa61e`).
 
 **(3) The cabin in the pit.** `SpaceElevatorCabin`'s bbox at 100 percent is +-689 x +-717 x -327..1374
 (entities.dat, build 25579348): at 75 percent, 10.7 m across, top 10.3 m over its origin, underside
@@ -479,14 +487,14 @@ culling and unchanged in substance. The elevator is still a proxy.
 **Editor steps (owner), then restart.** The depot mesh only.
 1. Mod Editor, **DEV ONLY - Elevator Depot (look prototype)**, EntitySpec **`SMROptInElevatorDepot`**,
    MeshSpec `mesh`, **Open in Importer**: ScenePath `.../export/SMROptInElevatorDepot.fbx` (sha256
-   `4d13c943...`). The selectors show the same 13 spots and four surfaces as before. **Import.**
+   `0a196e30...`). The selectors show 14 spots (`-Top` is new) and the four surfaces. **Import.**
 2. **Save the mod.** The receiver needs no re-import (its FBX differs by timestamp only; same
-   geometry, proof `f0a041d0...`). The hub mod needs no save.
+   geometry, proof `dde03c9d...`). The hub mod needs no save.
 3. Quit. The agent checks that `Meshes/SMROptInElevatorDepot_mesh.sub_0.hgrm` is newer than the import
    and that `Entities/SMROptInElevatorDepot.entjson` still carries 13 attaches, the same bbox and the
    `eTerrainHole` surfaces, then commits. Restart (`Code/` changed).
 
-**Then resume B from B1.** `Report()` first: 13 spots MATCH, `terrain_hole=true bbox=...`, `entity
+**Then resume B from B1.** `Report()` first: 14 spots MATCH, `terrain_hole=true bbox=...`, `entity
 imported`, `hexes=30`, the `elevator attach` lines, no Lua error. B2-B5 as written; at B5 the cabin sinks
 into the well and is gone below its floor. C as written. The three further readings above are checked
 at B3 (teeth, lines) and B2 (the deck).
