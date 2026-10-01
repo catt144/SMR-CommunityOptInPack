@@ -373,3 +373,29 @@ The earlier hub-save failures came from saving only the depot mod; saving the hu
 Brief 26 remains in place at the owner's close-out request; its handoff resumes B/C/D.
 The native sitting observations and their limits are above. No agent-side save edit, geometry/import,
 vanilla-art change, movement change or hub-code change occurred in these checkpoints.
+
+### Sitting B, surface, 2026-09-30 evening (orchestrator-guided): STOPPED, code and art owed
+
+Fixture: the replacement pair, surface depot slot 1 at (398500, 290110), underground slot 2 at
+(384000, 303100). Log `Mars.exe-20260930-21.43.16-6aba6e65.log` (live, not archived). Screenshots:
+SMR-Assets `37aeae9`, `elevatorstation/owner_feedback/sittingB_01..04_*.png`.
+
+Owner, verbatim: **"Flushed but we still have more errors. and can actually see the elevator moving
+in the tunnel"**, then **"And the tunnel is still see through which is shouldn't be"**: item 2 is
+NOT accepted. No item is accepted.
+
+- **B1 FAIL, code.** `Report()` dies at `10_ElevatorDepotDev.lua:524`: `attempt to call a nil value
+  (method 'GetEntityOutlineShape')`, on both depots (log 359, 390, 392). The spot MATCH lines, the
+  `terrain_hole` line and the `elevator attach` list never print, so the core's frame is still
+  unnamed. The dressed lines (316, 317) read `receiver=false signs=0` surface and `receiver=true`
+  underground, as A2 predicted.
+- **The cabin shows in the tunnel** (owner; `sittingB_03`): from above, the cabin is seen descending
+  in the pit under the portal. The pit and the core's well are one open volume.
+- **The tunnel is still see-through** (owner, item 2). The orchestrator's reading of `sittingB_01`, `_02`, `_04`,
+  a claim for the build agent to check: only the ring frame and thin black ribs render; sky and the
+  tunnel's inside show through where the shell's skin should be. Suspect face orientation or
+  single-sided culling after the design-pass re-import (brief 25's shell had a roof at its sitting).
+- Further readings, same status: black saw-tooth edges along both sides of the pit (`_02`, `_03`);
+  stray blue lines crossing diagonally (`_02`, `_03`, `_04`), not reading as wagon-height guides;
+  the descending deck reads as a solid wedge with a flat sand-coloured face (`_01`, `_04`).
+- Not checked: B4's selection outline, B5's cabin cycle, C, D.

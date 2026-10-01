@@ -77,6 +77,19 @@ then run in this pass's sitting, after the look checks. Fixture: the owner's sav
 hub+elev** (two hubs, Capacity Network, a vanilla elevator, the depot pair placed).
 
 
+## Refire, 2026-09-30 evening: sitting B stopped
+
+The orchestrator-guided surface sitting stopped on code and art faults; the record and the
+owner's words are in the report's
+[Sitting B](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-surface-2026-09-30-evening-orchestrator-guided-stopped-code-and-art-owed)
+section, screenshots in SMR-Assets `owner_feedback/sittingB_*`. Fix, in order: (1) `Report()`'s
+crash at `10_ElevatorDepotDev.lua:524` (`GetEntityOutlineShape` is nil), so B1 and the frame's name
+can be read; (2) the tunnel, still see-through (owner: *"And the tunnel is still see through which is shouldn't
+be"*; the shell shows no roof from outside); (3) the cabin seen moving in the pit
+(owner: *"can actually see the elevator moving in the tunnel"*). Check the report's further
+readings (saw-tooth pit edges, stray blue lines, the wedge-faced deck) as claims. Then re-render,
+get the owner's yes if the art changed, and resume B from B1.
+
 ## Handoff, 2026-09-30 close-out
 
 Resume **B/C's visual checks on both maps, then D's hub smoke** in the
