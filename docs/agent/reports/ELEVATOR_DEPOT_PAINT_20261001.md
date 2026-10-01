@@ -429,3 +429,44 @@ The orchestrator, `063a10d`: with brief 27 closed, items 1 and 2 of "For the orc
 - **Still owed.** The owner's yes on the renders was re-asked as OI-39 (OI-36 left the owner's list
   with brief 27's close, `d0a46ce`, before the owner had acted on it) and came the same day:
   *"pass"*. Owed now: the import (steps above), then the sitting on both maps, day and night.
+
+### Run B, the import landed (2026-10-01 evening): checks, the cost, one more editor save
+
+Executed model as above (Claude Fable 5.1, `claude-fable-5-1`, the `_high` session; no subagent).
+Start `840a207`, build 25579348 (`--emit-fingerprint`, GREEN). The owner ran the import steps and
+left the Mod Editor's save uncommitted in the working tree; this run checked it against README
+step 4 and committed it as **`e280cda`** (pathspec: the dev mod's generated template, entities,
+meshes, import items, metadata, the new `Materials/SMROptInElevatorDepot.mtljson`; the hub mod's
+generated template and metadata). The DDS are gitignored (`.gitignore:25`) and stay on disk.
+
+| check (README step 4) | result |
+|---|---|
+| `Materials/SMROptInElevatorDepot.mtljson` | present: `Colorization` → `SMROptInElevatorDepot_CM.dds`, `ColorizationChannel: 0`, `Colors: 3`, the other four maps as the source named them |
+| both `.entjson` | the material path moved from `SMROptInElevatorStation.mtljson` to `SMROptInElevatorDepot.mtljson` |
+| `Textures/` (`ls -la`, 18:39 today) | BC 11184972 B, CM 2796364 B, NM 22369796 B, RM 2796364 B, SI 11184972 B; the old `SMROptInElevatorStation_*.dds` untouched |
+| depot `metadata.lua` | version 12 → 13, code list unchanged |
+| regenerated depot template (`grep -n palette_color`) | the three names `outside_accent_1`, `outside_base`, `electro_accent_2`; the description says the cabin carries cargo once an hour |
+| hub `metadata.lua`, generated template | version 62 → 63; both upgrade texts now `<icon_Power>` |
+| `cargo_upgrade_smoke.py --require-generated` | PASS, "Generated upgrade slots 1/2/3/4, base storage and power match source" |
+| `props_smoke.py` | PASS on HEAD + working tree |
+| `wiring_smoke.py` | FAILS at §10b only (`the hub fit_title has two divisions`), brief 29's owed item, as before the save |
+
+The meshes recompiled smaller (shell 1052921 → 555481 B, receiver 30209 → 19049 B); the importer
+re-ran on the same FBX with the new material, and the entity boxes in both `.entjson` did not move.
+
+**The approved cost (owner, `eee364a`) is written** in
+`Data/BuildingTemplate/SMROptInElevatorDepotDev.lua`: `construction_cost_Concrete 5000`,
+`construction_cost_Metals 2000`, `construction_cost_MachineParts 1000`, `build_points 10000`; the
+`'instant_build', true` line is removed, so the template takes the default (off; the hub's source
+carries no such line either). Vanilla's elevator for scale: `Src/Data/BuildingTemplate/SpaceElevator.lua:7-12`
+on 1.1.1.406343, 400/200/150/150 and 120000 build points for both sides. The owner's version-13
+save ran before this write, so the generated class file still says 1000 and `instant_build = true`
+(the editor's output, not hand-edited): **one more depot Mod Editor save** makes it live. That save
+is the sitting's step 0, below, and the generated-file check after it is
+`grep -n "construction_cost\|build_points\|instant_build" tools/devmods/elevator_station/Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua`
+(three cost lines, 10000, no `instant_build`).
+
+**The sitting's first batch, as handed to the owner.** Step 0 (the editor): Mod Editor → DEV ONLY -
+Elevator Depot → save, change nothing → quit; the agent runs the grep above, then the owner
+restarts. P1 as written in the run-B section above, with the pads painted at the dress
+(`palette=` 3 or more in the dressed log line). P1b, P2 as written. Batches P3-P5 follow.
