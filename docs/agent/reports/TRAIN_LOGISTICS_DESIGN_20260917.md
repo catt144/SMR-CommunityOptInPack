@@ -4117,3 +4117,10 @@ board a normal station in the underground which is also normal vanilla."* Screen
 underground). Passengers then never ride the depot itself: they walk from it to vanilla's elevator.
 Vanilla's `LabelsConnectedToStations.Elevator = "all"` suggests this chain may already run with no
 code; a live test comes before any brief.
+**Owner's ask, drone visibility of the elevator's storage (2026-10-01):** *"can we make the internal
+storage of the elevator have a button that makes it either visable or blind to drones? Like right now
+the elevator even though its connected by two train stations their is a drone hub that has both of
+those stations in range. so the drones are constantly at heavy load trying to balance the stations and
+the elevator even though the trains should be doing the work"*. Open: which storage (vanilla's
+elevator, the depot's planned store, or both) and whether stations need the same switch; feasibility
+unchecked.
