@@ -4108,3 +4108,12 @@ creates and links a real vanilla `Elevator` pair, and vanilla routes train, elev
 never carry colonists across maps (`LRTransport.lua:51`). Vanilla's `MapSharedDepot`
 (`Elevator.lua`) is already a cross-map shared store, an input for the cargo wiring. Unproven: that a
 vanilla elevator beside a station carries train passengers in play.
+**Owner's passenger route (2026-10-01):** vanilla's elevator carries colonists (owner: *"Yea the
+vanilla elevator carries colonists"*). Proposal, verbatim: *"What if we just make colonist be able to
+depart from a elevator. Say we have this setup a train with colonists deliver the people to the
+surface elevator, they exit the building and ride the elevator down, which is normal vanilla and the
+board a normal station in the underground which is also normal vanilla."* Screenshot: SMR-Assets
+`owner_feedback/passengers_01_depot_beside_vanilla_elevator.png` (the depot beside vanilla's elevator,
+underground). Passengers then never ride the depot itself: they walk from it to vanilla's elevator.
+Vanilla's `LabelsConnectedToStations.Elevator = "all"` suggests this chain may already run with no
+code; a live test comes before any brief.
