@@ -4117,6 +4117,10 @@ board a normal station in the underground which is also normal vanilla."* Screen
 underground). Passengers then never ride the depot itself: they walk from it to vanilla's elevator.
 Vanilla's `LabelsConnectedToStations.Elevator = "all"` suggests this chain may already run with no
 code; a live test comes before any brief.
+**LIVE PASS, same day (owner):** *"Passengers is already solved, I just watched it end to end, worked
+exactly how we wanted it"*. Train to the surface depot, walk to vanilla's elevator, down, board an
+underground station: vanilla behaviour, **no passenger code in the depot**. Screenshots: SMR-Assets
+`owner_feedback/passengers_02..03_*.png`. The wiring brief must not break this chain.
 **Owner's ask, drone visibility of the elevator's storage (2026-10-01):** *"can we make the internal
 storage of the elevator have a button that makes it either visable or blind to drones? Like right now
 the elevator even though its connected by two train stations their is a drone hub that has both of
