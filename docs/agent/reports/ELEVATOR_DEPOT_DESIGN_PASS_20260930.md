@@ -482,7 +482,8 @@ descent, so an 80 cm sliver of it may show through the mouth from a low camera: 
 **Renders for the owner's yes.** `SMR-Assets/elevatorstation/blender/review_design_pass/index.html`,
 sheets 7-9 (`sheet_7_sittingB_side.png`, `sheet_8_sittingB_top.png`, `sheet_9_sittingB_front.png`): the
 owner's sitting B screenshot beside the culled render from that angle. Sheets 1-6 are re-rendered with
-culling and unchanged in substance. The elevator is still a proxy.
+culling and unchanged in substance. The elevator is still a proxy. **Owner, 2026-10-01, on sheets 7-9:
+*"Those look good"*.** The render gate is cleared; the re-import below is next.
 
 **Editor steps (owner), then restart.** The depot mesh only.
 1. Mod Editor, **DEV ONLY - Elevator Depot (look prototype)**, EntitySpec **`SMROptInElevatorDepot`**,

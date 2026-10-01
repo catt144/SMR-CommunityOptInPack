@@ -91,7 +91,8 @@ camera under its plane saw through both sheets (`cbfac1f`, Assets; the mesh data
 between imports, the angles had); the cabin is not drawn below the well's floor
 (`cabin_hide_below`, `5a24b04`). A lip under grade beside the pit answers the saw-teeth; the stray
 lines and the wedge are the roof's absence. The art changed, so in order: (1) the owner looks at
-sheets 7-9 in `review_design_pass/index.html` and says yes or no in words; (2) on yes, the editor
+sheets 7-9 in `review_design_pass/index.html` and says yes or no in words (owner, 2026-10-01: *"Those
+look good"*: done; do not ask again); (2) the editor
 steps in that report section (the depot mesh only, which also carries the handoff's deferred `Top`
 spot, `fffa61e`; no receiver, no hub save), then restart; (3) resume B from B1 with `Report()` as the
 first read.
