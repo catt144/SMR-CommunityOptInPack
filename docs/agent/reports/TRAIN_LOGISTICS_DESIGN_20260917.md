@@ -966,6 +966,12 @@ vanilla `ColdSensitive` (report `TRAIN_HUB_POWER_UPGRADE_20260928.md`). Brief 21
    It follows the all-upgrades style: bought once for the colony, one shared state, salvage
    changes nothing. On a fourth slot, the owner: vanilla's Excavator carries **six** upgrades
    (owner's screenshot), so more than three is a shape the game already has.
+   **LIVE PASS 2026-10-01**, all five smoke steps (owner; brief 22 deleted): both hubs 2,000 then
+   4,000 after one purchase, 10 to 29 power with Storage Hub on and back to 10 off.
+   `reports/TRAIN_HUB_STORAGE_20260929.md` holds the run. **Owner, same day, on every hub
+   upgrade's text:** *"much much more wordy then vanilla. Its more like reading a paragraph then
+   glancing and knowing this is what I get, this is what it costs."* The texts follow vanilla's
+   shape: one effect line, the panel's own cost lines; the orchestrator's draft awaits the owner's yes.
 
 **Train Cargo's cost remains 40 Metals + 20 Polymers**, aimed at mid-to-late colonies.
 All three upgrades follow the 2026-09-29 ruling above: the colony owns the purchase,
@@ -4081,3 +4087,8 @@ placement anywhere with each half placed by the player, and an agent-sized drone
 table above stands where it is not contradicted; the rulings and the evidence are in
 `reports/ELEVATOR_STATION_LOOK_20260929.md` §6 until the orchestrator folds them here. Brief 25 is
 the depot's look handoff.
+**Design pass 2 accepted (owner, 2026-10-01):** *"I did a full check of the desing, I think we look
+good at this point. atleast until we get through testing and we do paint and final checks"*. The
+record is `reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md`; briefs 25 and 26 are parked for the paint
+pass. Open there: `Measure()`'s underground reading, the `receiver_z` tune, and the frame inside the
+core, which is vanilla's mesh (removing it is a change to vanilla's elevator). The wiring brief is next.

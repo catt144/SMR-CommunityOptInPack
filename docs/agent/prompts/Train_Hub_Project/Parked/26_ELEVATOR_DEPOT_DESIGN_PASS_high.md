@@ -81,10 +81,10 @@ hub+elev** (two hubs, Capacity Network, a vanilla elevator, the depot pair place
 
 The orchestrator-guided surface sitting stopped on code and art faults; the record and the
 owner's words are in the report's
-[Sitting B](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-surface-2026-09-30-evening-orchestrator-guided-stopped-code-and-art-owed)
+[Sitting B](../../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-surface-2026-09-30-evening-orchestrator-guided-stopped-code-and-art-owed)
 section, screenshots in SMR-Assets `owner_feedback/sittingB_*`. All three are fixed at the desk and
 recorded, with the evidence, in the report's
-[three faults](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-bs-three-faults-fixed-at-the-desk-2026-09-30-late-evening)
+[three faults](../../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-bs-three-faults-fixed-at-the-desk-2026-09-30-late-evening)
 section: `Report()` calls `GetEntityOutlineShape` as the global it is (`5a24b04`); the liner now faces
 the tunnel, because the game culls back faces and the roof slopes away from the mouth, so every
 camera under its plane saw through both sheets (`cbfac1f`, Assets; the mesh data had not changed
@@ -95,7 +95,7 @@ sheets 7-9 in `review_design_pass/index.html` and says yes or no in words (owner
 look good"*: done; do not ask again); (2) the editor
 steps in that report section: done 2026-10-01 00:06, mod version 11 (`c7e59aa`), restarted; (3) B1
 PASS on both depots in the report's
-[Sitting B resumed](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-resumed-2026-10-01-0006-orchestrator-guided)
+[Sitting B resumed](../../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#sitting-b-resumed-2026-10-01-0006-orchestrator-guided)
 section. **Owner, 2026-10-01: the orchestrator runs the sitting from here** (*"I will have the
 orchestrator handle the testing"*): B2-B5 as written in the sitting batches, then C and D, with the
 report's sitting B dispositions (the lip at B3, the cabin at B5, the core's frame is vanilla mesh and
@@ -105,7 +105,7 @@ delete you prompt"*).
 ## Handoff, 2026-09-30 close-out
 
 Resume **B/C's visual checks on both maps, then D's hub smoke** in the
-[design-pass report](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#the-sitting-batches-one-prediction-per-step).
+[design-pass report](../../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#the-sitting-batches-one-prediction-per-step).
 The eight design items above still need the owner's in-game acceptance. Keep this prompt in place
 (owner, 2026-09-30: "Ok do your close out but don't remove the prompt").
 
@@ -116,7 +116,7 @@ mesh, so one depot-only Mod Editor import is owed (the refire section above). Re
 
 The rope blocker is resolved by the owner's "flushed, everything is working correctly now".
 The current replacement depots and clean native census are recorded in the report's
-[Owner confirmation](../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#owner-confirmation-and-clean-current-fixture),
+[Owner confirmation](../../../reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md#owner-confirmation-and-clean-current-fixture),
 committed in `d627f3b`. Continue from that state without repeating the rope exercise.
 `Measure()`'s nil-Z repair (`493f518`) still needs its native underground ceiling reading.
 

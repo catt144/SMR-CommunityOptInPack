@@ -130,7 +130,7 @@ sill and replacement of the beam. The connector moves to (−5000, 0, 800), dire
 (−6000, 0, 800); arrival stays at track height, the Stop/Spawn pairs and first departure leg are
 below grade. The Lua uses the same spots and a 90° elevator turn. Full members, dimensions,
 source hashes and the prepared spot table are in
-[the report](../../reports/ELEVATOR_DEPOT_LOOK_20260930.md#prepared-revision-what-changed-and-what-passed).
+[the report](../../../reports/ELEVATOR_DEPOT_LOOK_20260930.md#prepared-revision-what-changed-and-what-passed).
 
 `study_depot_motion.py` samples arrival and departure against the exported shell/flat grade.
 It clears the owner's approximately 20 m train envelope with centred origin assumed. Native

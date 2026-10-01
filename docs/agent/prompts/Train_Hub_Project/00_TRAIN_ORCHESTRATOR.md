@@ -92,6 +92,9 @@ before it fires.
         its `SMR_TrainHubDev` Mod Editor save and its five steps fold into the **next design
         pass's** editor-and-import session. The design pass is **brief `26`** (eight items, the owner's words), fired by the owner;
         the orchestrator guides its sitting, which ends with brief `22`'s five steps.
+        **2026-10-01: both PASSED live** (brief 26's design accepted until the paint pass; brief
+        22's five steps): 22 deleted, 25 and 26 parked; spec §4.10 and §11 hold it. **Next: the
+        wiring brief**, and the hub upgrade-text rewrite once the owner approves the style (§4.10).
      2. **The audit**, below; then **"remove its dev tags"**, still undefined. The orchestrator's
         guess, not yet answered by the owner: moving the hub out of `SMR_TrainHubDev_20260918` into
         the shipping Opt-In Pack as modules. The recommendation given was to audit the dev layout
@@ -100,7 +103,8 @@ before it fires.
      **Owner questions still open:** whether auto-fill stays; the hub-economy candidate (OI-19,
      spec grep `hub's economy becomes an upgrade`); accepting the look (`Parked/TRAIN_HUB_LOOK_high.md`).
      **Housekeeping, owed:** archive the closed sitting logs with a receipt, the game being closed.
-     From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
+     From 2026-10-01: `00.06.49` (sitting B's B1) and `11.16.04` (batch D); from 2026-09-30 also
+     `21.43.16` (sitting B, stopped). From 2026-09-30: `12.23.04` (the depot sitting: look, train stream, underground Measure) and
      `11.47.37` (its first placement); the `13.xx` logs are brief 26's agent, ask.
      From 2026-09-28: `14.27.05`, `17.13.10`, `19.07.48`, `20.00.03`, `20.45.30`, `20.48.36`
      (ask which were sittings; `12.06.47` to `13.25.51` never read), `22.20.16` (brief 21's first

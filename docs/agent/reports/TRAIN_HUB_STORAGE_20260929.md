@@ -134,8 +134,9 @@ on (steps 1 and 3: both hubs 2,000, then 4,000 after one purchase). Owner, verba
 whole stack, only see one thing that stood out to me as an issue, the hub requires 29 power before
 the power upgrade is purchased, and once its purchased, and if it off."** The 29 is the step 4
 witness (10 base + 19 while Storage Hub is on); Power Upgrade changes production (75 to 150), not
-consumption. Whether 29 is wrong is the owner's question, open. Step 4's switch-off reading (10)
-is not in the log's slot reads.
+consumption. The owner then: **"Oh I was mistaken, I was confusing power upgrade between storage hub
+upgrade. So we are an all pass for this round then?"**, and on Storage Hub switched off reading 10:
+**"I just checked and confirmed it visually"**. **All five steps PASS** (owner, 2026-10-01).
 
 Owner, same message, on every hub upgrade's text: **"I also notice in general out upgrade texts for
 what you get, and what it costs feels much much more wordy then vanilla. Its more like reading a
