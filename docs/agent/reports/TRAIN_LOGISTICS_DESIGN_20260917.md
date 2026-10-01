@@ -4094,8 +4094,9 @@ table above stands where it is not contradicted; the rulings and the evidence ar
 the depot's look handoff.
 **Design pass 2 accepted (owner, 2026-10-01):** *"I did a full check of the desing, I think we look
 good at this point. atleast until we get through testing and we do paint and final checks"*. The
-record is `reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md`; briefs 25 and 26 are parked for the paint
-pass. Open there: `Measure()`'s underground reading, the `receiver_z` tune, and the frame inside the
+record is `reports/ELEVATOR_DEPOT_DESIGN_PASS_20260930.md`. The paint pass is brief 28 (owner,
+2026-10-01: *"get it production ready. Probably match the general them of the train hub that we made
+while blending it in with the vanilla elevator look"*). Open there: `Measure()`'s underground reading, the `receiver_z` tune, and the frame inside the
 core, which is vanilla's mesh (removing it is a change to vanilla's elevator). The wiring brief is next.
 **Passengers, an open question (owner, 2026-10-01).** Building an underground fixture, the owner
 found colonists have no way down by train: *"colonist don't have a way down currently. so a player

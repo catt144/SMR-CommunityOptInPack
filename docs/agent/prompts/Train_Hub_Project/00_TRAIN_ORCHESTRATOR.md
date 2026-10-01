@@ -93,7 +93,8 @@ before it fires.
         pass's** editor-and-import session. The design pass is **brief `26`** (eight items, the owner's words), fired by the owner;
         the orchestrator guides its sitting, which ends with brief `22`'s five steps.
         **2026-10-01: both PASSED live** (brief 26's design accepted until the paint pass; brief
-        22's five steps): 22 deleted, 25 and 26 parked; spec §4.10 and §11 hold it. **Next: brief
+        22's five steps): 22 and 26 deleted, 25 parked; spec §4.10 and §11 hold it. Brief `28`, the depot's paint
+        pass, may run beside `27`; its Mod Editor import waits for `27`. **Next: brief
         `27`, the wiring**, authored 2026-10-01 for the owner to fire (passengers passed live on
         vanilla's elevator, no code; spec §11). The hub upgrade texts are rewritten at `6c53b46`;
         the owner's next `SMR_TrainHubDev` Mod Editor save makes them live (then
