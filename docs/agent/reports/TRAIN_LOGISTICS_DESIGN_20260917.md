@@ -4098,3 +4098,13 @@ right now has to create a train station, or rely solely on shuttles + our elevat
 both to get passengers down there"*. Asked whether passengers can ride the depot. The first wiring
 brief stays cargo-only until a read-only feasibility check (launched 2026-10-01) reports whether the
 game has a colonist map transfer the depot could hand passengers to.
+The check's answer (Opus subagent at low effort, a claim; one citation re-read): **moderate, on
+a vanilla routine.** On the 406343 tree, `ElevatorBase:UseElevator` (`Lua/Buildings/Elevator.lua`)
+moves a colonist with the engine's `TransferToMap`, and the colonist's map hooks reset dome, home and
+job. `LabelsConnectedToStations.Elevator = "all"` (`Building.lua:3843-3850`, re-read) already chains
+train legs to elevator legs. The colonist route planner recognizes an elevator only by class and is a
+`local` function, so the depot cannot simply claim to be one. The workable route is **(a)**: each depot
+creates and links a real vanilla `Elevator` pair, and vanilla routes train, elevator, train. Shuttles
+never carry colonists across maps (`LRTransport.lua:51`). Vanilla's `MapSharedDepot`
+(`Elevator.lua`) is already a cross-map shared store, an input for the cargo wiring. Unproven: that a
+vanilla elevator beside a station carries train passengers in play.
