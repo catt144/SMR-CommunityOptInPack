@@ -24,6 +24,13 @@ Concurrent tooling mirrors landed in `b9257f5`, outside this report. At the fina
 working-tree check on that HEAD, peer edits only wire the accepted icon in the depot's
 source/generated template and update its metadata version/hash. They are outside
 this audit commit; the tested gameplay code is unchanged.
+At commit time, `c94d89d` also landed. `git show c94d89d --
+tools/devmods/elevator_station/Code/10_ElevatorDepotDev.lua
+docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` confirms that its sole Lua
+change selects the tier-2 storage glyph for `upgrade1_icon`; the corresponding
+owner ruling is traced in §6. It changes no capacity, cost, name or test contract.
+The behavior run remains explicitly pinned to brief 30's closing code, and this
+icon-only delta is the audit's final committed-source addendum.
 
 Executed model: **Codex, based on GPT-6**, as identified in the session instructions;
 no more specific backend model identifier was exposed. No subagents. No todo tool was
@@ -370,6 +377,7 @@ coverage from §7. OWNER observations remain authority for visual acceptance.
 | Both halves need native train buttons | `InstallStationPanel` / native `customStation`; revision smoke. D passed by owner observation at `f8584b7`, without a logged completion watch. |
 | Orphan cabin must rest with no twin | `FollowTarget/start_cycle` path in `000b498`; revision smoke and native A. |
 | Depot icon matches painted building | **Live 32**; concurrent `463b027`/`6485695` provide/accept variant A. Source/template editor save and glance are still owed, not a code-complete icon claim. |
+| Capacity upgrade gets a basic storage icon | Concurrent `c94d89d` records the owner ruling and sets `upgrade1_icon` to `UI/IconsRemaster/Upgrades/expanded_warehousing_02.png`. The committed source lands that exact selection; an in-game appearance verdict is not inferred. |
 | Auto-fill stays | `70_TrainBay.lua`; train-fill smoke. Native siding spawn still owed. |
 | Hub economic and module-off defaults accepted | Generated costs and Electronics reserve hold. Content toggle is specified for 34, not implemented in the dev package. |
 | Hub look accepted for now; finish deferred | Preserved by parked look/model briefs; no unsolicited art change in audit. |
