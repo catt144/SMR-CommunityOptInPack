@@ -33,3 +33,13 @@ parts is 88% of repair time, and the module left hauling alone. The owner chose 
 designed 2026-09-01 and never built: broken air and water producers, then any broken building,
 go ahead of the player's priority arrows. The problem is still there in 1.1.0, but 1.1.0 deleted
 CalcLapTime, the module's only measure, so the owner parked it unjudged. Code: commit cc846e4.
+
+### ResidencyControl · parked 2026-10-02
+What: Opt-in dome policy row "Closed to new residents": no move-ins, residents carry on normally.
+Scope: full module (D03)
+Revives by: an attended 1.1.x sitting (Tourist arrival, rocket stopover, commute), then a ruling.
+Evidence: docs/agent/bugs/D03.md · docs/agent/reports/MODULE_REVALIDATION_1_1_0.md
+Basic summary: Built and tested on 1.0.7 (2026-07-28). 1.1.0 changed what ChooseDome receives, so
+the tourist carve-out went dead; repaired at the desk 2026-09-22, never seen in play. 1.1.x
+rewrote migration around it and the owner finds domes behave better now, so it is held out of the
+launch rather than judged. Vanilla still has no such setting. Code: commit 43f4c0e.

@@ -1126,7 +1126,8 @@ LOAD_ORDER_RULES = [
     # ⚖️ EMPTIED 2026-09-17 by owner ruling: both rules named Opt_NoHomeless, which
     # no longer ships (DEAD on 1.1.0 — it reads the renamed `exclusive_trait`). With it
     # gone, no two shipping modules wrap the same symbol: CohortHousing left with it, and
-    # ResidencyControl now wraps the global ChooseDome alone. The retired pair is kept
+    # ResidencyControl wrapped the global ChooseDome alone until it was PARKED on
+    # 2026-10-02 (owner; restore sha 43f4c0e). The retired pair is kept
     # here verbatim because restoring either module must restore its rule with it:
     #
     #   CohortHousing before NoHomeless — both post-wrap Colonist:FindEmigrationDome

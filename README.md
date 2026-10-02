@@ -13,7 +13,6 @@ downloads, share no files, and can be installed in either combination.
 |---|---|
 | Classic rockets | a player-controlled rocket parked at your colony keeps requesting launch fuel, so drones keep it fuelled while it waits |
 | Acknowledged warnings | dismissing a "Building Not Working" warning acknowledges the buildings it listed; a newly broken building still warns immediately |
-| Residency control | a per-Dome "Closed to new residents" policy row — no new Colonists move in, residents carry on normally |
 | Multiple Artificial Suns | build more than one, and solar panels stop checking only the first one for night-time light |
 | Drone dispatch overhaul (experimental) | the closest Drone Hub's fleet gets first claim on repair and cleaning jobs |
 | Cohort housing | Seniors and Children move themselves into free Retirement Home / Nursery slots when such a slot exists |

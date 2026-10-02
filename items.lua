@@ -50,10 +50,6 @@ return {
 		'CodeFileName', "Code/Opt_AcknowledgedWarnings.lua",
 	}),
 	PlaceObj('ModItemCode', {
-		'name', "Opt_ResidencyControl",
-		'CodeFileName', "Code/Opt_ResidencyControl.lua",
-	}),
-	PlaceObj('ModItemCode', {
 		'name', "Opt_MultipleSuns",
 		'CodeFileName', "Code/Opt_MultipleSuns.lua",
 	}),
@@ -69,12 +65,6 @@ return {
 		'name', "AcknowledgedWarnings",
 		'DisplayName', "Acknowledged warnings",
 		'Help', 'Dismissing a "Building Not Working" warning acknowledges the buildings it lists: they stay quiet until they recover (a later breakage warns again), while a NEWLY broken building always warns immediately. Without this, dismissal silences the whole category for 4 game hours and then it returns.',
-		'DefaultValue', false,
-	}),
-	PlaceObj('ModItemOptionToggle', {
-		'name', "ResidencyControl",
-		'DisplayName', "Residency control",
-		'Help', 'Adds a per-Dome "Closed to new residents" policy row to the Dome infopanel: no new Colonists move in, while current residents keep commuting, working and using services normally. Not a quarantine — that toggle still exists and still seals the Dome.',
 		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionToggle', {

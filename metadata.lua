@@ -11,7 +11,7 @@ return PlaceObj('ModDef', {
 	-- description draft in the fix-pack repo's STORE_METADATA_STRINGS.md
 	-- remains release-prep's option at this mod's own launch.
 	'title', "Relaunched Fix Pack: Opt-In Modules",
-	'description', "Opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged \"not working\" warnings, a per-Dome \"closed to new residents\" policy, more than one Artificial Sun, and two Drone stat dials (speed, carry capacity). Nothing is patched on disk: the mod wraps the game's own Lua at runtime, and a module you leave off behaves exactly like the unmodded game. Works with or without the Relaunched Fix Pack. ⚠️ Set both Drone dials back to base and then save before uninstalling — setting them to base clears the boost from the colony you are playing, and saving is what clears it from the file.",
+	'description', "Opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged \"not working\" warnings, more than one Artificial Sun, and two Drone stat dials (speed, carry capacity). Nothing is patched on disk: the mod wraps the game's own Lua at runtime, and a module you leave off behaves exactly like the unmodded game. Works with or without the Relaunched Fix Pack. ⚠️ Set both Drone dials back to base and then save before uninstalling — setting them to base clears the boost from the colony you are playing, and saving is what clears it from the file.",
 	'short_description', "Opt-in gameplay modules, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Relaunched Fix Pack.",
 	-- Split out of the Community Fix Pack on 2026-08-12: shipped there as
 	-- `optional = true` files and moved here whole, behaviour unchanged and
@@ -79,7 +79,6 @@ return PlaceObj('ModDef', {
 	-- (docs/agent/FIX_POLICY.md §3, persisted-name inventory rows 6-9). Do not retype them.
 	'default_options', {
 		AcknowledgedWarnings = false,
-		ResidencyControl = false,
 		MultipleSuns = false,
 		-- D15 (owner, 2026-09-28): a NEW key, not a donor lift; account contract
 		-- from here on (FIX_POLICY §3 inventory row 8).
@@ -101,10 +100,13 @@ return PlaceObj('ModDef', {
 	-- reach fought a new deliberate rule (zeroing Trade/TradePad/Rival rockets).
 	-- Removed from this list and from items.lua; restore sha `1716471`; record
 	-- is git + bugs/D01.md; archive copy at local/retired-modules/README.md.
+	-- ⚖️ 2026-10-02 (owner): ResidencyControl PARKED for launch — it sits against
+	-- 1.1.x's rewritten migration and its 09-22 repair was never seen in play.
+	-- Removed from this list, `default_options` and items.lua; restore sha
+	-- `43f4c0e`; record bugs/D03.md and docs/PARKED_MODULES.md.
 	'code', {
 		"Code/00_Core.lua",
 		"Code/Opt_AcknowledgedWarnings.lua",
-		"Code/Opt_ResidencyControl.lua",
 		"Code/Opt_MultipleSuns.lua",
 		"Code/Opt_DroneStatDials.lua",
 		"Code/Opt_ServiceInterestTags.lua",

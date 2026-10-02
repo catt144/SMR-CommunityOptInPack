@@ -157,8 +157,8 @@ runs under `pcall`; an error deactivates only that fix.
 ### The persisted-name inventory — save contract
 
 Every value below keeps its exact bytes forever. A removed writer does not release its name, and
-nothing restores a writer merely to make a count agree. Rows for retired D06, D07 and D12 remain
-contract. New persisted names join this table.
+nothing restores a writer merely to make a count agree. Rows for retired D01, D06, D07 and D12 and
+for parked D03 remain contract. New persisted names join this table.
 
 | # | exact bytes | kind | written at | read at |
 |---|---|---|---|---|
