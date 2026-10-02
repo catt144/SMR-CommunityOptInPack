@@ -214,3 +214,24 @@ acceptance has been inferred from the desk suite; the task brief is retained.
 Unrelated working paths left untouched: TestKit `Code/72_SMRTK_World.lua`, `README.md`;
 fix pack `docs/agent/reports/RULE_PLACEMENT_TEST.md`, `tools/SMRTK.md`. The local task
 introduced no changes to either pack's shipping `Code/` or to train movement.
+
+## Sitting, batches A and B (2026-10-02, guided by the orchestrator)
+
+Log `Mars.exe-20261002-10.43.08-6aba6e65.log`, read on each "flushed"; "LUA ERROR" count 0.
+
+- **A, Export 20% hubless: PASS on the log.** Slot 4 on StationBig 9702: `hub=none mode=export
+  percent=20 capacity=240000 stock=192000 target=48000`. Slot 5's first watch was disarmed by an
+  autosave (`reason=SaveGameStart`); at its re-press the stock stood at `before=48059`, the floor
+  within one unit, 144 Metals carried off by trains. The owner's word on the row's look is asked.
+- **B, Import 50% hubless: PASS on the log.** Supplier StationSmall 10531 at Export 0%, stock 96000
+  of 120000. Slot 5 on 9702: `before=44059` to `stock=119059 target=120000 supply_desired=0`,
+  `verdict=target_sampled`.
+- **B, persistence: PASS.** The owner pressed **Save A / Load A** (not B), so Load A is now this
+  later state; the depot pair is intact in it. After the load, slot 4 on 9702 reads `mode=import
+  percent=50 target=120000`.
+- **B, a hub's own station unchanged: PASS on the log.** Slot 4 on surface station 2007:
+  `hub=6430 hub_role="serving hub" mode=export percent=9 target=10800`.
+- **TestKit papercut:** slot 5 refused five presses with `reason="cancel the current run first"`
+  while batch A's re-armed run was still live; it cleared only when the owner unpaused and the old
+  watch fired `verdict=row_changed`. Slot 5 then refused once with `reason="pause first"` and armed
+  on the next press. A slot that cancels its own stale run, or says how, would save the owner this.
