@@ -21,7 +21,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `34b_ROWS_AND_AUTOFILL_FIXES_high.md` | Three owner fixes (2026-10-02): Export rows take only stock above each storage's Desired Amount; no train ever appears in the hub (auto-fill at the joining station, or cut); an unload never adds more than the train gave up (brief 33's finding) (spec §4.8 greps `Export takes only the excess`, `enters at the joining station`). | **Ready**: phase 2 (plan `TRAIN_34B_PLAN_20261002.md`; 34 closed) |
+| `34b_ROWS_AND_AUTOFILL_FIXES_high.md` | Export rows keep each depot's Desired Amount: build the FindTask pairing filter (owner, 2026-10-02; no reverse block), plus Fix 2's owed in-game steps. Fix 2 built; Fix 3 closed (vanilla, fix-pack bug report). Rewritten for a fresh session. | **Ready**: fresh session |
 | `35_FINAL_BATTERY_high.md` | The final full battery on the shipping layout, both configurations and toggle directions; its pass completes the project and purges this folder. | Held until `34b` closes |
 
 ## `Parked/` — do not fire
