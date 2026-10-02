@@ -502,3 +502,17 @@ live as written; committed as the commit after `9de0103`.
   `OverrideColonyColorScheme(false)` (`:10-13`, `g_OverrideCCS` is a GameVar and would persist in
   a save). Batch 1 closes on the owner's words; the game's day and night answers are theirs, no
   screenshot taken. Next: batch 2, underground (P3-P5).
+
+**Found by the owner during batch 1 (2026-10-01): the construction cursor shows the portal shell
+alone.** Their screenshot: the build-mode preview is the depot's own entity, painted, with its 30
+hexes; the 75 % elevator, the cabin and the ropes are absent. Mechanism (read on 1.1.1.406343):
+vanilla's `CursorBuilding:Init` (`Lua/Construction/Construction.lua:569-635`) changes the cursor
+to the template's entity, attaches only the entity's auto-attaches and the configurable attaches,
+paints it, and sends `Msg("CursorBuildingInit", self)` (`:635`); the depot's rig is attached by
+`D.Dress` at `GameInit` (`10_ElevatorDepotDev.lua:141`, `:308`), which the cursor never runs and
+which refuses a non-depot object and a `ConstructionSite`. Vanilla's elevator shows whole on its
+cursor because its mesh is one entity. Not a map defect; a Lua item outside this brief's scope
+(the depot's Lua behaviour). The route, if the owner wants it: an `OnMsg.CursorBuildingInit`
+handler that attaches the elevator visual at scale 75 (and the cabin) to the cursor when its
+template is `SMROptInElevatorDepotDevBase`, a cursor-only copy of the dress with no receiver or
+ropes. Awaiting the owner's word on where it goes.
