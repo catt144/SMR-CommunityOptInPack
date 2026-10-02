@@ -182,6 +182,8 @@ CHECK_ALLOWLIST = {
         "declares it — Units/Train.lua:862 (1.1.1.406343, brief 34); no Require table of its own",
     ("StationRows_40_TrainDistribution", "MultiResourceDepotBase", "IsResourceEnabled"):
         "declares it — Buildings/MultiResourceDepot.lua:247 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "TaskRequestHub", "FindTask"):
+        "declares it — Lua/_TaskRequest.lua:74 (1.1.1.406343, brief 34b); D.Require checks FindTask and FindSupplyRequest before file-scope installation",
     ("StationRows_40_TrainDistribution", "Station", "BuildingUpdate"):
         "declares it — Buildings/Station.lua:482 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
     ("StationRows_40_TrainDistribution", "Station", "GetResDesiredAmount"):

@@ -15,8 +15,8 @@
 -- hub settings never migrate into it. Hubless baselines are restored to vanilla
 -- during saving, so removing the mod leaves only ignored settings data.
 -- Hub baselines linger without the mod until vanilla rewrites desired amounts.
--- Brief 34b (owner 2026-10-02): an Export row's drone baseline pulls nothing; its
--- demand desired is capacity, not vanilla's send-branch 0 (see D.Apply).
+-- Brief 34b (owner 2026-10-02): Export pairings keep storage's own Desired Amount,
+-- including already booked pickups. Vanilla's send baseline stays intact.
 -- No thread, captured yielding frame, saved callback or standing claim.
 
 SMROptInTrainDistribution = {}
@@ -38,6 +38,7 @@ function D.CallsFor(st) return calls_by_station[st] or 0 end
 -- Standalone dev-mod Require: no dependency on the shipping pack. Include
 -- declaring methods AND early-bound aliases; check before installing anything.
 D.Require = {
+	{ "TaskRequestHub", "FindTask" }, { "TaskRequestHub", "FindSupplyRequest" },
 	{ "Train", "TransferCargo" }, { "Train", "UnloadAll" },
 	{ "Station", "SetDesiredAmount" }, { "Station", "GetTrainTransportPolicy" },
 	{ "Station", "GetResDesiredAmount" }, { "Station", "SetAcceptResourceState" },
@@ -211,6 +212,69 @@ function D.Effective(st, res)
 	return effective(st, res, hub), hub
 end
 
+-- Archived 1.1.1.406343 Lua/_TaskRequest.lua:65-86: FindTask returns an
+-- unassigned supply/demand pair; FindSupplyRequest supports exclude_building.
+-- Installed before class flattening, so every controller inherits the wrapper.
+-- The one retry is the starvation guard: the rejected source cannot win it.
+-- No recursive FindTask or queue scan; if the alternative also has no surplus,
+-- return no task; the live smoke must prove continued traffic across retries.
+local find_task = TaskRequestHub.FindTask
+local pairing_stats = { capped = 0, retried = 0, substituted = 0, refused = 0 }
+D.ExportPairingStats = pairing_stats
+local function export_surplus(supply, n)
+	if supply:IsAnyFlagSet(const.rfStorageDepot) then
+		-- Target subtracts outstanding pickups. Actual alone would promise the same
+		-- surplus to several drones (Drone.lua:1130-1139 assigns before travelling).
+		return Min(n, Min(supply:GetActualAmount(), supply:GetTargetAmount()) - supply:GetDesiredAmount())
+	end
+	return n -- producer output / loose piles keep the engine's amount
+end
+local function assignable_pair(supply, demand, n)
+	return n > 0 and (n >= const.ResourceScale
+		or not (supply:IsAnyFlagSet(const.rfWaitToFill) or demand:IsAnyFlagSet(const.rfWaitToFill)))
+		and supply:CanAssignUnit(n) and demand:CanAssignUnit(n)
+end
+function TaskRequestHub:FindTask(agent, ...)
+	local supply, demand, res, n, priority = find_task(self, agent, ...)
+	if saving or not supply or not demand or not res or not n
+		or not supply:IsAnyFlagSet(const.rfSupply) or not demand:IsAnyFlagSet(const.rfDemand)
+		or not supply:IsAnyFlagSet(const.rfStorageDepot) then
+		return supply, demand, res, n, priority
+	end
+	local st = demand:GetSource(agent)
+	if not D.IsRowStation(st) or not st.demand or st.demand[res] ~= demand or not enabled(st, res) then
+		return supply, demand, res, n, priority
+	end
+	local entry = D.Get(st, res)
+	if not entry or entry.mode ~= "export" then return supply, demand, res, n, priority end
+	local take = export_surplus(supply, n)
+	if take == n then return supply, demand, res, n, priority end
+	if assignable_pair(supply, demand, take) then
+		pairing_stats.capped = pairing_stats.capped + 1
+		return supply, demand, res, take, priority
+	end
+	-- Keep special pairing compatibility just as Drone:ImproveDemandRequest does
+	-- (Drone.lua:845-846). The engine retains distance, reachability and slots.
+	pairing_stats.retried = pairing_stats.retried + 1
+	local ignore = (~demand:GetFlags()) & (const.rfSpecialDemandPairing | const.rfSpecialSupplyPairing)
+	local excluded = supply:GetSource(agent)
+	local other, offered = self:FindSupplyRequest(agent, res, n, nil, ignore, nil, excluded)
+	if other and other ~= supply and offered then
+		local source = other:GetSource(agent)
+		-- The standalone supply finder has no destination argument: it can offer
+		-- this station's own supply. Such a self-haul is not a substitute pairing.
+		if IsValid(source) and source ~= st and source ~= excluded then
+			take = export_surplus(other, Min(n, Min(offered, demand:GetTargetAmount())))
+			if assignable_pair(other, demand, take) then
+				pairing_stats.substituted = pairing_stats.substituted + 1
+				return other, demand, res, take, priority
+			end
+		end
+	end
+	pairing_stats.refused = pairing_stats.refused + 1
+	return nil
+end
+
 local function line_has_hub(train, track, hub)
 	if not hub or not (train.city and train.city.train_track_routes[track]) then return false end
 	local found = false
@@ -329,18 +393,6 @@ function D.Apply(st)
 			st.desired_amount = false
 			local ok, why = pcall(set_desired, st, n)
 			restore_baseline()
-			if ok and entry.mode == "export" then
-				-- Owner 2026-10-02 (spec 4.8, "Export takes only the excess"): vanilla's send
-				-- branch leaves the demand's desired amount at 0, the strongest pull on the
-				-- map, which drained depots below their own Desired Amount (archived
-				-- 1.1.1.406343 Station.lua:982-987; a demand's desired is "room not wanted",
-				-- StorageDepot.lua:68). Raise it to capacity with the same request writer, so
-				-- the row pulls nothing and receives only what vanilla pushes: producers'
-				-- output (ResourceStockpile.lua:328-332) and storage above its Desired Amount.
-				ok, why = pcall(function()
-					st.demand[res]:SetDesiredAmount(st:GetMaxStorageForAnyOneResource())
-				end)
-			end
 			if not ok then D.error = tostring(why) end
 		end
 	end
