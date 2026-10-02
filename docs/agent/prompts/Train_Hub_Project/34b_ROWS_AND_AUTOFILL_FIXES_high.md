@@ -106,7 +106,10 @@ session has one, otherwise in the report.
    and no TestKit slots (33's attended check holds slots 7-10; 34 is moving the code). Then stop
    and tell the orchestrator the plan is ready.
 3. **Phase 2, after 33 and 34 close** (the orchestrator says so): re-read the moved files, apply
-   the plan where 34 put them, desk-check, and preload the smoke.
+   the plan where 34 put them, desk-check, and preload the smoke. 34 closed 2026-10-02
+   (`4edf446`): `tools/devmods/train_hub/Code/<NN>_<name>.lua` is now `Code/StationRows_<NN>_…`
+   (10, 40, 45) or `Code/TrainHub_<NN>_…` (20, 30, 60, 70), and its tests are in
+   `tools/trains/hub/tests/`. The whole map is in `reports/TRAIN_MOVE_20261002.md`, "Handoff".
 
 ## Scope
 

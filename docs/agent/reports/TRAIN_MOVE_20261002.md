@@ -202,3 +202,22 @@ The owner's screenshots, all read:
 **The Mod Options help hovers** (owner's later screenshots, all toggles On): Train Hub's help
 shows "Train Stations" highlighted, and Elevator Depot's shows its approved text. `<em>` renders
 in that rollover; no literal tags appear. Nothing is carried to brief 35 from this check.
+
+## Engine facts learned here (EF candidates, unfiled)
+
+`EF-` ids are allocated by the fix pack, so these stay here until a fix-pack session files them.
+All are SOURCE on 1.1.1.406343. Each now has a machine guard in this repo, given in brackets.
+
+- **A `ModItemCode`'s file is its name.** `GetCodeFileName` is `"Code/" .. name .. ".lua"` with
+  `/ ? < > \ : * | "` made `_` (`CommonLua/Modding/ModItem.lua:164-168`). `CodeFileName` is
+  read-only and unused (`:103`), so code cannot live in a `Code/` subfolder. [doccheck MODULE SETS
+  and `upload_preflight.py`.] The fix pack's own MODULE SETS gate reads `CodeFileName` alone,
+  which is worth its session's look.
+- **A SaveDef lists `code` as `ModItemCode` items first, then unreferenced presets in handle
+  order** (`Mod.lua:535-556`, `:829-853`). It rebuilds `entities` only from `SourceData`
+  EntitySpec items (`:816-827`). Confirmed by the owner's save on 2026-10-02.
+  [`upload_preflight.py`]
+- **A truthy `GetAdditionalBuildingLocks` entry hides a template from the build menu**
+  (`Lua/X/BuildMenu.lua:400-408`, `:731`). [`module_gates_smoke.py`]
+- **Mod Options help renders `<em>`** (through `SetRolloverText`, `PropFilter.generated.lua:169-171`).
+  The owner saw it on 2026-10-02.

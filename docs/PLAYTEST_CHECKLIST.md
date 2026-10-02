@@ -15,6 +15,13 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-42 · opened 2026-10-02 · launch
+Who writes the store description's sentence about the trains, and when?
+- `metadata.lua`'s `description` lists the older modules only; the three train modules ship now.
+- It also says an off module "behaves exactly like the unmodded game"; built hubs and depots keep working off.
+- Say "draft it now for my yes" or "at launch prep".
+Home: `docs/agent/reports/TRAIN_MOVE_20261002.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
