@@ -9,7 +9,8 @@ cited from `B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/1.1.1.406343/Src`. Executed mod
 
 **Outcome:** a witness the final battery can rest its crossing verdicts on. Desk smoke: PASS, and it
 can fail. Attended check 1 (2026-10-02): the wiring and the save passed; the verdicts were blocked
-by a witness defect, now fixed in v2. Attended check 2 is preloaded below. Stop 1 does not fire:
+by a witness defect, fixed in v2. **Attended check 2 (2026-10-02, v2): PASS.** Both crossings were
+proved (net), and the controls named a real cargo duplication (see "Attended check 2"). Stop 1 does not fire:
 the witness separates train transfers from drone, cabin and autosave stock changes exactly, by
 bracketing the transfer calls.
 
@@ -219,9 +220,34 @@ Both blockers are fixed in v2 (`75d1f88`), and the stocked-hub gap gets the net 
   - Quote each verdict with its bound and controls.
   - Any `crossing_mismatch` line is a finding to explain.
 
-## Attended check 2 (preloaded; predictions written before boot)
+## Attended check 2 (predictions written before boot; result below)
 
-`<<PENDING-RUN>>`. Installed as TestKit `69d5af6` (built at pack `7870319`; kit gates clean). The write landed while a new Mars.exe was booting: run this check in a game started after that commit.
+**Result, 2026-10-02.** Log `Mars.exe-20261002-15.30.19-6aba6e65.log` (save "Double Hub+elev Built
+Under2", sol 51, `pack_version=26`, fix pack present 45/45). No `LUA ERROR`.
+
+| Step | Result |
+|---|---|
+| 1 Wiring | **PASS** as predicted (line 340) |
+| 2 Hub | **PASS**. `verdict=proved bound=net crossing=hub`: hub 6430 Concrete on R1, `crossed_at_least=4` at the pause and 8 at the read; `stuck=0` (line 370) |
+| 3 Depot | **PASS**. `verdict=proved bound=net crossing=depot_down`, Herbs, link 1 = 1 and link 2 = 3; `stuck=0` (line 396) |
+| 4 Save | Not repeated. The save path is unchanged from v1, which passed it in check 1 |
+| 5 Read | **PASS**. Both verdicts as found, `stuck=0`, `cabin_mismatch=0`; `controls_ok=false` only for the finding below (owner's paste) |
+
+**Finding: one unit of cargo appears from nothing on an unload.** Two `crossing_mismatch` lines,
+the same train and call (`Train(2000002659)`, `UnloadAll` at hub 6430 on R1, game time 35860002):
+
+- Food: train −12, hub +13.
+- Sugar: train −16, hub +17.
+
+Only food resources are affected, one unit each. The witness tainted both rows and no verdict used
+them.
+
+Hypothesis, unconfirmed: the train's food cargo spoiled in transit, which lowered its
+`stockpiled_amount` but not its `assigned_resources`. Vanilla `UnloadAll` then credits the station
+with the whole assigned amount (`unload_cargo`, `Train.lua:779-783`). This is outside brief 33's
+scope (hub, depot and vanilla code). It is routed to the orchestrator as a defect to brief, and as
+a control brief 35 will see again.
+ Installed as TestKit `69d5af6` (built at pack `7870319`; kit gates clean). The write landed while a new Mars.exe was booting: run this check in a game started after that commit.
 
 **Fixture.** The same colony as check 1, or any with:
 
