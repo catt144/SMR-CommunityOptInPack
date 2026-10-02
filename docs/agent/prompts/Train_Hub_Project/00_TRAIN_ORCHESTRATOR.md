@@ -64,18 +64,17 @@ before it fires.
      `claude-opus-5-5`). Closed briefs are in this folder's
      `README.md`; their rulings are spec §4.7 and §11's last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
      **Next, in order** (every remaining brief is authored; the owner tests and fires):
-     1. **`33`, the crossing witness**: desk done (`c06349e`, report
-        `TRAIN_CROSSING_WITNESS_20261002.md` at `0b8225b`); its attended check is owed. Guide it
-        from that report's predictions, then close the brief.
+     1. **`33` closed 2026-10-02** (attended check 2 PASS, `c3ba72a`; both crossings proved net,
+        log `Mars.exe-20261002-15.30.19`). Its finding, a one-unit food gain on a hub unload
+        (report grep `appears from nothing`), is unrouted: the owner decides where it goes.
      2. **`34`, the move into this mod**: checkpoint answered (OI-41, 2026-10-02; spec §10 grep
         `Brief 34's checkpoint`); preflight widened (`5aa529d`). The owner's veto on the player-text
-        drafts is owed (`TRAIN_MOVE_CHECKPOINT_20261002.md` §"Player text drafts"). Code moves
-        after 33 closes: both touch the hub's tests.
+        drafts is owed (`TRAIN_MOVE_CHECKPOINT_20261002.md` §"Player text drafts"). Code may move now (33 closed).
      2b. **`34b`, two owner fixes (2026-10-02)**: Export rows take only stock above a storage's
         Desired Amount (spec §4.8 grep `Export takes only the excess`), and auto-fill's train enters
         at the joining station, not the hub (grep `enters at the joining station`). Phase 1 (plan)
-        may fire now; phase 2 lands after 33 and 34 close.
-     3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and
+        may fire now; phase 2 lands after 34 closes.
+     3. **`35`, the final full battery**, after 34 and 34b; it carries OI-38's up-leg read and
         auto-fill's watch (the train enters at the joining station). Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01).
