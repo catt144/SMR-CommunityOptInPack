@@ -70,14 +70,6 @@ local function prepare(ctx, down)
     local s,u=d.PairOf(o)
     if not s or o~=s then return false,"select the surface half of the working pair" end
     if not s.working or not u.working then return false,"both depot halves must be working" end
-    -- Never subtract stock promised to an existing carrier or overwrite incoming room.
-    for _, h in ipairs{s,u} do for _, res in ipairs{"Metals","Concrete"} do
-        for _, req in ipairs{h.supply[res],h.demand[res]} do
-            if req:GetTargetAmount() ~= req:GetActualAmount() then
-                return false,"Metals or Concrete is reserved by a carrier; run the next arrival and retry"
-            end
-        end
-    end end
     local mark=ctx.mark(down and "DEPOT_NEED_DOWN_SETUP" or "DEPOT_NEED_UP_SETUP")
     cancel_runs(); ctx.mutated=true
     ctx.log("DUMP",fields(s,d)); ctx.log("DUMP",fields(u,d))
@@ -88,20 +80,43 @@ local function prepare(ctx, down)
         d.SetRow(s,res,(res=="Metals" or res=="Concrete") and (down and "import" or "export") or "disabled")
     end
     d.SetDroneAccess(s,false); d.SetDroneAccess(u,false)
+    -- A busy line's trains hold reservations on these rows (brief 33: the owner had to switch a
+    -- station off to get past a refusal). Keep them instead: never take stock promised to a carrier
+    -- (supply actual - target) nor fill room promised to one (demand actual - target).
+    local reserved={}
     for _, res in ipairs{"Metals","Concrete"} do
         d.SetTarget(s,res,down and 100 or 0)
-        local want=origin:GetMaxStorage(res)
+        local function held(h)
+            return Max(h.supply[res]:GetActualAmount()-h.supply[res]:GetTargetAmount(),0),
+                Max(h.demand[res]:GetActualAmount()-h.demand[res]:GetTargetAmount(),0)
+        end
+        local o_out,o_in=held(origin)
+        local d_out,d_in=held(dest)
+        local want=Max(origin:GetMaxStorage(res)-o_in,o_out)
         origin:AddResource(want-origin.supply[res]:GetActualAmount(),res)
-        want=res=="Concrete" and Max(dest:GetMaxStorage(res)-10000,0) or 0
+        want=res=="Concrete" and Max(dest:GetMaxStorage(res)-10000-d_in,d_out) or d_out
         dest:AddResource(want-dest.supply[res]:GetActualAmount(),res)
+        reserved[#reserved+1]=string.format("%s=%d/%d/%d/%d",res,o_out,o_in,d_out,d_in)
     end
     rawset(s,d.CABIN,{phase=down and "at_top" or "at_bottom",ends=GameTime(),started=true,cargo={},legs=old and old.legs or 0})
+    -- The load those reservations leave, by the depot's rule: emptiest destination row first,
+    -- bounded by what the origin offers, the destination's free room and the cabin.
+    local cap,expected,order=d.CabinCapacity(s)*const.ResourceScale,{},{"Metals","Concrete"}
+    local function room(res)
+        return Max(Min(dest.demand[res]:GetTargetAmount(),dest:GetMaxStorage(res)-dest.supply[res]:GetActualAmount()),0)
+    end
+    table.sort(order,function(a,b) return room(a)>room(b) or (room(a)==room(b) and a<b) end)
+    for _, res in ipairs(order) do
+        expected[res]=Max(Min(Min(origin.supply[res]:GetTargetAmount(),room(res)),cap),0)
+        cap=cap-expected[res]
+    end
     ObjModified(s); ObjModified(u)
     ctx.log("DUMP",fields(s,d)); ctx.log("DUMP",fields(u,d))
     local result,why=run("depot_next_departure")
     if result==false then return false,why end
-    result.mark=mark; result.expected_metals=d.CabinCapacity(s)*const.ResourceScale
-    result.expected_concrete=0; result.direction=down and "down" or "up"
+    result.mark=mark; result.expected_metals=expected.Metals
+    result.expected_concrete=expected.Concrete; result.direction=down and "down" or "up"
+    result.reserved=table.concat(reserved," ") -- per resource: origin out/in, destination out/in (raw)
     return result
 end
 T.Bind(1,"Prepare Import needs; run down departure (Save B first)",function(ctx) return prepare(ctx,true) end,{mode="once",needs="selected"})

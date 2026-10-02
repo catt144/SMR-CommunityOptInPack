@@ -218,9 +218,22 @@ lua.execute('''
 assert(not next(SMRTK.armed) and #armed_runs==0, 'overlay load is inert')
 local D=SMRElevatorDepotDev
 local ctx=ctx_for(S)
-S.supply.Metals.assigned=1
-assert(slots[1].fn(ctx)==false and not ctx.mutated, 'fixture refuses carrier reservations before any write')
-S.supply.Metals.assigned=0
+-- Carriers' reservations are kept, not refused (brief 33): all but 220 of the underground Metals
+-- room and 1 of the surface Metals stock are promised. The real cabin must load what the slot predicts.
+for _,o in ipairs{S,U} do for _,res in ipairs{'Metals','Concrete'} do  -- requests consistent with stock
+  o.demand[res].amount=o:GetMaxStorage(res)-o.supply[res].amount
+end end
+local promised=U:GetMaxStorage('Metals')-220000
+U.demand.Metals.assigned=promised; S.supply.Metals.assigned=1000
+local held=slots[1].fn(ctx)
+assert(ctx.mutated and held.expected_metals==220000 and held.expected_concrete==10000, 'reservations bound the prediction')
+assert(held.reserved=='Metals=1000/0/0/'..promised..' Concrete=0/0/0/0', held.reserved)
+assert(U.demand.Metals:GetTargetAmount()==220000 and S.supply.Metals:GetActualAmount()==250000, 'promised room and stock kept')
+D.Tick(1)
+local fired,f=triggers.depot_next_departure.when(SMRTK.armed.depot_next_departure)
+assert(fired and f.aboard_Metals==2200 and f.aboard_Concrete==100, 'the real cabin loads the predicted amounts')
+U.demand.Metals.assigned=0; S.supply.Metals.assigned=0
+ctx=ctx_for(S)
 for _,slot in ipairs{1,4} do
   local setup=slots[slot].fn(ctx)
   assert(setup.expected_metals==250000 and ctx.mutated and armed_runs[#armed_runs]=='speed_ultra')

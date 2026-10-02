@@ -2,10 +2,13 @@
 import hashlib
 import subprocess
 import sys
+from pathlib import Path
 from cargo_upgrade_smoke import ROOT, SOURCE, run
 
 kit = ROOT.parent / 'SMR-BugFixPack-TestKit'
-slots = kit / 'Code/80_AgentSlots.lua'
+# The sitting this smoke checks: a byte copy of TestKit 587f474's Code/80_AgentSlots.lua, staged
+# here so a later sitting's slots in the shared kit cannot fail it (brief 33, audit 2026-10-02 §7).
+slots = Path(__file__).resolve().parent / '80_AgentSlots_upgrades.lua.txt'
 print('command:', subprocess.list2cmdline([sys.executable, *sys.argv]))
 print('HEAD:', subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip())
 print('TestKit HEAD:', subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=kit, text=True).strip())

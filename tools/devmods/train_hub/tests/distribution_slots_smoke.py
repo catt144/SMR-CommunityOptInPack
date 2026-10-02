@@ -3,6 +3,7 @@ import subprocess
 import sys
 import hashlib
 import re
+from pathlib import Path
 from distribution_smoke import ROOT
 from distribution_ui_smoke import ui_runtime
 
@@ -56,8 +57,10 @@ function poll(id)
     assert(coroutine.resume(co))
 end
 ''')
-    slots=(kit/'Code/80_AgentSlots.lua').read_text(encoding='utf8')
-    print('80_AgentSlots.lua sha256:',hashlib.sha256(slots.encode()).hexdigest(),flush=True)
+    # The sitting these callbacks belong to: TestKit 587f474's Code/80_AgentSlots.lua, staged beside
+    # this smoke so a later sitting's slots in the shared kit cannot fail it (brief 33, audit §7).
+    slots=(Path(__file__).resolve().parent/'80_AgentSlots_upgrades.lua.txt').read_text(encoding='utf8')
+    print('80_AgentSlots_upgrades.lua.txt sha256:',hashlib.sha256(slots.encode()).hexdigest(),flush=True)
     if '--mutate-effective-speed' in sys.argv:
         assert 'effective_speed = t:GetVelocity()' in slots
         slots=slots.replace('effective_speed = t:GetVelocity()', 'effective_speed = t:GetNominalMoveSpeed()', 1)
