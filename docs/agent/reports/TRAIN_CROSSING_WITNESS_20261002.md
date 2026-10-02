@@ -157,6 +157,8 @@ the origin half.
 
 ## The attended check (preloaded; predictions written before boot)
 
+Installed as TestKit `8837c4b` (`Code/80_AgentSlots.lua`, built from the staged files at pack `4433c2f`; kit gates clean).
+
 **Fixture.** The owner's colony needs:
 
 - a hub with at least two routes moving one resource across it;
