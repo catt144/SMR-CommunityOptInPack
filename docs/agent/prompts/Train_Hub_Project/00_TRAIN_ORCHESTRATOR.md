@@ -75,7 +75,10 @@ before it fires.
         at the joining station, not the hub (grep `enters at the joining station`), and brief 33's
         one-unit food gain on unload (Fix 3). Phase 1 (plan)
         may fire now; phase 2 lands after 34 closes.
-     3. **`35`, the final full battery**, after 34 and 34b; it carries OI-38's up-leg read and
+     2c. **`34c`, SMR-Assets cleanup** (owner, 2026-10-02): failed and retired models out, a few
+        owner-picked checkpoints kept; its keep list needs the owner's approval before deletions.
+        After 34; may run beside 34b.
+     3. **`35`, the final full battery**, after 34, 34b and 34c; it carries OI-38's up-leg read and
         auto-fill's watch (the train enters at the joining station). Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01).
