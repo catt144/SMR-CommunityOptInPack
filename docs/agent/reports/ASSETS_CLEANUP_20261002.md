@@ -6,9 +6,8 @@ few cherry picked checkpoints that are good bases if we ever need to make major 
 changes."*). Read at this repo's HEAD `b643110` and SMR-Assets HEAD `4aeb59b`, both pulled
 (`Already up to date`). Executed model: Fable 5.1 (`claude-fable-5-1`), no subagents.
 
-**State: phase 1 done, waiting on the owner.** Nothing has been deleted. Phase 2 starts only on
-the owner's approval of the list below, line by line for the irreversible ones. The orchestrator
-relays it.
+**State: done (2026-10-02).** The owner ruled on every question (§6) and phase 2 ran the same
+day: 569 files, 4,427.7 MB deleted, SMR-Assets at `443206f`, both checks pass.
 
 ## Work list
 
@@ -17,8 +16,10 @@ relays it.
 | 1 | Inventory, every class, with sizes | done (this report) |
 | 2 | Reference check: every path the shipping mod stores resolves on disk | done, 22 of 22 |
 | 3 | Classification and the proposal | done (this report) |
-| 4 | Owner approval | **waiting** |
-| 5 | Phase 2: `git rm` + commit in SMR-Assets; irreversible deletions; recheck | not started |
+| 4 | Owner approval | done, §6 |
+| 5 | K2: five checkpoint blends tracked | SMR-Assets `441f6e2` |
+| 6 | U1: dome set `git rm`, READMEs and `.gitignore` noted | SMR-Assets `443206f` |
+| 7 | Irreversible deletions A–E, K5 payload, U1 ignored; recheck | §6, this commit |
 
 ## 1. Inventory
 
@@ -174,3 +175,29 @@ Nothing in SMR-Assets belongs to the rail shaft (`grep -ril shaft` finds only th
 - Rerun the §2 check (22 stored paths) and a `--legacy --check-rebuild` of `build_workfile.py`
   is **not** needed: no proposed line is a build input. Then `git status --ignored` and the
   per-class totals again, reconciled against the list.
+
+## 6. Owner rulings and phase 2 (2026-10-02)
+
+Asked and answered the same day: **A–E approved whole; K2 commit all five; K5 delete and rebake
+when needed; U1 delete the dome set; U2 and U3 keep.** The optional lines (review renders, the
+scripts that serve only retired folders, the restore-tag copies in SMR-Shared) were not put to the
+owner and stand untouched.
+
+| Unit | What | Result |
+|---|---|---|
+| K2 | `git add` the five `TrainHub_work_before_*.blend` | SMR-Assets `441f6e2`, 5 files, 2.0 MB |
+| U1 tracked | `git rm` `ElevatorStation_work.blend`, `station_build.py`, `station_render.py`, `verify_station.py`, `export/station_proof.json`, `export/verify_station.json`; the two whitelist lines left `.gitignore`; both READMEs carry a one-line note pointing at `07d67b1` | SMR-Assets `443206f` |
+| A–E | the saved list | 503 files, 3,684.6 MB, 0 already absent |
+| K5 | `export/structure_seams/` and `structure_solid/` payload (`.json`/`.md` proofs kept) | 48 files, 722.4 MB (the two `.blend1` had gone with group A) |
+| U1 ignored | 3 station FBX, 8 station TGA, 7 `preview_*.png` | 18 files, 20.6 MB |
+| | **total** | **569 files, 4,427.7 MB**; 25 emptied folders removed; every path is logged in `scratch/assets_cleanup_deleted_20261002.txt` |
+
+**After:** tracked 300, untracked 0, ignored 334 (was 301 / 5 / 903); working tree without `.git`
+**1,164.7 MB** (was 5,592.7). The `structure_*_legacypaint/` and `_si55/` folders still exist
+because their `bake_proof.json`/`validation.json` stayed, as the proposal said.
+
+**Recheck, RAN after the deletions:** the 22 stored paths from the nine `SourceData` files,
+**22 of 22 exist**; and 14 named pipeline inputs (`TrainHub_prepaint.blend`, the AO, UV, final,
+structure and floor-pass proofs, the decal, the two reference PNGs the scripts read, the depot's
+AO proof, candidate snapshot and the two kept `bake_proof.json`) all present. Nothing the shipping
+mod, a dev mod or a Mod Editor project references was removed.
