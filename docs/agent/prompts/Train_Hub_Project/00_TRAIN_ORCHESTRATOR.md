@@ -62,20 +62,19 @@ before it fires.
      wiring, report `ELEVATOR_DEPOT_WIRING_20261001.md`), `28` (its paint pass and placement cursor,
      report `ELEVATOR_DEPOT_PAINT_20261001.md`) and `29` (the hub's title fix, the depot cost). The
      depot is final as built (spec §11's last block). Brief `30` (station rows without a hub, owner
-     2026-10-02, spec §4.7) is ready to fire; it edits the hub dev mod, so it precedes the move brief. Passengers need no
+     2026-10-02, spec §4.7) is live; its batches A-C passed 2026-10-02 and its next run carries §11's new rulings. Passengers need no
      code: vanilla's elevator carries them, train to train. Brief `27`'s four persisted names
      (`SMROptIn_depot_rows`, `_drones`, `_cabin`, `_targets`) go into FIX_POLICY's inventory when the
      depot ships.
-     **Next, in order:**
-     1. **OI-38** on the owner's list: brief 27's unrun steps and the title fix's in-game glance,
-        at the next sitting; the depot's final build now exists.
-     2. **The audit**, below; the owner picks its model. Add to it: the depot's
-        `tests/wiring_smoke.py` FAILS at HEAD `c4a2cd2`+ (line 500, `the hub fit_title has two
-        divisions`; `b551930` changed the hub's fit_title, brief 29's §10b left owed);
-        `props_smoke.py` PASSES.
-     3. **"Remove its dev tags"** (owner, 2026-10-01): a brief moving the hub and the Elevator
-        Depot out of their dev mods into this mod as modules, carrying OI-18's widened
-        `tools/upload_preflight.py`. Then the final full battery on the shipping layout.
+     **Next, in order** (every remaining brief authored 2026-10-02; the owner tests and fires):
+     1. **Brief `30`'s next run** (the cabin's rest, need-based loading, 250/500 capacity and
+        storage with the depot's own upgrade, train buttons): guide its sitting.
+     2. **`31`, the audit**, may fire beside 30; the owner picks its model.
+     3. **`32`, the depot's icon**, and **`33`, the TestKit crossing witness**, after 30 closes.
+     4. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), after 30-32;
+        its owner checkpoint (module list, save names) comes first.
+     5. **`35`, the final full battery**, after 33-34; it carries OI-38's up-leg read and the
+        spawn-on-siding watch. Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
      Brief 10's old report predictions were written before ruling 10; treat any report's
