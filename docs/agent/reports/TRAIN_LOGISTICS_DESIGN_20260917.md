@@ -4282,7 +4282,13 @@ designpass_01 bearing from behind the core, C the mouth's side at 50°. **A is i
 `display_icon` to `Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png`, since a
 hand edit of `Data/` alone does not reach the game (the hub's finding above). The infopanel takes the
 same field. **A passed by eye (owner, 2026-10-02, pointing at the sheet's A row: *"this one"*);** the
-editor save and the in-game glance are OI-40.
+editor save and the in-game glance are OI-40. **The capacity upgrade's icon** (owner, same day, at the
+editor's "Default upgrade icon for slot 1" lint, `Building.lua:2614-2626` on 1.1.1.406343: *"just give
+it a basic icon relating to storage"*): vanilla's storage glyph, the four-arrow expanded-warehousing
+icon, in its blue tier-2 file `UI/IconsRemaster/Upgrades/expanded_warehousing_02.png`, set in the base
+class (`10_ElevatorDepotDev.lua`, grep `upgrade1_icon`). The lint compares the path with the field's
+default, the grey tier-1 file, so the same symbol under another name clears it; the hub's four slots
+still carry the default and still warn.
 **Brief 30's depot items PASSED live 2026-10-02** (report `ELEVATOR_DEPOT_REVISION_20261002.md`,
 "Sitting"; brief deleted): the twinless notices and the cabin's rest and resume; need-based loading
 on both legs (the empty row wins, no destination overfilled); 250 a leg and per resource, 500 on
