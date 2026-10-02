@@ -4244,5 +4244,7 @@ doesn't currently have a big need for and not getting the concrete. There needs 
 least a way for the surface elevator to only take was is needed down if there is only space for 20
 herbs, it won't take more then 20 herbs. And preferablly it brings the lowest stocked items down
 first"*. So: **at least**, a leg loads no more of a resource than the destination half has room
-for; **preferably**, the 42 goes to the lowest-stocked rows at the destination first. Brief `30`'s
+for; **preferably**, the 42 goes to the lowest-stocked rows at the destination first. Asked
+whether the up leg follows the same rule (Export rows, the surface half's room and stock), the
+owner: *"Yes"*. **Both legs.** Brief `30`'s
 next run builds it with the twinless cabin's rest.
