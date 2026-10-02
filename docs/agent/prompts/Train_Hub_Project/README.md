@@ -6,7 +6,7 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **No build brief is live.** Briefs 22 (hub storage),
+`00` is live; `03_Drones/` is closed reference. **`30`, station rows without a hub, is the live brief.** Briefs 22 (hub storage),
 26 (the depot's design), 27 (its wiring), 28 (its paint pass) and 29 passed live 2026-10-01 and were
 deleted, 25 parked; spec §4.10 and §11, the reports and OI-38 hold the record and what is open. Briefs 10, 17 and 21 passed live and were deleted
 2026-09-29. Only one brief
@@ -19,6 +19,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
+| `30_STATION_ROWS_WITHOUT_HUB_high.md` | Every vanilla station gets the per-resource state cycle and sliders with or without a hub (owner, 2026-10-02, spec §4.7); a hubless station must not need a hub to exist. Design pass, smoke sitting. | **Ready to fire** |
 
 ## `Parked/` — do not fire
 

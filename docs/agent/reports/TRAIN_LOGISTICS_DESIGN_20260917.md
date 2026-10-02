@@ -210,6 +210,12 @@ This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 
 ### 4.7 UI direction (owner, 2026-09-18)
 
+⚖️ **Owner ruling, 2026-10-02: the rows go on every station, hub or not.** *"I want to give the import
+/ export / and sliders options even without the hub. Some people may never watn to use the hub. But
+everyone wnats the sliders back, and the import / export options make those sliders much more
+effective"*. A player who never builds a hub gets the per-resource states and sliders on every
+vanilla station; a station on a hub's network keeps the §4.8 behaviour. Brief `30` builds it.
+
 1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
 with an icon button at the left and `stored/max` plus the resource glyph at the right.
@@ -248,7 +254,7 @@ moving it"*. Asked, the owner chose a four-state left-click and a slider on ever
   `AdjustConstrainedScale` (`Data/XDef/Infopanel.lua`) only snaps to a step; the width is fixed at
   418. So: (1) **the slider sits inside the row's own line**, in the space between the title and
   `stored/max`, and **our change adds no height** to the panel; (2) **a floor on the shrink** through
-  `AdjustConstrainedScale`, for station panels on a hub's network only, is prototyped at a starting
+  `AdjustConstrainedScale`, for station panels that carry the rows, is prototyped at a starting
   value for the owner to judge by eye — past the floor a very tall panel runs off the screen, since
   vanilla has no scroll. Every other building's panel stays vanilla.
 - **Help is the row's own hover tooltip**, per mode, with the click hint — vanilla's pattern.
@@ -321,7 +327,7 @@ and mix two kinds of station in one line.
 
 **Where the UI lives: on each STATION's own card, not on the hub's.** §4.7 already settles the
 shape — a four-state hex cycle, per-state native title and an inline native slider in vanilla's
-storage rows, only for stations on a hub network. The separate section is retired. The hub's card
+storage rows, on every station (owner, 2026-10-02; §4.7). The separate section is retired. The hub's card
 gets no controls (owner, 2026-09-24: it is already busy and the game shrinks it as the network grows).
 The row extension is UI-only; no UI field persists on the station.
 **Storage location and UI location are independent**; the row's control writes to the hub's table.

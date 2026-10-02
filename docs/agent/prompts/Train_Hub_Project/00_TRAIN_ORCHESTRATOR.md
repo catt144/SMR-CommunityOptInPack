@@ -61,7 +61,8 @@ before it fires.
      live 2026-10-01 and deleted: briefs `22` (hub storage), `26` (the depot's design), `27` (its
      wiring, report `ELEVATOR_DEPOT_WIRING_20261001.md`), `28` (its paint pass and placement cursor,
      report `ELEVATOR_DEPOT_PAINT_20261001.md`) and `29` (the hub's title fix, the depot cost). The
-     depot is final as built (spec §11's last block). No build brief is live. Passengers need no
+     depot is final as built (spec §11's last block). Brief `30` (station rows without a hub, owner
+     2026-10-02, spec §4.7) is ready to fire; it edits the hub dev mod, so it precedes the move brief. Passengers need no
      code: vanilla's elevator carries them, train to train. Brief `27`'s four persisted names
      (`SMROptIn_depot_rows`, `_drones`, `_cabin`, `_targets`) go into FIX_POLICY's inventory when the
      depot ships.
