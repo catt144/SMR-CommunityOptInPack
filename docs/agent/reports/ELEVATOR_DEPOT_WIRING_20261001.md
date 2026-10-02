@@ -520,3 +520,18 @@ On the depot's final build (brief 28 closed):
 
 Still owed on OI-38: E3-E5 (the survivor steps), the scripted up-leg read, and the long-title
 fix's glance (`1122115`).
+
+Batch E, same sitting (log `Mars.exe-20261002-00.07.14-6aba6e65.log`, read after the game closed;
+"LUA ERROR" count 0):
+- The long-title fix (`1122115`) **PASS** in the owner's word ("1 is correct").
+- E3 **PASS**: `SMRTK_SAVE ... slot=A status=OK`.
+- E4 **PASS** (owner: "3. was correct"): `half gone: underground 9041 survivor 9036 cargo delivered
+  PreciousMetals=16000,Sugar=26000 stockpiled none`, then `no pair: surface 9036 underground none`.
+- E5 **FAIL, stopped at its first check.** After Load A and the surface half's salvage the log has
+  `half gone: surface 9036 survivor 9041 cargo delivered Food=1000,PreciousMetals=4000,Sugar=2000
+  stockpiled none` and `no pair: surface none underground 9041`, as predicted, and the underground
+  half kept working as a plain station, which the owner read as *"it just continues opperating
+  normally"*. **DEFECT (open):** the underground panel's infotip never showed the predicted "No
+  surface twin: the cabin is idle and this half works as a plain station; the setting is kept for
+  the next surface depot." (owner: *"This messaged didn't come up so I stoped testing at that
+  point"*). The new surface depot's placement and adoption of the copy were not run.

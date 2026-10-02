@@ -49,9 +49,8 @@ Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 
 ### OI-38 · opened 2026-10-01
 When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
-- E3-E5: salvage a half with cargo aboard, then place a new twin (the survivor rule).
+- E5's rest, after the "No surface twin" infotip fix: place a new surface depot; it takes the old settings.
 - The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
-- The long-title fix (`1122115`): a long title fits its panel.
 Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
 
 ### OI-12 · opened 2026-09-18 · launch
