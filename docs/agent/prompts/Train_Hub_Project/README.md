@@ -19,7 +19,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `30_STATION_ROWS_WITHOUT_HUB_high.md` | Every vanilla station gets the per-resource state cycle and sliders with or without a hub (owner, 2026-10-02, spec §4.7); a hubless station must not need a hub to exist. Design pass, smoke sitting. | **Ready to fire** |
+| `30_STATION_ROWS_WITHOUT_HUB_high.md` | Every vanilla station gets the per-resource state cycle and sliders with or without a hub (owner, 2026-10-02, spec §4.7); a hubless station must not need a hub to exist. Design pass, smoke sitting. Also carries the depot's missing "No surface twin" infotip (OI-38 E5). | **Ready to fire** |
 
 ## `Parked/` — do not fire
 

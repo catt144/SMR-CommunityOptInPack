@@ -53,8 +53,26 @@ the owner has passed the smoke sitting.
 
 ## Scope
 
-In: the rows and their effect on hubless stations; the hubless/hub seam. Out: the Elevator Depot,
-hub dispatch, train movement, the shipping move. Report anything else you find; do not edit it.
+In: the rows and their effect on hubless stations; the hubless/hub seam; the depot's twinless
+infotip (below). Out: the rest of the Elevator Depot, hub dispatch, train movement, the shipping move. Report anything else you find; do not edit it.
+
+## Also: the depot's missing "No surface twin" infotip (owner, 2026-10-02: "fold it into 30")
+
+A defect found in the same sitting, in `tools/devmods/elevator_station/`. Brief 27's accepted
+design (spec §11): a depot half that loses its twin works as a plain station, and its panel's
+infotip adds *"No surface twin: the cabin is idle and this half works as a plain station; the
+setting is kept for the next surface depot."* (grep `No surface twin` in
+`docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`). Live 2026-10-02, after Load A and the
+surface half's salvage, the log has `no pair: surface none underground 9041` and the half works as
+a plain station, but the line **never appeared** (owner: *"This message didn't come up with the
+station destroyed"*; log `Mars.exe-20261002-00.07.14-6aba6e65.log`, the panel opened twice on 9041
+after the salvage, 0 "LUA ERROR"). Whether the surface half's mirror wording fails the same way is
+yours to check. Fix it without changing pairing or plain-station behaviour. Done when the line
+shows in game and OI-38's E5 rest passes in the same sitting: place a new surface depot; it takes
+the old settings (`pair formed: surface <new> underground <U>`, Scratch reads
+`underground_panel=matches copy=current`). The depot's `tests/wiring_smoke.py` fails at HEAD for a
+known, unrelated reason (its hub `fit_title` check predates `b551930`); bring it up to date if it
+blocks you, and say so.
 
 ## Work method
 
