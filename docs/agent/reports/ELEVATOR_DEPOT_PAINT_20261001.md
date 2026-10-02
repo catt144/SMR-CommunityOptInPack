@@ -516,3 +516,18 @@ cursor because its mesh is one entity. Not a map defect; a Lua item outside this
 handler that attaches the elevator visual at scale 75 (and the cabin) to the cursor when its
 template is `SMROptInElevatorDepotDevBase`, a cursor-only copy of the dress with no receiver or
 ropes. Awaiting the owner's word on where it goes.
+
+**The owner's ruling (2026-10-01, the same sitting): *"You can proceed"*: the cursor fix is brief
+28's.** Done in `10_ElevatorDepotDev.lua`, after `SetPalette`: `OnMsg.CursorBuildingInit(cursor)`
+returns unless `cursor.template` is a `SMROptInElevatorDepotDevBase`, then hangs the elevator art
+(`attach_visual`, the layout's entity, offset, angle 90 and scale 75, the `SpaceElevator` actor) and
+the resting cabin (`SpaceElevatorCabin`, same origin, scale 75, when `cabin_on`) on the cursor and
+paints both with `paint_rig(template, …)`, the template's colours as vanilla paints the cursor
+(`Construction.lua:600-603`); no receiver, rope, signs or cycle; the log line `cursor dressed
+elevator=… cabin=… scale=… palette=…`. The attaches die with the cursor (vanilla's own handler is
+the pattern, `ModItemAttachment.lua:657-659`). The construction site still shows the bare shell
+under vanilla's scaffolding: `D.Dress` refuses a `ConstructionSite` by design and that is not
+changed here. `props_smoke.py` gained a cursor section (a mock cursor: two attaches at the origin,
+scale 75, painted with the mocked colours 11..44, unselectable and never saved; a foreign cursor
+and a template-less one untouched; `cabin_on` off leaves one attach): PASS. The wiring smoke's §10b
+stands as 29's. The owner reloads the mod (restart) and checks the build cursor; the game decides.

@@ -180,7 +180,51 @@ assert(has_log('elevators on this map 1') and has_log('PillarTest'),'nil-Z censu
 OnMsg.LoadGame()
 assert(D.inspected_props==nil,'load must invalidate the inspection list')
 assert(deleted==5,'load must not apply repairs automatically')
+-- Brief 28 (2026-10-01): the placement cursor gets the elevator art and the resting cabin, painted
+-- with the template's colours; a foreign or template-less cursor is untouched.
+const.efCollision=2; const.efApplyToGrids=4; const.efWalkable=8; const.efSelectable=16
+function IsValidEntity(e) return e=='SpaceElevator' or e=='SpaceElevatorCabin' end
+local placed={}
+function PlaceObjectIn(class,map)
+  local o=obj(class,'',map,true); o.cleared=0
+  function o:ChangeEntity(e) self.entity=e end
+  function o:ClearEnumFlags(m) self.cleared=self.cleared+m end
+  function o:ClearGameFlags(m) self.flags=self.flags & ~m end
+  function o:SetAttachOffset(p) self.offset=p end
+  function o:SetAttachAngle(a) self.angle=a end
+  function o:SetScale(s) self.scale=s end
+  function o:SetObjectPaletteRecursive(a,b,c,d) self.palette={a,b,c,d} end
+  placed[#placed+1]=o; return o
+end
+function DeleteOnLoadGame(o) ObjsToDeleteOnLoadGame[o]=true end
+function GetCurrentColonyColorScheme() return 'Space_Y' end
+function GetBuildingColors(ccs,t) assert(ccs=='Space_Y'); return 11,22,33,44 end
+local function cursor_for(template)
+  local c=obj('CursorBuilding','SMROptInElevatorDepot',surface,true); c.template=template
+  function c:GetSpotBeginIndex(name) return name=='Origin' and 0 or -1 end
+  function c:Attach(a,spot) a.parent=self; a.spot=spot; self.attaches[#self.attaches+1]=a end
+  return c
+end
+local other=obj('DroneHub','DroneHub',surface,true)
+logs={}; OnMsg.CursorBuildingInit(cursor_for(other))
+assert(#placed==0 and not has_log('cursor dressed'),'a foreign cursor is untouched')
+OnMsg.CursorBuildingInit({})
+assert(#placed==0,'a template-less cursor is untouched')
+local tmpl=obj('Template','SMROptInElevatorDepot',surface,true); tmpl.kinds.SMROptInElevatorDepotDevBase=true
+local c=cursor_for(tmpl); logs={}; OnMsg.CursorBuildingInit(c)
+assert(#placed==2 and #c.attaches==2,'the elevator and the cabin hang on the cursor')
+assert(placed[1].entity=='SpaceElevator' and placed[2].entity=='SpaceElevatorCabin','the two arts')
+for _,o in ipairs(placed) do
+  assert(o.scale==75 and o.spot==0 and o.offset==point(0,0,0),'scale 75 at the origin')
+  assert(o.palette[1]==11 and o.palette[4]==44,'painted with the template colours')
+  assert(o.cleared==30 and o.flags==0,'unselectable, never saved')
+end
+assert(placed[1].angle==90*60 and placed[1].fx_actor_class=='SpaceElevator','the elevator angle and actor')
+assert(has_log('cursor dressed elevator=true cabin=true scale=75 palette=2'),'the cursor log line')
+D.layout.cabin_on=false; placed={}; logs={}; OnMsg.CursorBuildingInit(cursor_for(tmpl))
+assert(#placed==1 and has_log('cabin=false') and has_log('palette=1'),'cabin_on off leaves the elevator alone')
+D.layout.cabin_on=true
 ''')
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 print(f'props_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')
-print('Covered: CObject census, exact repair, identified legacy sweep, ownership/signature/stale guards, repeat sweep, nil-Z measurement, load reset.')
+print('Covered: CObject census, exact repair, identified legacy sweep, ownership/signature/stale guards, repeat sweep, nil-Z measurement, load reset, the placement cursor dress.')

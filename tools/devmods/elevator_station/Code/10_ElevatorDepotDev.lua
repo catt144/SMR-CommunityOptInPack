@@ -291,6 +291,29 @@ function SMROptInElevatorDepotDevBase:SetPalette(cm1, cm2, cm3, cm4)
 	end
 end
 
+-- Brief 28 (owner, 2026-10-01: "the preview of the building is only half rendered when in the
+-- build mode"; their ruling the same evening: fix it under 28). CursorBuilding:Init
+-- (Construction.lua:569-635, read on 406343) gives the placement cursor the template's entity and
+-- that entity's own auto-attaches, paints it and sends CursorBuildingInit; the rig is dressed at
+-- GameInit, which the cursor never runs, so the preview showed the portal shell alone. This hangs
+-- the elevator art and the resting cabin on the cursor, painted with the template's colours as
+-- vanilla paints the cursor itself (:600-603); no receiver, rope, signs or cycle. The attaches go
+-- with the cursor when placement ends (vanilla's own handler: ModItemAttachment.lua:657-659).
+function OnMsg.CursorBuildingInit(cursor)
+	local template = cursor and cursor.template
+	if not template or not IsKindOf(template, "SMROptInElevatorDepotDevBase") then return end
+	local L = D.layout
+	local at = point(L.elevator_x, L.elevator_y, L.elevator_z)
+	local rig = {
+		elevator = attach_visual(cursor, L.elevator_entity, at, L.elevator_angle, L.scale, "SpaceElevator"),
+		cabin = L.cabin_on and attach_visual(cursor, "SpaceElevatorCabin", at, 0, L.scale) or nil,
+		ropes = empty_table,
+	}
+	local painted = paint_rig(template, rig)
+	print(string.format("%s cursor dressed elevator=%s cabin=%s scale=%d palette=%d", log_prefix,
+		tostring(IsValid(rig.elevator)), tostring(IsValid(rig.cabin)), L.scale, painted))
+end
+
 function D.Undress(bld)
 	local rig = D.rigs[bld]
 	if not rig then return end
