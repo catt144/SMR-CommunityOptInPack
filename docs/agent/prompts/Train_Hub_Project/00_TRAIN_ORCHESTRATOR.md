@@ -57,26 +57,22 @@ before it fires.
      console read is pasted into the TestKit **command box**, not a slot. Name each slot's function
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
      trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
-   - **WHERE THE PROJECT STANDS, orchestrator 2026-10-02** (Opus 5.5 `claude-opus-5-5`). Passed
-     live 2026-10-01 and deleted: briefs `22` (hub storage), `26` (the depot's design), `27` (its
-     wiring, report `ELEVATOR_DEPOT_WIRING_20261001.md`), `28` (its paint pass and placement cursor,
-     report `ELEVATOR_DEPOT_PAINT_20261001.md`) and `29` (the hub's title fix, the depot cost). The
-     depot is final as built (spec §11's last block). Brief `30` (station rows without a hub, owner
-     2026-10-02, spec §4.7) passed live 2026-10-02 with §11's new rulings, and was deleted. Passengers need no
-     code: vanilla's elevator carries them, train to train. Brief `27`'s four persisted names
-     (`SMROptIn_depot_rows`, `_drones`, `_cabin`, `_targets`) go into FIX_POLICY's inventory when the
-     depot ships.
-     **Next, in order** (every remaining brief authored 2026-10-02; the owner tests and fires).
-     Brief `30` passed live 2026-10-02 and was deleted (spec §4.7 and §11's last block):
-     1. **`32`, the depot's icon, closed 2026-10-02** (variant A, the owner's saves v19/v64, seen in
-        game; brief deleted; spec §11's last block). The hub's four upgrade icons landed with it.
-     2. **`31`, the audit, closed 2026-10-02** (report `TRAIN_AUDIT_20261002.md`, `ba357e2`; brief
-        deleted). Its findings ride `33` (the two failing slot smokes, the reservation papercut),
-        `34` (the save-name inventory and the historical depot class name, at its checkpoint; the
-        spec drift) and `35` (§2's in-game checks). **`33`, the crossing witness**, may fire now.
-     3. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), may fire now;
-        its owner checkpoint (module list, save names) comes first.
-     4. **`35`, the final full battery**, after 33-34; it carries OI-38's up-leg read and the
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-02** (Opus 5.5
+     `claude-opus-5-5`). Passed and deleted 2026-10-01/02: briefs `22`, `26`-`29` (the depot's
+     design, wiring, paint, cost), `30` (station rows on every station, hub or not; the depot's
+     rest/resume, need-based loading on both legs, 250/500 capacity and storage with its own
+     10 Metals / 10 Concrete upgrade, train buttons), `31` (the audit, report
+     `TRAIN_AUDIT_20261002.md`) and `32` (the depot's icon). The rulings are spec §4.7 and §11's
+     last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
+     **Next, in order** (every remaining brief is authored; the owner tests and fires):
+     1. **`33`, the crossing witness**: desk done (`c06349e`, report
+        `TRAIN_CROSSING_WITNESS_20261002.md` at `0b8225b`); its attended check is owed. Guide it
+        from that report's predictions, then close the brief.
+     2. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), ready; its
+        first step is the owner checkpoint (module list; whether dev class names, including the
+        audit's historical `SMROptInElevatorStationDev`, stay for the owner's saves). Relay it to
+        the owner in plain terms. Code moves after 33 closes: both touch the hub's tests.
+     3. **`35`, the final full battery**, after 33-34; it carries OI-38's up-leg read and the
         spawn-on-siding watch. Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
