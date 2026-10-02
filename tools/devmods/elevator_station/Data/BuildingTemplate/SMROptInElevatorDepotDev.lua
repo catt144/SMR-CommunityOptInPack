@@ -19,6 +19,7 @@ PlaceObj('ModItemBuildingTemplate', {
 	'build_category', "Stations",
 	'display_icon', "Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png",
 	'build_pos', 20,
+	'upgrade1_icon', "UI/IconsRemaster/Upgrades/expanded_warehousing_02.png",
 	'entity', "SMROptInElevatorDepot",
 	'label1', "OutsideBuildings",
 	'label2', "OutsideBuildingsTargets",

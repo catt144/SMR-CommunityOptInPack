@@ -128,7 +128,9 @@ DefineClass.SMROptInElevatorDepotDevBase = {
 	upgrade1_id = "SMROptInElevatorDepotDev_Capacity",
 	upgrade1_display_name = Untranslated("Expanded Depot"),
 	upgrade1_description = Untranslated("Raises cabin capacity to 500 per leg and storage to 500 per resource at both ends. One purchase for the pair; either half can build it."),
-	upgrade1_icon = "UI/IconsRemaster/Upgrades/expanded_warehousing_02.png",
+	-- vanilla's default; the storage glyph (expanded_warehousing_02) is set on the template preset itself,
+	-- because the editor's "Default upgrade icon" lint takes the class value AS the default (Composite.lua:327-335).
+	upgrade1_icon = "UI/IconsRemaster/Upgrades/expanded_warehousing_01.png",
 	upgrade1_upgrade_cost_Metals = 10000,
 	upgrade1_upgrade_cost_Concrete = 10000,
 	upgrade1_can_disable = false,

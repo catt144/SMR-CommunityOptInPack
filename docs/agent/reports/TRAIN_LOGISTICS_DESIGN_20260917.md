@@ -4285,9 +4285,12 @@ same field. **A passed by eye (owner, 2026-10-02, pointing at the sheet's A row:
 editor save and the in-game glance are OI-40. **The capacity upgrade's icon** (owner, same day, at the
 editor's "Default upgrade icon for slot 1" lint, `Building.lua:2614-2626` on 1.1.1.406343: *"just give
 it a basic icon relating to storage"*): vanilla's storage glyph, the four-arrow expanded-warehousing
-icon, in its blue tier-2 file `UI/IconsRemaster/Upgrades/expanded_warehousing_02.png`, set in the base
-class (`10_ElevatorDepotDev.lua`, grep `upgrade1_icon`). The lint compares the path with the field's
-default, the grey tier-1 file, so the same symbol under another name clears it. **The hub's four slots**
+icon, in its blue tier-2 file `UI/IconsRemaster/Upgrades/expanded_warehousing_02.png`. It must sit on
+the template preset (`Data/BuildingTemplate/SMROptInElevatorDepotDev.lua`, for the owner's save), not
+in the base class: a composite preset's default IS the object class's value
+(`CommonLua/Classes/Composite.lua:327-335` on 1.1.1.406343, `rawget(class, prop_id)`), so a class-set
+icon still warns (the owner's v17/v18 saves showed it). The lint compares the preset's path with that
+default, so the same symbol under another name clears it. **The hub's four slots**
 (owner, same day: *"pick some basic icons that make sense for each of its upgrades"*), written into
 the editor's source `tools/devmods/train_hub/Data/BuildingTemplate/SMROptInTrainHub6.lua` for the
 owner's save to regenerate: 1 Capacity Network `expanded_warehousing_02` (blue storage arrows);
