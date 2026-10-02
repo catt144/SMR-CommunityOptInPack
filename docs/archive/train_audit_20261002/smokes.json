@@ -1,0 +1,156 @@
+{
+  "head": "000b498aefef4385bf36d9f741a60d1d5c9f4d02",
+  "filter": "tools/devmods/*/tests/*_smoke.py",
+  "rows": [
+    {
+      "file": "tools/devmods/elevator_station/tests/props_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/elevator_station/tests/props_smoke.py"
+    },
+    {
+      "file": "tools/devmods/elevator_station/tests/revision_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/elevator_station/tests/revision_smoke.py"
+    },
+    {
+      "file": "tools/devmods/elevator_station/tests/wiring_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/elevator_station/tests/wiring_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/art_spec_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/art_spec_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/buildtrack_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/buildtrack_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/capacity_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/capacity_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/cargo_heater_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/cargo_heater_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/cargo_slots_smoke.py",
+      "exit": 1,
+      "command": "python tools/devmods/train_hub/tests/cargo_slots_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/cargo_upgrade_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/cargo_upgrade_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/cargo_view_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/cargo_view_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/distribution_departure_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/distribution_departure_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/distribution_slots_smoke.py",
+      "exit": 1,
+      "command": "python tools/devmods/train_hub/tests/distribution_slots_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/distribution_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/distribution_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/distribution_ui_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/distribution_ui_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/dwell_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/dwell_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/flight_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/flight_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/global_upgrade_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/global_upgrade_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/hubless_slots_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/hubless_slots_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/hubless_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/hubless_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/look_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/look_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/move_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/move_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/pallet_visuals_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/pallet_visuals_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/reactor_dust_slot_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/reactor_dust_slot_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/repair_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/repair_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/spoilage_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/spoilage_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/station_visuals_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/station_visuals_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/storage_upgrade_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/storage_upgrade_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/traffic_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/traffic_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/train_fill_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/train_fill_smoke.py"
+    },
+    {
+      "file": "tools/devmods/train_hub/tests/train_spawn_smoke.py",
+      "exit": 0,
+      "command": "python tools/devmods/train_hub/tests/train_spawn_smoke.py"
+    }
+  ]
+}

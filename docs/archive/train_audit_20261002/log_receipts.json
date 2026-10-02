@@ -1,0 +1,51 @@
+{
+  "movement": {
+    "path": "docs/archive/TRAIN_HUB_3B_Mars.exe-20260920-04.22.55-6a91a190.log",
+    "sha256": "ef96d04e472a2deb98490d294eb85bdfe82422d3e1e100909f7043dba51af97e",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 898,
+    "lua_error_lines": 1
+  },
+  "build5": {
+    "path": "docs/archive/train_hub_build5_20260925/Mars.exe-20260926-13.24.29-6aad2d75.log",
+    "sha256": "0ef6cc86bb09e85b6b5c3fa216be7fa843b690862522d97e00aa87fce21f9d47",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 1222,
+    "lua_error_lines": 0
+  },
+  "distribution": {
+    "path": "docs/archive/train_distribution_20260926/sittings/Mars.exe-20260927-18.40.16-6aad2d75.log",
+    "sha256": "13a8e8ef5d1d51665474b0e176d72fcadf04124e18549fadeae6fa1a60db5cc0",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 271,
+    "lua_error_lines": 0
+  },
+  "capacity": {
+    "path": "docs/archive/train_hub_capacity_20260926/Mars.exe-20260926-19.29.34-6aad2d75.log",
+    "sha256": "aad1c16604064af98d6dc408216afa3947f018194aa07f3ae8b7f8b1713f1bd8",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 704,
+    "lua_error_lines": 1
+  },
+  "routing_spoilage": {
+    "path": "docs/archive/train_routing_5d_20260927/sittings/Mars.exe-20260928-10.09.22-6aad2d75.log",
+    "sha256": "3d71fbfbf3317e77ac710d30c4213d3cd6fce3f627c051024e41611cec979bba",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 684,
+    "lua_error_lines": 0
+  },
+  "storage": {
+    "path": "docs/archive/sittings_20260929_20261001/Mars.exe-20261001-11.16.04-6aba6e65.log",
+    "sha256": "d6fc8484382283744e0191b88a7fc3ac340a9e5306f60d8a2dbd907cba41d19e",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 12646,
+    "lua_error_lines": 0
+  },
+  "notification": {
+    "path": "docs/archive/drones_l6_20260925/Mars.exe-20260924-17.07.20-6aad2d75.log",
+    "sha256": "00888eb9379e1a79d5729a96ef0d89a9e16e47629283937eeb680dccde4cb159",
+    "filter": "SMRTK_|[TrainHubDev]|[TrainDistribution]|[TrainBay]|SMROptInTrackRepair",
+    "positive_lines": 191,
+    "lua_error_lines": 1
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "command": "inline Python strict UTF-8 log decode, literal per-line substring scans; git diff --name-only 000b498 f8584b7 -- tools/devmods/train_hub/Code tools/devmods/elevator_station/Code tools/devmods/train_hub/tests tools/devmods/elevator_station/tests",
+  "audit_head": "b9257f54b53c9e948aae6521689a6eda518333be",
+  "closing_commit": "f8584b7",
+  "behavioral_diff": "",
+  "log": "docs/archive/train_audit_20261002/Mars.exe-20261002-12.28.11-6aba6e65.log",
+  "sha256": "9e536b773e52389cefbdbb0baf161da149e0f842892596a37db6a9d8859942f4",
+  "snapshot_bytes": 197446,
+  "filters": {
+    "orphan=true": [
+      {
+        "line": 434,
+        "text": "[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=false art_settled=true art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904334 half=9041 label=\"Depot: rest, upgrade or train\" line_trains=1 mark=106 metals=54166 orphan=true pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 trigger=depot_revision_wait twin=none upgrade=false verdict=hour_done t=35904926 id=31"
+      },
+      {
+        "line": 435,
+        "text": "[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=false art_settled=true art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904334 half=9041 label=\"Depot: rest, upgrade or train\" line_trains=1 mark=106 metals=54166 orphan=true pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 trigger=depot_revision_wait twin=none upgrade=false verdict=hour_done t=35904926 id=31"
+      }
+    ],
+    "verdict=upgrade_complete": [
+      {
+        "line": 1124,
+        "text": "[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label=\"Depot: rest, upgrade or train\" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140"
+      },
+      {
+        "line": 1125,
+        "text": "[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label=\"Depot: rest, upgrade or train\" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140"
+      }
+    ],
+    "train_complete": [],
+    "Metals=500000": [
+      {
+        "line": 1279,
+        "text": "[ElevatorDepotDev] cabin departed down (leg 5) loaded Metals=500000 aboard Metals=500000 arrives in 60 min"
+      },
+      {
+        "line": 1298,
+        "text": "[ElevatorDepotDev] cabin arrived underground (leg 5) delivered Metals=500000 still aboard none"
+      },
+      {
+        "line": 1375,
+        "text": "[ElevatorDepotDev] cabin departed up (leg 6) loaded Metals=500000 aboard Metals=500000 arrives in 60 min"
+      },
+      {
+        "line": 1395,
+        "text": "[ElevatorDepotDev] cabin arrived surface (leg 6) delivered Metals=500000 still aboard none"
+      }
+    ],
+    "cabin_capacity=500": [
+      {
+        "line": 1124,
+        "text": "[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label=\"Depot: rest, upgrade or train\" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140"
+      },
+      {
+        "line": 1125,
+        "text": "[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label=\"Depot: rest, upgrade or train\" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140"
+      },
+      {
+        "line": 1133,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=144"
+      },
+      {
+        "line": 1134,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=144"
+      },
+      {
+        "line": 1161,
+        "text": "[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 mark=532 metals=250000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=145"
+      },
+      {
+        "line": 1162,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 mark=532 metals=250000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=145"
+      },
+      {
+        "line": 1176,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=150"
+      },
+      {
+        "line": 1177,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=150"
+      },
+      {
+        "line": 1203,
+        "text": "[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 mark=564 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=151"
+      },
+      {
+        "line": 1204,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 mark=564 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=151"
+      },
+      {
+        "line": 1218,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=156"
+      },
+      {
+        "line": 1219,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=156"
+      },
+      {
+        "line": 1220,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=157"
+      },
+      {
+        "line": 1221,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=157"
+      },
+      {
+        "line": 1267,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=7750 cabin=at_top cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=158"
+      },
+      {
+        "line": 1268,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=7750 cabin=at_top cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=158"
+      },
+      {
+        "line": 1269,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=28750 cabin=at_top cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=159"
+      },
+      {
+        "line": 1270,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=28750 cabin=at_top cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=159"
+      },
+      {
+        "line": 1315,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4124 art_z=4124 cabin=up cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=176"
+      },
+      {
+        "line": 1316,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4124 art_z=4124 cabin=up cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=176"
+      },
+      {
+        "line": 1317,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10621 art_z=10621 cabin=up cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=177"
+      },
+      {
+        "line": 1318,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10621 art_z=10621 cabin=up cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=177"
+      },
+      {
+        "line": 1364,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4124 cabin=at_bottom cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=178"
+      },
+      {
+        "line": 1365,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4124 cabin=at_bottom cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=178"
+      },
+      {
+        "line": 1366,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10621 cabin=at_bottom cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=179"
+      },
+      {
+        "line": 1367,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10621 cabin=at_bottom cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=179"
+      },
+      {
+        "line": 1412,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=196"
+      },
+      {
+        "line": 1413,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=196"
+      },
+      {
+        "line": 1440,
+        "text": "[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 mark=688 metals=500000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=197"
+      },
+      {
+        "line": 1441,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 mark=688 metals=500000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=197"
+      },
+      {
+        "line": 1455,
+        "text": "[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=202"
+      },
+      {
+        "line": 1456,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=202"
+      },
+      {
+        "line": 1482,
+        "text": "[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 mark=720 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=203"
+      },
+      {
+        "line": 1483,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 mark=720 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=203"
+      }
+    ],
+    "pause first": [
+      {
+        "line": 411,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason=\"pause first\" status=REFUSED t=35851905 id=23"
+      },
+      {
+        "line": 412,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_5 reason=\"pause first\" status=REFUSED t=35851905 id=23"
+      },
+      {
+        "line": 738,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason=\"pause first\" status=REFUSED t=35973744 id=79"
+      },
+      {
+        "line": 739,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_1 reason=\"pause first\" status=REFUSED t=35973744 id=79"
+      },
+      {
+        "line": 1616,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_3 reason=\"pause first\" status=REFUSED t=36582990 id=217"
+      },
+      {
+        "line": 1617,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_3 reason=\"pause first\" status=REFUSED t=36582990 id=217"
+      },
+      {
+        "line": 1626,
+        "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_3 reason=\"pause first\" status=REFUSED t=36587847 id=220"
+      },
+      {
+        "line": 1627,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_3 reason=\"pause first\" status=REFUSED t=36587847 id=220"
+      }
+    ],
+    "LUA ERROR": []
+  }
+}

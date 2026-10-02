@@ -1,0 +1,1716 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	40%
+					Render 0:00:00:007
+Disk Free      	1217173 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:086
+Steam initialized (AppId 3215050)
+					Render 0:00:00:090
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:02:017
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:02:176
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:422
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:474
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:03:475
+Lua revision: 406343
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:16:977
+Account storage loaded successfully in 2 ms
+						Lua 0:00:16:992
+DLC norman loaded, lua revision 406343, assets revision 33225
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:17:049
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Better Disasters (id YbJmPhb, v1.04-055) packed from steam
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-063) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-014) unpacked from appdata
+						Lua 0:00:17:451
+[mod] [CommunityFixPack] LoadFirst: already first of 5 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_ElevatorStationDev_20260929, SMR_CommunityOptInPack); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+						Lua 0:00:17:460
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+						Lua 0:00:17:464
+[mod] [CommunityFixPack] ShelterReflex: applied
+						Lua 0:00:17:469
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+						Lua 0:00:17:474
+[mod] [CommunityFixPack] LakeEntombment: applied
+						Lua 0:00:17:478
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+						Lua 0:00:17:483
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:17:487
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:17:492
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+						Lua 0:00:17:496
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+						Lua 0:00:17:501
+[mod] [CommunityFixPack] HubLocalAccess: applied
+						Lua 0:00:17:506
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+						Lua 0:00:17:510
+[mod] [CommunityFixPack] RescueReturnText: applied
+						Lua 0:00:17:514
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+						Lua 0:00:17:518
+[mod] [CommunityFixPack] StaleReservations: applied
+						Lua 0:00:17:523
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+						Lua 0:00:17:527
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:17:532
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+						Lua 0:00:17:536
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+						Lua 0:00:17:540
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:17:545
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:17:550
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:17:554
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:17:558
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+						Lua 0:00:17:563
+[mod] [CommunityFixPack] SequenceLatents: applied
+						Lua 0:00:17:568
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+						Lua 0:00:17:572
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+						Lua 0:00:17:577
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:17:581
+[mod] [CommunityFixPack] BombardmentSpread: applied
+						Lua 0:00:17:585
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:17:590
+[mod] [CommunityFixPack] SaintBlessing: applied
+						Lua 0:00:17:594
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+						Lua 0:00:17:599
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+						Lua 0:00:17:604
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+						Lua 0:00:17:609
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:17:614
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:17:619
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+						Lua 0:00:17:624
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:17:628
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:17:632
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+						Lua 0:00:17:637
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+						Lua 0:00:17:642
+[mod] [CommunityFixPack] GhostPowerCells: applied
+						Lua 0:00:17:646
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+						Lua 0:00:17:651
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+						Lua 0:00:17:655
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:17:656
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:660
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+						Lua 0:00:17:665
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:17:667
+[TrainHubDev] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:17:668
+[TrainHubDev] train export floor loaded (standing + transient holds)
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+						Lua 0:00:17:669
+[TrainDistribution] native storage-row UI registered
+[TrainBay] loaded: vanilla auto-fill and siding placement; legacy HubTrain compatibility
+						Lua 0:00:17:671
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] ResidencyControl: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+						Lua 0:00:18:364
+[TrainHubDev] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:18:435
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:18:524
+Reloading done in 1475 ms
+						Lua 0:00:18:526
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:18:570
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+						Lua 0:00:18:963
+[preset] Preset postprocess took 165 ms.
+						Lua 0:00:19:012
+482 / 482 particle streams loaded in 43 ms.
+						Lua 0:00:19:013
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:19:014
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+						Lua 0:00:19:015
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:19:088
+[PdxSDK] Started up. Took 2041
+						Lua 0:00:19:221
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:19:222
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:19:312
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=3
+						Lua 0:00:19:348
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=4
+						Lua 0:00:19:369
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_TrainHubDev_20260918, SMR_ElevatorStationDev_20260929, SMR_CommunityOptInPack
+						Lua 0:00:19:620
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:19:621
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:19:715
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=5
+						Lua 0:00:20:136
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:20:137
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:232
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:01:48:550
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:01:48:558
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:01:52:222
+*** Assets reloaded in 3.7 s, read 359.0 MB, read speed 98.0 MB/s, average read 8137 bytes.
+						Lua 0:01:53:453
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=100979 id=6
+						Lua 0:01:54:879
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=100979 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=100979 id=7
+						Lua 0:01:55:540
+[mod] This savegame tries to load Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062), which is loaded with a different version 0.00-063
+[mod] This savegame tries to load Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012), which is loaded with a different version 0.00-014
+						Lua 0:01:56:892
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:56:893
+[TrainHubDev] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHubDev] SMROptInTrainHub6 connector spots: from the body
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:56:894
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:01:56:895
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:01:56:896
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:01:56:897
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:01:56:898
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:56:967
+[TrainHubDev] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHubDev] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHubDev] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:56:968
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:01:56:969
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:01:56:970
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+						Lua 0:01:56:971
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:57:052
+[ElevatorDepotDev] dressed table: 000001F714CB7060 env=Surface elevator=true tunnel=false cabin=true ropes=0 scale=75 receiver=false signs=0 cabin_hide_below=-635 palette=2
+[ElevatorDepotDev] dressed table: 000001F70EA07EA8 env=Underground elevator=true tunnel=false cabin=true ropes=4 scale=75 receiver=true signs=0 cabin_hide_below=-635 palette=7
+						Lua 0:01:57:149
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, Brazil, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:57:306
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=121
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:01:57:307
+Game Loaded in 8758 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+[SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+						Lua 0:01:57:318
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=9
+						Lua 0:01:57:331
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=10
+						Lua 0:01:57:338
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:57:455
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:01:57:919
+Game loaded on map BlankBig_01 						Lua 0:01:57:920
+in 9511 ms
+						Lua 0:01:58:231
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Saves t=35790404 id=12
+						Lua 0:02:33:843
+[mod] [SMRTK] SMRTK_LOAD action=load_A reason="foreign session: 1790952195:63725105:12011700:95995522" status=REFUSED t=35790404 id=13
+[SMRTK] SMRTK_LOAD action=load_A reason="foreign session: 1790952195:63725105:12011700:95995522" status=REFUSED t=35790404 id=13
+						Lua 0:02:35:997
+[mod] [SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1790700945:489214675:920828790:1165912614" status=REFUSED t=35790404 id=14
+[SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1790700945:489214675:920828790:1165912614" status=REFUSED t=35790404 id=14
+						Lua 0:02:52:713
+[mod] [SMRTK] SMRTK_SAVE action=save_B name=SMRTK_B.sav session=1790958508:70038908:89316139:900157370 slot=B status=OK t=35790404 id=15
+[SMRTK] SMRTK_SAVE action=save_B name=SMRTK_B.sav session=1790958508:70038908:89316139:900157370 slot=B status=OK t=35790404 id=15
+						Lua 0:03:02:176
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9036) status=OK t=35790404 id=16
+						Lua 0:03:29:373
+[ElevatorDepotDev] pair formed: surface 9036 underground 9041 rows Concrete=to_underground,Electronics=to_underground,Food=to_surface,MachineParts=to_underground,Metals=to_underground,Polymers=to_underground,PreciousMetals=to_surface,Sugar=to_surface
+						Lua 0:03:34:362
+[ElevatorDepotDev] half gone: surface 9036 survivor 9041 cargo delivered Food=1000,PreciousMetals=4000,Sugar=2000 stockpiled none
+						Lua 0:03:34:388
+[ElevatorDepotDev] no pair: surface none underground 9041
+						Lua 0:03:35:797
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:03:35:798
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:03:35:799
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:03:40:062
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:03:40:072
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35830410 id=17
+						Lua 0:03:40:869
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=35831195 id=18
+						Lua 0:03:57:343
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=35847680 id=19
+						Lua 0:03:58:565
+[mod] [SMRTK] SMRTK_TAB action=tab_World page=World status=OK t=35848913 id=20
+						Lua 0:03:59:287
+[mod] [SMRTK] SMRTK_TAB action=tab_Saves page=Saves status=OK t=35849635 id=21
+						Lua 0:03:59:750
+[mod] [SMRTK] SMRTK_TAB action=tab_Agent page=Agent status=OK t=35850098 id=22
+						Lua 0:04:01:555
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="pause first" status=REFUSED t=35851905 id=23
+[SMRTK] SMRTK_ACTION action=slot_5 reason="pause first" status=REFUSED t=35851905 id=23
+						Lua 0:04:28:769
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=100 status=OK t=35874334 id=24
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=100 status=OK t=35874334 id=24
+						Lua 0:04:28:770
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35874334 id=25
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35874334 id=25
+[mod] [SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=35904334 half=9041 mode=rest once=true status=OK trigger=depot_revision_wait t=35874334 id=26
+[SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=35904334 half=9041 mode=rest once=true status=OK trigger=depot_revision_wait t=35874334 id=26
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35874334 id=27
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35874334 id=27
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=35904334 half=9041 mode=rest once=true status=OK trigger=depot_revision_wait t=35874334 id=28
+[SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=35904334 half=9041 mode=rest once=true status=OK trigger=depot_revision_wait t=35874334 id=28
+						Lua 0:04:29:057
+[TrainHubDev] engine leg back: 48 m in 3250 ms = 1478 units per s (move_speed 8960) at t=35889445
+						Lua 0:04:29:330
+[TrainHubDev] engine leg back: 44 m in 3500 ms = 1249 units per s (move_speed 8960) at t=35904695
+						Lua 0:04:29:333
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=106 status=OK t=35904926 id=29
+[SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=106 status=OK t=35904926 id=29
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35904926 id=30
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35904926 id=30
+[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=false art_settled=true art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904334 half=9041 label="Depot: rest, upgrade or train" line_trains=1 mark=106 metals=54166 orphan=true pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 trigger=depot_revision_wait twin=none upgrade=false verdict=hour_done t=35904926 id=31
+[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=false art_settled=true art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904334 half=9041 label="Depot: rest, upgrade or train" line_trains=1 mark=106 metals=54166 orphan=true pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 trigger=depot_revision_wait twin=none upgrade=false verdict=hour_done t=35904926 id=31
+[mod] [SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=35904926 id=32
+[SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=35904926 id=32
+						Lua 0:04:42:309
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=111 status=OK t=35904926 id=33
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=111 status=OK t=35904926 id=33
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35904926 id=34
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35904926 id=34
+[ElevatorDepotDev] pair surface=none underground=9041 extras=0 cabin=none legs=0 ends_in_min=0 aboard=none capacity=250 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=none rows=read-only
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=- vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=- vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=4964 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Metals       state=to_underground surface=-        underground=plain    target=21% u_panel=- stock_s=-1 stock_u=54166 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Concrete     state=to_underground surface=-        underground=plain    target=21% u_panel=- stock_s=-1 stock_u=7614 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Spices       state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=4759 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Food         state=to_surface     surface=-        underground=plain    target=0% u_panel=- stock_s=-1 stock_u=0 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Sugar        state=to_surface     surface=-        underground=plain    target=0% u_panel=- stock_s=-1 stock_u=0 vanilla_s=- vanilla_u=on/default
+						Lua 0:04:42:310
+[ElevatorDepotDev]   row Butter       state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=6884 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row PreciousMetals state=to_surface     surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=4000 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Bread        state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=4842 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row PreciousMinerals state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=6707 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Cheese       state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=6308 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Polymers     state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=8951 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Coffee       state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=7180 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row MachineParts state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=12726 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Electronics  state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=8344 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Meat         state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=5680 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Fuel         state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=6998 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row Seeds        state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=5242 vanilla_s=- vanilla_u=on/default
+[ElevatorDepotDev]   row WasteRock    state=to_underground surface=-        underground=plain    target=4%(dial) u_panel=- stock_s=-1 stock_u=240400 vanilla_s=- vanilla_u=on/default
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=false art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904926 half=9041 line_trains=1 mark=111 metals=54166 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 twin=none upgrade=false t=35904926 id=35
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=false art_target_z=10000 art_z=10000 cabin=none cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35904926 half=9041 line_trains=1 mark=111 metals=54166 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=2 twin=none upgrade=false t=35904926 id=35
+						Lua 0:04:51:285
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:04:51:295
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35904926 id=36
+						Lua 0:04:55:544
+[ElevatorDepotDev] cursor dressed elevator=true cabin=true scale=75 palette=2
+						Lua 0:04:55:549
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=35904926 id=37
+						Lua 0:05:07:326
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=ConstructionSite(10907) status=OK t=35904926 id=38
+						Lua 0:05:08:243
+[mod] [SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInElevatorDepotDev completed=true group_members=0 leader=ConstructionSite(10907) leader_valid_after=false object=ConstructionSite(10907) selected_valid_after=false status=OK t=35904926 id=39
+[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInElevatorDepotDev completed=true group_members=0 leader=ConstructionSite(10907) leader_valid_after=false object=ConstructionSite(10907) selected_valid_after=false status=OK t=35904926 id=39
+						Lua 0:05:08:263
+[ElevatorDepotDev] dressed table: 000001F7085886C8 env=Surface elevator=true tunnel=false cabin=true ropes=0 scale=75 receiver=false signs=0 cabin_hide_below=-635 palette=2
+						Lua 0:05:08:276
+
+!!! Quick Build !!!
+						Lua 0:05:08:289
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35904926 id=40
+						Lua 0:05:17:471
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35904926 id=41
+						Lua 0:05:19:709
+[mod] [SMRTK] SMRTK_ARM action=depot_next_departure cabin=none cadence=250 deadline=35994926 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35904926 id=42
+[SMRTK] SMRTK_ARM action=depot_next_departure cabin=none cadence=250 deadline=35994926 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35904926 id=42
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35904926 id=43
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35904926 id=43
+[mod] [SMRTK] SMRTK_ACTION action=slot_6 cabin=none cadence=250 deadline=35994926 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35904926 id=44
+[SMRTK] SMRTK_ACTION action=slot_6 cabin=none cadence=250 deadline=35994926 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35904926 id=44
+						Lua 0:05:19:711
+[TrainBay] fill line=6430:2009-6430-7873-10908 arm=3 pool=2 t=35905000
+						Lua 0:05:19:714
+[ElevatorDepotDev] pair formed: surface 10908 underground 9041 rows Concrete=to_underground,Electronics=to_underground,Food=to_surface,MachineParts=to_underground,Metals=to_underground,Polymers=to_underground,PreciousMetals=to_surface,Sugar=to_surface
+						Lua 0:05:19:715
+[TrainBay] spawn train=2000003741 hub=6430 arm=3 before=(278900, 166722, 10800) before_angle=10800 target=(278900, 166722, 10800) angle=10800 actual=(278900, 166722, 10800) actual_angle=10800 t=35905000
+						Lua 0:05:19:804
+[ElevatorDepotDev] cabin departed down (leg 1) loaded none aboard none arrives in 60 min
+						Lua 0:05:19:842
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=153 status=OK t=35910814 id=45
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=153 status=OK t=35910814 id=45
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35910814 id=46
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35910814 id=46
+						Lua 0:05:19:843
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_departure cabin=down game_time=35910176 label="Depot: the cabin's next departure" legs=0 mark=153 pause=true s_Concrete=0 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=76 u_Metals=542 verdict=departed t=35910814 id=47
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_departure cabin=down game_time=35910176 label="Depot: the cabin's next departure" legs=0 mark=153 pause=true s_Concrete=0 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=76 u_Metals=542 verdict=departed t=35910814 id=47
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=35910814 id=48
+[SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=35910814 id=48
+						Lua 0:05:25:288
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:05:25:299
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35910814 id=49
+						Lua 0:05:27:413
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:05:27:423
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35910814 id=50
+						Lua 0:05:35:589
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 reason="select an object" status=REFUSED t=35910814 id=51
+[SMRTK] SMRTK_ACTION action=slot_5 reason="select an object" status=REFUSED t=35910814 id=51
+						Lua 0:05:36:870
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35910814 id=52
+						Lua 0:05:37:905
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=163 status=OK t=35910814 id=53
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=163 status=OK t=35910814 id=53
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35910814 id=54
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35910814 id=54
+[mod] [SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=35940814 half=10908 mode=rest once=true status=OK trigger=depot_revision_wait t=35910814 id=55
+[SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=35940814 half=10908 mode=rest once=true status=OK trigger=depot_revision_wait t=35910814 id=55
+						Lua 0:05:37:906
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35910814 id=56
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35910814 id=56
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=35940814 half=10908 mode=rest once=true status=OK trigger=depot_revision_wait t=35910814 id=57
+[SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=35940814 half=10908 mode=rest once=true status=OK trigger=depot_revision_wait t=35910814 id=57
+						Lua 0:05:38:073
+[TrainHubDev] engine leg back: 60 m in 3750 ms = 1600 units per s (move_speed 8960) at t=35919945
+						Lua 0:05:38:373
+[TrainHubDev] engine leg back: 56 m in 3500 ms = 1612 units per s (move_speed 8960) at t=35934695
+						Lua 0:05:38:470
+[ElevatorDepotDev] cabin arrived underground (leg 1) delivered none still aboard none
+						Lua 0:05:38:472
+[ElevatorDepotDev] cabin departed up (leg 2) loaded PreciousMetals=4000 aboard PreciousMetals=4000 arrives in 60 min
+						Lua 0:05:38:522
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=172 status=OK t=35941406 id=58
+[SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=172 status=OK t=35941406 id=58
+						Lua 0:05:38:523
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35941406 id=59
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35941406 id=59
+[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=4163 art_z=4150 cabin=up cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35940814 half=10908 label="Depot: rest, upgrade or train" line_trains=2 mark=172 metals=0 orphan=false pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=false verdict=hour_done t=35941406 id=60
+[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=4163 art_z=4150 cabin=up cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35940814 half=10908 label="Depot: rest, upgrade or train" line_trains=2 mark=172 metals=0 orphan=false pause=true sound=true status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=false verdict=hour_done t=35941406 id=60
+[mod] [SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=35941406 id=61
+[SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=35941406 id=61
+						Lua 0:05:47:249
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:05:47:259
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35941406 id=62
+						Lua 0:05:56:884
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=172 lines=6 status=OK truncated=false t=35943049 id=63
+[SMRTK] SMRTK_COPY action=copy flushed=true from=172 lines=6 status=OK truncated=false t=35943049 id=63
+						Lua 0:07:05:257
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:07:05:267
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35943049 id=64
+						Lua 0:07:05:430
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35943049 id=65
+						Lua 0:07:12:120
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="Metals or Concrete is reserved by a carrier; run the next arrival and retry" status=REFUSED t=35943049 id=66
+[SMRTK] SMRTK_ACTION action=slot_1 reason="Metals or Concrete is reserved by a carrier; run the next arrival and retry" status=REFUSED t=35943049 id=66
+						Lua 0:07:36:920
+[mod] [SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36033049 legs=1 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35943049 id=67
+[SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36033049 legs=1 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35943049 id=67
+						Lua 0:07:36:921
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35943049 id=68
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35943049 id=68
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36033049 legs=1 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35943049 id=69
+[SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36033049 legs=1 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35943049 id=69
+						Lua 0:07:37:045
+[TrainHubDev] engine leg back: 47 m in 3750 ms = 1241 units per s (move_speed 8960) at t=35949945
+						Lua 0:07:37:325
+[TrainHubDev] engine leg back: 46 m in 3750 ms = 1235 units per s (move_speed 8960) at t=35964945
+						Lua 0:07:37:442
+[ElevatorDepotDev] cabin arrived surface (leg 2) delivered PreciousMetals=4000 still aboard none
+						Lua 0:07:37:445
+[ElevatorDepotDev] cabin departed down (leg 3) loaded none aboard none arrives in 60 min
+						Lua 0:07:37:459
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:07:37:460
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:07:37:461
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:07:37:462
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:07:37:463
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:07:37:464
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:07:37:482
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=222 status=OK t=35970185 id=70
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=222 status=OK t=35970185 id=70
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35970185 id=71
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35970185 id=71
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=35970049 label="Depot: the cabin's next arrival" legs=2 mark=222 pause=true s_Concrete=0 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=76 u_Metals=542 verdict=arrived t=35970185 id=72
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=35970049 label="Depot: the cabin's next arrival" legs=2 mark=222 pause=true s_Concrete=0 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=76 u_Metals=542 verdict=arrived t=35970185 id=72
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=35970185 id=73
+[SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=35970185 id=73
+						Lua 0:07:46:979
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:07:46:989
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35970185 id=74
+						Lua 0:07:47:679
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=35970185 id=75
+						Lua 0:08:49:819
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:49:820
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:49:821
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:08:49:822
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:49:823
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:49:824
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:08:49:825
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:08:49:855
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:08:49:856
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:08:49:857
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:49:858
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:08:49:859
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:08:49:860
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:50:788
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:08:50:799
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35970185 id=76
+						Lua 0:08:51:064
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35970185 id=77
+						Lua 0:08:56:774
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="Metals or Concrete is reserved by a carrier; run the next arrival and retry" status=REFUSED t=35970185 id=78
+[SMRTK] SMRTK_ACTION action=slot_1 reason="Metals or Concrete is reserved by a carrier; run the next arrival and retry" status=REFUSED t=35970185 id=78
+						Lua 0:09:24:449
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="pause first" status=REFUSED t=35973744 id=79
+[SMRTK] SMRTK_ACTION action=slot_1 reason="pause first" status=REFUSED t=35973744 id=79
+						Lua 0:10:10:509
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:10:10:519
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35975292 id=80
+						Lua 0:10:12:056
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationBig(9702) status=OK t=35975292 id=81
+						Lua 0:10:16:938
+[TrainHubDev] engine leg back: 52 m in 3500 ms = 1492 units per s (move_speed 8960) at t=35979695
+						Lua 0:10:20:864
+[TrainHubDev] engine leg back: 54 m in 3500 ms = 1543 units per s (move_speed 8960) at t=35994695
+						Lua 0:10:20:896
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:10:20:897
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:10:20:898
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:10:20:899
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:10:20:900
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:10:20:901
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:10:21:304
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:10:21:305
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:10:21:306
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:10:21:307
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:10:21:308
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:10:21:309
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:10:21:868
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:10:21:879
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35995698 id=82
+						Lua 0:10:21:912
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=35995727 id=83
+						Lua 0:10:24:737
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_DOWN_SETUP mark=370 status=OK t=35997209 id=84
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_DOWN_SETUP mark=370 status=OK t=35997209 id=84
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35997209 id=85
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35997209 id=85
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4558 art_z=4600 cabin=down cabin_capacity=250 concrete=52000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=10908 line_trains=2 metals=52000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=35997209 id=86
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4558 art_z=4600 cabin=down cabin_capacity=250 concrete=52000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=10908 line_trains=2 metals=52000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=35997209 id=86
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=12791 art_z=13000 cabin=down cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=9041 line_trains=1 metals=54166 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=35997209 id=87
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=12791 art_z=13000 cabin=down cabin_capacity=250 concrete=7614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=9041 line_trains=1 metals=54166 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=35997209 id=87
+						Lua 0:10:24:742
+[ElevatorDepotDev] row Herbs = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:744
+[ElevatorDepotDev] row Metals = to_underground word=import (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:746
+[ElevatorDepotDev] row Concrete = to_underground word=import (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:749
+[ElevatorDepotDev] row Spices = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:753
+[ElevatorDepotDev] row Food = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:756
+[ElevatorDepotDev] row Sugar = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:759
+[ElevatorDepotDev] row Butter = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:762
+[ElevatorDepotDev] row PreciousMetals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:765
+[ElevatorDepotDev] row Bread = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:768
+[ElevatorDepotDev] row PreciousMinerals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:771
+[ElevatorDepotDev] row Cheese = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:774
+[ElevatorDepotDev] row Polymers = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:777
+[ElevatorDepotDev] row Coffee = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:780
+[ElevatorDepotDev] row MachineParts = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:783
+[ElevatorDepotDev] row Electronics = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:787
+[ElevatorDepotDev] row Meat = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:790
+[ElevatorDepotDev] row Fuel = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:793
+[ElevatorDepotDev] row Seeds = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:796
+[ElevatorDepotDev] row WasteRock = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+[ElevatorDepotDev] drone access surface 10908 off
+						Lua 0:10:24:799
+[ElevatorDepotDev] drone access underground 9041 off
+[ElevatorDepotDev] target Metals = 100% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:801
+[ElevatorDepotDev] target Concrete = 100% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:24:806
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=4600 cabin=at_top cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=10908 line_trains=2 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=35997209 id=88
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=4600 cabin=at_top cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=10908 line_trains=2 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=35997209 id=88
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=13000 cabin=at_top cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=35997209 id=89
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=13000 cabin=at_top cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=35997209 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=35997209 id=89
+[mod] [SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_top cadence=250 deadline=36087209 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35997209 id=90
+[SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_top cadence=250 deadline=36087209 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35997209 id=90
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35997209 id=91
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35997209 id=91
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 cabin=at_top cadence=250 deadline=36087209 direction=down expected_concrete=0 expected_metals=250000 mark=370 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35997209 id=92
+[SMRTK] SMRTK_ACTION action=slot_1 cabin=at_top cadence=250 deadline=36087209 direction=down expected_concrete=0 expected_metals=250000 mark=370 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=35997209 id=92
+						Lua 0:10:24:827
+[ElevatorDepotDev] cabin departed down (leg 3) loaded Metals=250000 aboard Metals=250000 arrives in 60 min
+						Lua 0:10:24:859
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=403 status=OK t=35997849 id=93
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=403 status=OK t=35997849 id=93
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35997849 id=94
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=35997849 id=94
+						Lua 0:10:24:863
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=2500 action=depot_next_departure cabin=down game_time=35997709 label="Depot: the cabin's next departure" legs=2 mark=403 pause=true s_Concrete=2500 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=2400 u_Metals=0 verdict=departed t=35997849 id=95
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=2500 action=depot_next_departure cabin=down game_time=35997709 label="Depot: the cabin's next departure" legs=2 mark=403 pause=true s_Concrete=2500 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=2400 u_Metals=0 verdict=departed t=35997849 id=95
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=35997849 id=96
+[SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=35997849 id=96
+						Lua 0:10:35:683
+[mod] [SMRTK] SMRTK_ARM action=depot_next_arrival cabin=down cadence=250 deadline=36087849 legs=2 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35997849 id=97
+[SMRTK] SMRTK_ARM action=depot_next_arrival cabin=down cadence=250 deadline=36087849 legs=2 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35997849 id=97
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35997849 id=98
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35997849 id=98
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cabin=down cadence=250 deadline=36087849 legs=2 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35997849 id=99
+[SMRTK] SMRTK_ACTION action=slot_2 cabin=down cadence=250 deadline=36087849 legs=2 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=35997849 id=99
+						Lua 0:10:35:953
+[TrainHubDev] engine leg back: 58 m in 3500 ms = 1649 units per s (move_speed 8960) at t=36009695
+						Lua 0:10:36:257
+[TrainHubDev] engine leg back: 53 m in 3250 ms = 1619 units per s (move_speed 8960) at t=36024445
+						Lua 0:10:36:308
+[ElevatorDepotDev] cabin arrived underground (leg 3) delivered Metals=250000 still aboard none
+						Lua 0:10:36:310
+[ElevatorDepotDev] cabin departed up (leg 4) loaded none aboard none arrives in 60 min
+						Lua 0:10:36:334
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=414 status=OK t=36027929 id=100
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=414 status=OK t=36027929 id=100
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36027929 id=101
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36027929 id=101
+						Lua 0:10:36:335
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=up game_time=36027599 label="Depot: the cabin's next arrival" legs=3 mark=414 pause=true s_Concrete=2500 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=2400 u_Metals=2500 verdict=arrived t=36027929 id=102
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=up game_time=36027599 label="Depot: the cabin's next arrival" legs=3 mark=414 pause=true s_Concrete=2500 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=2400 u_Metals=2500 verdict=arrived t=36027929 id=102
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36027929 id=103
+[SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36027929 id=103
+						Lua 0:10:50:814
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_UP_SETUP mark=418 status=OK t=36027929 id=104
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_UP_SETUP mark=418 status=OK t=36027929 id=104
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36027929 id=105
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36027929 id=105
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4086 art_z=4050 cabin=up cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=10908 line_trains=2 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36027929 id=106
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4086 art_z=4050 cabin=up cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=10908 line_trains=2 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36027929 id=106
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10429 art_z=10250 cabin=up cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=9041 line_trains=1 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36027929 id=107
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10429 art_z=10250 cabin=up cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=9041 line_trains=1 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36027929 id=107
+						Lua 0:10:50:817
+[ElevatorDepotDev] row Herbs = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:819
+[ElevatorDepotDev] row Metals = to_surface word=export (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:821
+[ElevatorDepotDev] row Concrete = to_surface word=export (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:824
+[ElevatorDepotDev] row Spices = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:826
+[ElevatorDepotDev] row Food = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:828
+[ElevatorDepotDev] row Sugar = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:830
+[ElevatorDepotDev] row Butter = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:832
+[ElevatorDepotDev] row PreciousMetals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:834
+[ElevatorDepotDev] row Bread = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:836
+[ElevatorDepotDev] row PreciousMinerals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:839
+[ElevatorDepotDev] row Cheese = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:841
+[ElevatorDepotDev] row Polymers = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:843
+[ElevatorDepotDev] row Coffee = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:846
+[ElevatorDepotDev] row MachineParts = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:848
+[ElevatorDepotDev] row Electronics = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:850
+[ElevatorDepotDev] row Meat = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:853
+[ElevatorDepotDev] row Fuel = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:855
+[ElevatorDepotDev] row Seeds = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:857
+[ElevatorDepotDev] row WasteRock = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+[ElevatorDepotDev] drone access surface 10908 off
+						Lua 0:10:50:859
+[ElevatorDepotDev] drone access underground 9041 off
+[ElevatorDepotDev] target Metals = 0% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:862
+[ElevatorDepotDev] target Concrete = 0% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:10:50:866
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4050 cabin=at_bottom cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=10908 line_trains=2 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36027929 id=108
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4050 cabin=at_bottom cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=10908 line_trains=2 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36027929 id=108
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10250 cabin=at_bottom cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=9041 line_trains=1 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36027929 id=109
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10250 cabin=at_bottom cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36027929 half=9041 line_trains=1 metals=250000 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36027929 id=109
+[mod] [SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_bottom cadence=250 deadline=36117929 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36027929 id=110
+[SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_bottom cadence=250 deadline=36117929 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36027929 id=110
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36027929 id=111						Lua 0:10:50:867
+
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36027929 id=111
+[mod] [SMRTK] SMRTK_ACTION action=slot_4 cabin=at_bottom cadence=250 deadline=36117929 direction=up expected_concrete=0 expected_metals=250000 mark=418 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36027929 id=112
+[SMRTK] SMRTK_ACTION action=slot_4 cabin=at_bottom cadence=250 deadline=36117929 direction=up expected_concrete=0 expected_metals=250000 mark=418 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36027929 id=112
+						Lua 0:10:50:868
+[ElevatorDepotDev] cabin departed up (leg 4) loaded Metals=250000 aboard Metals=250000 arrives in 60 min
+						Lua 0:10:50:890
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=451 status=OK t=36028569 id=113
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=451 status=OK t=36028569 id=113
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36028569 id=114
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36028569 id=114
+						Lua 0:10:50:891
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=2500 action=depot_next_departure cabin=up game_time=36028179 label="Depot: the cabin's next departure" legs=3 mark=451 pause=true s_Concrete=2400 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=2500 u_Metals=0 verdict=departed t=36028569 id=115
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=2500 action=depot_next_departure cabin=up game_time=36028179 label="Depot: the cabin's next departure" legs=3 mark=451 pause=true s_Concrete=2400 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=2500 u_Metals=0 verdict=departed t=36028569 id=115
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36028569 id=116
+[SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36028569 id=116
+						Lua 0:11:06:432
+[mod] [SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36118569 legs=3 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36028569 id=117
+[SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36118569 legs=3 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36028569 id=117
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36028569 id=118
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36028569 id=118
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36118569 legs=3 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36028569 id=119
+[SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36118569 legs=3 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36028569 id=119
+						Lua 0:11:06:994
+[ElevatorDepotDev] cabin arrived surface (leg 4) delivered Metals=250000 still aboard none
+						Lua 0:11:06:996
+[ElevatorDepotDev] cabin departed down (leg 5) loaded none aboard none arrives in 60 min
+						Lua 0:11:07:014
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=460 status=OK t=36058265 id=120
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=460 status=OK t=36058265 id=120
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=121
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=121
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=36058069 label="Depot: the cabin's next arrival" legs=4 mark=460 pause=true s_Concrete=2400 s_Metals=2500 sound=true status=OK trigger=depot_next_arrival u_Concrete=2500 u_Metals=0 verdict=arrived t=36058265 id=122
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=36058069 label="Depot: the cabin's next arrival" legs=4 mark=460 pause=true s_Concrete=2400 s_Metals=2500 sound=true status=OK trigger=depot_next_arrival u_Concrete=2500 u_Metals=0 verdict=arrived t=36058265 id=122
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36058265 id=123
+[SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36058265 id=123
+						Lua 0:11:11:996
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=464 status=OK t=36058265 id=124
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=464 status=OK t=36058265 id=124
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=125
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=125
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39735 art_z=39750 cabin=down cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36058265 id=126
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39735 art_z=39750 cabin=down cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36058265 id=126
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=4 ends_in_min=59 aboard=none capacity=250 leg_min=60 pause_min=0 words=station follows=true
+						Lua 0:11:11:997
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=3 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=250000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=240000 stock_u=250000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+						Lua 0:11:11:998
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9947 art_z=9950 cabin=down cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=10908 line_trains=2 mark=464 metals=250000 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36058265 id=127
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9947 art_z=9950 cabin=down cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=10908 line_trains=2 mark=464 metals=250000 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36058265 id=127
+						Lua 0:11:13:006
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=464 lines=29 status=OK truncated=false t=36058265 id=128
+[SMRTK] SMRTK_COPY action=copy flushed=true from=464 lines=29 status=OK truncated=false t=36058265 id=128
+						Lua 0:12:35:924
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=494 status=OK t=36058265 id=129
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=494 status=OK t=36058265 id=129
+						Lua 0:12:35:925
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=130
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=130
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39735 art_z=39750 cabin=down cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36058265 id=131
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39735 art_z=39750 cabin=down cabin_capacity=250 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=false t=36058265 id=131
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=4 ends_in_min=59 aboard=none capacity=250 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=3 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=4%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=250000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=240000 stock_u=250000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=4%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+						Lua 0:12:35:926
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9947 art_z=9950 cabin=down cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=10908 line_trains=2 mark=494 metals=250000 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36058265 id=132
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9947 art_z=9950 cabin=down cabin_capacity=250 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36058265 half=10908 line_trains=2 mark=494 metals=250000 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36058265 id=132
+						Lua 0:13:09:254
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=523 status=OK t=36058265 id=133
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_WAIT mark=523 status=OK t=36058265 id=133
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=134
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36058265 id=134
+						Lua 0:13:09:255
+[mod] [SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=36238265 half=10908 mode=upgrade once=true status=OK trigger=depot_revision_wait t=36058265 id=135
+[SMRTK] SMRTK_ARM action=depot_revision_wait cadence=250 deadline=36238265 half=10908 mode=upgrade once=true status=OK trigger=depot_revision_wait t=36058265 id=135
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36058265 id=136
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36058265 id=136
+[mod] [SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=36238265 half=10908 mode=upgrade once=true status=OK trigger=depot_revision_wait t=36058265 id=137
+[SMRTK] SMRTK_ACTION action=slot_5 cadence=250 deadline=36238265 half=10908 mode=upgrade once=true status=OK trigger=depot_revision_wait t=36058265 id=137
+						Lua 0:13:09:509
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=528 status=OK t=36069273 id=138
+[SMRTK] SMRTK_MARK action=mark label="Depot: rest, upgrade or train" mark=528 status=OK t=36069273 id=138
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=139
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=139
+[mod] [SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label="Depot: rest, upgrade or train" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140
+[SMRTK] SMRTK_TRIGGER aboard_concrete=0 aboard_metals=0 action=depot_revision_wait art_changes=0 art_moving=true art_settled=false art_target_z=7847 art_z=7850 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36068765 half=10908 label="Depot: rest, upgrade or train" line_trains=2 mark=528 metals=250000 orphan=false pause=true sound=true status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 trigger=depot_revision_wait twin=9041 upgrade=true verdict=upgrade_complete t=36069273 id=140
+[mod] [SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=36069273 id=141
+[SMRTK] SMRTK_DISARM action=depot_revision_wait reason="trigger complete" status=OK trigger=depot_revision_wait t=36069273 id=141
+						Lua 0:13:17:149
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=532 status=OK t=36069273 id=142
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=532 status=OK t=36069273 id=142
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=143
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=143
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=144
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=144
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=4 ends_in_min=37 aboard=none capacity=500 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+						Lua 0:13:17:150
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=250000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=240000 stock_u=250000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 mark=532 metals=250000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=145
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 mark=532 metals=250000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=145
+						Lua 0:13:19:608
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:13:19:618
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36069273 id=146
+						Lua 0:13:20:341
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=36069273 id=147
+						Lua 0:13:21:585
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=564 status=OK t=36069273 id=148
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=564 status=OK t=36069273 id=148
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=149
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=149
+						Lua 0:13:21:586
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=150
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=150
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=4 ends_in_min=37 aboard=none capacity=500 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=250000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=240000 stock_u=250000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 mark=564 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=151
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 mark=564 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=151
+						Lua 0:13:33:407
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:13:33:418
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36069273 id=152
+						Lua 0:13:33:786
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=36069273 id=153
+						Lua 0:13:35:102
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_DOWN_SETUP mark=596 status=OK t=36069273 id=154
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_DOWN_SETUP mark=596 status=OK t=36069273 id=154
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=155
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069273 id=155
+						Lua 0:13:35:103
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=156
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=7745 art_z=7750 cabin=down cabin_capacity=500 concrete=240000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=250000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=156
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=157
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=28727 art_z=28750 cabin=down cabin_capacity=500 concrete=250000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=157
+						Lua 0:13:35:106
+[ElevatorDepotDev] row Herbs = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:108
+[ElevatorDepotDev] row Metals = to_underground word=import (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:110
+[ElevatorDepotDev] row Concrete = to_underground word=import (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:113
+[ElevatorDepotDev] row Spices = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:115
+[ElevatorDepotDev] row Food = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:117
+[ElevatorDepotDev] row Sugar = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:119
+[ElevatorDepotDev] row Butter = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:122
+[ElevatorDepotDev] row PreciousMetals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:124
+[ElevatorDepotDev] row Bread = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:126
+[ElevatorDepotDev] row PreciousMinerals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:128
+[ElevatorDepotDev] row Cheese = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:130
+[ElevatorDepotDev] row Polymers = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:132
+[ElevatorDepotDev] row Coffee = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:134
+[ElevatorDepotDev] row MachineParts = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:137
+[ElevatorDepotDev] row Electronics = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:139
+[ElevatorDepotDev] row Meat = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:141
+[ElevatorDepotDev] row Fuel = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:143
+[ElevatorDepotDev] row Seeds = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:145
+[ElevatorDepotDev] row WasteRock = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+[ElevatorDepotDev] drone access surface 10908 off
+						Lua 0:13:35:148
+[ElevatorDepotDev] drone access underground 9041 off
+[ElevatorDepotDev] target Metals = 100% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:150
+[ElevatorDepotDev] target Concrete = 100% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:13:35:154
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=7750 cabin=at_top cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=158
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=7750 cabin=at_top cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36069273 id=158
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=28750 cabin=at_top cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=159
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=40000 art_z=28750 cabin=at_top cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36069273 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36069273 id=159
+[mod] [SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_top cadence=250 deadline=36159273 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36069273 id=160
+[SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_top cadence=250 deadline=36159273 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36069273 id=160
+						Lua 0:13:35:155
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36069273 id=161
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36069273 id=161
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 cabin=at_top cadence=250 deadline=36159273 direction=down expected_concrete=0 expected_metals=500000 mark=596 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36069273 id=162
+[SMRTK] SMRTK_ACTION action=slot_1 cabin=at_top cadence=250 deadline=36159273 direction=down expected_concrete=0 expected_metals=500000 mark=596 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36069273 id=162
+						Lua 0:13:35:173
+[ElevatorDepotDev] cabin departed down (leg 5) loaded Metals=500000 aboard Metals=500000 arrives in 60 min
+						Lua 0:13:35:194
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=629 status=OK t=36069913 id=163
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=629 status=OK t=36069913 id=163
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069913 id=164
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36069913 id=164
+						Lua 0:13:35:195
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=5000 action=depot_next_departure cabin=down game_time=36069523 label="Depot: the cabin's next departure" legs=4 mark=629 pause=true s_Concrete=5000 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=4900 u_Metals=0 verdict=departed t=36069913 id=165
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=5000 action=depot_next_departure cabin=down game_time=36069523 label="Depot: the cabin's next departure" legs=4 mark=629 pause=true s_Concrete=5000 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=4900 u_Metals=0 verdict=departed t=36069913 id=165
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36069913 id=166
+[SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36069913 id=166
+						Lua 0:13:52:831
+[mod] [SMRTK] SMRTK_ARM action=depot_next_arrival cabin=down cadence=250 deadline=36159913 legs=4 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36069913 id=167
+[SMRTK] SMRTK_ARM action=depot_next_arrival cabin=down cadence=250 deadline=36159913 legs=4 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36069913 id=167
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36069913 id=168
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36069913 id=168
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cabin=down cadence=250 deadline=36159913 legs=4 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36069913 id=169
+[SMRTK] SMRTK_ACTION action=slot_2 cabin=down cadence=250 deadline=36159913 legs=4 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36069913 id=169
+						Lua 0:13:53:476
+[ElevatorDepotDev] cabin arrived underground (leg 5) delivered Metals=500000 still aboard none
+						Lua 0:13:53:478
+[ElevatorDepotDev] cabin departed up (leg 6) loaded none aboard none arrives in 60 min
+						Lua 0:13:53:494
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=638 status=OK t=36100121 id=170
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=638 status=OK t=36100121 id=170
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100121 id=171
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100121 id=171
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=up game_time=36099663 label="Depot: the cabin's next arrival" legs=5 mark=638 pause=true s_Concrete=5000 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=4900 u_Metals=5000 verdict=arrived t=36100121 id=172
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=up game_time=36099663 label="Depot: the cabin's next arrival" legs=5 mark=638 pause=true s_Concrete=5000 s_Metals=0 sound=true status=OK trigger=depot_next_arrival u_Concrete=4900 u_Metals=5000 verdict=arrived t=36100121 id=172
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36100121 id=173
+[SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36100121 id=173
+						Lua 0:14:01:349
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_UP_SETUP mark=642 status=OK t=36100121 id=174
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_NEED_UP_SETUP mark=642 status=OK t=36100121 id=174
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100121 id=175
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100121 id=175
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4124 art_z=4124 cabin=up cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=176
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=4124 art_z=4124 cabin=up cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=176
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10621 art_z=10621 cabin=up cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=177
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=10621 art_z=10621 cabin=up cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=177
+						Lua 0:14:01:352
+[ElevatorDepotDev] row Herbs = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:354
+[ElevatorDepotDev] row Metals = to_surface word=export (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:357
+[ElevatorDepotDev] row Concrete = to_surface word=export (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:359
+[ElevatorDepotDev] row Spices = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:361
+[ElevatorDepotDev] row Food = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:363
+[ElevatorDepotDev] row Sugar = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:365
+[ElevatorDepotDev] row Butter = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:367
+[ElevatorDepotDev] row PreciousMetals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:370
+[ElevatorDepotDev] row Bread = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:372
+[ElevatorDepotDev] row PreciousMinerals = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:374
+[ElevatorDepotDev] row Cheese = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:376
+[ElevatorDepotDev] row Polymers = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:378
+[ElevatorDepotDev] row Coffee = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:380
+[ElevatorDepotDev] row MachineParts = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:382
+[ElevatorDepotDev] row Electronics = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:384
+[ElevatorDepotDev] row Meat = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:386
+[ElevatorDepotDev] row Fuel = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:388
+[ElevatorDepotDev] row Seeds = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:391
+[ElevatorDepotDev] row WasteRock = disabled word=disabled (set on the surface half 10908; underground 9041 copy updated)
+[ElevatorDepotDev] drone access surface 10908 off
+						Lua 0:14:01:393
+[ElevatorDepotDev] drone access underground 9041 off
+[ElevatorDepotDev] target Metals = 0% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:395
+[ElevatorDepotDev] target Concrete = 0% (set on the surface half 10908; underground 9041 copy updated)
+						Lua 0:14:01:399
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4124 cabin=at_bottom cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=178
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=4000 art_z=4124 cabin=at_bottom cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=10908 line_trains=2 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36100121 id=178
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10621 cabin=at_bottom cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=179
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=false art_target_z=10000 art_z=10621 cabin=at_bottom cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36100121 half=9041 line_trains=1 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36100121 id=179
+[mod] [SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_bottom cadence=250 deadline=36190121 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36100121 id=180
+[SMRTK] SMRTK_ARM action=depot_next_departure cabin=at_bottom cadence=250 deadline=36190121 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36100121 id=180
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36100121 id=181
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36100121 id=181
+[mod] [SMRTK] SMRTK_ACTION action=slot_4 cabin=at_bottom cadence=250 deadline=36190121 direction=up expected_concrete=0 expected_metals=500000 mark=642 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36100121 id=182
+[SMRTK] SMRTK_ACTION action=slot_4 cabin=at_bottom cadence=250 deadline=36190121 direction=up expected_concrete=0 expected_metals=500000 mark=642 once=true status=OK surface=10908 trigger=depot_next_departure underground=9041 t=36100121 id=182
+						Lua 0:14:01:412
+[ElevatorDepotDev] cabin departed up (leg 6) loaded Metals=500000 aboard Metals=500000 arrives in 60 min
+						Lua 0:14:01:427
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=675 status=OK t=36100889 id=183
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next departure" mark=675 status=OK t=36100889 id=183
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100889 id=184
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36100889 id=184
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=5000 action=depot_next_departure cabin=up game_time=36100621 label="Depot: the cabin's next departure" legs=5 mark=675 pause=true s_Concrete=4900 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=5000 u_Metals=0 verdict=departed t=36100889 id=185
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=5000 action=depot_next_departure cabin=up game_time=36100621 label="Depot: the cabin's next departure" legs=5 mark=675 pause=true s_Concrete=4900 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=5000 u_Metals=0 verdict=departed t=36100889 id=185
+						Lua 0:14:01:428
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36100889 id=186
+[SMRTK] SMRTK_DISARM action=depot_next_departure reason="trigger complete" status=OK trigger=depot_next_departure t=36100889 id=186
+						Lua 0:14:08:874
+[mod] [SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36190889 legs=5 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36100889 id=187
+[SMRTK] SMRTK_ARM action=depot_next_arrival cabin=up cadence=250 deadline=36190889 legs=5 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36100889 id=187
+						Lua 0:14:08:875
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36100889 id=188
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=36100889 id=188
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36190889 legs=5 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36100889 id=189
+[SMRTK] SMRTK_ACTION action=slot_2 cabin=up cadence=250 deadline=36190889 legs=5 once=true status=OK surface=10908 trigger=depot_next_arrival underground=9041 t=36100889 id=189
+						Lua 0:14:09:535
+[ElevatorDepotDev] cabin arrived surface (leg 6) delivered Metals=500000 still aboard none
+						Lua 0:14:09:538
+[ElevatorDepotDev] cabin departed down (leg 7) loaded none aboard none arrives in 60 min
+						Lua 0:14:09:558
+[mod] [SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=684 status=OK t=36130713 id=190
+[SMRTK] SMRTK_MARK action=mark label="Depot: the cabin's next arrival" mark=684 status=OK t=36130713 id=190
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=191
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=191
+[mod] [SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=36130639 label="Depot: the cabin's next arrival" legs=6 mark=684 pause=true s_Concrete=4900 s_Metals=5000 sound=true status=OK trigger=depot_next_arrival u_Concrete=5000 u_Metals=0 verdict=arrived t=36130713 id=192
+[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=36130639 label="Depot: the cabin's next arrival" legs=6 mark=684 pause=true s_Concrete=4900 s_Metals=5000 sound=true status=OK trigger=depot_next_arrival u_Concrete=5000 u_Metals=0 verdict=arrived t=36130713 id=192
+[mod] [SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36130713 id=193
+[SMRTK] SMRTK_DISARM action=depot_next_arrival reason="trigger complete" status=OK trigger=depot_next_arrival t=36130713 id=193
+						Lua 0:14:13:023
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=688 status=OK t=36130713 id=194
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=688 status=OK t=36130713 id=194
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=195
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=195
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=196
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 metals=0 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=196
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=6 ends_in_min=60 aboard=none capacity=500 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=3 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+						Lua 0:14:13:024
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=500000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=490000 stock_u=500000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 mark=688 metals=500000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=197
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 mark=688 metals=500000 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=197
+						Lua 0:14:15:465
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:14:15:476
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36130713 id=198
+						Lua 0:14:17:371
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=36130713 id=199
+						Lua 0:14:18:614
+[mod] [SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=720 status=OK t=36130713 id=200
+[SMRTK] SMRTK_MARK action=mark label=DEPOT_REVISION_READ mark=720 status=OK t=36130713 id=200
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=201
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,SMR_ElevatorStationDev_20260929,SMR_TrainHubDev_20260918 pack_version=26 read="live registry" save=SMRTK_B.sav sol=51 status=OK t=36130713 id=201
+						Lua 0:14:18:615
+[mod] [SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=202
+[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=9957 art_z=9976 cabin=down cabin_capacity=500 concrete=490000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=10908 line_trains=2 metals=500000 storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=true t=36130713 id=202
+[ElevatorDepotDev] pair surface=10908 underground=9041 extras=0 cabin=down legs=6 ends_in_min=60 aboard=none capacity=500 leg_min=60 pause_min=0 words=station follows=true
+[ElevatorDepotDev]   half Underground 9041 working=true drone_access=off controllers=2 registered=0 drones_busy=0 twin=10908 rows=read-only
+[ElevatorDepotDev]   half Surface 10908 working=true drone_access=off controllers=3 registered=0 drones_busy=0 twin=9041 rows=set here
+[ElevatorDepotDev]   row BlackCube    state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row MysteryResource state=to_underground surface=gather   underground=hand_out target=2%(dial) u_panel=- stock_s=-1 stock_u=-1 vanilla_s=OFF/default vanilla_u=OFF/default
+[ElevatorDepotDev]   row Herbs        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=1000 stock_u=4964 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Metals       state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=500000 stock_u=0 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Concrete     state=to_surface     surface=hand_out underground=gather   target=0% u_panel=up,Export(surface says up) stock_s=490000 stock_u=500000 vanilla_s=on/accept vanilla_u=on/send
+[ElevatorDepotDev]   row Spices       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4759 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Food         state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Sugar        state=disabled       surface=disabled underground=disabled target=0% u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Butter       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6884 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMetals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=4000 stock_u=0 vanilla_s=OFF/accept vanilla_u=OFF/send
+[ElevatorDepotDev]   row Bread        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=4842 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row PreciousMinerals state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6707 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Cheese       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6308 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Polymers     state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8951 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Coffee       state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=7180 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row MachineParts state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=12726 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Electronics  state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=8344 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Meat         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5680 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Fuel         state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=6998 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row Seeds        state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=5242 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev]   row WasteRock    state=disabled       surface=disabled underground=disabled target=2%(dial) u_panel=off,Not accepted(surface says off) stock_s=0 stock_u=240400 vanilla_s=OFF/send vanilla_u=OFF/accept
+[ElevatorDepotDev] underground panel: 19 rows match the surface setting, 0 differ; read-only copy current
+[mod] [SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 mark=720 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=203
+[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=39787 art_z=39879 cabin=down cabin_capacity=500 concrete=500000 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36130713 half=9041 line_trains=1 mark=720 metals=0 status=OK storage=500000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=10908 upgrade=true t=36130713 id=203
+						Lua 0:14:19:586
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=720 lines=29 status=OK truncated=false t=36130713 id=204
+[SMRTK] SMRTK_COPY action=copy flushed=true from=720 lines=29 status=OK truncated=false t=36130713 id=204
+						Lua 0:15:17:955
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:15:17:965
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36130713 id=205
+						Lua 0:15:18:254
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=36130713 id=206
+						Lua 0:15:36:971
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=UniversalStorageDepot(7837) status=OK t=36160208 id=207
+						Lua 0:15:37:020
+[ElevatorDepotDev] cabin arrived underground (leg 7) delivered none still aboard none
+[ElevatorDepotDev] cabin departed up (leg 8) loaded Concrete=10000 aboard Concrete=10000 arrives in 60 min
+						Lua 0:15:38:731
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=300000 before=51027 method=CheatFill object=UniversalStorageDepot(7837) resource=multiple resources=10 status=OK valid_after=true t=36169043 id=208
+[SMRTK] SMRTK_ACTION action=selected_fill after=300000 before=51027 method=CheatFill object=UniversalStorageDepot(7837) resource=multiple resources=10 status=OK valid_after=true t=36169043 id=208
+						Lua 0:15:41:761
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=Elevator(7828) status=OK t=36184078 id=209
+						Lua 0:15:43:019
+[ElevatorDepotDev] cabin arrived surface (leg 8) delivered Concrete=10000 still aboard none
+[ElevatorDepotDev] cabin departed down (leg 9) loaded none aboard none arrives in 60 min
+						Lua 0:15:49:019
+[ElevatorDepotDev] cabin arrived underground (leg 9) delivered none still aboard none
+[ElevatorDepotDev] cabin departed up (leg 10) loaded none aboard none arrives in 60 min
+						Lua 0:15:55:021
+[ElevatorDepotDev] cabin arrived surface (leg 10) delivered none still aboard none
+[ElevatorDepotDev] cabin departed down (leg 11) loaded none aboard none arrives in 60 min
+						Lua 0:16:01:019
+[ElevatorDepotDev] cabin arrived underground (leg 11) delivered none still aboard none
+[ElevatorDepotDev] cabin departed up (leg 12) loaded Concrete=105000 aboard Concrete=105000 arrives in 60 min
+						Lua 0:16:07:020
+[ElevatorDepotDev] cabin arrived surface (leg 12) delivered Concrete=105000 still aboard none
+[ElevatorDepotDev] cabin departed down (leg 13) loaded none aboard none arrives in 60 min
+						Lua 0:16:07:265
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=36311663 id=210
+						Lua 0:16:10:942
+Story bits: Triggered story bit - UndergroundDeepScanning_Water						Lua 0:16:13:019
+[ElevatorDepotDev] cabin arrived underground (leg 13) delivered none still aboard none
+						Lua 0:16:13:022
+[ElevatorDepotDev] cabin departed up (leg 14) loaded Concrete=105000 aboard Concrete=105000 arrives in 60 min
+						Lua 0:16:19:019
+[ElevatorDepotDev] cabin arrived surface (leg 14) delivered Concrete=105000 still aboard none
+						Lua 0:16:19:021
+[ElevatorDepotDev] cabin departed down (leg 15) loaded none aboard none arrives in 60 min
+						Lua 0:16:25:019
+[ElevatorDepotDev] cabin arrived underground (leg 15) delivered none still aboard none
+						Lua 0:16:25:022
+[ElevatorDepotDev] cabin departed up (leg 16) loaded none aboard none arrives in 60 min
+						Lua 0:16:25:923
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:16:25:924
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:16:25:925
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:16:25:926
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:16:25:927
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:16:25:928
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:16:31:019
+[ElevatorDepotDev] cabin arrived surface (leg 16) delivered none still aboard none
+						Lua 0:16:31:022
+[ElevatorDepotDev] cabin departed down (leg 17) loaded none aboard none arrives in 60 min
+						Lua 0:16:34:634
+[mod] [SMRTK] SMRTK_SPEED action=speed_fastest before=5000 factor=20000 requested=20 status=OK t=36448568 id=211
+[SMRTK] SMRTK_SPEED action=speed_fastest before=5000 factor=20000 requested=20 status=OK t=36448568 id=211
+						Lua 0:16:35:236
+[ElevatorDepotDev] cabin arrived underground (leg 17) delivered none still aboard none
+						Lua 0:16:35:238
+[ElevatorDepotDev] cabin departed up (leg 18) loaded Concrete=105000 aboard Concrete=105000 arrives in 60 min
+						Lua 0:16:36:749
+[ElevatorDepotDev] cabin arrived surface (leg 18) delivered Concrete=105000 still aboard none
+						Lua 0:16:36:752
+[ElevatorDepotDev] cabin departed down (leg 19) loaded none aboard none arrives in 60 min
+						Lua 0:16:37:350
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=20000 factor=128000 requested=128 status=OK t=36502688 id=212
+[SMRTK] SMRTK_SPEED action=speed_ultra before=20000 factor=128000 requested=128 status=OK t=36502688 id=212
+						Lua 0:16:37:724
+[ElevatorDepotDev] cabin arrived underground (leg 19) delivered none still aboard none
+						Lua 0:16:37:727
+[ElevatorDepotDev] cabin departed up (leg 20) loaded Concrete=105000 aboard Concrete=105000 arrives in 60 min
+						Lua 0:16:38:312
+[ElevatorDepotDev] cabin arrived surface (leg 20) delivered Concrete=105000 still aboard none
+						Lua 0:16:38:315
+[ElevatorDepotDev] cabin departed down (leg 21) loaded none aboard none arrives in 60 min
+						Lua 0:16:38:512
+[mod] [SMRTK] SMRTK_SPEED action=pause before=128000 factor=0 requested=0 status=OK t=36560928 id=213
+[SMRTK] SMRTK_SPEED action=pause before=128000 factor=0 requested=0 status=OK t=36560928 id=213
+						Lua 0:16:40:306
+[mod] [SMRTK] SMRTK_SPEED action=speed_normal before=0 factor=1000 requested=1 status=OK t=36560928 id=214
+[SMRTK] SMRTK_SPEED action=speed_normal before=0 factor=1000 requested=1 status=OK t=36560928 id=214
+						Lua 0:16:44:860
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:16:44:871
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36565482 id=215
+						Lua 0:16:46:081
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9041) status=OK t=36566691 id=216
+						Lua 0:16:59:878
+[ElevatorDepotDev] cabin arrived underground (leg 21) delivered none still aboard none
+						Lua 0:16:59:880
+[ElevatorDepotDev] cabin departed up (leg 22) loaded Concrete=70000 aboard Concrete=70000 arrives in 60 min
+						Lua 0:17:02:368
+[mod] [SMRTK] SMRTK_ACTION action=slot_3 reason="pause first" status=REFUSED t=36582990 id=217
+[SMRTK] SMRTK_ACTION action=slot_3 reason="pause first" status=REFUSED t=36582990 id=217
+						Lua 0:17:04:821
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:17:04:832
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=36585442 id=218
+						Lua 0:17:04:991
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(10908) status=OK t=36585592 id=219
+						Lua 0:17:07:233
+[mod] [SMRTK] SMRTK_ACTION action=slot_3 reason="pause first" status=REFUSED t=36587847 id=220
+[SMRTK] SMRTK_ACTION action=slot_3 reason="pause first" status=REFUSED t=36587847 id=220
+						Lua 0:17:08:117
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=720 lines=111 status=OK truncated=false t=36588738 id=221
+[SMRTK] SMRTK_COPY action=copy flushed=true from=720 lines=111 status=OK truncated=false t=36588738 id=221
+						Lua 0:17:29:879
+[ElevatorDepotDev] cabin arrived surface (leg 22) delivered Concrete=70000 still aboard none
+						Lua 0:17:29:881
+[ElevatorDepotDev] cabin departed down (leg 23) loaded none aboard none arrives in 60 min
+						Lua 0:17:59:877
+[ElevatorDepotDev] cabin arrived underground (leg 23) delivered none still aboard none
+						Lua 0:17:59:879
+[ElevatorDepotDev] cabin departed up (leg 24) loaded none aboard none arrives in 60 min
+						Lua 0:18:29:878
+[ElevatorDepotDev] cabin arrived surface (leg 24) delivered none still aboard none
+						Lua 0:18:29:881
+[ElevatorDepotDev] cabin departed down (leg 25) loaded none aboard none arrives in 60 min
+						Lua 0:18:49:403
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:18:49:404
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:18:49:405
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:18:49:406
+[TrainHubDev] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:18:49:407
+[TrainHubDev] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHubDev] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHubDev] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:18:49:408
+[TrainHubDev] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHubDev] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHubDev] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:18:49:409
+[TrainHubDev] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHubDev] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHubDev] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHubDev] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHubDev] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHubDev] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHubDev] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHubDev] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:18:59:877
+[ElevatorDepotDev] cabin arrived underground (leg 25) delivered none still aboard none
+						Lua 0:18:59:880
+[ElevatorDepotDev] cabin departed up (leg 26) loaded none aboard none arrives in 60 min
+						Lua 0:22:20:508
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=36708316 id=222
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=36708316 id=222
+						Lua 0:22:20:533
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=36708316 id=223
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=36708316 id=223
+						Lua 0:22:22:998
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:22:23:008
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=1305 id=224
+						Lua 0:22:23:698
+Restarting 'A:/SteamLibrary/steamapps/common/Project Spark/MarsDebug.exe' with command line ' -nointro'.
+
+						Lua 0:22:23:734
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:22:23:739
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:22:24:069
+
+
+*** Debug::Done()
+Time (ms)	1344069
+
+

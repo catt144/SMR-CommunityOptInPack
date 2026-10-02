@@ -1,0 +1,6 @@
+f8584b79ed0c390c61ce7326953b9d5f69f1bddf
+Brief 30 PASS (owner sitting, 2026-10-02): smokes C and D recorded; folded into spec §4.7 and §11; brief and its map row deleted
+
+M	docs/agent/prompts/Train_Hub_Project/00_TRAIN_ORCHESTRATOR.md
+D	docs/agent/prompts/Train_Hub_Project/30_STATION_ROWS_WITHOUT_HUB_high.md
+M	docs/agent/prompts/Train_Hub_Project/README.md
