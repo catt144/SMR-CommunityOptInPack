@@ -1,4 +1,4 @@
--- ACTIVE: brief 34b's one smoke (slots 1-8) over brief 33's crossing slots (closed 2026-10-02).
+-- ACTIVE: brief 34b's one smoke (slots 1-8), v2 after sitting 1 (slot 1's MapGet form fixed).
 -- Staged source: OptInPack tools/trains/hub/tests/80_AgentSlots_34b.lua.txt. Report and predictions:
 -- OptInPack docs/agent/reports/TRAIN_34B_PLAN_20261002.md, "Phase 2" (the sitting's predictions).
 -- To load: with Mars.exe closed, replace TestKit Code/80_AgentSlots.lua with this file, start
@@ -103,7 +103,9 @@ end
 local DEPOT_RADIUS = 50 * guim
 local function depots_near(o)
     local out = {}
-    local list = MapGet(o, DEPOT_RADIUS, "StorageDepot") or empty_table
+    -- The engine exposes MapGet as a method: obj:MapGet(centre, radius, class) (1.1.1.406343
+    -- Buildings/ArtificialSun.lua:45 shape); the bare global is nil (sitting 1, 2026-10-02).
+    local list = o:MapGet(o, DEPOT_RADIUS, "StorageDepot") or empty_table
     for _, depot in ipairs(list) do
         if IsValid(depot) and depot ~= o and not IsKindOf(depot, "Station") and not IsKindOf(depot, "ResourceStockpileBase")
             and depot.supply and depot.supply.Food then

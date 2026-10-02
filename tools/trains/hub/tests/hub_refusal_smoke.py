@@ -3,8 +3,7 @@
 Archived 1.1.1.406343 bodies of TrackBase:AssignTrain / GetSpawnPoint and
 StationsLink:AddTransportLink run against engine doubles, then the real bay file.
 A hub as the station argument must spawn nothing and spend no prefab; a plain
-station must still spawn exactly as vanilla does. The four hub card methods are
-exercised on a button double. Engine rendering remains an attended check.
+station must still spawn exactly as vanilla does. A live spawn remains an attended check.
 """
 import hashlib
 import subprocess
@@ -38,11 +37,9 @@ print("70_TrainBay.lua sha256:", hashlib.sha256(CODE.read_bytes()).hexdigest(), 
 for forbidden in ['TrainRoutesRebuilt', 'try_fill', 'HubSpawnLocation', 'TransportLinkChanged',
                   'AssignTrain(hub)', 'NewMinute', 'fill_window']:
     assert forbidden not in code, forbidden
-for required in ['function TrackBase:AssignTrain(', 'DefineClass.HubTrain', 'persist_baseclass = "Train"',
-                 'function SMROptInTrainHubBase:ConstructTrain_Update(',
-                 'function SMROptInTrainHubBase:ToggleCreateRouteMode_Update(',
-                 'function SMROptInTrainHubBase:ConstructTrain()',
-                 'function SMROptInTrainHubBase:ToggleCreateRouteMode()']:
+for forbidden in ['ConstructTrain', 'ToggleCreateRouteMode', 'Untranslated']:
+    assert forbidden not in code, forbidden + ' (the hub card never shows the buttons; owner 2026-10-02)'
+for required in ['function TrackBase:AssignTrain(', 'DefineClass.HubTrain', 'persist_baseclass = "Train"']:
     assert required in code, required
 print('PASS cut and guard present by text', flush=True)
 
@@ -87,9 +84,6 @@ function Train:AssignToTrack(track) self.track=track; table.insert_unique(track.
 function Train:Start() self.started=true end
 function Train:DestroySilent() self.invalid=true end
 DefineClass.Station={}
-function Station:ToggleCreateRouteMode_Update(button) button:SetEnabled(true) end
-function Station:ConstructTrain(change) self.trains_in_construction=(self.trains_in_construction or 0)+change end
-function Station:ToggleCreateRouteMode() self.interaction_mode='assign_train' end
 DefineClass.SMROptInTrainHubBase={__parents={'Station'}}
 CreateGameTimeThread=function(fn,...) fn(...) end
 city={available_prefabs={Train=3},labels={Train={}}}
@@ -152,29 +146,7 @@ assert(t.pos=='pos:spot:Spawn1' and t.angle=='angle:spot:Spawn1','placed on the 
 assert(ColonyGetPrefabs('Train',city)==2 and track.assigned_vehicles[1]==t and plain.track_busy[1]==t)
 assert(B.stats.refused==1,'the station path is not counted as a refusal')
 
--- The card: both buttons disabled with the reason; both presses do nothing on a hub.
-local function button()
-    local b={calls={}}
-    function b:SetEnabled(v) self.enabled=v end
-    function b:SetRolloverTitle(v) self.title=v end
-    function b:SetRolloverText(v) self.text=v end
-    function b:SetRolloverDisabledText(v) self.disabled_text=v end
-    return b
-end
-local b1,b2=button(),button()
-hub:ConstructTrain_Update(b1); hub:ToggleCreateRouteMode_Update(b2)
-for _,b in ipairs({b1,b2}) do
-    assert(b.enabled==false,'button disabled on the hub')
-    assert(b.text:find('Train Station',1,true) and b.disabled_text==b.text,'the reason names the station')
-end
-assert(b1.title=='T14474:Construct Train' and b2.title=='T14381:Send out Train')
-hub:ConstructTrain(1); hub:ToggleCreateRouteMode()
-assert(hub.trains_in_construction==0 and hub.interaction_mode==nil,'presses do nothing on the hub')
--- A plain station keeps vanilla's behaviour for the same calls.
-local b3=button(); plain:ToggleCreateRouteMode_Update(b3); assert(b3.enabled==true)
-plain:ConstructTrain(1); plain:ToggleCreateRouteMode()
-assert(plain.trains_in_construction==1 and plain.interaction_mode=='assign_train')
 ''')
 print('PASS hub refusal: AssignTrain(hub) spawns nothing and spends nothing; AssignTrain(station) spawns on the '
-      'station\'s own Spawn spot; both hub card buttons disabled with the reason; presses inert on the hub only', flush=True)
-print('NOT RUN: engine rendering of the disabled buttons, the Transportation overview row, and a live spawn', flush=True)
+      'station\'s own Spawn spot; no card methods remain (the hub never showed the buttons)', flush=True)
+print('NOT RUN: a live spawn and the Transportation overview row', flush=True)

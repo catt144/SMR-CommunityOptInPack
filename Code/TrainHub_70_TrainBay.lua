@@ -18,7 +18,7 @@ SMROptInTrainBay = {}
 local B = SMROptInTrainBay
 B.stats = { refused = 0 }
 B.error = false
-B.Require = { { "TrackBase", "AssignTrain" }, { "Station", "ToggleCreateRouteMode_Update" } }
+B.Require = { { "TrackBase", "AssignTrain" } }
 for _, pair in ipairs(B.Require) do
     local class = rawget(_G, pair[1])
     if not class or type(class[pair[2]]) ~= "function" then
@@ -39,10 +39,12 @@ local function is_hub(o) return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase
 -- The one spawn in the game: TrackBase:AssignTrain(station) places the Train in
 -- the station it is passed (archived 1.1.1.406343 Buildings/Track.lua:428-457,
 -- the only PlaceObjectIn("Train") under Lua/). Refusing a hub here closes every
--- caller at once: both card buttons, the Transportation overview's row
--- (XDef/CommandCenterTransportationOverviewRow.generated.lua:477-483), the
--- station-side auto-assign after construction (Station.lua:590-606) and any
--- console or mod call. Vanilla's own early returns (Track.lua:430-435) already
+-- caller at once: a station card's two buttons (the hub's card never shows them:
+-- sectionCustom looks up "custom<class>" by exact name and the hub is no
+-- Station by name, XDef/sectionCustom.generated.lua:16-21), the Transportation
+-- overview's row (XDef/CommandCenterTransportationOverviewRow.generated.lua:
+-- 477-483), the station-side auto-assign after construction (Station.lua:
+-- 590-606) and any console or mod call. Vanilla's own early returns (Track.lua:430-435) already
 -- make a refused call a silent no-op, so no caller expects a result.
 local assign = TrackBase.AssignTrain
 function TrackBase:AssignTrain(station, ...)
@@ -53,29 +55,6 @@ function TrackBase:AssignTrain(station, ...)
     end
     return assign(self, station, ...)
 end
-
--- The hub's card shows vanilla's Construct Train and Send out Train, because
--- sectionCustom resolves customStation up the class chain
--- (XDef/sectionCustom.generated.lua:14-38). InfopanelButton:OnContextUpdate
--- calls context:<OnPressParam>_Update(button) when the method exists
--- (XDef/InfopanelButton.generated.lua:59-64): disable both with the reason, and
--- make the presses themselves do nothing, which also covers the Transportation
--- overview's row and a gamepad press.
-local REASON = "Trains are built and sent out from a <em>Train Station</em>, never from the hub."
-local function refuse_button(button, title)
-    button:SetEnabled(false)
-    button:SetRolloverTitle(title)
-    button:SetRolloverText(Untranslated(REASON))
-    if button.SetRolloverDisabledText then button:SetRolloverDisabledText(Untranslated(REASON)) end
-end
-function SMROptInTrainHubBase:ConstructTrain_Update(button)
-    refuse_button(button, T(14474, "Construct Train"))
-end
-function SMROptInTrainHubBase:ToggleCreateRouteMode_Update(button)
-    refuse_button(button, T(14381, "Send out Train"))
-end
-function SMROptInTrainHubBase:ConstructTrain() end
-function SMROptInTrainHubBase:ToggleCreateRouteMode() end
 
 B.active = true
 print("[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility")
