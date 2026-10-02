@@ -148,3 +148,31 @@ change. OI-27's drone map guard stays parked. The chained-hop tooltip was never 
 it would be new behaviour. Storage's fixed +19 draw is a design question if you want it per
 resource. **No behaviour change is planned or needed;** the spoilage guard and the save-id check
 only keep current behaviour working in the new layout.
+
+## Player text drafts (for the move; delegated by the brief, shown for the owner's veto)
+
+Numbers read at `5aa529d`: hub output 75, own draw 10, 29 with Storage Hub
+(`20_TrainHub.lua:236-237`, `sync_hub_storage`); a large station draws 10. Depot: one leg per game
+hour (`cabin_leg_minutes = 60`), 250 a leg and per resource, 500 after the upgrade.
+
+- **Depot** (name "Elevator Depot" / "Elevator Depots"): *A train station in two halves joined
+  by a cargo elevator. Build one on the surface and one underground, and connect track to each
+  mouth. The cabin makes one trip each game hour, alternating down and up, with up to 250 units.
+  Set each resource on the surface half: Import sends it down, Export brings it up. The cabin
+  takes only what the other half has room for, emptiest rows first. One pair per colony; the
+  Expanded Depot upgrade raises the cabin and both halves' storage from 250 to 500.* The old
+  "at least 100 m from other stations" clause is dropped unless the move finds the rule it
+  describes; no spacing rule turned up in 1.1.1.406343's station source.
+- **Hub:** *A Station where three straight lines cross, so cargo can change routes. Its reactor
+  covers itself and six Large Train Stations, fewer with the Storage Hub upgrade's extra draw.
+  It has its own small Drone crew and keeps back enough Electronics to maintain itself.* The
+  same string also lives in `20_TrainHub.lua:3481`, and both copies change together.
+- **Mod Options help:**
+  - Station rows: *Every train station's resource rows cycle Balanced / Export / Import / Not
+    accepted, with a slider. Always on while Train Hub is on. Off: hubless stations go back to
+    vanilla rows; your settings are kept for when you turn it on.*
+  - Train Hub: *Adds the Train Hub to the Stations menu, and stations stop spoiling food while
+    it is on. Off: no new hubs; built hubs keep working. Demolish every hub before removing
+    the mod.*
+  - Elevator Depot: *Adds the Elevator Depot to the Stations menu. Off: no new depots; a built
+    pair keeps working. Demolish both halves before removing the mod.*
