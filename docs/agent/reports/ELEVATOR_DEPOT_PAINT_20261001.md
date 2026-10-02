@@ -546,3 +546,38 @@ stands as 29's. The owner reloads the mod (restart) and checks the build cursor;
   (`palette=2` surface, `palette=7` underground, lines 604-611). Owed: the owner's word on which
   of -250, -300 (the default) or -350 puts the cabin's underside on the landing.
 - **The core's frame**: owed, the owner's ruling in words.
+
+### Close (2026-10-01, late evening): the owner's words, and what this brief hands back
+
+**The owner, asked for the receiver height, the core's frame and whether the depot is production
+ready, verbatim:** *"Everything looks good, And I don't think we need any other changes from your
+session."* Read as: the painted depot is accepted as it stands on both maps, by day and by night;
+no change is wanted. The literal phrase "production ready" was not spoken; the orchestrator may
+ask for it if the record needs the word. On that reading the brief's done-when is met and the
+brief returns to the orchestrator.
+
+- **`receiver_z`** stays at the Lua default, -300 cm (the owner tried -250 and -350 and wanted no
+  change). Brief 26's item is closed without a bake.
+- **The core's frame** stays (no change wanted). Brief 26's item is closed; no stop raised.
+- **`Measure()` underground** read natively in batch 2. Brief 26's third item is closed.
+
+**Commits this evening** (this repo, after the orchestrator's `840a207`; `c4a2cd2` and `1603c9b`
+between them are the orchestrator's, not this brief's): `e280cda` (the version-13 import save),
+`9de0103` (the post-save checks, the cost in the Data source), `9d6fd8c` (the version-14 save
+making the cost live), `615438b`, `e7db25f` (batch 1), `7a38c1a` (the cursor finding), `6de571d`
+(the cursor fix and its smoke section), `a5d2008` (batch 2), and the commit holding this section
+and the brief's row. SMR-Assets: `f3346d2` (the cost screenshot). Executed model: Claude Fable
+5.1 (`claude-fable-5-1`), the `_high` session, no subagent.
+
+**Not done, by design or by scope.**
+- The construction site shows the bare shell under vanilla's scaffolding: `D.Dress` refuses a
+  `ConstructionSite`; the owner, shown it, wanted no change.
+- `wiring_smoke.py` §10b is brief 29's owed item; untouched here.
+- The absence of a scheme picker in retail and the clearing line `OverrideColonyColorScheme(false)`
+  are recorded above and not filed as an engine fact; file an `EF-` in the fix pack first if a
+  later task needs it as one.
+- `OI-38` on the owner's list (brief 27's left-over steps, waiting on "brief 28's editor save")
+  is now takeable: the save landed (`e280cda`, `9d6fd8c`). The item is the owner's; it stays as
+  written.
+- Nothing of brief 27's behaviour beyond the cursor handler was touched; no map, UV or geometry
+  changed after run B's `8b53ab3`.
