@@ -174,7 +174,7 @@ After the restore:
 - doccheck: GREEN.
 - smokes: 32 files, 32 exit 0.
 
-## The owner's in-game check (2026-10-02): PASS, with the help-text hover not seen
+## The owner's in-game check (2026-10-02): PASS
 
 Log `Mars.exe-20261002-16.27.20-6aba6e65.log` (356 lines, build 1.1.1.406343), read on the owner's
 "flushed".
@@ -199,5 +199,6 @@ The owner's screenshots, all read:
   Drones highlighted, both icons, and "Elevator Depot" with no "(dev)".
   ("You can build this building only once" is the one-pair rule.)
 
-**Not seen:** the Mod Options help-text hover (whether `<em>` renders in that rollover). It is a
-cosmetic check, carried to brief 35's packaging row.
+**The Mod Options help hovers** (owner's later screenshots, all toggles On): Train Hub's help
+shows "Train Stations" highlighted, and Elevator Depot's shows its approved text. `<em>` renders
+in that rollover; no literal tags appear. Nothing is carried to brief 35 from this check.
