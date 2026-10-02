@@ -29,9 +29,18 @@
 --       cabin_out > stock0 + other_in + drone_in + cabin_in
 --     at the destination half, its trains loaded more than non-cabin sources could supply:
 --       sum(train_out) > stock0 + other_in + drone_in + sum(train_in)
--- Each excess is a lower bound on the crossed units. Controls: train_mismatch (a train's own cargo
--- change against the station's), cabin_mismatch (cabin cargo against both halves), stuck brackets,
--- and wiring. A broken control ends a run with verdict control_broken, never a proof.
+-- Each excess is a lower bound on the crossed units. Those STRICT bounds need a near-empty station:
+-- a stocked hub (about 2000 a resource, first attended check 2026-10-02) cannot clear them. Each
+-- verdict therefore also has a NET form, from the conservation identity at the station,
+--   out[B] - in[B] = sum over other routes of (in - out) + nontrain_net - (stock - stock0):
+--   hub:   (out[B] - in[B]) - drawdown - max(nontrain_net, 0) - max(in[?] - out[?], 0) > 0
+--   link1: (cabin_out - cabin_in) - drawdown - max(other_net + drone_net, 0) > 0
+--   link2: (sum(train_out) - sum(train_in)) - drawdown - max(other_net + drone_net, 0) > 0
+-- where drawdown = max(stock0 - stock, 0). A net excess is a lower bound on the OTHER routes' (or the
+-- cabin's, or the trains') net delivery that the take matched: cargo crossed as a net flow. A verdict
+-- names its bound. Controls: train_mismatch (a train's own cargo change against the station's) and
+-- cabin_mismatch (cabin cargo against both halves) TAINT their station and resource, which no verdict
+-- then uses; the first mismatches are logged in full. stuck counts brackets a poll found open.
 -- Limit: "other" flows of both signs at one station inside one checkpoint gap (at most 250 game ms
 -- with no bracketed event there) net against each other.
 do
@@ -44,7 +53,8 @@ local RUNS = { "crossing_hub", "crossing_depot" }
 local DEADLINE_HOURS = 12
 
 local ledger = false          -- file-local: a save disarms a run, never this
-local depth = 0               -- above 0 while a bracket runs; nested transfers belong to it
+local depth = 0               -- above 0 while a train or cabin bracket runs; nested transfers belong to it
+local MISMATCH_LOG = 8
 local route_keys = setmetatable({}, { __mode = "k" })
 local wrapper_of = {}
 local original_of = setmetatable({}, { __mode = "k" })
@@ -116,7 +126,7 @@ local function label(key) return key == "?" and "R?" or ledger.routes[key].label
 local function new_book(st, kind)
     local b = { obj = st, kind = kind, stock0 = {}, last = {}, train_in = {}, train_out = {},
         drone_in = {}, drone_out = {}, cabin_in = {}, cabin_out = {}, other_in = {}, other_out = {},
-        events = { train = 0, drone = 0, cabin = 0 } }
+        tainted = {}, events = { train = 0, drone = 0, cabin = 0 } }
     for _, res in ipairs(st.storable_resources or empty_table) do
         local n = stock(st, res)
         b.stock0[res], b.last[res] = n, n
@@ -150,8 +160,20 @@ local function checkpoint(b, cat, route)
     return deltas
 end
 
+local function mismatch(kind, b, res, size, detail)
+    if size == 0 then return end
+    ledger[kind .. "_mismatch"] = ledger[kind .. "_mismatch"] + size
+    b.tainted[res] = true
+    if #ledger.mismatches < MISMATCH_LOG then
+        detail.kind, detail.station, detail.resource, detail.size = kind, id(b.obj), res, units(size)
+        detail.game_time = GameTime()
+        ledger.mismatches[#ledger.mismatches + 1] = detail
+    end
+end
+local function close() depth = depth > 0 and depth - 1 or 0 end
+
 -- ---- the brackets -----------------------------------------------------------------------------
-local function train_wrap(orig)
+local function train_wrap(orig, name)
     return function(self, ...)
         local b = ledger and depth == 0 and ledger.books[self.current_station]
         if not b then return orig(self, ...) end
@@ -160,31 +182,32 @@ local function train_wrap(orig)
         local before = {}
         for res, n in pairs(self.stockpiled_amount or empty_table) do before[res] = n end
         local result = table.pack(orig(self, ...))
-        depth = depth - 1
-        local deltas = checkpoint(b, "train", route_key(self))
-        local after, seen = self.stockpiled_amount or empty_table, {}
-        for res, n in pairs(after) do
-            seen[res] = true
-            ledger.train_mismatch = ledger.train_mismatch + abs(n - (before[res] or 0) + (deltas[res] or 0))
-        end
-        for res, n in pairs(before) do
-            if not seen[res] then seen[res] = true; ledger.train_mismatch = ledger.train_mismatch + abs((deltas[res] or 0) - n) end
-        end
-        for res, d in pairs(deltas) do
-            if not seen[res] then ledger.train_mismatch = ledger.train_mismatch + abs(d) end
+        close()
+        local route = route_key(self)
+        local deltas = checkpoint(b, "train", route)
+        local after, keys = self.stockpiled_amount or empty_table, {}
+        for _, t in ipairs{ before, after, deltas } do for res in pairs(t) do keys[res] = true end end
+        for res in pairs(keys) do
+            local dt, ds = (after[res] or 0) - (before[res] or 0), deltas[res] or 0
+            if dt + ds ~= 0 then
+                mismatch("train", b, res, abs(dt + ds), { call = name, train = id(self), route = label(route),
+                    train_delta = units(dt), station_delta = units(ds), station_stock = units(b.last[res] or 0),
+                    capacity = units(b.obj.GetMaxStorage and b.obj:GetMaxStorage(res) or 0) })
+            end
         end
         b.events.train = b.events.train + 1
         return table.unpack(result, 1, result.n)
     end
 end
+-- No depth here: a drone's load presentation sleeps (MultiResourceDepot.lua:192-199, 1.1.1.406343),
+-- and a bracket held open across that yield is what read stuck=1 in the first attended check.
+-- A train transfer during the sleep checkpoints the station itself, so nothing is booked twice.
 local function drone_wrap(orig)
     return function(self, ...)
         local b = ledger and depth == 0 and ledger.books[self]
         if not b then return orig(self, ...) end
-        depth = depth + 1
         checkpoint(b, "other")
         local result = table.pack(orig(self, ...))
-        depth = depth - 1
         checkpoint(b, "drone")
         b.events.drone = b.events.drone + 1
         return table.unpack(result, 1, result.n)
@@ -201,14 +224,18 @@ local function cabin_wrap(orig, d)
         local rec, before = rawget(s, d.CABIN), {}
         for res, n in pairs(type(rec) == "table" and rec.cargo or empty_table) do before[res] = n end
         local result = table.pack(orig(...))
-        depth = depth - 1
+        close()
         local ds, du = checkpoint(bs, "cabin"), checkpoint(bu, "cabin")
         rec = rawget(s, d.CABIN)
         local after, keys = type(rec) == "table" and rec.cargo or empty_table, {}
         for _, t in ipairs{ before, after, ds, du } do for res in pairs(t) do keys[res] = true end end
         for res in pairs(keys) do
-            ledger.cabin_mismatch = ledger.cabin_mismatch
-                + abs((after[res] or 0) - (before[res] or 0) + (ds[res] or 0) + (du[res] or 0))
+            local size = abs((after[res] or 0) - (before[res] or 0) + (ds[res] or 0) + (du[res] or 0))
+            if size ~= 0 then
+                bu.tainted[res] = true
+                mismatch("cabin", bs, res, size, { cabin_delta = units((after[res] or 0) - (before[res] or 0)),
+                    surface_delta = units(ds[res] or 0), underground_delta = units(du[res] or 0) })
+            end
         end
         if next(ds) or next(du) then
             bs.events.cabin = bs.events.cabin + 1
@@ -227,7 +254,7 @@ local function install(base, method, make)
             if type(fn) == "function" then
                 if not original_of[fn] then
                     local w = wrapper_of[fn]
-                    if not w then w = make(fn); wrapper_of[fn] = w; original_of[w] = fn end
+                    if not w then w = make(fn, method); wrapper_of[fn] = w; original_of[w] = fn end
                     class[method] = w
                 end
                 n = n + 1
@@ -307,23 +334,36 @@ end
 local function base_in(b, res)
     return (b.stock0[res] or 0) + (b.other_in[res] or 0) + (b.drone_in[res] or 0)
 end
+local function drawdown(b, res) return Max((b.stock0[res] or 0) - (b.last[res] or 0), 0) end
+local function net(b, cat, res) return (b[cat .. "_in"][res] or 0) - (b[cat .. "_out"][res] or 0) end
+-- The route with the best case; returns route, strict excess, net excess.
 local function hub_excess(b, res)
-    local best, best_route
-    local ins = b.train_in[res] or empty_table
-    for route, out in pairs(b.train_out[res] or empty_table) do
+    local best_route, best_strict, best_net
+    local ins, outs = b.train_in[res] or empty_table, b.train_out[res] or empty_table
+    local nontrain = Max(net(b, "other", res) + net(b, "drone", res) + net(b, "cabin", res), 0)
+    local unknown = Max((ins["?"] or 0) - (outs["?"] or 0), 0)
+    for route, out in pairs(outs) do
         if route ~= "?" then
-            local excess = out - base_in(b, res) - (b.cabin_in[res] or 0) - (ins[route] or 0) - (ins["?"] or 0)
-            if not best or excess > best then best, best_route = excess, route end
+            local own = ins[route] or 0
+            local strict = out - base_in(b, res) - (b.cabin_in[res] or 0) - own - (ins["?"] or 0)
+            local netx = out - own - drawdown(b, res) - nontrain - unknown
+            if not best_route or Max(strict, netx) > Max(best_strict, best_net) then
+                best_route, best_strict, best_net = route, strict, netx
+            end
         end
     end
-    return best_route, best
+    return best_route, best_strict, best_net
 end
-local function cabin_took_train_cargo(b, res)   -- link 1, at the origin half
-    return (b.cabin_out[res] or 0) - base_in(b, res) - (b.cabin_in[res] or 0)
+local function noncabin(b, res) return Max(net(b, "other", res) + net(b, "drone", res), 0) end
+local function cabin_took_train_cargo(b, res)   -- link 1, at the origin half: strict, net
+    return (b.cabin_out[res] or 0) - base_in(b, res) - (b.cabin_in[res] or 0),
+        -net(b, "cabin", res) - drawdown(b, res) - noncabin(b, res)
 end
-local function trains_took_cabin_cargo(b, res)  -- link 2, at the destination half
-    return sum(b.train_out[res]) - base_in(b, res) - sum(b.train_in[res])
+local function trains_took_cabin_cargo(b, res)  -- link 2, at the destination half: strict, net
+    return sum(b.train_out[res]) - base_in(b, res) - sum(b.train_in[res]),
+        sum(b.train_out[res]) - sum(b.train_in[res]) - drawdown(b, res) - noncabin(b, res)
 end
+local function bound(strict, netx) return strict > 0 and "strict" or (netx > 0 and "net" or nil) end
 local function resources()
     local seen, list = {}, {}
     for _, st in ipairs(ledger.order) do
@@ -347,10 +387,13 @@ local function hub_proof()
         local b = ledger.books[st]
         if b.kind == "hub" then
             for _, res in ipairs(resources()) do
-                local route, excess = hub_excess(b, res)
-                if route and excess > 0 then
+                local route, strict, netx = hub_excess(b, res)
+                local how = route and not b.tainted[res] and bound(strict, netx)
+                if how then
                     return { crossing = "hub", hub = id(st), resource = res, route = label(route),
-                        route_path = ledger.routes[route].path, crossed_at_least = units(excess) }
+                        route_path = ledger.routes[route].path, bound = how,
+                        crossed_at_least = units(how == "strict" and strict or netx),
+                        strict_excess = units(strict), net_excess = units(netx) }
                 end
             end
         end
@@ -361,25 +404,30 @@ local function depot_proof()
     if not (s and u) then return end
     for _, res in ipairs(resources()) do
         for _, leg in ipairs{ { "down", s, u }, { "up", u, s } } do
-            local e1, e2 = cabin_took_train_cargo(leg[2], res), trains_took_cabin_cargo(leg[3], res)
-            if e1 > 0 and e2 > 0 then
+            local s1, n1 = cabin_took_train_cargo(leg[2], res)
+            local s2, n2 = trains_took_cabin_cargo(leg[3], res)
+            local b1, b2 = bound(s1, n1), bound(s2, n2)
+            if b1 and b2 and not leg[2].tainted[res] and not leg[3].tainted[res] then
                 return { crossing = "depot_" .. leg[1], resource = res, origin = id(leg[2].obj), destination = id(leg[3].obj),
-                    cabin_took_train_cargo = units(e1), trains_took_cabin_cargo = units(e2) }
+                    bound = (b1 == "strict" and b2 == "strict") and "strict" or "net",
+                    cabin_took_train_cargo = units(b1 == "strict" and s1 or n1),
+                    trains_took_cabin_cargo = units(b2 == "strict" and s2 or n2) }
             end
         end
     end
 end
 local function controls()
-    local events = { train = 0, drone = 0, cabin = 0 }
+    local events, tainted = { train = 0, drone = 0, cabin = 0 }, 0
     for _, st in ipairs(ledger.order) do
         for k, n in pairs(ledger.books[st].events) do events[k] = events[k] + n end
+        for _ in pairs(ledger.books[st].tainted) do tainted = tainted + 1 end
     end
-    return { train_mismatch = units(ledger.train_mismatch), cabin_mismatch = units(ledger.cabin_mismatch),
+    return { train_mismatch = units(ledger.train_mismatch), cabin_mismatch = units(ledger.cabin_mismatch), tainted = tainted,
         stuck = ledger.stuck, train_events = events.train, drone_events = events.drone, cabin_events = events.cabin,
         polls = ledger.polls, rearms = ledger.rearms, blind_ms = ledger.blind_ms,
         elapsed_ms = GameTime() - ledger.started, errors = T.error_count }
 end
-local function broken() return ledger.train_mismatch ~= 0 or ledger.cabin_mismatch ~= 0 or ledger.stuck ~= 0 end
+local function clean() return ledger.train_mismatch == 0 and ledger.cabin_mismatch == 0 and ledger.stuck == 0 end
 local function poll()
     if depth ~= 0 then ledger.stuck = ledger.stuck + 1; depth = 0 end
     ledger.polls = ledger.polls + 1
@@ -421,7 +469,6 @@ for _, spec in ipairs{ { "crossing_hub", "Crossing: hub route-to-route proved", 
             poll()
             local f = controls()
             if T.error_count > ctx.state.errors then f.verdict = "new_error"; return true, f end
-            if broken() then f.verdict = "control_broken"; return true, f end
             local found = proof()
             if found then f.verdict = "proved"; return true, merge(f, found) end
             if GameTime() >= ctx.state.deadline then f.verdict = "deadline"; return true, f end
@@ -445,7 +492,8 @@ T.Bind(7, "Crossing witness: start the ledger + wiring proof (resets it)", funct
     local mark = ctx.mark("CROSSING_START")
     cancel_runs()
     ledger = { started = GameTime(), last_poll = GameTime(), polls = 0, runs = 0, rearms = 0, blind_ms = 0,
-        books = {}, order = {}, routes = {}, route_order = {}, train_mismatch = 0, cabin_mismatch = 0, stuck = 0 }
+        books = {}, order = {}, routes = {}, route_order = {}, train_mismatch = 0, cabin_mismatch = 0, stuck = 0,
+        mismatches = {} }
     depth = 0
     local f = wire()
     for _, st in ipairs(ledger.order) do
@@ -495,25 +543,31 @@ T.Bind(10, "Read the crossing ledger and both verdicts (pause first)", function(
                     row[cat] = units(b[cat][res] or 0)
                 end
                 if b.kind == "hub" then
-                    local route, excess = hub_excess(b, res)
-                    row.hub_route, row.hub_excess = route and label(route) or "none", route and units(excess) or "none"
+                    local route, strict, netx = hub_excess(b, res)
+                    row.hub_route = route and label(route) or "none"
+                    row.hub_excess = route and units(strict) or "none"
+                    row.hub_net_excess = route and units(netx) or "none"
                 else
-                    row.cabin_took_train_cargo = units(cabin_took_train_cargo(b, res))
-                    row.trains_took_cabin_cargo = units(trains_took_cabin_cargo(b, res))
+                    local s1, n1 = cabin_took_train_cargo(b, res)
+                    local s2, n2 = trains_took_cabin_cargo(b, res)
+                    row.cabin_took_train_cargo, row.cabin_took_train_cargo_net = units(s1), units(n1)
+                    row.trains_took_cabin_cargo, row.trains_took_cabin_cargo_net = units(s2), units(n2)
                 end
+                if b.tainted[res] then row.tainted = "true" end
                 ctx.log("DUMP", row)
             end
         end
     end
+    for _, m in ipairs(ledger.mismatches) do ctx.log("DUMP", merge({ leg = "crossing_mismatch" }, m)) end
     local f = controls()
     f.mark = mark
     local hub, depot = hub_proof(), depot_proof()
-    f.hub_verdict = hub and string.format("proved %s %s %s crossed>=%s", hub.hub, hub.resource, hub.route,
-        hub.crossed_at_least) or "none"
-    f.depot_verdict = depot and string.format("proved %s %s link1=%s link2=%s", depot.crossing, depot.resource,
-        depot.cabin_took_train_cargo, depot.trains_took_cabin_cargo) or "none"
+    f.hub_verdict = hub and string.format("proved(%s) %s %s %s crossed>=%s", hub.bound, hub.hub, hub.resource,
+        hub.route, hub.crossed_at_least) or "none"
+    f.depot_verdict = depot and string.format("proved(%s) %s %s link1=%s link2=%s", depot.bound, depot.crossing,
+        depot.resource, depot.cabin_took_train_cargo, depot.trains_took_cabin_cargo) or "none"
     f.depot_pair = tostring(s ~= nil and u ~= nil)
-    f.controls_ok = tostring(not broken())
+    f.controls_ok = tostring(clean())
     return f
 end, { mode = "once" })
 end

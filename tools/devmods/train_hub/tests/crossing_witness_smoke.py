@@ -59,7 +59,11 @@ Station.__ancestors = { MultiResourceDepotBase = true }
 g_Classes.Train, g_Classes.Station = Train, Station
 -- A drone hands over inside the call, as Building.DroneUnloadResource does.
 function Station:DroneUnloadResource(drone, req, res, n) self:AddResource(n, res) end
-function Station:DroneLoadResource(drone, req, res, n) self:AddResource(-n, res) end
+-- A drone load can yield mid-call (its presentation sleeps, MultiResourceDepot.lua:192-199).
+function Station:DroneLoadResource(drone, req, res, n)
+    self:AddResource(-n, res)
+    if drone_yields then coroutine.yield() end
+end
 
 SMRTK = { slots = {}, specs = {}, armed = {}, error_count = 0 }
 function SMRTK.Bind(n, label, fn) SMRTK.slots[n] = { label = label, fn = fn } end
@@ -188,12 +192,21 @@ local r = find('crossing_ledger', id(H), 'Metals')
 assert(r.train_in == 'R1=30' and r.train_out == 'R2=25' and r.other_in == '0', r.train_in .. ' ' .. r.other_in)
 assert(read.hub_verdict:find('crossed>=25') and read.controls_ok == 'true')
 
--- H2 FAIL (stock at the start): the hub held 50; A delivers 20, B loads 40. B could have loaded
--- the starting stock alone. The 2026-09-18 rule (out > other_in + own_in) would call this proved.
+-- H2 (stock at the start): the hub held 50; A delivers 20, B loads 40. The STRICT bound refuses
+-- (B could have loaded the starting stock alone; the 2026-09-18 rule out > other_in + own_in
+-- would have called 40 proved). The NET bound proves 20: the stock fell by 20, A's 20 covered the rest.
 world(50); slot(7); slot(8)
 load(TA, A, 20, H); arrive(TA, H); load(TB, H, 40, B)
-fired, f = poll('crossing_hub'); assert(not fired, 'starting stock is not a crossing')
-assert(slot(10).hub_verdict == 'none')
+fired, f = poll('crossing_hub')
+assert(fired and f.bound == 'net' and f.crossed_at_least == '20' and f.strict_excess == '-10', f and f.bound)
+-- N2 FAIL (net): a stocked hub, B loads 25, no other route delivered: all of it is drawdown.
+world(50); slot(7); slot(8)
+load(TB, H, 25, B)
+assert(not poll('crossing_hub') and slot(10).hub_verdict == 'none', 'drawdown is not a crossing')
+-- N1 PASS (net, the first attended check's shape): a hub holding 400 of 480, A delivers 30, B takes 25.
+world(400); slot(7); slot(8)
+load(TA, A, 30, H); arrive(TA, H); load(TB, H, 25, B)
+fired, f = poll('crossing_hub'); assert(fired and f.bound == 'net' and f.crossed_at_least == '25')
 
 -- H3 FAIL (own route): A delivers 20; B delivers 30 and loads 30 back out.
 world(0); slot(7); slot(8)
@@ -241,12 +254,32 @@ slot(10); r = find('crossing_ledger', id(H), 'Metals')
 assert(took > 0 and r.train_out == 'R2=' .. u(took), 'loads booked to R2: ' .. tostring(took) .. ' ' .. r.train_out)
 assert(slot(10).controls_ok == 'true')
 
--- H8 control: a train load whose train never receives the cargo breaks the train-side control.
+-- H8 control: a train load whose train never receives the cargo taints that station and resource:
+-- no verdict uses it, and the read names the call.
 world(0); slot(7); slot(8)
 load(TA, A, 20, H); arrive(TA, H)
 TB.AddResource = function() end
 load(TB, H, 10, B)
-fired, f = poll('crossing_hub'); assert(fired and f.verdict == 'control_broken' and f.train_mismatch == '10')
+assert(not poll('crossing_hub'), 'a tainted resource proves nothing')
+read = slot(10)
+assert(read.controls_ok == 'false' and read.train_mismatch == '10' and read.tainted == 1)
+r = find('crossing_ledger', id(H), 'Metals'); assert(r.tainted == 'true')
+local m = rows[#rows - 0] and nil
+for _, row in ipairs(rows) do if row.leg == 'crossing_mismatch' then m = row end end
+assert(m and m.call == 'LoadResourceForStation' and m.train_delta == '0' and m.station_delta == '-10', 'mismatch named')
+
+-- Y1 (the first attended check's stuck=1): a drone load that yields mid-call, a poll and a train
+-- unload during the yield, then the drone resumes. Nothing is left open and the unload is booked.
+world(0); slot(7); slot(8)
+H:AddResource(5000, 'Metals')
+drone_yields = true
+local co = coroutine.create(function() H:DroneLoadResource(nil, nil, 'Metals', 5000) end)
+assert(coroutine.resume(co))
+assert(not poll('crossing_hub'))
+load(TA, A, 20, H); arrive(TA, H)
+assert(coroutine.resume(co)); drone_yields = false
+load(TB, H, 20, B)
+fired, f = poll('crossing_hub'); assert(fired and f.stuck == 0 and f.bound == 'strict' and f.crossed_at_least == '15' and f.net_excess == '20', 'stuck ' .. tostring(f and f.stuck))
 
 -- D1 PASS (down): the surface line delivers 30 to the surface half, the cabin carries it down,
 -- the underground line loads 30 from the underground half.
@@ -266,19 +299,28 @@ world(0, 30); slot(7); slot(9)
 SMRElevatorDepotDev.Tick(); SMRElevatorDepotDev.Tick(); load(TU, U, 30, UP)
 assert(not poll('crossing_depot') and slot(10).depot_verdict == 'none')
 
--- D3 FAIL (link 2): the underground half held 40; the cabin brings 30; its trains load 30.
+-- D3 (link 2 on a stocked half): the underground half held 40; the cabin brings 30; its trains
+-- load 30. Strict refuses (the 40 could have gone); net proves 30 (the half's stock did not fall).
 world(0, 0, 40); slot(7); slot(9)
 load(TS, SP, 30, S); arrive(TS, S)
 SMRElevatorDepotDev.Tick(); SMRElevatorDepotDev.Tick(); load(TU, U, 30, UP)
-assert(not poll('crossing_depot'))
+fired, f = poll('crossing_depot'); assert(fired and f.bound == 'net' and f.trains_took_cabin_cargo == '30')
+-- D3n FAIL (link 2, net): the surface delivers and the cabin goes down, but the underground trains
+-- take 30 from the half's own 40 before the cabin arrives: all of it drawdown.
+world(0, 0, 40); slot(7); slot(9)
+load(TS, SP, 30, S); arrive(TS, S); SMRElevatorDepotDev.Tick()
+load(TU, U, 30, UP)
+assert(not poll('crossing_depot'), 'drawdown at the destination is not a crossing')
 
--- D4 control: a cabin that takes stock and carries nothing breaks cabin conservation.
+-- D4 control: a cabin that takes stock and carries nothing breaks cabin conservation and taints
+-- that resource on both halves.
 world(0); slot(7); slot(9)
 load(TS, SP, 30, S); arrive(TS, S)
 SMRElevatorDepotDev_leak = true
 SMRElevatorDepotDev.Tick()
-fired, f = poll('crossing_depot'); assert(fired and f.verdict == 'control_broken' and f.cabin_mismatch == '30')
 SMRElevatorDepotDev_leak = false
+assert(not poll('crossing_depot'))
+read = slot(10); assert(read.cabin_mismatch == '30' and read.tainted == 2 and read.controls_ok == 'false')
 
 -- A loaded save ends the books.
 world(0); slot(7); slot(8)
@@ -310,21 +352,28 @@ def main():
     overlay = OVERLAY.read_text(encoding='utf8')
     print('80_AgentSlots_crossing.lua.txt sha256:', hashlib.sha256(OVERLAY.read_bytes()).hexdigest(), flush=True)
     run(overlay)
-    print('PASS: hub crossing proved from real unloads incl. pass-through/unassigned cargo; refused for starting '
-          'stock, own-route reloads and drone stock; exact with no polls (Ultra); a save is blind but loses no '
-          'transfer and books its stock as other; real TransferCargo booked to its route; depot down-crossing '
-          'proved on both links and refused for either missing link; train and cabin controls break; load resets')
+    print('PASS: hub crossing proved from real unloads incl. pass-through/unassigned cargo; strict refused and net '
+          'proved on a stocked hub; refused for pure drawdown, own-route reloads and drone stock; exact with no polls '
+          '(Ultra); a yielding drone load leaves nothing open; a save is blind but loses no transfer; real '
+          'TransferCargo booked to its route; depot down-crossing proved strict and net, refused for either missing '
+          'link; train and cabin mismatches taint and are named; load resets')
     mutations = [
         ('no entry checkpoint (the gap booked to the train)',
          '        checkpoint(b, "other")\n        local before = {}', '        local before = {}'),
         ('starting stock left out of the bar', '(b.stock0[res] or 0) + ', ''),
-        ('the route\'s own unloads left out', ' - (ins[route] or 0)', ''),
+        ('the route\'s own unloads left out', 'local own = ins[route] or 0', 'local own = 0'),
         ('drone stock left out of the bar', ' + (b.drone_in[res] or 0)', ''),
         ('the cabin not wrapped', '        if not original_of[d.Tick] then', '        if false then'),
         ('assigned-only unloads (the 2026-09-18 rule)',
-         '        local deltas = checkpoint(b, "train", route_key(self))',
+         '        local deltas = checkpoint(b, "train", route)',
          '        local deltas = checkpoint(b, (self.assigned_resources or empty_table)[self.current_station]'
-         ' and "train" or "other", route_key(self))'),
+         ' and "train" or "other", route)'),
+        ('the net bound without drawdown', 'local netx = out - own - drawdown(b, res) - nontrain - unknown',
+         'local netx = out - own - nontrain - unknown'),
+        ('a drone bracket held open across its yield',
+         '        checkpoint(b, "other")\n        local result = table.pack(orig(self, ...))\n        checkpoint(b, "drone")',
+         '        depth = depth + 1\n        checkpoint(b, "other")\n        local result = table.pack(orig(self, ...))\n'
+         '        depth = depth - 1\n        checkpoint(b, "drone")'),
     ]
     for name, before, after in mutations:
         assert overlay.count(before) == 1, name
