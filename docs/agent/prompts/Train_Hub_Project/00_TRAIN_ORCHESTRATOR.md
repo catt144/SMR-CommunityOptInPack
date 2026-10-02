@@ -73,8 +73,8 @@ before it fires.
         after 33 closes: both touch the hub's tests.
      2b. **`34b`, two owner fixes (2026-10-02)**: Export rows take only stock above a storage's
         Desired Amount (spec §4.8 grep `Export takes only the excess`), and auto-fill's train enters
-        at the joining station, not the hub (grep `enters at the joining station`). Fires after
-        34's code move.
+        at the joining station, not the hub (grep `enters at the joining station`). Phase 1 (plan)
+        may fire now; phase 2 lands after 33 and 34 close.
      3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and
         auto-fill's watch (the train enters at the joining station). Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,

@@ -1,8 +1,9 @@
 # 34b — Two owner fixes after the move: Export keeps Desired; auto-fill enters at the station (fix build)
 
 **Fire with:** `task docs/agent/prompts/Train_Hub_Project/34b_ROWS_AND_AUTOFILL_FIXES_high.md` in
-a fresh session rooted at `B:\Dev\SMR\SMR-OptInPack`, **after brief `34`'s code move has landed**
-(both fixes then edit the moved modules; editing the dev copies would collide with the move).
+a fresh session rooted at `B:\Dev\SMR\SMR-OptInPack`, **in two phases** (owner, 2026-10-02):
+**phase 1 may fire now** (investigate and plan, no code edits); **phase 2 lands after briefs `33`
+and `34` close** (both fixes then edit the moved modules; editing now would collide with the move).
 Reasoning: high (vanilla drone request priorities; vanilla train assignment and spawn).
 
 ## Authority and outcome
@@ -74,7 +75,13 @@ in the commit message. The owner checks the results by eye at the smoke.
 Use the todo tool before any write: one item per commit-and-verify unit, one in progress.
 
 1. Run `git log --oneline -5` and `git pull`. This brief was authored after `9cff16d`.
-2. Confirm brief 34's move has landed before editing. If it has not, stop (see below).
+2. **Phase 1, now:** investigate both fixes on the dev copies (`tools/devmods/train_hub/`) and the
+   vanilla source, and write the plan to `docs/agent/reports/`: what you confirmed or refuted in
+   the Evidence, where each fix goes, the change, and the smoke with its predictions. Edit no code
+   and no TestKit slots (33's attended check holds slots 7-10; 34 is moving the code). Then stop
+   and tell the orchestrator the plan is ready.
+3. **Phase 2, after 33 and 34 close** (the orchestrator says so): re-read the moved files, apply
+   the plan where 34 put them, desk-check, and preload the smoke.
 
 ## Scope
 
@@ -101,7 +108,7 @@ The smoke shows:
 
 ## Stops (report instead of continuing)
 
-1. Brief 34's move has not landed.
+1. Phase 2 is reached and briefs 33 and 34 have not both closed.
 2. Honouring either ruling needs a persisted-name change or crosses a ban in `FIX_POLICY`'s header.
 3. Vanilla offers no way to honour a ruling without rewriting its request or train-assignment
    system. Report the options and their costs.
