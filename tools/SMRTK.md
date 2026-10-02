@@ -1,7 +1,7 @@
 # SMRTK — the in-game toolkit, and preloading a sitting for it
 
 **Reader: a worker seat with this repo open.** SMRTK is the panel the owner and an
-attending agent drive at the keyboard, plus the six agent slots a preparing seat
+attending agent drive at the keyboard, plus the twelve agent slots a preparing seat
 loads *before* the game starts. Those are two different jobs and this file covers
 both, in that order.
 
@@ -9,8 +9,8 @@ The probe harness — `SMRTest.RunAll`, verdict semantics, the ways a probe lies
 is [`TESTKIT.md`](TESTKIT.md). The unattended arming harness is
 [`arming/README.md`](arming/README.md).
 
-It lives in `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no remote,
-local-only by design and settled**. Never raise a push there as owed. A pack lane
+It lives in `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo whose remote is the
+private `catt144/SMR-CommunityTestKit` (owner, 2026-09-29). A pack lane
 does not commit kit code or probes in it. The one exception is a sitting's slots:
 `80_AgentSlots.lua` is agent-owned, ships nothing, and is committed there as part
 of preloading (see "Gates, then the one line to the owner").
@@ -30,8 +30,8 @@ controls stay visible when the body collapses.
 | Sitting | Read taint, Read eligibility; MARK, Flush + copy, Clear screen, Verbose, Screenshot + Mark, Stop disaster; the speed ladder and Cancel target stay in the top rows. **Verbose** shows or hides the game's on-screen console log, which every result line already reaches through `ConsolePrint`; it lights green while that log is visible and reads the real state, so opening the console lights it too. Off at boot on purpose (EF-097) |
 | Run | target sol, the four triggers (sol, first Lua error, selected field, next rocket), Run until / cancel, shared field watch |
 | Selected | curated methods led by Quick build on a construction site, grouped More Cheat / AsyncCheat methods, field watch, colonist traits, dump and pins |
-| Slots & notes (`Agent`) | six numbered slots plus Scratch, note, pin A/B/C readout |
-| World | disasters and cursor-armed meteors, quiet, fix / malfunction all, completion, rocket transit skip, supplies, people, research, domes |
+| Slots & notes (`Agent`) | twelve numbered slots plus Scratch, one full-width row each (long labels wrap), note, pin A/B/C readout |
+| World | disasters and cursor-armed meteors, quiet, mute geysers (their three sound presets only), fix / malfunction all, completion, rocket transit skip, supplies, people, research, domes |
 | Saves | Save / Load / Override load A/B/C; process session and loaded provenance |
 | Probes & logs (`Kit`) | gated probes (alphabetical picker), logger toggles, print tap, console, fingerprint, snapshot / diff, log tail |
 
@@ -140,11 +140,11 @@ separately before any `Code/` write; if the game is running, finish independent
 document preparation and wait for it to close.
 
 Rewrite 80 for this sitting using real `SMRTK.Bind(n, label, fn, opts)` functions,
-slots 1–6 and optionally `SMRTK.BindScratch`. ⛔ **No strings compiled at runtime,
+slots 1–12 and optionally `SMRTK.BindScratch`. ⛔ **No strings compiled at runtime,
 no load-time mutation, no automatic arms, no detached mutation threads.** Every leg
 is **MARK → set up → act → DUMP → MARK**. Validate fixture, map, selection and pins
 before mutation; a refusal must be `false, reason`, **not a success-shaped no-op**.
-Give each slot a plain label and a named prediction. More than six legs may share a
+Give each slot a plain label and a named prediction. More legs than slots may share a
 slot only through an explicit documented stage — never silently overwrite a binding.
 
 `ctx.sel` is the current selection, `ctx.pin` holds the A/B/C refs, `ctx.cursor` is
@@ -240,6 +240,11 @@ real function**. At invocation set session, sitting and game from live state, th
 use `SMRTK.ProbePreflight`; ⛔ **no stale or empty invented attestation.** Any load
 or map change expires it. Inspect 76 for the current evidence schema.
 
+⚖️ **Run all probes needs no slot** (owner, 2026-10-02). Preload the same desk evidence once
+at the top of 80 with `SMRTK.PreloadProbeSweep{...}` — every field except session, sitting
+and game. Pressing Run all probes or Run selected probe then stamps it from live state through
+`probe_preflight`, so the full check and its record still happen, and again after every load.
+
 ⭐ **The gate cannot see the tree's HEAD, so the sweep's own freshness is what keeps
 the stamp honest.** The 24-hour window (WORKFLOW's ck184 gate, ruled 2026-09-15) is
 calibrated against an 08b attestation that passed after five hours against a
@@ -260,8 +265,8 @@ rg -n '^\s*print\(' B:/Dev/SMR/SMR-BugFixPack-TestKit/Code -g '7*_SMRTK*.lua' -g
 doccheck GREEN; both `rg` runs zero matched lines, exit 1. ⛔ **An error is not a
 negative gate** — include a positive installed-source control so a broken command
 cannot read as a clean sweep. Recheck diff and status, stage exact paths, and
-commit with `-F` plus a pathspec (shared hunks follow `CLAUDE.md`'s header). The
-TestKit has no remote; push pack docs if they changed. Quote doccheck WARNs
+commit with `-F` plus a pathspec (shared hunks follow `CLAUDE.md`'s header). Push the
+kit's slots commit, and the pack docs if they changed. Quote doccheck WARNs
 verbatim in the handoff.
 
 Then give the owner **one line**: *"start the game; the Slots & notes tab is loaded"*.

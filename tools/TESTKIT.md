@@ -4,13 +4,13 @@
 companion mod that measures the pack. It tells you what to reach for, and — the
 part that costs sessions when it is missing — **what a verdict from it licenses.**
 
-The kit itself is `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo with **no
-remote, local-only by design and settled**. Never raise a push there as owed, and
-never commit kit code or probes in it from a pack lane. The one exception is a
-sitting's slots: `80_AgentSlots.lua` is agent-owned, ships nothing, and is committed
-there as part of preloading (`SMRTK.md`). Its own `README.md` is the build-state
-document; this file is the durable part, and it is here because the kit is
-unreachable to anyone not sitting at that machine.
+The kit itself is `B:\Dev\SMR\SMR-BugFixPack-TestKit`, a separate repo whose remote
+is the private `catt144/SMR-CommunityTestKit` (owner, 2026-09-29; push per
+`docs/agent/WORKFLOW.md` "Layout"). Never commit kit code or probes in it from a
+pack lane. The one exception is a sitting's slots: `80_AgentSlots.lua` is
+agent-owned, ships nothing, and is committed there as part of preloading
+(`SMRTK.md`). Its own `README.md` is the build-state document and holds the rules
+for sharing the repo; this file is the durable pack-side part.
 
 The in-game toolkit — panel, pages, agent slots — is [`SMRTK.md`](SMRTK.md).
 The unattended arming harness is [`arming/README.md`](arming/README.md).
@@ -115,13 +115,14 @@ sometimes states outright that its PASS condition needs a screen check. A
 suite-wide `FAIL`/`ERROR` sweep can be the instrument, not a regression;
 challenge before filing.
 
-1. **A probe whose `run` falls off the end returns nil, and `SMRTest.Run` turns
-   nil into SKIP with an empty message** (`00_TestCore.lua`). It reads as a
-   deliberate skip, not a missing verdict, and it silently cost wave 6 its entire
-   automated coverage until 2026-07-29. Every probe needs an explicit
-   `return "PASS", …`. Audit by comparing `Register(` and `return "PASS"` counts
-   per wave file. **A baseline leg can never catch it** — the `FixMissing` guard
-   returns FAIL before the tail runs — so only a FIXED leg can.
+1. **A probe whose `run` falls off the end returns nil.** Until 2026-09-17
+   `SMRTest.Run` turned that into SKIP with an empty message, which read as a
+   deliberate skip and silently cost wave 6 its entire automated coverage until
+   2026-07-29. It now reports `ERROR` ("probe returned no verdict",
+   `00_TestCore.lua`), which retires the old audit by `Register(` and
+   `return "PASS"` counts. Every probe still needs an explicit verdict. **A
+   baseline leg can never catch it**: the `FixMissing` guard returns FAIL before
+   the tail runs, so only a FIXED leg can.
 2. **A probe that reads its own baseline from live state.** `DroneStatDials` took
    `local base_carry = consts.DroneResourceCarryAmount` and asserted `base_carry + 1`,
    which holds only when the account's dial already sits at base. Mod Options dials
