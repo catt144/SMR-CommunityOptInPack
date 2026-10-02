@@ -3,6 +3,22 @@
 if Platform.ged then return end
 PlaceObj('EntitySpec', {
 	class_parent = "BuildingEntityClass",
+	id = "SMROptInElevatorDepot",
+	last_change_time = 1790756375,
+	mod_handle = 8,
+	save_in = "Mod/SMR_CommunityOptInPack",
+})
+
+PlaceObj('EntitySpec', {
+	editor_category = "Buildings",
+	id = "SMROptInElevatorDepotReceiver",
+	last_change_time = 1790811206,
+	mod_handle = 9,
+	save_in = "Mod/SMR_CommunityOptInPack",
+})
+
+PlaceObj('EntitySpec', {
+	class_parent = "BuildingEntityClass",
 	editor_category = "Buildings",
 	id = "SMROptInTrainHub6",
 	last_change_time = 1789817428,
@@ -21,22 +37,6 @@ PlaceObj('EntitySpec', {
 	id = "SMROptInTrainHub6Glass",
 	last_change_time = 1790140860,
 	mod_handle = 5,
-	save_in = "Mod/SMR_CommunityOptInPack",
-})
-
-PlaceObj('EntitySpec', {
-	class_parent = "BuildingEntityClass",
-	id = "SMROptInElevatorDepot",
-	last_change_time = 1790756375,
-	mod_handle = 101,
-	save_in = "Mod/SMR_CommunityOptInPack",
-})
-
-PlaceObj('EntitySpec', {
-	editor_category = "Buildings",
-	id = "SMROptInElevatorDepotReceiver",
-	last_change_time = 1790811206,
-	mod_handle = 102,
 	save_in = "Mod/SMR_CommunityOptInPack",
 })
 

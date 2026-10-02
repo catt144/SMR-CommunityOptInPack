@@ -4,7 +4,7 @@ PlaceObj('ModItemBuildingTemplate', {
 	'Group', "Logistics",
 	'Id', "SMROptInElevatorDepotDev",
 	'SaveIn', "Mod/SMR_CommunityOptInPack",
-	'mod_handle', 103,
+	'mod_handle', 10,
 	'object_class', "SMROptInElevatorDepotDevBase",
 	'construction_cost_Concrete', 5000,
 	'construction_cost_Metals', 2000,
