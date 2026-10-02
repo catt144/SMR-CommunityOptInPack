@@ -2,7 +2,7 @@
 
 > ⛔ **PURGE WHEN THE TRAINS PROJECT IS COMPLETE AND TESTED** (owner, 2026-09-18). Complete
 > means every train module the owner keeps is built and has passed its ship test (`FIX_POLICY`
-> §8: both configurations, both toggle directions), or the owner has parked or killed the rest; the Elevator Station
+> §8: both configurations, both toggle directions), or the owner has parked or killed the rest; the Elevator Depot
 > (spec §11) is one of those modules.
 > Then delete the whole `Train_Hub_Project/` folder and its row in `docs/agent/prompts/README.md`
 > in one commit.
@@ -13,20 +13,22 @@
 ## Authority
 
 The owner, 2026-09-18: this session is the project's **orchestrator**. Build work goes to other
-agents through briefs; the orchestrator holds the big picture. The trains are Module A
-(per-resource station import/export) and Module B (the train hub). The owner, 2026-09-28: a simple
+agents through briefs; the orchestrator holds the big picture. The trains are three
+modules: station rows (Module A, per-resource import/export), the train hub (Module B) and the
+Elevator Depot (spec §11). The owner, 2026-09-28: a simple
 change the owner asks for, the orchestrator may make itself or give to a subagent; **a big change
 is delegated to another agent through a brief.** The owner, 2026-09-29: **the crossing between the
 surface and the underground is the orchestrator's too**, since it touches the hub. It is now the
-Elevator Station (spec §11); the rail shaft's handoff is `Parked/RAIL_SHAFT_PROTOTYPE_high.md`.
+Elevator Depot (spec §11); the rail shaft's handoff is `Parked/RAIL_SHAFT_PROTOTYPE_high.md`.
 Plan the hub and the crossing together: check each brief on either side against the other
 before it fires.
 
 ## Read first
 
 - The spec, `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`. §4.7 and §4.8 hold the
-  distribution and dispatch rulings (4.8 numbers them, 1 to 9, and carries the save-boundary ladder).
-  §4.9 is train construction, §4.10 capacity, §6 the options and the owner's routing direction
+  distribution and dispatch rulings (4.8 numbers them, 1 to 10, and carries the save-boundary ladder).
+  §4.9 is train construction (record only: the hub builds no
+  trains, owner 2026-09-28), §4.10 capacity, §6 the options and the owner's routing direction
   (OPTION 5), §7.2 the measured results, §9 the asset and ship size, §10 the hub prototype and its
   standing rulings. Read the relevant sections before briefing anything in their area.
 - The fire order: this folder's [`README.md`](README.md). The owner's open asks:
@@ -48,38 +50,33 @@ before it fires.
      brief's latest commits and the working tree once, then give the owner, briefly: where the
      project stands, what is live, what passed since the last close-out, and **what the owner needs
      to do next**, in order. Then stand by (owner, 2026-09-19): the owner may bring design
-     questions, rulings or sitting help first. Do not start the audit or assume it is due.
+     questions, rulings or sitting help first.
    - **How sittings run** (owner, 2026-09-26): the orchestrator guides the owner through a build's
      attended smoke from the build's own predictions, reads the log on "flushed" (re-read the file:
      the owner keeps playing after a flush), records the result in the brief, and folds it into
      the spec when the brief passes. A Codex build session cannot be messaged: hand the owner
      paste-ready text. Console lines are acceptable where no slot fits (owner, 2026-09-27); the
      console read is pasted into the TestKit **command box**, not a slot. Name each slot's function
-     beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
-     trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
+     beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot bindings change each
+     sitting (`tools/SMRTK.md`): read the current `80_AgentSlots.lua` before naming a slot. An
+     autosave disarms an armed watch; the owner re-presses it.
    - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-02** (Opus 5.5
-     `claude-opus-5-5`). Passed and deleted 2026-10-01/02: briefs `22`, `26`-`29` (the depot's
-     design, wiring, paint, cost), `30` (station rows on every station, hub or not; the depot's
-     rest/resume, need-based loading on both legs, 250/500 capacity and storage with its own
-     10 Metals / 10 Concrete upgrade, train buttons), `31` (the audit, report
-     `TRAIN_AUDIT_20261002.md`) and `32` (the depot's icon). The rulings are spec §4.7 and §11's
-     last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
+     `claude-opus-5-5`). Closed briefs are in this folder's
+     `README.md`; their rulings are spec §4.7 and §11's last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
      **Next, in order** (every remaining brief is authored; the owner tests and fires):
      1. **`33`, the crossing witness**: desk done (`c06349e`, report
         `TRAIN_CROSSING_WITNESS_20261002.md` at `0b8225b`); its attended check is owed. Guide it
         from that report's predictions, then close the brief.
-     2. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), ready; its
-        first step is the owner checkpoint (module list; whether dev class names, including the
-        audit's historical `SMROptInElevatorStationDev`, stay for the owner's saves). Relay it to
-        the owner in plain terms. Code moves after 33 closes: both touch the hub's tests.
+     2. **`34`, the move into this mod**: checkpoint answered (OI-41, 2026-10-02; spec §10 grep
+        `Brief 34's checkpoint`); preflight widened (`5aa529d`). The owner's veto on the player-text
+        drafts is owed (`TRAIN_MOVE_CHECKPOINT_20261002.md` §"Player text drafts"). Code moves
+        after 33 closes: both touch the hub's tests.
      2b. **`34b`, Export rows take only a storage's excess** above its Desired Amount (owner,
         2026-10-02, spec §4.8 grep `Export takes only the excess`); fires after 34's code move.
      3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and the
         spawn-on-siding watch. Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
-     Brief 10's old report predictions were written before ruling 10; treat any report's
-     predictions from before 2026-09-28 as possibly stale.
    - **Standing constraints:**
      - **Movement is FINISHED** (owner, 2026-09-21). It may reopen once, at the final pre-launch
        test, if the owner wants moves tweaked; `Parked/TRAIN_HUB_MOVE_high.md` waits for that and
@@ -91,20 +88,8 @@ before it fires.
        check instrument for spot changes, but its `--train-length-m` default inherits the disputed
        41.5 m. Do not revive the options withdrawn with that figure (`GEOMETRY_ORACLE_20260919.md`
        §13 and the list at grep `SetScale`).
-     - **The hub's ship size** is the owner's ruling (spec §9, grep `OUR OWN GUARD`); OI-18 ruled
-       2026-10-01: widen the preflight tool in the move brief.
-   - **The audit sweep, authorised to follow the sittings above** (owner, 2026-09-28; the owner
-     changes the model themselves). Treat every build report as a claim and
-     check it against its commits and logs. Cover:
-     - the persisted-name inventory (ban 1);
-     - `FIX_POLICY` §8's both-configuration ship test and the toggle test as §0 defines it for
-       content, which the smokes do not cover;
-     - spec §10 and the hub report agreeing with the code;
-     - the settled 19 request-backed resources against the 21 nominal candidates;
-     - that each fired brief and its map row were deleted at its lifecycle;
-     - build 3's sitting-report §6 audit of how every mid-run ruling landed.
-     Before the final build's full battery, brief a TestKit fix for the crossing witness
-     (`TRAIN_HUB_BUILD_20260918.md`, grep `crossing witness cannot prove`).
+     - **The hub's ship size** is the owner's ruling (spec §9, grep `OUR OWN GUARD`); OI-18's widened preflight
+       landed at `5aa529d` (brief 34).
 4. Brief each new build with the `prompt-authoring` skill. Record owner rulings in the brief and
    the spec the obeying agent reads, never only in chat.
 5. **You own every brief's lifecycle** (owner, 2026-09-21). Once a fired brief's work is done,

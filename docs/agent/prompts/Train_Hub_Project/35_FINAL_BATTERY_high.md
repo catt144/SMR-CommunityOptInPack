@@ -16,13 +16,13 @@ has parked or cut it; the report names the released fix-pack version tested.
 
 ## What the battery carries
 
-- Each module's predictions from its spec sections (§4.7-§4.10, §10, §11) and its build reports,
+- Each module's predictions from its spec sections (§4.7, §4.8, §4.10, §10, §11; §4.9 is rejected design, record only) and its build reports,
   restated for the shipping layout from brief `34`. Treat predictions written before 2026-09-28 as
   possibly stale: re-derive them.
 - Every in-game check the audit (`docs/agent/reports/TRAIN_AUDIT_20261002.md` §2) says the smokes miss.
 - The crossing verdicts on brief `33`'s witness.
-- OI-38's last step on `docs/PLAYTEST_CHECKLIST.md`: the scripted up-leg read (slot 6, the train
-  stream, then slot 2 with an Export row), on the final up-leg loading.
+- OI-38's last step on `docs/PLAYTEST_CHECKLIST.md`: the scripted up-leg read (the train
+  stream, then the up-leg read with an Export row; slot numbers from the current `80_AgentSlots.lua`), on the final up-leg loading.
 - The hub's spawn-on-siding correction, never seen live: watch a hub spawn.
 - **Movement is finished** (owner, 2026-09-21). It may reopen once, here, if the owner wants moves
   tweaked; that goes to `Parked/TRAIN_HUB_MOVE_high.md`, never as a gate.
@@ -32,8 +32,8 @@ has parked or cut it; the report names the released fix-pack version tested.
 `git log --oneline -5` and `git pull` first; authored at `58ebf7e`+. Use the todo tool before any
 write. Preload SMRTK slots (`tools/SMRTK.md`): the owner clicks, they do not type, and each
 hand-typed console line needs a stated reason no slot covers it. About five steps a batch,
-predictions beside each, hubs named by role. Slot 6 streams trains with `effective_speed`; an
-autosave disarms a watch, and the owner re-presses the slot. The orchestrator guides the owner and
+predictions beside each, hubs named by role. Slot bindings change each sitting: read the current
+`80_AgentSlots.lua`. An autosave disarms a watch, and the owner re-presses the slot. The orchestrator guides the owner and
 reads the log on each "flushed". Apply `docs/agent/WORKFLOW.md`'s test-design rules. A failure is a
 recorded verdict and a routed fix, not a retry for a preferred result. References: `CLAUDE.md`,
 `docs/agent/FIX_POLICY.md`; skills `doc-editing`, `smr-bug-library`.
