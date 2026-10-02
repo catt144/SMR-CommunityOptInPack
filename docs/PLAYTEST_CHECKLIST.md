@@ -53,7 +53,8 @@ When you next open the game, save the Elevator Depot's new icon into its templat
   never reaches the game. The path: `Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png`.
 - The icon is variant A, passed by your eye on 2026-10-02 and installed as
   `tools/devmods/elevator_station/UI/SMROptInElevatorDepot_icon.png`.
-- Then glance at the Stations menu tile and a placed depot's infopanel; say if anything is off.
+- Then open DEV ONLY - Train Hub and Save once (its four upgrade icons were picked into its `Data/` template
+  the same day), and glance at the Stations menu tile and a placed depot's infopanel; say if anything is off.
 Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
 
 ### OI-38 · opened 2026-10-01

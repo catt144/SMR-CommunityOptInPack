@@ -4287,8 +4287,14 @@ editor's "Default upgrade icon for slot 1" lint, `Building.lua:2614-2626` on 1.1
 it a basic icon relating to storage"*): vanilla's storage glyph, the four-arrow expanded-warehousing
 icon, in its blue tier-2 file `UI/IconsRemaster/Upgrades/expanded_warehousing_02.png`, set in the base
 class (`10_ElevatorDepotDev.lua`, grep `upgrade1_icon`). The lint compares the path with the field's
-default, the grey tier-1 file, so the same symbol under another name clears it; the hub's four slots
-still carry the default and still warn.
+default, the grey tier-1 file, so the same symbol under another name clears it. **The hub's four slots**
+(owner, same day: *"pick some basic icons that make sense for each of its upgrades"*), written into
+the editor's source `tools/devmods/train_hub/Data/BuildingTemplate/SMROptInTrainHub6.lua` for the
+owner's save to regenerate: 1 Capacity Network `expanded_warehousing_02` (blue storage arrows);
+2 Train Cargo `extended_cargo_01` (the cargo rocket); 3 Power `infinite_energy_01` (the battery;
+`cryo_resistant_compounds_01`, the crossed snowflake, was the runner-up for the cold penalty);
+4 Storage Hub `expanded_warehousing_03` (gold storage arrows, the bigger tier). All under
+`UI/IconsRemaster/Upgrades/`, 72 × 62, read from `UI.fpk` on 2026-10-02.
 **Brief 30's depot items PASSED live 2026-10-02** (report `ELEVATOR_DEPOT_REVISION_20261002.md`,
 "Sitting"; brief deleted): the twinless notices and the cabin's rest and resume; need-based loading
 on both legs (the empty row wins, no destination overfilled); 250 a leg and per resource, 500 on
