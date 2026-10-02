@@ -1,14 +1,14 @@
-# 34b — Two owner fixes after the move: Export keeps Desired; auto-fill enters at the station (fix build)
+# 34b — Three owner fixes after the move: Export keeps Desired; no train in the hub; no cargo gain on unload (fix build)
 
 **Fire with:** `task docs/agent/prompts/Train_Hub_Project/34b_ROWS_AND_AUTOFILL_FIXES_high.md` in
 a fresh session rooted at `B:\Dev\SMR\SMR-OptInPack`, **in two phases** (owner, 2026-10-02):
-**phase 1 may fire now** (investigate and plan, no code edits); **phase 2 lands after briefs `33`
-and `34` close** (both fixes then edit the moved modules; editing now would collide with the move).
+**phase 1 may fire now** (investigate and plan, no code edits); **phase 2 lands after brief `34`
+closes** (33 closed 2026-10-02) (both fixes then edit the moved modules; editing now would collide with the move).
 Reasoning: high (vanilla drone request priorities; vanilla train assignment and spawn).
 
 ## Authority and outcome
 
-Two owner rulings, 2026-10-02. Both are settled; do not reopen them.
+Three owner rulings, 2026-10-02. Both are settled; do not reopen them.
 
 **Fix 1, Export rows.** After a live test, the owner said that with a resource's station row on
 Export, drones *"drain everything ... including resource pads that have a desired amount set. ... I
@@ -27,6 +27,15 @@ them spawned in the hub."* So cutting auto-fill, leaving the player vanilla's ad
 station, is acceptable if it is simpler. Either way, **no train ever appears in the hub**,
 auto-filled or player-assigned.
 
+**Fix 3, a one-unit food gain on unload** (owner, 2026-10-02, routed from brief 33's finding):
+brief 33's witness saw one train's unload at the hub take 12 Food and 16 Sugar off the train while
+the hub gained 13 and 17 (`docs/agent/reports/TRAIN_CROSSING_WITNESS_20261002.md`, grep
+`appears from nothing`; log `Mars.exe-20261002-15.30.19`). Its hypothesis, unconfirmed: spoilage in
+transit lowers the carried amount but not the booked one, and the unload hands over the booked
+amount. Station spoilage is this project's own code (`60_StationSpoilage.lua`, which ships with the
+hub). Find the cause; if it is ours and the fix is simple, fix it so an unload never adds more than
+the train gave up. If it is vanilla or the fix is not simple, report the options instead.
+
 Outcome:
 
 - **Fix 1:** an Export row's drones fill the station only from stock above each source storage's
@@ -36,7 +45,9 @@ Outcome:
   station. The hub stays a pass-through. Trains that already exist and pass through the hub move as
   before (movement is finished, owner 2026-09-21).
 
-Done when both are committed with desk checks, a preloaded smoke covers both, and the owner has
+- **Fix 3:** an unload adds to the station exactly what left the train, or a report says why not.
+
+Done when all three are committed with desk checks, a preloaded smoke covers both, and the owner has
 run it and seen each one.
 
 ## Evidence
@@ -90,7 +101,7 @@ Use the todo tool before any write: one item per commit-and-verify unit, one in 
 ## Scope
 
 In: the Export row's drone-side sourcing, on stations with and without a hub; where auto-fill's
-train enters.
+train enters; the unload's cargo accounting at stations and the hub.
 
 Out: trains' loading and routing, Import and Balanced behaviour, the depot's rows, train movement
 through the hub, and anything brief 34 or 35 owns. Report outside findings without editing them.
