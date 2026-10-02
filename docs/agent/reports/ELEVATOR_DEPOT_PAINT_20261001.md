@@ -476,3 +476,19 @@ lines are in it, `instant_build` is gone, and the editor also dropped `build_poi
 Data source and the output because 10000 is the property's default
 (`Src/Lua/Buildings/Constructable.lua:18` on 1.1.1.406343, `default = 10000`). The approved cost is
 live as written; committed as the commit after `9de0103`.
+
+### The sitting, batch 1 (2026-10-01 evening, log `Mars.exe-20261001-20.03.41-6aba6e65.log`)
+
+- **Step 0 and 2, the cost**: the owner's version-14 save, then the build cursor showed Metals 2,
+  Concrete 5, Machine Parts 1 (their screenshot, Assets
+  `elevatorstation/owner_feedback/paint_04_build_menu_cost_5_2_1.png`); the owner: *"everything
+  looks right and good"*.
+- **The log, flushed after `Report()`** (`grep -n -i "lua error\|traceback\|attempt to"`: 0 hits in
+  523 lines). Both halves print `(entity imported)` (lines 437, 460). The dress lines: surface
+  `palette=2` (elevator and cabin; the surface rig has `ropes=0`), underground `palette=7`
+  (elevator, cabin, 4 ropes, the receiver). The run-B prediction said "at least 3 on the surface,
+  elevator, cabin, ropes": the ropes hang underground only, so 2 is the right surface count and the
+  prediction's arithmetic was wrong, not the paint. `depots 2`, both `working=true`, every spot
+  `MATCH`, the underground panel's 19 rows match the surface.
+- Owed in the owner's words: step 3 (the painted shell by day, beside the vanilla elevator), step 4
+  (the scheme change), step 5 (night).
