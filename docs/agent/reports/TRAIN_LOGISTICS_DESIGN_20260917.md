@@ -301,6 +301,13 @@ it does. Every station states its intent per resource, and the hub is the sink a
 | **Import** | keep it **empty** — distribute out to the area | fill it, never take away | the amount always kept |
 | **Balanced** (unmarked) | vanilla | vanilla, pinned to the number | the number to hold |
 
+**Export takes only the excess** (owner, 2026-10-02; a defect against the table, not a new mode):
+an Export row's drones haul a storage's stock only **above that storage's own Desired Amount**; a
+storage at or under its Desired Amount gives the station nothing. Seen live 2026-10-02: a Food Depot
+(`StorageFood`) set to Desired 50 was drained to 8.2/180 by drones filling a station's Food · Export
+row. The same sitting saw Balanced rows filled only once every other storage is full; that is
+intended (vanilla). Fix: brief `34b`.
+
 **Per resource, never per station** (owner, 2026-09-24, and this closes it): a mining sector has a
 dome, so it exports metals while importing food, delicacies and machine parts; an agri sector
 exports food and imports maintenance goods; industry exports maintenance goods and imports food and

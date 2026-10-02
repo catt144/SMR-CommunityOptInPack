@@ -72,7 +72,9 @@ before it fires.
         first step is the owner checkpoint (module list; whether dev class names, including the
         audit's historical `SMROptInElevatorStationDev`, stay for the owner's saves). Relay it to
         the owner in plain terms. Code moves after 33 closes: both touch the hub's tests.
-     3. **`35`, the final full battery**, after 33-34; it carries OI-38's up-leg read and the
+     2b. **`34b`, Export rows take only a storage's excess** above its Desired Amount (owner,
+        2026-10-02, spec §4.8 grep `Export takes only the excess`); fires after 34's code move.
+     3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and the
         spawn-on-siding watch. Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.

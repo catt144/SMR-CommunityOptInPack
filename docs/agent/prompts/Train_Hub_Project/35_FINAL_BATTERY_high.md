@@ -1,7 +1,7 @@
 # 35 — The final full battery on the shipping layout (attended test)
 
 **Fire with:** `task docs/agent/prompts/Train_Hub_Project/35_FINAL_BATTERY_high.md` in a fresh
-session rooted at `B:\Dev\SMR\SMR-OptInPack`, **after briefs `33` and `34` close**. Reasoning: high
+session rooted at `B:\Dev\SMR\SMR-OptInPack`, **after briefs `33`, `34` and `34b` close**. Reasoning: high
 (a full prediction battery across modules and configurations).
 
 ## Authority and outcome
