@@ -6,6 +6,11 @@ edits `tools/devmods/train_hub/tests/`, and for the owner's answers below (brief
 Executed model: Opus 5.5 (`claude-opus-5-5`), with two read-only Opus subagents (a dev-file
 dependency map and an engine read on 1.1.1.406343).
 
+**Owner's answers, 2026-10-02 (OI-41):** questions 2, 3 and 4 as recommended, with no save
+scan. Question 1: three modules, but **station spoilage goes with the hub**. Stations stop
+spoiling food only while the Train Hub module is on, and `60_StationSpoilage` moves to
+`Code/TrainHub/`. Where this report says otherwise, the answer governs.
+
 ## What the move has to work around (SOURCE, 1.1.1.406343)
 
 - **Templates and models can ship from this mod without a game-file edit** (stop 3 does not

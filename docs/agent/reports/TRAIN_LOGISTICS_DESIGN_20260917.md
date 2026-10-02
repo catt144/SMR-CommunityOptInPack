@@ -4081,6 +4081,14 @@ a shipping claim or a general proof of all reworked layouts.
   out of their dev mods into this mod as modules, then the final full battery.**
 - **OI-18: widen `tools/upload_preflight.py`** so the hub's template and models can ship in this mod;
   the move brief carries it.
+- **Brief 34's checkpoint (owner, 2026-10-02, OI-41; `reports/TRAIN_MOVE_CHECKPOINT_20261002.md`):**
+  three modules, `StationRows`, `TrainHub` and `ElevatorDepot`. **Station spoilage goes with the
+  hub:** stations stop spoiling food only while the Train Hub module is on (the proposal had put it
+  with the rows). Each module's parts go in `Code/<id>/` beside its `Opt_<id>.lua` (FIX_POLICY §8).
+  Every persisted name is kept byte for byte, the depot's `SMROptInElevatorDepotDev`,
+  `…DevBase` and `…Dev_Capacity` included, and the 09-29 stand-in `SMROptInElevatorStationDev`
+  gets no compatibility. The owner keeps saving templates in the Mod Editor; the agent who asked
+  for the save restores the hand-written `metadata.lua` and `items.lua` from git afterwards.
 - **The hub's long-title fault** (`45_TrainDistributionUI.lua` `fit_title`, the wiring report's
   "Reported, not fixed") is fixed now, in brief 29.
 

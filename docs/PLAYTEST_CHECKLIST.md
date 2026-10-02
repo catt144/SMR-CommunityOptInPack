@@ -15,15 +15,6 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-41 · opened 2026-10-02
-Do you approve brief 34's four answers for moving the rows, the hub and the depot into this mod?
-- 1: modules `StationRows` / `TrainHub` / `ElevatorDepot`; spoilage goes with the rows (else its own toggle).
-- 2: each module's parts in `Code/<id>/` beside its `Opt_<id>.lua` (widens FIX_POLICY §8), or one big file.
-- 3: keep every save name, the depot's `Dev` ones included; no support for the old `SMROptInElevatorStationDev`.
-- 4: you keep saving in the Mod Editor; the agent restores the hand-written metadata/items after.
-- Say "yes", or answer by number; add "scan" to prove no save holds the old depot name. The move waits for 33.
-Home: `docs/agent/reports/TRAIN_MOVE_CHECKPOINT_20261002.md`
-
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).

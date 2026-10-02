@@ -466,7 +466,9 @@ module's own maps.
 ## 8. Release hygiene
 
 - One module per `Code/Opt_*.lua` file; the filename is `Opt_<Register id>.lua`. List every
-  module explicitly in `metadata.lua` `code` and `items.lua`, in the same order.
+  module explicitly in `metadata.lua` `code` and `items.lua`, in the same order. A module too
+  large for one file keeps its parts in `Code/<Register id>/`, listed right after its `Opt_`
+  file (owner, 2026-10-02, OI-41: the train modules).
 - `00_Core.lua` loads first. Metadata's `code` order is the intra-mod order. Inter-mod order is
   the player's enable order (EF-054); require no position and give no player-facing load-order
   instruction.
