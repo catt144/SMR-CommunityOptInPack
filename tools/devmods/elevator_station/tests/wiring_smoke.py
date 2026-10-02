@@ -82,6 +82,7 @@ function AllMapsForEach(area, class, fn) for _,o in ipairs(UIColony.labels.SMROp
 function GetEnvironment(m) return m.env end
 surface_map=new_map(1,'Surface'); cave=new_map(2,'Underground'); CurrentMap=surface_map
 UIColony={labels={SMROptInElevatorDepotDev={}}, underground_map_unlocked=true}
+function UIColony:IsUpgradeUnlocked() return true end
 RESOURCES={'Concrete','Metals','Polymers'}
 
 -- vanilla's Station setters, as the depot calls them (Station.lua:964-995, :1021-1051)
@@ -120,6 +121,8 @@ function depot(map, stock)
   function o:GetMapSlot() return self.map.slot end
   function o:IsResourceEnabled(res) return self.enabled[res] end
   function o:GetMaxStorage(res) return 60000 end
+  -- Keep this legacy fixture small; the revision smoke below uses native resize/upgrade bodies.
+  function o:SetBase(prop,value) self['base_'..prop]=value end
   function o:AddResource(n,res) int(n,'AddResource'); self.supply[res]:AddAmount(n); self.demand[res]:AddAmount(-n) end
   function o:InterruptDrones(cc_filter, filter)
     for _,cc in ipairs(self.command_centers) do for _,d in ipairs(cc.drones) do
@@ -147,7 +150,8 @@ lua.execute(text)
 lua.execute(r'''
 local D = SMRElevatorDepotDev
 local Base = SMROptInElevatorDepotDevBase
-assert(D.layout.cabin_leg_minutes==60 and D.layout.cabin_capacity==42 and D.layout.row_words=='station')
+assert(D.layout.cabin_leg_minutes==60 and D.layout.cabin_capacity==250 and D.layout.row_words=='station')
+D.layout.cabin_capacity=42 -- legacy small fixture; production capacities exercised separately
 
 -- 1 a lone half: no pair, no cabin, a plain station to a hub, build limits
 local S = depot(surface_map, {Metals=30, Concrete=20})
@@ -425,6 +429,12 @@ assert(has_log('half gone: underground '..U.handle..' survivor '..S.handle), 'ha
 U.valid=false; table.remove(UIColony.labels.SMROptInElevatorDepotDev, table.find(UIColony.labels.SMROptInElevatorDepotDev, U))
 now=now+500; D.Tick(1)
 assert(has_log('no pair: surface '..S.handle), 'the pair is broken')
+local z, moving = D.FollowTarget(rig)
+assert(z==rig.base:z() and moving==false, 'the orphan surface cabin rests at its landing')
+rig.elevator={valid=true}; D.rigs[S]=rig
+OnMsg.SaveGameDone()
+assert(rig.thread.fn==D.FollowLoop, 'an orphan restarts the schedule follower, never the display cycle')
+D.rigs[S]=nil
 assert(D.HubEntry(S,'Metals')==false and D.HalfWord(S,'Metals')=='plain', 'the survivor works as a plain station')
 assert(D.State(S,'Metals')=='to_underground', 'and keeps its row for the next twin')
 assert(S:ShouldAddRequestToCommandCenter(S.supply.Metals, hub)==true, 'unpaired + on: both ways')
@@ -446,6 +456,9 @@ Base.OnDestroyed(S)
 assert(stock(U2,'Concrete')==u2c+3, 'destroyed surface hands its cargo down')
 Base.Done(S)   -- the ruin cleared later: nothing twice
 assert(stock(U2,'Concrete')==u2c+3)
+urig.bld=U2; D.InvalidatePair()
+z, moving = D.FollowTarget(urig)
+assert(z==urig.base:z() and moving==false, 'the orphan underground cabin rests at its landing')
 
 -- 9 an old save: halves without any field; the load handler resets runtime state
 local S3 = depot(surface_map); S3.handle=1   -- lowest handle on the surface: pairs with U2

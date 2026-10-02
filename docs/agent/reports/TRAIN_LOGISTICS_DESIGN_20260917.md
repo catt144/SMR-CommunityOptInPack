@@ -4266,7 +4266,9 @@ both ends together.
 attached to the hub, it has no way of putting its on station on a line. It behaves like a station in
 most ways but both sides have no way of building a train, or putting a train on its own line."*
 Vanilla stations carry the train buttons (the Large Train Station's panel shows two); the depot
-halves' panels show none. Open; brief `30`'s next run gives both halves a vanilla station's train buttons.
+halves' panels show none. Brief `30`'s follow-up is built and desk-verified; its attended smoke is
+pending. The twinless rest, need-based loading, 250/500 capacity upgrade and native train controls
+are recorded in `reports/ELEVATOR_DEPOT_REVISION_20261002.md`, including the preloaded next sitting.
 **Owner ask, 2026-10-02: the depot's icon.** With a screenshot of the build menu's Elevator Depot
 (dev) tile: *"we need to get its icon to match its own icon in the build menu"*. The tile shows a
 pale concept render, not the depot as built and painted (brief 28). Not yet briefed; it touches the

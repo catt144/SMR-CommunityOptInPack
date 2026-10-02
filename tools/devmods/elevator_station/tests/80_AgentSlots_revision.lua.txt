@@ -1,0 +1,157 @@
+-- Brief 30 depot follow-up. Append after 80_AgentSlots_depot.lua.txt; nothing runs at load.
+-- Predictions: docs/agent/reports/ELEVATOR_DEPOT_REVISION_20261002.md.
+-- Slots 1/4 deliberately replace the two fixture stocks and cabin cargo. Save B first.
+do
+local T = SMRTK
+local function dev() return rawget(_G, "SMRElevatorDepotDev") end
+local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
+local run_ids = {"depot_next_arrival", "depot_next_departure", "depot_drone_hour", "station_rows_30", "depot_revision_wait"}
+local function cancel_runs()
+    for _, key in ipairs(run_ids) do if T.armed[key] then T.Disarm(key, "replaced by depot smoke slot") end end
+end
+local function run(key, ...)
+    cancel_runs()
+    local ok, fields = T.Arm(key, ...)
+    if not ok then return false, fields.reason end
+    local ran, why = T.Run("speed_ultra")
+    if not ran then T.Disarm(key, "speed refused"); return false, why.reason end
+    fields.trigger = key
+    return fields
+end
+local function half(ctx)
+    local d, o = dev(), ctx.sel
+    if not d or not d.CabinCapacity then return nil, "reload with the depot revision installed" end
+    if GetTimeFactor() ~= 0 then return nil, "pause first" end
+    if not IsValid(o) or not d.IsDepot(o) or o.destroyed or o:GetMap() ~= CurrentMap then
+        return nil, "select a live depot half on this map"
+    end
+    return o, d
+end
+local function line_trains(o)
+    local n,seen=0,{}
+    if o.ForEachConnectedTrack and rawget(_G,"GetTrainsOnRoute") then
+        o:ForEachConnectedTrack(function(track) n=n+GetTrainsOnRoute(track,seen) end)
+    end
+    return n
+end
+local function fields(o, d)
+    local s, u = d.PairOf(o)
+    local rec = s and rawget(s, d.CABIN)
+    local rig = d.rigs[o]
+    local z, moving
+    if rig then z, moving = d.FollowTarget(rig) end
+    return { half=id(o), twin=id(d.TwinOf(o)), cabin=rec and rec.phase or "none",
+        cabin_capacity=d.CabinCapacity(o), storage=o:GetMaxStorage("Metals"),
+        upgrade=tostring(o:HasUpgrade(d.CAPACITY_UPGRADE) and true or false),
+        cost_metals=o:GetUpgradeCost(1,"Metals"), cost_concrete=o:GetUpgradeCost(1,"Concrete"),
+        metals=o.supply.Metals:GetActualAmount(), concrete=o.supply.Concrete:GetActualAmount(),
+        aboard_metals=rec and rec.cargo.Metals or 0, aboard_concrete=rec and rec.cargo.Concrete or 0,
+        art_target_z=z or "none", art_moving=tostring(moving and true or false),
+        art_z=rig and IsValid(rig.cabin) and rig.cabin:GetPos():z() or "none",
+        train_building=o.trains_in_construction or 0, trains=o:GetAvailableTrains(), line_trains=line_trains(o),
+        train_metal_needed=o.train_construction_request_metal and o.train_construction_request_metal:GetActualAmount() or 0,
+        train_electronics_needed=o.train_construction_request_mp and o.train_construction_request_mp:GetActualAmount() or 0,
+        errors=T.error_count, game_time=GameTime() }
+end
+local function read(ctx)
+    local o,d=half(ctx); if not o then return false,d end
+    local mark=ctx.mark("DEPOT_REVISION_READ")
+    local result=fields(o,d); result.mark=mark
+    local twin=d.TwinOf(o)
+    if twin then ctx.log("DUMP",fields(twin,d)) end
+    d.Pair()
+    return result
+end
+T.Bind(3,"Read depot: capacities, cargo, upgrade and trains (paused)",read,{mode="once",needs="selected"})
+T.BindScratch("Read depot revision and its twin (paused)",read,{mode="once",needs="selected"})
+
+local function prepare(ctx, down)
+    local o,d=half(ctx); if not o then return false,d end
+    local s,u=d.PairOf(o)
+    if not s or o~=s then return false,"select the surface half of the working pair" end
+    if not s.working or not u.working then return false,"both depot halves must be working" end
+    -- Never subtract stock promised to an existing carrier or overwrite incoming room.
+    for _, h in ipairs{s,u} do for _, res in ipairs{"Metals","Concrete"} do
+        for _, req in ipairs{h.supply[res],h.demand[res]} do
+            if req:GetTargetAmount() ~= req:GetActualAmount() then
+                return false,"Metals or Concrete is reserved by a carrier; run the next arrival and retry"
+            end
+        end
+    end end
+    local mark=ctx.mark(down and "DEPOT_NEED_DOWN_SETUP" or "DEPOT_NEED_UP_SETUP")
+    cancel_runs(); ctx.mutated=true
+    ctx.log("DUMP",fields(s,d)); ctx.log("DUMP",fields(u,d))
+    local old=rawget(s,d.CABIN)
+    for res,n in pairs(old and old.cargo or empty_table) do ctx.log("DUMP",{fixture_removed_cargo=res,amount=n}) end
+    local origin,dest=down and s or u,down and u or s
+    for _, res in ipairs(s.storable_resources) do
+        d.SetRow(s,res,(res=="Metals" or res=="Concrete") and (down and "import" or "export") or "disabled")
+    end
+    d.SetDroneAccess(s,false); d.SetDroneAccess(u,false)
+    for _, res in ipairs{"Metals","Concrete"} do
+        d.SetTarget(s,res,down and 100 or 0)
+        local want=origin:GetMaxStorage(res)
+        origin:AddResource(want-origin.supply[res]:GetActualAmount(),res)
+        want=res=="Concrete" and Max(dest:GetMaxStorage(res)-10000,0) or 0
+        dest:AddResource(want-dest.supply[res]:GetActualAmount(),res)
+    end
+    rawset(s,d.CABIN,{phase=down and "at_top" or "at_bottom",ends=GameTime(),started=true,cargo={},legs=old and old.legs or 0})
+    ObjModified(s); ObjModified(u)
+    ctx.log("DUMP",fields(s,d)); ctx.log("DUMP",fields(u,d))
+    local result,why=run("depot_next_departure")
+    if result==false then return false,why end
+    result.mark=mark; result.expected_metals=d.CabinCapacity(s)*const.ResourceScale
+    result.expected_concrete=0; result.direction=down and "down" or "up"
+    return result
+end
+T.Bind(1,"Prepare Import needs; run down departure (Save B first)",function(ctx) return prepare(ctx,true) end,{mode="once",needs="selected"})
+T.Bind(4,"Prepare Export needs; run up departure (Save B first)",function(ctx) return prepare(ctx,false) end,{mode="once",needs="selected"})
+T.Bind(2,"Run next cabin arrival (Ultra; replaces old run)",function() return run("depot_next_arrival") end,{mode="once"})
+T.Bind(6,"Run next cabin departure (Ultra; replaces old run)",function() return run("depot_next_departure") end,{mode="once"})
+
+T.Trigger {id="depot_revision_wait",label="Depot: rest, upgrade or train",cadence=250,
+    prepare=function(ctx,o)
+        local d=dev()
+        if not d or not IsValid(o) then return false,"select a live depot half" end
+        local st=ctx.state; st.object=o; st.errors=T.error_count
+        st.mode=o:IsUpgradeBeingConstructed(d.CAPACITY_UPGRADE) and "upgrade"
+            or ((o.trains_in_construction or 0)>0 and "train" or "rest")
+        st.deadline=GameTime()+(st.mode=="rest" and 1 or 6)*const.HourDuration
+        st.train_queue=o.trains_in_construction or 0; st.trains=o:GetAvailableTrains(); st.line_trains=line_trains(o)
+        st.orphan=not d.TwinOf(o); st.changed=0
+        return {mode=st.mode,half=id(o),deadline=st.deadline}
+    end,
+    when=function(ctx)
+        local d,st=dev(),ctx.state
+        local o=st.object
+        if not d or not IsValid(o) or o.destroyed then return true,{verdict="half_gone"} end
+        local f=fields(o,d)
+        if T.error_count>st.errors then f.verdict="new_error"; return true,f end
+        if st.mode=="rest" and not st.orphan and not d.TwinOf(o) then
+            st.orphan=true; st.deadline=GameTime()+const.HourDuration
+        end
+        if st.orphan then
+            if d.TwinOf(o) then f.verdict="pair_formed"; return true,f end
+            -- Only settled samples: the first follower tick parks an already moving cabin.
+            if f.art_z==f.art_target_z then st.settled=true end
+            if st.settled and st.last_z and st.last_z~=f.art_z then st.changed=st.changed+1 end
+            if st.settled then st.last_z=f.art_z end
+        end
+        local done=st.mode=="upgrade" and o:HasUpgrade(d.CAPACITY_UPGRADE)
+            or st.mode=="train" and (o.trains_in_construction or 0)<st.train_queue
+                and (o:GetAvailableTrains()>st.trains or f.line_trains>st.line_trains)
+        if done or GameTime()>=st.deadline then
+            f.verdict=done and (st.mode.."_complete") or (st.mode=="rest" and "hour_done" or "deadline")
+            f.art_changes=st.changed; f.orphan=tostring(st.orphan); f.art_settled=tostring(st.settled or false)
+            return true,f
+        end
+        return false
+    end,
+    ["do"]={mark=true,pause=true,sound=true},
+}
+T.Bind(5,"Replace run: finish depot upgrade/train, or watch 1 hour (Ultra)",function(ctx)
+    local o,d=half(ctx); if not o then return false,d end
+    ctx.mark("DEPOT_REVISION_WAIT")
+    return run("depot_revision_wait",o)
+end,{mode="once",needs="selected"})
+end

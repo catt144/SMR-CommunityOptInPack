@@ -146,7 +146,7 @@ T.Bind(5, "Run Metals to the selected target (Ultra; pauses itself)", function(c
     local o, d = selected_station(ctx,true)
     if not o then return false, d end
     for _, trigger in ipairs({"depot_next_arrival","depot_next_departure","depot_drone_hour","station_rows_30"}) do
-        if T.armed[trigger] then return false, "cancel the current run first" end
+        if T.armed[trigger] then T.Disarm(trigger,"replaced by station row slot 5") end
     end
     local mark=ctx.mark("STATION_ROWS_RUN")
     dump_line(o)

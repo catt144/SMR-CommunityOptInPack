@@ -65,7 +65,8 @@ local _,r=trigger.when(watch);assert(r.verdict=='new_error')
 watch={state={}};trigger.prepare(watch,s);now=watch.state.deadline
 local _,r=trigger.when(watch);assert(r.verdict=='deadline')
 assert(slots[5](ctx).mark==42 and speed==100 and SMRTK.armed.station_rows_30)
-speed=0;assert(slots[5](ctx)==false,'an existing run refuses a second arm')
+speed=0;local old=SMRTK.armed.station_rows_30
+assert(slots[5](ctx).mark==42 and SMRTK.armed.station_rows_30~=old,'slot 5 replaces its stale run')
 print('PASS overlay: inert load, native stock/reservation guards, read, target requires stock change and native call; floor/cap/edit/error/deadline falsifiers; explicit arm only')
 ''')
 

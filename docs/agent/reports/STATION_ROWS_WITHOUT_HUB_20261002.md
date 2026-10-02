@@ -1,8 +1,11 @@
 # Station rows without a hub — brief 30, 2026-10-02
 
-**Built; attended smoke NOT RUN.** This is the design pass authorized by the owner's
+**Attended batches A, B and C passed** (sitting records below, including `9b05edc`).
+The subsequent depot work and next smoke are in
+[Elevator Depot follow-up](ELEVATOR_DEPOT_REVISION_20261002.md).
+This is the design pass authorized by the owner's
 2026-10-02 ruling in the train spec §4.7. Station build: `3ff3ae4`; depot tooltip:
-`63d72d4`. Both are pushed. Brief 30 stays live until the owner passes the sitting.
+`63d72d4`. Both are pushed. Brief 30 remains live for the depot follow-up.
 
 Started at `ea6d43fb93ea2bf669be564229c414c713476455`; `git log --oneline -5` and
 `git pull` ran first (already current). Executed model: Codex (GPT-6 per session

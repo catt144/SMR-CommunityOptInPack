@@ -30,6 +30,7 @@ function point(x,y,z)
     y=function(p) return p.py end,z=function(p) return p.pz end},point_meta)
 end
 DefineClass=setmetatable({}, {__newindex=function(t,k,v) rawset(t,k,v); _G[k]=v end})
+function Untranslated(s) return s end
 OnMsg={}; empty_table={}; guim=100; max_int=2147483647; min_int=-2147483648
 Min=math.min; Max=math.max
 const={gofPermanent=1}

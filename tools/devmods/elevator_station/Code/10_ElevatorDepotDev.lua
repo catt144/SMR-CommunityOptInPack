@@ -103,7 +103,7 @@ D.layout = D.layout or {
 	-- brief 27 (the wiring; live tunables, owner 2026-09-29: "leg time, pause and capacity")
 	cabin_leg_minutes = 60,             -- one leg per game hour (SpaceElevator.lua:7's travel_time is 1 h)
 	cabin_pause_minutes = 0,            -- parked at each end between legs
-	cabin_capacity = 42,                -- resource units per leg, all resources together (a vanilla train: Train.lua:22)
+	cabin_capacity = 250,               -- resource units per leg, doubled by the depot's own upgrade
 	cabin_follows_schedule = true,      -- the cabin art rides the real legs; false restores the show cycle
 	row_words = "station",              -- "station": Import/Export/Balanced/Not accepted per half (ruling 2);
 	                                    -- "elevator": vanilla elevator's Surface/Underground/ON/OFF (recommendation 3)
@@ -124,7 +124,35 @@ local design_spots = {
 -- ---- the class ---------------------------------------------------------------------------------
 DefineClass.SMROptInElevatorDepotDevBase = {
 	__parents = { "Station" },
+	max_storage_per_resource = 250000,
+	upgrade1_id = "SMROptInElevatorDepotDev_Capacity",
+	upgrade1_display_name = Untranslated("Expanded Depot"),
+	upgrade1_description = Untranslated("Raises cabin capacity to 500 per leg and storage to 500 per resource at both ends. One purchase for the pair; either half can build it."),
+	upgrade1_icon = "UI/IconsRemaster/Upgrades/expanded_warehousing_01.png",
+	upgrade1_upgrade_cost_Metals = 10000,
+	upgrade1_upgrade_cost_Concrete = 10000,
+	upgrade1_can_disable = false,
 }
+
+-- sectionCustom resolves only the template's exact object_class, not its parents.
+-- Alias the native section, including its construction/route buttons and train readout.
+-- Archived 1.1.1.406343: XDef/sectionCustom.generated.lua:14-36, customStation.generated.lua.
+function D.InstallStationPanel()
+	for _, registry in ipairs{ rawget(_G, "XDefs") or {}, rawget(_G, "XTemplates") or {} } do
+		if registry.customStation then registry.customSMROptInElevatorDepotDevBase = registry.customStation end
+	end
+	-- UpgradableBuilding.lua:67-115 (406343) injects zero costs onto descendants,
+	-- shadowing inherited values. Publish the ruled costs on our final class too.
+	local classes = rawget(_G, "g_Classes")
+	local depot = classes and classes.SMROptInElevatorDepotDev
+	if depot then
+		depot.upgrade1_upgrade_cost_Metals = 10000
+		depot.upgrade1_upgrade_cost_Concrete = 10000
+	end
+end
+function OnMsg.ClassesBuilt() D.InstallStationPanel() end
+function OnMsg.ModsReloaded() D.InstallStationPanel() end
+function OnMsg.DataLoaded() D.InstallStationPanel() end
 
 -- City labels, as the hub does it: Building.lua:435-447 adds only the class and object_class, so a
 -- template whose object_class is not "Station" never joins the "Station" label that Train.lua:94,
@@ -220,8 +248,8 @@ end
 
 local function start_cycle(rig)
 	if not rig or not IsValid(rig.cabin) or IsValidThread(rig.thread) then return end
-	-- brief 27: a paired depot's cabin rides the real legs (D.FollowLoop, the WIRING section)
-	if D.layout.cabin_follows_schedule and rig.bld and D.FollowTarget and D.FollowTarget(rig) then
+	-- Stay on the schedule follower even without a twin: it parks the cabin until pairing.
+	if D.layout.cabin_follows_schedule and rig.bld and D.FollowTarget then
 		rig.thread = CreateGameTimeThread(D.FollowLoop, rig)
 		return
 	end
@@ -811,11 +839,13 @@ local ROWS, DRONES, CABIN = "SMROptIn_depot_rows", "SMROptIn_depot_drones", "SMR
 local TARGETS = "SMROptIn_depot_targets"   -- the rows' slider targets (owner, 2026-10-01, sitting B)
 D.ROWS, D.DRONES, D.CABIN, D.TARGETS = ROWS, DRONES, CABIN, TARGETS
 local Base = SMROptInElevatorDepotDevBase
+local apply_all
 
-for k, v in pairs{ cabin_leg_minutes = 60, cabin_pause_minutes = 0, cabin_capacity = 42,
+for k, v in pairs{ cabin_leg_minutes = 60, cabin_pause_minutes = 0, cabin_capacity = 250,
 	cabin_follows_schedule = true, row_words = "station" } do
 	if D.layout[k] == nil then D.layout[k] = v end
 end
+if D.layout.cabin_capacity == 42 then D.layout.cabin_capacity = 250 end -- in-place reload of the retired base
 
 -- The pair's three settings (owner, 2026-10-01, sitting C: "maybe we should cut balanced from this. Make
 -- it so the elevator only brings down or sends up"), in vanilla's elevator vocabulary (Elevator.lua:192-197,
@@ -917,6 +947,74 @@ end
 
 function D.IsDepot(o) return is_depot(o) end
 
+-- Native upgrade receipts live on the pair, not the colony. A replacement adopts the
+-- survivor's paid receipt; removing both halves removes the purchase with them.
+D.CAPACITY_UPGRADE = "SMROptInElevatorDepotDev_Capacity"
+local function expanded(o)
+	return o and o.upgrades_built and o.upgrades_built[D.CAPACITY_UPGRADE] or false
+end
+
+function D.CabinCapacity(o)
+	return D.layout.cabin_capacity * ((expanded(o) or expanded(D.TwinOf(o))) and 2 or 1)
+end
+
+function D.SyncCapacity()
+	if UIColony and not UIColony:IsUpgradeUnlocked(D.CAPACITY_UPGRADE) then
+		UIColony:UnlockUpgrade(D.CAPACITY_UPGRADE)
+	end
+	for _, o in ipairs(all_depots()) do
+		local bought = expanded(o) or expanded(D.TwinOf(o))
+		if bought then
+			o.upgrades_built = o.upgrades_built or {}
+			-- Only the native buyer keeps the numeric tier receipt used for salvage
+			-- refunds (Building.lua:983). A mirror grants the upgrade, not a second payment.
+			o.upgrades_built[D.CAPACITY_UPGRADE] = true
+			o.upgrade_on_off_state = o.upgrade_on_off_state or {}
+			o.upgrade_on_off_state[D.CAPACITY_UPGRADE] = true
+			o.upgrade_modifiers = o.upgrade_modifiers or {}
+			o.upgrade_id_to_modifiers = o.upgrade_id_to_modifiers or {}
+			o.upgrade_modifiers[D.CAPACITY_UPGRADE] = o.upgrade_modifiers[D.CAPACITY_UPGRADE] or {}
+			o.upgrade_id_to_modifiers[D.CAPACITY_UPGRADE] = o.upgrade_id_to_modifiers[D.CAPACITY_UPGRADE] or {}
+		end
+		local storage = bought and 500000 or 250000
+		local before = o.max_storage_per_resource
+		o:SetBase("max_storage_per_resource", storage)
+		if before ~= o.max_storage_per_resource and apply_all and o.supply and o.demand then apply_all(o) end
+		ObjModified(o)
+	end
+end
+
+-- The depot has its own capacity upgrade. Exclude only Capacity Network's storage
+-- contribution; keep all other native/foreign modifiers. Modifiers.lua:40-103, build 406343.
+function Base:ModifyValue(value, prop, modification)
+	local m = modification or (self.modifications and self.modifications[prop])
+	if prop == "max_storage_per_resource" and m then
+		local filtered
+		for _, mod in ipairs(m) do
+			if mod.upgrade_id == "SMROptInTrainHub6_CapacityNetwork" then
+				filtered = filtered or table.copy(m)
+				filtered.percent = (filtered.percent or 100) - (mod.percent or 0)
+				filtered.amount = (filtered.amount or 0) - (mod.amount or 0)
+			end
+		end
+		m = filtered or m
+	end
+	return Modifiable.ModifyValue(self, value, prop, m)
+end
+
+function Base:ConstructUpgrade(id)
+	if id == D.CAPACITY_UPGRADE then
+		D.SyncCapacity()
+		local twin = D.TwinOf(self)
+		if twin and twin:IsUpgradeBeingConstructed(id) then return end
+	end
+	return Building.ConstructUpgrade(self, id)
+end
+
+function OnMsg.BuildingUpgraded(id, bld)
+	if id == D.CAPACITY_UPGRADE and is_depot(bld) then D.SyncCapacity() end
+end
+
 local function rows_of(o) return rawget(o, ROWS) or empty_table end
 -- The setting's owner: a paired underground half reads its surface twin; a lone half reads its own
 -- (for a lone underground half, the read-only copy it keeps for the next surface depot).
@@ -1003,7 +1101,7 @@ local function apply_row(o, res)
 	return changed
 end
 
-local function apply_all(o)
+apply_all = function(o)
 	local n = 0
 	for _, res in ipairs(o.storable_resources or empty_table) do
 		if apply_row(o, res) then n = n + 1 end
@@ -1432,6 +1530,8 @@ end
 
 function D.HalfPlaced(o)
 	D.InvalidatePair()
+	D.InstallStationPanel()
+	D.SyncCapacity()
 	local same = 0
 	for _, other in ipairs(all_depots()) do
 		if other ~= o and other:GetMapSlot() == o:GetMapSlot() then same = same + 1 end
@@ -1472,12 +1572,18 @@ local function list_text(t)
 end
 
 -- Everything aboard that fits; what does not stays aboard and rides back to where it came from.
+local function destination_room(dest, res)
+	local d = dest.demand and dest.demand[res]
+	local s = dest.supply and dest.supply[res]
+	if not d or not s then return 0 end
+	return Max(Min(d:GetTargetAmount(), dest:GetMaxStorage(res) - s:GetActualAmount()), 0)
+end
+
 local function deliver(rec, dest)
 	local moved = {}
 	for _, res in ipairs(table.keys(rec.cargo, true)) do
 		local n = rec.cargo[res]
-		local d = dest.demand and dest.demand[res]
-		local k = Min(n, d and Max(d:GetTargetAmount(), 0) or 0)
+		local k = Min(n, destination_room(dest, res))
 		if k > 0 then
 			dest:AddResource(k, res)
 			if res == "BlackCube" then black_cube(dest, k) end
@@ -1490,12 +1596,12 @@ end
 
 -- Only the rows that send this way: Import on the down leg, Export on the up leg; capacity is shared.
 local function load_cabin(rec, origin, dest, carried)
-	local cap = Max(MulDivRound(D.layout.cabin_capacity, const.ResourceScale, 1) - aboard(rec), 0)
+	local cap = Max(MulDivRound(D.CabinCapacity(origin), const.ResourceScale, 1) - aboard(rec), 0)
 	local moved = {}
 	local function take(res, want)
 		local s, d = origin.supply and origin.supply[res], dest.demand and dest.demand[res]
 		if cap <= 0 or not want or want <= 0 or not s or not d then return end
-		local room = Max(d:GetTargetAmount() - (rec.cargo[res] or 0), 0)
+		local room = Max(destination_room(dest, res) - (rec.cargo[res] or 0), 0)
 		local n = Min(Min(want, Max(s:GetTargetAmount(), 0)), Min(room, cap))
 		if n <= 0 then return end
 		origin:AddResource(-n, res)
@@ -1504,7 +1610,16 @@ local function load_cabin(rec, origin, dest, carried)
 		moved[res] = (moved[res] or 0) + n
 		cap = cap - n
 	end
-	local list = origin.storable_resources or empty_table
+	-- Both directions serve the emptiest destination row first; carried leftovers and
+	-- incoming reservations count as stock already promised there. Ties are stable by id.
+	local list, stocked = {}, {}
+	for _, res in ipairs(origin.storable_resources or empty_table) do
+		if D.State(origin, res) == carried and destination_room(dest, res) > (rec.cargo[res] or 0) then
+			list[#list + 1] = res
+			stocked[res] = dest:GetMaxStorage(res) - destination_room(dest, res) + (rec.cargo[res] or 0)
+		end
+	end
+	table.sort(list, function(a, b) return stocked[a] < stocked[b] or (stocked[a] == stocked[b] and a < b) end)
 	for _, res in ipairs(list) do
 		local s = origin.supply and origin.supply[res]
 		if s and D.State(origin, res) == carried then take(res, s:GetTargetAmount()) end
@@ -1520,6 +1635,7 @@ end
 -- placed) adopts the underground's copy; the underground then holds a copy of the result. Vanilla
 -- follows, both halves re-register (Drone Access), the cabin art switches mode.
 function D.OnPairChanged(surface, underground)
+	D.SyncCapacity()
 	if surface and underground then
 		local s_rows, u_rows = rawget(surface, ROWS) or {}, rawget(underground, ROWS)
 		rawset(surface, ROWS, s_rows)
@@ -1601,6 +1717,8 @@ function D.WiringLoad()
 	gone = setmetatable({}, { __mode = "k" })
 	held = setmetatable({}, { __mode = "k" })
 	connected = setmetatable({}, { __mode = "k" })
+	D.InstallStationPanel()
+	D.SyncCapacity()
 end
 
 -- ---- a half demolished or destroyed (recommendation 2) ------------------------------------------
@@ -1647,7 +1765,7 @@ function D.FollowTarget(rig)
 	local bld = rig.bld
 	if not live_depot(bld) or not rig.base or not rig.far then return end
 	local surface, underground = D.PairOf(bld)
-	if not surface then return end
+	if not surface then return rig.base:z(), false end
 	local ug = bld == underground
 	local top_z = ug and rig.far:z() or rig.base:z()       -- the cabin is at the surface end
 	local bottom_z = ug and rig.base:z() or rig.far:z()    -- the cabin is at the underground end
@@ -1747,10 +1865,11 @@ function D.Pair()
 		log_prefix, s and tostring(s.handle) or "none", u and tostring(u.handle) or "none", c.extras,
 		type(rec) == "table" and tostring(rec.phase) or "none", type(rec) == "table" and (rec.legs or 0) or 0,
 		type(rec) == "table" and MulDivRound(Max((rec.ends or 0) - GameTime(), 0), 1, const.MinuteDuration) or 0,
-		type(rec) == "table" and list_text(rec.cargo or empty_table) or "none", tostring(L.cabin_capacity),
+		type(rec) == "table" and list_text(rec.cargo or empty_table) or "none", tostring(D.CabinCapacity(s or u)),
 		tostring(L.cabin_leg_minutes), tostring(L.cabin_pause_minutes), tostring(L.row_words), tostring(L.cabin_follows_schedule)))
 	out.cabin = type(rec) == "table" and rec.phase or false
 	out.legs = type(rec) == "table" and (rec.legs or 0) or 0
+	out.capacity = D.CabinCapacity(s or u)
 	for _, o in ipairs(all_depots()) do
 		local ctrl, reg, busy = drone_reach(o)
 		local twin = D.TwinOf(o)
