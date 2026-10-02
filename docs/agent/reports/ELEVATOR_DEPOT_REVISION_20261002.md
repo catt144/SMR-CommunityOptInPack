@@ -193,3 +193,22 @@ The SMRTK `rg` gates for `NetSyncEvent|LogCheatUsed` and `^\s*print\(` over
 The positive installed-source control, `rg -n -F 'local T = SMRTK'` on the loaded
 slot file, found its base and overlay at lines 11 and 264. `doccheck`'s temporary
 probe sweep was clean. No runtime PASS is claimed for the new sitting.
+
+## Sitting (2026-10-02, guided by the orchestrator)
+
+Log `Mars.exe-20261002-12.28.11-6aba6e65.log`, read on each "flushed"; "LUA ERROR" count 0.
+Desk at `000b498`: every `tools/devmods/*/tests/*_smoke.py` by exit code, 30 files = 28 PASS +
+2 FAIL (`train_hub/tests/cargo_slots_smoke.py`, `distribution_slots_smoke.py`, both "attempt to
+index a boolean value"; not depot code, routed to the audit). SMRTK Load A refused (`foreign
+session`); the owner loaded the fixture directly and Save B succeeded first.
+
+- **Smoke A: PASS.** Orphan hour on 9041: `orphan=true art_moving=false art_settled=true
+  art_changes=0`. New surface 10908 paired, the cabin ran down then up, the paired watch ended
+  `art_moving=true`.
+- **Smoke B: PASS**, after a fixture workaround. Slot 1 first refused twice (`Metals or Concrete is
+  reserved by a carrier`), once right after a cabin arrival, so the reservations were the line's
+  trains; **the owner turned the underground ordinary station off**, and slot 1 then ran. Down leg:
+  surface 250/250, underground Concrete 240 and Metals 0, loaded `Metals=250000` only; arrival
+  underground Metals 250, Concrete 240. Up leg (slot 4): loaded `Metals=250000` only; arrival surface
+  Metals 250, Concrete 240. No destination overfilled. The reservation refusal on a busy line is a
+  slot papercut, not a depot defect.
