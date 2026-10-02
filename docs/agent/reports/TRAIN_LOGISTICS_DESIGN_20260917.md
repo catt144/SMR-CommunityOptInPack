@@ -690,7 +690,9 @@ failure and the whole hub's both-configuration ship test remain separate.
     if we decide to revisit it, it's not nearly as much work"*). This supersedes ruling 9's extras,
     need checks, recall, hidden count, save-time storing and `HubTrain`. **Kept:** auto-fill (a
     station joining a hub route gets one plain train from the pool) and placing a spawned train on
-    its arm's siding. The route's capacity problem is answered instead by a second, expensive train
+    its arm's siding. ⚖️ **Owner, 2026-10-02: the auto-filled train enters at the joining station**
+    (*"the station itself handles the spawn in from the station, not spawned in from the hub"*),
+    as vanilla spawns one; it is not placed on the hub's arm siding. Fix: brief `34b`. The route's capacity problem is answered instead by a second, expensive train
     cargo upgrade (§4.10, grep `Train Cargo Upgrade`).
    - Brief 15 desk changes and attended smoke: [TRAIN_BAY_FIXES_20260928.md](TRAIN_BAY_FIXES_20260928.md); vanilla-first and cube-render regressions pass; spawn placement candidate needs live diagnosis; baseline traffic smoke remains red.
    - **Brief 10's chained sitting, PASS, 2026-09-29** (log `Mars.exe-20260929-13.36.00`, 0 Lua

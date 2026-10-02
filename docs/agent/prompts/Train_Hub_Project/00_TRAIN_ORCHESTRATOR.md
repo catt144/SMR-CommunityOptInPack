@@ -71,12 +71,14 @@ before it fires.
         `Brief 34's checkpoint`); preflight widened (`5aa529d`). The owner's veto on the player-text
         drafts is owed (`TRAIN_MOVE_CHECKPOINT_20261002.md` §"Player text drafts"). Code moves
         after 33 closes: both touch the hub's tests.
-     2b. **`34b`, Export rows take only a storage's excess** above its Desired Amount (owner,
-        2026-10-02, spec §4.8 grep `Export takes only the excess`); fires after 34's code move.
-     3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and the
-        spawn-on-siding watch. Its pass completes the project: purge this folder.
+     2b. **`34b`, two owner fixes (2026-10-02)**: Export rows take only stock above a storage's
+        Desired Amount (spec §4.8 grep `Export takes only the excess`), and auto-fill's train enters
+        at the joining station, not the hub (grep `enters at the joining station`). Fires after
+        34's code move.
+     3. **`35`, the final full battery**, after 33, 34 and 34b; it carries OI-38's up-leg read and
+        auto-fill's watch (the train enters at the joining station). Its pass completes the project: purge this folder.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
-     2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
+     2026-10-01).
    - **Standing constraints:**
      - **Movement is FINISHED** (owner, 2026-09-21). It may reopen once, at the final pre-launch
        test, if the owner wants moves tweaked; `Parked/TRAIN_HUB_MOVE_high.md` waits for that and
