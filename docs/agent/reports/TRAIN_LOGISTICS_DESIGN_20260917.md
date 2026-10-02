@@ -214,8 +214,8 @@ This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 / export / and sliders options even without the hub. Some people may never watn to use the hub. But
 everyone wnats the sliders back, and the import / export options make those sliders much more
 effective"*. A player who never builds a hub gets the per-resource states and sliders on every
-vanilla station; a station on a hub's network keeps the §4.8 behaviour. Brief `30`'s build is
-`3ff3ae4`, desk-checked and awaiting the owner's in-game smoke:
+vanilla station; a station on a hub's network keeps the §4.8 behaviour. Brief `30`'s build
+(`3ff3ae4`) **passed live 2026-10-02**, report:
 [`STATION_ROWS_WITHOUT_HUB_20261002.md`](STATION_ROWS_WITHOUT_HUB_20261002.md).
 Hubless rows use Balanced pins, Export floors and Import caps, with independent station settings
 that resume after leaving a hub. Hub settings remain separate; these design calls are delegated
@@ -4283,3 +4283,8 @@ designpass_01 bearing from behind the core, C the mouth's side at 50°. **A is i
 hand edit of `Data/` alone does not reach the game (the hub's finding above). The infopanel takes the
 same field. **A passed by eye (owner, 2026-10-02, pointing at the sheet's A row: *"this one"*);** the
 editor save and the in-game glance are OI-40.
+**Brief 30's depot items PASSED live 2026-10-02** (report `ELEVATOR_DEPOT_REVISION_20261002.md`,
+"Sitting"; brief deleted): the twinless notices and the cabin's rest and resume; need-based loading
+on both legs (the empty row wins, no destination overfilled); 250 a leg and per resource, 500 on
+both halves after one 10 Metals / 10 Concrete purchase, charged once; native train buttons on both
+halves, trains built and put on the line (the owner's word).

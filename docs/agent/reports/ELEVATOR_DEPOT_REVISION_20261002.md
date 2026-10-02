@@ -212,3 +212,15 @@ session`); the owner loaded the fixture directly and Save B succeeded first.
   underground Metals 250, Concrete 240. Up leg (slot 4): loaded `Metals=250000` only; arrival surface
   Metals 250, Concrete 240. No destination overfilled. The reservation refusal on a busy line is a
   slot papercut, not a depot defect.
+- **Smoke C: PASS.** Before: both halves `cabin_capacity=250 storage=250000 cost_metals=10000
+  cost_concrete=10000 upgrade=false`. Slot 5 `verdict=upgrade_complete` on surface 10908; the
+  underground 9041 then read `upgrade=true cabin_capacity=500 storage=500000`, never 1000. At 500
+  the down leg loaded `Metals=500000` (slot 1) and the up leg `Metals=500000` (slot 4). Charged once
+  in the owner's word: *"just once"*.
+- **Smoke D: PASS in the owner's word.** *"Done trains constructed and could add them to the
+  line"*, on both halves. The log holds no `train_complete` reading: slot 3 refused four presses
+  with `pause first`, and slot 5 was not pressed.
+
+**Brief 30 closed on this sitting** (orchestrator, 2026-10-02). Open papercuts, not depot defects:
+slots 1/4 refuse while the line's trains hold reservations (the owner switched the underground
+station off to run B); the two failing hub slot smokes above.

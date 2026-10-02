@@ -6,9 +6,8 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **`30`, station rows without a hub, is the live brief; `31` (the audit) may run beside it.**
-Then `32` and `33` after 30 closes, `34` after 30-32, `35` after 33-34. `31`-`35` are the project's last
-briefs (authored 2026-10-02). Briefs 22 (hub storage),
+`00` is live; `03_Drones/` is closed reference. **`30` passed live 2026-10-02 and was deleted. `32` (the icon) is live; `31` and `33` may fire now;
+`34` after 31-32; `35` after 33-34.** `31`-`35` are the project's last briefs (authored 2026-10-02). Briefs 22 (hub storage),
 26 (the depot's design), 27 (its wiring), 28 (its paint pass) and 29 passed live 2026-10-01 and were
 deleted, 25 parked; spec §4.10 and §11, the reports and OI-38 hold the record and what is open. Briefs 10, 17 and 21 passed live and were deleted
 2026-09-29. Only one brief
@@ -21,11 +20,10 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `30_STATION_ROWS_WITHOUT_HUB_high.md` | Every vanilla station gets the per-resource state cycle and sliders with or without a hub (owner, 2026-10-02, spec §4.7); a hubless station must not need a hub to exist. Design pass, smoke sitting. Also carries the depot's missing "No surface twin" infotip (OI-38 E5). | **Ready to fire** |
-| `31_TRAIN_AUDIT_high.md` | The audit sweep: every build report checked against commits and logs (save names, ship tests, spec against code, 19/21 resources, lifecycle, rulings, smokes); one report for `34` and `35`. Report only. | **Ready; may fire beside `30`** |
-| `32_ELEVATOR_DEPOT_ICON_medium.md` | The depot's icon rendered from the finished, painted depot, for the build menu and infopanel (owner, 2026-10-02). | Held until `30` closes |
-| `33_TESTKIT_CROSSING_WITNESS_high.md` | Fix the shared TestKit's crossing witness (misses train unloads at ultra speed) so the battery can rest a crossing verdict on it. | Held until `30` closes |
-| `34_MOVE_INTO_MOD_high.md` | Remove the dev tags: station rows, the hub and the Elevator Depot move into this mod as opt-in modules, with OI-18's widened preflight; the owner's checkpoint on the module list and save names first. | Held until `30`-`32` close |
+| `31_TRAIN_AUDIT_high.md` | The audit sweep: every build report checked against commits and logs (save names, ship tests, spec against code, 19/21 resources, lifecycle, rulings, smokes); one report for `34` and `35`. Report only. | **Ready** |
+| `32_ELEVATOR_DEPOT_ICON_medium.md` | The depot's icon rendered from the finished, painted depot, for the build menu and infopanel (owner, 2026-10-02). | **Live** (variant A chosen, OI-40; the editor save and glance remain) |
+| `33_TESTKIT_CROSSING_WITNESS_high.md` | Fix the shared TestKit's crossing witness (misses train unloads at ultra speed) so the battery can rest a crossing verdict on it. | **Ready** |
+| `34_MOVE_INTO_MOD_high.md` | Remove the dev tags: station rows, the hub and the Elevator Depot move into this mod as opt-in modules, with OI-18's widened preflight; the owner's checkpoint on the module list and save names first. | Held until `31`-`32` close |
 | `35_FINAL_BATTERY_high.md` | The final full battery on the shipping layout, both configurations and toggle directions; its pass completes the project and purges this folder. | Held until `33`-`34` close |
 
 ## `Parked/` — do not fire
