@@ -221,7 +221,7 @@ Both blockers are fixed in v2 (`75d1f88`), and the stocked-hub gap gets the net 
 
 ## Attended check 2 (preloaded; predictions written before boot)
 
-`<<PENDING-RUN>>`.
+`<<PENDING-RUN>>`. Installed as TestKit `69d5af6` (built at pack `7870319`; kit gates clean). The write landed while a new Mars.exe was booting: run this check in a game started after that commit.
 
 **Fixture.** The same colony as check 1, or any with:
 
