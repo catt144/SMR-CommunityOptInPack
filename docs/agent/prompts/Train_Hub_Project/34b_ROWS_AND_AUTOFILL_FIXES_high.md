@@ -21,7 +21,11 @@ defines excess as **stock above that storage's own Desired Amount.**
 itself handles the spawn in from the station, not spawned in from the hub."* Spec §4.8 ruling 10
 (grep `enters at the joining station`). Auto-fill stays. The train joins the joining station's
 line and enters at that station, the way vanilla spawns one. It does not enter at the hub, and it
-is not placed on the hub's arm siding.
+is not placed on the hub's arm siding. The owner, same day: *"If the add train is something the
+player needs to do that is also fine. I don't want it to be a complicated thing, and I don't want
+them spawned in the hub."* So cutting auto-fill, leaving the player vanilla's add-train at the
+station, is acceptable if it is simpler. Either way, **no train ever appears in the hub**,
+auto-filled or player-assigned.
 
 Outcome:
 

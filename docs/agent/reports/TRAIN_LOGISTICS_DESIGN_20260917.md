@@ -692,7 +692,11 @@ failure and the whole hub's both-configuration ship test remain separate.
     station joining a hub route gets one plain train from the pool) and placing a spawned train on
     its arm's siding. ⚖️ **Owner, 2026-10-02: the auto-filled train enters at the joining station**
     (*"the station itself handles the spawn in from the station, not spawned in from the hub"*),
-    as vanilla spawns one; it is not placed on the hub's arm siding. Fix: brief `34b`. The route's capacity problem is answered instead by a second, expensive train
+    as vanilla spawns one; it is not placed on the hub's arm siding. Fix: brief `34b`. The owner,
+    same day: *"If the add train is something the player needs to do that is also fine. I don't want
+    it to be a complicated thing, and I don't want them spawned in the hub"*: auto-fill may be cut
+    for the player's own vanilla add-train at the station, whichever is simpler; **no train ever
+    appears in the hub**, auto-filled or player-assigned. The route's capacity problem is answered instead by a second, expensive train
     cargo upgrade (§4.10, grep `Train Cargo Upgrade`).
    - Brief 15 desk changes and attended smoke: [TRAIN_BAY_FIXES_20260928.md](TRAIN_BAY_FIXES_20260928.md); vanilla-first and cube-render regressions pass; spawn placement candidate needs live diagnosis; baseline traffic smoke remains red.
    - **Brief 10's chained sitting, PASS, 2026-09-29** (log `Mars.exe-20260929-13.36.00`, 0 Lua
