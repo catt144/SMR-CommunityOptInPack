@@ -44,7 +44,29 @@ MOD_REQUIRED_LUA_REVISION = 350453  # Mod.lua:19
 MOD_CONTENT_PATH = "Mod/"           # Mod.lua:6
 # The whole shipped pack is ~0.6 MB. A pack an order of magnitude past that is
 # carrying something that is not the mod (2026-09-16: 1.2 GB of transcripts).
+# ⚖️ OI-18 (owner, 2026-09-21 / 2026-10-01): this mod ships models, so the
+# ceiling binds everything EXCEPT the asset files below. The transcript guard
+# survives for what it was for; texture size is a look decision (train spec §9,
+# grep `OUR OWN GUARD`).
 PACK_MAX_BYTES = 5 * 1024 * 1024
+
+# What a shipped model is made of: folder, extension. One level deep each; the
+# `.entjson`/`.mtljson` files name their meshes and materials by full
+# `Mod/<id>/...` path (ModItem.lua:671-711 on 1.1.1.406343), so the folders are
+# what those paths spell. Fallbacks are found by name beside their texture.
+ASSET_DIRS = (("Entities/", ".entjson"), ("Meshes/", ".hgrm"),
+              ("Materials/", ".mtljson"), ("Textures/", ".dds"),
+              ("Fallbacks/Textures/", ".dds"), ("UI/", ".png"))
+MOD_PATH_RE = re.compile(r"Mod/([A-Za-z0-9_]+)/([^\"'\s\]\)]+)")
+
+
+def is_asset(rel):
+    return any(rel.startswith(d) and rel.endswith(e) and "/" not in rel[len(d):]
+               for d, e in ASSET_DIRS)
+
+
+def is_generated(rel):
+    return rel.endswith(".generated.lua")
 
 
 def parse_metadata(path):
@@ -66,11 +88,105 @@ def parse_metadata(path):
             out[key] = int(raw)
 
     # list fields: 'key', { "a", "b", },
-    for key in ("code", "ignore_files"):
+    for key in ("code", "ignore_files", "entities"):
         m = re.search(r"^\t'%s',\s*\{(.*?)^\t\},\s*$" % key, src, re.M | re.S)
         if m:
             out[key] = re.findall(r'"([^"]*)"', m.group(1))
     return out
+
+
+def asset_checks(mod_dir, md, packed, check, note):
+    """OI-18: the shipped models, templates and icons resolve inside THIS mod.
+
+    Every `Mod/<id>/...` path the packed text names must name this mod's id and
+    a file the pack carries; every asset the pack carries must be named by
+    something, so no dead texture ships; the `entities` list, the Entities/
+    folder and SourceData/ArtSpec-mod.lua must agree, because the portals'
+    forced SaveDef rebuilds `entities` from that file's EntitySpec items alone
+    (`ModDef:UpdateEntities`, Mod.lua:816-827) and the packer skips SourceData/.
+    """
+    mod_id = md.get("id", "")
+    packed_set = {rel for rel, _ in packed}
+    assets = sorted(r for r in packed_set if is_asset(r))
+    entities = md.get("entities") or []
+    templates = sorted(r for r in packed_set
+                       if r.startswith("Data/BuildingTemplate/") and r.endswith(".lua"))
+    if not assets and not entities and not templates:
+        note("model assets", "none — nothing to resolve")
+        return
+
+    named, foreign, unresolved = set(), [], []
+    for rel in sorted(packed_set):
+        if not rel.endswith((".entjson", ".mtljson", ".lua")) or rel == "metadata.lua":
+            continue
+        text = open(os.path.join(mod_dir, rel.replace("/", os.sep)),
+                    encoding="utf-8", errors="replace").read()
+        for m in MOD_PATH_RE.finditer(text):
+            target_id, target = m.group(1), m.group(2)
+            if target_id != mod_id:
+                foreign.append("%s -> Mod/%s/%s" % (rel, target_id, target))
+            elif target not in packed_set:
+                unresolved.append("%s -> %s" % (rel, target))
+            else:
+                named.add(target)
+    check(not foreign, "every Mod/<id>/ path names this mod (%s)" % mod_id,
+          "%d distinct target(s)" % len(named),
+          "%d path(s) name another mod, e.g. %s" % (len(foreign), foreign[:3]))
+    check(not unresolved, "every Mod/%s/ path resolves to a packed file" % mod_id,
+          "%d distinct target(s)" % len(named),
+          "%d unresolved, e.g. %s" % (len(unresolved), unresolved[:3]))
+
+    textures = {os.path.basename(r) for r in assets
+                if r.startswith("Textures/") and r in named}
+    unused = [r for r in assets
+              if not r.startswith(("Entities/", "Fallbacks/")) and r not in named]
+    unused += [r for r in assets if r.startswith("Fallbacks/Textures/")
+               and os.path.basename(r) not in textures]
+    check(not unused, "every packed asset is used",
+          "%d asset file(s), each named by a path in the pack (fallbacks by "
+          "their texture's name)" % len(assets),
+          "%d unused file(s) would ship: %s" % (len(unused), unused[:6]))
+
+    on_disk_ents = sorted(r[len("Entities/"):-len(".entjson")]
+                          for r in assets if r.startswith("Entities/"))
+    check(sorted(entities) == on_disk_ents,
+          "metadata `entities` == Entities/*.entjson",
+          "%d entities" % len(entities),
+          "listed %s, packed %s" % (sorted(entities), on_disk_ents))
+    art = os.path.join(mod_dir, "SourceData", "ArtSpec-mod.lua")
+    if entities and not os.path.isfile(art):
+        check(False, "SourceData/ArtSpec-mod.lua names every entity", "",
+              "missing — the portals' forced SaveDef would empty `entities` "
+              "and no model would load (Mod.lua:816-827)")
+    elif entities:
+        art_text = open(art, encoding="utf-8", errors="replace").read()
+        spec_ids = sorted(re.findall(r"^\s*id = \"([^\"]+)\",", art_text, re.M))
+        save_ins = set(re.findall(r"save_in = \"([^\"]+)\"", art_text))
+        check(spec_ids == sorted(entities),
+              "SourceData/ArtSpec-mod.lua names every entity",
+              "%d EntitySpec item(s) = `entities`" % len(spec_ids),
+              "EntitySpec %s vs `entities` %s — a SaveDef rebuilds the list "
+              "from these (Mod.lua:816-827)" % (spec_ids, sorted(entities)))
+        check(save_ins <= {"Mod/" + mod_id},
+              "ArtSpec save_in is this mod", "Mod/%s" % mod_id,
+              "save_in %s — the item binds to another mod" % sorted(save_ins))
+
+    for rel in templates:
+        tid = rel[len("Data/BuildingTemplate/"):-len(".lua")]
+        text = open(os.path.join(mod_dir, rel.replace("/", os.sep)),
+                    encoding="utf-8", errors="replace").read()
+        save_in = re.search(r"'SaveIn',\s*\"([^\"]*)\"", text)
+        check(bool(save_in) and save_in.group(1) == "Mod/" + mod_id,
+              "template %s SaveIn is this mod" % tid, "Mod/%s" % mod_id,
+              "%s — a SaveIn on another id binds the preset there "
+              "(ModItem.lua:2484-2494, Mod.lua:666)"
+              % (save_in.group(1) if save_in else "no SaveIn"))
+        gen = [c for c in md.get("code", [])
+               if c.endswith("BuildingTemplate/%s.generated.lua" % tid)]
+        check(bool(gen), "template %s has its generated class in `code`" % tid,
+              gen[0] if gen else "",
+              "no Code/**/BuildingTemplate/%s.generated.lua listed — the build "
+              "menu reads the class (Building.lua:2695-2707)" % tid)
 
 
 def main():
@@ -187,25 +303,36 @@ def main():
     image_name = os.path.basename(md.get("image") or "")
     stray = [rel for rel, _ in packed
              if not ((rel.startswith("Code/") and rel.endswith(".lua"))
+                     or (rel.startswith("Data/") and rel.endswith(".lua"))
+                     or is_asset(rel)
                      or rel in ("metadata.lua", "items.lua", "LICENSE", image_name))]
     check(not stray,
           "predicted pack holds only shipping files",
-          "%d files: Code/*.lua, metadata.lua, items.lua, LICENSE, %s"
-          % (len(packed), image_name or "(no image)"),
+          "%d files: Code/**/*.lua, Data/**/*.lua, model assets, metadata.lua, "
+          "items.lua, LICENSE, %s" % (len(packed), image_name or "(no image)"),
           "%d NON-SHIPPING file(s) would upload to both stores, e.g. %s"
           % (len(stray), stray[:5]))
-    pack_bytes = sum(size for _, size in packed)
+    asset_bytes = sum(size for rel, size in packed if is_asset(rel))
+    pack_bytes = sum(size for rel, size in packed if not is_asset(rel))
     check(pack_bytes <= PACK_MAX_BYTES,
-          "predicted pack size <= %d MB" % (PACK_MAX_BYTES // (1024 * 1024)),
+          "predicted pack size <= %d MB, model assets aside (OI-18)"
+          % (PACK_MAX_BYTES // (1024 * 1024)),
           "%s bytes" % format(pack_bytes, ","),
           "%s bytes — something other than the mod is in the folder" % format(pack_bytes, ","))
+    if asset_bytes:
+        note("model assets (raw, before the pack's compression)",
+             "%s bytes in %d file(s); no ceiling, owner OI-18"
+             % (format(asset_bytes, ","), len([r for r, _ in packed if is_asset(r)])))
+    asset_checks(mod_dir, md, packed, check, note)
 
     code = md.get("code", [])
+    code_root = os.path.join(mod_dir, "Code")
     on_disk = sorted(
-        "Code/" + f for f in os.listdir(os.path.join(mod_dir, "Code"))
-        if f.endswith(".lua")) if os.path.isdir(os.path.join(mod_dir, "Code")) else []
+        os.path.relpath(os.path.join(root, f), mod_dir).replace(os.sep, "/")
+        for root, _dirs, files in os.walk(code_root)
+        for f in files if f.endswith(".lua")) if os.path.isdir(code_root) else []
     check(sorted(code) == on_disk,
-          "metadata `code` list matches Code/*.lua on disk",
+          "metadata `code` list matches Code/**/*.lua on disk",
           "%d files, exactly" % len(code),
           "MISMATCH — only listed files execute. missing from list: %s | listed but absent: %s"
           % (sorted(set(on_disk) - set(code)), sorted(set(code) - set(on_disk))))
@@ -226,11 +353,26 @@ def main():
             m.group(1) for m in re.finditer(
                 r"PlaceObj\(\s*'ModItemCode'\s*,\s*\{.*?'CodeFileName'\s*,\s*\"([^\"]+)\"",
                 items_text, re.S)]
-        missing = [c for c in code if c not in item_files]
+        # Generated files (a BuildingTemplate's class, `_EntityData`) come from
+        # Data/ and SourceData/ items, not ModItemCode. With no ModItemRef
+        # lines those items are appended after items.lua's own, in handle
+        # order (`ModDef:ResolveModItemRefs`, Mod.lua:535-556 on 1.1.1.406343),
+        # so a SaveDef puts every generated file after every hand file.
+        hand = [c for c in code if not is_generated(c)]
+        generated = [c for c in code if is_generated(c)]
+        if generated:
+            first_gen = min(code.index(g) for g in generated)
+            check(first_gen >= len(hand),
+                  "generated code files listed after every hand-written one",
+                  "%d generated file(s) last, as a SaveDef appends them" % len(generated),
+                  "a generated file precedes a hand file — a SaveDef would move it "
+                  "(Mod.lua:535-556, :829-853)")
+        missing = [c for c in hand if c not in item_files]
         extra = [c for c in item_files if c not in code]
-        order_ok = item_files == list(code)
+        order_ok = item_files == hand
         check(order_ok,
-              "items.lua ModItemCode list == metadata `code`, same files, same order",
+              "items.lua ModItemCode list == metadata `code` (generated files aside), "
+              "same files, same order",
               "%d entries, in order" % len(item_files),
               "%d ModItemCode vs %d code entries — a SaveWholeMod REBUILDS `code` "
               "from these items alone (Mod.lua:816-840, called at :973), and both "

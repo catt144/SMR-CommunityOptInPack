@@ -128,7 +128,7 @@ Donor sha for every row: `SMR-BugFixPack` @ `bec2e06d` (v5 closed, 2026-08-30).
 |---|---|---|
 | `tools/doccheck.py` (v5) | ADAPTED | four donor checks carried: STATE **byte** budget (9 KiB warn / 18 KiB hard / 200 B line), `tested-attended`/`-unattended` vocabulary, `LOAD_ORDER_RULES` (this repo's two shared-symbol orders), `wrap_targets_check`. `GENERAL_USE` cap kept, N/A |
 | `tools/harvest_wrap_targets.py` | ADAPTED | `SMROptInPack.Require` needle; allowlist emptied then refilled with the 3 sites verified benign at Src 2026-08-31 (`Opt_DroneOverhaul` ×2, `Opt_MultipleSuns`) |
-| `tools/upload_preflight.py`, `pack_list.py`, `flpk_extract.py`, `l7_env_map.py` | VERBATIM | generic; preflight FAILS here on the missing `image` (the launch gate) |
+| `tools/upload_preflight.py`, `pack_list.py`, `flpk_extract.py`, `l7_env_map.py` | VERBATIM | generic; preflight FAILS here on the missing `image` (the launch gate). The preflight is ADAPTED since 2026-10-02 (OI-18): model assets, `Code/**`, generated files |
 | `tools/pack_predict.py` | ADAPTED | `CONTENT_PREFIX` = this mod's id |
 | `tools/l2_reload_sim.py` | REWRITTEN | the donor's is bound to four DataPatch fixtures (N/A: no `Opt_*` calls DataPatch); this one loads the whole `code` list twice and checks registration; `--core --expect-doubling` is its falsifier (pre-guard core `2cedf7d~1` REPRODUCES the 08-17 doubling) |
 | `tools/l3_save_footprint.py` | ADAPTED | `NAMED_STATE` matches BOTH prefixes (persisted names keep `SMRFixPack_`), rows labelled by the token found; `REGISTER`/`resolved` renamed |
