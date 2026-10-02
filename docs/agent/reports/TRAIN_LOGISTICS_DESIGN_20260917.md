@@ -4235,3 +4235,14 @@ drops it from source). Day, night and a console scheme change passed; retail has
 under 28 (`6de571d`: the cursor carries the elevator art and the resting cabin, painted).
 `Measure()` underground completes natively. The receiver height (`receiver_z`) and the core's frame
 stay as built (owner).
+⚖️ **Owner ruling, 2026-10-02: the cabin loads to the destination's need, not to the origin's
+stock.** Told that a leg hauls whatever the surface half has gathered: *"this is a problem Becauce
+if its picking herbs because say herbs art set to import but there is 100/120 herbs down there, and
+it brings the 40 herbs that are in the surface station down. But say concreate is also set to import
+and its at 0/120 then the underground and the surface has 100 concrete, it is getting herbs is
+doesn't currently have a big need for and not getting the concrete. There needs to be at the very
+least a way for the surface elevator to only take was is needed down if there is only space for 20
+herbs, it won't take more then 20 herbs. And preferablly it brings the lowest stocked items down
+first"*. So: **at least**, a leg loads no more of a resource than the destination half has room
+for; **preferably**, the 42 goes to the lowest-stocked rows at the destination first. Brief `30`'s
+next run builds it with the twinless cabin's rest.
