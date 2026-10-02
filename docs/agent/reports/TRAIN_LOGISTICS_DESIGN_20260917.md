@@ -4097,7 +4097,9 @@ a shipping claim or a general proof of all reworked layouts.
 - **Brief 34's checkpoint (owner, 2026-10-02, OI-41; `reports/TRAIN_MOVE_CHECKPOINT_20261002.md`):**
   three modules, `StationRows`, `TrainHub` and `ElevatorDepot`. **Station spoilage goes with the
   hub:** stations stop spoiling food only while the Train Hub module is on (the proposal had put it
-  with the rows). Each module's parts go in `Code/<id>/` beside its `Opt_<id>.lua` (FIX_POLICY §8).
+  with the rows). Each module's parts go beside its `Opt_<id>.lua` as `Code/<id>_<part>.lua` (FIX_POLICY §8;
+  the ruled `Code/<id>/` folder cannot ship, because a `ModItemCode`'s file is its name, so brief 34
+  flattened it).
   Every persisted name is kept byte for byte, the depot's `SMROptInElevatorDepotDev`,
   `…DevBase` and `…Dev_Capacity` included, and the 09-29 stand-in `SMROptInElevatorStationDev`
   gets no compatibility. The owner keeps saving templates in the Mod Editor; the agent who asked

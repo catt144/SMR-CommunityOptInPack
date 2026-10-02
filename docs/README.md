@@ -147,9 +147,9 @@ every SMR mod uses, so no one tree owns them:
 
 - `B:\Dev\SMR\SMR-Assets` — shared asset repo, its own git repo. The train hub's
   textures live in its `trainhub/` subfolder.
-- `C:\Dev\SMR-TrainHubAssets` — a JUNCTION to `SMR-Assets\trainhub`; four
-  generated files under `tools/devmods/train_hub/SourceData/` hardcode the
-  old path, so the junction stays.
+- `C:\Dev\SMR-TrainHubAssets` — a JUNCTION to `SMR-Assets\trainhub`. Since brief 34's
+  move (2026-10-02) no file in this tree names it: the root `SourceData/` names
+  `B:\Dev\SMR\SMR-Assets` directly. It stays until the owner removes it.
 - `B:\Dev\SMR\SMR-BugFixPack-TestKit` — shared test kit, its own repo.
 - `B:\Dev\SMR\SMR-Shared` — one shared repo, pull-only, for long-term material both mods
   reference; local-only, no remote. It holds `SMR-SrcArchive\` (both archived game trees) and
