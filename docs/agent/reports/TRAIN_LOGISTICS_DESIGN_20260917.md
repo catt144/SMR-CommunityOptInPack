@@ -4256,6 +4256,11 @@ reads, grep `147000 / 1875`). Asked for a starting size: *"I want to give the el
 upgrades. Maybe we start with a base size of 250. And then we have have an upgrade that allows for
 500."* So: **`cabin_capacity` 250 per leg at base; an Elevator Depot upgrade of its own raises it to
 500.** The 42 (one base train) is retired. The upgrade's cost and slot are not yet ruled.
+**Same day, the storage follows:** *"I think we need to increase the base capacity for each ends
+storage to 250. And also in the cabin capacity upgrade its getting, it should give each ends storage
+capacity an upgrade to hold 500"*. So each half's storage, the per-resource figure its rows show
+(120 on 2026-10-02), is **250 at base and 500 with the same upgrade**, which raises the cabin and
+both ends together.
 **Owner observation, same day: a depot cannot get a train onto its own line.** *"if it is directly
 attached to the hub, it has no way of putting its on station on a line. It behaves like a station in
 most ways but both sides have no way of building a train, or putting a train on its own line."*
