@@ -8,8 +8,12 @@
 -- Demand claims retain the exact order. Vanilla owns every cargo write.
 -- Rung 0: these answers/claims; rung 1: vanilla-written drone desired amounts;
 -- rung 2: SMROptIn_distribution, one table on each hub, keyed by station object,
--- then resource, containing {mode, percent}. No custom field on vanilla objects.
--- Baselines linger without the mod until vanilla rewrites its desired amounts.
+-- then resource, containing {mode, percent}.
+-- Brief 30: SMROptIn_station_rows is an inert {resource = {mode, percent}}
+-- table on an ordinary station. It is dormant while a hub owns that station;
+-- hub settings never migrate into it. Hubless baselines are restored to vanilla
+-- during saving, so removing the mod leaves only ignored settings data.
+-- Hub baselines linger without the mod until vanilla rewrites desired amounts.
 -- No thread, captured yielding frame, saved callback or standing claim.
 
 SMROptInTrainDistribution = {}
@@ -17,6 +21,8 @@ local D = SMROptInTrainDistribution
 local Floor = rawget(_G, "SMROptInTrainFloor")
 local FIELD = "SMROptIn_distribution"
 D.FIELD, D.calls = FIELD, 0
+local LOCAL_FIELD = "SMROptIn_station_rows"
+D.LOCAL_FIELD = LOCAL_FIELD
 local view, baseline, saving = false, false, false
 local owners, hubs, parents, children, cache_time = {}, {}, {}, {}, false
 local applied = setmetatable({}, { __mode = "k" })
@@ -73,6 +79,18 @@ local function depot_entry(st, res)
 	if depot and type(depot.HubEntry) == "function" then return depot.HubEntry(st, res) end
 end
 D.IsDepotStation = is_depot
+
+function D.IsRowStation(st)
+	return IsValid(st) and IsKindOf(st, "Station") and not is_hub(st) and not is_depot(st)
+end
+
+local function station_rows(st, hub)
+	if hub then
+		local rows = rawget(hub, FIELD)
+		return rows and rows[st]
+	end
+	return D.IsRowStation(st) and rawget(st, LOCAL_FIELD) or nil
+end
 
 function D.Refresh()
 	owners, hubs, parents, children = {}, {}, {}, {}
@@ -141,8 +159,8 @@ function D.Get(st, res)
 	local hub = D.HubFor(st)
 	local own = depot_entry(st, res)
 	if own ~= nil then return own or nil, hub end
-	local rows = hub and rawget(hub, FIELD)
-	return rows and rows[st] and rows[st][res], hub
+	local rows = station_rows(st, hub)
+	return rows and rows[res], hub
 end
 
 local enabled = MultiResourceDepotBase.IsResourceEnabled
@@ -160,7 +178,12 @@ end
 -- An untouched row is Balanced at the live vanilla dial, not at a rounded
 -- percentage. This value exists only for the call; D.Get still reads settings.
 local function effective(st, res, hub)
-	if not hub or is_hub(st) then return end
+	if not hub then
+		if not D.IsRowStation(st) then return end
+		local rows = rawget(st, LOCAL_FIELD)
+		return rows and rows[res] or { mode = "balanced", amount = st.desired_amount or 0 }
+	end
+	if is_hub(st) then return end
 	local own = depot_entry(st, res)
 	if own then return own end
 	local rows = own == nil and rawget(hub, FIELD)
@@ -262,18 +285,23 @@ local function restore_baseline()
 	end
 end
 
+local function vanilla_baseline(st)
+	local dial = st.desired_amount
+	st.desired_amount = false
+	set_desired(st, dial)
+end
+
 function D.Apply(st)
 	if saving or baseline or view or not IsValid(st) or is_hub(st) or is_depot(st) then return end
 	local hub = D.HubFor(st)
-	local rows = hub and rawget(hub, FIELD)
-	rows = rows and rows[st]
+	local rows = station_rows(st, hub)
+	-- Joining/leaving a hub changes the owner of the rows. Restore resources
+	-- present only in the previous set before applying the newly active set.
+	if applied[st] and applied[st] ~= rows then
+		vanilla_baseline(st)
+		applied[st] = nil
+	end
 	if not rows then
-		if applied[st] then
-			local dial = st.desired_amount
-			st.desired_amount = false
-			set_desired(st, dial)
-			applied[st] = nil
-		end
 		return
 	end
 	for res, entry in pairs(rows) do
@@ -290,7 +318,7 @@ function D.Apply(st)
 			if not ok then D.error = tostring(why) end
 		end
 	end
-	applied[st] = true
+	applied[st] = rows
 end
 
 function D.Set(st, res, mode, percent)
@@ -300,13 +328,20 @@ function D.Set(st, res, mode, percent)
 	end
 	if not ready(st, res) or is_hub(st) then return false, "enable this resource at a station" end
 	if is_depot(st) then return false, "the Elevator Depot owns this row" end
+	if not D.IsRowStation(st) then return false, "not a station resource row" end
 	D.Refresh()
 	local hub = D.HubFor(st)
-	if not hub then return false, "connect this station to a distribution hub" end
-	local rows = rawget(hub, FIELD) or {}
-	rawset(hub, FIELD, rows)
-	rows[st] = rows[st] or {}
-	rows[st][res] = { mode = mode, percent = percent }
+	local rows
+	if hub then
+		local all = rawget(hub, FIELD) or {}
+		rawset(hub, FIELD, all)
+		all[st] = all[st] or {}
+		rows = all[st]
+	else
+		rows = rawget(st, LOCAL_FIELD) or {}
+		rawset(st, LOCAL_FIELD, rows)
+	end
+	rows[res] = { mode = mode, percent = percent }
 	D.Apply(st)
 	ObjModified(st)
 	return true
@@ -314,6 +349,17 @@ end
 
 function D.Reset(st, res)
 	D.Refresh()
+	local colony = rawget(_G, "UIColony")
+	for _, station in ipairs(st and { st } or colony and colony.labels.Station or empty_table) do
+		local rows = D.IsRowStation(station) and rawget(station, LOCAL_FIELD)
+		if rows then
+			if res then rows[res] = nil end
+			if not res or not next(rows) then rawset(station, LOCAL_FIELD, nil) end
+			vanilla_baseline(station)
+			D.Apply(station)
+			ObjModified(station)
+		end
+	end
 	for _, hub in ipairs(hubs) do
 		local rows = rawget(hub, FIELD) or empty_table
 		for station, resources in pairs(rows) do
@@ -335,7 +381,8 @@ end
 local function after(previous)
 	return function(self, ...)
 		local result = table.pack(previous(self, ...))
-		if not saving and not view and not baseline and (owners[self] or applied[self]) then D.Apply(self) end
+		if not saving and not view and not baseline
+			and (owners[self] or applied[self] or rawget(self, LOCAL_FIELD)) then D.Apply(self) end
 		return table.unpack(result, 1, result.n)
 	end
 end
@@ -428,6 +475,29 @@ local unload = Train.UnloadAll
 function Train:UnloadAll(...)
 	local st = self.current_station
 	local hub = IsValid(st) and D.HubFor(st)
+	-- Hubless rows have no transit or hub-overflow exceptions. Keep a whole
+	-- old assignment aboard when it exceeds the new cap; vanilla can unload
+	-- it at another accepting stop. Never rewrite the cargo ledger ourselves.
+	if not saving and not hub and D.IsRowStation(st) then
+		local old = view
+		view = false
+		local answers, claims = { [st] = {} }, {}
+		for _, res in ipairs(st.storable_resources or empty_table) do
+			local entry = effective(st, res)
+			if entry and ready(st, res) then
+				local d = st.demand[res]
+				local room = Max(Min(amount(st, res, entry), st:GetMaxStorage(res))
+					- st.supply[res]:GetActualAmount(), 0)
+				local own = ((self.assigned_resources or empty_table)[st] or empty_table)[res] or 0
+				local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
+				answers[st][res] = { enabled = entry.mode ~= "export" and own <= room }
+				claims[#claims + 1] = { d, Max(d:GetTargetAmount() - Max(room - reserved, 0), 0) }
+			end
+		end
+		local result = table.pack(with_view(answers, claims, unload, self, ...))
+		view = saving and false or old
+		return table.unpack(result, 1, result.n)
+	end
 	local rows = hub and rawget(hub, FIELD)
 	rows = rows and rows[st]
 	if is_depot(st) then rows = nil end
@@ -606,15 +676,78 @@ local function train_view(train, track)
 	return answers, claims, depart
 end
 
+-- Module A without a hub: orders belong to the stations on this train line.
+-- No hub class, graph, parent tree, hub setting or scheduler is needed. A
+-- non-row endpoint (the Elevator Depot) keeps its native storage/row writers;
+-- only its exchange with an ordinary station is bounded by that station's row.
+local function local_train_view(train, track)
+	local st = train.current_station
+	if not (train.city and train.city.train_track_routes[track]) then return end
+	local members, can_receive, managed = {}, {}, false
+	ForEachStationAlongTrack(st, track, const.trfInclusive | const.trfBidirectional, function(o)
+		members[o] = true
+		if D.IsRowStation(o) then managed = true end
+	end)
+	if not managed then return end
+	for o in pairs(members) do
+		if is_hub(o) or D.HubFor(o) then return end
+	end
+	ForEachStationAlongTrack(st, track, 0, function(o, mode)
+		if mode ~= "people" then can_receive[o] = true end
+	end)
+	local function order(o, res)
+		if not ready(o, res) then return 0 end
+		local entry = effective(o, res)
+		if not entry then return Max(o.demand[res]:GetTargetAmount(), 0) end
+		if entry.mode == "export" then return 0 end
+		local d = o.demand[res]
+		local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
+		return Max(Min(amount(o, res, entry) - o.supply[res]:GetActualAmount() - reserved,
+			d:GetTargetAmount()), 0)
+	end
+	local function floor(o, res)
+		local entry = ready(o, res) and effective(o, res)
+		if not entry then return 0 end
+		return entry.mode == "import" and o.supply[res]:GetActualAmount() or amount(o, res, entry)
+	end
+	local answers, claims, depart = {}, {}, false
+	for _, res in ipairs(st.storable_resources or empty_table) do
+		if st.supply and st.supply[res] then
+			claims[#claims + 1] = { st.supply[res], floor(st, res) }
+			for dest in pairs(members) do
+				if dest.supply and dest.supply[res] and dest.demand and dest.demand[res] then
+					local wanted = dest ~= st and can_receive[dest] and order(dest, res) or 0
+					answers[dest] = answers[dest] or {}
+					answers[dest][res] = { enabled = wanted > 0,
+						capacity = wanted > 0 and Max(wanted, const.ResourceScale) or 0 }
+					if dest ~= st then
+						claims[#claims + 1] = { dest.supply[res], Max(dest.supply[res]:GetTargetAmount(), 0) }
+						-- The native allocator cannot discover a pickup after its
+						-- destination stock is hidden. Its existing should-move
+						-- input makes the native stop selection visit the supplier.
+						if can_receive[dest] and ((order(st, res) > 0
+							and dest.supply[res]:GetTargetAmount() > floor(dest, res))
+							or wanted > 0 and (train.stockpiled_amount[res] or 0) > 0) then depart = true end
+					end
+					claims[#claims + 1] = { dest.demand[res], Max(dest.demand[res]:GetTargetAmount() - wanted, 0) }
+				end
+			end
+		end
+	end
+	if next(answers) then return answers, claims, depart end
+end
+
 local transfer = Train.TransferCargo
 function Train:TransferCargo(next_track, train_inbound, ...)
 	if saving or view then return transfer(self, next_track, train_inbound, ...) end
 	local st = self.current_station
-	if not IsValid(st) or not (is_hub(st) or D.HubFor(st)) then return transfer(self, next_track, train_inbound, ...) end
+	if not IsValid(st) or not IsKindOf(st, "Station") then return transfer(self, next_track, train_inbound, ...) end
+	local on_hub = is_hub(st) or D.HubFor(st)
 	-- Include this train's own delivery before computing floors and orders.
 	self:UnloadAll()
 	if is_hub(st) then Floor.Reconcile(st) end
-	local answers, claims, depart = train_view(self, next_track or self.track)
+	local build_view = on_hub and train_view or local_train_view
+	local answers, claims, depart = build_view(self, next_track or self.track)
 	if not answers then return transfer(self, next_track, train_inbound, ...) end
 	D.calls = D.calls + 1
 	calls_by_station[st] = D.CallsFor(st) + 1
@@ -631,13 +764,14 @@ end
 
 function D.Status(st, res)
 	local entry, hub = D.Effective(st, res)
-	if not entry or not ready(st, res) then return false, "resource is not on a hub network/enabled" end
+	if not entry or not ready(st, res) then return false, "resource is not a station row/enabled" end
 	local s, d, scale = st.supply[res], st.demand[res], const.ResourceScale
 	local result = { mode = entry.mode, percent = entry.percent, slider = amount(st, res, entry),
 		stock = s:GetActualAmount(), supply_target = s:GetTargetAmount(), demand_target = d:GetTargetAmount(),
 		supply_desired = s:GetDesiredAmount(), demand_desired = d:GetDesiredAmount(),
 		covered = D.HasDroneCoverage(st), hub = hub, calls = D.calls,
-		full = not hub.demand[res] or hub.demand[res]:GetTargetAmount() <= 0, transient = view and true or false }
+		full = hub and (not hub.demand[res] or hub.demand[res]:GetTargetAmount() <= 0) or false,
+		transient = view and true or false }
 	print(string.format("[TrainDistribution] station=%s res=%s mode=%s slider=%.3f stock=%.3f supply=%.3f/%.3f demand=%.3f/%.3f covered=%s hub_full=%s calls=%d",
 		tostring(st.handle), res, entry.mode, result.slider/scale, result.stock/scale,
 		result.supply_target/scale, result.supply_desired/scale, result.demand_target/scale,
@@ -647,13 +781,19 @@ end
 
 function D.Reapply()
 	D.Refresh()
-	for st in pairs(owners) do D.Apply(st) end
+	local colony = rawget(_G, "UIColony")
+	for _, st in ipairs(colony and colony.labels.Station or empty_table) do D.Apply(st) end
 end
 function OnMsg.SaveGameStart()
 	saving = true
 	view = false
 	restore_baseline()
 	Floor.ReleaseTransientClaims()
+	-- Inert custom rows can survive removal; inaccessible vanilla policy or
+	-- desired amounts must not. transport_policy is never written by this file.
+	for st in pairs(applied) do
+		if D.IsRowStation(st) and not D.HubFor(st) then vanilla_baseline(st) end
+	end
 end
 function OnMsg.SaveGameDone()
 	saving = false
@@ -682,4 +822,4 @@ function OnMsg.DoneGame()
 end
 
 D.active = true
-print("[TrainDistribution] hub settings and transient train allocation loaded")
+print("[TrainDistribution] station rows loaded (brief 30: hub + hubless)")

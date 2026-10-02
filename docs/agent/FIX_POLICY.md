@@ -182,6 +182,7 @@ contract. New persisted names join this table.
 
 | 18 | `SMROptIn_hub_upgrades` | table on `UIColony`, keyed by the upgrade ids in rows 13, 16, 17 and 19; each entry has `on` (boolean) and `modifiers` (array of native `LabelModifier` references; empty for Power and Storage Hub) | `20_TrainHub.lua`, `adopt_colony_upgrades` and `ToggleUpgradeOnOff` | same section: mirror/panel, native modifier reconciliation, output, storage and speed gates; `tests/global_upgrade_smoke.py`, `tests/storage_upgrade_smoke.py` |
 | 19 | `SMROptInTrainHub6_StorageHub` | **upgrade id**, in vanilla hub upgrade state and `UIColony.unlocked_upgrades`, as row 13, and row 18's colony receipt | Storage Hub, spec §4.10 and brief 22, owner 2026-09-29; template `upgrade4_id` and `20_TrainHub.lua` unlock/adoption | Vanilla upgrade panel; `20_TrainHub.lua` shared switch and hub base storage/consumption reconciliation; `tests/storage_upgrade_smoke.py` |
+| 20 | `SMROptIn_station_rows` | inert table on an ordinary vanilla station: resource keys to `{mode, percent}`; dormant while a hub serves the station | `tools/devmods/train_hub/Code/40_TrainDistribution.lua`, `Set` / `Reset` (brief 30, owner 2026-10-02) | same file and `45_TrainDistributionUI.lua`; ignored without the mod; hubless native desired amounts are restored during saving |
 
 Rows 6–9 remain byte contract even though the mod-id change reset the owner's stored preferences
 once. A vanilla field written by a module is not a new persisted name, but its save effect still

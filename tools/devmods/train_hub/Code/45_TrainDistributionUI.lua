@@ -26,9 +26,8 @@ D.UIRequire = {
 	{ "XFontControl", "GetFontId" },
 }
 local function network(st)
-	-- an Elevator Depot draws its own rows (brief 27); the hub leaves them alone
-	if D.IsDepotStation and D.IsDepotStation(st) then return false end
-	return IsValid(st) and IsKindOf(st, "Station") and D.HubFor(st)
+	-- Every ordinary station gets the rows, with or without a hub (brief 30).
+	return D.IsRowStation(st)
 end
 local titles = { balanced = "Balanced", export = "Export", import = "Import", disabled = "Not accepted" }
 local following = { balanced = "export", export = "import", import = "disabled", disabled = "balanced" }
@@ -42,6 +41,11 @@ local help = {
 	export = "Export: trains take stock above the selected minimum to the hub. Local drones fill this station. A full hub refuses exports.",
 	import = "Import: trains bring stock from the hub up to the selected amount. Local drones may drain this station to zero.",
 	disabled = "Not accepted: vanilla storage is disabled for this resource. Trains and drones may carry its remaining stock away.",
+}
+local local_help = {
+	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount. Local drones use it as their desired amount.",
+	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones fill this station.",
+	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
 }
 function D.RowState(st, res)
 	local entry = D.Get(st, res)
@@ -98,8 +102,10 @@ local function install_station()
 	Station.ResourceRolloverText = function(st, res, ...)
 		if not network(st) then return rollover(st, res, ...) end
 		local mode, percent, cap, target = D.RowState(st, res)
-		local text = help[mode] .. "<newline><newline>Slider: " .. tostring(percent)
+		local hub = D.HubFor(st)
+		local text = (not hub and local_help[mode] or help[mode]) .. "<newline><newline>Slider: " .. tostring(percent)
 			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
+		if not hub then text = text .. "<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these." end
 		local parent = D.Parent(st)
 		if parent and parent ~= D.HubFor(st) then
 			text = text .. "<newline><newline>Trains forward this resource through station "
