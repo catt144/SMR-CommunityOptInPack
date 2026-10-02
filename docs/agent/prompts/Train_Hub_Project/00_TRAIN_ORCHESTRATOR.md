@@ -68,8 +68,8 @@ before it fires.
         log `Mars.exe-20261002-15.30.19`). Its finding, a one-unit food gain on a hub unload
         (report grep `appears from nothing`), is routed to `34b` as Fix 3 (owner).
      2. **`34`, the move into this mod**: checkpoint answered (OI-41, 2026-10-02; spec §10 grep
-        `Brief 34's checkpoint`); preflight widened (`5aa529d`). The owner's veto on the player-text
-        drafts is owed (`TRAIN_MOVE_CHECKPOINT_20261002.md` §"Player text drafts"). Code may move now (33 closed).
+        `Brief 34's checkpoint`); preflight widened (`5aa529d`). Player text approved 2026-10-02
+        (rewritten to vanilla build-menu style; the words are in brief 34). Code may move now (33 closed).
      2b. **`34b`, three owner fixes (2026-10-02)**: Export rows take only stock above a storage's
         Desired Amount (spec §4.8 grep `Export takes only the excess`), and auto-fill's train enters
         at the joining station, not the hub (grep `enters at the joining station`), and brief 33's

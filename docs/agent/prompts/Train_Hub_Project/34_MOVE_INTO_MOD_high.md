@@ -43,6 +43,26 @@ Write a short proposal for the orchestrator to put to the owner, and wait for th
   `SMROptInElevatorStationDev` with `SMROptInElevatorDepotDev`; whether a retained save holds the
   old name is unverified.
 
+**Player text, approved 2026-10-02 (owner).** The checkpoint report's drafts (§"Player text
+drafts") were rejected as off-theme and too wordy: *"It should match the tone / style / and general
+length of in game build menu descriptions."* Ship these words instead. Mark keywords (Trains, Train
+Stations, Drones) with the game's own highlight markup, as vanilla descriptions do. The hub string
+also lives in `20_TrainHub.lua` (grep the old text), so change both copies together.
+
+1. Elevator Depot description: *Links surface and underground Train lines with a cargo elevator.
+   Build one half on each side; every hour the cabin carries the resources you choose between them.*
+2. Train Hub description: *A junction where three Train lines cross, letting cargo change routes.
+   Its reactor also powers nearby Train Stations, and its own Drones keep it maintained.*
+3. Mod Options help, Station rows: *Set each resource at a Train Station to Import, Export,
+   Balanced or Not accepted. Always on while the Train Hub is on.*
+4. Mod Options help, Train Hub: *Adds the Train Hub. While on, Train Stations don't spoil food.
+   Demolish every hub before removing the mod.*
+5. Mod Options help, Elevator Depot: *Adds the Elevator Depot. Demolish both halves before removing
+   the mod.*
+
+Any later player text follows the same rule: vanilla build-menu tone and length, one or two
+sentences, no numbers the tooltip already shows.
+
 ## What is known (claims; one check each)
 
 - The audit report from brief `31` (`docs/agent/reports/TRAIN_AUDIT_20261002.md`, at `ba357e2`) lists the persisted
