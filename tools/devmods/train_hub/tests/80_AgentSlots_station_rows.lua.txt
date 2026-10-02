@@ -1,0 +1,161 @@
+-- Brief 30 overlay, 2026-10-02. Append to the staged depot slots for this sitting.
+-- Rebind 1 (selected Metals fixture), 4 (station rows read), 5 (row watch).
+-- Keep depot Scratch / 2 / 3 / 6 for OI-38. Nothing arms or mutates at load.
+-- Predictions: reports/STATION_ROWS_WITHOUT_HUB_20261002.md, Attended smoke.
+-- Native stock writer read on 1.1.1.406343 / 25579348:
+-- Lua/Buildings/MultiResourceCubeVisuals.lua:422-435. Clamp against free requests;
+-- stock reserved by trains/drones stays reserved. No request or cargo surgery.
+do
+local T = SMRTK
+local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
+local function distribution()
+    local d = rawget(_G, "SMROptInTrainDistribution")
+    return d and d.active and d or nil
+end
+local function selected_station(ctx, ordinary)
+    local d, o = distribution(), ctx.sel
+    if not d then return false, "station-row build is not loaded" end
+    if not IsValid(o) or not IsKindOf(o, "Station") or o.destroyed then return false, "select a live station" end
+    if o:GetMap() ~= CurrentMap then return false, "select a station on this map" end
+    if ordinary and not d.IsRowStation(o) then return false, "select an ordinary station" end
+    if IsKindOf(o, "SMROptInTrainHubBase") then return false, "select a station, not the serving hub" end
+    return o, d
+end
+local function fields(d, o, res)
+    local mode, percent, cap, target = d.RowState(o, res)
+    local hub = d.HubFor(o)
+    local s, dm = o.supply[res], o.demand[res]
+    return { station=id(o), resource=res, hub=id(hub), hub_role=hub and "serving hub" or "none",
+        mode=mode, percent=percent, capacity=cap, target=target, stock=s:GetActualAmount(),
+        supply_target=s:GetTargetAmount(), supply_desired=s:GetDesiredAmount(),
+        demand_target=dm:GetTargetAmount(), demand_desired=dm:GetDesiredAmount(),
+        hub_stock=hub and hub.supply[res] and hub.supply[res]:GetActualAmount() or "none",
+        hub_room=hub and hub.demand[res] and hub.demand[res]:GetTargetAmount() or "none",
+        calls=d.CallsFor(o), drones=d.HasDroneCoverage(o), game_time=GameTime(), errors=T.error_count }
+end
+local function dump_line(o)
+    for _, train in ipairs(o.city.labels.Train or empty_table) do
+        local route = o.city.train_track_routes[train.track]
+        if IsValid(train) and route and table.find(route, o) then
+            T.Log("DUMP", { sitting="station_rows_30", row="train", train=id(train),
+                station=id(train.current_station), command=tostring(train.command),
+                metals=(train.stockpiled_amount or empty_table).Metals or 0 })
+            for dest, cargo in pairs(train.assigned_resources or empty_table) do
+                if (cargo.Metals or 0) > 0 then
+                    T.Log("DUMP", { sitting="station_rows_30", row="assignment", train=id(train),
+                        destination=id(dest), metals=cargo.Metals })
+                end
+            end
+        end
+    end
+end
+
+T.Bind(1, "Set selected station/depot Metals to 80% (paused)", function(ctx)
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local o, why = selected_station(ctx, false)
+    if not o then return false, why end
+    local s, dm = o.supply and o.supply.Metals, o.demand and o.demand.Metals
+    if not s or not dm or not o:IsResourceEnabled("Metals") then return false, "enable Metals first" end
+    local before, target = s:GetActualAmount(), MulDivRound(o:GetMaxStorage("Metals"), 80, 100)
+    local delta = target - before
+    if delta > 0 then delta = Min(delta, Max(dm:GetTargetAmount(), 0))
+    elseif delta < 0 then delta = -Min(-delta, Max(s:GetTargetAmount(), 0)) end
+    if delta == 0 then return false, "already at 80%, or all changing stock is reserved" end
+    local mark = ctx.mark("STATION_ROWS_FIXTURE_START")
+    ctx.mutated = true
+    o:AddResource(delta, "Metals")
+    local out = { station=id(o), before=before, added=delta, stock=s:GetActualAmount(),
+        target=target, reserved_shortfall=target-s:GetActualAmount(), mark=mark }
+    ctx.log("DUMP", out)
+    ctx.mark("STATION_ROWS_FIXTURE_DONE")
+    return out
+end, { mode="once", needs="selected" })
+
+T.Bind(4, "Read selected station rows and trains (paused)", function(ctx)
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local o, d = selected_station(ctx, true)
+    if not o then return false, d end
+    local mark = ctx.mark("STATION_ROWS_READ")
+    for _, res in ipairs(o.storable_resources or empty_table) do
+        if o.supply[res] and o.demand[res] then
+            local row = fields(d,o,res)
+            row.sitting, row.row = "station_rows_30", "resource"
+            ctx.log("DUMP", row)
+        end
+    end
+    dump_line(o)
+    local out = fields(d,o,"Metals")
+    out.mark = mark
+    return out
+end, { mode="once", needs="selected" })
+
+T.Trigger { id="station_rows_30", label="Station rows: Metals reaches the selected target",
+    cadence=250,
+    prepare=function(ctx, o)
+        local d=distribution()
+        if not d or not d.IsRowStation(o) or o.destroyed or o:GetMap() ~= CurrentMap then
+            return false, "select an ordinary station on this map"
+        end
+        if not o.supply.Metals or not o.demand.Metals or not o:IsResourceEnabled("Metals") then
+            return false, "enable Metals first"
+        end
+        local start=fields(d,o,"Metals")
+        local st=ctx.state
+        st.station, st.start, st.last = o, start, start.stock
+        st.deadline=GameTime()+18*const.HourDuration
+        return { station=id(o), hub=start.hub, before=start.stock, target=start.target,
+            mode=start.mode, deadline=st.deadline }
+    end,
+    when=function(ctx)
+        local d, st = distribution(), ctx.state
+        if not d or not IsValid(st.station) or st.station.destroyed
+            or not st.station.supply.Metals or not st.station.demand.Metals then
+            return true, {verdict="station_gone"}
+        end
+        local current=fields(d,st.station,"Metals")
+        local reason
+        if T.error_count ~= st.start.errors then reason="new_error"
+        elseif current.mode ~= st.start.mode or current.percent ~= st.start.percent
+            or current.target ~= st.start.target or current.hub ~= st.start.hub then reason="row_changed"
+        elseif st.start.stock >= st.start.target and current.mode=="export"
+            and current.stock < current.target then reason="below_floor"
+        elseif st.start.stock <= st.start.target and current.mode=="import"
+            and current.stock > current.target then reason="above_cap"
+        else
+            -- Native positive-desire allocation uses whole resource units.
+            -- Require a real stock change AND a native row-path evaluation.
+            local close = current.mode=="export" and current.stock>=current.target
+                and current.stock-current.target<const.ResourceScale
+                or current.mode~="export" and current.stock<=current.target
+                and current.target-current.stock<const.ResourceScale
+            if close and current.stock~=st.start.stock and current.calls>st.start.calls then
+                reason="target_sampled"
+            elseif GameTime()>=st.deadline then reason="deadline" end
+        end
+        if reason then
+            current.verdict, current.before, current.calls_before = reason, st.start.stock, st.start.calls
+            return true, current
+        end
+        return false
+    end,
+    ["do"]={ mark=true, pause=true, sound=true },
+}
+
+T.Bind(5, "Run Metals to the selected target (Ultra; pauses itself)", function(ctx)
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local o, d = selected_station(ctx,true)
+    if not o then return false, d end
+    for _, trigger in ipairs({"depot_next_arrival","depot_next_departure","depot_drone_hour","station_rows_30"}) do
+        if T.armed[trigger] then return false, "cancel the current run first" end
+    end
+    local mark=ctx.mark("STATION_ROWS_RUN")
+    dump_line(o)
+    local ok, result=T.Arm("station_rows_30",o)
+    if not ok then return false, result.reason end
+    local ran, speed=T.Run("speed_ultra")
+    if not ran then T.Disarm("station_rows_30","speed refused"); return false, speed.reason end
+    result.mark=mark
+    result.autosave="re-press slot 5 after a save; a target sample is not an unattended PASS"
+    return result
+end, { mode="once", needs="selected" })
+end

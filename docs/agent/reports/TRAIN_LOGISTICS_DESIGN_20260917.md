@@ -214,7 +214,12 @@ This is the F64/F107 shape; `FIX_POLICY` §2 governs it and
 / export / and sliders options even without the hub. Some people may never watn to use the hub. But
 everyone wnats the sliders back, and the import / export options make those sliders much more
 effective"*. A player who never builds a hub gets the per-resource states and sliders on every
-vanilla station; a station on a hub's network keeps the §4.8 behaviour. Brief `30` builds it.
+vanilla station; a station on a hub's network keeps the §4.8 behaviour. Brief `30`'s build is
+`3ff3ae4`, desk-checked and awaiting the owner's in-game smoke:
+[`STATION_ROWS_WITHOUT_HUB_20261002.md`](STATION_ROWS_WITHOUT_HUB_20261002.md).
+Hubless rows use Balanced pins, Export floors and Import caps, with independent station settings
+that resume after leaving a hub. Hub settings remain separate; these design calls are delegated
+by brief 30 and remain subject to the owner's visual sitting.
 
 1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
@@ -318,8 +323,9 @@ branch), and balanced uses the selected amount. The train-side claims cap what l
 or arrives. Pass 2's desk results and native limits are recorded below.
 
 **Where the state lives: on the HUB, not on the stations** (decided with the owner, 2026-09-24).
-The hub keeps the per-station, per-resource modes and sliders for its own network. Nothing of ours
-is persisted as a custom field on a vanilla `Station`, and one persisted name covers the settings.
+The hub keeps the per-station, per-resource modes and sliders for its own network. No hub-managed
+setting is persisted as a custom field on a vanilla `Station`, and one persisted name covers the hub settings.
+Brief 30's independent hubless settings (§4.7) are inert station data, dormant on a hub network.
 The table goes with the hub; vanilla drone desired amounts can linger after removal, as disclosed
 under rung 1 below. The alternative considered and declined was cloning the vanilla
 station into our own building: it would force players to rebuild their network to get the feature,
@@ -330,7 +336,7 @@ shape — a four-state hex cycle, per-state native title and an inline native sl
 storage rows, on every station (owner, 2026-10-02; §4.7). The separate section is retired. The hub's card
 gets no controls (owner, 2026-09-24: it is already busy and the game shrinks it as the network grows).
 The row extension is UI-only; no UI field persists on the station.
-**Storage location and UI location are independent**; the row's control writes to the hub's table.
+**Storage location and UI location are independent**; a hub-served row's control writes to the hub's table.
 
 ⛔ **The save rule for claims.** Requests are saved, so a standing claim on a vanilla station could
 persist into a save and outlive the mod, leaving a station quietly crippled with nobody to undo it.
