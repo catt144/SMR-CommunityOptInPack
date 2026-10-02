@@ -306,7 +306,13 @@ an Export row's drones haul a storage's stock only **above that storage's own De
 storage at or under its Desired Amount gives the station nothing. Seen live 2026-10-02: a Food Depot
 (`StorageFood`) set to Desired 50 was drained to 8.2/180 by drones filling a station's Food · Export
 row. The same sitting saw Balanced rows filled only once every other storage is full; that is
-intended (vanilla). Fix: brief `34b`.
+intended (vanilla). Fix: brief `34b`. **The lever, owner 2026-10-02** (after sitting 1 refuted a
+request-number fix): filter the drones' pairing at the FindTask seam so a pairing from a storage
+into an Export row takes only that storage's stock above its Desired Amount (option 1 of the 34b
+report's sitting 1 section). **No block the other way:** *"blocking is the wrong call if the
+desired amount on local storage depots should win anything above that leaves"*. A local depot
+below its Desired Amount may still refill from the Export station up to it; above it, the rest
+goes to the station.
 
 **Per resource, never per station** (owner, 2026-09-24, and this closes it): a mining sector has a
 dome, so it exports metals while importing food, delicacies and machine parts; an agri sector

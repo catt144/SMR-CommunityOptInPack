@@ -15,7 +15,10 @@ Export, drones *"drain everything ... including resource pads that have a desire
 expect drones to fill the station of all the excess up to the desired amount."* Spec
 `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md` §4.8's mode table already says Export
 drones haul *"the area's excess in"*. The ruling under it (grep `Export takes only the excess`)
-defines excess as **stock above that storage's own Desired Amount.**
+defines excess as **stock above that storage's own Desired Amount.** After sitting 1 refuted the
+request-number fix, the owner chose the lever (same day, spec grep `The lever, owner 2026-10-02`):
+option 1, the FindTask pairing filter. **No reverse block**: a depot below its Desired Amount may
+refill from the Export station up to it.
 
 **Fix 2, auto-fill.** The owner: *"the station gets a train auto added to its line, the station
 itself handles the spawn in from the station, not spawned in from the hub."* Spec §4.8 ruling 10
