@@ -50,10 +50,8 @@ Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 ### OI-38 · opened 2026-10-01
 When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
 - E3-E5: salvage a half with cargo aboard, then place a new twin (the survivor rule).
-- C4: the cabin art at normal speed on both cores.
-- D5: toggling Drone Access on one half leaves the twin's button unchanged.
 - The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
-- The long-title fix (`1122115`) and the hub tooltips' power icon, once brief 28's editor save lands.
+- The long-title fix (`1122115`): a long title fits its panel.
 Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
 
 ### OI-12 · opened 2026-09-18 · launch

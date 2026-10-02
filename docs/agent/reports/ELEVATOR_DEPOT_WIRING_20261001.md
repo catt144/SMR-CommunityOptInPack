@@ -510,3 +510,13 @@ Those three landed as `8ba7ad4`, `f682872`, `fdd54b0`. The hub patch:
    "Train hub dev mod: the hub reads the Elevator Depot's rows and never writes one, and its Ctrl+click broadcast skips depots (brief 27, ad01179); distribution smokes 22/4/3 PASS"
 2. `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
    "Brief 27 report: the hub patch is applied (40/45), with its verification"
+
+## OI-38 sitting, 2026-10-02 (the owner's words; no log read)
+
+On the depot's final build (brief 28 closed):
+- C4 **PASS.** *"Cable looks smooth and natural at all speed."*
+- D5 **PASS.** *"drone access works as expected when on one is on and the other is off"*
+- The hub tooltips' power icon **PASS.** *"power icon looks correct."*
+
+Still owed on OI-38: E3-E5 (the survivor steps), the scripted up-leg read, and the long-title
+fix's glance (`1122115`).
