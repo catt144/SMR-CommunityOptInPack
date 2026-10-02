@@ -15,6 +15,8 @@
 -- hub settings never migrate into it. Hubless baselines are restored to vanilla
 -- during saving, so removing the mod leaves only ignored settings data.
 -- Hub baselines linger without the mod until vanilla rewrites desired amounts.
+-- Brief 34b (owner 2026-10-02): an Export row's drone baseline pulls nothing; its
+-- demand desired is capacity, not vanilla's send-branch 0 (see D.Apply).
 -- No thread, captured yielding frame, saved callback or standing claim.
 
 SMROptInTrainDistribution = {}
@@ -327,6 +329,18 @@ function D.Apply(st)
 			st.desired_amount = false
 			local ok, why = pcall(set_desired, st, n)
 			restore_baseline()
+			if ok and entry.mode == "export" then
+				-- Owner 2026-10-02 (spec 4.8, "Export takes only the excess"): vanilla's send
+				-- branch leaves the demand's desired amount at 0, the strongest pull on the
+				-- map, which drained depots below their own Desired Amount (archived
+				-- 1.1.1.406343 Station.lua:982-987; a demand's desired is "room not wanted",
+				-- StorageDepot.lua:68). Raise it to capacity with the same request writer, so
+				-- the row pulls nothing and receives only what vanilla pushes: producers'
+				-- output (ResourceStockpile.lua:328-332) and storage above its Desired Amount.
+				ok, why = pcall(function()
+					st.demand[res]:SetDesiredAmount(st:GetMaxStorageForAnyOneResource())
+				end)
+			end
 			if not ok then D.error = tostring(why) end
 		end
 	end

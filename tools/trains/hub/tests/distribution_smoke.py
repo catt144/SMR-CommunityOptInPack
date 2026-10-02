@@ -469,7 +469,7 @@ for _,caps in ipairs({{60,240},{60,480},{100,100},{120,480}}) do
     assert(stock(s)==retained and (t.stockpiled_amount.Metals or 0)==0)
     assert(s:IsResourceEnabled('Metals') and s:GetMaxStorage('Metals')==caps[1]*1000)
     assert(s.supply.Metals.target==stock(s))
-    assert(s.supply.Metals.desired==caps[1]*1000 and s.demand.Metals.desired==0)
+    assert(s.supply.Metals.desired==caps[1]*1000 and s.demand.Metals.desired==caps[1]*1000,'export pulls nothing: demand desired is capacity (34b)')
     assert(rawget(s,D.FIELD)==nil and rawget(h,D.FIELD)[s].Metals.percent==percent)
   end
 end
@@ -543,7 +543,7 @@ print('PASS uncovered spoke gets train behavior; remote hub is not local drone c
 -- Rewrite paths use archived vanilla writers, including the request alias.
 assert(D.Set(s,'Food','balanced',35))
 local function baselines(cap)
-    assert(s.supply.Metals.desired==cap and s.demand.Metals.desired==0)
+    assert(s.supply.Metals.desired==cap and s.demand.Metals.desired==cap,'export pulls nothing: demand desired is capacity (34b)')
     assert(s.supply.Food.desired==cap*35/100 and s.demand.Food.desired==cap*65/100)
 end
 baselines(60000)

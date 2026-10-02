@@ -39,13 +39,13 @@ local icons = {
 }
 local help = {
 	balanced = "Balanced: trains hold the selected amount; local drones use it as their desired amount.",
-	export = "Export: trains take stock above the selected minimum to the hub. Local drones fill this station. A full hub refuses exports.",
+	export = "Export: trains take stock above the selected minimum to the hub. Local drones bring in what nearby storage holds above its Desired Amount. A full hub refuses exports.",
 	import = "Import: trains bring stock from the hub up to the selected amount. Local drones may drain this station to zero.",
 	disabled = "Not accepted: vanilla storage is disabled for this resource. Trains and drones may carry its remaining stock away.",
 }
 local local_help = {
 	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount. Local drones use it as their desired amount.",
-	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones fill this station.",
+	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
 	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
 }
 function D.RowState(st, res)
