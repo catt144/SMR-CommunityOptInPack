@@ -7,8 +7,9 @@ Authority: [brief 34](../prompts/Train_Hub_Project/34_MOVE_INTO_MOD_high.md). Th
 Opus 5.5 (`claude-opus-5-5`), with two read-only Opus subagents before the checkpoint: a dev-file
 dependency map and an engine read.
 
-**State: moved and desk-verified. The owner's Mod Editor save is done (2026-10-02); the in-game
-check (step B below) remains.** Brief 35's full battery comes after it.
+**State: done (2026-10-02).** The move is desk-verified, the owner's Mod Editor save is in, and the
+in-game check passed (last section). Brief 35's full battery is next. The orchestrator owns this
+brief's lifecycle.
 
 ## Work list (one commit each)
 
@@ -20,7 +21,7 @@ check (step B below) remains.** Brief 35's full battery comes after it.
 | 4 | The move, gates, text, tests, tooling, dev mods retired | `4edf446` | below |
 | 5 | Records: D16–D18, inventory rows 21–31, §8 corrected, this report | this commit | doccheck |
 | 6 | Owner's Mod Editor save (2026-10-02), then metadata/items restored | the regeneration commit | preflight: only `image` FAILs |
-| 7 | Owner's in-game check | owed | the log |
+| 7 | Owner's in-game check (2026-10-02) | this report's last section | the log: PASS |
 
 ## What shipped where
 
@@ -172,3 +173,31 @@ After the restore:
   bytes besides 102,051,479 bytes of model assets.
 - doccheck: GREEN.
 - smokes: 32 files, 32 exit 0.
+
+## The owner's in-game check (2026-10-02): PASS, with the help-text hover not seen
+
+Log `Mars.exe-20261002-16.27.20-6aba6e65.log` (356 lines, build 1.1.1.406343), read on the owner's
+"flushed".
+- Load showed `StationRows`, `TrainHub` and `ElevatorDepot` `inactive (opt-in module, off by
+  default …)` (lines 142, 147, 153), then `applied` after the owner turned them on (210–212).
+- `LUA ERROR`: 0 hits. Mod-related lines (no game-side errors besides the offline Braze lines):
+  - 232: the engine resolved the save's dev-mod permanent to its fallback (`Unpersist missing
+    permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent`). No error followed.
+  - 234–235: `Savegame references Mod … which is not present` for both retired dev ids. These
+    are optional, so there was no prompt.
+
+The owner's screenshots, all read:
+- The Mod Options page lists the three toggles. The screenshot shows them Off, taken before
+  the apply that the log records.
+- The colony's hub (`SMROptInTrainHub6` 6430) is working: four upgrades, 5/60 drones, Track
+  work on, 150 production and 29 consumption.
+- The depot pair is working. The surface half (9036) has its rows and Expanded Depot; the log
+  shows the pair forming and the cabin legs (347–350).
+- Station rows work on StationSmall 2007 and on a Large Train Station: Export, Import, Not
+  accepted and Balanced.
+- The build menu shows the approved hub and depot descriptions with Train, Train Stations and
+  Drones highlighted, both icons, and "Elevator Depot" with no "(dev)".
+  ("You can build this building only once" is the one-pair rule.)
+
+**Not seen:** the Mod Options help-text hover (whether `<em>` renders in that rollover). It is a
+cosmetic check, carried to brief 35's packaging row.
