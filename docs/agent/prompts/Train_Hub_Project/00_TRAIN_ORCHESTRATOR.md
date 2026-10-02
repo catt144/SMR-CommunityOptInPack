@@ -71,9 +71,9 @@ before it fires.
         storage's Desired Amount; auto-fill cut and the hub refuses add-train (no train ever in the
         hub); Fix 3, the one-unit food gain on unload: fix at the source if ours, else a full bug
         report for the fix pack and no clamp.
-     3. **`34c`, SMR-Assets cleanup**, beside 34b; its keep list needs the owner's approval before
-        any deletion.
-     4. **`35`, the final full battery**, after 34b and 34c; it carries OI-38's up-leg read and the
+     3. **`34c` closed 2026-10-02**: SMR-Assets 5.6 GB to 1.2 GB, five checkpoints kept (`ffffcf4`,
+        report `ASSETS_CLEANUP_20261002.md`).
+     4. **`35`, the final full battery**, after 34b; it carries OI-38's up-leg read and the
         check that no train appears in the hub. Its pass completes the project: purge this folder.
      **Owner's open item:** OI-42 (launch), the store description's train sentence: draft now or
      at launch prep.
