@@ -4297,7 +4297,10 @@ owner's save to regenerate: 1 Capacity Network `expanded_warehousing_02` (blue s
 2 Train Cargo `extended_cargo_01` (the cargo rocket); 3 Power `infinite_energy_01` (the battery;
 `cryo_resistant_compounds_01`, the crossed snowflake, was the runner-up for the cold penalty);
 4 Storage Hub `expanded_warehousing_03` (gold storage arrows, the bigger tier). All under
-`UI/IconsRemaster/Upgrades/`, 72 × 62, read from `UI.fpk` on 2026-10-02.
+`UI/IconsRemaster/Upgrades/`, 72 × 62, read from `UI.fpk` on 2026-10-02. **Closed 2026-10-02:** the owner saved
+both dev mods (depot v19, hub v64), saw the tile, the infopanel and the upgrade icons in game and said
+*"look good"*; OI-40 is done and brief `32` deleted. The build-menu icon's source and rebuild are
+`SMR-Assets/elevatorstation/icon/README.md` (assets `152394e`, `4aeb59b`).
 **Brief 30's depot items PASSED live 2026-10-02** (report `ELEVATOR_DEPOT_REVISION_20261002.md`,
 "Sitting"; brief deleted): the twinless notices and the cabin's rest and resume; need-based loading
 on both legs (the empty row wins, no destination overfilled); 250 a leg and per resource, 500 on

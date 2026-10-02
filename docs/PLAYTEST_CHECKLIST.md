@@ -47,16 +47,6 @@ Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
 
 ## Run
 
-### OI-40 · opened 2026-10-02
-When you next open the game, save the Elevator Depot's new icon into its template in the Mod Editor.
-- Mod Editor → DEV ONLY - Elevator Depot → Building Template → Display Icon → Save; a `Data/` edit alone
-  never reaches the game. The path: `Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png`.
-- The icon is variant A, passed by your eye on 2026-10-02 and installed as
-  `tools/devmods/elevator_station/UI/SMROptInElevatorDepot_icon.png`.
-- Then open DEV ONLY - Train Hub and Save once (its four upgrade icons were picked into its `Data/` template
-  the same day), and glance at the Stations menu tile and a placed depot's infopanel; say if anything is off.
-Home: `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`
-
 ### OI-38 · opened 2026-10-01
 When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
 - The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
