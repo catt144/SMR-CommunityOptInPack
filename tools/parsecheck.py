@@ -79,7 +79,9 @@ def runtime():
 def scan(directory, check):
     """-> [(path, error)] for every file that does not parse."""
     bad = []
-    for path in sorted(glob.glob(os.path.join(directory, "*.lua"))):
+    # Recursive since 2026-10-02 (brief 34): a module too large for one file
+    # keeps its parts in Code/<id>/ (FIX_POLICY §8).
+    for path in sorted(glob.glob(os.path.join(directory, "**", "*.lua"), recursive=True)):
         with open(path, encoding="utf-8", errors="replace") as fh:
             src = fh.read()
         err = check(src, "@" + os.path.basename(path))
@@ -192,7 +194,7 @@ def main():
         return 0
 
     bad = scan(a.dir, check)
-    total = len(glob.glob(os.path.join(a.dir, "*.lua")))
+    total = len(glob.glob(os.path.join(a.dir, "**", "*.lua"), recursive=True))
     if not a.quiet:
         for path, err in bad:
             print("PARSE ERROR  %s" % os.path.relpath(path, HERE))

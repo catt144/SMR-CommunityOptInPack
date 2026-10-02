@@ -885,6 +885,29 @@ def lua_files(directory):
     return sorted(f for f in os.listdir(directory) if f.endswith(".lua"))
 
 
+def code_lua_files():
+    """This mod's shipped Lua, RECURSIVE, as paths relative to Code/ with `/`.
+
+    Since 2026-10-02 (owner, OI-41; FIX_POLICY §8) a module too large for one
+    file keeps its parts in Code/<id>/, and the Mod Editor writes a template's
+    generated class to Code/BuildingTemplate/. A flat listing would let those
+    files ship unseen by every gate below. The TestKit keeps `lua_files`."""
+    if not os.path.isdir(CODE):
+        return None
+    out = []
+    for root, _dirs, files in os.walk(CODE):
+        for f in files:
+            if f.endswith(".lua"):
+                out.append(os.path.relpath(os.path.join(root, f), CODE).replace(os.sep, "/"))
+    return sorted(out)
+
+
+def is_generated(path):
+    """An editor-generated file (a template's class, `_EntityData`). A SaveDef
+    lists it from its Data/ or SourceData/ item, never from a ModItemCode."""
+    return path.endswith(".generated.lua")
+
+
 # The optional-module def field, ANCHORED. The donor counted the bare
 # substring "optional = true", which also matches a COMMENT in
 # Opt_DroneStatDials.lua saying the module registers *without* it — so the
@@ -925,7 +948,7 @@ def recount(model, out):
     """The counts block. Reported, never asserted — adding a module is legal."""
     counts = {}
     rows = [r["id"] for r in all_rows(model)]
-    names = lua_files(CODE) or []
+    names = code_lua_files() or []
     counts["files"] = len(names)
     registered = files_containing(CODE, names, "SMROptInPack.Register(")
     # 00_Core.lua defines Register; it is not itself a registered module.
@@ -970,7 +993,7 @@ def temporary_sweep(out):
     """No TEMPORARY markers may survive in shipped or TestKit Lua."""
     hits = []
     for directory in (CODE, os.path.join(TESTKIT, "Code")):
-        names = lua_files(directory)
+        names = code_lua_files() if directory == CODE else lua_files(directory)
         if names is None:
             continue
         for name in names:
@@ -2376,7 +2399,7 @@ def _metadata_code_list(text):
 
 def module_set_agreement(out):
     """Code/*.lua == items.lua == metadata.lua's `code` list, by name (MODULE SETS + tools/upload_preflight.py)."""
-    names = lua_files(CODE)
+    names = code_lua_files()
     if names is None:
         out.append("MODULE SETS: not checked (Code/ not readable)")
         return True
@@ -2404,8 +2427,15 @@ def module_set_agreement(out):
     labels = list(sets)
     for i, a in enumerate(labels):
         for b in labels[i + 1:]:
-            only_a = sorted(sets[a] - sets[b])
-            only_b = sorted(sets[b] - sets[a])
+            # items.lua never holds a generated file: a SaveDef lists those
+            # from their Data/ or SourceData/ items (upload_preflight.py
+            # checks their position and their source).
+            left, right = sets[a], sets[b]
+            if "items.lua" in (a, b):
+                left = {n for n in left if not is_generated(n)}
+                right = {n for n in right if not is_generated(n)}
+            only_a = sorted(left - right)
+            only_b = sorted(right - left)
             if not only_a and not only_b:
                 continue
             ok = False
