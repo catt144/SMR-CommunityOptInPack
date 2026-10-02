@@ -228,7 +228,7 @@ Row 15 is the train bay's hub extra (spec §4.8 ruling 9, owner 2026-09-28, whic
 Ruling 10 retires its writer and keeps the bare class for existing saves. Legacy extras now
 inherit vanilla Idle and count toward the route cap; their cargo and passengers remain.
 The old snapshot's empty extras still use vanilla's delete-on-load list and its already-credited
-pool. No new save-time storing is installed. Desk coverage is `tests/train_fill_smoke.py`;
+pool. No new save-time storing is installed. Desk coverage is `tools/trains/hub/tests/hub_refusal_smoke.py` (brief 34b cut auto-fill; the hub refuses add-train);
 a real old-bay save/load remains an attended check.
 
 Row 17 remains the separately purchasable Power id. Repair 3 retires its old local

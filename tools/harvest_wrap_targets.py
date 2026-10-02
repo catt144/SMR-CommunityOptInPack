@@ -212,6 +212,8 @@ CHECK_ALLOWLIST = {
         "declares it — Construction/GridConstruction.lua:277 (1.1.1.406343, brief 34); no Require table of its own",
     ("TrainHub_20_TrainHub", "Train", "GetNominalMoveSpeed"):
         "declares it — Units/Train.lua:593 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_70_TrainBay", "TrackBase", "AssignTrain"):
+        "declares it — Buildings/Track.lua:428 (1.1.1.406343, brief 34b); its own B.Require table checks the pair before installing (file returns if absent)",
 }
 
 # `SMRFixPack` deliberately NOT in this set (contamination audit 2026-09-01): in this

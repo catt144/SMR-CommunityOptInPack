@@ -1,6 +1,12 @@
--- Auto-fill and siding placement; spec section 4.8 ruling 10, owner 2026-09-28.
--- Retired extras and tests: docs/archive/train_bay_extras_20260928/.
--- Keep the saved class name: existing HubTrain objects now inherit vanilla Train
+-- Module TrainHub, part 70 (Code/Opt_TrainHub.lua lists it). Brief 34b, owner
+-- 2026-10-02 (spec section 4.8 ruling 10): no train ever appears in the hub,
+-- auto-filled or player-assigned. Auto-fill is cut; the player adds trains with
+-- vanilla's own Construct Train and Send out Train on any station (archived
+-- 1.1.1.406343 Lua/XDef/customStation.generated.lua:11-40,
+-- Buildings/Station.lua:707-745, :796-803, :861-868). The cut bytes and their
+-- tests: docs/archive/train_bay_autofill_20261002/. The earlier extras:
+-- docs/archive/train_bay_extras_20260928/.
+-- Keep the saved class name: existing HubTrain objects inherit vanilla Train
 -- behavior, including Idle, route counting and storage. No new HubTrain is spawned.
 -- The old snapshot's delete-on-load list and prepaid pool use vanilla's loader.
 DefineClass.HubTrain = {
@@ -10,11 +16,9 @@ DefineClass.HubTrain = {
 
 SMROptInTrainBay = {}
 local B = SMROptInTrainBay
-B.tick_minutes = 10
-B.fill_window = const.HourDuration * 2
-B.stats = { filled = 0 }
+B.stats = { refused = 0 }
 B.error = false
-B.Require = { { "TrackBase", "CanAddVehicle" }, { "TrackBase", "AssignTrain" } }
+B.Require = { { "TrackBase", "AssignTrain" }, { "Station", "ToggleCreateRouteMode_Update" } }
 for _, pair in ipairs(B.Require) do
     local class = rawget(_G, pair[1])
     if not class or type(class[pair[2]]) ~= "function" then
@@ -23,139 +27,55 @@ for _, pair in ipairs(B.Require) do
         return
     end
 end
-if type(rawget(_G, "ColonyGetPrefabs")) ~= "function" then
-    B.error = "ColonyGetPrefabs unavailable"
+if type(rawget(_G, "SMROptInTrainHubBase")) ~= "table" then
+    B.error = "SMROptInTrainHubBase unavailable"
+    print("[TrainBay] inactive: " .. B.error)
     return
 end
 
-local owed = {}
-local snapshot = false
 local function h(o) return IsValid(o) and tostring(o.handle) or "none" end
-local function is_hub(o) return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase") and not o.destroyed end
+local function is_hub(o) return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase") end
 
-local function route_key(route)
-	local seen, handles = {}, {}
-	for _, st in ipairs(route or empty_table) do
-		if IsValid(st) and not seen[st] then seen[st] = true; handles[#handles + 1] = st.handle end
-	end
-	table.sort(handles)
-	return table.concat(handles, "-"), #handles
+-- The one spawn in the game: TrackBase:AssignTrain(station) places the Train in
+-- the station it is passed (archived 1.1.1.406343 Buildings/Track.lua:428-457,
+-- the only PlaceObjectIn("Train") under Lua/). Refusing a hub here closes every
+-- caller at once: both card buttons, the Transportation overview's row
+-- (XDef/CommandCenterTransportationOverviewRow.generated.lua:477-483), the
+-- station-side auto-assign after construction (Station.lua:590-606) and any
+-- console or mod call. Vanilla's own early returns (Track.lua:430-435) already
+-- make a refused call a silent no-op, so no caller expects a result.
+local assign = TrackBase.AssignTrain
+function TrackBase:AssignTrain(station, ...)
+    if is_hub(station) then
+        B.stats.refused = B.stats.refused + 1
+        print(string.format("[TrainBay] refused hub=%s track=%s t=%d", h(station), h(self), GameTime()))
+        return
+    end
+    return assign(self, station, ...)
 end
 
-local function each_hub(fn)
-	for _, city in ipairs(Cities or empty_table) do
-		for _, st in ipairs(city.labels.Station or empty_table) do
-			if is_hub(st) then fn(st) end
-		end
-	end
+-- The hub's card shows vanilla's Construct Train and Send out Train, because
+-- sectionCustom resolves customStation up the class chain
+-- (XDef/sectionCustom.generated.lua:14-38). InfopanelButton:OnContextUpdate
+-- calls context:<OnPressParam>_Update(button) when the method exists
+-- (XDef/InfopanelButton.generated.lua:59-64): disable both with the reason, and
+-- make the presses themselves do nothing, which also covers the Transportation
+-- overview's row and a gamepad press.
+local REASON = "Trains are built and sent out from a <em>Train Station</em>, never from the hub."
+local function refuse_button(button, title)
+    button:SetEnabled(false)
+    button:SetRolloverTitle(title)
+    button:SetRolloverText(Untranslated(REASON))
+    if button.SetRolloverDisabledText then button:SetRolloverDisabledText(Untranslated(REASON)) end
 end
-
--- The hub's arms that carry a route, grouped by route in connector order.
-local function hub_lines(hub)
-	local routes = hub.city and hub.city.train_track_routes or empty_table
-	local lines, by_route = {}, {}
-	for i = hub.first_connector_idx or 1, hub.last_connector_idx or 0 do
-		local el = hub:GetConnectorElement(i)
-		local track = IsValid(el) and el.track_obj
-		local route = IsValid(track) and routes[track]
-		if route then
-			local line = by_route[route]
-			if not line then
-				local set, stations = route_key(route)
-				line = { route = route, set = set, key = h(hub) .. ":" .. set, stations = stations, arms = {} }
-				by_route[route] = line
-				lines[#lines + 1] = line
-			end
-			line.arms[#line.arms + 1] = { idx = i, track = track }
-		end
-	end
-	return lines
+function SMROptInTrainHubBase:ConstructTrain_Update(button)
+    refuse_button(button, T(14474, "Construct Train"))
 end
-
--- AssignTrain sends this before assigning the track or starting LoadTrain.
-function OnMsg.TransportLinkChanged(link, vehicle, action)
-    if action ~= "add" or not IsValid(vehicle) then return end
-    local hub = vehicle.current_station
-    if not is_hub(hub) or not vehicle.at_spawn_track then return end
-	local floor = rawget(_G, "SMROptInTrainFloor")
-	local idx = hub:GetConnectionSpot(link)
-	if floor and floor.HubSpawnLocation and idx then
-		local before, before_angle = vehicle:GetPos(), vehicle:GetAngle()
-		local pos, angle = floor.HubSpawnLocation(hub, idx)
-		vehicle:SetPos(pos)
-		vehicle:SetAngle(angle)
-		print(string.format("[TrainBay] spawn train=%s hub=%s arm=%s before=%s before_angle=%s target=%s angle=%s actual=%s actual_angle=%s t=%d",
-			h(vehicle), h(hub), tostring(idx), tostring(before), tostring(before_angle), tostring(pos),
-			tostring(angle), tostring(vehicle:GetPos()), tostring(vehicle:GetAngle()), GameTime()))
-	end
+function SMROptInTrainHubBase:ToggleCreateRouteMode_Update(button)
+    refuse_button(button, T(14381, "Send out Train"))
 end
-
-local function free_arm(hub, line)
-	for _, arm in ipairs(line.arms) do
-		if not hub:GetOccupyingTrain(arm.track) then return arm end
-	end
-end
-
-local function try_fill(hub, line)
-	local since = owed[line.key]
-	if GameTime() - since > B.fill_window then owed[line.key] = nil return end
-	if ColonyGetPrefabs("Train", hub.city) <= 0 then return end
-	local arm = free_arm(hub, line)
-	if not arm or not arm.track:CanAddVehicle() then return end
-	owed[line.key] = nil
-	B.stats.filled = B.stats.filled + 1
-	print(string.format("[TrainBay] fill line=%s arm=%d pool=%d t=%d", line.key, arm.idx,
-		ColonyGetPrefabs("Train", hub.city), GameTime()))
-	arm.track:AssignTrain(hub)
-end
-
-function B.Tick()
-    local live = {}
-    each_hub(function(hub)
-        for _, line in ipairs(hub_lines(hub)) do
-            live[line.key] = true
-            if owed[line.key] then try_fill(hub, line) end
-        end
-    end)
-    for key in pairs(owed) do if not live[key] then owed[key] = nil end end
-end
-
-function OnMsg.NewMinute(hour, minute)
-	if not B.active or minute % B.tick_minutes ~= 0 then return end
-	local ok, err = pcall(B.Tick)
-	if not ok and not B.error then
-		B.error = tostring(err)
-		print("[TrainBay] tick error: " .. B.error)
-	end
-end
-
--- Auto-fill: a station joining a hub route owes that route one vanilla train.
-local function take_snapshot(owe)
-	local next_snapshot = {}
-	each_hub(function(hub)
-		local arms = {}
-		for _, line in ipairs(hub_lines(hub)) do
-			local grew = false
-			for _, arm in ipairs(line.arms) do
-				arms[arm.idx] = line.stations
-				local old = snapshot and snapshot[hub] and snapshot[hub][arm.idx] or 0
-				if line.stations > old then grew = true end
-			end
-			if owe and grew then owed[line.key] = GameTime() end
-		end
-		next_snapshot[hub] = arms
-	end)
-	snapshot = next_snapshot
-end
-
-function OnMsg.TrainRoutesRebuilt()
-    if B.active then take_snapshot(snapshot and true or false) end
-end
-
-local function reset() owed, snapshot = {}, false end
-function OnMsg.LoadGame() reset(); take_snapshot(false) end
-function OnMsg.CityStart() reset(); take_snapshot(false) end
-function OnMsg.DoneGame() reset() end
+function SMROptInTrainHubBase:ConstructTrain() end
+function SMROptInTrainHubBase:ToggleCreateRouteMode() end
 
 B.active = true
-print("[TrainBay] loaded: vanilla auto-fill and siding placement; legacy HubTrain compatibility")
+print("[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility")

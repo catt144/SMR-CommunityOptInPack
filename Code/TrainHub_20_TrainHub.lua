@@ -396,13 +396,6 @@ local function synthetic_spot_angle(self, kind, idx)
 	return CalcOrientation(center, pos)
 end
 
--- Spawn placement uses the same computed siding as HubRestoreParkedTrains.
--- Read it directly: an entity/native spot lookup is not proof of the final
--- spawned object's position (owner's live counterexample, brief 15).
-function Floor.HubSpawnLocation(hub, idx)
-	return synthetic_spot_pos(hub, "Spawn", idx), synthetic_spot_angle(hub, "Spawn", idx)
-end
-
 -- Does the body carry its own connector spots? Decided once per entity from
 -- connector 1; a body carries either the whole set or none of it.
 local body_has_spots = {}
