@@ -13,6 +13,7 @@ DefineClass.SMROptInElevatorDepotDev = {
 	construction_cost_MachineParts = 1000,
 	is_tall = true,
 	dome_forbidden = true,
+	upgrade1_icon = "UI/IconsRemaster/Upgrades/expanded_warehousing_02.png",
 	use_demolished_state = true,
 	display_name = T(--[[ModItemBuildingTemplate SMROptInElevatorDepotDev display_name]] "Elevator Depot (dev)"),
 	display_name_twolines = T(--[[ModItemBuildingTemplate SMROptInElevatorDepotDev display_name_twolines]] "Elevator Depot"),
