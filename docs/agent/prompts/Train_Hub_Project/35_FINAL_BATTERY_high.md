@@ -23,8 +23,8 @@ has parked or cut it; the report names the released fix-pack version tested.
 - The crossing verdicts on brief `33`'s witness.
 - OI-38's last step on `docs/PLAYTEST_CHECKLIST.md`: the scripted up-leg read (the train
   stream, then the up-leg read with an Export row; slot numbers from the current `80_AgentSlots.lua`), on the final up-leg loading.
-- Auto-fill (spec §4.8 ruling 10, grep `enters at the joining station`): a station joining a hub
-  route gets a train that enters at that station, not at the hub. Watch it once.
+- No train ever appears in the hub (spec §4.8 ruling 10, grep `no train ever`): brief 34b cut
+  auto-fill and made the hub refuse add-train. Trains are added at a station. Check it once.
 - **Movement is finished** (owner, 2026-09-21). It may reopen once, here, if the owner wants moves
   tweaked; that goes to `Parked/TRAIN_HUB_MOVE_high.md`, never as a gate.
 

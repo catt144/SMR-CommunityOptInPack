@@ -64,22 +64,19 @@ before it fires.
      `claude-opus-5-5`). Closed briefs are in this folder's
      `README.md`; their rulings are spec §4.7 and §11's last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
      **Next, in order** (every remaining brief is authored; the owner tests and fires):
-     1. **`33` closed 2026-10-02** (attended check 2 PASS, `c3ba72a`; both crossings proved net,
-        log `Mars.exe-20261002-15.30.19`). Its finding, a one-unit food gain on a hub unload
-        (report grep `appears from nothing`), is routed to `34b` as Fix 3 (owner).
-     2. **`34`, the move into this mod**: checkpoint answered (OI-41, 2026-10-02; spec §10 grep
-        `Brief 34's checkpoint`); preflight widened (`5aa529d`). Player text approved 2026-10-02
-        (rewritten to vanilla build-menu style; the words are in brief 34). Code may move now (33 closed).
-     2b. **`34b`, three owner fixes (2026-10-02)**: Export rows take only stock above a storage's
-        Desired Amount (spec §4.8 grep `Export takes only the excess`), and auto-fill's train enters
-        at the joining station, not the hub (grep `enters at the joining station`), and brief 33's
-        one-unit food gain on unload (Fix 3). Phase 1 (plan)
-        may fire now; phase 2 lands after 34 closes.
-     2c. **`34c`, SMR-Assets cleanup** (owner, 2026-10-02): failed and retired models out, a few
-        owner-picked checkpoints kept; its keep list needs the owner's approval before deletions.
-        After 34; may run beside 34b.
-     3. **`35`, the final full battery**, after 34, 34b and 34c; it carries OI-38's up-leg read and
-        auto-fill's watch (the train enters at the joining station). Its pass completes the project: purge this folder.
+     1. **`33` and `34` closed 2026-10-02.** 33: both crossings proved (`c3ba72a`). 34: the station
+        rows, the hub and the depot ship from this mod as three modules (D16-D18), owner's in-game
+        check PASS (`bb82702`). The player-text rule is in `FIX_POLICY` §8.
+     2. **`34b`, phase 2** (plan `TRAIN_34B_PLAN_20261002.md`): Export rows take only stock above a
+        storage's Desired Amount; auto-fill cut and the hub refuses add-train (no train ever in the
+        hub); Fix 3, the one-unit food gain on unload: fix at the source if ours, else a full bug
+        report for the fix pack and no clamp.
+     3. **`34c`, SMR-Assets cleanup**, beside 34b; its keep list needs the owner's approval before
+        any deletion.
+     4. **`35`, the final full battery**, after 34b and 34c; it carries OI-38's up-leg read and the
+        check that no train appears in the hub. Its pass completes the project: purge this folder.
+     **Owner's open item:** OI-42 (launch), the store description's train sentence: draft now or
+     at launch prep.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01).
    - **Standing constraints:**

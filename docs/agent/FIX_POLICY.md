@@ -495,3 +495,7 @@ module's own maps.
   Record which released fix-pack version was tested.
 - Treat the two mods as separate products: each has its own metadata, preview image, description,
   portal pass and console certification.
+- Player text (build-menu descriptions, Mod Options help, infopanel lines) matches vanilla's
+  build-menu tone and length: one or two sentences, the role first, keywords in the game's
+  highlight markup, no numbers the tooltip already shows (owner, 2026-10-02: *"It should match the
+  tone / style / and general length of in game build menu descriptions"*).
