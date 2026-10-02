@@ -222,7 +222,7 @@ Log `Mars.exe-20261002-10.43.08-6aba6e65.log`, read on each "flushed"; "LUA ERRO
 - **A, Export 20% hubless: PASS on the log.** Slot 4 on StationBig 9702: `hub=none mode=export
   percent=20 capacity=240000 stock=192000 target=48000`. Slot 5's first watch was disarmed by an
   autosave (`reason=SaveGameStart`); at its re-press the stock stood at `before=48059`, the floor
-  within one unit, 144 Metals carried off by trains. The owner's word on the row's look is asked.
+  within one unit, 144 Metals carried off by trains. The look passed in the owner's word (below).
 - **B, Import 50% hubless: PASS on the log.** Supplier StationSmall 10531 at Export 0%, stock 96000
   of 120000. Slot 5 on 9702: `before=44059` to `stock=119059 target=120000 supply_desired=0`,
   `verdict=target_sampled`.
@@ -235,3 +235,5 @@ Log `Mars.exe-20261002-10.43.08-6aba6e65.log`, read on each "flushed"; "LUA ERRO
   while batch A's re-armed run was still live; it cleared only when the owner unpaused and the old
   watch fired `verdict=row_changed`. Slot 5 then refused once with `reason="pause first"` and armed
   on the next press. A slot that cancels its own stale run, or says how, would save the owner this.
+- **The look: PASS.** Asked whether the rows and tooltips looked right underground and on the hub's
+  surface station, the owner: *"Yes"*.
