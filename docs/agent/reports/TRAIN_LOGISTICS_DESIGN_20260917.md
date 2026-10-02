@@ -4271,5 +4271,14 @@ pending. The twinless rest, need-based loading, 250/500 capacity upgrade and nat
 are recorded in `reports/ELEVATOR_DEPOT_REVISION_20261002.md`, including the preloaded next sitting.
 **Owner ask, 2026-10-02: the depot's icon.** With a screenshot of the build menu's Elevator Depot
 (dev) tile: *"we need to get its icon to match its own icon in the build menu"*. The tile shows a
-pale concept render, not the depot as built and painted (brief 28). Not yet briefed; it touches the
-depot template, which brief `30`'s upgrade also edits, so it follows 30.
+pale concept render, not the depot as built and painted (brief 28). Brief `32` (2026-10-02, one
+session, claude-fable-5-1) rendered it the hub's way (assets `elevatorstation/icon/`: `render_icon.py`
+runs brief 28's painted scene up to its render loop, then an orthographic camera on a transparent film
+with the ground a holdout; `compose_icon.py` is the hub's compositor, 232 × 100, two cells, halo).
+Three variants: A from the mouth's side at 36° (mouth in front, pit and pads behind), B the owner's
+designpass_01 bearing from behind the core, C the mouth's side at 50°. **A is installed** as
+`tools/devmods/elevator_station/UI/SMROptInElevatorDepot_icon.png`, awaiting the owner's eye
+(`sheet.png` beside vanilla's station and the hub's icon) and their Mod Editor save of the template's
+`display_icon` to `Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png`, since a
+hand edit of `Data/` alone does not reach the game (the hub's finding above). The infopanel takes the
+same field. Not passed by the owner yet.
