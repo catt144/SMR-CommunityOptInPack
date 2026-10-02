@@ -470,3 +470,9 @@ is the sitting's step 0, below, and the generated-file check after it is
 Elevator Depot → save, change nothing → quit; the agent runs the grep above, then the owner
 restarts. P1 as written in the run-B section above, with the pads painted at the dress
 (`palette=` 3 or more in the dressed log line). P1b, P2 as written. Batches P3-P5 follow.
+
+The owner's version-14 save (step 0, the same evening) regenerated the class file: the three cost
+lines are in it, `instant_build` is gone, and the editor also dropped `build_points` from both the
+Data source and the output because 10000 is the property's default
+(`Src/Lua/Buildings/Constructable.lua:18` on 1.1.1.406343, `default = 10000`). The approved cost is
+live as written; committed as the commit after `9de0103`.

@@ -9,7 +9,6 @@ PlaceObj('ModItemBuildingTemplate', {
 	'construction_cost_Concrete', 5000,
 	'construction_cost_Metals', 2000,
 	'construction_cost_MachineParts', 1000,
-	'build_points', 10000,
 	'is_tall', true,
 	'dome_forbidden', true,
 	'use_demolished_state', true,
