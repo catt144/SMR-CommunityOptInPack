@@ -4248,3 +4248,16 @@ for; **preferably**, the 42 goes to the lowest-stocked rows at the destination f
 whether the up leg follows the same rule (Export rows, the surface half's room and stock), the
 owner: *"Yes"*. **Both legs.** Brief `30`'s
 next run builds it with the twinless cabin's rest.
+⚖️ **Owner ruling, 2026-10-02: the cabin is bigger and has its own upgrade.** The owner: *"the cabin
+is a massive elevator on a guide wire, I think its capacity should reflect that, and it will also
+never be able to keep up with someone using our hub upgrades and a busy system. I watched atleast 3
+trains make it to the elevator in two hours"* (fully upgraded trains carry 147, §4.10's sitting
+reads, grep `147000 / 1875`). Asked for a starting size: *"I want to give the elevator its own
+upgrades. Maybe we start with a base size of 250. And then we have have an upgrade that allows for
+500."* So: **`cabin_capacity` 250 per leg at base; an Elevator Depot upgrade of its own raises it to
+500.** The 42 (one base train) is retired. The upgrade's cost and slot are not yet ruled.
+**Owner observation, same day: a depot cannot get a train onto its own line.** *"if it is directly
+attached to the hub, it has no way of putting its on station on a line. It behaves like a station in
+most ways but both sides have no way of building a train, or putting a train on its own line."*
+Vanilla stations carry the train buttons (the Large Train Station's panel shows two); the depot
+halves' panels show none. Open; the owner has a further angle to discuss before it is briefed.
