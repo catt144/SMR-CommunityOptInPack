@@ -34,10 +34,13 @@ Write a short proposal for the orchestrator to put to the owner, and wait for th
   `SMROptInElevatorDepotDev`, `SMROptInTrainHub6`) and every persisted field are save contract once
   shipped (ban 1). The owner's own playtest saves use the dev names: propose keep or rename, with
   what each costs those saves. This is the owner's call.
+  Include the historical one the audit found (`TRAIN_AUDIT_20261002.md` §1): `bfd748c` replaced
+  `SMROptInElevatorStationDev` with `SMROptInElevatorDepotDev`; whether a retained save holds the
+  old name is unverified.
 
 ## What is known (claims; one check each)
 
-- The audit report from brief `31` (`docs/agent/reports/TRAIN_AUDIT_*.md`) lists the persisted
+- The audit report from brief `31` (`docs/agent/reports/TRAIN_AUDIT_20261002.md`, at `ba357e2`) lists the persisted
   names, the spec-against-code gaps and what the battery must carry. Fold its findings into this
   move or name the ones you leave, with reasons.
 - The dev mods' ids are `SMR_TrainHubDev_20260918` and `SMR_ElevatorStationDev_20260929` (the

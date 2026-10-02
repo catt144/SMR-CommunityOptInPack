@@ -70,10 +70,11 @@ before it fires.
      Brief `30` passed live 2026-10-02 and was deleted (spec §4.7 and §11's last block):
      1. **`32`, the depot's icon**, is live: variant A chosen (OI-40); the owner's editor save and
         glance remain.
-     2. **`31`, the audit**, and **`33`, the TestKit crossing witness**, may fire now; the owner
-        picks the audit's model. Hand the audit 30's papercuts: slots 1/4 refuse while trains hold
-        reservations; `cargo_slots_smoke.py` and `distribution_slots_smoke.py` fail at `000b498`.
-     3. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), after 31-32;
+     2. **`31`, the audit, closed 2026-10-02** (report `TRAIN_AUDIT_20261002.md`, `ba357e2`; brief
+        deleted). Its findings ride `33` (the two failing slot smokes, the reservation papercut),
+        `34` (the save-name inventory and the historical depot class name, at its checkpoint; the
+        spec drift) and `35` (§2's in-game checks). **`33`, the crossing witness**, may fire now.
+     3. **`34`, the move into this mod** ("remove its dev tags", OI-18's preflight), after 32;
         its owner checkpoint (module list, save names) comes first.
      4. **`35`, the final full battery**, after 33-34; it carries OI-38's up-leg read and the
         spawn-on-siding watch. Its pass completes the project: purge this folder.

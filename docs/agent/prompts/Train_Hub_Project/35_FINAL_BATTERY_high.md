@@ -19,7 +19,7 @@ has parked or cut it; the report names the released fix-pack version tested.
 - Each module's predictions from its spec sections (§4.7-§4.10, §10, §11) and its build reports,
   restated for the shipping layout from brief `34`. Treat predictions written before 2026-09-28 as
   possibly stale: re-derive them.
-- Every in-game check the audit (`docs/agent/reports/TRAIN_AUDIT_*.md`) says the smokes miss.
+- Every in-game check the audit (`docs/agent/reports/TRAIN_AUDIT_20261002.md` §2) says the smokes miss.
 - The crossing verdicts on brief `33`'s witness.
 - OI-38's last step on `docs/PLAYTEST_CHECKLIST.md`: the scripted up-leg read (slot 6, the train
   stream, then slot 2 with an Export row), on the final up-leg loading.

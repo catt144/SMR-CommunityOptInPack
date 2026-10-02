@@ -25,6 +25,16 @@ it can fail and pass, and a short attended check passes.
   crossing verdict must prove now (the hub's route-to-route cargo, the depot's cross-map cargo, or
   both), from the spec and the audit report if brief `31` has finished, and record the call.
 
+## Also carried (the audit, `docs/agent/reports/TRAIN_AUDIT_20261002.md` §7)
+
+- `tools/devmods/train_hub/tests/cargo_slots_smoke.py` and `distribution_slots_smoke.py` exit 1
+  at `000b498` ("attempt to index a boolean value"): they expect an earlier sitting's installed
+  `80_AgentSlots.lua`. Make the slot smokes independent of whichever sitting's slots are
+  installed, or point them at their staged files; the battery needs every smoke green.
+- Brief 30's papercut: the depot's fixture slots 1/4 refuse while the line's trains hold
+  reservations (the owner switched an underground station off to run them). Give the battery's
+  fixture slots a way through that does not need the owner to edit the colony.
+
 ## Scope and method
 
 In: the witness and its slots. Out: hub, depot and station-row code. `git log --oneline -5` and
