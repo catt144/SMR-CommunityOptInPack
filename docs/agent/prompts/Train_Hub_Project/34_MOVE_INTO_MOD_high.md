@@ -61,8 +61,8 @@ Write a short proposal for the orchestrator to put to the owner, and wait for th
 
 In: the move, the module split, player-facing text, the preflight widening, the records. Out:
 behaviour changes (none are ruled; report any you find), movement, loading policy. `git log
---oneline -5` and `git pull` first; authored at `58ebf7e`+. Use the todo tool before any write, one
-item per commit-and-verify unit. Ban 2: no `SMRFixPack` executable references; the framework is
+--oneline -5` and `git pull` first; authored at `58ebf7e`+. Keep a work list, one
+item per commit-and-verify unit (the todo tool if the session has one, else in the report). Ban 2: no `SMRFixPack` executable references; the framework is
 `SMROptInPack`. Write the owner's Mod Editor steps where a save is needed. References: `CLAUDE.md`,
 `docs/agent/WORKFLOW.md`, `docs/agent/FIX_POLICY.md`; skills `doc-editing`, `smr-bug-library`.
 

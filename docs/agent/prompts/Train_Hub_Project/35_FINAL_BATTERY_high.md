@@ -30,8 +30,8 @@ has parked or cut it; the report names the released fix-pack version tested.
 
 ## Method
 
-`git log --oneline -5` and `git pull` first; authored at `58ebf7e`+. Use the todo tool before any
-write. Preload SMRTK slots (`tools/SMRTK.md`): the owner clicks, they do not type, and each
+`git log --oneline -5` and `git pull` first; authored at `58ebf7e`+. Keep a work list (the todo
+tool if the session has one, else in the report). Preload SMRTK slots (`tools/SMRTK.md`): the owner clicks, they do not type, and each
 hand-typed console line needs a stated reason no slot covers it. About five steps a batch,
 predictions beside each, hubs named by role. Slot bindings change each sitting: read the current
 `80_AgentSlots.lua`. An autosave disarms a watch, and the owner re-presses the slot. The orchestrator guides the owner and

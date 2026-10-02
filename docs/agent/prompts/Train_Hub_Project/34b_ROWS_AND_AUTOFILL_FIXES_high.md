@@ -87,7 +87,8 @@ in the commit message. The owner checks the results by eye at the smoke.
 
 ## Work list and start
 
-Use the todo tool before any write: one item per commit-and-verify unit, one in progress.
+Keep a work list, one item per commit-and-verify unit, one in progress: in the todo tool if the
+session has one, otherwise in the report.
 
 1. Run `git log --oneline -5` and `git pull`. This brief was authored after `9cff16d`.
 2. **Phase 1, now:** investigate both fixes on the dev copies (`tools/devmods/train_hub/`) and the

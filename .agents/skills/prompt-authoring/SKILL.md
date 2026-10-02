@@ -28,8 +28,9 @@ repeating them.
   reopening it; state the end state and completion evidence.
 - Judgment: delegate choices within that authority. Record calls in the
   commit message instead of asking the owner what the worker can decide.
-- Live work list: require the todo tool before any write, one item per
-  commit-and-verify unit, one in progress, updated as units land.
+- Live work list: one item per commit-and-verify unit, one in progress,
+  updated as units land; in the session's todo tool if it has one, otherwise
+  in the report.
 - Starting state: authoring SHA and startup `git log` / `git pull`.
 - Evidence: include facts the worker would otherwise re-derive, each with
   its measurement method and a falsifying command. Point to
