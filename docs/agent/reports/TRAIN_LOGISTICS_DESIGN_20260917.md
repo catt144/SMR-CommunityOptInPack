@@ -4281,4 +4281,5 @@ designpass_01 bearing from behind the core, C the mouth's side at 50°. **A is i
 (`sheet.png` beside vanilla's station and the hub's icon) and their Mod Editor save of the template's
 `display_icon` to `Mod/SMR_ElevatorStationDev_20260929/UI/SMROptInElevatorDepot_icon.png`, since a
 hand edit of `Data/` alone does not reach the game (the hub's finding above). The infopanel takes the
-same field. Not passed by the owner yet.
+same field. **A passed by eye (owner, 2026-10-02, pointing at the sheet's A row: *"this one"*);** the
+editor save and the in-game glance are OI-40.
