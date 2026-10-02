@@ -237,3 +237,20 @@ Log `Mars.exe-20261002-10.43.08-6aba6e65.log`, read on each "flushed"; "LUA ERRO
   on the next press. A slot that cancels its own stale run, or says how, would save the owner this.
 - **The look: PASS.** Asked whether the rows and tooltips looked right underground and on the hub's
   surface station, the owner: *"Yes"*.
+
+## Sitting, batch C (same log, read on "flushed"; "LUA ERROR" count 0)
+
+- **C1-C2, "No surface twin": PASS.** Owner's screenshot: the tooltip leads with the exact sentence
+  on the surviving underground half's Metals row. Log: `half gone: surface 9036 survivor 9041`,
+  `no pair: surface none underground 9041`; slot 3 `twin=none flow=plain working=true`; Scratch
+  `underground_panel="no pair"`.
+- **DEFECT (open): the cabin keeps moving with no twin.** Owner: *"So we get the message now, but
+  the cabine continues to move up and down."* The log logs no leg after `no pair` (`pair
+  surface=none underground=9041 ... cabin=none legs=0`), so the cargo logic is idle as designed
+  while the cabin's art keeps cycling, against the notice's own "the cabin is idle".
+- **C3-C4, the new surface adopts the copy (OI-38 E5's rest): PASS.** `pair formed: surface 10915
+  underground 9041 rows ...` with the same rows; slot 6 `verdict=departed`; Scratch
+  `underground_panel=matches copy=current`. The owner: *"everything else worked as expected"*.
+- **C5, "No underground twin": PASS on the owner's word.** The log holds no `half gone:
+  underground` line before the closing Load A, so the salvage may not have completed in game time;
+  the desk smoke covers this branch (`wiring_smoke.py`).
