@@ -302,6 +302,7 @@ local function row_for(o, res)
   function r:SetRolloverOnFocus(v) self.focus=v end
   function r:SetRolloverHint(t) self.hint=t end
   function r:SetRolloverHintGamepad(t) self.pad=t end
+  function r:SetRolloverText(t) self.rollover=t end
   function r:OnActivate() self.activated=true end
   return r
 end
@@ -309,6 +310,16 @@ assert(D.State(S,'Metals')=='to_underground')
 local sr, ur = row_for(S,'Metals'), row_for(U,'Metals')
 sr:OnContextUpdate(sr.context); ur:OnContextUpdate(ur.context)
 assert(sr.updated==1 and ur.updated==1, 'vanilla row update ran first')
+assert(sr.rollover==D.RowText(S,'Metals') and ur.rollover==D.RowText(U,'Metals'), 'both actual controls receive their current tooltip')
+-- The displayed control, not just the object method: missing twins on either
+-- map, then re-pairing on an already-open row. This is presentation only.
+S.destroyed=true; D.InvalidatePair(); ur:OnContextUpdate(ur.context)
+assert(ur.rollover:find('^No surface twin:') and ur.rollover:find('setting is kept for the next surface depot',1,true))
+S.destroyed=false; U.destroyed=true; D.InvalidatePair(); sr:OnContextUpdate(sr.context)
+assert(sr.rollover:find('^No underground twin:'))
+U.destroyed=false; D.InvalidatePair()
+sr:OnContextUpdate(sr.context); ur:OnContextUpdate(ur.context)
+assert(not sr.rollover:find('No underground twin',1,true) and not ur.rollover:find('No surface twin',1,true))
 assert(sr.title[1]=='<resource(res)> · Import' and sr.title[2]==sr.context, 'surface title: the hub string, verbatim shape')
 assert(sr.hint=='<left_click> Not accepted' and sr.pad=='<ButtonA> Not accepted', 'surface hint: the next word, as the hub')
 local sl = sr.depot_slider
@@ -487,18 +498,15 @@ local wrapped = scaler.AdjustConstrainedScale; OnMsg.DialogOpen(dlg2); assert(sc
 local other = {kinds={XSizeConstrainedWindow=true}}; other.AdjustConstrainedScale = function(self, x, y) return x, y end
 OnMsg.DialogOpen({kinds={ipBuilding=true}, context={kinds={}}, other}); assert(not other.depot_scale, 'a non-depot panel is untouched')
 ''')
-# 10b long titles: the hub's own fit_title (45_TrainDistributionUI.lua, read-only) run with the engine's
-# integer division (EF-116: int/int truncates, emulated as //), against the depot's, on the same mock
-# titles; then both boxes scaled to pixels the way XWindow does (ScaleXY per value, truncating). The
-# depot's box must hold two lines and the widest word at every scale; the hub's floor loses at some
-# scales (sitting E: the depot panel at its larger scale shortened the title, the hub's at 1000 wrapped).
+# 10b: both title helpers now use the same integer ceiling and slack (b551930).
+# Check both with engine integer arithmetic and native per-value pixel scaling.
 HUB_UI = ROOT / 'tools/devmods/train_hub/Code/45_TrainDistributionUI.lua'
 hub_text = HUB_UI.read_text(encoding='utf-8')
-start = hub_text.index('local function fit_title(title)')
-end = hub_text.index('\nend\n', start) + len('\nend\n')
+start = hub_text.index('local FIT_SLACK = 2')
+end = hub_text.index('\nend\n', hub_text.index('local function fit_title(title)', start)) + len('\nend\n')
 hub_fit = hub_text[start:end].replace('local function fit_title(title)', 'hub_fit_title = function(title)')
-assert hub_fit.count(' / ') == 2, 'the hub fit_title has two divisions'
-lua.execute(hub_fit.replace(' / ', ' // '))
+assert ' / ' not in hub_fit, 'the hub title fit uses integer helpers'
+lua.execute(hub_fit)
 lua.execute(r"""
 local D = SMRElevatorDepotDev
 local PAD = 3
@@ -540,8 +548,8 @@ fit_cases, hub_short_cases, hub_1000 = n, hub_short, hub_1000_ok
 """)
 assert lua.eval('fit_cases') == 116
 assert lua.eval('hub_1000'), "the hub's box fits at scale 1000, as the hub station showed"
-assert lua.eval('hub_short_cases') > 0, "the hub's floored box must fall short at some scale (the defect being fixed)"
-print('fit_title: depot fits at every scale 800..2200; hub floor short in', lua.eval('hub_short_cases'), 'of', lua.eval('fit_cases'), 'cases')
+assert lua.eval('hub_short_cases') == 0, 'the repaired hub title fit must hold at every sampled scale'
+print('fit_title: depot and hub fit in all', lua.eval('fit_cases'), 'cases across scale 800..2200')
 
 # 11 the staged sitting slots run against the same world (the kit itself is mocked)
 SLOTS = ROOT / 'tools/devmods/elevator_station/tests/80_AgentSlots_depot.lua.txt'
@@ -598,4 +606,4 @@ head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True
 print(f'wiring_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')
 print('Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the '
       'read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, '
-      'half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, the staged slots, fit_title holds two lines at every scale (the hub floor does not); no bare /.')
+      'half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, both actual twinless row tooltips, the staged slots, both title helpers hold two lines at every scale; no bare /.')

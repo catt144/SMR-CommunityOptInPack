@@ -1115,20 +1115,21 @@ function D.RowText(o, res)
 	local text
 	if ug then
 		text = lead .. " (set on the surface Elevator Depot). " .. underground_says[state]
-		if not D.TwinOf(o) then
-			text = text .. "<newline><newline>No surface twin: the cabin is idle and this half works as a plain station; the setting is kept for the next surface depot."
-		end
 		text = text .. "<newline><newline>Read-only here: to change it, use the surface Elevator Depot."
 	else
 		text = string.format("%s: %s<newline>The underground half shows the same word, read-only.<newline>Vanilla elevator's word: %s.",
 			lead, surface_help[word_of(state)], state_titles[state])
-		if not D.TwinOf(o) then
-			text = text .. "<newline><newline>No underground twin: the cabin is idle and this half works as a plain station."
-		end
 		-- the hub's slider line (45_TrainDistributionUI.lua:101-102); the amount via MulDivRound, not a bare /
 		local percent = D.Target(o, res)
 		text = text .. "<newline><newline>Slider: " .. tostring(percent) .. "% of current capacity ("
 			.. tostring(MulDivRound(MulDivRound(o:GetMaxStorage(res), percent, 100), 1, const.ResourceScale)) .. ")."
+	end
+	-- Brief 30: lead with the missing-twin state, before the longer flow help.
+	-- Both halves retain their settings and plain-station behavior unchanged.
+	if not D.TwinOf(o) then
+		local missing = ug and "No surface twin: the cabin is idle and this half works as a plain station; the setting is kept for the next surface depot."
+			or "No underground twin: the cabin is idle and this half works as a plain station."
+		text = missing .. "<newline><newline>" .. text
 	end
 	return text .. "<newline><newline>Drone Access: " .. (rawget(o, DRONES) and "on" or "off") .. "."
 end
@@ -1227,6 +1228,10 @@ end
 function D.DecorateRow(row, context)
 	local o, res = context[1], context.res
 	local word = D.RowWord(o, res)
+	-- Publish the current text on the actual control. The vanilla row stores a
+	-- translated <ResourceRolloverText(res)> formatter; a direct method read
+	-- alone did not witness what the owner's tooltip displayed (OI-38 E5).
+	row:SetRolloverText(Untranslated(D.RowText(o, res)))
 	if is_underground(o) then
 		row:SetTitle(T{Untranslated("<resource(res)> · " .. word_titles[word]), context})
 		row:SetRolloverOnFocus(false)

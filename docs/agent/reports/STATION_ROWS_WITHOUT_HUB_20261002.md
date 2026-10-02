@@ -1,8 +1,8 @@
 # Station rows without a hub — brief 30, 2026-10-02
 
 **Built; attended smoke NOT RUN.** This is the design pass authorized by the owner's
-2026-10-02 ruling in the train spec §4.7. The depot infotip and the sitting are recorded
-below as their units land. Brief 30 stays live until the owner passes the sitting.
+2026-10-02 ruling in the train spec §4.7. Station build: `3ff3ae4`. The depot infotip
+repair is desk-checked below. Brief 30 stays live until the owner passes the sitting.
 
 Started at `ea6d43fb93ea2bf669be564229c414c713476455`; `git log --oneline -5` and
 `git pull` ran first (already current). Executed model: Codex (GPT-6 per session
@@ -90,3 +90,27 @@ found the game closed before Code writes. TestKit has unrelated working changes 
 NOT RUN. The owner must see the hubless row draw and act, and the repaired twinless
 infotip in game. OI-38's replacement-surface-depot adoption check remains owed. The
 full shipping battery and shipping split are outside this design pass.
+
+## Depot twinless infotip repair
+
+SOURCE: the existing `D.RowText` already contained both missing-twin sentences, and
+the existing row decorator did not set the actual control's rollover text. Vanilla's
+compiled `sectionStorageRow` stores the translated `<ResourceRolloverText(res)>`
+formatter (`Lua/XDef/sectionStorageRow.generated.lua:8`, archived 1.1.1.406343).
+The old desk witness read the object's method, not the row control.
+
+The decorator now writes the current `D.RowText` directly to each resource row's
+`RolloverText`, on both maps. Missing-twin text leads the tooltip, before the longer
+flow explanation. Refreshing the row after re-pairing removes that notice. Pairing,
+settings adoption, storage and plain-station behavior are unchanged. This repairs
+the presentation path; the exact cause of the owner's missing display is **not
+isolated live**, and the in-game tooltip remains the acceptance check.
+
+`python tools/devmods/elevator_station/tests/wiring_smoke.py` PASS at `3ff3ae4` plus
+this working change (2026-10-02). It now checks the actual decorated controls for
+both missing twins and their refreshed paired state, alongside its existing pairing,
+demolition and adoption checks. The brief's known stale title test was updated: it
+now loads the hub's current integer-ceiling helper and requires both title helpers
+to fit, instead of expecting the hub's already-repaired rounding defect.
+
+OI-38 E5's in-game new-surface adoption remains NOT RUN. No new persisted field.
