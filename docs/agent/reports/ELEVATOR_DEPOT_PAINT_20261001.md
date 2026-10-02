@@ -531,3 +531,18 @@ changed here. `props_smoke.py` gained a cursor section (a mock cursor: two attac
 scale 75, painted with the mocked colours 11..44, unselectable and never saved; a foreign cursor
 and a template-less one untouched; `cabin_on` off leaves one attach): PASS. The wiring smoke's §10b
 stands as 29's. The owner reloads the mod (restart) and checks the build cursor; the game decides.
+
+### The sitting, batch 2 (2026-10-01, log `Mars.exe-20261001-21.26.18-6aba6e65.log`, 636 lines, 0 Lua errors)
+
+- **The cursor, after the restart**: the owner: *"Looks correct now"*; the log's line 310:
+  `cursor dressed elevator=true cabin=true scale=75 palette=2`. The build-mode preview carries
+  the elevator and the cabin in the colony's colours. The finding is closed by the owner's words.
+- **`Measure()` underground, its native reading** (brief 26's carried item, lines 439-450): the
+  census completed with no nil-Z error; camera eye 26421 cm over the ground; vanilla's
+  `ElevatorUnderground` shaft top 12861 cm over its base; the ceiling pieces in range top out at
+  `Cliff_01` 13896 cm, `Rocks_01` 13158 cm, `Rocks_03` 7514 cm; our rope tiles `pos 0..22500 cm`
+  (the 300 m rope), `elevators on this map 1`. Settled: the repair of `493f518` holds natively.
+- **`receiver_z`**: the owner tried `-250` (line 602) and `-350` (608); each redressed both halves
+  (`palette=2` surface, `palette=7` underground, lines 604-611). Owed: the owner's word on which
+  of -250, -300 (the default) or -350 puts the cabin's underside on the landing.
+- **The core's frame**: owed, the owner's ruling in words.
