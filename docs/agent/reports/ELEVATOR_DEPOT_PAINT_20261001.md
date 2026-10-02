@@ -492,3 +492,13 @@ live as written; committed as the commit after `9de0103`.
   `MATCH`, the underground panel's 19 rows match the surface.
 - Owed in the owner's words: step 3 (the painted shell by day, beside the vanilla elevator), step 4
   (the scheme change), step 5 (night).
+- **Steps 3-5, the owner's words** (2026-10-01 evening): on the painted shell by day and at night,
+  *"Looks good day and night"*. Retail exposes no scheme picker (the scheme is the sponsor's at new
+  game, `Lua/ColonyColorScheme.lua:15-17` on 1.1.1.406343, and nothing in the UI changes it), so
+  step 4 ran by console: `OverrideColonyColorScheme("red_steel")` and others; the owner: *"all look
+  good but we can stick with the blue one you had originally I think"*. The scheme change reached
+  the depot with the elevator; the owner keeps their sponsor's blue. Correction given to the owner:
+  `"default"` is itself a preset id (`Data/ColonyColorScheme.lua:395`), so the clearing line is
+  `OverrideColonyColorScheme(false)` (`:10-13`, `g_OverrideCCS` is a GameVar and would persist in
+  a save). Batch 1 closes on the owner's words; the game's day and night answers are theirs, no
+  screenshot taken. Next: batch 2, underground (P3-P5).
