@@ -35,6 +35,14 @@ transit lowers the carried amount but not the booked one, and the unload hands o
 amount. Station spoilage is this project's own code (`60_StationSpoilage.lua`, which ships with the
 hub). Find the cause; if it is ours and the fix is simple, fix it so an unload never adds more than
 the train gave up. If it is vanilla or the fix is not simple, report the options instead.
+**Owner ruling on Fix 3, 2026-10-02** (after the phase-1 plan at `bb736af`): find the writer first
+(the log-only trap). **If the cause is ours, fix it at the source.** **If it is vanilla, add no
+clamp here** (the station-rows rule against writing the cargo ledger stands) and **write a full
+bug report the owner can send to the Relaunched Fix Pack**: the defect in one line; build id;
+how to reproduce it; the log lines (with file name) and trap output that prove it; the vanilla
+source lines with the build they were read on; whether it reproduces with this mod's modules off
+(or that this was not tested); impact; and a candidate fix. Put it in `docs/agent/reports/`; the
+owner carries it over. Either way, the report says what the cause is.
 
 Outcome:
 
@@ -45,7 +53,8 @@ Outcome:
   station. The hub stays a pass-through. Trains that already exist and pass through the hub move as
   before (movement is finished, owner 2026-09-21).
 
-- **Fix 3:** an unload adds to the station exactly what left the train, or a report says why not.
+- **Fix 3:** the cause is named. If ours, an unload adds to the station exactly what left the
+  train. If vanilla, a full bug report for the fix pack exists and nothing here clamps.
 
 Done when all three are committed with desk checks, a preloaded smoke covers both, and the owner has
 run it and seen each one.
