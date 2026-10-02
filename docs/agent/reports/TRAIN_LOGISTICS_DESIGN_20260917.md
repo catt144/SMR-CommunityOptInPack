@@ -4255,7 +4255,8 @@ trains make it to the elevator in two hours"* (fully upgraded trains carry 147, 
 reads, grep `147000 / 1875`). Asked for a starting size: *"I want to give the elevator its own
 upgrades. Maybe we start with a base size of 250. And then we have have an upgrade that allows for
 500."* So: **`cabin_capacity` 250 per leg at base; an Elevator Depot upgrade of its own raises it to
-500.** The 42 (one base train) is retired. The upgrade's cost and slot are not yet ruled.
+500.** The 42 (one base train) is retired. **The upgrade costs 10 Metals and 10 Concrete** (owner, same
+day: *"we will do 10 metal / 10 concrete"*); its slot is the builder's.
 **Same day, the storage follows:** *"I think we need to increase the base capacity for each ends
 storage to 250. And also in the cabin capacity upgrade its getting, it should give each ends storage
 capacity an upgrade to hold 500"*. So each half's storage, the per-resource figure its rows show
@@ -4265,4 +4266,4 @@ both ends together.
 attached to the hub, it has no way of putting its on station on a line. It behaves like a station in
 most ways but both sides have no way of building a train, or putting a train on its own line."*
 Vanilla stations carry the train buttons (the Large Train Station's panel shows two); the depot
-halves' panels show none. Open; the owner has a further angle to discuss before it is briefed.
+halves' panels show none. Open; brief `30`'s next run gives both halves a vanilla station's train buttons.
