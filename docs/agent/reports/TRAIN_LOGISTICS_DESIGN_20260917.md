@@ -4213,3 +4213,13 @@ agent proposes the numbers for the owner's yes (brief 29).
 (`reports/HUB_TITLE_AND_DEPOT_COST_20261001.md` §2): **5 Concrete, 2 Metals, 1 Machine Parts and
 10000 build points per half**, `instant_build` off, against vanilla's elevator at 10 / 5 / 2. Brief 28
 writes it into the depot template; the next depot Mod Editor save makes it live.
+**Brief 28, the depot's paint pass, PASSED live 2026-10-01** (owner: *"Everything looks good"*;
+report `reports/ELEVATOR_DEPOT_PAINT_20261001.md`, "Close"; brief deleted). The depot's own
+material carries a colourisation mask as vanilla's elevator does, so the colony scheme paints the
+depot, the attached 75 % elevator, cabin, ropes and receiver alike (`e280cda`); the cost is live at
+the version-14 editor save (`9d6fd8c`; `build_points` 10000 is the property default, so the editor
+drops it from source). Day, night and a console scheme change passed; retail has no scheme picker.
+**Owner ruling, same sitting:** the placement cursor was half rendered (portal shell alone); fixed
+under 28 (`6de571d`: the cursor carries the elevator art and the resting cabin, painted).
+`Measure()` underground completes natively. The receiver height (`receiver_z`) and the core's frame
+stay as built (owner).

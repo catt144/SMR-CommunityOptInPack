@@ -6,9 +6,9 @@ decides** (owner, 2026-09-21): park it in `Parked/` if it is kept for possible t
 delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
-`00` is live; `03_Drones/` is closed reference. **`28`, the depot's paint pass, is the live brief.** Brief 27 (the depot's wiring) passed live
-2026-10-01 and was deleted; its report and OI-38 hold what is open. Briefs 22 (hub storage) and 26 (the depot's design pass)
-passed live 2026-10-01: 22 and 26 were deleted (26's open items are in `28`), 25 parked; spec §4.10 and §11 hold the record. Briefs 10, 17 and 21 passed live and were deleted
+`00` is live; `03_Drones/` is closed reference. **No build brief is live.** Briefs 22 (hub storage),
+26 (the depot's design), 27 (its wiring), 28 (its paint pass) and 29 passed live 2026-10-01 and were
+deleted, 25 parked; spec §4.10 and §11, the reports and OI-38 hold the record and what is open. Briefs 10, 17 and 21 passed live and were deleted
 2026-09-29. Only one brief
 that edits `20_TrainHub.lua` runs at a time.
 
@@ -19,7 +19,6 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `28_ELEVATOR_DEPOT_PAINT_high.md` | The Elevator Depot's paint pass to production: finished maps on the depot's own pieces in the train hub's theme, blended with vanilla's 75 % Space Elevator; carries brief 26's open items (receiver height, underground `Measure()`, the core's frame). Its Mod Editor import waits while `27` is live. | **Closed 2026-10-01 on the owner's words ("Everything looks good, And I don't think we need any other changes from your session"); returned to the orchestrator** (run A 2026-10-01: maps built, Assets `c660d60`..`ad93c4f`, dev mod `cffb57a`; the owner: another pass, the depot reads plain beside their blue-banded elevator. Run B 2026-10-01: route A, a colourisation mask marked as vanilla's elevator is, so the colony scheme paints the depot as it paints the elevator; Assets `635022e`..`8b53ab3`, the material source gains `Colorization` and `Colors = 3`; renders in Space_Y and the default scheme; report `reports/ELEVATOR_DEPOT_PAINT_20261001.md` "Run B". With `27` closed, 28 set the template's three palette names in the Data source and the Lua hand that paints the attached elevator, cabin, ropes and receiver with the colony palette (the generated template regenerates at the editor save; `wiring_smoke` PASS against the pre-29 hub file, its §10b is `29`'s). The owner's word on the renders: "pass"; OI-39 closed. The import landed the same evening: both entities on the depot material, `Colorization` compiled, three palette names in the generated template, the hub's carried save and its smoke PASS; report "Run B, the import landed". The sitting the same evening: the cost live at the version-14 save, day and night and a console scheme change passed in the owner's words, the placement cursor fixed under 28 by the owner's ruling (`6de571d`), Measure() underground native, receiver_z and the core's frame left as they are; report "Close") |
 
 ## `Parked/` — do not fire
 

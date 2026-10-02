@@ -57,29 +57,24 @@ before it fires.
      console read is pasted into the TestKit **command box**, not a slot. Name each slot's function
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot 6 streams
      trains with `effective_speed` (TestKit `4a31982`); an autosave disarms it.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-01 evening** (Opus 5.5
-     `claude-opus-5-5`). Passed live 2026-10-01 and deleted: brief `22` (hub storage), `26` (the
-     depot's design, accepted until the paint pass), `27` (the depot's wiring, report
-     `ELEVATOR_DEPOT_WIRING_20261001.md`) and `29` (the hub's title fix `b551930`, desk only; the
-     depot cost, report `HUB_TITLE_AND_DEPOT_COST_20261001.md`). Passengers need no code: vanilla's
-     elevator carries them, train to train (spec §11). The day's owner rulings are the last blocks
-     of spec §10 and §11. Brief `27`'s four persisted names (`SMROptIn_depot_rows`, `_drones`,
-     `_cabin`, `_targets`) go into FIX_POLICY's inventory when the depot ships.
+   - **WHERE THE PROJECT STANDS, orchestrator 2026-10-02** (Opus 5.5 `claude-opus-5-5`). Passed
+     live 2026-10-01 and deleted: briefs `22` (hub storage), `26` (the depot's design), `27` (its
+     wiring, report `ELEVATOR_DEPOT_WIRING_20261001.md`), `28` (its paint pass and placement cursor,
+     report `ELEVATOR_DEPOT_PAINT_20261001.md`) and `29` (the hub's title fix, the depot cost). The
+     depot is final as built (spec §11's last block). No build brief is live. Passengers need no
+     code: vanilla's elevator carries them, train to train. Brief `27`'s four persisted names
+     (`SMROptIn_depot_rows`, `_drones`, `_cabin`, `_targets`) go into FIX_POLICY's inventory when the
+     depot ships.
      **Next, in order:**
-     1. **Brief `28`, the depot's paint pass, is live.** Run B's renders passed (owner) and the
-        owner did the Mod Editor import at 18:39: depot mod version 13, hub mod version 63. The
-        orchestrator's read-only check passed (material `Colorization`/`Colors = 3`, both entities
-        on the new material, five DDS at the predicted sizes, the three palette names generated,
-        the hub's `--require-generated` PASS), but **the saved files are uncommitted**: brief 28
-        commits them, writes the approved depot cost into its template (one more depot editor save
-        from the owner), then runs its sitting (both maps, day and night). The owner fires 28
-        fresh with `task docs/agent/prompts/Train_Hub_Project/28_ELEVATOR_DEPOT_PAINT_high.md`.
-     2. **OI-38** on the owner's list: brief 27's unrun steps and the two title fixes' in-game
-        glance, at the next sitting on the depot's final build.
-     3. **The audit**, below, then **"remove its dev tags"** (owner, 2026-10-01): a brief moving the
-        hub and the Elevator Depot out of their dev mods into this mod as modules, carrying OI-18's
-        widened `tools/upload_preflight.py`. The owner picks the audit's model. Then the final full
-        battery on the shipping layout.
+     1. **OI-38** on the owner's list: brief 27's unrun steps and the title fix's in-game glance,
+        at the next sitting; the depot's final build now exists.
+     2. **The audit**, below; the owner picks its model. Add to it: the depot's
+        `tests/wiring_smoke.py` FAILS at HEAD `c4a2cd2`+ (line 500, `the hub fit_title has two
+        divisions`; `b551930` changed the hub's fit_title, brief 29's §10b left owed);
+        `props_smoke.py` PASSES.
+     3. **"Remove its dev tags"** (owner, 2026-10-01): a brief moving the hub and the Elevator
+        Depot out of their dev mods into this mod as modules, carrying OI-18's widened
+        `tools/upload_preflight.py`. Then the final full battery on the shipping layout.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01). The spawn-on-siding correction has not been seen live; watch the next hub spawn.
      Brief 10's old report predictions were written before ruling 10; treat any report's
