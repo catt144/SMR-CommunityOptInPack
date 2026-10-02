@@ -1,0 +1,600 @@
+-- Sitting-owned: Train Hub build 6, the Capacity Network Upgrade, attended smoke, 2026-09-26.
+-- Brief: OptInPack docs/agent/prompts/Train_Hub_Project/08_TRAIN_HUB_CAPACITY_high.md.
+-- Predictions: OptInPack docs/agent/reports/TRAIN_HUB_CAPACITY_20260926.md, "Predictions".
+-- Mutations only on explicit slot presses: Scratch balances and 1 empties every non-hub
+-- station (owner, 2026-09-28), 2 holds a dust reference on the selected train hub's
+-- reactor for 2 real seconds then restores it (brief 17, 2026-09-28; was the Metals
+-- fill), 3 reads both upgrades, train capacities and nominal speed (read-only). No
+-- automatic arms.
+-- Slot 6 is a read-only on/off stream of every train and station change (owner, 2026-09-28).
+-- The full-hub refusal leg (T.DistributionFullHubLeg) fills/reserves hub Metals until a
+-- spoke visit, then releases its claim; cancellation/save/load also release it.
+-- The upgrade itself is built, toggled and salvaged from vanilla's own buttons.
+-- Source: archived 1.1.1.405907 Buildings/Building.lua:1151-1250 (ApplyUpgrade), :1261
+-- (ToggleUpgradeOnOff), :1323-1331 (StopUpgradeModifiers), :1882-1886 (ClearDone);
+-- Buildings/MultiResourceDepot.lua:217-240; Buildings/MultiResourceCubeVisuals.lua:422-435.
+local T = SMRTK
+local function id(o) return IsValid(o) and tostring(o.handle) or "none" end
+local function upgrade_id()
+    local hub = rawget(_G, "SMROptInTrainHubBase")
+    return hub and hub.hub_capacity_upgrade
+end
+
+local function read(ctx, phase)
+    local ID = upgrade_id()
+    if not ID then return false, "the train hub dev mod is not loaded" end
+    if not UIColony then return false, "no colony" end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local mark = ctx.mark("CAPACITY_" .. phase)
+    local CARGO = SMROptInTrainHubBase.hub_cargo_upgrade
+    local owner, hubs, stations, trains = "none", 0, 0, 0
+    local function claimed(upgrade)
+        if not upgrade then return false end
+        for _, h in ipairs(UIColony.labels.Station or empty_table) do
+            if IsKindOf(h, "SMROptInTrainHubBase") and Building.HasUpgrade(h, upgrade) then return true end
+        end
+        return false
+    end
+    local sizes = {}
+    for _, s in ipairs(UIColony.labels.Station or empty_table) do
+        local hub = IsKindOf(s, "SMROptInTrainHubBase")
+        local key = hub and "hub" or tostring(s.template_name or s.class)
+        sizes[key] = (sizes[key] and sizes[key] .. "," or "") .. tostring(s.max_storage_per_resource)
+        if hub then
+            hubs = hubs + 1
+            local own = Building.HasUpgrade(s, ID) and true or false
+            if own then owner = id(s) end
+            ctx.log("DUMP", { leg = phase, row = "hub", object = id(s), own = own,
+                answers = own or claimed(ID), on = s:IsUpgradeOn(ID) and true or false,
+                can_switch = s:CanDisableUpgrade(ID) and true or false,
+                building = s:IsUpgradeBeingConstructed(ID) and true or false,
+                destroyed = s.destroyed and true or false, working = s.working and true or false,
+                max_storage = s.max_storage_per_resource, slider_max = s.desire_slider_max, max_z = s.max_z })
+            if CARGO then
+                ctx.log("DUMP", { leg = phase, row = "cargo_upgrade", object = id(s),
+                    upgrade = CARGO, own = Building.HasUpgrade(s, CARGO) and true or false,
+                    answers = Building.HasUpgrade(s, CARGO) or claimed(CARGO),
+                    on = s:IsUpgradeOn(CARGO) and true or false,
+                    can_switch = s:CanDisableUpgrade(CARGO) and true or false,
+                    building = s:IsUpgradeBeingConstructed(CARGO) and true or false,
+                    destroyed = s.destroyed and true or false })
+            end
+        else
+            stations = stations + 1
+        end
+        for _, res in ipairs(s.storable_resources or empty_table) do
+            local sup, dem = s.supply and s.supply[res], s.demand and s.demand[res]
+            local stored = sup and sup:GetActualAmount() or 0
+            if stored > 0 or res == "Metals" then
+                ctx.log("DUMP", { leg = phase, row = "stock", object = id(s), class = key, res = res,
+                    cap = s:GetMaxStorage(res), stored = stored, demand = dem and dem:GetActualAmount() or "none",
+                    slider_max = s.desire_slider_max })
+            end
+        end
+    end
+    for _, t in ipairs(UIColony.labels.Train or empty_table) do
+        trains = trains + 1
+        local speed, turn_speed = t:GetNominalMoveSpeed()
+        ctx.log("DUMP", { leg = phase, row = "train", object = id(t), cargo_cap = t.max_shared_storage,
+            passenger_cap = t.max_colonists_to_transport, passengers = #(t.units or empty_table),
+            nominal_speed = speed, turn_anim_speed = turn_speed, class = t.class })
+    end
+    local applied, total, seen = 0, 0, {}
+    local function read_modifier(m)
+        if seen[m] then return end
+        seen[m] = true
+        local mid = m.id
+        if type(mid) == "string" and mid:match("^%d+_upgrade%d+_mod_%d+$") and (rawget(m, "upgrade_id") == ID or CARGO and rawget(m, "upgrade_id") == CARGO) then
+            total = total + 1
+            if m:IsApplied() then applied = applied + 1 end
+            ctx.log("DUMP", { leg = phase, row = "modifier", label = m.label, id = mid, upgrade = m.upgrade_id, prop = m.prop,
+                percent = m.percent, amount = m.amount, applied = m:IsApplied() and true or false })
+        end
+    end
+    local containers = { UIColony }
+    for _, city in ipairs(Cities or empty_table) do containers[#containers + 1] = city end
+    for _, container in ipairs(containers) do
+        for _, mods in pairs(container.label_modifiers or empty_table) do
+            for _, m in pairs(mods) do read_modifier(m) end
+        end
+    end
+    -- Colony receipts retain OFF modifiers too, including when no hubs remain.
+    for _, entry in pairs(UIColony.SMROptIn_hub_upgrades or empty_table) do
+        for _, m in ipairs(entry.modifiers or empty_table) do read_modifier(m) end
+    end
+    for _, h in ipairs(UIColony.labels.Station or empty_table) do
+        if IsKindOf(h, "SMROptInTrainHubBase") then
+            for _, mods in pairs(h.upgrade_id_to_modifiers or empty_table) do
+                for _, m in ipairs(mods) do read_modifier(m) end
+            end
+        end
+    end
+    if UIColony.SMROptIn_hub_upgrades and UIColony.SMROptIn_hub_upgrades[ID] then owner = "colony" end
+    local out = { sitting = "build6_capacity", phase = phase, mark = mark, game_time = GameTime(),
+        unlocked = UIColony:IsUpgradeUnlocked(ID) and true or false, owner = owner, hubs = hubs,
+        cargo_unlocked = CARGO and UIColony:IsUpgradeUnlocked(CARGO) and true or false,
+        stations = stations, trains = trains, modifiers = total, applied = applied, errors = T.error_count }
+    for k, v in pairs(sizes) do out["storage_" .. k] = v end
+    return out
+end
+
+-- Owner, 2026-09-28: fixture setters for the train sittings. Scratch sets every
+-- non-hub station's rows to exactly their distribution target; slot 1 empties every
+-- non-hub station. Hubs are left alone. Stock moves only through vanilla's
+-- AddResource (MultiResourceCubeVisuals.lua:422-435 on 1.1.1.405907), and only the
+-- unreserved part: supply target (not claimed by a drone or train) going down,
+-- demand target (not claimed by incoming cargo) going up. What is reserved stays
+-- and is counted in `held`. Trains' cargo is not touched; it is counted.
+local function is_hub(s)
+    local cls = rawget(_G, "SMROptInTrainHubBase")
+    return cls and IsKindOf(s, "SMROptInTrainHubBase") or false
+end
+
+local function row_target(d, s, res)
+    local entry = d.Get(s, res)
+    local effective = d.Effective and d.Effective(s, res) or entry
+    if not effective then return end
+    return effective.amount or MulDivRound(s:GetMaxStorage(res), effective.percent, 100)
+end
+
+local function set_stations(ctx, phase, target_of)
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    if not UIColony then return false, "no colony" end
+    local mark = ctx.mark("STATIONS_" .. phase)
+    local stations, skipped, added, removed, held, cargo = 0, 0, 0, 0, 0, 0
+    for _, s in ipairs(UIColony.labels.Station or empty_table) do
+        if not is_hub(s) and s.supply and s.demand then
+            local touched = false
+            for _, res in ipairs(s.storable_resources or empty_table) do
+                local sup, dem = s.supply[res], s.demand[res]
+                local want = sup and dem and target_of(s, res)
+                if want then
+                    touched = true
+                    local have = sup:GetActualAmount()
+                    local delta = want - have
+                    if delta > 0 then delta = Min(delta, dem:GetTargetAmount())
+                    elseif delta < 0 then delta = -Min(-delta, sup:GetTargetAmount()) end
+                    if delta ~= 0 then
+                        ctx.mutated = true
+                        s:AddResource(delta, res)
+                    end
+                    if delta > 0 then added = added + delta else removed = removed - delta end
+                    local off = sup:GetActualAmount() - want
+                    if off ~= 0 then
+                        held = held + (off > 0 and off or -off)
+                        ctx.log("DUMP", { phase = phase, row = "held", station = id(s), res = res,
+                            want = want, stock = sup:GetActualAmount() })
+                    end
+                end
+            end
+            if touched then stations = stations + 1 else skipped = skipped + 1 end
+        end
+    end
+    local trains_loaded = 0
+    for _, t in ipairs(UIColony.labels.Train or empty_table) do
+        local n = 0
+        for _, v in pairs(t.stockpiled_amount or empty_table) do n = n + v end
+        if n > 0 then trains_loaded, cargo = trains_loaded + 1, cargo + n end
+    end
+    return { phase = phase, mark = mark, stations = stations, skipped = skipped, added = added,
+        removed = removed, held = held, trains_loaded = trains_loaded, train_cargo = cargo,
+        game_time = GameTime(), errors = T.error_count }
+end
+
+T.BindScratch("Balance every station to its row target (paused)", function(ctx)
+    local d = rawget(_G, "SMROptInTrainDistribution")
+    if not (d and d.active) then return false, "distribution dev code is not loaded" end
+    return set_stations(ctx, "BALANCE", function(s, res) return row_target(d, s, res) end)
+end, { mode = "once" })
+
+T.Bind(1, "Empty every station, hubs excepted (paused)", function(ctx)
+    return set_stations(ctx, "EMPTY", function() return 0 end)
+end, { mode = "once" })
+
+-- Brief 17, 2026-09-28: reactor dust reference, staged as
+-- tools/trains/hub/tests/82_ReactorDustSlot.lua.txt (owner approved 2026-09-28).
+-- One press holds a dust reference for 2 real seconds on the selected train hub's
+-- reactor visual, then restores clean. Native setter deliberately bypasses the new
+-- per-object no-op, on this visual only. No maintenance, palette, stock, game-speed
+-- or class mutation. Report: docs/agent/reports/TRAIN_HUB_REACTOR_FLASH_20260928.md.
+local reactor_testkit = SMRTK
+reactor_testkit.Bind(2, "Reactor: show dust reference for 2 seconds", function(ctx)
+    local hub = ctx.sel
+    if not IsValid(hub) or not IsKindOf(hub, "SMROptInTrainHubBase") then
+        return false, "select the train hub"
+    end
+    if GetTimeFactor() ~= 0 then return false, "pause first" end
+    local visual
+    for _, obj in ipairs(hub:GetAttaches("ShapeshifterAutoAttach") or empty_table) do
+        local entity = obj:GetEntity()
+        if entity == "SMROptInTrainHubReactor" or entity == "FusionReactor" then
+            if visual then return false, "multiple reactor visuals; investigate before testing" end
+            visual = obj
+        end
+    end
+    if not IsValid(visual) then return false, "reactor visual missing" end
+    if visual.SetDust ~= empty_func or visual:GetDust() ~= 0 then
+        return false, "restart with the reactor dust fix; expected protected clean visual"
+    end
+    local state = ctx.state
+    state.visual = visual
+    state.mark = ctx.mark("REACTOR_DUST_REFERENCE")
+    ctx.mutated = true
+    CObject.SetDust(visual, 255, const.DustMaterialExterior)
+    ctx.log("DUMP", { row = "reactor_dust_reference", entity = visual:GetEntity(),
+        object = tostring(visual.handle), dust = visual:GetDust(), mark = state.mark })
+    state.thread = CreateRealTimeThread(function()
+        Sleep(2000)
+        local active = reactor_testkit.armed.slot_2
+        if active and active.state == state then
+            reactor_testkit.Disarm("slot_2", "dust reference complete")
+        end
+    end)
+    return { mark = state.mark, hold_real_ms = 2000, expected_dust = 255 }
+end, { mode = "armed", needs = "selected", on_disarm = function(ctx)
+    local state = ctx.state
+    local thread = state.thread
+    state.thread = nil
+    if thread and IsValidThread(thread) and thread ~= CurrentThread() then DeleteThread(thread) end
+    local dust = "visual removed"
+    if IsValid(state.visual) then
+        CObject.SetDust(state.visual, 0, const.DustMaterialExterior)
+        dust = state.visual:GetDust()
+    end
+    state.visual = nil
+    local mark = ctx.mark("REACTOR_DUST_RESTORED")
+    ctx.log("DUMP", { row = "reactor_dust_restored", dust = dust, mark = mark })
+    return { dust = dust, mark = mark }
+end })
+
+-- Distribution pass 2 occupies only the spare slots 4-6; capacity 1-3 and
+-- Scratch stay as loaded by brief 08. Predictions: OptInPack report
+-- TRAIN_DISTRIBUTION_PASS2_20260926.md. All setup is by explicit click.
+local function distribution()
+    local d = rawget(_G, "SMROptInTrainDistribution")
+    return d and d.active and d
+end
+
+local function distribution_read(ctx, phase)
+    local d, s = distribution(), ctx.sel
+    if not d then return false, "distribution dev code is not loaded" end
+    if not IsValid(s) or not IsKindOf(s, "Station") then return false, "select a station" end
+    local mark = ctx.mark("DISTRIBUTION_" .. phase)
+    T.Run("taint_read")
+    T.Run("eligibility")
+    local rows = 0
+    for _, res in ipairs(s.storable_resources or empty_table) do
+        local entry, hub = d.Get(s, res)
+        local effective = d.Effective and d.Effective(s, res) or entry
+        local cap = s:GetMaxStorage(res)
+        local target = effective and (effective.amount or MulDivRound(cap, effective.percent, 100))
+        local percent = effective and (effective.percent or (cap > 0 and Clamp(MulDivRound(target, 100, cap), 0, 100) or 0))
+        local supply, demand = s.supply and s.supply[res], s.demand and s.demand[res]
+        if supply and demand and (effective or res == "Metals") then
+            rows = rows + 1
+            ctx.log("DUMP", { sitting = "distribution_pass2", phase = phase,
+                station = id(s), hub = id(hub), res = res,
+                mode = effective and effective.mode or "vanilla", percent = percent or "unset",
+                target = target or "unset", configured = entry and true or false,
+                stock = supply:GetActualAmount(), supply_target = supply:GetTargetAmount(),
+                supply_desired = supply:GetDesiredAmount(), demand_target = demand:GetTargetAmount(),
+                demand_desired = demand:GetDesiredAmount(), cap = s:GetMaxStorage(res),
+                enabled = s:IsResourceEnabled(res) and true or false,
+                covered = d.HasDroneCoverage(s), calls = d.CallsFor(s),
+                hub_stock = hub and hub.supply[res] and hub.supply[res]:GetActualAmount() or "none",
+                hub_room = hub and hub.demand[res] and hub.demand[res]:GetTargetAmount() or "none" })
+        end
+    end
+    for _, train in ipairs(s.city.labels.Train or empty_table) do
+        local cargo = (train.stockpiled_amount or empty_table).Metals or 0
+        if cargo > 0 or train.current_station == s then
+            ctx.log("DUMP", { sitting = "distribution_pass2", row = "train", object = id(train),
+                station = id(train.current_station), cargo = cargo,
+                assigned_here = ((train.assigned_resources or empty_table)[s] or empty_table).Metals or 0 })
+        end
+    end
+    return { sitting = "distribution_pass2", phase = phase, mark = mark, station = id(s),
+        rows = rows, game_time = GameTime(), errors = T.error_count, runtime_error = d.error or "none" }
+end
+
+T.Bind(4, "Distribution read: selected station", function(ctx)
+    return distribution_read(ctx, "READ")
+end, { mode = "once", needs = "selected" })
+
+T.Trigger { id = "distribution_target", label = "Distribution: Metals reaches slider", cadence = 100,
+    prepare = function(ctx, station)
+        local d = distribution()
+        if not d then return false, "distribution dev code is not loaded" end
+        local entry, hub = d.Get(station, "Metals")
+        if not entry or not IsValid(hub) then return false, "configure Metals on a connected station first" end
+        if not station:IsResourceEnabled("Metals") then return false, "enable Metals first" end
+        ctx.state.station, ctx.state.hub = station, hub
+        ctx.state.mode, ctx.state.percent = entry.mode, entry.percent
+        ctx.state.calls, ctx.state.hub_calls = d.CallsFor(station), d.CallsFor(hub)
+        ctx.state.before = station.supply.Metals:GetActualAmount()
+        ctx.state.deadline = GameTime() + 300000
+        return { station = id(station), mode = entry.mode, percent = entry.percent,
+            before = ctx.state.before, deadline = ctx.state.deadline }
+    end,
+    when = function(ctx)
+        local d, state = distribution(), ctx.state
+        if not d or not IsValid(state.station) or not IsValid(state.hub) then
+            return true, { verdict = "fixture_gone" }
+        end
+        local s = state.station
+        local entry = d.Get(s, "Metals")
+        if not entry or entry.mode ~= state.mode or entry.percent ~= state.percent then
+            return true, { verdict = "setting_changed" }
+        end
+        local stock = s.supply.Metals:GetActualAmount()
+        local target = MulDivRound(s:GetMaxStorage("Metals"), entry.percent, 100)
+        -- An export-floor recheck must see another visit to this spoke; a hub
+        -- call alone could pause before the returning train reaches the floor.
+        local witness = d.CallsFor(s) > state.calls
+        if state.mode ~= "export" then witness = witness or d.CallsFor(state.hub) > state.hub_calls end
+        local arrived = stock == target and witness
+        local expired = GameTime() >= state.deadline
+        if arrived or expired then
+            return true, { verdict = arrived and "at_target" or "deadline", station = id(s),
+                mode = entry.mode, before = state.before, stock = stock, target = target,
+                calls = d.CallsFor(s), hub_calls = d.CallsFor(state.hub),
+                covered = d.HasDroneCoverage(s), game_time = GameTime() }
+        end
+        return false
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+
+T.Bind(5, "Run until selected station's Metals reaches slider", function(ctx)
+    if T.armed.distribution_full_hub then return false, "cancel the full-hub run first" end
+    local d = distribution()
+    if not d or not IsValid(ctx.sel) then return false, "select a configured station" end
+    local before, why = distribution_read(ctx, "WATCH_START")
+    if before == false then return false, why end
+    if T.armed.distribution_target then T.Disarm("distribution_target", "re-arm from slot 5") end
+    local ok, result = T.Arm("distribution_target", ctx.sel)
+    if not ok then return false, result.reason end
+    local ran, speed = T.Run("speed_ultra")
+    if not ran then T.Disarm("distribution_target", "speed refused") return false, speed.reason end
+    return { station = id(ctx.sel), trigger = "distribution_target", deadline = result.deadline,
+        mark = before.mark, autosave = "re-press slot 5 after a save" }
+end, { mode = "once", needs = "selected" })
+
+-- Hold the full hub's Metals in the native reservation ledger for this leg.
+-- Archived 1.1.1.405907 _TaskRequest.lua:391-392,444-445 (engine claim/release),
+-- MultiResourceCubeVisuals.lua:422-435 (native stock writer). No stock getter lies
+-- or periodic refills: new outgoing reservations cannot take this stock.
+local full_watch = T.Trigger { id = "distribution_full_hub", label = "Full hub refuses export", cadence = 100,
+    prepare = function(ctx, s)
+        local d = distribution()
+        if not d or not IsValid(s) then return false, "select an export spoke" end
+        if GetTimeFactor() ~= 0 then return false, "pause first" end
+        local entry, hub = d.Get(s, "Metals")
+        if not entry or entry.mode ~= "export" or not IsValid(hub) or not s:IsResourceEnabled("Metals") then
+            return false, "select a connected spoke with Metals in Export"
+        end
+        if d.HasDroneCoverage(s) then return false, "use an uncovered spoke" end
+        local before = s.supply.Metals:GetActualAmount()
+        if before <= MulDivRound(s:GetMaxStorage("Metals"), entry.percent, 100) then
+            return false, "fill the spoke above its floor with slot 2 first"
+        end
+        local supply, demand = hub.supply.Metals, hub.demand.Metals
+        if supply:GetTargetAmount() ~= supply:GetActualAmount()
+            or demand:GetTargetAmount() ~= demand:GetActualAmount() then
+            return false, "hub Metals has existing reservations; use a quiet fixture"
+        end
+        local cap, stock = hub:GetMaxStorage("Metals"), supply:GetActualAmount()
+        if cap <= 0 or stock > cap or demand:GetActualAmount() ~= cap - stock then
+            return false, "hub Metals ledger does not match capacity"
+        end
+        local state = ctx.state
+        state.station, state.hub, state.supply, state.demand = s, hub, supply, demand
+        state.cap, state.before, state.percent = cap, before, entry.percent
+        state.calls, state.errors, state.deadline = d.CallsFor(s), T.error_count, GameTime() + 300000
+        state.mark = T.Mark("DISTRIBUTION_FULL_HUB_START")
+        ctx.mutated = true
+        hub:AddResource(cap - stock, "Metals")
+        if not supply:AssignUnit(cap) then return false, "full hub reservation refused" end
+        state.held = cap
+        T.Log("DUMP", { row = "full_hub_fixture", hub = id(hub), before = stock,
+            added = cap - stock, stock = supply:GetActualAmount(), held = state.held,
+            available = supply:GetTargetAmount(), room = demand:GetTargetAmount() })
+        return { station = id(s), hub = id(hub), before = before, held = cap, mark = state.mark }
+    end,
+    when = function(ctx)
+        local d, state = distribution(), ctx.state
+        local s, hub = state.station, state.hub
+        if not d or not IsValid(s) or not IsValid(hub) then return true, { verdict = "fixture_gone" } end
+        local entry, current_hub = d.Get(s, "Metals")
+        if not entry or current_hub ~= hub or entry.mode ~= "export" or entry.percent ~= state.percent
+            or not s:IsResourceEnabled("Metals") or d.HasDroneCoverage(s) then
+            return true, { verdict = "setting_changed" }
+        end
+        if hub.supply.Metals ~= state.supply or hub.demand.Metals ~= state.demand
+            or hub:GetMaxStorage("Metals") ~= state.cap then return true, { verdict = "ledger_changed" } end
+        local stock, hub_stock = s.supply.Metals:GetActualAmount(), state.supply:GetActualAmount()
+        local verdict
+        if T.error_count ~= state.errors then verdict = "engine_error"
+        elseif hub_stock ~= state.cap or state.supply:GetTargetAmount() ~= 0
+            or state.demand:GetActualAmount() ~= 0 or state.demand:GetTargetAmount() ~= 0 then verdict = "hold_broken"
+        elseif stock ~= state.before then verdict = "spoke_stock_changed"
+        elseif d.CallsFor(s) > state.calls then verdict = "full_refused"
+        elseif GameTime() >= state.deadline then verdict = "deadline" end
+        if not verdict then return false end
+        return true, { verdict = verdict, station = id(s), before = state.before, stock = stock,
+            hub_stock = hub_stock, cap = state.cap, held = state.held,
+            available = state.supply:GetTargetAmount(), room = state.demand:GetTargetAmount(),
+            calls = d.CallsFor(s), previous_calls = state.calls, game_time = GameTime() }
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+-- Trigger returns its registered action definition. Extend only this sitting's
+-- cleanup; native dispatch invokes it on completion, cancellation, save/load,
+-- map change and failed arm. The claim lives in action state, never on a station.
+local stop_full_watch = full_watch.disarm
+full_watch.disarm = function(ctx)
+    local result = stop_full_watch(ctx)
+    local state = ctx.state
+    if state.held then
+        if IsValid(state.hub) and state.hub.supply.Metals == state.supply then
+            -- SetAmount can reset a ledger. Never release a reset/dead claim onto
+            -- another request; clamp to the remaining reservation if reset.
+            local remaining = Max(0, state.supply:GetActualAmount() - state.supply:GetTargetAmount())
+            local release = Min(state.held, remaining)
+            if release > 0 then state.supply:UnassignUnit(release, false) end
+            result.released = release
+        end
+        state.held = nil
+        SetGameSpeed(0)
+        T.Mark("DISTRIBUTION_FULL_HUB_RELEASED")
+    end
+    return result
+end
+
+-- The full-hub refusal leg passed live in pass 3; it left slot 6 on 2026-09-28 and stays
+-- callable (the trigger is still registered) for a rerun or the desk smoke.
+function T.DistributionFullHubLeg(ctx)
+    if T.armed.distribution_full_hub then return false, "cancel the current full-hub run first" end
+    if T.armed.distribution_target then T.Disarm("distribution_target", "full-hub leg") end
+    local ok, result = T.Arm("distribution_full_hub", ctx.sel)
+    if not ok then return false, result.reason end
+    local ran, speed = T.Run("speed_ultra")
+    if not ran then T.Disarm("distribution_full_hub", "speed refused"); return false, speed.reason end
+    return result
+end
+
+-- Owner, 2026-09-28: one switch that streams every train and station, instead of
+-- selecting each one. Press to start, press again to stop; save, load and map change
+-- stop it (re-press after an autosave). Read-only. Every `T.stream_cadence` game ms it
+-- compares each train and each station row with the last tick and writes only what
+-- changed as SMRTK_STREAM lines (file only, not the on-screen console). The first tick
+-- writes everything, so a stream always starts from a full baseline.
+T.stream_cadence = 1000
+local function list(map, fmt)
+    local keys = {}
+    for k in pairs(map) do keys[#keys + 1] = k end
+    table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+    local out = {}
+    for _, k in ipairs(keys) do out[#out + 1] = fmt(k, map[k]) end
+    return #out > 0 and table.concat(out, ",") or "none"
+end
+
+local function train_row(t)
+    local cargo = {}
+    for res, n in pairs(t.stockpiled_amount or empty_table) do
+        if n and n > 0 then cargo[res] = n end
+    end
+    local assigned = {}
+    for dest, by in pairs(t.assigned_resources or empty_table) do
+        for res, n in pairs(by or empty_table) do
+            if n and n > 0 then assigned[id(dest) .. ":" .. res] = n end
+        end
+    end
+    local track = t.track
+    local line = "none"
+    if IsValid(track) then line = id(track:GetStartStation()) .. "-" .. id(track:GetEndStation()) end
+    return { command = tostring(t.command), station = id(t.current_station),
+        at_station = t.at_station and true or false, line = line,
+        -- Actual interpolated movement, including acceleration/stops; not the nominal cap.
+        -- 1.1.1.405907 CommonLua/LuaExportedDocs/Game/GameObject.lua:141-150,646.
+        effective_speed = t:GetVelocity(),
+        cargo = list(cargo, function(k, v) return k .. ":" .. v end),
+        assigned = list(assigned, function(k, v) return k .. ":" .. v end),
+        passengers = #(t.units or empty_table) }
+end
+
+local function stream_tick(state, d)
+    local rows, changed = 0, 0
+    for _, t in ipairs(UIColony.labels.Train or empty_table) do
+        if IsValid(t) then
+            local row = train_row(t)
+            local key = id(t)
+            local old = state.trains[key]
+            local diff = not old
+            for k, v in pairs(row) do diff = diff or old[k] ~= v end
+            if diff then
+                row.row, row.train = "train", key
+                T.Log("STREAM", row, false)
+                changed = changed + 1
+            end
+            state.trains[key] = row
+            rows = rows + 1
+        end
+    end
+    for _, s in ipairs(UIColony.labels.Station or empty_table) do
+        if IsValid(s) and s.supply then
+            local key = id(s)
+            local last = state.stations[key] or {}
+            state.stations[key] = last
+            for _, res in ipairs(s.storable_resources or empty_table) do
+                local sup = s.supply[res]
+                if sup then
+                    local stock = sup:GetActualAmount()
+                    -- Brief 15: catch a visual-only loss even when stock did
+                    -- not change. Count live cube objects, never repair them.
+                    local cubes, expected = "none", "none"
+                    if is_hub(s) and s.visual_cubes and s.visual_cubes[res] then
+                        cubes = 0
+                        for _, cube in pairs(s.visual_cubes[res]) do
+                            if IsValid(cube) then cubes = cubes + 1 end
+                        end
+                        local cols = s.capacity_columns and s.capacity_columns[res]
+                        if cols and s.max_z and s.max_storage_per_resource then
+                            expected = s.visual_col_start and s.visual_col_start[res]
+                                and Min(stock, s.max_storage_per_resource, cols * s.max_z * const.ResourceScale) // const.ResourceScale or 0
+                        end
+                    end
+                    local old = last[res]
+                    if not old or old.stock ~= stock or old.cubes ~= cubes or old.expected ~= expected then
+                        T.Log("STREAM", { row = "stock", station = key, hub = is_hub(s), res = res,
+                            stock = stock, before = old and old.stock or "start", cubes = cubes, expected_cubes = expected,
+                            target = d and row_target(d, s, res) or "none",
+                            calls = d and d.CallsFor(s) or "none" }, false)
+                        last[res] = { stock = stock, cubes = cubes, expected = expected }
+                        changed = changed + 1
+                    end
+                    rows = rows + 1
+                end
+            end
+        end
+    end
+    state.ticks = state.ticks + 1
+    return rows, changed
+end
+
+T.Bind(6, "Stream every train and station (press again to stop)", function(ctx)
+    if not UIColony then return false, "no colony" end
+    local state = ctx.state
+    local d = rawget(_G, "SMROptInTrainDistribution")
+    d = d and d.active and d or nil
+    state.trains, state.stations, state.ticks, state.cancelled = {}, {}, 0, false
+    state.mark = ctx.mark("STREAM_START")
+    local rows, changed = stream_tick(state, d)
+    state.thread = CreateGameTimeThread(function()
+        while not state.cancelled do
+            Sleep(T.stream_cadence)
+            if state.cancelled then break end
+            local ok, err = pcall(stream_tick, state, d)
+            if not ok then
+                T.Log("STREAM", { row = "error", error = tostring(err) }, false)
+                state.cancelled = true
+            end
+        end
+    end)
+    return { mark = state.mark, cadence = T.stream_cadence, rows = rows, baseline = changed,
+        distribution = d and true or false, game_time = GameTime() }
+end, { mode = "armed", on_disarm = function(ctx)
+    local state = ctx.state
+    state.cancelled = true
+    local thread = state.thread
+    state.thread = nil
+    if thread and IsValidThread(thread) and thread ~= CurrentThread() then DeleteThread(thread) end
+    return { ticks = state.ticks, mark = ctx.mark("STREAM_STOP") }
+end })
+
+-- Brief Train_Hub_Project/16: retired bay read replaced with a read-only upgrade
+-- snapshot. No fill, toggle or selection writes; pause first. Slot 6 remains the
+-- movement/stock stream, and this supplies the capacities missing from that stream.
+T.Bind(3, "Read upgrades, train capacities and nominal speed (pause first)", function(ctx)
+    return read(ctx, "upgrade_read")
+end, { mode = "once" })

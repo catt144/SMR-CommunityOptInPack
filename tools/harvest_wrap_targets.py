@@ -173,6 +173,45 @@ CHECK_ALLOWLIST = {
         "declares it — _TaskRequest.lua:72 (readiness pass 2026-08-31); same inline guard",
     ("Opt_MultipleSuns", "SolarPanelBase", "GameInit"):
         "declares it — SolarPanel.lua:8 (readiness pass 2026-08-31); guarded inline at Opt_MultipleSuns.lua:95/132, not by a Require pair",
+    # The train modules' parts (brief 34, 2026-10-02): moved from their dev mods
+    # as they were, with their own shape self-checks, not SMROptInPack.Require
+    # blocks. Each captured class DECLARES the method on 1.1.1.406343 (Lua/ cited),
+    # so `prev` is real on every boot. Folding them into Require blocks is a code
+    # change brief 34 left out (move as is); named in its report.
+    ("StationRows_10_TrainFloor", "Train", "TransferCargo"):
+        "declares it — Units/Train.lua:862 (1.1.1.406343, brief 34); no Require table of its own",
+    ("StationRows_40_TrainDistribution", "MultiResourceDepotBase", "IsResourceEnabled"):
+        "declares it — Buildings/MultiResourceDepot.lua:247 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "Station", "BuildingUpdate"):
+        "declares it — Buildings/Station.lua:482 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "Station", "GetResDesiredAmount"):
+        "declares it — Buildings/Station.lua:997 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "Station", "GetTrainTransportPolicy"):
+        "declares it — Buildings/Station.lua:1078 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "Train", "TransferCargo"):
+        "declares it — Units/Train.lua:862 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_40_TrainDistribution", "Train", "UnloadAll"):
+        "declares it — Units/Train.lua:787 (1.1.1.406343, brief 34); its own D.Require table checks the pair before installing (file returns if absent)",
+    ("StationRows_45_TrainDistributionUI", "Station", "GetResAcceptIcon"):
+        "declares it — Buildings/Station.lua:1003 (1.1.1.406343, brief 34); its own D.UIRequire table checks the pair at install (runtime, after flattening)",
+    ("StationRows_45_TrainDistributionUI", "Station", "ResourceRolloverText"):
+        "declares it — Buildings/Station.lua:1007 (1.1.1.406343, brief 34); its own D.UIRequire table checks the pair at install (runtime, after flattening)",
+    ("StationRows_45_TrainDistributionUI", "Station", "ToggleAcceptResource"):
+        "declares it — Buildings/Station.lua:1053 (1.1.1.406343, brief 34); its own D.UIRequire table checks the pair at install (runtime, after flattening)",
+    ("TrainHub_20_TrainHub", "ConstructionController", "UpdateConstructionObstructors"):
+        "declares it — Construction/Construction.lua:1712 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "ConstructionSite", "IsOutsideCommandRange"):
+        "declares it — Buildings/ConstructionSite.lua:3029 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "Drone", "GetDestName"):
+        "declares it — Units/Drone.lua:3012 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "Drone", "Getui_command"):
+        "declares it — Units/Drone.lua:3168 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "FlyingDrone", "CanBeControlled"):
+        "declares it — Units/FlyingDrone.lua:144 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "GridConstructionController", "Activate"):
+        "declares it — Construction/GridConstruction.lua:277 (1.1.1.406343, brief 34); no Require table of its own",
+    ("TrainHub_20_TrainHub", "Train", "GetNominalMoveSpeed"):
+        "declares it — Units/Train.lua:593 (1.1.1.406343, brief 34); no Require table of its own",
 }
 
 # `SMRFixPack` deliberately NOT in this set (contamination audit 2026-09-01): in this

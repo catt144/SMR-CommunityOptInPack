@@ -61,6 +61,56 @@ return {
 		'name', "Opt_ServiceInterestTags",
 		'CodeFileName', "Code/Opt_ServiceInterestTags.lua",
 	}),
+	-- D16-D18, the train modules (owner, 2026-10-02, OI-41): each Opt_ file, then its
+	-- parts, Code/<id>_*.lua (FIX_POLICY §8). ⛔ The NAME decides the file:
+	-- ModItemCode:GetCodeFileName is "Code/" .. name .. ".lua" with "/" made "_"
+	-- (ModItem.lua:164-168 on 1.1.1.406343); CodeFileName is read-only and unused
+	-- by the engine, so the two must agree (doccheck MODULE SETS checks it). The generated template and entity files are
+	-- NOT items here: a SaveDef lists them from Data/ and SourceData/ (metadata.lua).
+	PlaceObj('ModItemCode', {
+		'name', "Opt_StationRows",
+		'CodeFileName', "Code/Opt_StationRows.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "StationRows_10_TrainFloor",
+		'CodeFileName', "Code/StationRows_10_TrainFloor.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "StationRows_40_TrainDistribution",
+		'CodeFileName', "Code/StationRows_40_TrainDistribution.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "StationRows_45_TrainDistributionUI",
+		'CodeFileName', "Code/StationRows_45_TrainDistributionUI.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "Opt_TrainHub",
+		'CodeFileName', "Code/Opt_TrainHub.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "TrainHub_20_TrainHub",
+		'CodeFileName', "Code/TrainHub_20_TrainHub.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "TrainHub_30_TrainHubDrones",
+		'CodeFileName', "Code/TrainHub_30_TrainHubDrones.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "TrainHub_60_StationSpoilage",
+		'CodeFileName', "Code/TrainHub_60_StationSpoilage.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "TrainHub_70_TrainBay",
+		'CodeFileName', "Code/TrainHub_70_TrainBay.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "Opt_ElevatorDepot",
+		'CodeFileName', "Code/Opt_ElevatorDepot.lua",
+	}),
+	PlaceObj('ModItemCode', {
+		'name', "ElevatorDepot_10_ElevatorDepot",
+		'CodeFileName', "Code/ElevatorDepot_10_ElevatorDepot.lua",
+	}),
 	PlaceObj('ModItemOptionToggle', {
 		'name', "AcknowledgedWarnings",
 		'DisplayName', "Acknowledged warnings",
@@ -79,6 +129,26 @@ return {
 		'name', "ServiceInterestTags",
 		'DisplayName', "Service interest tags",
 		'Help', 'Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the building\'s details and the traits that gain or lose something there (Gamer, Party Animal, Gambler, Fit and more). Display only: how Colonists choose and use services does not change.',
+		'DefaultValue', false,
+	}),
+	-- D16-D18 (owner, 2026-10-02): new names, account/save contract from their first
+	-- ship. Help strings are the owner's approved text (brief 34, "Player text").
+	PlaceObj('ModItemOptionToggle', {
+		'name', "StationRows",
+		'DisplayName', "Station import/export rows",
+		'Help', "Set each resource at a <em>Train Station</em> to Import, Export, Balanced or Not accepted. Always on while the Train Hub is on.",
+		'DefaultValue', false,
+	}),
+	PlaceObj('ModItemOptionToggle', {
+		'name', "TrainHub",
+		'DisplayName', "Train Hub",
+		'Help', "Adds the Train Hub. While on, <em>Train Stations</em> don't spoil food. Demolish every hub before removing the mod.",
+		'DefaultValue', false,
+	}),
+	PlaceObj('ModItemOptionToggle', {
+		'name', "ElevatorDepot",
+		'DisplayName', "Elevator Depot",
+		'Help', "Adds the Elevator Depot. Demolish both halves before removing the mod.",
 		'DefaultValue', false,
 	}),
 	PlaceObj('ModItemOptionChoice', {

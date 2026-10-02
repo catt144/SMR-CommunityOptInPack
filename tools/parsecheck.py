@@ -79,8 +79,8 @@ def runtime():
 def scan(directory, check):
     """-> [(path, error)] for every file that does not parse."""
     bad = []
-    # Recursive since 2026-10-02 (brief 34): a module too large for one file
-    # keeps its parts in Code/<id>/ (FIX_POLICY §8).
+    # Recursive since 2026-10-02 (brief 34): the Mod Editor writes generated
+    # template classes to Code/BuildingTemplate/.
     for path in sorted(glob.glob(os.path.join(directory, "**", "*.lua"), recursive=True)):
         with open(path, encoding="utf-8", errors="replace") as fh:
             src = fh.read()

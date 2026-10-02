@@ -353,6 +353,17 @@ def main():
             m.group(1) for m in re.finditer(
                 r"PlaceObj\(\s*'ModItemCode'\s*,\s*\{.*?'CodeFileName'\s*,\s*\"([^\"]+)\"",
                 items_text, re.S)]
+        # ⛔ 2026-10-02: the engine ignores CodeFileName and derives the file
+        # from the item's name, "/" made "_" (ModItem.lua:164-168, 1.1.1.406343).
+        named = re.findall(r"PlaceObj\(\s*'ModItemCode'\s*,\s*\{\s*'name',\s*\"([^\"]*)\",\s*"
+                           r"'CodeFileName',\s*\"([^\"]*)\"", items_text)
+        bad = [(n, f) for n, f in named
+               if "Code/%s.lua" % re.sub(r'[/?<>\\:*|"]', "_", n) != f]
+        check(not bad and len(named) == len(item_files),
+              "each ModItemCode's name derives its CodeFileName (the engine reads the name)",
+              "%d item(s)" % len(named),
+              "%s — a SaveDef would list files that do not exist (ModItem.lua:164-168)"
+              % (bad or "an item whose name does not precede its CodeFileName"))
         # Generated files (a BuildingTemplate's class, `_EntityData`) come from
         # Data/ and SourceData/ items, not ModItemCode. With no ModItemRef
         # lines those items are appended after items.lua's own, in handle

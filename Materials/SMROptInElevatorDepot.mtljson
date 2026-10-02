@@ -1,0 +1,18 @@
+{
+	"$persist_version": 0,
+	"$value": [{
+			"BaseColor": "Mod/SMR_CommunityOptInPack/Textures/SMROptInElevatorDepot_BC.dds",
+			"BaseColorChannel": 0,
+			"Colorization": "Mod/SMR_CommunityOptInPack/Textures/SMROptInElevatorDepot_CM.dds",
+			"ColorizationChannel": 0,
+			"Colors": 3,
+			"Name": "SMROptInElevatorDepot",
+			"Normal": "Mod/SMR_CommunityOptInPack/Textures/SMROptInElevatorDepot_NM.dds",
+			"NormalChannel": 0,
+			"RM": "Mod/SMR_CommunityOptInPack/Textures/SMROptInElevatorDepot_RM.dds",
+			"RMChannel": 0,
+			"SI": "Mod/SMR_CommunityOptInPack/Textures/SMROptInElevatorDepot_SI.dds",
+			"SIChannel": 0,
+			"VertexColorUsages": []
+		}]
+}

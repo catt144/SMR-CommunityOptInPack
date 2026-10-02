@@ -85,6 +85,11 @@ return PlaceObj('ModDef', {
 		ServiceInterestTags = false,
 		DroneSpeedDial = "1x (base)",
 		DroneCarryDial = "+0 (base)",
+		-- D16-D18 (owner, 2026-10-02, OI-41): the train modules' NEW keys, account
+		-- contract from their first ship (FIX_POLICY §3 inventory row 8).
+		StationRows = false,
+		TrainHub = false,
+		ElevatorDepot = false,
 	},
 	-- ⛔ ORDER IS LOAD-BEARING: ModDef:LoadCode iterates THIS list and scans no
 	-- directory (Mod.lua:490-521), so 00_Core.lua must stay first — every module
@@ -110,6 +115,42 @@ return PlaceObj('ModDef', {
 		"Code/Opt_MultipleSuns.lua",
 		"Code/Opt_DroneStatDials.lua",
 		"Code/Opt_ServiceInterestTags.lua",
+		-- ⚖️ 2026-10-02 (owner, OI-41; brief 34): the train modules. Each Opt_ file
+		-- registers its module and is followed by its parts, Code/<id>_*.lua
+		-- (FIX_POLICY §8: a ModItemCode's file is Code/<its name>.lua, so a
+		-- part cannot live in a subfolder, ModItem.lua:164-168). File-scope orders that matter, enforced by doccheck's
+		-- LOAD ORDER: 10_TrainFloor before 40 (the transient claims), 40 before 45
+		-- (D.active), 20_TrainHub before 60 (SMROptInTrainHubBase).
+		"Code/Opt_StationRows.lua",
+		"Code/StationRows_10_TrainFloor.lua",
+		"Code/StationRows_40_TrainDistribution.lua",
+		"Code/StationRows_45_TrainDistributionUI.lua",
+		"Code/Opt_TrainHub.lua",
+		"Code/TrainHub_20_TrainHub.lua",
+		"Code/TrainHub_30_TrainHubDrones.lua",
+		"Code/TrainHub_60_StationSpoilage.lua",
+		"Code/TrainHub_70_TrainBay.lua",
+		"Code/Opt_ElevatorDepot.lua",
+		"Code/ElevatorDepot_10_ElevatorDepot.lua",
+		-- Editor-generated, LAST: a SaveDef appends them after every ModItemCode,
+		-- in item-handle order (Mod.lua:535-556, :829-853); Data/ and SourceData/
+		-- hold their sources. Never hand-edit them; the owner's Mod Editor save
+		-- regenerates them (upload_preflight.py checks position and sources).
+		"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+		"Code/_EntityData.generated.lua",
+		"Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua",
 	},
+	-- The train modules' five models (brief 34). A SaveDef rebuilds this list
+	-- from SourceData/ArtSpec-mod.lua alone (Mod.lua:816-827), which the packer
+	-- skips but the editor reads, so that file must stay in the folder.
+	'entities', {
+		"SMROptInTrainHub6",
+		"SMROptInTrainHub6Glass",
+		"SMROptInTrainHub6DomeGlass",
+		"SMROptInElevatorDepot",
+		"SMROptInElevatorDepotReceiver",
+	},
+	'has_data', true,
 	'TagGameplay', true,
+	'TagBuildings', true,
 })

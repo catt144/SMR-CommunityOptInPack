@@ -888,10 +888,11 @@ def lua_files(directory):
 def code_lua_files():
     """This mod's shipped Lua, RECURSIVE, as paths relative to Code/ with `/`.
 
-    Since 2026-10-02 (owner, OI-41; FIX_POLICY §8) a module too large for one
-    file keeps its parts in Code/<id>/, and the Mod Editor writes a template's
-    generated class to Code/BuildingTemplate/. A flat listing would let those
-    files ship unseen by every gate below. The TestKit keeps `lua_files`."""
+    The Mod Editor writes a template's generated class to Code/BuildingTemplate/
+    (its companion path, ModItem.lua:2451-2466). A flat listing would let those
+    files ship unseen by every gate below. A ModItemCode cannot live in a
+    subfolder (its file is its name, ModItem.lua:164-168), which MODULE SETS
+    enforces. The TestKit keeps `lua_files`."""
     if not os.path.isdir(CODE):
         return None
     out = []
@@ -1163,6 +1164,21 @@ LOAD_ORDER_RULES = [
     #     ResidencyControl screened for closed ones.
     #
     # Code: local/retired-modules/README.md, or `git show cc846e4:Code/<file>`.
+    #
+    # The train modules (brief 34, 2026-10-02): three FILE-SCOPE dependencies, each of
+    # which makes the later file return early or error at load if the order flips.
+    {"symbol": "SMROptInTrainFloor.WithTransientClaims",
+     "before": "Code/StationRows_10_TrainFloor.lua",
+     "after": "Code/StationRows_40_TrainDistribution.lua",
+     "why": "40 returns at load without the floor's transient claims (40_TrainDistribution.lua, `train floor helper unavailable`)"},
+    {"symbol": "SMROptInTrainDistribution.active",
+     "before": "Code/StationRows_40_TrainDistribution.lua",
+     "after": "Code/StationRows_45_TrainDistributionUI.lua",
+     "why": "45 returns at load unless 40 set D.active, and the rows UI never installs"},
+    {"symbol": "SMROptInTrainHubBase",
+     "before": "Code/TrainHub_20_TrainHub.lua",
+     "after": "Code/TrainHub_60_StationSpoilage.lua",
+     "why": "60 assigns SMROptInTrainHubBase.SpoilStoredResources at file scope and errors without the class"},
 ]
 
 
@@ -2379,6 +2395,20 @@ def flpk_selftest(out):
 # the 2026-09-08 state through.
 
 CODE_IN_ITEMS = re.compile(r"'CodeFileName',\s*\"(Code/[^\"]+\.lua)\"")
+# ⛔ 2026-10-02 (brief 34): the engine IGNORES `CodeFileName` (read-only,
+# ModItem.lua:103) and derives the file from the item's NAME:
+# "Code/" .. name .. ".lua", with / ? < > \ : * | " made "_" (ModItem.lua:164-168
+# on 1.1.1.406343). A name that does not derive its CodeFileName makes the
+# upload's forced SaveDef list a file that does not exist; this gate read
+# CodeFileName alone and would have passed a Code/<id>/ subfolder part.
+CODE_ITEM_RE = re.compile(
+    r"PlaceObj\(\s*'ModItemCode'\s*,\s*\{\s*'name',\s*\"([^\"]*)\",\s*"
+    r"'CodeFileName',\s*\"([^\"]*)\"")
+
+
+def code_item_path(name):
+    """ModItemCode:GetCodeFileName (ModItem.lua:164-168), byte for byte."""
+    return "Code/%s.lua" % re.sub(r'[/?<>\\:*|"]', "_", name)
 
 
 def _metadata_code_list(text):
@@ -2447,9 +2477,20 @@ def module_set_agreement(out):
                 out.append("         only in %-20s %s" % (a, n))
             for n in only_b:
                 out.append("         only in %-20s %s" % (b, n))
+    try:
+        with open(os.path.join(REPO, "items.lua"), encoding="utf-8-sig", errors="replace") as fh:
+            pairs = CODE_ITEM_RE.findall(fh.read())
+    except OSError:
+        pairs = []
+    for name, cfn in pairs:
+        if code_item_path(name) != cfn:
+            ok = False
+            out.append("  RED  module sets: ModItemCode %r derives %s, not its CodeFileName %s "
+                       "-- the engine reads the NAME (ModItem.lua:164-168), so the upload's "
+                       "SaveDef would list a file that does not exist" % (name, code_item_path(name), cfn))
     out.append("MODULE SETS: %d file(s) in Code/, items.lua and metadata.lua's "
-               "code list %s" % (len(on_disk), "agree by name" if ok
-                                 else "DISAGREE -- see above"))
+               "code list %s; %d ModItemCode name(s) derive their file"
+               % (len(on_disk), "agree by name" if ok else "DISAGREE -- see above", len(pairs)))
     return ok
 
 
