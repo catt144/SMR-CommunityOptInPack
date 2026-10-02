@@ -4089,6 +4089,11 @@ a shipping claim or a general proof of all reworked layouts.
   `…DevBase` and `…Dev_Capacity` included, and the 09-29 stand-in `SMROptInElevatorStationDev`
   gets no compatibility. The owner keeps saving templates in the Mod Editor; the agent who asked
   for the save restores the hand-written `metadata.lua` and `items.lua` from git afterwards.
+  **Same day, the owner's follow-up: Station rows is forced on while the Train Hub module is on**
+  (*"the stationrows needs to be forced if the hub is on, I feel like without that it will cause
+  issues"*). With the hub module on, every station has its rows whatever the Station rows toggle
+  says, and that toggle's help text says so. With the hub module off, built hubs' networks keep
+  their rows as part of the hub, and hubless stations follow the Station rows toggle.
 - **The hub's long-title fault** (`45_TrainDistributionUI.lua` `fit_title`, the wiring report's
   "Reported, not fixed") is fixed now, in brief 29.
 

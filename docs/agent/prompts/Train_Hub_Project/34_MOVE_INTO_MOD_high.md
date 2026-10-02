@@ -26,7 +26,8 @@ has seen the three modules load from this mod in game. The full battery is brief
 ## The owner's checkpoint (before any code moves)
 
 **Answered 2026-10-02 (OI-41):** the proposal `docs/agent/reports/TRAIN_MOVE_CHECKPOINT_20261002.md`
-stands, with one change: **station spoilage goes with the hub module**, not the rows. The rulings
+stands, with two changes: **station spoilage goes with the hub module**, not the rows, and
+**Station rows is forced on while the Train Hub module is on**. The rulings
 are in spec §10's last list (grep `Brief 34's checkpoint`) and FIX_POLICY §8.
 
 Write a short proposal for the orchestrator to put to the owner, and wait for the yes:

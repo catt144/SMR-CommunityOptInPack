@@ -9,7 +9,8 @@ dependency map and an engine read on 1.1.1.406343).
 **Owner's answers, 2026-10-02 (OI-41):** questions 2, 3 and 4 as recommended, with no save
 scan. Question 1: three modules, but **station spoilage goes with the hub**. Stations stop
 spoiling food only while the Train Hub module is on, and `60_StationSpoilage` moves to
-`Code/TrainHub/`. Where this report says otherwise, the answer governs.
+`Code/TrainHub/`. Follow-up, same day: **Station rows is forced on while the Train Hub module
+is on**, whatever its own toggle says. Where this report says otherwise, the answers govern.
 
 ## What the move has to work around (SOURCE, 1.1.1.406343)
 
