@@ -22,7 +22,7 @@ When this mod publishes, do its store tools come from the fix pack or get ported
 - The donor's copies select fix-pack inputs from their own paths; "run from the fix pack" needs donor edits.
 - Say "keep the ports" (closes this) or "run from the fix pack" (ports deleted; donor parameterised there).
 - The old fix-pack listing drafts are history; the maintained copy is `reports/STORE_AND_SITE_20261003.md` §3.
-Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`
+Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`
 
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
@@ -61,7 +61,7 @@ Are there already Opt-In listings to use? What console approval steps does your 
 - Give existing links only if they exist; newly assigned ids will be read from the editor's writeback.
 - Confirm platform choices and any Xbox/PlayStation approval step for this mod; fix-pack approval is not its receipt.
 - Login, any required Workshop agreement and actual approval are yours; no account secrets are needed in the repo.
-Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
+Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
 
 ## Run
 

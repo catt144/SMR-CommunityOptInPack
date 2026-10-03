@@ -130,6 +130,10 @@ RULE_HEADER_DOCS = (
     # authoring gained two rules that bind nothing else — approval for a sitting
     # placed ahead of the build, and a second-seat read of an attended brief.
     "docs/agent/support/CHAIN_METHOD.md",
+    # The release system (2026-10-03, RELEASE_SYSTEM_high.md consumed): the owner's
+    # upload file and the outbox carry the donor's two header blocks, adapted.
+    "docs/UPLOAD_WORKFLOW.md",
+    "docs/agent/prompts/perma/RELEASE_OUTBOX.md",
 )
 RULE_HEADER_WARN_BYTES = 1024
 RULE_HEADER_MAX_BYTES = 2048
@@ -1418,6 +1422,12 @@ PROMPT_MAP_DEFAULT_CLASSES = {
     "root": "prompt",
     "chain": "live",
 }
+# One donor-named ledger lives among the standing prompts and is fired by one of
+# them rather than on its own (release system, 2026-10-03): its declared class
+# is `outbox`, the same word the gamepatch folder row uses.
+PROMPT_MAP_CLASS_OVERRIDES = {
+    ("perma", "RELEASE_OUTBOX.md"): "outbox",
+}
 
 
 def prompt_map_rows(mapfile):
@@ -1499,7 +1509,8 @@ def check_prompt_map(out):
                        "list it — every prompt or chain is reachable from the map"
                        % (where[table], name, suffix))
         for name, declared in sorted(rows[table].items()):
-            expected = PROMPT_MAP_DEFAULT_CLASSES[table]
+            expected = PROMPT_MAP_CLASS_OVERRIDES.get((table, name),
+                                                     PROMPT_MAP_DEFAULT_CLASSES[table])
             if declared != expected:
                 red.append("  RED  prompts/README.md declares %s%s as `%s`; exact "
                            "path requires `%s`"

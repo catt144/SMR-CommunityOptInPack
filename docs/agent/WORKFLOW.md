@@ -229,49 +229,54 @@ The tiers say what the owner reads afterwards; a status word still needs the att
 
 ## Release
 
-This mod is not published; the launch session owns this list, and the owner uploads through the fix
-pack's `docs/UPLOAD_WORKFLOW.md`. This mod's release duties are `FIX_POLICY.md` §3a and §8 (save
-exit, both configurations). Before upload:
+This mod is not yet published. Its release system is the fix pack's, standardised here
+(owner, 2026-09-17; built 2026-10-03): the owner uploads through **this repo's**
+`docs/UPLOAD_WORKFLOW.md`, and an agent runs `prompts/perma/release_prompt.md`, which
+consumes `support/RELEASE_SURFACES.md`, `support/POST_UPLOAD_CLOSE.md` and
+`support/LIVE_SITE_READ.md`. Player-facing changes queue in `prompts/perma/RELEASE_OUTBOX.md`
+and drain into `archive/RELEASE_HISTORY.md` after the owner's confirmed upload. This mod's
+release duties are `FIX_POLICY.md` §3a and §8 (save exit, both configurations). Standing
+facts with no other home:
 
-1. Schedule the owner's preview image, screenshots and description wording first, and check current
-   portal rules. Write the description from the current module entries; it states that this mod
-   works with or without the Relaunched Fix Pack and tells Drone Stat Dials users to return both
-   dials to base before uninstalling.
-2. Walk the fix pack's `docs/agent/reports/PARKED_OPTIN_REFERENCES.md` restore checklist on publish
-   day, not earlier; re-read the display-name sites in the current shipped files. Its P38
-   `description` still says the mod "stands down if an official patch changes what it was written
-   for", a promise the fix pack retired on 2026-09-12: write the description per step 1 and never
-   paste P38 back verbatim.
-3. Update `metadata.lua`'s `version_major`/`version_minor` and `last_changes` without changing
-   `lua_revision`. The Mod Editor sets the patch `version` on save; an agent never hand-sets it.
-4. Run `python tools/upload_preflight.py` to zero FAIL before opening the Mod Editor, inspect
-   `python tools/pack_predict.py .`, and reconcile the downloaded archive with
-   `python tools/pack_list.py <ModContent.fpk> --tree .`.
-5. Publish the uninstall procedure and residual disclosure, and have the D13 rescue artifact ready:
-   its one-artifact scope covers both mods, but this mod's residue is measured from this tree, never
-   inherited. A separately shipped rescue artifact gets its own metadata, preview, description,
-   portal pass, console certification, version-skew statement and zero-residue proof.
-
-Standing facts with no other home:
-
+- **Version fields are the editor's.** Never hand-set `version`, `version_major` or
+  `version_minor`; the initial 1.0 is in the file (owner, 2026-08-14) and the upload save
+  owns `version` from the first upload on. `lua_revision` is never changed by hand either.
+- **The store body is generated.** `metadata.lua`'s `description` and `last_changes` come
+  from `docs/UPLOAD_WORKFLOW.md` §3 through `python tools/store_parity.py --write-metadata`;
+  edit the blocks, run the tool, and `python tools/store_parity.py` proves the copies agree.
 - The upload packs the whole mod folder, junctions and symlinks included, filtered only by
-  `metadata.lua` `ignore_files` (`GedModEditor.lua:678-741`). Never put a link inside the mod folder
-  unless a pattern covers it. `tools/upload_preflight.py` fails on a link whose contents would pack,
-  on any packed file outside `Code/*.lua`, `metadata.lua`, `items.lua`, `LICENSE` and the preview
-  image, and on a pack over 5 MB; doccheck's PACK IGNORE PARITY gate keeps `pack_predict.py`'s copy
-  of the list equal to `metadata.lua`'s.
-- `items.lua` carries one `ModItemCode` per `Code/` file in `metadata.lua` order, so the editor
-  round-trip regenerates the same code list; add, remove or reorder in both, same commit.
+  `metadata.lua` `ignore_files` (`GedModEditor.lua:678-741`). Never put a link inside the mod
+  folder unless a pattern covers it. `tools/upload_preflight.py` fails on a link whose
+  contents would pack, on any packed file outside `Code/**/*.lua`, `Data/**/*.lua`, the model
+  assets, `metadata.lua`, `items.lua`, `LICENSE` and the preview image, and on more than 5 MB
+  of non-asset files (OI-18: the model assets are exempt from the ceiling); doccheck's PACK
+  IGNORE PARITY gate keeps `pack_predict.py`'s copy of the list equal to `metadata.lua`'s.
+  Run it to zero FAIL before the Mod Editor opens; reconcile the downloaded archive with
+  `python tools/pack_list.py <ModContent.fpk> --tree .` afterwards.
+- `items.lua` carries one `ModItemCode` per hand-written `Code/` file in `metadata.lua`
+  order, so the editor round-trip regenerates the same code list; add, remove or reorder in
+  both, same commit. Generated files (`*.generated.lua`) are listed last and never hand-edited.
+- Store art: `image` is the root `preview.png`; the gallery lives in `store_screenshots/`
+  (written by `tools/store_screenshots.py`, excluded from the pack, read by the uploaders as
+  `screenshot1..5`). Portal limits are the preflight's.
+- The fix pack's `docs/agent/reports/PARKED_OPTIN_REFERENCES.md` is a publish-day job for
+  the fix pack's own release, reconciled against today's product in
+  `reports/STORE_AND_SITE_20261003.md` §7; never restore its passages verbatim or early.
+- The exit ships paved: the two-step uninstall note (dials to base and save; demolish hubs
+  and depots and save) is on both store bodies and the site, and the residual disclosure
+  follows the measured residual set (`FIX_POLICY` §3a; D13's shared rescue scope is the fix
+  pack's record, this mod's residue is measured from this tree).
 - The TestKit is never uploaded.
 - Prior art: ChoGGi (Fix Bugs) and LukeH (Martian Express), the fix pack's
-  `reports/PRIOR_ART_SURVEY.md`, which also backs the save-safety claim in player-facing text.
+  `reports/PRIOR_ART_SURVEY.md`; credits in player text wait on a provenance inventory.
 
 ## Release marking (2026-08-17)
 
 What is live on the portal is marked with an annotated tag per mod, `fixpack-`/`optin-`/`rescue-`
-plus `version_major.version_minor.version` from `metadata.lua`, pushed at upload; the tag and
-`metadata.lua` must agree, and the portal version is recorded against the sha in the fix pack's
-`reports/RELEASE_PORTAL_PREP.md`. `main` is latest verified work and normally runs ahead of what
+plus `version_major.version_minor.version` from `metadata.lua`, created on the packed commit after
+the owner's confirmed upload (`support/POST_UPLOAD_CLOSE.md`); the tag and `metadata.lua` must agree,
+and the as-published state is recorded in `reports/STORE_CARD_LIVE.md` and `archive/RELEASE_HISTORY.md`.
+Never a `fixpack-*` name. `main` is latest verified work and normally runs ahead of what
 shipped. No standing `testing` or `published` branch: the junction makes the checked-out tree the
 running mod, and STATE and both generated indexes are rewritten in place, so long-lived branches
 conflict on exactly those files and silently change what the rig loads. To reproduce what a player

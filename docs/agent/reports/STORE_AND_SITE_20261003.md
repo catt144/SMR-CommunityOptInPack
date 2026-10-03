@@ -23,7 +23,7 @@ This report is preparation, not a readiness verdict. Nothing here was uploaded o
 
 | unit | state |
 |---|---|
-| Store bodies, metadata description/`last_changes`, public README, parity proof | COMPLETE (this commit) |
+| Store bodies, metadata description/`last_changes`, public README, parity proof | COMPLETE (`736e6e6`); blocks moved to `docs/UPLOAD_WORKFLOW.md` §3 with the release system |
 | Tool ports (`paradox_card.py`, `store_screenshots.py`, `store_parity.py`), ignore parity, sync declarations | COMPLETE (this commit) |
 | Shared site Opt-In section, nav, README row, scoped sweep, `mkdocs build --strict` | COMPLETE, committed in the site repo, **not deployed** |
 | Preview candidates, gallery shot list, drop folder, OI-12 refresh | COMPLETE; owner selection owed |
@@ -62,115 +62,15 @@ This report is preparation, not a readiness verdict. Nothing here was uploaded o
 
 ## 3 · Store bodies — maintained copies, pre-publication state
 
-These are the blocks `docs/UPLOAD_WORKFLOW.md` §3 carries in the donor's shape, held here until
-the release system exists. `metadata.lua`'s `description` is generated **from the Paradox block**
-(`python tools/store_parity.py --write-metadata`), and `python tools/store_parity.py` proves all
-three agree: Paradox block == metadata description byte for byte; Steam block == the same text
-once BBCode tags and list markers are stripped. `python tools/paradox_card.py --source
-docs/agent/reports/STORE_AND_SITE_20261003.md` opens the Paradox block formatted for pasting.
-
-#### 📋 Title
-
-```
-Relaunched Fix Pack: Opt-In Modules
-```
-
-#### 📋 Short summary (approved OI-42, unchanged)
-
-```
-Opt-in gameplay modules, including train logistics, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Relaunched Fix Pack.
-```
-
-#### 📋 Paradox Mods — description (plain text, paste as-is)
-
-```
-Opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines. Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
-
-THE MODULES
-
-Every module has its own switch on the Mod Options page, and a switch takes effect as soon as you press Apply, in both directions. Turning the whole mod on or off in the Mod Manager is different: that takes effect after a full restart of the game.
-
-· Acknowledged warnings. Dismissing a "Building Not Working" warning acknowledges the buildings it lists: they stay quiet until they recover, and a building that recovers and breaks again warns again. A newly broken building always warns immediately. Without this, dismissing the warning silences it for four game hours and then it comes back. Only these building warnings change.
-
-· Multiple Artificial Suns. Build more than one Artificial Sun. The game's own solar panels only ever look at the first sun for night-time light, so this module also connects panels to whichever sun covers them, and reconnects them when a sun is demolished. Panels already standing when you switch it on pick up a second sun after you save and load; panels built afterwards connect straight away. Off, the one-per-colony limit returns and suns you have built keep working.
-
-· Drone speed and Drone carry capacity. Two dials. Drone speed adds a multiple of base Drone movement speed on top of any speed techs you have; Drones only, rovers and shuttles are untouched. Drone carry capacity adds extra units per trip on top of the base one, and the Artificial Muscles breakthrough still stacks. Both take effect immediately, and the base positions are exactly the unmodded game. ⚠️ A dial left off its base position stays in your save as an ordinary bonus after the mod is gone, so set both dials back to base, press Apply and save before you uninstall.
-
-· Service interest tags. Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the traits that gain or lose something there. Display only: how Colonists choose and use services does not change, and it stores nothing in your save.
-
-· Station import/export rows. Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. Off, stations go back to the game's own requests.
-
-· Train Hub. A junction where three train lines cross and cargo changes lines. It stores resources for the stations on its lines, runs its own drones to build and repair track, and has upgrades of its own; stations served by a hub use the hub's Import/Export rows. While it is on, Train Stations don't spoil food. Off, no new hubs can be built and hubs already built keep working. ⚠️ Demolish every Train Hub before removing the mod.
-
-· Elevator Depot. Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
-
-YOUR SAVE, AND REMOVING THE MOD
-
-Turning a module off puts the game's own behaviour back; what the module already did stays done, and buildings already placed keep working. Removing the whole mod is different, because the Train Hub and the Elevator Depot exist only while it is installed: follow the note at the bottom of this page first. The Drone dials are the other thing to know: a dial left off its base position keeps boosting your drones after the mod is gone, so put both back to base, press Apply and save before you uninstall.
-
-PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE
-
-Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
-
-BUGS, QUESTIONS AND MORE DETAIL
-
-Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
-https://catt144.github.io/SMR-CommunityMods/
-
-BEFORE YOU UNINSTALL
-
-1. Set both Drone dials back to base, press Apply, and save the game.
-2. Demolish every Train Hub and both halves of every Elevator Depot, then save the game.
-3. Then disable or remove the mod and restart the game fully.
-
-Removing the mod while hubs or depots are still standing leaves buildings in your save that the game no longer knows, and the game reports errors when that save loads. With them demolished first, your stations go back to the game's own import and export requests.
-```
-
-#### 📋 Steam Workshop — description (BBCode, paste as-is)
-
-```
-Opt-in modules for [i]Surviving Mars: Relaunched[/i] — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines. Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
-
-[h2]The modules[/h2]
-Every module has its own switch on the Mod Options page, and a switch takes effect as soon as you press Apply, in both directions. Turning the whole mod on or off in the Mod Manager is different: that takes effect after a full restart of the game.
-[list]
-[*][b]Acknowledged warnings.[/b] Dismissing a "Building Not Working" warning acknowledges the buildings it lists: they stay quiet until they recover, and a building that recovers and breaks again warns again. A newly broken building always warns immediately. Without this, dismissing the warning silences it for four game hours and then it comes back. Only these building warnings change.
-[*][b]Multiple Artificial Suns.[/b] Build more than one Artificial Sun. The game's own solar panels only ever look at the first sun for night-time light, so this module also connects panels to whichever sun covers them, and reconnects them when a sun is demolished. Panels already standing when you switch it on pick up a second sun after you save and load; panels built afterwards connect straight away. Off, the one-per-colony limit returns and suns you have built keep working.
-[*][b]Drone speed and Drone carry capacity.[/b] Two dials. Drone speed adds a multiple of base Drone movement speed on top of any speed techs you have; Drones only, rovers and shuttles are untouched. Drone carry capacity adds extra units per trip on top of the base one, and the Artificial Muscles breakthrough still stacks. Both take effect immediately, and the base positions are exactly the unmodded game. ⚠️ A dial left off its base position stays in your save as an ordinary bonus after the mod is gone, so set both dials back to base, press Apply and save before you uninstall.
-[*][b]Service interest tags.[/b] Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the traits that gain or lose something there. Display only: how Colonists choose and use services does not change, and it stores nothing in your save.
-[*][b]Station import/export rows.[/b] Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. Off, stations go back to the game's own requests.
-[*][b]Train Hub.[/b] A junction where three train lines cross and cargo changes lines. It stores resources for the stations on its lines, runs its own drones to build and repair track, and has upgrades of its own; stations served by a hub use the hub's Import/Export rows. While it is on, Train Stations don't spoil food. Off, no new hubs can be built and hubs already built keep working. ⚠️ Demolish every Train Hub before removing the mod.
-[*][b]Elevator Depot.[/b] Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
-[/list]
-
-[h2]Your save, and removing the mod[/h2]
-Turning a module off puts the game's own behaviour back; what the module already did stays done, and buildings already placed keep working. Removing the whole mod is different, because the Train Hub and the Elevator Depot exist only while it is installed: follow the note at the bottom of this page first. The Drone dials are the other thing to know: a dial left off its base position keeps boosting your drones after the mod is gone, so put both back to base, press Apply and save before you uninstall.
-
-[h2]Playing on Xbox, PlayStation or the Microsoft Store[/h2]
-Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
-
-[h2]Bugs, questions and more detail[/h2]
-Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
-[url=https://catt144.github.io/SMR-CommunityMods/]https://catt144.github.io/SMR-CommunityMods/[/url]
-
-[h2]Before you uninstall[/h2]
-[olist]
-[*]Set both Drone dials back to base, press Apply, and save the game.
-[*]Demolish every Train Hub and both halves of every Elevator Depot, then save the game.
-[*]Then disable or remove the mod and restart the game fully.
-[/olist]
-Removing the mod while hubs or depots are still standing leaves buildings in your save that the game no longer knows, and the game reports errors when that save loads. With them demolished first, your stations go back to the game's own import and export requests.
-```
-
-#### 📋 Change note (both stores — Paradox CHANGELOG / Steam Change Notes) — first release
-
-```
-First release. Every module is off, or at its base setting, until you turn it on in Options → Mod Options: acknowledged warnings, more than one Artificial Sun, two Drone stat dials, service interest tags, and train logistics with station import/export rows, the Train Hub and the Elevator Depot. Read the uninstall note at the bottom of the page before you ever remove the mod.
-```
-
-The outbox, when the release system creates it, holds this first-publish scope as its one
-Pending entry. The development history before first publication (the 2026-09-22 widenings,
-the train rebuilds) never shipped broken and gets no entry.
+**Moved on 2026-10-03, the same day, when the release system was built:** the five blocks
+(Title, Short summary, Paradox plain text, Steam BBCode, first-release change note) now live
+in `docs/UPLOAD_WORKFLOW.md` §3, their permanent home, and this section no longer holds a
+copy that could drift. `metadata.lua`'s `description` and `last_changes` are generated from
+that §3 by `python tools/store_parity.py --write-metadata`; `python tools/store_parity.py`
+proves Paradox block == metadata description byte for byte, Steam block == the same words with
+BBCode and list markers stripped, summary and change note matching, and one `[h2]` per
+ALL-CAPS section. `python tools/paradox_card.py` opens the Paradox block formatted for pasting.
+The bytes as first written here are at `736e6e6:docs/agent/reports/STORE_AND_SITE_20261003.md`.
 
 ## 4 · Claim-to-source map
 
@@ -334,3 +234,31 @@ Skills: smr-orientation, doc-editing, subagents (read), prompt-authoring (read),
 - OI-44: confirm whether listings exist and which platforms/approvals the Paradox account offers.
 - Deploy the site when the store pages are live (the owner's manual workflow); committed site sha
   is recorded below.
+
+## 11 · Release system built — the root brief consumed (2026-10-03, later the same day)
+
+Owner, 2026-10-03: *"build the upload_workflow first draft and get everything setup so the
+release prompt only has to polish."* That fires the root `RELEASE_SYSTEM_high.md`; the same
+seat (Claude Fable 5.1) built it, so 04's independent audit of the release machinery is now
+load-bearing rather than optional.
+
+| created | role |
+|---|---|
+| `docs/UPLOAD_WORKFLOW.md` | the owner's procedure: §0 first-publish steps (listing check, platforms/approval, Workshop agreement), §1 pack, §2 upload order, §3 the five maintained paste blocks (moved here from this report), styling pass, §4 site, §5 receipt, failure table. Two header rules. |
+| `docs/agent/prompts/perma/release_prompt.md` | the permanent prompt: rails (editor-owned versions, `optin-v…` tag after confirmation, ids read from writeback, no page-version tracking), §0 half-done detection, §1a first-publish preconditions table, HOLD marker, partial-upload handling, close-out through the support trio. |
+| `docs/agent/prompts/perma/RELEASE_OUTBOX.md` (class `outbox`) | Pending holds the first publication; `Last released` says none. |
+| `docs/archive/RELEASE_HISTORY.md` | header only; no invented release. |
+| `docs/agent/support/RELEASE_SURFACES.md`, `POST_UPLOAD_CLOSE.md`, `LIVE_SITE_READ.md` | donor names, this mod's surfaces; the close procedure fills `STORE_CARD_LIVE.md`, tags, compares the downloaded package and routes the donor publish-day job as a fix-pack checklist item. |
+| `docs/agent/reports/STORE_CARD_LIVE.md` | pre-publication state: nothing live, no body copy by design; `store_parity.py` compares it only once a published body is appended. |
+
+Wired: `CLAUDE.md` folder contract and `docs/README.md` map (ROOT allowlist now 7 entries);
+`tools/doccheck.py` requires the two new rule headers and accepts `outbox` for the ledger row;
+prompt map (two perma rows, the root one-off row gone); support map; WORKFLOW's Release and
+Release-marking sections rewritten (editor-owned versions, generated store body, OI-18
+asset-aware ceiling, art fields, publish-day donor job); the sync ledger's release citation
+reason; checklist homes for OI-21/OI-44. `store_parity.py` now also checks the store card
+when it carries a published body.
+
+**Release machinery built; these launch inputs remain:** OI-12 art and captures, OI-44
+listing/platform facts, 01/02 shipping evidence and 04's verdict, credits and the residual
+line from 01, the owner's own portal work. Nothing here is "ready to publish".

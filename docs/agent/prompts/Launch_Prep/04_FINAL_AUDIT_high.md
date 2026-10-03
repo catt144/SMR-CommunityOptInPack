@@ -111,3 +111,16 @@ Drift and decisions to examine, every one:
 - The imagegen skill the brief names is not installed; preview candidates are Pillow composites
   of the shipped icon renders (`local/store_art_candidates/`), not gameplay captures. No clean
   capture of the final hub/depot look exists in the owner's drop folder; a shot list was issued.
+
+**Release system built 2026-10-03 by the same seat that ran 03** (owner instruction: *"build
+the upload_workflow first draft and get everything setup so the release prompt only has to
+polish"*). Record: `reports/STORE_AND_SITE_20261003.md` §11; the root brief is consumed
+(`git log --diff-filter=D -- docs/agent/prompts/RELEASE_SYSTEM_high.md`). Your first audit
+question now has concrete targets: `docs/UPLOAD_WORKFLOW.md`, `perma/release_prompt.md` (§0
+half-done detection, §1a preconditions, §3 partial upload), `perma/RELEASE_OUTBOX.md`,
+`support/RELEASE_SURFACES.md`, `support/POST_UPLOAD_CLOSE.md`, `support/LIVE_SITE_READ.md`,
+`reports/STORE_CARD_LIVE.md`, `tools/store_parity.py`. Decisions to challenge: the store body
+is generated from the owner file (not three hand-kept copies); the card holds no body before
+publication; `outbox` class accepted by a one-row override in doccheck; WORKFLOW's release
+text rewritten under the standardisation authority (old agent major/minor step removed,
+5 MB statement replaced by the OI-18 ceiling). Execution and authoring were one model.

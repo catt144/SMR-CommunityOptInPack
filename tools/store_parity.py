@@ -11,7 +11,9 @@ This reads the two fenced blocks under their `#### 📋` headings in the source 
     is collapsed and case is folded (the markup and heading case may differ, the words may not);
   * the "Short summary" block == `short_description`;
   * the "Change note" block == `last_changes`;
-  * every ALL-CAPS section line in the Paradox block has an `[h2]` in the Steam block.
+  * every ALL-CAPS section line in the Paradox block has an `[h2]` in the Steam block;
+  * after the first publish, the as-published copies in `docs/agent/reports/STORE_CARD_LIVE.md`
+    equal the source blocks (before it, the card holds no body and is reported INFO).
 
 `--write-metadata` rewrites `description` and `last_changes` in `metadata.lua` FROM the blocks
 (the blocks are the source; the Lua string is generated), then re-checks. It never touches a
@@ -37,6 +39,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_SOURCE = os.path.join(ROOT, "docs", "UPLOAD_WORKFLOW.md")
 FALLBACK_SOURCE = os.path.join(ROOT, "docs", "agent", "reports", "STORE_AND_SITE_20261003.md")
 METADATA = os.path.join(ROOT, "metadata.lua")
+CARD = os.path.join(ROOT, "docs", "agent", "reports", "STORE_CARD_LIVE.md")
 
 H_PARADOX = "#### 📋 Paradox Mods — description (plain text, paste as-is)"
 H_STEAM = "#### 📋 Steam Workshop — description (BBCode, paste as-is)"
@@ -166,6 +169,18 @@ def main(argv):
                    min(len(p_norm), len(s_norm))))))
     check(short == blocks["summary"], "Short summary block == short_description", "%d chars" % len(short))
     check(last == blocks["change"], "Change note block == last_changes", "%d chars" % len(last))
+    # The store card is a third copy only after the first publish (POST_UPLOAD_CLOSE §4
+    # appends the as-published blocks); before that it holds no body on purpose.
+    if os.path.isfile(CARD):
+        card = io.open(CARD, encoding="utf-8").read().replace("\r\n", "\n")
+        has = lambda h: re.search("^" + re.escape(h) + r"\s*$", card, re.M) is not None
+        if has(H_PARADOX) and has(H_STEAM):
+            check(fenced_block(card, H_PARADOX).strip("\n") == blocks["paradox"],
+                  "STORE_CARD_LIVE Paradox copy == source block", "matches", "differs")
+            check(normalise(fenced_block(card, H_STEAM).strip("\n"), True) == s_norm,
+                  "STORE_CARD_LIVE Steam copy == source words", "matches", "differs")
+        else:
+            rows.append(("INFO", "STORE_CARD_LIVE holds no body (pre-publication)", "not compared"))
     caps = caps_sections(blocks["paradox"])
     h2 = re.findall(r"\[h2\](.*?)\[/h2\]", blocks["steam"])
     check(len(caps) == len(h2) and len(caps) > 0,

@@ -14,6 +14,8 @@ docs/
                           format and age gated by doccheck
   FUTURE_IDEAS.md         parking lot, NOT a backlog. Nothing in it is work
   PARKED_MODULES.md       designed or part-built modules the owner parked: not live, not dead
+  UPLOAD_WORKFLOW.md      the owner's upload procedure and the maintained store paste blocks;
+                          `metadata.lua`'s body is generated from its §3 (release system, 2026-10-03)
   README.md               this map
   agent/
     STATE.md              Pull-only current status, byte-budgeted (doccheck)
@@ -131,6 +133,9 @@ difference. Generated files say so on line 1.
   report links to) → `local/` at the repo root (git-ignored, never swept, entry-gated
   by `local/README.md` — see "Outside the repo" below for what belongs OUTSIDE the
   repo entirely instead).
+- A **player-facing change** (a module added, retired or respecified; a store or site claim
+  moved) → a `### Pending` entry in `agent/prompts/perma/RELEASE_OUTBOX.md`; the release
+  prompt drains it into `archive/RELEASE_HISTORY.md` after the owner's confirmed upload.
 - A **decision the owner must make** → `PLAYTEST_CHECKLIST.md`, this mod's own list
   (owner, 2026-09-12). The ruling, once made, goes to the doc of the role that obeys it,
   never only to an agent's memory. Four classes go on the FIX PACK's

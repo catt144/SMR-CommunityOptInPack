@@ -90,7 +90,7 @@ local tool ports, ignore parity, preview candidates and shot list, the shared si
 section (committed, undeployed) and the donor publish-day handoff; report
 `reports/STORE_AND_SITE_20261003.md`. **Still open, so this brief stays live and its row
 unstruck:** the owner's OI-12 selection and captures (then `image`/screenshot fields and a green
-preflight), OI-21's word, OI-44's listing/console facts, the fill of `UPLOAD_WORKFLOW` /
-`STORE_CARD_LIVE` once RELEASE_SYSTEM builds them, credits and residual lines from 01, and claim
-acceptance after 01/02 land. Re-run from this note: apply selections, lift §3/§6 into the release
-files, re-run `store_parity.py`, preflight to zero FAIL, then strike and delete.
+preflight), OI-21's word, OI-44's listing/console facts, credits and residual lines from 01, and claim
+acceptance after 01/02 land. (The release system was built later the same day: the blocks and
+first-publish steps now live in `docs/UPLOAD_WORKFLOW.md`; report §11.) Re-run from this note:
+apply selections, re-run `store_parity.py`, preflight to zero FAIL, then strike and delete.

@@ -1,7 +1,9 @@
 # Launch preparation — after the train battery
 
 Owner authority and evidence: `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`.
-Authored at `63424af`, 2026-10-02. First run root `RELEASE_SYSTEM_high.md`; it may run now.
+Authored at `63424af`, 2026-10-02. The root `RELEASE_SYSTEM_high.md` was built and consumed on
+2026-10-03 (`docs/UPLOAD_WORKFLOW.md`, `perma/release_prompt.md`, `perma/RELEASE_OUTBOX.md`, the
+support trio, `reports/STORE_CARD_LIVE.md`).
 The owner starts this chain by hand after train brief 35 has a durable close-out.
 If the train folder is gone, use its deletion commit's report. No link repeats its battery.
 

@@ -287,8 +287,9 @@ CITERS_BY_DESIGN = {
                               "fix pack's documents on purpose",
 }
 # By CITATION (bare file name; the directory a citer spells is not compared).
-_RELEASE = ("the release system this repo will build on the donor's "
-            "(prompts/RELEASE_SYSTEM_high.md, a live prompt); a pull now goes stale")
+_RELEASE = ("this repo's own release system, built 2026-10-03 on the donor's under the same "
+            "names (docs/UPLOAD_WORKFLOW.md, perma/release_prompt.md, the support trio); a "
+            "citation of the donor's copy is history, the local file is the live one")
 _RECORD = ("a dated record cites evidence that lives in the donor; a record is not "
            "rewritten, and the donor's copy is its home")
 _GAMEPATCH = ("prompts/perma/gamepatch/ is the outbox for the fix pack's game-patch "

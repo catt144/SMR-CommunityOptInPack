@@ -33,20 +33,21 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 | `DISPATCH.md` | `prompt` | live-issue triage: a player report, a field bug, something the owner noticed in play. ⚠️ Scope is issues **once the mod is live**, and it is not (owner, 2026-08-31) |
 | `STATE_EVICTION.md` | `prompt` | requested STATE cleanup or a doccheck size warning; apply the complete four-part admission door (harm · reach · gate · volatility, AND-ed) to every section and verify refused content's homes |
 | `gamepatch/` (README, `done/`) | `outbox` | after a game patch: the fix pack's `GAME_PATCH_PROMPT.md` leaves one entry per patch here, even when nothing is flagged; read the newest, run its command, file verdicts, move it to `done/` (its README) |
+| `release_prompt.md` | `prompt` | **publishing this mod, first time or update:** derive the batch from the outbox, prepare every surface through `support/RELEASE_SURFACES.md`, hand off to the owner's `docs/UPLOAD_WORKFLOW.md` and HOLD, then close through `support/POST_UPLOAD_CLOSE.md`. Its §1a table is the first-publish gate; it never packs, uploads or deploys |
+| `RELEASE_OUTBOX.md` | `outbox` | the ledger of player-facing changes staged for the NEXT upload: one `### Pending` entry per change, drained into `docs/archive/RELEASE_HISTORY.md` only by `release_prompt.md` after the owner confirms. First entry: the first publication |
 | `KNOWLEDGE_SYNC_PASS.md` | `prompt` | does this repo hold what it cites, and what it needs? A re-runnable cross-repo sweep against the fix pack: acts on what it decides, recommends the rest, and carries out what the owner agrees |
 
 ## Root — live one-offs
 
 | prompt | declared class | state |
 |---|---|---|
-| `RELEASE_SYSTEM_high.md` | `prompt` | **LIVE, first launch-prep brief; may fire now.** Revised by the 2026-10-02 audit: build the donor-named local release system for first publication and later updates, owner hold/resume and writeback recovery, gate/map wiring and shared-site release procedure. Store/site production belongs to `Launch_Prep/`; sibling repos stay read-only in this build. Delete when built. |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before its owner asks (spec §9) can go on `docs/PLAYTEST_CHECKLIST.md` (`bugs/D06.md`). Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
 
 | chain | declared class | state |
 |---|---|---|
-| `Launch_Prep/` | `live` | Shipping evidence and bounded attended checks, store/asset/shared-site preparation, then independent backward QA. Owner starts after `RELEASE_SYSTEM_high.md` and train brief 35 close; no duplicate train battery. Its README gives fire order and completion gates; publication belongs to the permanent release prompt and owner. |
+| `Launch_Prep/` | `live` | Shipping evidence and bounded attended checks, store/asset/shared-site preparation, then independent backward QA. The release system (`perma/release_prompt.md`, built 2026-10-03) and train brief 35 are done; no duplicate train battery. Its README gives fire order and completion gates; publication belongs to the permanent release prompt and owner. |
 
 A chain folder appears here while its links are live and leaves `prompts/` when the
 effort closes (`agent/support/CHAIN_METHOD.md` is the method for an effort over about two sessions).
