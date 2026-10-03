@@ -38,13 +38,13 @@ local icons = {
 	import = "UI/IconsRemaster/Sections/elevator_resource_down.png",
 }
 local help = {
-	balanced = "Balanced: trains hold the selected amount; local drones use it as their desired amount.",
+	balanced = "Balanced (vanilla default): trains hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it to the hub.",
 	export = "Export: trains take stock above the selected minimum to the hub. Local drones bring in what nearby storage holds above its Desired Amount. A full hub refuses exports.",
 	import = "Import: trains bring stock from the hub up to the selected amount. Local drones may drain this station to zero.",
 	disabled = "Not accepted: vanilla storage is disabled for this resource. Trains and drones may carry its remaining stock away.",
 }
 local local_help = {
-	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount. Local drones use it as their desired amount.",
+	balanced = "Balanced (vanilla default): trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
 	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
 	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
 }
