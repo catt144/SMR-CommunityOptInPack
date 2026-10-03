@@ -112,10 +112,11 @@ Do not repeat the battery. Non-gating follow-ups from its findings table:
   `UnpersistedMissingClass` warnings but no Lua error in its measured window.
   Trace residual reference owners in the exact save and assess exit/rescue
   applicability. No runtime fix or recovery capability is inferred.
-- **OI-45** asks the owner to choose the existing demolish-first boundary or
-  additional recovery work for saves loaded without the mod while its buildings
-  still stand. The first load raised five native errors; B2's later content-free
-  load passed. Keep OI-43's missing-mod warning decision separate.
+- **OI-45 ruled (owner, 2026-10-03): demolish first, disclosed by an uninstall
+  note at the bottom of the store pages; no recovery work.** Saves loaded without
+  the mod while its buildings still stand raised five native errors; B2's
+  content-free load passed. `03_STORE_AND_SITE` writes the note. Keep OI-43's
+  missing-mod warning decision separate.
 
 Evidence: `reports/TRAIN_FINAL_BATTERY_20261002.md`, section "Non-gating findings
 and launch-prep routes"; `docs/archive/train_final_result_20261003/receipt.json`.

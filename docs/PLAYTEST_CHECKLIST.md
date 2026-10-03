@@ -63,15 +63,6 @@ Are there already Opt-In listings to use? What console approval steps does your 
 - Login, any required Workshop agreement and actual approval are yours; no account secrets are needed in the repo.
 Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
 
-### OI-45 · opened 2026-10-03 · launch
-At launch, accept demolish-first removal, or require recovery for saves with hubs/depots still standing?
-- Recommended: retain the demolish-first limitation and explicit disclosure; assess residual references in launch prep.
-- Removing the mod with its buildings standing raised five native Lua errors in the 2026-10-03 sitting.
-- The separate content-free B2 request-restoration check passed; class-reference warnings remain for investigation.
-- This is a launch-prep choice, not a gate on the passed train battery (owner `ddf14cc`).
-- Say "demolish first" or "require recovery work"; OI-43 separately covers the missing-mod warning.
-Home: `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`, `docs/agent/prompts/Launch_Prep/01_SHIP_EVIDENCE_high.md`
-
 ## Run
 
 ### OI-12 · opened 2026-09-18 · launch

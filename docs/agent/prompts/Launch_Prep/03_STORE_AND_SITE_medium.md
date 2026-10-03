@@ -76,5 +76,10 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**Owner ruling 2026-10-03 (OI-45): an uninstall note goes at the bottom of each store page.**
+It tells the player to demolish every train hub and Elevator Depot before removing the mod.
+Removal with them standing raises native Lua errors on load; removal after demolition restores
+vanilla station requests (`TRAIN_FINAL_BATTERY_20261002.md`, B2). No recovery work is built.
+
 Audit: preserve existing opt-in report routing, not a duplicate backend. Audit report names
 every reviewed player surface and the publish-day donor dependency.
