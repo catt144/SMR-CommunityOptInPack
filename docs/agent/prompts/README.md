@@ -41,6 +41,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | prompt | declared class | state |
 |---|---|---|
+| `MECHANIZED_DEPOT_THROUGHPUT_INVESTIGATION_high.md` | `prompt` | Live, fire now (owner, 2026-10-03). Investigation: can an opt-in module give the vanilla Mechanized Depot hidden larger pad and crane capacity, faster with the look unchanged? Feasibility, mechanism, size, launch or post-launch. |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before its owner asks (spec §9) can go on `docs/PLAYTEST_CHECKLIST.md` (`bugs/D06.md`). Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
