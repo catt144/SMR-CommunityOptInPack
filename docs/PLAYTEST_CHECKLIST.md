@@ -40,36 +40,10 @@ Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` tr
 - Say "both", "fix pack only", or "decide at its launch".
 Home: `docs/agent/FIX_POLICY.md`
 
-### OI-13 · opened 2026-09-18 · launch
-May an agent sweep four `Code/` comments that still call this mod "the pack", comments only?
-- `00_Core.lua:497`, `:536`, `:558` and `Opt_ResidencyControl.lua:63`, re-read on 2026-09-18.
-- Zero behaviour change and a parse sweep after, but it edits module files, so it is yours.
-- Say "sweep" or "leave as history".
-Home: `docs/agent/WORKFLOW.md`
-
-### OI-11 · opened 2026-09-18 · launch
-Name `Opt_MultipleSuns`'s `SolarPanelBase.GameInit` capture in its `Require` block, or leave it allowlisted?
-- The F107 wrap check allowlists it: the class declares the method, so `prev` is real and nothing is broken.
-- The freeze was lifted on 2026-09-18; this remains a code-change decision and still needs an A/B.
-- (a) leave it until the file's next planned edit; (b) do it at the launch session. OI-04's edit has since landed.
-- Recommended: (a).
-Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
-
-### OI-43 · opened 2026-10-02 · launch
-Should this mod warn when a player loads a save with it disabled or missing?
-- Recommended: set `optional_mod` to false before first publication; built hubs and depots need the uninstall steps.
-- Keeping true suppresses the warning for everyone, including players with placed content.
-- False restores the engine warning for new saves, even if no content was built; it does not repair a save.
-- Existing saves marked optional need loading and saving with the changed mod enabled before that warning can help.
-- Say "warn" or "keep optional". A content-dependent warning would need a separate design.
-Home: `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`, `docs/agent/prompts/Launch_Prep/01_SHIP_EVIDENCE_high.md`
-
 ### OI-44 · opened 2026-10-02 · launch
-Are there already Opt-In listings to use? What console approval steps does your Paradox account offer?
-- Recommended: use existing Opt-In drafts if any; otherwise create listings at first upload, Paradox then Steam.
-- Give existing links only if they exist; newly assigned ids will be read from the editor's writeback.
-- Confirm platform choices and any Xbox/PlayStation approval step for this mod; fix-pack approval is not its receipt.
-- Login, any required Workshop agreement and actual approval are yours; no account secrets are needed in the repo.
+Which platforms will you choose on Paradox Mods, and what console approval step does it show?
+- No Opt-In listing exists yet; the first upload creates both, Paradox then Steam.
+- The fix pack's approval does not carry over; login, any Workshop agreement and approval are yours.
 Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
 
 ## Run

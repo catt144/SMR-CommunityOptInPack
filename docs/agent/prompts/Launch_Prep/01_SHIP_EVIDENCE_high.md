@@ -112,6 +112,11 @@ Do not repeat the battery. Non-gating follow-ups from its findings table:
   `UnpersistedMissingClass` warnings but no Lua error in its measured window.
   Trace residual reference owners in the exact save and assess exit/rescue
   applicability. No runtime fix or recovery capability is inferred.
+- **Owner rulings 2026-10-03, granted for step 3:** **OI-43 "warn"**: set `optional_mod` to
+  false in `metadata.lua` before first publication. **OI-13 "sweep"**: the four "the pack"
+  comments, comments only. **OI-11 (b)**: name `Opt_MultipleSuns`' `SolarPanelBase.GameInit`
+  capture in its `Require` block now, with its A/B. **OI-46** (mechanized depot throughput) ships
+  separately after launch and gates nothing here.
 - **Pre-launch hub soak accepted (owner, 2026-10-03): testing stops here.** About 98 game
   hours on a busy colony (1 hub, 8 stations, 12 trains) gave 0 soak flags and 0 Lua errors
   (`Mars.exe-20261003-14.01.18`; slots and reader in `tools/trains/soak/`). The owner declined

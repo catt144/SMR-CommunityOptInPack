@@ -76,6 +76,10 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**Owner 2026-10-03 (OI-44): no Opt-In listing exists on either store**; only the fix pack has
+ever shipped. The first upload creates both listings, Paradox then Steam. The console-approval
+step is still the owner's open half of OI-44.
+
 **Owner ruling 2026-10-03 (OI-45): an uninstall note goes at the bottom of each store page.**
 It tells the player to demolish every train hub and Elevator Depot before removing the mod.
 Removal with them standing raises native Lua errors on load; removal after demolition restores
