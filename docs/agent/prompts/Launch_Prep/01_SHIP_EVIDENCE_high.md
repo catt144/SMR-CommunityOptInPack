@@ -20,8 +20,9 @@ Read FIX_POLICY's header before any authorised code edit.
 ## Evidence and work
 
 The audit report's table gives commands and falsifiers at `63424af`. Re-emit counts/fingerprints.
-D02/D04's 2026-09-22 entry sections say their new live falsifiers are unrun; D09/D05 retain
-legacy tests. **D15's 2026-09-30 acceptance stands within its conditions**: read its uninstall
+⚖️ Owner, 2026-10-02: play on 1.1.x clears D02's and D04's 2026-09-22 live looks and D09's
+use (each entry's 2026-10-02 section, verbatim and scoped); do not re-ask them. Their
+fix-pack-absent §8 half stays owed. D05 retains legacy tests. **D15's 2026-09-30 acceptance stands within its conditions**: read its uninstall
 and both-configuration ruling paragraphs, compare changed surfaces, reopen only what changed.
 Do not promote or dismiss it from STATE or row_status.
 
@@ -73,5 +74,5 @@ No dependency disappears unowned. Claim “ledger and remaining test plan prepar
 
 ## Notes from upstream
 
-Audit: D15 is accepted; D02/D04 live falsifiers remain. Review pending gamepatch work.
+Audit: D15 is accepted; D02/D04/D09 owner-cleared in play, fix-pack-absent half owed. Review pending gamepatch work.
 Toggle-off does not prove no train residue. Audit report owns command receipts.
