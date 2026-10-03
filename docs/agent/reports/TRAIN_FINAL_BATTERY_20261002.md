@@ -4,7 +4,8 @@ Authority: [brief 35](../prompts/Train_Hub_Project/35_FINAL_BATTERY_high.md).
 Starting shipping code: `eb36cff`; `git log --oneline -5` and `git pull` ran first,
 pull already up to date. Scope: testing and recording, with failures returned to
 the train orchestrator for a fix brief. **B0 in P: PASS, owner 2026-10-03.**
-The remaining list below is for orchestrator review; no further batch is issued.
+The final scope is ruled at `076e655`: B1 is issued below; one combined B2/B4
+batch follows its result. No other B2-B6 checks remain in this battery.
 Executed model: GPT-6 (Codex; no more specific runtime model identifier is exposed
 in this transcript). No subagents.
 
@@ -13,10 +14,10 @@ in this transcript). No subagents.
 | Unit | State |
 |---|---|
 | Reconcile predictions, prepare slots, verify and commit preparation | COMPLETE; TestKit `783a24d` |
-| P: released fix pack installed | B0 PASS; review only checks without a live witness before further play |
+| P: released fix pack installed | B0 PASS; B1 issued, awaiting owner result |
 | A: fix pack absent | WAIVED by owner 2026-10-03; not a runtime PASS |
 | Archive B0, explain forced rows, reconcile remaining checks | COMPLETE in this update |
-| Approve remaining scope / next owner batch | ORCHESTRATOR; pending, nothing issued |
+| Final scope | APPROVED `076e655`: B1, then B2 removal + B4 zero-hub persistence / over-capacity OFF |
 
 Owner, 2026-10-02: copy **Double Hub+elev Built Under2** as the battery fixture.
 The copy's exact filename is `FINAL35_P_20261002.savegame.sav`; use filename-based
@@ -160,51 +161,38 @@ Thus TrainHub ON forces the **row behavior** on without changing StationRows'
 option or registry status. With both options OFF, a built hub still keeps its
 network's rows. Slot 11's inactive status is accurate and is not a failed toggle.
 
-## B1-B6: remaining witness review - orchestrator only
+## B1-B6: final owner disposition - 2026-10-03
 
-This is a bounded reconciliation of the audit section 2, the final owner passages in
-spec sections 4.7/4.8/4.10/10/11, and the named reports below. "No live witness" means
-no result for that specific condition in those records; it does not overrule an
-owner observation. Desk-only or explicitly unwitnessed edges stay separate from
-accepted feature smokes. **The orchestrator approves the retained list before
-any further owner batch.** No new owner checklist item is created during review;
-OI-38 and shared ck217 retain their current homes.
+Authority: brief 35's owner rulings, `c5db1f4` / `076e655`, and the owner's
+instruction to issue B1 now. This replaces the proposed witness-review list.
 
-| Original battery | Specific condition without a recorded live witness | Evidence / scope for review |
-|---|---|---|
-| B1.5 / B6 loading | **OI-38: scripted organic up-leg departure and arrival with an Export row, alongside the train stream.** The stronger train-to-cabin-to-train UP crossing also has no native crossing verdict. | `ELEVATOR_DEPOT_WIRING_20261001.md` D2/D3 and current OI-38. Controlled up-loading passed brief 30; it is not this stream-backed reading. Brief 33 proved DOWN. Proposed batch below closes the read only; do not award an UP crossing-ledger proof from it. |
-| B2.1-2 | Native gamepad slider/focus; untouched absolute target versus configured percentage across a capacity change. | `TRAIN_DISTRIBUTION_PASS2_20260926.md` distinguishes desk controls from native focus; spec section 4.8 records ordinary target passes, not the capacity-change comparison here. Mouse row cycling, Ctrl-copy of state/percentage, tooltips and long-title inspection already passed. |
-| B2.4-5 | Hub join/leave/reconnect retaining separate hub/hubless settings; actual intermediate chained hop; unlock/relock and NoTerraforming resource membership; content-free full-mod removal/restart restoring vanilla requests. | `STATION_ROWS_WITHOUT_HUB_20261002.md` supplies source/desk transitions and a live ordinary save/load. Spec section 4.8's **chained sitting passed**, but explicitly says no 2012 hop was seen. `TRAIN_AUDIT_20261002.md` section 4 bounds request membership to its sampled colony. These are narrower than replaying that passed chain or B0. |
-| B3.5 | Stranded/off-line cargo: actual hub-first attempt, return/overflow, all cargo accounted, including hub room becoming available. | `TRAIN_ROUTING_5D_20260927.md` ends with stranded-cargo predictions, no resulting native verdict. The routed vanilla food defect belongs to the fix pack; this list does not re-track it or make its repair a train-project gate (owner 2026-10-03). |
-| B4.1,3,5 | Electronics maintenance reserve under competing exports/construction; actual station spoilage with TrainHub OFF; upgrade persistence through **zero hubs** then replacement, and over-capacity stock after OFF. | Audit section 2's stronger edges are not established by the accepted isolated-power, spoilage-ON or shared-upgrade sittings. Spec section 4.10 records buyer salvage/reloads/rebuild, not a zero-hub interval. Do not replay normal purchase/shared switches/capacity/power/heat or cargo displays. |
-| B5.1,3 | Simultaneous paired-hub launch accounting after D14(g)'s correction; reassign/rocket refusal; far-station go-home/no balancing; long-run Lost/hold beyond 60 s; repair without a grid. | D14(g), drones `L6_QA_20260925.md` C1/C6 and shared ck217 explicitly retain these native gaps. Normal flight, accepted movement/door art, malfunction and ordinary track-construction passes do not need repeating. |
-| B5.5 / native save residue | Active repair-notification **fresh-process** load plus an ordinary notification control (D14(h)); marked/unmarked legacy-save distinction and retained legacy `HubTrain` payload/pool where a real fixture exists. | D14(h), L6 C2/C6, audit section 2. B0's old-mod fallbacks are different permanents. No absent legacy fixture may be turned into a pass. Ordinary mid-flight save/reload and owner-accepted autosave equivalence already have witnesses. Packed-import acceptance belongs to launch prep; do not substitute a local-junction boot for it. |
-| B6.3-4 | Destination filled by competing delivery while cabin travels, returning leftovers; save/restart **during depot travel or upgrade construction**, concurrent purchase prevention, upgraded survivor receipt and reset after **both** halves are gone. | `ELEVATOR_DEPOT_REVISION_20261002.md`: native controlled loading/250->500/cost and train-building passes; these extra contention/serialization/receipt cases are desk coverage, not native results. Both salvage cargo paths and row adoption already have witnesses and are excluded. |
+| Battery | Final disposition |
+|---|---|
+| B1 | APPROVED: OI-38's five-step streamed up-leg read below; awaiting result. |
+| B2 | Retain only content-free full-mod removal/restart restoring vanilla requests. Other review items STRUCK by owner. |
+| B3 | CLEARED on owner witness during hub design, also for the elevator. |
+| B4 | Retain only upgrade persistence through zero hubs and replacement, plus over-capacity stock after OFF. Other review items STRUCK, including spoilage OFF. |
+| B5 | SKIPPED by owner; not a native PASS. |
+| B6 | CLEARED on owner witness during hub design. |
 
-Evidence limits carried, **not proposed as new owner work**: build 5's sustained
-stock-out/refill was not witnessed, but the owner closed its sitting "close enough";
-retain that boundary without reopening the accepted run. L6 C5's historical
-integer/control/editor evidence cannot be manufactured by repeating an obsolete
-sitting. The owner accepted movement; it remains outside the gate. A missing
-independent log does not demote an owner PASS.
+After B1 is read, issue **one combined batch** for the retained B2/B4 cases.
+Their predictions remain: a replacement hub inherits paid colony upgrades and
+shared state without repurchase; reducing capacity by switching the storage
+upgrade OFF retains stock above the new cap; full mod removal on a content-free
+copy restores vanilla station requests after a fresh process. Work on fixture
+copies. The passed B0 and prior accepted evidence are not repeated. No stronger
+UP crossing-ledger proof or other cleared/skipped/struck edge is added as a gate.
 
-For reconciliation, the excluded live coverage includes B0; brief 33's hub/DOWN
-crossings, wiring and save/rearm; 34b's Export floor and hub refusal; brief 34's
-module loading; row Export/Import/ordinary save/load; spoilage ON; global upgrade
-switching/salvage/reloads; build 5's accepted construction cases; depot loading
-both directions, capacity/cost, train controls on both maps, per-half Drone Access,
-passenger chain, both missing-twin notices, cargo on both salvage paths, orphan
-rest and restored pair/rows. Their final owner passages govern over earlier
-"NOT RUN" headings. In particular `ELEVATOR_DEPOT_WIRING_20261001.md`'s 10-02 D5
-owner PASS closes the earlier per-half uncertainty.
+## Issued B1 owner batch - OI-38; awaiting result
 
-## Proposed next owner batch - OI-38 only; NOT ISSUED
-
-For orchestrator approval, not instructions to start now. This is one small
-batch from the review list, using the installed TestKit `783a24d`; other gaps
-are not scheduled. No hub is selected: targets are the **surface sending-row
-controller** and its **underground depot twin**. Where train routes name a hub,
-use the serving hub's role and freshly read handle, not Hub 1/Hub 2 alone.
+Issued 2026-10-03 under the approved final battery. Current TestKit `783a24d`:
+`Get-FileHash` on installed `Code/80_AgentSlots.lua` and the retained composed
+source both returned SHA-256
+`0c991302949b6c206cd784775412e359645ac7e2a3df8bfa9c119cb71fcbaa65`;
+the live group bindings were read before issuance. No slot edit or restart is
+needed for new code. Use the battery copy with fix pack 1.0.26 installed and
+ElevatorDepot ON. No hub is selected: targets are the **surface depot** and its
+**underground twin**; route references use the serving hub's role.
 
 1. **Slot 12 - next labeled group**, paused with watches disarmed, until **Depot**.
    **Scratch - train diagnostics switch**: set `SMROptInPack.TrainTrace = true`
