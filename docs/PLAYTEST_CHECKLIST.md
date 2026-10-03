@@ -33,11 +33,8 @@ Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/LAUNCH_P
 ## Run
 
 ### OI-12 · opened 2026-09-18 · launch
-When this mod heads for upload, choose its preview art and the gameplay screenshots for its store pages.
-- Preview: three candidates in `local/store_art_candidates/` (A hub + lettering, B hub and depot, C hub plain),
-  from the shipped icon renders; pick one by name or supply your own art. None is wired yet.
-- Gallery: five captures with the toolkit hidden, named in `reports/STORE_AND_SITE_20261003.md` §5, dropped in
-  `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\`; `python tools/store_screenshots.py` encodes them under 1 MB.
-- Preflight fails only on preview at `214f0ad` (2026-10-03); Paradox rejects a mod with no `image` before packing.
+When this mod heads for upload, choose the gameplay screenshots for its store pages.
+- Gallery: nine annotated images in `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\`; `contact_sheet.png` shows them.
+  Five carry the gallery names and four are `alt_*`. Pick five; `python tools/store_screenshots.py` encodes them.
 - Limits: at most 1 MB for Steam, 2 MB for Paradox.
-Home: `docs/agent/WORKFLOW.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`
+Home: `docs/agent/reports/STORE_SCREENSHOTS_20261003.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`

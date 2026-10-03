@@ -94,8 +94,11 @@ The bytes as first written here are at `736e6e6:docs/agent/reports/STORE_AND_SIT
 
 ## 5 · Preview and gallery (OI-12)
 
-**Preview candidates** (not wired; the owner selects, then `metadata.lua` gets
-`'image', "Mod/SMR_CommunityOptInPack/preview.png"` and the file lands at the repo root):
+**Preview: wired 2026-10-03 (owner: "the same style of the fix pack and make it its own opt in").**
+Root `preview.png` is the fix pack's `docs/agent/reports/preview_art/FINAL_optin_preview.png`
+(under `B:\Dev\SMR\SMR-BugFixPack`), byte for byte: the fix pack's horizon art with this mod's
+title and a teal accent. `metadata.lua` carries `'image', "Mod/SMR_CommunityOptInPack/preview.png"`.
+The three candidates below were not chosen:
 
 | file (under `local/store_art_candidates/`) | made from | size |
 |---|---|---|
