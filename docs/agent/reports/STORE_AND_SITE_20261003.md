@@ -107,8 +107,8 @@ Regenerate with `python local/store_art_candidates/make_candidates.py` (kept bes
 imagegen skill named in the brief is not installed in this session, so the composites are
 Pillow work on the mod's own renders). None is a gameplay claim: they are the shipped icon art.
 
-**Gallery shot list** — real captures only, taken by the owner with the SMR Tool Kit panel
-hidden, dropped as PNG into `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\` with these names, then
+**Gallery shot list** — real captures only, taken by the owner (the Tool Kit section may
+stay in shot: owner, 2026-10-03), annotated by `python tools/annotate_screenshots.py` or dropped as PNG into `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\` with these names, then
 `python tools/store_screenshots.py` re-encodes them under 1 MB into `store_screenshots/`
 (excluded from the pack by `ignore_files`, still uploadable as `screenshot1..5`):
 

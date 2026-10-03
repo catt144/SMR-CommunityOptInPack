@@ -1,0 +1,107 @@
+{
+  "captures": "C:\\Users\\stkot\\OneDrive\\Pictures\\Screenshots\\2026-10",
+  "out": "B:\\Dev\\SMR\\SMR-ScreenCaptures\\optin_store",
+  "images": [
+    {
+      "out": "1_hub_day.png",
+      "source": "Mars_7Mb20CUq85.jpg",
+      "crop": [15, 158, 1515, 927],
+      "strip": {"title": "Train Hub", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Train Hub",
+         "sub": ["A junction where three train lines", "cross and cargo changes lines."],
+         "at": [640, 235], "to": [[800, 425]]},
+        {"color": "green", "head": "Network storage",
+         "sub": ["Stores resources for the", "stations on its lines."],
+         "at": [1300, 610], "to": [[975, 545]]}
+      ]
+    },
+    {
+      "out": "2_hub_panel.png",
+      "source": "Mars_iTEL18iLdk.jpg",
+      "crop": [430, 60, 1920, 824],
+      "strip": {"title": "Train Hub", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Upgrades",
+         "sub": ["The hub has upgrades of its own."],
+         "at": [1230, 175], "to": [[1546, 237]]},
+        {"color": "green", "head": "Its own drones",
+         "sub": ["They build and repair track."],
+         "at": [1280, 352], "to": [[1546, 322]]},
+        {"color": "green", "head": "Storage",
+         "sub": ["Holds resources for the", "stations on its lines."],
+         "at": [1290, 720], "to": [[1546, 513]]}
+      ]
+    },
+    {
+      "out": "3_depot_pair.png",
+      "source": "Mars_reimzMptEd.jpg",
+      "crop": [620, 60, 1920, 726],
+      "strip": {"title": "Elevator Depot", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Elevator Depot",
+         "sub": ["Links surface and", "underground train lines."],
+         "at": [830, 400], "to": [[1040, 575]]},
+        {"color": "green", "head": "Capacity upgrade",
+         "sub": ["One upgrade doubles its capacity."],
+         "at": [1240, 180], "to": [[1548, 238]]},
+        {"color": "yellow", "head": "Import or Export",
+         "sub": ["Import goes down.", "Export comes up."],
+         "at": [1290, 400], "to": [[1548, 415]]}
+      ]
+    },
+    {
+      "out": "4_station_rows.png",
+      "source": "Mars_frY9H1j8On.jpg",
+      "crop": [520, 60, 1920, 778],
+      "strip": {"title": "Station import/export rows", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Every Train Station",
+         "sub": ["Works with or without a Train Hub."],
+         "at": [800, 180], "to": [[935, 400]]},
+        {"color": "yellow", "head": "Set each resource",
+         "sub": ["Import, Export, Balanced or", "Not accepted, with a target slider."],
+         "at": [1225, 300], "to": [[1548, 400]]}
+      ]
+    },
+    {
+      "out": "alt_multiple_suns.png",
+      "source": "Mars_8ncwKdJphr.jpg",
+      "crop": [0, 62, 1820, 995],
+      "strip": {"title": "Multiple Artificial Suns", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "More than one Artificial Sun",
+         "sub": ["Solar panels connect to whichever sun covers them."],
+         "at": [1060, 790], "to": [[850, 620], [1290, 625]]}
+      ]
+    },
+    {
+      "out": "alt_mod_options.png",
+      "source": "Mars_YdVfdJljli.jpg",
+      "crop": [0, 30, 1366, 730],
+      "strip": {"title": "Options → Mod Options", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "yellow", "head": "A switch for every module",
+         "sub": ["Each one is off, or at its base", "setting, until you turn it on."],
+         "at": [960, 230], "to": [[535, 275]]},
+        {"color": "green", "head": "Two Drone dials",
+         "sub": ["Drone speed and", "Drone carry capacity."],
+         "at": [900, 560], "to": [[535, 480]]}
+      ]
+    },
+    {
+      "out": "alt_drone_dials.png",
+      "source": "Mars_HzpuTAMc3u.jpg",
+      "crop": [0, 100, 1520, 879],
+      "strip": {"title": "Drone speed · Drone carry capacity", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Drone carry capacity",
+         "sub": ["Drones carry more on every trip."],
+         "at": [1130, 650], "to": [[1118, 440], [1322, 372]]},
+        {"color": "yellow", "head": "Two dials in Mod Options",
+         "sub": ["Drone speed and", "Drone carry capacity."],
+         "at": [330, 215]}
+      ]
+    }
+  ]
+}
