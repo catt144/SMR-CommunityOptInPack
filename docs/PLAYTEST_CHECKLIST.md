@@ -24,22 +24,6 @@ Should mechanized depot throughput become a post-launch module, and which shape 
 - Authorize its new option contract and retaining over-capacity pad stock on OFF until it drains; no cargo field needed.
 Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 
-### OI-21 · opened 2026-09-19 · launch
-When this mod publishes, do its store tools come from the fix pack or get ported here?
-- Ported here 2026-10-03 as the prepared choice (Launch_Prep/03, no ruling yet): `tools/paradox_card.py`,
-  `tools/store_screenshots.py` and the new `tools/store_parity.py`. Reversible.
-- The donor's copies select fix-pack inputs from their own paths; "run from the fix pack" needs donor edits.
-- Say "keep the ports" (closes this) or "run from the fix pack" (ports deleted; donor parameterised there).
-- The old fix-pack listing drafts are history; the maintained copy is `reports/STORE_AND_SITE_20261003.md` §3.
-Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`
-
-### OI-14 · opened 2026-09-18 · launch
-Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
-- Apply the answer to the shipping strings, including the train modules; the pre-train inventory is out of date.
-- `FUTURE_IDEAS.md` #4(b) hangs on the answer.
-- Say "both", "fix pack only", or "decide at its launch".
-Home: `docs/agent/FIX_POLICY.md`
-
 ### OI-44 · opened 2026-10-02 · launch
 Which platforms will you choose on Paradox Mods, and what console approval step does it show?
 - No Opt-In listing exists yet; the first upload creates both, Paradox then Steam.

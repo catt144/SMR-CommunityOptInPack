@@ -116,7 +116,10 @@ Do not repeat the battery. Non-gating follow-ups from its findings table:
   false in `metadata.lua` before first publication. **OI-13 "sweep"**: the four "the pack"
   comments, comments only. **OI-11 (b)**: name `Opt_MultipleSuns`' `SolarPanelBase.GameInit`
   capture in its `Require` block now, with its A/B. **OI-46** (mechanized depot throughput) ships
-  separately after launch and gates nothing here.
+  separately after launch and gates nothing here. **OI-14: "the same as the fix pack for right
+  now"**: this mod ships English only at launch. Its own `ModItemLocTable` translations follow
+  later, alongside the fix pack's post-release ones. Record it at `FIX_POLICY`'s localisation home
+  and in `FUTURE_IDEAS.md` #4(b).
 - **Pre-launch hub soak accepted (owner, 2026-10-03): testing stops here.** About 98 game
   hours on a busy colony (1 hub, 8 stations, 12 trains) gave 0 soak flags and 0 Lua errors
   (`Mars.exe-20261003-14.01.18`; slots and reader in `tools/trains/soak/`). The owner declined
