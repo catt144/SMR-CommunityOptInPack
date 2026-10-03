@@ -26,6 +26,13 @@ has parked or cut it; the report names the released fix-pack version tested.
   and the hub refusal (34b, sittings 1-2), the modules loading from this mod (brief 34), and the
   quiet log. Put the never-witnessed items to the orchestrator (OI-38's up-leg read at least)
   before issuing more batches.
+- **B0 in P also passed the quiet complete log**: `Mars.exe-20261003-01.04.09` ended at
+  `Debug::Done()` with only 6 once-per-load train lines and 0 repeating lines, across 3 bounded
+  hours and every module toggle.
+- **The console opens only inside a loaded game**, not at the main menu (owner, 2026-10-03). To
+  load the fixture copy, load any save, then run `*r LoadGame("FINAL35_P_20261002.savegame.sav")`.
+- **Rows forced on.** With TrainHub ON and StationRows OFF, slot 11 still showed StationRows
+  `inactive` although the rows worked. Explain the forced-on mechanism in the report.
 
 ## What the battery carries
 

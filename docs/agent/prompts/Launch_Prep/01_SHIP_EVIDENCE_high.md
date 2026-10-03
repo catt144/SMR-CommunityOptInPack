@@ -87,3 +87,11 @@ No dependency disappears unowned. Claim “ledger and remaining test plan prepar
 
 Audit: D15 is accepted; D02/D04/D09 owner-cleared in play and in both §8 configurations. Review pending gamepatch work.
 Toggle-off does not prove no train residue. Audit report owns command receipts.
+Orchestrator, 2026-10-03, after this brief was authored:
+
+- The fix-pack-absent run is **waived for the three train modules** (`FIX_POLICY` §8, owner).
+  Do not schedule one for them; the non-train modules are unchanged.
+- `FIX_POLICY` §8 now bans repeating dev diagnostics in players' logs (grep `development
+  diagnostics`). The trains passed a quiet complete log on 2026-10-03
+  (`Mars.exe-20261003-01.04.09`: only 6 once-per-load lines). Whether those six load notices
+  merge into one is an open owner choice; put it to the owner with the store work.

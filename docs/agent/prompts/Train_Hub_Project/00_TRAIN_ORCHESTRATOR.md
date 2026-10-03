@@ -60,23 +60,29 @@ before it fires.
      beside its number, and call hubs by role, never by number (owner, 2026-09-28). Slot bindings change each
      sitting (`tools/SMRTK.md`): read the current `80_AgentSlots.lua` before naming a slot. An
      autosave disarms an armed watch; the owner re-presses it.
-   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-02** (Opus 5.5
-     `claude-opus-5-5`). Closed briefs are in this folder's
-     `README.md`; their rulings are spec §4.7 and §11's last blocks. Passengers need no code: vanilla's elevator carries them, train to train.
-     **Next, in order** (every remaining brief is authored; the owner tests and fires):
-     1. **`33` and `34` closed 2026-10-02.** 33: both crossings proved (`c3ba72a`). 34: the station
-        rows, the hub and the depot ship from this mod as three modules (D16-D18), owner's in-game
-        check PASS (`bb82702`). The player-text rule is in `FIX_POLICY` §8.
-     2. **`34b` closed 2026-10-02** (attended PASS, `fa4488c`): Export rows keep each depot's
-        Desired Amount via the FindTask pairing filter; the hub refuses add-train, auto-fill cut;
-        train cargo spoilage is vanilla (`TRAIN_CARGO_SPOILAGE_BUGREPORT_20261002.md`, owner carries it
-        to the fix pack); dev logging gated behind `SMROptInPack.TrainTrace` (`5ad1ff3`).
-     3. **`34c` closed 2026-10-02**: SMR-Assets 5.6 GB to 1.2 GB, five checkpoints kept (`ffffcf4`,
-        report `ASSETS_CLEANUP_20261002.md`).
-     4. **`35`, the final full battery**, ready now; it carries OI-38's up-leg read and the
-        check that no train appears in the hub. Its pass completes the project: purge this folder.
-     **Owner's open item:** OI-42 (launch), the store description's train sentence: draft now or
-     at launch prep.
+   - **WHERE THE PROJECT STANDS, orchestrator close-out 2026-10-03** (Opus 5.5
+     `claude-opus-5-5`). Closed briefs are listed in this folder's `README.md`; their rulings are
+     in spec §4.7, §4.8 and §11's last blocks. Passengers need no code: vanilla's elevator carries
+     them, train to train.
+     **Closed 2026-10-02/03:**
+     - `33`: the crossings.
+     - `34`: the move into this mod; three modules, D16-D18.
+     - `34b`: Export keeps each depot's Desired Amount through the FindTask pairing filter, with
+       no reverse block; the hub refuses add-train, and auto-fill is cut.
+     - `34c`: the SMR-Assets cleanup.
+     - The dev logging is gated behind `SMROptInPack.TrainTrace` (`5ad1ff3`).
+     **Only `35` remains**, the final battery, P configuration only:
+     - The fix-pack-absent run is waived and F65 short-track hub power is accepted as vanilla
+       (owner, 2026-10-03; `FIX_POLICY` §8, `TRAIN_FIXPACK_OVERLAP_20261003.md`).
+     - B0 in P passed with the owner, including the quiet complete log.
+     - Next: 35's agent lists the B1-B6 checks never seen live (OI-38's up-leg read at least).
+       The orchestrator checks that list against what already passed live, then guides one
+       batch for those.
+     - 35's pass completes the project: purge this folder.
+     **Owner's carry-overs:**
+     - Take `TRAIN_CARGO_SPOILAGE_BUGREPORT_20261002.md` to the fix pack.
+     - Launch prep is authored: `RELEASE_SYSTEM_high.md`, then `Launch_Prep/`, after 35. See the
+       prompt map.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01).
    - **Standing constraints:**
