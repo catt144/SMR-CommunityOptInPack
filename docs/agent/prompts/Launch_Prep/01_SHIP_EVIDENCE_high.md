@@ -26,6 +26,17 @@ half is owner-accepted too (same sections). D05 retains legacy tests. **D15's 20
 and both-configuration ruling paragraphs, compare changed surfaces, reopen only what changed.
 Do not promote or dismiss it from STATE or row_status.
 
+Leads from 2026-10-02, desk only, one check each:
+- Fingerprint: `1.1.1.405907` and the installed `1.1.1.406343` share tree digest `d753f949…`
+  (`B:/Dev/SMR/SMR-Shared/SMR-SrcArchive/README.md`), so facts on 405907 hold despite the
+  MOVED label; the gate compares build ids, not digests.
+- Gamepatch (step 2): the four files the 1.1.1 sweep flagged differ from 1.1.0 by a
+  maintenance-phase skip, a NoPolitics rule, a tech-modifier name and a nil-template guard
+  (`diff` of the archived 1.1.0.403908 and 1.1.1.406343 trees); none touches a module hook.
+- TestKit `OptionsMenuOptIn` (`60_Probes_Opt.lua`): its WANT list still names ClassicRockets,
+  ResidencyControl, DroneOverhaul, CohortHousing and NoHomeless, so it FAILs at the first
+  missing registry id; it lacks ServiceInterestTags and the train modules. Shared kit: hand off.
+
 1. Import 35's shipping/build/configuration verdicts, D14 subcase dispositions and OI-38 result.
    Identify actual remaining gaps without rerunning the train prediction battery.
 2. Consume the pending 1.1.1.405907 gamepatch entry against the current build, including newer
