@@ -36,8 +36,9 @@ has parked or cut it; the report names the released fix-pack version tested.
   **B3** and **B6** are cleared on the owner's witness: tested during hub design, B3 for the
   elevator too. **B5** is skipped (*"pretty minor if its just a notification"*). **B2** keeps only
   full-mod removal restoring vanilla requests. **B4** keeps only upgrades through zero hubs, then
-  a replacement, and over-capacity stock after OFF. The other B2 and B4 items wait on the owner;
-  the orchestrator recommends striking them. Do not issue them meanwhile.
+  a replacement, and over-capacity stock after OFF. The owner struck the other B2 and B4 items on
+  the orchestrator's recommendation, spoilage with TrainHub OFF included. **The battery is B1,
+  then those three checks.**
 - **Rows forced on.** With TrainHub ON and StationRows OFF, slot 11 still showed StationRows
   `inactive` although the rows worked. Explain the forced-on mechanism in the report.
 
