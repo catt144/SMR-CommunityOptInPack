@@ -531,3 +531,41 @@ line is to reach places the drone network does not, and stations accumulate main
 
 **Where the material lives.** The train logistics spec,
 `docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md`, whose tests surfaced it.
+
+## 12. A seed wonder that greens the whole map — parked 2026-10-03, to build soon
+
+**What.** A wonder-tier building, one per colony, that consumes a large amount of Seeds and makes
+vegetation grow across the whole map, including the bare ground between Forestation Plant ranges.
+
+**Why it is a good idea.** The owner, 2026-10-03: late-game colonies have *"very little to do
+with seeds and the few consumers don't keep up with the sheer amount you get"*, so players
+*"endlessly create massive seed storage depots"*; and *"when you get to max terraforming it seems
+the game kinda just stops trying to make everything green."* The owner asked for a thematic sink
+rather than a burn pile: *"a wonder tier building that uses a large amount of seeds and has full
+map range."*
+
+**What a scout found** (source read on build 1.1.1.406343, nothing run in game):
+
+- Wild spread exists and is not broken. Bare ground has soil quality 0 and every spreading plant
+  needs more (Grass 10, Bush 20, Trees 40); Lichen never spreads; the whole map is capped at
+  roughly 100 to 530 new plants per sol at 100% Vegetation (`Lua/Vegetation.lua`,
+  `Data/Vegetation.lua`).
+- Seeds overflow because a Forestation Plant spends them only when it places a plant, a full
+  range spends nothing, and the seed special project is refused at 100% Vegetation.
+- The game exposes plain Lua calls to raise soil and place vegetation at any hex
+  (`SoilAdd`, `PlaceVegetation`, `CanVegetationGrowInHex`), and a building can take Seeds through
+  the Forestation Plant's own consumption mechanism.
+- The cheap design fertilises more than it plants: raise soil in patches, drop Grass or Lichen
+  starters, lift the daily spread cap while fed, and let vanilla spread fill in.
+- Wonder status is template flags; one per colony is `build_once`. Spectacle is available from
+  Lua without imported animation: moving attached parts, vanilla particles, lights, swaying trees.
+
+**Not known.** Which cells the engine refuses (water, rock, deposits), the frame and save cost of
+a fully green map, whether a Grass or Bush front advances on its own, and which animation states
+vanilla wonder models carry. One rough prototype on a placeholder model answers all four.
+
+**Open with the owner.** Unlock condition (all four parameters at 100%, a tech, or both), and
+whether rival colonies may "construct" it (the vanilla `Wonders` preset group does that).
+
+**Why it is parked.** Owner, 2026-10-03: *"file the wonder as an idea to build soon, for now I
+want to proceed with the Arboretum."* The Arboretum, the permanent seed sink, goes first.

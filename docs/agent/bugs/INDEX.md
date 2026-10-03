@@ -1,9 +1,9 @@
 <!-- GENERATED — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 <!-- split_bugs.py --write is the one-time MIGRATION from the retired pre-split doc, never a regeneration; verify: python tools/doccheck.py -->
 
-# Bug index — 14 rows, 14 entry files
+# Bug index — 15 rows, 15 entry files
 
-0 F + 14 D + 0 C. `seq`/`row` are this repo's own numbering, assigned when the
+0 F + 15 D + 0 C. `seq`/`row` are this repo's own numbering, assigned when the
 entries moved here from SMR-BugFixPack (split-optins, 2026-08-12); each entry's front
 matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matter of
 `docs/agent/bugs/*.md` — edit an entry, not this file.
@@ -25,4 +25,5 @@ matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matte
 | 12 | D16 | Station rows: no per-resource import/export at a vanilla train station — Opt_StationRows adds them | tested-attended | dsgn | high | [D16.md](D16.md) |
 | 13 | D17 | Train Hub: no junction where train lines cross and cargo changes routes — Opt_TrainHub adds one | tested-attended | dsgn | high | [D17.md](D17.md) |
 | 14 | D18 | Elevator Depot: trains cannot carry cargo between the surface and the underground — Opt_ElevatorDepot adds a crossing | tested-attended | dsgn | high | [D18.md](D18.md) |
+| 15 | D19 | Arboretum: an in-dome service that consumes surplus Seeds | built | dsgn | high | [D19.md](D19.md) |
 

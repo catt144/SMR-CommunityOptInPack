@@ -33,6 +33,18 @@ Does the Arboretum test build belong in the first release, or after launch?
 - First-release inclusion needs its own accepted evidence and store/uninstall coverage from the D19 work.
 Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`, `docs/agent/bugs/D19.md`
 
+### OI-47 · opened 2026-10-03
+Should the Arboretum keep its own service category, adding Comfort alongside Parks?
+- The test build uses a separate category; it does not compete with Hanging Gardens for Parks coverage.
+- The Parks-specific Hippie bonus consequently does not apply to it.
+Home: `docs/agent/bugs/D19.md`, `docs/agent/reports/ARBORETUM_BUILD_20261003.md`
+
+### OI-48 · opened 2026-10-03
+Should the Arboretum keep a normal garden footprint and the one-per-dome limit?
+- The test build uses the vanilla Large Garden model and leaves the spire slot free.
+- Its appearance and balance are starting values for you to judge in game.
+Home: `docs/agent/bugs/D19.md`, `docs/agent/reports/ARBORETUM_BUILD_20261003.md`
+
 ### OI-46 · opened 2026-10-03
 Should mechanized depot throughput become a post-launch module, and which shape do you want?
 - Recommended: fixed ×5, off by default; 250-unit hidden IO pad, up to 25 units per crane landing.

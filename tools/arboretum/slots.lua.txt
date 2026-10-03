@@ -1,0 +1,157 @@
+-- Arboretum sitting. No mutation or measurement runs at load.
+-- Native calls read on archived 1.1.1.406343: HasConsumption.lua:283,386;
+-- Stats.lua:536; hex.lua:67; ServiceBase.lua:101; toolkit 72/74 Run-until/Bind.
+local T = SMRTK
+-- @@PROBE_SWEEP@@
+local sample, original_consume, wrapped_class
+
+local function target(ctx)
+    local b = ctx.pin.A
+    if not IsValid(b) or b.class ~= "SMROptInArboretum" or b:IsKindOf("ConstructionSite") then
+        return false, "Pin a completed Arboretum with slot 2 first"
+    end
+    if b:GetMapID() ~= ActiveMapID or not IsValid(b.parent_dome) then
+        return false, "Pinned Arboretum must be inside a dome on this map"
+    end
+    return b
+end
+
+local function reading(b)
+    local d = b.parent_dome
+    local cat = d.serviced and d.serviced.SMROptInArboretum
+    return { building=b.handle, dome=d.handle, stock_milli=b:GetConsumptionStoredResources(),
+        demand_milli=b.consumption_resource_request:GetActualAmount(), working=b.working,
+        visitors=b.visitors_lifetime, population=#(d.labels.Colonist or empty_table),
+        category_comfort=cat and cat.Comfort or 0, category_sanity=cat and cat.Sanity or 0,
+        covered=b:GetInDomeUsedCapacity(), sol=UIColony.day, time=GameTime(),
+        outline_hexes=#GetEntityOutlineShape(b.entity) }
+end
+
+local function restore(reason)
+    if reason and sample then
+        T.Log("DUMP",{result="ABORTED",reason=reason,consumed_milli=sample.consumed,
+            native_debits=sample.debits,elapsed_ms=GameTime()-sample.started})
+    end
+    if wrapped_class and original_consume then wrapped_class.Consume_Internal=original_consume end
+    sample, original_consume, wrapped_class = nil, nil, nil
+end
+
+T.Bind(1, "Arboretum: read availability / toggle", function(ctx)
+    ctx.mark("ARBORETUM gates")
+    if not rawget(_G, "UIColony") then return false, "Load a populated colony first" end
+    local pack=rawget(_G,"SMROptInPack")
+    if not pack then return false,"Opt-In Modules is not loaded" end
+    local fields={active=pack.IsActive("Arboretum"), seeds=IsSeedsResourceAvailable(),
+        no_terraform=IsGameRuleActive("NoTerraforming"), fixpack=rawget(_G,"SMRFixPack")~=nil}
+    ctx.log("DUMP",fields)
+    return fields
+end)
+
+T.Bind(2, "Pin selected Arboretum and read dome", function(ctx)
+    local b=ctx.sel
+    if not IsValid(b) or b.class~="SMROptInArboretum" or b:IsKindOf("ConstructionSite") then
+        return false,"Select a completed Arboretum"
+    end
+    if sample then return false,"Finish the current measurement first" end
+    ctx.pin.A=b
+    local checked,why=target(ctx); if not checked then ctx.pin.A=nil; return false,why end
+    ctx.mark("ARBORETUM pinned")
+    local fields=reading(b); ctx.log("DUMP",fields); return fields
+end,{needs="selected"})
+
+T.Bind(3, "Read pinned Arboretum stock / dome coverage", function(ctx)
+    local b,why=target(ctx); if not b then return false,why end
+    local fields=reading(b); ctx.log("DUMP",fields); return fields
+end)
+
+T.Bind(4, "Start organic Seeds measure; run to sol +3", function(ctx)
+    local b,why=target(ctx); if not b then return false,why end
+    if sample then return false,"Measurement already running" end
+    if not b.working or b:GetConsumptionStoredResources()<=0 or #(b.parent_dome.labels.Colonist or empty_table)==0 then
+        return false,"Need a working, drone-stocked Arboretum in a populated dome"
+    end
+    if T.armed.run_until then return false,"Cancel the existing Run until first" end
+    wrapped_class=g_Classes.SMROptInArboretum
+    original_consume=wrapped_class.Consume_Internal
+    if type(original_consume)~="function" then restore(); return false,"Native consumption method missing" end
+    sample={building=b, started=GameTime(), visits=b.visitors_lifetime, consumed=0, debits=0,
+        start_stock=b:GetConsumptionStoredResources(), min_stock=b:GetConsumptionStoredResources(),
+        errors=T.error_count, target=UIColony.day+3}
+    local delegate=original_consume
+    wrapped_class.Consume_Internal=function(self, amount)
+        if not sample or self~=sample.building then return delegate(self,amount) end
+        local consumed=delegate(self,amount)
+        sample.consumed=sample.consumed+(consumed or 0)
+        sample.debits=sample.debits+1
+        sample.min_stock=Min(sample.min_stock,self:GetConsumptionStoredResources())
+        return consumed
+    end
+    ctx.mark("ARBORETUM organic start")
+    ctx.log("DUMP",reading(b))
+    local ok,result=T.Arm("run_until",sample.target)
+    if not ok then restore(); return false,tostring(result) end
+    return {target=sample.target, start=sample.started, stock_milli=sample.start_stock,
+        source="native Consume_Internal returns; no stock provisioning during this window"}
+end)
+
+T.Bind(5, "Finish Seeds measure; pause and remove observer", function(ctx)
+    if not sample then return false,"No active measurement" end
+    local b,why=target(ctx); if not b then restore(); return false,why end
+    SetGameSpeed(0)
+    if T.armed.run_until then T.Disarm("run_until","Arboretum measure finished") end
+    local s=sample
+    local elapsed=GameTime()-s.started
+    local fields=reading(b)
+    fields.elapsed_ms=elapsed
+    fields.consumed_milli=s.consumed
+    fields.native_debits=s.debits
+    fields.visits_delta=b.visitors_lifetime-s.visits
+    fields.minimum_stock_at_debit=s.min_stock
+    fields.new_errors=T.error_count-s.errors
+    fields.target_reached=UIColony.day>=s.target
+    fields.seeds_milli_per_sol=elapsed>0 and MulDivRound(s.consumed,const.DayDuration,elapsed) or -1
+    fields.result=(elapsed>0 and s.debits>0 and fields.new_errors==0 and fields.target_reached) and "MEASURED" or "INCOMPLETE"
+    restore()
+    ctx.log("DUMP",fields); ctx.mark("ARBORETUM organic end"); return fields
+end)
+
+T.Bind(6, "Empty Seeds and pause (controlled depletion)", function(ctx)
+    if sample then return false,"Finish the organic measure before forced depletion" end
+    local b,why=target(ctx); if not b then return false,why end
+    local stock=b:GetConsumptionStoredResources()
+    if stock<=0 then return false,"Already empty: use slot 3 to read it" end
+    SetGameSpeed(0)
+    ctx.mark("ARBORETUM forced empty")
+    ctx.log("DUMP",reading(b))
+    b:Consume_Internal(stock)
+    -- Flush the native reassignment queued by SetWorking while time is paused.
+    ReassignServices(b.parent_dome)
+    local fields=reading(b); fields.forced=true
+    ctx.log("DUMP",fields); ctx.mark("ARBORETUM empty result"); return fields
+end)
+
+T.Bind(7, "Resume deliveries; run to next sol", function(ctx)
+    local b,why=target(ctx); if not b then return false,why end
+    if sample or T.armed.run_until then return false,"Finish measurement / cancel Run until first" end
+    ctx.mark("ARBORETUM natural refill")
+    local ok,result=T.Arm("run_until",UIColony.day+1)
+    if not ok then return false,tostring(result) end
+    return {target=UIColony.day+1, building=b.handle}
+end)
+
+T.Bind(8, "Toggle Arboretum option live (session only)", function(ctx)
+    if sample then return false,"Finish measurement first" end
+    if not rawget(_G,"SMROptInPack") then return false,"Opt-In pack absent" end
+    local opts=Mods.SMR_CommunityOptInPack.options
+    if SMROptInPack_Optional.Arboretum then return false,"Preload override is armed; disarm it before sitting" end
+    opts.Arboretum=not opts.Arboretum
+    Msg("ApplyModOptions","SMR_CommunityOptInPack")
+    return {requested=opts.Arboretum,active=SMROptInPack.IsActive("Arboretum"),saved=false}
+end)
+
+-- Observers are RAM-only and never cross a save/load/map boundary.
+function OnMsg.SaveGameStart() restore("save; observer removed before serialization") end
+function OnMsg.PreLoadGame() restore("load") end
+function OnMsg.ChangeMap() restore("map change") end
+function OnMsg.CurrentMapChange() restore("map change") end
+function OnMsg.DoneGame() restore("game ended") end

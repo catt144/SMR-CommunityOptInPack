@@ -1,0 +1,81 @@
+-- TEMPORARY Arboretum menu-load check. Never loads or saves a colony.
+-- Config prefix supplies ARB_ON, ARB_FIXPACK and ARB_NEXT_ORDER.
+-- Changes only the next saved mod order when explicitly supplied; original
+-- order is verified by the runner and restored with the final leg.
+ArboretumBoot = {}
+SMROptInPack_Optional = rawget(_G, "SMROptInPack_Optional") or {}
+SMROptInPack_Optional.Arboretum = ARB_ON
+
+local function say(text)
+    ModLog("[ARBORETUM-BOOT] " .. text:gsub("%%", "%%%%"))
+end
+
+function ArboretumBoot.Check()
+    local loaded = {}
+    for _, mod in ipairs(ModsLoaded) do loaded[#loaded+1] = mod.id end
+    say("loaded=" .. table.concat(loaded, ","))
+    say("saved=" .. table.concat(GetModsEnabledByUser(), ","))
+    local pack = rawget(_G, "SMROptInPack")
+    if not pack then return false, "opt-in pack absent" end
+    local fix = rawget(_G, "SMRFixPack") ~= nil
+    if fix ~= ARB_FIXPACK then return false, "wrong fix-pack configuration" end
+    local active = pack.IsActive("Arboretum")
+    say("cold active=" .. tostring(active) .. " expected=" .. tostring(ARB_ON)
+        .. " fixpack=" .. tostring(fix) .. " detail=" .. tostring(pack.fixes.Arboretum.detail))
+    if active ~= ARB_ON then return false, "wrong cold activation" end
+    local t = BuildingTemplates.SMROptInArboretum
+    local c = g_Classes.SMROptInArboretum
+    if not t or not c then return false, "template/class missing" end
+    local donor = BuildingTemplates.GardenNatural_Large
+    say("template=" .. tostring(t.template_name or t.class) .. " entity=" .. t.entity
+        .. " resource=" .. t.consumption_resource_type .. " stat_scale=" .. tostring(const.Scale.Stat))
+    if not donor or t.entity ~= donor.entity or t.consumption_resource_type ~= "Seeds" then
+        return false, "invalid donor entity/consumption"
+    end
+    say("geometry deferred to loaded map; donor_entity=" .. donor.entity)
+    if t:GetWarning() then return false, tostring(t:GetWarning()) end
+    -- Live reconciliation uses the production message; override is RAM-only.
+    local opts = Mods.SMR_CommunityOptInPack.options
+    local previous = opts.Arboretum
+    for _, on in ipairs({false, true, false, true}) do
+        SMROptInPack_Optional.Arboretum = false
+        opts.Arboretum = on
+        Msg("ApplyModOptions", "SMR_CommunityOptInPack")
+        if pack.IsActive("Arboretum") ~= on then return false, "live toggle failed" end
+        say("live=" .. tostring(on) .. " reconciled=" .. tostring(pack.IsActive("Arboretum")))
+    end
+    opts.Arboretum = previous
+    SMROptInPack_Optional.Arboretum = ARB_ON
+    Msg("ApplyModOptions", "SMR_CommunityOptInPack")
+    if ARB_NEXT_ORDER then
+        -- Preserve kit persistent bytes while triggering the native account writer.
+        local err, data = ReadModPersistentData()
+        if err then return false, err end
+        for _, id in ipairs(table.icopy(GetModsEnabledByUser())) do TurnModOff(id) end
+        for _, id in ipairs(ARB_NEXT_ORDER) do TurnModOn(id) end
+        local e = WriteModPersistentData((data or "") .. "\nARBORETUM-BOOT")
+        if e then return false, e end
+        e = WriteModPersistentData(data or "")
+        if e then return false, e end
+        say("next_order=" .. table.concat(GetModsEnabledByUser(), ","))
+    end
+    return true, "menu class/template and toggles only; gameplay NOT RUN"
+end
+
+function ArboretumBoot.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        local deadline = RealTime() + 180000
+        while not GetPreGameMainMenu() do
+            if RealTime() > deadline then say("FAIL menu timeout"); quit(); return end
+            Sleep(500)
+        end
+        Sleep(2000)
+        local ok, result, why = pcall(ArboretumBoot.Check)
+        say("result=" .. tostring(ok and result) .. " detail=" .. tostring(ok and why or result))
+        Sleep(5000)
+        if FlushLogFile then FlushLogFile() end
+        quit()
+    end)
+end
+ArboretumBoot.Boot()

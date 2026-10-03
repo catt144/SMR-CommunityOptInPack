@@ -1,0 +1,166 @@
+{
+  "audit": "pending; raw evidence and draft result package, not acceptance",
+  "executed_model": "gpt-6-astra",
+  "effort": "high",
+  "checks": [
+    {
+      "repo": "optin",
+      "head": "73d20d5c1def638df357d569614ec2a6b8843d00",
+      "output": "optin_doccheck.txt"
+    },
+    {
+      "repo": "fixpack",
+      "head": "30dacadad4257532ddeb4897826036186657b049",
+      "output": "fixpack_doccheck.txt"
+    }
+  ],
+  "boots": {
+    "command": "python tools/arboretum/read_boots.py",
+    "head": "73d20d5c1def638df357d569614ec2a6b8843d00",
+    "scope": "menu loads only; working diff; matrix used handle 11, restored uses collision-free handle 12",
+    "records": [
+      {
+        "leg": "present_off",
+        "sha256": "38cd0fdd1826122a29c3b343ab8918e68d7644556341194b4ac2e3c6539843d1",
+        "controls": {
+          "Lua revision: 406343": 50,
+          "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 205,
+          "[ARBORETUM-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 206,
+          "[ARBORETUM-BOOT] cold active=false expected=false fixpack=true": 207,
+          "[ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000": 208,
+          "[ARBORETUM-BOOT] live=false reconciled=false": 210,
+          "[ARBORETUM-BOOT] live=true reconciled=true": 212,
+          "[ARBORETUM-BOOT] result=true": 218,
+          "*** Debug::Done()": 232
+        },
+        "lua_error_lines": 0,
+        "braze_error_lines": 6,
+        "braze_members": [
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init",
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init"
+        ]
+      },
+      {
+        "leg": "present_on",
+        "sha256": "24e5d26ab64ea122d494470373fe14a9c3ef1762b9dbce6c91f9610c862a136f",
+        "controls": {
+          "Lua revision: 406343": 50,
+          "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 205,
+          "[ARBORETUM-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 206,
+          "[ARBORETUM-BOOT] cold active=true expected=true fixpack=true": 207,
+          "[ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000": 208,
+          "[ARBORETUM-BOOT] live=false reconciled=false": 211,
+          "[ARBORETUM-BOOT] live=true reconciled=true": 213,
+          "[ARBORETUM-BOOT] result=true": 219,
+          "*** Debug::Done()": 233
+        },
+        "lua_error_lines": 0,
+        "braze_error_lines": 6,
+        "braze_members": [
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init",
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init"
+        ]
+      },
+      {
+        "leg": "absent_off",
+        "sha256": "4fd8fb85ae0248fd50262e3c98cf5d8f3a45a2fc4ff11dc42e38cf7b8bd7c3fd",
+        "controls": {
+          "Lua revision: 406343": 50,
+          "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 142,
+          "[ARBORETUM-BOOT] saved=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 143,
+          "[ARBORETUM-BOOT] cold active=false expected=false fixpack=false": 144,
+          "[ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000": 145,
+          "[ARBORETUM-BOOT] live=false reconciled=false": 147,
+          "[ARBORETUM-BOOT] live=true reconciled=true": 149,
+          "[ARBORETUM-BOOT] result=true": 155,
+          "*** Debug::Done()": 169
+        },
+        "lua_error_lines": 0,
+        "braze_error_lines": 6,
+        "braze_members": [
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init",
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init"
+        ]
+      },
+      {
+        "leg": "absent_on",
+        "sha256": "ca9d522b837eba3e4ac224a62af4867be73b38aeb55ef68a4637790cc89e2e8b",
+        "controls": {
+          "Lua revision: 406343": 50,
+          "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 142,
+          "[ARBORETUM-BOOT] saved=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 143,
+          "[ARBORETUM-BOOT] cold active=true expected=true fixpack=false": 144,
+          "[ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000": 145,
+          "[ARBORETUM-BOOT] live=false reconciled=false": 148,
+          "[ARBORETUM-BOOT] live=true reconciled=true": 150,
+          "[ARBORETUM-BOOT] result=true": 157,
+          "*** Debug::Done()": 171
+        },
+        "lua_error_lines": 0,
+        "braze_error_lines": 6,
+        "braze_members": [
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init",
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init"
+        ]
+      },
+      {
+        "leg": "restored",
+        "sha256": "bdb5f980eaa1ffc23d028f5115e29cbb9dd4a89c08c3589045441cdc77010ff8",
+        "controls": {
+          "Lua revision: 406343": 50,
+          "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 204,
+          "[ARBORETUM-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack": 205,
+          "[ARBORETUM-BOOT] cold active=false expected=false fixpack=true": 206,
+          "[ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000": 207,
+          "[ARBORETUM-BOOT] live=false reconciled=false": 209,
+          "[ARBORETUM-BOOT] live=true reconciled=true": 211,
+          "[ARBORETUM-BOOT] result=true": 217,
+          "*** Debug::Done()": 232
+        },
+        "lua_error_lines": 0,
+        "braze_error_lines": 6,
+        "braze_members": [
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init",
+          "[Braze] SessionStart error The server name or address could not be resolved",
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved",
+          "[Braze] Failed to init"
+        ]
+      }
+    ]
+  },
+  "working_files_sha256": {
+    "Code/Opt_Arboretum.lua": "4214c5d636575247d8ac5867780cf55b5d3f36a05971893e1fad89ea37711219",
+    "Code/BuildingTemplate/SMROptInArboretum.generated.lua": "ab51bc1f0662d8ee56893b97322495ffc6f371848be89fdfbb60671b65003008",
+    "Data/BuildingTemplate/SMROptInArboretum.lua": "b82f84b733d9de221cfb0b66e2a7e7084b1979cf1162e317b349fe211446b5c4",
+    "metadata.lua": "71611ef1c95b7359fde3bd8e9dc3414fcc4b52220c1e897c119a8f7df6549980",
+    "items.lua": "d18325ccb493e452ade007ba3e83fe8c6807f7bb8af8e1e71fc2e801a53463a3",
+    "tools/arboretum/80_AgentSlots.lua.txt": "2d03089de4d4a584a9b8c11066c81d803d4c1248d9082f2fa59e544eb04aee22",
+    "tools/arboretum/boot.lua.txt": "87f951c822f7f700f464da7a8560f66acb740ab172d850b5dfd4c465fe5dd1cd",
+    "tools/arboretum/deskcheck.py": "2da133238a4998e0f90cfd961990060b09a687f1792bba5af1c7fc11956ab1ce",
+    "tools/arboretum/generate.py": "74dcbadaf4a9fc2ef71dd529fb96845a0857b1fcffb9a436700e646bb5f1e2d7",
+    "tools/arboretum/preload.py": "6bd05d187cbc62796d91cbe0ec67e7d5c459ff98179bcf07475eb8c6f8adb772",
+    "tools/arboretum/preload_receipt.json": "c3d314d41a887cc583ac271caff66e7301f9946fbc72047fb145cc7db61e1101",
+    "tools/arboretum/prepare_boot.py": "fc842ca8cc7cc15a28ce8ebf17c09116be947daa301b2eae0cf1a4c8b8e9916a",
+    "tools/arboretum/read_boots.py": "3d12d4544277a6e978442763a15ccc0da8c07d88fb9e79a73abbc4b6c6f30e93",
+    "tools/arboretum/slots.lua.txt": "73b027c31b6e3da7160af0a1125bdf9feab3c92dc80ac22e32ce14cad69077b3",
+    "tools/arboretum/template.json": "a606aafad11a0690347653315062e19b2ee036f3bea03204bec20febb81732e3"
+  }
+}

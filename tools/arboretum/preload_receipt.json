@@ -1,0 +1,10 @@
+{
+  "command": "grep -rln \"TEMPORARY\" Code/ ../SMR-BugFixPack-TestKit/Code/",
+  "output": "",
+  "pack_head": "73d20d5c1def638df357d569614ec2a6b8843d00",
+  "testkit_head": "b58ae189a5cf676069d03c6e25dad44fc754e7c3",
+  "checked_at": "2026-10-03T21:59:38.931745+00:00",
+  "brief": "Arboretum D19 attended sitting",
+  "installed": true,
+  "sha256": "2d03089de4d4a584a9b8c11066c81d803d4c1248d9082f2fa59e544eb04aee22"
+}
