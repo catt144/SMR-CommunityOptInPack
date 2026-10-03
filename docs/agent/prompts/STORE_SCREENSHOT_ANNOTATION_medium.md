@@ -40,12 +40,27 @@ script and an editable spec so the owner's tweaks are one edit and one re-run.
    (from, to), callout boxes (anchor, text) and title strip. Put the script under `tools/` with a
    `tools/README.md` catalogue row (doccheck reconciles `tools/*.py` against it). Pillow is
    available.
-3. **Style.** Use one consistent look across the set: a clean sans font; callouts with a
-   semi-opaque dark panel and a thin accent border in a colour that reads against Mars terrain
-   (the game UI's cyan/blue suits); arrows with a clear head and a subtle shadow. Keep callouts
-   off the thing being shown and off the game UI the shot exists to show. At most about three
-   callouts per image. Text must stay readable at the store's thumbnail size: check by
+3. **Style: match the owner's examples.** They are in
+   `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\style_reference\` (two fix-pack store shots). Look
+   at them before designing anything. Their look:
+   - Each callout is a rounded dark box with a **thick coloured border**. It holds a **bold
+     uppercase headline** ("SILENT SKIN") and, optionally, one or two lines of plain subtext
+     beneath it.
+   - **Thick, solid, straight arrows** in the box's colour run from the box to the feature.
+   - A **coloured circle** rings a small UI button the player should click.
+   - **Colour carries meaning:**
+     - yellow for "click here" or how-to;
+     - green for a feature or the good path;
+     - red for a contrast or a caution.
+
+     Keep to that palette.
+
+   Keep callouts off the thing being shown and off the game UI the shot exists to show. At most
+   about three callouts per image. Text must stay readable at the store's thumbnail size: check by
    downscaling to about 600 px wide.
+
+   The examples also show two things to avoid. The infopanel's **Cheats** section and the
+   `[SMRTest] console …` lines are toolkit or dev artefacts. Crop them out or reject the capture.
 4. **Text.** Use the game's own tone (build-menu style): one or two short sentences, with
    keywords emphasised visually rather than shouted. Give no numbers that a dial or upgrade
    changes. Name modules as players see them in Mod Options.
