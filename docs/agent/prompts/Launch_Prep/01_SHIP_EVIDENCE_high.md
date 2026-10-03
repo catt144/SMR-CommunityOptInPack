@@ -112,6 +112,11 @@ Do not repeat the battery. Non-gating follow-ups from its findings table:
   `UnpersistedMissingClass` warnings but no Lua error in its measured window.
   Trace residual reference owners in the exact save and assess exit/rescue
   applicability. No runtime fix or recovery capability is inferred.
+- **Pre-launch hub soak accepted (owner, 2026-10-03): testing stops here.** About 98 game
+  hours on a busy colony (1 hub, 8 stations, 12 trains) gave 0 soak flags and 0 Lua errors
+  (`Mars.exe-20261003-14.01.18`; slots and reader in `tools/trains/soak/`). The owner declined
+  a depot soak and a flag positive control: *"there is a certain point we just need to get it
+  in the hands of players."* Do not add soak or battery work as a launch gate.
 - **OI-45 ruled (owner, 2026-10-03): demolish first, disclosed by an uninstall
   note at the bottom of the store pages; no recovery work.** Saves loaded without
   the mod while its buildings still stand raised five native errors; B2's
