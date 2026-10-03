@@ -1,7 +1,7 @@
 # 35 — The final full battery on the shipping layout (attended test)
 
 **Fire with:** `task docs/agent/prompts/Train_Hub_Project/35_FINAL_BATTERY_high.md` in a fresh
-session rooted at `B:\Dev\SMR\SMR-OptInPack`, **after brief `34b` closes** (33, 34 and 34c closed 2026-10-02) (33 closed 2026-10-02). Reasoning: high
+session rooted at `B:\Dev\SMR\SMR-OptInPack`, **now**: 33, 34, 34b and 34c closed 2026-10-02. Reasoning: high
 (a full prediction battery across modules and configurations).
 
 ## Authority and outcome
@@ -25,6 +25,12 @@ has parked or cut it; the report names the released fix-pack version tested.
   stream, then the up-leg read with an Export row; slot numbers from the current `80_AgentSlots.lua`), on the final up-leg loading.
 - No train ever appears in the hub (spec §4.8 ruling 10, grep `no train ever`): brief 34b cut
   auto-fill and made the hub refuse add-train. Trains are added at a station. Check it once.
+- 34b's results (report `TRAIN_34B_PLAN_20261002.md`): Export rows keep each depot's Desired Amount
+  through the FindTask pairing filter, with no reverse block; the hub refuses add-train. Its STREAM
+  slot and cargo trap stay preloaded for reuse.
+- **A quiet log** (`FIX_POLICY` §8, grep `development diagnostics`): with `SMROptInPack.TrainTrace`
+  off (the default), the log holds no repeating train trace lines (`5ad1ff3`). A check that reads a
+  refusal, pair or cabin line sets the switch first.
 - **Movement is finished** (owner, 2026-09-21). It may reopen once, here, if the owner wants moves
   tweaked; that goes to `Parked/TRAIN_HUB_MOVE_high.md`, never as a gate.
 

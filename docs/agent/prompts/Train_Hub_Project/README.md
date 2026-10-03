@@ -7,7 +7,7 @@ delete it. Its row here moves or goes in the same commit.
 Start any of them with `task docs/agent/prompts/Train_Hub_Project/<file>`.
 
 `00` is live; `03_Drones/` is closed reference. **`30` and `31` (the audit, report `reports/TRAIN_AUDIT_20261002.md`) closed 2026-10-02 and were
-deleted, as was `32` (the icon, closed 2026-10-02). `33` (the crossing witness) closed 2026-10-02 and was deleted. `34` (the move into this mod) closed 2026-10-02 and was deleted. `34c` (the SMR-Assets cleanup) closed 2026-10-02 and was deleted. `34b` is in its sitting; `35` after it.**
+deleted, as was `32` (the icon, closed 2026-10-02). `33` (the crossing witness) closed 2026-10-02 and was deleted. `34` (the move into this mod) closed 2026-10-02 and was deleted. `34c` (the SMR-Assets cleanup) closed 2026-10-02 and was deleted. `34b` (Export keeps Desired, no train in the hub, quiet logging) closed 2026-10-02 and was deleted. **`35` may fire now.**
 `33`-`35` are the project's last briefs (authored 2026-10-02). Briefs 22 (hub storage),
 26 (the depot's design), 27 (its wiring), 28 (its paint pass) and 29 passed live 2026-10-01 and were
 deleted, 25 parked; spec §4.10 and §11, the reports and OI-38 hold the record and what is open. Briefs 10, 17 and 21 passed live and were deleted
@@ -21,8 +21,7 @@ survey stays in `reports/VANILLA_DOOR_ENTITIES_20260922.md`, its code in git at 
 |---|---|---|
 | `00_TRAIN_ORCHESTRATOR.md` | The project lead. It reads build reports, keeps the spec current, briefs the next build, and never builds. | Standing; re-run as needed |
 | `03_Drones/` | Build 4 reference: the hub's vanilla Wasps rise from the pit and use train doors; the owner rulings are in spec §10 "Drones L5". Only `DESIGN.md` and `README.md` remain. | **Closed, PASS WITH CORRECTIONS:** `reports/drones_chain/L6_QA_20260925.md`. C1–C6 / D14(g,h) are routed; smoke evidence is bounded, ship tests remain owed |
-| `34b_ROWS_AND_AUTOFILL_FIXES_high.md` | Export rows keep each depot's Desired Amount: build the FindTask pairing filter (owner, 2026-10-02; no reverse block), plus Fix 2's owed in-game steps. Fix 2 built; Fix 3 closed (vanilla, fix-pack bug report). Rewritten for a fresh session. | **Ready**: fresh session |
-| `35_FINAL_BATTERY_high.md` | The final full battery on the shipping layout, both configurations and toggle directions; its pass completes the project and purges this folder. | Held until `34b` closes |
+| `35_FINAL_BATTERY_high.md` | The final full battery on the shipping layout, both configurations and toggle directions; its pass completes the project and purges this folder. | **Ready**: fire now |
 
 ## `Parked/` — do not fire
 

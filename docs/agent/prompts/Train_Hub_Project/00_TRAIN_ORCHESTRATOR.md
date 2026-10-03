@@ -67,13 +67,13 @@ before it fires.
      1. **`33` and `34` closed 2026-10-02.** 33: both crossings proved (`c3ba72a`). 34: the station
         rows, the hub and the depot ship from this mod as three modules (D16-D18), owner's in-game
         check PASS (`bb82702`). The player-text rule is in `FIX_POLICY` §8.
-     2. **`34b`, phase 2** (plan `TRAIN_34B_PLAN_20261002.md`): Export rows take only stock above a
-        storage's Desired Amount; auto-fill cut and the hub refuses add-train (no train ever in the
-        hub); Fix 3, the one-unit food gain on unload: fix at the source if ours, else a full bug
-        report for the fix pack and no clamp.
+     2. **`34b` closed 2026-10-02** (attended PASS, `fa4488c`): Export rows keep each depot's
+        Desired Amount via the FindTask pairing filter; the hub refuses add-train, auto-fill cut;
+        train cargo spoilage is vanilla (`TRAIN_CARGO_SPOILAGE_BUGREPORT_20261002.md`, owner carries it
+        to the fix pack); dev logging gated behind `SMROptInPack.TrainTrace` (`5ad1ff3`).
      3. **`34c` closed 2026-10-02**: SMR-Assets 5.6 GB to 1.2 GB, five checkpoints kept (`ffffcf4`,
         report `ASSETS_CLEANUP_20261002.md`).
-     4. **`35`, the final full battery**, after 34b; it carries OI-38's up-leg read and the
+     4. **`35`, the final full battery**, ready now; it carries OI-38's up-leg read and the
         check that no train appears in the hub. Its pass completes the project: purge this folder.
      **Owner's open item:** OI-42 (launch), the store description's train sentence: draft now or
      at launch prep.
