@@ -1,0 +1,491 @@
+{
+  "checked_at": "2026-10-03T03:22:00.358393+00:00",
+  "owner_instruction_date": "2026-10-02",
+  "command": "python tools/trains/final_battery/stage_fixture.py",
+  "head": "f4d5801c166272422d3ae14ee44da7c1ae91574b",
+  "save_root": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696",
+  "inventory_before": [
+    {
+      "name": "account.dat",
+      "bytes": 24441,
+      "mtime_ns": 1790988601897687300
+    },
+    {
+      "name": "account.dat.bak",
+      "bytes": 24473,
+      "mtime_ns": 1790988601893239200
+    },
+    {
+      "name": "Autosave Sol 51(4).savegame.sav",
+      "bytes": 28136523,
+      "mtime_ns": 1790988595943101500
+    },
+    {
+      "name": "Autosave Sol 51.savegame.sav",
+      "bytes": 28104227,
+      "mtime_ns": 1790985205271281100
+    },
+    {
+      "name": "Blue Sun Corporation Sol 14.savegame.sav",
+      "bytes": 28817485,
+      "mtime_ns": 1789511305620806700
+    },
+    {
+      "name": "Broken power testbed.savegame.sav",
+      "bytes": 28302918,
+      "mtime_ns": 1790436014512378100
+    },
+    {
+      "name": "BUG.savegame.sav",
+      "bytes": 30919441,
+      "mtime_ns": 1789621323709838000
+    },
+    {
+      "name": "build test.savegame.sav",
+      "bytes": 27873365,
+      "mtime_ns": 1790358790838620900
+    },
+    {
+      "name": "build6_capacity.savegame.sav",
+      "bytes": 28030659,
+      "mtime_ns": 1790536029293226200
+    },
+    {
+      "name": "build6_capacity_covered_pass3.savegame.sav",
+      "bytes": 27466825,
+      "mtime_ns": 1790630419719005000
+    },
+    {
+      "name": "C95BUILD.savegame.sav",
+      "bytes": 30459550,
+      "mtime_ns": 1789621843925937200
+    },
+    {
+      "name": "C95EXPLORE.savegame.sav",
+      "bytes": 30459550,
+      "mtime_ns": 1789493320313577200
+    },
+    {
+      "name": "C95MID.savegame.sav",
+      "bytes": 29442077,
+      "mtime_ns": 1789622279786922900
+    },
+    {
+      "name": "C95PLACE.savegame.sav",
+      "bytes": 30919441,
+      "mtime_ns": 1789621323709838000
+    },
+    {
+      "name": "C95PLACEMID.savegame.sav",
+      "bytes": 30082724,
+      "mtime_ns": 1789657483533929400
+    },
+    {
+      "name": "C96 SEEKER TEST.savegame.sav",
+      "bytes": 30421923,
+      "mtime_ns": 1789581238209693900
+    },
+    {
+      "name": "Double Hub Build.savegame.sav",
+      "bytes": 27744639,
+      "mtime_ns": 1790631137245233800
+    },
+    {
+      "name": "Double Hub+elev Built Under2.savegame.sav",
+      "bytes": 27817181,
+      "mtime_ns": 1790884432493027700
+    },
+    {
+      "name": "Double Hub+elev Built+underground setup.savegame.sav",
+      "bytes": 27897136,
+      "mtime_ns": 1790873142247098500
+    },
+    {
+      "name": "Double Hub+elev built.savegame.sav",
+      "bytes": 27654588,
+      "mtime_ns": 1790806194509542200
+    },
+    {
+      "name": "double hub+elev.savegame.sav",
+      "bytes": 27560549,
+      "mtime_ns": 1790806157283221800
+    },
+    {
+      "name": "Europe Sol 19.savegame.sav",
+      "bytes": 30538400,
+      "mtime_ns": 1789584948918822800
+    },
+    {
+      "name": "Europe Sol 280 (2).savegame.sav",
+      "bytes": 33121570,
+      "mtime_ns": 1790535202221362600
+    },
+    {
+      "name": "Europe Sol 281.savegame.sav",
+      "bytes": 33173442,
+      "mtime_ns": 1790455228200547600
+    },
+    {
+      "name": "EX4M-246R_New Horizons 2 83.savegame.sav",
+      "bytes": 36348219,
+      "mtime_ns": 1790268888351515200
+    },
+    {
+      "name": "F119stuck.savegame.sav",
+      "bytes": 30353858,
+      "mtime_ns": 1789157620723147200
+    },
+    {
+      "name": "Hab test A return.savegame.sav",
+      "bytes": 30454282,
+      "mtime_ns": 1789494504201504700
+    },
+    {
+      "name": "hab test A.savegame.sav",
+      "bytes": 30459550,
+      "mtime_ns": 1789493320313577200
+    },
+    {
+      "name": "Hub3bSmoke_MID_1789891585.savegame.sav",
+      "bytes": 27004007,
+      "mtime_ns": 1789891586189685900
+    },
+    {
+      "name": "Hub3bSmoke_MID_1789891737.savegame.sav",
+      "bytes": 27012727,
+      "mtime_ns": 1789891737668639000
+    },
+    {
+      "name": "Hub3bSmoke_MID_1789892063.savegame.sav",
+      "bytes": 27005237,
+      "mtime_ns": 1789892064522933800
+    },
+    {
+      "name": "Hub3bSmoke_MID_1789892612.savegame.sav",
+      "bytes": 27014293,
+      "mtime_ns": 1789892613266963100
+    },
+    {
+      "name": "Japan Sol 1.savegame.sav",
+      "bytes": 30885156,
+      "mtime_ns": 1790264807111291500
+    },
+    {
+      "name": "Japan Sol 490 retirelaw.savegame.sav",
+      "bytes": 38468024,
+      "mtime_ns": 1790613415075731700
+    },
+    {
+      "name": "Japan Sol 490 test.savegame.sav",
+      "bytes": 38196098,
+      "mtime_ns": 1789771285861936100
+    },
+    {
+      "name": "Japan Sol 490.savegame.sav",
+      "bytes": 38523779,
+      "mtime_ns": 1790611728871857100
+    },
+    {
+      "name": "Japan Sol 492 - testing 1.1.1.savegame.sav",
+      "bytes": 38531725,
+      "mtime_ns": 1790185644198108400
+    },
+    {
+      "name": "Japan Sol 493 - testing 1.1.1nopak.savegame.sav",
+      "bytes": 38434556,
+      "mtime_ns": 1790186001602463100
+    },
+    {
+      "name": "Japan Sol 497 (Drone Hub Integrated).savegame.sav",
+      "bytes": 38542956,
+      "mtime_ns": 1790182591164145100
+    },
+    {
+      "name": "KKAG-4870_C119-20260926_TESTCOPY.savegame.sav",
+      "bytes": 32962851,
+      "mtime_ns": 1790432336063135300
+    },
+    {
+      "name": "KKAG-4870_Europe Sol 280.savegame.sav",
+      "bytes": 32962851,
+      "mtime_ns": 1790432336063135300
+    },
+    {
+      "name": "My game.savegame.sav",
+      "bytes": 28986325,
+      "mtime_ns": 1789276231403650300
+    },
+    {
+      "name": "Mygame2.savegame.sav",
+      "bytes": 28951471,
+      "mtime_ns": 1789343433851167700
+    },
+    {
+      "name": "S0.savegame.sav",
+      "bytes": 38190664,
+      "mtime_ns": 1790613459350416100
+    },
+    {
+      "name": "s1.savegame.sav",
+      "bytes": 38507269,
+      "mtime_ns": 1790614611142488700
+    },
+    {
+      "name": "SMRFIX 1.1 Testing backup.savegame.sav",
+      "bytes": 29718657,
+      "mtime_ns": 1788895949453691800
+    },
+    {
+      "name": "SMRFIX 1.1 testing.savegame.sav",
+      "bytes": 29702795,
+      "mtime_ns": 1788895935332719600
+    },
+    {
+      "name": "SMRTK.Mark('roundtrip').savegame.sav",
+      "bytes": 29064410,
+      "mtime_ns": 1789348865084466800
+    },
+    {
+      "name": "SMRTK_490.savegame.sav",
+      "bytes": 38249483,
+      "mtime_ns": 1789401388665573800
+    },
+    {
+      "name": "SMRTK_A.sav",
+      "bytes": 27270014,
+      "mtime_ns": 1790953347259193100
+    },
+    {
+      "name": "SMRTK_B.sav",
+      "bytes": 27204051,
+      "mtime_ns": 1790958663920959400
+    },
+    {
+      "name": "SMRTK_BASELINE_CLEAN.savegame.sav",
+      "bytes": 28851426,
+      "mtime_ns": 1789345050098912900
+    },
+    {
+      "name": "Sol 327, 81_2,000.savegame.sav",
+      "bytes": 37274673,
+      "mtime_ns": 1789573319325368900
+    },
+    {
+      "name": "SpaceY Sol 1.savegame.sav",
+      "bytes": 27513251,
+      "mtime_ns": 1789680241519459100
+    },
+    {
+      "name": "SpaceY Sol 20.savegame.sav",
+      "bytes": 27809872,
+      "mtime_ns": 1789702989623836300
+    },
+    {
+      "name": "SpaceY Sol 45 (2).savegame.sav",
+      "bytes": 27733382,
+      "mtime_ns": 1790367345322441200
+    },
+    {
+      "name": "SpaceY Sol 45.savegame.sav",
+      "bytes": 27659585,
+      "mtime_ns": 1790267954412690300
+    },
+    {
+      "name": "SpaceY Sol 7.savegame.sav",
+      "bytes": 27574024,
+      "mtime_ns": 1789682983493788700
+    },
+    {
+      "name": "SpaceY Sol 8.savegame.sav",
+      "bytes": 27747749,
+      "mtime_ns": 1789695487171154800
+    },
+    {
+      "name": "steam_autocloud.vdf",
+      "bytes": 51,
+      "mtime_ns": 1790988127424416500
+    },
+    {
+      "name": "Terraforming Initiative Sol 4 Backup.savegame.sav",
+      "bytes": 30366701,
+      "mtime_ns": 1789156163165594500
+    },
+    {
+      "name": "Terraforming Initiative Sol 4.savegame.sav",
+      "bytes": 30365704,
+      "mtime_ns": 1789156127184213300
+    },
+    {
+      "name": "Terraforming Initiative Sol 5.savegame.sav",
+      "bytes": 30236369,
+      "mtime_ns": 1789156235484469700
+    },
+    {
+      "name": "track test(2).savegame.sav",
+      "bytes": 27886196,
+      "mtime_ns": 1790392405497664200
+    },
+    {
+      "name": "track test.savegame.sav",
+      "bytes": 31080101,
+      "mtime_ns": 1789001499701094400
+    },
+    {
+      "name": "train1.savegame.sav",
+      "bytes": 30462385,
+      "mtime_ns": 1789748802869045100
+    },
+    {
+      "name": "train_hub_base.savegame.sav",
+      "bytes": 27571155,
+      "mtime_ns": 1789957174962625300
+    },
+    {
+      "name": "train_hub_base_agent.savegame.sav",
+      "bytes": 27706733,
+      "mtime_ns": 1789923522567380600
+    },
+    {
+      "name": "train_hub_build5_midjob.savegame.sav",
+      "bytes": 27877347,
+      "mtime_ns": 1790438522999225200
+    },
+    {
+      "name": "trainhub - tunnel test.savegame.sav",
+      "bytes": 27588970,
+      "mtime_ns": 1790199718166048100
+    },
+    {
+      "name": "trainhub post stuck test.savegame.sav",
+      "bytes": 27775646,
+      "mtime_ns": 1790268733127059700
+    },
+    {
+      "name": "trainhub-tunneltest 2.savegame.sav",
+      "bytes": 28048449,
+      "mtime_ns": 1790201410429102700
+    },
+    {
+      "name": "tunnel test.savegame.sav",
+      "bytes": 27653111,
+      "mtime_ns": 1790028564538576800
+    },
+    {
+      "name": "USA Sol 18.savegame.sav",
+      "bytes": 29940968,
+      "mtime_ns": 1788899933062781200
+    },
+    {
+      "name": "USA Sol 22.savegame.sav",
+      "bytes": 30099844,
+      "mtime_ns": 1789056737993876900
+    },
+    {
+      "name": "USA Sol 31.savegame.sav",
+      "bytes": 30087868,
+      "mtime_ns": 1789065965372245200
+    },
+    {
+      "name": "USA Sol 315.savegame.sav",
+      "bytes": 37309347,
+      "mtime_ns": 1789571300768539100
+    },
+    {
+      "name": "USA Sol 32.savegame.sav",
+      "bytes": 30183794,
+      "mtime_ns": 1789072303198184700
+    },
+    {
+      "name": "USA Sol 35.savegame.sav",
+      "bytes": 30324777,
+      "mtime_ns": 1789073939618315300
+    },
+    {
+      "name": "USA Sol 47 (2).savegame.sav",
+      "bytes": 30197814,
+      "mtime_ns": 1789263240275279100
+    },
+    {
+      "name": "USA Sol 47.savegame.sav",
+      "bytes": 30348516,
+      "mtime_ns": 1789153798247900700
+    },
+    {
+      "name": "USA Sol 56.savegame.sav",
+      "bytes": 30467543,
+      "mtime_ns": 1789265666018064400
+    },
+    {
+      "name": "USA Sol 58.savegame.sav",
+      "bytes": 30326598,
+      "mtime_ns": 1789490744968780300
+    },
+    {
+      "name": "USA Sol 71.savegame.sav",
+      "bytes": 30459098,
+      "mtime_ns": 1789849127379605500
+    },
+    {
+      "name": "USA Sol 76.savegame.sav",
+      "bytes": 30683640,
+      "mtime_ns": 1789323483595786800
+    },
+    {
+      "name": "WF test.savegame.sav",
+      "bytes": 30590484,
+      "mtime_ns": 1789584305368470200
+    },
+    {
+      "name": "wildfire B.savegame.sav",
+      "bytes": 30812551,
+      "mtime_ns": 1789586033671015900
+    },
+    {
+      "name": "wildfire b1.savegame.sav",
+      "bytes": 30987632,
+      "mtime_ns": 1789589394784840500
+    },
+    {
+      "name": "wildfire fire reveal.savegame.sav",
+      "bytes": 30677018,
+      "mtime_ns": 1789583751545557100
+    }
+  ],
+  "protected": [
+    {
+      "name": "Autosave Sol 51(4).savegame.sav",
+      "bytes": 28136523,
+      "sha256": "411a7ddbf63e4bd02c49e7a2eb59ee4f90536845660736f8bf7df5c208a0ec55",
+      "source": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696\\Autosave Sol 51(4).savegame.sav",
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\train-final-battery-20261002\\Autosave Sol 51(4).savegame.sav"
+    },
+    {
+      "name": "Autosave Sol 51.savegame.sav",
+      "bytes": 28104227,
+      "sha256": "3404677af2c926cf882baf0de86b1ddd473679df6cf19662a2846cfb2fca5126",
+      "source": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696\\Autosave Sol 51.savegame.sav",
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\train-final-battery-20261002\\Autosave Sol 51.savegame.sav"
+    },
+    {
+      "name": "SMRTK_A.sav",
+      "bytes": 27270014,
+      "sha256": "93ecd51c5da89a1bba0ab29b05bc32c5c55ae0983265ba6cc24890083ce6d822",
+      "source": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696\\SMRTK_A.sav",
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\train-final-battery-20261002\\SMRTK_A.sav"
+    },
+    {
+      "name": "SMRTK_B.sav",
+      "bytes": 27204051,
+      "sha256": "031503a323c77b6a7299fba80da2bed1cdbb37d82eb806669eecf58ac64ec0e4",
+      "source": "C:\\Users\\stkot\\Saved Games\\Surviving Mars Relaunched\\76561198020568696\\SMRTK_B.sav",
+      "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\train-final-battery-20261002\\SMRTK_B.sav"
+    }
+  ],
+  "source": "Double Hub+elev Built Under2.savegame.sav",
+  "fixture": "FINAL35_P_20261002.savegame.sav",
+  "fixture_sha256": "18f9e2e4133d8fe6741d1c0d98d739bb99df60198f8dcb5f4c253bc81f32e10b",
+  "fixture_bytes": 27817181,
+  "fixture_mtime_ns": 1790884432493027700,
+  "load_route": "*r LoadGame(\"FINAL35_P_20261002.savegame.sav\")",
+  "native_load_back": "NOT RUN"
+}

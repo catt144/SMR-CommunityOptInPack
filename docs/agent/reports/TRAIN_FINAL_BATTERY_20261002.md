@@ -12,13 +12,17 @@ in this transcript). No subagents.
 | Unit | State |
 |---|---|
 | Reconcile predictions, prepare slots, verify and commit preparation | COMPLETE; TestKit `783a24d` |
-| Attended complete battery with the released fix pack | IN PROGRESS: waiting for fixture/release identity; no boot yet |
+| Attended complete battery with the released fix pack | IN PROGRESS: owner chose fixture/release; first batch issued below |
 | Attended complete battery without the fix pack, fresh process | PENDING |
 | Archive closed logs, reconcile verdicts/failures and cleanup | PENDING |
 
-The save-copy choice has been asked of the owner; no save has been loaded or
-changed. Autosaves must be byte-copied and inventoried before loading the copy
-(CO_RUNS). Initial process check found Mars.exe closed. Initial TestKit checkout
+Owner, 2026-10-02: copy **Double Hub+elev Built Under2** as the battery fixture.
+The copy's exact filename is `FINAL35_P_20261002.savegame.sav`; use filename-based
+loading because its menu title duplicates the source. The staging receipt is
+`docs/archive/train_final_fixture_20261002/staging.json`, including the original
+save-directory inventory, source/copy hash and every protected autosave/toolkit
+save by name. Backups are in `local/train-final-battery-20261002/`.
+Native load-back remains NOT RUN until the first batch. Initial TestKit checkout
 `8408566` was clean and its pull was already up to date.
 
 ## Current contract and evidence boundary
@@ -49,12 +53,13 @@ and the current parts loaded beside them. Owner decisions in spec §§4.7, 4.8,
 build **25579348**. Game source routing is the archived **1.1.1.406343** tree.
 Old fact groups marked MOVED are not current source evidence.
 
-Released fix-pack identity is **UNVERIFIED**. The installed junction targets
-`B:/Dev/SMR/SMR-BugFixPack`; its metadata currently says 1.0.26. The command
-`git -C ../SMR-BugFixPack tag --list 'fixpack*'` returns `fixpack-v1.0.0` only.
-Neither a development version nor that historical tag proves the current portal
-release. Resolve the released artifact before calling the with-pack leg shipping
-acceptance. Keep any development-head run distinctly labeled.
+**OWNER, 2026-10-02: fix pack 1.0.26 IS released.** The owner explicitly instructs
+this battery to cite their word because the fix-pack repo has no 1.0.26 release
+record, only `fixpack-v1.0.0`. Configuration P is therefore **released Relaunched
+Fix Pack 1.0.26 installed**, release status by owner testimony. The installed
+junction targets `B:/Dev/SMR/SMR-BugFixPack`; read its loaded `PackVersion()` and
+archive the native startup lines to confirm what this process actually tests.
+No new tag, portal receipt or prior gameplay verdict is inferred.
 
 ## Battery script and slot groups
 
@@ -84,7 +89,13 @@ handle on each read and logged with map and handle; retain that mapping across
 each batch. Changing groups refuses until paused, watches canceled and 34b's
 pairing/cargo recorders switched off. An absent selected fixture refuses rather
 than returning a success-shaped no-op. Toolkit controls handle save/load, note,
-flush, taint and eligibility; no owner console typing is planned.
+flush, taint and eligibility. Exception for initial load: the panel requires
+`GetInGameInterface()` (`71_SMRTK_Panel.lua`); it cannot provide a slot at the
+main menu. A clipboard-provisioned `*r LoadGame("FINAL35_P_20261002.savegame.sav")`
+loads the exact copy from a real-time thread. Native LoadGame's filename route
+and the toolkit's own use are source-checked; this specific load is NOT RUN.
+Owner 2026-10-02: before reading a `[TrainBay]`, pair or cabin diagnostic line,
+set `SMROptInPack.TrainTrace = true`; Scratch supplies that explicit switch.
 
 ## Attended batches (predictions, all NOT RUN)
 
@@ -313,7 +324,33 @@ retained; no mixed endings) are quoted verbatim for the attending handoff:
   WARN docs/archive/train_final_battery_prep_20261002/smokes.txt
 ```
 
-Next: obtain the test-save filename, stage its byte copy and autosave backups,
-settle released fix-pack provenance, then issue B0 as a short attended batch.
-No gameplay PASS, save-copy creation or release-version acceptance is implied
-by this preparation commit. Brief 35 and the project folder remain live.
+Brief 35 and the project folder remain live; the preparation commit grants no
+gameplay verdict.
+
+## Current owner batch P0 — cold OFF baseline and quiet activity
+
+Issued after the owner's fixture and release answers, 2026-10-02. Every step
+is PENDING; each returned observation/log gets its own result here.
+
+1. Main menu: keep the fix pack, Opt-In Modules and TestKit enabled; set Station
+   import/export rows, Train Hub and Elevator Depot OFF in Mod Options, Apply,
+   then exit/restart. Native UI, no slot: establishes cold OFF, not a live flip.
+2. Main-menu console: paste the preloaded clipboard command and Enter. Native
+   real-time load, no main-menu SMRTK slot. Expect the exact named copy to load;
+   pause immediately. Missing retired-dev-mod fallback notices are recorded,
+   not silently promoted to failures or ignored.
+3. Open toolkit (Ctrl-Shift-F11), Slots & notes; **slot 11 — configuration and
+   object snapshot**. Expect fix pack present/version 1.0.26, train switches OFF,
+   trace false, placed hubs/depot still present. In Stations build menu new hub
+   and depot are absent. Agent assigns role names from this first object map.
+4. **Crossings slot 1 — bounded quiet hour**. Runs Ultra and pauses itself.
+   Expect `hour_done`, real train-state changes and no new error. If autosave
+   disarms it, re-press slot 1. Trace stays OFF for this quiet-log control; only
+   toolkit activity counters are used, not train/pair/cabin diagnostic lines.
+5. **Slot 11 — final snapshot**, then Sitting → **Flush + copy**. Say "flushed"
+   and whether the build-menu entries were absent. The agent reads this batch
+   before issuing any next steps. Quiet absence verdict waits for post-exit log.
+
+The next diagnostic batch begins with Scratch ON and requires `trace=true`
+before any TrainBay/pair/cabin diagnostic reading. No hand-set hub handle is
+carried from an older sitting.
