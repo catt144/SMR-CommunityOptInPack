@@ -1,0 +1,332 @@
+{
+  "command": "python docs/archive/train_b0_20261003/read_log.py",
+  "read_head": "896dfc76094f53030e9ad50ac1d8f5e218b4b1ac",
+  "game_build": "1.1.1.406343",
+  "file": "Mars.exe-20261003-01.04.09-6aba6e65.log",
+  "bytes": 790763,
+  "lines": 3960,
+  "sha256": "c7c54173a94e869f9edc84aa14d5bc7d9fcb4c4215ae004e471c34eb51d9d034",
+  "decode": "strict utf-8-sig; splitlines; 1-based line numbers",
+  "counting": "Each count equals its complete member list; anchored SMRTK filters exclude [mod] echoes.",
+  "filters": {
+    "shutdown": "Debug::Done\\(\\)",
+    "build": "Build version:",
+    "train_logging": "^\\[(?:TrainHub|TrainDistribution|TrainBay|StationSpoilage|ElevatorDepot)\\]",
+    "lua_errors": "LUA ERROR",
+    "diagnostics": "(?i)\\berror\\b|\\bwarning\\b|\\bfailed\\b|unpersist|Savegame references",
+    "missing_permanents": "Unpersist missing",
+    "old_mod_references": "Savegame references",
+    "hours": "^\\[SMRTK\\] SMRTK_TRIGGER .*verdict=hour_done",
+    "snapshots": "^\\[SMRTK\\].*fixpack_version=",
+    "module_status": "^\\[SMRTK\\].*module=(?:TrainHub|StationRows|ElevatorDepot)\\b",
+    "hubs": "^\\[SMRTK\\].*role=\"Hub [12]\" row=object",
+    "export_read": "^\\[SMRTK\\].*mode=export .*resource=Metals .*station=10531\\b",
+    "metal_requests": "^\\[SMRTK\\].*object=StationSmall\\(10531\\) resource=Metals"
+  },
+  "counts": {
+    "shutdown": 1,
+    "build": 1,
+    "train_logging": 6,
+    "lua_errors": 0,
+    "diagnostics": 20,
+    "missing_permanents": 2,
+    "old_mod_references": 4,
+    "hours": 2,
+    "snapshots": 4,
+    "module_status": 12,
+    "hubs": 8,
+    "export_read": 2,
+    "metal_requests": 4
+  },
+  "members": {
+    "shutdown": [
+      {
+        "line": 3957,
+        "text": "*** Debug::Done()"
+      }
+    ],
+    "build": [
+      {
+        "line": 53,
+        "text": "Build version: 1.1.1.406343"
+      }
+    ],
+    "train_logging": [
+      {
+        "line": 140,
+        "text": "[TrainHub] train export floor loaded (standing + transient holds)"
+      },
+      {
+        "line": 141,
+        "text": "[TrainDistribution] station rows loaded (brief 30: hub + hubless)"
+      },
+      {
+        "line": 143,
+        "text": "[TrainDistribution] native storage-row UI registered"
+      },
+      {
+        "line": 146,
+        "text": "[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve"
+      },
+      {
+        "line": 148,
+        "text": "[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility"
+      },
+      {
+        "line": 151,
+        "text": "[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained"
+      }
+    ],
+    "lua_errors": [],
+    "diagnostics": [
+      {
+        "line": 191,
+        "text": "[Braze] SessionStart error The server name or address could not be resolved"
+      },
+      {
+        "line": 194,
+        "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+      },
+      {
+        "line": 196,
+        "text": "[Braze] Failed to init"
+      },
+      {
+        "line": 198,
+        "text": "[Braze] SessionStart error The server name or address could not be resolved"
+      },
+      {
+        "line": 201,
+        "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+      },
+      {
+        "line": 203,
+        "text": "[Braze] Failed to init"
+      },
+      {
+        "line": 223,
+        "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 000002AD0158C600 [7]"
+      },
+      {
+        "line": 225,
+        "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+      },
+      {
+        "line": 226,
+        "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+      },
+      {
+        "line": 285,
+        "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 000002AD0B8217D8 [7]"
+      },
+      {
+        "line": 287,
+        "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+      },
+      {
+        "line": 288,
+        "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+      },
+      {
+        "line": 1190,
+        "text": "[mod] [SMRTK] SMRTK_MARK action=mark label=\"Battery: one game hour, stop on error\" mark=461 status=OK t=35820612 id=443"
+      },
+      {
+        "line": 1191,
+        "text": "[SMRTK] SMRTK_MARK action=mark label=\"Battery: one game hour, stop on error\" mark=461 status=OK t=35820612 id=443"
+      },
+      {
+        "line": 1195,
+        "text": "[mod] [SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=26 cabin_legs_before=25 cabin_phase=down game_time=35820404 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=461 pause=true sound=true status=OK train_samples=121 train_state_changes=39 trigger=battery_35_hour verdict=hour_done t=35820612 id=445"
+      },
+      {
+        "line": 1196,
+        "text": "[SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=26 cabin_legs_before=25 cabin_phase=down game_time=35820404 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=461 pause=true sound=true status=OK train_samples=121 train_state_changes=39 trigger=battery_35_hour verdict=hour_done t=35820612 id=445"
+      },
+      {
+        "line": 3081,
+        "text": "[mod] [SMRTK] SMRTK_MARK action=mark label=\"Battery: one game hour, stop on error\" mark=1364 status=OK t=36020932 id=1342"
+      },
+      {
+        "line": 3082,
+        "text": "[SMRTK] SMRTK_MARK action=mark label=\"Battery: one game hour, stop on error\" mark=1364 status=OK t=36020932 id=1342"
+      },
+      {
+        "line": 3086,
+        "text": "[mod] [SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=32 cabin_legs_before=31 cabin_phase=down game_time=36020852 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=1364 pause=true sound=true status=OK train_samples=121 train_state_changes=42 trigger=battery_35_hour verdict=hour_done t=36020932 id=1344"
+      },
+      {
+        "line": 3087,
+        "text": "[SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=32 cabin_legs_before=31 cabin_phase=down game_time=36020852 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=1364 pause=true sound=true status=OK train_samples=121 train_state_changes=42 trigger=battery_35_hour verdict=hour_done t=36020932 id=1344"
+      }
+    ],
+    "missing_permanents": [
+      {
+        "line": 223,
+        "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 000002AD0158C600 [7]"
+      },
+      {
+        "line": 285,
+        "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 000002AD0B8217D8 [7]"
+      }
+    ],
+    "old_mod_references": [
+      {
+        "line": 225,
+        "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+      },
+      {
+        "line": 226,
+        "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+      },
+      {
+        "line": 287,
+        "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+      },
+      {
+        "line": 288,
+        "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+      }
+    ],
+    "hours": [
+      {
+        "line": 1196,
+        "text": "[SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=26 cabin_legs_before=25 cabin_phase=down game_time=35820404 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=461 pause=true sound=true status=OK train_samples=121 train_state_changes=39 trigger=battery_35_hour verdict=hour_done t=35820612 id=445"
+      },
+      {
+        "line": 3087,
+        "text": "[SMRTK] SMRTK_TRIGGER action=battery_35_hour cabin_legs=32 cabin_legs_before=31 cabin_phase=down game_time=36020852 label=\"Battery: one game hour, stop on error\" live_trains=17 mark=1364 pause=true sound=true status=OK train_samples=121 train_state_changes=42 trigger=battery_35_hour verdict=hour_done t=36020932 id=1344"
+      }
+    ],
+    "snapshots": [
+      {
+        "line": 1181,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=35790404 group=Crossings mark=41 optin_version=1.0.0 selected=none sitting=final_35 stations=19 status=OK trace=false trains=17 t=35790404 id=439"
+      },
+      {
+        "line": 2050,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=35820612 group=Crossings mark=465 optin_version=1.0.0 selected=none sitting=final_35 stations=19 status=OK trace=false trains=17 t=35820612 id=863"
+      },
+      {
+        "line": 3038,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=35990852 group=Rows mark=934 optin_version=1.0.0 selected=none sitting=final_35 stations=19 status=OK trace=false trains=17 t=35990852 id=1328"
+      },
+      {
+        "line": 3940,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=36020932 group=Crossings mark=1368 optin_version=1.0.0 selected=none sitting=final_35 stations=19 status=OK trace=false trains=17 t=36020932 id=1762"
+      }
+    ],
+    "module_status": [
+      {
+        "line": 340,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=TrainHub option=false row=module sitting=final_35 status=inactive t=35790404 id=26"
+      },
+      {
+        "line": 347,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=ElevatorDepot option=false row=module sitting=final_35 status=inactive t=35790404 id=29"
+      },
+      {
+        "line": 351,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=StationRows option=false row=module sitting=final_35 status=inactive t=35790404 id=31"
+      },
+      {
+        "line": 1207,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=TrainHub option=false row=module sitting=final_35 status=inactive t=35820612 id=450"
+      },
+      {
+        "line": 1214,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=ElevatorDepot option=false row=module sitting=final_35 status=inactive t=35820612 id=453"
+      },
+      {
+        "line": 1218,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=StationRows option=false row=module sitting=final_35 status=inactive t=35820612 id=455"
+      },
+      {
+        "line": 2197,
+        "text": "[SMRTK] SMRTK_DUMP active=true module=TrainHub option=true row=module sitting=final_35 status=active t=35990852 id=915"
+      },
+      {
+        "line": 2203,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=ElevatorDepot option=false row=module sitting=final_35 status=inactive t=35990852 id=918"
+      },
+      {
+        "line": 2207,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=StationRows option=false row=module sitting=final_35 status=inactive t=35990852 id=920"
+      },
+      {
+        "line": 3098,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=TrainHub option=false row=module sitting=final_35 status=inactive t=36020932 id=1349"
+      },
+      {
+        "line": 3104,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=ElevatorDepot option=false row=module sitting=final_35 status=inactive t=36020932 id=1352"
+      },
+      {
+        "line": 3108,
+        "text": "[SMRTK] SMRTK_DUMP active=false module=StationRows option=false row=module sitting=final_35 status=inactive t=36020932 id=1354"
+      }
+    ],
+    "hubs": [
+      {
+        "line": 597,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6430) production=75000 role=\"Hub 1\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35790404 id=152"
+      },
+      {
+        "line": 646,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6495) production=75000 role=\"Hub 2\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35790404 id=176"
+      },
+      {
+        "line": 1465,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6430) production=75000 role=\"Hub 1\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35820612 id=576"
+      },
+      {
+        "line": 1514,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6495) production=75000 role=\"Hub 2\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35820612 id=600"
+      },
+      {
+        "line": 2454,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6430) production=75000 role=\"Hub 1\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35990852 id=1041"
+      },
+      {
+        "line": 2502,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6495) production=75000 role=\"Hub 2\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=35990852 id=1065"
+      },
+      {
+        "line": 3355,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6430) production=75000 role=\"Hub 1\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=36020932 id=1475"
+      },
+      {
+        "line": 3404,
+        "text": "[SMRTK] SMRTK_DUMP consumption=29000 destroyed=false drones=5 map=Surface object=SMROptInTrainHub6(6495) production=75000 role=\"Hub 2\" row=object sitting=final_35 storage=4000000 track_work=true working=true t=36020932 id=1499"
+      }
+    ],
+    "export_read": [
+      {
+        "line": 2116,
+        "text": "[SMRTK] SMRTK_DUMP calls=0 capacity=120000 demand_desired=0 demand_target=113397 drones=true errors=0 game_time=35820612 hub=none hub_role=none hub_room=none hub_stock=none mode=export percent=8 resource=Metals row=resource sitting=station_rows_30 station=10531 stock=6603 supply_desired=120000 supply_target=6603 target=9600 t=35820612 id=885"
+      },
+      {
+        "line": 2155,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_4 calls=0 capacity=120000 demand_desired=0 demand_target=113397 drones=true errors=0 game_time=35820612 hub=none hub_role=none hub_room=none hub_stock=none mark=903 mode=export percent=8 resource=Metals station=10531 status=OK stock=6603 supply_desired=120000 supply_target=6603 target=9600 t=35820612 id=904"
+      }
+    ],
+    "metal_requests": [
+      {
+        "line": 1065,
+        "text": "[SMRTK] SMRTK_DUMP available=6603 capacity=120000 desired_demand=110000 desired_supply=10000 enabled=true object=StationSmall(10531) resource=Metals room=109397 row=request sitting=final_35 stock=6603 t=35790404 id=382"
+      },
+      {
+        "line": 1934,
+        "text": "[SMRTK] SMRTK_DUMP available=6603 capacity=120000 desired_demand=110000 desired_supply=10000 enabled=true object=StationSmall(10531) resource=Metals room=113397 row=request sitting=final_35 stock=6603 t=35820612 id=806"
+      },
+      {
+        "line": 2922,
+        "text": "[SMRTK] SMRTK_DUMP available=7241 capacity=120000 desired_demand=0 desired_supply=120000 enabled=true object=StationSmall(10531) resource=Metals room=112759 row=request sitting=final_35 stock=7241 t=35990852 id=1271"
+      },
+      {
+        "line": 3824,
+        "text": "[SMRTK] SMRTK_DUMP available=7241 capacity=120000 desired_demand=110000 desired_supply=10000 enabled=true object=StationSmall(10531) resource=Metals room=103759 row=request sitting=final_35 stock=7241 t=36020932 id=1705"
+      }
+    ]
+  }
+}

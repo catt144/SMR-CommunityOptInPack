@@ -3,7 +3,8 @@
 Authority: [brief 35](../prompts/Train_Hub_Project/35_FINAL_BATTERY_high.md).
 Starting shipping code: `eb36cff`; `git log --oneline -5` and `git pull` ran first,
 pull already up to date. Scope: testing and recording, with failures returned to
-the train orchestrator for a fix brief. **No final-battery gameplay verdict yet.**
+the train orchestrator for a fix brief. **B0 in P: PASS, owner 2026-10-03.**
+The remaining list below is for orchestrator review; no further batch is issued.
 Executed model: GPT-6 (Codex; no more specific runtime model identifier is exposed
 in this transcript). No subagents.
 
@@ -12,9 +13,10 @@ in this transcript). No subagents.
 | Unit | State |
 |---|---|
 | Reconcile predictions, prepare slots, verify and commit preparation | COMPLETE; TestKit `783a24d` |
-| Attended complete battery with the released fix pack | IN PROGRESS: owner chose fixture/release; first batch issued below |
-| Attended complete battery without the fix pack, fresh process | PENDING |
-| Archive closed logs, reconcile verdicts/failures and cleanup | PENDING |
+| P: released fix pack installed | B0 PASS; review only checks without a live witness before further play |
+| A: fix pack absent | WAIVED by owner 2026-10-03; not a runtime PASS |
+| Archive B0, explain forced rows, reconcile remaining checks | COMPLETE in this update |
+| Approve remaining scope / next owner batch | ORCHESTRATOR; pending, nothing issued |
 
 Owner, 2026-10-02: copy **Double Hub+elev Built Under2** as the battery fixture.
 The copy's exact filename is `FINAL35_P_20261002.savegame.sav`; use filename-based
@@ -22,7 +24,8 @@ loading because its menu title duplicates the source. The staging receipt is
 `docs/archive/train_final_fixture_20261002/staging.json`, including the original
 save-directory inventory, source/copy hash and every protected autosave/toolkit
 save by name. Backups are in `local/train-final-battery-20261002/`.
-Native load-back remains NOT RUN until the first batch. Initial TestKit checkout
+The owner accepted B0 on the fixture. The native log does not print the loaded
+filename, so it is not independent proof of the exact copy's load-back. Initial TestKit checkout
 `8408566` was clean and its pull was already up to date.
 
 ## Current contract and evidence boundary
@@ -59,7 +62,15 @@ record, only `fixpack-v1.0.0`. Configuration P is therefore **released Relaunche
 Fix Pack 1.0.26 installed**, release status by owner testimony. The installed
 junction targets `B:/Dev/SMR/SMR-BugFixPack`; read its loaded `PackVersion()` and
 archive the native startup lines to confirm what this process actually tests.
-No new tag, portal receipt or prior gameplay verdict is inferred.
+The B0 native snapshot confirms loaded version `1.0.26` below. No new tag or
+portal receipt is inferred.
+
+Owner rulings 2026-10-03, read after `git pull` at `9c58d1c`: configuration A is
+waived under [FIX_POLICY §8](../FIX_POLICY.md), on the evidence in
+[TRAIN_FIXPACK_OVERLAP_20261003.md](TRAIN_FIXPACK_OVERLAP_20261003.md).
+F65's short-track case is accepted vanilla: without the fix pack a station
+one or two track pieces from a hub need not share its power. P is trimmed to
+checks never witnessed live. Existing owner passes remain passes.
 
 ## Battery script and slot groups
 
@@ -91,193 +102,135 @@ pairing/cargo recorders switched off. An absent selected fixture refuses rather
 than returning a success-shaped no-op. Toolkit controls handle save/load, note,
 flush, taint and eligibility. Exception for initial load: the panel requires
 `GetInGameInterface()` (`71_SMRTK_Panel.lua`); it cannot provide a slot at the
-main menu. A clipboard-provisioned `*r LoadGame("FINAL35_P_20261002.savegame.sav")`
-loads the exact copy from a real-time thread. Native LoadGame's filename route
-and the toolkit's own use are source-checked; this specific load is NOT RUN.
+main menu. The owner also confirms the console is unavailable there: first load
+any save, then use the clipboard-provisioned
+`*r LoadGame("FINAL35_P_20261002.savegame.sav")` inside that game. This console
+exception selects the duplicate-title fixture by filename; normal checks use slots.
 Owner 2026-10-02: before reading a `[TrainBay]`, pair or cabin diagnostic line,
 set `SMROptInPack.TrainTrace = true`; Scratch supplies that explicit switch.
 
-## Attended batches (predictions, all NOT RUN)
+## B0 in P - PASS, 2026-10-03
 
-Run every batch in **P = released fix pack present** and **A = fix pack absent**.
-Each configuration starts in a new process; capture native mod-load lines and
-slot 11. A mismatch stops that configuration before measurement. Default/off,
-independent modules, combinations, first enable, disable and re-enable are
-distinct cells below; a historical smoke fills none of them.
+**OWNER:** cold OFF snapshot; build-menu entries absent; StationRows, TrainHub and
+ElevatorDepot toggled each way and behaved as expected; Rows slot 4 restored
+station **10531, Metals Export**. Configuration tested: **released fix pack
+1.0.26 installed**, release status on the owner's word of 2026-10-02.
 
-### B0 — identity, quiet baseline and real toggles
+**MEASURED:** the complete closed
+[`Mars.exe-20261003-01.04.09-6aba6e65.log`](../../archive/train_b0_20261003/Mars.exe-20261003-01.04.09-6aba6e65.log)
+is archived byte-for-byte. Reproduce the filters, counts and every member with
+`python docs/archive/train_b0_20261003/read_log.py`; the executed output is
+[`receipt.json`](../../archive/train_b0_20261003/receipt.json), read at `896dfc7`,
+TestKit `783a24d`, game build **1.1.1.406343**. The native log reports version,
+not a source commit. Current read HEAD is not claimed as its boot SHA.
 
-1. Boot with train options OFF; load the named copy, pause, slot 11. Expect the
-   recorded pack configuration, TrainTrace false, and known hub/depot identities.
-   Inspect build menu: no new hub/depot. Placed content remains operational.
-2. Enable StationRows only through Mod Options and Apply. Inspect a hubless
-   Small and Big Station; four states and sliders appear, on each applicable map.
-   Slot 11 and Rows slot 4 record requests/settings. Toggle OFF: vanilla hubless
-   behavior returns; ON restores settings. An existing hub network is not the
-   negative control—use the disconnected stations.
-3. StationRows OFF, TrainHub ON: hub menu appears, all ordinary station rows are
-   effective. TrainHub OFF: menu disappears, existing hub/network works, hubless
-   rows revert. Re-enable. Observe actual transport, not just registry booleans.
-4. Both previous modules OFF, ElevatorDepot ON: placement and existing pair work
-   independently; OFF hides new halves while the pair runs; ON restores placement.
-5. With diagnostics still OFF, use the bounded run for active trains/cabin and
-   flush. At process exit archive the complete log; repeating train trace lines
-   in this quiet interval refute quiet shipping logging. Require cargo/cabin
-   activity as a liveness witness. No absence verdict from a live partial log.
+| Observation | Evidence and boundary |
+|---|---|
+| Cold OFF | Lines 340/347/351: TrainHub, ElevatorDepot, StationRows inactive with their options false. Line 1181: `fixpack=present fixpack_version=1.0.26 trace=false errors=0`. Build-menu absence is OWNER. |
+| Hub identity | Lines 597/646: **Hub 1 = 6430**, **Hub 2 = 6495**, both Surface. Those are snapshot labels, not geographic roles. Earlier row read identifies 6430 as the hub serving surface station 2007; use that role when targeting its network. No unverified role is assigned to 6495. |
+| Quiet-hour activity | Canonical `[SMRTK]` records at 1196 and 3087: `hour_done`, live trains 17 in each, state changes 39 and 42; cabin-leg counters advance 25->26 and 31->32. These toolkit counters are the quiet control, with train diagnostics OFF. |
+| Export restored | Rows slot 4 at 2155: station 10531, `hub=none mode=export percent=8 resource=Metals target=9600 supply_desired=120000 demand_desired=0`. Final OFF snapshot at 3824 restores native desired demand/supply 110000/10000. |
+| Both toggle directions | OWNER for each module. The snapshots bracket states; they do not independently log every observed click or panel change. |
+| Quiet complete log | Six train logging lines at 140/141/143/146/148/151, all startup registration/load announcements; zero repeating lines under the receipt's train-prefix filter. Zero `LUA ERROR`; normal `Debug::Done()` at 3957. B0 quiet PASS. |
 
-Also test a cold boot with each independent option state, and main-menu enable
-of the mod before loading. Record actual UI and behavior for both live directions.
+The brief's owner record says three bounded hours. The closed log contains two
+canonical `hour_done` records (excluding duplicated `[mod]` echoes); a third is
+not independently recoverable from this file. Keep the owner's B0 pass and the
+measured boundary separately; no repeat is requested.
 
-### B1 — hub and map crossings; OI-38
+The broad diagnostic filter has 20 members: six Braze launcher DNS/init errors,
+two retired dev-mod `Mod/SMR_TrainHubDev_20260918` permanent fallbacks, four missing
+retired hub/depot mod references, and eight toolkit label/echo lines containing
+"stop on error". These reconcile to the receipt's full list. None is a new Lua
+error or a repair-notification warning. The old-dev references are preserved,
+not erased as a "clean load"; this B0 did not contain the active repair-notice
+fixture required by D14(h). No unexplained remainder in that filter.
 
-1. Crossings slot 7 starts the ledger. Expect `wiring_ok=true`, every live train
-   and watched station wired, real pair/cabin wired. Incomplete wiring refuses.
-2. Slot 8 runs hub route crossing at Ultra and pauses. Require `verdict=proved`,
-   `bound=strict|net`, positive excess and live transfer events. Route reloading
-   its own cargo, drawdown and drone-only delivery must not prove a crossing.
-3. Slot 9 runs depot crossing. Require positive origin AND destination link
-   excess with a direction, not merely a cabin arrival. Exercise both directions
-   by setting surface Import/Export and real train supplies/destination take-away.
-4. Save A during a run, re-press the watch, then slot 10 reads the ledger. Require
-   retained books/rearm evidence; a load deliberately resets the ledger. Record
-   every mismatch, tainted resource and open bracket. No tainted row earns PASS.
-5. For OI-38 use the Upgrades train stream, then Depot departure and arrival reads
-   with an Export row: record actual `cabin=up`, aboard cargo, surface/underground
-   stock and next arrival. These are scripted observations on final loading.
-   The controlled Depot Export fixture is a separate reservation/priority test.
+### Why StationRows says inactive while rows work
 
-Expected crossings usually within two game hours; witness deadline is twelve
-game hours. `deadline` with visits is NO PROOF; without visits is a fixture gap.
-Cabin departure/arrival runs have three-game-hour deadlines. Wrong direction,
-missing cargo or nonconservation refutes the corresponding prediction.
+SOURCE at `896dfc7`: `Code/00_Core.lua`'s `IsActive` reads the named module's
+registry status. `Opt_StationRows.lua` therefore remains inactive when its own
+option is OFF. In `Code/StationRows_40_TrainDistribution.lua:95`, `hubless_on()`
+returns `IsActive("StationRows") or IsActive("TrainHub")`. Its `RowsOn()` at
+839 also accepts a station served by an existing hub; the row UI delegates to
+that predicate (`StationRows_45_TrainDistributionUI.lua:30`). TrainHub's toggle
+callbacks call `StationRowsReapply` to refresh the effective rows.
 
-### B2 — station row behavior, with and without a hub
+Thus TrainHub ON forces the **row behavior** on without changing StationRows'
+option or registry status. With both options OFF, a built hub still keeps its
+network's rows. Slot 11's inactive status is accurate and is not a failed toggle.
 
-1. On Small/Big stations on each applicable map cycle Balanced → Export → Import
-   → Not accepted → Balanced. Mouse and gamepad sliders, mode tooltip, long
-   titles and minimum panel scale remain usable. Ctrl-click copies current mode
-   AND percentage without advancing the clicked row; depots are excluded.
-2. Record untouched Balanced at its native absolute dial. Change capacity:
-   untouched absolute target stays fixed; configured percentage scales. Use
-   Rows slot 4 before/after and slot 5 for actual delivery to the target.
-3. Export preserves its floor, Import stops at cap, Not accepted takes none;
-   actual trains visit, with and without local drones. Include fractional room:
-   no divide-by-zero, whole-unit loading does not overfill a sub-unit deficit.
-4. Join/leave hub network; disconnect/reconnect; multiple hubs; chained
-   Export/Import/Balanced with a witnessed intermediate hop. Hub and hubless
-   settings stay separate. Name serving hub and route, not just a handle.
-5. Unlock/relock resource requests and run NoTerraforming control. Membership
-   follows available requests; do not assume the historical fixture's resource
-   count. Save/load with settings, then full mod disable/restart on a content-free
-   copy: no dangling claims or nonvanilla hubless desired values.
+## B1-B6: remaining witness review - orchestrator only
 
-### B3 — Export floor, hub refusal and routing boundaries
+This is a bounded reconciliation of the audit section 2, the final owner passages in
+spec sections 4.7/4.8/4.10/10/11, and the named reports below. "No live witness" means
+no result for that specific condition in those records; it does not overrule an
+owner observation. Desk-only or explicitly unwitnessed edges stay separate from
+accepted feature smokes. **The orchestrator approves the retained list before
+any further owner batch.** No new owner checklist item is created during review;
+OI-38 and shared ck217 retain their current homes.
 
-1. 34b slot 1 reads a selected Export station and its controller queue stores;
-   slot 2 enables pairing witness, slot 9 Food STREAM. Sample both hubless and
-   hub-served stations. Use storage above, at and below Desired, plus producers.
-2. Run the bounded sol. Require real storage-to-Export hauls above Desired and
-   none taking below Desired; also real reverse replenishment to Desired.
-   Merely zero violations without qualifying hauls is NOT PROOF.
-3. Set diagnostics ON before refusal reading. On selected hub, slot 4 baseline,
-   slot 5 native AssignTrain control. It refuses without spending a prefab or
-   creating a train. With an available prefab add at an ordinary station and
-   each depot half; owner sees it spawn there and depart. No hub auto-fill.
-4. Full-hub refusal on an uncovered Export spoke: require a live train call,
-   stock unchanged, hub full and held request intact. Cancellation/save releases
-   the test hold. A deadline, broken hold or no train call is not a PASS.
-5. Stranded cargo returns to hub first, then overflow behavior accounts for every
-   unit. Cargo trap and train stream attribute the writer; distinguish vanilla
-   food shortfall/over-credit from this mod (34b's routed bug). Any mismatch gets
-   a verdict and orchestrator route; never rerun merely for a preferred result.
+| Original battery | Specific condition without a recorded live witness | Evidence / scope for review |
+|---|---|---|
+| B1.5 / B6 loading | **OI-38: scripted organic up-leg departure and arrival with an Export row, alongside the train stream.** The stronger train-to-cabin-to-train UP crossing also has no native crossing verdict. | `ELEVATOR_DEPOT_WIRING_20261001.md` D2/D3 and current OI-38. Controlled up-loading passed brief 30; it is not this stream-backed reading. Brief 33 proved DOWN. Proposed batch below closes the read only; do not award an UP crossing-ledger proof from it. |
+| B2.1-2 | Native gamepad slider/focus; untouched absolute target versus configured percentage across a capacity change. | `TRAIN_DISTRIBUTION_PASS2_20260926.md` distinguishes desk controls from native focus; spec section 4.8 records ordinary target passes, not the capacity-change comparison here. Mouse row cycling, Ctrl-copy of state/percentage, tooltips and long-title inspection already passed. |
+| B2.4-5 | Hub join/leave/reconnect retaining separate hub/hubless settings; actual intermediate chained hop; unlock/relock and NoTerraforming resource membership; content-free full-mod removal/restart restoring vanilla requests. | `STATION_ROWS_WITHOUT_HUB_20261002.md` supplies source/desk transitions and a live ordinary save/load. Spec section 4.8's **chained sitting passed**, but explicitly says no 2012 hop was seen. `TRAIN_AUDIT_20261002.md` section 4 bounds request membership to its sampled colony. These are narrower than replaying that passed chain or B0. |
+| B3.5 | Stranded/off-line cargo: actual hub-first attempt, return/overflow, all cargo accounted, including hub room becoming available. | `TRAIN_ROUTING_5D_20260927.md` ends with stranded-cargo predictions, no resulting native verdict. The routed vanilla food defect belongs to the fix pack; this list does not re-track it or make its repair a train-project gate (owner 2026-10-03). |
+| B4.1,3,5 | Electronics maintenance reserve under competing exports/construction; actual station spoilage with TrainHub OFF; upgrade persistence through **zero hubs** then replacement, and over-capacity stock after OFF. | Audit section 2's stronger edges are not established by the accepted isolated-power, spoilage-ON or shared-upgrade sittings. Spec section 4.10 records buyer salvage/reloads/rebuild, not a zero-hub interval. Do not replay normal purchase/shared switches/capacity/power/heat or cargo displays. |
+| B5.1,3 | Simultaneous paired-hub launch accounting after D14(g)'s correction; reassign/rocket refusal; far-station go-home/no balancing; long-run Lost/hold beyond 60 s; repair without a grid. | D14(g), drones `L6_QA_20260925.md` C1/C6 and shared ck217 explicitly retain these native gaps. Normal flight, accepted movement/door art, malfunction and ordinary track-construction passes do not need repeating. |
+| B5.5 / native save residue | Active repair-notification **fresh-process** load plus an ordinary notification control (D14(h)); marked/unmarked legacy-save distinction and retained legacy `HubTrain` payload/pool where a real fixture exists. | D14(h), L6 C2/C6, audit section 2. B0's old-mod fallbacks are different permanents. No absent legacy fixture may be turned into a pass. Ordinary mid-flight save/reload and owner-accepted autosave equivalence already have witnesses. Packed-import acceptance belongs to launch prep; do not substitute a local-junction boot for it. |
+| B6.3-4 | Destination filled by competing delivery while cabin travels, returning leftovers; save/restart **during depot travel or upgrade construction**, concurrent purchase prevention, upgraded survivor receipt and reset after **both** halves are gone. | `ELEVATOR_DEPOT_REVISION_20261002.md`: native controlled loading/250->500/cost and train-building passes; these extra contention/serialization/receipt cases are desk coverage, not native results. Both salvage cargo paths and row adoption already have witnesses and are excluded. |
 
-### B4 — hub economy, visuals, spoilage and upgrades
+Evidence limits carried, **not proposed as new owner work**: build 5's sustained
+stock-out/refill was not witnessed, but the owner closed its sitting "close enough";
+retain that boundary without reopening the accepted run. L6 C5's historical
+integer/control/editor evidence cannot be manufactured by repeating an obsolete
+sitting. The owner accepted movement; it remains outside the gate. A missing
+independent log does not demote an owner PASS.
 
-1. Fresh isolated hub with fixture Stirlings removed: cold start at 75 production,
-   10 consumption. Maintenance takes 2 Electronics from own stock; reserve 4
-   survives competing train exports and ordinary construction demand.
-2. Cargo appears on every appropriate bed at low/high stock and after load;
-   Small/Big station cubes survive capacity changes. Time/speed changes preserve
-   accepted movement/art. No additional art or motion gate is introduced.
-3. Actual spoilage interval with stocked controls: TrainHub ON protects ordinary
-   stations, hub still spoils, other depots unchanged. OFF restores vanilla
-   station spoilage. Keep incoming/outgoing Food flows out of this measurement
-   or account for them explicitly with the stream.
-4. Buy each upgrade once and toggle from either hub, including Ctrl-click and
-   both maps/future objects. Capacity arithmetic uses additive native modifiers;
-   hub storage combinations 1,000/2,000/4,000, draw 10/29, output 75/150.
-   Cargo gives +25% speed; Power heats drone range and removes train cold penalty.
-   Record actual purchase charges, tech and native warehousing state.
-5. Save/restart, salvage buyer, remove all hubs, replace: receipts and shared
-   state persist without duplicate purchase/modifiers. OFF retains over-capacity
-   stock. Depot remains 250/500, outside network storage bonus. Read all four
-   upgrades, current/future train capacities, power/heat and physical effects.
+For reconciliation, the excluded live coverage includes B0; brief 33's hub/DOWN
+crossings, wiring and save/rearm; 34b's Export floor and hub refusal; brief 34's
+module loading; row Export/Import/ordinary save/load; spoilage ON; global upgrade
+switching/salvage/reloads; build 5's accepted construction cases; depot loading
+both directions, capacity/cost, train controls on both maps, per-half Drone Access,
+passenger chain, both missing-twin notices, cargo on both salvage paths, orphan
+rest and restored pair/rows. Their final owner passages govern over earlier
+"NOT RUN" headings. In particular `ELEVATOR_DEPOT_WIRING_20261001.md`'s 10-02 D5
+owner PASS closes the earlier per-half uncertainty.
 
-### B5 — hub drone and track-work matrix
+## Proposed next owner batch - OI-38 only; NOT ISSUED
 
-1. Repair-first dispatch at fleet ceiling 60; simultaneous paired-hub launches
-   retain ownership/accounting. Ordinary service inside radius; only maintenance
-   at far stations. No orphan adoption; reassignment/rocket requests refuse.
-2. Connected cut/reworked construction, isolated negative control, native group
-   accounting and competing deliveries. Observe reachability before crediting
-   completion; every dispatched group has a terminal or routed identity.
-3. Hold sustained stock-out, then refill. Log actual waiting and subsequent
-   dispatch; historical owner acceptance did not witness this state. Long hold,
-   Lost/return paths and no-grid repair each get a named live fixture.
-4. Save while drones fly/work, restart, reload. Track work OFF holds NEW jobs;
-   in-flight work finishes. ON resumes queued work. Separately sample autosave
-   timing. This switch is distinct from TrainHub's content module switch.
-5. Active repair-notification save plus ordinary-notification control, then cold
-   load: check permanent and displayed notification (D14(h)). Record old marked
-   and unmarked dev-save paths and retained legacy HubTrain cargo/passengers/pool
-   where fixtures exist. Missing fixtures remain NOT RUN, not inferred passes.
+For orchestrator approval, not instructions to start now. This is one small
+batch from the review list, using the installed TestKit `783a24d`; other gaps
+are not scheduled. No hub is selected: targets are the **surface sending-row
+controller** and its **underground depot twin**. Where train routes name a hub,
+use the serving hub's role and freshly read handle, not Hub 1/Hub 2 alone.
 
-Carry L6 C5's historical integer/control evidence limits without rerunning an
-obsolete sitting to manufacture history; capture those controls when their
-surfaces next change. C6 also includes actual door clearance/work pose, far
-station go-home bounce/no balancing, a hold beyond 60 seconds, packed import
-and old→new→save→reload. A desk smoke proves no native save.
-
-### B6 — depot independence, loading, survivor and save boundaries
-
-1. With hub/rows modules OFF, test underground locked, unlocked and used. Place
-   each half manually; one pair limit, paid construction, default rows/access,
-   native train construction/assignment on both maps. Trains stay on their map.
-2. Read-only underground row word/arrow/tooltip matches surface; only surface
-   writes. Per-half Drone Access OFF/ON/OFF changes real local hauling while
-   maintenance/train building remain possible; Shuttle Access stays independent.
-   Observe an actual passenger train → walk → vanilla elevator → next train chain.
-3. Save B, run controlled Import and Export needs (Depot slots 1/4), then slot 3
-   and arrivals. Compare logged expected load against actual aboard cargo in
-   consistent units. Empty destination row wins; reservations/free room limit it.
-   Add competing delivery in flight, full destination and returning leftovers;
-   account stock+cabin+train cargo, including every deliberate fixture write.
-4. Base 250 cabin/stores; either half buys Expanded Depot for 10 Metals and 10
-   Concrete → 500/500. Save during construction/travel; no concurrent duplicate,
-   refund or loss. Survivor adopts the receipt; only both halves gone lose it.
-5. Salvage each half while cargo travels, separately. Survivor rests with FX off,
-   missing-twin notice is correct, pair recreation adopts rows/targets and resumes.
-   Account cargo on BOTH salvage paths. Inspect full mod removal separately on a
-   copy after demolishing all content; content residuals follow FIX_POLICY §0.
-
-## Verdict ledger
-
-| Batch | P | A | Evidence / failure route |
-|---|---|---|---|
-| B0 configuration, quiet and toggles | NOT RUN | NOT RUN | — |
-| B1 crossings / OI-38 | NOT RUN | NOT RUN | — |
-| B2 row matrix | NOT RUN | NOT RUN | — |
-| B3 floor / refusal / cargo | NOT RUN | NOT RUN | — |
-| B4 economy / upgrades | NOT RUN | NOT RUN | — |
-| B5 drones / track / native save | NOT RUN | NOT RUN | — |
-| B6 depot matrix | NOT RUN | NOT RUN | — |
-
-Each result adds exact step/configuration, trigger, prediction, owner observation,
-log boundary and control. FAIL, fixture gap, NOT RUN and owner PARK/CUT remain
-different. Archive complete post-exit logs for negatives and preserve every
-unexplained error for review. End each boot with toolkit taint and eligibility
-reads. Restore baseline fix-pack enablement after A. No project-folder retirement
-until every retained module satisfies the brief or the owner parks/cuts it.
+1. **Slot 12 - next labeled group**, paused with watches disarmed, until **Depot**.
+   **Scratch - train diagnostics switch**: set `SMROptInPack.TrainTrace = true`
+   and confirm `trace=true` before any diagnostic read. **Slot 11 - configuration
+   snapshot**: predict P / `1.0.26`, Depot group and the actual pair identities.
+2. Select the **surface depot**. In its native row UI choose **Metals Export**,
+   with Metals stocked underground and room at the surface; retain normal train
+   service. **Depot slot 7 - halves/rows read**, then **slot 3 - capacities/cargo
+   read**. Predict a working pair, the shared Export word, origin stock and
+   destination room. No controlled stock-writing slot is part of this batch.
+3. **Depot slot 10 - train/station STREAM ON**, then **slot 6 - next departure**.
+   It runs Ultra and pauses. Predict `verdict=departed cabin=up` and nonzero cargo
+   for the Export resource. A first DOWN departure is recorded as the intervening
+   leg; wait for its arrival, then arm the next departure once. A deadline or
+   empty UP is a recorded fixture/result gap, not permission to provision and retry.
+   Each departure/arrival watch has a three-game-hour deadline.
+4. At the UP pause, **Depot slot 7 - halves/rows read** and **slot 3 - capacities/
+   cargo read**, then **slot 2 - next arrival**. Predict `arrived`, top phase,
+   reduced underground stock, cleared/delivered cabin cargo and corresponding
+   surface stock/train movement. Reconcile units across readers and stream;
+   report competing flows instead of assuming an unchanged destination.
+5. **Depot slot 3 - final capacities/cargo read**, **slot 10 - STREAM OFF**,
+   **Scratch - trace OFF**, then **Sitting - Flush + copy**. Orchestrator reads
+   the result before anything else is issued. A save disarms stream/watch;
+   re-press the named controls if that occurs. OI-38 stays open until a usable
+   UP departure/arrival reading is actually obtained.
 
 ## Preparation verification
 
@@ -327,30 +280,15 @@ retained; no mixed endings) are quoted verbatim for the attending handoff:
 Brief 35 and the project folder remain live; the preparation commit grants no
 gameplay verdict.
 
-## Current owner batch P0 — cold OFF baseline and quiet activity
+## B0 recording verification - 2026-10-03
 
-Issued after the owner's fixture and release answers, 2026-10-02. Every step
-is PENDING; each returned observation/log gets its own result here.
-
-1. Main menu: keep the fix pack, Opt-In Modules and TestKit enabled; set Station
-   import/export rows, Train Hub and Elevator Depot OFF in Mod Options, Apply,
-   then exit/restart. Native UI, no slot: establishes cold OFF, not a live flip.
-2. Main-menu console: paste the preloaded clipboard command and Enter. Native
-   real-time load, no main-menu SMRTK slot. Expect the exact named copy to load;
-   pause immediately. Missing retired-dev-mod fallback notices are recorded,
-   not silently promoted to failures or ignored.
-3. Open toolkit (Ctrl-Shift-F11), Slots & notes; **slot 11 — configuration and
-   object snapshot**. Expect fix pack present/version 1.0.26, train switches OFF,
-   trace false, placed hubs/depot still present. In Stations build menu new hub
-   and depot are absent. Agent assigns role names from this first object map.
-4. **Crossings slot 1 — bounded quiet hour**. Runs Ultra and pauses itself.
-   Expect `hour_done`, real train-state changes and no new error. If autosave
-   disarms it, re-press slot 1. Trace stays OFF for this quiet-log control; only
-   toolkit activity counters are used, not train/pair/cabin diagnostic lines.
-5. **Slot 11 — final snapshot**, then Sitting → **Flush + copy**. Say "flushed"
-   and whether the build-menu entries were absent. The agent reads this batch
-   before issuing any next steps. Quiet absence verdict waits for post-exit log.
-
-The next diagnostic batch begins with Scratch ON and requires `trace=true`
-before any TrainBay/pair/cabin diagnostic reading. No hand-set hub handle is
-carried from an older sitting.
+`python docs/archive/train_b0_20261003/read_log.py` passed its closed-log,
+version, quiet-prefix and activity assertions at `896dfc7`. Full native bytes
+match the source SHA-256 in the receipt. `python tools/doccheck.py`: GREEN;
+`git diff --check`: clean. The whole-CRLF archive warnings remain the same
+members quoted in Preparation verification; those archived bytes were not edited.
+Exact `grep -rln "TEMPORARY" Code/ ../SMR-BugFixPack-TestKit/Code/` through Git's
+`usr/bin/grep.exe`: exit 1, empty stdout/stderr. **PROBE SWEEP: clean.**
+Shipping code, installed slots and saves were unchanged in this recording turn.
+Concurrent `d1d1fc1` / `896dfc7` only changed prompt/launch handoffs; their B0
+quiet-pass and fix-pack-owned cargo-defect rulings were incorporated above.
