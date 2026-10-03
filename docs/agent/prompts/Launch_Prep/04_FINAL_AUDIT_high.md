@@ -101,7 +101,7 @@ Drift and decisions to examine, every one:
   "in your save" line and the modders page's prefix warning come from code and FIX_POLICY §3, not
   from the store body; the orchestrator kept them after reading the source. Credits and the
   §3 row-18 hub-upgrade residual disclosure are routed to 01, not written.
-- **Site commit** in `SMR-CommunityMods` (sha in the report's gate section): `content/opt-in/`
+- **Site commit `d87c700`** in `SMR-CommunityMods` (this repo: `736e6e6` work, then the records commit): `content/opt-in/`
   (two pages), nav, `site_description`, README row, scoped edits to index/install/faq/
   for-modders/report. `mkdocs build --strict` clean. **Not deployed.** The landing still leads
   with the fix pack by design.

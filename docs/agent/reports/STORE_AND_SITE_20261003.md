@@ -283,9 +283,38 @@ one-clause restores (P3/P21/P27b, P24, P28 class), the modders-page plural resto
 store-card/metadata companion clauses, all adapted to the live link. This report is the exact
 input; no donor file was touched.
 
-## 8 · Gates and limits
+## 8 · Gates and limits — gate results
 
-Filled at close-out; see "Gate results" at the end of this report.
+Run at the working tree that became `736e6e6` (this repo) and `d87c700` (site), 2026-10-03.
+
+| gate | command | result |
+|---|---|---|
+| doccheck | `python tools/doccheck.py` after `--regen` | GREEN; PACK IGNORE PARITY 17 filters; TOOL CATALOG 30 scripts, 30 rows; LOCAL 3 rows; CHECKLIST PASS 76 lines |
+| store parity | `python tools/store_parity.py` | 5 checked, 0 FAIL: Paradox == metadata description (5978 chars), Steam == same words (1026 words), summary, change note, 5 sections = 5 `[h2]` |
+| parse | `python tools/parsecheck.py --dir <scratch copy of metadata.lua>` (the tool's relpath cannot cross drives, so the copy sits under `scratch/`) | 1 file, 0 errors. `Code/` is unchanged by this run; doccheck's PARSE covers it (19 files, 0 errors). The `--dir .` sweep reports one pre-existing BOM file under `scratch/`, not shipping |
+| upload preflight | `python tools/upload_preflight.py` | 33 checked, **1 FAIL** (`image` empty; OI-12), 1 UNCHECKABLE (login). Not a handoff state; recorded, not waived |
+| pack prediction | `python tools/pack_predict.py .` | 74 files = root 3 + Code 19 + Data 2 + Entities 5 + Fallbacks 17 + Materials 4 + Meshes 5 + Textures 17 + UI 2; 102,578,114 B = 526,635 non-asset (preflight) + 102,051,479 asset; `*/store_screenshots/*` matches nothing yet (folder absent) |
+| site build | `python -m mkdocs build --strict` in `SMR-CommunityMods` | clean, no warnings |
+| sync ledger | `python tools/sync_from_fixpack.py --tools` | ports declared; pre-existing `upload_preflight.py` DIFFERS (undeclared since OI-18's adaptation) and `doccheck.py` RECHECK left for the knowledge-sync pass |
+
+**Commits.** This repo: `736e6e6` (work), then the records commit that adds this section. Site:
+`d87c700`, **committed, not deployed**; the owner's *Publish docs site* workflow deploys it after
+the store pages exist. Both pushed to `origin/main`.
+
+**Peer activity observed, untouched:** an untracked `tools/trains/soak/` folder appeared in this
+tree between 13:49 and 13:57 on 2026-10-03 (another seat's SMRTK soak preparation); it is outside
+every pathspec above.
+
+**Limits.** No upload, no portal state, no deployment, no game run. Claims rest on the entries
+and rulings in §4; 01/02 may still change the evidence under them. The preflight is red on the
+preview by design until the owner selects art. Subagent work (site pages on Opus 5.5, tool ports
+on Sonnet 5.5) was cleared by one check each (`mkdocs --strict` plus a read of every page and
+diff; `paradox_card.py --check` on the maintained block) and corrected in three places (landing
+sentence, FAQ console wording, acknowledged-warnings save line).
+
+**Executed model:** Claude Fable 5.1 (`claude-fable-5-1`), from this session's model line.
+Skills: smr-orientation, doc-editing, subagents (read), prompt-authoring (read), smr-bug-library
+(read); the imagegen skill named by the brief is not installed.
 
 ## 9 · Routed, not done here
 
