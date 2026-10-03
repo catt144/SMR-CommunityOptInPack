@@ -1,7 +1,7 @@
 # Store screenshots: the annotated gallery set (OI-12), 2026-10-03
 
-The owner's nine captures were annotated into seven store images: four of the five gallery slots
-and three alternates. OI-12 stays open for the owner's pick of preview and gallery.
+The owner's thirteen captures (nine, then four added the same day) were annotated into nine store
+images: all five gallery slots and four alternates. OI-12 stays open for the owner's pick of preview and gallery.
 
 ## How to change an image
 
@@ -30,6 +30,8 @@ therefore stay in a store image. The crops were chosen for framing, not to hide 
 | `2_hub_panel.png` | `Mars_iTEL18iLdk.jpg` | UPGRADES: The hub has upgrades of its own. · ITS OWN DRONES: They build and repair track. · STORAGE: Holds resources for the stations on its lines. |
 | `3_depot_pair.png` | `Mars_reimzMptEd.jpg` | ELEVATOR DEPOT: Links surface and underground train lines. · CAPACITY UPGRADE: One upgrade doubles its capacity. · IMPORT OR EXPORT: Import goes down. Export comes up. |
 | `4_station_rows.png` | `Mars_frY9H1j8On.jpg` | EVERY TRAIN STATION: Works with or without a Train Hub. · SET EACH RESOURCE: Import, Export, Balanced or Not accepted, with a target slider. |
+| `5_interests_popout.png` | `Mars_uCu7L8k3sU.jpg` | INTERESTS: Shows which Colonist interests a service building satisfies. · TRAITS: The popout lists the traits that gain or lose something here. |
+| `alt_depot_underground.png` | `Mars_OG5iJ2vZY0.jpg` | THE CABIN: Carries cargo between the two halves. · UNDERGROUND HALF: One half on the surface, one underground. |
 | `alt_multiple_suns.png` | `Mars_8ncwKdJphr.jpg` | MORE THAN ONE ARTIFICIAL SUN: Solar panels connect to whichever sun covers them. |
 | `alt_mod_options.png` | `Mars_YdVfdJljli.jpg` | A SWITCH FOR EVERY MODULE: Each one is off, or at its base setting, until you turn it on. · TWO DRONE DIALS: Drone speed and Drone carry capacity. |
 | `alt_drone_dials.png` | `Mars_HzpuTAMc3u.jpg` | DRONE CARRY CAPACITY: Drones carry more on every trip. · TWO DIALS IN MOD OPTIONS: Drone speed and Drone carry capacity. |
@@ -40,18 +42,19 @@ a retired or parked module.
 
 Not annotated: `Mars_HDe39h94qp.jpg` (the Drone speed choices) and `Mars_HdHx7MHeRO.jpg` (the
 Drone carry capacity choices). Both are usable, but `alt_mod_options.png` already shows the two
-dials on one page.
+dials on one page. Also not annotated: `Mars_1rcJ78WnQh.jpg` (Amusement Park, Interests section
+without the popout) and `Mars_rYFxNqZbC3.jpg` (Art Store popout, no Traits block); the Open Air
+Gym capture shows more of the feature.
 
 ## What is still owed
 
-- **Slot 5, `5_interests_popout.png`, has no capture.** It needs a placed service building
-  selected (an Electronics Store fits the store copy's example), with the infopanel's "Interests"
-  section visible and its popout open.
-- **`3_depot_pair.png` shows the surface half only.** A capture of the underground half would
-  complete the pair, as a second image or a replacement.
+- **The depot pair is two images.** `3_depot_pair.png` is the surface half and
+  `alt_depot_underground.png` the underground half; the tool does not join two captures into one.
+- **`alt_depot_underground.png` calls the object on the shaft the cabin.** That is read from the
+  picture, not from a record; the owner confirms or the callout goes.
 - **No capture shows Acknowledged warnings.** A still cannot show a warning staying quiet, so it
   is left to the store text unless the owner wants a shot of the dismissed notification.
-- The three `alt_*` images are in the drop folder but outside `store_screenshots.py`'s five-name
+- The four `alt_*` images are in the drop folder but outside `store_screenshots.py`'s five-name
   MAP. To use one in the gallery, rename it to a slot name or change the MAP.
 
 ## Gate output
@@ -63,7 +66,7 @@ dials on one page.
 2_hub_panel.jpg                    1920x1080  q=92    517,673 B  OK
 3_depot_pair.jpg                   1920x1080  q=92    433,399 B  OK
 4_station_rows.jpg                 1920x1080  q=92    488,582 B  OK
-WAITING  5_interests_popout.png  (owner capture not yet dropped in B:\Dev\SMR\SMR-ScreenCaptures\optin_store)
+5_interests_popout.jpg             1920x1080  q=92    426,910 B  OK
 ```
 
 `python tools/upload_preflight.py`: 33 checked, 1 FAIL, 1 UNCHECKABLE. The FAIL is

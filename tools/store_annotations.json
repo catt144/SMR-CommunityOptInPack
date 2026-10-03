@@ -65,6 +65,34 @@
       ]
     },
     {
+      "out": "5_interests_popout.png",
+      "source": "Mars_uCu7L8k3sU.jpg",
+      "crop": [520, 80, 1920, 798],
+      "strip": {"title": "Service interest tags", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "Interests",
+         "sub": ["Shows which Colonist interests", "a service building satisfies."],
+         "at": [1240, 215], "to": [[1568, 368]]},
+        {"color": "green", "head": "Traits",
+         "sub": ["The popout lists the traits that", "gain or lose something here."],
+         "at": [1290, 722], "to": [[1300, 606]]}
+      ]
+    },
+    {
+      "out": "alt_depot_underground.png",
+      "source": "Mars_OG5iJ2vZY0.jpg",
+      "crop": [520, 60, 1920, 778],
+      "strip": {"title": "Elevator Depot", "note": "Relaunched Fix Pack: Opt-In Modules"},
+      "callouts": [
+        {"color": "green", "head": "The cabin",
+         "sub": ["Carries cargo between", "the two halves."],
+         "at": [1260, 230], "to": [[965, 295]]},
+        {"color": "green", "head": "Underground half",
+         "sub": ["One half on the surface,", "one underground."],
+         "at": [1300, 690], "to": [[1060, 610]]}
+      ]
+    },
+    {
       "out": "alt_multiple_suns.png",
       "source": "Mars_8ncwKdJphr.jpg",
       "crop": [0, 62, 1820, 995],
