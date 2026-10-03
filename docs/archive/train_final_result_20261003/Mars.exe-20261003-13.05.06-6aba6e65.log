@@ -1,0 +1,481 @@
+					Render 0:00:00:005
+*** executable info
+					Render 0:00:00:006
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	-nointro
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	49%
+Disk Free      	1214133 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:162
+Steam initialized (AppId 3215050)
+					Render 0:00:00:166
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:718
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:869
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:105
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:031
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+						Lua 0:00:03:033
+Lua revision: 406343
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:03:041
+Account storage loaded successfully in 7 ms
+						Lua 0:00:03:042
+DLC norman loaded, lua revision 406343, assets revision 33225
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:03:047
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def Better Disasters (id YbJmPhb, v1.04-055) packed from steam
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+						Lua 0:00:03:431
+[mod] [CommunityFixPack] LoadFirst: already first of 2 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+						Lua 0:00:03:432
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+						Lua 0:00:03:433
+[mod] [CommunityFixPack] HubLocalAccess: applied
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:03:434
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:03:435
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:03:436
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+						Lua 0:00:03:437
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] GhostPowerCells: applied
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+						Lua 0:00:03:438
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:03:442
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=0 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=0 id=1
+						Lua 0:00:03:448
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:04:191
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:04:279
+Reloading done in 1232 ms
+						Lua 0:00:04:281
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:04:325
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=0 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=0 id=2
+						Lua 0:00:04:715
+[preset] Preset postprocess took 165 ms.
+						Lua 0:00:04:778
+482 / 482 particle streams loaded in 56 ms.
+						Lua 0:00:04:779
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:04:781
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+						Lua 0:00:04:995
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:05:092
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=0 id=3
+						Lua 0:00:05:124
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=0 id=4
+						Lua 0:00:05:133
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit
+						Lua 0:00:06:045
+[PdxSDK] Started up. Took 1195
+						Lua 0:00:06:451
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:06:452
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:06:583
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:14:134
+Load Game: 						Lua 0:00:14:135
+
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:00:14:143
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:17:141
+*** Assets reloaded in 3.0 s, read 359.0 MB, read speed 119.8 MB/s, average read 8137 bytes.
+						Lua 0:00:17:653
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=7715 id=5
+						Lua 0:00:18:118
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=7715 id=6
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=7715 id=6
+						Lua 0:00:18:636
+[Entity Error] Unable to load entity 'SMROptInTrainHub6DomeGlass' for class 'ShapeshifterAutoAttach' (wrong name?)!
+[Entity Error] Unable to load entity 'SMROptInTrainHub6Glass' for class 'ShapeshifterAutoAttach' (wrong name?)!
+						Lua 0:00:18:642
+[Entity Error] Unable to load entity 'SMROptInElevatorDepotReceiver' for class 'ShapeshifterAutoAttach' (wrong name?)!
+						Lua 0:00:18:790
+Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000019E849E0EC0 [7]
+						Lua 0:00:18:794
+Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass
+Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass
+						Lua 0:00:18:833
+[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present
+[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present
+[mod] This savegame tries to load Mod Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000), which is present, but not loaded
+						Lua 0:00:20:093
+[LUA ERROR] CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')
+  CommonLua/TaskRequest.lua(444):  upvalue FixupHubGroupRequests
+  CommonLua/TaskRequest.lua(465):   <>
+  [C](-1):  method MapForEach
+  CommonLua/Core/map.lua(1132):  global AllMapsForEach
+  CommonLua/TaskRequest.lua(464):  upvalue FixupResourceGroupQueues
+  CommonLua/TaskRequest.lua(480):   <>
+  [C](-1):  global procall
+  CommonLua/Core/cthreads.lua(20):  global Msg
+  CommonLua/Savegame.lua(808):   <>
+  CommonLua/SavegameMetadata.lua(288):  upvalue old_func
+  CommonLua/X/XVideo.lua(254):  local load_callback
+  CommonLua/Savegame.lua(405):   <>
+        --- end of stack
+Locals:
+	                 hub |   object Elevator at (391500, 290110, 10000) on map 1
+	       old_in_groups |    table 0x0000019E83FA2238 #0
+	           old_leafs |    table 0x0000019E86BEDF18 #0
+	       supply_queues |    table 0x0000019E8339B488 #3
+	       demand_queues |    table 0x0000019E862253D8 #3
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E81F9BE78 #13
+	       (for control) |   number 13
+	                   _ |   number 13
+	            building |   object UnpersistedMissingClass at (398500, 290110, 10000) on map 1
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E820AA058 #42
+	       (for control) |   number 1
+	                   _ |   number 1
+	             request | userdata 0x0000019E85E0E0F8 #48
+	            resource |   string Herbs
+	           is_supply |  boolean true
+	               queue |    table 0x0000019E8339B488 #3
+	            old_keys |    table 0x0000019E84217868 #2
+	            new_keys |    table 0x0000019E81A82550 #2
+	      rfSupplyDemand |   number 6
+	            rfSupply |   number 2
+	 MinBuildingPriority |   number -1
+	 MaxBuildingPriority |   number 3
+	       RemoveRequest | function 0x0000019E855F7068
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')" stack="  CommonLua/TaskRequest.lua(444):  upvalue FixupHubGroupRequests\n  CommonLua/TaskRequest.lua(465):   <>\n  [C](-1):  method MapForEach\n  CommonLua/Core/map.lua(1132):  global AllMapsForEach\n  CommonLua/TaskRequest.lua(464):  upvalue FixupResourceGroupQueues\n  CommonLua/TaskRequest.lua(480):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(808):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=7
+[SMRTK] SMRTK_ERROR kind=lua message="CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')" stack="  CommonLua/TaskRequest.lua(444):  upvalue FixupHubGroupRequests\n  CommonLua/TaskRequest.lua(465):   <>\n  [C](-1):  method MapForEach\n  CommonLua/Core/map.lua(1132):  global AllMapsForEach\n  CommonLua/TaskRequest.lua(464):  upvalue FixupResourceGroupQueues\n  CommonLua/TaskRequest.lua(480):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(808):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=7
+Error calling Lua function "exec" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')
+Error calling Lua function "exec" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')
+						Lua 0:00:20:094
+Error calling Lua function "exec" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')
+Error calling Lua function "exec" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')
+						Lua 0:00:20:181
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:20:184
+[LUA ERROR] Lua/Colony.lua:135: attempt to call a nil value (field '?')
+  Lua/Colony.lua(135):  global ForEachLabelInColony
+  Lua/Colony.lua(165):   <>
+  [C](-1):  global procall
+  CommonLua/Core/cthreads.lua(20):  global Msg
+  CommonLua/Savegame.lua(811):   <>
+  CommonLua/SavegameMetadata.lua(288):  upvalue old_func
+  CommonLua/X/XVideo.lua(254):  local load_callback
+  CommonLua/Savegame.lua(405):   <>
+        --- end of stack
+Locals:
+	         method_name |   string ValidateLabels
+						Lua 0:00:20:185
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E84EA6CB0 #22
+	       (for control) |   number 9
+	                   _ |   number 9
+	                 bld |   object UnpersistedMissingClass at (280000, 166272, 10000) on map 1
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="Lua/Colony.lua:135: attempt to call a nil value (field '?')" stack="  Lua/Colony.lua(135):  global ForEachLabelInColony\n  Lua/Colony.lua(165):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(811):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=8
+[SMRTK] SMRTK_ERROR kind=lua message="Lua/Colony.lua:135: attempt to call a nil value (field '?')" stack="  Lua/Colony.lua(135):  global ForEachLabelInColony\n  Lua/Colony.lua(165):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(811):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=8
+						Lua 0:00:20:273
+[LUA ERROR] Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')
+  Lua/RevealDarkness.lua(18):  upvalue UpdateRevealObjects
+  Lua/RevealDarkness.lua(38):   <>
+  [C](-1):  global procall
+  CommonLua/Core/cthreads.lua(20):  global Msg
+  CommonLua/Savegame.lua(811):   <>
+  CommonLua/SavegameMetadata.lua(288):  upvalue old_func
+  CommonLua/X/XVideo.lua(254):  local load_callback
+  CommonLua/Savegame.lua(405):   <>
+        --- end of stack
+Locals:
+	                objs |    table 0x0000019E856CF0E8 #102
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E856CF0E8 #102
+	       (for control) |   number 14
+	                   _ |   number 14
+	                 obj |   object UnpersistedMissingClass at (384000, 303100, 10000) on map 2
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')" stack="  Lua/RevealDarkness.lua(18):  upvalue UpdateRevealObjects\n  Lua/RevealDarkness.lua(38):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(811):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=9
+[SMRTK] SMRTK_ERROR kind=lua message="Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')" stack="  Lua/RevealDarkness.lua(18):  upvalue UpdateRevealObjects\n  Lua/RevealDarkness.lua(38):   <>\n  [C](-1):  global procall\n  CommonLua/Core/cthreads.lua(20):  global Msg\n  CommonLua/Savegame.lua(811):   <>\n  CommonLua/SavegameMetadata.lua(288):  upvalue old_func\n  CommonLua/X/XVideo.lua(254):  local load_callback\n  CommonLua/Savegame.lua(405):   <>\n        --- end of stack" t=35790404 id=9
+						Lua 0:00:20:274
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, NASA, paradox
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:20:439
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=129
+						Lua 0:00:20:440
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 6306 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=10
+[SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=10
+						Lua 0:00:20:451
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:00:20:464
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=12
+						Lua 0:00:20:470
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:20:593
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=13
+						Lua 0:00:20:602
+[mod] [SMRTK] SMRTK_ERROR kind=thread message="attempt to call a nil value (method 'GetShapePoints')" thread="thread: 0000019E83B31528" t=35790404 id=14
+[SMRTK] SMRTK_ERROR kind=thread message="attempt to call a nil value (method 'GetShapePoints')" thread="thread: 0000019E83B31528" t=35790404 id=14
+[LUA ERROR] attempt to call a nil value (method 'GetShapePoints')
+  Lua/GameOverlays.lua(217):  upvalue CountVisibleBuildings
+  Lua/GameOverlays.lua(243):   <>
+  Lua/X/Infobar.lua(31):  method UpdateContext
+  Lua/X/Infobar.lua(41):   <>
+        --- end of stack
+Locals:
+	                kind |    table 0x0000019E87106E90 #0
+	               entry |   object ElectricityGrid at invalid pos on map 1
+	          screen_box |      box (0, 0) - (3840, 2160)
+	                 eye |    point (429248, 239931, 49045)
+	          view_depth |   number 60776
+	               score |   number 0
+	             counted |    table 0x0000019E82FD1190 #0
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E839CD500 #1
+	       (for control) |   number 1
+	                   _ |   number 1
+	            fragment |   object ElectricityGrid at invalid pos on map 1
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E82C808A0 #3
+	       (for control) |   number 1
+	                   _ |   number 1
+	                list |    table 0x0000019E8A34D620 #1
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E8A34D620 #1
+	       (for control) |   number 1
+	                   _ |   number 1
+	             element |   object SupplyGridElement
+	            building |   object UnpersistedMissingClass at (289500, 402690, 10000) on map 1
+	               front |  boolean true
+	                  sx |   number 2843
+	                  sy |   number 217
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="attempt to call a nil value (method 'GetShapePoints')" stack="  Lua/GameOverlays.lua(217):  upvalue CountVisibleBuildings\n  Lua/GameOverlays.lua(243):   <>\n  Lua/X/Infobar.lua(31):  method UpdateContext\n  Lua/X/Infobar.lua(41):   <>\n        --- end of stack" t=35790404 id=15
+[SMRTK] SMRTK_ERROR kind=lua message="attempt to call a nil value (method 'GetShapePoints')" stack="  Lua/GameOverlays.lua(217):  upvalue CountVisibleBuildings\n  Lua/GameOverlays.lua(243):   <>\n  Lua/X/Infobar.lua(31):  method UpdateContext\n  Lua/X/Infobar.lua(41):   <>\n        --- end of stack" t=35790404 id=15
+						Lua 0:00:20:604
+[LUA ERROR] Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')
+  Lua/Buildings/Building.lua(855):   <>
+  Lua/Buildings/Building.lua(3030):  field GetUIWarning
+  Lua/Buildings/Station.lua(1311):  method GetUIWarning
+  Lua/Buildings/BaseBuilding.lua(287):  method GetNotWorkingNotificationReason
+  Lua/Buildings/BaseBuilding.lua(308):  field ShouldShowNotWorkingNotification
+  Lua/_TaskRequest.lua(202):  method ShouldShowNotWorkingNotification
+  Lua/Buildings/BaseBuilding.lua(342):   <>
+  [C](-1):  local procall
+  CommonLua/Core/notify.lua(27):   <>
+        --- end of stack
+Locals:
+	                self |   object StationSmall at (274000, 126436, 10000) on map 1
+	           ignore_cg |      nil
+	     (for generator) | function 0x00007FF73BE086E0
+	         (for state) |    table 0x0000019E84543C68 #1
+	       (for control) |   number 1
+	                   _ |   number 1
+	                  cc |   object UnpersistedMissingClass at (280000, 166272, 10000) on map 1
+[mod] [SMRTK] SMRTK_ERROR kind=lua message="Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')" stack="  Lua/Buildings/Building.lua(855):   <>\n  Lua/Buildings/Building.lua(3030):  field GetUIWarning\n  Lua/Buildings/Station.lua(1311):  method GetUIWarning\n  Lua/Buildings/BaseBuilding.lua(287):  method GetNotWorkingNotificationReason\n  Lua/Buildings/BaseBuilding.lua(308):  field ShouldShowNotWorkingNotification\n  Lua/_TaskRequest.lua(202):  method ShouldShowNotWorkingNotification\n  Lua/Buildings/BaseBuilding.lua(342):   <>\n  [C](-1):  local procall\n  CommonLua/Core/notify.lua(27):   <>\n        --- end of stack" t=35790404 id=16
+[SMRTK] SMRTK_ERROR kind=lua message="Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')" stack="  Lua/Buildings/Building.lua(855):   <>\n  Lua/Buildings/Building.lua(3030):  field GetUIWarning\n  Lua/Buildings/Station.lua(1311):  method GetUIWarning\n  Lua/Buildings/BaseBuilding.lua(287):  method GetNotWorkingNotificationReason\n  Lua/Buildings/BaseBuilding.lua(308):  field ShouldShowNotWorkingNotification\n  Lua/_TaskRequest.lua(202):  method ShouldShowNotWorkingNotification\n  Lua/Buildings/BaseBuilding.lua(342):   <>\n  [C](-1):  local procall\n  CommonLua/Core/notify.lua(27):   <>\n        --- end of stack" t=35790404 id=16
+						Lua 0:00:21:123
+Game loaded on map BlankBig_01 in 7097 ms
+						Lua 0:00:21:425
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Saves t=35790404 id=17
+						Lua 0:00:25:043
+[mod] [SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1791046548:158077098:67966858:460623979" status=REFUSED t=35790404 id=18
+[SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1791046548:158077098:67966858:460623979" status=REFUSED t=35790404 id=18
+						Lua 0:00:27:605
+[mod] [SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1791046548:158077098:67966858:460623979" status=REFUSED t=35790404 id=19
+[SMRTK] SMRTK_LOAD action=load_B reason="foreign session: 1791046548:158077098:67966858:460623979" status=REFUSED t=35790404 id=19
+						Lua 0:01:42:590
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:01:42:591
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=35790404 id=20
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=35790404 id=20
+						Lua 0:01:42:613
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=35790404 id=21
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=ChangeMap t=35790404 id=21
+						Lua 0:01:43:154
+[mod] [SMRTK] SMRTK_SHORTCUT console=false key=Ctrl-Shift-F11 t=5 id=22
+						Lua 0:01:43:550
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=10 id=23
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=10 id=23
+						Lua 0:01:44:208
+Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass
+						Lua 0:01:44:213
+Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass
+						Lua 0:01:44:251
+[mod] This savegame tries to load Mod Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000), which is present, but not loaded
+						Lua 0:01:45:607
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:45:698
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: Brazil, NASA, paradox
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:45:859
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=16 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=125
+						Lua 0:01:45:860
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+Game Loaded in 3270 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=86 last=tab_Saves last_id=2383 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=24
+[SMRTK] SMRTK_PROVENANCE actions=86 last=tab_Saves last_id=2383 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=24
+						Lua 0:01:45:870
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=25
+						Lua 0:01:45:893
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10531) status=OK t=35790404 id=26
+						Lua 0:01:45:895
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=27
+						Lua 0:01:45:897
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:46:030
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=28
+						Lua 0:01:46:316
+Game loaded on map BlankUnderground_01 in 3847 ms
+						Lua 0:01:46:628
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Saves t=35790404 id=29
+						Lua 0:01:47:626
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:47:637
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=30
+						Lua 0:01:54:501
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10531) status=OK t=35790404 id=31
+						Lua 0:02:51:755
+[mod] [SMRTK] SMRTK_DUMP capacity=120000 class=StationSmall demand_desired=110000 dial=10000 expected_demand=110000 expected_supply=10000 fixpack_present=true native_match=true optin_present=false policy=default resource=Metals sitting=final35_removal station=10531 stock=6603 supply_desired=10000 t=35790404 id=32
+[SMRTK] SMRTK_DUMP capacity=120000 class=StationSmall demand_desired=110000 dial=10000 expected_demand=110000 expected_supply=10000 fixpack_present=true native_match=true optin_present=false policy=default resource=Metals sitting=final35_removal station=10531 stock=6603 supply_desired=10000 t=35790404 id=32
+						Lua 0:03:04:225
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=53 status=OK truncated=false t=35790404 id=33
+[SMRTK] SMRTK_COPY action=copy flushed=true from=0 lines=53 status=OK truncated=false t=35790404 id=33

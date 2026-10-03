@@ -22,7 +22,7 @@ matter keeps the donor's `donor_seq`/`donor_row`. Generated from the front matte
 | 9 | D12 | Homeless strand in specialist domes; emigration ties never move them — ⚖️ RETIRED 2026-09-17 (DEAD), module gone but the defect survives 1.1.0 | speced | dsgn | med | [D12.md](D12.md) |
 | 10 | D14 | Train hub dev build: save waiter defect and siding departure deadlock | open | dsgn | high | [D14.md](D14.md) |
 | 11 | D15 | Service buildings hide their interests (Gaming, Social, …) — Opt_ServiceInterestTags shows them | tested-attended | dsgn | high | [D15.md](D15.md) |
-| 12 | D16 | Station rows: no per-resource import/export at a vanilla train station — Opt_StationRows adds them | built | dsgn | high | [D16.md](D16.md) |
-| 13 | D17 | Train Hub: no junction where train lines cross and cargo changes routes — Opt_TrainHub adds one | built | dsgn | high | [D17.md](D17.md) |
-| 14 | D18 | Elevator Depot: trains cannot carry cargo between the surface and the underground — Opt_ElevatorDepot adds a crossing | built | dsgn | high | [D18.md](D18.md) |
+| 12 | D16 | Station rows: no per-resource import/export at a vanilla train station — Opt_StationRows adds them | tested-attended | dsgn | high | [D16.md](D16.md) |
+| 13 | D17 | Train Hub: no junction where train lines cross and cargo changes routes — Opt_TrainHub adds one | tested-attended | dsgn | high | [D17.md](D17.md) |
+| 14 | D18 | Elevator Depot: trains cannot carry cargo between the surface and the underground — Opt_ElevatorDepot adds a crossing | tested-attended | dsgn | high | [D18.md](D18.md) |
 

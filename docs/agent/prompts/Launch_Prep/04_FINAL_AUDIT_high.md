@@ -66,3 +66,14 @@ Initial drift: old release brief's metadata/pack assumptions; public README; WOR
 and size prose versus donor/OI-18; OI-11 freeze language; OI-14 string count; STATE build/testing
 generalisations; description missing D15; donor backup-delivery prose versus settled auto-fill;
 parked donor text versus current modules; saved optional flag fallback. Audit report has evidence.
+
+Train final close-out (2026-10-03): use `TRAIN_FINAL_BATTERY_20261002.md` and its
+final-result receipt. Battery PASS is owner-scoped, with A waived and explicit
+skips/strikes; no broad all-cases-pass claim. 01 owns the non-gating TestKit,
+class-reference and OI-45 exit findings. Check that its downstream handling keeps
+these evidence boundaries: the issued native-menu load instruction was wrong;
+station 10531 is underground; the removal process first loaded a content-bearing
+save with five errors, then the correct content-free Save B without later errors
+in the captured prefix; both hub and depot class warnings survived deletion.
+Zero-hub inheritance is OWNER, stock retention is measured across paired rows.
+The removal log was open at capture. No whole-process clean or recovery claim.

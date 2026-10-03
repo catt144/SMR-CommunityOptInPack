@@ -1,0 +1,2314 @@
+{
+  "command": "python docs/archive/train_final_result_20261003/capture.py",
+  "head": "ddf14cc924bdba4f48b6adacc902d79a64adb4f6",
+  "captured_utc": "2026-10-03T17:13:00.774191+00:00",
+  "decode": "strict utf-8-sig, splitlines, 1-based lines; canonical [SMRTK] excludes [mod] echoes",
+  "logs": {
+    "20261003-12.28.41": {
+      "file": "Mars.exe-20261003-12.28.41-6aba6e65.log",
+      "bytes": 857196,
+      "lines": 4740,
+      "sha256": "8839848396d2cac7fb88f8324ec128527db975b91e7ca10c763fa782e015fd1c",
+      "closed": true,
+      "filters": {
+        "shutdown": "Debug::Done\\(\\)",
+        "lua_errors": "^\\[LUA ERROR\\]",
+        "permanents": "Unpersist missing permanent:",
+        "diagnostics": "(?i)\\berror\\b|\\bwarning\\b|\\bfailed\\b|unpersist|Savegame references",
+        "hub_metals": "^\\[SMRTK\\].*object=SMROptInTrainHub6.*resource=Metals",
+        "saves": "^\\[SMRTK\\] SMRTK_SAVE ",
+        "removal": "^\\[SMRTK\\].*sitting=final35_removal",
+        "row_export": "^\\[SMRTK\\].*mode=export.*resource=Metals.*station=10531",
+        "delete_build": "^\\[SMRTK\\].*action=selected_(?:delete|quick_build)"
+      },
+      "counts": {
+        "shutdown": 1,
+        "lua_errors": 0,
+        "permanents": 1,
+        "diagnostics": 9,
+        "hub_metals": 6,
+        "saves": 0,
+        "removal": 0,
+        "row_export": 0,
+        "delete_build": 12
+      },
+      "members": {
+        "shutdown": [
+          {
+            "line": 4737,
+            "text": "*** Debug::Done()"
+          }
+        ],
+        "lua_errors": [],
+        "permanents": [
+          {
+            "line": 264,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000018E61574000 [7]"
+          }
+        ],
+        "diagnostics": [
+          {
+            "line": 232,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 235,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 237,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 239,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 242,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 244,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 264,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000018E61574000 [7]"
+          },
+          {
+            "line": 266,
+            "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+          },
+          {
+            "line": 267,
+            "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+          }
+        ],
+        "hub_metals": [
+          {
+            "line": 619,
+            "text": "[SMRTK] SMRTK_DUMP available=3974400 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=600 row=request sitting=final_35 stock=3974400 t=35790404 id=163"
+          },
+          {
+            "line": 668,
+            "text": "[SMRTK] SMRTK_DUMP available=1516000 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=2484000 row=request sitting=final_35 stock=1516000 t=35790404 id=187"
+          },
+          {
+            "line": 1775,
+            "text": "[SMRTK] SMRTK_DUMP available=1939400 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=2060600 row=request sitting=final_35 stock=1939400 t=36083807 id=665"
+          },
+          {
+            "line": 1824,
+            "text": "[SMRTK] SMRTK_DUMP available=1515000 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=2485000 row=request sitting=final_35 stock=1515000 t=36083807 id=689"
+          },
+          {
+            "line": 2698,
+            "text": "[SMRTK] SMRTK_DUMP available=1939400 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=2060600 row=request sitting=final_35 stock=1939400 t=36083807 id=1097"
+          },
+          {
+            "line": 2747,
+            "text": "[SMRTK] SMRTK_DUMP available=1515000 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=2485000 row=request sitting=final_35 stock=1515000 t=36083807 id=1121"
+          }
+        ],
+        "saves": [],
+        "removal": [],
+        "row_export": [],
+        "delete_build": [
+          {
+            "line": 1382,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10911) status=OK valid_after=false t=36053659 id=498"
+          },
+          {
+            "line": 1390,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10912) status=OK valid_after=false t=36053659 id=501"
+          },
+          {
+            "line": 1398,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10914) status=OK valid_after=false t=36053659 id=504"
+          },
+          {
+            "line": 1406,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10913) status=OK valid_after=false t=36053659 id=507"
+          },
+          {
+            "line": 1414,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10915) status=OK valid_after=false t=36053659 id=510"
+          },
+          {
+            "line": 1422,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10908) status=OK valid_after=false t=36053659 id=513"
+          },
+          {
+            "line": 1430,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10910) status=OK valid_after=false t=36053659 id=516"
+          },
+          {
+            "line": 1438,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10907) status=OK valid_after=false t=36053659 id=519"
+          },
+          {
+            "line": 1446,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10917) status=OK valid_after=false t=36053659 id=522"
+          },
+          {
+            "line": 1454,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10918) status=OK valid_after=false t=36053659 id=525"
+          },
+          {
+            "line": 1463,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10909) status=OK valid_after=false t=36053659 id=528"
+          },
+          {
+            "line": 1474,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=StorageMetals(10916) status=OK valid_after=false t=36078718 id=531"
+          }
+        ]
+      }
+    },
+    "20261003-12.55.31": {
+      "file": "Mars.exe-20261003-12.55.31-6aba6e65.log",
+      "bytes": 1062580,
+      "lines": 5176,
+      "sha256": "165bd96e5d8d3f7c9d0a846fdfce379bc5e0c3945c81568b20d7c2a8c6bf9d12",
+      "closed": true,
+      "filters": {
+        "shutdown": "Debug::Done\\(\\)",
+        "lua_errors": "^\\[LUA ERROR\\]",
+        "permanents": "Unpersist missing permanent:",
+        "diagnostics": "(?i)\\berror\\b|\\bwarning\\b|\\bfailed\\b|unpersist|Savegame references",
+        "hub_metals": "^\\[SMRTK\\].*object=SMROptInTrainHub6.*resource=Metals",
+        "saves": "^\\[SMRTK\\] SMRTK_SAVE ",
+        "removal": "^\\[SMRTK\\].*sitting=final35_removal",
+        "row_export": "^\\[SMRTK\\].*mode=export.*resource=Metals.*station=10531",
+        "delete_build": "^\\[SMRTK\\].*action=selected_(?:delete|quick_build)"
+      },
+      "counts": {
+        "shutdown": 1,
+        "lua_errors": 0,
+        "permanents": 1,
+        "diagnostics": 9,
+        "hub_metals": 6,
+        "saves": 2,
+        "removal": 0,
+        "row_export": 2,
+        "delete_build": 8
+      },
+      "members": {
+        "shutdown": [
+          {
+            "line": 5173,
+            "text": "*** Debug::Done()"
+          }
+        ],
+        "lua_errors": [],
+        "permanents": [
+          {
+            "line": 225,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000023D4B4286D8 [7]"
+          }
+        ],
+        "diagnostics": [
+          {
+            "line": 194,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 197,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 199,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 201,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 203,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 205,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 225,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000023D4B4286D8 [7]"
+          },
+          {
+            "line": 227,
+            "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+          },
+          {
+            "line": 228,
+            "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+          }
+        ],
+        "hub_metals": [
+          {
+            "line": 541,
+            "text": "[SMRTK] SMRTK_DUMP available=3974400 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=600 row=request sitting=final_35 stock=3974400 t=35790404 id=147"
+          },
+          {
+            "line": 590,
+            "text": "[SMRTK] SMRTK_DUMP available=1516000 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=2484000 row=request sitting=final_35 stock=1516000 t=35790404 id=171"
+          },
+          {
+            "line": 1395,
+            "text": "[SMRTK] SMRTK_DUMP available=3974400 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=600 row=request sitting=final_35 stock=3974400 t=35790404 id=566"
+          },
+          {
+            "line": 1444,
+            "text": "[SMRTK] SMRTK_DUMP available=1516000 capacity=4000000 desired_demand=3990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=2484000 row=request sitting=final_35 stock=1516000 t=35790404 id=590"
+          },
+          {
+            "line": 2247,
+            "text": "[SMRTK] SMRTK_DUMP available=3974400 capacity=2000000 desired_demand=1990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6430) resource=Metals room=-25000 row=request sitting=final_35 stock=3974400 t=35790404 id=983"
+          },
+          {
+            "line": 2296,
+            "text": "[SMRTK] SMRTK_DUMP available=1516000 capacity=2000000 desired_demand=1990000 desired_supply=10000 enabled=true object=SMROptInTrainHub6(6495) resource=Metals room=484000 row=request sitting=final_35 stock=1516000 t=35790404 id=1007"
+          }
+        ],
+        "saves": [
+          {
+            "line": 269,
+            "text": "[SMRTK] SMRTK_SAVE action=save_A name=SMRTK_A.sav session=1791046548:158077098:67966858:460623979 slot=A status=OK t=35790404 id=14"
+          },
+          {
+            "line": 5140,
+            "text": "[SMRTK] SMRTK_SAVE action=save_B name=SMRTK_B.sav session=1791046548:158077098:67966858:460623979 slot=B status=OK t=35790404 id=2384"
+          }
+        ],
+        "removal": [],
+        "row_export": [
+          {
+            "line": 5095,
+            "text": "[SMRTK] SMRTK_DUMP calls=0 capacity=120000 demand_desired=0 demand_target=109397 drones=true errors=0 game_time=35790404 hub=none hub_role=none hub_room=none hub_stock=none mode=export percent=8 resource=Metals row=resource sitting=station_rows_30 station=10531 stock=6603 supply_desired=120000 supply_target=6603 target=9600 t=35790404 id=2363"
+          },
+          {
+            "line": 5135,
+            "text": "[SMRTK] SMRTK_ACTION action=slot_4 calls=0 capacity=120000 demand_desired=0 demand_target=109397 drones=true errors=0 game_time=35790404 hub=none hub_role=none hub_room=none hub_stock=none mark=2376 mode=export percent=8 resource=Metals station=10531 status=OK stock=6603 supply_desired=120000 supply_target=6603 target=9600 t=35790404 id=2382"
+          }
+        ],
+        "delete_build": [
+          {
+            "line": 2831,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInTrainHub6(6430) status=OK valid_after=false t=35790404 id=1269"
+          },
+          {
+            "line": 2836,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInTrainHub6(6495) status=OK valid_after=false t=35790404 id=1271"
+          },
+          {
+            "line": 4325,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInTrainHub6 completed=true group_members=0 leader=ConstructionSite(10907) leader_valid_after=false object=ConstructionSite(10907) selected_valid_after=false status=OK t=35790404 id=1999"
+          },
+          {
+            "line": 4337,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_quick_build body=ConstructionSite.Complete(quick_build) building_class=SMROptInTrainHub6 completed=true group_members=0 leader=ConstructionSite(10921) leader_valid_after=false object=ConstructionSite(10921) selected_valid_after=false status=OK t=35790404 id=2003"
+          },
+          {
+            "line": 4351,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInTrainHub6(10922) status=OK valid_after=false t=35790404 id=2008"
+          },
+          {
+            "line": 4356,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInTrainHub6(10908) status=OK valid_after=false t=35790404 id=2010"
+          },
+          {
+            "line": 4361,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInElevatorDepotDev(9036) status=OK valid_after=false t=35790404 id=2012"
+          },
+          {
+            "line": 4371,
+            "text": "[SMRTK] SMRTK_ACTION action=selected_delete method=CheatDelete object=SMROptInElevatorDepotDev(9041) status=OK valid_after=false t=35790404 id=2015"
+          }
+        ]
+      }
+    },
+    "20261003-13.05.06": {
+      "file": "Mars.exe-20261003-13.05.06-6aba6e65.log",
+      "bytes": 31946,
+      "lines": 481,
+      "sha256": "2953bcf73f15cd76bcb8598fd2fa06b8d258bdaa21c582608c0422ab5a81f898",
+      "closed": false,
+      "filters": {
+        "shutdown": "Debug::Done\\(\\)",
+        "lua_errors": "^\\[LUA ERROR\\]",
+        "permanents": "Unpersist missing permanent:",
+        "diagnostics": "(?i)\\berror\\b|\\bwarning\\b|\\bfailed\\b|unpersist|Savegame references",
+        "hub_metals": "^\\[SMRTK\\].*object=SMROptInTrainHub6.*resource=Metals",
+        "saves": "^\\[SMRTK\\] SMRTK_SAVE ",
+        "removal": "^\\[SMRTK\\].*sitting=final35_removal",
+        "row_export": "^\\[SMRTK\\].*mode=export.*resource=Metals.*station=10531",
+        "delete_build": "^\\[SMRTK\\].*action=selected_(?:delete|quick_build)"
+      },
+      "counts": {
+        "shutdown": 0,
+        "lua_errors": 5,
+        "permanents": 5,
+        "diagnostics": 30,
+        "hub_metals": 0,
+        "saves": 0,
+        "removal": 1,
+        "row_export": 0,
+        "delete_build": 0
+      },
+      "members": {
+        "shutdown": [],
+        "lua_errors": [
+          {
+            "line": 213,
+            "text": "[LUA ERROR] CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 265,
+            "text": "[LUA ERROR] Lua/Colony.lua:135: attempt to call a nil value (field '?')"
+          },
+          {
+            "line": 286,
+            "text": "[LUA ERROR] Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')"
+          },
+          {
+            "line": 336,
+            "text": "[LUA ERROR] attempt to call a nil value (method 'GetShapePoints')"
+          },
+          {
+            "line": 372,
+            "text": "[LUA ERROR] Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')"
+          }
+        ],
+        "permanents": [
+          {
+            "line": 204,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000019E849E0EC0 [7]"
+          },
+          {
+            "line": 206,
+            "text": "Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 207,
+            "text": "Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 424,
+            "text": "Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 426,
+            "text": "Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "line": 167,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 170,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 172,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 174,
+            "text": "[Braze] SessionStart error The server name or address could not be resolved"
+          },
+          {
+            "line": 176,
+            "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+          },
+          {
+            "line": 178,
+            "text": "[Braze] Failed to init"
+          },
+          {
+            "line": 199,
+            "text": "[Entity Error] Unable to load entity 'SMROptInTrainHub6DomeGlass' for class 'ShapeshifterAutoAttach' (wrong name?)!"
+          },
+          {
+            "line": 200,
+            "text": "[Entity Error] Unable to load entity 'SMROptInTrainHub6Glass' for class 'ShapeshifterAutoAttach' (wrong name?)!"
+          },
+          {
+            "line": 202,
+            "text": "[Entity Error] Unable to load entity 'SMROptInElevatorDepotReceiver' for class 'ShapeshifterAutoAttach' (wrong name?)!"
+          },
+          {
+            "line": 204,
+            "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000019E849E0EC0 [7]"
+          },
+          {
+            "line": 206,
+            "text": "Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 207,
+            "text": "Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 209,
+            "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+          },
+          {
+            "line": 210,
+            "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+          },
+          {
+            "line": 213,
+            "text": "[LUA ERROR] CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 237,
+            "text": "\t            building |   object UnpersistedMissingClass at (398500, 290110, 10000) on map 1"
+          },
+          {
+            "line": 255,
+            "text": "Error calling Lua function \"exec\" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 256,
+            "text": "Error calling Lua function \"exec\" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 258,
+            "text": "Error calling Lua function \"exec\" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 259,
+            "text": "Error calling Lua function \"exec\" from C: CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+          },
+          {
+            "line": 265,
+            "text": "[LUA ERROR] Lua/Colony.lua:135: attempt to call a nil value (field '?')"
+          },
+          {
+            "line": 282,
+            "text": "\t                 bld |   object UnpersistedMissingClass at (280000, 166272, 10000) on map 1"
+          },
+          {
+            "line": 286,
+            "text": "[LUA ERROR] Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')"
+          },
+          {
+            "line": 302,
+            "text": "\t                 obj |   object UnpersistedMissingClass at (384000, 303100, 10000) on map 2"
+          },
+          {
+            "line": 336,
+            "text": "[LUA ERROR] attempt to call a nil value (method 'GetShapePoints')"
+          },
+          {
+            "line": 365,
+            "text": "\t            building |   object UnpersistedMissingClass at (289500, 402690, 10000) on map 1"
+          },
+          {
+            "line": 372,
+            "text": "[LUA ERROR] Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')"
+          },
+          {
+            "line": 390,
+            "text": "\t                  cc |   object UnpersistedMissingClass at (280000, 166272, 10000) on map 1"
+          },
+          {
+            "line": 424,
+            "text": "Unpersist missing permanent: SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev | Fallback permanent: class UnpersistedMissingClass"
+          },
+          {
+            "line": 426,
+            "text": "Unpersist missing permanent: SMROptInTrainHub6Base:SMROptInTrainHub6 | Fallback permanent: class UnpersistedMissingClass"
+          }
+        ],
+        "hub_metals": [],
+        "saves": [],
+        "removal": [
+          {
+            "line": 478,
+            "text": "[SMRTK] SMRTK_DUMP capacity=120000 class=StationSmall demand_desired=110000 dial=10000 expected_demand=110000 expected_supply=10000 fixpack_present=true native_match=true optin_present=false policy=default resource=Metals sitting=final35_removal station=10531 stock=6603 supply_desired=10000 t=35790404 id=32"
+          }
+        ],
+        "row_export": [],
+        "delete_build": []
+      }
+    }
+  },
+  "stock_control": {
+    "filter": "canonical hub row=request; before lines 1122..1976, after 1977..2828",
+    "assertions": "same nonempty object/resource keys, same stock and game time, capacity 4000000 -> 2000000",
+    "compared": 38,
+    "members": [
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Bread",
+        "before": {
+          "line": 1409,
+          "fields": {
+            "available": "844000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Bread",
+            "room": "3156000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "844000",
+            "t": "35790404",
+            "id": "573"
+          }
+        },
+        "after": {
+          "line": 2261,
+          "fields": {
+            "available": "844000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Bread",
+            "room": "1156000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "844000",
+            "t": "35790404",
+            "id": "990"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Butter",
+        "before": {
+          "line": 1405,
+          "fields": {
+            "available": "852000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Butter",
+            "room": "3148000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "852000",
+            "t": "35790404",
+            "id": "571"
+          }
+        },
+        "after": {
+          "line": 2257,
+          "fields": {
+            "available": "852000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Butter",
+            "room": "1148000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "852000",
+            "t": "35790404",
+            "id": "988"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Cheese",
+        "before": {
+          "line": 1413,
+          "fields": {
+            "available": "888000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Cheese",
+            "room": "3112000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "888000",
+            "t": "35790404",
+            "id": "575"
+          }
+        },
+        "after": {
+          "line": 2265,
+          "fields": {
+            "available": "888000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Cheese",
+            "room": "1112000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "888000",
+            "t": "35790404",
+            "id": "992"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Coffee",
+        "before": {
+          "line": 1418,
+          "fields": {
+            "available": "890000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Coffee",
+            "room": "3110000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "890000",
+            "t": "35790404",
+            "id": "577"
+          }
+        },
+        "after": {
+          "line": 2269,
+          "fields": {
+            "available": "890000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Coffee",
+            "room": "1110000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "890000",
+            "t": "35790404",
+            "id": "994"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Concrete",
+        "before": {
+          "line": 1397,
+          "fields": {
+            "available": "1993000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Concrete",
+            "room": "2003000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1993000",
+            "t": "35790404",
+            "id": "567"
+          }
+        },
+        "after": {
+          "line": 2249,
+          "fields": {
+            "available": "1993000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Concrete",
+            "room": "3000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1993000",
+            "t": "35790404",
+            "id": "984"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Electronics",
+        "before": {
+          "line": 1422,
+          "fields": {
+            "available": "1775400",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Electronics",
+            "room": "2221800",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1778200",
+            "t": "35790404",
+            "id": "579"
+          }
+        },
+        "after": {
+          "line": 2273,
+          "fields": {
+            "available": "1775400",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Electronics",
+            "room": "221800",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1778200",
+            "t": "35790404",
+            "id": "996"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Food",
+        "before": {
+          "line": 1401,
+          "fields": {
+            "available": "837000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Food",
+            "room": "3150000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "837000",
+            "t": "35790404",
+            "id": "569"
+          }
+        },
+        "after": {
+          "line": 2253,
+          "fields": {
+            "available": "837000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Food",
+            "room": "1150000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "837000",
+            "t": "35790404",
+            "id": "986"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Fuel",
+        "before": {
+          "line": 1426,
+          "fields": {
+            "available": "1892000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Fuel",
+            "room": "2108000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1892000",
+            "t": "35790404",
+            "id": "581"
+          }
+        },
+        "after": {
+          "line": 2277,
+          "fields": {
+            "available": "1892000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Fuel",
+            "room": "108000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1892000",
+            "t": "35790404",
+            "id": "998"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Herbs",
+        "before": {
+          "line": 1393,
+          "fields": {
+            "available": "915000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Herbs",
+            "room": "3085000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "915000",
+            "t": "35790404",
+            "id": "565"
+          }
+        },
+        "after": {
+          "line": 2245,
+          "fields": {
+            "available": "915000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Herbs",
+            "room": "1085000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "915000",
+            "t": "35790404",
+            "id": "982"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "MachineParts",
+        "before": {
+          "line": 1420,
+          "fields": {
+            "available": "1915000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "MachineParts",
+            "room": "2085000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1915000",
+            "t": "35790404",
+            "id": "578"
+          }
+        },
+        "after": {
+          "line": 2271,
+          "fields": {
+            "available": "1915000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "MachineParts",
+            "room": "85000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1915000",
+            "t": "35790404",
+            "id": "995"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Meat",
+        "before": {
+          "line": 1424,
+          "fields": {
+            "available": "853000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Meat",
+            "room": "3147000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "853000",
+            "t": "35790404",
+            "id": "580"
+          }
+        },
+        "after": {
+          "line": 2275,
+          "fields": {
+            "available": "853000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Meat",
+            "room": "1147000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "853000",
+            "t": "35790404",
+            "id": "997"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Metals",
+        "before": {
+          "line": 1395,
+          "fields": {
+            "available": "3974400",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Metals",
+            "room": "600",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "3974400",
+            "t": "35790404",
+            "id": "566"
+          }
+        },
+        "after": {
+          "line": 2247,
+          "fields": {
+            "available": "3974400",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Metals",
+            "room": "-25000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "3974400",
+            "t": "35790404",
+            "id": "983"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Polymers",
+        "before": {
+          "line": 1415,
+          "fields": {
+            "available": "1849000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Polymers",
+            "room": "2151000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1849000",
+            "t": "35790404",
+            "id": "576"
+          }
+        },
+        "after": {
+          "line": 2267,
+          "fields": {
+            "available": "1849000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Polymers",
+            "room": "151000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1849000",
+            "t": "35790404",
+            "id": "993"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "PreciousMetals",
+        "before": {
+          "line": 1407,
+          "fields": {
+            "available": "1894000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "PreciousMetals",
+            "room": "2097000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1894000",
+            "t": "35790404",
+            "id": "572"
+          }
+        },
+        "after": {
+          "line": 2259,
+          "fields": {
+            "available": "1894000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "PreciousMetals",
+            "room": "97000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1894000",
+            "t": "35790404",
+            "id": "989"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "PreciousMinerals",
+        "before": {
+          "line": 1411,
+          "fields": {
+            "available": "1891000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "PreciousMinerals",
+            "room": "2109000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1891000",
+            "t": "35790404",
+            "id": "574"
+          }
+        },
+        "after": {
+          "line": 2263,
+          "fields": {
+            "available": "1891000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "PreciousMinerals",
+            "room": "109000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1891000",
+            "t": "35790404",
+            "id": "991"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Seeds",
+        "before": {
+          "line": 1428,
+          "fields": {
+            "available": "1894000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Seeds",
+            "room": "2106000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1894000",
+            "t": "35790404",
+            "id": "582"
+          }
+        },
+        "after": {
+          "line": 2279,
+          "fields": {
+            "available": "1894000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Seeds",
+            "room": "106000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1894000",
+            "t": "35790404",
+            "id": "999"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Spices",
+        "before": {
+          "line": 1399,
+          "fields": {
+            "available": "874000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Spices",
+            "room": "3126000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "874000",
+            "t": "35790404",
+            "id": "568"
+          }
+        },
+        "after": {
+          "line": 2251,
+          "fields": {
+            "available": "874000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Spices",
+            "room": "1126000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "874000",
+            "t": "35790404",
+            "id": "985"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "Sugar",
+        "before": {
+          "line": 1403,
+          "fields": {
+            "available": "843000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Sugar",
+            "room": "3140000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "843000",
+            "t": "35790404",
+            "id": "570"
+          }
+        },
+        "after": {
+          "line": 2255,
+          "fields": {
+            "available": "843000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "Sugar",
+            "room": "1140000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "843000",
+            "t": "35790404",
+            "id": "987"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6430)",
+        "resource": "WasteRock",
+        "before": {
+          "line": 1430,
+          "fields": {
+            "available": "2152000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "WasteRock",
+            "room": "1848000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "2152000",
+            "t": "35790404",
+            "id": "583"
+          }
+        },
+        "after": {
+          "line": 2281,
+          "fields": {
+            "available": "2152000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6430)",
+            "resource": "WasteRock",
+            "room": "0",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "2152000",
+            "t": "35790404",
+            "id": "1000"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Bread",
+        "before": {
+          "line": 1458,
+          "fields": {
+            "available": "938000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Bread",
+            "room": "3062000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "938000",
+            "t": "35790404",
+            "id": "597"
+          }
+        },
+        "after": {
+          "line": 2310,
+          "fields": {
+            "available": "938000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Bread",
+            "room": "1062000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "938000",
+            "t": "35790404",
+            "id": "1014"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Butter",
+        "before": {
+          "line": 1454,
+          "fields": {
+            "available": "939000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Butter",
+            "room": "3061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "595"
+          }
+        },
+        "after": {
+          "line": 2306,
+          "fields": {
+            "available": "939000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Butter",
+            "room": "1061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "1012"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Cheese",
+        "before": {
+          "line": 1462,
+          "fields": {
+            "available": "938000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Cheese",
+            "room": "3062000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "938000",
+            "t": "35790404",
+            "id": "599"
+          }
+        },
+        "after": {
+          "line": 2314,
+          "fields": {
+            "available": "938000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Cheese",
+            "room": "1062000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "938000",
+            "t": "35790404",
+            "id": "1016"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Coffee",
+        "before": {
+          "line": 1467,
+          "fields": {
+            "available": "939000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Coffee",
+            "room": "3061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "601"
+          }
+        },
+        "after": {
+          "line": 2318,
+          "fields": {
+            "available": "939000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Coffee",
+            "room": "1061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "1018"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Concrete",
+        "before": {
+          "line": 1446,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Concrete",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "591"
+          }
+        },
+        "after": {
+          "line": 2298,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Concrete",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1008"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Electronics",
+        "before": {
+          "line": 1471,
+          "fields": {
+            "available": "1954400",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Electronics",
+            "room": "2042800",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1957200",
+            "t": "35790404",
+            "id": "603"
+          }
+        },
+        "after": {
+          "line": 2322,
+          "fields": {
+            "available": "1954400",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Electronics",
+            "room": "42800",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1957200",
+            "t": "35790404",
+            "id": "1020"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Food",
+        "before": {
+          "line": 1450,
+          "fields": {
+            "available": "939000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Food",
+            "room": "3061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "593"
+          }
+        },
+        "after": {
+          "line": 2302,
+          "fields": {
+            "available": "939000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Food",
+            "room": "1061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "1010"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Fuel",
+        "before": {
+          "line": 1475,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Fuel",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "605"
+          }
+        },
+        "after": {
+          "line": 2326,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Fuel",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1022"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Herbs",
+        "before": {
+          "line": 1442,
+          "fields": {
+            "available": "942000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Herbs",
+            "room": "3058000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "942000",
+            "t": "35790404",
+            "id": "589"
+          }
+        },
+        "after": {
+          "line": 2294,
+          "fields": {
+            "available": "942000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Herbs",
+            "room": "1058000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "942000",
+            "t": "35790404",
+            "id": "1006"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "MachineParts",
+        "before": {
+          "line": 1469,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "MachineParts",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "602"
+          }
+        },
+        "after": {
+          "line": 2320,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "MachineParts",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1019"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Meat",
+        "before": {
+          "line": 1473,
+          "fields": {
+            "available": "942000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Meat",
+            "room": "3058000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "942000",
+            "t": "35790404",
+            "id": "604"
+          }
+        },
+        "after": {
+          "line": 2324,
+          "fields": {
+            "available": "942000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Meat",
+            "room": "1058000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "942000",
+            "t": "35790404",
+            "id": "1021"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Metals",
+        "before": {
+          "line": 1444,
+          "fields": {
+            "available": "1516000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Metals",
+            "room": "2484000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1516000",
+            "t": "35790404",
+            "id": "590"
+          }
+        },
+        "after": {
+          "line": 2296,
+          "fields": {
+            "available": "1516000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Metals",
+            "room": "484000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1516000",
+            "t": "35790404",
+            "id": "1007"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Polymers",
+        "before": {
+          "line": 1464,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Polymers",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "600"
+          }
+        },
+        "after": {
+          "line": 2316,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Polymers",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1017"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "PreciousMetals",
+        "before": {
+          "line": 1456,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "PreciousMetals",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "596"
+          }
+        },
+        "after": {
+          "line": 2308,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "PreciousMetals",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1013"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "PreciousMinerals",
+        "before": {
+          "line": 1460,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "PreciousMinerals",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "598"
+          }
+        },
+        "after": {
+          "line": 2312,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "PreciousMinerals",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1015"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Seeds",
+        "before": {
+          "line": 1477,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Seeds",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "606"
+          }
+        },
+        "after": {
+          "line": 2328,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Seeds",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1023"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Spices",
+        "before": {
+          "line": 1448,
+          "fields": {
+            "available": "939000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Spices",
+            "room": "3061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "592"
+          }
+        },
+        "after": {
+          "line": 2300,
+          "fields": {
+            "available": "939000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Spices",
+            "room": "1061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "1009"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "Sugar",
+        "before": {
+          "line": 1452,
+          "fields": {
+            "available": "939000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Sugar",
+            "room": "3061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "594"
+          }
+        },
+        "after": {
+          "line": 2304,
+          "fields": {
+            "available": "939000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "Sugar",
+            "room": "1061000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "939000",
+            "t": "35790404",
+            "id": "1011"
+          }
+        }
+      },
+      {
+        "object": "SMROptInTrainHub6(6495)",
+        "resource": "WasteRock",
+        "before": {
+          "line": 1479,
+          "fields": {
+            "available": "1960000",
+            "capacity": "4000000",
+            "desired_demand": "3990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "WasteRock",
+            "room": "2040000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "607"
+          }
+        },
+        "after": {
+          "line": 2330,
+          "fields": {
+            "available": "1960000",
+            "capacity": "2000000",
+            "desired_demand": "1990000",
+            "desired_supply": "10000",
+            "enabled": "true",
+            "object": "SMROptInTrainHub6(6495)",
+            "resource": "WasteRock",
+            "room": "40000",
+            "row": "request",
+            "sitting": "final_35",
+            "stock": "1960000",
+            "t": "35790404",
+            "id": "1024"
+          }
+        }
+      }
+    ]
+  },
+  "zero_hubs": {
+    "range": [
+      2837,
+      4318
+    ],
+    "filter": "object=SMROptInTrainHub6\\(",
+    "positive_objects": 34,
+    "hits": [],
+    "members": [
+      {
+        "line": 2865,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2007) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1284"
+      },
+      {
+        "line": 2906,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2008) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1304"
+      },
+      {
+        "line": 2946,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(2009) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=1324"
+      },
+      {
+        "line": 2987,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2011) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1344"
+      },
+      {
+        "line": 3028,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2012) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1364"
+      },
+      {
+        "line": 3069,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6243) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1384"
+      },
+      {
+        "line": 3110,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6827) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1404"
+      },
+      {
+        "line": 3150,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6883) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1424"
+      },
+      {
+        "line": 3191,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6951) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1444"
+      },
+      {
+        "line": 3232,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7411) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1464"
+      },
+      {
+        "line": 3273,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7861) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1484"
+      },
+      {
+        "line": 3314,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(7873) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=1504"
+      },
+      {
+        "line": 3354,
+        "text": "[SMRTK] SMRTK_DUMP consumption=0 destroyed=false drones=0 map=Surface object=SMROptInElevatorDepotDev(9036) role=Depot row=object sitting=final_35 storage=250000 track_work=none working=true t=35790404 id=1524"
+      },
+      {
+        "line": 3395,
+        "text": "[SMRTK] SMRTK_DUMP consumption=0 destroyed=false drones=0 map=Underground object=SMROptInElevatorDepotDev(9041) role=Depot row=object sitting=final_35 storage=250000 track_work=none working=true t=35790404 id=1544"
+      },
+      {
+        "line": 3436,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Underground object=StationBig(9702) role=Station row=object sitting=final_35 storage=240000 track_work=none working=true t=35790404 id=1564"
+      },
+      {
+        "line": 3477,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Underground object=StationSmall(10531) role=Station row=object sitting=final_35 storage=120000 track_work=none working=true t=35790404 id=1584"
+      },
+      {
+        "line": 3518,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(10650) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1604"
+      },
+      {
+        "line": 3602,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2007) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1645"
+      },
+      {
+        "line": 3643,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2008) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1665"
+      },
+      {
+        "line": 3684,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(2009) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=1685"
+      },
+      {
+        "line": 3725,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2011) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1705"
+      },
+      {
+        "line": 3765,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2012) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1725"
+      },
+      {
+        "line": 3806,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6243) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1745"
+      },
+      {
+        "line": 3847,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6827) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1765"
+      },
+      {
+        "line": 3888,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6883) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1785"
+      },
+      {
+        "line": 3929,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6951) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1805"
+      },
+      {
+        "line": 3969,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7411) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1825"
+      },
+      {
+        "line": 4010,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7861) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1845"
+      },
+      {
+        "line": 4051,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(7873) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=1865"
+      },
+      {
+        "line": 4092,
+        "text": "[SMRTK] SMRTK_DUMP consumption=0 destroyed=false drones=0 map=Surface object=SMROptInElevatorDepotDev(9036) role=Depot row=object sitting=final_35 storage=250000 track_work=none working=true t=35790404 id=1885"
+      },
+      {
+        "line": 4133,
+        "text": "[SMRTK] SMRTK_DUMP consumption=0 destroyed=false drones=0 map=Underground object=SMROptInElevatorDepotDev(9041) role=Depot row=object sitting=final_35 storage=250000 track_work=none working=true t=35790404 id=1905"
+      },
+      {
+        "line": 4173,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Underground object=StationBig(9702) role=Station row=object sitting=final_35 storage=240000 track_work=none working=true t=35790404 id=1925"
+      },
+      {
+        "line": 4214,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Underground object=StationSmall(10531) role=Station row=object sitting=final_35 storage=120000 track_work=none working=true t=35790404 id=1945"
+      },
+      {
+        "line": 4255,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(10650) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=1965"
+      }
+    ]
+  },
+  "content_free": {
+    "range": [
+      4372,
+      5024
+    ],
+    "filter": "object=SMROptIn(?:TrainHub6|ElevatorDepotDev)\\(",
+    "positive_objects": 15,
+    "hits": [],
+    "members": [
+      {
+        "line": 4392,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2007) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2025"
+      },
+      {
+        "line": 4433,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2008) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2045"
+      },
+      {
+        "line": 4474,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(2009) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=2065"
+      },
+      {
+        "line": 4515,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2011) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2085"
+      },
+      {
+        "line": 4556,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(2012) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2105"
+      },
+      {
+        "line": 4596,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6243) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2125"
+      },
+      {
+        "line": 4637,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6827) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2145"
+      },
+      {
+        "line": 4678,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6883) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2165"
+      },
+      {
+        "line": 4719,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(6951) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2185"
+      },
+      {
+        "line": 4759,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7411) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2205"
+      },
+      {
+        "line": 4800,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(7861) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2225"
+      },
+      {
+        "line": 4841,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Surface object=StationBig(7873) role=Station row=object sitting=final_35 storage=240000 track_work=none working=false t=35790404 id=2245"
+      },
+      {
+        "line": 4882,
+        "text": "[SMRTK] SMRTK_DUMP consumption=10000 destroyed=false drones=0 map=Underground object=StationBig(9702) role=Station row=object sitting=final_35 storage=240000 track_work=none working=true t=35790404 id=2265"
+      },
+      {
+        "line": 4922,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Underground object=StationSmall(10531) role=Station row=object sitting=final_35 storage=120000 track_work=none working=true t=35790404 id=2285"
+      },
+      {
+        "line": 4963,
+        "text": "[SMRTK] SMRTK_DUMP consumption=5000 destroyed=false drones=0 map=Surface object=StationSmall(10650) role=Station row=object sitting=final_35 storage=120000 track_work=none working=false t=35790404 id=2305"
+      }
+    ]
+  },
+  "removal_error_boundary": {
+    "load_line": 404,
+    "before_count": 5,
+    "after_count": 0,
+    "before": [
+      {
+        "line": 213,
+        "text": "[LUA ERROR] CommonLua/TaskRequest.lua:444: attempt to call a nil value (method 'GetPriorityForRequest')"
+      },
+      {
+        "line": 265,
+        "text": "[LUA ERROR] Lua/Colony.lua:135: attempt to call a nil value (field '?')"
+      },
+      {
+        "line": 286,
+        "text": "[LUA ERROR] Lua/RevealDarkness.lua:18: attempt to call a nil value (method 'UpdateRevealObject')"
+      },
+      {
+        "line": 336,
+        "text": "[LUA ERROR] attempt to call a nil value (method 'GetShapePoints')"
+      },
+      {
+        "line": 372,
+        "text": "[LUA ERROR] Lua/Buildings/Building.lua:855: attempt to call a nil value (method 'CanCommandDrones')"
+      }
+    ],
+    "after": [],
+    "limit": "No errors after B load in the captured prefix; not a closed-process claim if closed=false."
+  }
+}

@@ -95,3 +95,32 @@ Orchestrator, 2026-10-03, after this brief was authored:
   diagnostics`). The trains passed a quiet complete log on 2026-10-03
   (`Mars.exe-20261003-01.04.09`: only 6 once-per-load lines). Whether those six load notices
   merge into one is an open owner choice; put it to the owner with the store work.
+
+Train final verdict, 2026-10-03 (`ddf14cc` owner result; final report captures the
+confirming command and exact logs): **PASS within retained scope**, P released
+1.0.26 on owner authority, A waived. Import the final report's verdict table;
+D16-D18 now record attended acceptance with explicit skips/strikes/waiver.
+Do not repeat the battery. Non-gating follow-ups from its findings table:
+
+- Shared TestKit handoff: `75_SMRTK_Saves.lua` writes `SMRTK_A.sav` / `SMRTK_B.sav`;
+  owner says the native menu does not list them, and ordinary Load B refuses a
+  foreign process. The native console `*r LoadGame("SMRTK_B.sav")` loaded the
+  intended candidate. Reconcile extension/menu discovery and cross-process
+  instructions with the shared-kit owner; this link does not authorize sibling
+  edits. Correct the former native-menu assumption, not the recorded verdict.
+- D17/D18: content-free Save B retains BOTH hub/depot class references, with
+  `UnpersistedMissingClass` warnings but no Lua error in its measured window.
+  Trace residual reference owners in the exact save and assess exit/rescue
+  applicability. No runtime fix or recovery capability is inferred.
+- **OI-45** asks the owner to choose the existing demolish-first boundary or
+  additional recovery work for saves loaded without the mod while its buildings
+  still stand. The first load raised five native errors; B2's later content-free
+  load passed. Keep OI-43's missing-mod warning decision separate.
+
+Evidence: `reports/TRAIN_FINAL_BATTERY_20261002.md`, section "Non-gating findings
+and launch-prep routes"; `docs/archive/train_final_result_20261003/receipt.json`.
+The B4 log and B1 continuation are closed. The removal log was still open at
+capture: its error-free claim is only after the second load through line 481.
+The retained fixture is underground station 10531, despite the issued script's
+surface label. Record future evidence under new archive paths; existing archives
+are append-only. These follow-ups do not reopen train-project completion.
