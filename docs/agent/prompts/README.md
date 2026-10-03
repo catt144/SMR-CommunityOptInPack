@@ -47,7 +47,6 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 | chain | declared class | state |
 |---|---|---|
 | `Launch_Prep/` | `live` | Shipping evidence and bounded attended checks, store/asset/shared-site preparation, then independent backward QA. Owner starts after `RELEASE_SYSTEM_high.md` and train brief 35 close; no duplicate train battery. Its README gives fire order and completion gates; publication belongs to the permanent release prompt and owner. |
-| `Train_Hub_Project/` | `live` | The train hub project (Module B): its standing orchestrator and its build briefs, numbered in fire order, with `Parked/` for briefs that are not to be fired. Its own `README.md` says what each is for and which is next. ⛔ Temporary: the whole folder goes when the trains project is complete and tested (owner, 2026-09-18) |
 
 A chain folder appears here while its links are live and leaves `prompts/` when the
 effort closes (`agent/support/CHAIN_METHOD.md` is the method for an effort over about two sessions).

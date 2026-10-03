@@ -1,5 +1,9 @@
 # Train logistics — design spec for two new modules against game 1.1.0.403908
 
+**Status (owner, 2026-10-03): the project is complete.** The final battery passed within the
+owner-approved scope (`TRAIN_FINAL_BATTERY_20261002.md`, `2dfcf7b`); the modules ship as
+D16-D18.
+
 **Origin (owner, 2026-09-17).** The 1.1.0 train overhaul removed the station resource
 request sliders. The owner asked what it would take to restore control, then set the
 target higher: a per-resource import/export design of our own rather than a restoration,
