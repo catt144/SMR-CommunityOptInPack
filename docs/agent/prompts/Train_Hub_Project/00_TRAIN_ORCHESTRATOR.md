@@ -79,10 +79,8 @@ before it fires.
        The orchestrator checks that list against what already passed live, then guides one
        batch for those.
      - 35's pass completes the project: purge this folder.
-     **Owner's carry-overs:**
-     - Take `TRAIN_CARGO_SPOILAGE_BUGREPORT_20261002.md` to the fix pack.
-     - Launch prep is authored: `RELEASE_SYSTEM_high.md`, then `Launch_Prep/`, after 35. See the
-       prompt map.
+     **Owner's carry-over:** launch prep is authored: `RELEASE_SYSTEM_high.md`, then
+     `Launch_Prep/`, after 35. See the prompt map.
      **Sitting logs:** no further archiving is owed; the project is near its end (owner,
      2026-10-01).
    - **Standing constraints:**
