@@ -15,6 +15,15 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-45 · opened 2026-10-03
+Should mechanized depot throughput become a post-launch module, and which shape do you want?
+- Recommended: fixed ×5, off by default; 250-unit hidden IO pad, up to 25 units per crane landing.
+- The smaller design keeps five units in flight and transfers extra at landing; look and motion code stay vanilla.
+- A literal larger in-flight load needs a separate accounting/recovery design; it is not certified by this report.
+- Choose fixed boost, base/×2/×5/×10 dial, stricter cargo design, or park; estimates are 2–3 or 3–4 sessions.
+- Authorize its new option contract and retaining over-capacity pad stock on OFF until it drains; no cargo field needed.
+Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
+
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
 - Ported here 2026-10-03 as the prepared choice (Launch_Prep/03, no ruling yet): `tools/paradox_card.py`,
