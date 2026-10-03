@@ -7,6 +7,11 @@ support trio, `reports/STORE_CARD_LIVE.md`).
 The owner starts this chain by hand after train brief 35 has a durable close-out.
 If the train folder is gone, use its deletion commit's report. No link repeats its battery.
 
+**Owner 2026-10-03: the Arboretum (D19) ships after launch.** It is not in the launch set: no
+link collects its evidence, counts its strings or describes it on a store surface. Its build
+session's work sat uncommitted in the shared tree, including `metadata.lua` and `items.lua`.
+Recheck `git status` before editing either, and never stage, restore or ship its hunks.
+
 | number | file | difficulty | attended? | what it drains |
 |---|---|---|---|---|
 | ~~01~~ | ~~`01_SHIP_EVIDENCE_high.md`~~ | high | no | prepared in `0579b78`; ledger `reports/SHIP_EVIDENCE_20261003.md`; unresolved graph read owned by 01A |
