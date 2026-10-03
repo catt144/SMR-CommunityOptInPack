@@ -55,6 +55,20 @@ Done when:
 3. one smoke covering Fix 1 and Fix 2's steps is preloaded;
 4. the owner has run it and both pass.
 
+## Fix 4: quiet the dev logging (owner, 2026-10-02, added after sitting 2)
+
+The owner saw the hub's light-placement block (`[TrainHub] lights: ...`, `structure lights: ...`,
+`121 placed ...`) and the depot's per-leg cabin lines (`[ElevatorDepot] cabin arrived/departed ...`)
+printing again and again: *"supposed to be removed before launch so we aren't constantly dumping
+into players live logs"*. The rule is now `FIX_POLICY` §8 (grep `development diagnostics`).
+
+Inventory every print or log site in the train modules (`Code/StationRows_*`, `Code/TrainHub_*`,
+the depot's files), counting them. Remove the repeating or per-event ones, or gate them behind a
+switch that is off by default and that the TestKit can turn on. **Several smokes and TestKit
+witnesses read these lines** (for example `[TrainBay] refused` and the cabin legs), so every one
+a slot or harness relies on must stay reachable through the switch. Prove that with the smokes.
+Errors and a one-line load notice may stay. Desk-verify it; the owner's next boot shows a quiet log.
+
 ## Your judgment
 
 The filter's shape, where it hooks, and its guard against starving drones when it keeps refusing

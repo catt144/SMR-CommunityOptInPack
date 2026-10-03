@@ -499,3 +499,7 @@ module's own maps.
   build-menu tone and length: one or two sentences, the role first, keywords in the game's
   highlight markup, no numbers the tooltip already shows (owner, 2026-10-02: *"It should match the
   tone / style / and general length of in game build menu descriptions"*).
+- Shipping code does not print development diagnostics into players' logs: no repeating or
+  per-event trace lines (light placement, cabin legs, and the like) unless a dev or TestKit switch,
+  off by default, turns them on (owner, 2026-10-02: *"supposed to be removed before launch so we
+  aren't constantly dumping into players live logs"*). Errors and a one-line load notice may stay.
