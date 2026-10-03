@@ -39,6 +39,14 @@ has parked or cut it; the report names the released fix-pack version tested.
   a replacement, and over-capacity stock after OFF. The owner struck the other B2 and B4 items on
   the orchestrator's recommendation, spoilage with TrainHub OFF included. **The battery is B1,
   then those three checks.**
+- **B1 PASS** (owner sitting 2026-10-03, read by the orchestrator from
+  `Mars.exe-20261003-12.28.41-6aba6e65.log`; 0 `LUA ERROR`): slot 11 at line 3279 reads P, 1.0.26,
+  `trace=true`. Departure at 3849: `verdict=departed cabin=up aboard_Metals=622`, underground
+  Metals 62166 to 0. Arrival at 4258: `verdict=arrived`, legs 35 to 36, `s_Metals=622`. The
+  final slot 3 read at 4311 shows surface 62166. Trace OFF at 4720. Setup used `CheatFill` on three
+  underground Metals storages before the first arm (lines 3354-3366): fixture stock, not a retry.
+  A map change disarmed the stream (4269), so the closing slot 10 press re-armed it (4713).
+  Archive the log and record the verdict in the report.
 - **Rows forced on.** With TrainHub ON and StationRows OFF, slot 11 still showed StationRows
   `inactive` although the rows worked. Explain the forced-on mechanism in the report.
 
