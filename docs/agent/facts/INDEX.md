@@ -1,12 +1,12 @@
 <!-- GENERATED — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 <!-- split_facts.py --write is the one-time MIGRATION from the retired pre-split doc, never a regeneration; verify: python tools/doccheck.py -->
 
-# Engine facts index — 117 facts
+# Engine facts index — 120 facts
 
 One file per top-level bullet of the old `docs/agent/ENGINE_FACTS.md`, in
 source order; ids are stable. `updated` is git's last touch of the fact's
 own lines. `verified` is the first date the fact's TEXT presents as an
-observation (68 of 117 state one) — a mechanical extraction, not an
+observation (71 of 120 state one) — a mechanical extraction, not an
 adjudication: read the fact for what was actually measured, several of
 which carry their own ⚖️ "what is measured and what is not" paragraph.
 The preamble that opened the old file is `_preamble.md`.
@@ -130,4 +130,7 @@ The preamble that opened the old file is `_preamble.md`.
 | EF-115 | DRONE BATTERY/PALETTE/CONTROL SURFACES: battery_max defaults to 80000 stored units; idle seeks charge at <=12000 and work interrupts at <=6000, absolute rather than percentages. Building.SetPalette recursively accepts any valid colorizable object. CanBeControlled is the shared gate for both reassign buttons | — | 2026-09-23 | 39 | [EF-115.md](EF-115.md) |
 | EF-116 | THE GAME'S LUA DIVIDES INTEGERS AS INTEGERS: shipped code coerces with `a * 1.0 / b`, `x + 0.0` or DivAsFloats() before any fractional division, and Min/Max/Clamp are documented integer helpers; a standard-Lua mock (lupa) divides to a float, so it cannot show `remaining / 1000 == 0` or a sampler stuck on span endpoints | — | 2026-09-23 | 35 | [EF-116.md](EF-116.md) |
 | EF-117 | GetSpotBeginIndex RAISES ON A SPOT NAME THE ENTITY LACKS: `HGE::l_GetSpotBeginIndex: Invalid spot`, not -1; the exported doc's -1 is for an object that does not exist. Shipped Lua guards with HasSpot first and never tests the index against -1, so a `< 0` check after the call is dead code and a loop that stops on -1 never stops | — | 2026-09-25 | 23 | [EF-117.md](EF-117.md) |
+| EF-118 | THE PARADOX BOOT SYNC CAN MOVE ONLY A PARADOX-INSTALLED MOD IN THE SAVED ENABLE LIST, AND ITS RESULT IS UNOBSERVABLE FROM A MOD: on a version change `SyncUpdatePdxMod` deletes the def and `TurnModOff`s it, the sync path then sets only a UI flag, and the re-enable that appends it runs through the manager or the download handler; a failed empty first subscription page returns no error and prints nothing; `AsyncPdx*` is a blacklisted prefix. A Paradox-installed copy of this pack loads last once after each update the sync applies and re-promotes with the notice at the next start | 2026-09-26 | 2026-09-26 | 32 | [EF-118.md](EF-118.md) |
+| EF-119 | "SAVE FAILED … ERROR CODE: BLOCK ERROR" IS THE 96 MB SAVE BUFFER OVERFLOWING: every save is built, and every load read, in one preallocated buffer of `config.MemorySavegameSize` bytes (96 MB shipped); a colony whose save outgrows it fails every save, manual and auto. Raising the value takes effect on the next save with no restart, from a console or from a one-line mod at load. A player has no route to it without a mod. Tested fix: `local/save-buffer-fix/` | 2026-09-27 | 2026-09-28 | 57 | [EF-119.md](EF-119.md) |
+| EF-120 | CANDIDATE: storage-to-storage matcher choices fit want OR rank OR push; source Desired Amount is not a withdrawal floor. Owner-present 1.1.1.406343 sample; exact C truth table remains unproved. | 2026-10-02 | 2026-10-02 | 59 | [EF-120.md](EF-120.md) |
 

@@ -1,0 +1,1188 @@
+{
+  "command": "C:\\Python313\\python.exe tools/trains/hub/tests/sitting2_closeout.py --sitting1 \"C:/Users/stkot/AppData/Roaming/Surviving Mars Relaunched/logs/Mars.exe-20261002-17.41.30-6aba6e65.log\" --sitting2 \"C:/Users/stkot/AppData/Roaming/Surviving Mars Relaunched/logs/Mars.exe-20261002-20.42.08-6aba6e65.log\" --output scratch/34b_close_receipt.json",
+  "head": "3f1fd1363372bacdbe98c6c3e327992e8edede08",
+  "build": "game 1.1.1.406343 build 25579348",
+  "filter": "primary [mod] [SMRTK]; STREAM row=haul/snapshot; ledger=witness leg=pairing; use game_time for ledger events",
+  "sitting2": {
+    "file": "Mars.exe-20261002-20.42.08-6aba6e65.log",
+    "bytes": 1106144,
+    "sha256": "ea7492a2c1f5bc1c8bc6ab1022609f4a1b81866c6e540bed0e7dbe0a041d7691"
+  },
+  "stream_intervals": [
+    {
+      "arm_line": 547,
+      "start": "35790404",
+      "stop_line": 1616,
+      "end": "36134852",
+      "reason": "SaveGameStart",
+      "hauls": 205
+    },
+    {
+      "arm_line": 1686,
+      "start": "36203332",
+      "stop_line": 4305,
+      "end": "36929931",
+      "reason": "manual",
+      "hauls": 341
+    }
+  ],
+  "stream_hauls_by_export": {
+    "total": 546,
+    "members": {
+      "false": 455,
+      "true": 91
+    }
+  },
+  "stream_exports_by_source": {
+    "total": 91,
+    "members": {
+      "MixedPoolStockpile(2000000755)": 2,
+      "StorageFood(1067)": 40,
+      "StorageFood(10907)": 42,
+      "UniversalStorageDepot(1057)": 7
+    }
+  },
+  "stream_export_below_desired": [],
+  "witness_below": [
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "110.320",
+      "drone": "Drone(2000000297)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36135428",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "48.650",
+      "t": "36923588",
+      "id": "2601",
+      "verb": "SMRTK_DUMP",
+      "line": 3997,
+      "boot_clock_ms": 514632
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "106.320",
+      "drone": "Drone(2000000300)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36135581",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "44.650",
+      "t": "36923588",
+      "id": "2604",
+      "verb": "SMRTK_DUMP",
+      "line": 4004,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "102.320",
+      "drone": "Drone(2000003383)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36135830",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "40.650",
+      "t": "36923588",
+      "id": "2606",
+      "verb": "SMRTK_DUMP",
+      "line": 4008,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "98.320",
+      "drone": "Drone(2000000330)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36135876",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "36.650",
+      "t": "36923588",
+      "id": "2608",
+      "verb": "SMRTK_DUMP",
+      "line": 4012,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "94.320",
+      "drone": "Drone(2000003380)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36135918",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "32.650",
+      "t": "36923588",
+      "id": "2610",
+      "verb": "SMRTK_DUMP",
+      "line": 4016,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "90.320",
+      "drone": "Drone(2000000335)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36136260",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "28.650",
+      "t": "36923588",
+      "id": "2614",
+      "verb": "SMRTK_DUMP",
+      "line": 4024,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "86.320",
+      "drone": "Drone(2000003389)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36136399",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "48.650",
+      "supply_desired": "50",
+      "supply_target": "24.650",
+      "t": "36923588",
+      "id": "2616",
+      "verb": "SMRTK_DUMP",
+      "line": 4028,
+      "boot_clock_ms": 514633
+    },
+    {
+      "amount": "4",
+      "demand": "StationSmall(10650)",
+      "demand_desired": "0",
+      "demand_target": "82.320",
+      "drone": "Drone(2000000331)",
+      "export_below_floor": "true",
+      "from_export": "false",
+      "game_time": "36139127",
+      "into_export": "true",
+      "ledger": "witness",
+      "leg": "pairing",
+      "refill_above_desired": "false",
+      "resource": "Food",
+      "sitting": "smoke_34b",
+      "supply": "StorageFood(1067)",
+      "supply_actual": "30.150",
+      "supply_desired": "50",
+      "supply_target": "22.150",
+      "t": "36923588",
+      "id": "2619",
+      "verb": "SMRTK_DUMP",
+      "line": 4034,
+      "boot_clock_ms": 514633
+    }
+  ],
+  "reconciliation": {
+    "all_flags_in_stream_gap": 8,
+    "raw_actual_minus_amount_below": 8,
+    "already_below_before_pairing": 8,
+    "reservation_only": 0,
+    "gap_game_ms": 68480
+  },
+  "sol_completions": [
+    {
+      "action": "sol_34b",
+      "calls": "12466",
+      "export_below_floor": "8",
+      "export_from_producer": "2",
+      "export_from_storage": "124",
+      "filter_capped": "6",
+      "filter_refused": "990",
+      "filter_retried": "1010",
+      "filter_substituted": "20",
+      "food_storage_pairings": "146",
+      "label": "One sol at Ultra (34b)",
+      "mark": "2734",
+      "pairings": "1101",
+      "pause": "true",
+      "refill_above_desired": "0",
+      "refill_from_export": "0",
+      "sound": "true",
+      "status": "OK",
+      "trigger": "sol_34b",
+      "verdict": "sol_done",
+      "t": "36923588",
+      "id": "2508",
+      "verb": "SMRTK_TRIGGER",
+      "line": 3804,
+      "boot_clock_ms": 498105
+    },
+    {
+      "action": "sol_34b",
+      "calls": "20569",
+      "export_below_floor": "8",
+      "export_from_producer": "2",
+      "export_from_storage": "133",
+      "filter_capped": "8",
+      "filter_refused": "1598",
+      "filter_retried": "1619",
+      "filter_substituted": "21",
+      "food_storage_pairings": "166",
+      "label": "One sol at Ultra (34b)",
+      "mark": "3121",
+      "pairings": "1585",
+      "pause": "true",
+      "refill_above_desired": "0",
+      "refill_from_export": "0",
+      "sound": "true",
+      "status": "OK",
+      "trigger": "sol_34b",
+      "verdict": "sol_done",
+      "t": "37654392",
+      "id": "2780",
+      "verb": "SMRTK_TRIGGER",
+      "line": 4538,
+      "boot_clock_ms": 849687
+    }
+  ],
+  "filter_cost": [
+    {
+      "calls": 12466,
+      "pairings": 1101,
+      "filter_retried": 1010,
+      "filter_refused": 990,
+      "filter_substituted": 20,
+      "filter_capped": 6,
+      "export_from_storage": 124,
+      "export_from_producer": 2,
+      "export_below_floor": 8,
+      "label": "first completion, cumulative",
+      "retry_fraction_of_calls": 0.08102037542114551,
+      "refused_fraction_of_retries": 0.9801980198019802
+    },
+    {
+      "calls": 20569,
+      "pairings": 1585,
+      "filter_retried": 1619,
+      "filter_refused": 1598,
+      "filter_substituted": 21,
+      "filter_capped": 8,
+      "export_from_storage": 133,
+      "export_from_producer": 2,
+      "export_below_floor": 8,
+      "label": "second completion, cumulative",
+      "retry_fraction_of_calls": 0.07871068112207691,
+      "refused_fraction_of_retries": 0.9870290302655961
+    },
+    {
+      "calls": 8103,
+      "pairings": 484,
+      "filter_retried": 609,
+      "filter_refused": 608,
+      "filter_substituted": 1,
+      "filter_capped": 2,
+      "export_from_storage": 9,
+      "export_from_producer": 0,
+      "export_below_floor": 0,
+      "label": "second interval delta",
+      "retry_fraction_of_calls": 0.07515734912995187,
+      "refused_fraction_of_retries": 0.9983579638752053
+    }
+  ],
+  "snapshot_total": 1813,
+  "snapshot_groups": 37,
+  "depot_snapshots": {
+    "StorageFood(1067)": [
+      {
+        "line": 506,
+        "t": "35790404",
+        "phase": "start",
+        "stock": "180",
+        "desired": "50"
+      },
+      {
+        "line": 678,
+        "t": "35820404",
+        "phase": "hour",
+        "stock": "81.600",
+        "desired": "50"
+      },
+      {
+        "line": 746,
+        "t": "35850404",
+        "phase": "hour",
+        "stock": "74.600",
+        "desired": "50"
+      },
+      {
+        "line": 845,
+        "t": "35880404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 919,
+        "t": "35910404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 998,
+        "t": "35940404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1123,
+        "t": "35970404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1237,
+        "t": "36000404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1305,
+        "t": "36030404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1361,
+        "t": "36060404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1421,
+        "t": "36090404",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 1547,
+        "t": "36120404",
+        "phase": "hour",
+        "stock": "48.650",
+        "desired": "50"
+      },
+      {
+        "line": 1645,
+        "t": "36203332",
+        "phase": "start",
+        "stock": "32.770",
+        "desired": "50"
+      },
+      {
+        "line": 1736,
+        "t": "36210332",
+        "phase": "hour",
+        "stock": "32.770",
+        "desired": "50"
+      },
+      {
+        "line": 1813,
+        "t": "36240332",
+        "phase": "hour",
+        "stock": "32.901",
+        "desired": "50"
+      },
+      {
+        "line": 1885,
+        "t": "36270332",
+        "phase": "hour",
+        "stock": "32.901",
+        "desired": "50"
+      },
+      {
+        "line": 1956,
+        "t": "36300332",
+        "phase": "hour",
+        "stock": "32.901",
+        "desired": "50"
+      },
+      {
+        "line": 2012,
+        "t": "36330332",
+        "phase": "hour",
+        "stock": "32.901",
+        "desired": "50"
+      },
+      {
+        "line": 2108,
+        "t": "36360332",
+        "phase": "hour",
+        "stock": "32.901",
+        "desired": "50"
+      },
+      {
+        "line": 2218,
+        "t": "36390332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2330,
+        "t": "36420332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2385,
+        "t": "36450332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2442,
+        "t": "36480332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2523,
+        "t": "36510332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2583,
+        "t": "36540332",
+        "phase": "hour",
+        "stock": "31.603",
+        "desired": "50"
+      },
+      {
+        "line": 2648,
+        "t": "36570332",
+        "phase": "hour",
+        "stock": "26.680",
+        "desired": "50"
+      },
+      {
+        "line": 2738,
+        "t": "36600332",
+        "phase": "hour",
+        "stock": "58.900",
+        "desired": "50"
+      },
+      {
+        "line": 2821,
+        "t": "36630332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 2885,
+        "t": "36660332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 2995,
+        "t": "36690332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3107,
+        "t": "36720332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3202,
+        "t": "36750332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3281,
+        "t": "36780332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3377,
+        "t": "36810332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3519,
+        "t": "36840332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3612,
+        "t": "36870332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      },
+      {
+        "line": 3705,
+        "t": "36900332",
+        "phase": "hour",
+        "stock": "50",
+        "desired": "50"
+      }
+    ],
+    "StorageFood(10907)": [
+      {
+        "line": 528,
+        "t": "35790404",
+        "phase": "start",
+        "stock": "180",
+        "desired": "30"
+      },
+      {
+        "line": 701,
+        "t": "35820404",
+        "phase": "hour",
+        "stock": "65",
+        "desired": "30"
+      },
+      {
+        "line": 769,
+        "t": "35850404",
+        "phase": "hour",
+        "stock": "62.280",
+        "desired": "30"
+      },
+      {
+        "line": 868,
+        "t": "35880404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 942,
+        "t": "35910404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1021,
+        "t": "35940404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1146,
+        "t": "35970404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1260,
+        "t": "36000404",
+        "phase": "hour",
+        "stock": "30.653",
+        "desired": "30"
+      },
+      {
+        "line": 1328,
+        "t": "36030404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1384,
+        "t": "36060404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1444,
+        "t": "36090404",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 1570,
+        "t": "36120404",
+        "phase": "hour",
+        "stock": "29.190",
+        "desired": "30"
+      },
+      {
+        "line": 1668,
+        "t": "36203332",
+        "phase": "start",
+        "stock": "20.330",
+        "desired": "30"
+      },
+      {
+        "line": 1759,
+        "t": "36210332",
+        "phase": "hour",
+        "stock": "20.330",
+        "desired": "30"
+      },
+      {
+        "line": 1836,
+        "t": "36240332",
+        "phase": "hour",
+        "stock": "19.740",
+        "desired": "30"
+      },
+      {
+        "line": 1908,
+        "t": "36270332",
+        "phase": "hour",
+        "stock": "19.740",
+        "desired": "30"
+      },
+      {
+        "line": 1979,
+        "t": "36300332",
+        "phase": "hour",
+        "stock": "19.740",
+        "desired": "30"
+      },
+      {
+        "line": 2035,
+        "t": "36330332",
+        "phase": "hour",
+        "stock": "19.740",
+        "desired": "30"
+      },
+      {
+        "line": 2131,
+        "t": "36360332",
+        "phase": "hour",
+        "stock": "19.740",
+        "desired": "30"
+      },
+      {
+        "line": 2241,
+        "t": "36390332",
+        "phase": "hour",
+        "stock": "17.535",
+        "desired": "30"
+      },
+      {
+        "line": 2353,
+        "t": "36420332",
+        "phase": "hour",
+        "stock": "18.760",
+        "desired": "30"
+      },
+      {
+        "line": 2408,
+        "t": "36450332",
+        "phase": "hour",
+        "stock": "18.760",
+        "desired": "30"
+      },
+      {
+        "line": 2464,
+        "t": "36480332",
+        "phase": "hour",
+        "stock": "18.760",
+        "desired": "30"
+      },
+      {
+        "line": 2546,
+        "t": "36510332",
+        "phase": "hour",
+        "stock": "17.680",
+        "desired": "30"
+      },
+      {
+        "line": 2606,
+        "t": "36540332",
+        "phase": "hour",
+        "stock": "17.680",
+        "desired": "30"
+      },
+      {
+        "line": 2671,
+        "t": "36570332",
+        "phase": "hour",
+        "stock": "17.271",
+        "desired": "30"
+      },
+      {
+        "line": 2761,
+        "t": "36600332",
+        "phase": "hour",
+        "stock": "25.271",
+        "desired": "30"
+      },
+      {
+        "line": 2844,
+        "t": "36630332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 2908,
+        "t": "36660332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 3018,
+        "t": "36690332",
+        "phase": "hour",
+        "stock": "28.920",
+        "desired": "30"
+      },
+      {
+        "line": 3130,
+        "t": "36720332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 3225,
+        "t": "36750332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 3304,
+        "t": "36780332",
+        "phase": "hour",
+        "stock": "32.740",
+        "desired": "30"
+      },
+      {
+        "line": 3401,
+        "t": "36810332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 3542,
+        "t": "36840332",
+        "phase": "hour",
+        "stock": "27.840",
+        "desired": "30"
+      },
+      {
+        "line": 3634,
+        "t": "36870332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      },
+      {
+        "line": 3728,
+        "t": "36900332",
+        "phase": "hour",
+        "stock": "30",
+        "desired": "30"
+      }
+    ]
+  },
+  "diner_draws": [
+    {
+      "amount": "1.080",
+      "destination": "Diner(1522)",
+      "destination_desired": "n/a",
+      "destination_is_export_station": "false",
+      "destination_stock": "28.740",
+      "drone": "Drone(2000000295)",
+      "phase": "pickup_fulfilled",
+      "resource": "Food",
+      "row": "haul",
+      "sitting": "smoke_34b",
+      "source": "StorageFood(10907)",
+      "source_after": "28.920",
+      "source_before": "30",
+      "source_desired": "30",
+      "text": "StorageFood(10907) -> Diner(1522) | 1.080 Food | source 30 -> 28.920 / Desired 30 | destination 28.740 / Desired n/a | Export=false",
+      "t": "35972046",
+      "id": "573",
+      "verb": "SMRTK_STREAM",
+      "line": 1168,
+      "boot_clock_ms": 462916
+    },
+    {
+      "amount": "1.080",
+      "destination": "Diner(1522)",
+      "destination_desired": "n/a",
+      "destination_is_export_station": "false",
+      "destination_stock": "28.740",
+      "drone": "Drone(2000000303)",
+      "phase": "pickup_fulfilled",
+      "resource": "Food",
+      "row": "haul",
+      "sitting": "smoke_34b",
+      "source": "StorageFood(10907)",
+      "source_after": "28.920",
+      "source_before": "30",
+      "source_desired": "30",
+      "text": "StorageFood(10907) -> Diner(1522) | 1.080 Food | source 30 -> 28.920 / Desired 30 | destination 28.740 / Desired n/a | Export=false",
+      "t": "36686442",
+      "id": "1917",
+      "verb": "SMRTK_STREAM",
+      "line": 2936,
+      "boot_clock_ms": 492642
+    },
+    {
+      "amount": "1.080",
+      "destination": "Diner(1521)",
+      "destination_desired": "n/a",
+      "destination_is_export_station": "false",
+      "destination_stock": "28.920",
+      "drone": "Drone(2000000328)",
+      "phase": "pickup_fulfilled",
+      "resource": "Food",
+      "row": "haul",
+      "sitting": "smoke_34b",
+      "source": "StorageFood(1067)",
+      "source_after": "48.920",
+      "source_before": "50",
+      "source_desired": "50",
+      "text": "StorageFood(1067) -> Diner(1521) | 1.080 Food | source 50 -> 48.920 / Desired 50 | destination 28.920 / Desired n/a | Export=false",
+      "t": "36901342",
+      "id": "2482",
+      "verb": "SMRTK_STREAM",
+      "line": 3751,
+      "boot_clock_ms": 497581
+    }
+  ],
+  "train_reads": [
+    {
+      "action": "slot_4",
+      "game_time": "36923588",
+      "mark": "2921",
+      "parked_or_spawned_in_hub": "6",
+      "pool": "1",
+      "refused": "0",
+      "status": "OK",
+      "trains": "17",
+      "t": "36923588",
+      "id": "2713",
+      "verb": "SMRTK_ACTION",
+      "line": 4230,
+      "boot_clock_ms": 743810
+    },
+    {
+      "action": "slot_5",
+      "hub": "SMROptInTrainHub6(6430)",
+      "mark": "2942",
+      "pool_after": "1",
+      "pool_before": "1",
+      "refused_after": "1",
+      "refused_before": "0",
+      "status": "OK",
+      "track": "TrackBase(6402)",
+      "trains_after": "17",
+      "trains_before": "17",
+      "verdict": "refused",
+      "t": "36923588",
+      "id": "2716",
+      "verb": "SMRTK_ACTION",
+      "line": 4239,
+      "boot_clock_ms": 751212
+    },
+    {
+      "action": "slot_4",
+      "game_time": "36923588",
+      "mark": "2948",
+      "parked_or_spawned_in_hub": "6",
+      "pool": "0",
+      "refused": "1",
+      "status": "OK",
+      "trains": "18",
+      "t": "36923588",
+      "id": "2739",
+      "verb": "SMRTK_ACTION",
+      "line": 4288,
+      "boot_clock_ms": 804827
+    },
+    {
+      "action": "slot_4",
+      "reason": "pause first",
+      "status": "REFUSED",
+      "t": "36932030",
+      "id": "2749",
+      "verb": "SMRTK_ACTION",
+      "line": 4312,
+      "boot_clock_ms": 816052
+    },
+    {
+      "action": "slot_4",
+      "game_time": "36934136",
+      "mark": "2982",
+      "parked_or_spawned_in_hub": "5",
+      "pool": "0",
+      "refused": "1",
+      "status": "OK",
+      "trains": "18",
+      "t": "36934136",
+      "id": "2771",
+      "verb": "SMRTK_ACTION",
+      "line": 4359,
+      "boot_clock_ms": 819688
+    },
+    {
+      "action": "slot_4",
+      "game_time": "37654392",
+      "mark": "3127",
+      "parked_or_spawned_in_hub": "5",
+      "pool": "0",
+      "refused": "1",
+      "status": "OK",
+      "trains": "18",
+      "t": "37654392",
+      "id": "2804",
+      "verb": "SMRTK_ACTION",
+      "line": 4589,
+      "boot_clock_ms": 865979
+    }
+  ],
+  "trainbay_lines": [
+    [
+      149,
+      "[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility"
+    ],
+    [
+      4238,
+      "[TrainBay] refused hub=6430 track=6402 t=36923588"
+    ]
+  ],
+  "trainbay_refused": [
+    [
+      4238,
+      "[TrainBay] refused hub=6430 track=6402 t=36923588"
+    ]
+  ],
+  "trainbay_fill_spawn": [],
+  "error_markers": [],
+  "sitting1": {
+    "file": "Mars.exe-20261002-17.41.30-6aba6e65.log",
+    "bytes": 173599,
+    "sha256": "98ada86768f34978147d489c445c3332e348ceb794da8058a9f66c3342133cea"
+  },
+  "matcher_pairs": 151,
+  "matcher_branches_overlap": {
+    "rank": 118,
+    "push": 72,
+    "want": 51
+  },
+  "matcher_disjoint_members": {
+    "push": 2,
+    "rank": 38,
+    "rank+push": 60,
+    "want": 29,
+    "want+push": 2,
+    "want+rank": 12,
+    "want+rank+push": 8
+  },
+  "matcher_priority_partition": {
+    "want": 51,
+    "not_want_rank": 98,
+    "neither_want_nor_rank_push": 2,
+    "none": 0
+  },
+  "matcher_overlap_limit": "Rank totals involving capacity-inferred destinations use base capacities, not live upgraded values; priority partition does not depend on those want=true rows.",
+  "matcher_below_desired": {
+    "total": 86,
+    "members": {
+      "Elevator(7829)": 3,
+      "StationSmall(10650)": 40,
+      "StorageFood(1067)": 28,
+      "StorageSpices(1582)": 4,
+      "StorageSugar(10853)": 1,
+      "UniversalStorageDepot(1057)": 1,
+      "UniversalStorageDepot(1661)": 9
+    }
+  },
+  "matcher_export_below_sources": {
+    "total": 40,
+    "members": {
+      "StorageFood(1067)": 39,
+      "UniversalStorageDepot(1057)": 1
+    }
+  },
+  "matcher_destination_desired": {
+    "StationSmall(10650) / Food": "120",
+    "StorageFood(1067) / Food": "50",
+    "UniversalStorageDepot(1057) / Food": "3",
+    "UniversalStorageDepot(6443) / Food": "30",
+    "UniversalStorageDepot(1661) / Food": "15",
+    "Elevator(7829) / Herbs": "10",
+    "Elevator(7829) / Bread": "10",
+    "StationSmall(10650) / Herbs": "10",
+    "StorageSugar(10853) / Sugar": "20",
+    "StorageSpices(1582) / Spices": "5"
+  },
+  "matcher_capacity_inferred_rows": [
+    {
+      "line": 878,
+      "destination": "UniversalStorageDepot(6443)",
+      "resource": "Food",
+      "capacity": "30",
+      "desired": "30"
+    },
+    {
+      "line": 899,
+      "destination": "Elevator(7829)",
+      "resource": "Herbs",
+      "capacity": "50",
+      "desired": "10"
+    },
+    {
+      "line": 901,
+      "destination": "Elevator(7829)",
+      "resource": "Bread",
+      "capacity": "50",
+      "desired": "10"
+    },
+    {
+      "line": 935,
+      "destination": "StorageSugar(10853)",
+      "resource": "Sugar",
+      "capacity": "180",
+      "desired": "20"
+    },
+    {
+      "line": 937,
+      "destination": "StorageSpices(1582)",
+      "resource": "Spices",
+      "capacity": "180",
+      "desired": "5"
+    },
+    {
+      "line": 960,
+      "destination": "StorageSpices(1582)",
+      "resource": "Spices",
+      "capacity": "180",
+      "desired": "5"
+    },
+    {
+      "line": 962,
+      "destination": "StorageSpices(1582)",
+      "resource": "Spices",
+      "capacity": "180",
+      "desired": "5"
+    },
+    {
+      "line": 973,
+      "destination": "StorageSpices(1582)",
+      "resource": "Spices",
+      "capacity": "180",
+      "desired": "5"
+    },
+    {
+      "line": 979,
+      "destination": "UniversalStorageDepot(6443)",
+      "resource": "Food",
+      "capacity": "30",
+      "desired": "30"
+    },
+    {
+      "line": 981,
+      "destination": "Elevator(7829)",
+      "resource": "Herbs",
+      "capacity": "50",
+      "desired": "10"
+    }
+  ]
+}

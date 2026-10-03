@@ -1,0 +1,1095 @@
+					Render 0:00:00:007
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	45%
+Disk Free      	1215699 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:092
+Steam initialized (AppId 3215050)
+					Render 0:00:00:096
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:02:114
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:02:285
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:534
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:562
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:03:563
+Lua revision: 406343
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:17:066
+Account storage loaded successfully in 2 ms
+						Lua 0:00:17:076
+DLC norman loaded, lua revision 406343, assets revision 33225
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:17:115
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Better Disasters (id YbJmPhb, v1.04-055) packed from steam
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+						Lua 0:00:17:527
+[mod] [CommunityFixPack] LoadFirst: already first of 3 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+						Lua 0:00:17:535
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+						Lua 0:00:17:539
+[mod] [CommunityFixPack] ShelterReflex: applied
+						Lua 0:00:17:543
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+						Lua 0:00:17:548
+[mod] [CommunityFixPack] LakeEntombment: applied
+						Lua 0:00:17:552
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+						Lua 0:00:17:556
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:17:560
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:17:564
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+						Lua 0:00:17:569
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+						Lua 0:00:17:573
+[mod] [CommunityFixPack] HubLocalAccess: applied
+						Lua 0:00:17:578
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+						Lua 0:00:17:583
+[mod] [CommunityFixPack] RescueReturnText: applied
+						Lua 0:00:17:587
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+						Lua 0:00:17:591
+[mod] [CommunityFixPack] StaleReservations: applied
+						Lua 0:00:17:596
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+						Lua 0:00:17:601
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:17:605
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+						Lua 0:00:17:609
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+						Lua 0:00:17:613
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:17:618
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:17:623
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:17:627
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:17:631
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+						Lua 0:00:17:635
+[mod] [CommunityFixPack] SequenceLatents: applied
+						Lua 0:00:17:640
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+						Lua 0:00:17:644
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+						Lua 0:00:17:648
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:17:651
+[mod] [CommunityFixPack] BombardmentSpread: applied
+						Lua 0:00:17:656
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:17:661
+[mod] [CommunityFixPack] SaintBlessing: applied
+						Lua 0:00:17:665
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+						Lua 0:00:17:669
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+						Lua 0:00:17:674
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+						Lua 0:00:17:679
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:17:683
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:17:688
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+						Lua 0:00:17:694
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:17:698
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:17:703
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+						Lua 0:00:17:707
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+						Lua 0:00:17:713
+[mod] [CommunityFixPack] GhostPowerCells: applied
+						Lua 0:00:17:718
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+						Lua 0:00:17:722
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+						Lua 0:00:17:726
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:17:727
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:731
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+						Lua 0:00:17:732
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+						Lua 0:00:17:736
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:17:737
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+[mod] [CommunityOptInPack] StationRows: applied
+[TrainHub] train export floor loaded (standing + transient holds)
+						Lua 0:00:17:738
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] TrainHub: applied
+						Lua 0:00:17:740
+[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:17:741
+[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility
+						Lua 0:00:17:742
+[mod] [CommunityOptInPack] ElevatorDepot: applied
+						Lua 0:00:18:442
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:18:516
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:18:605
+Reloading done in 1490 ms
+						Lua 0:00:18:608
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:18:654
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+						Lua 0:00:19:061
+[preset] Preset postprocess took 177 ms.
+						Lua 0:00:19:123
+482 / 482 particle streams loaded in 55 ms.
+						Lua 0:00:19:125
+5 / 5 particle streams loaded in 2 ms.
+						Lua 0:00:19:126
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+						Lua 0:00:19:127
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:19:376
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:19:468
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=3
+						Lua 0:00:19:503
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=4
+						Lua 0:00:19:532
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack
+						Lua 0:00:19:782
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2						Lua 0:00:19:783
+
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:19:879
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=5
+						Lua 0:00:20:237
+[PdxSDK] Started up. Took 1005
+						Lua 0:00:20:647
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:818
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:01:15:209
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:01:15:217
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:01:18:576
+*** Assets reloaded in 3.4 s, read 359.0 MB, read speed 106.9 MB/s, average read 8137 bytes.
+						Lua 0:01:19:649
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=67138 id=6
+						Lua 0:01:20:566
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=67138 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=67138 id=7
+						Lua 0:01:21:217
+Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000022357546648 [7]
+						Lua 0:01:21:257
+[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present
+[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present
+						Lua 0:01:22:589
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:22:590
+[TrainHub] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:01:22:601
+[TrainHub] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHub] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHub] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:22:602
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:01:22:603
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:01:22:604
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:22:674
+[TrainHub] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHub] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:22:675
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:01:22:676
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:01:22:677
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:01:22:678
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:22:748
+[ElevatorDepot] dressed table: 0000022357419710 env=Surface elevator=true tunnel=false cabin=true ropes=0 scale=75 receiver=false signs=0 cabin_hide_below=-635 palette=2
+						Lua 0:01:22:749
+[ElevatorDepot] dressed table: 00000223613EB7E8 env=Underground elevator=true tunnel=false cabin=true ropes=4 scale=75 receiver=true signs=0 cabin_hide_below=-635 palette=7
+						Lua 0:01:22:844
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: NASA, paradox, Brazil
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:22:996
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=116
+						Lua 0:01:22:997
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:01:22:998
+Game Loaded in 7790 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+[SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+						Lua 0:01:23:008
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=9
+						Lua 0:01:23:020
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=10
+						Lua 0:01:23:026
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:23:141
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:01:23:535
+Game loaded on map BlankBig_01 						Lua 0:01:23:536
+in 8461 ms
+						Lua 0:01:23:845
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Agent t=35790404 id=12
+						Lua 0:04:36:244
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10650) status=OK t=35790404 id=13
+						Lua 0:04:41:188
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=35790404 id=14
+						Lua 0:04:42:350
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=152980 method=CheatFill object=StorageFood(1067) resource=Food resources=1 status=OK valid_after=true t=35790404 id=15
+[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=152980 method=CheatFill object=StorageFood(1067) resource=Food resources=1 status=OK valid_after=true t=35790404 id=15
+						Lua 0:04:43:541
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10650) status=OK t=35790404 id=16
+						Lua 0:04:48:428
+[mod] [SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=74 status=OK t=35790404 id=17
+[SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=74 status=OK t=35790404 id=17
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=18
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=18
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=19
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=19
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=25 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=20
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=25 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=20
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=21
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=21
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=22
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=22
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=120 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=23
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=120 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=23
+						Lua 0:04:48:429
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=24
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=24
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=25
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=25
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=26
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=26
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=27
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=27
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=28
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=28
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=29
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=29
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=30
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=30
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=31
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=31
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=32
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=32
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=33
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=33
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=34
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=34
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=35
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=35
+						Lua 0:04:48:430
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=36
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=36
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=37
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=37
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua:106: attempt to call a nil value (global 'MapGet')" status=ERROR t=35790404 id=38
+[SMRTK] SMRTK_ACTION action=slot_1 reason="Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua:106: attempt to call a nil value (global 'MapGet')" status=ERROR t=35790404 id=38
+						Lua 0:05:01:885
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=35790404 id=39
+						Lua 0:05:07:022
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10650) status=OK t=35790404 id=40
+						Lua 0:05:07:877
+[mod] [SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=98 status=OK t=35790404 id=41
+[SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=98 status=OK t=35790404 id=41
+						Lua 0:05:07:878
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=42
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=42
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=43
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=43
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=25 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=44
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=25 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=44
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=45
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=45
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=46
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=46
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=120 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=47
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=120 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=47
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=48
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=48
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=49
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=49
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=50
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=50
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=51
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=51
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=52
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=52
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=53
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=53
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=54
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=54
+						Lua 0:05:07:879
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=55
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=55
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=56
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=56
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=57
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=57
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=58
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=58
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=59
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=59
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=60
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=60
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=61
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=61
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 reason="Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua:106: attempt to call a nil value (global 'MapGet')" status=ERROR t=35790404 id=62
+[SMRTK] SMRTK_ACTION action=slot_1 reason="Mod/SMR_CommunityFixPackTestKit/Code/80_AgentSlots.lua:106: attempt to call a nil value (global 'MapGet')" status=ERROR t=35790404 id=62
+						Lua 0:07:44:563
+[mod] [SMRTK] SMRTK_MARK action=mark label=WITNESS_ON_34B mark=120 status=OK t=35790404 id=63
+[SMRTK] SMRTK_MARK action=mark label=WITNESS_ON_34B mark=120 status=OK t=35790404 id=63
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=64
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=64
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cap=300 classes=51 mark=120 status=OK witness=on t=35790404 id=65
+[SMRTK] SMRTK_ACTION action=slot_2 cap=300 classes=51 mark=120 status=OK witness=on t=35790404 id=65
+						Lua 0:07:48:720
+[mod] [SMRTK] SMRTK_MARK action=mark label=TRAP_ON_34B mark=123 status=OK t=35790404 id=66
+[SMRTK] SMRTK_MARK action=mark label=TRAP_ON_34B mark=123 status=OK t=35790404 id=66
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=67
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=67
+[mod] [SMRTK] SMRTK_ACTION action=slot_7 cap=60 classes=172 mark=123 note="slot 3's run polls every 500 game ms; press slot 8 to read" status=OK trains=17 trap=on t=35790404 id=68
+[SMRTK] SMRTK_ACTION action=slot_7 cap=60 classes=172 mark=123 note="slot 3's run polls every 500 game ms; press slot 8 to read" status=OK trains=17 trap=on t=35790404 id=68
+						Lua 0:07:58:643
+[mod] [SMRTK] SMRTK_MARK action=mark label=SOL_RUN_34B mark=126 status=OK t=35790404 id=69
+[SMRTK] SMRTK_MARK action=mark label=SOL_RUN_34B mark=126 status=OK t=35790404 id=69
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=70
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=70
+[mod] [SMRTK] SMRTK_ARM action=sol_34b cadence=500 deadline=36510404 once=true status=OK trap=true trigger=sol_34b witness=true t=35790404 id=71
+[SMRTK] SMRTK_ARM action=sol_34b cadence=500 deadline=36510404 once=true status=OK trap=true trigger=sol_34b witness=true t=35790404 id=71
+						Lua 0:07:58:644
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35790404 id=72
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35790404 id=72
+[mod] [SMRTK] SMRTK_ACTION action=slot_3 cadence=500 deadline=36510404 mark=126 once=true status=OK trap=true trigger=sol_34b witness=true t=35790404 id=73
+[SMRTK] SMRTK_ACTION action=slot_3 cadence=500 deadline=36510404 mark=126 once=true status=OK trap=true trigger=sol_34b witness=true t=35790404 id=73
+						Lua 0:07:58:648
+[ElevatorDepot] pair formed: surface 9036 underground 9041 rows Concrete=to_underground,Electronics=to_underground,Food=to_surface,MachineParts=to_underground,Metals=to_underground,Polymers=to_underground,PreciousMetals=to_surface,Sugar=to_surface
+						Lua 0:07:59:290
+[ElevatorDepot] cabin arrived surface (leg 26) delivered Food=1000,PreciousMetals=4000,Sugar=2000 still aboard none
+[ElevatorDepot] cabin departed down (leg 27) loaded Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 aboard Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 arrives in 60 min
+						Lua 0:07:59:914
+[ElevatorDepot] cabin arrived underground (leg 27) delivered Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 still aboard none
+						Lua 0:07:59:915
+[ElevatorDepot] cabin departed up (leg 28) loaded none aboard none arrives in 60 min
+						Lua 0:08:00:547
+[ElevatorDepot] cabin arrived surface (leg 28) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 29) loaded none aboard none arrives in 60 min
+						Lua 0:08:01:135
+[ElevatorDepot] cabin arrived underground (leg 29) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 30) loaded none aboard none arrives in 60 min
+						Lua 0:08:01:714
+[ElevatorDepot] cabin arrived surface (leg 30) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 31) loaded none aboard none arrives in 60 min
+						Lua 0:08:02:314
+[ElevatorDepot] cabin arrived underground (leg 31) delivered none still aboard none
+						Lua 0:08:02:315
+[ElevatorDepot] cabin departed up (leg 32) loaded none aboard none arrives in 60 min
+						Lua 0:08:02:336
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:08:02:337
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:08:02:338
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:02:339
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:02:340
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:08:02:341
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:08:02:342
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:08:02:343
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:08:02:344
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:02:999
+[ElevatorDepot] cabin arrived surface (leg 32) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 33) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:08:03:769
+[ElevatorDepot] cabin arrived underground (leg 33) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 34) loaded none aboard none arrives in 60 min
+						Lua 0:08:04:417
+[ElevatorDepot] cabin arrived surface (leg 34) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 35) loaded none aboard none arrives in 60 min
+						Lua 0:08:05:102
+[ElevatorDepot] cabin arrived underground (leg 35) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 36) loaded none aboard none arrives in 60 min
+						Lua 0:08:05:802
+[ElevatorDepot] cabin arrived surface (leg 36) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 37) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:08:06:198
+[mod] [SMRTK] SMRTK_DISARM action=sol_34b reason=SaveGameStart status=OK trigger=sol_34b t=36136516 id=74
+[SMRTK] SMRTK_DISARM action=sol_34b reason=SaveGameStart status=OK trigger=sol_34b t=36136516 id=74
+						Lua 0:08:07:118
+[ElevatorDepot] cabin arrived underground (leg 37) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 38) loaded none aboard none arrives in 60 min
+						Lua 0:08:07:860
+[ElevatorDepot] cabin arrived surface (leg 38) delivered none still aboard none
+						Lua 0:08:07:861
+[ElevatorDepot] cabin departed down (leg 39) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:08:08:549
+[ElevatorDepot] cabin arrived underground (leg 39) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 40) loaded none aboard none arrives in 60 min
+						Lua 0:08:09:243
+[ElevatorDepot] cabin arrived surface (leg 40) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 41) loaded none aboard none arrives in 60 min
+						Lua 0:08:09:952
+[ElevatorDepot] cabin arrived underground (leg 41) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 42) loaded none aboard none arrives in 60 min
+						Lua 0:08:10:625
+[ElevatorDepot] cabin arrived surface (leg 42) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 43) loaded none aboard none arrives in 60 min
+						Lua 0:08:11:097
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageRareMetals(1060) status=OK t=36320836 id=75
+						Lua 0:08:11:278
+[ElevatorDepot] cabin arrived underground (leg 43) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 44) loaded none aboard none arrives in 60 min
+						Lua 0:08:11:296
+Story bits: Triggered story bit - UndergroundDeepScanning_Water						Lua 0:08:11:828
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=36355396 id=76
+						Lua 0:08:11:919
+[ElevatorDepot] cabin arrived surface (leg 44) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 45) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:08:12:577
+[ElevatorDepot] cabin arrived underground (leg 45) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 46) loaded none aboard none arrives in 60 min
+						Lua 0:08:12:899
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:12:900
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:12:901
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:08:12:902
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:08:12:903
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:12:904
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:08:12:905
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:12:906
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:08:12:907
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:08:12:908
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:08:13:213
+[ElevatorDepot] cabin arrived surface (leg 46) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 47) loaded none aboard none arrives in 60 min
+						Lua 0:08:13:778
+[ElevatorDepot] cabin arrived underground (leg 47) delivered none still aboard none
+						Lua 0:08:13:779
+[ElevatorDepot] cabin departed up (leg 48) loaded none aboard none arrives in 60 min
+						Lua 0:08:14:356
+[ElevatorDepot] cabin arrived surface (leg 48) delivered none still aboard none
+						Lua 0:08:14:357
+[ElevatorDepot] cabin departed down (leg 49) loaded Concrete=52000,Herbs=1000,Metals=14834 aboard Concrete=52000,Herbs=1000,Metals=14834 arrives in 60 min
+						Lua 0:08:14:929
+[ElevatorDepot] cabin arrived underground (leg 49) delivered Concrete=52000,Herbs=1000,Metals=14834 still aboard none
+						Lua 0:08:14:930
+[ElevatorDepot] cabin departed up (leg 50) loaded none aboard none arrives in 60 min
+						Lua 0:08:15:455
+[ElevatorDepot] cabin arrived surface (leg 50) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 51) loaded none aboard none arrives in 60 min
+						Lua 0:08:15:975
+[ElevatorDepot] cabin arrived underground (leg 51) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 52) loaded none aboard none arrives in 60 min
+						Lua 0:08:19:544
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=5000 factor=128000 requested=128 status=OK t=36578986 id=77
+[SMRTK] SMRTK_SPEED action=speed_ultra before=5000 factor=128000 requested=128 status=OK t=36578986 id=77
+						Lua 0:08:19:906
+[ElevatorDepot] cabin arrived surface (leg 52) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 53) loaded none aboard none arrives in 60 min
+						Lua 0:08:20:433
+[ElevatorDepot] cabin arrived underground (leg 53) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 54) loaded none aboard none arrives in 60 min
+						Lua 0:08:20:970
+[ElevatorDepot] cabin arrived surface (leg 54) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 55) loaded Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 aboard Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 arrives in 60 min
+						Lua 0:08:21:530
+[ElevatorDepot] cabin arrived underground (leg 55) delivered Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 56) loaded none aboard none arrives in 60 min
+						Lua 0:08:21:554
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:08:21:555
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:21:556
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:08:21:557
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:21:558
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:08:21:559
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:08:21:560
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:08:21:561
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:08:21:562
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:08:23:287
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=126 lines=166 status=OK truncated=false t=36690602 id=78
+[SMRTK] SMRTK_COPY action=copy flushed=true from=126 lines=166 status=OK truncated=false t=36690602 id=78
+						Lua 0:08:24:302
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageRareMetals(1060) status=OK t=36690602 id=79
+						Lua 0:08:24:623
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=36690602 id=80
+						Lua 0:08:29:068
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=126 lines=169 status=OK truncated=false t=36690602 id=81
+[SMRTK] SMRTK_COPY action=copy flushed=true from=126 lines=169 status=OK truncated=false t=36690602 id=81
+						Lua 0:08:58:443
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=36690602 id=82
+						Lua 0:12:30:008
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=LandingPad(1540) status=OK t=36690602 id=83
+						Lua 0:12:31:459
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=LandingPad(1540) status=OK t=36690602 id=84
+						Lua 0:12:32:358
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInTrainHub6(6430) status=OK t=36690602 id=85						Lua 0:12:32:359
+
+						Lua 0:13:23:050
+[mod] [SMRTK] SMRTK_MARK action=mark label=LEDGERS_READ_34B mark=300 status=OK t=36690602 id=86
+[SMRTK] SMRTK_MARK action=mark label=LEDGERS_READ_34B mark=300 status=OK t=36690602 id=86
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=52 status=OK t=36690602 id=87
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=52 status=OK t=36690602 id=87
+						Lua 0:13:23:051
+[mod] [SMRTK] SMRTK_DUMP amount=4 ledger=witness leg=witness_armed resource=Food sitting=smoke_34b t=36690602 id=88
+[SMRTK] SMRTK_DUMP amount=4 ledger=witness leg=witness_armed resource=Food sitting=smoke_34b t=36690602 id=88
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.400 drone=Drone(2000000302) game_time=35790464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=89
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.400 drone=Drone(2000000302) game_time=35790464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=89
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.400 drone=Drone(2000000331) game_time=35790464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=90
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.400 drone=Drone(2000000331) game_time=35790464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=90
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101.400 drone=Drone(2000000334) game_time=35790990 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=91
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101.400 drone=Drone(2000000334) game_time=35790990 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=91
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=97.400 drone=Drone(2000000297) game_time=35791342 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=92
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=97.400 drone=Drone(2000000297) game_time=35791342 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=92
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=93.400 drone=Drone(2000000333) game_time=35791356 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=93
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=93.400 drone=Drone(2000000333) game_time=35791356 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=93
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=89.400 drone=Drone(2000000303) game_time=35791414 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=94
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=89.400 drone=Drone(2000000303) game_time=35791414 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=94
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=85.400 drone=Drone(2000000332) game_time=35791426 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=95
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=85.400 drone=Drone(2000000332) game_time=35791426 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=95
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=81.400 drone=Drone(2000000299) game_time=35791464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=96
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=81.400 drone=Drone(2000000299) game_time=35791464 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=96
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77.400 drone=Drone(2000000296) game_time=35791495 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=97
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77.400 drone=Drone(2000000296) game_time=35791495 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=97
+						Lua 0:13:23:052
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73.400 drone=Drone(2000003380) game_time=35791569 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=98
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73.400 drone=Drone(2000003380) game_time=35791569 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=98
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69.400 drone=Drone(2000000335) game_time=35791686 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=99
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69.400 drone=Drone(2000000335) game_time=35791686 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=99
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=65.400 drone=Drone(2000003383) game_time=35791717 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=100
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=65.400 drone=Drone(2000003383) game_time=35791717 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=100
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=61.400 drone=Drone(2000000295) game_time=35791820 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=101
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=61.400 drone=Drone(2000000295) game_time=35791820 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=101
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=57.400 drone=Drone(2000000301) game_time=35791877 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=102
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=57.400 drone=Drone(2000000301) game_time=35791877 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=102
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=53.400 drone=Drone(2000003379) game_time=35791917 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=103
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=53.400 drone=Drone(2000003379) game_time=35791917 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=103
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=49.400 drone=Drone(2000003385) game_time=35791934 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=104
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=49.400 drone=Drone(2000003385) game_time=35791934 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=104
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=45.400 drone=Drone(2000003384) game_time=35791936 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=105
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=45.400 drone=Drone(2000003384) game_time=35791936 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=105
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=41.400 drone=Drone(2000003381) game_time=35791958 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=106
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=41.400 drone=Drone(2000003381) game_time=35791958 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=106
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=37.400 drone=Drone(2000000329) game_time=35791988 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=107
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=37.400 drone=Drone(2000000329) game_time=35791988 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=107
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=33.400 drone=Drone(2000000294) game_time=35792020 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=108
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=33.400 drone=Drone(2000000294) game_time=35792020 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=108
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=29.400 drone=Drone(2000003386) game_time=35792028 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=109
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=29.400 drone=Drone(2000003386) game_time=35792028 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=109
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=25.400 drone=Drone(2000000298) game_time=35792111 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=110
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=25.400 drone=Drone(2000000298) game_time=35792111 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=110
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=21.400 drone=Drone(2000003389) game_time=35792148 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=111
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=21.400 drone=Drone(2000003389) game_time=35792148 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=111
+						Lua 0:13:23:053
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=17.400 drone=Drone(2000003388) game_time=35792152 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=112
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=17.400 drone=Drone(2000003388) game_time=35792152 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=112
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=13.400 drone=Drone(2000000328) game_time=35792199 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=113
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=13.400 drone=Drone(2000000328) game_time=35792199 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=180 supply_desired=50 t=36690602 id=113
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=9.400 drone=Drone(2000000330) game_time=35794077 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=148 supply_desired=50 t=36690602 id=114
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=9.400 drone=Drone(2000000330) game_time=35794077 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=148 supply_desired=50 t=36690602 id=114
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=5.400 drone=Drone(2000000823) game_time=35799119 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=80 supply_desired=50 t=36690602 id=115
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=5.400 drone=Drone(2000000823) game_time=35799119 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=80 supply_desired=50 t=36690602 id=115
+[mod] [SMRTK] SMRTK_DUMP amount=1.400 demand=StationSmall(10650) demand_desired=120 demand_target=1.400 drone=Drone(2000000300) game_time=35800510 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=80 supply_desired=50 t=36690602 id=116
+[SMRTK] SMRTK_DUMP amount=1.400 demand=StationSmall(10650) demand_desired=120 demand_target=1.400 drone=Drone(2000000300) game_time=35800510 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=80 supply_desired=50 t=36690602 id=116
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105 drone=Drone(2000003383) game_time=35814782 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=117
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105 drone=Drone(2000003383) game_time=35814782 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=117
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101 drone=Drone(2000003384) game_time=35814921 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=118
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101 drone=Drone(2000003384) game_time=35814921 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=118
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=97 drone=Drone(2000000301) game_time=35814935 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=119
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=97 drone=Drone(2000000301) game_time=35814935 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=119
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=93 drone=Drone(2000003386) game_time=35814941 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=120
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=93 drone=Drone(2000003386) game_time=35814941 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=120
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=89 drone=Drone(2000000335) game_time=35814968 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=121
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=89 drone=Drone(2000000335) game_time=35814968 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=121
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=85 drone=Drone(2000000334) game_time=35814978 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=122
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=85 drone=Drone(2000000334) game_time=35814978 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=122
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=109.400 drone=Drone(2000003382) game_time=35814981 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=123
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=109.400 drone=Drone(2000003382) game_time=35814981 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=123
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=81 drone=Drone(2000003379) game_time=35815080 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=124
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=81 drone=Drone(2000003379) game_time=35815080 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=124
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=105.400 drone=Drone(2000000333) game_time=35815100 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=125
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=105.400 drone=Drone(2000000333) game_time=35815100 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=125
+						Lua 0:13:23:054
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77 drone=Drone(2000003380) game_time=35815115 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=126
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77 drone=Drone(2000003380) game_time=35815115 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=126
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=101.400 drone=Drone(2000003389) game_time=35815149 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=127
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=101.400 drone=Drone(2000003389) game_time=35815149 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=127
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73 drone=Drone(2000000329) game_time=35815242 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=128
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73 drone=Drone(2000000329) game_time=35815242 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=128
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=97.400 drone=Drone(2000003381) game_time=35815349 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=129
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=97.400 drone=Drone(2000003381) game_time=35815349 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=28.800 supply_desired=3 t=36690602 id=129
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69 drone=Drone(2000000332) game_time=35815494 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=130
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69 drone=Drone(2000000332) game_time=35815494 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=130
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=93.400 drone=Drone(2000000330) game_time=35815617 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=20.800 supply_desired=3 t=36690602 id=131
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=93.400 drone=Drone(2000000330) game_time=35815617 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=20.800 supply_desired=3 t=36690602 id=131
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=65 drone=Drone(2000003385) game_time=35815709 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=132
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=65 drone=Drone(2000003385) game_time=35815709 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=132
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=89.400 drone=Drone(2000000808) game_time=35815807 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=133
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=89.400 drone=Drone(2000000808) game_time=35815807 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=133
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=61 drone=Drone(2000000328) game_time=35815843 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=134
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=61 drone=Drone(2000000328) game_time=35815843 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=134
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=85.400 drone=Drone(2000000820) game_time=35816000 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=135
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=85.400 drone=Drone(2000000820) game_time=35816000 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=135
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=57 drone=Drone(2000000294) game_time=35816025 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=136
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=57 drone=Drone(2000000294) game_time=35816025 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=136
+[mod] [SMRTK] SMRTK_DUMP amount=3.475 demand=StorageFood(1067) demand_desired=130 demand_target=81.400 drone=Drone(2000003387) game_time=35816145 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=137
+[SMRTK] SMRTK_DUMP amount=3.475 demand=StorageFood(1067) demand_desired=130 demand_target=81.400 drone=Drone(2000003387) game_time=35816145 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=137
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=53 drone=Drone(2000000295) game_time=35816200 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=138
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=53 drone=Drone(2000000295) game_time=35816200 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=138
+						Lua 0:13:23:055
+[mod] [SMRTK] SMRTK_DUMP amount=1.465 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=9.200 drone=Drone(2000000802) game_time=35816219 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=139
+[SMRTK] SMRTK_DUMP amount=1.465 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=9.200 drone=Drone(2000000802) game_time=35816219 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=139
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=77.925 drone=Drone(2000000821) game_time=35816281 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=140
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=77.925 drone=Drone(2000000821) game_time=35816281 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=140
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=49 drone=Drone(2000000296) game_time=35816333 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=141
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=49 drone=Drone(2000000296) game_time=35816333 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=141
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=45 drone=Drone(2000000298) game_time=35816357 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=142
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=45 drone=Drone(2000000298) game_time=35816357 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=142
+[mod] [SMRTK] SMRTK_DUMP amount=1.835 demand=StationSmall(10650) demand_desired=120 demand_target=41 drone=Drone(2000000336) game_time=35816391 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=143
+[SMRTK] SMRTK_DUMP amount=1.835 demand=StationSmall(10650) demand_desired=120 demand_target=41 drone=Drone(2000000336) game_time=35816391 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=70.600 supply_desired=50 t=36690602 id=143
+[mod] [SMRTK] SMRTK_DUMP amount=1.058 demand=StationSmall(10650) demand_desired=120 demand_target=39.165 drone=Drone(2000003388) game_time=35816408 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=144
+[SMRTK] SMRTK_DUMP amount=1.058 demand=StationSmall(10650) demand_desired=120 demand_target=39.165 drone=Drone(2000003388) game_time=35816408 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=144
+[mod] [SMRTK] SMRTK_DUMP amount=1.058 demand=StationSmall(10650) demand_desired=120 demand_target=39.165 drone=Drone(2000000299) game_time=35816408 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=145
+[SMRTK] SMRTK_DUMP amount=1.058 demand=StationSmall(10650) demand_desired=120 demand_target=39.165 drone=Drone(2000000299) game_time=35816408 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=16.800 supply_desired=3 t=36690602 id=145
+[mod] [SMRTK] SMRTK_DUMP amount=1.436 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=15.210 drone=Drone(2000000819) game_time=35817470 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=146
+[SMRTK] SMRTK_DUMP amount=1.436 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=15.210 drone=Drone(2000000819) game_time=35817470 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=19.420 supply_desired=15 t=36690602 id=146
+[mod] [SMRTK] SMRTK_DUMP amount=3.363 demand=StationSmall(10650) demand_desired=120 demand_target=38.107 drone=Drone(2000003389) game_time=35817909 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=52.765 supply_desired=50 t=36690602 id=147
+[SMRTK] SMRTK_DUMP amount=3.363 demand=StationSmall(10650) demand_desired=120 demand_target=38.107 drone=Drone(2000003389) game_time=35817909 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=52.765 supply_desired=50 t=36690602 id=147
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=34.744 drone=Drone(2000003387) game_time=35819742 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=28.877 supply_desired=50 t=36690602 id=148
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=34.744 drone=Drone(2000003387) game_time=35819742 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=28.877 supply_desired=50 t=36690602 id=148
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=UniversalStorageDepot(6443) demand_desired=0 demand_target=1 drone=FlyingDrone(2000002782) game_time=35824982 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=SMROptInTrainHub6(6430) supply_actual=803 supply_desired=10 t=36690602 id=149
+[SMRTK] SMRTK_DUMP amount=1 demand=UniversalStorageDepot(6443) demand_desired=0 demand_target=1 drone=FlyingDrone(2000002782) game_time=35824982 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=SMROptInTrainHub6(6430) supply_actual=803 supply_desired=10 t=36690602 id=149
+[mod] [SMRTK] SMRTK_DUMP amount=3.729 demand=StorageFood(1067) demand_desired=130 demand_target=147.123 drone=Drone(2000000295) game_time=35831137 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=69.256 supply_desired=120 t=36690602 id=150
+[SMRTK] SMRTK_DUMP amount=3.729 demand=StorageFood(1067) demand_desired=130 demand_target=147.123 drone=Drone(2000000295) game_time=35831137 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=69.256 supply_desired=120 t=36690602 id=150
+[mod] [SMRTK] SMRTK_DUMP amount=3.808 demand=StorageFood(1067) demand_desired=130 demand_target=143.394 drone=Drone(2000000333) game_time=35831160 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=69.527 supply_desired=120 t=36690602 id=151
+[SMRTK] SMRTK_DUMP amount=3.808 demand=StorageFood(1067) demand_desired=130 demand_target=143.394 drone=Drone(2000000333) game_time=35831160 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=69.527 supply_desired=120 t=36690602 id=151
+						Lua 0:13:23:056
+[mod] [SMRTK] SMRTK_DUMP amount=1.485 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=23.841 drone=Drone(2000000801) game_time=35841418 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=26.965 supply_desired=50 t=36690602 id=152
+[SMRTK] SMRTK_DUMP amount=1.485 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=23.841 drone=Drone(2000000801) game_time=35841418 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=26.965 supply_desired=50 t=36690602 id=152
+[mod] [SMRTK] SMRTK_DUMP amount=1.142 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=22.356 drone=Drone(2000000820) game_time=35841499 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=26.965 supply_desired=50 t=36690602 id=153
+[SMRTK] SMRTK_DUMP amount=1.142 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=22.356 drone=Drone(2000000820) game_time=35841499 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=26.965 supply_desired=50 t=36690602 id=153
+[mod] [SMRTK] SMRTK_DUMP amount=1.739 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=21.214 drone=Drone(2000000818) game_time=35842552 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=30.694 supply_desired=50 t=36690602 id=154
+[SMRTK] SMRTK_DUMP amount=1.739 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=21.214 drone=Drone(2000000818) game_time=35842552 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=30.694 supply_desired=50 t=36690602 id=154
+[mod] [SMRTK] SMRTK_DUMP amount=3.038 demand=StorageFood(1067) demand_desired=130 demand_target=142.306 drone=Drone(2000000331) game_time=35844716 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=80.719 supply_desired=120 t=36690602 id=155
+[SMRTK] SMRTK_DUMP amount=3.038 demand=StorageFood(1067) demand_desired=130 demand_target=142.306 drone=Drone(2000000331) game_time=35844716 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=80.719 supply_desired=120 t=36690602 id=155
+[mod] [SMRTK] SMRTK_DUMP amount=2.030 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=19.475 drone=Drone(2000000821) game_time=35845962 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=32.209 supply_desired=50 t=36690602 id=156
+[SMRTK] SMRTK_DUMP amount=2.030 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=19.475 drone=Drone(2000000821) game_time=35845962 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=32.209 supply_desired=50 t=36690602 id=156
+[mod] [SMRTK] SMRTK_DUMP amount=1.217 demand=StorageFood(1067) demand_desired=130 demand_target=142.783 drone=Drone(2000000808) game_time=35849403 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=3.168 supply_desired=3 t=36690602 id=157
+[SMRTK] SMRTK_DUMP amount=1.217 demand=StorageFood(1067) demand_desired=130 demand_target=142.783 drone=Drone(2000000808) game_time=35849403 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=3.168 supply_desired=3 t=36690602 id=157
+[mod] [SMRTK] SMRTK_DUMP amount=2.248 demand=StationSmall(10650) demand_desired=120 demand_target=42.319 drone=Drone(2000003386) game_time=35861751 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=35.553 supply_desired=50 t=36690602 id=158
+[SMRTK] SMRTK_DUMP amount=2.248 demand=StationSmall(10650) demand_desired=120 demand_target=42.319 drone=Drone(2000003386) game_time=35861751 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=35.553 supply_desired=50 t=36690602 id=158
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.840 drone=Drone(2000002703) game_time=35863412 leaves_source_below_desired=true ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StationBig(9702) supply_actual=9.160 supply_desired=10 t=36690602 id=159
+[SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.840 drone=Drone(2000002703) game_time=35863412 leaves_source_below_desired=true ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StationBig(9702) supply_actual=9.160 supply_desired=10 t=36690602 id=159
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.359 drone=Drone(2000002695) game_time=35863426 leaves_source_below_desired=true ledger=witness leg=pairing resource=Bread sitting=smoke_34b supply=StationBig(9702) supply_actual=9.641 supply_desired=10 t=36690602 id=160
+[SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.359 drone=Drone(2000002695) game_time=35863426 leaves_source_below_desired=true ledger=witness leg=pairing resource=Bread sitting=smoke_34b supply=StationBig(9702) supply_actual=9.641 supply_desired=10 t=36690602 id=160
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=108.071 drone=Drone(2000000301) game_time=35869196 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=161
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=108.071 drone=Drone(2000000301) game_time=35869196 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=161
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=104.071 drone=Drone(2000003382) game_time=35869197 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=162
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=104.071 drone=Drone(2000003382) game_time=35869197 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=162
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=100.071 drone=Drone(2000000329) game_time=35869217 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=163
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=100.071 drone=Drone(2000000329) game_time=35869217 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=163
+[mod] [SMRTK] SMRTK_DUMP amount=2.525 demand=StorageFood(1067) demand_desired=130 demand_target=146.695 drone=Drone(2000000808) game_time=35869267 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=9.674 supply_desired=15 t=36690602 id=164
+[SMRTK] SMRTK_DUMP amount=2.525 demand=StorageFood(1067) demand_desired=130 demand_target=146.695 drone=Drone(2000000808) game_time=35869267 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=9.674 supply_desired=15 t=36690602 id=164
+						Lua 0:13:23:057
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=96.071 drone=Drone(2000003383) game_time=35869327 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=165
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=96.071 drone=Drone(2000003383) game_time=35869327 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=165
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=92.071 drone=Drone(2000003385) game_time=35869353 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=166
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=92.071 drone=Drone(2000003385) game_time=35869353 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=166
+[mod] [SMRTK] SMRTK_DUMP amount=1.087 demand=StorageFood(1067) demand_desired=130 demand_target=144.170 drone=Drone(2000000295) game_time=35869429 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=1.951 supply_desired=3 t=36690602 id=167
+[SMRTK] SMRTK_DUMP amount=1.087 demand=StorageFood(1067) demand_desired=130 demand_target=144.170 drone=Drone(2000000295) game_time=35869429 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=1.951 supply_desired=3 t=36690602 id=167
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=88.071 drone=Drone(2000000335) game_time=35869444 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=168
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=88.071 drone=Drone(2000000335) game_time=35869444 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=33.305 supply_desired=50 t=36690602 id=168
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=143.083 drone=Drone(2000000821) game_time=35870424 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=10.816 supply_desired=15 t=36690602 id=169
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=143.083 drone=Drone(2000000821) game_time=35870424 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=10.816 supply_desired=15 t=36690602 id=169
+[mod] [SMRTK] SMRTK_DUMP amount=2.491 demand=StorageFood(1067) demand_desired=130 demand_target=139.083 drone=Drone(2000000801) game_time=35870458 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=12.555 supply_desired=15 t=36690602 id=170
+[SMRTK] SMRTK_DUMP amount=2.491 demand=StorageFood(1067) demand_desired=130 demand_target=139.083 drone=Drone(2000000801) game_time=35870458 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=12.555 supply_desired=15 t=36690602 id=170
+[mod] [SMRTK] SMRTK_DUMP amount=3.720 demand=StationSmall(10650) demand_desired=120 demand_target=84.071 drone=Drone(2000003384) game_time=35870510 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=29.305 supply_desired=50 t=36690602 id=171
+[SMRTK] SMRTK_DUMP amount=3.720 demand=StationSmall(10650) demand_desired=120 demand_target=84.071 drone=Drone(2000003384) game_time=35870510 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=29.305 supply_desired=50 t=36690602 id=171
+						Lua 0:13:23:058
+[mod] [SMRTK] SMRTK_DUMP amount=1.151 demand=StorageFood(1067) demand_desired=130 demand_target=164.312 drone=Drone(2000000334) game_time=35882537 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=19.929 supply_desired=120 t=36690602 id=172
+[SMRTK] SMRTK_DUMP amount=1.151 demand=StorageFood(1067) demand_desired=130 demand_target=164.312 drone=Drone(2000000334) game_time=35882537 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=19.929 supply_desired=120 t=36690602 id=172
+[mod] [SMRTK] SMRTK_DUMP amount=1.163 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=26.461 drone=Drone(2000000808) game_time=35901949 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=16.839 supply_desired=50 t=36690602 id=173
+[SMRTK] SMRTK_DUMP amount=1.163 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=26.461 drone=Drone(2000000808) game_time=35901949 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=16.839 supply_desired=50 t=36690602 id=173
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=110 demand_target=109.900 drone=Drone(2000000330) game_time=35910737 leaves_source_below_desired=false ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StorageHerbs(1581) supply_actual=45.500 supply_desired=3 t=36690602 id=174
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=110 demand_target=109.900 drone=Drone(2000000330) game_time=35910737 leaves_source_below_desired=false ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StorageHerbs(1581) supply_actual=45.500 supply_desired=3 t=36690602 id=174
+[mod] [SMRTK] SMRTK_DUMP amount=1.019 demand=StorageFood(1067) demand_desired=130 demand_target=164.324 drone=Drone(2000000301) game_time=35969542 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=38.498 supply_desired=120 t=36690602 id=175
+[SMRTK] SMRTK_DUMP amount=1.019 demand=StorageFood(1067) demand_desired=130 demand_target=164.324 drone=Drone(2000000301) game_time=35969542 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=38.498 supply_desired=120 t=36690602 id=175
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=StorageSugar(10853) demand_desired=160 demand_target=178.350 drone=Drone(2000002852) game_time=36054403 leaves_source_below_desired=true ledger=witness leg=pairing resource=Sugar sitting=smoke_34b supply=StationSmall(10531) supply_actual=2.275 supply_desired=10 t=36690602 id=176
+[SMRTK] SMRTK_DUMP amount=1 demand=StorageSugar(10853) demand_desired=160 demand_target=178.350 drone=Drone(2000002852) game_time=36054403 leaves_source_below_desired=true ledger=witness leg=pairing resource=Sugar sitting=smoke_34b supply=StationSmall(10531) supply_actual=2.275 supply_desired=10 t=36690602 id=176
+[mod] [SMRTK] SMRTK_DUMP amount=1.034 demand=StorageSpices(1582) demand_desired=175 demand_target=176.934 drone=Drone(2000003388) game_time=36073730 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.234 supply_desired=10 t=36690602 id=177
+[SMRTK] SMRTK_DUMP amount=1.034 demand=StorageSpices(1582) demand_desired=175 demand_target=176.934 drone=Drone(2000003388) game_time=36073730 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.234 supply_desired=10 t=36690602 id=177
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.521 drone=Drone(2000003389) game_time=36073738 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=178
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.521 drone=Drone(2000003389) game_time=36073738 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=178
+						Lua 0:13:23:059
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105.521 drone=Drone(2000000302) game_time=36073801 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=179
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105.521 drone=Drone(2000000302) game_time=36073801 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=179
+[mod] [SMRTK] SMRTK_DUMP amount=1.859 demand=StorageFood(1067) demand_desired=130 demand_target=164.385 drone=Drone(2000000807) game_time=36073927 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.702 supply_desired=15 t=36690602 id=180
+[SMRTK] SMRTK_DUMP amount=1.859 demand=StorageFood(1067) demand_desired=130 demand_target=164.385 drone=Drone(2000000807) game_time=36073927 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.702 supply_desired=15 t=36690602 id=180
+[mod] [SMRTK] SMRTK_DUMP amount=2.293 demand=StationSmall(10650) demand_desired=120 demand_target=101.521 drone=Drone(2000000335) game_time=36074046 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=181
+[SMRTK] SMRTK_DUMP amount=2.293 demand=StationSmall(10650) demand_desired=120 demand_target=101.521 drone=Drone(2000000335) game_time=36074046 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.615 supply_desired=50 t=36690602 id=181
+[mod] [SMRTK] SMRTK_DUMP amount=2.440 demand=StorageFood(1067) demand_desired=130 demand_target=172.819 drone=Drone(2000000298) game_time=36086908 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=18.479 supply_desired=120 t=36690602 id=182
+[SMRTK] SMRTK_DUMP amount=2.440 demand=StorageFood(1067) demand_desired=130 demand_target=172.819 drone=Drone(2000000298) game_time=36086908 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=18.479 supply_desired=120 t=36690602 id=182
+[mod] [SMRTK] SMRTK_DUMP amount=1.208 demand=StorageFood(1067) demand_desired=130 demand_target=170.379 drone=Drone(2000000803) game_time=36086996 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=2.843 supply_desired=15 t=36690602 id=183
+[SMRTK] SMRTK_DUMP amount=1.208 demand=StorageFood(1067) demand_desired=130 demand_target=170.379 drone=Drone(2000000803) game_time=36086996 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=2.843 supply_desired=15 t=36690602 id=183
+[mod] [SMRTK] SMRTK_DUMP amount=2.318 demand=StationSmall(10650) demand_desired=120 demand_target=109.668 drone=Drone(2000003381) game_time=36132647 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=7.589 supply_desired=50 t=36690602 id=184
+[SMRTK] SMRTK_DUMP amount=2.318 demand=StationSmall(10650) demand_desired=120 demand_target=109.668 drone=Drone(2000003381) game_time=36132647 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=7.589 supply_desired=50 t=36690602 id=184
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=107.350 drone=Drone(2000000330) game_time=36148188 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=4.964 supply_desired=3 t=36690602 id=185
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=107.350 drone=Drone(2000000330) game_time=36148188 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=4.964 supply_desired=3 t=36690602 id=185
+[mod] [SMRTK] SMRTK_DUMP amount=1.176 demand=StorageFood(1067) demand_desired=130 demand_target=174.729 drone=Drone(2000000333) game_time=36159546 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=16.650 supply_desired=120 t=36690602 id=186
+[SMRTK] SMRTK_DUMP amount=1.176 demand=StorageFood(1067) demand_desired=130 demand_target=174.729 drone=Drone(2000000333) game_time=36159546 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=16.650 supply_desired=120 t=36690602 id=186
+[mod] [SMRTK] SMRTK_DUMP amount=1.060 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=28.365 drone=Drone(2000000818) game_time=36181511 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=6.447 supply_desired=50 t=36690602 id=187
+[SMRTK] SMRTK_DUMP amount=1.060 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=28.365 drone=Drone(2000000818) game_time=36181511 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=6.447 supply_desired=50 t=36690602 id=187
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=StorageSpices(1582) demand_desired=175 demand_target=177.300 drone=Drone(2000003382) game_time=36202201 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.200 supply_desired=10 t=36690602 id=188
+[SMRTK] SMRTK_DUMP amount=1 demand=StorageSpices(1582) demand_desired=175 demand_target=177.300 drone=Drone(2000003382) game_time=36202201 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.200 supply_desired=10 t=36690602 id=188
+[mod] [SMRTK] SMRTK_DUMP amount=1.033 demand=StorageSpices(1582) demand_desired=175 demand_target=176.800 drone=Drone(2000000332) game_time=36334263 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.100 supply_desired=10 t=36690602 id=189
+[SMRTK] SMRTK_DUMP amount=1.033 demand=StorageSpices(1582) demand_desired=175 demand_target=176.800 drone=Drone(2000000332) game_time=36334263 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.100 supply_desired=10 t=36690602 id=189
+						Lua 0:13:23:060
+[mod] [SMRTK] SMRTK_DUMP amount=1.541 demand=StorageFood(1067) demand_desired=130 demand_target=176.773 drone=Drone(2000003381) game_time=36371001 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=10.394 supply_desired=120 t=36690602 id=190
+[SMRTK] SMRTK_DUMP amount=1.541 demand=StorageFood(1067) demand_desired=130 demand_target=176.773 drone=Drone(2000003381) game_time=36371001 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=10.394 supply_desired=120 t=36690602 id=190
+[mod] [SMRTK] SMRTK_DUMP amount=1.088 demand=StorageFood(1067) demand_desired=130 demand_target=175.232 drone=Drone(2000000301) game_time=36371087 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=10.394 supply_desired=120 t=36690602 id=191
+[SMRTK] SMRTK_DUMP amount=1.088 demand=StorageFood(1067) demand_desired=130 demand_target=175.232 drone=Drone(2000000301) game_time=36371087 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=10.394 supply_desired=120 t=36690602 id=191
+[mod] [SMRTK] SMRTK_DUMP amount=1.087 demand=StationSmall(10650) demand_desired=120 demand_target=112.235 drone=Drone(2000000332) game_time=36386439 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=4.776 supply_desired=50 t=36690602 id=192
+[SMRTK] SMRTK_DUMP amount=1.087 demand=StationSmall(10650) demand_desired=120 demand_target=112.235 drone=Drone(2000000332) game_time=36386439 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=4.776 supply_desired=50 t=36690602 id=192
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=110 demand_target=110 drone=Drone(2000000296) game_time=36404800 leaves_source_below_desired=false ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StorageHerbs(1581) supply_actual=51.900 supply_desired=3 t=36690602 id=193
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=110 demand_target=110 drone=Drone(2000000296) game_time=36404800 leaves_source_below_desired=false ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StorageHerbs(1581) supply_actual=51.900 supply_desired=3 t=36690602 id=193
+[mod] [SMRTK] SMRTK_DUMP amount=1.100 demand=StorageSpices(1582) demand_desired=175 demand_target=176.867 drone=Drone(2000003383) game_time=36500760 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.567 supply_desired=10 t=36690602 id=194
+[SMRTK] SMRTK_DUMP amount=1.100 demand=StorageSpices(1582) demand_desired=175 demand_target=176.867 drone=Drone(2000003383) game_time=36500760 leaves_source_below_desired=true ledger=witness leg=pairing resource=Spices sitting=smoke_34b supply=StationSmall(10650) supply_actual=9.567 supply_desired=10 t=36690602 id=194
+[mod] [SMRTK] SMRTK_DUMP amount=2.427 demand=StorageFood(1067) demand_desired=130 demand_target=177.391 drone=Drone(2000003382) game_time=36542306 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.852 supply_desired=120 t=36690602 id=195
+[SMRTK] SMRTK_DUMP amount=2.427 demand=StorageFood(1067) demand_desired=130 demand_target=177.391 drone=Drone(2000003382) game_time=36542306 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.852 supply_desired=120 t=36690602 id=195
+[mod] [SMRTK] SMRTK_DUMP amount=1.713 demand=StorageFood(1067) demand_desired=130 demand_target=174.964 drone=Drone(2000003383) game_time=36542395 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.852 supply_desired=120 t=36690602 id=196
+[SMRTK] SMRTK_DUMP amount=1.713 demand=StorageFood(1067) demand_desired=130 demand_target=174.964 drone=Drone(2000003383) game_time=36542395 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=8.852 supply_desired=120 t=36690602 id=196
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=UniversalStorageDepot(6443) demand_desired=0 demand_target=1 drone=FlyingDrone(2000002782) game_time=36544789 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=SMROptInTrainHub6(6430) supply_actual=987 supply_desired=10 t=36690602 id=197
+[SMRTK] SMRTK_DUMP amount=1 demand=UniversalStorageDepot(6443) demand_desired=0 demand_target=1 drone=FlyingDrone(2000002782) game_time=36544789 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=SMROptInTrainHub6(6430) supply_actual=987 supply_desired=10 t=36690602 id=197
+[mod] [SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.840 drone=Drone(2000002695) game_time=36545509 leaves_source_below_desired=true ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StationBig(9702) supply_actual=9.160 supply_desired=10 t=36690602 id=198
+[SMRTK] SMRTK_DUMP amount=1 demand=Elevator(7829) demand_desired=40 demand_target=42.840 drone=Drone(2000002695) game_time=36545509 leaves_source_below_desired=true ledger=witness leg=pairing resource=Herbs sitting=smoke_34b supply=StationBig(9702) supply_actual=9.160 supply_desired=10 t=36690602 id=198
+[mod] [SMRTK] SMRTK_DUMP amount=1.012 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=30 drone=Drone(2000000817) game_time=36563413 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=4.389 supply_desired=50 t=36690602 id=199
+[SMRTK] SMRTK_DUMP amount=1.012 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=30 drone=Drone(2000000817) game_time=36563413 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=4.389 supply_desired=50 t=36690602 id=199
+						Lua 0:13:23:061
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=107.288 drone=Drone(2000003388) game_time=36597306 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.377 supply_desired=50 t=36690602 id=200
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=107.288 drone=Drone(2000003388) game_time=36597306 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.377 supply_desired=50 t=36690602 id=200
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=103.288 drone=Drone(2000000299) game_time=36597753 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=201
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=103.288 drone=Drone(2000000299) game_time=36597753 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=201
+[mod] [SMRTK] SMRTK_DUMP amount=3.821 demand=StationSmall(10650) demand_desired=120 demand_target=99.288 drone=Drone(2000000294) game_time=36597948 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=202
+[SMRTK] SMRTK_DUMP amount=3.821 demand=StationSmall(10650) demand_desired=120 demand_target=99.288 drone=Drone(2000000294) game_time=36597948 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=202
+[mod] [SMRTK] SMRTK_DUMP amount=1.124 demand=StationSmall(10650) demand_desired=120 demand_target=95.467 drone=Drone(2000000328) game_time=36597992 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=203
+[SMRTK] SMRTK_DUMP amount=1.124 demand=StationSmall(10650) demand_desired=120 demand_target=95.467 drone=Drone(2000000328) game_time=36597992 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.377 supply_desired=50 t=36690602 id=203
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=94.343 drone=Drone(2000000332) game_time=36599361 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=21.377 supply_desired=50 t=36690602 id=204
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=94.343 drone=Drone(2000000332) game_time=36599361 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=21.377 supply_desired=50 t=36690602 id=204
+[mod] [SMRTK] SMRTK_DUMP amount=1.742 demand=StationSmall(10650) demand_desired=120 demand_target=90.343 drone=Drone(2000000302) game_time=36599456 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.377 supply_desired=50 t=36690602 id=205
+[SMRTK] SMRTK_DUMP amount=1.742 demand=StationSmall(10650) demand_desired=120 demand_target=90.343 drone=Drone(2000000302) game_time=36599456 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.377 supply_desired=50 t=36690602 id=205
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=88.601 drone=Drone(2000000301) game_time=36600524 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=21.877 supply_desired=50 t=36690602 id=206
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=88.601 drone=Drone(2000000301) game_time=36600524 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=21.877 supply_desired=50 t=36690602 id=206
+[mod] [SMRTK] SMRTK_DUMP amount=3.689 demand=StationSmall(10650) demand_desired=120 demand_target=84.601 drone=Drone(2000003389) game_time=36600609 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.877 supply_desired=50 t=36690602 id=207
+[SMRTK] SMRTK_DUMP amount=3.689 demand=StationSmall(10650) demand_desired=120 demand_target=84.601 drone=Drone(2000003389) game_time=36600609 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.877 supply_desired=50 t=36690602 id=207
+[mod] [SMRTK] SMRTK_DUMP amount=3.203 demand=StationSmall(10650) demand_desired=120 demand_target=80.912 drone=Drone(2000000300) game_time=36600704 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=20.877 supply_desired=50 t=36690602 id=208
+[SMRTK] SMRTK_DUMP amount=3.203 demand=StationSmall(10650) demand_desired=120 demand_target=80.912 drone=Drone(2000000300) game_time=36600704 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=20.877 supply_desired=50 t=36690602 id=208
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77.709 drone=Drone(2000003383) game_time=36601976 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=27.932 supply_desired=50 t=36690602 id=209
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=77.709 drone=Drone(2000003383) game_time=36601976 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=27.932 supply_desired=50 t=36690602 id=209
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73.709 drone=Drone(2000000303) game_time=36602018 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=31.932 supply_desired=50 t=36690602 id=210
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=73.709 drone=Drone(2000000303) game_time=36602018 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=31.932 supply_desired=50 t=36690602 id=210
+[mod] [SMRTK] SMRTK_DUMP amount=3.703 demand=StorageFood(1067) demand_desired=130 demand_target=162.702 drone=Drone(2000000820) game_time=36605179 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=4.964 supply_desired=3 t=36690602 id=211
+[SMRTK] SMRTK_DUMP amount=3.703 demand=StorageFood(1067) demand_desired=130 demand_target=162.702 drone=Drone(2000000820) game_time=36605179 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=4.964 supply_desired=3 t=36690602 id=211
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69.709 drone=Drone(2000003379) game_time=36605453 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.298 supply_desired=50 t=36690602 id=212
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=69.709 drone=Drone(2000003379) game_time=36605453 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=17.298 supply_desired=50 t=36690602 id=212
+[mod] [SMRTK] SMRTK_DUMP amount=1.848 demand=StorageFood(1067) demand_desired=130 demand_target=162.999 drone=Drone(2000000332) game_time=36615203 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=47.088 supply_desired=120 t=36690602 id=213
+[SMRTK] SMRTK_DUMP amount=1.848 demand=StorageFood(1067) demand_desired=130 demand_target=162.999 drone=Drone(2000000332) game_time=36615203 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=47.088 supply_desired=120 t=36690602 id=213
+[mod] [SMRTK] SMRTK_DUMP amount=1.305 demand=StorageFood(1067) demand_desired=130 demand_target=161.151 drone=Drone(2000003389) game_time=36615256 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=47.088 supply_desired=120 t=36690602 id=214
+[SMRTK] SMRTK_DUMP amount=1.305 demand=StorageFood(1067) demand_desired=130 demand_target=161.151 drone=Drone(2000003389) game_time=36615256 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=47.088 supply_desired=120 t=36690602 id=214
+[mod] [SMRTK] SMRTK_DUMP amount=1.534 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=28.739 drone=Drone(2000000821) game_time=36617432 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=215
+[SMRTK] SMRTK_DUMP amount=1.534 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=28.739 drone=Drone(2000000821) game_time=36617432 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=215
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=159.846 drone=Drone(2000000808) game_time=36617440 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=216
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=159.846 drone=Drone(2000000808) game_time=36617440 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=216
+[mod] [SMRTK] SMRTK_DUMP amount=3.752 demand=StorageFood(1067) demand_desired=130 demand_target=155.846 drone=Drone(2000000820) game_time=36617883 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=217
+[SMRTK] SMRTK_DUMP amount=3.752 demand=StorageFood(1067) demand_desired=130 demand_target=155.846 drone=Drone(2000000820) game_time=36617883 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=15.512 supply_desired=15 t=36690602 id=217
+						Lua 0:13:23:062
+[mod] [SMRTK] SMRTK_DUMP amount=1.320 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=27.205 drone=Drone(2000000807) game_time=36618996 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=23.512 supply_desired=15 t=36690602 id=218
+[SMRTK] SMRTK_DUMP amount=1.320 demand=UniversalStorageDepot(1057) demand_desired=27 demand_target=27.205 drone=Drone(2000000807) game_time=36618996 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=23.512 supply_desired=15 t=36690602 id=218
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=152.094 drone=Drone(2000000818) game_time=36619950 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=23.512 supply_desired=15 t=36690602 id=219
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=152.094 drone=Drone(2000000818) game_time=36619950 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=23.512 supply_desired=15 t=36690602 id=219
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.862 drone=Drone(2000003381) game_time=36626186 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=220
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=109.862 drone=Drone(2000003381) game_time=36626186 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=220
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105.862 drone=Drone(2000000334) game_time=36626216 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=221
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=105.862 drone=Drone(2000000334) game_time=36626216 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=221
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101.862 drone=Drone(2000000302) game_time=36626221 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=222
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=101.862 drone=Drone(2000000302) game_time=36626221 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=222
+[mod] [SMRTK] SMRTK_DUMP amount=1.469 demand=StationSmall(10650) demand_desired=120 demand_target=97.862 drone=Drone(2000003386) game_time=36626249 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=223
+[SMRTK] SMRTK_DUMP amount=1.469 demand=StationSmall(10650) demand_desired=120 demand_target=97.862 drone=Drone(2000003386) game_time=36626249 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=18.306 supply_desired=50 t=36690602 id=223
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=153.563 drone=Drone(2000000802) game_time=36628141 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=21.978 supply_desired=15 t=36690602 id=224
+[SMRTK] SMRTK_DUMP amount=4 demand=StorageFood(1067) demand_desired=130 demand_target=153.563 drone=Drone(2000000802) game_time=36628141 leaves_source_below_desired=false ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=21.978 supply_desired=15 t=36690602 id=224
+[mod] [SMRTK] SMRTK_DUMP amount=1.737 demand=StationSmall(10650) demand_desired=120 demand_target=96.393 drone=Drone(2000003389) game_time=36632002 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=6.685 supply_desired=50 t=36690602 id=225
+[SMRTK] SMRTK_DUMP amount=1.737 demand=StationSmall(10650) demand_desired=120 demand_target=96.393 drone=Drone(2000003389) game_time=36632002 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=6.685 supply_desired=50 t=36690602 id=225
+[mod] [SMRTK] SMRTK_DUMP amount=1.511 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=25.094 drone=Drone(2000000821) game_time=36647895 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=2.795 supply_desired=3 t=36690602 id=226
+[SMRTK] SMRTK_DUMP amount=1.511 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=25.094 drone=Drone(2000000821) game_time=36647895 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=2.795 supply_desired=3 t=36690602 id=226
+[mod] [SMRTK] SMRTK_DUMP amount=1.708 demand=StorageFood(1067) demand_desired=130 demand_target=159.300 drone=Drone(2000000808) game_time=36647927 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.906 supply_desired=15 t=36690602 id=227
+[SMRTK] SMRTK_DUMP amount=1.708 demand=StorageFood(1067) demand_desired=130 demand_target=159.300 drone=Drone(2000000808) game_time=36647927 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.906 supply_desired=15 t=36690602 id=227
+[mod] [SMRTK] SMRTK_DUMP amount=1.685 demand=StationSmall(10650) demand_desired=120 demand_target=94.656 drone=Drone(2000000298) game_time=36650194 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=12.948 supply_desired=50 t=36690602 id=228
+[SMRTK] SMRTK_DUMP amount=1.685 demand=StationSmall(10650) demand_desired=120 demand_target=94.656 drone=Drone(2000000298) game_time=36650194 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=12.948 supply_desired=50 t=36690602 id=228
+[mod] [SMRTK] SMRTK_DUMP amount=1.606 demand=StorageFood(1067) demand_desired=130 demand_target=157.592 drone=Drone(2000003384) game_time=36651294 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=2.604 supply_desired=3 t=36690602 id=229
+[SMRTK] SMRTK_DUMP amount=1.606 demand=StorageFood(1067) demand_desired=130 demand_target=157.592 drone=Drone(2000003384) game_time=36651294 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1057) supply_actual=2.604 supply_desired=3 t=36690602 id=229
+[mod] [SMRTK] SMRTK_DUMP amount=3.144 demand=StationSmall(10650) demand_desired=120 demand_target=92.971 drone=Drone(2000000303) game_time=36651305 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=16.700 supply_desired=50 t=36690602 id=230
+[SMRTK] SMRTK_DUMP amount=3.144 demand=StationSmall(10650) demand_desired=120 demand_target=92.971 drone=Drone(2000000303) game_time=36651305 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=16.700 supply_desired=50 t=36690602 id=230
+[mod] [SMRTK] SMRTK_DUMP amount=2.059 demand=StationSmall(10650) demand_desired=120 demand_target=89.827 drone=Drone(2000000332) game_time=36655562 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=13.477 supply_desired=50 t=36690602 id=231
+[SMRTK] SMRTK_DUMP amount=2.059 demand=StationSmall(10650) demand_desired=120 demand_target=89.827 drone=Drone(2000000332) game_time=36655562 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=13.477 supply_desired=50 t=36690602 id=231
+						Lua 0:13:23:063
+[mod] [SMRTK] SMRTK_DUMP amount=1.098 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=23.583 drone=Drone(2000000818) game_time=36657304 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.418 supply_desired=50 t=36690602 id=232
+[SMRTK] SMRTK_DUMP amount=1.098 demand=UniversalStorageDepot(1661) demand_desired=15 demand_target=23.583 drone=Drone(2000000818) game_time=36657304 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.418 supply_desired=50 t=36690602 id=232
+[mod] [SMRTK] SMRTK_DUMP amount=2.654 demand=StationSmall(10650) demand_desired=120 demand_target=87.768 drone=Drone(2000000329) game_time=36657721 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.418 supply_desired=50 t=36690602 id=233
+[SMRTK] SMRTK_DUMP amount=2.654 demand=StationSmall(10650) demand_desired=120 demand_target=87.768 drone=Drone(2000000329) game_time=36657721 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=15.418 supply_desired=50 t=36690602 id=233
+[mod] [SMRTK] SMRTK_DUMP amount=1.245 demand=StorageFood(1067) demand_desired=130 demand_target=166.626 drone=Drone(2000003383) game_time=36667480 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=32.232 supply_desired=120 t=36690602 id=234
+[SMRTK] SMRTK_DUMP amount=1.245 demand=StorageFood(1067) demand_desired=130 demand_target=166.626 drone=Drone(2000003383) game_time=36667480 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StationSmall(10650) supply_actual=32.232 supply_desired=120 t=36690602 id=234
+[mod] [SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=106.114 drone=Drone(2000000329) game_time=36670669 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.666 supply_desired=50 t=36690602 id=235
+[SMRTK] SMRTK_DUMP amount=4 demand=StationSmall(10650) demand_desired=120 demand_target=106.114 drone=Drone(2000000329) game_time=36670669 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.666 supply_desired=50 t=36690602 id=235
+[mod] [SMRTK] SMRTK_DUMP amount=1.693 demand=StationSmall(10650) demand_desired=120 demand_target=102.114 drone=Drone(2000000335) game_time=36670748 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.666 supply_desired=50 t=36690602 id=236
+[SMRTK] SMRTK_DUMP amount=1.693 demand=StationSmall(10650) demand_desired=120 demand_target=102.114 drone=Drone(2000000335) game_time=36670748 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=11.666 supply_desired=50 t=36690602 id=236
+[mod] [SMRTK] SMRTK_DUMP amount=2.243 demand=StorageFood(1067) demand_desired=130 demand_target=165.381 drone=Drone(2000000807) game_time=36671795 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.709 supply_desired=15 t=36690602 id=237
+[SMRTK] SMRTK_DUMP amount=2.243 demand=StorageFood(1067) demand_desired=130 demand_target=165.381 drone=Drone(2000000807) game_time=36671795 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=4.709 supply_desired=15 t=36690602 id=237
+[mod] [SMRTK] SMRTK_DUMP amount=1.377 demand=StationSmall(10650) demand_desired=120 demand_target=101.666 drone=Drone(2000000295) game_time=36681230 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=7.218 supply_desired=50 t=36690602 id=238
+[SMRTK] SMRTK_DUMP amount=1.377 demand=StationSmall(10650) demand_desired=120 demand_target=101.666 drone=Drone(2000000295) game_time=36681230 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=StorageFood(1067) supply_actual=7.218 supply_desired=50 t=36690602 id=238
+[mod] [SMRTK] SMRTK_DUMP amount=1.248 demand=StorageFood(1067) demand_desired=130 demand_target=170.208 drone=Drone(2000000821) game_time=36684210 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=3.564 supply_desired=15 t=36690602 id=239
+[SMRTK] SMRTK_DUMP amount=1.248 demand=StorageFood(1067) demand_desired=130 demand_target=170.208 drone=Drone(2000000821) game_time=36684210 leaves_source_below_desired=true ledger=witness leg=pairing resource=Food sitting=smoke_34b supply=UniversalStorageDepot(1661) supply_actual=3.564 supply_desired=15 t=36690602 id=239
+[mod] [SMRTK] SMRTK_DUMP after=101 at_station=false attributed=0 before=105 command=GotoStation delta=-4 game_time=35820404 ledger=trap leg=unattributed_change resource=Food sitting=smoke_34b station=StationSmall(10650) train=Train(2000001850) t=36690602 id=240
+[SMRTK] SMRTK_DUMP after=101 at_station=false attributed=0 before=105 command=GotoStation delta=-4 game_time=35820404 ledger=trap leg=unattributed_change resource=Food sitting=smoke_34b station=StationSmall(10650) train=Train(2000001850) t=36690602 id=240
+[mod] [SMRTK] SMRTK_DUMP after=16 at_station=true attributed=0 before=17 command=LoadTrain delta=-1 game_time=35820404 ledger=trap leg=unattributed_change resource=Sugar sitting=smoke_34b station=StationBig(7873) train=Train(2000002659) t=36690602 id=241
+[SMRTK] SMRTK_DUMP after=16 at_station=true attributed=0 before=17 command=LoadTrain delta=-1 game_time=35820404 ledger=trap leg=unattributed_change resource=Sugar sitting=smoke_34b station=StationBig(7873) train=Train(2000002659) t=36690602 id=241
+[mod] [SMRTK] SMRTK_DUMP after=12 at_station=true attributed=0 before=13 command=LoadTrain delta=-1 game_time=35820404 ledger=trap leg=unattributed_change resource=Food sitting=smoke_34b station=StationBig(7873) train=Train(2000002659) t=36690602 id=242
+[SMRTK] SMRTK_DUMP after=12 at_station=true attributed=0 before=13 command=LoadTrain delta=-1 game_time=35820404 ledger=trap leg=unattributed_change resource=Food sitting=smoke_34b station=StationBig(7873) train=Train(2000002659) t=36690602 id=242
+[mod] [SMRTK] SMRTK_ACTION action=slot_8 below_floor_pairings=86 bracketed_writes=293 food_storage_pairings=151 mark=300 pairings=931 polls=693 status=OK trap=true trap_records=3 unattributed_changes=3 unbracketed_writes=0 witness=true witness_records=152 t=36690602 id=243
+[SMRTK] SMRTK_ACTION action=slot_8 below_floor_pairings=86 bracketed_writes=293 food_storage_pairings=151 mark=300 pairings=931 polls=693 status=OK trap=true trap_records=3 unattributed_changes=3 unbracketed_writes=0 witness=true witness_records=152 t=36690602 id=243
+						Lua 0:13:24:357
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=300 lines=158 status=OK truncated=false t=36690602 id=244
+[SMRTK] SMRTK_COPY action=copy flushed=true from=300 lines=158 status=OK truncated=false t=36690602 id=244
+						Lua 0:13:33:507
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:13:33:511
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:13:33:839
+
+
+*** Debug::Done()
+Time (ms)	813839
+
+
