@@ -57,6 +57,9 @@ Done when:
 
 ## Fix 4: quiet the dev logging (owner, 2026-10-02, added after sitting 2)
 
+**Not this session's work** (owner, 2026-10-02): an orchestrator subagent does Fix 4 while 34b
+closes out. Skip it; the text below is the subagent's task.
+
 The owner saw the hub's light-placement block (`[TrainHub] lights: ...`, `structure lights: ...`,
 `121 placed ...`) and the depot's per-leg cabin lines (`[ElevatorDepot] cabin arrived/departed ...`)
 printing again and again: *"supposed to be removed before launch so we aren't constantly dumping
