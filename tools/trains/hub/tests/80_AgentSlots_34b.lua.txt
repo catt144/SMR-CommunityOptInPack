@@ -1,11 +1,15 @@
--- ACTIVE: brief 34b's pairing-filter smoke (slots 1-8), v3 after sitting 1.
+-- ACTIVE: brief 34b's Food stream smoke (slots 1-9), v4 after sitting 2.
 -- Staged source: OptInPack tools/trains/hub/tests/80_AgentSlots_34b.lua.txt. Report and predictions:
--- OptInPack docs/agent/reports/TRAIN_34B_PLAN_20261002.md, "Pairing-filter smoke, preloaded".
+-- OptInPack docs/agent/reports/TRAIN_34B_PLAN_20261002.md, "Sitting 2 follow-up".
 -- To load: with Mars.exe closed, replace TestKit Code/80_AgentSlots.lua with this file, start
 -- the game; the previous file is git history in both repos.
 -- Fix 1 (Export takes only surplus): slot 1 reads, slot 2 witnesses the matchmaker, slot 3 runs a sol.
 -- Fix 2 (no train in the hub): slot 4 reads trains, slot 5 is the refusal control, slot 6 tops up the pool.
 -- Fix 3 is closed: slot 7 remains available for brief 35; leave it OFF in this sitting.
+-- Slot 9 STREAM is an armed toggle: actual Food pickups + hourly snapshots of every Food
+-- supply in the station's connected controllers' queues; recent lines appear on Slots & notes.
+-- Slots 9 and 3 are GREEN while their work is armed. Autosave/load/map change disarms both:
+-- pause, select the Export station and re-press 9 then 3. They also clear on their own stop.
 -- Predictions before boot: slot 1 Food mode=export, demand_desired=0, supply_desired=capacity.
 -- One sol: pairings>0 AND export_from_storage>0, export_below_floor=0, depot surplus falls to
 -- Desired. Producers still feed Export; refills from Export must not overfill a depot's Desired.
@@ -24,10 +28,10 @@ local T = SMRTK
 T.PreloadProbeSweep {
     command = 'grep -rln "TEMP' .. 'ORARY" Code/ ../SMR-BugFixPack-TestKit/Code/',
     output = "", exit = 1, hits = {}, needed = {},
-    pack_head = "2e9cf77b69c31babfbbac6ea8c196ebce08bb5b3",
-    testkit_head = "aeaf496703608c39d4065b73c86d44af52cbc35d",
-    checked_at = "2026-10-02T23:25:27Z",
-    brief = "brief 34b pairing-filter smoke v3 (sweep rerun at preload)",
+    pack_head = "697af0802fb897720cc364b204b3daa277164910",
+    testkit_head = "43b89b53552e3474a9b35d2582ed0a80b8f9d68b",
+    checked_at = "2026-10-03T00:23:59Z",
+    brief = "brief 34b Food STREAM smoke v4 (sweep rerun at preload)",
 }
 
 local SITTING = "smoke_34b"
@@ -105,23 +109,38 @@ local function row_fields(d, o, res)
         game_time = GameTime(), errors = T.error_count }
 end
 
-local DEPOT_RADIUS = 50 * guim
-local function depots_near(o)
-    local out = {}
-    -- The engine exposes MapGet as a method: obj:MapGet(centre, radius, class) (1.1.1.406343
-    -- Buildings/ArtificialSun.lua:45 shape); the bare global is nil (sitting 1, 2026-10-02).
-    local list = o:MapGet(o, DEPOT_RADIUS, "StorageDepot") or empty_table
-    for _, depot in ipairs(list) do
-        if IsValid(depot) and depot ~= o and not IsKindOf(depot, "Station") and not IsKindOf(depot, "ResourceStockpileBase")
-            and depot.supply and depot.supply.Food then
-            out[#out + 1] = depot
+local function food_resource(res) return res == "Food" or FoodResources[res] end
+local function food_stores(o)
+    local out, seen = {}, {}
+    -- 1.1.1.406343 CommonLua/TaskRequest.lua:298-334: these are the actual
+    -- connected controller queues, including resource-group aliases. No radius.
+    for _, center in ipairs(o.command_centers or empty_table) do
+        if IsValid(center) then
+            for _, by_resource in pairs(center.supply_queues or empty_table) do
+                for res, requests in pairs(by_resource) do
+                    if food_resource(res) then
+                        for _, req in ipairs(requests) do
+                            if not seen[req] then
+                                seen[req] = true
+                                local src, resource = req:GetSource(o), req:GetResource()
+                                if IsValid(src) and src:GetMap() == o:GetMap() and food_resource(resource) then
+                                    out[#out + 1] = { object = src, request = req, resource = resource }
+                                end
+                            end
+                        end
+                    end
+                end
+            end
         end
     end
-    table.sort(out, function(a, b) return a.handle < b.handle end)
+    table.sort(out, function(a, b)
+        if a.object.handle ~= b.object.handle then return a.object.handle < b.object.handle end
+        return a.resource < b.resource
+    end)
     return out
 end
 
-T.Bind(1, "Fix 1: read selected station rows + Food depots within 50 m (paused)", function(ctx)
+T.Bind(1, "Fix 1: read station rows + all Food stores in its drone-controller queues (paused)", function(ctx)
     if GetTimeFactor() ~= 0 then return false, "pause first" end
     local o, d = selected_station(ctx)
     if not o then return false, d end
@@ -129,16 +148,16 @@ T.Bind(1, "Fix 1: read selected station rows + Food depots within 50 m (paused)"
     for _, res in ipairs(o.storable_resources or empty_table) do
         if o.supply[res] and o.demand[res] then ctx.log("DUMP", row_fields(d, o, res)) end
     end
-    local depots = depots_near(o)
-    for _, depot in ipairs(depots) do
-        local s = depot.supply.Food
-        ctx.log("DUMP", { sitting = SITTING, row = "depot", station = id(o), depot = id(depot),
-            food_stock = units(s:GetActualAmount()), food_desired_amount = units(depot.desired_amount or 0),
-            food_supply_desired = units(s:GetDesiredAmount()), food_max = units(depot:GetMaxStorage("Food")),
-            distance_m = depot:GetDist2D(o) // guim, game_time = GameTime() })
+    local stores = food_stores(o)
+    for _, store in ipairs(stores) do
+        local s = store.request
+        ctx.log("DUMP", { sitting = SITTING, row = "food_store", station = id(o), store = id(store.object),
+            resource = store.resource, stock = units(s:GetActualAmount()), desired = units(s:GetDesiredAmount()),
+            supply_target = units(s:GetTargetAmount()), storage = tostring(s:IsAnyFlagSet(const.rfStorageDepot)),
+            scope = "station_controller_queues", game_time = GameTime() })
     end
     local out = o.supply.Food and o.demand.Food and row_fields(d, o, "Food") or { station = id(o), resource = "no Food row" }
-    out.depots = #depots
+    out.stores, out.controllers = #stores, #(o.command_centers or empty_table)
     out.mark = mark
     return out
 end, { mode = "once", needs = "selected" })
@@ -241,6 +260,168 @@ T.Bind(2, "Fix 1: matchmaker witness on/off (log-only; re-press after a load)", 
     local mark = ctx.mark("WITNESS_ON_34B")
     return { witness = "on", classes = witness.installed, cap = WITNESS_CAP, mark = mark }
 end, { mode = "once" })
+
+-- ---------------------------------------------------------------------------
+-- Slot 9 STREAM: successful pickup fulfillment, not a proposed FindTask match.
+-- RequestUnitFulfill is synchronous (1.1.1.406343 Lua/_TaskRequest.lua:467-475).
+-- Drone.lua:1174 calls it after approach, while both s_request/d_request exist.
+-- Reading immediately around that call isolates the source's actual stock delta.
+-- ---------------------------------------------------------------------------
+local stream_lines, stream_revision, fulfill_installed = {}, 0, false
+local function stream_state()
+    local active = T.armed.slot_9
+    return active and active.state
+end
+local function stream_line(fields, text)
+    fields.sitting, fields.text = SITTING, text
+    T.Log("STREAM", fields, false) -- always the log/ring; the page readout is below
+    stream_lines[#stream_lines + 1] = text
+    if #stream_lines > 8 then table.remove(stream_lines, 1) end
+    stream_revision = stream_revision + 1
+end
+local function stream_error(why)
+    stream_line({ row = "error", error = tostring(why) }, "STREAM stopped: " .. tostring(why))
+    if stream_state() then T.Disarm("slot_9", "stream error") end
+end
+local function destination_stock(o, res, demand)
+    local req = IsValid(o) and o.supply and o.supply[res]
+    if req then return units(req:GetActualAmount()), units(req:GetDesiredAmount()) end
+    -- HasConsumption.lua:115-116 is physical input stock, not its demand deficit.
+    if IsValid(o) and demand and o.consumption_resource_request == demand
+        and type(o.GetConsumptionStoredResources) == "function" then
+        return units(o:GetConsumptionStoredResources()), "n/a"
+    end
+    -- Consumers have no Desired Amount. Use their public stock getter if present;
+    -- never mistake a demand's missing amount for physical stock.
+    if IsValid(o) and type(o.GetStoredAmount) == "function" then
+        local ok, n = pcall(o.GetStoredAmount, o, res)
+        if ok and type(n) == "number" then
+            return units(n), type(o.desired_amount) == "number" and units(o.desired_amount) or "n/a"
+        end
+    end
+    return "unavailable", "n/a"
+end
+local function haul_before(req, drone, amount, state)
+    if not req:IsAnyFlagSet(const.rfSupply) or not IsValid(drone) or not IsKindOf(drone, "Drone") then return end
+    local res = req:GetResource()
+    if not food_resource(res) or not IsValid(state.station) then return end
+    if not table.find(state.station.command_centers or empty_table, drone.command_center) then return end
+    local src = req:GetSource(drone)
+    local dest = drone.d_request and drone.d_request:GetSource(drone)
+    local stock, desired = destination_stock(dest, res, drone.d_request)
+    return { row = "haul", phase = "pickup_fulfilled", source = id(src), destination = id(dest),
+        resource = res, amount = units(amount), source_before = units(req:GetActualAmount()),
+        source_desired = units(req:GetDesiredAmount()), destination_stock = stock, destination_desired = desired,
+        destination_is_export_station = tostring(dest == state.station and is_export(distribution(), dest, res)),
+        drone = id(drone) }
+end
+local function install_fulfill()
+    if fulfill_installed then return true end
+    local original = rawget(_G, "RequestUnitFulfill")
+    if type(original) ~= "function" then return false, "RequestUnitFulfill is unavailable" end
+    local wrapper = function(req, drone, amount, ...)
+        local state = stream_state()
+        if not state then return original(req, drone, amount, ...) end
+        local ok, fields = pcall(haul_before, req, drone, amount, state)
+        local result = table.pack(original(req, drone, amount, ...))
+        if not ok then stream_error(fields)
+        elseif fields and result[1] and stream_state() == state then
+            local logged, why = pcall(function()
+                fields.source_after = units(req:GetActualAmount())
+                state.hauls = state.hauls + 1
+                stream_line(fields, string.format("%s -> %s | %s %s | source %s -> %s / Desired %s | destination %s / Desired %s | Export=%s",
+                    fields.source, fields.destination, fields.amount, fields.resource, fields.source_before,
+                    fields.source_after, fields.source_desired, fields.destination_stock, fields.destination_desired,
+                    fields.destination_is_export_station))
+            end)
+            if not logged then stream_error(why) end
+        end
+        return table.unpack(result, 1, result.n)
+    end
+    _G.RequestUnitFulfill = wrapper
+    if rawget(_G, "RequestUnitFulfill") ~= wrapper then return false, "fulfillment wrapper did not install" end
+    fulfill_installed = true
+    return true
+end
+local function stream_snapshot(state, phase)
+    if not IsValid(state.station) or state.station:GetMap() ~= CurrentMap then
+        return false, "watched station is no longer on this map"
+    end
+    local stores = food_stores(state.station)
+    for _, store in ipairs(stores) do
+        local stock, desired = units(store.request:GetActualAmount()), units(store.request:GetDesiredAmount())
+        stream_line({ row = "snapshot", phase = phase, station = id(state.station), store = id(store.object),
+            resource = store.resource, stock = stock, desired = desired, scope = "station_controller_queues" },
+            string.format("%s snapshot | %s | %s %s / Desired %s", phase, id(store.object), store.resource, stock, desired))
+    end
+    stream_line({ row = "snapshot_end", phase = phase, stores = #stores, hauls = state.hauls },
+        string.format("%s snapshot complete: %d Food stores; %d hauls since STREAM on", phase, #stores, state.hauls))
+    return true
+end
+T.Bind(9, "STREAM Food hauls + hourly stores: ON/OFF (green while on; re-press after autosave/load)", function(ctx)
+    local station, why = selected_station(ctx)
+    if not station then return false, why end
+    if not is_export(distribution(), station, "Food") then return false, "select the station with Food set to Export" end
+    if #(station.command_centers or empty_table) == 0 then return false, "the station has no connected drone controller" end
+    local installed, err = install_fulfill()
+    if not installed then return false, err end
+    local state = ctx.state
+    state.station, state.hauls, state.cancelled = station, 0, false
+    state.errors = T.error_count
+    stream_lines = {}
+    local mark = ctx.mark("FOOD_STREAM_ON_34B")
+    local ok, reason = stream_snapshot(state, "start")
+    if not ok then return false, reason end
+    state.hour = GameTime() // const.HourDuration
+    state.thread = CreateGameTimeThread(function()
+        while not state.cancelled do
+            Sleep(500)
+            if state.cancelled or stream_state() ~= state then break end
+            if T.error_count > state.errors then stream_error("new engine/Lua error"); break end
+            if not IsValid(state.station) or state.station:GetMap() ~= CurrentMap then
+                T.Disarm("slot_9", "station unavailable"); break
+            end
+            local hour = GameTime() // const.HourDuration
+            if hour ~= state.hour then
+                state.hour = hour
+                local read, good, failure = pcall(stream_snapshot, state, "hour")
+                if not read or not good then stream_error(read and failure or good); break end
+            end
+        end
+    end)
+    return { mark = mark, stream = "on", station = id(station), snapshot = "every game hour",
+        stops = "autosave/load/map change: re-press STREAM", readout = "Slots & notes" }
+end, { mode = "armed", needs = "selected", on_disarm = function(ctx)
+    local state = ctx.state
+    state.cancelled = true
+    local thread = state.thread
+    state.thread = nil
+    if thread and IsValidThread(thread) and thread ~= CurrentThread() then DeleteThread(thread) end
+    stream_line({ row = "stop", reason = ctx.reason or "manual", hauls = state.hauls or 0 },
+        "STREAM OFF: " .. tostring(ctx.reason or "manual") .. "; re-press slot 9 to watch again")
+    return { stream = "off", hauls = state.hauls or 0 }
+end })
+
+-- Sitting-owned readout, above the existing Slots & notes controls. No shared UI
+-- change is needed for streaming; the TestKit's separate patch is indicator-only.
+if T.pages and T.pages.Agent and type(T.pages.Agent.build) == "function" then
+    local previous_page = T.pages.Agent.build
+    T.Page("Agent", "Slots & notes", function(parent)
+        local readout = XText:new({ Text = "Food STREAM: off (slot 9)", Translate = false,
+            TextStyle = "ConsoleLog", WordWrap = true, MaxWidth = 718, HandleMouse = false }, parent)
+        previous_page(parent)
+        parent:CreateThread("FoodStreamReadout34b", function()
+            local revision = -1
+            while parent.window_state ~= "destroying" do
+                if revision ~= stream_revision then
+                    revision = stream_revision
+                    readout:SetText("Food STREAM — latest events (full history in log)\n" .. table.concat(stream_lines, "\n"))
+                end
+                Sleep(250)
+            end
+        end)
+    end)
+end
 
 -- ---------------------------------------------------------------------------
 -- Fix 3: train cargo trap. Wrapped writers attribute every Lua write to a train's
@@ -387,7 +568,7 @@ T.Bind(3, "Run one sol at Ultra (pauses itself; re-press after an autosave)", fu
     if not ran then T.Disarm("sol_34b", "speed refused"); return false, why.reason end
     result.mark = mark
     return result
-end, { mode = "once" })
+end, { mode = "once", armed_id = "sol_34b" })
 
 -- ---------------------------------------------------------------------------
 -- Fix 2: trains read, the refusal control, the pool top-up

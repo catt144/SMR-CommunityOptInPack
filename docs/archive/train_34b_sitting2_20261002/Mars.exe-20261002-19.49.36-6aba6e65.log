@@ -1,0 +1,1019 @@
+					Render 0:00:00:007
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	45%
+Disk Free      	1215434 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:066
+Steam initialized (AppId 3215050)
+					Render 0:00:00:069
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:690
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:850
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:02:087
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:03:077
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+						Lua 0:00:03:081
+Lua revision: 406343
+Assets revision: 33225
+						Lua 0:00:03:082
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:16:584
+Account storage loaded successfully in 3 ms
+DLC norman loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:16:585
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:16:589
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def Better Disasters (id YbJmPhb, v1.04-055) packed from steam
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata						Lua 0:00:16:590
+
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+						Lua 0:00:16:987
+[mod] [CommunityFixPack] LoadFirst: already first of 3 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+						Lua 0:00:16:988
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:16:989
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+						Lua 0:00:16:990
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:16:991
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:16:992
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:16:993
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:16:994
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] GhostPowerCells: applied
+						Lua 0:00:16:995
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+						Lua 0:00:16:996
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:17:000
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12289 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12289 id=1
+						Lua 0:00:17:005
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] MultipleSuns: applied
+						Lua 0:00:17:006
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+[mod] [CommunityOptInPack] StationRows: applied
+[TrainHub] train export floor loaded (standing + transient holds)
+						Lua 0:00:17:007
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] TrainHub: applied
+						Lua 0:00:17:009
+[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:17:010
+[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility
+						Lua 0:00:17:011
+[mod] [CommunityOptInPack] ElevatorDepot: applied
+						Lua 0:00:17:709
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:17:784
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:17:878
+Reloading done in 1288 ms
+						Lua 0:00:17:880
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:928
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12289 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12289 id=2
+						Lua 0:00:18:404
+[preset] Preset postprocess took 250 ms.
+						Lua 0:00:18:469
+482 / 482 particle streams loaded in 58 ms.
+5 / 5 particle streams loaded in 0 ms.
+						Lua 0:00:18:471
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:18:689
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:18:780
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12289 id=3
+						Lua 0:00:18:812
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12289 id=4
+						Lua 0:00:18:830
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack
+						Lua 0:00:19:084
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:19:178
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12289 id=5
+						Lua 0:00:19:671
+[PdxSDK] Started up. Took 1127
+						Lua 0:00:20:074
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:20:180
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:01:10:169
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:01:10:174
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:01:13:420
+*** Assets reloaded in 3.2 s, read 359.0 MB, read speed 110.6 MB/s, average read 8137 bytes.
+						Lua 0:01:14:486
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=62660 id=6
+						Lua 0:01:15:340
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=62660 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=62660 id=7
+						Lua 0:01:15:988
+Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000025B06851748 [7]
+						Lua 0:01:16:029
+[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present
+[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present
+						Lua 0:01:17:408
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:17:409
+[TrainHub] SMROptInTrainHub6 connector spots: from the body
+						Lua 0:01:17:422
+[TrainHub] SMROptInTrainHub6 line radii d0..d5 = 6 6 6 6 6 6
+[TrainHub] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHub] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:17:423
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:01:17:424
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:01:17:425
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:01:17:426
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:17:498
+[TrainHub] reactor palette: channel 1 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 2 = 18,32,78 roughness 0 metallic 0
+[TrainHub] reactor palette: channel 3 = 200,205,210 roughness -90 metallic 110
+[TrainHub] reactor palette: P4 "navy + steel on 3 and 4", 3 of 4 channels written on the attached copy only (vanilla's own per-object call; no material is restyled)
+						Lua 0:01:17:499
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:01:17:500
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:01:17:501
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:01:17:502
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:01:17:575
+[ElevatorDepot] dressed table: 0000025B010E0C78 env=Surface elevator=true tunnel=false cabin=true ropes=0 scale=75 receiver=false signs=0 cabin_hide_below=-635 palette=2
+						Lua 0:01:17:576
+[ElevatorDepot] dressed table: 0000025B055A9FF0 env=Underground elevator=true tunnel=false cabin=true ropes=4 scale=75 receiver=true signs=0 cabin_hide_below=-635 palette=7
+						Lua 0:01:17:678
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, Brazil, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:01:17:844
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=127
+						Lua 0:01:17:845
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:01:17:846
+Game Loaded in 7678 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+[SMRTK] SMRTK_PROVENANCE actions=85 last=copy last_id=105 present=true session=1790883653:671923023:74658675:1424191059 t=35790404 id=8
+						Lua 0:01:17:857
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=9
+						Lua 0:01:17:871
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=10
+						Lua 0:01:17:878
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:01:18:004
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:01:18:441
+Game loaded on map BlankBig_01 in 8408 ms
+						Lua 0:01:18:748
+[mod] [SMRTK] SMRTK_PANEL_RESTORE open=true tab=Agent t=35790404 id=12
+						Lua 0:02:10:791
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=35790404 id=13
+						Lua 0:02:21:835
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=152980 method=CheatFill object=StorageFood(1067) resource=Food resources=1 status=OK valid_after=true t=35790404 id=14
+[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=152980 method=CheatFill object=StorageFood(1067) resource=Food resources=1 status=OK valid_after=true t=35790404 id=14
+						Lua 0:02:43:506
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=false reason="no supported actions" status=OK t=35790404 id=15
+						Lua 0:02:44:915
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(10907) status=OK t=35790404 id=16
+						Lua 0:02:46:017
+[mod] [SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=0 method=CheatFill object=StorageFood(10907) resource=Food resources=1 status=OK valid_after=true t=35790404 id=17
+[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=0 method=CheatFill object=StorageFood(10907) resource=Food resources=1 status=OK valid_after=true t=35790404 id=17
+						Lua 0:02:58:113
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10650) status=OK t=35790404 id=18
+						Lua 0:03:00:908
+[mod] [SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=76 status=OK t=35790404 id=19
+[SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=76 status=OK t=35790404 id=19
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=20
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=20
+						Lua 0:03:00:909
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=21
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=21
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=5 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=22
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=5 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=22
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=106 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=23
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=106 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=23
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=24
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=24
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=10 supply_target=10.600 target=10 t=35790404 id=25
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=10 supply_target=10.600 target=10 t=35790404 id=25
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=26
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=26
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=27
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=27
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=28
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=28
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=29
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=29
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=30
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=30
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=31
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=31
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=32
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=32
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=33
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=33
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=34
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=34
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=35
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=35
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=36
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=36
+						Lua 0:03:00:910
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=37
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=37
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=38
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=38
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=39
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=39
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=110 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=76 mode=balanced percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=10 supply_target=10.600 target=10 t=35790404 id=40
+[SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=110 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=76 mode=balanced percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=10 supply_target=10.600 target=10 t=35790404 id=40
+						Lua 0:03:28:903
+[mod] [SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=98 status=OK t=35790404 id=41
+[SMRTK] SMRTK_MARK action=mark label=ROWS_READ_34B mark=98 status=OK t=35790404 id=41
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=42
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=42
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=43
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=109.900 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Herbs row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.100 supply_desired=10 supply_target=10.100 target=10 t=35790404 id=43
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=5 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=44
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=5 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Metals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=95 supply_desired=10 supply_target=95 target=10 t=35790404 id=44
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=106 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=45
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=106 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Concrete row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=45
+						Lua 0:03:28:904
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=46
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.766 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Spices row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.234 supply_desired=10 supply_target=9.234 target=10 t=35790404 id=46
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=0 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=47
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=0 demand_target=109.400 drones=true errors=0 game_time=35790404 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=47
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=48
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Sugar row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=48
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=49
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Butter row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=49
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=50
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMetals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=50
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=51
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.800 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Bread row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=9.200 supply_desired=10 supply_target=9.200 target=10 t=35790404 id=51
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=52
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=PreciousMinerals row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=52
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=53
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Cheese row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=53
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=54
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Polymers row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=54
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=55
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Coffee row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=55
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=56
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=MachineParts row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=56
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=57
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Electronics row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=57
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=58
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110.300 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Meat row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=8.700 supply_desired=10 supply_target=8.700 target=10 t=35790404 id=58
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=59
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Fuel row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=59
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=60
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=Seeds row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=60
+[mod] [SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=61						Lua 0:03:28:905
+
+[SMRTK] SMRTK_DUMP capacity=120 demand_desired=110 demand_target=110 drones=true errors=0 game_time=35790404 mode=balanced percent=8 resource=WasteRock row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) stock=10 supply_desired=10 supply_target=10 target=10 t=35790404 id=61
+[mod] [SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=0 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=98 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=62
+[SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=0 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=98 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=62
+						Lua 0:03:32:069
+[mod] [SMRTK] SMRTK_MARK action=mark label=WITNESS_ON_34B mark=120 status=OK t=35790404 id=63
+[SMRTK] SMRTK_MARK action=mark label=WITNESS_ON_34B mark=120 status=OK t=35790404 id=63
+						Lua 0:03:32:070
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=64
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=64
+[mod] [SMRTK] SMRTK_ACTION action=slot_2 cap=300 classes=51 mark=120 status=OK witness=on t=35790404 id=65
+[SMRTK] SMRTK_ACTION action=slot_2 cap=300 classes=51 mark=120 status=OK witness=on t=35790404 id=65
+						Lua 0:03:40:019
+[mod] [SMRTK] SMRTK_MARK action=mark label=SOL_RUN_34B mark=123 status=OK t=35790404 id=66
+[SMRTK] SMRTK_MARK action=mark label=SOL_RUN_34B mark=123 status=OK t=35790404 id=66
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=67
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=50 status=OK t=35790404 id=67
+[mod] [SMRTK] SMRTK_ARM action=sol_34b cadence=500 deadline=36510404 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=68
+[SMRTK] SMRTK_ARM action=sol_34b cadence=500 deadline=36510404 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=68
+[mod] [SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35790404 id=69
+[SMRTK] SMRTK_SPEED action=speed_ultra before=0 factor=128000 requested=128 status=OK t=35790404 id=69
+[mod] [SMRTK] SMRTK_ACTION action=slot_3 cadence=500 deadline=36510404 mark=123 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=70
+[SMRTK] SMRTK_ACTION action=slot_3 cadence=500 deadline=36510404 mark=123 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=70
+						Lua 0:03:40:021
+[ElevatorDepot] pair formed: surface 9036 underground 9041 rows Concrete=to_underground,Electronics=to_underground,Food=to_surface,MachineParts=to_underground,Metals=to_underground,Polymers=to_underground,PreciousMetals=to_surface,Sugar=to_surface
+						Lua 0:03:40:686
+[ElevatorDepot] cabin arrived surface (leg 26) delivered Food=1000,PreciousMetals=4000,Sugar=2000 still aboard none
+						Lua 0:03:40:687
+[ElevatorDepot] cabin departed down (leg 27) loaded Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 aboard Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 arrives in 60 min
+						Lua 0:03:41:311
+[ElevatorDepot] cabin arrived underground (leg 27) delivered Bread=9600,Butter=9600,Cheese=9600,Coffee=9600,Concrete=25000,Electronics=9000,Fuel=9600,Herbs=9600,MachineParts=9000,Meat=9600,Metals=25000,Polymers=9000,PreciousMinerals=9600,Seeds=9600,Spices=9600,WasteRock=9600 still aboard none
+[ElevatorDepot] cabin departed up (leg 28) loaded none aboard none arrives in 60 min
+						Lua 0:03:41:971
+[ElevatorDepot] cabin arrived surface (leg 28) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 29) loaded none aboard none arrives in 60 min
+						Lua 0:03:42:703
+[ElevatorDepot] cabin arrived underground (leg 29) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 30) loaded none aboard none arrives in 60 min
+						Lua 0:03:43:356
+[ElevatorDepot] cabin arrived surface (leg 30) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 31) loaded none aboard none arrives in 60 min
+						Lua 0:03:44:003
+[ElevatorDepot] cabin arrived underground (leg 31) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 32) loaded none aboard none arrives in 60 min
+						Lua 0:03:44:013
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:03:44:014
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:03:44:015
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:03:44:016
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:03:44:017
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:03:44:018
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:03:44:687
+[ElevatorDepot] cabin arrived surface (leg 32) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 33) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:03:45:469
+[ElevatorDepot] cabin arrived underground (leg 33) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 34) loaded none aboard none arrives in 60 min
+						Lua 0:03:46:165
+[ElevatorDepot] cabin arrived surface (leg 34) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 35) loaded none aboard none arrives in 60 min
+						Lua 0:03:46:942
+[ElevatorDepot] cabin arrived underground (leg 35) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 36) loaded none aboard none arrives in 60 min
+						Lua 0:03:47:812
+[ElevatorDepot] cabin arrived surface (leg 36) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 37) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:03:48:262
+[mod] [SMRTK] SMRTK_DISARM action=sol_34b reason=SaveGameStart status=OK trigger=sol_34b t=36134852 id=71
+[SMRTK] SMRTK_DISARM action=sol_34b reason=SaveGameStart status=OK trigger=sol_34b t=36134852 id=71
+						Lua 0:03:49:249
+[ElevatorDepot] cabin arrived underground (leg 37) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 38) loaded none aboard none arrives in 60 min
+						Lua 0:03:49:979
+[ElevatorDepot] cabin arrived surface (leg 38) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 39) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:03:50:652
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=36205124 id=72
+						Lua 0:03:50:765
+[ElevatorDepot] cabin arrived underground (leg 39) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Fuel=5000,MachineParts=10000,Meat=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 40) loaded none aboard none arrives in 60 min
+						Lua 0:03:51:448
+[ElevatorDepot] cabin arrived surface (leg 40) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 41) loaded none aboard none arrives in 60 min
+						Lua 0:03:52:161
+[ElevatorDepot] cabin arrived underground (leg 41) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 42) loaded none aboard none arrives in 60 min
+						Lua 0:03:52:882
+[ElevatorDepot] cabin arrived surface (leg 42) delivered none still aboard none
+						Lua 0:03:52:883
+[ElevatorDepot] cabin departed down (leg 43) loaded none aboard none arrives in 60 min
+						Lua 0:03:53:543
+[ElevatorDepot] cabin arrived underground (leg 43) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 44) loaded none aboard none arrives in 60 min
+						Lua 0:03:53:563
+Story bits: Triggered story bit - UndergroundDeepScanning_Water						Lua 0:03:54:193
+[ElevatorDepot] cabin arrived surface (leg 44) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 45) loaded Concrete=52000,Herbs=1000,Metals=52000 aboard Concrete=52000,Herbs=1000,Metals=52000 arrives in 60 min
+						Lua 0:03:54:854
+[ElevatorDepot] cabin arrived underground (leg 45) delivered Concrete=52000,Herbs=1000,Metals=52000 still aboard none
+[ElevatorDepot] cabin departed up (leg 46) loaded none aboard none arrives in 60 min
+						Lua 0:03:55:181
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:03:55:182
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:03:55:183
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:03:55:184
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:03:55:185
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:03:55:186
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:03:55:187
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:03:55:551
+[ElevatorDepot] cabin arrived surface (leg 46) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 47) loaded none aboard none arrives in 60 min
+						Lua 0:03:56:261
+[ElevatorDepot] cabin arrived underground (leg 47) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 48) loaded none aboard none arrives in 60 min
+						Lua 0:03:56:969
+[ElevatorDepot] cabin arrived surface (leg 48) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 49) loaded Concrete=52000,Herbs=1000,Metals=14834 aboard Concrete=52000,Herbs=1000,Metals=14834 arrives in 60 min
+						Lua 0:03:57:639
+[ElevatorDepot] cabin arrived underground (leg 49) delivered Concrete=52000,Herbs=1000,Metals=14834 still aboard none
+[ElevatorDepot] cabin departed up (leg 50) loaded none aboard none arrives in 60 min
+						Lua 0:03:58:272
+[ElevatorDepot] cabin arrived surface (leg 50) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 51) loaded none aboard none arrives in 60 min
+						Lua 0:03:58:894
+[ElevatorDepot] cabin arrived underground (leg 51) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 52) loaded none aboard none arrives in 60 min
+						Lua 0:03:59:485
+[ElevatorDepot] cabin arrived surface (leg 52) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 53) loaded none aboard none arrives in 60 min
+						Lua 0:04:00:124
+[ElevatorDepot] cabin arrived underground (leg 53) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 54) loaded none aboard none arrives in 60 min
+						Lua 0:04:00:754
+[ElevatorDepot] cabin arrived surface (leg 54) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 55) loaded none aboard none arrives in 60 min
+						Lua 0:04:01:370
+[ElevatorDepot] cabin arrived underground (leg 55) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 56) loaded none aboard none arrives in 60 min
+						Lua 0:04:01:392
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:01:393
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:01:394
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:01:395
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+						Lua 0:04:01:396
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:04:01:397
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:02:068
+[ElevatorDepot] cabin arrived surface (leg 56) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 57) loaded Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 aboard Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:02:753
+[ElevatorDepot] cabin arrived underground (leg 57) delivered Bread=8000,Butter=10000,Concrete=11386,Herbs=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 58) loaded none aboard none arrives in 60 min
+						Lua 0:04:03:434
+[ElevatorDepot] cabin arrived surface (leg 58) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 59) loaded none aboard none arrives in 60 min
+						Lua 0:04:04:123
+[ElevatorDepot] cabin arrived underground (leg 59) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 60) loaded none aboard none arrives in 60 min
+						Lua 0:04:04:809
+[ElevatorDepot] cabin arrived surface (leg 60) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 61) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=4000,Herbs=10000,MachineParts=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=4000,Herbs=10000,MachineParts=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:05:439
+[ElevatorDepot] cabin arrived underground (leg 61) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=4000,Herbs=10000,MachineParts=10000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 62) loaded none aboard none arrives in 60 min
+						Lua 0:04:06:091
+[ElevatorDepot] cabin arrived surface (leg 62) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 63) loaded none aboard none arrives in 60 min
+						Lua 0:04:06:746
+[ElevatorDepot] cabin arrived underground (leg 63) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 64) loaded none aboard none arrives in 60 min
+						Lua 0:04:07:407
+[ElevatorDepot] cabin arrived surface (leg 64) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 65) loaded none aboard none arrives in 60 min
+						Lua 0:04:08:107
+[ElevatorDepot] cabin arrived underground (leg 65) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 66) loaded none aboard none arrives in 60 min
+						Lua 0:04:08:835
+[ElevatorDepot] cabin arrived surface (leg 66) delivered none still aboard none
+						Lua 0:04:08:836
+[ElevatorDepot] cabin departed down (leg 67) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:09:539
+[ElevatorDepot] cabin arrived underground (leg 67) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 68) loaded none aboard none arrives in 60 min
+						Lua 0:04:10:188
+[ElevatorDepot] cabin arrived surface (leg 68) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 69) loaded none aboard none arrives in 60 min
+						Lua 0:04:10:887
+[ElevatorDepot] cabin arrived underground (leg 69) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 70) loaded none aboard none arrives in 60 min
+						Lua 0:04:11:214
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:04:11:215
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:04:11:216
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+						Lua 0:04:11:217
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:04:11:218
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:04:11:219
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+						Lua 0:04:11:220
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:04:11:574
+[ElevatorDepot] cabin arrived surface (leg 70) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 71) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:12:268
+[ElevatorDepot] cabin arrived underground (leg 71) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 72) loaded none aboard none arrives in 60 min
+						Lua 0:04:12:940
+[ElevatorDepot] cabin arrived surface (leg 72) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 73) loaded none aboard none arrives in 60 min
+						Lua 0:04:13:602
+[ElevatorDepot] cabin arrived underground (leg 73) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 74) loaded none aboard none arrives in 60 min
+						Lua 0:04:15:658
+Stop sequence Mystery 9 - 						Lua 0:04:15:659
+Update Mystery Log : Finished						Lua 0:04:16:044
+[ElevatorDepot] cabin arrived surface (leg 74) delivered none still aboard none
+						Lua 0:04:16:045
+[ElevatorDepot] cabin departed down (leg 75) loaded none aboard none arrives in 60 min
+						Lua 0:04:16:673
+[ElevatorDepot] cabin arrived underground (leg 75) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 76) loaded none aboard none arrives in 60 min
+						Lua 0:04:17:297
+[ElevatorDepot] cabin arrived surface (leg 76) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 77) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:17:872
+[ElevatorDepot] cabin arrived underground (leg 77) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 78) loaded none aboard none arrives in 60 min
+						Lua 0:04:18:514
+[ElevatorDepot] cabin arrived surface (leg 78) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 79) loaded none aboard none arrives in 60 min
+						Lua 0:04:19:127
+[ElevatorDepot] cabin arrived underground (leg 79) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 80) loaded none aboard none arrives in 60 min
+						Lua 0:04:19:151
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:19:152
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:19:153
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:19:154
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:19:155
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:19:156
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:19:837
+[ElevatorDepot] cabin arrived surface (leg 80) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 81) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:20:588
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(10907) status=OK t=37469636 id=73
+						Lua 0:04:20:595
+[ElevatorDepot] cabin arrived underground (leg 81) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 82) loaded none aboard none arrives in 60 min
+						Lua 0:04:21:299
+[ElevatorDepot] cabin arrived surface (leg 82) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 83) loaded none aboard none arrives in 60 min
+						Lua 0:04:22:005
+[ElevatorDepot] cabin arrived underground (leg 83) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 84) loaded none aboard none arrives in 60 min
+						Lua 0:04:22:727
+[ElevatorDepot] cabin arrived surface (leg 84) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 85) loaded none aboard none arrives in 60 min
+						Lua 0:04:22:864
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StorageFood(1067) status=OK t=37564996 id=74
+						Lua 0:04:23:481
+[ElevatorDepot] cabin arrived underground (leg 85) delivered none still aboard none
+						Lua 0:04:23:482
+[ElevatorDepot] cabin departed up (leg 86) loaded none aboard none arrives in 60 min
+						Lua 0:04:24:159
+[ElevatorDepot] cabin arrived surface (leg 86) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 87) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:24:806
+[ElevatorDepot] cabin arrived underground (leg 87) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 88) loaded none aboard none arrives in 60 min
+						Lua 0:04:25:509
+[ElevatorDepot] cabin arrived surface (leg 88) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 89) loaded none aboard none arrives in 60 min
+						Lua 0:04:26:283
+[ElevatorDepot] cabin arrived underground (leg 89) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 90) loaded none aboard none arrives in 60 min
+						Lua 0:04:26:967
+[ElevatorDepot] cabin arrived surface (leg 90) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 91) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:27:589
+[ElevatorDepot] cabin arrived underground (leg 91) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 92) loaded none aboard none arrives in 60 min
+						Lua 0:04:28:274
+[ElevatorDepot] cabin arrived surface (leg 92) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 93) loaded none aboard none arrives in 60 min
+						Lua 0:04:28:993
+[ElevatorDepot] cabin arrived underground (leg 93) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 94) loaded none aboard none arrives in 60 min
+						Lua 0:04:29:331
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:29:332
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:29:333
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+						Lua 0:04:29:334
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+						Lua 0:04:29:335
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:04:29:336
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+						Lua 0:04:29:337
+[TrainHub] structure lights: crown floor light ON, 1 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 18 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is NIGHT now, so it is LIT -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 121 placed (72 arm + 49 structure); a stopped hub destroys them all
+						Lua 0:04:29:704
+[ElevatorDepot] cabin arrived surface (leg 94) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 95) loaded none aboard none arrives in 60 min
+						Lua 0:04:30:369
+[ElevatorDepot] cabin arrived underground (leg 95) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 96) loaded none aboard none arrives in 60 min
+						Lua 0:04:31:041
+[ElevatorDepot] cabin arrived surface (leg 96) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 97) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:31:693
+[ElevatorDepot] cabin arrived underground (leg 97) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 98) loaded none aboard none arrives in 60 min
+						Lua 0:04:32:311
+[ElevatorDepot] cabin arrived surface (leg 98) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 99) loaded none aboard none arrives in 60 min
+						Lua 0:04:32:929
+[ElevatorDepot] cabin arrived underground (leg 99) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 100) loaded none aboard none arrives in 60 min
+						Lua 0:04:33:518
+[ElevatorDepot] cabin arrived surface (leg 100) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 101) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:34:079
+[ElevatorDepot] cabin arrived underground (leg 101) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 102) loaded none aboard none arrives in 60 min
+						Lua 0:04:34:671
+[ElevatorDepot] cabin arrived surface (leg 102) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 103) loaded none aboard none arrives in 60 min
+						Lua 0:04:35:257
+[ElevatorDepot] cabin arrived underground (leg 103) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 104) loaded none aboard none arrives in 60 min
+						Lua 0:04:35:280
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:35:281
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+						Lua 0:04:35:282
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:35:283
+[TrainHub] lights: arm 0, flanks the reactor (red flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 0 deg
+[TrainHub] lights: arm 1, flanks the reactor (blue flank) = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 60 deg
+						Lua 0:04:35:284
+[TrainHub] lights: arm 2, next to the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 120 deg
+[TrainHub] lights: arm 3, opposite the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 180 deg
+						Lua 0:04:35:285
+[TrainHub] lights: arm 4, opposite the blue flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 240 deg
+[TrainHub] lights: arm 5, next to the red flank = B2 "Deep blue wash" (SpotLight), 12 lights, engine bearing 300 deg
+[TrainHub] lights: arm tune intensity 50, side 150 cm, height 200 cm, radius 500 cm, cone 50/100, colour 0,40,255
+[TrainHub] structure lights: portal rims ON, 30 lights (intensity 4, radius 350 cm)
+[TrainHub] structure lights: drone pit kerb OFF, 0 lights (intensity 15, radius 300 cm)
+[TrainHub] structure lights: ring rim strip OFF, 0 lights (intensity 12, radius 400 cm)
+[TrainHub] structure lights: floor edge strip OFF, 0 lights (intensity 30, radius 300 cm)
+[TrainHub] structure lights: crown floor light ON, 0 lights (intensity 150, radius 4000 cm)
+[TrainHub] structure lights: crown floor light follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 1900 cm, colour 255,214,170, cone 0/0
+[TrainHub] structure lights: under-deck fill ON, 0 lights (intensity 40, radius 1200 cm)
+[TrainHub] structure lights: under-deck fill follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is DAY now, so it is NOT PLACED -- hanging at z 700 cm, colour 255,214,170, cone 0/0
+[TrainHub] lights: 102 placed (72 arm + 30 structure); a stopped hub destroys them all
+						Lua 0:04:35:956
+[ElevatorDepot] cabin arrived surface (leg 104) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 105) loaded none aboard none arrives in 60 min
+						Lua 0:04:36:654
+[ElevatorDepot] cabin arrived underground (leg 105) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 106) loaded none aboard none arrives in 60 min
+						Lua 0:04:37:277
+[ElevatorDepot] cabin arrived surface (leg 106) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 107) loaded Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 aboard Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 arrives in 60 min
+						Lua 0:04:37:926
+[ElevatorDepot] cabin arrived underground (leg 107) delivered Bread=10000,Butter=10000,Cheese=10000,Coffee=10000,Electronics=10000,Herbs=10000,MachineParts=10000,Meat=5000,Polymers=10000,PreciousMinerals=10000,Spices=10000 still aboard none
+[ElevatorDepot] cabin departed up (leg 108) loaded none aboard none arrives in 60 min
+						Lua 0:04:38:664
+[ElevatorDepot] cabin arrived surface (leg 108) delivered none still aboard none
+[ElevatorDepot] cabin departed down (leg 109) loaded none aboard none arrives in 60 min
+						Lua 0:04:39:330
+[ElevatorDepot] cabin arrived underground (leg 109) delivered none still aboard none
+[ElevatorDepot] cabin departed up (leg 110) loaded none aboard none arrives in 60 min
+						Lua 0:04:40:043
+[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=123 lines=300 status=OK truncated=true t=38312004 id=75
+[SMRTK] SMRTK_COPY action=copy flushed=true from=123 lines=300 status=OK truncated=true t=38312004 id=75
+						Lua 0:06:36:593
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=StationSmall(10650) status=OK t=38312004 id=76
+						Lua 0:07:54:170
+[mod] [SMRTK] SMRTK_MARK action=mark label=TRAP_ON_34B mark=527 status=OK t=38312004 id=77
+[SMRTK] SMRTK_MARK action=mark label=TRAP_ON_34B mark=527 status=OK t=38312004 id=77
+						Lua 0:07:54:171
+[mod] [SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=54 status=OK t=38312004 id=78
+[SMRTK] SMRTK_FINGERPRINT action=fingerprint fix_pack_present=45/45 game=406343 mark_action=mark mods=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack pack_version=26 read="live registry" save="Double Hub+elev Built Under2.savegame.sav" sol=54 status=OK t=38312004 id=78
+[mod] [SMRTK] SMRTK_ACTION action=slot_7 cap=60 classes=172 mark=527 note="slot 3's run polls every 500 game ms; press slot 8 to read" status=OK trains=17 trap=on t=38312004 id=79
+[SMRTK] SMRTK_ACTION action=slot_7 cap=60 classes=172 mark=527 note="slot 3's run polls every 500 game ms; press slot 8 to read" status=OK trains=17 trap=on t=38312004 id=79
+						Lua 0:10:25:698
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:10:25:701
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:10:26:082
+
+
+*** Debug::Done()
+Time (ms)	626082
+
+

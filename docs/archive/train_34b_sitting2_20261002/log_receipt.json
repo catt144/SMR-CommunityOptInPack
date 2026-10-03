@@ -1,0 +1,45 @@
+{
+  "command": "Python pathlib read_bytes/decode utf8/splitlines; primary prefix [mod] [SMRTK]; regex SMRTK_ACTION action=(\\S+); grep confirmation recorded in report",
+  "head": "697af0802fb897720cc364b204b3daa277164910",
+  "game_build": "25579348 / 1.1.1.406343",
+  "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20261002-19.49.36-6aba6e65.log",
+  "bytes": 103843,
+  "sha256": "4fd6c0176bf70ccfd488dab0a73e96cb948f654cbffac6ee8cc1b08c7afc107f",
+  "actions": {
+    "total": 7,
+    "members": {
+      "selected_fill": 2,
+      "slot_1": 2,
+      "slot_2": 1,
+      "slot_3": 1,
+      "slot_7": 1
+    }
+  },
+  "evidence": [
+    {
+      "line": 382,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=110 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=76 mode=balanced percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=10 supply_target=10.600 target=10 t=35790404 id=40"
+    },
+    {
+      "line": 429,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_1 capacity=120 demand_desired=0 demand_target=109.400 depots=0 drones=true errors=0 game_time=35790404 mark=98 mode=export percent=8 resource=Food row=resource row_cap=120 sitting=smoke_34b station=StationSmall(10650) status=OK stock=10.600 supply_desired=120 supply_target=10.600 target=9.600 t=35790404 id=62"
+    },
+    {
+      "line": 444,
+      "text": "[mod] [SMRTK] SMRTK_ARM action=sol_34b cadence=500 deadline=36510404 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=68"
+    },
+    {
+      "line": 448,
+      "text": "[mod] [SMRTK] SMRTK_ACTION action=slot_3 cadence=500 deadline=36510404 mark=123 once=true status=OK trap=false trigger=sol_34b witness=true t=35790404 id=70"
+    },
+    {
+      "line": 525,
+      "text": "[mod] [SMRTK] SMRTK_DISARM action=sol_34b reason=SaveGameStart status=OK trigger=sol_34b t=36134852 id=71"
+    },
+    {
+      "line": 991,
+      "text": "[mod] [SMRTK] SMRTK_COPY action=copy flushed=true from=123 lines=300 status=OK truncated=true t=38312004 id=75"
+    }
+  ],
+  "error_markers": []
+}
