@@ -1,0 +1,23 @@
+{
+  "expected_fixpack": "present",
+  "source_sha256": {
+    "tools/trains/hub/tests/80_AgentSlots_upgrades.lua.txt": "502a5cede581fff5c8ef8d9e6ff9839cf89ce7d4ae7ecf2ee9dc83ecc3bd781f",
+    "tools/trains/depot/tests/80_AgentSlots_depot.lua.txt": "27a46fce1b16ab9174271dc2266fd179f9e0e96e7272d4ff023421fe54bb4fe7",
+    "tools/trains/depot/tests/80_AgentSlots_revision.lua.txt": "2af6c16f44e63467ce46850f2c2a6130f11691026d3abc52045037a40bc595a7",
+    "tools/trains/hub/tests/80_AgentSlots_station_rows.lua.txt": "4b8f11022850ad992452d9b9bb1845dc06a4cef07c7081e92de4a308036326ac",
+    "tools/trains/hub/tests/80_AgentSlots_crossing.lua.txt": "59ed55436f0ab0677b9f26e1c1e2a8f8e72365570055f218b9ada337400355f9",
+    "tools/trains/hub/tests/80_AgentSlots_34b.lua.txt": "b2ecd6732ba03721ec06dcda81da9aff5d5c6a8d60929261867911da5bcecba1"
+  },
+  "output_sha256": "0c991302949b6c206cd784775412e359645ac7e2a3df8bfa9c119cb71fcbaa65",
+  "sweep": {
+    "command": "grep -rln \"TEMPORARY\" Code/ ../SMR-BugFixPack-TestKit/Code/",
+    "executable": "C:/Program Files/Git/usr/bin/grep.exe",
+    "output": "",
+    "exit": 1,
+    "hits": [],
+    "pack_head": "b9ec090db20e4c6b29c6b9a24f225d767332e3ee",
+    "testkit_head": "840856655690bf8f914a2f531adb8a1438b29b66",
+    "checked_at": "2026-10-03T02:58:18.523151+00:00",
+    "brief": "35_FINAL_BATTERY_high.md: composed shipping battery"
+  }
+}

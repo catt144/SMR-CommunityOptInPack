@@ -1,0 +1,177 @@
+local T = SMRTK
+local instruments, groups, group_index = {}, {}, 1
+local active_recorders = {}
+function OnMsg.LoadGame() active_recorders = {} end
+local function identity(o)
+    return IsValid(o) and (tostring(o.class) .. "(" .. tostring(o.handle) .. ")") or "none"
+end
+local function configuration()
+    local pack = rawget(_G, "SMROptInPack")
+    if not pack or type(pack.IsActive) ~= "function" then return false, "Opt-In registry missing" end
+    local fix = rawget(_G, "SMRFixPack")
+    local actual = fix and "present" or "absent"
+    if actual ~= expected_fixpack then
+        return false, "wrong process configuration: expected fix pack " .. expected_fixpack .. ", got " .. actual
+    end
+    return pack, fix
+end
+local function guarded(fn)
+    return function(...)
+        local pack, why = configuration()
+        if not pack then return false, why end
+        return fn(...)
+    end
+end
+local function capture(name)
+    local saved = {}
+    instruments[name] = saved
+    local proxy = {}
+    proxy.Bind = function(n, label, fn, opts)
+        local callback = fn
+        if name == "floor" and (n == 2 or n == 7) then
+            callback = function(...)
+                local result, why = fn(...)
+                if type(result) == "table" then
+                    local state = result.witness or result.trap
+                    if state then active_recorders[n] = state == "on" or nil end
+                end
+                return result, why
+            end
+        end
+        saved[n] = { label = label, fn = guarded(callback), opts = opts }
+        return saved[n]
+    end
+    proxy.BindScratch = function(label, fn, opts)
+        saved.scratch = { label = label, fn = guarded(fn), opts = opts }
+        return saved.scratch
+    end
+    proxy.Trigger = function(spec)
+        if spec.prepare then spec.prepare = guarded(spec.prepare) end
+        return T.Trigger(spec)
+    end
+    return setmetatable(proxy, { __index = T, __newindex = T })
+end
+
+local function read(ctx)
+    local pack, fix = configuration()
+    if not pack then return false, fix end
+    if GetTimeFactor() ~= 0 then return false, "pause before the battery read" end
+    local mark = ctx.mark("BATTERY_35_READ")
+    for id, entry in pairs(pack.fixes) do
+        ctx.log("DUMP", { sitting = "final_35", row = "module", module = id,
+            status = entry.status, active = pack.IsActive(id), option = pack.OptionEnabled(id) })
+    end
+    local station_list, train_list, seen = {}, {}, {}
+    for _, city in ipairs(Cities or empty_table) do
+        for _, station in ipairs(city.labels.Station or empty_table) do
+            if IsValid(station) and not seen[station] then
+                seen[station] = true; station_list[#station_list + 1] = station
+            end
+        end
+        for _, train in ipairs(city.labels.Train or empty_table) do
+            if IsValid(train) and not seen[train] then
+                seen[train] = true; train_list[#train_list + 1] = train
+            end
+        end
+    end
+    table.sort(station_list, function(a,b) return a.handle < b.handle end)
+    local hub_number = 0
+    local distribution = rawget(_G, "SMROptInTrainDistribution")
+    for _, o in ipairs(station_list) do
+        local hub = IsKindOf(o, "SMROptInTrainHubBase")
+        local depot = IsKindOf(o, "SMROptInElevatorDepotDevBase")
+        if hub then hub_number = hub_number + 1 end
+        local role = hub and ("Hub " .. hub_number) or (depot and "Depot" or "Station")
+        ctx.log("DUMP", { sitting = "final_35", row = "object", object = identity(o), role = role,
+            map = tostring(GetEnvironment(o:GetMap())), working = tostring(o.working), destroyed = tostring(o.destroyed),
+            storage = o:GetMaxStorage("Metals"), production = o.electricity_production,
+            consumption = o.electricity_consumption, drones = #(o.drones or empty_table),
+            track_work = type(o.SMROptIn_track_work) == "table" and tostring(o.SMROptIn_track_work.repair) or "none" })
+        for _, res in ipairs(o.storable_resources or empty_table) do
+            local supply, demand = o.supply and o.supply[res], o.demand and o.demand[res]
+            if supply and demand then
+                ctx.log("DUMP", { sitting = "final_35", row = "request", object = identity(o), resource = res,
+                    stock = supply:GetActualAmount(), available = supply:GetTargetAmount(),
+                    desired_supply = supply:GetDesiredAmount(), room = demand:GetTargetAmount(),
+                    desired_demand = demand:GetDesiredAmount(), capacity = o:GetMaxStorage(res),
+                    enabled = o:IsResourceEnabled(res) })
+            end
+        end
+        if hub then
+            for _, suffix in ipairs({"CapacityNetwork", "TrainCargo", "Power", "StorageHub"}) do
+                local key = "SMROptInTrainHub6_" .. suffix
+                ctx.log("DUMP", { sitting = "final_35", row = "upgrade", object = identity(o), upgrade = key,
+                    bought = tostring(o:HasUpgrade(key)), on = tostring(o:IsUpgradeOn(key)),
+                    building = tostring(o:IsUpgradeBeingConstructed(key)) })
+            end
+            local work = o.SMROptIn_track_work
+            for key, job in pairs(type(work) == "table" and work.jobs or empty_table) do
+                ctx.log("DUMP", { sitting = "final_35", row = "job", hub = identity(o), key = tostring(key),
+                    kind = job.kind, site = identity(job.site), drone = identity(job.drone),
+                    started = job.started, waiting = tostring(job.waiting), deadline = job.deadline })
+            end
+        end
+    end
+    for _, train in ipairs(train_list) do
+        ctx.log("DUMP", { sitting = "final_35", row = "train", object = identity(train),
+            map = tostring(GetEnvironment(train:GetMap())), command = tostring(train.command),
+            station = identity(train.current_station), cargo_capacity = train.max_shared_storage,
+            passenger_capacity = train.max_colonists_to_transport })
+    end
+    ctx.mark("BATTERY_35_READ_DONE")
+    return { mark = mark, sitting = "final_35", group = groups[group_index].name,
+        fixpack = expected_fixpack, fixpack_version = fix and fix.PackVersion and fix.PackVersion() or "absent",
+        optin_version = pack.PackVersion(), trace = tostring(pack.TrainTrace or false),
+        stations = #station_list, trains = #train_list, errors = T.error_count,
+        game_time = GameTime(), selected = identity(ctx.sel) }
+end
+
+local function activity(state)
+    local live = 0
+    for _, city in ipairs(Cities or empty_table) do
+        for _, train in ipairs(city.labels.Train or empty_table) do
+            if IsValid(train) then
+                live = live + 1
+                local cargo = 0
+                for _, amount in pairs(train.stockpiled_amount or empty_table) do cargo = cargo + amount end
+                local value = tostring(train.command) .. ":" .. identity(train.current_station) .. ":" .. cargo
+                if state.last[train] and state.last[train] ~= value then state.changes = state.changes + 1 end
+                state.last[train] = value
+            end
+        end
+    end
+    local depot = rawget(_G,"SMRElevatorDepot")
+    local surface = depot and depot.PairOf()
+    local cabin = surface and rawget(surface,depot.CABIN)
+    state.samples = state.samples + 1
+    return { train_samples=state.samples, live_trains=live, train_state_changes=state.changes,
+        cabin_phase=cabin and cabin.phase or "none", cabin_legs=cabin and cabin.legs or -1 }
+end
+T.Trigger { id = "battery_35_hour", label = "Battery: one game hour, stop on error", cadence = 250,
+    prepare = guarded(function(ctx)
+        if not UIColony then return false, "load the test copy first" end
+        ctx.state.deadline = GameTime() + const.HourDuration
+        ctx.state.errors = T.error_count
+        ctx.state.last,ctx.state.changes,ctx.state.samples = {},0,0
+        local fields = activity(ctx.state)
+        ctx.state.initial_legs = fields.cabin_legs
+        fields.deadline = ctx.state.deadline
+        return fields
+    end),
+    when = function(ctx)
+        local fields = activity(ctx.state)
+        fields.cabin_legs_before = ctx.state.initial_legs
+        fields.game_time = GameTime()
+        if T.error_count ~= ctx.state.errors then fields.verdict="new_error"; return true,fields end
+        if GameTime() >= ctx.state.deadline then fields.verdict="hour_done"; return true,fields end
+        return false
+    end,
+    ["do"] = { mark = true, pause = true, sound = true },
+}
+local function hour()
+    local ok, fields = T.Arm("battery_35_hour")
+    if not ok then return false, fields.reason end
+    local sped, why = T.Run("speed_ultra")
+    if not sped then T.Disarm("battery_35_hour", "speed refused"); return false, why.reason end
+    return fields
+end

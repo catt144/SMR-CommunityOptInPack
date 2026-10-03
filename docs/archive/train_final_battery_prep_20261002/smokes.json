@@ -1,0 +1,278 @@
+{
+  "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372",
+  "filter": "sorted(tools/trains/*/tests/*_smoke.py)",
+  "members": [
+    {
+      "path": "tools/trains/depot/tests/props_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\depot\\tests\\props_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/depot/tests/revision_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\depot\\tests\\revision_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/depot/tests/wiring_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\depot\\tests\\wiring_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/art_spec_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\art_spec_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/buildtrack_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\buildtrack_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/capacity_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\capacity_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/cargo_heater_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\cargo_heater_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/cargo_slots_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\cargo_slots_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/cargo_upgrade_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\cargo_upgrade_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/cargo_view_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\cargo_view_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/crossing_witness_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\crossing_witness_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/distribution_departure_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\distribution_departure_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/distribution_slots_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\distribution_slots_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/distribution_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\distribution_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/distribution_ui_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\distribution_ui_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/dwell_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\dwell_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/export_pairing_slots_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\export_pairing_slots_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/export_pairing_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\export_pairing_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/flight_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\flight_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/food_stream_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\food_stream_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/global_upgrade_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\global_upgrade_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/hub_refusal_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\hub_refusal_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/hubless_slots_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\hubless_slots_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/hubless_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\hubless_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/look_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\look_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/module_gates_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\module_gates_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/move_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\move_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/pallet_visuals_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\pallet_visuals_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/reactor_dust_slot_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\reactor_dust_slot_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/repair_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\repair_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/spoilage_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\spoilage_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/station_visuals_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\station_visuals_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/storage_upgrade_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\storage_upgrade_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "path": "tools/trains/hub/tests/traffic_smoke.py",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests\\traffic_smoke.py"
+      ],
+      "exit": 0
+    }
+  ]
+}

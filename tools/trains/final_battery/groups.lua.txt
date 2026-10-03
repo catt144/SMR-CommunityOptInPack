@@ -1,0 +1,51 @@
+
+local I = instruments
+local bounded = { label = "Run one game hour at Ultra; stop and pause on error", fn = guarded(hour), opts = {mode="once",armed_id="battery_35_hour"} }
+groups = {
+    { name="Crossings", [1]=bounded, [2]=I.revision[2], [3]=I.revision[3],
+      [4]=I.depot[3], [5]=I.depot[5], [6]=I.upgrades[6],
+      [7]=I.crossings[7], [8]=I.crossings[8], [9]=I.crossings[9], [10]=I.crossings[10] },
+    { name="Depot", [1]=I.revision[1], [2]=I.revision[2], [3]=I.revision[3],
+      [4]=I.revision[4], [5]=I.revision[5], [6]=I.revision[6],
+      [7]=I.depot[3], [8]=I.depot[4], [9]=I.depot[5], [10]=I.upgrades[6] },
+    { name="Rows", [1]=I.rows[1], [2]=bounded, [4]=I.rows[4], [5]=I.rows[5], [6]=I.upgrades[6] },
+    { name="Upgrades", [2]=bounded, [3]=I.upgrades[3], [4]=I.upgrades[4],
+      [5]=I.upgrades[5], [6]=I.upgrades[6],
+      [7]={label="Full hub refusal: fill and hold Metals (test copy only)",
+           fn=guarded(T.DistributionFullHubLeg),opts={mode="once",needs="selected"}} },
+    { name="34b", [1]=I.floor[1], [2]=I.floor[2], [3]=I.floor[3], [4]=I.floor[4],
+      [5]=I.floor[5], [6]=I.floor[6], [7]=I.floor[7], [8]=I.floor[8], [9]=I.floor[9], [10]=bounded },
+}
+local function bind_group(index)
+    local group = groups[index]
+    for n=1,10 do
+        local entry = group[n]
+        local label = entry and entry.label or "Unused in this group"
+        local fn = entry and entry.fn or function() return false,"unused in this group" end
+        local def, why = T.Bind(n, group.name .. ": " .. label, fn, entry and entry.opts or {mode="once"})
+        if not def then return false, why end
+    end
+    group_index = index
+    return { group = group.name, next_group = groups[index % #groups + 1].name }
+end
+T.Bind(11,"Battery: read configuration, objects, requests, upgrades and track jobs (paused)",read,{mode="once"})
+T.Bind(12,"Battery: NEXT labeled group (paused; cancel watches first)",function(ctx)
+    if GetTimeFactor() ~= 0 then return false,"pause first" end
+    if next(T.armed) then return false,"cancel all watches before changing group" end
+    if next(active_recorders) then return false,"switch OFF 34b witness (2) and cargo trap (7) before changing group" end
+    -- 34b's log-only wrappers are toggles rather than armed actions. They are
+    -- explicitly switched off with their own buttons before leaving that group.
+    local result, why = bind_group(group_index % #groups + 1)
+    if not result then return false,why end
+    result.mark = ctx.mark("BATTERY_35_GROUP_" .. result.group)
+    return result
+end,{mode="once"})
+T.BindScratch("Battery: toggle train diagnostics ON/OFF (default OFF; pause first)",function(ctx)
+    local pack, why = configuration()
+    if not pack then return false,why end
+    if GetTimeFactor() ~= 0 then return false,"pause first" end
+    local mark=ctx.mark("BATTERY_35_TRACE")
+    pack.TrainTrace = not pack.TrainTrace
+    return { mark=mark, trace=pack.TrainTrace }
+end,{mode="once"})
+bind_group(1)

@@ -1,0 +1,681 @@
+B:\Dev\SMR\SMR-OptInPack\tools\trains\depot\tests\props_smoke.py
+props_smoke: PASS; HEAD=f3d6c78a28afd5d9e4c0d1121c81b37485c1e372 + working tree; Lua 5.5
+Covered: CObject census, exact repair, identified legacy sweep, ownership/signature/stale guards, repeat sweep, nil-Z measurement, load reset, the placement cursor dress.
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\depot\tests\revision_smoke.py
+fit_title: depot and hub fit in all 116 cases across scale 800..2200
+wiring_smoke: PASS; HEAD=f3d6c78a28afd5d9e4c0d1121c81b37485c1e372 + working tree; Lua 5.5
+Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, both actual twinless row tooltips, the staged slots, both title helpers hold two lines at every scale; no bare /.
+command: python tools/trains/depot/tests/revision_smoke.py; HEAD=f3d6c78a28afd5d9e4c0d1121c81b37485c1e372 + working tree
+PASS: twinless rest/resume FX; lowest-stock/room/reservations both legs; 250/500 cabin and storage; native upgrade cost, shared receipt, no duplicate purchase, replacement, hub isolation; native train buttons both halves; generated class inheritance, staged fixture/run/read slots and stale-run replacement.
+source: 1.1.1.406343 Modifiers.lua b7412a474a2ef288b2bfde5241ec4a2cf33ed88bb23d7292822221d69f9f9c58
+source: 1.1.1.406343 Buildings/Building.lua 02b438909f4a0e0cb880a41cc05f35cdeb0bfcbb22bb3f4631d056b93fa68d9a
+source: 1.1.1.406343 Buildings/MultiResourceDepot.lua 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: 1.1.1.406343 Buildings/UpgradableBuilding.lua a9df30bafbd0212ffe0b230f9ac753564643cc5a708e6f0d3b30356174553b1c
+source: 1.1.1.406343 XDef/sectionCustom.generated.lua 3dc6f1f84394bdafe92ec01936967cc2388efa123859735543f2545dbc144c58
+source: 1.1.1.406343 XDef/customStation.generated.lua 2b53e23cd8d4d93d0ced568614997ee5f3f3bff3dd47bf5288f68ef12eb46eac
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\depot\tests\wiring_smoke.py
+fit_title: depot and hub fit in all 116 cases across scale 800..2200
+wiring_smoke: PASS; HEAD=f3d6c78a28afd5d9e4c0d1121c81b37485c1e372 + working tree; Lua 5.5
+Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, both actual twinless row tooltips, the staged slots, both title helpers hold two lines at every scale; no bare /.
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\art_spec_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\art_spec_smoke.py
+HEAD f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS: retail skips only the hub's three specs; other specs and editor delegate
+LIMIT: real retail load still needs the owner's session log
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\buildtrack_smoke.py
+[TrainHub] repair: toggle on, switch on, fleet 5, fleet load low (200 %), vanilla load low, repairs 1 under way, 0 waiting, max 30
+[TrainHub] repair job 1: repair site table: 0000019F574A1160 deadline 5049173 (38531 ms left) drone false waiting false
+{
+  "command": "python tools/trains/hub/tests/repair_smoke.py",
+  "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372",
+  "source_sha256": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
+  "scope": "mocked Lua / source contract over the TRACK WORK section; no native run, no save file, no clearance claim",
+  "result": "PASS",
+  "flight_records_created": 27,
+  "adoptions": 2,
+  "notifications": 22
+}
+{
+  "command": "python tools/trains/hub/tests/buildtrack_smoke.py",
+  "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372",
+  "sources": {
+    "TrainHub_20_TrainHub.lua": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
+    "TrainHub_30_TrainHubDrones.lua": "a054a978706c41412f60ea222526ae22ebeb50ac9b7694be8e927ae69d7782c2"
+  },
+  "snapshot_sha256": "4b2fb494810d497e6ddcd43587d9ac1bf4cd2997c82b6f807a058c5a5a271163",
+  "captured_line_groups": 20,
+  "pre_fix_control": "86c7a9e graph finds zero build groups in the identical snapshot",
+  "scope": "mocked Lua plus captured-topology replay: reworked/mixed/hanging tracks, real gaps, repair priority/reserve, build payment/timing, adoption, toggle, multi-hub launches; no game/save-file evidence",
+  "result": "PASS"
+}
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\capacity_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\capacity_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS Capacity: global display/switch, broadcast, construction, native resize, salvage/clear, zero hubs, future hubs/trains, load
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_heater_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_heater_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source_sha256: 758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497
+PASS Power: colony 75/150, shared controls, later hub, heat, cold immunity, salvage persistence, load, zero hubs
+PASS mutation rejected: no heat
+PASS mutation rejected: wrong range
+PASS mutation rejected: heat gated on Cargo
+PASS mutation rejected: warm network
+PASS mutation rejected: heat restore
+PASS mutation rejected: base output
+PASS mutation rejected: production notification
+PASS mutation rejected: power output
+PASS mutation rejected: per-hub display
+PASS mutation rejected: receiver switch refused
+PASS mutation rejected: raw display
+PASS mutation rejected: later hub heat
+PASS mutation rejected: salvage persistence
+PASS mutation rejected: zero hubs persistence
+PASS mutation rejected: power unlock
+PASS mutation rejected: saved-base migration
+PASS mutation rejected: saved-base scope
+PASS mutation rejected: Power output addition
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_slots_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_slots_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+TestKit HEAD: 840856655690bf8f914a2f531adb8a1438b29b66
+slots_sha256: 502a5cede581fff5c8ef8d9e6ff9839cf89ce7d4ae7ecf2ee9dc83ecc3bd781f
+PASS mutation rejected: duplicate modifier rows
+PASS mutation rejected: no-hub off modifiers
+PASS slot 3: both upgrade states/modifiers, capacities, speed/animation, paused gate; no fill/toggle/UI allocation
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_upgrade_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_upgrade_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source_sha256: 758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497
+template_source_sha256: fc0eabe929ea3cd4c5c63d1907ef5ef6718539117e98da34cb209ff00423c442
+PASS cargo: additive 126000; with +50% cargo tech 147000; passengers/stations unchanged by cargo
+PASS independent claims, construction/cancel, shared display/toggle, salvage/clear persistence, future hubs, load
+PASS chained speed and animation, extra returns, tech/law, foreign city
+PASS cargo alone: vanilla cold penalty retained with and without Safe Transport and tech
+PASS mutation rejected: speed multiplier
+PASS mutation rejected: animation multiplier
+PASS mutation rejected: cargo must not warm
+PASS mutation rejected: receiver switch
+PASS mutation rejected: cargo ownership
+PASS mutation rejected: global display
+PASS mutation rejected: cargo salvage
+Generated upgrade slots 1/2/3/4, base storage and power match source
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_view_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\cargo_view_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS stocked cube display survives actual distribution transfer; draw/error/height controls
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: removing rendering scope erases stocked cubes
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\crossing_witness_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\crossing_witness_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: 1.1.1.405907 Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44 station writes: 2
+source: 1.1.1.406343 Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44 station writes: 2
+source: depot 046b5c3433ae1df82cda38e661c886ded73bad5f5ad6c8893fb3a4e296709a32 cabin writes: 2; hub writes: outflows only
+80_AgentSlots_crossing.lua.txt sha256: 59ed55436f0ab0677b9f26e1c1e2a8f8e72365570055f218b9ada337400355f9
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS: hub crossing proved from real unloads incl. pass-through/unassigned cargo; strict refused and net proved on a stocked hub; refused for pure drawdown, own-route reloads and drone stock; exact with no polls (Ultra); a yielding drone load leaves nothing open; a save is blind but loses no transfer; real TransferCargo booked to its route; depot down-crossing proved strict and net, refused for either missing link; train and cabin mismatches taint and are named; load resets
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: no entry checkpoint (the gap booked to the train)
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: starting stock left out of the bar
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: the route's own unloads left out
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: drone stock left out of the bar
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: the cabin not wrapped
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: assigned-only unloads (the 2026-09-18 rule)
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: the net bound without drawdown
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS mutation rejected: a drone bracket held open across its yield
+NOT TESTED: engine class flattening, trigger threads, real drones/saves/cabin; the attended check covers them
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_departure_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_departure_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+TrainTransport.lua sha256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+archived LoadTrain + ForEachStationAlongTrack; nil length=0; engine assert observed; waits/movement doubled
+LOAD Butter parent=1 colony_routes=nil
+LOAD ButterLoose parent=1 colony_routes=nil
+LOAD Metals parent=1 colony_routes=nil
+LOAD empty parent=1 colony_routes=nil
+PASS load + native departure watchdog: Butter 69, Metals 98, train capacity 105, and empty train fetch; hub starts at Metals 220
+PASS quiet controls: satisfied pin and full-hub refusal create no phantom departure
+PASS empty chain at load: native commands fetch Metals and return old Butter via intermediate; both pins 10; claims released
+PASS delivery watchdog off-line hub room calls=2
+PASS delivery watchdog off-line full hub calls=3
+PASS delivery watchdog unassigned hub room calls=2
+PASS delivery watchdog unassigned full hub calls=3
+PASS delivery watchdog shrunken pin none calls=1
+PASS delivery watchdog shrunken pin room calls=2
+PASS delivery watchdog shrunken pin load calls=3
+PASS delivery watchdog sideways off-line hub room calls=2
+PASS sideways gateway forwards excess to hub
+PASS delivery watchdog sideways off-line full hub calls=2
+PASS sideways gateway holds overflow after full hub refusal
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_slots_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_slots_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+TestKit HEAD: 840856655690bf8f914a2f531adb8a1438b29b66
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: d79b51baaf03273bfbd8494a33d34498cf047c0a25d290251fcb08aab78325c7
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+70_SMRTK_Core.lua sha256: e3510d7090a5bbe0a234527c06ebae4c4586e0d99e9accb5d3640e9f2f358c28
+74_SMRTK_Agent.lua sha256: 67c3d123cf63f17f86444a1eadacc39a0b3e501587ddeb25f413fbddf37b4747
+80_AgentSlots_upgrades.lua.txt sha256: 502a5cede581fff5c8ef8d9e6ff9839cf89ce7d4ae7ecf2ee9dc83ecc3bd781f
+PASS slot 4 reads every untouched row as effective Balanced, exact live dial with derived percent; no settings written
+PASS Scratch balances non-hub rows to target and slot 1 empties them through AddResource; hub untouched; reserved stock and room kept and counted; train cargo counted; paused only
+PASS slot 6 streams a full baseline, then only changed train and stock rows, file-only; stops when disarmed
+PASS slot 4 mode/percent/target; slot 5 floor 24 and source return; the full-hub leg holds 480 against competing haulers and hub visits, refuses source export at 120; native trigger/dispatch cleanup on completion/save/cancel/deadline; reserved/changed fixtures rejected; slots 1-3, 6 and Scratch bound
+NOT TESTED: native engine ledger, thread scheduling and actual game UI
+PASS mutation rejected: slot 6 nominal speed substituted for effective speed
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS owned dev Lua parses; code registration agrees with ModItemCode source
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS untouched spokes: 10 each, remainder at hub; dial 25 then 5; doubling keeps absolute 5/10; no saved settings or claims
+PASS untouched scope: disconnected/disabled vanilla controls; old cargo capped only on hub lines; reservations reduce orders
+PASS one-hop chain: Export/Balanced/untouched forward excess, Import fills through 2012, full hub refuses
+PASS dual-line 2009 uses direct hub route; sideways line keeps both pins; Import intermediate passes transit
+PASS covered sub-unit order: desire/storage safe, order=400, spoke=59600, hub=113500, claims released
+PASS order boundaries 0/1/400/999/1000/1400: import, balanced, export; exact demand cap and return stop
+PASS fractional old-cargo unload: exact-fit import/balanced, over-target/export refused, native capacities restored
+PASS new train with nil assigned_resources: configured Concrete, capacity 120, floor 24, return stops
+[TrainHub] transient claim failed: [string "<python>"]:237: attempt to index a nil value (local 'absent')
+PASS claim cleanup on rejection/error, nil returns, independent reservations
+CONTROL floor=20 sink=100 retained=60.0
+CONTROL floor=20 sink=400 retained=36.0
+CONTROL import: available=80 requested=80 allocated=40
+PASS export: whole-unit allocation at floors 0/1/20/50/99/100 percent; 60/240, 60/480, 100/100, 120/480; return stops, fractional residue <1000
+PASS import ceiling lifted: 80 allocated and retained; balanced fills to 80
+PASS several receivers get separate bounded orders; untouched resource keeps vanilla drone baseline
+PASS balanced export excess leaves 20
+PASS existing standing hub reserve is retained
+[TrainDistribution] station=2 res=Metals mode=export slider=12.000 stock=60.000 supply=60.000/60.000 demand=0.000/0.000 covered=false hub_full=true calls=116
+PASS full hub refuses, does not bounce stock to exporter
+PASS existing inbound reservations; export does not unload old cargo
+PASS uncovered spoke gets train behavior; remote hub is not local drone coverage
+[TrainDistribution] station=2 res=Metals mode=export slider=24.000 stock=12.000 supply=12.000/120.000 demand=108.000/0.000 covered=true hub_full=false calls=119
+PASS six rewrite paths, captured request alias, network-wide capacity doubling
+PASS save hook removes in-call lies/claims; load rebuilds baselines from hub table
+PASS invalid controls and reset; no outstanding test errors
+PASS desk only: native requests, drone scheduling, UI and engine serialization remain attended
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_ui_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\distribution_ui_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: d79b51baaf03273bfbd8494a33d34498cf047c0a25d290251fcb08aab78325c7
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+[TrainDistribution] sectionStorageRow.OnContextUpdate unavailable
+PASS native narrow-line Balance/d reproduction; whole Electronics/Machine Parts/Rare Metals/mode words fit reserved width across font/scale doubles; title capped at two font lines
+PASS late XDef load/retry/log-once; original native constructor/click/right-title retained; slider in original title line; 80% panel floor
+PASS four distinct native icons/titles; native disabled flags; Balanced slider; row-tooltip amount/percent readout without bubble/timer; UI-configured capacity-120 floor 24 and return; live capacity/coverage refresh
+PASS Ctrl copies state/percent to hub and hubless stations without advancing source; hubless four-state cycle, slider and tooltip; hub excluded; disconnect/reconnect retain row layout
+PASS long titles: the hub fit_title gives the Elevator Depot answers and holds two lines and the widest word at every scale 800..2200 ( 116 cases, integer-only helpers, no bare /)
+NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\dwell_smoke.py
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\dwell_smoke.py
+HEAD f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS: snapshot mapping, old/new/native load selection, save return/error and failed-load restoration, foreign conflict rejection, no-map waiter lifecycle
+LIMIT: no native serialization; ambiguous unmarked pre-wrapper hub saves are not classified
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\export_pairing_slots_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\export_pairing_slots_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+source: B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\_TaskRequest.lua sha256: 1ce72ef82df4d58b2bb3ae1e3e725dd2763c924dfe6196b2c7150531213908bb
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS witness scope, reservation-aware floor, producer/refill counts, unsafe-pair falsifier, load/re-arm
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\export_pairing_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\export_pairing_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+source: B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\_TaskRequest.lua sha256: 1ce72ef82df4d58b2bb3ae1e3e725dd2763c924dfe6196b2c7150531213908bb
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS storage floors, outstanding bookings, fractional excess, native wait guard
+PASS one excluded-source retry, substitute cap/assignability, repeated refusals, next work result
+PASS work/producer/reverse/foreign/mode gates, hubless toggles, hub ownership, save, flattening
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\flight_smoke.py
+{
+  "command": "python tools/trains/hub/tests/flight_smoke.py",
+  "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372",
+  "source_sha256": "a054a978706c41412f60ea222526ae22ebeb50ac9b7694be8e927ae69d7782c2",
+  "scope": "mocked Lua / source contract; ordinary run also verifies mesh receipt; no native flight, import or serialization claim",
+  "result": "PASS",
+  "fixture_game_ms": {
+    "arrival": 25524,
+    "work_done": 31524,
+    "removed": 57051
+  },
+  "visuals_created": 48,
+  "visuals_removed": 48,
+  "console_trip": {
+    "timed_position_calls": 160,
+    "instant_position_calls": 1,
+    "driver_wakes_incl_hover": 158,
+    "chord_ms_min_max": [
+      50,
+      306
+    ]
+  },
+  "worst_chord_join_speed_step_units_per_s": 0,
+  "max_straight_accel_units_per_s2": 1239.764483741618,
+  "max_yaw_step_minutes_per_chord": 2754,
+  "native_solver_contract": "archived 1.1.1.405907 FlightGoto executed with solver spy; solver owns path; engine mode issues it as a stock command",
+  "engine_mode": {
+    "stock_names_written": [
+      "FlightGoto",
+      "WaitUninterruptable",
+      "false"
+    ],
+    "legs_per_trip": 2,
+    "queued_holds_per_trip": 2,
+    "take_back_within_ms": 250,
+    "idle_seen": false,
+    "persists_through_save": [
+      "ready",
+      "out",
+      "back"
+    ],
+    "removed_at_save": [
+      "rise",
+      "exit",
+      "work",
+      "descent"
+    ]
+  }
+}
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\food_stream_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\food_stream_smoke.py
+SMR-OptInPack HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+SMR-BugFixPack-TestKit HEAD: 840856655690bf8f914a2f531adb8a1438b29b66
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+source: B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\_TaskRequest.lua sha256: 1ce72ef82df4d58b2bb3ae1e3e725dd2763c924dfe6196b2c7150531213908bb
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+source: 70_SMRTK_Core.lua sha256: e3510d7090a5bbe0a234527c06ebae4c4586e0d99e9accb5d3640e9f2f358c28
+source: 74_SMRTK_Agent.lua sha256: 67c3d123cf63f17f86444a1eadacc39a0b3e501587ddeb25f413fbddf37b4747
+PASS connected queue scope, actual pickups, failed/out-of-scope controls, hourly snapshots and notes readout
+PASS actual dispatcher: green normal/hover/pressed, autosave/load/map stop, run completion, stream stop, legacy slot
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\global_upgrade_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\global_upgrade_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source_sha256: 758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497
+PASS legacy migration, saved switches, native modifier identity, zero hubs, native leak fixup, future hub, restored receipt
+PASS mutation rejected: lost off state
+PASS mutation rejected: local container
+PASS mutation rejected: missing registration repair
+PASS mutation rejected: building owns modifiers
+PASS mutation rejected: lost receipt
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hub_refusal_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hub_refusal_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+70_TrainBay.lua sha256: a1426ca9c870219af6433c4c75791e760ebe67d5a3ebef9ec4466004bfb15d32
+PASS cut and guard present by text
+source: Lua/Buildings/Track.lua sha256: 660ffebe4e5078d072da85096ab89a8d0bff36d800ca5bceab5cf03e870fce6a
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+source: Lua/Buildings/StationsLink.lua sha256: dc8be2c6bea87455551c987f144ba33ac7d5a1a21f6daddde2be338df9f6f9a7
+PASS hub refusal: AssignTrain(hub) spawns nothing and spends nothing; AssignTrain(station) spawns on the station's own Spawn spot; no card methods remain (the hub never showed the buttons)
+NOT RUN: a live spawn and the Transportation overview row
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hubless_slots_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hubless_slots_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: d79b51baaf03273bfbd8494a33d34498cf047c0a25d290251fcb08aab78325c7
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+PASS overlay: inert load, native stock/reservation guards, read, target requires stock change and native call; floor/cap/edit/error/deadline falsifiers; explicit arm only
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hubless_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\hubless_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS native-body archive parity: 1.1.1.405907 -> 1.1.1.406343
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+[TrainDistribution] station=1 res=Metals mode=import slider=50.000 stock=50.000 supply=50.000/0.000 demand=50.000/100.000 covered=false hub_full=false calls=3
+PASS no hub implementation: native export floor, import cap/refusal, drone baselines, separate saved row
+PASS Balanced pin, real reservation preserved, exact export floor and transient release
+PASS untouched absolute dial, edited percentage, native rewrite paths and replacement requests
+PASS simulated save snapshot: native baseline and no claims/policy; save-done/load restore rows
+PASS hub join/leave/rejoin isolates settings, clears stale baselines, and resets individual rows
+PASS old cargo cap, native reassignment, empty pickup and satisfied-line stop
+PASS native depot endpoint without hub settings, and disabled-resource drain
+NOT RUN: native engine/save removal, drone scheduling and attended UI
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\look_smoke.py
+{"command": "python tools/trains/hub/tests/look_smoke.py", "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372", "status": "PASS: mocked visual lifecycle; native game behavior untested", "counts": {"crown_night": 1, "reactor_channels": 4, "portal": 30, "pit": 6, "underdeck_night": 18, "crown_day": 0, "rim": 36, "total_day": 144, "hub_colorization_calls": 0, "underdeck_day": 0, "arm": 72, "total": 144, "total_night": 163, "floor": 0}, "underdeck_positions": ["r=900 cm, angle=0.0 deg, z=700 cm (x=900, y=0)", "r=1700 cm, angle=0.0 deg, z=700 cm (x=1700, y=0)", "r=2500 cm, angle=0.0 deg, z=700 cm (x=2500, y=0)", "r=900 cm, angle=60.0 deg, z=700 cm (x=450, y=779)", "r=1700 cm, angle=60.0 deg, z=700 cm (x=850, y=1472)", "r=2500 cm, angle=60.0 deg, z=700 cm (x=1250, y=2165)", "r=900 cm, angle=120.0 deg, z=700 cm (x=-450, y=779)", "r=1700 cm, angle=120.0 deg, z=700 cm (x=-850, y=1472)", "r=2500 cm, angle=120.0 deg, z=700 cm (x=-1250, y=2165)", "r=900 cm, angle=180.0 deg, z=700 cm (x=-900, y=0)", "r=1700 cm, angle=180.0 deg, z=700 cm (x=-1700, y=0)", "r=2500 cm, angle=180.0 deg, z=700 cm (x=-2500, y=0)", "r=900 cm, angle=240.0 deg, z=700 cm (x=-450, y=-779)", "r=1700 cm, angle=240.0 deg, z=700 cm (x=-850, y=-1472)", "r=2500 cm, angle=240.0 deg, z=700 cm (x=-1250, y=-2165)", "r=900 cm, angle=300.0 deg, z=700 cm (x=450, y=-779)", "r=1700 cm, angle=300.0 deg, z=700 cm (x=850, y=-1472)", "r=2500 cm, angle=300.0 deg, z=700 cm (x=1250, y=-2165)"], "cases": ["missing imports", "fallback replacement", "idempotent init", "foreign attachment preserved", "offset/scale/FX preserved", "working on/off SI", "recreate after mocked load deletion", "reactor dust: imported and fallback visuals never receive positive dust, including before cleanup; other attaches retain the vanilla dust pass", "reactor palette: default P4 on init (owner, 2026-09-22) -- 4 channels, navy RGB(18,32,78)/0/0 on 1-2, steel RGB(200,205,210)/-90/110 on 3-4, on the fallback entity and on the imported one", "reactor palette: re-applied by the recreation path, so it survives the mocked load; the glass visual is never colorized", "reactor palette: SetHubReactorPalette switches P1/P3/P4 live, a table patches one channel, an unknown name is a no-op", "reactor palette: \"vanilla\" and a bare call recreate the visual with no colorization at all; a patch onto vanilla paints only its own channel", "reactor palette: the hub object itself receives no colorization call in the whole run", "arm lights: 72 on, destroyed off, idempotent, foreign attachment preserved", "arm tune: defaults, re-init keeps 72, side moves all 72, intensity/radius/colour applied, reset restores offsets", "structure lights: portal 30 on by default; pit 6 (on the Pitrim spot), rim 36 and floor 24 off by default; 102 default, 144 with rim and pit", "structure lights: on the rim span, the kerb circle and the ring radius, at their z", "structure lights: every family off-able to 0, floor edge on-able to 24, destroyed off and recreated on", "crown floor light: absent all through the day pass; 1 at night on the dome axis (0,0,1900), a PointLight with no aim at all, RGB(255,214,170), intensity 150, radius 4000 cm", "crown floor light: the vanilla night hook fired both ways -- Msg LightmodelChange day->night places it, night->day destroys it, a no-transition fire rebuilds nothing", "crown floor light: another map's LightmodelChange does not switch this hub", "crown floor light: idempotent at night, tunable and off-able via SetHubStructureLights, destroyed by OnSetWorking(false) and recreated by (true)", "under-deck fill (owner, 2026-09-22): absent all through the day pass; 18 at night, three per arm at 9/17/25 m along each arm axis, all at z 700 cm and inside the 32.95 m glazing radius, each arm/radius slot used exactly once", "under-deck fill: PointLight, the crown's own RGB(255,214,170), intensity 40, radius 1200 cm, no axis, no angle, no cone and no fixture", "under-deck fill: tunable via SetHubStructureLights{underdeck={...}} -- intensity/radius/height applied to all 18, radii={800} gives 6, on=false gives 0, back to 18 on the defaults", "under-deck fill: on the vanilla night hook both ways with the crown, idempotent at night, gone with every other light when the hub stops (0 lights standing) and back at 18 when it runs", "dome glass (owner, 2026-09-22, superseding OI-23): absent while its entity is missing and the siding glass beside it unaffected; present exactly once when available, however often init runs", "dome glass: attached at Origin with a zero offset, flags cleared, DeleteOnLoadGame, never colorized and never given a SetSIModulation call on working on or off", "dome glass: deleted by the mocked load removal and recreated once by the same init path"]}
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\module_gates_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\module_gates_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760
+PASS both off: a hubless station keeps vanilla rows; D.Set refuses
+PASS StationRows on: four-state rows apply (export floor written)
+PASS StationRows off: vanilla desired restored, setting kept but unused
+PASS TrainHub forces the rows on, and off returns them to the StationRows toggle
+PASS both off: a hub network keeps its rows (part of the hub)
+PASS spoilage: stations keep food only while TrainHub is on; the hub always spoils
+PASS build menu: each module off hides only its own template; on offers it again
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 2edce820aea5e57f2a0a6b76546dd1b6d2283e29e74cf9e85e51823b206eebd6
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: be583ca2f293b17e6e577f75105e1aa866ed7b272e5f48d2f43055fcda56b6ed
+PASS mutation rejected: hubless gate always open (hubless rows on with both modules off)
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 2edce820aea5e57f2a0a6b76546dd1b6d2283e29e74cf9e85e51823b206eebd6
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 5df8c06d2cd368d0b71fc90481e6c99e4db4c99806965fc572e03554df0cd2fb
+PASS both off: a hubless station keeps vanilla rows; D.Set refuses
+PASS StationRows on: four-state rows apply (export floor written)
+PASS StationRows off: vanilla desired restored, setting kept but unused
+PASS mutation rejected: TrainHub no longer forces the rows (forced rows not re-applied)
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 2edce820aea5e57f2a0a6b76546dd1b6d2283e29e74cf9e85e51823b206eebd6
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: e91b6701485b0e459b34df2b59d67372dc616170f918f41aab8bb2b0d0ff1b56
+PASS both off: a hubless station keeps vanilla rows; D.Set refuses
+PASS StationRows on: four-state rows apply (export floor written)
+PASS StationRows off: vanilla desired restored, setting kept but unused
+PASS TrainHub forces the rows on, and off returns them to the StationRows toggle
+PASS mutation rejected: hub network gated like a hubless station (hub network lost its rows)
+PASS mutation rejected: spoilage ungated (a station must spoil as vanilla)
+PASS mutation rejected: TrainHub lock removed (off modules must lock their template)
+NOT TESTED: the engine's build menu, Mod Options page, save serialization; the owner's in-game check covers loading
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\move_smoke.py
+HEAD f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived dwell commands and vanilla control.
+This test does not certify native clearance or save/load; owner results are recorded in D14.
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\pallet_visuals_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\pallet_visuals_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+[desk] stale picture: 1611 cubes, beds 0-3 only
+[TrainHub] hub 6430 cargo columns re-derived (total_cols=360): BlackCube 12@nil>18@nil MysteryResource 12@nil>18@nil Metals 13@0>19@0 Concrete 13@13>19@19 Food 13@26>19@38 PreciousMetals 13@39>19@57 PreciousMinerals 13@52>19@76 Polymers 13@65>19@95 MachineParts 13@78>19@114 Electronics 13@91>19@133 Fuel 13@104>19@152 Seeds 13@117>19@171 WasteRock 13@130>19@190 Herbs 13@143>19@209 Spices 12@156>19@228 Sugar 12@168>19@247 Butter 12@180>19@266 Bread 12@192>19@285 Cheese 12@204>19@304 Coffee 12@216>19@323 Meat 12@228>18@342
+[desk] healed picture: 2352 cubes over all six beds
+PASS stale 240-column split reproduces the report (four beds drawn, two bare, max_z 9 by the upgrade's own re-derive); HealCargoColumns restores 19/18-column slabs over all six beds, logs the old split once, and is a silent no-op when clean
+NOT TESTED: the live save's actual epoch (slot 2 reads it), engine spot geometry, and the game's own load order
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\reactor_dust_slot_smoke.py
+{"command": "python tools/trains/hub/tests/reactor_dust_slot_smoke.py", "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372", "status": "PASS: fixture refusals, timed restore, cancellation, removed visual, stale timer", "limit": "mocked lifecycle; native dust appearance and toolkit integration NOT RUN"}
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\repair_smoke.py
+[TrainHub] repair: toggle on, switch on, fleet 5, fleet load low (200 %), vanilla load low, repairs 1 under way, 0 waiting, max 30
+[TrainHub] repair job 1: repair site table: 00000204617CF6A0 deadline 5048939 (38531 ms left) drone false waiting false
+{
+  "command": "python tools/trains/hub/tests/repair_smoke.py",
+  "head": "f3d6c78a28afd5d9e4c0d1121c81b37485c1e372",
+  "source_sha256": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
+  "scope": "mocked Lua / source contract over the TRACK WORK section; no native run, no save file, no clearance claim",
+  "result": "PASS",
+  "flight_records_created": 27,
+  "adoptions": 2,
+  "notifications": 22
+}
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\spoilage_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\spoilage_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+CONTROL vanilla: depot, station and hub each lose 4% of Food and Butter a sol; Metals keeps
+PASS stations keep Food and delicacies over three sols; hub and ordinary depots still spoil
+NOT TESTED: the engine's class build, the combined-method dispatch and a live sol
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\station_visuals_smoke.py
+[TrainHub] train export floor loaded (standing + transient holds)
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainHub] train export floor loaded (standing + transient holds)
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainHub] train export floor loaded (standing + transient holds)
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\station_visuals_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS normal station: export leaves 60.4/120, vanilla draws 60 cubes; foreign delegation
+PASS mutation rejected: allocation capacity leaked into station drawing
+PASS mutation rejected: saved empty station display not repaired
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\storage_upgrade_smoke.py
+command: C:\Python313\python.exe B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\storage_upgrade_smoke.py
+HEAD: f3d6c78a28afd5d9e4c0d1121c81b37485c1e372
+PASS storage 1000/2000/4000, +19 grid consumption and off, slot 4 and costs, station/train scope
+PASS legacy 240/480 stock and requests, shared controls, future on/off, salvage, zero hubs, repeated load
+PASS mutation rejected: base
+PASS mutation rejected: doubling
+PASS mutation rejected: power on
+PASS mutation rejected: power off
+PASS mutation rejected: migration
+PASS mutation rejected: stock retention
+PASS mutation rejected: shared state
+PASS mutation rejected: future
+PASS mutation rejected: salvage
+PASS mutation rejected: station scope
+PASS mutation rejected: Metals cost
+PASS mutation rejected: Machine Parts cost
+
+B:\Dev\SMR\SMR-OptInPack\tools\trains\hub\tests\traffic_smoke.py
+PASS: 72 lane/reservation cases; 216 arrival mutations rejected; 66 executed routes; concurrency assertions passed.
+TWO-TRAIN (unlocked spatial prediction): {'pairs': 1995, 'within_a_train_width': 1740, 'closest': [('pass1->2', 'pass2->3', 0.0), ('pass1->2', 'pass2->4', 0.0), ('pass1->2', 'pass2->5', 0.0), ('pass1->2', 'pass2->6', 0.0), ('pass1->2', 'pass3->1', 0.0), ('pass1->2', 'pass3->2', 0.0), ('pass1->2', 'pass3->4', 0.0), ('pass1->2', 'pass3->5', 0.0)], 'furthest_apart': [('stop1->1', 'stop2->2', 2377.9), ('stop5->5', 'stop6->6', 2377.6), ('stop3->3', 'stop4->4', 2377.0), ('stop1->1', 'stop4->4', 2040.2), ('stop2->2', 'stop3->3', 2040.2), ('stop1->1', 'stop5->5', 2039.6), ('stop2->2', 'stop6->6', 2039.6), ('stop3->3', 'stop6->6', 2039.6)]}
