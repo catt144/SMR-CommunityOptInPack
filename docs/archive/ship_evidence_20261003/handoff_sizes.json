@@ -1,0 +1,47 @@
+﻿{
+  "command": "python scratch/ship_handoff_sizes.py",
+  "base": "82369ec",
+  "head": "0579b783ea630763a622f856b42c765a9b4aa345",
+  "method": "raw byte length of git base blob and final worktree file; absence zero",
+  "members": [
+    {
+      "file": "01_SHIP_EVIDENCE_high.md",
+      "before": 10755,
+      "after": 0,
+      "delta": -10755
+    },
+    {
+      "file": "01A_RESIDUAL_READ_high.md",
+      "before": 0,
+      "after": 5424,
+      "delta": 5424
+    },
+    {
+      "file": "02_SHIP_TESTS_medium.md",
+      "before": 3377,
+      "after": 14753,
+      "delta": 11376
+    },
+    {
+      "file": "03_STORE_AND_SITE_medium.md",
+      "before": 7175,
+      "after": 8805,
+      "delta": 1630
+    },
+    {
+      "file": "04_FINAL_AUDIT_high.md",
+      "before": 9340,
+      "after": 11858,
+      "delta": 2518
+    },
+    {
+      "file": "README.md",
+      "before": 2744,
+      "after": 2967,
+      "delta": 223
+    }
+  ],
+  "before": 33391,
+  "after": 43807,
+  "delta": 10416
+}

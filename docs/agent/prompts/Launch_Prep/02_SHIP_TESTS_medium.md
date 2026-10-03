@@ -52,6 +52,10 @@ model in 04. Owner time is not a budget for extra scope.
 
 ## Notes from upstream
 
+01 preparation committed at `0579b78`: source/guard receipts, owner actions,
+conditional plan and corrected second-seat read. Doccheck, store parity and
+checkable upload guards passed; no new native test. All launch limits below stand.
+
 01's ledger is `reports/SHIP_EVIDENCE_20261003.md`. This is a filled conditional plan,
 not an instruction to boot immediately. All steps below are **[NEVER RUN]** as a
 new launch sitting. Accepted D02/D04/D09/D15/train cells are inherited within the

@@ -76,6 +76,11 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+01 preparation is `0579b78`; `reports/SHIP_EVIDENCE_20261003.md` owns receipts,
+checks and remaining obligations. Doccheck/store parity/checkable upload guards
+passed. Claims remain conditional on 01A, owner provenance/package choices,
+02's actual evidence and 04; no publication or new gameplay verdict.
+
 01 evidence preparation, 2026-10-03: `reports/SHIP_EVIDENCE_20261003.md` owns
 the build ledger, exact save/pack receipts and provenance inventory. Source pack
 parity passed; accepted module/train tests remain scoped, never repeated. OI-43

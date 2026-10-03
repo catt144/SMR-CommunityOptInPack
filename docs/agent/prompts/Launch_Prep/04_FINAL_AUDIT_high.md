@@ -62,6 +62,11 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+01's prepared evidence/plan is committed at `0579b78`; its lifecycle close consumes
+01 with graph work owned by 01A and owner decisions at OI-49/OI-50. The report is
+`reports/SHIP_EVIDENCE_20261003.md`. Review the actual commit diff: shared Arboretum
+work was excluded via partial hunks, although the working-tree checks included it.
+
 01 close checks: doccheck initially failed only on the unstaged moved gamepatch
 path; staging the byte-identical move restored GREEN. Archived engine-diff
 whitespace is intentionally preserved. Metadata's former "no warning / one dial

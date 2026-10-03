@@ -12,7 +12,7 @@ desk preparation record, not a new attended test or publication approval.
 | Granted OI actions | prepared | guard_result.json, parsecheck; documentation gate at commit |
 | Save residue, rescue applicability and provenance | prepared with holds | exact Save B preserved; graph ownership and Tripo origin unresolved |
 | Remaining attended plan and independent review route | prepared | filled 02 and 01A; corrected plan reread by the second seat; 04 drift notes |
-| Close and push | IN PROGRESS | exact-path/hunk commits, checks, model transcript receipt |
+| Close | prepared | evidence/plan committed at `0579b78`; this lifecycle commit consumes 01; push verified in the task's final response |
 
 The initial shared tree contains an Arboretum test build (D19) and changes to
 metadata, items, policy, checklist, future ideas, generated index and prompt map.
@@ -271,3 +271,13 @@ release owner/04. OI-51 is a non-gating preference. No unhomed finding is droppe
 when 01 is consumed. The original brief remains recoverable from its deletion
 commit. Shared Arboretum changes are excluded through partial-hunk staging;
 no sibling work is committed or edited by this task.
+
+Handoff size measurement: `python scratch/ship_handoff_sizes.py` at `0579b78`
+plus the lifecycle diff compares raw bytes against `82369ec` (absence is zero).
+The exact 01/01A/02/03/04/README members reconcile in archived
+`handoff_sizes.json`: 33,391 before, 43,807 after, +10,416 bytes. The growth is
+the executable plan and owned residual continuation. All original brief blocks
+were traced through the ledger, owner-action homes and successor notes; no
+unhomed content was dropped. Next kickoff is
+`task docs/agent/prompts/Launch_Prep/01A_RESIDUAL_READ_high.md` (desk preparation;
+native read only under its stated conditions).
