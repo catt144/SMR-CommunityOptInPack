@@ -31,6 +31,13 @@ has parked or cut it; the report names the released fix-pack version tested.
   hours and every module toggle.
 - **The console opens only inside a loaded game**, not at the main menu (owner, 2026-10-03). To
   load the fixture copy, load any save, then run `*r LoadGame("FINAL35_P_20261002.savegame.sav")`.
+- **The B1-B6 witness review is ruled** (report `TRAIN_FINAL_BATTERY_20261002.md`, grep
+  `remaining witness review`). **B1** (OI-38's up-leg read) is approved: run its five-step batch.
+  **B3** and **B6** are cleared on the owner's witness: tested during hub design, B3 for the
+  elevator too. **B5** is skipped (*"pretty minor if its just a notification"*). **B2** keeps only
+  full-mod removal restoring vanilla requests. **B4** keeps only upgrades through zero hubs, then
+  a replacement, and over-capacity stock after OFF. The other B2 and B4 items wait on the owner;
+  the orchestrator recommends striking them. Do not issue them meanwhile.
 - **Rows forced on.** With TrainHub ON and StationRows OFF, slot 11 still showed StationRows
   `inactive` although the rows worked. Explain the forced-on mechanism in the report.
 

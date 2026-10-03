@@ -75,9 +75,8 @@ before it fires.
      - The fix-pack-absent run is waived and F65 short-track hub power is accepted as vanilla
        (owner, 2026-10-03; `FIX_POLICY` §8, `TRAIN_FIXPACK_OVERLAP_20261003.md`).
      - B0 in P passed with the owner, including the quiet complete log.
-     - Next: 35's agent lists the B1-B6 checks never seen live (OI-38's up-leg read at least).
-       The orchestrator checks that list against what already passed live, then guides one
-       batch for those.
+     - The B1-B6 witness review is ruled (brief 35's owner rulings). Next: B1's OI-38 batch, then
+       B2's mod removal and B4's zero-hub and over-capacity checks.
      - 35's pass completes the project: purge this folder.
      **Owner's carry-over:** launch prep is authored: `RELEASE_SYSTEM_high.md`, then
      `Launch_Prep/`, after 35. See the prompt map.
