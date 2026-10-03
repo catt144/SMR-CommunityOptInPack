@@ -14,6 +14,19 @@ with the owner, whose verdicts decide whether the train project is complete. Don
 module the owner keeps has passed in both configurations and both toggle directions, or the owner
 has parked or cut it; the report names the released fix-pack version tested.
 
+**Owner rulings, 2026-10-03.**
+
+- **The fix-pack-absent (A) configuration is waived.** See `FIX_POLICY` §8 and
+  `TRAIN_FIXPACK_OVERLAP_20261003.md`. Run the P configuration only.
+- **F65's case is accepted as vanilla.** Without the fix pack, a station on 1-2 pieces of track
+  from a hub does not share its power. Do not predict otherwise.
+- **Trim the P batteries to what has never been seen live.** The owner, on the remaining batches:
+  *"most of this has been witness as working in a dozen or more runs during build and testing"*.
+  These already passed live: B0 in P (2026-10-03), the crossings (brief 33, check 2), Export rows
+  and the hub refusal (34b, sittings 1-2), the modules loading from this mod (brief 34), and the
+  quiet log. Put the never-witnessed items to the orchestrator (OI-38's up-leg read at least)
+  before issuing more batches.
+
 ## What the battery carries
 
 - Each module's predictions from its spec sections (§4.7, §4.8, §4.10, §10, §11; §4.9 is rejected design, record only) and its build reports,

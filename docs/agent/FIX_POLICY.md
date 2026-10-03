@@ -492,7 +492,11 @@ module's own maps.
 - Before release, verify each target against the shipping `Packs\Lua.fpk`, test each module in
   game, update its D-entry status, and credit relevant prior art.
 - Run the complete shipping test twice: with the Relaunched Fix Pack installed and with it absent.
-  Record which released fix-pack version was tested.
+  Record which released fix-pack version was tested. **Waived for the train modules** (StationRows,
+  TrainHub, ElevatorDepot; owner, 2026-10-03): the fix-pack-absent run is not owed, because a
+  read-only overlap check found no dependency either way and no shared patch, only vanilla bugs the
+  fix pack repairs (`docs/agent/reports/TRAIN_FIXPACK_OVERLAP_20261003.md`). The fix-pack-present
+  run and both toggle directions still bind.
 - Treat the two mods as separate products: each has its own metadata, preview image, description,
   portal pass and console certification.
 - Player text (build-menu descriptions, Mod Options help, infopanel lines) matches vanilla's
