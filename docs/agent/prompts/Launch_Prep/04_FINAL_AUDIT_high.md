@@ -96,7 +96,8 @@ Drift and decisions to examine, every one:
   approved paragraph into a sectioned body a copy/layout call (03's delegation) or a reopening?
   The approved sentences are byte-preserved inside it; judge that.
 - **`*/store_screenshots/*`** added to `ignore_files` and `pack_predict.IGNORE` (17 filters now).
-  No `image` field: preflight still fails on exactly that (OI-12 open).
+  `image` and `screenshot1..5` were wired 2026-10-03 (`reports/STORE_SCREENSHOTS_20261003.md`);
+  confirm with `python tools/upload_preflight.py`.
 - **Claims rest on pre-01/02 evidence only** (report §4 map). The site's acknowledged-warnings
   "in your save" line and the modders page's prefix warning come from code and FIX_POLICY §3, not
   from the store body; the orchestrator kept them after reading the source. Credits and the

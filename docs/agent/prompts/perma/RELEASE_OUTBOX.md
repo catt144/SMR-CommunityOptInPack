@@ -30,7 +30,7 @@ bumps one.
   `metadata.lua` `last_changes`.
 - Surfaces prepared: both store bodies (`UPLOAD_WORKFLOW.md` §3, `metadata.lua`), the
   public `README.md`, the site's `content/opt-in/` section and nav (site `d87c700`,
-  undeployed). Owed before it ships: preview/gallery (OI-12), listing/platform facts
+  undeployed). Owed before it ships: listing/platform facts
   (OI-44), 01/02 evidence and 04's verdict (`release_prompt.md` §1a).
 - Not in this entry, by rule: the development history before first publication (the
   2026-09-22 widenings, the train rebuilds, retired D01/D06/D07/D12 and parked D03)

@@ -232,7 +232,6 @@ Skills: smr-orientation, doc-editing, subagents (read), prompt-authoring (read),
 
 ## 10 · Owner actions remaining (also on `docs/PLAYTEST_CHECKLIST.md`)
 
-- OI-12: pick a preview candidate (or supply art) and capture the five gallery shots.
 - OI-21: say "keep the ports" or "run from the fix pack".
 - OI-44: confirm whether listings exist and which platforms/approvals the Paradox account offers.
 - Deploy the site when the store pages are live (the owner's manual workflow); committed site sha
@@ -262,6 +261,6 @@ asset-aware ceiling, art fields, publish-day donor job); the sync ledger's relea
 reason; checklist homes for OI-21/OI-44. `store_parity.py` now also checks the store card
 when it carries a published body.
 
-**Release machinery built; these launch inputs remain:** OI-12 art and captures, OI-44
+**Release machinery built; these launch inputs remain:** OI-44
 listing/platform facts, 01/02 shipping evidence and 04's verdict, credits and the residual
 line from 01, the owner's own portal work. Nothing here is "ready to publish".

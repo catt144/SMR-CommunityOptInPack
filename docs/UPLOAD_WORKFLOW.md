@@ -19,11 +19,10 @@ well. After that, every upload is sections 1 to 5.
 The agent does the words (store body, change note, site pages) and tells you when
 it is ready. If nobody has said "ready to upload", ask.
 
-For the **first** upload, three things are still yours and the agent cannot do them:
+For the **first** upload, two things are still yours and the agent cannot do them:
 
 | gap | what it needs from you | tracked on |
 |---|---|---|
-| ⛔ Preview art and gallery | pick a preview (candidates in `local/store_art_candidates/`) and capture the five gallery shots; the agent wires them and the preflight goes green | `docs/PLAYTEST_CHECKLIST.md` OI-12 |
 | ⛔ Store listings | whether an Opt-In draft already exists on either store under your account; if not, the first upload creates the listing and its id is read back afterwards, never typed ahead | OI-44 |
 | ⛔ Console / platform approval | which platforms you choose on Paradox Mods and what approval step it shows; the fix pack's approval does not carry over | OI-44 |
 
@@ -277,7 +276,7 @@ the downloaded package with the tree, and closes the release records.
 |---|---|
 | The mod editor asks to save before uploading | Stop. Tell the agent. Something changed that should not have. |
 | An upload is rejected | Stop. Tell the agent what it said, word for word. |
-| Paradox refuses because of the preview image | The preview is not wired yet (OI-12). Stop; nothing is published. |
+| Paradox refuses because of the preview image | The preview is wired (`preview.png`), so this should not happen. Stop; tell the agent what it said. |
 | The description came out short | Paste it by hand (step 3), then tell the agent; this is the exception, not the norm. |
 | Paradox is done and Steam failed or was skipped | Say so. Do not re-pack: the agent records a partial release and you finish Steam with the same packed file when you can. |
 | You uploaded Steam before Paradox | Not fixable, and not worth chasing. Say so, carry on. |

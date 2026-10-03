@@ -11,8 +11,8 @@ pack by `ignore_files` (`*/store_screenshots/*`), so the JPEGs never ship.
 
 The captures come from `SMR-ScreenCaptures/optin_store`, a sibling of this
 repo. A capture not yet dropped there prints WAITING and is skipped. The
-owner's selection of the five shots is tracked on `docs/PLAYTEST_CHECKLIST.md`
-OI-12.
+five were approved by the owner on 2026-10-03 and are `screenshot1..5` in
+`metadata.lua`; `tools/annotate_screenshots.py` writes the captures.
 
     python tools/store_screenshots.py          encode every capture that is present
     python tools/store_screenshots.py --list   show what is in the capture folder

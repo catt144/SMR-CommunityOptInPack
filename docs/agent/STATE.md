@@ -11,7 +11,7 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
   launch. D02/D04/D09 passed pre-split; D03 PARKED 2026-10-02; D01/D06/D07/D12 are retired.
 - `FIX_POLICY` §8 both configurations: D02/D04/D09/D15 owner-accepted (entries, 2026-09-30 and
   10-02); the train modules owe it in brief 35. Launch order and evidence: `agent/reports/READINESS_REVIEW_0831.md` §6. That plan predates
-  1.1.0 and lacks a re-verification step. Upload preflight currently fails on preview art (OI-12).
+  1.1.0 and lacks a re-verification step.
 
 ## Build state — pulled, not stored
 

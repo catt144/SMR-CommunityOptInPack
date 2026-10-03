@@ -5,6 +5,8 @@ images: all five gallery slots and four alternates. The owner approved the set o
 good"): the five gallery names are wired as `screenshot1..5` in `metadata.lua`, the preview is wired
 too, and OI-12 is closed.
 
+Executed model, from the session transcript: `claude-fable-5-1`.
+
 ## How to change an image
 
 1. Edit `tools/store_annotations.json`. Every coordinate is in source-capture pixels, so a
