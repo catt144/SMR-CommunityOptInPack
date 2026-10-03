@@ -47,6 +47,28 @@ has parked or cut it; the report names the released fix-pack version tested.
   underground Metals storages before the first arm (lines 3354-3366): fixture stock, not a retry.
   A map change disarmed the stream (4269), so the closing slot 10 press re-armed it (4713).
   Archive the log and record the verdict in the report.
+- **B2/B4 batch results** (owner sitting 2026-10-03, read by the orchestrator).
+  `Mars.exe-20261003-12.55.31`, 0 `LUA ERROR`:
+  - Storage Hub OFF took both hubs' `storage` from 4000000 to 2000000 (lines 1391 and 2243).
+    The hub's Metals stock is not in the snapshot rows; confirm "stock unchanged" from this log.
+  - **Zero hubs, then replacement: PASS on the owner's witness.** No slot 11 ran while the two
+    quick-built replacement hubs stood. The owner saw them keep their upgrades, Storage Hub OFF.
+  - Content-free Rows slot 4 at 5135 read station 10531 (underground, not surface) as Metals
+    Export, `hub=none`. Save B OK.
+
+  `Mars.exe-20261003-13.05.06` (Opt-In Modules disabled): **removal PASS** at line 478,
+  `optin_present=false fixpack_present=true native_match=true policy=default`, supply and demand
+  10000/110000, 0 errors after SMRTK_B loaded.
+
+  Route, do not gate:
+  - Save A/B write `SMRTK_A.sav`/`SMRTK_B.sav`, which the native Load Game menu does not list;
+    SMRTK_B loaded via `*r LoadGame("SMRTK_B.sav")`.
+  - SMRTK_B still logs `Unpersist missing permanent: SMROptInElevatorDepotDevBase` (line 422+)
+    with both halves deleted: something still references the depot class.
+  - The first save the owner loaded still held hubs and the depot. With the mod off it threw
+    5 `LUA ERROR`s (lines 213-372, e.g. `TaskRequest.lua:444 GetPriorityForRequest` in
+    `FixupHubGroupRequests`). Removing the mod with its buildings standing is outside B2's
+    content-free case; put it to the owner as a launch-prep question.
 - **Rows forced on.** With TrainHub ON and StationRows OFF, slot 11 still showed StationRows
   `inactive` although the rows worked. Explain the forced-on mechanism in the report.
 
