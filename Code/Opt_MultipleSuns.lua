@@ -17,7 +17,7 @@
 -- Why it exists: the shipped game hard-limits the Artificial Sun to ONE per
 -- colony — it is a `build_once` wonder, enforced colony-wide including
 -- construction sites (Building.lua:3691-3692, BuildMenu.lua:711-719 counting
--- UIColony.labels). PT-26 (2026-07-27) proved that makes the pack's original
+-- UIColony.labels). PT-26 (2026-07-27) proved that makes this mod's original
 -- F39 fix unreachable dead code in an unmodded game: two suns can never
 -- coexist, so `labels.ArtificialSun[1]` is always the only sun. But players DO
 -- run "allow multiple wonders" mods, and any such mod walks straight into the
@@ -178,6 +178,8 @@ SMROptInPack.Register(FIX_ID, {
 			return "TestSunPanelRange not found (game update changed it?)"
 		end
 		local err = SMROptInPack.Require(FIX_ID, {
+			{ class = "SolarPanelBase", method = "GameInit",
+			  reason = "SolarPanelBase.GameInit not found (game update changed panel binding?)" },
 			{ class = "ArtificialSunBase", method = "Done",
 			  reason = "ArtificialSunBase.Done not found (game update changed sun removal?)" },
 		})

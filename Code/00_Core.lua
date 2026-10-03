@@ -503,7 +503,7 @@ end
 -- code they patch no longer matches this pack's pinned build. Suspect =
 -- status "error"; or status "inactive" with the update_suspect mark a failed
 -- target-shape check leaves; or (fallback for bespoke sites) a detail string
--- from the pack's target-changed/install-failed conventions. Opt-in state,
+-- from this mod's target-changed/install-failed conventions. Opt-in state,
 -- Mod-Options-off and verified-already-correct verdicts are never suspect.
 function SMROptInPack.UpdateSuspects()
 	local out = {}
@@ -542,7 +542,7 @@ end
 -- notice a target that was renamed, removed or reshaped. They CANNOT notice a
 -- same-named function edited in place — those fixes keep applying their
 -- pinned bodies and no runtime surface can know. The dialog text therefore
--- never claims the rest of the pack is verified; the after-every-patch
+-- never claims the rest of this mod is verified; the after-every-patch
 -- extraction diff (WORKFLOW.md) remains the real re-verification.
 CreateRealTimeThread(function()
 	local deadline = RealTime() + 5 * 60 * 1000
@@ -564,7 +564,7 @@ CreateRealTimeThread(function()
 	end
 end)
 
--- Console helper: print what the pack did this session.
+-- Console helper: print what this mod did this session.
 function SMROptInPack.ListFixes()
 	for _, id in ipairs(SMROptInPack.order) do
 		local f = SMROptInPack.fixes[id]

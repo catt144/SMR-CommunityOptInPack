@@ -1,0 +1,30 @@
+{
+  "command": "python scratch/ship_guard_check.py",
+  "head": "82369ecae75e5f4dac0accdb5469f1729cd98d99",
+  "source_sha256": "6b6128c121fcd90842253ea77ee22be4989a1c59fd6494ff409bc8f4686a31e0",
+  "rows": [
+    {
+      "enabled": true,
+      "missing_GameInit": false,
+      "status": "active",
+      "result": "PASS"
+    },
+    {
+      "enabled": false,
+      "missing_GameInit": false,
+      "status": "inactive",
+      "result": "PASS"
+    },
+    {
+      "enabled": true,
+      "missing_GameInit": true,
+      "status": "inactive",
+      "result": "PASS"
+    },
+    {
+      "control": "remove GameInit Require pair in isolated copy",
+      "result": "expected wrap violation"
+    }
+  ],
+  "limit": "Lua harness, not native sitting"
+}

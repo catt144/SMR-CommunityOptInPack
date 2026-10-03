@@ -1,0 +1,37 @@
+{
+  "command": "python scratch/ship_save_b_decode.py; rg -a -o <tokens> scratch/ship_save_b_decoded/persist",
+  "head": "82369ecae75e5f4dac0accdb5469f1729cd98d99",
+  "build": "1.1.1.406343",
+  "source": "B:\\Dev\\SMR\\SMR-BugFixPack\\saves\\game\\SMRTK_B.sav",
+  "backup": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\ship-evidence-20261003\\SMRTK_B.sav",
+  "save_sha256": "b07a3cebc193c6eb129aa25e7e22da815cb152253f201a69282a4ae86dccd7d6",
+  "persist_sha256": "512213c5bc0dc5c67571966c496f29b91aff20d05d2d9d3dbf9d8c8039074e14",
+  "persist_bytes": 20145887,
+  "members_offsets": {
+    "SMROptIn_hub_upgrades": [
+      11090393
+    ],
+    "SMROptInTrainHub6Base:SMROptInTrainHub6": [
+      6642700
+    ],
+    "SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev": [
+      6271579
+    ],
+    "SMROptIn_station_rows": [
+      5932322
+    ]
+  },
+  "counts": {
+    "SMROptIn_hub_upgrades": 1,
+    "SMROptInTrainHub6Base:SMROptInTrainHub6": 1,
+    "SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev": 1,
+    "SMROptIn_station_rows": 1
+  },
+  "identity": {
+    "GameTime": 35790404,
+    "smrtk_session": "1791046548:158077098:67966858:460623979",
+    "last_id": "2383",
+    "savename": "SMRTK_B.sav"
+  },
+  "limit": "Decoded BPUL/ZSTD members; native serialized reference graph NOT decoded. Token occurrence counts are not object counts or ownership paths."
+}

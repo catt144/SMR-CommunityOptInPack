@@ -76,6 +76,25 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+01 evidence preparation, 2026-10-03: `reports/SHIP_EVIDENCE_20261003.md` owns
+the build ledger, exact save/pack receipts and provenance inventory. Source pack
+parity passed; accepted module/train tests remain scoped, never repeated. OI-43
+warn is implemented, OI-11 guard and OI-13 comments landed, English-only launch
+is recorded for OI-14. 02 now has a conditional plan; 01A owns the unresolved
+native class-reference/modifier prerequisite. Launch remains held on unresolved
+rows, including OI-50's Arboretum scope and OI-49's Tripo origin/notice.
+
+Local maintained UPLOAD_WORKFLOW §3 blocks now carry the exact prior-art credit
+line and bought-hub-upgrade residue sentence from that report; metadata was
+regenerated and parity passed. These blocks supersede the report's historical
+§3 copy. Mirror both sentences to the shared site's `content/opt-in/index.md`
+under your sibling-write authority, and add the credit to public README. Resolve
+OI-49 before final asset notices; the hub retains Tripo-derived under-deck mesh,
+so do not call the whole asset wholly original. Keep the uninstall note last.
+OI-51 is the optional once-per-load notice consolidation choice, not a new gate.
+Check applicable existing dial-rescue availability with its sibling release
+owner; this pass neither edits nor certifies train recovery.
+
 **Owner 2026-10-03 (OI-44): no Opt-In listing exists on either store**; only the fix pack has
 ever shipped. The first upload creates both listings, Paradox then Steam. The console-approval
 step is still the owner's open half of OI-44. **OI-21: "keep the ports"**: `tools/paradox_card.py`,

@@ -15,6 +15,24 @@ unscheduled, so it does not age.
 
 ## Decide
 
+### OI-51 · opened 2026-10-03
+Keep the accepted train startup notices separate, or combine them into one load line?
+- The quiet-log sitting passed; this is a store-work preference, not another launch test gate.
+- Combining them would need its own scoped code action; this evidence pass leaves the notices alone.
+Home: `docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`, `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`
+
+### OI-49 · opened 2026-10-03 · launch
+Was the original Tripo hub model your own generation on a paid plan, a free-plan generation, or someone else's asset?
+- The current pipeline retains its under-deck beds, stub pylons and feet after replacing the portal collars.
+- Its origin/plan determines the remaining credit or notice; the repository has no generation receipt.
+Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`
+
+### OI-50 · opened 2026-10-03 · launch
+Does the Arboretum test build belong in the first release, or after launch?
+- It is present in metadata/items in the shared working tree, outside Launch_Prep/01's original set.
+- First-release inclusion needs its own accepted evidence and store/uninstall coverage from the D19 work.
+Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`, `docs/agent/bugs/D19.md`
+
 ### OI-46 · opened 2026-10-03
 Should mechanized depot throughput become a post-launch module, and which shape do you want?
 - Recommended: fixed ×5, off by default; 250-unit hidden IO pad, up to 25 units per crane landing.

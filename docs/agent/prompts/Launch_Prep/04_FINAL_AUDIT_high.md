@@ -62,6 +62,37 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+01 close checks: doccheck initially failed only on the unstaged moved gamepatch
+path; staging the byte-identical move restored GREEN. Archived engine-diff
+whitespace is intentionally preserved. Metadata's former "no warning / one dial
+caveat" comment was corrected alongside the granted OI-43 flag. A final sequential
+second-seat reread confirmed all plan corrections; implementation/binding review
+still precedes any sitting. These are desk checks, not new gameplay evidence.
+
+01 evidence prep, 2026-10-03: `reports/SHIP_EVIDENCE_20261003.md`, archive
+`ship_evidence_20261003/`, and new 01A residual prerequisite. Review all of these
+drift instances: default gamepatch command now compares the newer identical
+pair, so historic work required explicit old/new inputs; the BuildMenu diff also
+has mouse-leave delegation omitted by the original lead; D19 uncommitted test
+content is present in the emitted package set (OI-50), not certified by the old
+launch scope; removed OI asks had unperformed actions, now implemented/homed;
+source sigcheck is noisy and is not a semantic PASS; Save B contains colony
+upgrade receipt as well as both class tokens, but native graph owners remain
+UNKNOWN; existing rescue is dial-era only, no train coverage; Tripo-derived
+under-deck geometry remains and lacks origin/plan evidence (OI-49); site credit/
+residue parity remains 03's work, local maintained blocks/metadata now updated.
+
+Sequential second-seat plan findings were corrected: blocked AccountStorage
+access, weak one-row transition predicate, missing W executable-absence gate,
+paused save completion, class-token/object conflation, post-load modifier
+reconstruction and optional-flag refresh. Recheck final implemented kit bindings
+before any sitting; the source specification alone is not a runnable installed
+kit. An early commentary inference of changed save-extension code was withdrawn;
+existing explicit Override load is the cross-process route, menu discovery is
+still unproved. No train battery/soak reopened, no game launch, no sibling edits.
+Root execution is gpt-6-astra (transcript recorded in report); this terminal
+audit still needs the owner's different model selection.
+
 Initial drift: old release brief's metadata/pack assumptions; public README; WORKFLOW version
 and size prose versus donor/OI-18; OI-11 freeze language; OI-14 string count; STATE build/testing
 generalisations; description missing D15; donor backup-delivery prose versus settled auto-fill;

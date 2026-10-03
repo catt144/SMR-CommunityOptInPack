@@ -171,8 +171,6 @@ CHECK_ALLOWLIST = {
         "declares it — Drone.lua:879 (readiness pass 2026-08-31); module calls no Require at all, guards inline (Opt_DroneOverhaul.lua:158-172)",
     ("Opt_DroneOverhaul", "TaskRequestHub", "FindTask"):
         "declares it — _TaskRequest.lua:72 (readiness pass 2026-08-31); same inline guard",
-    ("Opt_MultipleSuns", "SolarPanelBase", "GameInit"):
-        "declares it — SolarPanel.lua:8 (readiness pass 2026-08-31); guarded inline at Opt_MultipleSuns.lua:95/132, not by a Require pair",
     # The train modules' parts (brief 34, 2026-10-02): moved from their dev mods
     # as they were, with their own shape self-checks, not SMROptInPack.Require
     # blocks. Each captured class DECLARES the method on 1.1.1.406343 (Lua/ cited),

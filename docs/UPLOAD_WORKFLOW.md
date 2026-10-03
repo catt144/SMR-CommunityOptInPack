@@ -147,6 +147,8 @@ YOUR SAVE, AND REMOVING THE MOD
 
 Turning a module off puts the game's own behaviour back; what the module already did stays done, and buildings already placed keep working. Removing the whole mod is different, because the Train Hub and the Elevator Depot exist only while it is installed: follow the note at the bottom of this page first. The Drone dials are the other thing to know: a dial left off its base position keeps boosting your drones after the mod is gone, so put both back to base, press Apply and save before you uninstall.
 
+Bought Train Hub upgrades remain recorded in your save after all hubs are demolished, and their ordinary game bonuses may remain after the mod is removed.
+
 PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE
 
 Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
@@ -155,6 +157,8 @@ BUGS, QUESTIONS AND MORE DETAIL
 
 Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
 https://catt144.github.io/SMR-CommunityMods/
+
+Thanks to ChoGGi for prior Surviving Mars modding work, and LukeH for Martian Express patch research.
 
 BEFORE YOU UNINSTALL
 
@@ -195,12 +199,16 @@ Every module has its own switch on the Mod Options page, and a switch takes effe
 [h2]Your save, and removing the mod[/h2]
 Turning a module off puts the game's own behaviour back; what the module already did stays done, and buildings already placed keep working. Removing the whole mod is different, because the Train Hub and the Elevator Depot exist only while it is installed: follow the note at the bottom of this page first. The Drone dials are the other thing to know: a dial left off its base position keeps boosting your drones after the mod is gone, so put both back to base, press Apply and save before you uninstall.
 
+Bought Train Hub upgrades remain recorded in your save after all hubs are demolished, and their ordinary game bonuses may remain after the mod is removed.
+
 [h2]Playing on Xbox, PlayStation or the Microsoft Store[/h2]
 Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
 
 [h2]Bugs, questions and more detail[/h2]
 Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
 [url=https://catt144.github.io/SMR-CommunityMods/]https://catt144.github.io/SMR-CommunityMods/[/url]
+
+Thanks to ChoGGi for prior Surviving Mars modding work, and LukeH for Martian Express patch research.
 
 [h2]Before you uninstall[/h2]
 [olist]

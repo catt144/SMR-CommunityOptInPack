@@ -1,0 +1,170 @@
+{
+  "command": "python docs/archive/ship_evidence_20261003/review.py",
+  "head": "82369ecae75e5f4dac0accdb5469f1729cd98d99",
+  "source_hashes": {
+    "Code/00_Core.lua": "696aee813c3e77642363d1fb1f210a30e2a9a8ed6912aba24a0cf4c724a38b9b",
+    "Code/Opt_AcknowledgedWarnings.lua": "d8f3cefb5c9893a82b9c323c153f70a9b252a8ac6d42c6ce2e02cdc54b0bafed",
+    "Code/Opt_MultipleSuns.lua": "6b6128c121fcd90842253ea77ee22be4989a1c59fd6494ff409bc8f4686a31e0",
+    "Code/Opt_DroneStatDials.lua": "37b5fcf26eade6c8793fd129259b53957e67bae8677fbcee4daec344a48bce08",
+    "Code/Opt_ServiceInterestTags.lua": "264835a9471cb989c076a48f29e71d0e2fc69bd2f40ab2641fce3c79157ab138",
+    "Code/Opt_StationRows.lua": "325598f7a3eb4cff1d56244dd38872c30f92f92e06f0868eef3c4ec896784315",
+    "Code/StationRows_10_TrainFloor.lua": "5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59",
+    "Code/StationRows_40_TrainDistribution.lua": "5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760",
+    "Code/StationRows_45_TrainDistributionUI.lua": "04216f29bba616c23ca13a44b6dab673cf054e7fcc95d2055c87c6d085fdf3ec",
+    "Code/Opt_TrainHub.lua": "859c0b45125ba38115595baf3978c7ba99c4132d0c0e6fe54190dff54e6a366e",
+    "Code/TrainHub_20_TrainHub.lua": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
+    "Code/TrainHub_30_TrainHubDrones.lua": "a054a978706c41412f60ea222526ae22ebeb50ac9b7694be8e927ae69d7782c2",
+    "Code/TrainHub_60_StationSpoilage.lua": "40dabd0ba535b52ee1af3fdce3816930d7967e4f1c3fac4656ea149721f498a1",
+    "Code/TrainHub_70_TrainBay.lua": "a1426ca9c870219af6433c4c75791e760ebe67d5a3ebef9ec4466004bfb15d32",
+    "Code/Opt_ElevatorDepot.lua": "e2ff194dcf65952dcd2718eab3be4e97f39f323ad73ea47a84011252d525a11d",
+    "Code/ElevatorDepot_10_ElevatorDepot.lua": "046b5c3433ae1df82cda38e661c886ded73bad5f5ad6c8893fb3a4e296709a32",
+    "Code/Opt_Arboretum.lua": "4214c5d636575247d8ac5867780cf55b5d3f36a05971893e1fad89ea37711219",
+    "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua": "4f3fbdafb3278e705acb139025225a36a1d709c901d92af7ea0f27e6a1e65d6a",
+    "Code/_EntityData.generated.lua": "e3b0f1145b1e76af402587ab06941aea3052020dbbf969dad5adf72ba51c3f71",
+    "Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua": "146078fe0ba069450a3755921bd3f70fd5b6d329d5164b34fa529c8dad27d685",
+    "Code/BuildingTemplate/SMROptInArboretum.generated.lua": "ab51bc1f0662d8ee56893b97322495ffc6f371848be89fdfbb60671b65003008",
+    "metadata.lua": "72ba1efdd12f7f32c98fff38a73f86cf7e97df9b34975f0070cb77f029c4bb18",
+    "items.lua": "d18325ccb493e452ade007ba3e83fe8c6807f7bb8af8e1e71fc2e801a53463a3",
+    "LICENSE": "f4c1f6c7d2de89e263f76aa54846f02388d83d3bf5392b1619238691e79210b4",
+    "SMR-Assets/trainhub/blender/hub_skeleton.py": "a2efb0c922bbc9fb1c597c4ded5ff2a8b7c185840ab6ac2bbf2558ced5d2dece",
+    "SMR-Assets/trainhub/blender/build_workfile.py": "d3740f225a0e584b8780a24875322ea560c73dd592611eed974c43d0e3a27474",
+    "SMR-Assets/trainhub/blender/tripo_cleanup.py": "e9e0ce76553f45088d621d15e3d8671e40ca903fb153940c9e7c622791b2a079",
+    "SMR-Assets/trainhub/blender/paint_concept.py": "97db309e8160fe591a4ead8cf1c911c0d218def0715dc50517565e79bb619ed5",
+    "SMR-Assets/trainhub/blender/export_prep.py": "aa175376beb51dbe4db6ef824cf282f156dd2d9fbea8ae008fb11041960c8cd7",
+    "SMR-Assets/elevatorstation/blender/depot_build.py": "e50280eb156a8338cc4e547d60ad5fd4e388b5d6274ffc53093d900e6b7221fc",
+    "SMR-Assets/elevatorstation/blender/depot_geometry.py": "69296616ad71b970487d5e65d14a25d26b7ea908df04136297cbf614fc186635",
+    "SMR-Assets/elevatorstation/blender/depot_paint.py": "eff012085b322e1980b4a129de5da4678a984c5e6dc423b2d049f6896b668eaf",
+    "SMR-Assets/elevatorstation/blender/depot_bake_ao.py": "5ec94204bbf527bf5fd01dc09b9efa9a4e3d71398f93d121c0189b08df6bd18c",
+    "SourceData/ArtSpec-mod.lua": "cb92be8dcaae03cf31bfd1ec0923eaf0f0c77faa52115bb250a792a3e7364baf",
+    "SourceData/GFXMaterial/SMROptInElevatorDepot.lua": "37a9d10f4876048c974f459d82a94ec4cdf2fa6f167b7b526b1988ad8dc823e6",
+    "SourceData/GFXMaterial/SMROptInTrainHub6.lua": "49c096433e8330e03b787fe496cffa197aea62419df938254c8de34ce5de9551",
+    "SourceData/GFXMaterial/SMROptInTrainHub6DomeGlass.lua": "a643415f7c4262937514d05c585102faf5e623f4d54474ea547d10af093ce607",
+    "SourceData/GFXMaterial/SMROptInTrainHub6Glass.lua": "718a634fe49f25e06943c5e579e8470fc35fae7a0058a261e70be450d192c30a",
+    "SourceData/SIE_ImportItem/SMROptInElevatorDepot.lua": "a1e928fb7f20687caabcca55f20292838c715d37e42aebb7c8b303d3bc4b7f21",
+    "SourceData/SIE_ImportItem/SMROptInElevatorDepotReceiver.lua": "d20343ce0df331c1711a91505a99517007388133732f803b329f1ae1c314d7d7",
+    "SourceData/SIE_ImportItem/SMROptInTrainHub6.lua": "bb60308720e67ef854bf0b417909e4f2eb8b55bfbb062d25fe4d1fe917012625",
+    "SourceData/SIE_ImportItem/SMROptInTrainHub6DomeGlass.lua": "9de965e4ee1d0d2a6bd7bd814fa9f11de9c833fa27b57bcaf88be9a151aabec5",
+    "SourceData/SIE_ImportItem/SMROptInTrainHub6Glass.lua": "c4d13cabac7779414f523f2f10c4626db862a20c224a4d5314801b0dfbf14f9d"
+  },
+  "searches": {
+    "D15_positive": {
+      "command": [
+        "rg",
+        "-n",
+        "GetServiceDescription|sectionVisitors|sectionFoodService|IsOneOfInterests|ServiceInterestsList|GetServiceList|InfopanelSection|ipBuilding",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\Code\\Opt_ServiceInterestTags.lua"
+      ],
+      "exit": 0,
+      "members": [
+        "30:-- again :190-194 for ServiceWorkplace) and sectionVisitors ended with",
+        "31:-- \"Needs serviced: <ServiceList>\" (XDef/sectionVisitors.generated.lua:44). Both are",
+        "32:-- gone from 1.1.1; ServiceBase:GetServiceList (ServiceBase.lua:166-212) still",
+        "36:-- order (ServiceInterestsList, Interests.lua:2-16), three names per line:",
+        "38:--   1. BUILD-MENU HOVER \u2014 post-wrap of Service:GetServiceDescription",
+        "54:--   2. PLACED BUILDING \u2014 an \"Interests\" InfopanelSection, created as a SIBLING",
+        "57:--        * sectionVisitors:Init (XDef/sectionVisitors.generated.lua:20-51),",
+        "59:--        * sectionFoodService:Init (XDef/sectionFoodService.generated.lua), for",
+        "64:--      wrapper runs the host section is the last child of ipBuilding's content",
+        "78:-- Which interests: ServiceInterestsList filtered by the building's own",
+        "79:-- IsOneOfInterests \u2014 the predicate the game itself uses for the daily-interest",
+        "82:-- deduplicates by construction. GetServiceList is NOT reused: it drops needs a",
+        "133:\tfor _, interest in ipairs(ServiceInterestsList) do",
+        "134:\t\tif obj:IsOneOfInterests(interest) then",
+        "222:\tif obj:IsOneOfInterests(\"interestGaming\") then",
+        "225:\tif obj:IsOneOfInterests(\"interestSocial\") then",
+        "326:-- host = ipBuilding's content window; the new section is appended after the",
+        "329:\tlocal section = InfopanelSection:new({",
+        "344:\tif type(S) == \"table\" and type(S.GetServiceDescription) == \"function\" then",
+        "345:\t\tlocal orig = S.GetServiceDescription",
+        "346:\t\tfunction S:GetServiceDescription(texts, label_separator, dont_modify, ...)",
+        "356:\tlocal SV = rawget(_G, \"sectionVisitors\")",
+        "368:\tlocal SF = rawget(_G, \"sectionFoodService\")",
+        "393:\t\t\t{ class = \"Service\", method = \"GetServiceDescription\",",
+        "394:\t\t\t  reason = \"Service.GetServiceDescription not found (game update changed the build menu text?)\" },",
+        "395:\t\t\t{ class = \"sectionVisitors\", method = \"Init\",",
+        "396:\t\t\t  reason = \"sectionVisitors/sectionFoodService Init not found (game update changed the infopanel?)\" },",
+        "397:\t\t\t{ class = \"sectionFoodService\", method = \"Init\",",
+        "398:\t\t\t  reason = \"sectionVisitors/sectionFoodService Init not found (game update changed the infopanel?)\" },",
+        "399:\t\t\t{ global = \"ServiceInterestsList\", kind = \"table\" },",
+        "402:\t\t\t{ class = \"InfopanelSection\" },"
+      ],
+      "count": 31
+    },
+    "D15_fixpack": {
+      "command": [
+        "rg",
+        "-n",
+        "GetServiceDescription|sectionVisitors|sectionFoodService|IsOneOfInterests|ServiceInterestsList|GetServiceList|InfopanelSection|ipBuilding",
+        "B:\\Dev\\SMR\\SMR-BugFixPack\\Code"
+      ],
+      "exit": 1,
+      "members": [],
+      "count": 0
+    },
+    "rescue_dials": {
+      "command": [
+        "rg",
+        "-n",
+        "SMRFixPack_DroneSpeedDial|SMRFixPack_DroneCarryDial|SMRFixPack_ack_notworking",
+        "B:\\Dev\\SMR\\SMR-CommunitySaveRescue\\Code"
+      ],
+      "exit": 0,
+      "members": [
+        "B:\\Dev\\SMR\\SMR-CommunitySaveRescue\\Code\\10_SaveRescue.lua:52:\t{ id = \"D15a\", owner = \"OP\", name = \"SMRFixPack_DroneSpeedDial\", kind = \"label-modifier\",",
+        "B:\\Dev\\SMR\\SMR-CommunitySaveRescue\\Code\\10_SaveRescue.lua:55:\t{ id = \"D15b\", owner = \"OP\", name = \"SMRFixPack_DroneCarryDial\", kind = \"label-modifier\",",
+        "B:\\Dev\\SMR\\SMR-CommunitySaveRescue\\Code\\10_SaveRescue.lua:72:\t{ id = \"D12\", owner = \"OP\", name = \"SMRFixPack_ack_notworking\", kind = \"object-field\","
+      ],
+      "count": 3
+    },
+    "rescue_trains": {
+      "command": [
+        "rg",
+        "-n",
+        "SMROptIn_hub_upgrades|SMROptInTrainHub6|SMROptInElevator|SMROptIn_station_rows",
+        "B:\\Dev\\SMR\\SMR-CommunitySaveRescue\\Code"
+      ],
+      "exit": 1,
+      "members": [],
+      "count": 0
+    },
+    "probe_sweep": {
+      "command": [
+        "rg",
+        "-n",
+        "TEMPORARY",
+        "B:\\Dev\\SMR\\SMR-OptInPack\\Code"
+      ],
+      "exit": 1,
+      "members": [],
+      "count": 0
+    },
+    "kit_sweep": {
+      "command": [
+        "rg",
+        "-n",
+        "TEMPORARY",
+        "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit\\Code"
+      ],
+      "exit": 1,
+      "members": [],
+      "count": 0
+    }
+  },
+  "SMR-BugFixPack": {
+    "head": "30dacadad4257532ddeb4897826036186657b049",
+    "status": "M docs/PLAYTEST_CHECKLIST.md\n M docs/agent/reports/RULE_PLACEMENT_TEST.md\n?? docs/agent/reports/OPTIN_ARBORETUM_SITTING_20261003.md"
+  },
+  "SMR-BugFixPack-TestKit": {
+    "head": "b58ae189a5cf676069d03c6e25dad44fc754e7c3",
+    "status": "M Code/80_AgentSlots.lua"
+  },
+  "SMR-CommunitySaveRescue": {
+    "head": "5d653a1c7b65a5f5e22a0697e25b7f634fb20021",
+    "status": ""
+  },
+  "SMR-Assets": {
+    "head": "9237fa17ec1c1c04bcafe973cd5f4a5d913deec1",
+    "status": ""
+  },
+  "limits": "Source census and exact file hashes. Not a native test, code-copy attribution proof or asset licensing receipt."
+}

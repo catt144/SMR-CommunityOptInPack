@@ -142,6 +142,11 @@ D03's row is `Opt_ResidencyControl.lua:116-175`; the shipped row is
 **Rough cost.** (a) minutes plus a visual re-check on any attended sitting.
 (b) small once the loc pipeline exists; unshippable before it.
 
+**Launch language — owner, 2026-10-03 (OI-14):** "the same as the fix pack for
+right now". This mod ships English only at launch. Its own `ModItemLocTable`
+translations follow after release alongside the fix pack's translations;
+this is not a claim that translations have been built or delivered.
+
 **What it would need to un-park.** (a) an owner decision to touch a `tested`
 module for a cosmetic reason. (b) `ModItemLocTable` landing first — and even
 then, prefer the **append** route over replacement so translations survive.

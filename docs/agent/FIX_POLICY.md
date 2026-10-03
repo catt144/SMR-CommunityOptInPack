@@ -156,6 +156,17 @@ runs under `pcall`; an error deactivates only that fix.
 
 ### The persisted-name inventory — save contract
 
+Owner, 2026-10-03 (OI-43): **warn**. `metadata.lua` uses `optional_mod = false`
+before first publication. This is the native missing-mod warning, not recovery.
+Previously written `optional=true` save entries can still suppress it; a save
+written with this mod enabled after the change replaces that saved flag.
+
+Owner, 2026-10-03 (OI-45): **demolish first**, disclosed at the bottom of the
+store pages; no train recovery work. B2's content-free removal is accepted within
+its captured window (`TRAIN_FINAL_BATTERY_20261002.md`). Standing buildings raised
+native errors on removal. This disposition does not make dial cleanup or the
+assessment of residual data disappear.
+
 Every value below keeps its exact bytes forever. A removed writer does not release its name, and
 nothing restores a writer merely to make a count agree. Rows for retired D01, D06, D07 and D12 and
 for parked D03 remain contract. New persisted names join this table.
@@ -460,7 +471,9 @@ module's own maps.
     citable as localisation precedent.
   - To add to existing localised text, concatenate `shipped_T .. Untranslated("...")`; concat
     cannot delete, so correcting a wrong sentence still means replacing the whole string.
-- The fix pack's future `ModItemLocTable` decision does not bind this mod; OI-14 remains open.
+- Owner, 2026-10-03 (OI-14): "the same as the fix pack for right now" — English
+  only at launch. This mod's own `ModItemLocTable` translations follow after
+  release alongside the fix pack's; `docs/FUTURE_IDEAS.md` §4(b) owns that future work.
 - Logging goes through `SMROptInPack.Log`, which escapes `%` for ModLog's second format pass; a
   direct `ModLog` call must escape it itself (`msg:gsub("%%", "%%%%")`).
 

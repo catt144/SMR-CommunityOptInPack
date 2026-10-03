@@ -1,0 +1,67 @@
+--- 1.1.0.403908/Lua/RequiresMaintenance.lua
++++ 1.1.1.406343/Lua/RequiresMaintenance.lua
+@@ -124,6 +124,10 @@
+ 	end
+ 
+ 	if self.last_maintenance_points_full_ts then
++		local r_req = self.maintenance_phase == "demand" and self.maintenance_resource_request
++		if r_req and r_req:GetActualAmount() <= 0 then
++			self:StartWorkPhase()
++		end
+ 		self:UpdateMaintenanceStuckNotification()
+ 	end
+ end
+--- 1.1.0.403908/Lua/Colony.lua
++++ 1.1.1.406343/Lua/Colony.lua
+@@ -69,6 +69,13 @@
+ 		end
+ 	end
+ 	Game.idFoundingFaction = not IsGameRuleActive("NoPolitics") and Game.idFoundingFaction or false
++	if IsGameRuleActive("NoPolitics") then
++		ForEachPreset("Tech", function(tech)
++			if tech.group == "Independence" then
++				AddPresetLockStateReason(tech, "hidden", "NoPolitics")
++			end
++		end)
++	end
+ 	self:SelectMystery() -- should be before research - research items depend on the current mystery
+ 	self:InitResearch()
+ 	UIColony:LoadMapStoredTechs()
+--- 1.1.0.403908/Lua/MarsGameEffects.lua
++++ 1.1.1.406343/Lua/MarsGameEffects.lua
+@@ -274,12 +274,14 @@
+ 		display_text = T{6936, "<clr><reason><close_clr>", clr = clr, close_clr = close_clr,
+ 			reason = T{self.Reason, amount = self.Amount * count, percent = self.Percent * count}}
+ 	end
++	-- only name is set for techs; display_text embeds the amount and is consumed by building rollovers
+ 	colony:SetLabelModifier(self.Label, self:GetLabelModifierId(parent), Modifier:new{
+ 		id = IsKindOf(parent, "GameEffectsContainer") and parent:GetEffectIdentifier() or nil,
+ 		prop = self.Prop,
+ 		amount = self.Amount * scale * count,
+ 		percent = self.Percent * count,
+ 		display_text = display_text,
++		name = IsKindOf(parent, "Tech") and ColorModifierName(TechModifierName(parent), self.Amount, self.Percent) or nil,
+ 	})
+ 	if self.Label:ends_with("_Construction") then
+ 		RefreshConstructionResourcesForLabel(self.Label)
+--- 1.1.0.403908/Lua/X/BuildMenu.lua
++++ 1.1.1.406343/Lua/X/BuildMenu.lua
+@@ -58,6 +58,7 @@
+ 	if self.popup and not self.popup:PointInWindow(pt) then
+ 		self.popup:Close()
+ 	end
++	ItemMenuBase.OnMouseLeft(self, pt)
+ end
+ 
+ function XBuildMenu:Open(...)
+@@ -702,6 +703,10 @@
+ end
+ 
+ function UIGetBuildingPrerequisites(cat_id, template, bCreateItems, ignore_checks)
++	if not template then
++		assert(false, "UIGetBuildingPrerequisites got a nil template, cat_id=" .. tostring(cat_id or ""))
++		return false
++	end
+ 	local preset = BuildingTemplatesPresets[template.class]
+ 	if not preset then
+ 		return false

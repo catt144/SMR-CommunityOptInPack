@@ -1,0 +1,8 @@
+{
+  "command": "Hash-preserved Save B and decoded metadata; regex id=SMR_CommunityOptInPack entry then optional boolean",
+  "save_sha256": "b07a3cebc193c6eb129aa25e7e22da815cb152253f201a69282a4ae86dccd7d6",
+  "metadata_sha256": "b6659c0829987378eebe2208da6f1c61e979ecae3c2bec128131e0fb5f22ba9e",
+  "optional": true,
+  "phase": "raw pre-load disk metadata",
+  "control": "assert exact hashes, nonempty matching mod entry and expected true boolean"
+}

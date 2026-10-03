@@ -36,6 +36,15 @@ bumps one.
   2026-09-22 widenings, the train rebuilds, retired D01/D06/D07/D12 and parked D03)
   never shipped, so none of it is a player-facing change.
 
+### Pending · Launch exit disclosure and warning (2026-10-03, Launch_Prep/01)
+- OI-43: newly written saves identify this mod as nonoptional for the native missing-mod warning;
+  older saves can retain their optional flag until resaved with the mod enabled.
+- Both maintained store bodies now disclose retained Train Hub upgrade receipts and possible
+  ordinary bonuses after removal, and acknowledge ChoGGi/LukeH's prior work.
+- Metadata regenerated from `UPLOAD_WORKFLOW.md` §3. Site/public README mirroring belongs to 03;
+  asset provenance, exact residual owners and existing dial-rescue availability remain held as
+  recorded in `reports/SHIP_EVIDENCE_20261003.md`. No new native warning result is claimed.
+
 ## Last released
 
 **Nothing yet.** This mod has never been uploaded; `docs/archive/RELEASE_HISTORY.md`
