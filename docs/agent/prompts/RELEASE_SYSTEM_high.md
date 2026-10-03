@@ -1,95 +1,99 @@
-# Build this repo's release system on the fix pack's
+# Build the Opt-In release system — first publish and later updates
 
-**Authored 2026-09-18** by the fix-pack coordinator seat, after the owner-list rename
-(`DECISIONS_OWED.md` → `PLAYTEST_CHECKLIST.md`) landed at `3903eb0`.
+**Fire first:** `task docs/agent/prompts/RELEASE_SYSTEM_high.md`. May run now; publication waits
+for train brief 35 and `Launch_Prep/`. Reasoning: high, because donor authority and this content
+mod's first-publish lifecycle differ. Revised 2026-10-02 at `63424af` by the launch audit.
 
-```sh
-git log --oneline -8 && git pull && python tools/doccheck.py | tail -1
-git -C B:/Dev/SMR/SMR-BugFixPack log --oneline -5 -- docs/UPLOAD_WORKFLOW.md docs/agent/prompts/perma/release_prompt.md docs/agent/support/
-```
+## Authority and outcome
 
-## Authority — settled
+Owner, 2026-09-18: “this repo needs its own release system and prompt. The public site through
+github will be shared but it was pre designed that way so that shouldn't be to much of a prompt.”
+Owner, 2026-09-17: standardise on the fix pack's names, rules and workflow where the function is
+the same; only product-specific content differs. Owner, 2026-10-02: full launch preparation,
+including store pages, shared site and the release workflow/prompt. Those decisions are settled.
 
-⚖️ **Owner, 2026-09-18:** *"this repo needs its own release system and prompt. The public site
-through github will be shared but it was pre designed that way so that shouldn't be to much of a
-prompt."*
+Build this repo's release system using the current donor at `B:/Dev/SMR/SMR-BugFixPack`, read-only.
+Done means an agent can prepare a first publish or an update, hand off to the owner, resume after
+upload, preserve editor writeback and close all records without inventing a store id or a receipt.
+The owner's UPLOAD_WORKFLOW stays plain and in the donor's shape. Delegate implementation and
+prose choices within that outcome; record calls in the commit.
 
-⚖️ **Owner, 2026-09-17:** this repo standardises on the fix pack (`B:\Dev\SMR\SMR-BugFixPack`), which it
-was forked from — same folder and file names wherever the function is the same, same rules and
-workflow; only repo-specific content differs. Where the fix pack has no name for something this
-repo needs, stop and report; do not coin one.
+## Work and evidence
 
-⚖️ **Human docs are the owner's.** `docs/UPLOAD_WORKFLOW.md` is read by the owner at upload time:
-write it for them, plainly, in the fix pack's shape. Agent-facing files may be tuned hard.
+Start `git log --oneline -5`, `git pull`, `git status --short`; read
+`docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`. Its evidence table supplies commands and
+falsifiers. Recheck donor HEAD and relevant changed inputs. Maintain a live work list in the
+session tool or a report, one commit-and-verify unit in progress.
 
-## What exists to copy
+SOURCE at audit HEAD: metadata contains approved description/summary, stale `last_changes`,
+patch version 0, true `optional_mod`, and train assets. It is not the 2026-09-18 module set.
+MEASURED: `python tools/upload_preflight.py` fails only for missing preview at `63424af`;
+its asset checks pass. Re-run rather than assuming that stays the only failure.
 
-The fix pack's release system, all read-only to you:
+Create these donor-named files and wire their real consumers:
 
-| file | job |
-|---|---|
-| `docs/UPLOAD_WORKFLOW.md` | the owner's upload procedure and the store-card paste backups (its header rules say which bytes must match) |
-| `docs/agent/prompts/perma/release_prompt.md` | the release job an agent runs |
-| `docs/agent/prompts/perma/RELEASE_OUTBOX.md` | pending player-facing changes, with header rules; emptied only by a release |
-| `docs/archive/RELEASE_HISTORY.md` | where released outbox entries go |
-| `docs/agent/support/RELEASE_SURFACES.md`, `POST_UPLOAD_CLOSE.md`, `LIVE_SITE_READ.md` | the surfaces a release touches, the close-out after an upload, and how to read a live store page |
+- `docs/UPLOAD_WORKFLOW.md`: owner procedure and maintained paste blocks. Mark absent art,
+  ids, console receipts and not-yet-produced card text as preparation gaps, never live copy.
+- `docs/agent/prompts/perma/release_prompt.md` and `RELEASE_OUTBOX.md`: first-publish Pending
+  inventory, later player-facing deltas, owner hold/resume and confirmed-upload-only draining.
+- `docs/archive/RELEASE_HISTORY.md`: append-only history, without invented releases.
+- `docs/agent/support/RELEASE_SURFACES.md`, `POST_UPLOAD_CLOSE.md`, `LIVE_SITE_READ.md`:
+  product-specific surfaces, writeback/comment recovery, archive comparison, tags and actual
+  deployed-source/live-page verification. The last name is the donor's site protocol.
 
-The shared site is `B:\Dev\SMR\SMR-CommunityMods` (MkDocs, `docs_dir: content`). Its README already
-frames it as one site for every mod in the family, with a "The mods this site documents" table.
-Today it has no opt-in page. The fix pack's `RELEASE_SURFACES.md` §2 is the site procedure for a fix
-list; this mod's equivalent is a module list.
+Wire ROOT expectations, required rule headers, outbox class/prompt map, docs/support maps,
+WORKFLOW Release/Release marking and applicable `sync_from_fixpack.py` exemptions. Retain donor
+names; if no donor name exists for a required standing function, report that gap rather than
+coining a parallel system. Define the pre-publication state of `STORE_CARD_LIVE.md`; chain 03
+fills actual store copy. Do not create a contradictory byte-parity rule for empty drafts.
 
-## End state
+The procedure must cover:
 
-1. The files above exist here under the same names and paths, with this repo's content: this
-   mod's id, its module set, its portals, and its not-yet-published state. The first upload is a
-   **first publish**, not an update: the procedure must say what differs for it. For example,
-   `last_changes` and the store ids do not exist yet.
-2. The release prompt's site steps cover this mod's pages in the shared site: where its module
-   list lives, its nav entry, its row in the site README's mods table, and the site's own
-   deployment being the owner's act. Design it so the fix pack's release and this one never edit
-   the same site file blind; say how.
-3. The fork's rules and gates match the fix pack's for these files:
-   - `UPLOAD_WORKFLOW.md` and `RELEASE_OUTBOX.md` carry the fix pack's header rules, adapted only
-     where this repo differs, and join `RULE_HEADER_DOCS`.
-   - The prompts-folder rule regains the fix pack's `RELEASE_OUTBOX.md` clause, which was dropped
-     in `38b4e7c` only because the outbox did not exist.
-   - `docs/README.md`'s map and doccheck's ROOT expectation gain `UPLOAD_WORKFLOW.md`.
-   - The prompt map gains the perma rows.
-   - WORKFLOW's "Release" and "Release marking" sections point at the new files.
-4. `python tools/doccheck.py` is GREEN. `python tools/upload_preflight.py` runs, and its one known
-   FAIL, the missing preview image, stays reported.
+- First creation on Paradox then Steam: distinct ids, editor saves/writeback, account/visibility
+  checks, own platform/console approval, gallery and styling; later updates use those ids.
+  Preserve settled description auto-fill and formatting loss; no per-release repeat question.
+- Initial major/minor are already decided. Reconcile WORKFLOW's old agent major/minor edit step
+  with the donor's current editor-owned version rule under standardisation authority. Preserve
+  writeback; never copy a `fixpack-*` tag or reset a version to make portals agree.
+- Exact metadata/items pre-upload baseline, comment restoration after the editor, actual packed
+  bytes versus serializer changes for each portal, annotated Opt-In release tag and downloaded
+  `pack_list.py` reconciliation. A store counter is not an upload receipt.
+- Local shipping-evidence ledger, both configurations with released fix-pack version, final
+  `Lua.fpk` verification, save exit/rescue, credits, own art/listings/certification and preflight.
+  Replace WORKFLOW's stale whole-pack 5 MB statement with the actual OI-18 asset-aware guard.
+- The shared site's module pages, nav, README mods row and shared install/FAQ/reporting text.
+  Read sibling status/HEAD before writing and again before commit; never absorb others' dirty
+  hunks. Site deployment is the owner's act after store pages. Chain 03 builds these surfaces.
+- Publish-day routing of donor `PARKED_OPTIN_REFERENCES.md` against current facts, not verbatim
+  restoration. Donor metadata/store changes require that repo's release, not this upload.
+- HOLD with Pending intact and a resumable marker; after owner confirmation verify writeback,
+  actual Steam change note, receipts/site state, restore comments, archive Pending, close records.
 
-**Your call:** whether `docs/agent/reports/STORE_CARD_LIVE.md` exists before a first publish, or
-the rule that names it waits for one. Record the reason.
+OI-21's tool-location choice and OI-44's first-listing/console facts may remain explicit gaps;
+they do not block the rest of the procedure. Port no tools without OI-21's ruling.
 
-## Known, not yours to fix
+## Scope and stops
 
-`metadata.lua`'s description still says "Eight opt-in modules" and names three modules retired on
-2026-09-17, and `items.lua`/`metadata.lua` comments count nine options where there are six. That is
-this mod's shipping content. Make sure the release procedure catches this class of drift (the
-store body against the module set), and list it in your report. Do not edit it.
+In: local release documents, maps, WORKFLOW release sections and required mechanical gate/sync
+wiring. Out: shipping code, metadata/items, store prose/art, sibling writes, game/Mod Editor,
+portal API calls and publishing.
 
-## Scope
+1. A copied procedure requires crossing FIX_POLICY's persisted-name or executable-reference
+   bans: report the exact conflict; do not silently adapt it into runtime code.
+2. An owner-only fact/decision or absent donor function name prevents a complete step: leave a
+   named gap, file a question only if it needs the owner, and finish independent work.
+3. A conflict in owner authority cannot be resolved by scope/date: preserve both and route the
+   narrow decision; do not rewrite authority as implementation preference.
 
-**In:** the files named above in this repo, `docs/README.md`, WORKFLOW's two release sections,
-`tools/doccheck.py` wiring, and the prompt map.
-**Out:** `metadata.lua`, `items.lua`, `Code/`, and every file in `B:\Dev\SMR\SMR-CommunityMods`. The
-site repo has another person's uncommitted edits, and player-facing pages for an unpublished mod
-are the first release's job, not this build's. Read it; do not write it.
+## Verify and hand off
 
-## Stops
+Use doc-editing, prompt-authoring, rule-placement, smr-bug-library; house rules CLAUDE,
+process WORKFLOW, code/release rules FIX_POLICY. Read destination headers. Run doccheck GREEN
+and upload preflight, recording remaining failures without calling the release ready. Review
+first-creation, partial-upload and fresh-session-resume paths as worker and owner. Copy no donor
+counts or ids. Audit on a different owner-selected model in Launch_Prep's terminal link before
+acceptance. Put result commits/gaps and every drift instance in upstream notes of 01 and 04.
 
-1. A step needs a store id, portal account detail or site decision only the owner has: write the
-   step with a named gap and list it.
-2. A fix-pack release rule that cannot apply to a mod that has never shipped: keep it out, list
-   it, and say why.
-
-## Do not claim
-
-- ❌ *"Ready to release."* ✅ what a first publish still needs from the owner, as a list.
-
-## Lifecycle
-
-One-off. `git rm` this file and delete its row in `docs/agent/prompts/README.md` in the commit that
-lands the result.
+Recheck shared paths/log/status, commit exact paths and push per WORKFLOW. Delete this one-off
+and its map row only when built; update sync pointers that named this live brief in that change.
+Report “release machinery built; these launch inputs remain”, never “ready to publish”.

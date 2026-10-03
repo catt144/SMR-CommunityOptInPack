@@ -21,11 +21,12 @@ When this mod publishes, do its store tools come from the fix pack or get ported
 - The fix pack holds this mod's listing drafts: `RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`,
   and the opt-in strings in `STORE_METADATA_STRINGS.md`; recheck all at launch.
 - Say "run from the fix pack" or "port at launch".
+- Recommended: port here; both donor tools currently select fix-pack inputs from their own paths.
 Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`
 
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
-- This mod's `Code/` has 10 `Untranslated(` sites: rollover titles, policy rows, the stand-down dialog.
+- Apply the answer to the shipping strings, including the train modules; the pre-train inventory is out of date.
 - `FUTURE_IDEAS.md` #4(b) hangs on the answer.
 - Say "both", "fix pack only", or "decide at its launch".
 Home: `docs/agent/FIX_POLICY.md`
@@ -40,10 +41,27 @@ Home: `docs/agent/WORKFLOW.md`
 ### OI-11 · opened 2026-09-18 · launch
 Name `Opt_MultipleSuns`'s `SolarPanelBase.GameInit` capture in its `Require` block, or leave it allowlisted?
 - The F107 wrap check allowlists it: the class declares the method, so `prev` is real and nothing is broken.
-- Naming it is a code edit to a frozen module and needs an A/B. D06's two sites left with that module.
-- (a) leave it until the file's next planned edit — OI-04 (a) would be one; (b) do it at the launch session.
+- The freeze was lifted on 2026-09-18; this remains a code-change decision and still needs an A/B.
+- (a) leave it until the file's next planned edit; (b) do it at the launch session. OI-04's edit has since landed.
 - Recommended: (a).
 Home: `docs/agent/FIX_POLICY.md`, `docs/agent/bugs/D04.md`
+
+### OI-43 · opened 2026-10-02 · launch
+Should this mod warn when a player loads a save with it disabled or missing?
+- Recommended: set `optional_mod` to false before first publication; built hubs and depots need the uninstall steps.
+- Keeping true suppresses the warning for everyone, including players with placed content.
+- False restores the engine warning for new saves, even if no content was built; it does not repair a save.
+- Existing saves marked optional need loading and saving with the changed mod enabled before that warning can help.
+- Say "warn" or "keep optional". A content-dependent warning would need a separate design.
+Home: `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`, `docs/agent/prompts/Launch_Prep/01_SHIP_EVIDENCE_high.md`
+
+### OI-44 · opened 2026-10-02 · launch
+Are there already Opt-In listings to use? What console approval steps does your Paradox account offer?
+- Recommended: use existing Opt-In drafts if any; otherwise create listings at first upload, Paradox then Steam.
+- Give existing links only if they exist; newly assigned ids will be read from the editor's writeback.
+- Confirm platform choices and any Xbox/PlayStation approval step for this mod; fix-pack approval is not its receipt.
+- Login, any required Workshop agreement and actual approval are yours; no account secrets are needed in the repo.
+Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
 
 ## Run
 
@@ -53,7 +71,9 @@ When you next sit on the depot's final build, run brief 27's steps that 2026-10-
 Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
 
 ### OI-12 · opened 2026-09-18 · launch
-When this mod heads for upload, make its preview art: `tools/upload_preflight.py` FAILs only on that.
+When this mod heads for upload, choose its preview art and the gameplay screenshots for its store pages.
+- The launch-prep worker prepares concrete preview candidates and a gallery proposal for your selection.
+- Preflight failed only on preview at audit HEAD `63424af` (2026-10-02); no gallery is declared yet.
 - Paradox rejects a mod with no `image` / `preview.png` before packing.
 - Limits: at most 1 MB for Steam, 2 MB for Paradox.
-Home: `docs/agent/WORKFLOW.md`
+Home: `docs/agent/WORKFLOW.md`, `docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`

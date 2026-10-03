@@ -39,14 +39,14 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | prompt | declared class | state |
 |---|---|---|
-| `LAUNCH_PREP_AUDIT_high.md` | `prompt` | **LIVE, fire now.** The full launch-prep audit (owner, 2026-10-02): the release workflow doc and prompt, merging this mod into the shared site with the fix pack, the store pages, `optional_mod`, every open launch item; one report and briefs in fire order. Decides whether `RELEASE_SYSTEM_high.md` fires, is revised or is replaced. Delete when fired and its briefs are authored. |
-| `RELEASE_SYSTEM_high.md` | `prompt` | **HELD for `LAUNCH_PREP_AUDIT_high.md`** (owner, 2026-10-02), which decides whether it fires as written. Was: **LIVE, fire when ready.** Build this repo's release system on the fix pack's (owner, 2026-09-18): `UPLOAD_WORKFLOW.md`, `release_prompt.md`, `RELEASE_OUTBOX.md`, `RELEASE_HISTORY.md` and the three release support docs under the fix pack's names, a first-publish path, and this mod's steps on the shared site `B:\Dev\SMR\SMR-CommunityMods` (read-only for the build) |
+| `RELEASE_SYSTEM_high.md` | `prompt` | **LIVE, first launch-prep brief; may fire now.** Revised by the 2026-10-02 audit: build the donor-named local release system for first publication and later updates, owner hold/resume and writeback recovery, gate/map wiring and shared-site release procedure. Store/site production belongs to `Launch_Prep/`; sibling repos stay read-only in this build. Delete when built. |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before its owner asks (spec §9) can go on `docs/PLAYTEST_CHECKLIST.md` (`bugs/D06.md`). Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
 
 | chain | declared class | state |
 |---|---|---|
+| `Launch_Prep/` | `live` | Shipping evidence and bounded attended checks, store/asset/shared-site preparation, then independent backward QA. Owner starts after `RELEASE_SYSTEM_high.md` and train brief 35 close; no duplicate train battery. Its README gives fire order and completion gates; publication belongs to the permanent release prompt and owner. |
 | `Train_Hub_Project/` | `live` | The train hub project (Module B): its standing orchestrator and its build briefs, numbered in fire order, with `Parked/` for briefs that are not to be fired. Its own `README.md` says what each is for and which is next. ⛔ Temporary: the whole folder goes when the trains project is complete and tested (owner, 2026-09-18) |
 
 A chain folder appears here while its links are live and leaves `prompts/` when the
