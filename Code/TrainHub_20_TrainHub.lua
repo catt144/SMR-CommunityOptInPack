@@ -33,6 +33,13 @@
 -- both files create the shared table if it is not there yet.
 SMROptInTrainFloor = rawget(_G, "SMROptInTrainFloor") or {}
 local Floor = SMROptInTrainFloor
+
+-- FIX_POLICY §8: per-event dev lines print only under SMROptInPack.TrainTrace (00_Core.lua).
+local function trace(...)
+	local pack = rawget(_G, "SMROptInPack")
+	if pack and pack.TrainTrace then print(...) end
+end
+
 -- Owner 2026-09-20, TRAIN_HUB_MOVE_high.md: tune both by eye, measured
 -- outward from the hub centre. Neither is derived from the disputed length.
 -- Longer-stub model handoff: try 48 m, then 47-49 m by eye after import.
@@ -303,7 +310,7 @@ local function line_radii(entity)
 		radii[direction] = Max(radius, 1)
 	end
 	line_radius_cache[entity] = radii
-	print(string.format("[TrainHub] %s line radii d0..d5 = %d %d %d %d %d %d",
+	trace(string.format("[TrainHub] %s line radii d0..d5 = %d %d %d %d %d %d",
 		tostring(entity), radii[0], radii[1], radii[2], radii[3], radii[4], radii[5]))
 	return radii
 end
@@ -407,7 +414,7 @@ local function uses_body_spots(self)
 		-- which are not this hub's lines. It is named, so nothing is guessed.
 		known = entity ~= "TrainStationLargeCCP3" and CObject.HasSpot(self, "Trackconnector1") or false
 		body_has_spots[entity] = known
-		print(string.format("[TrainHub] %s connector spots: %s", tostring(entity), known and "from the body" or "computed"))
+		trace(string.format("[TrainHub] %s connector spots: %s", tostring(entity), known and "from the body" or "computed"))
 	end
 	return known
 end
@@ -1228,11 +1235,11 @@ local function apply_hub_reactor_palette(visual)
 			written = written + 1
 			local r, g, b = 0, 0, 0
 			if type(GetRGB) == "function" then r, g, b = GetRGB(ch.color) end
-			print(string.format("[TrainHub] reactor palette: channel %d = %d,%d,%d roughness %d metallic %d",
+			trace(string.format("[TrainHub] reactor palette: channel %d = %d,%d,%d roughness %d metallic %d",
 				i, r or 0, g or 0, b or 0, ch.roughness or 0, ch.metallic or 0))
 		end
 	end
-	print(string.format("[TrainHub] reactor palette: %s, %d of %d channels written on the attached copy only (vanilla's own per-object call; no material is restyled)",
+	trace(string.format("[TrainHub] reactor palette: %s, %d of %d channels written on the attached copy only (vanilla's own per-object call; no material is restyled)",
 		hub_reactor_palette_name(), written, hub_reactor_channels))
 	return written
 end
@@ -1712,12 +1719,12 @@ local function place_hub_structure_lights(self, sets)
 		end
 		sets[key] = list
 		total = total + #list
-		print(string.format("[TrainHub] structure lights: %s %s, %d lights (intensity %d, radius %d cm)",
+		trace(string.format("[TrainHub] structure lights: %s %s, %d lights (intensity %d, radius %d cm)",
 			family.name, family.on and "ON" or "OFF", #list, family.intensity, family.radius))
 		if family and family.night then
 			local cr, cg, cb = 0, 0, 0
 			if type(GetRGB) == "function" then cr, cg, cb = GetRGB(family.color) end
-			print(string.format("[TrainHub] structure lights: %s follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is %s now, so it is %s -- hanging at z %d cm, colour %d,%d,%d, cone %d/%d",
+			trace(string.format("[TrainHub] structure lights: %s follows the VANILLA night schedule (OnMsg.LightmodelChange -> map.NightLightsState, NightLightObjects.lua:250-259, :22 on build 1.1.0.403908); it is %s now, so it is %s -- hanging at z %d cm, colour %d,%d,%d, cone %d/%d",
 				family.name, night and "NIGHT" or "DAY", night and "LIT" or "NOT PLACED",
 				family.height or 0, cr or 0, cg or 0, cb or 0, family.inner or 0, family.outer or 0))
 		end
@@ -1752,18 +1759,18 @@ local function set_hub_lights_working(self, working)
 			end
 			total = total + count
 			local bearing = (CalcOrientation(point(0, 0), point(ax, ay)) + self:GetAngle()) % (360 * 60) / 60
-			print(string.format("[TrainHub] lights: arm %d, %s = %s \"%s\" (%s), %d lights, engine bearing %d deg",
+			trace(string.format("[TrainHub] lights: arm %d, %s = %s \"%s\" (%s), %d lights, engine bearing %d deg",
 				direction, hub_light_arm_names[direction], key, variant.name, variant.class, count, bearing))
 		end
 	end
 	local cr, cg, cb = 0, 0, 0
 	if type(GetRGB) == "function" then cr, cg, cb = GetRGB(tune.color) end
-	print(string.format("[TrainHub] lights: arm tune intensity %d, side %d cm, height %d cm, radius %d cm, cone %d/%d, colour %d,%d,%d",
+	trace(string.format("[TrainHub] lights: arm tune intensity %d, side %d cm, height %d cm, radius %d cm, cone %d/%d, colour %d,%d,%d",
 		tune.intensity or 0, tune.side or 0, tune.height or 0, tune.radius or 0, tune.inner or 0, tune.outer or 0,
 		cr or 0, cg or 0, cb or 0))
 	local structure = place_hub_structure_lights(self, sets)
 	hub_light_sets[self] = sets
-	print(string.format("[TrainHub] lights: %d placed (%d arm + %d structure); a stopped hub destroys them all",
+	trace(string.format("[TrainHub] lights: %d placed (%d arm + %d structure); a stopped hub destroys them all",
 		total + structure, total, structure))
 end
 
@@ -2698,7 +2705,7 @@ local function schedule_trip(self, job, now, what)
 	job.deadline = now + tune.LaunchTime + travel + repair_work_time() + build_extra_time(job)
 	job.drone = false
 	-- the smoke's ETA record (link 5): distance and the deadline's three parts, game ms
-	print(string.format("[TrainHub] %s %s: elements %d, %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d site=%s track=%s",
+	trace(string.format("[TrainHub] %s %s: elements %d, %d m, deadline in %d ms (launch %d + travel %d + work %d) at t=%d site=%s track=%s",
 		job.kind, what, job.elements or 0, DivRound(dist, 100), job.deadline - now, tune.LaunchTime, travel, repair_work_time() + build_extra_time(job), now,
 		tostring(job.site and job.site.handle), tostring(job.track and job.track.handle)))
 end
@@ -3182,7 +3189,7 @@ local function service_job(self, record, job, now, sites, dispatched_now)
 		if result == "done" or result == "gone" then
 			-- the Wasp's stage at completion: "out" = deadline early, "work" = on time, "back" = late
 			local record = flights[job]
-			print(string.format("[TrainHub] %s %s: elements %d, elapsed %d ms, %d ms after the deadline, the Wasp's stage %s at t=%d site=%s",
+			trace(string.format("[TrainHub] %s %s: elements %d, elapsed %d ms, %d ms after the deadline, the Wasp's stage %s at t=%d site=%s",
 				job.kind, result, job.elements or 0, now - (job.started or now), now - job.deadline, tostring(record and record.stage or (job.drone and "untracked") or "no Wasp"), now, tostring(site_handle)))
 			return false, dispatched_now
 		end

@@ -26,6 +26,10 @@ SOURCE = ROOT / "Code/TrainHub_20_TrainHub.lua"
 code = SOURCE.read_text(encoding="utf8")
 section = code[code.index("-- TRACK WORK (build 4"):code.index("-- The sizes. Thin by design")]
 section = section[:section.rindex("-- =====")]
+# FIX_POLICY §8 (owner 2026-10-02): the section's ETA lines call the file's own `trace`, gated by
+# SMROptInPack.TrainTrace. The slice does not hold it, so the shipped helper runs in its chunk.
+trace_at = code.index("local function trace(...)")
+trace_helper = code[trace_at:code.index("\nend\n", trace_at) + 5]
 
 # Static gates on the section's source.
 plain = "\n".join(line.split("--", 1)[0] for line in section.split("\n"))
@@ -209,7 +213,7 @@ function hub(x, y) local h = { valid = true, classes = { SMROptInTrainHubBase = 
   return setmetatable(h, { __index = SMROptInTrainHubBase })
 end
 ''')
-lua.execute("SMROptInTrainHubBase = {}\nlocal Floor = SMROptInTrainFloor\n" + section.replace("local Floor = SMROptInTrainFloor", ""))
+lua.execute("SMROptInTrainHubBase = {}\nlocal Floor = SMROptInTrainFloor\n" + trace_helper + section.replace("local Floor = SMROptInTrainFloor", ""))
 
 lua.execute(r'''
 F = SMROptInHubFlight; Tune = SMROptInTrainFloor.HubRepairTune

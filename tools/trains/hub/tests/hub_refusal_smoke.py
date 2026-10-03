@@ -133,9 +133,15 @@ assert(#city.labels.Train==0,'no train placed at a hub')
 assert(ColonyGetPrefabs('Train',city)==3,'no prefab spent on a refusal')
 assert(#track.assigned_vehicles==0 and hub.track_busy[1]==nil)
 assert(B.stats.refused==1)
-local line
-for _,l in ipairs(printed) do if l:find('[TrainBay] refused hub=6430',1,true) then line=l end end
-assert(line,'the refusal line names the hub')
+local function refusal_line()
+  for _,l in ipairs(printed) do if l:find('[TrainBay] refused hub=6430',1,true) then return l end end
+end
+-- FIX_POLICY §8 (owner 2026-10-02): the line is a dev trace, silent until SMROptInPack.TrainTrace.
+assert(rawget(_G,'SMROptInPack')==nil and not refusal_line(),'the refusal is silent with the switch off')
+SMROptInPack={TrainTrace=true}
+track:AssignTrain(hub)
+assert(B.stats.refused==2 and #city.labels.Train==0 and ColonyGetPrefabs('Train',city)==3,'a second refusal, still nothing spent')
+assert(refusal_line(),'the refusal line names the hub (switch on)')
 
 -- A plain station: vanilla's archived body spawns exactly as before.
 track:AssignTrain(plain)
@@ -144,7 +150,7 @@ local t=city.labels.Train[1]
 assert(t.current_station==plain and t.at_spawn_track==true and t.started,'born at the station, at_spawn_track, started')
 assert(t.pos=='pos:spot:Spawn1' and t.angle=='angle:spot:Spawn1','placed on the station\'s own Spawn spot')
 assert(ColonyGetPrefabs('Train',city)==2 and track.assigned_vehicles[1]==t and plain.track_busy[1]==t)
-assert(B.stats.refused==1,'the station path is not counted as a refusal')
+assert(B.stats.refused==2,'the station path is not counted as a refusal')
 
 ''')
 print('PASS hub refusal: AssignTrain(hub) spawns nothing and spends nothing; AssignTrain(station) spawns on the '

@@ -54,6 +54,12 @@
 -- (TakeOff/LandingEnd), Track.lua:194-199, TrainTransport.lua:57-65, TrackTunnel.lua:20-28;
 -- EF-112/115 (FX and battery).
 
+-- FIX_POLICY §8: per-event dev lines print only under SMROptInPack.TrainTrace (00_Core.lua).
+local function trace(...)
+  local pack = rawget(_G, "SMROptInPack")
+  if pack and pack.TrainTrace then print(...) end
+end
+
 local previous_flight = rawget(_G, "SMROptInHubFlight")
 if previous_flight and previous_flight.ClearAll then previous_flight.ClearAll() end
 SMROptInHubFlight = {
@@ -865,7 +871,7 @@ local function report_leg(a, now)
   local p = a.drone:GetVisualPos()
   local dist = point(p:x(), p:y(), 0):Dist(a.leg_from)
   local ms = max(1, now - a.leg_at)
-  print(string.format("[TrainHubDev] engine leg %s: %d m in %d ms = %d units per s (move_speed %s) at t=%d",
+  trace(string.format("[TrainHubDev] engine leg %s: %d m in %d ms = %d units per s (move_speed %s) at t=%d",
     a.stage, int(div(dist, 100)), ms, MulDivRound(dist, 1000, ms), tostring(a.drone.move_speed), now))
 end
 

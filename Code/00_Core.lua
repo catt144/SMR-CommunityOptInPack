@@ -33,6 +33,15 @@ function SMROptInPack.Log(fmt, ...)
 end
 local log = SMROptInPack.Log
 
+-- Development trace switch for the train modules (FIX_POLICY §8, owner 2026-10-02: "supposed
+-- to be removed before launch so we aren't constantly dumping into players live logs").
+-- Their per-event lines (hub lights, reactor palette, repair ETAs, engine legs, refusals, the
+-- depot's dressing, rows, pair and cabin legs) print only while this is true. OFF by default.
+-- Turn it on from the console or a TestKit slot: `SMROptInPack.TrainTrace = true`; each part
+-- reads it at call time (rawget, so a part loaded alone stays quiet). Never saved. Errors,
+-- console read-outs, one-shot save repairs and the load notices print regardless.
+SMROptInPack.TrainTrace = SMROptInPack.TrainTrace == true
+
 -- Is a fix currently active? Optional modules' wrappers consult this at CALL
 -- time, so a Mod Options toggle takes effect live in both directions — the
 -- installed hooks simply pass through while the module reads inactive.

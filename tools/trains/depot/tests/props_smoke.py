@@ -206,6 +206,9 @@ local function cursor_for(template)
   function c:Attach(a,spot) a.parent=self; a.spot=spot; self.attaches[#self.attaches+1]=a end
   return c
 end
+-- FIX_POLICY §8 (owner 2026-10-02): the cursor line is a dev trace behind SMROptInPack.TrainTrace;
+-- the census and sweep reads above print with it off, as console reads must.
+SMROptInPack={TrainTrace=true}
 local other=obj('DroneHub','DroneHub',surface,true)
 logs={}; OnMsg.CursorBuildingInit(cursor_for(other))
 assert(#placed==0 and not has_log('cursor dressed'),'a foreign cursor is untouched')
@@ -225,6 +228,8 @@ assert(has_log('cursor dressed elevator=true cabin=true scale=75 palette=2'),'th
 D.layout.cabin_on=false; placed={}; logs={}; OnMsg.CursorBuildingInit(cursor_for(tmpl))
 assert(#placed==1 and has_log('cabin=false') and has_log('palette=1'),'cabin_on off leaves the elevator alone')
 D.layout.cabin_on=true
+SMROptInPack.TrainTrace=false; placed={}; logs={}; OnMsg.CursorBuildingInit(cursor_for(tmpl))
+assert(#placed==2 and not has_log('cursor dressed'),'switch off: the cursor is dressed without the log line')
 ''')
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 print(f'props_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')

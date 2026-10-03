@@ -50,6 +50,13 @@ local entity_id = "SMROptInElevatorDepot"
 local mod_entities = { SMROptInElevatorDepot = true, SMROptInElevatorDepotReceiver = true }
 local log_prefix = "[ElevatorDepot]"
 
+-- FIX_POLICY §8: per-event dev lines print only under SMROptInPack.TrainTrace (00_Core.lua).
+-- The console read-outs below (Report, Pair, Measure, Show, ...) print regardless.
+local function trace(...)
+	local pack = rawget(_G, "SMROptInPack")
+	if pack and pack.TrainTrace then print(...) end
+end
+
 -- ArtSpecEditor.lua:565-573 (archived 1.1.1.406343) calls an editor-only helper on retail
 -- mod load. This spec has no legacy color properties to migrate; skip only its editor load
 -- when that helper is absent. Preserve other specs and the hub's existing wrapper (D14(e)).
@@ -343,7 +350,7 @@ function OnMsg.CursorBuildingInit(cursor)
 		ropes = empty_table,
 	}
 	local painted = paint_rig(template, rig)
-	print(string.format("%s cursor dressed elevator=%s cabin=%s scale=%d palette=%d", log_prefix,
+	trace(string.format("%s cursor dressed elevator=%s cabin=%s scale=%d palette=%d", log_prefix,
 		tostring(IsValid(rig.elevator)), tostring(IsValid(rig.cabin)), L.scale, painted))
 end
 
@@ -377,7 +384,7 @@ function D.Dress(bld)
 		rig.elevator:ForEachAttach(function(a)
 			if hide[a:GetEntity() or ""] then DoneObject(a); gone = gone + 1 end
 		end)
-		print(log_prefix, "elevator attaches hidden:", gone, "(", L.elevator_hide, ")")
+		trace(log_prefix, "elevator attaches hidden:", gone, "(", L.elevator_hide, ")")
 	end
 	if L.tunnel_entity then
 		rig.tunnel = attach_visual(bld, L.tunnel_entity, point(L.tunnel_x, L.tunnel_y, L.tunnel_lift),
@@ -417,7 +424,7 @@ function D.Dress(bld)
 	rig.bld = bld
 	D.rigs[bld] = rig
 	local painted = paint_rig(bld, rig)
-	print(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d cabin_hide_below=%d palette=%d",
+	trace(string.format("%s dressed %s env=%s elevator=%s tunnel=%s cabin=%s ropes=%d scale=%d receiver=%s signs=%d cabin_hide_below=%d palette=%d",
 		log_prefix, tostring(bld), environment_of(bld), tostring(IsValid(rig.elevator)), tostring(IsValid(rig.tunnel)),
 		tostring(IsValid(rig.cabin)), #rig.ropes, L.scale, tostring(IsValid(rig.receiver)),
 		#(bld:GetAttaches("UnderconstructionSign") or empty_table), L.cabin_hide_below, painted))
@@ -573,7 +580,7 @@ if not IsValidThread(rawget(D, "sweeper")) then
 			Sleep(2000)
 			if next(D.rigs) then
 				local n = sweep_rigs()
-				if n > 0 then print(log_prefix, "sweeper removed", n, "props of a deleted depot") end
+				if n > 0 then trace(log_prefix, "sweeper removed", n, "props of a deleted depot") end
 			end
 		end
 	end)
@@ -1132,7 +1139,7 @@ function D.SetRow(o, res, value)
 		if rawget(half, DRONES) then reconnect(half) end   -- the direction filter changed
 		ObjModified(half)
 	end
-	print(string.format("%s row %s = %s word=%s (set on the surface half %s; underground %s %s)",
+	trace(string.format("%s row %s = %s word=%s (set on the surface half %s; underground %s %s)",
 		log_prefix, res, state, word_of(state), tostring(o.handle),
 		twin and tostring(twin.handle) or "none", twin and "copy updated" or "absent"))
 	return true
@@ -1153,7 +1160,7 @@ function D.SetTarget(o, res, percent)
 	rawset(o, TARGETS, targets)
 	local twin = D.TwinOf(o)
 	if twin then rawset(twin, TARGETS, table.copy(targets)) end
-	print(string.format("%s target %s = %d%% (set on the surface half %s; underground %s)", log_prefix, res, percent,
+	trace(string.format("%s target %s = %d%% (set on the surface half %s; underground %s)", log_prefix, res, percent,
 		tostring(o.handle), twin and (tostring(twin.handle) .. " copy updated") or "absent"))
 	ObjModified(o)
 	if twin then ObjModified(twin) end
@@ -1165,7 +1172,7 @@ end
 function Base:ToggleAcceptResource(res, broadcast)
 	if not live_depot(self) or not has_rows(self, res) then return end
 	if is_underground(self) then
-		print(log_prefix, "underground rows are read-only; change", res, "on the surface Elevator Depot")
+		trace(log_prefix, "underground rows are read-only; change", res, "on the surface Elevator Depot")
 		return
 	end
 	local state = D.State(self, res)
@@ -1408,7 +1415,7 @@ function D.SetDroneAccess(o, on)
 		rawset(o, DRONES, on or nil)
 		reconnect(o)
 	end
-	print(log_prefix, "drone access", is_underground(o) and "underground" or "surface", tostring(o.handle), on and "on" or "off")
+	trace(log_prefix, "drone access", is_underground(o) and "underground" or "surface", tostring(o.handle), on and "on" or "off")
 	ObjModified(o)
 	return true
 end
@@ -1542,7 +1549,7 @@ function D.HalfPlaced(o)
 		if other ~= o and other:GetMapSlot() == o:GetMapSlot() then same = same + 1 end
 	end
 	if same > 0 then
-		print(log_prefix, "pair limit: a further depot on the", environment_of(o), "map:", tostring(o.handle), "stays unpaired")
+		trace(log_prefix, "pair limit: a further depot on the", environment_of(o), "map:", tostring(o.handle), "stays unpaired")
 	end
 end
 
@@ -1652,10 +1659,10 @@ function D.OnPairChanged(surface, underground)
 		local s_t, u_t = rawget(surface, TARGETS), rawget(underground, TARGETS)
 		if not (s_t and next(s_t)) and u_t and next(u_t) then rawset(surface, TARGETS, table.copy(u_t)) end
 		if rawget(surface, TARGETS) then rawset(underground, TARGETS, table.copy(rawget(surface, TARGETS))) end
-		print(log_prefix, "pair formed: surface", tostring(surface.handle), "underground", tostring(underground.handle),
+		trace(log_prefix, "pair formed: surface", tostring(surface.handle), "underground", tostring(underground.handle),
 			"rows", list_text(s_rows))
 	else
-		print(log_prefix, "no pair: surface", surface and tostring(surface.handle) or "none",
+		trace(log_prefix, "no pair: surface", surface and tostring(surface.handle) or "none",
 			"underground", underground and tostring(underground.handle) or "none")
 	end
 	for _, o in ipairs(all_depots()) do
@@ -1686,7 +1693,7 @@ function D.Tick(minute)
 		rec.legs = (rec.legs or 0) + 1
 		rec.phase = leg == "down" and "at_bottom" or "at_top"
 		rec.ends = now + minutes(L.cabin_pause_minutes)
-		print(string.format("%s cabin arrived %s (leg %d) delivered %s still aboard %s",
+		trace(string.format("%s cabin arrived %s (leg %d) delivered %s still aboard %s",
 			log_prefix, leg == "down" and "underground" or "surface", rec.legs, list_text(moved), list_text(rec.cargo)))
 		ObjModified(surface)
 		ObjModified(underground)
@@ -1696,7 +1703,7 @@ function D.Tick(minute)
 	if not (surface.working and underground.working) then
 		if not held[surface] then
 			held[surface] = true
-			print(log_prefix, "cabin held: surface working", tostring(surface.working), "underground working", tostring(underground.working))
+			trace(log_prefix, "cabin held: surface working", tostring(surface.working), "underground working", tostring(underground.working))
 		end
 		return
 	end
@@ -1708,7 +1715,7 @@ function D.Tick(minute)
 	rec.phase = going_down and "down" or "up"
 	rec.leg_ms = Max(minutes(L.cabin_leg_minutes), 1)
 	rec.ends = now + rec.leg_ms
-	print(string.format("%s cabin departed %s (leg %d) loaded %s aboard %s arrives in %d min",
+	trace(string.format("%s cabin departed %s (leg %d) loaded %s aboard %s arrives in %d min",
 		log_prefix, going_down and "down" or "up", (rec.legs or 0) + 1, list_text(moved), list_text(rec.cargo),
 		MulDivRound(rec.leg_ms, 1, const.MinuteDuration)))
 	ObjModified(surface)
@@ -1759,7 +1766,7 @@ function D.HalfGone(o, done_map, why)
 		rec.cargo = {}
 	end
 	rec.phase, rec.ends, rec.started = "at_top", 0, nil
-	print(log_prefix, "half gone:", ug and "underground" or "surface", tostring(o.handle), "survivor", tostring(other.handle),
+	trace(log_prefix, "half gone:", ug and "underground" or "surface", tostring(o.handle), "survivor", tostring(other.handle),
 		"cargo delivered", list_text(delivered), "stockpiled", list_text(dropped))
 end
 

@@ -146,6 +146,9 @@ function to_hour() while (now//500) % 60 ~= 59 do now=now+500 end end  -- the ne
 stockpiles={}
 function PlaceResourceStockpile_Delayed(pos, map, res, amount) int(amount,'stockpile'); stockpiles[#stockpiles+1]={map=map,res=res,amount=amount} end
 ''')
+# FIX_POLICY §8 (owner 2026-10-02): the depot's per-event lines are dev traces behind
+# SMROptInPack.TrainTrace; this smoke reads them, so it turns the switch on (the end checks off).
+lua.execute('SMROptInPack = { TrainTrace = true }')
 lua.execute(text)
 lua.execute(r'''
 local D = SMRElevatorDepotDev
@@ -614,6 +617,12 @@ r = slots[4].fn(ctx_for(s)); st = SMRTK.armed.depot_drone_hour.state
 assert(r.drone_access=='on' and r.half==tostring(s.handle))
 minute_tick(60); fired, f = triggers.depot_drone_hour.when({state=st})
 assert(fired and f.verdict=='hour_done' and f.samples>=2, 'drone hour')
+-- FIX_POLICY §8 (owner 2026-10-02): switch off, the per-event lines fall silent; the console read still prints.
+SMROptInPack.TrainTrace = false; logs = {}
+local t0 = D.Target(s,'Metals'); assert(D.SetTarget(s,'Metals', t0==10 and 11 or 10) and D.SetDroneAccess(s, true))
+assert(not has_log('target Metals') and not has_log('drone access'), 'switch off: no per-event lines')
+D.Pair(); assert(has_log('pair surface='), 'switch off: the console read still prints')
+SMROptInPack.TrainTrace = true; D.SetDroneAccess(s, true); assert(has_log('drone access surface'), 'switch on again: the line is back')
 ''')
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 print(f'wiring_smoke: PASS; HEAD={head} + working tree; {lua.eval("_VERSION")}')

@@ -123,7 +123,11 @@ end
 ''')
 visuals = code[code.index('local reactor_entity ='):code.index('-- A train station is normally')]
 working = code[code.index('function SMROptInTrainHubBase:OnSetWorking('):code.index('-- Done is combined.')]
-lua.execute(visuals + '\n' + working)
+# FIX_POLICY §8 (owner 2026-10-02): the palette and light lines call the file's own `trace`,
+# gated by SMROptInPack.TrainTrace. The slices do not hold it, so the shipped helper runs in their chunk.
+trace_at = code.index('local function trace(...)')
+trace_helper = code[trace_at:code.index('\nend\n', trace_at) + 5]
+lua.execute(trace_helper + visuals + '\n' + working)
 lua.execute(r'''
 -- Before editor import, the existing visual survives and no missing entity is made.
 h:InitHubReactorVisual(); h:InitHubSidingGlass()

@@ -961,7 +961,17 @@ g = lua.globals()
 assert g.created==g.removed
 if not args.clearance_output:
     receipt=json.loads((ROOT/'tools/trains/hub/tests/motion_clearance_receipt.json').read_text())
-    assert receipt['source_sha256']==receipt['motion']['source_sha256']==hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    # FIX_POLICY §8 (owner 2026-10-02) put the engine-leg line behind SMROptInPack.TrainTrace: a
+    # helper and one print -> trace. The receipt pins the bytes before it; undoing exactly that
+    # gate must reproduce them, so any other edit (motion included) still fails here.
+    gate_helper = (b'-- FIX_POLICY \xc2\xa78: per-event dev lines print only under SMROptInPack.TrainTrace (00_Core.lua).\n'
+                   b'local function trace(...)\n  local pack = rawget(_G, "SMROptInPack")\n'
+                   b'  if pack and pack.TrainTrace then print(...) end\nend\n\n')
+    gate_line = b'  trace(string.format("[TrainHubDev] engine leg '
+    source = SOURCE.read_bytes()
+    assert source.count(gate_helper)==1 and source.count(gate_line)==1 and source.count(b'trace(')==2, 'the gate is the only change'
+    pinned = source.replace(gate_helper, b'').replace(gate_line, gate_line.replace(b'trace(', b'print(', 1))
+    assert receipt['source_sha256']==receipt['motion']['source_sha256']==hashlib.sha256(pinned).hexdigest()
     # Brief 34 moved the entity into this mod: its Mod/<id>/ paths name SMR_CommunityOptInPack now.
     # The receipt pins the dev mod's bytes; mapping the id back must reproduce them exactly,
     # so the only change since the receipt is the mod id (any geometry edit still fails here).

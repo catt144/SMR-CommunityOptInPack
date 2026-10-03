@@ -14,6 +14,12 @@ DefineClass.HubTrain = {
     persist_baseclass = "Train",
 }
 
+-- FIX_POLICY §8: per-event dev lines print only under SMROptInPack.TrainTrace (00_Core.lua).
+local function trace(...)
+    local pack = rawget(_G, "SMROptInPack")
+    if pack and pack.TrainTrace then print(...) end
+end
+
 SMROptInTrainBay = {}
 local B = SMROptInTrainBay
 B.stats = { refused = 0 }
@@ -50,7 +56,7 @@ local assign = TrackBase.AssignTrain
 function TrackBase:AssignTrain(station, ...)
     if is_hub(station) then
         B.stats.refused = B.stats.refused + 1
-        print(string.format("[TrainBay] refused hub=%s track=%s t=%d", h(station), h(self), GameTime()))
+        trace(string.format("[TrainBay] refused hub=%s track=%s t=%d", h(station), h(self), GameTime()))
         return
     end
     return assign(self, station, ...)
