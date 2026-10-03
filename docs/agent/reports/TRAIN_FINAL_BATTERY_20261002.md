@@ -3,9 +3,9 @@
 Authority: [brief 35](../prompts/Train_Hub_Project/35_FINAL_BATTERY_high.md).
 Starting shipping code: `eb36cff`; `git log --oneline -5` and `git pull` ran first,
 pull already up to date. Scope: testing and recording, with failures returned to
-the train orchestrator for a fix brief. **B0 in P: PASS, owner 2026-10-03.**
-The final scope is ruled at `076e655`: B1 is issued below; one combined B2/B4
-batch follows its result. No other B2-B6 checks remain in this battery.
+the train orchestrator for a fix brief. **B0 and B1 in P: PASS, owner 2026-10-03.**
+The final scope is ruled at `076e655`; B1 passed at `ac634ca`. The combined
+B2/B4 batch below is issued, awaiting the owner. No other B2-B6 checks remain.
 Executed model: GPT-6 (Codex; no more specific runtime model identifier is exposed
 in this transcript). No subagents.
 
@@ -14,7 +14,7 @@ in this transcript). No subagents.
 | Unit | State |
 |---|---|
 | Reconcile predictions, prepare slots, verify and commit preparation | COMPLETE; TestKit `783a24d` |
-| P: released fix pack installed | B0 PASS; B1 issued, awaiting owner result |
+| P: released fix pack installed | B0 and B1 PASS; combined B2/B4 issued, awaiting result |
 | A: fix pack absent | WAIVED by owner 2026-10-03; not a runtime PASS |
 | Archive B0, explain forced rows, reconcile remaining checks | COMPLETE in this update |
 | Final scope | APPROVED `076e655`: B1, then B2 removal + B4 zero-hub persistence / over-capacity OFF |
@@ -168,14 +168,14 @@ instruction to issue B1 now. This replaces the proposed witness-review list.
 
 | Battery | Final disposition |
 |---|---|
-| B1 | APPROVED: OI-38's five-step streamed up-leg read below; awaiting result. |
+| B1 | PASS on owner sitting/orchestrator read at `ac634ca`; archived below. OI-38 closed. |
 | B2 | Retain only content-free full-mod removal/restart restoring vanilla requests. Other review items STRUCK by owner. |
 | B3 | CLEARED on owner witness during hub design, also for the elevator. |
 | B4 | Retain only upgrade persistence through zero hubs and replacement, plus over-capacity stock after OFF. Other review items STRUCK, including spoilage OFF. |
 | B5 | SKIPPED by owner; not a native PASS. |
 | B6 | CLEARED on owner witness during hub design. |
 
-After B1 is read, issue **one combined batch** for the retained B2/B4 cases.
+The **one combined batch** for the retained B2/B4 cases is issued below.
 Their predictions remain: a replacement hub inherits paid colony upgrades and
 shared state without repurchase; reducing capacity by switching the storage
 upgrade OFF retains stock above the new cap; full mod removal on a content-free
@@ -183,42 +183,95 @@ copy restores vanilla station requests after a fresh process. Work on fixture
 copies. The passed B0 and prior accepted evidence are not repeated. No stronger
 UP crossing-ledger proof or other cleared/skipped/struck edge is added as a gate.
 
-## Issued B1 owner batch - OI-38; awaiting result
+## B1 in P - PASS, 2026-10-03
 
-Issued 2026-10-03 under the approved final battery. Current TestKit `783a24d`:
-`Get-FileHash` on installed `Code/80_AgentSlots.lua` and the retained composed
-source both returned SHA-256
-`0c991302949b6c206cd784775412e359645ac7e2a3df8bfa9c119cb71fcbaa65`;
-the live group bindings were read before issuance. No slot edit or restart is
-needed for new code. Use the battery copy with fix pack 1.0.26 installed and
-ElevatorDepot ON. No hub is selected: targets are the **surface depot** and its
-**underground twin**; route references use the serving hub's role.
+Owner/orchestrator ruling `ac634ca`, checked once against the named native log.
+Archive: [`train_b1_20261003`](../../archive/train_b1_20261003/receipt.json), command
+`python docs/archive/train_b1_20261003/capture.py`, read HEAD `ac634ca`, TestKit
+`783a24d`. This is the **flushed prefix of a still-running process**, preserved
+byte-for-byte; a complete post-exit log remains to be archived separately.
+No closed-log absence verdict is inferred from it.
 
-1. **Slot 12 - next labeled group**, paused with watches disarmed, until **Depot**.
-   **Scratch - train diagnostics switch**: set `SMROptInPack.TrainTrace = true`
-   and confirm `trace=true` before any diagnostic read. **Slot 11 - configuration
-   snapshot**: predict P / `1.0.26`, Depot group and the actual pair identities.
-2. Select the **surface depot**. In its native row UI choose **Metals Export**,
-   with Metals stocked underground and room at the surface; retain normal train
-   service. **Depot slot 7 - halves/rows read**, then **slot 3 - capacities/cargo
-   read**. Predict a working pair, the shared Export word, origin stock and
-   destination room. No controlled stock-writing slot is part of this batch.
-3. **Depot slot 10 - train/station STREAM ON**, then **slot 6 - next departure**.
-   It runs Ultra and pauses. Predict `verdict=departed cabin=up` and nonzero cargo
-   for the Export resource. A first DOWN departure is recorded as the intervening
-   leg; wait for its arrival, then arm the next departure once. A deadline or
-   empty UP is a recorded fixture/result gap, not permission to provision and retry.
-   Each departure/arrival watch has a three-game-hour deadline.
-4. At the UP pause, **Depot slot 7 - halves/rows read** and **slot 3 - capacities/
-   cargo read**, then **slot 2 - next arrival**. Predict `arrived`, top phase,
-   reduced underground stock, cleared/delivered cabin cargo and corresponding
-   surface stock/train movement. Reconcile units across readers and stream;
-   report competing flows instead of assuming an unchanged destination.
-5. **Depot slot 3 - final capacities/cargo read**, **slot 10 - STREAM OFF**,
-   **Scratch - trace OFF**, then **Sitting - Flush + copy**. Orchestrator reads
-   the result before anything else is issued. A save disarms stream/watch;
-   re-press the named controls if that occurs. OI-38 stays open until a usable
-   UP departure/arrival reading is actually obtained.
+| Witness | Native evidence |
+|---|---|
+| Configuration | Line 3279: P, `fixpack_version=1.0.26`, `trace=true`, errors 0. Released status remains the owner's 2026-10-02 authority. |
+| Setup | Canonical `selected_fill` at 3354/3361/3366: `CheatFill` on underground Metals storages 10920, 10921, 10573 before the first arm. Fixture setup, not a retry. |
+| UP departure | 3849: `departed cabin=up aboard_Metals=622`; underground depot stock 62166 raw before, zero afterward. Raw cabin read 3871/3899: `aboard_metals=62166`. The trigger's 622 is rounded tenths, not 622 whole resource units. |
+| Arrival | 4258: `arrived`, legs 35 to 36, `s_Metals=622`, cabin empty. Sampling already sees the next `down` phase; it does not disprove arrival. Final surface read 4311: `metals=62166`, aboard zero. |
+| Closing state | Map change disarmed the stream at 4269; closing slot 10 **re-armed** it at 4713. Trace OFF at 4720. Cancel the armed stream before changing groups. |
+
+Receipt filters reconcile one departure, one arrival, three setup writes, and
+zero `LUA ERROR` in the archived prefix to their full member lists. Its broad
+error/warning filter has nine members: six Braze DNS/init errors, one retired
+dev-mod permanent fallback and two old-mod reference notices. No unexplained
+remainder in that filter. This is the accepted scripted up-leg read; no extra
+organic crossing-ledger claim is awarded. OI-38's remaining owner action is done.
+
+## Issued combined B2/B4 batch - awaiting result
+
+Owner is in game. Installed TestKit `783a24d` group bindings were read; no loaded
+Lua is replaced. All destructive fixture operations happen after **Save A**,
+leaving the named source save untouched. **Save B** holds the content-free removal
+candidate. Keep the fix pack and TestKit enabled throughout.
+
+The row/request check after full mod removal cannot use the battery slots:
+`controls.lua.txt` explicitly refuses without the Opt-In registry. The existing
+Selected dump does not supply the required method-derived desired requests.
+A read-only console line is therefore preloaded on the clipboard from
+`tools/trains/final_battery/removal_read.lua.txt`. Paste it inside the loaded game
+with the ordinary test station selected; it records actual requests and the
+native expectation without changing either. It parses with `lupa.lua55`;
+execution remains this attended check. Do not use Flush + copy before pasting,
+which would replace the clipboard; the final flush follows the read. Native expectation source:
+archived **1.1.1.406343**, `Src/Lua/Buildings/Station.lua:964` (`SetDesiredAmount`):
+accept = supply 0 / demand capacity; send = supply capacity / demand 0; default =
+supply dial / demand capacity-minus-dial. Read before touching the vanilla slider,
+which could otherwise repair the very state being measured.
+
+1. Pause. **Depot slot 10 - cancel train/station stream**: right-click to cancel,
+   avoiding another toggle-on. **Save A - pre-test return point**; wait for OK.
+   Enable TrainHub in Mod Options if needed for replacement construction.
+   **Slot 11 - objects, upgrades and stock baseline**. Identify the **hub serving
+   surface station 2007** and the **other existing hub**; keep their actual
+   handles from this read. Trace stays OFF; this batch reads no train diagnostics.
+2. Select the **hub serving surface station 2007**. With Capacity Network and
+   Storage Hub ON, use a resource above 2,000 stock (Metals in this fixture).
+   If below that threshold, **Selected - Fill** supplies test stock before the
+   measurement. **Slot 11 - before read**; switch **Storage Hub upgrade OFF**,
+   staying paused; **slot 11 - after read**. Predict capacity 4,000 to 2,000,
+   stock unchanged above 2,000. This is the upgrade switch, not the module switch.
+   Leave Storage Hub OFF to carry a distinctive shared state into replacement.
+3. On the test copy, **Selected - Delete** each existing hub, including any
+   remaining ruins; use their roles above. **Slot 11 - zero-hub snapshot** must
+   show no hub objects before replacement. Build a new **replacement hub** on
+   clear ground; **Selected - Quick build** may finish its construction. Allow
+   initialization, pause, then **slot 11 - replacement upgrades/stock read**.
+   Predict every previously bought upgrade still bought, matching on/off states,
+   including Storage Hub OFF, without buying any upgrade again.
+4. **Selected - Delete** the replacement hub and both **depot halves**, clearing
+   any remaining custom hub/depot ruins or sites on both maps. Keep the vanilla
+   elevator. **Slot 11 - content-free snapshot**: no hub/depot objects. Enable
+   StationRows, select ordinary surface **station 10531**, set **Metals Export**.
+   **Slot 12 - next group** until **Rows**; **Rows slot 4 - requests/settings read**
+   records Export before removal. **Save B - removal candidate**; wait for OK,
+   then **Sitting - MARK**. Keep the train module options ON for the save;
+   do not pre-restore their OFF behavior instead of testing full-mod removal.
+5. Exit the game. Disable **Relaunched Fix Pack: Opt-In Modules** in Mod Manager,
+   keep fix pack/TestKit enabled, and restart after the change. Use the native **Load Game** menu to open **SMRTK_B**, the removal candidate
+   just saved (check its timestamp). Select station 10531 and
+   paste the preloaded read-only console line **before changing its vanilla
+   controls**. Predict `optin_present=false fixpack_present=true native_match=true`
+   and native station rows. Do not use slot 11 here: its missing-registry refusal
+   is expected. **Sitting - Flush + copy**, then report the three outcomes. Keep
+   this result unchanged until the orchestrator reads it; baseline restoration
+   afterward is re-enable Opt-In Modules, restart, and load **SMRTK_A** through
+   the native Load Game menu. Native loading also avoids TestKit's cross-process
+   provenance refusal on ordinary Load A/B.
+
+A failure, missing fixture/control, or any unexpected Lua error is recorded at
+that point; no retry for a preferred result. Both B4 checks and the B2 removal
+check remain NOT RUN until owner observations and native reads arrive. The B1
+process will close during step 5, allowing its complete log to be preserved then.
 
 ## Preparation verification
 
@@ -280,3 +333,10 @@ Exact `grep -rln "TEMPORARY" Code/ ../SMR-BugFixPack-TestKit/Code/` through Git'
 Shipping code, installed slots and saves were unchanged in this recording turn.
 Concurrent `d1d1fc1` / `896dfc7` only changed prompt/launch handoffs; their B0
 quiet-pass and fix-pack-owned cargo-defect rulings were incorporated above.
+
+B1 recording checks at `ac634ca`: archive capture assertions and reader syntax
+pass; `python tools/doccheck.py` GREEN; `git diff --check` clean. Exact Git grep
+`-rln TEMPORARY Code/ ../SMR-BugFixPack-TestKit/Code/` returned exit 1 without
+output: **PROBE SWEEP: clean**. The reader is an inert clipboard artifact;
+shipping and installed TestKit code are unchanged. The open-log boundary is
+explicit above; its later closed continuation remains to archive.

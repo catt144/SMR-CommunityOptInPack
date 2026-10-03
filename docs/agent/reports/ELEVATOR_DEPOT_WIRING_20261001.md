@@ -535,3 +535,12 @@ Batch E, same sitting (log `Mars.exe-20261002-00.07.14-6aba6e65.log`, read after
   surface twin: the cabin is idle and this half works as a plain station; the setting is kept for
   the next surface depot." (owner: *"This messaged didn't come up so I stoped testing at that
   point"*). The new surface depot's placement and adoption of the copy were not run.
+
+## OI-38 final up-leg read - PASS, 2026-10-03
+
+Owner sitting, orchestrator ruling `ac634ca`: final B1 reads UP departure,
+62166 raw Metals aboard, then arrival and the same 62166 on the surface; the
+622 trigger fields use rounded tenths. Trace was ON before reads. The stock
+setup used underground storage CheatFill before arming, not a retry. OI-38 is
+closed. The archived live-log prefix, exact lines, controls and map-change stream
+cleanup are in [the final battery report](TRAIN_FINAL_BATTERY_20261002.md#b1-in-p---pass-2026-10-03).

@@ -1,0 +1,195 @@
+{
+  "command": "python docs/archive/train_b1_20261003/capture.py",
+  "read_head": "ac634ca4e444c89cc6d480c99177d62b9caccfd6",
+  "captured_utc": "2026-10-03T16:45:01.862038+00:00",
+  "source": "C:\\Users\\stkot\\AppData\\Roaming\\Surviving Mars Relaunched\\logs\\Mars.exe-20261003-12.28.41-6aba6e65.log",
+  "boundary": "Live-process flushed prefix; not a complete closed-log absence verdict.",
+  "bytes": 856961,
+  "lines": 4723,
+  "sha256": "aa3936a51496c9b6d36c9b291f52cadcd87ee3cbd07465743870f13f1950a646",
+  "decode": "strict utf-8-sig; 1-based splitlines; SMRTK anchors exclude [mod] echoes",
+  "filters": {
+    "lua_errors": "LUA ERROR",
+    "shutdown": "Debug::Done\\(\\)",
+    "departure": "^\\[SMRTK\\].*verdict=departed",
+    "arrival": "^\\[SMRTK\\].*verdict=arrived",
+    "snapshots": "^\\[SMRTK\\].*fixpack_version=",
+    "depot_reads": "^\\[SMRTK\\].*aboard_metals=",
+    "fixture_writes": "^\\[SMRTK\\].*method=CheatFill",
+    "trace": "^\\[SMRTK\\].*action=slot_scratch.*trace=",
+    "stream": "^\\[SMRTK\\].*(?:action=slot_10|reason=ChangeMap|reason=change_map|STREAM_STOP)",
+    "diagnostics": "(?i)\\berror\\b|\\bwarning\\b|\\bfailed\\b|unpersist|Savegame references"
+  },
+  "counts": {
+    "lua_errors": 0,
+    "shutdown": 0,
+    "departure": 1,
+    "arrival": 1,
+    "snapshots": 3,
+    "depot_reads": 8,
+    "fixture_writes": 3,
+    "trace": 6,
+    "stream": 4,
+    "diagnostics": 9
+  },
+  "members": {
+    "lua_errors": [],
+    "shutdown": [],
+    "departure": [
+      {
+        "line": 3849,
+        "text": "[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=622 action=depot_next_departure cabin=up game_time=36090057 label=\"Depot: the cabin's next departure\" legs=35 mark=1967 pause=true s_Concrete=0 s_Metals=0 sound=true status=OK trigger=depot_next_departure u_Concrete=386 u_Metals=0 verdict=departed t=36090079 id=1837"
+      }
+    ],
+    "arrival": [
+      {
+        "line": 4258,
+        "text": "[SMRTK] SMRTK_TRIGGER aboard_Concrete=0 aboard_Metals=0 action=depot_next_arrival cabin=down game_time=36120079 label=\"Depot: the cabin's next arrival\" legs=36 mark=2285 pause=true s_Concrete=0 s_Metals=622 sound=true status=OK trigger=depot_next_arrival u_Concrete=386 u_Metals=0 verdict=arrived t=36120159 id=2128"
+      }
+    ],
+    "snapshots": [
+      {
+        "line": 1200,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=35790404 group=Depot mark=45 optin_version=1.0.0 selected=none sitting=final_35 stations=19 status=OK trace=true trains=17 t=35790404 id=448"
+      },
+      {
+        "line": 2356,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=36083807 group=Depot mark=611 optin_version=1.0.0 selected=SMROptInElevatorDepotDev(9036) sitting=final_35 stations=19 status=OK trace=true trains=17 t=36083807 id=950"
+      },
+      {
+        "line": 3279,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_11 errors=0 fixpack=present fixpack_version=1.0.26 game_time=36083807 group=Depot mark=1070 optin_version=1.0.0 selected=SMROptInElevatorDepotDev(9036) sitting=final_35 stations=19 status=OK trace=true trains=17 t=36083807 id=1382"
+      }
+    ],
+    "depot_reads": [
+      {
+        "line": 2373,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=16193 art_z=16390 cabin=down cabin_capacity=250 concrete=38614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36083807 half=9041 line_trains=1 metals=62166 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9036 upgrade=false t=36083807 id=957"
+      },
+      {
+        "line": 2401,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=5239 art_z=5278 cabin=down cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36083807 half=9036 line_trains=2 mark=1032 metals=0 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36083807 id=958"
+      },
+      {
+        "line": 3293,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=16193 art_z=16390 cabin=down cabin_capacity=250 concrete=38614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36083807 half=9041 line_trains=1 metals=62166 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9036 upgrade=false t=36083807 id=1388"
+      },
+      {
+        "line": 3321,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=5239 art_z=5278 cabin=down cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36083807 half=9036 line_trains=2 mark=1490 metals=0 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36083807 id=1389"
+      },
+      {
+        "line": 3871,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=62166 art_moving=true art_target_z=4016 art_z=4028 cabin=up cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36090079 half=9036 line_trains=2 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36090079 id=1845"
+      },
+      {
+        "line": 3899,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=62166 action=slot_3 art_moving=true art_target_z=10079 art_z=10140 cabin=up cabin_capacity=250 concrete=38614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36090079 half=9041 line_trains=1 mark=1975 metals=0 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9036 upgrade=false t=36090079 id=1846"
+      },
+      {
+        "line": 4283,
+        "text": "[SMRTK] SMRTK_DUMP aboard_concrete=0 aboard_metals=0 art_moving=true art_target_z=39841 art_z=39890 cabin=down cabin_capacity=250 concrete=38614 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36120159 half=9041 line_trains=1 metals=0 storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9036 upgrade=false t=36120159 id=2138"
+      },
+      {
+        "line": 4311,
+        "text": "[SMRTK] SMRTK_ACTION aboard_concrete=0 aboard_metals=0 action=slot_3 art_moving=true art_target_z=9968 art_z=9978 cabin=down cabin_capacity=250 concrete=0 cost_concrete=10000 cost_metals=10000 errors=0 game_time=36120159 half=9036 line_trains=2 mark=2296 metals=62166 status=OK storage=250000 train_building=0 train_electronics_needed=0 train_metal_needed=0 trains=1 twin=9041 upgrade=false t=36120159 id=2139"
+      }
+    ],
+    "fixture_writes": [
+      {
+        "line": 3354,
+        "text": "[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=0 method=CheatFill object=StorageMetals(10920) resource=Metals resources=1 status=OK valid_after=true t=36083807 id=1403"
+      },
+      {
+        "line": 3361,
+        "text": "[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=0 method=CheatFill object=StorageMetals(10921) resource=Metals resources=1 status=OK valid_after=true t=36083807 id=1406"
+      },
+      {
+        "line": 3366,
+        "text": "[SMRTK] SMRTK_ACTION action=selected_fill after=180000 before=81165 method=CheatFill object=StorageMetals(10573) resource=Metals resources=1 status=OK valid_after=true t=36083807 id=1408"
+      }
+    ],
+    "trace": [
+      {
+        "line": 311,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=26 status=OK trace=true t=35790404 id=15"
+      },
+      {
+        "line": 318,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=29 status=OK trace=false t=35790404 id=18"
+      },
+      {
+        "line": 332,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=35 status=OK trace=true t=35790404 id=24"
+      },
+      {
+        "line": 342,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=39 status=OK trace=false t=35790404 id=28"
+      },
+      {
+        "line": 349,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=42 status=OK trace=true t=35790404 id=31"
+      },
+      {
+        "line": 4720,
+        "text": "[SMRTK] SMRTK_ACTION action=slot_scratch mark=2706 status=OK trace=false t=36120159 id=2523"
+      }
+    ],
+    "stream": [
+      {
+        "line": 3783,
+        "text": "[SMRTK] SMRTK_ARM action=slot_10 baseline=378 cadence=1000 distribution=true game_time=36083807 mark=1546 rows=378 status=OK t=36083807 id=1796"
+      },
+      {
+        "line": 4265,
+        "text": "[SMRTK] SMRTK_MARK action=mark label=STREAM_STOP mark=2290 status=OK t=36120159 id=2131"
+      },
+      {
+        "line": 4269,
+        "text": "[SMRTK] SMRTK_DISARM action=slot_10 mark=2290 reason=CurrentMapChange status=OK ticks=37 t=36120159 id=2133"
+      },
+      {
+        "line": 4713,
+        "text": "[SMRTK] SMRTK_ARM action=slot_10 baseline=378 cadence=1000 distribution=true game_time=36120159 mark=2325 rows=378 status=OK t=36120159 id=2520"
+      }
+    ],
+    "diagnostics": [
+      {
+        "line": 232,
+        "text": "[Braze] SessionStart error The server name or address could not be resolved"
+      },
+      {
+        "line": 235,
+        "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+      },
+      {
+        "line": 237,
+        "text": "[Braze] Failed to init"
+      },
+      {
+        "line": 239,
+        "text": "[Braze] SessionStart error The server name or address could not be resolved"
+      },
+      {
+        "line": 242,
+        "text": "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+      },
+      {
+        "line": 244,
+        "text": "[Braze] Failed to init"
+      },
+      {
+        "line": 264,
+        "text": "Unpersist missing permanent: Mod/SMR_TrainHubDev_20260918 | Fallback permanent: table: 0000018E61574000 [7]"
+      },
+      {
+        "line": 266,
+        "text": "[mod] Savegame references Mod DEV ONLY - Train Hub (Module B build) (id SMR_TrainHubDev_20260918, v0.00-062) which is not present"
+      },
+      {
+        "line": 267,
+        "text": "[mod] Savegame references Mod DEV ONLY - Elevator Depot (look prototype) (id SMR_ElevatorStationDev_20260929, v0.00-012) which is not present"
+      }
+    ]
+  }
+}

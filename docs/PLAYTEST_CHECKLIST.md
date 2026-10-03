@@ -65,11 +65,6 @@ Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/LAUNCH_PR
 
 ## Run
 
-### OI-38 · opened 2026-10-01
-When you next sit on the depot's final build, run brief 27's steps that 2026-10-01 left out.
-- The scripted up-leg read (slot 6 then slot 2 with an Export row); today's up legs rest on your words.
-Home: `docs/agent/reports/ELEVATOR_DEPOT_WIRING_20261001.md`
-
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, choose its preview art and the gameplay screenshots for its store pages.
 - The launch-prep worker prepares concrete preview candidates and a gallery proposal for your selection.
