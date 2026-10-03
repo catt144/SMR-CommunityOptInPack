@@ -15,7 +15,7 @@ unscheduled, so it does not age.
 
 ## Decide
 
-### OI-45 · opened 2026-10-03
+### OI-46 · opened 2026-10-03
 Should mechanized depot throughput become a post-launch module, and which shape do you want?
 - Recommended: fixed ×5, off by default; 250-unit hidden IO pad, up to 25 units per crane landing.
 - The smaller design keeps five units in flight and transfers extra at landing; look and motion code stay vanilla.

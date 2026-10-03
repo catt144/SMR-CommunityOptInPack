@@ -18,7 +18,7 @@ this report does **not** certify that stricter design.
 - [x] Pin current archived source; trace pad requests, visuals and crane accounting.
 - [x] Identify wrapper seams and OFF/save hazards; compare StationRows and shuttles.
 - [x] File the source finding in the fix pack first and mirror EF-121 here.
-- [x] Present the design choice and size; route the remaining owner decision to OI-45.
+- [x] Present the design choice and size; route the remaining owner decision to OI-46.
 - [x] Documentation checks GREEN; report and one-off retirement delivered in this commit.
 
 Input: Opt-In `666980332e3a4a7016b990df1985fe37312e4d95`; `git log --oneline -3`
@@ -211,7 +211,7 @@ overflow guard for these existing over-capacity objects until they drain, so a
 rover/direct resource change cannot lose stock. It adds no new persisted marker:
 over-capacity is detectable from native stock and capacity. Settled base objects
 delegate exactly to vanilla. This transitional retention behavior needs the owner
-choice in OI-45; it is not silently declared byte-vanilla.
+choice in OI-46; it is not silently declared byte-vanilla.
 
 **INFERRED: an OFF switch can leave a crane cycle running safely in this design.**
 Only the native five units are in flight. The future landing sees base and adds no
@@ -322,7 +322,7 @@ not a precise benchmark. A build can add a read-only TestKit pickup/landing witn
 if exact cycle timing is needed. No save inspection or runtime probe was performed
 in this investigation.
 
-OI-45 asks the owner to choose the landing-bonus interpretation, a stricter in-flight
+OI-46 asks the owner to choose the landing-bonus interpretation, a stricter in-flight
 cargo design, or parking, and whether to authorize a post-launch fixed boost versus
 a dial, including its new option contract and retained-overflow transition.
 Evidence is filed in [EF-121](../facts/EF-121.md), allocated in the Fix Pack first
@@ -332,6 +332,6 @@ conservation, toggle, save and removal behavior remains untested.
 Documentation validation: `python tools/doccheck.py --regen` and
 `python tools/doccheck.py` GREEN in the respective filing trees; `git diff --check`
 clean. Doccheck's stale-probe sweep was clean; no retail test started. The report,
-OI-45 and fact preserve the remaining decision; the consumed prompt and map row
+OI-46 and fact preserve the remaining decision; the consumed prompt and map row
 are deleted together. No kernel status or shipping behavior changes arise from
 this source investigation.
