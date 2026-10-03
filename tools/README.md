@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*27 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*30 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -106,6 +106,9 @@ Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has ch
 |---|---|
 | [`upload_preflight.py`](upload_preflight.py) | Upload preflight — run every portal guard clause locally, before the sitting. |
 | [`pack_predict.py`](pack_predict.py) | Provenance: carried from the fix pack 2026-08-31 — tools/README.md readiness tooling port. |
+| [`store_parity.py`](store_parity.py) | Prove the maintained store copies agree: Paradox block == metadata.lua description, Steam block == same words. |
+| [`paradox_card.py`](paradox_card.py) | Provenance: ported from SMR-BugFixPack @ 56d72579 on 2026-10-03; adapted: --source, missing-file message. |
+| [`store_screenshots.py`](store_screenshots.py) | Provenance: ported from SMR-BugFixPack @ 56d72579 on 2026-10-03; adapted: capture folder, five-shot MAP, WAITING rows, --list. |
 
 <!-- END GENERATED TOOL ROWS -->
 

@@ -145,10 +145,6 @@ TOOLS_NOT_PORTED = {
                      "it runs from: run the donor's copy",
     "treediff.py": "a game-tree instrument whose answer does not depend on the repo; "
                    "its SRC: pin cross-check has no pins here: run the donor's copy",
-    "paradox_card.py": "a store-page tool, and this mod is NOT PUBLISHED: revisit on "
-                       "the launch checklist",
-    "store_screenshots.py": "a store-gallery tool, and this mod is NOT PUBLISHED: "
-                            "revisit on the launch checklist",
 }
 
 # Shared tools that differ from the donor ON PURPOSE. Silent while they differ;
@@ -182,6 +178,8 @@ TOOLS_ADAPTED = {
     "pack_list.py": _GUARD + " only — the donor lacks it: propose there",
     "pack_predict.py": "this repo's ignore_files and CONTENT_PREFIX; "
                        "both pack_list copies now build regexes from IGNORE",
+    "paradox_card.py": "ported 2026-10-03 (OI-21 route, Launch_Prep/03): --source "
+                       "option, missing-file message, this repo's maintained block",
     "parsecheck.py": "provenance line only",
     "prompt_map_selftest.py": "this prompt map's classes: no ledger-exception row "
                               "or migration allowance",
@@ -192,12 +190,17 @@ TOOLS_ADAPTED = {
                    "the donor's forward-declared-local fix is carried here",
     "split_bugs.py": "N/A-migration note and this repo's INDEX header prose",
     "split_facts.py": "port note: the migration half is N/A here",
+    "store_screenshots.py": "ported 2026-10-03: this mod's capture folder (optin_store), "
+                            "five-shot gallery map, WAITING rows for absent captures",
 }
 
 # Tools only this repo has. Anything else only here is reported as ONLY HERE.
 TOOLS_LOCAL_ONLY = {
     "rule_headers_selftest.py": "falsifier for the RULES HEADERS gate, which the "
                                 "donor runs without one: propose there",
+    "store_parity.py": "store-copy parity check between the maintained Paradox/Steam "
+                       "blocks and metadata.lua's description; the donor keeps a prose "
+                       "rule instead",
     "sync_from_fixpack.py": "this repo's side of the sync; the donor pulls from nobody",
     "sync_from_fixpack_selftest.py": "the falsifier for this file's --tools pass",
 }

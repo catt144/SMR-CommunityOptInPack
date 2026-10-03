@@ -1783,7 +1783,8 @@ TOOL_GROUPS = (
     ("Launch",
      "⛔ This mod is NOT PUBLISHED. `upload_preflight.py` FAILS today on the "
      "missing preview art (owner, `PLAYTEST_CHECKLIST.md` OI-12).",
-     ("upload_preflight.py", "pack_predict.py")),
+     ("upload_preflight.py", "pack_predict.py", "store_parity.py", "paradox_card.py",
+      "store_screenshots.py")),
 )
 TOOLS_UNGROUPED = (
     "Ungrouped",

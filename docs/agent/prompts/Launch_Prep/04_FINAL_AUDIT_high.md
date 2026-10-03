@@ -77,3 +77,37 @@ save with five errors, then the correct content-free Save B without later errors
 in the captured prefix; both hub and depot class warnings survived deletion.
 Zero-hub inheritance is OWNER, stock retention is measured across paired rows.
 The removal log was open at capture. No whole-process clean or recovery claim.
+
+03 store-and-site run, 2026-10-03 (Claude Fable 5.1; fired by the owner at `214f0ad`, before
+RELEASE_SYSTEM, 01 and 02; subagents: site pages on Opus 5.5, tool ports on Sonnet 5.5, both
+reviewed and corrected by the orchestrator). Report `reports/STORE_AND_SITE_20261003.md`.
+Drift and decisions to examine, every one:
+
+- **Out-of-order fire.** 03's fill targets (`docs/UPLOAD_WORKFLOW.md`, `STORE_CARD_LIVE.md`,
+  outbox) do not exist; the maintained store bodies, first-release change note and first-publish
+  steps live in the report §3/§6. `tools/store_parity.py` reads `docs/UPLOAD_WORKFLOW.md` by
+  default and falls back to the report with a printed note; `paradox_card.py` takes `--source`.
+  Check the release-system build lifts them and removes the fallback's reason to exist.
+- **OI-21 executed under stop 1, unruled:** local ports of `paradox_card.py` and
+  `store_screenshots.py`; OI-21 rewritten to "keep" or "run from the fix pack".
+- **`metadata.lua` `description` is now the whole store body** (lede = OI-42 text with one D15
+  clause inserted; sections; OI-45 note last), generated from the Paradox block by
+  `store_parity.py --write-metadata`; `last_changes` is the first-release note. Was widening the
+  approved paragraph into a sectioned body a copy/layout call (03's delegation) or a reopening?
+  The approved sentences are byte-preserved inside it; judge that.
+- **`*/store_screenshots/*`** added to `ignore_files` and `pack_predict.IGNORE` (17 filters now).
+  No `image` field: preflight still fails on exactly that (OI-12 open).
+- **Claims rest on pre-01/02 evidence only** (report §4 map). The site's acknowledged-warnings
+  "in your save" line and the modders page's prefix warning come from code and FIX_POLICY §3, not
+  from the store body; the orchestrator kept them after reading the source. Credits and the
+  §3 row-18 hub-upgrade residual disclosure are routed to 01, not written.
+- **Site commit** in `SMR-CommunityMods` (sha in the report's gate section): `content/opt-in/`
+  (two pages), nav, `site_description`, README row, scoped edits to index/install/faq/
+  for-modders/report. `mkdocs build --strict` clean. **Not deployed.** The landing still leads
+  with the fix pack by design.
+- `python tools/sync_from_fixpack.py --tools` reports `upload_preflight.py` DIFFERS undeclared
+  and `doccheck.py` RECHECK — both pre-existing (OI-18's 2026-10-02 adaptation was never
+  declared); left for the knowledge-sync pass, named here so it is not lost.
+- The imagegen skill the brief names is not installed; preview candidates are Pillow composites
+  of the shipped icon renders (`local/store_art_candidates/`), not gameplay captures. No clean
+  capture of the final hub/depot look exists in the owner's drop folder; a shot list was issued.

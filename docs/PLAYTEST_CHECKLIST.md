@@ -17,12 +17,12 @@ unscheduled, so it does not age.
 
 ### OI-21 · opened 2026-09-19 · launch
 When this mod publishes, do its store tools come from the fix pack or get ported here?
-- `paradox_card.py` and `store_screenshots.py` are declared not ported; this mod is unpublished (`metadata.lua` v0).
-- The fix pack holds this mod's listing drafts: `RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`,
-  and the opt-in strings in `STORE_METADATA_STRINGS.md`; recheck all at launch.
-- Say "run from the fix pack" or "port at launch".
-- Recommended: port here; both donor tools currently select fix-pack inputs from their own paths.
-Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`
+- Ported here 2026-10-03 as the prepared choice (Launch_Prep/03, no ruling yet): `tools/paradox_card.py`,
+  `tools/store_screenshots.py` and the new `tools/store_parity.py`. Reversible.
+- The donor's copies select fix-pack inputs from their own paths; "run from the fix pack" needs donor edits.
+- Say "keep the ports" (closes this) or "run from the fix pack" (ports deleted; donor parameterised there).
+- The old fix-pack listing drafts are history; the maintained copy is `reports/STORE_AND_SITE_20261003.md` §3.
+Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`
 
 ### OI-14 · opened 2026-09-18 · launch
 Does your 2026-08-02 ruling that the fix pack ships its own `ModItemLocTable` translations extend to this mod?
@@ -67,8 +67,10 @@ Home: `docs/agent/prompts/RELEASE_SYSTEM_high.md`, `docs/agent/reports/LAUNCH_PR
 
 ### OI-12 · opened 2026-09-18 · launch
 When this mod heads for upload, choose its preview art and the gameplay screenshots for its store pages.
-- The launch-prep worker prepares concrete preview candidates and a gallery proposal for your selection.
-- Preflight failed only on preview at audit HEAD `63424af` (2026-10-02); no gallery is declared yet.
-- Paradox rejects a mod with no `image` / `preview.png` before packing.
+- Preview: three candidates in `local/store_art_candidates/` (A hub + lettering, B hub and depot, C hub plain),
+  from the shipped icon renders; pick one by name or supply your own art. None is wired yet.
+- Gallery: five captures with the toolkit hidden, named in `reports/STORE_AND_SITE_20261003.md` §5, dropped in
+  `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\`; `python tools/store_screenshots.py` encodes them under 1 MB.
+- Preflight fails only on preview at `214f0ad` (2026-10-03); Paradox rejects a mod with no `image` before packing.
 - Limits: at most 1 MB for Steam, 2 MB for Paradox.
-Home: `docs/agent/WORKFLOW.md`, `docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`
+Home: `docs/agent/WORKFLOW.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`

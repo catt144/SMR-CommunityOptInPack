@@ -125,3 +125,14 @@ capture: its error-free claim is only after the second load through line 481.
 The retained fixture is underground station 10531, despite the issued script's
 surface label. Record future evidence under new archive paths; existing archives
 are append-only. These follow-ups do not reopen train-project completion.
+
+Launch_Prep/03 ran early (owner fire, 2026-10-03; `reports/STORE_AND_SITE_20261003.md`). Two of
+its surfaces wait on this link:
+
+- **Credits (work item 5):** no name is on the store body, README or site yet. When provenance is
+  inventoried, the credit line goes into the report's §3 blocks (then `store_parity.py
+  --write-metadata`) and the site's `content/opt-in/index.md`.
+- **Residual disclosure (work item 4):** the store body and site disclose the dial residue and
+  the demolish-first rule only. FIX_POLICY §3 row 18's hub-upgrade colony receipt "may remain"
+  is undisclosed pending your measured residual set; if it is real after demolition, it is one
+  sentence under YOUR SAVE, AND REMOVING THE MOD in both blocks and on the site page.
