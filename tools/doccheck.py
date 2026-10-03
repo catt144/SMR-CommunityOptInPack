@@ -1792,8 +1792,8 @@ TOOL_GROUPS = (
      "thing that checks them. Its falsifier is required by `doccheck`.",
      ("sync_from_fixpack.py", "sync_from_fixpack_selftest.py")),
     ("Launch",
-     "⛔ This mod is NOT PUBLISHED. The preview is wired (owner, "
-     "2026-10-03); the gallery pick is still open (`PLAYTEST_CHECKLIST.md` OI-12).",
+     "⛔ This mod is NOT PUBLISHED. The preview and the five gallery "
+     "screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.",
      ("upload_preflight.py", "pack_predict.py", "store_parity.py", "paradox_card.py",
       "annotate_screenshots.py", "store_screenshots.py")),
 )

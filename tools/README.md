@@ -100,7 +100,7 @@ Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has ch
 
 ### Launch
 
-⛔ This mod is NOT PUBLISHED. The preview is wired (owner, 2026-10-03); the gallery pick is still open (`PLAYTEST_CHECKLIST.md` OI-12).
+⛔ This mod is NOT PUBLISHED. The preview and the five gallery screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.
 
 | script | what its own header says |
 |---|---|

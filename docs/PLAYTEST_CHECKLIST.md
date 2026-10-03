@@ -31,10 +31,3 @@ Which platforms will you choose on Paradox Mods, and what console approval step 
 Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
 
 ## Run
-
-### OI-12 · opened 2026-09-18 · launch
-When this mod heads for upload, choose the gameplay screenshots for its store pages.
-- Gallery: nine annotated images in `B:\Dev\SMR\SMR-ScreenCaptures\optin_store\`; `contact_sheet.png` shows them.
-  Five carry the gallery names and four are `alt_*`. Pick five; `python tools/store_screenshots.py` encodes them.
-- Limits: at most 1 MB for Steam, 2 MB for Paradox.
-Home: `docs/agent/reports/STORE_SCREENSHOTS_20261003.md`, `docs/agent/reports/STORE_AND_SITE_20261003.md`

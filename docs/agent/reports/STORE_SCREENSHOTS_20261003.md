@@ -1,7 +1,9 @@
 # Store screenshots: the annotated gallery set (OI-12), 2026-10-03
 
 The owner's thirteen captures (nine, then four added the same day) were annotated into nine store
-images: all five gallery slots and four alternates. OI-12 stays open for the owner's pick of preview and gallery.
+images: all five gallery slots and four alternates. The owner approved the set on 2026-10-03 ("contact sheet is good underground is
+good"): the five gallery names are wired as `screenshot1..5` in `metadata.lua`, the preview is wired
+too, and OI-12 is closed.
 
 ## How to change an image
 
@@ -50,8 +52,6 @@ Gym capture shows more of the feature.
 
 - **The depot pair is two images.** `3_depot_pair.png` is the surface half and
   `alt_depot_underground.png` the underground half; the tool does not join two captures into one.
-- **`alt_depot_underground.png` calls the object on the shaft the cabin.** That is read from the
-  picture, not from a record; the owner confirms or the callout goes.
 - **No capture shows Acknowledged warnings.** A still cannot show a warning staying quiet, so it
   is left to the store text unless the owner wants a shot of the dismissed notification.
 - The four `alt_*` images are in the drop folder but outside `store_screenshots.py`'s five-name
@@ -69,7 +69,5 @@ Gym capture shows more of the feature.
 5_interests_popout.jpg             1920x1080  q=92    426,910 B  OK
 ```
 
-`python tools/upload_preflight.py`: 33 checked, 1 FAIL, 1 UNCHECKABLE. The FAIL is
-`PDX image non-empty`, the preview the owner has yet to pick (OI-12); the UNCHECKABLE is the
-Paradox login. Screenshots: "none declared — allowed", because `metadata.lua` does not name
-`screenshot1..5` until the owner picks.
+`python tools/upload_preflight.py`, after the preview and gallery were wired: 43 checked, 0 FAIL,
+1 UNCHECKABLE (the Paradox login). Each of the five screenshots passes its 1 MB check.
