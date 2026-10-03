@@ -1,0 +1,22 @@
+{
+  "source": "tools/trains/soak/soak_slots.lua.txt",
+  "source_sha256": "e46f291769ba596d008393d48463a14b57c91c0dc7d9966120b2b86bbdd57fa9",
+  "output": "tools/trains/soak/80_AgentSlots_soak.lua.txt",
+  "output_sha256": "861fef3d1fe4e1740af7d32435402f9e446a4a5226d70973604bb1c7ef3481f6",
+  "sweep": {
+    "command": "grep -rln \"TEMPORARY\" Code/ ../SMR-BugFixPack-TestKit/Code/",
+    "executable": "C:/Program Files/Git/usr/bin/grep.exe",
+    "output": "",
+    "exit": 1,
+    "hits": [],
+    "pack_head": "214f0adec14862ab866a60e5bf80b6deff476cf4",
+    "testkit_head": "783a24dd08c793585fe45fba712785a8a50a1b89",
+    "checked_at": "2026-10-03T17:58:55.850078+00:00",
+    "brief": "pre-launch train soak (2026-10-03): read-only stream, no probes needed"
+  },
+  "installed": {
+    "path": "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit\\Code\\80_AgentSlots.lua",
+    "sha256": "861fef3d1fe4e1740af7d32435402f9e446a4a5226d70973604bb1c7ef3481f6",
+    "at": "2026-10-03T17:58:56.098811+00:00"
+  }
+}

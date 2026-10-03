@@ -1,0 +1,1092 @@
+-- Pre-launch train logistics SOAK: slots 1-3 (body; compose.py adds the header and probe sweep).
+-- Reads only. Nothing is written to a game object or a save. The one runtime switch it flips is
+-- SMROptInPack.TrainTrace (never saved, 00_Core.lua), set while the soak is on and restored after.
+--
+-- Shipping code read for every field below (Opt-In repo Code/, HEAD at compose time):
+--   StationRows_40_TrainDistribution.lua  D.Get/RowsOn/HubFor/Parent, D.ExportPairingStats, D.error,
+--                                          D.Apply's per-mode desired amounts (export/import/balanced)
+--   StationRows_10_TrainFloor.lua         Floor.stats.last_error
+--   TrainHub_20_TrainHub.lua              hub upgrades (colony SMROptIn_hub_upgrades mirrored to every
+--                                          hub), sync_hub_storage base 1000000/2000000, GetMaxDrones,
+--                                          SMROptIn_track_work jobs + Floor.HubRepairTune.FlightGrace
+--   TrainHub_70_TrainBay.lua              SMROptInTrainBay.stats.refused (the hub refuses add-train)
+--   ElevatorDepot_10_ElevatorDepot.lua    PairOf, CABIN record {phase, ends, legs, cargo, started},
+--                                          CabinCapacity, ROWS mirror, HalfWord -> policy, 250/500 cap
+-- Vanilla (archived 1.1.1.406343 Src/Lua): Station.lua:964-995 SetDesiredAmount's three policies;
+-- Train.lua:56-73 a train Idle re-checks every hour; MultiResourceDepot.lua:217-223 capacity change.
+--
+-- Cadence. A real-time poll (CFG.poll_ms) reads GameTime and does cheap checks every poll. Work runs
+-- once per GAME HOUR boundary (several hours at once at Ultra are folded into one tick):
+--   every tick         SOAK_TOTALS (one line), hourly invariant checks, change-only events
+--   every 3 game hours SOAK_HUB per hub and SOAK_DEPOT per pair
+--   every 12 game hours SOAK_STATION per station and SOAK_TRAIN per train, queued, at most
+--                      CFG.lines_per_tick queued lines per tick (the rest follow next tick)
+--   flags              SOAK_FLAG once per condition (then SOAK_CLEAR when it ends), capped per hour
+-- Why a real-time thread and not an armed trigger: SMRTK disarms every armed action on SaveGameStart
+-- and SavegameSaved (70_SMRTK_Core.lua), so an armed soak dies at the first autosave. A real-time
+-- thread is not persisted (CommonLua/Core/persist.lua: only flagged real-time threads persist) and
+-- holds no game-object field, so the soak continues through saves. It pauses its reads while
+-- SavingGame is set (the rows restore vanilla baselines during a save) and logs each save. A load,
+-- a new game or quitting stops it with a visible SOAK_STOP reason=... line.
+-- Integer arithmetic only (EF-116): no bare division; MulDivRound and floor division.
+
+local T = SMRTK
+-- @@PROBE_SWEEP@@
+
+local CFG = {
+	poll_ms = 250,             -- real ms between polls
+	summary_every_h = 3,       -- SOAK_HUB / SOAK_DEPOT
+	dump_every_h = 12,         -- SOAK_STATION / SOAK_TRAIN (queued)
+	lines_per_tick = 40,       -- hard cap on queued dump lines per hour tick
+	flags_per_hour = 30,       -- new SOAK_FLAG lines per game hour; beyond that, counted as suppressed
+	stuck_h = 3,               -- non-Idle train, same command + station + spot, for this many game hours
+	idle_cargo_h = 12,         -- Idle train still carrying cargo for this many game hours
+	cabin_overdue_min = 30,    -- cabin still travelling this many game minutes after its arrival time
+	cabin_stall_h = 3,         -- cabin at rest, both halves working, no leg for this many game hours
+	cabin_held_h = 2,          -- cabin at rest because a half is not working, this many game hours
+	confirm_ms = 20000,        -- a desired-amount / mirror mismatch must still hold this much game time later
+	job_overdue_h = 1,         -- track job past its fallback completion by this many game hours
+	run_default_h = 12,        -- slot 3 with no number in the note box
+	run_max_h = 240,
+}
+
+local UPGRADES = {
+	{ "CN", "SMROptInTrainHub6_CapacityNetwork" }, { "TC", "SMROptInTrainHub6_TrainCargo" },
+	{ "PW", "SMROptInTrainHub6_Power" }, { "SH", "SMROptInTrainHub6_StorageHub" },
+}
+local MODULES = { "StationRows", "TrainHub", "ElevatorDepot" }
+
+local S = { state = false }   -- runtime only
+
+-- ---- small readers ------------------------------------------------------------------------------
+local function pack_api()
+	local P = rawget(_G, "SMROptInPack")
+	if type(P) ~= "table" or type(P.IsActive) ~= "function" then return nil end
+	return P
+end
+local function dist_api()
+	local D = rawget(_G, "SMROptInTrainDistribution")
+	return type(D) == "table" and D.active and D or nil
+end
+local function depot_api()
+	local D = rawget(_G, "SMRElevatorDepot")
+	return type(D) == "table" and type(D.PairOf) == "function" and D or nil
+end
+local function now() return GameTime() end
+local function hour_ms() return const.HourDuration end
+local function id(o)
+	if not IsValid(o) then return "none" end
+	return tostring(o.class) .. "(" .. tostring(o.handle) .. ")"
+end
+local function handle(o) return IsValid(o) and tostring(o.handle) or "none" end
+-- resource amount in tenths, "12.3"
+local function u(n)
+	if type(n) ~= "number" then return tostring(n) end
+	local t = MulDivRound(n, 10, const.ResourceScale)
+	local sign = ""
+	if t < 0 then sign, t = "-", -t end
+	return sign .. tostring(t // 10) .. "." .. tostring(t % 10)
+end
+-- game ms as hours in tenths, "1.5"
+local function hours(ms)
+	local t = MulDivRound(ms, 10, hour_ms())
+	return tostring(t // 10) .. "." .. tostring(t % 10)
+end
+local function env(o)
+	if not IsValid(o) or type(o.GetMap) ~= "function" or type(rawget(_G, "GetEnvironment")) ~= "function" then return "?" end
+	local name = GetEnvironment(o:GetMap())
+	return (name and name ~= "") and tostring(name) or "?"
+end
+local function is_hub(o) return IsValid(o) and IsKindOf(o, "SMROptInTrainHubBase") end
+local function is_depot(o)
+	local D = depot_api()
+	return D and type(D.IsDepot) == "function" and D.IsDepot(o) or false
+end
+local function req(o, kind, res)
+	local t = o[kind]
+	return type(t) == "table" and t[res] or nil
+end
+local function stock(o, res)
+	local s = req(o, "supply", res)
+	return s and s:GetActualAmount() or 0
+end
+local function list_text(t, order)
+	local parts = {}
+	for _, k in ipairs(order) do
+		local v = t[k]
+		if v ~= nil and v ~= 0 then parts[#parts + 1] = k .. ":" .. (type(v) == "number" and u(v) or tostring(v)) end
+	end
+	return #parts > 0 and table.concat(parts, ",") or "none"
+end
+local function sorted_keys(t)
+	local keys = {}
+	for k in pairs(t) do keys[#keys + 1] = k end
+	table.sort(keys)
+	return keys
+end
+local function count_text(t)
+	local parts = {}
+	for _, k in ipairs(sorted_keys(t)) do parts[#parts + 1] = k .. ":" .. tostring(t[k]) end
+	return #parts > 0 and table.concat(parts, ",") or "none"
+end
+local function cargo_of(train)
+	local total, t = 0, {}
+	for res, n in pairs(train.stockpiled_amount or empty_table) do
+		if n ~= 0 then t[res] = n; total = total + n end
+	end
+	return t, total
+end
+
+local function log(verb, fields, screen)
+	return T.Log(verb, fields, screen == true)
+end
+
+-- ---- the colony, by class, every map -------------------------------------------------------------
+local function collect()
+	local c = { hubs = {}, stations = {}, depots = {}, trains = {} }
+	local seen = {}
+	for _, city in ipairs(rawget(_G, "Cities") or empty_table) do
+		local labels = city.labels or empty_table
+		for _, o in ipairs(labels.Station or empty_table) do
+			if IsValid(o) and not seen[o] then
+				seen[o] = true
+				if is_hub(o) then c.hubs[#c.hubs + 1] = o
+				elseif is_depot(o) then c.depots[#c.depots + 1] = o
+				elseif IsKindOf(o, "Station") then c.stations[#c.stations + 1] = o end
+			end
+		end
+		for _, o in ipairs(labels.Train or empty_table) do
+			if IsValid(o) and not seen[o] then seen[o] = true; c.trains[#c.trains + 1] = o end
+		end
+	end
+	local by_handle = function(a, b) return a.handle < b.handle end
+	table.sort(c.hubs, by_handle); table.sort(c.stations, by_handle)
+	table.sort(c.depots, by_handle); table.sort(c.trains, by_handle)
+	return c
+end
+
+-- ---- station rows -----------------------------------------------------------------------------
+-- The row the code applies (D.Apply): a STORED row on a station whose rows are on. Untouched rows
+-- are Balanced at the vanilla dial for trains only; their drone amounts stay vanilla's.
+local function stored_row(D, st, res)
+	if not (D and type(D.RowsOn) == "function" and type(D.Get) == "function") then return nil end
+	if not D.RowsOn(st) then return nil end
+	local entry = D.Get(st, res)
+	return type(entry) == "table" and entry.mode and entry or nil
+end
+local function row_mode(D, st, res)
+	if not st:IsResourceEnabled(res) then return "off" end
+	if not (D and type(D.RowsOn) == "function" and D.RowsOn(st)) then return "vanilla" end
+	local entry = stored_row(D, st, res)
+	if entry then return tostring(entry.mode) .. tostring(entry.percent or entry.amount) end
+	return "dial" .. u(st.desired_amount or 0)
+end
+-- Expected drone desired amounts for a stored row: Station.lua:964-995 with D.Apply's capacity
+-- (the row resource's own GetMaxStorage) and slider amount MulDivRound(cap, percent, 100).
+local function station_expect(D, st, res)
+	local s, d = req(st, "supply", res), req(st, "demand", res)
+	if not s or not d or not st:IsResourceEnabled(res) then return nil end
+	local entry = stored_row(D, st, res)
+	if not entry then return nil end
+	local cap = st:GetMaxStorage(res)
+	local n = entry.amount
+	if n == nil then
+		if math.type(entry.percent) ~= "integer" then return nil end
+		n = MulDivRound(cap, entry.percent, 100)
+	end
+	if math.type(n) ~= "integer" then return nil end
+	n = Clamp(n, 0, cap)
+	local es, ed
+	if entry.mode == "export" then es, ed = cap, 0
+	elseif entry.mode == "import" then es, ed = 0, cap
+	else es, ed = n, cap - n end
+	local as, ad = s:GetDesiredAmount(), d:GetDesiredAmount()
+	if as == es and ad == ed then return nil end
+	return { mode = entry.mode, percent = entry.percent, cap = u(cap),
+		supply_desired = u(as), expected_supply = u(es), demand_desired = u(ad), expected_demand = u(ed) }
+end
+local function station_signature(D, st)
+	local parts = { "hub=" .. handle(D and D.HubFor and D.HubFor(st)) }
+	for _, res in ipairs(st.storable_resources or empty_table) do
+		if req(st, "supply", res) then parts[#parts + 1] = res .. ":" .. row_mode(D, st, res) end
+	end
+	return table.concat(parts, ",")
+end
+
+-- ---- the Elevator Depot -------------------------------------------------------------------------
+local POLICY = { gather = "send", hand_out = "accept", plain = "default" }
+local function depot_pair(c)
+	local D = depot_api()
+	if not D then return nil end
+	local surface, underground = D.PairOf()
+	local live = 0
+	for _, o in ipairs(c.depots) do if not o.destroyed then live = live + 1 end end
+	local rec = surface and rawget(surface, D.CABIN)
+	return { D = D, surface = surface, underground = underground, live = live,
+		extras = surface and (live - 2) or 0, rec = type(rec) == "table" and rec or nil }
+end
+local function aboard(rec)
+	local n = 0
+	for _, a in pairs(rec and rec.cargo or empty_table) do n = n + a end
+	return n
+end
+-- Vanilla's formula for the half's live policy, and the policy the half's row says it should hold.
+local function depot_expect(D, o, res)
+	local s, d = req(o, "supply", res), req(o, "demand", res)
+	if not s or not d or type(D.HalfWord) ~= "function" then return nil end
+	local word = D.HalfWord(o, res)
+	local enabled = o:IsResourceEnabled(res) and true or false
+	if word == "disabled" then
+		if enabled then return { part = "accept", word = word, enabled = enabled } end
+		return nil
+	end
+	if not enabled then return { part = "accept", word = word, enabled = enabled } end
+	local want = POLICY[word] or "default"
+	local policy = (o.transport_policy and o.transport_policy[res]) or "default"
+	if policy ~= want then return { part = "policy", word = word, policy = policy, expected_policy = want } end
+	local max, dial = o:GetMaxStorageForAnyOneResource(), o.desired_amount
+	if math.type(dial) ~= "integer" or math.type(max) ~= "integer" then return nil end
+	local amount = Clamp(dial, 0, max)
+	local es, ed
+	if policy == "accept" then es, ed = 0, max
+	elseif policy == "send" then es, ed = max, 0
+	else es, ed = amount, max - amount end
+	local as, ad = s:GetDesiredAmount(), d:GetDesiredAmount()
+	if as == es and ad == ed then return nil end
+	return { part = "amounts", word = word, policy = policy, max = u(max), dial = u(dial),
+		supply_desired = u(as), expected_supply = u(es), demand_desired = u(ad), expected_demand = u(ed) }
+end
+local function rows_text(D, o)
+	local parts = {}
+	for _, res in ipairs(o.storable_resources or empty_table) do
+		if req(o, "supply", res) and type(D.State) == "function" then
+			local word = type(D.WordOf) == "function" and D.WordOf(D.State(o, res)) or D.State(o, res)
+			parts[#parts + 1] = res .. ":" .. tostring(word)
+		end
+	end
+	return #parts > 0 and table.concat(parts, ",") or "none"
+end
+local function stock_text(o, with_zero)
+	local t = {}
+	for _, res in ipairs(o.storable_resources or empty_table) do
+		local n = stock(o, res)
+		if n ~= 0 or with_zero then t[res] = n end
+	end
+	return list_text(t, o.storable_resources or empty_table)
+end
+
+-- ---- lines ------------------------------------------------------------------------------------
+local function hub_fields(h, owned)
+	local colony = h.city and h.city.colony
+	local entries = colony and rawget(colony, "SMROptIn_hub_upgrades") or empty_table
+	local upg = {}
+	for _, pair in ipairs(UPGRADES) do
+		local bought = type(h.HasUpgrade) == "function" and h:HasUpgrade(pair[2])
+		local on = bought and type(h.IsUpgradeOn) == "function" and h:IsUpgradeOn(pair[2])
+		upg[#upg + 1] = pair[1] .. ":" .. (not bought and "-" or on and "on" or "off")
+	end
+	local work = rawget(h, "SMROptIn_track_work")
+	local jobs, dispatched, waiting = 0, 0, 0
+	for _, job in ipairs(type(work) == "table" and work.jobs or empty_table) do
+		jobs = jobs + 1
+		if job.deadline then dispatched = dispatched + 1 end
+		if job.waiting then waiting = waiting + 1 end
+	end
+	local over = {}
+	for _, res in ipairs(h.storable_resources or empty_table) do
+		if stock(h, res) > h:GetMaxStorage(res) then over[#over + 1] = res end
+	end
+	local first = (h.storable_resources or empty_table)[1]
+	return { hub = id(h), map = env(h), working = tostring(h.working), ui_working = tostring(h.ui_working),
+		destroyed = tostring(h.destroyed or false), prod = u(h.electricity_production or 0),
+		cons = u(h.electricity_consumption or 0), cap = first and u(h:GetMaxStorage(first)) or "none",
+		stock = stock_text(h), over = #over > 0 and table.concat(over, ",") or "none",
+		upgrades = table.concat(upg, ","), drones = #(h.drones or empty_table),
+		max_drones = type(h.GetMaxDrones) == "function" and h:GetMaxDrones() or -1,
+		jobs = jobs, dispatched = dispatched, waiting = waiting, stations = owned or 0,
+		colony_upgrades = count_text((function()
+			local t = {}
+			for k, e in pairs(entries) do t[tostring(k):gsub("^SMROptInTrainHub6_", "")] = e.on and "on" or "off" end
+			return t
+		end)()) }
+end
+local function depot_fields(p)
+	local D, s, g, rec = p.D, p.surface, p.underground, p.rec
+	local f = { paired = tostring(s ~= nil), live_halves = p.live, extras = p.extras }
+	if s then
+		local first = (s.storable_resources or empty_table)[1]
+		f.surface, f.underground = id(s), id(g)
+		f.phase = rec and tostring(rec.phase) or "none"
+		f.legs = rec and (rec.legs or 0) or 0
+		f.ends_in_min = rec and rec.ends and MulDivRound(Max(rec.ends - now(), 0), 1, const.MinuteDuration) or 0
+		f.aboard = list_text(rec and rec.cargo or empty_table, sorted_keys(rec and rec.cargo or empty_table))
+		f.cabin_cap = type(D.CabinCapacity) == "function" and D.CabinCapacity(s) or -1
+		f.s_working, f.u_working = tostring(s.working), tostring(g.working)
+		f.s_drones = rawget(s, D.DRONES) and "on" or "off"
+		f.u_drones = rawget(g, D.DRONES) and "on" or "off"
+		f.s_cap = first and u(s:GetMaxStorage(first)) or "none"
+		f.u_cap = first and u(g:GetMaxStorage(first)) or "none"
+		f.s_stock, f.u_stock = stock_text(s), stock_text(g)
+	end
+	return f
+end
+local function station_fields(D, st, why)
+	local tokens = {}
+	for _, res in ipairs(st.storable_resources or empty_table) do
+		local s, d = req(st, "supply", res), req(st, "demand", res)
+		if s and d then
+			local mode = row_mode(D, st, res)
+			local n = s:GetActualAmount()
+			if mode ~= "off" or n ~= 0 then
+				tokens[#tokens + 1] = res .. ":" .. mode .. ":" .. u(n) .. ":" .. u(s:GetDesiredAmount())
+					.. ":" .. u(d:GetDesiredAmount())
+			end
+		end
+	end
+	local first = (st.storable_resources or empty_table)[1]
+	return { station = id(st), map = env(st), why = why, working = tostring(st.working),
+		hub = handle(D and D.HubFor and D.HubFor(st)), parent = handle(D and D.Parent and D.Parent(st)),
+		rows_on = tostring(D and D.RowsOn and D.RowsOn(st) or false),
+		cap = first and u(st:GetMaxStorage(first)) or "none",
+		res = #tokens > 0 and table.concat(tokens, ",") or "none" }
+end
+local function train_sig(train)
+	local pos = type(train.GetPos) == "function" and train:GetPos()
+	local spot = pos and (tostring(pos:x() // 1000) .. "." .. tostring(pos:y() // 1000)) or "?"
+	return tostring(train.command) .. "|" .. handle(train.current_station) .. "|" .. spot
+end
+local function train_fields(train, why, since)
+	local cargo, total = cargo_of(train)
+	return { train = id(train), map = env(train), why = why, station = id(train.current_station),
+		track = handle(train.track), command = tostring(train.command), at_station = tostring(train.at_station),
+		cargo = list_text(cargo, sorted_keys(cargo)), total = u(total), cap = u(train.max_shared_storage or 0),
+		same_h = since and hours(now() - since) or "?" }
+end
+
+-- ---- totals ------------------------------------------------------------------------------------
+local function totals(c, p)
+	local all, parts = {}, { hubs = {}, stations = {}, trains = {}, cabin = {} }
+	local function add(part, res, n)
+		if n == 0 then return end
+		all[res] = (all[res] or 0) + n
+		parts[part][res] = (parts[part][res] or 0) + n
+	end
+	for _, h in ipairs(c.hubs) do
+		for _, res in ipairs(h.storable_resources or empty_table) do add("hubs", res, stock(h, res)) end
+	end
+	for _, list in ipairs({ c.stations, c.depots }) do
+		for _, st in ipairs(list) do
+			for _, res in ipairs(st.storable_resources or empty_table) do add("stations", res, stock(st, res)) end
+		end
+	end
+	local by_cmd = {}
+	for _, train in ipairs(c.trains) do
+		local cmd = tostring(train.command)
+		by_cmd[cmd] = (by_cmd[cmd] or 0) + 1
+		for res, n in pairs(train.stockpiled_amount or empty_table) do add("trains", res, n) end
+	end
+	if p and p.rec then
+		for res, n in pairs(p.rec.cargo or empty_table) do add("cabin", res, n) end
+	end
+	return all, parts, by_cmd
+end
+
+-- ---- flags -------------------------------------------------------------------------------------
+-- A condition flag prints once when it starts and SOAK_CLEAR when an hourly check no longer sees
+-- it. An event flag (errors, refusals, a train in the hub) prints every time it happens.
+local function emit_flag(state, kind, fields)
+	state.flag_counts[kind] = (state.flag_counts[kind] or 0) + 1
+	if state.flags_this_hour >= CFG.flags_per_hour then
+		state.suppressed = state.suppressed + 1
+		return false
+	end
+	state.flags_this_hour = state.flags_this_hour + 1
+	fields.kind = kind
+	fields.sol = UIColony and UIColony.day or -1
+	log("SOAK_FLAG", fields, true)
+	return true
+end
+local function condition(state, kind, key, fields)
+	local k = kind .. "|" .. key
+	local a = state.active[k]
+	if a then a.seen = state.tick; return end
+	local printed = emit_flag(state, kind, fields)
+	state.active[k] = { kind = kind, key = key, since = now(), seen = state.tick, printed = printed }
+end
+local function event_flag(state, kind, fields) emit_flag(state, kind, fields) end
+-- A mismatch must still hold CFG.confirm_ms later (vanilla rewrites, then the rows re-apply on the
+-- next BuildingUpdate, every 5000 game ms, Station.lua:83).
+local function confirm(state, kind, key, recheck)
+	local k = kind .. "|" .. key
+	if state.active[k] then state.active[k].seen = state.tick; return end
+	if not state.pending[k] then
+		state.pending[k] = { kind = kind, key = key, due = now() + CFG.confirm_ms, recheck = recheck }
+	end
+end
+local function run_pending(state)
+	local t = now()
+	for k, p in pairs(state.pending) do
+		if t >= p.due then
+			state.pending[k] = nil
+			local fields = p.recheck()
+			if fields then condition(state, p.kind, p.key, fields) end
+		end
+	end
+end
+local function clear_stale(state)
+	for k, a in pairs(state.active) do
+		if a.seen < state.tick then
+			state.active[k] = nil
+			if a.printed then
+				log("SOAK_CLEAR", { kind = a.kind, key = a.key, lasted_h = hours(now() - a.since) })
+			end
+		end
+	end
+end
+
+-- ---- the hourly checks -------------------------------------------------------------------------
+local function check_hubs(state, c, D)
+	local colony_entries
+	local seen_hubs = {}
+	for _, h in ipairs(c.hubs) do
+		local key = handle(h)
+		local was = state.hub_working[h]
+		local w = tostring(h.working) .. "/" .. tostring(h.ui_working) .. "/" .. tostring(h.destroyed or false)
+		if was == nil then log("SOAK_EVENT", { what = "hub_added", hub = id(h), state = w })
+		elseif was ~= w then log("SOAK_EVENT", { what = "hub_state", hub = id(h), before = was, after = w }) end
+		state.hub_working[h] = w
+		seen_hubs[h] = true
+		if not h.destroyed then
+			-- storage: the owner's ruling allows stock above a DROPPED capacity (spec 4.10); only a rise
+			-- while above capacity is flagged
+			for _, res in ipairs(h.storable_resources or empty_table) do
+				local n, cap = stock(h, res), h:GetMaxStorage(res)
+				local prev = state.prev_stock[h] and state.prev_stock[h][res]
+				if n > cap and prev and n > prev then
+					condition(state, "hub_over_capacity", key .. "|" .. res,
+						{ hub = id(h), resource = res, stock = u(n), cap = u(cap), before = u(prev) })
+				elseif n > cap and state.active["hub_over_capacity|" .. key .. "|" .. res] then
+					state.active["hub_over_capacity|" .. key .. "|" .. res].seen = state.tick
+				end
+				state.prev_stock[h] = state.prev_stock[h] or {}
+				state.prev_stock[h][res] = n
+			end
+			-- the fleet never exceeds MaxDrones (TrainHub_20 SpawnDrone)
+			local n, max = #(h.drones or empty_table), type(h.GetMaxDrones) == "function" and h:GetMaxDrones() or nil
+			if max and n > max then condition(state, "hub_drones_over_max", key, { hub = id(h), drones = n, max = max }) end
+			-- one colony switch per upgrade, mirrored to every hub's panel fields (spec 4.10, 2026-09-29)
+			local colony = h.city and h.city.colony
+			colony_entries = colony and rawget(colony, "SMROptIn_hub_upgrades") or empty_table
+			for _, pair in ipairs(UPGRADES) do
+				local entry = colony_entries[pair[2]]
+				local function recheck()
+					local e = (colony and rawget(colony, "SMROptIn_hub_upgrades") or empty_table)[pair[2]]
+					local mirror = h.upgrade_on_off_state and h.upgrade_on_off_state[pair[2]]
+					if IsValid(h) and e and (mirror and true or false) ~= (e.on and true or false) then
+						return { hub = id(h), upgrade = pair[1], colony_on = tostring(e.on), hub_mirror = tostring(mirror) }
+					end
+				end
+				if entry and recheck() then confirm(state, "hub_upgrade_mirror", key .. "|" .. pair[1], recheck) end
+			end
+			-- Storage Hub sets the base: 1000000, or 2000000 while on (sync_hub_storage)
+			local function base_check()
+				local e = (colony and rawget(colony, "SMROptIn_hub_upgrades") or empty_table)["SMROptInTrainHub6_StorageHub"]
+				local want = e and e.on and 2000000 or 1000000
+				if IsValid(h) and not h.destroyed and h.base_max_storage_per_resource ~= want then
+					return { hub = id(h), base = u(h.base_max_storage_per_resource or 0), expected = u(want) }
+				end
+			end
+			if base_check() then confirm(state, "hub_storage_base", key, base_check) end
+			-- a dispatched track job completes at its Wasp's work end, or at the fallback deadline plus
+			-- FlightGrace; a job waiting for stock is the intended hold (spec 10, L5)
+			local tune = rawget(_G, "SMROptInTrainFloor") and SMROptInTrainFloor.HubRepairTune
+			local grace = tune and tune.FlightGrace or 100
+			local work = rawget(h, "SMROptIn_track_work")
+			for i, job in ipairs(type(work) == "table" and work.jobs or empty_table) do
+				if job.deadline and not job.waiting then
+					local cap = job.deadline + MulDivRound(job.deadline - (job.started or job.deadline), grace, 100)
+					if now() > cap + CFG.job_overdue_h * hour_ms() then
+						condition(state, "track_job_overdue", key .. "|" .. handle(job.site) .. "|" .. tostring(job.kind),
+							{ hub = id(h), job = tostring(job.kind), site = id(job.site), overdue_h = hours(now() - cap),
+							  drone = id(job.drone) })
+					end
+				end
+			end
+		end
+	end
+	for h in pairs(state.hub_working) do
+		if not seen_hubs[h] then
+			state.hub_working[h] = nil
+			log("SOAK_EVENT", { what = "hub_removed", hub = id(h) })
+		end
+	end
+end
+
+local function check_stations(state, c, D)
+	for _, st in ipairs(c.stations) do
+		local key = handle(st)
+		local sig = station_signature(D, st)
+		local was = state.station_sig[st]
+		if was == nil then
+			state.queue_front[#state.queue_front + 1] = { "station", st, "new" }
+		elseif was ~= sig then
+			state.queue_front[#state.queue_front + 1] = { "station", st, "change" }
+		end
+		state.station_sig[st] = sig
+		for _, res in ipairs(st.storable_resources or empty_table) do
+			if station_expect(D, st, res) then
+				confirm(state, "station_desired_mismatch", key .. "|" .. res, function()
+					if not IsValid(st) then return nil end
+					local Dn = dist_api()
+					local f = station_expect(Dn, st, res)
+					if f then f.station, f.resource, f.hub = id(st), res, handle(Dn.HubFor and Dn.HubFor(st)) end
+					return f
+				end)
+			end
+			local n, cap = stock(st, res), req(st, "supply", res) and st:GetMaxStorage(res) or nil
+			local prev = state.prev_stock[st] and state.prev_stock[st][res]
+			local akey = "station_over_capacity|" .. key .. "|" .. res
+			if cap and n > cap and prev and n > prev then
+				condition(state, "station_over_capacity", key .. "|" .. res,
+					{ station = id(st), resource = res, stock = u(n), cap = u(cap), before = u(prev) })
+			elseif cap and n > cap and state.active[akey] then
+				state.active[akey].seen = state.tick
+			end
+			state.prev_stock[st] = state.prev_stock[st] or {}
+			state.prev_stock[st][res] = n
+		end
+	end
+end
+
+local function check_depot(state, c, p)
+	if not p then return end
+	local D = p.D
+	local sig = handle(p.surface) .. ":" .. handle(p.underground) .. ":" .. tostring(p.live)
+	if state.pair_sig ~= nil and state.pair_sig ~= sig then
+		log("SOAK_EVENT", { what = "depot_pair", before = state.pair_sig, after = sig })
+	end
+	state.pair_sig = sig
+	-- one pair per colony; a further half stays an unpaired extra (trace "pair limit")
+	if p.extras > 0 then condition(state, "depot_extra_half", "pair", { live_halves = p.live, extras = p.extras }) end
+	if not p.surface and p.live > 0 then
+		local halves = {}
+		for _, o in ipairs(c.depots) do if not o.destroyed then halves[#halves + 1] = id(o) .. "@" .. env(o) end end
+		condition(state, "depot_unpaired", "pair", { halves = table.concat(halves, ",") })
+	end
+	if not p.surface then return end
+	local s, g, rec = p.surface, p.underground, p.rec
+	local t = now()
+	if rec then
+		local legs = rec.legs or 0
+		if state.cabin_legs ~= legs or state.cabin_phase ~= rec.phase then
+			state.cabin_legs, state.cabin_phase, state.cabin_since = legs, rec.phase, t
+		end
+		local moving = rec.phase == "down" or rec.phase == "up"
+		local both = s.working and g.working
+		if moving and rec.ends and t > rec.ends + CFG.cabin_overdue_min * const.MinuteDuration then
+			condition(state, "cabin_overdue", "cabin", { phase = tostring(rec.phase), legs = legs,
+				late_min = MulDivRound(t - rec.ends, 1, const.MinuteDuration) })
+		end
+		if not moving and both and t - state.cabin_since >= CFG.cabin_stall_h * hour_ms() then
+			condition(state, "cabin_stalled", "cabin", { phase = tostring(rec.phase), legs = legs,
+				still_h = hours(t - state.cabin_since), started = tostring(rec.started or false) })
+		end
+		if not moving and not both and t - state.cabin_since >= CFG.cabin_held_h * hour_ms() then
+			condition(state, "cabin_held", "cabin", { phase = tostring(rec.phase), s_working = tostring(s.working),
+				u_working = tostring(g.working), still_h = hours(t - state.cabin_since) })
+		end
+		local cap = type(D.CabinCapacity) == "function" and MulDivRound(D.CabinCapacity(s), const.ResourceScale, 1)
+		if cap and aboard(rec) > cap then
+			condition(state, "cabin_over_capacity", "cabin", { aboard = u(aboard(rec)), cap = u(cap) })
+		end
+	end
+	-- the underground half holds a read-only copy of the surface rows (OnPairChanged, SetRow)
+	local function rows_check()
+		local sr, gr = rawget(s, D.ROWS) or empty_table, rawget(g, D.ROWS) or empty_table
+		local diff = {}
+		for _, res in ipairs(s.storable_resources or empty_table) do
+			local a, b = sr[res], gr[res]
+			if (a or "to_underground") ~= (b or "to_underground") then diff[#diff + 1] = res end
+		end
+		if #diff > 0 and IsValid(s) and IsValid(g) then
+			return { surface = id(s), underground = id(g), differ = table.concat(diff, ",") }
+		end
+	end
+	if rows_check() then confirm(state, "depot_rows_mismatch", "rows", rows_check) end
+	-- capacity: 250 per resource, 500 with Expanded Depot; Capacity Network excluded (spec 11)
+	local expanded = (s.upgrades_built and s.upgrades_built[D.CAPACITY_UPGRADE])
+		or (g.upgrades_built and g.upgrades_built[D.CAPACITY_UPGRADE])
+	local want = expanded and 500000 or 250000
+	for _, half in ipairs({ s, g }) do
+		local hkey = handle(half)
+		for _, res in ipairs(half.storable_resources or empty_table) do
+			if req(half, "supply", res) then
+				local cap, n = half:GetMaxStorage(res), stock(half, res)
+				if cap ~= want then
+					condition(state, "depot_capacity", hkey, { half = id(half), resource = res, cap = u(cap), expected = u(want) })
+				end
+				local prev = state.prev_stock[half] and state.prev_stock[half][res]
+				local akey = "depot_over_capacity|" .. hkey .. "|" .. res
+				if n > cap and prev and n > prev then
+					condition(state, "depot_over_capacity", hkey .. "|" .. res,
+						{ half = id(half), resource = res, stock = u(n), cap = u(cap), before = u(prev) })
+				elseif n > cap and state.active[akey] then
+					state.active[akey].seen = state.tick
+				end
+				state.prev_stock[half] = state.prev_stock[half] or {}
+				state.prev_stock[half][res] = n
+				if depot_expect(D, half, res) then
+					confirm(state, "depot_desired_mismatch", hkey .. "|" .. res, function()
+						local Dd = depot_api()
+						if not Dd or not IsValid(half) then return nil end
+						local f = depot_expect(Dd, half, res)
+						if f then f.half, f.resource = id(half), res end
+						return f
+					end)
+				end
+			end
+		end
+	end
+end
+
+local function check_trains(state, c)
+	local t = now()
+	for _, train in ipairs(c.trains) do
+		local key = handle(train)
+		local sig = train_sig(train)
+		local rec = state.train_state[train]
+		if not rec or rec.sig ~= sig then
+			rec = { sig = sig, since = t }
+			state.train_state[train] = rec
+		end
+		local cargo, total = cargo_of(train)
+		local cmd = tostring(train.command)
+		if cmd ~= "Idle" and t - rec.since >= CFG.stuck_h * hour_ms() then
+			condition(state, "train_stuck", key, { train = id(train), command = cmd, station = id(train.current_station),
+				track = handle(train.track), same_h = hours(t - rec.since), cargo = u(total) })
+		end
+		if cmd == "Idle" and total > 0 and t - rec.since >= CFG.idle_cargo_h * hour_ms() then
+			condition(state, "train_idle_with_cargo", key, { train = id(train), station = id(train.current_station),
+				cargo = list_text(cargo, sorted_keys(cargo)), same_h = hours(t - rec.since) })
+		end
+		local cap = train.max_shared_storage
+		local prev = state.prev_cargo[train]
+		if type(cap) == "number" and total > cap and prev and total > prev then
+			condition(state, "train_over_capacity", key, { train = id(train), cargo = u(total), cap = u(cap), before = u(prev) })
+		elseif type(cap) == "number" and total > cap and state.active["train_over_capacity|" .. key] then
+			state.active["train_over_capacity|" .. key].seen = state.tick
+		end
+		state.prev_cargo[train] = total
+	end
+end
+
+-- ---- every poll: cheap event checks --------------------------------------------------------------
+local function code_errors()
+	local D, F, B = rawget(_G, "SMROptInTrainDistribution"), rawget(_G, "SMROptInTrainFloor"), rawget(_G, "SMROptInTrainBay")
+	local E = rawget(_G, "SMRElevatorDepot")
+	return {
+		distribution = type(D) == "table" and D.error or false,
+		floor = type(F) == "table" and type(F.stats) == "table" and F.stats.last_error or false,
+		bay = type(B) == "table" and B.error or false,
+		depot = type(E) == "table" and E.error or false,
+	}
+end
+local function each_train(fn)
+	local seen = {}
+	for _, city in ipairs(rawget(_G, "Cities") or empty_table) do
+		for _, o in ipairs((city.labels or empty_table).Train or empty_table) do
+			if IsValid(o) and not seen[o] then seen[o] = true; fn(o) end
+		end
+	end
+	return seen
+end
+local function poll_events(state)
+	-- new engine / Lua errors (SMRTK counts OnLuaError and OnThreadError; 70_SMRTK_Core.lua)
+	if T.error_count ~= state.errors then
+		event_flag(state, "lua_error", { new = T.error_count - state.errors, total = T.error_count - state.errors0 })
+		state.errors = T.error_count
+	end
+	-- the hub refuses add-train (TrainBay); each refusal is someone or something asking for a train
+	-- in the hub (spec 4.8 ruling 10)
+	local B = rawget(_G, "SMROptInTrainBay")
+	local refused = type(B) == "table" and type(B.stats) == "table" and B.stats.refused or 0
+	if refused ~= state.bay_refused then
+		event_flag(state, "bay_refused", { new = refused - state.bay_refused, total = refused })
+		state.bay_refused = refused
+	end
+	for name, value in pairs(code_errors()) do
+		if value and value ~= state.code_errors[name] then
+			event_flag(state, "code_error", { part = name, message = tostring(value) })
+		end
+		state.code_errors[name] = value
+	end
+	-- trains: a new train is added at a station, never in the hub (spec 4.8 ruling 10)
+	local live = each_train(function(train)
+		if not state.known[train] then
+			state.known[train] = true
+			-- first seen at a hub after it already moved there is ordinary traffic; a spawn is
+			-- at_spawn_track (set by TrackBase:AssignTrain, cleared at departure), checked below
+			local st = train.current_station
+			log("SOAK_EVENT", { what = "train_added", train = id(train), station = id(st), map = env(train),
+				at_hub = tostring(is_hub(st)), spawn_track = tostring(train.at_spawn_track or false) })
+		end
+		if train.at_spawn_track and is_hub(train.current_station) and not state.spawn_flagged[train] then
+			state.spawn_flagged[train] = true
+			event_flag(state, "train_in_hub", { train = id(train), hub = id(train.current_station), how = "spawn_track_at_hub" })
+		end
+	end)
+	for train in pairs(state.known) do
+		if not live[train] then
+			state.known[train] = nil
+			log("SOAK_EVENT", { what = "train_removed", train = id(train) })
+		end
+	end
+	-- module toggles and the trace switch
+	local P = pack_api()
+	if P then
+		for _, m in ipairs(MODULES) do
+			local on = P.IsActive(m) and true or false
+			if state.modules[m] ~= on then
+				log("SOAK_EVENT", { what = "module", module = m, active = tostring(on) })
+				state.modules[m] = on
+			end
+		end
+		if P.TrainTrace ~= true then
+			log("SOAK_EVENT", { what = "trace_reset", trace = tostring(P.TrainTrace), action = "set_true" })
+			P.TrainTrace = true
+		end
+	end
+end
+
+-- ---- the tick ----------------------------------------------------------------------------------
+local function emit_hubs_and_depot(c, D, p, why)
+	local owned = {}
+	if D and type(D.HubFor) == "function" then
+		for _, st in ipairs(c.stations) do
+			local h = D.HubFor(st)
+			if h then owned[h] = (owned[h] or 0) + 1 end
+		end
+	end
+	for _, h in ipairs(c.hubs) do
+		local f = hub_fields(h, owned[h])
+		f.why = why
+		log("SOAK_HUB", f)
+	end
+	if p and p.live > 0 then
+		local f = depot_fields(p)
+		f.why = why
+		log("SOAK_DEPOT", f)
+	end
+end
+local function emit_totals(state, c, p, why, peek)
+	local all, parts, by_cmd = totals(c, p)
+	local order = sorted_keys(all)
+	local D = dist_api()
+	local pair = D and D.ExportPairingStats or empty_table
+	local pairing = {}
+	for _, k in ipairs({ "capped", "retried", "substituted", "refused" }) do
+		local v = pair[k] or 0
+		pairing[#pairing + 1] = k .. ":" .. tostring(v - (state.pairing[k] or v))
+		if not peek then state.pairing[k] = v end
+	end
+	local active = {}
+	for _, a in pairs(state.active) do active[a.kind] = (active[a.kind] or 0) + 1 end
+	log("SOAK_TOTALS", { why = why, h = GameTime() // hour_ms(), sol = UIColony and UIColony.day or -1,
+		all = list_text(all, order), hubs = list_text(parts.hubs, order), stations = list_text(parts.stations, order),
+		trains = list_text(parts.trains, order), cabin = list_text(parts.cabin, order), by_command = count_text(by_cmd),
+		n_hubs = #c.hubs, n_stations = #c.stations, n_depots = #c.depots, n_trains = #c.trains,
+		errors = T.error_count - state.errors0, flags = state.flags_total_printed(), active = count_text(active),
+		suppressed = state.suppressed, pairing = table.concat(pairing, ",") })
+end
+
+local function hourly(state)
+	state.tick = state.tick + 1
+	state.flags_this_hour = 0
+	local c = collect()
+	local D = dist_api()
+	local p = depot_pair(c)
+	check_hubs(state, c, D)
+	check_stations(state, c, D)
+	check_depot(state, c, p)
+	check_trains(state, c)
+	clear_stale(state)
+	local h = GameTime() // hour_ms()
+	emit_totals(state, c, p, "hour")
+	local budget = CFG.lines_per_tick
+	if h - state.last_summary >= CFG.summary_every_h then
+		state.last_summary = h
+		emit_hubs_and_depot(c, D, p, "periodic")
+	end
+	if h - state.last_dump >= CFG.dump_every_h then
+		state.last_dump = h
+		for _, st in ipairs(c.stations) do state.queue[#state.queue + 1] = { "station", st, "periodic" } end
+		for _, train in ipairs(c.trains) do state.queue[#state.queue + 1] = { "train", train, "periodic" } end
+	end
+	-- change lines first, then the periodic queue, within one budget
+	local front, rest = state.queue_front, state.queue
+	state.queue_front = {}
+	local merged = {}
+	for _, e in ipairs(front) do merged[#merged + 1] = e end
+	for _, e in ipairs(rest) do merged[#merged + 1] = e end
+	local left = {}
+	for _, e in ipairs(merged) do
+		if budget > 0 then
+			if IsValid(e[2]) then
+				budget = budget - 1
+				if e[1] == "station" then log("SOAK_STATION", station_fields(D, e[2], e[3]))
+				else
+					local r = state.train_state[e[2]]
+					log("SOAK_TRAIN", train_fields(e[2], e[3], r and r.since))
+				end
+			end
+		else
+			left[#left + 1] = e
+		end
+	end
+	state.queue = left
+end
+
+local function relabel()
+	local on = S.state and true or false
+	local d1, d3 = T.actions.slot_1, T.actions.slot_3
+	if d1 then
+		d1.label = on and "SOAK is ON - press to stop (trace on; hourly totals, flags, 3h hub/depot, 12h stations/trains)"
+			or "SOAK OFF - press to start: trace on + live stream of hubs, depot, stations, trains and SOAK_FLAG problem lines"
+	end
+	if d3 then
+		local r = S.state and S.state.run_until
+		d3.label = r and ("Ultra run in progress until game hour " .. tostring(r // hour_ms()) .. " - press to cancel the run (soak stays on)")
+			or "Run Ultra for N game hours, then pause + flush (N = number in the note box, default 12; starts the soak)"
+	end
+end
+
+local function stop(reason, final)
+	local state = S.state
+	if not state then return nil end
+	S.state = false
+	state.cancelled = true
+	local summary = { reason = reason, hours = state.start_hour and (GameTime() // hour_ms() - state.start_hour) or 0,
+		flags = state.flags_total_printed(), suppressed = state.suppressed, errors = T.error_count - state.errors0,
+		kinds = count_text(state.flag_counts) }
+	if final and rawget(_G, "UIColony") and rawget(_G, "CurrentMap") then
+		local ok = pcall(function()
+			local c = collect()
+			local p = depot_pair(c)
+			emit_totals(state, c, p, "stop")
+			emit_hubs_and_depot(c, dist_api(), p, "stop")
+		end)
+		summary.final_dump = tostring(ok)
+	end
+	local P = pack_api()
+	if P then P.TrainTrace = state.prev_trace end
+	summary.trace_restored = tostring(P and P.TrainTrace)
+	log("SOAK_STOP", summary, true)
+	local thread = state.thread
+	state.thread = nil
+	if thread and IsValidThread(thread) and thread ~= CurrentThread() then DeleteThread(thread) end
+	relabel()
+	return summary
+end
+
+local function poll(state)
+	local t = GameTime()
+	if t == state.last_time then return end
+	state.last_time = t
+	poll_events(state)
+	run_pending(state)
+	local h = t // hour_ms()
+	if h ~= state.hour then
+		state.hour = h
+		hourly(state)
+	end
+	if state.run_until and t >= state.run_until then
+		local hrs = state.run_hours
+		state.run_until, state.run_hours = nil, nil
+		T.Run("speed", 0)
+		local c = collect()
+		local p = depot_pair(c)
+		emit_totals(state, c, p, "run_done")
+		emit_hubs_and_depot(c, dist_api(), p, "run_done")
+		log("SOAK_EVENT", { what = "run_done", hours = hrs, paused = tostring(GetGameSpeed and GetGameSpeed() == "pause") }, true)
+		T.Run("flush")
+		T.Mark("SOAK_RUN_DONE")
+		if rawget(_G, "PlayFX") then PlayFX("UIMenuNotificationStoryBit", "start") end
+		relabel()
+	end
+end
+
+local function configuration()
+	local P = pack_api()
+	if not P then return false, "Opt-In registry missing (SMROptInPack)" end
+	if not rawget(_G, "UIColony") or not rawget(_G, "CurrentMap") then return false, "load a colony first" end
+	return P
+end
+
+local function start(ctx, why)
+	local P, reason = configuration()
+	if not P then return false, reason end
+	if S.state then return false, "the soak is already on" end
+	local state = { cancelled = false, tick = 0, active = {}, pending = {}, flag_counts = {}, suppressed = 0,
+		flags_this_hour = 0, prev_stock = setmetatable({}, { __mode = "k" }),
+		prev_cargo = setmetatable({}, { __mode = "k" }), train_state = setmetatable({}, { __mode = "k" }),
+		known = setmetatable({}, { __mode = "k" }), spawn_flagged = setmetatable({}, { __mode = "k" }),
+		station_sig = setmetatable({}, { __mode = "k" }), hub_working = setmetatable({}, { __mode = "k" }),
+		queue = {}, queue_front = {}, modules = {}, code_errors = {}, pairing = {},
+		errors = T.error_count, errors0 = T.error_count, prev_trace = P.TrainTrace,
+		last_time = false, cabin_since = GameTime() }
+	state.flags_total_printed = function()
+		local n = 0
+		for _, v in pairs(state.flag_counts) do n = n + v end
+		return n - state.suppressed
+	end
+	local mark = ctx.mark("SOAK_ON")
+	P.TrainTrace = true
+	-- baselines: what exists now is not an event
+	local c = collect()
+	for _, train in ipairs(c.trains) do state.known[train] = true end
+	local B = rawget(_G, "SMROptInTrainBay")
+	state.bay_refused = type(B) == "table" and type(B.stats) == "table" and B.stats.refused or 0
+	state.code_errors = code_errors()
+	for _, m in ipairs(MODULES) do state.modules[m] = P.IsActive(m) and true or false end
+	local h = GameTime() // hour_ms()
+	state.hour, state.start_hour = h, h
+	state.last_summary, state.last_dump = h, h
+	local fix = rawget(_G, "SMRFixPack")
+	local modules = {}
+	for _, m in ipairs(MODULES) do
+		modules[#modules + 1] = m .. ":" .. (P.IsActive(m) and "on" or "off")
+	end
+	local p = depot_pair(c)
+	local fields = { mark = mark, why = why, sol = UIColony.day, h = h, modules = table.concat(modules, ","),
+		optin_version = type(P.PackVersion) == "function" and P.PackVersion() or "?",
+		fixpack = fix and (type(fix.PackVersion) == "function" and fix.PackVersion() or "present") or "absent",
+		trace_before = tostring(state.prev_trace), hubs = #c.hubs, stations = #c.stations, depots = #c.depots,
+		trains = #c.trains, config = "poll_ms:" .. CFG.poll_ms .. ",summary_h:" .. CFG.summary_every_h
+			.. ",dump_h:" .. CFG.dump_every_h .. ",lines_per_tick:" .. CFG.lines_per_tick
+			.. ",flags_per_hour:" .. CFG.flags_per_hour .. ",stuck_h:" .. CFG.stuck_h }
+	log("SOAK_START", fields, true)
+	-- the full baseline: totals, every hub, the depot, every station and train
+	emit_totals(state, c, p, "start")
+	emit_hubs_and_depot(c, dist_api(), p, "start")
+	local D = dist_api()
+	for _, h in ipairs(c.hubs) do
+		state.hub_working[h] = tostring(h.working) .. "/" .. tostring(h.ui_working) .. "/" .. tostring(h.destroyed or false)
+	end
+	for _, st in ipairs(c.stations) do
+		state.station_sig[st] = station_signature(D, st)
+		state.queue[#state.queue + 1] = { "station", st, "start" }
+	end
+	for _, train in ipairs(c.trains) do
+		state.train_state[train] = { sig = train_sig(train), since = GameTime() }
+		state.queue[#state.queue + 1] = { "train", train, "start" }
+	end
+	S.state = state
+	state.thread = CreateRealTimeThread(function()
+		while S.state == state and not state.cancelled do
+			Sleep(CFG.poll_ms)
+			if S.state ~= state or state.cancelled then break end
+			if not rawget(_G, "SavingGame") and rawget(_G, "CurrentMap") and rawget(_G, "UIColony") then
+				local ok, err = pcall(poll, state)
+				if not ok then
+					log("SOAK_FLAG", { kind = "soak_internal", message = tostring(err) }, true)
+					stop("soak code error", false)
+					break
+				end
+			end
+		end
+	end)
+	relabel()
+	fields.stream = "on"
+	return fields
+end
+
+-- ---- saves, loads, maps: the soak survives a save and stops visibly on a load ---------------------
+function OnMsg.SaveGameStart(params)
+	if S.state then log("SOAK_EVENT", { what = "save_start", autosave = tostring(type(params) == "table" and params.autosave or false) }) end
+end
+function OnMsg.SaveGameDone(name, autosave, err)
+	if S.state then log("SOAK_EVENT", { what = "save_done", name = tostring(name), autosave = tostring(autosave or false),
+		err = tostring(err or "none"), continuing = "true" }) end
+end
+function OnMsg.CurrentMapChange()
+	if S.state then log("SOAK_EVENT", { what = "view_map", map = tostring(rawget(_G, "CurrentMap")), continuing = "true" }) end
+end
+function OnMsg.PreLoadGame() if S.state then stop("PreLoadGame", false) end end
+function OnMsg.LoadGame() if S.state then stop("LoadGame", false) end end
+function OnMsg.DoneGame() if S.state then stop("DoneGame", false) end end
+
+-- ---- slots -------------------------------------------------------------------------------------
+T.Bind(1, "SOAK OFF - press to start", function(ctx)
+	if S.state then
+		local mark = ctx.mark("SOAK_OFF")
+		local summary = stop("manual", true)
+		summary.mark, summary.stream = mark, "off"
+		return summary
+	end
+	return start(ctx, "slot1")
+end, { mode = "once" })
+
+T.Bind(2, "Read now: one full snapshot - totals, every hub, the depot pair, every station and train (no pause needed)", function(ctx)
+	local P, reason = configuration()
+	if not P then return false, reason end
+	local mark = ctx.mark("SOAK_READ")
+	local c = collect()
+	local D = dist_api()
+	local p = depot_pair(c)
+	local state = S.state
+	local scratch = state or { pairing = {}, active = {}, suppressed = 0, errors0 = T.error_count,
+		flags_total_printed = function() return 0 end }
+	local modules = {}
+	for _, m in ipairs(MODULES) do modules[#modules + 1] = m .. ":" .. (P.IsActive(m) and "on" or "off") end
+	log("SOAK_READ", { soak = tostring(state and true or false), modules = table.concat(modules, ","),
+		trace = tostring(P.TrainTrace), sol = UIColony.day, h = GameTime() // hour_ms() })
+	emit_totals(scratch, c, p, "read", true)
+	emit_hubs_and_depot(c, D, p, "read")
+	for _, st in ipairs(c.stations) do log("SOAK_STATION", station_fields(D, st, "read")) end
+	for _, train in ipairs(c.trains) do
+		local r = state and state.train_state[train]
+		log("SOAK_TRAIN", train_fields(train, "read", r and r.since))
+	end
+	local active = {}
+	for _, a in pairs(state and state.active or empty_table) do active[a.kind] = (active[a.kind] or 0) + 1 end
+	local done = ctx.mark("SOAK_READ_DONE")
+	return { mark = mark, done = done, hubs = #c.hubs, stations = #c.stations, depots = #c.depots,
+		trains = #c.trains, soak = tostring(state and true or false), active_flags = count_text(active),
+		errors = T.error_count }
+end, { mode = "once" })
+
+local function hours_from_note()
+	local note = T.agent_note
+	local n = type(note) == "string" and tonumber(note:match("^%s*(%d+)%s*$")) or nil
+	if n and math.type(n) == "integer" and n >= 1 and n <= CFG.run_max_h then return n, "note" end
+	return CFG.run_default_h, "default"
+end
+
+T.Bind(3, "Run Ultra for N game hours, then pause + flush", function(ctx)
+	if S.state and S.state.run_until then
+		S.state.run_until, S.state.run_hours = nil, nil
+		log("SOAK_EVENT", { what = "run_cancelled" }, true)
+		relabel()
+		return { run = "cancelled", soak = "on" }
+	end
+	local P, reason = configuration()
+	if not P then return false, reason end
+	local n, source = hours_from_note()
+	local started
+	if not S.state then
+		local fields, why = start(ctx, "slot3")
+		if not fields then return false, why end
+		started = true
+	end
+	local sped, speed_fields = T.Run("speed_ultra")
+	if not sped then return false, "speed refused: " .. tostring(speed_fields and speed_fields.reason) end
+	S.state.run_until = GameTime() + n * hour_ms()
+	S.state.run_hours = n
+	local mark = ctx.mark("SOAK_RUN_" .. tostring(n) .. "H")
+	relabel()
+	return { mark = mark, hours = n, hours_source = source, until_h = S.state.run_until // hour_ms(),
+		soak_started = tostring(started or false), factor = speed_fields and speed_fields.factor,
+		clamped_by = speed_fields and speed_fields.clamped_by or "none" }
+end, { mode = "once" })
+
+relabel()
