@@ -21,12 +21,6 @@ Keep the accepted train startup notices separate, or combine them into one load 
 - Combining them would need its own scoped code action; this evidence pass leaves the notices alone.
 Home: `docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`, `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`
 
-### OI-49 · opened 2026-10-03 · launch
-Was the original Tripo hub model your own generation on a paid plan, a free-plan generation, or someone else's asset?
-- The current pipeline retains its under-deck beds, stub pylons and feet after replacing the portal collars.
-- Its origin/plan determines the remaining credit or notice; the repository has no generation receipt.
-Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`
-
 ### OI-47 · opened 2026-10-03
 Should the Arboretum keep its own service category, adding Comfort alongside Parks?
 - The test build uses a separate category; it does not compete with Hanging Gardens for Parks coverage.

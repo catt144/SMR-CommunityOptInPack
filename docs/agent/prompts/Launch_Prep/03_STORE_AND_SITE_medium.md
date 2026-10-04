@@ -76,6 +76,11 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**Owner 2026-10-03 (OI-49): the original Tripo hub model was the owner's own generation on a
+paid plan; "we own the license for it."** The retained under-deck beds, stub pylons and feet
+need no third-party credit or notice. Record the provenance where the credits and asset notes
+live, attributed to the owner, and add no Tripo attribution line.
+
 **04 audit `c1d8c7e`, 2026-10-03: preparation not accepted.** Read
 `reports/FINAL_LAUNCH_AUDIT_20261003.md`. 03A owns release tools/lifecycle and an
 actual launch package excluding held D19. Resume this link after 03A lands.

@@ -62,6 +62,11 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+**Owner 2026-10-03 (OI-49): the original Tripo hub model was the owner's own generation on a
+paid plan; "we own the license for it."** The retained under-deck beds, stub pylons and feet
+need no third-party credit or notice. Record the provenance where the credits and asset notes
+live, attributed to the owner, and add no Tripo attribution line.
+
 **This link ran at `298ff9b`, 2026-10-03, and rejected preparation (`c1d8c7e`).** Durable
 record: `reports/FINAL_LAUNCH_AUDIT_20261003.md`; independent source/log checks
 and concrete tool falsifiers: `archive/final_launch_audit_20261003/`.
