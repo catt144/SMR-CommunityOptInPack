@@ -110,7 +110,7 @@ The dev-only sibling mod lives in staging/. Its README covers installation, shar
 
 ### Launch
 
-⛔ This mod is NOT PUBLISHED. The preview and the five gallery screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.
+Published 2026-10-04. The preview and the five gallery screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.
 
 | script | what its own header says |
 |---|---|

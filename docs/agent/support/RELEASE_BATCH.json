@@ -1,526 +1,78 @@
 {
  "schema": 1,
- "batch": {
-  "id": "2026-10-04-01",
-  "kind": "first-publish",
-  "opened": "2026-10-04",
-  "base": "03dfda8c926bc94a4f470df48e4a5f2133f7f4ab",
-  "entries": [
-   "### Pending · FIRST PUBLICATION (staged 2026-10-03, Launch_Prep/03)",
-   "### Pending · Launch exit disclosure and warning (2026-10-03, Launch_Prep/01)"
-  ],
-  "held_entries": [],
-  "held_out": {},
-  "launch_tree": "B:\\Dev\\SMR\\SMR-OptInPack-launch",
-  "manifest": {
-   "Code/00_Core.lua": {
-    "sha256": "696aee813c3e77642363d1fb1f210a30e2a9a8ed6912aba24a0cf4c724a38b9b",
-    "bytes": 27438,
-    "source": "commit"
-   },
-   "Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua": {
-    "sha256": "146078fe0ba069450a3755921bd3f70fd5b6d329d5164b34fa529c8dad27d685",
-    "bytes": 1724,
-    "source": "commit"
-   },
-   "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua": {
-    "sha256": "4f3fbdafb3278e705acb139025225a36a1d709c901d92af7ea0f27e6a1e65d6a",
-    "bytes": 4671,
-    "source": "commit"
-   },
-   "Code/ElevatorDepot_10_ElevatorDepot.lua": {
-    "sha256": "046b5c3433ae1df82cda38e661c886ded73bad5f5ad6c8893fb3a4e296709a32",
-    "bytes": 92354,
-    "source": "commit"
-   },
-   "Code/Opt_AcknowledgedWarnings.lua": {
-    "sha256": "d8f3cefb5c9893a82b9c323c153f70a9b252a8ac6d42c6ce2e02cdc54b0bafed",
-    "bytes": 7656,
-    "source": "commit"
-   },
-   "Code/Opt_DroneStatDials.lua": {
-    "sha256": "37b5fcf26eade6c8793fd129259b53957e67bae8677fbcee4daec344a48bce08",
-    "bytes": 7661,
-    "source": "commit"
-   },
-   "Code/Opt_ElevatorDepot.lua": {
-    "sha256": "e2ff194dcf65952dcd2718eab3be4e97f39f323ad73ea47a84011252d525a11d",
-    "bytes": 2013,
-    "source": "commit"
-   },
-   "Code/Opt_MultipleSuns.lua": {
-    "sha256": "6b6128c121fcd90842253ea77ee22be4989a1c59fd6494ff409bc8f4686a31e0",
-    "bytes": 12180,
-    "source": "commit"
-   },
-   "Code/Opt_ServiceInterestTags.lua": {
-    "sha256": "264835a9471cb989c076a48f29e71d0e2fc69bd2f40ab2641fce3c79157ab138",
-    "bytes": 18851,
-    "source": "commit"
-   },
-   "Code/Opt_StationRows.lua": {
-    "sha256": "325598f7a3eb4cff1d56244dd38872c30f92f92e06f0868eef3c4ec896784315",
-    "bytes": 2420,
-    "source": "commit"
-   },
-   "Code/Opt_TrainHub.lua": {
-    "sha256": "859c0b45125ba38115595baf3978c7ba99c4132d0c0e6fe54190dff54e6a366e",
-    "bytes": 2494,
-    "source": "commit"
-   },
-   "Code/StationRows_10_TrainFloor.lua": {
-    "sha256": "5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59",
-    "bytes": 9797,
-    "source": "commit"
-   },
-   "Code/StationRows_40_TrainDistribution.lua": {
-    "sha256": "5cf55be03c75c090ede4ef9275923eca5f0c65da60af7c29a441b7e349658760",
-    "bytes": 38896,
-    "source": "commit"
-   },
-   "Code/StationRows_45_TrainDistributionUI.lua": {
-    "sha256": "04216f29bba616c23ca13a44b6dab673cf054e7fcc95d2055c87c6d085fdf3ec",
-    "bytes": 14152,
-    "source": "commit"
-   },
-   "Code/TrainHub_20_TrainHub.lua": {
-    "sha256": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
-    "bytes": 183928,
-    "source": "commit"
-   },
-   "Code/TrainHub_30_TrainHubDrones.lua": {
-    "sha256": "a054a978706c41412f60ea222526ae22ebeb50ac9b7694be8e927ae69d7782c2",
-    "bytes": 63092,
-    "source": "commit"
-   },
-   "Code/TrainHub_60_StationSpoilage.lua": {
-    "sha256": "40dabd0ba535b52ee1af3fdce3816930d7967e4f1c3fac4656ea149721f498a1",
-    "bytes": 1542,
-    "source": "commit"
-   },
-   "Code/TrainHub_70_TrainBay.lua": {
-    "sha256": "a1426ca9c870219af6433c4c75791e760ebe67d5a3ebef9ec4466004bfb15d32",
-    "bytes": 3098,
-    "source": "commit"
-   },
-   "Code/_EntityData.generated.lua": {
-    "sha256": "e3b0f1145b1e76af402587ab06941aea3052020dbbf969dad5adf72ba51c3f71",
-    "bytes": 948,
-    "source": "commit"
-   },
-   "Data/BuildingTemplate/SMROptInElevatorDepotDev.lua": {
-    "sha256": "c662f7915db12f2f855a029a99063bdd8221a37d58852b90c6a20a0944b10821",
-    "bytes": 1650,
-    "source": "commit"
-   },
-   "Data/BuildingTemplate/SMROptInTrainHub6.lua": {
-    "sha256": "fc0eabe929ea3cd4c5c63d1907ef5ef6718539117e98da34cb209ff00423c442",
-    "bytes": 4665,
-    "source": "commit"
-   },
-   "Entities/SMROptInElevatorDepot.entjson": {
-    "sha256": "e54ec626d217e2abe6533d69ea81f23aed2e4f406bd8edbfa22e3fa5a85dc8a4",
-    "bytes": 42018,
-    "source": "commit"
-   },
-   "Entities/SMROptInElevatorDepotReceiver.entjson": {
-    "sha256": "f1c698bea709cc954e23a98d41fccadce3a75aae5d93d916d6de2d2d47367905",
-    "bytes": 670,
-    "source": "commit"
-   },
-   "Entities/SMROptInTrainHub6.entjson": {
-    "sha256": "32e22c4e539e6c68a60fdf952954c1f46e2fd8f39c6746bfa196344cd03ac199",
-    "bytes": 162687,
-    "source": "commit"
-   },
-   "Entities/SMROptInTrainHub6DomeGlass.entjson": {
-    "sha256": "1f2f389ca7aeac1faf51efcf5b237e2537e6ac80724d21beeb2b71dd1e0470eb",
-    "bytes": 700,
-    "source": "commit"
-   },
-   "Entities/SMROptInTrainHub6Glass.entjson": {
-    "sha256": "ff935e9068e10e3f56aec847419f0f41c269d41776e6d008b8eeaa0f7f4d67dd",
-    "bytes": 680,
-    "source": "commit"
-   },
-   "LICENSE": {
-    "sha256": "f4c1f6c7d2de89e263f76aa54846f02388d83d3bf5392b1619238691e79210b4",
-    "bytes": 1709,
-    "source": "commit"
-   },
-   "Materials/SMROptInElevatorDepot.mtljson": {
-    "sha256": "3d17c01642e767d8392aa0e90981e3eba7088805c9273e5e65c21e6c14469d8c",
-    "bytes": 647,
-    "source": "commit"
-   },
-   "Materials/SMROptInTrainHub6.mtljson": {
-    "sha256": "792540d72b5d82f06e3d7b349f5e0f18304a15a2c644d1accc85077c7cc806e2",
-    "bytes": 495,
-    "source": "commit"
-   },
-   "Materials/SMROptInTrainHub6DomeGlass.mtljson": {
-    "sha256": "054938fdd4e8b1c2232fbb4f49147226fb1a342b8142a23cfc3da8dab4a87462",
-    "bytes": 704,
-    "source": "commit"
-   },
-   "Materials/SMROptInTrainHub6Glass.mtljson": {
-    "sha256": "aec198cf12d92fe6cd9f944b6abb835ddfbfee53d035813dccd7f13ee7124ea0",
-    "bytes": 684,
-    "source": "commit"
-   },
-   "Meshes/SMROptInElevatorDepotReceiver_mesh.sub_0.hgrm": {
-    "sha256": "9ece0f142225c0b7c37a7c1259046a81220c3bb373be63160e8102627570f9cd",
-    "bytes": 19049,
-    "source": "commit"
-   },
-   "Meshes/SMROptInElevatorDepot_mesh.sub_0.hgrm": {
-    "sha256": "ce781b829f8421ed2572cb406c83669dde2ac30db0a79ec1e1268881d74b36ff",
-    "bytes": 555481,
-    "source": "commit"
-   },
-   "Meshes/SMROptInTrainHub6DomeGlass_mesh.sub_0.hgrm": {
-    "sha256": "e24efacdfbb54165ebf4267520d6e08029860ccaea28951b301de14b333873f7",
-    "bytes": 99293,
-    "source": "commit"
-   },
-   "Meshes/SMROptInTrainHub6Glass_mesh.sub_0.hgrm": {
-    "sha256": "56bfb193ce8665929461f2ad3083fb1d9554c27fd65826e5d4a536d026230522",
-    "bytes": 3729,
-    "source": "commit"
-   },
-   "Meshes/SMROptInTrainHub6_mesh.sub_0.hgrm": {
-    "sha256": "76dde6465aafa84c7e7847540d5315ec4336bbdfb6c809fdc119e99a0c2b81ec",
-    "bytes": 1092057,
-    "source": "commit"
-   },
-   "SourceData/ArtSpec-mod.lua": {
-    "sha256": "cb92be8dcaae03cf31bfd1ec0923eaf0f0c77faa52115bb250a792a3e7364baf",
-    "bytes": 1026,
-    "source": "commit"
-   },
-   "SourceData/GFXMaterial/SMROptInElevatorDepot.lua": {
-    "sha256": "37a9d10f4876048c974f459d82a94ec4cdf2fa6f167b7b526b1988ad8dc823e6",
-    "bytes": 734,
-    "source": "commit"
-   },
-   "SourceData/GFXMaterial/SMROptInTrainHub6.lua": {
-    "sha256": "49c096433e8330e03b787fe496cffa197aea62419df938254c8de34ce5de9551",
-    "bytes": 606,
-    "source": "commit"
-   },
-   "SourceData/GFXMaterial/SMROptInTrainHub6DomeGlass.lua": {
-    "sha256": "a643415f7c4262937514d05c585102faf5e623f4d54474ea547d10af093ce607",
-    "bytes": 789,
-    "source": "commit"
-   },
-   "SourceData/GFXMaterial/SMROptInTrainHub6Glass.lua": {
-    "sha256": "718a634fe49f25e06943c5e579e8470fc35fae7a0058a261e70be450d192c30a",
-    "bytes": 769,
-    "source": "commit"
-   },
-   "SourceData/SIE_ImportItem/SMROptInElevatorDepot.lua": {
-    "sha256": "a1e928fb7f20687caabcca55f20292838c715d37e42aebb7c8b303d3bc4b7f21",
-    "bytes": 2533,
-    "source": "commit"
-   },
-   "SourceData/SIE_ImportItem/SMROptInElevatorDepotReceiver.lua": {
-    "sha256": "d20343ce0df331c1711a91505a99517007388133732f803b329f1ae1c314d7d7",
-    "bytes": 618,
-    "source": "commit"
-   },
-   "SourceData/SIE_ImportItem/SMROptInTrainHub6.lua": {
-    "sha256": "bb60308720e67ef854bf0b417909e4f2eb8b55bfbb062d25fe4d1fe917012625",
-    "bytes": 3984,
-    "source": "commit"
-   },
-   "SourceData/SIE_ImportItem/SMROptInTrainHub6DomeGlass.lua": {
-    "sha256": "9de965e4ee1d0d2a6bd7bd814fa9f11de9c833fa27b57bcaf88be9a151aabec5",
-    "bytes": 607,
-    "source": "commit"
-   },
-   "SourceData/SIE_ImportItem/SMROptInTrainHub6Glass.lua": {
-    "sha256": "c4d13cabac7779414f523f2f10c4626db862a20c224a4d5314801b0dfbf14f9d",
-    "bytes": 591,
-    "source": "commit"
-   },
-   "UI/SMROptInElevatorDepot_icon.png": {
-    "sha256": "86e40c83ed39b11fb941f5d114a18607b2ead460f5a86b6c27b2260552728f46",
-    "bytes": 32518,
-    "source": "commit"
-   },
-   "UI/SMROptInTrainHub6_icon.png": {
-    "sha256": "059d9105836a7e398879ff2f44f771adca0d9be127d5f3daa75be46bf02b7395",
-    "bytes": 31755,
-    "source": "commit"
-   },
-   "items.lua": {
-    "sha256": "2631ccb034feb92d96a17e853470cd3226a9b7104921357bcb87fd173787aa73",
-    "bytes": 8463,
-    "source": "commit"
-   },
-   "metadata.lua": {
-    "sha256": "1718ed013756dd01a3a9f866b604cb58f4cb39fb4f4261c52c64ff139c5af645",
-    "bytes": 16543,
-    "source": "commit"
-   },
-   "preview.png": {
-    "sha256": "0dddf05fce6238f569d7cc5dc0034f55b979eba1e85bc82da1317f6deff471a3",
-    "bytes": 41743,
-    "source": "commit"
-   },
-   "store_screenshots/1_hub_day.jpg": {
-    "sha256": "83deb492df23934eda12aacb8636bc876ebf9773c057996434ae573a234d2659",
-    "bytes": 509699,
-    "source": "commit"
-   },
-   "store_screenshots/2_hub_panel.jpg": {
-    "sha256": "3a5f98fdd9301fad5b3190c8971816c82e91e7e0d29f7f19d9f151bbf899752c",
-    "bytes": 517673,
-    "source": "commit"
-   },
-   "store_screenshots/3_depot_pair.jpg": {
-    "sha256": "35458ad1b899a08c2773b11f08e6155c163c1ded1fca930ce57745c109cdee54",
-    "bytes": 433399,
-    "source": "commit"
-   },
-   "store_screenshots/4_station_rows.jpg": {
-    "sha256": "6585a2b647b0da9cba913fe5426a09df38a23a3c5cab137f6b537f29bcd54570",
-    "bytes": 488582,
-    "source": "commit"
-   },
-   "store_screenshots/5_interests_popout.jpg": {
-    "sha256": "1e1ae3254e8a3cf4a252e50f1dc202732248672a1638b408bfdc20d1eaf24420",
-    "bytes": 426910,
-    "source": "commit"
-   },
-   "Textures/SMROptInElevatorDepot_BC.dds": {
-    "sha256": "459b9c449bb4a739f016c96a48a77e9d9c69c8224986e08413a3ddc15885a828",
-    "bytes": 11184972,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInElevatorDepot_CM.dds": {
-    "sha256": "e1d8ee96885c745ca35964b60a2920d5c1644628cd7f352954b74fd56b307dd7",
-    "bytes": 2796364,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInElevatorDepot_NM.dds": {
-    "sha256": "6efed55bfafdab8148b259daa7dac56f846fa4f618c0da6bb60fd0993da4eb51",
-    "bytes": 22369796,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInElevatorDepot_RM.dds": {
-    "sha256": "2aa1a80e560472d86ddb8767b8c19cdd7604e3c4d984fbb7f81465fdbe9e0632",
-    "bytes": 2796364,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInElevatorDepot_SI.dds": {
-    "sha256": "18b9e8a5dd767dbf83c441cdf9daa2b48d8ea6f4d0a00a05fbe4bae392b17f30",
-    "bytes": 11184972,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6DomeGlass_BC.dds": {
-    "sha256": "2baa2e72b4c645bb33ae001b49d796896f5c5825ca780f33d1efc2f985029ab7",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6DomeGlass_NM.dds": {
-    "sha256": "790174a179a5315b2a7efb09a69e5921b19da77ab4ce8637a731328b1cb8600b",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6DomeGlass_RM.dds": {
-    "sha256": "033d466703ebc60b849fe112967cee3fc7003a9e3ae2bb6891f46a436c52a212",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6DomeGlass_SI.dds": {
-    "sha256": "6d89ed5aa9efaf2f054226b7612bbe8369c80baaa750884712fe3eeb95466602",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6Glass_BC.dds": {
-    "sha256": "f150fac5cf5647b84bbeafc97ec36aa767513d2d73afa9f63bb7d01338da3999",
-    "bytes": 1398276,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6Glass_NM.dds": {
-    "sha256": "790174a179a5315b2a7efb09a69e5921b19da77ab4ce8637a731328b1cb8600b",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6Glass_RM.dds": {
-    "sha256": "33d3e2e7a606b373f54e0262236e30f4d0acf3d0d63656ce4e2e752e3163ce5e",
-    "bytes": 699212,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6Glass_SI.dds": {
-    "sha256": "6d89ed5aa9efaf2f054226b7612bbe8369c80baaa750884712fe3eeb95466602",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6_BC.dds": {
-    "sha256": "bbf5db6d4f5b4734b4b951a040c5ce6823d0908dc19914924b1ea7bf9ba36398",
-    "bytes": 11184972,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6_NM.dds": {
-    "sha256": "c1dc0b10745e18b3952f258eb17b4d2119813279cb38eb9cdbcd0361eeb7f346",
-    "bytes": 22369796,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6_RM.dds": {
-    "sha256": "75b2c374338e889980d3c08c0a2a1117d04213da5ba100c992b01dbf030c412f",
-    "bytes": 2796364,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Textures/SMROptInTrainHub6_SI.dds": {
-    "sha256": "f001cf4af0c1da027f8017a8292a1fb64a1d0ab716f60c051f58349a6f2f93ba",
-    "bytes": 11184972,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInElevatorDepot_BC.dds": {
-    "sha256": "cb0c19fd928fe96c9ecf86242d00038dc5f483c335ae915880b7360f67fec78c",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInElevatorDepot_CM.dds": {
-    "sha256": "1f521660ca1493045f0175e3df731f6f5c12e9e0965740103d6d588a34d68090",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInElevatorDepot_NM.dds": {
-    "sha256": "6a7d2a5c49eb9479d5fa7bcc201cd785c5172c162d2479c41056bd990a6cacc4",
-    "bytes": 5636,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInElevatorDepot_RM.dds": {
-    "sha256": "3d5c660f775c368ed85f7c83eca5b67353411eac09798a343747d5abebc878d4",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInElevatorDepot_SI.dds": {
-    "sha256": "5c69824cce00541ecaf2e60ce43fdef2f9a6fadc2ddb5684f18b8fff1891d1c4",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6DomeGlass_BC.dds": {
-    "sha256": "2baa2e72b4c645bb33ae001b49d796896f5c5825ca780f33d1efc2f985029ab7",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6DomeGlass_NM.dds": {
-    "sha256": "790174a179a5315b2a7efb09a69e5921b19da77ab4ce8637a731328b1cb8600b",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6DomeGlass_RM.dds": {
-    "sha256": "033d466703ebc60b849fe112967cee3fc7003a9e3ae2bb6891f46a436c52a212",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6DomeGlass_SI.dds": {
-    "sha256": "6d89ed5aa9efaf2f054226b7612bbe8369c80baaa750884712fe3eeb95466602",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6Glass_BC.dds": {
-    "sha256": "a3fa42f15200aae077370a448ae5f37391eefb11b808681c2de46c009607f1b2",
-    "bytes": 5636,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6Glass_NM.dds": {
-    "sha256": "790174a179a5315b2a7efb09a69e5921b19da77ab4ce8637a731328b1cb8600b",
-    "bytes": 196,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6Glass_RM.dds": {
-    "sha256": "661ac61ba3b6ac6420aae11feb256ad94075a8635e8039069b2795f67d6bc259",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6Glass_SI.dds": {
-    "sha256": "6d89ed5aa9efaf2f054226b7612bbe8369c80baaa750884712fe3eeb95466602",
-    "bytes": 172,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6_BC.dds": {
-    "sha256": "477d205da110ea31f4172179dc637e4ac97b9b4ad89634c5f85202bf2e337b56",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6_NM.dds": {
-    "sha256": "a9b56647358a3f4165d9d99196602f2135a40dad2409cb805dd6a2d6d45c8ac4",
-    "bytes": 5636,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6_RM.dds": {
-    "sha256": "c65faee00ea2d45c3813362f43c3a2bad9ae1a2f1c2e89a32d20da465c5c4345",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   },
-   "Fallbacks/Textures/SMROptInTrainHub6_SI.dds": {
-    "sha256": "dc50ba357b1c9da3e2e6c2ca378bc54512f183b5eaf9864db81df5fd560570a4",
-    "bytes": 2892,
-    "source": "working tree (git-ignored, no commit identity)"
-   }
-  },
-  "pre_upload": {
-   "version_major": 1,
-   "version_minor": 0,
-   "version": 0,
-   "pdx_id": null,
-   "pdx_version": null,
-   "steam_id": null
-  },
-  "portals": {
-   "paradox": {
-    "snapshots": [],
-    "receipts": [
-     {
-      "date": "2026-10-04",
-      "result": "uploaded",
-      "owner_words": "Ok its uploaded and everything looks good [agent note: no Paradox package snapshot exists; the Steam upload deleted it before any snapshot was taken, so no exact-package claim is made for Paradox. Store links and Paradox platform/approval wording not yet reported]"
-     }
-    ]
-   },
-   "steam": {
-    "snapshots": [
-     {
-      "taken": "2026-10-04",
-      "dir": "local/release/2026-10-04-01/steam-1",
-      "pack_sha256": "7c709ca9aff86433c9d13b0ebadf84d48345e82b6dc1b776f513313db717db74",
-      "pack_bytes": 22599753,
-      "pack_mtime": "2026-10-04T02:19:30",
-      "serializer": {
-       "metadata.lua": "500133ded32e1e54d1d91384431f8bcbfa45ff549cbdb6d24a15f19d6c94f08f",
-       "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
-      },
-      "fields": {
-       "version_major": 1,
-       "version_minor": null,
-       "version": 2,
-       "pdx_id": 161911,
-       "pdx_version": "1",
-       "steam_id": "3813142702"
+ "batch": null,
+ "closed": [
+  {
+   "id": "2026-10-04-01",
+   "kind": "first-publish",
+   "opened": "2026-10-04",
+   "base": "03dfda8c926bc94a4f470df48e4a5f2133f7f4ab",
+   "entries": [
+    "### Pending · FIRST PUBLICATION (staged 2026-10-03, Launch_Prep/03)",
+    "### Pending · Launch exit disclosure and warning (2026-10-03, Launch_Prep/01)"
+   ],
+   "held_entries": [],
+   "held_out": {},
+   "launch_tree": "B:\\Dev\\SMR\\SMR-OptInPack-launch",
+   "pre_upload": {
+    "version_major": 1,
+    "version_minor": 0,
+    "version": 0,
+    "pdx_id": null,
+    "pdx_version": null,
+    "steam_id": null
+   },
+   "portals": {
+    "paradox": {
+     "snapshots": [],
+     "receipts": [
+      {
+       "date": "2026-10-04",
+       "result": "uploaded",
+       "owner_words": "Ok its uploaded and everything looks good [agent note: no Paradox package snapshot exists; the Steam upload deleted it before any snapshot was taken, so no exact-package claim is made for Paradox. Store links and Paradox platform/approval wording not yet reported]"
       }
-     }
-    ],
-    "receipts": [
-     {
-      "date": "2026-10-04",
-      "result": "uploaded",
-      "owner_words": "Ok its uploaded and everything looks good [agent note: Steam changelog for 3813142702 shows one Update, Oct 3 @ 11:19pm, with the first-release note; snapshot steam-1 matches the launch tree 75/75]"
-     }
-    ]
-   }
-  },
-  "close": {
-   "writeback": "bd369f3",
-   "drained": false,
-   "tag": null
+     ]
+    },
+    "steam": {
+     "snapshots": [
+      {
+       "taken": "2026-10-04",
+       "dir": "local/release/2026-10-04-01/steam-1",
+       "pack_sha256": "7c709ca9aff86433c9d13b0ebadf84d48345e82b6dc1b776f513313db717db74",
+       "pack_bytes": 22599753,
+       "pack_mtime": "2026-10-04T02:19:30",
+       "serializer": {
+        "metadata.lua": "500133ded32e1e54d1d91384431f8bcbfa45ff549cbdb6d24a15f19d6c94f08f",
+        "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
+       },
+       "fields": {
+        "version_major": 1,
+        "version_minor": null,
+        "version": 2,
+        "pdx_id": 161911,
+        "pdx_version": "1",
+        "steam_id": "3813142702"
+       }
+      }
+     ],
+     "receipts": [
+      {
+       "date": "2026-10-04",
+       "result": "uploaded",
+       "owner_words": "Ok its uploaded and everything looks good [agent note: Steam changelog for 3813142702 shows one Update, Oct 3 @ 11:19pm, with the first-release note; snapshot steam-1 matches the launch tree 75/75]"
+      }
+     ]
+    }
+   },
+   "close": {
+    "writeback": "bd369f3",
+    "drained": true,
+    "tag": "optin-v1.0.2"
+   },
+   "released_version": "1.0.2",
+   "closed": "2026-10-04"
   }
- },
- "closed": [],
+ ],
  "abandoned": [
   {
    "id": "2026-10-04-01",

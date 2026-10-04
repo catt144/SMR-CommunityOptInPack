@@ -42,10 +42,4 @@ Should mechanized depot throughput become a post-launch module, and which shape 
 - Authorize its new option contract and retaining over-capacity pad stock on OFF until it drains; no cargo field needed.
 Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 
-### OI-44 · opened 2026-10-02 · launch
-Which platforms will you choose on Paradox Mods, and what console approval step does it show?
-- No Opt-In listing exists yet; the first upload creates both, Paradox then Steam.
-- The fix pack's approval does not carry over; login, any Workshop agreement and approval are yours.
-Home: `docs/agent/prompts/perma/release_prompt.md`, `docs/agent/reports/LAUNCH_PREP_AUDIT_20261002.md`
-
 ## Run

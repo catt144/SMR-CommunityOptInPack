@@ -9,7 +9,7 @@ An **opt-in behaviour mod** for *Surviving Mars: Relaunched*: a small set of mod
 how the game plays, each **off (or at its base setting) until the player turns it on** in Options →
 Mod Options. Three were RETIRED 2026-09-17 (owner); live counts come from doccheck. Patched at
 runtime; no game files are modified. A **TRUE STANDALONE** — it works beside the Relaunched Fix
-Pack and identically without it. ⛔ **NOT PUBLISHED.**
+Pack and identically without it. **Published 2026-10-04** (`docs/agent/reports/STORE_CARD_LIVE.md`).
 
 ## 1 · Where the project stands
 

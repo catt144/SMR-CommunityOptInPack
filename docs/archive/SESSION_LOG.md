@@ -12,6 +12,34 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-04 — FIRST PUBLICATION closed: v1.0.2 on Paradox Mods and the Steam Workshop
+
+tags: release first-publish batch-2026-10-04-01 optin-v1.0.2 OI-44 store-card site
+
+`perma/release_prompt.md`, entered at `UPLOADING` (batch pinned at `03dfda8`, no snapshot, no receipt).
+- **Receipts.** Owner, both portals: "Ok its uploaded and everything looks good". Writeback: `version`
+  0 → 2, `pdx_id` 161911, `pdx_version` "1", `steam_id` "3813142702", merged in `bd369f3`.
+- **Packages.** Steam snapshot `steam-1` (sha256 `7c709ca9…db74`, 22,599,753 B) is 75/75 byte-identical
+  to the launch tree. Paradox has **no snapshot and no package verdict**: both uploads ran in one
+  editor session (02:17–02:20) and the Steam upload deleted the Paradox package first.
+- **Store bodies.** The upload auto-filled the base commit's bulleted body; the owner pasted the
+  current §3 blocks (per-module headings, `f0d388f`) on both pages. Card set LIVE with that copy.
+- **OI-44 answered** (owner): nothing was asked about platforms at upload and no approval step was shown.
+- **Site.** Links committed in site `1875041`; publish run #22 failed at the exposure gate on three
+  parent-directory links in `content/opt-in/index.md`, the first pages in a subfolder. Fixed in
+  `6c02476` (docs-root links plus `validation.links.absolute_links`), gate unchanged. Deployment of
+  `6c02476` read `success`; the live Opt-In page carries both store links.
+- **Close.** Tag `optin-v1.0.2` on `03dfda8`, pushed; two Pending entries drained to
+  `RELEASE_HISTORY.md`; the Arboretum entry stays Pending as a peer's unstaged hunk. Donor handoff:
+  one item appended to the fix pack's checklist (`STORE_AND_SITE_20261003.md` §7).
+- **Limits.** The Paradox page could be read only as far as its title; the Steam page body was not
+  read back (HTTP 429). The pasted bodies are the owner's word. No game run this leg.
+
+**Executed model:** Claude Fable 5.1 (`claude-fable-5-1`), from this session's model line; no
+subagents. Skills: doc-editing.
+
+---
+
 ## 2026-09-01 — the D06 rebuild's DESIGN SPEC + build brief: V-a view tiers, the tier × demand table, no uninstall mod required
 
 tags: D06 drones design spec prompts EF-074 checklist-94 checklist-95 checklist-96 checklist-97

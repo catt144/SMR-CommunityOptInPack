@@ -31,7 +31,8 @@ An **opt-in behaviour mod**: a small set of modules that change how the game pla
 Live count source: `python tools/doccheck.py --emit-counts`; three modules were
 RETIRED 2026-09-17 (owner) and the shipped set is smaller than every pre-09-17 record says.
 Patched at runtime; no game files are modified. It is a **TRUE STANDALONE** — it works with the
-Relaunched Fix Pack installed, and identically without it. ⛔ **NOT PUBLISHED.** The tree map is
+Relaunched Fix Pack installed, and identically without it. **Published 2026-10-04** on Paradox Mods and
+the Steam Workshop; what is live is `docs/agent/reports/STORE_CARD_LIVE.md`. The tree map is
 `docs/README.md`.
 
 **The two bans are canonical rules in `docs/agent/FIX_POLICY.md`'s header**, read before any code

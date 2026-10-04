@@ -10,8 +10,8 @@ Rule: Change the store text in the §3 paste blocks and regenerate `metadata.lua
 players actually see; the site is a place people have to choose to visit, and it gets the
 real store links before you publish it.
 
-This mod has **not been published yet.** The first time through, do section 0 as
-well. After that, every upload is sections 1 to 5.
+This mod was first published on 2026-10-04. Every upload is sections 1 to 5; section 0
+was for the first publish and is kept for reference.
 
 ---
 
@@ -19,15 +19,6 @@ well. After that, every upload is sections 1 to 5.
 
 The agent does the words (store body, change note, site pages) and tells you when
 it is ready. If nobody has said "ready to upload", ask.
-
-For the **first** upload, one thing is yours and the agent cannot do it:
-
-| what | what it needs from you | tracked on |
-|---|---|---|
-| ⛔ Console / platform approval | you choose the platforms on Paradox Mods during the upload and tell the agent afterwards what approval step it showed; the fix pack's approval does not carry over | OI-44 |
-
-No Opt-In listing exists on either store (settled 2026-10-03). The first upload creates
-both, and the agent reads their ids back afterwards; nothing is typed ahead.
 
 ---
 

@@ -1796,7 +1796,7 @@ TOOL_GROUPS = (
      "shared account options and promotion; WORKBENCH runs as a doccheck gate.",
      ("workbench.py", "promote_module.py", "workbench_selftest.py")),
     ("Launch",
-     "⛔ This mod is NOT PUBLISHED. The preview and the five gallery "
+     "Published 2026-10-04. The preview and the five gallery "
      "screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.",
      ("upload_preflight.py", "pack_predict.py", "store_parity.py", "paradox_card.py",
       "annotate_screenshots.py", "store_screenshots.py", "release_batch.py",
