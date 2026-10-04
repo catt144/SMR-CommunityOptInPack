@@ -19,7 +19,7 @@ unscheduled, so it does not age.
 Keep the accepted train startup notices separate, or combine them into one load line?
 - The quiet-log sitting passed; this is a store-work preference, not another launch test gate.
 - Combining them would need its own scoped code action; this evidence pass leaves the notices alone.
-Home: `docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`, `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`
+Home: `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`, `docs/agent/prompts/perma/release_prompt.md`
 
 ### OI-47 · opened 2026-10-03
 Should the Arboretum keep its own service category, adding Comfort alongside Parks?

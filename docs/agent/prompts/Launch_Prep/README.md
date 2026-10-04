@@ -19,7 +19,7 @@ outbox entry remains an uncommitted hunk.
 | ~~01~~ | ~~`01_SHIP_EVIDENCE_high.md`~~ | high | no | prepared in `0579b78`; ledger `reports/SHIP_EVIDENCE_20261003.md`; unresolved graph read owned by 01A |
 | ~~01A~~ | ~~`01A_RESIDUAL_READ_high.md`~~ | high | desk | closed 2026-10-03: desk evidence `b1c1e32`/`6039ff8`; owner accepted the residue with disclosure, hold lifted |
 | ~~02~~ | ~~`02_SHIP_TESTS_medium.md`~~ | medium | yes | closed by the owner 2026-10-03: E-P/E-A cleared on owner play, W-NEW PASS; record in 04's notes |
-| 03 | `03_STORE_AND_SITE_medium.md` | medium | no; owner inputs separate | store assets/copy, shared site and public README, package gates; no publication |
+| ~~03~~ | ~~`03_STORE_AND_SITE_medium.md`~~ | medium | no; owner inputs separate | closed 2026-10-03: surfaces `37aff24`, site `9d490ce` (undeployed); report `reports/STORE_AND_SITE_20261003.md` §12 |
 | ~~03A~~ | ~~`03A_RELEASE_CORRECTIONS_high.md`~~ | high | no | landed `284d13f` + its close commit: release gates, batch/launch-tree recovery, assembly proof in `archive/release_corrections_20261003/`; 04 verifies |
 | 04 | `04_FINAL_AUDIT_high.md` | high | no | independent backward review including root release-system job; permanent release handoff |
 
@@ -28,7 +28,7 @@ earlier; final claims wait for accepted evidence. Keep a live work list in the a
 a linked report, one commit-and-verify unit in progress. Sequential work, no parallel agents.
 
 04's 2026-10-03 review rejected preparation: `reports/FINAL_LAUNCH_AUDIT_20261003.md`.
-Correction order is **03A (landed) → resumed 03 → resumed 04**. The chain stays live;
+Correction order is **03A (landed) → resumed 03 (closed) → resumed 04**. The chain stays live;
 01A/02 are owner-closed and their tests/readers are not reopened.
 
 Follow `docs/agent/support/CHAIN_METHOD.md` and prompt-authoring: append result sha, commands,

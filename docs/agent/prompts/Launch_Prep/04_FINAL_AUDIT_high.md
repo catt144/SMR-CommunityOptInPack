@@ -62,6 +62,35 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+**Resumed 03 closed, 2026-10-03 (Claude Opus 5.5, `claude-opus-5-5`, from this session's
+model line; no subagents). Commits: `37aff24` (surfaces), the records commit carrying this note
+(03 deleted, row struck), site `9d490ce` (pushed, undeployed; Publish is `workflow_dispatch`).**
+Evidence and every command: `reports/STORE_AND_SITE_20261003.md` §12. Recheck independently:
+- F6: SHIP_RESIDUAL's exact class-reference disclosure is in both `UPLOAD_WORKFLOW` §3 blocks
+  (BEFORE YOU UNINSTALL, still last), regenerated `metadata.lua`, README and site
+  `opt-in/index.md`; the bought-upgrade sentence and ChoGGi/LukeH credit are now on README and
+  site too. Site `modules.md` gained StationRows' inert-settings line and limit pointers on the
+  hub/depot warnings; `report.md`'s content-mod exception precedes disable-all. OI-49 recorded
+  in SHIP_EVIDENCE's provenance row as the owner's ruling; no notice or Tripo line.
+- F7: report §7 marks P24, P27b and the modders class DONE at `d87c700`; the donor publish-day
+  job is P3, P21, P28 and the store-card/metadata companions. OI-51 unanswered; Home rehomed to
+  the train report and `perma/release_prompt.md`.
+- Gates on launch tree `scratch/launch03` assembled at `37aff24` (90 members, 0 drift, Arboretum
+  0 hits): parity 7/0 FAIL; preflight 41 checked/0 FAIL/1 UNCHECKABLE; pack 75 files,
+  102,621,618 B reconciled by member and asset split; parse 0 errors; doccheck GREEN; mkdocs
+  `--strict` exit 0; 290 local site links, 0 broken.
+- **Drift for this audit:** (1) report §7 had routed P24/P27b/modders to the fix pack's release
+  though `d87c700` had already landed them — corrected; (2) the site was pushed before this
+  repo's close (push does not deploy); (3) a peer seat committed `3c962f0`/`69ee509`/`239ff10`/
+  `95619e6` during the run, no path overlap; `perma/TRAIN_ORCHESTRATOR.md` §"What is left" still
+  lists this deleted brief as step 1 — left to its owner, not edited here; (4) preflight now
+  checks 41 rows on the launch tree vs the audit's 43 on the mixed tree; (5) the exact
+  disclosure's first sentence repeats the uninstall steps, kept verbatim per the owner's "a".
+- Model independence: 03A ran on Fable 5.1, this 03 resume on Opus 5.5; 04 needs a model
+  different from both.
+- Owner actions: OI-44 platform/approval at upload; uploads through `release_prompt.md`;
+  site deployment after the stores are live; OI-51 optional.
+
 **03A release corrections, 2026-10-03 (Claude Fable 5.1, `claude-fable-5-1`, from this
 session's system prompt; no subagents). Commits: `284d13f` (tools and procedures), then the
 commit carrying this note (launch assembly proof and close).** Receipts:

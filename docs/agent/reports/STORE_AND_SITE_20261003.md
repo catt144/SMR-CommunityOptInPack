@@ -30,6 +30,7 @@ This report is preparation, not a readiness verdict. Nothing here was uploaded o
 | Publish-day donor handoff (parked references reconciled) | COMPLETE (§7) |
 | First-publish steps draft for `UPLOAD_WORKFLOW` | COMPLETE (§6); lifted by the release-system build |
 | Gates, notes to 04 / RELEASE_SYSTEM / 01, checklist refresh, commits and push | COMPLETE |
+| Resumed run (F6/F7): residual disclosures and credit on every surface, OI-49 provenance, §7 reconciled, launch-tree gates, close | COMPLETE (§12) |
 
 ## 1 · Evidence receipt
 
@@ -167,13 +168,13 @@ section (built by this run) and a publish-day trigger that is still "the opt-in 
 |---|---|---|
 | P1 (two-mod intro), P4 ("Do I need both?"), P5 (heading), P6 (tab group), P19 ("Do I need both mods?") | **SUPERSEDED** by the site's Opt-In section and landing-page pointer this run added; do not paste. | P6/P19 name eight modules and retired ones; the new pages carry the current set and the standalone statement. |
 | P2, P10, P15, P18, P35 (drone-dial caveat and save-data passages) | **SUPERSEDED**; the dial caveat now lives on `content/opt-in/index.md` together with the demolish-first note. | The parked text knows only the dial; today's exit has two steps (OI-45). |
-| P3, P21, P27b (preferences "live in the optional mod") | **RESTORE-ADAPTED at publish**, one clause each, by the fix pack's own release (its site pages are its surfaces). Exact text proposed in the site commit's FAQ/index wording is not required; a one-clause link to `opt-in/` suffices. | Harmless, improves routing; the fix pack's pages are the donor's to edit, not this brief's. |
+| P3, P21, P27b (preferences "live in the optional mod") | P27b **DONE** in site `d87c700` (`faq.md` "Why isn't X fixed?" names and links the Opt-In mod); do not restore it again. P3 (`index.md:39`) and P21 (`faq.md` "Does it change game balance?") **RESTORE-ADAPTED at publish**, one clause each linking `opt-in/`, by the fix pack's own release (its site pages are its surfaces). | Harmless, improves routing; the fix pack's pages are the donor's to edit, not this brief's. |
 | P7, P8, P36 (no-store-links notes) | **DROP**; already gone from the live site, the fix pack is published. | Obsolete. |
-| P9, P29, P30, P33, P34 (plural "both mods" prose, repo links, listing calls) | **RESTORE-ADAPTED at publish** on `for-modders.md`, by the site's normal sweep: add the Opt-In repository link and the `SMROptInPack` veto example with a **current** id (`TrainHub`, not `NoHomeless`). | The persisted-prefix warning in P35 still holds (FIX_POLICY §3) and belongs on the modders page. This run already added the current form; see the site commit. |
+| P9, P29, P30, P33, P34 (plural "both mods" prose, repo links, listing calls) | **DONE** in site `d87c700` (`for-modders.md` "The Opt-In Modules mod" section, `TrainHub` veto example, repository link, prefix warning); nothing left to restore. Original plan: on `for-modders.md`, by the site's normal sweep: add the Opt-In repository link and the `SMROptInPack` veto example with a **current** id (`TrainHub`, not `NoHomeless`). | The persisted-prefix warning in P35 still holds (FIX_POLICY §3) and belongs on the modders page. This run already added the current form; see the site commit. |
 | P11, P12, P13, P14, P16, P22, P23 (install/FAQ passages about the optional mod's switches) | **SUPERSEDED** by `content/opt-in/index.md`; the fix pack's install page keeps its one-switch note as is. | Current wording lives with the mod it describes. |
 | P17 (one tracker covers both mods) | **DROP**; the report form already routes by mod. | Already true in a better form. |
 | P20 (toggles reset after the split) | **DROP**. | Never a player's experience; the donor itself says to reconsider. |
-| P24 (acknowledged-warnings remedy pointer in the FAQ) | **RESTORE-ADAPTED at publish** by the fix pack's release: one sentence pointing at the Opt-In module page. | The FAQ answer is on a fix-pack page; the pointer is the only safe addition. |
+| P24 (acknowledged-warnings remedy pointer in the FAQ) | **DONE** in site `d87c700` (`faq.md` links `opt-in/modules.md#acknowledged-warnings`); do not restore it again. | The FAQ answer is on a fix-pack page; the pointer is the only safe addition. |
 | P25 (Retirement Dome hotel), P26 (classic rockets), P27 (second sun reload) | P25, P26 **DROP** (D12, D01 retired). P27 **SUPERSEDED**: the reload note is on the Opt-In module page. | Retired modules get no player text. |
 | P28 (fix-list boundary paragraph) | **RESTORE-ADAPTED at publish** by the fix pack's release, naming the mod and linking `opt-in/`, without the eight/seven count. | Count is stale. |
 | P31, P32 (veto example and id rule) | **SUPERSEDED** by this run's modders-page addition with current ids. | `NoHomeless` is retired. |
@@ -181,9 +182,11 @@ section (built by this run) and a publish-day trigger that is still "the opt-in 
 | P38, P39 (fix pack `metadata.lua` strings), P40a–d (fix pack store card) | **FIX PACK RELEASE, publish day or later**: the separate-mod clause and companion bullet may return, adapted to the live store link and the two-step uninstall pointer; `last_changes` describes that release, never P39. Needs a fix-pack version bump and upload through its own release prompt. | Donor metadata/store changes require the donor's release and owner upload. |
 | ④ sheet `RELEASE_PORTAL_PREP.md` parked markers, `RELEASE_DESCRIPTION_OPTIN.md` banner | **FIX PACK HOUSEKEEPING** after publish: reverse the markers that still apply; `RELEASE_DESCRIPTION_OPTIN.md` and `STORE_OPTIN.md` are **historical** (eight modules, holes, 1.0.7) and are not the paste source; §3 above is. | The donor's own notes already say the opt-in text is release-prep's option, not a mandate. |
 
-The donor-side items are a single publish-day job for the fix pack's `release_prompt.md`: three
-one-clause restores (P3/P21/P27b, P24, P28 class), the modders-page plural restore, and the
-store-card/metadata companion clauses, all adapted to the live link. This report is the exact
+The donor-side items are a single publish-day job for the fix pack's `release_prompt.md`, as
+reconciled against site `9d490ce` on 2026-10-03: three one-clause restores (P3 on `index.md`, P21
+on `faq.md`, P28 on `fix-list.md`, without the eight/seven count), and the store-card/metadata
+companion clauses, all adapted to the live link. P24, P27b and the modders-page class are already
+on the site. This report is the exact
 input; no donor file was touched.
 
 ## 8 · Gates and limits — gate results
@@ -264,3 +267,47 @@ when it carries a published body.
 **Release machinery built; these launch inputs remain:** OI-44
 listing/platform facts, 01/02 shipping evidence and 04's verdict, credits and the residual
 line from 01, the owner's own portal work. Nothing here is "ready to publish".
+
+## 12 · Resumed run after 03A — F6/F7 closed (2026-10-03)
+
+Fired by the owner at `a98f1d1`; `git pull` up to date. Site `d87c700`, clean, `main` = `origin/main`.
+A peer seat committed `3c962f0`, `69ee509`, `239ff10` (orchestrator prompt, STATE) during the run;
+no path overlaps this run's. The Arboretum outbox hunk stayed unstaged throughout.
+
+| item | result |
+|---|---|
+| Class-reference disclosure (SHIP_RESIDUAL §"Residual dispositions", exact) | Both `UPLOAD_WORKFLOW` §3 blocks, inside BEFORE YOU UNINSTALL (still last, OI-45); `metadata.lua` regenerated; README; site `opt-in/index.md` |
+| Bought-upgrade sentence (exact) | Already on the blocks/metadata; added to README and site `opt-in/index.md` |
+| Prior-art credit (exact) | Already on the blocks/metadata; added to README and a site *Thanks* section |
+| Module removal sections | Site `modules.md`: Station rows carry an "In your save" line (settings stay, inert without the mod; SHIP_EVIDENCE D16 row, B2); Train Hub and Elevator Depot warnings point at the full limits |
+| Report page | Opt-In content-mod exception moved before the disable-every-mod step, with the backed-up-save path |
+| OI-49 | Recorded in SHIP_EVIDENCE's provenance table as the owner's ruling; no notice, no Tripo line, not called wholly original |
+| §7 donor handoff | P24, P27b and the modders class marked DONE at `d87c700`; publish-day job is now P3, P21, P28 and the store-card/metadata companions |
+| OI-51 | Unanswered; checklist Home rehomed to the train report and `perma/release_prompt.md` |
+
+**Gates** (launch tree `scratch/launch03` from `python tools/release_batch.py assemble --out
+scratch/launch03` at `37aff24`: 90 members, 0 changed/missing/extra vs manifest, held token
+`Arboretum` 0 hits):
+
+| gate | command | result |
+|---|---|---|
+| store parity | `python tools/store_parity.py --metadata scratch/launch03/metadata.lua` | 7 checked, 0 FAIL; Paradox == metadata 6617 chars; Steam 1130 words, block 6800 chars; card PRE-PUBLICATION |
+| upload preflight | `python tools/upload_preflight.py scratch/launch03` | 41 checked, 0 FAIL, 1 UNCHECKABLE (PDX login) |
+| pack prediction | `python tools/pack_predict.py scratch/launch03` | 75 files = root 4 + Code 19 + Data 2 + Entities 5 + Fallbacks 17 + Materials 4 + Meshes 5 + Textures 17 + UI 2; 102,621,618 B = 494,915 Code + 102,126,703 listed others (summed from the tree), = 570,139 non-asset (preflight) + 102,051,479 asset; `*/store_screenshots/*` 5 and `*/SourceData/*` 10 ignored |
+| parse | `python tools/parsecheck.py --dir scratch/parse03` (copy of `metadata.lua`) | 1 file, 0 errors |
+| doccheck | `python tools/doccheck.py` | GREEN (also in the commit hook) |
+| site build | `python -m mkdocs build --strict --site-dir B:/Dev/SMR/SMR-OptInPack/scratch/site03` in the site repo | exit 0, no warnings |
+| site links | `python scratch/linkcheck03.py scratch/site03` (HTMLParser over opt-in index/modules, report, index, install, FAQ, modders) | 290 local links, 0 broken files or fragments; rendered report page has the exception before the disable-all step; the three exact strings render on `opt-in/` |
+
+**Commits.** Site `9d490ce` (pushed; **committed, not deployed** — the Publish workflow is
+`workflow_dispatch` only). This repo `37aff24` (surfaces) and the records commit carrying this
+section. No upload, portal action, deployment or game run.
+
+**Limits.** Structural link check, not a browser screenshot. No certification from local checks.
+The disclosure's first sentence repeats the uninstall steps; kept because the owner accepted
+the exact text. **Executed model:** Claude Opus 5.5 (`claude-opus-5-5`), from this session's
+model line; no subagents. Skills: doc-editing.
+
+**Owner actions remaining:** OI-44's platform choice and console approval at upload; both
+store uploads (Paradox then Steam) through `perma/release_prompt.md` after 04's verdict; the
+site deployment after the stores are live; OI-51 if wanted (optional, not a gate).
