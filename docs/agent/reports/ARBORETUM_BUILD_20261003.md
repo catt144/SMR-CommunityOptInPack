@@ -7,13 +7,15 @@ to the starting tree. The build is for testing, not publication.
 
 ## Live work
 
-- Prepared, awaiting audit/commit: module, D19, generated template/class and save contract.
-- Prepared, awaiting audit/commit: real menu-load checks off/on, fix pack present/absent, original order restored.
-- IN PROGRESS: sitting slots, owner asks, final gates and independent audit; then exact-path commits/push
-  and consume `ARBORETUM_BUILD_high.md` with its map row. Audit selection is the remaining owner input.
+- DONE: module, D19, generated template/class and save contract, committed `0ff4a85` and moved
+  into `staging/` by `78eed20`.
+- DONE: menu-load checks off/on, fix pack present/absent, original order restored; the seven
+  logs are tracked.
+- DONE: independent audit, PASS at `67fa46b` (§Independent audit). Both one-off prompts consumed.
+- OWED, owner: the gameplay sitting (ck223, the fix pack's checklist) and OI-47/OI-48. Promotion
+  out of `staging/` awaits the post-launch release decision (D19).
 
-Unattended audit is pending the owner's model selection requested in chat. Checks below are
-working evidence until that independent review; no tested status or gameplay acceptance is claimed.
+Audited menu-load and desk evidence only; no tested status or gameplay acceptance is claimed.
 
 ## Source findings
 
@@ -148,9 +150,17 @@ live sitting belongs to ck223 in the fix pack's checklist.
 
 Executed model: **gpt-6-astra, high**, read from this session's `turn_context` record in
 `C:/Users/stkot/.codex/sessions/2026/10/03/rollout-2026-10-03T17-35-28-01a103b1-872b-7a51-be98-d3e79e4ef242.jsonl`.
-Only its model/effort fields were read for this receipt. Audit model and commits are pending
-owner selection. Do not consume the prompt or promote the evidence until the independent
-audit is complete. No new rule or engine-fact ID was minted.
+Only its model/effort fields were read for this receipt. No new rule or engine-fact ID was minted.
+
+Audit executed model: **claude-fable-5-1, medium**, read 2026-10-04 from the `model` and
+`effort` fields of this audit session's Claude Code transcript
+(`~/.claude/projects/b--Dev-SMR-SMR-OptInPack/20283573-d47c-4615-821e-e3a07525ab14.jsonl`;
+`grep -o '"model":"[^"]*"' | sort | uniq -c` → one value). The owner fired the audit brief in
+Claude Code, so there is no Codex record for it; the brief's `_high` suffix was a routing
+hint and the recorded effort is what ran. Audit commits: `e17dcd0` (verdict and record
+corrections), `0ce21a7` (the seven logs), and the closing commit that consumed both prompts.
+Git stores the logs LF-normalised (`.gitattributes`); the receipt's sha256 values are of the
+on-disk CRLF bytes the game wrote.
 
 Final checks: Opt-In and fix-pack `python tools/doccheck.py` GREEN; module and TestKit Lua
 parse; generator parity and the native-body/slot desk checks pass. `upload_preflight.py`
@@ -173,13 +183,10 @@ The Opt-In gate's warnings, verbatim (existing archive files are append-only):
   WARN  M Code/80_AgentSlots.lua
 ```
 
-Resume: audit the working diff, `tools/arboretum/` and complete boot logs on the owner's
-selected different model. Then commit the module/record/save contract, followed by the
-reviewed evidence and sitting. Exact paths only; force-add the ignored new archive logs.
-Commit/push the sitting file on the kit's current task branch, and the fix pack's ck223 plus
-its routing report without its pre-existing RULE_PLACEMENT_TEST edit. Consume the supplied
-one-off and its map row only in the closing commit. Push the reviewed commits.
-The owner's initial FUTURE_IDEAS changes and store captures remain outside these commits.
+Resume: nothing is owed by an agent on this build. The next step is the owner's ck223 sitting
+(§Sitting, slots under `staging/tools/arboretum/`); its results, OI-47/OI-48 and the
+promotion decision start from D19. Not checked by the audit, out of its scope: the kit
+branch's sitting file and the fix pack's ck223 entry.
 
 ## Independent audit
 
