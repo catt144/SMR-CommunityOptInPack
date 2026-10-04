@@ -62,8 +62,7 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
-01A desk run at `0ff4a85` plus its owned diff, commit subject
-`Bound exact Save B residual evidence and native reader handoff`:
+01A desk evidence committed at `b1c1e32`:
 `reports/SHIP_RESIDUAL_20261003.md` and `archive/ship_residual_20261003/` preserve
 exact hashes/metadata/token offsets, candidate modifier strings, source hashes and
 capability searches. Stop 1: original class owners and modifier registrations/effects

@@ -11,7 +11,7 @@ The accepted train battery and soak retain their owner-scoped acceptance.
 
 | commit-and-verify unit | state | evidence / remaining action |
 |---|---|---|
-| Instrument → evidence → disposition/handoff | desk prepared | exact-B receipt, source assessment, negative fixture control and doccheck GREEN; stop-1 handoff below |
+| Instrument → evidence → disposition/handoff | desk committed `b1c1e32` | exact-B receipt, source assessment, negative fixture control and doccheck GREEN; stop-1 handoff below |
 | Serialized ownership and native effects | held at stop 1 | validated graph decoder or suitable native reader capability, then reviewed shared-kit work under sibling authority |
 
 MEASURED: `python docs/archive/ship_residual_20261003/read_residual_v2.py` at
@@ -234,3 +234,9 @@ and `checks.json`. The same command measured this handoff's raw bytes against
 receipt. `python tools/doccheck.py` GREEN and `git diff --check` clean before
 commit. Expected frozen-row warnings, existing archive EOL warnings and the
 shared kit's uncommitted Arboretum slots remain report-only. No Lua was changed.
+
+The close-out records commit pins `b1c1e32` in downstream notes; final handoff
+byte measurements are appended as `archive/ship_residual_20261003/final_sizes.json`,
+using the same command/filter/base as checks.json. No brief or obligation was
+removed. Next work is the shared-kit capability/implementation handoff above;
+this is not authority to start launch 02 or to treat the residue hold as cleared.

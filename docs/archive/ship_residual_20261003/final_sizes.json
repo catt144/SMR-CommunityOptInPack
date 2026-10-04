@@ -1,0 +1,34 @@
+{
+  "command": "python scratch/residual_checks.py",
+  "head": "b1c1e3214806eb8e28eda1cfd4268ab15d22114e",
+  "negative_fixture": "rejected before decoder",
+  "receipt_members": "reconciled",
+  "sizes": [
+    {
+      "path": "docs/agent/prompts/Launch_Prep/01A_RESIDUAL_READ_high.md",
+      "before_bytes": 5424,
+      "after_bytes": 6260,
+      "delta": 836
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/02_SHIP_TESTS_medium.md",
+      "before_bytes": 14753,
+      "after_bytes": 15655,
+      "delta": 902
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md",
+      "before_bytes": 8805,
+      "after_bytes": 9463,
+      "delta": 658
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md",
+      "before_bytes": 11858,
+      "after_bytes": 13291,
+      "delta": 1433
+    }
+  ],
+  "before_total": 40840,
+  "after_total": 44669
+}

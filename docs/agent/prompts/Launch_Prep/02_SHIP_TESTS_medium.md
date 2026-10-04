@@ -52,9 +52,8 @@ model in 04. Owner time is not a budget for extra scope.
 
 ## Notes from upstream
 
-01A desk read at `0ff4a85` plus its owned diff: see
-`reports/SHIP_RESIDUAL_20261003.md`, committed with subject
-`Bound exact Save B residual evidence and native reader handoff`. Exact fixture
+01A desk evidence committed at `b1c1e32`: see
+`reports/SHIP_RESIDUAL_20261003.md`. Exact fixture
 and decoded hashes, metadata and token offsets rechecked; archived game sources
 match the prior pack receipt. Stop 1 retains UNKNOWN serialized class owners and
 original modifier registrations/effects. The report contains the concrete shared-kit

@@ -76,9 +76,8 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
-01A desk disposition at `0ff4a85` plus its owned diff: see
-`reports/SHIP_RESIDUAL_20261003.md`, committed with subject
-`Bound exact Save B residual evidence and native reader handoff`. The report gives
+01A desk disposition committed at `b1c1e32`: see
+`reports/SHIP_RESIDUAL_20261003.md`. The report gives
 exact demolition/missing-class disclosure text and retains the existing bought-
 upgrade sentence. Keep both class-owner paths and original native modifier effects
 UNKNOWN; candidate modifier-id strings are not registrations. No clean-removal,
