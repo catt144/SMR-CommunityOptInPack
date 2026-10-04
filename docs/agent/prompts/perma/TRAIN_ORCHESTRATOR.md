@@ -21,17 +21,15 @@ obeying agent reads them, never only in chat. It then hands the owner the next `
   the hands of players."* Add no soak, battery or edge-case gate. What the owner has seen in play
   counts as evidence.
 
-## What is left (as of `239ff10`, 2026-10-03)
+## What is left (as of `f5b094d`, 2026-10-03)
 
 Launch chain, fired in order. Its map and rulings are in `Launch_Prep/README.md`, plus each link's
 `## Notes from upstream`:
 
-1. `task docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md`, resumed. Store copy, the shared
-   site and the public README, credits (OI-49: the owner's own paid-plan model), and both residue
-   disclosure sentences next to OI-45's uninstall note.
-2. `task docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md`, on a **different model** from the ones
-   that ran 03A and 03. If it fails, its corrections handoff is the next fire, as 03A was.
-3. `task docs/agent/prompts/perma/release_prompt.md`, the upload. **Steam live expires this prompt.**
+1. `task docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md`, on a model that ran no earlier
+   link: not Fable 5.1 (03A, 03), Opus 5.5 (03 resume) or GPT-6 (01, brief authoring). If it
+   fails, its corrections handoff is the next fire, as 03A was.
+2. `task docs/agent/prompts/perma/release_prompt.md`, the upload. **Steam live expires this prompt.**
 
 Owner asks still open, on `docs/PLAYTEST_CHECKLIST.md`:
 
