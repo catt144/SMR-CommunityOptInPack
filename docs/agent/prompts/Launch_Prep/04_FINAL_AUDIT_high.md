@@ -62,6 +62,18 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+**02 closed by the owner, 2026-10-03; its prompt is deleted.**
+
+- **E-P and E-A** (Mod Options enable, live roundtrip, cold persistence, fix pack absent) are
+  **cleared on the owner's play**. The owner has used Mod Options in both configurations
+  throughout development (memory rule: owner play is evidence).
+- **W-NEW PASS, owner-attended, guided by the orchestrator session.** A native save `WARNTEST`
+  was written with `optional_mod` false (`0579b78`). It was loaded after a full restart with
+  Opt-In disabled, and showed the native dialog "The following mods are missing or outdated:
+  Relaunched Fix Pack: Opt-In Modules. Some features may not work." with Load anyway / Cancel
+  (owner screenshot). W-OLD and W-refresh were not run; the owner scratched them.
+- **No log was archived for this check;** the evidence is the owner's screenshot.
+
 01A desk evidence committed at `b1c1e32`:
 `reports/SHIP_RESIDUAL_20261003.md` and `archive/ship_residual_20261003/` preserve
 exact hashes/metadata/token offsets, candidate modifier strings, source hashes and

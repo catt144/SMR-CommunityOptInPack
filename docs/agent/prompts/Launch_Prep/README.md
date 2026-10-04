@@ -16,7 +16,7 @@ Recheck `git status` before editing either, and never stage, restore or ship its
 |---|---|---|---|---|
 | ~~01~~ | ~~`01_SHIP_EVIDENCE_high.md`~~ | high | no | prepared in `0579b78`; ledger `reports/SHIP_EVIDENCE_20261003.md`; unresolved graph read owned by 01A |
 | 01A | `01A_RESIDUAL_READ_high.md` | high | desk first; native read only if needed | resolve exact content-free Save B reference owners and native modifier effects before final residue certification |
-| 02 | `02_SHIP_TESTS_medium.md` | medium | yes | remaining shipping test cells with controls and archived evidence |
+| ~~02~~ | ~~`02_SHIP_TESTS_medium.md`~~ | medium | yes | closed by the owner 2026-10-03: E-P/E-A cleared on owner play, W-NEW PASS; record in 04's notes |
 | 03 | `03_STORE_AND_SITE_medium.md` | medium | no; owner inputs separate | store assets/copy, shared site and public README, package gates; no publication |
 | 04 | `04_FINAL_AUDIT_high.md` | high | no | independent backward review including root release-system job; permanent release handoff |
 
