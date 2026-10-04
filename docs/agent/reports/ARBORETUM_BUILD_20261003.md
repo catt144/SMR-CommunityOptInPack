@@ -45,7 +45,8 @@ native debit/empty/restart controls and build locks passed. This is a synthetic 
 not a game boot. `python staging/tools/arboretum/generate.py --check` found fresh outputs;
 `python tools/parsecheck.py` parsed the code list. Independent review remains pending.
 
-Menu-load evidence (MEASURED, pending independent audit):
+Menu-load evidence (MEASURED; audited below; the seven logs are tracked, force-added past
+`.gitignore`'s `*.log`, and all predate the move to `staging/`):
 `python staging/tools/arboretum/read_boots.py` validates complete logs under
 `docs/archive/arboretum_20261003/`, with required successful controls and a failing error check.
 The receipt carries HEAD, hashes, line numbers, error filters and their members.

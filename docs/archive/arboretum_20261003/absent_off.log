@@ -1,0 +1,172 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+					Render 0:00:00:007
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	44%
+Disk Free      	1211984 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:108
+Steam initialized (AppId 3215050)
+					Render 0:00:00:111
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:463
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1074
+GPU Driver Package Version     	610.74
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:606
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:843
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:795
+*** audio info
+Audio Endpoint                 	Speakers (Razer Leviathan V2)
+Lua revision: 406343
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:16:297
+Account storage loaded successfully in 2 ms
+						Lua 0:00:16:298
+DLC norman loaded, lua revision 406343, assets revision 33225
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:16:305
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Passage Network (id iooW34Y, v1.00-038) packed from steam
+[mod] Loaded mod def Better Disasters (id YbJmPhb, v1.04-055) packed from steam
+[mod] Loaded mod def Grom (id DoEpVdS, v2.00-974) packed from steam
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+						Lua 0:00:16:700
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:16:704
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12296 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12296 id=1
+						Lua 0:00:16:709
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+						Lua 0:00:16:710
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+[mod] [CommunityOptInPack] StationRows: applied
+[TrainHub] train export floor loaded (standing + transient holds)
+						Lua 0:00:16:711
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] TrainHub: applied
+						Lua 0:00:16:713
+[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:16:715
+[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility
+[mod] [CommunityOptInPack] ElevatorDepot: applied
+						Lua 0:00:16:716
+[mod] [CommunityOptInPack] Arboretum: inactive (opt-in module, off by default — enable it in Options → Mod Options)
+						Lua 0:00:17:424
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:17:583
+Reloading done in 1278 ms
+						Lua 0:00:17:584
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:630
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12296 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12296 id=2
+						Lua 0:00:18:016
+[preset] Preset postprocess took 158 ms.
+						Lua 0:00:18:064
+482 / 482 particle streams loaded in 41 ms.
+5 / 5 particle streams loaded in 0 ms.
+						Lua 0:00:18:066
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:18:278
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:18:371
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12296 id=3
+						Lua 0:00:18:406
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12296 id=4
+						Lua 0:00:18:425
+[mod] Loaded mod items for: SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack						Lua 0:00:18:426
+
+						Lua 0:00:18:776
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12296 id=5
+						Lua 0:00:19:354
+[PdxSDK] Started up. Took 1219
+						Lua 0:00:19:762
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:19:763
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:19:959
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:21:267
+[mod] [ARBORETUM-BOOT] loaded=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack
+[mod] [ARBORETUM-BOOT] saved=SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack
+[mod] [ARBORETUM-BOOT] cold active=false expected=false fixpack=false detail=opt-in module, off by default — enable it in Options → Mod Options
+[mod] [ARBORETUM-BOOT] template=SMROptInArboretum entity=GardenLargeCP3 resource=Seeds stat_scale=1000
+[mod] [ARBORETUM-BOOT] geometry deferred to loaded map; donor_entity=GardenLargeCP3
+[mod] [ARBORETUM-BOOT] live=false reconciled=false
+[mod] [CommunityOptInPack] Arboretum: applied
+[mod] [ARBORETUM-BOOT] live=true reconciled=true
+[mod] [CommunityOptInPack] Arboretum: deactivated via Mod Options (installed hooks now pass through)
+[mod] [ARBORETUM-BOOT] live=false reconciled=false
+[mod] [CommunityOptInPack] Arboretum: re-activated via Mod Options
+[mod] [ARBORETUM-BOOT] live=true reconciled=true
+[mod] [CommunityOptInPack] Arboretum: deactivated via Mod Options (installed hooks now pass through)
+[mod] [ARBORETUM-BOOT] result=true detail=menu class/template and toggles only; gameplay NOT RUN
+						Lua 0:00:26:267
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:00:26:274
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:00:26:527
+
+
+*** Debug::Done()
+Time (ms)	26527
+
+
