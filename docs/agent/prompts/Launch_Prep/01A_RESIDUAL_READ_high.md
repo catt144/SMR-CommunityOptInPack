@@ -27,7 +27,7 @@ Preserved fixture `local/ship-evidence-20261003/SMRTK_B.sav`, SHA-256
 Decoded persist SHA-256 `512213c5bc0dc5c67571966c496f29b91aff20d05d2d9d3dbf9d8c8039074e14`.
 Build 1.1.1.406343, Steam 25579348. The receipt pins game time, toolkit session
 and native log match. Rehash before use. Archived decoder validates BPUL/ZSTD
-but not the native `SPCONRT` graph; token presence is not reference ownership.
+but not the native graph; token presence is not reference ownership.
 
 Both `SMROptInTrainHub6Base:SMROptInTrainHub6` and
 `SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev` remain. The native B2 load
@@ -87,3 +87,16 @@ Run appropriate instrument checks and doccheck. Append evidence/disposition to
 02/03 and drift to 04, recheck log/status, commit only owned paths/hunks and push.
 Strike this manifest row and delete this brief only when the ownership/disposition
 outcome is met. Claim bounded residual evidence, never a clean-save/recovery pass.
+
+## Resume after the desk read — 2026-10-03
+
+`reports/SHIP_RESIDUAL_20261003.md` and `archive/ship_residual_20261003/receipt.json`
+record the exact-B recheck, sourced modifier contract, disclosures and concrete
+shared-kit handoff. **Stop 1: original serialized owners/registrations remain
+UNKNOWN; the launch residue row stays held.** No native reading was run or kit
+binding installed. The report names the missing graph-edge capability; current
+mod persistence hooks are blocked and a post-load walker cannot prove original
+serialization. Resume from that capability/handoff, not another token census.
+Obtain sibling authority and independent implemented-binding review before any
+shared sitting. The original SPCONRT label was not validated: decoded persist
+starts with mgvs and has no literal SPCONRT match. The fixture hashes still agree.

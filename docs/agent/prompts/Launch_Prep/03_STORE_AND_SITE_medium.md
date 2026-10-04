@@ -76,6 +76,17 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+01A desk disposition at `0ff4a85` plus its owned diff: see
+`reports/SHIP_RESIDUAL_20261003.md`, committed with subject
+`Bound exact Save B residual evidence and native reader handoff`. The report gives
+exact demolition/missing-class disclosure text and retains the existing bought-
+upgrade sentence. Keep both class-owner paths and original native modifier effects
+UNKNOWN; candidate modifier-id strings are not registrations. No clean-removal,
+harmless-reference or train-recovery claim is supported. OI-45 stands. 01A's
+stop-1 hold remains; apply disclosures under your existing surface authority without
+calling the launch residue row passed. OI-50 is already ruled post-launch in the
+chain README; do not reopen the older package-scope question below.
+
 01 preparation is `0579b78`; `reports/SHIP_EVIDENCE_20261003.md` owns receipts,
 checks and remaining obligations. Doccheck/store parity/checkable upload guards
 passed. Claims remain conditional on 01A, owner provenance/package choices,

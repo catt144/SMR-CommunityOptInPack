@@ -13,6 +13,7 @@ desk preparation record, not a new attended test or publication approval.
 | Save residue, rescue applicability and provenance | prepared with holds | exact Save B preserved; graph ownership and Tripo origin unresolved |
 | Remaining attended plan and independent review route | prepared | filled 02 and 01A; corrected plan reread by the second seat; 04 drift notes |
 | Close | prepared | evidence/plan committed at `0579b78`; this lifecycle commit consumes 01; push verified in the task's final response |
+| 01A residual read: instrument → evidence → disposition/handoff | desk prepared; stop 1 hold | [Residual report](SHIP_RESIDUAL_20261003.md): exact B verified, capability limit and shared-kit contract recorded; native owners/effects UNKNOWN. Doccheck GREEN; 01A stays live. |
 
 The initial shared tree contains an Arboretum test build (D19) and changes to
 metadata, items, policy, checklist, future ideas, generated index and prompt map.

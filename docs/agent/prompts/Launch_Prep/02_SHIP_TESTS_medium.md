@@ -52,6 +52,20 @@ model in 04. Owner time is not a budget for extra scope.
 
 ## Notes from upstream
 
+01A desk read at `0ff4a85` plus its owned diff: see
+`reports/SHIP_RESIDUAL_20261003.md`, committed with subject
+`Bound exact Save B residual evidence and native reader handoff`. Exact fixture
+and decoded hashes, metadata and token offsets rechecked; archived game sources
+match the prior pack receipt. Stop 1 retains UNKNOWN serialized class owners and
+original modifier registrations/effects. The report contains the concrete shared-kit
+reader contract and its controls; it is not implemented or independently reviewed.
+Do not boot from this specification. Native post-load measurements with Opt-In
+present cannot certify original serialization or effects after removal. Obtain
+shared-repo authority and second-seat binding review through the existing route;
+preserve the current uncommitted Arboretum slots. 01A and this prerequisite stay live.
+OI-50 is already ruled post-launch in the chain README (`7f9c0e6`/`0ff4a85`);
+the older prerequisite below must not cause a repeated owner question.
+
 01 preparation committed at `0579b78`: source/guard receipts, owner actions,
 conditional plan and corrected second-seat read. Doccheck, store parity and
 checkable upload guards passed; no new native test. All launch limits below stand.

@@ -1,0 +1,149 @@
+{
+  "command": "python docs\\archive\\ship_residual_20261003\\read_residual_v2.py",
+  "head": "0ff4a853ef012bc43ba49f358c138e613547c396",
+  "status": {
+    "command": "git status --short",
+    "exit": 0,
+    "stdout": " M docs/agent/bugs/D17.md\n M docs/agent/bugs/D18.md\n M docs/agent/prompts/Launch_Prep/01A_RESIDUAL_READ_high.md\n M docs/agent/prompts/Launch_Prep/02_SHIP_TESTS_medium.md\n M docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md\n M docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md\n M docs/agent/prompts/perma/RELEASE_OUTBOX.md\n M docs/agent/reports/SHIP_EVIDENCE_20261003.md\n M items.lua\n M metadata.lua\n?? docs/agent/reports/SHIP_RESIDUAL_20261003.md\n?? docs/archive/ship_residual_20261003/\n",
+    "stderr": ""
+  },
+  "build": "1.1.1.406343",
+  "steam_build": "25579348",
+  "source": "B:\\Dev\\SMR\\SMR-OptInPack\\local\\ship-evidence-20261003\\SMRTK_B.sav",
+  "save_sha256": "b07a3cebc193c6eb129aa25e7e22da815cb152253f201a69282a4ae86dccd7d6",
+  "native_marker_offsets": [],
+  "persist_prefix_hex": "6d6776732f00010010bb9a010000000000000000000000000000000079746963",
+  "persist_sha256": "512213c5bc0dc5c67571966c496f29b91aff20d05d2d9d3dbf9d8c8039074e14",
+  "persist_bytes": 20145887,
+  "identity": {
+    "GameTime": 35790404,
+    "smrtk_session": "1791046548:158077098:67966858:460623979",
+    "last_id": "2383",
+    "savename": "SMRTK_B.sav"
+  },
+  "identity_patterns": {
+    "GameTime": "GameTime\\s*=\\s*35790404\\b",
+    "session": "1791046548:158077098:67966858:460623979",
+    "last_id": "id\\s*=\\s*\"2383\"",
+    "savename": "savename\\s*=\\s*\"SMRTK_B.sav\""
+  },
+  "decoder_sha256": "d9f9232c752e1f017c64c047e03d0f70c30cd400d3247218e68ce2e9b922a32f",
+  "reader_sha256": "549f5ef654a51579a563506a8102b86470f2cdf4b0fd16d4ea65f40010dc1eff",
+  "tokens": {
+    "SMROptIn_hub_upgrades": {
+      "count": 1,
+      "offsets": [
+        11090393
+      ]
+    },
+    "SMROptInTrainHub6Base:SMROptInTrainHub6": {
+      "count": 1,
+      "offsets": [
+        6642700
+      ]
+    },
+    "SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev": {
+      "count": 1,
+      "offsets": [
+        6271579
+      ]
+    },
+    "SMROptIn_station_rows": {
+      "count": 1,
+      "offsets": [
+        5932322
+      ]
+    }
+  },
+  "candidate_modifier_id_tokens": {
+    "6430_upgrade1_mod_1": {
+      "count": 1,
+      "offsets": [
+        6170151
+      ]
+    },
+    "6430_upgrade1_mod_2": {
+      "count": 1,
+      "offsets": [
+        6184187
+      ]
+    },
+    "6430_upgrade1_mod_3": {
+      "count": 1,
+      "offsets": [
+        6184351
+      ]
+    }
+  },
+  "candidate_modifier_id_count": 3,
+  "candidate_modifier_id_occurrences": 3,
+  "source_archive": "B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src",
+  "source_members": {
+    "CommonLua/Core/persist.lua": {
+      "sha256": "953b71e24970d062bee759371830e2ff35ddaeb409d9dc463f0f8601be2af3c7",
+      "bytes": 7247
+    },
+    "CommonLua/Core/map.lua": {
+      "sha256": "4f1dcbba742f1225358186f606f3ba5238cf9ed8270c4ad5a537812d8e20f900",
+      "bytes": 34689
+    },
+    "CommonLua/Savegame.lua": {
+      "sha256": "a022a472b7b1804d57ffc9e85d5838931aa7ff76c71401a682d30924c348f49e",
+      "bytes": 49835
+    },
+    "CommonLua/Modding/Mod.lua": {
+      "sha256": "293f9f823b3d657b67fb4a7564564abe71d3a5e9c5894e7f6d40336643ddfe13",
+      "bytes": 103163
+    },
+    "Lua/Modifiers.lua": {
+      "sha256": "b7412a474a2ef288b2bfde5241ec4a2cf33ed88bb23d7292822221d69f9f9c58",
+      "bytes": 15553
+    },
+    "Lua/LabelContainer.lua": {
+      "sha256": "342d00f987272c024b322d76261014cc94b076405188cf0e3591588c8714dc63",
+      "bytes": 4254
+    },
+    "Lua/Buildings/Building.lua": {
+      "sha256": "02b438909f4a0e0cb880a41cc05f35cdeb0bfcbb22bb3f4631d056b93fa68d9a",
+      "bytes": 164461
+    }
+  },
+  "module_members": {
+    "Code/TrainHub_20_TrainHub.lua": "758fb685889ab498866d862378f269739a6c2a3dae1c7fc67fa2c4a168918497",
+    "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua": "4f3fbdafb3278e705acb139025225a36a1d709c901d92af7ea0f27e6a1e65d6a"
+  },
+  "kit_head": "b58ae189a5cf676069d03c6e25dad44fc754e7c3",
+  "kit_status": {
+    "command": "git -C ../SMR-BugFixPack-TestKit status --short",
+    "exit": 0,
+    "stdout": " M Code/80_AgentSlots.lua\n",
+    "stderr": ""
+  },
+  "searches": [
+    {
+      "command": "rg -a -o SPCONRT B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\ship_residual_20261003\\decoded\\persist",
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "rg -a -n -o SMROptIn_hub_upgrades|SMROptInTrainHub6Base:SMROptInTrainHub6|SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev|SMROptIn_station_rows B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\ship_residual_20261003\\decoded\\persist",
+      "exit": 0,
+      "stdout": "39484:SMROptIn_station_rows\n40471:SMROptInElevatorDepotDevBase:SMROptInElevatorDepotDev\n43256:SMROptInTrainHub6Base:SMROptInTrainHub6\n48877:SMROptIn_hub_upgrades\n",
+      "stderr": ""
+    },
+    {
+      "command": "rg -n SPCONRT|EngineLoadGame|GetLuaLoadGamePermanents tools ../SMR-BugFixPack/tools ../SMR-BugFixPack-TestKit/Code -g *.py -g *.lua",
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "rg -n \"EngineLoadGame|GetLuaLoadGamePermanents|PersistGatherPermanents = true|PersistLoad = true|PersistSave = true\" B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Savegame.lua B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Modding\\Mod.lua B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Core\\persist.lua",
+      "exit": 0,
+      "stdout": "B:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Core\\persist.lua:99:function GetLuaLoadGamePermanents()\nB:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Savegame.lua:803:\tlocal err, version = EngineLoadGame(folder .. \"persist\")\nB:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Modding\\Mod.lua:1333:\tGetLuaLoadGamePermanents = true,\nB:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Modding\\Mod.lua:1444:\tPersistGatherPermanents = true,\nB:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Modding\\Mod.lua:1445:\tPersistLoad = true,\nB:\\Dev\\SMR\\SMR-Shared\\SMR-SrcArchive\\1.1.1.406343\\Src\\CommonLua\\Modding\\Mod.lua:1446:\tPersistSave = true,\n",
+      "stderr": ""
+    }
+  ],
+  "limit": "Envelope and token evidence only. No native graph edges decoded; candidate modifier strings are NOT registrations or effects. Reader search is confined to the named tool/kit trees, not proof that no decoder exists elsewhere."
+}

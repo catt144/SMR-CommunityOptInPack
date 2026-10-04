@@ -62,6 +62,27 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+01A desk run at `0ff4a85` plus its owned diff, commit subject
+`Bound exact Save B residual evidence and native reader handoff`:
+`reports/SHIP_RESIDUAL_20261003.md` and `archive/ship_residual_20261003/` preserve
+exact hashes/metadata/token offsets, candidate modifier strings, source hashes and
+capability searches. Stop 1: original class owners and modifier registrations/effects
+remain UNKNOWN; no game/kit changes, native result or audit. 01A remains live.
+Audit its concrete shared-kit contract before accepting implemented bindings;
+post-load paths do not prove serialized ownership and current sync/fixups can alter
+registrations. The report carries exact disclosures for 03.
+
+Drift: the first instrument assumed literal SPCONRT at offset zero and a metadata.lua
+member; it failed closed. Preserved v2 reads savegame_metadata and records the mgvs
+prefix; decoded persist contains no literal SPCONRT, with residual tokens as positive
+controls. This refutes the assumed marker, not the matching fixture identity.
+A source-locator path typo was corrected before citing Building.lua. No graph tags
+were guessed. OI-50/checklist and older 02 prerequisite still ask a question already
+settled by `7f9c0e6`/`0ff4a85`; README's post-launch D19 ruling governs. Historical
+STATE train/build claims likewise do not override command-read evidence. Existing
+Arboretum/release working-tree edits and kit slots were preserved. Execution model
+exposed in this transcript is GPT-6; independent different-model audit remains owed.
+
 01's prepared evidence/plan is committed at `0579b78`; its lifecycle close consumes
 01 with graph work owned by 01A and owner decisions at OI-49/OI-50. The report is
 `reports/SHIP_EVIDENCE_20261003.md`. Review the actual commit diff: shared Arboretum
