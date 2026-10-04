@@ -475,7 +475,13 @@
   "portals": {
    "paradox": {
     "snapshots": [],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-04",
+      "result": "uploaded",
+      "owner_words": "Ok its uploaded and everything looks good [agent note: no Paradox package snapshot exists; the Steam upload deleted it before any snapshot was taken, so no exact-package claim is made for Paradox. Store links and Paradox platform/approval wording not yet reported]"
+     }
+    ]
    },
    "steam": {
     "snapshots": [
@@ -499,7 +505,13 @@
       }
      }
     ],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-04",
+      "result": "uploaded",
+      "owner_words": "Ok its uploaded and everything looks good [agent note: Steam changelog for 3813142702 shows one Update, Oct 3 @ 11:19pm, with the first-release note; snapshot steam-1 matches the launch tree 75/75]"
+     }
+    ]
    }
   },
   "close": {

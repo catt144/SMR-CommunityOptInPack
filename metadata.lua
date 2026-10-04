@@ -44,7 +44,7 @@ return PlaceObj('ModDef', {
 	-- especially with the amount of QA we have done") — matches the changelog's
 	-- "Initial release" and the sibling pack. PackVersion reads
 	-- major.minor.version.
-	'version', 0,
+	'version', 2,
 	'version_major', 1,
 	'version_minor', 0,
 	'lua_revision', 350453,
@@ -174,6 +174,11 @@ return PlaceObj('ModDef', {
 		"SMROptInElevatorDepotReceiver",
 	},
 	'has_data', true,
+	-- Editor writeback, first publish 2026-10-04 (batch 2026-10-04-01): copied from
+	-- the launch tree's metadata.lua, never typed. `version` above is the editor's too.
+	'pdx_id', 161911,
+	'pdx_version', "1",
+	'steam_id', "3813142702",
 	'TagGameplay', true,
 	'TagBuildings', true,
 })
