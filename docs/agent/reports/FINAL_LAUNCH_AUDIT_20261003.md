@@ -414,3 +414,124 @@ report-only; complete command output is retained in the gate receipts.
 Next owner kickoff: `task docs/agent/prompts/Launch_Prep/03A_RELEASE_CORRECTIONS_high.md`.
 Then resume 03 and independently re-run 04 on changed inputs and unresolved
 findings. The permanent release prompt is not yet the next kickoff.
+
+## Resumed review after 03A and 03 — verdict (run at `364f17c`, closed 2026-10-04)
+
+**Agent preparation is accepted.** Nothing found blocks `perma/release_prompt.md`. This is not
+"ready to publish": no editor, portal, junction swap or real package of this mod was involved,
+and the first-use limits below are the release session's to carry to the owner.
+
+**Executed model: Claude Fable 5.1 (`claude-fable-5-1`), from this session's system prompt; no
+subagents.** This is the model that ran 03, 03A and the release-system build, so this review is
+fresh context, not a different model. The owner waived the different-model condition for this
+run: asked at the start, the owner answered *"this code base only has gpt and fable and opus.
+The only other option would be to run the audit on terra or sonnet which are bottom tier
+models. So not much of a choice"*; the orchestrator recorded it in `364f17c`. Read every
+"independent" below with that limit.
+
+### What was re-run, on final inputs
+
+| check | command / filter | result |
+|---|---|---|
+| launch tree | `python tools/release_batch.py assemble --out scratch/launch04` at `364f17c` | exit 0; 90 members, 0 changed/missing/extra; 7 registered modules (AcknowledgedWarnings, DroneStatDials, ElevatorDepot, MultipleSuns, ServiceInterestTags, StationRows, TrainHub); 8 option items; 2 Data templates; 3 generated files; `Arboretum` 0 hits; every file sha256-equal to 03's `scratch/launch03` |
+| preflight | `python tools/upload_preflight.py scratch/launch04` | 41 checked, 0 FAIL, 1 UNCHECKABLE (Paradox login) |
+| pack prediction | `python tools/pack_predict.py scratch/launch04` (and `assemble`'s own count) | 75 files, 102,621,618 raw bytes |
+| store parity | `python tools/store_parity.py --metadata scratch/launch04/metadata.lua` | 7 checked, 0 FAIL |
+| release selftest | `python tools/release_selftest.py` | 53 legs, 0 FAIL |
+| batch state | `python tools/release_batch.py status` | `NEW_BATCH`, no batch ever closed |
+| doccheck / counts | `python tools/doccheck.py`, `--emit-counts` | GREEN; 19 Code files, 7 registered modules, 15 D rows |
+| build and sources | Steam `appmanifest_3215050.acf` `buildid`; `python docs/archive/final_launch_audit_20261003/verify.py` | build 25579348; the archived Lua/Data member hashes, train-log filters, 38 stock pairs and the removal window all still verify |
+| site | `python -m mkdocs build --strict` at site `9d490ce` (clean, = `origin/main`); `python scratch/linkcheck03.py scratch/site04` | exit 0; 290 local links, 0 broken |
+| live site | GET `https://catt144.github.io/SMR-CommunityMods/opt-in/` and `/report/` | 404 (undeployed, as designed); the live report form already offers the Opt-In option and `worker/src/index.js` routes `opt-in` |
+
+Falsifiers chosen here, not inherited: `pack_list.py --tree scratch/launch04` against a real
+game-built package of another mod found at the snapshot path exits 1 (MISMATCH);
+`store_parity.py` on a metadata copy with one damaged word exits 1 at char 887;
+`--confirm-live` exits 1 on the pre-publication card. The three disclosure and credit sentences
+were counted whitespace-normalised: once each in `metadata.lua` (repo and launch tree),
+`README.md` and site `opt-in/index.md`, twice each in `UPLOAD_WORKFLOW.md` (the two blocks), and
+the two residual sentences once each in `SHIP_RESIDUAL_20261003.md`. A search of the site and
+README for retired or parked module names, the Arboretum, a module count and certification
+wording returned no hit; in the launch tree those names occur in comments only.
+
+`git diff --stat 0579b78 HEAD -- Code Data Entities Meshes Materials UI items.lua` is empty and
+`Code/Opt_ServiceInterestTags.lua` is unchanged since `102aad0`, with the donor still at
+`30dacada`: the shipping code is the code the accepted evidence and D15's conditions describe.
+Entry status against attendance: D02/D04/D05/D09 `tested`, D15–D18 `tested-attended`, D14
+`open` with its 2026-10-03 launch disposition, D19 `built` and outside the pack.
+
+The source claims behind the release design were read on the archived 1.1.1.406343 tree and
+hold: `CommonLua/Classes/GedModEditor.lua` clears `TmpData/ModUpload/` and packs every file
+under the content path that no `ignore_files` filter matches, once per upload (prepare, package,
+upload); `SteamWorkshop.lua` creates the item and saves the mod before packaging;
+`ParadoxMods.lua` writes `pdx_id`/`pdx_version` and saves only after the publish call returns.
+The snapshot path is no longer unverified: `%LOCALAPPDATA%\Temp\Surviving Mars
+Relaunched\ModUpload\Pack\ModContent.fpk` exists on the rig (another mod's package, 2026-09-28).
+The Mods link `SMR-OptInPack` is a junction to this repo, the name `release_batch.py link` expects.
+
+### Audit questions
+
+- **Release system.** First publish and update, HOLD and resume, version/id/comment
+  preservation, package comparison, tags, outbox/history and the gates are implemented and their
+  failure legs fail. A fresh session recovers a partial upload from `RELEASE_BATCH.json` and the
+  kept launch tree. One duplicate route remained by source and is now closed in
+  `release_prompt.md` §3: a failed first Paradox upload saves no id, so a blind retry publishes a
+  new listing; the owner checks for a listing first.
+- **Shipping members and inputs.** Above; 35's results and D15's conditions were inherited, not
+  repeated.
+- **Save exit.** Disclosures match the measured residue and the owner's "a"; no clean-removal or
+  recovery claim on any surface; the dial rescue stays the owner's unpublished contingency.
+- **Owner items.** OI-11/12/13/14/21/38/43 are gone from the checklist with their actions homed
+  (previous table). OI-44 is genuinely owed, at upload. OI-51 is optional.
+- **Surfaces.** Coherent across both bodies, summary, change note, gallery fields, tags
+  (`TagGameplay`, `TagBuildings`), README, site pages, nav and report text.
+- **Donor and site.** The publish-day job (P3, P21, P28 and the store-card/metadata companions,
+  `STORE_AND_SITE_20261003.md` §7) is owned by `POST_UPLOAD_CLOSE.md` §5 as one fix-pack
+  checklist item; nothing was restored early and no donor file changed. Deployment is the
+  owner's separate workflow run.
+
+### Corrected in this run
+
+- `release_prompt.md` §3: the Paradox retry check above.
+- `RELEASE_OUTBOX.md`: the first-publication entry no longer lists 01/02 evidence and this
+  verdict as owed and cites site `9d490ce`; the exit-disclosure entry no longer says the README
+  and site mirroring is 03's future work. The Arboretum hunk stayed unstaged.
+- `STORE_CARD_LIVE.md`: site commit `9d490ce`.
+- `D19.md` and `ARBORETUM_BUILD_high.md` cite the OI-50 ruling by commit `7f9c0e6`, not the
+  deleted chain README.
+
+### Limits and first-use risks for the release session
+
+- The editor has never opened a launch tree and `link launch` has run only on a scratch
+  junction. The first upload is the first real use of both. If the editor's saves rewrite the
+  generated Code or Data files, `verify` reports it as a finding to explain; that is possible
+  and is not by itself a fault.
+- The launch tree is a permanent owner-facing change (two `link` commands and a snapshot line)
+  made under 03A's delegation without a separate owner ruling. The owner may still object.
+- The mod has only ever been played from the working folder. The launch tree and the package
+  are file-for-file what that folder would pack, and nothing excluded is runtime input by
+  reading, but no packed install has been loaded.
+- Between "stores done" and the site deployment the store pages point at a site without the
+  Opt-In pages. This is the owner's chosen order.
+- `status` reads the working outbox and `begin` the committed one, so an uncommitted Pending
+  entry is listed by `status` and not pinned by `begin`. The Arboretum entry stays uncommitted
+  until after launch (`ARBORETUM_BUILD_high.md`); if it is ever committed first, `begin` needs
+  `--hold`, and §2's module reconciliation is the catch.
+- W-NEW rests on the owner's screenshot; W-OLD and W-refresh were scratched. Serialized owners
+  of the leftover class references are UNKNOWN by the owner's choice.
+
+### Obligations carried, each with its home
+
+| obligation | home |
+|---|---|
+| OI-44 platforms and approval; both uploads; styling pass; site deployment | `PLAYTEST_CHECKLIST.md`, `UPLOAD_WORKFLOW.md` §0–§5 |
+| ids, links on site and README, store card, tag, drain, donor handoff item | `POST_UPLOAD_CLOSE.md` §2–§5 |
+| OI-51 startup notices | `PLAYTEST_CHECKLIST.md` |
+| `upload_preflight.py` DIFFERS, `doccheck.py` RECHECK, donor tools not yet adjudicated | every `python tools/sync_from_fixpack.py --tools` run; `perma/KNOWLEDGE_SYNC_PASS.md` |
+| donor `pack_list.py` still exits 0 on different bytes | `sync_from_fixpack.TOOLS_ADAPTED["pack_list.py"]` ("propose both") |
+| `release_selftest.py` is not a doccheck gate | run by `release_prompt.md` §1a and `RELEASE_SURFACES.md` §4; wiring it into doccheck is optional |
+| Arboretum, OI-46/47/48 | after launch: D19, the checklist, `ARBORETUM_BUILD_high.md` |
+| `perma/TRAIN_ORCHESTRATOR.md` §"What is left" still names this chain | the orchestrator's own next run; not edited here |
+
+The chain folder and its map row are removed with this verdict. Next owner kickoff:
+`task docs/agent/prompts/perma/release_prompt.md`.

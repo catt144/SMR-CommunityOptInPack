@@ -140,7 +140,9 @@ after the publish call succeeded, by source; record it as that, and still take t
 **Failed or interrupted upload.** Keep the batch and the launch tree as they are: an
 allocated id lives only in the launch tree's `metadata.lua` until the close merges it, and
 a rebuilt tree would create a second listing. The owner retries from the same tree; the
-retry's package is a new snapshot. A forced editor save in between bumps `version`; the
+retry's package is a new snapshot. A failed first Paradox upload leaves no `pdx_id`, and a
+retry with none creates a new listing: before that retry the owner checks their Paradox Mods
+uploads for a listing the failed attempt may have made, and stops if one exists. A forced editor save in between bumps `version`; the
 close records the values the snapshots show rather than hiding them.
 
 The receipt after both stores is only: anything that looked wrong on either store, and, on

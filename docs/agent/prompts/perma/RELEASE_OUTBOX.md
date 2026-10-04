@@ -31,9 +31,8 @@ bumps one.
 - Change note: the "First release" block in `docs/UPLOAD_WORKFLOW.md` §3, already in
   `metadata.lua` `last_changes`.
 - Surfaces prepared: both store bodies (`UPLOAD_WORKFLOW.md` §3, `metadata.lua`), the
-  public `README.md`, the site's `content/opt-in/` section and nav (site `d87c700`,
-  undeployed). Owed before it ships: listing/platform facts
-  (OI-44), 01/02 evidence and 04's verdict (`release_prompt.md` §1a).
+  public `README.md`, the site's `content/opt-in/` section and nav (site `9d490ce`,
+  undeployed). Owed at upload: the owner's platform choice and approval step (OI-44).
 - Not in this entry, by rule: the development history before first publication (the
   2026-09-22 widenings, the train rebuilds, retired D01/D06/D07/D12 and parked D03)
   never shipped, so none of it is a player-facing change.
@@ -43,9 +42,9 @@ bumps one.
   older saves can retain their optional flag until resaved with the mod enabled.
 - Both maintained store bodies now disclose retained Train Hub upgrade receipts and possible
   ordinary bonuses after removal, and acknowledge ChoGGi/LukeH's prior work.
-- Metadata regenerated from `UPLOAD_WORKFLOW.md` §3. Site/public README mirroring belongs to 03;
-  asset provenance, exact residual owners and existing dial-rescue availability remain held as
-  recorded in `reports/SHIP_EVIDENCE_20261003.md`. No new native warning result is claimed.
+- Both store bodies, the public README and the site also carry the class-reference disclosure
+  from `reports/SHIP_RESIDUAL_20261003.md` (`37aff24`, site `9d490ce`); the residual owners stay
+  UNKNOWN by the owner's choice, and no clean removal or train recovery is claimed.
 
 ## Last released
 

@@ -19,7 +19,7 @@ The owner asked for a build **to test with**: rough and in the game fast, on pla
 art. The owner tunes numbers and looks by eye afterwards. No new art is commissioned by this brief.
 
 **Owner, 2026-10-03, later the same day: the Arboretum ships after launch, not in the launch
-set** (`docs/agent/prompts/Launch_Prep/README.md`). Until launch is done, its `metadata.lua`,
+set** (D19, `7f9c0e6`). Until launch is done, its `metadata.lua`,
 `items.lua` and `RELEASE_OUTBOX.md` hunks stay uncommitted in the working tree: never commit,
 restore or ship them. OI-47 and OI-48 wait until after launch.
 

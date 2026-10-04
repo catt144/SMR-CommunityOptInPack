@@ -21,7 +21,7 @@ Until the first confirmed upload this file carries no copy of the body on purpos
 
 **Prepared, not live:** the body blocks in `docs/UPLOAD_WORKFLOW.md` §3 (title, short
 summary, Paradox plain text, Steam BBCode, first-release change note), the site section
-`content/opt-in/` at site commit `d87c700` (undeployed), the public `README.md`.
+`content/opt-in/` at site commit `9d490ce` (undeployed), the public `README.md`.
 
 ## Markup, per portal
 
