@@ -161,6 +161,12 @@ before first publication. This is the native missing-mod warning, not recovery.
 Previously written `optional=true` save entries can still suppress it; a save
 written with this mod enabled after the change replaces that saved flag.
 
+Owner, 2026-10-03 (`298ff9b`): accept the measured post-demolition class references
+and possible ordinary upgrade bonuses with both exact disclosures in
+`reports/SHIP_RESIDUAL_20261003.md`. The residue hold is lifted; serialized owners
+and original effects remain UNKNOWN, with no save-reader/shared-kit work or train
+recovery commissioned. Disclosure delivery remains launch link 03's work.
+
 Owner, 2026-10-03 (OI-45): **demolish first**, disclosed at the bottom of the
 store pages; no train recovery work. B2's content-free removal is accepted within
 its captured window (`TRAIN_FINAL_BATTERY_20261002.md`). Standing buildings raised

@@ -76,6 +76,23 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**04 audit, 2026-10-03: preparation not accepted.** Read
+`reports/FINAL_LAUNCH_AUDIT_20261003.md`. 03A owns release tools/lifecycle and an
+actual launch package excluding held D19. Resume this link after 03A lands.
+Your remaining unit is F6/F7: put both exact residual disclosures and the prior-art
+credit on the maintained bodies/site/public README; reconcile module removal
+sections and move the content-mod exception before the report page's disable-all
+instruction. Resolve OI-49's actual provenance before assigning its notice.
+OI-12 and OI-21 are closed; no listing exists (OI-44 answered half); 02 is closed;
+01A's residue hold is lifted. Existing dial rescue is an unpublished contingency,
+not a new launch upload or train recovery project (audit's archived owner ruling).
+Recheck final surface claims against the accepted launch tree, then run parity,
+preflight, render/link and site build checks and close this link. No publication.
+The optional OI-51 preference is not a gate; if still unanswered when this brief
+is consumed, rehome its checklist Home to the train report and permanent release
+surface job. Keep the publish-day donor handoff, resolving its already-done site
+clauses against the current site instead of restoring them again.
+
 **Owner 2026-10-03: 01A's residue is accepted with disclosure ("a"); the launch residue hold is
 lifted.** The serialized owners of the leftover class references stay UNKNOWN by choice. No save
 reader or shared-kit work is commissioned. Ship both exact disclosure sentences from

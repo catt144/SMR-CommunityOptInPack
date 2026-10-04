@@ -9,9 +9,6 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
 - NOT PUBLISHED. The owner launched the fix pack alone on 2026-08-17 ("its not ready imo").
 - Owner 2026-09-01, verbatim: "the opt in modules has not fully tested yet." Testing precedes
   launch. D02/D04/D09 passed pre-split; D03 PARKED 2026-10-02; D01/D06/D07/D12 are retired.
-- `FIX_POLICY` §8 both configurations: D02/D04/D09/D15 owner-accepted (entries, 2026-09-30 and
-  10-02); the train modules owe it in brief 35. Launch order and evidence: `agent/reports/READINESS_REVIEW_0831.md` §6. That plan predates
-  1.1.0 and lacks a re-verification step.
 
 ## Build state — pulled, not stored
 
@@ -24,9 +21,6 @@ Live counts: `python tools/doccheck.py --emit-counts`. Installed build and fact 
   Nothing in this mod is frozen (owner ruling 2026-09-18).
 - The fix pack's kit-edit gate (checklist item 83) is dissolved (owner ruling 2026-09-18);
   `60_Probes_Opt.lua` needs no separate fix-pack sign-off. That gate's own record stays theirs.
-- The game moved to 1.1.0 + DLC, build 24995074, on 2026-09-08. Archived trees are under
-  `B:\Dev\SMR\SMR-Shared\SMR-SrcArchive`; fingerprint routing is `EF-083`. No module, probe, gate or test result
-  in this repo has been re-verified on 1.1.0.
 
 ## Open owner decisions
 

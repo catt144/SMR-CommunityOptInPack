@@ -18,11 +18,16 @@ Recheck `git status` before editing either, and never stage, restore or ship its
 | ~~01A~~ | ~~`01A_RESIDUAL_READ_high.md`~~ | high | desk | closed 2026-10-03: desk evidence `b1c1e32`/`6039ff8`; owner accepted the residue with disclosure, hold lifted |
 | ~~02~~ | ~~`02_SHIP_TESTS_medium.md`~~ | medium | yes | closed by the owner 2026-10-03: E-P/E-A cleared on owner play, W-NEW PASS; record in 04's notes |
 | 03 | `03_STORE_AND_SITE_medium.md` | medium | no; owner inputs separate | store assets/copy, shared site and public README, package gates; no publication |
+| 03A | `03A_RELEASE_CORRECTIONS_high.md` | high | no | audit-found release lifecycle/tool corrections and launch assembly excluding post-launch D19; run before resuming 03 |
 | 04 | `04_FINAL_AUDIT_high.md` | high | no | independent backward review including root release-system job; permanent release handoff |
 
 Fire in order with `task docs/agent/prompts/Launch_Prep/<file>`. Independent drafts may start
 earlier; final claims wait for accepted evidence. Keep a live work list in the audit report or
 a linked report, one commit-and-verify unit in progress. Sequential work, no parallel agents.
+
+04's 2026-10-03 review rejected preparation: `reports/FINAL_LAUNCH_AUDIT_20261003.md`.
+Correction order is **03A → resumed 03 → resumed 04**. The chain stays live;
+01A/02 are owner-closed and their tests/readers are not reopened.
 
 Follow `docs/agent/support/CHAIN_METHOD.md` and prompt-authoring: append result sha, commands,
 evidence, limits and remaining obligations to the next owning link's Notes from upstream;

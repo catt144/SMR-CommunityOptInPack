@@ -48,7 +48,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | chain | declared class | state |
 |---|---|---|
-| `Launch_Prep/` | `live` | Shipping evidence and bounded attended checks, store/asset/shared-site preparation, then independent backward QA. The release system (`perma/release_prompt.md`, built 2026-10-03) and train brief 35 are done; no duplicate train battery. Its README gives fire order and completion gates; publication belongs to the permanent release prompt and owner. |
+| `Launch_Prep/` | `live` | 04 rejected preparation on 2026-10-03: 03A repairs release tools/lifecycle and launch assembly, then 03 finishes surfaces and 04 rechecks. Train battery and owner-closed 01A/02 stay accepted within their scope. Its README gives correction order and completion gates; publication belongs to the permanent release prompt and owner. |
 
 A chain folder appears here while its links are live and leaves `prompts/` when the
 effort closes (`agent/support/CHAIN_METHOD.md` is the method for an effort over about two sessions).

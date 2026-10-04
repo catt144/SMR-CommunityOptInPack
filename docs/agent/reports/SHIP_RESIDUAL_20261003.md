@@ -1,10 +1,11 @@
 # Exact Save B residual read — 2026-10-03
 
 Authority: Launch_Prep/01A and OI-45, demolish first, disclose, no recovery work.
-Started at `0ff4a85`; pull was already up to date. **01A stop 1 applies: serialized
-class owners and original modifier registrations remain UNKNOWN.** This is desk
-evidence and a shared-kit implementation handoff, not a completed native read.
-01A stays live, its manifest row stays unstruck, and the launch residue row stays held.
+Started at `0ff4a85`; pull was already up to date. **Owner `298ff9b`, 2026-10-03:
+residue accepted with the exact disclosures below; the residue hold is lifted.**
+Serialized class owners and original modifier registrations remain UNKNOWN by
+choice. No save-reader/shared-kit work is commissioned. 01A is closed. This is
+desk evidence, not a completed native read; the proposal below is unexecuted history.
 The accepted train battery and soak retain their owner-scoped acceptance.
 
 ## Work and evidence
@@ -12,7 +13,7 @@ The accepted train battery and soak retain their owner-scoped acceptance.
 | commit-and-verify unit | state | evidence / remaining action |
 |---|---|---|
 | Instrument → evidence → disposition/handoff | desk committed `b1c1e32` | exact-B receipt, source assessment, negative fixture control and doccheck GREEN; stop-1 handoff below |
-| Serialized ownership and native effects | held at stop 1 | validated graph decoder or suitable native reader capability, then reviewed shared-kit work under sibling authority |
+| Serialized ownership and native effects | owner accepted UNKNOWN, `298ff9b` | no commissioned continuation; link 03 ships both exact disclosures |
 
 MEASURED: `python docs/archive/ship_residual_20261003/read_residual_v2.py` at
 `0ff4a85` plus this task's documentation/instrument diff. Its archived `receipt.json`
@@ -238,5 +239,7 @@ shared kit's uncommitted Arboretum slots remain report-only. No Lua was changed.
 The close-out records commit pins `b1c1e32` in downstream notes; final handoff
 byte measurements are appended as `archive/ship_residual_20261003/final_sizes.json`,
 using the same command/filter/base as checks.json. No brief or obligation was
-removed. Next work is the shared-kit capability/implementation handoff above;
-this is not authority to start launch 02 or to treat the residue hold as cleared.
+removed at that desk close-out. The owner subsequently closed 01A and 02 and
+lifted the residue hold with disclosure (`298ff9b` / `deabb8f`); the unexecuted
+shared-kit proposal is no longer commissioned. The current corrective kickoff
+is in `FINAL_LAUNCH_AUDIT_20261003.md`.

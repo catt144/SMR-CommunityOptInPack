@@ -4,22 +4,31 @@ Authority: Launch_Prep/01, owner launch preparation and its recorded 2026-10-03
 rulings. Started at `82369ec`; `git pull` reported already up to date. This is a
 desk preparation record, not a new attended test or publication approval.
 
+Current dispositions (owner `deabb8f` / `298ff9b`, 2026-10-03): E-P/E-A are
+cleared on owner play; W-NEW passed on the owner's screenshot, without an archived
+log; W-OLD/W-refresh were scratched. The residue is accepted with the exact
+disclosures in `SHIP_RESIDUAL_20261003.md`; no reader/shared-kit work is commissioned.
+D19 ships after launch. These settle the older proposed prerequisites below,
+not their unmeasured results. Final audit and remaining release work:
+`FINAL_LAUNCH_AUDIT_20261003.md`. OI-49's asset provenance is still open.
+
 ## Live work list
 
 | unit | state | completion evidence |
 |---|---|---|
 | Source/build and accepted evidence ledger | prepared | packaged source receipts and scoped module verdicts below |
 | Granted OI actions | prepared | guard_result.json, parsecheck; documentation gate at commit |
-| Save residue, rescue applicability and provenance | prepared with holds | exact Save B preserved; graph ownership and Tripo origin unresolved |
-| Remaining attended plan and independent review route | prepared | filled 02 and 01A; corrected plan reread by the second seat; 04 drift notes |
+| Save residue, rescue applicability and provenance | residue accepted; provenance open | exact Save B preserved; graph ownership UNKNOWN by owner choice; OI-49 unresolved; rescue contingency checked by 04 |
+| Remaining attended plan and independent review route | owner closed 01A/02 | E-P/E-A and W-NEW accepted, W-OLD/W-refresh scratched; terminal review remains in 04 |
 | Close | prepared | evidence/plan committed at `0579b78`; this lifecycle commit consumes 01; push verified in the task's final response |
-| 01A residual read: instrument → evidence → disposition/handoff | desk prepared; stop 1 hold | [Residual report](SHIP_RESIDUAL_20261003.md): exact B verified, capability limit and shared-kit contract recorded; native owners/effects UNKNOWN. Doccheck GREEN; 01A stays live. |
+| 01A residual read: instrument → evidence → disposition/handoff | owner closed, `298ff9b` | [Residual report](SHIP_RESIDUAL_20261003.md): exact B verified; native owners/effects remain UNKNOWN by choice; exact disclosure delivery owned by 03. |
 
 The initial shared tree contains an Arboretum test build (D19) and changes to
 metadata, items, policy, checklist, future ideas, generated index and prompt map.
 Those changes are outside this brief's original shipping set and are preserved.
-Its first-release scope is awaiting the owner's answer; no all-modules certification
-can silently omit a module present in the package. No sibling writes are authorised.
+The owner subsequently excluded D19 from first publication (OI-50); no all-modules
+certification can silently omit it while it is present in the package. Audit F1/03A
+owns the launch assembly. No sibling writes were authorised in this task.
 
 ## Build and source ledger
 
@@ -87,9 +96,9 @@ module controls and retained native acceptance supply the actual disposition.
 | D16 StationRows | Train 35 retained-scope PASS; P released 1.0.26; A owner-waived | No train rerun. B2 vanilla requests restored after full removal on station 10531, underground. Saved row table is inert without module code. |
 | D17 TrainHub | Train 35 retained-scope PASS; hub soak owner-accepted; P 1.0.26, A waived | Retained class references and colony upgrades are exit disclosures/investigation, not a new movement/soak battery. |
 | D18 ElevatorDepot | Train 35 retained-scope PASS; OI-38 accepted scripted UP leg; P 1.0.26, A waived | Depot soak and positive soak control declined; add neither. Demolish both halves before removal. |
-| D05 enable surface | Legacy PT-51 plus D15 and train enable/toggle evidence | 02 checks final option membership/labels/defaults, main-menu enable and cold persistence in P/A. It does not repeat accepted module behaviour. |
-| OI-43 warning | SOURCE new/save-old flag distinction; metadata now false | 02 samples new nonoptional save versus untouched old optional=true save after full restart, including screen dialog. No warning result claimed yet. |
-| D19 Arboretum | Separate test-build report and pending audit/owner decisions | OI-50 decides launch scope; 02 stops on an unaccepted addition. |
+| D05 enable surface | Legacy PT-51 plus D15/train evidence; owner E-P/E-A acceptance in `deabb8f` | Final enable, Apply and cold persistence accepted on owner play; no new instrumented sitting or status promotion. |
+| OI-43 warning | SOURCE new/save-old flag distinction; metadata false; owner-witnessed W-NEW PASS in `deabb8f` | Screenshot evidence, no archived log; W-OLD/W-refresh scratched, not passed. |
+| D19 Arboretum | Separate test-build report and pending audit/owner decisions | OI-50 excludes launch; 03A owns a conforming launch artifact without losing held work. |
 
 D15 present-side check: `git -C ../SMR-BugFixPack rev-parse HEAD` gave
 `30dacadad4257532ddeb4897826036186657b049`. Literal-name regex search over its
@@ -160,20 +169,20 @@ it has no hub/depot/row-state or colony-upgrade targets. The search and positive
 members are in `review_receipt.json`. D13's 2026-08-14 grant and 0.1.0 local
 artifact cover the old target set only. No train coverage follows from that grant.
 OI-45's no-recovery disposition is honoured; it is not a blanket erasure of §3.
-Release dependency: the permanent release job/04 must establish availability and
-applicability of that existing standalone dial-rescue artifact with its sibling
-owner. This task makes no rescue/fix-pack edit or publication claim.
+Final audit resolved the existing dial artifact's availability and scope against
+the sibling tree and archived owner contingency ruling; see
+`FINAL_LAUNCH_AUDIT_20261003.md` §"Save exit and existing rescue". No rescue/fix-pack
+edit or publication claim follows.
 
-Unresolved prerequisite for a final residue certification: a read-only graph
+Historical proposed prerequisite, withdrawn by owner `298ff9b`: a read-only graph
 inspection of this hash-pinned Save B with the mod loaded, identifying native
 root→owner→field/key paths to both retained custom classes, plus the actual
 colony modifier registrations/effects. A token scan cannot supply those edges;
 unpersist is native, and no object-graph decoder is present in the inspected
-tooling. Launch remains held on this row under 01 stop 2. The exact continuation
-in 02's prerequisite section owns preparation/execution; it may use a bounded
-read-only native slot under shared-kit authority. No destructive cleanup, battery
-rerun or new recovery promise is authorised. If it discovers harmful residue,
-record the concrete owner choice/build prerequisite before any behaviour change.
+tooling. This was the basis of 01's stop-2 hold, subsequently lifted by the
+owner's acceptance with disclosure. The proposed bounded native slot was not
+run and is no longer commissioned. No destructive cleanup, battery rerun or
+new recovery promise follows from that acceptance.
 
 Player disclosure for 03/release, now justified by actual content-free Save B:
 **"Bought Train Hub upgrades remain recorded in your save after all hubs are
@@ -266,9 +275,10 @@ The final second-seat reread at `82369ec` confirmed every correction listed abov
 and conditional readiness for kit implementation. No native game tests ran.
 Granted code changes, residue/disclosure, provenance, D14 limits, stale kit probes,
 save filename/override semantics, and model/drift evidence all have explicit homes
-above and in 02/03/04. The remaining graph read is owned by 01A; provenance and
-package scope are OI-49/OI-50; existing dial-rescue availability belongs to the
-release owner/04. OI-51 is a non-gating preference. No unhomed finding is dropped
+above and in the surviving chain records. The owner subsequently ended the graph
+read and 02; provenance remains OI-49 and launch assembly is now 03A under OI-50.
+04 resolved existing dial-rescue availability against its contingency ruling.
+OI-51 is a non-gating preference. No unhomed finding is dropped
 when 01 is consumed. The original brief remains recoverable from its deletion
 commit. Shared Arboretum changes are excluded through partial-hunk staging;
 no sibling work is committed or edited by this task.
@@ -279,6 +289,5 @@ The exact 01/01A/02/03/04/README members reconcile in archived
 `handoff_sizes.json`: 33,391 before, 43,807 after, +10,416 bytes. The growth is
 the executable plan and owned residual continuation. All original brief blocks
 were traced through the ledger, owner-action homes and successor notes; no
-unhomed content was dropped. Next kickoff is
-`task docs/agent/prompts/Launch_Prep/01A_RESIDUAL_READ_high.md` (desk preparation;
-native read only under its stated conditions).
+unhomed content was dropped. The original next link, 01A, is now owner-closed;
+the current corrective kickoff is in `FINAL_LAUNCH_AUDIT_20261003.md`.

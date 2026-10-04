@@ -62,6 +62,17 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+**This link ran at `298ff9b`, 2026-10-03, and rejected preparation.** Durable
+record: `reports/FINAL_LAUNCH_AUDIT_20261003.md`; independent source/log checks
+and concrete tool falsifiers: `archive/final_launch_audit_20261003/`.
+03A now owns F1–F5 (launch artifact and release lifecycle/gates); 03 owns F6/F7
+(disclosures/credits/site and OI-49). They run before this review resumes. Preserve
+all accepted owner evidence; no repeat of the battery, warning or residual reader.
+Recheck changed inputs and unresolved claims, not the accepted battery again.
+The audit transcript identifies gpt-6-astra, also used for 01/brief authoring:
+fresh context here does not discharge the different-model whole-chain condition.
+The owner selects the final independent review model after corrections land.
+
 **Owner 2026-10-03: 01A's residue is accepted with disclosure ("a"); the launch residue hold is
 lifted.** The serialized owners of the leftover class references stay UNKNOWN by choice. No save
 reader or shared-kit work is commissioned. Ship both exact disclosure sentences from
