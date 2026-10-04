@@ -478,7 +478,27 @@
     "receipts": []
    },
    "steam": {
-    "snapshots": [],
+    "snapshots": [
+     {
+      "taken": "2026-10-04",
+      "dir": "local/release/2026-10-04-01/steam-1",
+      "pack_sha256": "7c709ca9aff86433c9d13b0ebadf84d48345e82b6dc1b776f513313db717db74",
+      "pack_bytes": 22599753,
+      "pack_mtime": "2026-10-04T02:19:30",
+      "serializer": {
+       "metadata.lua": "500133ded32e1e54d1d91384431f8bcbfa45ff549cbdb6d24a15f19d6c94f08f",
+       "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
+      },
+      "fields": {
+       "version_major": 1,
+       "version_minor": null,
+       "version": 2,
+       "pdx_id": 161911,
+       "pdx_version": "1",
+       "steam_id": "3813142702"
+      }
+     }
+    ],
     "receipts": []
    }
   },
