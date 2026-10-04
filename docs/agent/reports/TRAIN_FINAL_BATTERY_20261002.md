@@ -138,6 +138,9 @@ not a source commit. Current read HEAD is not claimed as its boot SHA.
 | Both toggle directions | OWNER for each module. The snapshots bracket states; they do not independently log every observed click or panel change. |
 | Quiet complete log | Six train logging lines at 140/141/143/146/148/151, all startup registration/load announcements; zero repeating lines under the receipt's train-prefix filter. Zero `LUA ERROR`; normal `Debug::Done()` at 3957. B0 quiet PASS. |
 
+⚖️ **Owner 2026-10-04 (OI-51): "seperate is fine."** The six train startup notices stay as
+separate lines, as shipped, so no code action follows.
+
 The brief's owner record says three bounded hours. The closed log contains two
 canonical `hour_done` records (excluding duplicated `[mod]` echoes); a third is
 not independently recoverable from this file. Keep the owner's B0 pass and the

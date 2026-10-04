@@ -15,12 +15,6 @@ is open; every item here ages.
 
 ## Decide
 
-### OI-51 · opened 2026-10-03
-Keep the accepted train startup notices separate, or combine them into one load line?
-- The quiet-log sitting passed; this is a store-work preference, not another launch test gate.
-- Combining them would need its own scoped code action; this evidence pass leaves the notices alone.
-Home: `docs/agent/reports/TRAIN_FINAL_BATTERY_20261002.md`, `docs/agent/prompts/perma/release_prompt.md`
-
 ### OI-47 · opened 2026-10-03
 Should the Arboretum keep its own service category, adding Comfort alongside Parks?
 - The test build uses a separate category; it does not compete with Hanging Gardens for Parks coverage.
