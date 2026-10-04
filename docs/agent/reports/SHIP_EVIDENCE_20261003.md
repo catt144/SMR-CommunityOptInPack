@@ -197,7 +197,7 @@ sibling site writes remain outside this link's authority.
 |---|---|---|
 | Original runtime/tooling | This repository and split donor history; LICENSE | Preserve original MIT notice. No claim that MIT owns the game's portions. |
 | Game-derived Lua / vanilla objects and art references | Archived 406343 source; LICENSE existing game-derived notice | Preserve Haemimont Games / Paradox Interactive notice. Native props are referenced by entity name, not claimed as original art. |
-| Train hub body and glass | `SMR-Assets/trainhub/blender/hub_skeleton.py`, `build_workfile.py`, `export_prep.py`, paint/bake scripts → SourceData SIE/GFX paths → Entities | Scripted geometry/textures plus retained Tripo-derived under-deck beds/pylons/feet. The generated replacement collars did not remove the whole Tripo mesh. OI-49 asks origin/plan for the remaining notice. |
+| Train hub body and glass | `SMR-Assets/trainhub/blender/hub_skeleton.py`, `build_workfile.py`, `export_prep.py`, paint/bake scripts → SourceData SIE/GFX paths → Entities | Scripted geometry/textures plus retained Tripo-derived under-deck beds/pylons/feet. The generated replacement collars did not remove the whole Tripo mesh. **Owner 2026-10-03 (OI-49): the original Tripo model was the owner's own generation on a paid plan; "we own the license for it."** No third-party credit or notice; no Tripo attribution line. Not described as wholly original. |
 | Depot/receiver | `SMR-Assets/elevatorstation/blender/depot_build.py`, `depot_geometry.py`, `depot_paint.py`, `depot_bake_ao.py` → SourceData and imported entities | Project-generated geometry and baked texture route; vanilla cabin/rope remain game references. |
 | Icons, preview, screenshots | Assets render sources; STORE_SCREENSHOTS_20261003; source import paths | Model renders and owner gameplay captures with local annotations; same underlying asset credits apply. |
 | Prior-art acknowledgement | Donor `PRIOR_ART_SURVEY.md` §5; donor archive `RESEARCH.md` LukeH Martian Express entries | Credit as prior modding/patch research, not authorship of this mod's modules or imported code. |
@@ -211,8 +211,7 @@ shipping modules; the acknowledgement is intentionally scoped to prior art.
 Tripo source check 2026-10-03: [official terms](https://www.tripo3d.ai/terms),
 §5.2, and [official usage guidance](https://www.tripo3d.ai/help/privacy-policy/how-to-use-tripo-models-commercially)
 distinguish free and paid generation. They do not identify this model's origin.
-OI-49 owns that missing fact; 03 supplies the resulting exact attribution/notice
-before publication. This is an asset-provenance hold, not a new product design.
+The owner supplied it (OI-49, row above); the hold is released with no notice owed.
 
 ## Shared TestKit handoff (no sibling edits)
 

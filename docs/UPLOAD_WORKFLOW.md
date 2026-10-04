@@ -180,6 +180,8 @@ BEFORE YOU UNINSTALL
 3. Then disable or remove the mod and restart the game fully.
 
 Removing the mod while hubs or depots are still standing leaves buildings in your save that the game no longer knows, and the game reports errors when that save loads. With them demolished first, your stations go back to the game's own import and export requests.
+
+Demolish every Train Hub and both halves of every Elevator Depot while the mod is installed, then save, remove the mod and fully restart the game. References to the custom building classes can remain in the save after demolition and may produce missing-class warnings when loaded without the mod. This is not a guarantee of clean removal; no train-building recovery is provided.
 ```
 
 **To paste it into Paradox with the formatting already applied:**
@@ -230,6 +232,8 @@ Thanks to ChoGGi for prior Surviving Mars modding work, and LukeH for Martian Ex
 [*]Then disable or remove the mod and restart the game fully.
 [/olist]
 Removing the mod while hubs or depots are still standing leaves buildings in your save that the game no longer knows, and the game reports errors when that save loads. With them demolished first, your stations go back to the game's own import and export requests.
+
+Demolish every Train Hub and both halves of every Elevator Depot while the mod is installed, then save, remove the mod and fully restart the game. References to the custom building classes can remain in the save after demolition and may produce missing-class warnings when loaded without the mod. This is not a guarantee of clean removal; no train-building recovery is provided.
 ```
 
 #### 📋 Change note (both stores — Paradox CHANGELOG / Steam Change Notes)
