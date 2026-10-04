@@ -31,7 +31,7 @@ for leg in ('present_off', 'present_on', 'absent_off', 'absent_on', 'restored'):
     lines = {marker: next(i for i,line in enumerate(text.splitlines(),1) if marker in line) for marker in required}
     records.append(dict(leg=leg, sha256=hashlib.sha256(data).hexdigest(), controls=lines,
                         lua_error_lines=len(errors), braze_error_lines=len(braze), braze_members=braze))
-print(json.dumps(dict(command='python tools/arboretum/read_boots.py',
+print(json.dumps(dict(command='python staging/tools/arboretum/read_boots.py',
     head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-    scope='menu loads only; working diff; matrix used handle 11, restored uses collision-free handle 12',
+    scope='menu loads only; logs predate the move to staging/ (78eed20); matrix used handle 11, restored uses collision-free handle 12',
     records=records), indent=2))
