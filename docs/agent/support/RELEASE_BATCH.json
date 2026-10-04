@@ -4,7 +4,7 @@
   "id": "2026-10-04-01",
   "kind": "first-publish",
   "opened": "2026-10-04",
-  "base": "26d795db1f0feb76de14657304a1867628c589d7",
+  "base": "e75cfe2c19c2cd6c21328ebd30923f078870ea8c",
   "entries": [
    "### Pending · FIRST PUBLICATION (staged 2026-10-03, Launch_Prep/03)",
    "### Pending · Launch exit disclosure and warning (2026-10-03, Launch_Prep/01)"
@@ -259,8 +259,8 @@
     "source": "commit"
    },
    "metadata.lua": {
-    "sha256": "975680842931e32a1f08ead80e6e724ddb47e5a0f01fe0a46b4c91fdd3211e90",
-    "bytes": 16994,
+    "sha256": "fcc995266f5187a2302bd14a6cd357b731b8c16334e0d0ccea526d6b4b66acc7",
+    "bytes": 16631,
     "source": "commit"
    },
    "preview.png": {
@@ -488,5 +488,13 @@
    "tag": null
   }
  },
- "closed": []
+ "closed": [],
+ "abandoned": [
+  {
+   "id": "2026-10-04-01",
+   "base": "26d795db1f0feb76de14657304a1867628c589d7",
+   "date": "2026-10-04",
+   "reason": "owner changed the store body and summary before any upload (2026-10-04); launch tree carried the old text"
+  }
+ ]
 }
