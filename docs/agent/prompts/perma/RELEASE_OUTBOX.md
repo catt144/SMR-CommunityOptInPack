@@ -23,6 +23,13 @@ bumps one.
 
 ## Pending — goes out with the next upload
 
+### Pending · Arboretum test build (2026-10-03, D19)
+- Adds an off-by-default in-dome service consuming Seeds, using vanilla Large Garden art.
+- Test content only: gameplay acceptance, balance, category and footprint decisions remain open.
+- Before inclusion in an upload, reconcile its store description and uninstall disclosure with
+  D19 and the measured save-exit residual. The existing first-publication copy does not describe it.
+- Evidence and sitting: `docs/agent/reports/ARBORETUM_BUILD_20261003.md`.
+
 ## Last released
 
 **v1.0.2, 2026-10-04** — batch `2026-10-04-01`, base `03dfda8`. Its entries are in `docs/archive/RELEASE_HISTORY.md`.
