@@ -65,9 +65,10 @@ matching, one Steam `[h2]` per ALL-CAPS Paradox section, and a store card well f
 its declared state. Zero FAIL is required. It reports, and does not fail on, a staged body
 that differs from the live one; `--confirm-live` is the close-out's check.
 
-The section order is fixed: the approved lede paragraph (OI-42 text), THE MODULES, YOUR
-SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS,
-QUESTIONS AND MORE DETAIL, and **BEFORE YOU UNINSTALL last** (owner, 2026-10-03, OI-45:
+The section order is fixed (owner's template, 2026-10-04): the short lede naming the
+modules, THE MODULES, YOUR SAVE, AND REMOVING THE MOD (closing with the runtime, fix-pack
+and uninstall-warning paragraph), BUGS, QUESTIONS AND MORE DETAIL, and **BEFORE YOU
+UNINSTALL last** (owner, 2026-10-03, OI-45:
 the uninstall note sits at the bottom of each store page). A newly featured item gets
 its own ALL-CAPS section before the site section, never after the uninstall note.
 

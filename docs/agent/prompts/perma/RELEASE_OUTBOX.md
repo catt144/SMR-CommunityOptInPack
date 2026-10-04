@@ -41,7 +41,8 @@ bumps one.
 - OI-43: newly written saves identify this mod as nonoptional for the native missing-mod warning;
   older saves can retain their optional flag until resaved with the mod enabled.
 - Both maintained store bodies now disclose retained Train Hub upgrade receipts and possible
-  ordinary bonuses after removal, and acknowledge ChoGGi/LukeH's prior work.
+  ordinary bonuses after removal. The ChoGGi/LukeH acknowledgement is on the public README
+  and the site, not the store bodies (owner's store template, 2026-10-04).
 - Both store bodies, the public README and the site also carry the class-reference disclosure
   from `reports/SHIP_RESIDUAL_20261003.md` (`37aff24`, site `9d490ce`); the residual owners stay
   UNKNOWN by the owner's choice, and no clean removal or train recovery is claimed.

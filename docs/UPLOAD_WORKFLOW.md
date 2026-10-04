@@ -130,13 +130,20 @@ Relaunched Fix Pack: Opt-In Modules
 #### 📋 Short summary (only if it also came out blank)
 
 ```
-Opt-in gameplay modules, including train logistics, all off or at base until you enable them in Mod Options. Applied at runtime, no game files modified. Works with or without the Relaunched Fix Pack.
+Opt-in modules, each off or at its base setting until you turn it on in Mod Options:
+· Acknowledged "not working" warnings
+· Multiple Artificial Suns
+· Drone speed and carry capacity dials
+· Service interest tags
+· Train Station import/export rows
+· Train Hub
+· Elevator Depot
 ```
 
 #### 📋 Paradox Mods — description (plain text, paste as-is)
 
 ```
-Opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines. Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
+Opt-in modules for Surviving Mars: Relaunched — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines.
 
 THE MODULES
 
@@ -162,16 +169,12 @@ Turning a module off puts the game's own behaviour back; what the module already
 
 Bought Train Hub upgrades remain recorded in your save after all hubs are demolished, and their ordinary game bonuses may remain after the mod is removed.
 
-PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE
-
-Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
+Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
 
 BUGS, QUESTIONS AND MORE DETAIL
 
 Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
 https://catt144.github.io/SMR-CommunityMods/
-
-Thanks to ChoGGi for prior Surviving Mars modding work, and LukeH for Martian Express patch research.
 
 BEFORE YOU UNINSTALL
 
@@ -197,7 +200,7 @@ bold, and keep this block under its heading, which is how the tool finds it.
 #### 📋 Steam Workshop — description (BBCode, paste as-is)
 
 ```
-Opt-in modules for [i]Surviving Mars: Relaunched[/i] — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines. Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
+Opt-in modules for [i]Surviving Mars: Relaunched[/i] — every one of them off, or at its vanilla base setting, until you turn it on in Options → Mod Options. Acknowledged "not working" warnings, more than one Artificial Sun, two Drone stat dials (speed, carry capacity), interest tags that show which Colonist interests a service building serves, and train logistics: Import/Export rows for each resource on every Train Station, the Train Hub where three lines cross, and the Elevator Depot linking surface and underground lines.
 
 [h2]The modules[/h2]
 Every module has its own switch on the Mod Options page, and a switch takes effect as soon as you press Apply, in both directions. Turning the whole mod on or off in the Mod Manager is different: that takes effect after a full restart of the game.
@@ -216,14 +219,11 @@ Turning a module off puts the game's own behaviour back; what the module already
 
 Bought Train Hub upgrades remain recorded in your save after all hubs are demolished, and their ordinary game bonuses may remain after the mod is removed.
 
-[h2]Playing on Xbox, PlayStation or the Microsoft Store[/h2]
-Every switch and dial is on the Mod Options page, which works with a controller. One rule that applies to every mod rather than to this one: while any mod is enabled, the game does not unlock achievements on Xbox, PlayStation or the Microsoft Store. Steam and other PC versions are not affected.
+Nothing is patched on disk: the mod wraps the game's own Lua at runtime. A module you leave off behaves like the unmodded game, except that hubs and depots already built keep working. Works with or without the Relaunched Fix Pack. ⚠️ Before uninstalling: set both Drone dials back to base and save, and demolish every Train Hub and both halves of each Elevator Depot.
 
 [h2]Bugs, questions and more detail[/h2]
 Each module is written up on the mods' site, with what it changes and what it leaves alone. Bugs can be reported there from a browser, with no account needed, and a save or a log can be attached privately. If this page has a comment section, that works too. Built and tested on game version 1.1.1.
 [url=https://catt144.github.io/SMR-CommunityMods/]https://catt144.github.io/SMR-CommunityMods/[/url]
-
-Thanks to ChoGGi for prior Surviving Mars modding work, and LukeH for Martian Express patch research.
 
 [h2]Before you uninstall[/h2]
 [olist]
