@@ -26,8 +26,9 @@ obeying agent reads them, never only in chat. It then hands the owner the next `
 Launch chain, fired in order. Its map and rulings are in `Launch_Prep/README.md`, plus each link's
 `## Notes from upstream`:
 
-1. `task docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md`, on a model that ran no earlier
-   link: not Fable 5.1 (03A, 03), Opus 5.5 (03 resume) or GPT-6 (01, brief authoring). If it
+1. `task docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md`, running on **Fable 5.1**, the
+   owner's selection (2026-10-03): *"Sonnet / terra are not audit class models."* The owner's
+   pick discharges the brief's model-independence condition, so do not re-raise it. If it
    fails, its corrections handoff is the next fire, as 03A was.
 2. `task docs/agent/prompts/perma/release_prompt.md`, the upload. **Steam live expires this prompt.**
 
