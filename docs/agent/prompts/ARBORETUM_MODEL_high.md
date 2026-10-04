@@ -25,36 +25,59 @@ materials on this pass; a paint pass waits for the owner's word.
 
 Record this ruling in D19 for this mod (CLAUDE.md's header wants behaviour changes ruled there).
 
-## Pass 2 — owner feedback on the first scaffold (2026-10-04)
+## Pass 3 — the reference is the design (owner, 2026-10-04)
 
-Pass 1 left uncommitted work, unaudited: the rough pavilion and its scripts under
-`SMR-Assets\arboretum\blender\` (preview `preview_scaffold.png`), the import files under
-`staging/SourceData/`, `activate_model.py`, and the report `docs/agent/reports/ARBORETUM_MODEL_20261004.md`.
-Resume from that tree and report; nothing in it has entered the record. Keep what still serves:
-the native Seeds pile on a named spot, the copied Large Garden HexShape, Workdrone beside the pad.
+Pass 1 (`preview_scaffold.png`) and pass 2 (`preview_walkways.png`) left uncommitted, unaudited
+work in both trees; the report is `docs/agent/reports/ARBORETUM_MODEL_20261004.md`. **Pass 2's
+walkway layout is scrapped** (owner: *"a complete scrap"*); it built a misreading of the owner's
+feedback. Resume from pass 1's shell. Keep what still serves: the native Seeds pile on a named
+spot on the exterior pad, Workdrone beside it, the copied Large Garden HexShape, the auto-attach
+route for vanilla plants and benches, and the visitor spots.
 
-The owner, on the scaffold: *"I want it to be more like small walk ways the colonists can walk
-though … less railing inbetween the glass panels, at the most."*
+The owner's words, in order. On pass 1: *"I want it to be more like small walk ways the colonists
+can walk though … less railing inbetween the glass panels, at the most."* On pass 2: *"This is the
+reference image the core design, we can make changes to it but i want it to look similar I want
+it to be a building people enter"* and *"When I said on the first one that I wanted less of those
+dome supports that didn't mean I didnt want a dome, I just want less visual clutter, and when I
+said I wanted thinner walk ways I mean insided the dome This is suppose to be an indoor arboretum
+and the design gave 3 tiny spots for plants and trees and a massive parkinglot of concrete."*
 
-- **Small walkways, not one big hall.** The building reads as narrow glass-covered walkways
-  colonists pass through, with planting around and between them, instead of a single enclosed
-  glass roof over the whole footprint. Keep the central dome as the hub if it fits the walkways.
-- **Glass with minimal framing.** Far fewer ribs and mullions between panels than the scaffold's
-  radial cage; a thin edge frame at most. Back faces are culled in game (IMPORTER_FACTS):
-  orient the glass sheets so the panels show from the camera.
+What that means for the model:
 
-What the game does with visitors, so the walkways get used visibly. SOURCE @1.1.1.406343,
+- **It is the concept's building.** One enclosed glass pavilion that colonists enter through the
+  framed entrance: the raised central glass dome on its ring, and the two long rounded glass wings
+  sweeping out from it, on a low base wall. Look at `arboretum_concept_dusk.png` and match its
+  silhouette and proportions inside the Large Garden footprint.
+- **Less clutter, same structure.** Keep the dome and wings. Cut the frame to a few main members:
+  a handful of dome meridians and its ring, the few heavy spokes the concept shows from the dome
+  to the wing ends, a perimeter frame. Pass 1's dense radial cage is the clutter.
+- **An indoor arboretum.** The interior is planting: trees, shrubs, flowering bushes, rocks and
+  grass covering most of the floor, with tall trees rising into the dome and wings as in the
+  concept. Paving is only thin winding footpaths through the planting, about one colonist wide,
+  and the entrance. Pass 1's open concrete floor with three small beds is the opposite. Make the
+  planted share an owner-movable constant; start high.
+- **Visitors along the paths.** Benches and warmup spots sit beside the footpaths, so colonists
+  are seen inside among the trees (visitor fact below).
+
+**The preview must look like the game will.** Plants and benches attach at runtime, so pass 1 and
+pass 2 previewed cones and balls. Render the vanilla plant and bench meshes you will attach,
+decoded from the installed game into the local, uncommitted reference (IMPORTER_FACTS has the
+`.hgrm` layout; `elevatorstation/blender/diag_hgrm_depot.py` reads one), at the density you will
+attach, from a high three-quarter camera like the concept's. Before handing it over, put it beside
+the concept: if it does not read as the same building at a glance, it is not ready. If the vanilla
+meshes cannot be shown, skip the preview and get it into the game for the owner's look instead of
+showing stand-ins.
+
+Correct D19's pass-2 ruling text to these words; the walkway reading must not survive in the record.
+
+What the game does with visitors. SOURCE @1.1.1.406343,
 `Lua/AmbientLife/VisitGardenNatural_Large.lua:3-39` (the program pass 1 chose): each visit picks
 **one random spot** from group A — a `Visitbench` on an attached `DecorInt_03` bench, or a
 `Visitwarmup` spot — pathfinds to it (`goto_spot = "Pathfind"`), does its visit there, then
 leaves; with no spot free it falls back to `PrgVisitHolder`. Visitors do not stroll a route.
-`VisitGardenAlleys_Medium.lua` has the same slots. So colonists will be seen walking in, and
-then standing or sitting at the spots: spread benches and warmup spots along the walkways and
-the walkways look used. Whether a colonist's path stays inside the walkway or cuts through
-uncollided glass is not settled by the source; make it a witness in the owner's look, and
-judge any collision you add against blocking the path to a spot.
-
-Re-render one preview for the owner before the import; that is a look, not an options set.
+Whether a colonist's path stays on the footpath or crosses planting and glass is not settled by
+the source; make it a witness in the owner's look, and judge any collision against blocking the
+path to a spot.
 
 ## End state
 
