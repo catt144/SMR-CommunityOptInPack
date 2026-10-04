@@ -130,14 +130,14 @@ Relaunched Fix Pack: Opt-In Modules
 #### 📋 Short summary (only if it also came out blank)
 
 ```
-Opt-in modules, each off or at its base setting until you turn it on in Mod Options:
-· Acknowledged "not working" warnings
-· Multiple Artificial Suns
-· Drone speed and carry capacity dials
-· Service interest tags
-· Train Station import/export rows
-· Train Hub
-· Elevator Depot
+Off/base until enabled in Mod Options:
+- Acknowledged warnings
+- Multiple Artificial Suns
+- Drone speed/carry dials
+- Service interest tags
+- Station import/export rows
+- Train Hub
+- Elevator Depot
 ```
 
 #### 📋 Paradox Mods — description (plain text, paste as-is)
