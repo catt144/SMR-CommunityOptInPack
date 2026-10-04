@@ -42,6 +42,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 | prompt | declared class | state |
 |---|---|---|
 | `ARBORETUM_BUILD_high.md` | `prompt` | In progress (2026-10-03): test module, menu-load matrix and sitting slots prepared and committed; independent audit remains. ⚖️ Owner 2026-10-03: ships after launch — its `metadata.lua`, `items.lua` and outbox hunks stay uncommitted until launch is done. Resume from `reports/ARBORETUM_BUILD_20261003.md`. Own category and garden footprint remain provisional owner asks. Consume this prompt/row after audit and close-out |
+| `STAGING_WORKBENCH_BUILD_high.md` | `prompt` | Live, fire now (owner, 2026-10-03). Build `staging/`, a never-uploaded sibling workbench mod for modules in progress, with `tools/promote_module.py` and a doccheck guard; the Arboretum moves in first. |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before its owner asks (spec §9) can go on `docs/PLAYTEST_CHECKLIST.md` (`bugs/D06.md`). Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
