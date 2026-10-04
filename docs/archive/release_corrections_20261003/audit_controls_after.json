@@ -1,0 +1,111 @@
+{
+  "command": "python docs/archive/final_launch_audit_20261003/verify.py",
+  "head": "284d13fa52db3bb6cc27eac84140faeeb7c11fbf",
+  "build": "25579348",
+  "source_receipts": {
+    "Lua.fpk": {
+      "sha256": "ad8f9f5c31c0419650c0e1127795b4cd9ef818ae7bf8df74ebea67ccaa138b50",
+      "members_verified": 2374,
+      "filter": "each member in source_receipt.json packs[Lua.fpk].members"
+    },
+    "Data.fpk": {
+      "sha256": "e83f43334873fb7d92156fb98b1e5e28009ef4bd1293b5c273cc3394fdd3e161",
+      "members_verified": 2192,
+      "filter": "each member in source_receipt.json packs[Data.fpk].members"
+    }
+  },
+  "logs": {
+    "20261003-12.28.41": {
+      "sha256": "8839848396d2cac7fb88f8324ec128527db975b91e7ca10c763fa782e015fd1c",
+      "verified_filters": {
+        "shutdown": 1,
+        "lua_errors": 0,
+        "permanents": 1,
+        "diagnostics": 9,
+        "hub_metals": 6,
+        "saves": 0,
+        "removal": 0,
+        "row_export": 0,
+        "delete_build": 12
+      }
+    },
+    "20261003-12.55.31": {
+      "sha256": "165bd96e5d8d3f7c9d0a846fdfce379bc5e0c3945c81568b20d7c2a8c6bf9d12",
+      "verified_filters": {
+        "shutdown": 1,
+        "lua_errors": 0,
+        "permanents": 1,
+        "diagnostics": 9,
+        "hub_metals": 6,
+        "saves": 2,
+        "removal": 0,
+        "row_export": 2,
+        "delete_build": 8
+      }
+    },
+    "20261003-13.05.06": {
+      "sha256": "2953bcf73f15cd76bcb8598fd2fa06b8d258bdaa21c582608c0422ab5a81f898",
+      "verified_filters": {
+        "shutdown": 0,
+        "lua_errors": 5,
+        "permanents": 5,
+        "diagnostics": 30,
+        "hub_metals": 0,
+        "saves": 0,
+        "removal": 1,
+        "row_export": 0,
+        "delete_build": 0
+      }
+    }
+  },
+  "stock_control": {
+    "compared": 38,
+    "filter": "canonical hub row=request; before lines 1122..1976, after 1977..2828"
+  },
+  "removal_window": {
+    "lines": [
+      404,
+      481
+    ],
+    "errors_before": [
+      213,
+      265,
+      286,
+      336,
+      372
+    ],
+    "errors_after": [],
+    "class_warning_lines": [
+      424,
+      426
+    ],
+    "native_match_line": 478
+  },
+  "save_sha256": "b07a3cebc193c6eb129aa25e7e22da815cb152253f201a69282a4ae86dccd7d6",
+  "parity_controls": {
+    "live_matching_bodies": {
+      "exit": 1,
+      "stdout": "STORE PARITY \u2014 docs\\UPLOAD_WORKFLOW.md vs metadata.lua\n  PASS  Paradox block == metadata description (byte for byte)           6237 chars\n  PASS  Steam block == Paradox block, markup and list markers stripped  1068 words\n  PASS  Short summary block == short_description                        199 chars\n  PASS  Change note block == last_changes                               377 chars\n  FAIL  store card is well formed for its declared state                card declares 0 `## State:` lines; exactly one of PRE-PUBLICATION / LIVE is required\n  PASS  every ALL-CAPS Paradox section has a Steam [h2]                 5 sections: THE MODULES, YOUR SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS, QUESTIONS AND MORE DETAIL, BEFORE YOU UNINSTALL\n\n  6 checked \u00b7 1 FAIL\n"
+    },
+    "live_missing_one_body": {
+      "exit": 1,
+      "stdout": "STORE PARITY \u2014 docs\\UPLOAD_WORKFLOW.md vs metadata.lua\n  PASS  Paradox block == metadata description (byte for byte)           6237 chars\n  PASS  Steam block == Paradox block, markup and list markers stripped  1068 words\n  PASS  Short summary block == short_description                        199 chars\n  PASS  Change note block == last_changes                               377 chars\n  FAIL  store card is well formed for its declared state                card declares 0 `## State:` lines; exactly one of PRE-PUBLICATION / LIVE is required\n  PASS  every ALL-CAPS Paradox section has a Steam [h2]                 5 sections: THE MODULES, YOUR SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS, QUESTIONS AND MORE DETAIL, BEFORE YOU UNINSTALL\n\n  6 checked \u00b7 1 FAIL\n"
+    },
+    "prepublication_control": {
+      "exit": 1,
+      "stdout": "STORE PARITY \u2014 docs\\UPLOAD_WORKFLOW.md vs metadata.lua\n  PASS  Paradox block == metadata description (byte for byte)           6237 chars\n  PASS  Steam block == Paradox block, markup and list markers stripped  1068 words\n  PASS  Short summary block == short_description                        199 chars\n  PASS  Change note block == last_changes                               377 chars\n  FAIL  store card is well formed for its declared state                card declares 0 `## State:` lines; exactly one of PRE-PUBLICATION / LIVE is required\n  PASS  every ALL-CAPS Paradox section has a Steam [h2]                 5 sections: THE MODULES, YOUR SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS, QUESTIONS AND MORE DETAIL, BEFORE YOU UNINSTALL\n\n  6 checked \u00b7 1 FAIL\n"
+    }
+  },
+  "pack_controls": {
+    "different_bytes": {
+      "exit": 1,
+      "stdout": "ARCHIVE  B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\final_launch_audit_bc5y2nv8\\fixture.fpk\n  size   70 bytes\n  md5    0cd43d90008e4baa2b8059d34869971a\n  mtime  2026-10-03 22:48:39.613055\n  ENTRIES 1\n\n  (root)            1\n\n  storage: stored=1\n\n  non-Code entries:\n    items.lua                                stored        13 B\n\nRECONCILE against B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\final_launch_audit_bc5y2nv8\\tree\n  predicted 1 \u00b7 in archive 1\n  [!] in tree, NOT in archive : 0\n  [!] in archive, NOT in tree : 0\n  [OK] names match\n\n  CONTENT: 0 byte-identical to disk, 1 differ, 0 allowed difference(s), 0 unread\n      DIFFERS items.lua\n\n  VERDICT: MISMATCH \u2014 exit 1\n",
+      "stderr": ""
+    },
+    "matching_control": {
+      "exit": 0,
+      "stdout": "ARCHIVE  B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\final_launch_audit_bc5y2nv8\\fixture.fpk\n  size   70 bytes\n  md5    0cd43d90008e4baa2b8059d34869971a\n  mtime  2026-10-03 22:48:39.613055\n  ENTRIES 1\n\n  (root)            1\n\n  storage: stored=1\n\n  non-Code entries:\n    items.lua                                stored        13 B\n\nRECONCILE against B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\final_launch_audit_bc5y2nv8\\tree\n  predicted 1 \u00b7 in archive 1\n  [!] in tree, NOT in archive : 0\n  [!] in archive, NOT in tree : 0\n  [OK] names match\n\n  CONTENT: 1 byte-identical to disk, 0 differ, 0 allowed difference(s), 0 unread\n\n  VERDICT: EXACT MATCH\n",
+      "stderr": ""
+    }
+  }
+}

@@ -1,0 +1,205 @@
+{
+ "head": "284d13fa52db3bb6cc27eac84140faeeb7c11fbf",
+ "status_short": " M docs/agent/prompts/perma/RELEASE_OUTBOX.md\n?? docs/archive/release_corrections_20261003/\n",
+ "runs": {
+  "selftest": {
+   "command": "python tools/release_selftest.py",
+   "exit": 0,
+   "stdout": "  PASS parity: first publication prepares (pre-publication card, no body)\n  PASS parity: --confirm-live refuses a pre-publication card\n  PASS parity: staged update over an older live copy prepares, and is reported\n  PASS parity: --confirm-live fails while the card still holds the older copy\n  PASS parity: confirmed update passes; dated history is never selected\n  PASS parity: nothing staged over a live copy prepares\n  PASS parity: live card missing one body FAILS (audit F2 false GREEN)\n  PASS parity: a missing current body is not satisfied from history\n  PASS parity: one damaged word in the live copy FAILS --confirm-live\n  PASS parity: a card with no state line FAILS\n  PASS parity: a pre-publication card holding a body FAILS\n  PASS parity: metadata description differing from the block FAILS\n  PASS parity: a missing source document FAILS (no report fallback)\n  PASS package: exact names and bytes PASS\n  PASS package: changed bytes FAIL (audit F3 exit 0)\n  PASS package: a tree file missing from the archive FAILS\n  PASS package: an archive member absent from the tree FAILS\n  PASS package: an unread member FAILS and is not counted as matching\n  PASS package: a declared allowed difference PASSES and is listed\n  PASS package: an undeclared difference beside an allowed one FAILS\n  PASS package: the command line exits 1 on changed bytes\n  PASS batch: Pending with no open batch is NEW_BATCH\n  PASS batch: a held-out row naming an untracked path refuses begin\n  PASS batch: begin opens a first-publish batch\n  PASS batch: launch tree omits held-out and uncommitted files, keeps the rest\n  PASS batch: verify passes on the pinned tree\n  PASS batch: verify FAILS on a file added to the launch tree\n  PASS batch: verify FAILS on a held token / changed non-editor file\n  PASS batch: prepared batch reads PREPARED\n  PASS batch: a second begin on an open batch is refused\n  PASS batch: snapshot with no package is refused, not invented\n  PASS batch: paradox snapshot keeps the package and serializer output\n  PASS batch: repeating a snapshot is a no-op\n  PASS batch: the paradox package is refused as the steam snapshot\n  PASS batch: writeback without a receipt is UPLOADING, paradox UNCONFIRMED\n  PASS batch: one confirmed portal is PARTIAL\n  PASS batch: drain is refused on a partial upload\n  PASS batch: an allocated steam_id alone is UNCONFIRMED, never an upload\n  PASS batch: a failed receipt reads FAILED and keeps the batch PARTIAL\n  PASS batch: drain is refused after an allocated id and a failed upload\n  PASS batch: abandon is refused once any portal shows activity\n  PASS batch: steam snapshot keeps the second, different package\n  PASS batch: both receipts read CLOSE_OWED with every close step listed\n  PASS batch: verify accepts the editor's writeback set only\n  PASS batch: close is refused while steps are owed\n  PASS batch: drain moves the two pinned entries and leaves the later one\n  PASS batch: a repeated drain appends nothing and removes nothing more\n  PASS batch: close succeeds once every step is recorded\n  PASS batch: later Pending after a live release is NEW_BATCH, not an unfinished upload\n  PASS batch: begin after a live release opens an UPDATE batch\n  PASS batch: existing ids do not count as uploads of the update batch\n  PASS batch: the update's launch tree keeps the repo's comments until the editor saves\n  PASS batch: an untouched batch can be abandoned and Pending survives\n\nRELEASE SELFTEST: 53 leg(s), 0 FAIL\n",
+   "stderr": ""
+  },
+  "batch_status": {
+   "command": "python tools/release_batch.py status",
+   "exit": 0,
+   "stdout": "RELEASE STATE: NEW_BATCH\n  no open batch; no batch has ever closed (nothing is live)\n  3 Pending entries staged — this is a NEW batch to derive, not an unfinished upload:\n    ### Pending · FIRST PUBLICATION (staged 2026-10-03, Launch_Prep/03)\n    ### Pending · Arboretum test build (2026-10-03, D19)\n    ### Pending · Launch exit disclosure and warning (2026-10-03, Launch_Prep/01)\n",
+   "stderr": ""
+  },
+  "assemble": {
+   "command": "python tools/release_batch.py assemble --out B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof",
+   "exit": 0,
+   "stdout": "ASSEMBLED B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof from 284d13f — 90 members, no batch opened\n  packed: 75 files, 102,621,236 raw bytes\n  registered modules (7): AcknowledgedWarnings, DroneStatDials, ElevatorDepot, MultipleSuns, ServiceInterestTags, StationRows, TrainHub\n  option items (8): AcknowledgedWarnings, MultipleSuns, ServiceInterestTags, StationRows, TrainHub, ElevatorDepot, DroneSpeedDial, DroneCarryDial\n  Data templates (2): Data/BuildingTemplate/SMROptInElevatorDepotDev.lua, Data/BuildingTemplate/SMROptInTrainHub6.lua\n  generated code (3): Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua, Code/BuildingTemplate/SMROptInTrainHub6.generated.lua, Code/_EntityData.generated.lua\n  changed vs manifest: 0\n  missing vs manifest: 0\n  extra vs manifest: 0\n  held tokens ['Arboretum']: 0 hit(s)\n",
+   "stderr": ""
+  },
+  "preflight_launch": {
+   "command": "python tools/upload_preflight.py B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof",
+   "exit": 0,
+   "stdout": "UPLOAD PREFLIGHT — B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof\n  mod id: SMR_CommunityOptInPack   title: 'Relaunched Fix Pack: Opt-In Modules'\n\n  UNCHECKABLE PDX login                                                                                      cannot be checked without an account — the ONLY guard this tool cannot run (ParadoxMods.lua:20-22)\n  PASS        PDX `title` non-empty (ParadoxMods.lua:24)                                                     35 chars\n  PASS        PDX `short_description` non-empty (ParadoxMods.lua:29)                                         199 chars\n  PASS        PDX `description` non-empty (ParadoxMods.lua:34)                                               6280 chars\n  PASS        PDX `image` non-empty (ParadoxMods.lua:39)                                                     38 chars\n  PASS        PDX `lua_revision` non-empty (ParadoxMods.lua:44)                                              350453\n  PASS        PDX `last_changes` required when updating (ParadoxMods.lua:48)                                 set\n  PASS        preview image resolves on disk                                                                 preview.png\n  PASS        preview <= 1 MB (Steam hard limit, SteamWorkshop.lua:85-92)                                    41,743 bytes\n  PASS        preview <= 2 MB (recorded PDX limit)                                                           41,743 bytes\n  PASS        image path is content-path form                                                                starts with 'Mod/', so FixRelativePaths leaves it alone (Mod.lua:577) and the mod stays CLEAN — no editor save, no version bump\n  PASS        screenshot <= 1 MB: Mod/SMR_CommunityOptInPack/store_screenshots/1_hub_day.jpg                 509,699 bytes\n  PASS        screenshot <= 1 MB: Mod/SMR_CommunityOptInPack/store_screenshots/2_hub_panel.jpg               517,673 bytes\n  PASS        screenshot <= 1 MB: Mod/SMR_CommunityOptInPack/store_screenshots/3_depot_pair.jpg              433,399 bytes\n  PASS        screenshot <= 1 MB: Mod/SMR_CommunityOptInPack/store_screenshots/4_station_rows.jpg            488,582 bytes\n  PASS        screenshot <= 1 MB: Mod/SMR_CommunityOptInPack/store_screenshots/5_interests_popout.jpg        426,910 bytes\n  INFO        PackVersion a player sees                                                                      1.0.0  (version_major.version_minor.version)\n  INFO        VersionDisplayName sent to PDX                                                                 '0' — the REVISION ALONE, not the full version (ParadoxMods.lua:156). Edit it on the portal page if it lets you.\n  PASS        lua_revision pinned to ModRequiredLuaRevision (Mod.lua:19)                                     350453\n  PASS        ignore_files carries */docs/*                                                                  present\n  PASS        ignore_files carries */tools/*                                                                 present\n  PASS        ignore_files carries *CLAUDE.md                                                                present\n  PASS        ignore_files carries *AGENTS.md                                                                present\n  PASS        ignore_files carries *.git/*                                                                   present\n  PASS        no junction/symlink whose contents would be packed                                             none\n  PASS        predicted pack holds only shipping files                                                       75 files: Code/**/*.lua, Data/**/*.lua, model assets, metadata.lua, items.lua, LICENSE, preview.png\n  PASS        predicted pack size <= 5 MB, model assets aside (OI-18)                                        569,757 bytes\n  INFO        model assets (raw, before the pack's compression)                                              102,051,479 bytes in 50 file(s); no ceiling, owner OI-18\n  PASS        every Mod/<id>/ path names this mod (SMR_CommunityOptInPack)                                   28 distinct target(s)\n  PASS        every Mod/SMR_CommunityOptInPack/ path resolves to a packed file                               28 distinct target(s)\n  PASS        every packed asset is used                                                                     50 asset file(s), each named by a path in the pack (fallbacks by their texture's name)\n  PASS        metadata `entities` == Entities/*.entjson                                                      5 entities\n  PASS        SourceData/ArtSpec-mod.lua names every entity                                                  5 EntitySpec item(s) = `entities`\n  PASS        ArtSpec save_in is this mod                                                                    Mod/SMR_CommunityOptInPack\n  PASS        template SMROptInElevatorDepotDev SaveIn is this mod                                           Mod/SMR_CommunityOptInPack\n  PASS        template SMROptInElevatorDepotDev has its generated class in `code`                            Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua\n  PASS        template SMROptInTrainHub6 SaveIn is this mod                                                  Mod/SMR_CommunityOptInPack\n  PASS        template SMROptInTrainHub6 has its generated class in `code`                                   Code/BuildingTemplate/SMROptInTrainHub6.generated.lua\n  PASS        metadata `code` list matches Code/**/*.lua on disk                                             19 files, exactly\n  PASS        each ModItemCode's name derives its CodeFileName (the engine reads the name)                   16 item(s)\n  PASS        generated code files listed after every hand-written one                                       3 generated file(s) last, as a SaveDef appends them\n  PASS        items.lua ModItemCode list == metadata `code` (generated files aside), same files, same order  16 entries, in order\n\n  41 checked · 0 FAIL · 1 UNCHECKABLE\n\n✅ Every guard this tool can run would pass. ⛔ This is NOT 'the upload will succeed' — the login guard is unrunnable here and portal character limits stay check-at-paste.\n",
+   "stderr": ""
+  },
+  "predict_launch": {
+   "command": "python tools/pack_predict.py B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof --json",
+   "exit": 0,
+   "stdout": "{\n \"packed\": [\n  \"Code/00_Core.lua\",\n  \"Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua\",\n  \"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua\",\n  \"Code/ElevatorDepot_10_ElevatorDepot.lua\",\n  \"Code/Opt_AcknowledgedWarnings.lua\",\n  \"Code/Opt_DroneStatDials.lua\",\n  \"Code/Opt_ElevatorDepot.lua\",\n  \"Code/Opt_MultipleSuns.lua\",\n  \"Code/Opt_ServiceInterestTags.lua\",\n  \"Code/Opt_StationRows.lua\",\n  \"Code/Opt_TrainHub.lua\",\n  \"Code/StationRows_10_TrainFloor.lua\",\n  \"Code/StationRows_40_TrainDistribution.lua\",\n  \"Code/StationRows_45_TrainDistributionUI.lua\",\n  \"Code/TrainHub_20_TrainHub.lua\",\n  \"Code/TrainHub_30_TrainHubDrones.lua\",\n  \"Code/TrainHub_60_StationSpoilage.lua\",\n  \"Code/TrainHub_70_TrainBay.lua\",\n  \"Code/_EntityData.generated.lua\",\n  \"Data/BuildingTemplate/SMROptInElevatorDepotDev.lua\",\n  \"Data/BuildingTemplate/SMROptInTrainHub6.lua\",\n  \"Entities/SMROptInElevatorDepot.entjson\",\n  \"Entities/SMROptInElevatorDepotReceiver.entjson\",\n  \"Entities/SMROptInTrainHub6.entjson\",\n  \"Entities/SMROptInTrainHub6DomeGlass.entjson\",\n  \"Entities/SMROptInTrainHub6Glass.entjson\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_BC.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_CM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_NM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_RM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_SI.dds\",\n  \"LICENSE\",\n  \"Materials/SMROptInElevatorDepot.mtljson\",\n  \"Materials/SMROptInTrainHub6.mtljson\",\n  \"Materials/SMROptInTrainHub6DomeGlass.mtljson\",\n  \"Materials/SMROptInTrainHub6Glass.mtljson\",\n  \"Meshes/SMROptInElevatorDepotReceiver_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInElevatorDepot_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6DomeGlass_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6Glass_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6_mesh.sub_0.hgrm\",\n  \"Textures/SMROptInElevatorDepot_BC.dds\",\n  \"Textures/SMROptInElevatorDepot_CM.dds\",\n  \"Textures/SMROptInElevatorDepot_NM.dds\",\n  \"Textures/SMROptInElevatorDepot_RM.dds\",\n  \"Textures/SMROptInElevatorDepot_SI.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_BC.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_NM.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_RM.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_SI.dds\",\n  \"Textures/SMROptInTrainHub6Glass_BC.dds\",\n  \"Textures/SMROptInTrainHub6Glass_NM.dds\",\n  \"Textures/SMROptInTrainHub6Glass_RM.dds\",\n  \"Textures/SMROptInTrainHub6Glass_SI.dds\",\n  \"Textures/SMROptInTrainHub6_BC.dds\",\n  \"Textures/SMROptInTrainHub6_NM.dds\",\n  \"Textures/SMROptInTrainHub6_RM.dds\",\n  \"Textures/SMROptInTrainHub6_SI.dds\",\n  \"UI/SMROptInElevatorDepot_icon.png\",\n  \"UI/SMROptInTrainHub6_icon.png\",\n  \"items.lua\",\n  \"metadata.lua\",\n  \"preview.png\"\n ],\n \"count\": 75,\n \"bytes\": 102621236,\n \"links\": []\n}\n",
+   "stderr": ""
+  },
+  "predict_repo": {
+   "command": "python tools/pack_predict.py . --json",
+   "exit": 0,
+   "stdout": "{\n \"packed\": [\n  \"Code/00_Core.lua\",\n  \"Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua\",\n  \"Code/BuildingTemplate/SMROptInTrainHub6.generated.lua\",\n  \"Code/ElevatorDepot_10_ElevatorDepot.lua\",\n  \"Code/Opt_AcknowledgedWarnings.lua\",\n  \"Code/Opt_DroneStatDials.lua\",\n  \"Code/Opt_ElevatorDepot.lua\",\n  \"Code/Opt_MultipleSuns.lua\",\n  \"Code/Opt_ServiceInterestTags.lua\",\n  \"Code/Opt_StationRows.lua\",\n  \"Code/Opt_TrainHub.lua\",\n  \"Code/StationRows_10_TrainFloor.lua\",\n  \"Code/StationRows_40_TrainDistribution.lua\",\n  \"Code/StationRows_45_TrainDistributionUI.lua\",\n  \"Code/TrainHub_20_TrainHub.lua\",\n  \"Code/TrainHub_30_TrainHubDrones.lua\",\n  \"Code/TrainHub_60_StationSpoilage.lua\",\n  \"Code/TrainHub_70_TrainBay.lua\",\n  \"Code/_EntityData.generated.lua\",\n  \"Data/BuildingTemplate/SMROptInElevatorDepotDev.lua\",\n  \"Data/BuildingTemplate/SMROptInTrainHub6.lua\",\n  \"Entities/SMROptInElevatorDepot.entjson\",\n  \"Entities/SMROptInElevatorDepotReceiver.entjson\",\n  \"Entities/SMROptInTrainHub6.entjson\",\n  \"Entities/SMROptInTrainHub6DomeGlass.entjson\",\n  \"Entities/SMROptInTrainHub6Glass.entjson\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_BC.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_CM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_NM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_RM.dds\",\n  \"Fallbacks/Textures/SMROptInElevatorDepot_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6DomeGlass_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6Glass_SI.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_BC.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_NM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_RM.dds\",\n  \"Fallbacks/Textures/SMROptInTrainHub6_SI.dds\",\n  \"LICENSE\",\n  \"Materials/SMROptInElevatorDepot.mtljson\",\n  \"Materials/SMROptInTrainHub6.mtljson\",\n  \"Materials/SMROptInTrainHub6DomeGlass.mtljson\",\n  \"Materials/SMROptInTrainHub6Glass.mtljson\",\n  \"Meshes/SMROptInElevatorDepotReceiver_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInElevatorDepot_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6DomeGlass_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6Glass_mesh.sub_0.hgrm\",\n  \"Meshes/SMROptInTrainHub6_mesh.sub_0.hgrm\",\n  \"Textures/SMROptInElevatorDepot_BC.dds\",\n  \"Textures/SMROptInElevatorDepot_CM.dds\",\n  \"Textures/SMROptInElevatorDepot_NM.dds\",\n  \"Textures/SMROptInElevatorDepot_RM.dds\",\n  \"Textures/SMROptInElevatorDepot_SI.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_BC.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_NM.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_RM.dds\",\n  \"Textures/SMROptInTrainHub6DomeGlass_SI.dds\",\n  \"Textures/SMROptInTrainHub6Glass_BC.dds\",\n  \"Textures/SMROptInTrainHub6Glass_NM.dds\",\n  \"Textures/SMROptInTrainHub6Glass_RM.dds\",\n  \"Textures/SMROptInTrainHub6Glass_SI.dds\",\n  \"Textures/SMROptInTrainHub6_BC.dds\",\n  \"Textures/SMROptInTrainHub6_NM.dds\",\n  \"Textures/SMROptInTrainHub6_RM.dds\",\n  \"Textures/SMROptInTrainHub6_SI.dds\",\n  \"UI/SMROptInElevatorDepot_icon.png\",\n  \"UI/SMROptInTrainHub6_icon.png\",\n  \"items.lua\",\n  \"metadata.lua\",\n  \"preview.png\"\n ],\n \"count\": 75,\n \"bytes\": 102621236,\n \"links\": []\n}\n",
+   "stderr": ""
+  },
+  "parity_launch": {
+   "command": "python tools/store_parity.py --metadata B:\\Dev\\SMR\\SMR-OptInPack\\scratch\\launch-proof\\metadata.lua",
+   "exit": 0,
+   "stdout": "STORE PARITY — docs\\UPLOAD_WORKFLOW.md vs scratch\\launch-proof\\metadata.lua\n  PASS  Paradox block == metadata description (byte for byte)           6237 chars\n  PASS  Steam block == Paradox block, markup and list markers stripped  1068 words\n  PASS  Short summary block == short_description                        199 chars\n  PASS  Change note block == last_changes                               377 chars\n  PASS  store card is well formed for its declared state                State: PRE-PUBLICATION\n  INFO  store card holds no body (pre-publication)                      not compared\n  PASS  every ALL-CAPS Paradox section has a Steam [h2]                 5 sections: THE MODULES, YOUR SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS, QUESTIONS AND MORE DETAIL, BEFORE YOU UNINSTALL\n\n  7 checked · 0 FAIL\n",
+   "stderr": ""
+  },
+  "parity_confirm_live_prepublication": {
+   "command": "python tools/store_parity.py --confirm-live",
+   "exit": 1,
+   "stdout": "STORE PARITY — docs\\UPLOAD_WORKFLOW.md vs metadata.lua  [--confirm-live]\n  PASS  Paradox block == metadata description (byte for byte)           6237 chars\n  PASS  Steam block == Paradox block, markup and list markers stripped  1068 words\n  PASS  Short summary block == short_description                        199 chars\n  PASS  Change note block == last_changes                               377 chars\n  PASS  store card is well formed for its declared state                State: PRE-PUBLICATION\n  FAIL  --confirm-live: card holds the current live copy                no usable live copy (State: PRE-PUBLICATION)\n  PASS  every ALL-CAPS Paradox section has a Steam [h2]                 5 sections: THE MODULES, YOUR SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS, QUESTIONS AND MORE DETAIL, BEFORE YOU UNINSTALL\n\n  7 checked · 1 FAIL\n",
+   "stderr": ""
+  },
+  "counts": {
+   "command": "python tools/doccheck.py --emit-counts",
+   "exit": 0,
+   "stdout": "ENTRIES: 15 files (0 grouped), 15 preserved index rows, 15 heading tags compared\n  status derived from: tag x15\n  warn D16: the frozen index-row cell says 'built', entry says 'tested-attended' (from 'tag')\n  warn D17: the frozen index-row cell says 'built', entry says 'tested-attended' (from 'tag')\n  warn D18: the frozen index-row cell says 'built', entry says 'tested-attended' (from 'tag')\nINDEX: fresh — regenerating from front matter reproduces INDEX.md byte for byte (15 rows)\nFACTS: 121 files, 71 state an observation date, 4544 source lines preserved\nFACTS INDEX: fresh — regenerating from front matter reproduces INDEX.md byte for byte (121 rows)\nROOT: docs/ holds exactly the 7 entries docs/README.md's map declares (FUTURE_IDEAS.md, PARKED_MODULES.md, PLAYTEST_CHECKLIST.md, README.md, UPLOAD_WORKFLOW.md, agent, archive)\nCHECKLIST: PASS — 51 lines, format and 30-day age hold (launch obligations exempt from age)\nPARKED: PASS — 2 entries, each within 10 lines / 1024 bytes / 100 columns (Evidence: paths only, 400 columns, 8 paths)\nMIRROR: AGENTS.md reproduces CLAUDE.md byte for byte (7171 B)\nSKILLS: 7 skill(s), 31049 B of bodies, mirrored to .agents/skills/\n    doc-editing               5804 B\n    prompt-authoring          4957 B\n    smr-bug-library           4289 B\n    smr-orientation           4600 B\n    smr-session-close         4750 B\n    subagents                 3103 B\n    rule-placement            3546 B  imported from ~/.claude/skills/\nPROMPT MAP: PASS — 6 perma + 2 one-off + 1 chain row(s) agree with disk in both directions; declared classes hold; no tombstones\nRULES HEADERS: PASS — 8 required block(s), 46 canonical header rule(s)\nRULE PLACEMENT: PASS — every canonical Rule line is in a header\nRULE HEADERS SELFTEST: PASS (2.448 s)\nCK170 SELFTEST: PASS (0.300 s)\nPROMPT MAP SELFTEST: PASS (0.283 s)\nREPAIR PASS SELFTEST: PASS (1.525 s)\nCOUNTS SELFTEST: PASS (0.385 s)\nSYNC FROM FIXPACK SELFTEST: PASS (2.899 s)\nFLPK SELFTEST: PASS (nested + shallow; the pack reader owns every descendant span)\nTOOL CATALOG: 36 script(s) on disk, 36 row(s) rendered, both directions reconciled against glob(tools/*.py)\nEOL: 9 tracked file(s) whole-CRLF in an LF tree — not RED, every line agrees; the next LF write makes one mixed. `--fix-eol` converts them\n  WARN docs/archive/mechanized_depot_20261003/receipt.json\n  WARN docs/archive/ship_evidence_20261003/handoff_sizes.json\n  WARN docs/archive/train_34b_sitting2_20261002/log_receipt.json\n  WARN docs/archive/train_audit_20261002/lifecycle.json\n  WARN docs/archive/train_audit_20261002/log_receipts.json\n  WARN docs/archive/train_audit_20261002/smokes.json\n  WARN docs/archive/train_final_battery_prep_20261002/smokes.json\n  WARN docs/archive/train_final_battery_prep_20261002/smokes.txt\n  WARN docs/archive/workbench_20261003/verification_receipt.json\nCOLLAPSE: PASS — 281 tracked *.md file(s), none over 500 bytes fall under 8 lines\nCOLLAPSE SELFTEST: PASS (collapsed sample fails, normal sample passes)\nSTATE: STATE.md 1286 bytes (warn 9216, hard 18432, line 200); stub check N/A in this repo\nSTATE ADMISSION: no lines added; door is docs/agent/prompts/perma/STATE_EVICTION.md\nPUSH SET: 11482 B in 3 file(s) ~ 5k tokens (budget 24576 B)\n    CLAUDE.md                                 7171 B\n    docs/agent/STATE.md                       1286 B\n    MEMORY.md (Claude, outside the repo)      3025 B\nNOTE: the TestKit at B:\\Dev\\SMR\\SMR-BugFixPack-TestKit is SHARED with the fix pack — the probe count below is the whole suite, not this mod's share\nCOUNTS: 19 Code/*.lua files, 7 registered modules (1 default-active, 6 files carry optional = true), 83 probes\n        index rows: 0 F + 15 D + 0 C = 15 (in 15 entry files)\nTEMPORARY SWEEP: 0 hit(s) in Code/ + TestKit Code/\nLOAD ORDER: 3 shared-symbol constraint(s) checked, 19 file(s) in the code list\nWRAP CHECK: 0 wrap site(s) outside Require, 19 allowlisted (FIX_POLICY §2; detector+allowlist in tools/harvest_wrap_targets.py)\nPARSE: 19 file(s) in Code, 0 error(s) [Lua 5.5]\nPARSE: 33 file(s) in ..\\SMR-BugFixPack-TestKit\\Code, 0 error(s) [Lua 5.5]  (report-only)\nPARSECHECK SELFTEST: PASS (valid shapes parse, six broken shapes are rejected)\nTOOLS COMPILE: PASS (36 tools/*.py byte-compile)\nMODULE SETS: 19 file(s) in Code/, items.lua and metadata.lua's code list agree by name; 16 ModItemCode name(s) derive their file\nPACK IGNORE PARITY: PASS — 18 filters agree in order\nWORKBENCH: GREEN — 1 modules; 3 code files; 1 options; 18 staged files excluded; 0 leaks\nWORKBENCH SELFTEST: PASS (0.258 s)\nLOCAL: PASS — 5 row(s) agree with disk in both directions\nLOCAL SIZE: 17 file(s), 159.6 MB under local/\nTESTKIT TREE: 1 uncommitted change(s) — report-only, never a block. Route or commit them; never `git restore` (the 2026-08-03 orphan lesson).\n  WARN  M Code/80_AgentSlots.lua\nSCRATCH: 224 file(s), oldest is 12 day(s) old\nPARENT FILES (B:\\Dev\\SMR): none\ndoccheck: GREEN\n\nBUILD STATE (emitted by tools/doccheck.py)\n- modules: 7 registered (1 default-active, 6 optional-gated files)\n- Code/*.lua files: 19\n- TestKit probes: 83 (shared kit — serves both mods)\n- BUGS index rows: 0 F + 15 D + 0 C\n",
+   "stderr": ""
+  }
+ },
+ "membership": {
+  "registered_modules": {
+   "filter": "Code/Opt_*.lua containing SMROptInPack.Register(",
+   "members": [
+    "AcknowledgedWarnings",
+    "DroneStatDials",
+    "ElevatorDepot",
+    "MultipleSuns",
+    "ServiceInterestTags",
+    "StationRows",
+    "TrainHub"
+   ]
+  },
+  "default_options": {
+   "filter": "metadata.lua 'default_options' keys",
+   "members": [
+    "AcknowledgedWarnings",
+    "MultipleSuns",
+    "ServiceInterestTags",
+    "DroneSpeedDial",
+    "DroneCarryDial",
+    "StationRows",
+    "TrainHub",
+    "ElevatorDepot"
+   ]
+  },
+  "option_items": {
+   "filter": "items.lua PlaceObj('ModItemOption*') names",
+   "members": [
+    "AcknowledgedWarnings",
+    "MultipleSuns",
+    "ServiceInterestTags",
+    "StationRows",
+    "TrainHub",
+    "ElevatorDepot",
+    "DroneSpeedDial",
+    "DroneCarryDial"
+   ]
+  },
+  "code_list": {
+   "filter": "metadata.lua 'code'",
+   "members": [
+    "Code/00_Core.lua",
+    "Code/Opt_AcknowledgedWarnings.lua",
+    "Code/Opt_MultipleSuns.lua",
+    "Code/Opt_DroneStatDials.lua",
+    "Code/Opt_ServiceInterestTags.lua",
+    "Code/Opt_StationRows.lua",
+    "Code/StationRows_10_TrainFloor.lua",
+    "Code/StationRows_40_TrainDistribution.lua",
+    "Code/StationRows_45_TrainDistributionUI.lua",
+    "Code/Opt_TrainHub.lua",
+    "Code/TrainHub_20_TrainHub.lua",
+    "Code/TrainHub_30_TrainHubDrones.lua",
+    "Code/TrainHub_60_StationSpoilage.lua",
+    "Code/TrainHub_70_TrainBay.lua",
+    "Code/Opt_ElevatorDepot.lua",
+    "Code/ElevatorDepot_10_ElevatorDepot.lua",
+    "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+    "Code/_EntityData.generated.lua",
+    "Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua"
+   ]
+  },
+  "packed_code": {
+   "filter": "predicted pack, Code/",
+   "members": [
+    "Code/00_Core.lua",
+    "Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua",
+    "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+    "Code/ElevatorDepot_10_ElevatorDepot.lua",
+    "Code/Opt_AcknowledgedWarnings.lua",
+    "Code/Opt_DroneStatDials.lua",
+    "Code/Opt_ElevatorDepot.lua",
+    "Code/Opt_MultipleSuns.lua",
+    "Code/Opt_ServiceInterestTags.lua",
+    "Code/Opt_StationRows.lua",
+    "Code/Opt_TrainHub.lua",
+    "Code/StationRows_10_TrainFloor.lua",
+    "Code/StationRows_40_TrainDistribution.lua",
+    "Code/StationRows_45_TrainDistributionUI.lua",
+    "Code/TrainHub_20_TrainHub.lua",
+    "Code/TrainHub_30_TrainHubDrones.lua",
+    "Code/TrainHub_60_StationSpoilage.lua",
+    "Code/TrainHub_70_TrainBay.lua",
+    "Code/_EntityData.generated.lua"
+   ]
+  },
+  "packed_data": {
+   "filter": "predicted pack, Data/",
+   "members": [
+    "Data/BuildingTemplate/SMROptInElevatorDepotDev.lua",
+    "Data/BuildingTemplate/SMROptInTrainHub6.lua"
+   ]
+  },
+  "generated": {
+   "filter": "predicted pack, *.generated.lua",
+   "members": [
+    "Code/BuildingTemplate/SMROptInElevatorDepotDev.generated.lua",
+    "Code/BuildingTemplate/SMROptInTrainHub6.generated.lua",
+    "Code/_EntityData.generated.lua"
+   ]
+  },
+  "ignore_files": {
+   "filter": "metadata.lua 'ignore_files'",
+   "members": [
+    "*.git/*",
+    "*.svn/*",
+    "*/Source/*",
+    "*/SourceData/*",
+    "*/docs/*",
+    "*/.agents/*",
+    "*/.claude/*",
+    "*/tools/*",
+    "*README.md",
+    "*CLAUDE.md",
+    "*AGENTS.md",
+    "*.gitignore",
+    "*.rgignore",
+    "*.gitattributes",
+    "*/local/*",
+    "*/scratch/*",
+    "*/store_screenshots/*",
+    "*/staging/*"
+   ]
+  },
+  "packed_total": 75,
+  "launch_vs_repo_pack": {
+   "only_in_repo_prediction": [],
+   "only_in_launch_prediction": []
+  }
+ },
+ "held_token": {
+  "token": "Arboretum",
+  "launch_tree_hits": [],
+  "presence_control": {
+   "filter": "staging/**/*.lua containing the token",
+   "members": [
+    "staging/items.lua",
+    "staging/metadata.lua",
+    "staging/Code/Opt_Arboretum.lua",
+    "staging/Data/BuildingTemplate/SMROptInArboretum.lua",
+    "staging/Code/BuildingTemplate/SMROptInArboretum.generated.lua"
+   ]
+  }
+ }
+}

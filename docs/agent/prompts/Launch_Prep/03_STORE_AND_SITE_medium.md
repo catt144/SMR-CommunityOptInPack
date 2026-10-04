@@ -76,6 +76,17 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**03A landed (`284d13f`), 2026-10-03; resume here.** What changed under you:
+`python tools/store_parity.py` no longer has a report fallback and now checks the store card's
+shape; the §3 blocks in `docs/UPLOAD_WORKFLOW.md` are the staged copy and the card stays
+pre-publication until the close. The package gates run on a launch tree
+(`python tools/release_batch.py assemble --out scratch/<dir>` for a dry one), not on the repo.
+`UPLOAD_WORKFLOW.md`'s first-publish steps and §4/§5 order were rewritten (no listing
+question; "stores done" → the agent adds real store links to the site's `## Get it` section
+and the README → the owner deploys). Do not open a batch (`begin`): that is the release
+prompt's §2, after your surfaces and 04's verdict. F6/F7's site and disclosure work is
+still yours. The Arboretum now lives in `staging/` (`78eed20`).
+
 **Owner 2026-10-03 (OI-49): the original Tripo hub model was the owner's own generation on a
 paid plan; "we own the license for it."** The retained under-deck beds, stub pylons and feet
 need no third-party credit or notice. Record the provenance where the credits and asset notes
