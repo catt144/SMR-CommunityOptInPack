@@ -68,5 +68,5 @@ is the reason the document grew in the first place.
 Scope: this skill is repo-agnostic and lives at the user level, so it loads in every
 project. Each repo's own doc-editing skill holds that repo's specifics — which document is
 the owner's list, which documents are agent-facing, which gate enforces the header format.
-In the Relaunched Fix Pack the worked reasoning, the owner's verbatim wording and the
-calibration warning are in `docs/agent/reports/RULE_PLACEMENT_TEST.md`.
+In the Relaunched Fix Pack the worked cases, the owner's verbatim wording and the
+calibration are in `docs/agent/reports/RULE_PLACEMENT_TEST.md`, the casebook behind this skill.
