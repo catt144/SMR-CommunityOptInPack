@@ -29,6 +29,12 @@ obligations are in `reports/FINAL_LAUNCH_AUDIT_20261003.md`. Only the upload rem
 Its first real use exercises the editor on a launch tree, the link launch and a packed
 install for the first time.
 
+**HELD (owner, 2026-10-04): "I want an audit before we do anything else."** Two first-publish
+Paradox attempts failed with "Unknown error". There is no listing, and batch `2026-10-04-01`
+and its launch tree are kept as they are. No upload is attempted until the fix pack's
+`docs/agent/prompts/OPTIN_PARADOX_UPLOAD_AUDIT_high.md` (`9dd23341`) reports. Clear its paste
+with one check, then apply its corrections here.
+
 Owner asks still open, on `docs/PLAYTEST_CHECKLIST.md`:
 
 - **OI-51**: keep the train startup lines separate or merge them. Recommend separate.
