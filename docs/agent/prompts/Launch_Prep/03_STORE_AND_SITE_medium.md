@@ -76,7 +76,7 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
-**04 audit, 2026-10-03: preparation not accepted.** Read
+**04 audit `c1d8c7e`, 2026-10-03: preparation not accepted.** Read
 `reports/FINAL_LAUNCH_AUDIT_20261003.md`. 03A owns release tools/lifecycle and an
 actual launch package excluding held D19. Resume this link after 03A lands.
 Your remaining unit is F6/F7: put both exact residual disclosures and the prior-art

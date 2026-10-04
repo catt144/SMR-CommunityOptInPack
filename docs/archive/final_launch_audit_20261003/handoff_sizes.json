@@ -1,0 +1,36 @@
+{
+  "command": "python docs/archive/final_launch_audit_20261003/handoff_sizes.py",
+  "base": "298ff9b76d6fca4293da9d8e5c734537cb691bd2",
+  "head": "c1d8c7ee2021cc15c9192bdcba1dedf94f5c6806",
+  "filter": "exact paths in members, raw file bytes, absent before = 0",
+  "members": [
+    {
+      "path": "docs/agent/prompts/Launch_Prep/03_STORE_AND_SITE_medium.md",
+      "before": 9991,
+      "after": 11254
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/03A_RELEASE_CORRECTIONS_high.md",
+      "before": 0,
+      "after": 6290
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/04_FINAL_AUDIT_high.md",
+      "before": 14670,
+      "after": 15475
+    },
+    {
+      "path": "docs/agent/prompts/Launch_Prep/README.md",
+      "before": 3344,
+      "after": 3754
+    },
+    {
+      "path": "docs/agent/prompts/README.md",
+      "before": 5766,
+      "after": 5747
+    }
+  ],
+  "before": 33771,
+  "after": 42520,
+  "delta": 8749
+}

@@ -62,7 +62,7 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
-**This link ran at `298ff9b`, 2026-10-03, and rejected preparation.** Durable
+**This link ran at `298ff9b`, 2026-10-03, and rejected preparation (`c1d8c7e`).** Durable
 record: `reports/FINAL_LAUNCH_AUDIT_20261003.md`; independent source/log checks
 and concrete tool falsifiers: `archive/final_launch_audit_20261003/`.
 03A now owns F1–F5 (launch artifact and release lifecycle/gates); 03 owns F6/F7

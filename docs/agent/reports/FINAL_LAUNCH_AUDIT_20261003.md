@@ -9,7 +9,7 @@ continuations. No gameplay, upload, deployment or sibling writes.
 
 | commit-and-verify unit | state | evidence / owner |
 |---|---|---|
-| Audit primary evidence and release recovery; correct local records and route remaining preparation | verified; commit pending | this report; 03A owns release corrections, 03 owns surfaces, 04 rechecks after both land |
+| Audit primary evidence and release recovery; correct local records and route remaining preparation | COMPLETE in `c1d8c7e` | source/log and negative-control receipts; doccheck GREEN in the commit hook; 03A owns release corrections, 03 owns surfaces, 04 rechecks after both land |
 
 ## Initial contrary evidence
 
@@ -399,6 +399,12 @@ remaining are OI-49, upload-time accounts/platforms, both actual store uploads,
 formatting and eventual separate site deployment. None was performed here.
 
 ## Close
+
+Audit/correction handoff committed as `c1d8c7e`. The following records-only commit
+pins that result in 03/04 and completes this work list. Handoff byte measurements
+use `archive/final_launch_audit_20261003/handoff_sizes.py` and its receipt against
+the startup HEAD: **33771 → 42520 bytes, +8749**, reconciled to the complete
+member list. No handoff is removed.
 
 All audit findings are either corrected in local records or assigned to the live
 03A/03/04 passages above; no owner decision is duplicated and no obligation is
