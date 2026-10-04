@@ -175,7 +175,9 @@ TOOLS_ADAPTED = {
     "l7_env_map.py": "'this mod' wording, " + _GUARD,
     "l8_hostile_input.py": "token rename and this mod's module trio "
                            "(ClassicRockets, DroneStatDials, NoHomeless)",
-    "pack_list.py": _GUARD + " only — the donor lacks it: propose there",
+    "pack_list.py": _GUARD + "; reconcile() exits 1 on changed bytes and on unread "
+                    "members and takes --allow-differ (final launch audit F3, "
+                    "2026-10-03). The donor's copy still exits 0 there: propose both",
     "pack_predict.py": "this repo's ignore_files and CONTENT_PREFIX; "
                        "both pack_list copies now build regexes from IGNORE",
     "paradox_card.py": "ported 2026-10-03 (OI-21 route, Launch_Prep/03): --source "
@@ -196,6 +198,10 @@ TOOLS_ADAPTED = {
 
 # Tools only this repo has. Anything else only here is reported as ONLY HERE.
 TOOLS_LOCAL_ONLY = {
+    "release_batch.py": "this mod's pinned release batch and launch tree (final launch "
+                        "audit F1/F4); the donor uploads from its working repo",
+    "release_selftest.py": "the falsifier for store_parity, pack_list.reconcile and "
+                           "release_batch",
     "rule_headers_selftest.py": "falsifier for the RULES HEADERS gate, which the "
                                 "donor runs without one: propose there",
     "store_parity.py": "store-copy parity check between the maintained Paradox/Steam "

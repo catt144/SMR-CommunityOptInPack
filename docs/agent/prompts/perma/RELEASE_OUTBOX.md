@@ -4,14 +4,16 @@
 <!-- RULES -->
 Rule: Append a filled `### Pending` entry whenever a shipping module, a player-facing surface or a store claim is added, retired or materially respecified. [A3: pass]
 Rule: Do not append a pending entry for an internal change that never reached a player. [A3: pass]
-Rule: Append every pending entry to `docs/archive/RELEASE_HISTORY.md` and empty `Pending` only through `release_prompt.md` after the owner confirms the upload. [A3: pass]
+Rule: Move a batch's pinned pending entries to `docs/archive/RELEASE_HISTORY.md` only with `python tools/release_batch.py drain`, after the owner confirms that batch's upload on both stores. [A3: pass]
 Rule: Do not delete a pending entry except through a release or with an explicit withdrawal reason. [A3: pass]
 <!-- /RULES -->
 
 This ledger tracks every player-facing tree change since the last upload.
 `docs/agent/prompts/perma/release_prompt.md` derives the change note and the surface
-updates from it, then appends Pending entries to `docs/archive/RELEASE_HISTORY.md`
-after the owner's confirmed upload. `docs/agent/support/RELEASE_SURFACES.md` defines
+updates from it and pins the entries one release carries as a batch
+(`docs/agent/support/RELEASE_BATCH.json`). After the owner's confirmed upload only that
+batch's entries move to `docs/archive/RELEASE_HISTORY.md`; an entry added later, or held
+out of the batch, stays here. `docs/agent/support/RELEASE_SURFACES.md` defines
 which changes have a player surface.
 
 **Live tree version:** `metadata.lua` `version` — read it, never hand-set it
@@ -49,4 +51,4 @@ bumps one.
 
 **Nothing yet.** This mod has never been uploaded; `docs/archive/RELEASE_HISTORY.md`
 holds no release section by design. The first `### Released in v…` line arrives with the
-first confirmed upload, through `release_prompt.md` §5.
+first confirmed upload, through `release_prompt.md` §5. The drain rewrites this section.

@@ -1799,7 +1799,8 @@ TOOL_GROUPS = (
      "⛔ This mod is NOT PUBLISHED. The preview and the five gallery "
      "screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.",
      ("upload_preflight.py", "pack_predict.py", "store_parity.py", "paradox_card.py",
-      "annotate_screenshots.py", "store_screenshots.py")),
+      "annotate_screenshots.py", "store_screenshots.py", "release_batch.py",
+      "release_selftest.py")),
 )
 TOOLS_UNGROUPED = (
     "Ungrouped",

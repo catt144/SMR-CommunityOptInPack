@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*34 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*36 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -120,6 +120,8 @@ The dev-only sibling mod lives in staging/. Its README covers installation, shar
 | [`paradox_card.py`](paradox_card.py) | Provenance: ported from SMR-BugFixPack @ 56d72579 on 2026-10-03; adapted: --source, missing-file message. |
 | [`annotate_screenshots.py`](annotate_screenshots.py) | Annotate the owner's captures for the store gallery: crop, callout boxes, arrows, a title strip. |
 | [`store_screenshots.py`](store_screenshots.py) | Provenance: ported from SMR-BugFixPack @ 56d72579 on 2026-10-03; adapted: capture folder, five-shot MAP, WAITING rows, --list. |
+| [`release_batch.py`](release_batch.py) | Pin one release batch: the launch tree it uploads from, each portal's progress, and its close. |
+| [`release_selftest.py`](release_selftest.py) | Falsifier for the release gates: store parity, package comparison and batch recovery. |
 
 <!-- END GENERATED TOOL ROWS -->
 

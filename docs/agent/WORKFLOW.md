@@ -239,7 +239,8 @@ This mod is not yet published. Its release system is the fix pack's, standardise
 `docs/UPLOAD_WORKFLOW.md`, and an agent runs `prompts/perma/release_prompt.md`, which
 consumes `support/RELEASE_SURFACES.md`, `support/POST_UPLOAD_CLOSE.md` and
 `support/LIVE_SITE_READ.md`. Player-facing changes queue in `prompts/perma/RELEASE_OUTBOX.md`
-and drain into `archive/RELEASE_HISTORY.md` after the owner's confirmed upload. This mod's
+and drain into `archive/RELEASE_HISTORY.md` after the owner's confirmed upload, one pinned
+batch at a time (`tools/release_batch.py`, state in `support/RELEASE_BATCH.json`). This mod's
 release duties are `FIX_POLICY.md` §3a and §8 (save exit, both configurations). Standing
 facts with no other home:
 
@@ -256,8 +257,11 @@ facts with no other home:
   assets, `metadata.lua`, `items.lua`, `LICENSE` and the preview image, and on more than 5 MB
   of non-asset files (OI-18: the model assets are exempt from the ceiling); doccheck's PACK
   IGNORE PARITY gate keeps `pack_predict.py`'s copy of the list equal to `metadata.lua`'s.
-  Run it to zero FAIL before the Mod Editor opens; reconcile the downloaded archive with
-  `python tools/pack_list.py <ModContent.fpk> --tree .` afterwards.
+  Because the packer walks files, the owner uploads from the batch's launch tree, a pinned
+  export of one commit (`tools/release_batch.py`), never from the working repo. Run the
+  preflight on that tree to zero FAIL before the Mod Editor opens; afterwards
+  `python tools/pack_list.py <ModContent.fpk> --tree <launch tree>` exits 0 only on equal
+  names and bytes.
 - `items.lua` carries one `ModItemCode` per hand-written `Code/` file in `metadata.lua`
   order, so the editor round-trip regenerates the same code list; add, remove or reorder in
   both, same commit. Generated files (`*.generated.lua`) are listed last and never hand-edited.
@@ -277,10 +281,12 @@ facts with no other home:
 
 ## Release marking (2026-08-17)
 
-What is live on the portal is marked with an annotated tag per mod, `fixpack-`/`optin-`/`rescue-`
-plus `version_major.version_minor.version` from `metadata.lua`, created on the packed commit after
-the owner's confirmed upload (`support/POST_UPLOAD_CLOSE.md`); the tag and `metadata.lua` must agree,
-and the as-published state is recorded in `reports/STORE_CARD_LIVE.md` and `archive/RELEASE_HISTORY.md`.
+What is live on the portal is marked with an annotated tag per mod, `fixpack-v`/`optin-v`/`rescue-v`
+plus `version_major.version_minor.version` from the upload's writeback, created after the owner's
+confirmed upload (`support/POST_UPLOAD_CLOSE.md`). This mod's tag sits on the batch's base commit,
+the source its launch tree was exported from; the uploaded packages are identified by their snapshot
+hashes in the batch record, not by the tag. The as-published state is recorded in
+`reports/STORE_CARD_LIVE.md` and `archive/RELEASE_HISTORY.md`.
 Never a `fixpack-*` name. `main` is latest verified work and normally runs ahead of what
 shipped. No standing `testing` or `published` branch: the junction makes the checked-out tree the
 running mod, and STATE and both generated indexes are rewritten in place, so long-lived branches

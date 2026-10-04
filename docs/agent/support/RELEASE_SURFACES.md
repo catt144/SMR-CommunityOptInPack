@@ -55,13 +55,15 @@ The store body has one source and two generated copies:
 - **Generated:** `metadata.lua`'s `description` and `last_changes`, written by
   `python tools/store_parity.py --write-metadata`. `short_description` is edited by hand
   only when the batch changes one of its claims.
-- **Record:** `docs/agent/reports/STORE_CARD_LIVE.md` holds what is actually live on each
-  portal after a confirmed upload; before the first upload it holds the pre-publication
-  state and no copy of the body.
+- **Record:** `docs/agent/reports/STORE_CARD_LIVE.md` holds the last confirmed live copy.
+  The §3 blocks are the staged copy; while an update is prepared the two differ, and the
+  card is never rewritten to match before the owner confirms the upload.
 
 `python tools/store_parity.py` proves Paradox block == `metadata.lua` description byte
 for byte, Steam block == the same words with markup stripped, summary and change note
-matching, and one Steam `[h2]` per ALL-CAPS Paradox section. Zero FAIL is required.
+matching, one Steam `[h2]` per ALL-CAPS Paradox section, and a store card well formed for
+its declared state. Zero FAIL is required. It reports, and does not fail on, a staged body
+that differs from the live one; `--confirm-live` is the close-out's check.
 
 The section order is fixed: the approved lede paragraph (OI-42 text), THE MODULES, YOUR
 SAVE, AND REMOVING THE MOD, PLAYING ON XBOX, PLAYSTATION OR THE MICROSOFT STORE, BUGS,
@@ -86,13 +88,15 @@ Before the release prompt hands off:
 1. Reconcile every claim against its entry; no new behaviour claim without an entry or
    ruling behind it.
 2. `python tools/doccheck.py` GREEN (after `--regen` if a generated file moved).
-3. `python tools/store_parity.py` zero FAIL.
-4. `python tools/upload_preflight.py` zero FAIL lines; `python tools/pack_predict.py .`
-   members and bytes reconciled and recorded.
-5. `python -m mkdocs build --strict` clean in the site repo.
-6. Commit each repository with exact pathspecs and report what is committed but not
+3. `python tools/store_parity.py` zero FAIL; `python tools/release_selftest.py` zero FAIL.
+4. `python -m mkdocs build --strict` clean in the site repo.
+5. Commit each repository with exact pathspecs and report what is committed but not
    yet public.
+6. The package gates run on the launch tree, after the release prompt's §2 pins the batch:
+   `python tools/release_batch.py verify`, `python tools/upload_preflight.py <launch tree>`
+   zero FAIL, and `python tools/pack_predict.py <launch tree>` members and bytes reconciled
+   and recorded. The working repo's result is not the package's.
 
-The owner then follows `docs/UPLOAD_WORKFLOW.md`: mod upload, store-page formatting on
-both portals, then site publication. Store pages precede the site because an upload
-fills their bodies from `metadata.lua`. The agent does not perform any of those actions.
+The owner then follows `docs/UPLOAD_WORKFLOW.md`: mod upload and store-page formatting on
+both portals; the agent then puts the real store links on the site; the owner publishes
+the site last. The agent performs no portal or deployment action.

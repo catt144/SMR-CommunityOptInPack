@@ -12,7 +12,7 @@ records what the portals were given.
 Steam Workshop id, no page link, no platform approval receipt and no published body.
 Until the first confirmed upload this file carries no copy of the body on purpose
 (RELEASE_SYSTEM's authority: no byte-parity rule on an empty draft), so
-`store_parity.py` checks the two generated copies only.
+`store_parity.py` checks the two generated copies and that this card holds no body.
 
 | portal | id | page | version live | platforms / approval | body as published |
 |---|---|---|---|---|---|
@@ -47,9 +47,12 @@ summary, Paradox plain text, Steam BBCode, first-release change note), the site 
 
 ## After the first upload
 
-`POST_UPLOAD_CLOSE.md` §4 replaces the state line above with `LIVE since <date>`, fills
-the two tables, and appends the as-published body under the headings
-`#### 📋 Paradox Mods — description (plain text, paste as-is)` and
-`#### 📋 Steam Workshop — description (BBCode, paste as-is)`, after which
-`store_parity.py` checks this file as a third copy. Later releases append a dated
-`## ⭐ <date> — <what changed on the page>` section rather than rewriting history.
+`POST_UPLOAD_CLOSE.md` §5 changes the state heading above to `## State: LIVE since <date>`,
+fills the two tables, and writes the as-published bodies in one `## Current live copy`
+section, under the headings `#### 📋 Paradox Mods — description (plain text, paste as-is)`
+and `#### 📋 Steam Workshop — description (BBCode, paste as-is)`. That section is the last
+confirmed live copy: `store_parity.py` requires it whole on a live card, reports when the
+staged blocks differ from it, and `--confirm-live` requires them equal at close-out. A
+later release moves the previous bodies into a dated
+`## ⭐ <date> — <what changed on the page>` section and replaces the current copy; the tool
+never selects a history section.

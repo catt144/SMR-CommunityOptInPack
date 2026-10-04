@@ -6,8 +6,9 @@ Rule: Keep this file limited to the owner-facing upload procedure and its mainta
 Rule: Change the store text in the §3 paste blocks and regenerate `metadata.lua` from them with `python tools/store_parity.py --write-metadata`, never the other way round. [A3: pass]
 <!-- /RULES -->
 
-**The order is: mod → store pages → site.** The store pages are what players
-actually see; the site is a place people have to choose to visit.
+**The order is: mod → store pages → tell the agent → site.** The store pages are what
+players actually see; the site is a place people have to choose to visit, and it gets the
+real store links before you publish it.
 
 This mod has **not been published yet.** The first time through, do section 0 as
 well. After that, every upload is sections 1 to 5.
@@ -19,35 +20,42 @@ well. After that, every upload is sections 1 to 5.
 The agent does the words (store body, change note, site pages) and tells you when
 it is ready. If nobody has said "ready to upload", ask.
 
-For the **first** upload, two things are still yours and the agent cannot do them:
+For the **first** upload, one thing is yours and the agent cannot do it:
 
-| gap | what it needs from you | tracked on |
+| what | what it needs from you | tracked on |
 |---|---|---|
-| ⛔ Store listings | whether an Opt-In draft already exists on either store under your account; if not, the first upload creates the listing and its id is read back afterwards, never typed ahead | OI-44 |
-| ⛔ Console / platform approval | which platforms you choose on Paradox Mods and what approval step it shows; the fix pack's approval does not carry over | OI-44 |
+| ⛔ Console / platform approval | you choose the platforms on Paradox Mods during the upload and tell the agent afterwards what approval step it showed; the fix pack's approval does not carry over | OI-44 |
+
+No Opt-In listing exists on either store (settled 2026-10-03). The first upload creates
+both, and the agent reads their ids back afterwards; nothing is typed ahead.
 
 ---
 
 ## 0 · First publish only
 
-1. **Look for an existing listing.** Sign in to Paradox Mods and to Steam and look for
-   a draft named *Relaunched Fix Pack: Opt-In Modules* under your account. If one
-   exists, tell the agent before you upload; otherwise the upload creates it.
-2. **Preview art is in place** and the agent has said the preflight is green. Paradox
+1. **Preview art is in place** and the agent has said the preflight is green. Paradox
    refuses a mod with no preview image before it packs anything.
-3. **Platforms.** When Paradox Mods asks, choose the platforms you want this mod on.
+2. **Platforms.** When Paradox Mods asks, choose the platforms you want this mod on.
    Xbox and PlayStation go through Paradox's own approval; keep whatever status page or
-   receipt it shows you, and tell the agent what it said.
-4. **Steam.** A brand-new Workshop item can stay hidden until the Workshop agreement is
+   receipt it shows you, and tell the agent what it said afterwards.
+3. **Steam.** A brand-new Workshop item can stay hidden until the Workshop agreement is
    accepted on the account; accept it if asked. Set the item's visibility once the
    page looks right.
-5. **Afterwards**, the agent reads the new ids out of `metadata.lua` (the editor writes
-   them during the upload) and records them. You do not need to copy them anywhere.
+4. **Afterwards**, the agent reads the new ids out of the editor's files and records
+   them. You do not need to copy them anywhere.
 
 ---
 
 ## 1 · Pack
 
+The upload comes from a clean copy of the mod, the **launch tree**
+(`B:\Dev\SMR\SMR-OptInPack-launch`), which the agent builds and checks. The game packs
+every file in the mod folder, so uploading from the working folder would ship work in
+progress.
+
+0. With the game closed, in a terminal in this repo:
+   `python tools/release_batch.py link launch`
+   This points the game's mod folder at the launch tree. Then start the game.
 1. Main menu → **MOD EDITOR**.
 2. It asks to restart the game. **Yes.** It reopens into the editor.
 3. On the right, read the **Last changes** box. That text is the change note players
@@ -63,6 +71,11 @@ For the **first** upload, two things are still yours and the agent cannot do the
 
 **Paradox Mods first. Steam second.** Always this order. Doing it backwards pushes
 the two stores' version numbers further apart, and that cannot be undone.
+
+**Between the two uploads, say "paradox done"** to the agent, or run
+`python tools/release_batch.py snapshot paradox` yourself. The Steam upload builds its
+package again and deletes the Paradox one; this keeps a copy of exactly what Paradox was
+sent. After Steam, say "stores done" (or run the same line with `steam`).
 
 These are **meant** to upload by themselves, with nothing pasted:
 
@@ -240,7 +253,19 @@ Cosmetic, and skippable; the page is correct without it. It is not optional for 
 
 ---
 
-## 4 · Publish the site
+## 4 · Tell the agent, then publish the site
+
+Say **"stores done"**, plus:
+
+1. Anything that **looked wrong** on either page.
+2. **First publish only:** the two store page links as your browser shows them, and
+   what Paradox said about platforms or approval.
+
+Then, with the game closed, run `python tools/release_batch.py link repo` to point the
+game back at the working folder.
+
+The agent reads the ids and version from the editor's files, puts the real store links on
+the site and the README, and tells you when the site is ready to publish.
 
 The site does **not** update when the agent commits. It only updates when you run this:
 
@@ -254,18 +279,10 @@ navigation and its "Get it" line carries the store links the agent added.
 
 ---
 
-## 5 · Tell the agent
+## 5 · Tell the agent the site is published
 
-Say "uploaded", plus:
-
-1. Anything that **looked wrong** on either page.
-2. Whether the **site published**.
-3. **First publish only:** the two store page links as your browser shows them, and
-   what Paradox said about platforms or approval.
-
-The agent writes the rest down, reads the ids and version out of the editor's writeback,
-restores the comments the editor strips from `metadata.lua` and `items.lua`, compares
-the downloaded package with the tree, and closes the release records.
+Say "site published". The agent checks the live site, compares the packages it kept with
+the launch tree, and closes the release records.
 
 > ⛔ **Page version numbers are not tracked, and agents must not ask for one.** The
 > number on a store page ticks up on a bare save as well as on an upload (owner,
@@ -286,5 +303,5 @@ the downloaded package with the tree, and closes the release records.
 | An upload is rejected | Stop. Tell the agent what it said, word for word. |
 | Paradox refuses because of the preview image | The preview is wired (`preview.png`), so this should not happen. Stop; tell the agent what it said. |
 | The description came out short | Paste it by hand (step 3), then tell the agent; this is the exception, not the norm. |
-| Paradox is done and Steam failed or was skipped | Say so. Do not re-pack: the agent records a partial release and you finish Steam with the same packed file when you can. |
+| Paradox is done and Steam failed or was skipped | Say so, with what Steam said. The agent records a partial release. When you can, upload Steam again from the same launch tree; do not ask for a new one, because the launch tree now holds the ids the stores gave out. |
 | You uploaded Steam before Paradox | Not fixable, and not worth chasing. Say so, carry on. |
