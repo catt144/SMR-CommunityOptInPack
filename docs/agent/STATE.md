@@ -7,8 +7,6 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
 ## Now
 
 - NOT PUBLISHED. The owner launched the fix pack alone on 2026-08-17 ("its not ready imo").
-- Owner 2026-09-01, verbatim: "the opt in modules has not fully tested yet." Testing precedes
-  launch. D02/D04/D09 passed pre-split; D03 PARKED 2026-10-02; D01/D06/D07/D12 are retired.
 
 ## Build state — pulled, not stored
 
