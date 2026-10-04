@@ -515,7 +515,7 @@
    }
   },
   "close": {
-   "writeback": null,
+   "writeback": "bd369f3",
    "drained": false,
    "tag": null
   }

@@ -8,8 +8,10 @@ behaves like the unmodded game, except that hubs and depots already built keep w
 **It works with or without the Relaunched Fix Pack.** The two mods are separate downloads,
 share no files, and can be installed in either combination.
 
-⛔ **Not yet published.** The store links go here when it is. The player pages are on the
-family's site, under *Opt-In Modules*: <https://catt144.github.io/SMR-CommunityMods/>
+**Get it:** [Paradox Mods](https://mods.paradoxplaza.com/mods/161911/Any) ·
+[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702).
+The player pages are on the family's site, under *Opt-In Modules*:
+<https://catt144.github.io/SMR-CommunityMods/>
 
 | module | what it does | when it is off |
 |---|---|---|
