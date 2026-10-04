@@ -10,8 +10,8 @@ Rule: Delete an item in the commit that records the owner's action on it. [A3: p
 
 What waits on your word or your hands for the opt-in mod, and nothing else. doccheck enforces the
 format and the age. Ids are `OI-<n>` so they never collide with the fix pack's `ck<n>`; what binds
-the fix pack goes on its own checklist. A launch obligation waits for this mod's launch, which is
-unscheduled, so it does not age.
+the fix pack goes on its own checklist. This mod launched on 2026-10-04, so no launch obligation
+is open; every item here ages.
 
 ## Decide
 
