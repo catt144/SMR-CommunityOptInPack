@@ -25,6 +25,37 @@ materials on this pass; a paint pass waits for the owner's word.
 
 Record this ruling in D19 for this mod (CLAUDE.md's header wants behaviour changes ruled there).
 
+## Pass 2 — owner feedback on the first scaffold (2026-10-04)
+
+Pass 1 left uncommitted work, unaudited: the rough pavilion and its scripts under
+`SMR-Assets\arboretum\blender\` (preview `preview_scaffold.png`), the import files under
+`staging/SourceData/`, `activate_model.py`, and the report `docs/agent/reports/ARBORETUM_MODEL_20261004.md`.
+Resume from that tree and report; nothing in it has entered the record. Keep what still serves:
+the native Seeds pile on a named spot, the copied Large Garden HexShape, Workdrone beside the pad.
+
+The owner, on the scaffold: *"I want it to be more like small walk ways the colonists can walk
+though … less railing inbetween the glass panels, at the most."*
+
+- **Small walkways, not one big hall.** The building reads as narrow glass-covered walkways
+  colonists pass through, with planting around and between them, instead of a single enclosed
+  glass roof over the whole footprint. Keep the central dome as the hub if it fits the walkways.
+- **Glass with minimal framing.** Far fewer ribs and mullions between panels than the scaffold's
+  radial cage; a thin edge frame at most. Back faces are culled in game (IMPORTER_FACTS):
+  orient the glass sheets so the panels show from the camera.
+
+What the game does with visitors, so the walkways get used visibly. SOURCE @1.1.1.406343,
+`Lua/AmbientLife/VisitGardenNatural_Large.lua:3-39` (the program pass 1 chose): each visit picks
+**one random spot** from group A — a `Visitbench` on an attached `DecorInt_03` bench, or a
+`Visitwarmup` spot — pathfinds to it (`goto_spot = "Pathfind"`), does its visit there, then
+leaves; with no spot free it falls back to `PrgVisitHolder`. Visitors do not stroll a route.
+`VisitGardenAlleys_Medium.lua` has the same slots. So colonists will be seen walking in, and
+then standing or sitting at the spots: spread benches and warmup spots along the walkways and
+the walkways look used. Whether a colonist's path stays inside the walkway or cuts through
+uncollided glass is not settled by the source; make it a witness in the owner's look, and
+judge any collision you add against blocking the path to a spot.
+
+Re-render one preview for the owner before the import; that is a look, not an options set.
+
 ## End state
 
 The owner places an Arboretum in a dome and sees the new model: glass pavilion read from the
