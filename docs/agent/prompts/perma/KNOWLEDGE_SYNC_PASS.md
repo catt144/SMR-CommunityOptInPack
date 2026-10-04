@@ -95,9 +95,8 @@ the donor. Report only genuine gaps. Known and deliberately NOT gaps:
 - the donor's `reports/PARKED_OPTIN_REFERENCES.md` — 46 of the **donor's own** wordings, parked until
   this mod publishes. Its text, its obligation. Not ours to hold.
 - the donor's opt-in store drafts (`RELEASE_DESCRIPTION_OPTIN.md`, `STORE_OPTIN.md`, the opt-in
-  strings in `STORE_METADATA_STRINGS.md`) — a launch-ready listing for this mod, parked there on
-  purpose. **Flag them for the launch checklist; do not pull them now** — this mod is NOT PUBLISHED
-  (`metadata.lua` version 0, `agent/STATE.md`), and a store draft pulled early goes stale.
+  strings in `STORE_METADATA_STRINGS.md`) — historical since this mod published on 2026-10-04 with
+  its own store text (`docs/UPLOAD_WORKFLOW.md` §3, `reports/STORE_CARD_LIVE.md`). Never pulled.
 
 ## 2.5 · Tools: what the donor built or fixed since (the helper's `--tools` pass, adjudicated)
 
