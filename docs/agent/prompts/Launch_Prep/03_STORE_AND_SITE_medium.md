@@ -76,6 +76,13 @@ drift to 04; strike row, delete brief and push exact commits when deliverables a
 
 ## Notes from upstream
 
+**Owner 2026-10-03: 01A's residue is accepted with disclosure ("a"); the launch residue hold is
+lifted.** The serialized owners of the leftover class references stay UNKNOWN by choice. No save
+reader or shared-kit work is commissioned. Ship both exact disclosure sentences from
+`reports/SHIP_RESIDUAL_20261003.md` §"Residual dispositions and exact disclosure" alongside
+OI-45's uninstall note, and make no clean-removal claim. 01A is deleted. **OI-50: the Arboretum
+ships after launch** (recorded in `Launch_Prep/README.md`).
+
 01A desk disposition committed at `b1c1e32`: see
 `reports/SHIP_RESIDUAL_20261003.md`. The report gives
 exact demolition/missing-class disclosure text and retains the existing bought-

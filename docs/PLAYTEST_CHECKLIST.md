@@ -27,12 +27,6 @@ Was the original Tripo hub model your own generation on a paid plan, a free-plan
 - Its origin/plan determines the remaining credit or notice; the repository has no generation receipt.
 Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`
 
-### OI-50 · opened 2026-10-03 · launch
-Does the Arboretum test build belong in the first release, or after launch?
-- It is present in metadata/items in the shared working tree, outside Launch_Prep/01's original set.
-- First-release inclusion needs its own accepted evidence and store/uninstall coverage from the D19 work.
-Home: `docs/agent/reports/SHIP_EVIDENCE_20261003.md`, `docs/agent/bugs/D19.md`
-
 ### OI-47 · opened 2026-10-03
 Should the Arboretum keep its own service category, adding Comfort alongside Parks?
 - The test build uses a separate category; it does not compete with Hanging Gardens for Parks coverage.

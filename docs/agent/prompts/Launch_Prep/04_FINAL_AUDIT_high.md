@@ -62,6 +62,13 @@ next kickoff, or the exact corrective brief if prep remains blocked. No automati
 
 ## Notes from upstream
 
+**Owner 2026-10-03: 01A's residue is accepted with disclosure ("a"); the launch residue hold is
+lifted.** The serialized owners of the leftover class references stay UNKNOWN by choice. No save
+reader or shared-kit work is commissioned. Ship both exact disclosure sentences from
+`reports/SHIP_RESIDUAL_20261003.md` §"Residual dispositions and exact disclosure" alongside
+OI-45's uninstall note, and make no clean-removal claim. 01A is deleted. **OI-50: the Arboretum
+ships after launch** (recorded in `Launch_Prep/README.md`).
+
 **02 closed by the owner, 2026-10-03; its prompt is deleted.**
 
 - **E-P and E-A** (Mod Options enable, live roundtrip, cold persistence, fix pack absent) are
