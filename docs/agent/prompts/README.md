@@ -29,6 +29,7 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 
 | prompt | declared class | use it for |
 |---|---|---|
+| `TRAIN_ORCHESTRATOR.md` | `prompt` | ⛔ TEMPORARY (owner, 2026-10-03): the train project's orchestrator, restored after the purge until the owner rules on a standing successor. The project is complete; the body is the role and method, its status is history. |
 | `WORK_PROMPT.md` | `prompt` | **START HERE for any work on this mod** — designing or changing a module, building one, investigating engine behaviour, docs, tooling, launch prep. Re-runnable; routes to the task skills |
 | `DISPATCH.md` | `prompt` | live-issue triage: a player report, a field bug, something the owner noticed in play. ⚠️ Scope is issues **once the mod is live**, and it is not (owner, 2026-08-31) |
 | `STATE_EVICTION.md` | `prompt` | requested STATE cleanup or a doccheck size warning; apply the complete four-part admission door (harm · reach · gate · volatility, AND-ed) to every section and verify refused content's homes |
