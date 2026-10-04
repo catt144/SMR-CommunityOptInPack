@@ -57,6 +57,7 @@ IGNORE = [
     "*/local/*",
     "*/scratch/*",
     "*/store_screenshots/*",
+    "*/staging/*",
 ]
 
 # the engine hands paths with forward slashes and the content_path prefix

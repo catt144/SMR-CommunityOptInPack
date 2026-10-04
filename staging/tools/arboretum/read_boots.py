@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = next(p for p in Path(__file__).resolve().parents if (p / 'tools/doccheck.py').is_file())
 ARCHIVE = ROOT / 'docs/archive/arboretum_20261003'
 records = []
 for leg in ('present_off', 'present_on', 'absent_off', 'absent_on', 'restored'):

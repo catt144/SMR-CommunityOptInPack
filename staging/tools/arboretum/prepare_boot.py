@@ -3,13 +3,15 @@ import argparse
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = next(p for p in Path(__file__).resolve().parents if (p / 'tools/doccheck.py').is_file())
 p = argparse.ArgumentParser()
 p.add_argument('leg', choices=['present_off', 'present_on', 'absent_off', 'absent_on', 'restored'])
 a = p.parse_args()
 scratch = ROOT / 'scratch/arboretum_boot'
 scratch.mkdir(parents=True, exist_ok=True)
 original = ['SMR_CommunityFixPack', 'SMR_CommunityFixPackTestKit', 'SMR_CommunityOptInPack']
+if Path(__file__).resolve().parents[2].name == 'staging':
+    original.append('SMR_CommunityOptInPack_Workbench')
 next_order = original[1:] if a.leg == 'present_on' else original if a.leg == 'absent_on' else None
 prefix = 'ARB_ON = ' + str(a.leg.endswith('_on')).lower() + '\n'
 prefix += 'ARB_FIXPACK = ' + str(not a.leg.startswith('absent')).lower() + '\n'

@@ -29,7 +29,7 @@ example: `rule_headers_selftest.py`, top of file.
 
 <!-- GENERATED TOOL ROWS — never hand-edit; regenerate with: python tools/doccheck.py --regen -->
 
-*31 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
+*34 scripts, every `tools/*.py` on disk. This block is GENERATED: a row's text is copied from the script's own header, so a wrong row is repaired in the script, never here.*
 
 ### Repo gates, and the falsifiers that keep them honest
 
@@ -97,6 +97,16 @@ Fired by `docs/agent/prompts/perma/KNOWLEDGE_SYNC_PASS.md` when the owner has ch
 |---|---|
 | [`sync_from_fixpack.py`](sync_from_fixpack.py) | Cross-repo sync helper: what has the fix pack got that this repo needs? |
 | [`sync_from_fixpack_selftest.py`](sync_from_fixpack_selftest.py) | Falsifier for sync_from_fixpack's --tools pass, kit-doc mirror check and citation resolver. |
+
+### Workbench
+
+The dev-only sibling mod lives in staging/. Its README covers installation, shared account options and promotion; WORKBENCH runs as a doccheck gate.
+
+| script | what its own header says |
+|---|---|
+| [`workbench.py`](workbench.py) | Check workbench ownership, load lists, option contracts and production package isolation. |
+| [`promote_module.py`](promote_module.py) | Promote an owned workbench module into production; --check prints a read-only plan. |
+| [`workbench_selftest.py`](workbench_selftest.py) | Falsify workbench guards, promotion rollback and the shared account-option bridge. |
 
 ### Launch
 

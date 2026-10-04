@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+REPO = next(p for p in Path(__file__).resolve().parents if (p / "tools/doccheck.py").is_file())
 SOURCE = Path(__file__).with_name("template.json")
 
 
@@ -27,8 +28,10 @@ def outputs():
             handles = re.findall(r"(?:'mod_handle',|mod_handle\s*=)\s*(\d+)", path.read_text(encoding="utf-8"))
             if str(data["handle"]) in handles:
                 raise SystemExit(f"mod_handle collision: {path}")
-    banner = "-- GENERATED: python tools/arboretum/generate.py; source tools/arboretum/template.json\n\n"
-    fields = dict(Group="Decorations", Id=name, SaveIn="Mod/SMR_CommunityOptInPack",
+    route = Path(__file__).resolve().parent.relative_to(REPO).as_posix()
+    banner = f"-- GENERATED: python {route}/generate.py; source {route}/template.json\n\n"
+    mod_id = re.search(r"'id',\s*\"([^\"]+)\"", (ROOT / "metadata.lua").read_text(encoding="utf-8"))[1]
+    fields = dict(Group="Decorations", Id=name, SaveIn="Mod/" + mod_id,
                   mod_handle=data["handle"], **props)
     preset = banner + "PlaceObj('ModItemBuildingTemplate', {\n"
     preset += "".join(f"\t'{key}', {lua(value)},\n" for key, value in fields.items()) + "})\n"

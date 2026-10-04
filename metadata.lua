@@ -90,6 +90,7 @@ return PlaceObj('ModDef', {
 		-- `tools/store_screenshots.py` writes them, this pattern keeps them out
 		-- of the player's pack. Same shape as the fix pack's.
 		"*/store_screenshots/*",
+		"*/staging/*",
 	},
 	-- Mod Options defaults (D05): must mirror items.lua's ModItemOptionToggle
 	-- names, all false. This field is what makes Options → Mod Options list the

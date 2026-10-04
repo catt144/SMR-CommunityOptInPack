@@ -1791,6 +1791,10 @@ TOOL_GROUPS = (
      "only form that cannot go stale, because the thing that reads them is the "
      "thing that checks them. Its falsifier is required by `doccheck`.",
      ("sync_from_fixpack.py", "sync_from_fixpack_selftest.py")),
+    ("Workbench",
+     "The dev-only sibling mod lives in staging/. Its README covers installation, "
+     "shared account options and promotion; WORKBENCH runs as a doccheck gate.",
+     ("workbench.py", "promote_module.py", "workbench_selftest.py")),
     ("Launch",
      "⛔ This mod is NOT PUBLISHED. The preview and the five gallery "
      "screenshots are wired (owner, 2026-10-03); `upload_preflight.py` checks them.",
@@ -2897,6 +2901,14 @@ def check_rule_headers(out):
     return ok
 
 
+def workbench_guard(out):
+    from workbench import check
+    errors, summary = check(REPO)
+    out.append("WORKBENCH: %s — %s" % ("RED" if errors else "GREEN", summary))
+    out.extend("  RED  " + error for error in errors)
+    return not errors
+
+
 def main():
     ap = argparse.ArgumentParser(description="SMR-OptInPack doc structure check")
     ap.add_argument("--emit-counts", action="store_true",
@@ -2984,6 +2996,8 @@ def main():
     ok = tools_compile(out) and ok
     ok = module_set_agreement(out) and ok
     ok = pack_ignore_parity(out) and ok
+    ok = workbench_guard(out) and ok
+    ok = required_selftest("workbench_selftest.py", out) and ok
     ok = check_local(out) and ok
     testkit_tree(out)  # report-only by owner decision (2026-08-04) — never gates
     scratch_report(out)  # report-only, same standing as testkit_tree

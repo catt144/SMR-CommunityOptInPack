@@ -1,9 +1,9 @@
--- GENERATED: python tools/arboretum/generate.py; source tools/arboretum/template.json
+-- GENERATED: python staging/tools/arboretum/generate.py; source staging/tools/arboretum/template.json
 
 PlaceObj('ModItemBuildingTemplate', {
 	'Group', "Decorations",
 	'Id', "SMROptInArboretum",
-	'SaveIn', "Mod/SMR_CommunityOptInPack",
+	'SaveIn', "Mod/SMR_CommunityOptInPack_Workbench",
 	'mod_handle', 12,
 	'object_class', "SMROptInArboretumBase",
 	'display_name', Untranslated("Arboretum"),

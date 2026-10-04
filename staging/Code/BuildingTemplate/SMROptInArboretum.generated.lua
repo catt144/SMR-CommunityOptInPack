@@ -1,4 +1,4 @@
--- GENERATED: python tools/arboretum/generate.py; source tools/arboretum/template.json
+-- GENERATED: python staging/tools/arboretum/generate.py; source staging/tools/arboretum/template.json
 
 UndefineClass('SMROptInArboretum')
 DefineClass.SMROptInArboretum = {

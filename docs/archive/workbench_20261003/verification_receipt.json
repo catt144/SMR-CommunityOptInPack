@@ -1,0 +1,377 @@
+{
+  "command": "python tools/workbench/read_boots.py",
+  "head": "25f38d507bb7fd9d252c1ccb0f105d172845f5d6",
+  "build": "1.1.1.406343 / Steam 25579348",
+  "logs": [
+    {
+      "path": "docs\\archive\\workbench_20261003\\setup_clean.log",
+      "sha256": "a932afb38b108da411b32cd0a9cce37784e29f42d21be287dadad4b2de7e6532",
+      "sha256_lf": "29b3a4e77ce6d61906b7549dfc9c39dd5c9ef47665665d061fd61861d7c71c56",
+      "required": [
+        "[WORKBENCH-BOOT] result=true",
+        "*** Debug::Done()",
+        "SMRTK_TAINT_READ",
+        "SMRTK_ELIGIBILITY"
+      ],
+      "control_count": 8,
+      "controls": [
+        [
+          205,
+          "[mod] [WORKBENCH-BOOT] falsifier_rejected=true"
+        ],
+        [
+          206,
+          "[mod] [WORKBENCH-BOOT] step=setup"
+        ],
+        [
+          207,
+          "[mod] [WORKBENCH-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          208,
+          "[mod] [WORKBENCH-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          209,
+          "[mod] [WORKBENCH-BOOT] original=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          210,
+          "[mod] [WORKBENCH-BOOT] next=SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          211,
+          "[mod] [WORKBENCH-BOOT] scope=menu integration; colony placement, service visits and save promotion NOT RUN"
+        ],
+        [
+          212,
+          "[mod] [WORKBENCH-BOOT] result=true detail=nil"
+        ]
+      ],
+      "fatal_filter": "\\[LUA ERROR\\]|Errors while loading mod|\\[WORKBENCH-BOOT\\] result=false",
+      "fatal_count": 0,
+      "fatal": [],
+      "review_filter": "error|assert|exception|fail|warning",
+      "review_count": 7,
+      "review": [
+        [
+          136,
+          "[mod] [CommunityOptInPack] AcknowledgedWarnings: applied"
+        ],
+        [
+          191,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          193,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          196,
+          "[Braze] Failed to init"
+        ],
+        [
+          198,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          201,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          203,
+          "[Braze] Failed to init"
+        ]
+      ]
+    },
+    {
+      "path": "docs\\archive\\workbench_20261003\\present_clean.log",
+      "sha256": "c8e18e2682bdb3a1ca4bf03dc098348fb8e0df6f34f9e9a33850667e2b7b0eff",
+      "sha256_lf": "18b4edd64ed00839040a740360a7675d64b9f813f811450762051c0c1c2d8017",
+      "required": [
+        "[WORKBENCH-BOOT] result=true",
+        "*** Debug::Done()",
+        "SMRTK_TAINT_READ",
+        "SMRTK_ELIGIBILITY",
+        "falsifier_rejected=true",
+        "native_option=true class=true template=true",
+        "live=false registry=false",
+        "live=true registry=true"
+      ],
+      "control_count": 13,
+      "controls": [
+        [
+          208,
+          "[mod] [WORKBENCH-BOOT] falsifier_rejected=true"
+        ],
+        [
+          209,
+          "[mod] [WORKBENCH-BOOT] step=present"
+        ],
+        [
+          210,
+          "[mod] [WORKBENCH-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          211,
+          "[mod] [WORKBENCH-BOOT] loaded=SMR_CommunityOptInPack,SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPack,SMR_CommunityFixPackTestKit"
+        ],
+        [
+          212,
+          "[mod] [WORKBENCH-BOOT] cold=false option=false"
+        ],
+        [
+          213,
+          "[mod] [WORKBENCH-BOOT] live=false registry=false"
+        ],
+        [
+          215,
+          "[mod] [WORKBENCH-BOOT] live=true registry=true"
+        ],
+        [
+          217,
+          "[mod] [WORKBENCH-BOOT] live=false registry=false"
+        ],
+        [
+          219,
+          "[mod] [WORKBENCH-BOOT] live=true registry=true"
+        ],
+        [
+          221,
+          "[mod] [WORKBENCH-BOOT] dependency=true native_option=true class=true template=true"
+        ],
+        [
+          222,
+          "[mod] [WORKBENCH-BOOT] next=SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          223,
+          "[mod] [WORKBENCH-BOOT] scope=menu integration; colony placement, service visits and save promotion NOT RUN"
+        ],
+        [
+          225,
+          "[mod] [WORKBENCH-BOOT] result=true detail=nil"
+        ]
+      ],
+      "fatal_filter": "\\[LUA ERROR\\]|Errors while loading mod|\\[WORKBENCH-BOOT\\] result=false",
+      "fatal_count": 0,
+      "fatal": [],
+      "review_filter": "error|assert|exception|fail|warning",
+      "review_count": 7,
+      "review": [
+        [
+          69,
+          "[mod] [CommunityOptInPack] AcknowledgedWarnings: applied"
+        ],
+        [
+          196,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          198,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          200,
+          "[Braze] Failed to init"
+        ],
+        [
+          202,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          204,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          206,
+          "[Braze] Failed to init"
+        ]
+      ]
+    },
+    {
+      "path": "docs\\archive\\workbench_20261003\\absent_clean.log",
+      "sha256": "3b731ba4f9c1a287c749524f36c18d0c094f63b4b1bce8f411a5ba0d371fb0f1",
+      "sha256_lf": "95e4240911fb394c2fc07082b3d0adf7a58a51efe1758622c18392e13e7996ce",
+      "required": [
+        "[WORKBENCH-BOOT] result=true",
+        "*** Debug::Done()",
+        "SMRTK_TAINT_READ",
+        "SMRTK_ELIGIBILITY",
+        "falsifier_rejected=true",
+        "native_option=true class=true template=true",
+        "live=false registry=false",
+        "live=true registry=true"
+      ],
+      "control_count": 13,
+      "controls": [
+        [
+          145,
+          "[mod] [WORKBENCH-BOOT] falsifier_rejected=true"
+        ],
+        [
+          146,
+          "[mod] [WORKBENCH-BOOT] step=absent"
+        ],
+        [
+          147,
+          "[mod] [WORKBENCH-BOOT] saved=SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          148,
+          "[mod] [WORKBENCH-BOOT] loaded=SMR_CommunityOptInPack,SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit"
+        ],
+        [
+          149,
+          "[mod] [WORKBENCH-BOOT] cold=false option=false"
+        ],
+        [
+          150,
+          "[mod] [WORKBENCH-BOOT] live=false registry=false"
+        ],
+        [
+          152,
+          "[mod] [WORKBENCH-BOOT] live=true registry=true"
+        ],
+        [
+          154,
+          "[mod] [WORKBENCH-BOOT] live=false registry=false"
+        ],
+        [
+          156,
+          "[mod] [WORKBENCH-BOOT] live=true registry=true"
+        ],
+        [
+          158,
+          "[mod] [WORKBENCH-BOOT] dependency=true native_option=true class=true template=true"
+        ],
+        [
+          159,
+          "[mod] [WORKBENCH-BOOT] next=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          160,
+          "[mod] [WORKBENCH-BOOT] scope=menu integration; colony placement, service visits and save promotion NOT RUN"
+        ],
+        [
+          161,
+          "[mod] [WORKBENCH-BOOT] result=true detail=nil"
+        ]
+      ],
+      "fatal_filter": "\\[LUA ERROR\\]|Errors while loading mod|\\[WORKBENCH-BOOT\\] result=false",
+      "fatal_count": 0,
+      "fatal": [],
+      "review_filter": "error|assert|exception|fail|warning",
+      "review_count": 7,
+      "review": [
+        [
+          72,
+          "[mod] [CommunityOptInPack] AcknowledgedWarnings: applied"
+        ],
+        [
+          133,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          135,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          137,
+          "[Braze] Failed to init"
+        ],
+        [
+          139,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          141,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          143,
+          "[Braze] Failed to init"
+        ]
+      ]
+    },
+    {
+      "path": "docs\\archive\\workbench_20261003\\restored_clean.log",
+      "sha256": "5bc1a9c7a7d41294940948d9913c002063273955652b6aa15125efef2076ae50",
+      "sha256_lf": "92c7658a4e089c2a784708750828bfbb364c33e9606e007486dffd5b4d013332",
+      "required": [
+        "[WORKBENCH-BOOT] result=true",
+        "*** Debug::Done()",
+        "SMRTK_TAINT_READ",
+        "SMRTK_ELIGIBILITY",
+        "production_only=true original_order_restored=true"
+      ],
+      "control_count": 7,
+      "controls": [
+        [
+          206,
+          "[mod] [WORKBENCH-BOOT] falsifier_rejected=true"
+        ],
+        [
+          207,
+          "[mod] [WORKBENCH-BOOT] step=restored"
+        ],
+        [
+          208,
+          "[mod] [WORKBENCH-BOOT] saved=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          209,
+          "[mod] [WORKBENCH-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack"
+        ],
+        [
+          210,
+          "[mod] [WORKBENCH-BOOT] production_only=true original_order_restored=true"
+        ],
+        [
+          211,
+          "[mod] [WORKBENCH-BOOT] scope=menu integration; colony placement, service visits and save promotion NOT RUN"
+        ],
+        [
+          212,
+          "[mod] [WORKBENCH-BOOT] result=true detail=nil"
+        ]
+      ],
+      "fatal_filter": "\\[LUA ERROR\\]|Errors while loading mod|\\[WORKBENCH-BOOT\\] result=false",
+      "fatal_count": 0,
+      "fatal": [],
+      "review_filter": "error|assert|exception|fail|warning",
+      "review_count": 7,
+      "review": [
+        [
+          136,
+          "[mod] [CommunityOptInPack] AcknowledgedWarnings: applied"
+        ],
+        [
+          193,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          195,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          197,
+          "[Braze] Failed to init"
+        ],
+        [
+          199,
+          "[Braze] SessionStart error The server name or address could not be resolved"
+        ],
+        [
+          202,
+          "[Braze] Failed sending launcher ev The server name or address could not be resolved"
+        ],
+        [
+          204,
+          "[Braze] Failed to init"
+        ]
+      ]
+    }
+  ],
+  "log_count": 4
+}

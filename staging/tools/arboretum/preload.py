@@ -7,13 +7,14 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
-KIT = ROOT.parent / 'SMR-BugFixPack-TestKit'
+REPO = next(p for p in Path(__file__).resolve().parents if (p / 'tools/doccheck.py').is_file())
+KIT = REPO.parent / 'SMR-BugFixPack-TestKit'
 HERE = Path(__file__).resolve().parent
 p = argparse.ArgumentParser()
 p.add_argument('--install', action='store_true')
 args = p.parse_args()
 run = subprocess.run(['C:/Program Files/Git/usr/bin/grep.exe', '-rln', 'TEMPORARY',
-                      'Code/', '../SMR-BugFixPack-TestKit/Code/'], cwd=ROOT, capture_output=True, text=True)
+                      str(ROOT / 'Code'), str(REPO / 'Code'), str(KIT / 'Code')], cwd=REPO, capture_output=True, text=True)
 if run.returncode != 1 or run.stdout or run.stderr:
     raise SystemExit('Probe sweep not clean: ' + run.stdout + run.stderr)
 evidence = dict(command='grep -rln "TEMPORARY" Code/ ../SMR-BugFixPack-TestKit/Code/', output='',

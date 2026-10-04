@@ -1,0 +1,105 @@
+-- TEMPORARY workbench integration probe. No colony is loaded or saved.
+-- WB_STEP, WB_ORIGINAL and WB_NEXT are supplied by prepare_boot.py.
+WorkbenchBoot = {}
+local function say(s) ModLog("[WORKBENCH-BOOT] " .. s:gsub("%%", "%%%%")) end
+local function check(value, reason)
+    if not value then error(reason or "workbench check failed") end
+    return value
+end
+local function order()
+    local ids={}
+    for _,m in ipairs(ModsLoaded) do ids[#ids+1]=m.id end
+    return ids
+end
+local function set_order(ids)
+    local err,data=ReadModPersistentData()
+    check(not err, tostring(err))
+    for _,id in ipairs(table.icopy(GetModsEnabledByUser())) do TurnModOff(id) end
+    for _,id in ipairs(ids) do TurnModOn(id) end
+    check(not WriteModPersistentData((data or "") .. "\nWORKBENCH-BOOT"))
+    check(not WriteModPersistentData(data or ""))
+    say("next=" .. table.concat(GetModsEnabledByUser(), ","))
+end
+function WorkbenchBoot.Check()
+    local accepts_false=pcall(check, false, "deliberate falsifier")
+    check(not accepts_false, "instrument accepts a false condition")
+    say("falsifier_rejected=true")
+    local saved=GetModsEnabledByUser()
+    local loaded=order()
+    say("step=" .. WB_STEP)
+    say("saved=" .. table.concat(saved, ","))
+    say("loaded=" .. table.concat(loaded, ","))
+    local base="SMR_CommunityOptInPack"
+    local dev=base .. "_Workbench"
+    if WB_STEP=="setup" then
+        check(not table.find(saved, dev), "new workbench already enabled")
+        say("original=" .. table.concat(saved, ","))
+        check(not SMROptInPack.fixes.Arboretum, "production still registers Arboretum")
+        local next_order={dev}
+        for _,id in ipairs(saved) do next_order[#next_order+1]=id end
+        set_order(next_order)
+    elseif WB_STEP=="restored" then
+        check(table.concat(saved, ",")==table.concat(WB_ORIGINAL, ","), "saved order not restored")
+        check(table.concat(loaded, ",")==table.concat(WB_ORIGINAL, ","), "loaded order not restored")
+        check(not SMROptInPack.fixes.Arboretum, "production still registers Arboretum")
+        check(not BuildingTemplates.SMROptInArboretum, "production still loads template")
+        say("production_only=true original_order_restored=true")
+    else
+        check(table.find(loaded, base)<table.find(loaded, dev), "dependency order wrong")
+        check(table.find(saved,dev)<table.find(saved,base), "control did not request workbench before production")
+        check((table.find(loaded,"SMR_CommunityFixPack")~=nil)==(WB_STEP=="present"), "wrong sibling configuration")
+        local p,w=Mods[base],Mods[dev]
+        check(not w:HasOptions(), "duplicate workbench options page")
+        check(p.default_options.Arboretum==nil, "production metadata polluted")
+        local n=0
+        for _,item in ipairs(p:GetOptionItems()) do if item.name=="Arboretum" then n=n+1 end end
+        check(n==1, "Arboretum option must appear exactly once")
+        local properties=p.options:GetProperties()
+        check(table.find(properties,"id","Arboretum"), "native option metadata missing")
+        local t=BuildingTemplates.SMROptInArboretum
+        local c=g_Classes.SMROptInArboretum
+        check(t and c, "missing template/class")
+        check(t.entity==BuildingTemplates.GardenNatural_Large.entity)
+        check(t.consumption_resource_type=="Seeds")
+        local warning=t:GetWarning()
+        check(not warning, tostring(warning))
+        local old=p.options.Arboretum
+        local override=SMROptInPack_Optional.Arboretum
+        say("cold=" .. tostring(SMROptInPack.IsActive("Arboretum")) .. " option=" .. tostring(old))
+        check(SMROptInPack.IsActive("Arboretum")==((old or override) and true or false))
+        SMROptInPack_Optional.Arboretum=false
+        for _,on in ipairs({false,true,false,true}) do
+            p.options.Arboretum=on
+            Msg("ApplyModOptions",base)
+            check(SMROptInPack.IsActive("Arboretum")==on, "live toggle failed")
+            say("live=" .. tostring(on) .. " registry=" .. tostring(SMROptInPack.IsActive("Arboretum")))
+        end
+        p.options.Arboretum=old
+        SMROptInPack_Optional.Arboretum=override
+        Msg("ApplyModOptions",base)
+        say("dependency=true native_option=true class=true template=true")
+        set_order(WB_NEXT)
+    end
+    say("scope=menu integration; colony placement, service visits and save promotion NOT RUN")
+end
+function WorkbenchBoot.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        local deadline=RealTime()+180000
+        while not GetPreGameMainMenu() do
+            if RealTime()>deadline then say("result=false menu timeout"); quit(); return end
+            Sleep(500)
+        end
+        Sleep(2000)
+        local ok,err=pcall(WorkbenchBoot.Check)
+        say("result=" .. tostring(ok) .. " detail=" .. tostring(err))
+        if SMRTK and SMRTK.Run then
+            SMRTK.Run("taint_read")
+            SMRTK.Run("eligibility")
+        end
+        Sleep(5000)
+        if FlushLogFile then FlushLogFile() end
+        quit()
+    end)
+end
+WorkbenchBoot.Boot()

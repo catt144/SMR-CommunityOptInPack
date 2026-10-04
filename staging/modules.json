@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "modules": {
+    "Arboretum": {
+      "files": [
+        "Code/Opt_Arboretum.lua",
+        "Code/BuildingTemplate/SMROptInArboretum.generated.lua",
+        "Data/BuildingTemplate/SMROptInArboretum.lua",
+        "tools/arboretum/80_AgentSlots.lua.txt",
+        "tools/arboretum/boot.lua.txt",
+        "tools/arboretum/deskcheck.py",
+        "tools/arboretum/generate.py",
+        "tools/arboretum/preload.py",
+        "tools/arboretum/preload_receipt.json",
+        "tools/arboretum/prepare_boot.py",
+        "tools/arboretum/read_boots.py",
+        "tools/arboretum/slots.lua.txt",
+        "tools/arboretum/template.json"
+      ],
+      "code": [
+        "Code/Opt_Arboretum.lua",
+        "Code/BuildingTemplate/SMROptInArboretum.generated.lua"
+      ],
+      "options": [
+        "Arboretum"
+      ],
+      "regenerate": [
+        "tools/arboretum/generate.py"
+      ]
+    }
+  }
+}

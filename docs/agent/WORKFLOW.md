@@ -40,6 +40,11 @@ with the full `[CommunityOptInPack]` token: `Pack]` matches both mods.
 
 ## Per-module discipline
 
+New modules in progress can live in the dev-only [workbench](../../staging/README.md).
+`tools/promote_module.py <name> --check` previews an authorized move into production;
+omit `--check` to move its files and registrations and run the gates. Doccheck's
+WORKBENCH guard checks ownership, shared names, load lists and package exclusion.
+
 1. Every module links to a `bugs/` entry with file:line evidence and obeys `FIX_POLICY.md`.
 2. Re-verify the target against the cited Src lines before patching; `apply()`'s self-check guards
    it at runtime and returns a reason string, never an error, if a game update moved it.

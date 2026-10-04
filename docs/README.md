@@ -45,6 +45,8 @@ tools/doccheck.py         the mechanical floor. --regen writes every generated f
                           which facts still describe the installed game build
 scratch/                  working space, root level, git-ignored except README.md
                           (swept at 14 days by the eviction prompt)
+staging/                  dev-only sibling workbench mod; README.md covers install,
+                          shared options and tools/promote_module.py; never packaged
 local/                    durable in-tree material, root level, git-ignored except
                           README.md (never swept; entry-gated by local/README.md)
 ```
