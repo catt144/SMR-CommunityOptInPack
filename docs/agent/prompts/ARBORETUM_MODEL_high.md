@@ -25,6 +25,43 @@ materials on this pass; a paint pass waits for the owner's word.
 
 Record this ruling in D19 for this mod (CLAUDE.md's header wants behaviour changes ruled there).
 
+## Pass 4 — a miniature Surviving Mars dome (owner, 2026-10-04)
+
+Pass 3 (`preview_pavilion.png`, report §"Pass 3") is the base: the owner said *"this new one looks
+much closer"*. Keep its plan, wings, planted floor, footpaths, visitor spots, Seeds pad and the
+decoded-mesh preview. Pass 3 below still holds except where this section changes it.
+
+The owner's words, with the new look reference
+`B:\Dev\SMR\SMR-Assets\arboretum\owner_feedback\look_ref_vanilla_dome.jpg` (a vanilla dome at night):
+*"I think I want to cut the top bubble off, and if we can have the plant variety and density pumped
+up. It will need lighting for the night time. And I want it to feel more like surviving mars in
+look / them it should kinda look like a miniture dome nice clean lines, minimal supports for the
+glass. If we do doors or entrance ways the should look similar to other assets"*
+
+These are changes to pass 3, not a new layout:
+
+- **Cut the top bubble off.** Remove the drum and the raised glass dome above the ring. Close the
+  roof as one smooth glass shell over the plan. The 14.6 m top-fit question goes with it.
+- **More plant variety and density.** Pass 3 attached 5 tree and 6 bush types plus one rock.
+  Find more vanilla plant entities the game attaches (gardens, Hanging Gardens, dome decor,
+  ground cover, flowers that really are flowers) and fill the beds fuller, with understorey under
+  the trees. Density is an owner-movable constant; start fuller than pass 3.
+- **Night lighting.** It must read lit at night, like the reference: lit footpaths, a lit base
+  ring, the interior glowing through the glass. Find how vanilla buildings and domes get their
+  night lights (whether an attached lamp entity brings its light, light spots, a lit base ring),
+  and use the native route; no new script behaviour.
+- **The Surviving Mars dome look.** Clean lines, a smooth glass shell, minimal slim supports, in
+  the game's dome palette, not pass 3's white frame. Pass 3's wall posts every 520 and heavy
+  spokes are the clutter to cut; the reference dome carries its glass on a couple of slim ribs
+  and a dark base ring with feet. Look at a vanilla dome's frame, ring and colours in the game's
+  own meshes and match them at this building's scale.
+- **Doors in the game's style.** Replace the custom portal with leaf panels by a vanilla door or
+  entrance entity that fits this scale, attached or kitbashed, so it reads like the game's other
+  buildings.
+
+Render the preview twice: day, and night with the lights on. Put both beside the concept and the
+dome reference before handing over. Pass 3's rule stands: real meshes, no stand-ins.
+
 ## Pass 3 — the reference is the design (owner, 2026-10-04)
 
 Pass 1 (`preview_scaffold.png`) and pass 2 (`preview_walkways.png`) left uncommitted, unaudited
