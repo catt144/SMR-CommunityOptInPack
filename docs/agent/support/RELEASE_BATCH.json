@@ -476,11 +476,44 @@
   "portals": {
    "paradox": {
     "snapshots": [],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-05",
+      "result": "uploaded",
+      "owner_words": "uploaded (owner, 2026-10-05). Evidence: editor writeback pdx_version 1->2 (written only after a successful publish). No package kept: the Steam upload at 00:53 deleted the Paradox package before any snapshot; packed from the working repo, not the launch tree (see steam-1 note)."
+     }
+    ]
    },
    "steam": {
-    "snapshots": [],
-    "receipts": []
+    "snapshots": [
+     {
+      "taken": "2026-10-05",
+      "dir": "local/release/2026-10-05-02/steam-1",
+      "pack_sha256": "cf10bf553f50beb6f7b215ef3c7759dc44189dd07181abdebf5be0c72ba2923d",
+      "pack_bytes": 22601344,
+      "pack_mtime": "2026-10-05T00:53:50",
+      "serializer": {
+       "metadata.lua": "3fcfc0e05728a5b09cf868a47cdbe875be009cea4effb2e3555e4d6c724959e4",
+       "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
+      },
+      "fields": {
+       "version_major": 1,
+       "version_minor": null,
+       "version": 3,
+       "pdx_id": 161911,
+       "pdx_version": "2",
+       "steam_id": "3813142702"
+      },
+      "note": "Uploaded from the working repo, not the launch tree: the Mods link was switched to the launch tree at 00:54, after both uploads, and the editor's upload save rewrote the REPO's metadata.lua and items.lua at 00:52 (launch tree copies untouched, 00:49). The serializer files kept here are those repo copies as the editor left them. Package vs launch tree: pack_list EXACT MATCH, 75/75 names, 73 byte-identical, only metadata.lua and items.lua differ."
+     }
+    ],
+    "receipts": [
+     {
+      "date": "2026-10-05",
+      "result": "uploaded",
+      "owner_words": "uploaded (owner, 2026-10-05). Steam changelog read 00:56 EDT: newest 'Update: Oct 4 @ 9:53pm' (1791176035) carries this batch's change note. Package kept as steam-1, pack_list EXACT MATCH vs launch tree."
+     }
+    ]
    }
   },
   "close": {
