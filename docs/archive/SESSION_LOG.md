@@ -12,6 +12,39 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-05 — v1.0.3 closed: the Station rows fix (D16) on both stores
+
+tags: release update batch-2026-10-05-02 optin-v1.0.3 D16 store-card
+
+`perma/release_prompt.md`, entered at `NEW_BATCH`.
+- **Batch.** D16's Pending entry only; the Arboretum (D19) held with `--hold` and still Pending
+  (its code lives in `staging/`, owner OI-50). Change note rewritten in `UPLOAD_WORKFLOW.md` §3 and
+  regenerated into `metadata.lua` (`c3eb22f`); site, README and store bodies never described the old
+  pin behaviour, so nothing else moved. Pinned at `c3eb22f`; launch-tree gates all zero FAIL.
+- **Receipts.** Owner: "uploaded", then asked for the Steam version to be checked. The Steam
+  changelog (read 00:56 EDT) has a new top entry, "Oct 4 @ 9:53pm", carrying this batch's note.
+  Writeback: `version` 2 → 3, `pdx_version` "1" → "2" (written only after a successful publish),
+  merged in `82c9d1f`.
+- **Deviation.** The upload was packed from the working repo, not the launch tree: the editor saved
+  the repo's `metadata.lua`/`items.lua` at 00:52, and the Mods link was switched to the launch tree at
+  00:54, after both uploads. The repo's commented files were restored from HEAD and the two fields
+  copied in. Because `snapshot`, `writeback` and `drain` read the launch tree's `metadata.lua`, the
+  snapshot's editor files and fields were replaced with the repo copies the editor wrote (noted in
+  the batch record), and `drain`'s "v1.0.2" was corrected by hand to v1.0.3 in the history, the
+  outbox and the batch record. `drain` rewrites `released_version` on every run.
+- **Packages.** Steam `steam-1` (sha256 `cf10bf55…923d`, 22,601,344 B): 75/75, the 73 non-editor
+  members byte-identical to the launch tree and the 2 editor files to the kept serializer output.
+  Paradox: no snapshot and no package verdict (deleted by the Steam upload).
+- **Close.** Tag `optin-v1.0.3` on `c3eb22f`, pushed; store card updated (`--confirm-live` 0 FAIL).
+  No site change: store links unchanged.
+- **Limits.** D16's depot-line exception and sharing against a set row still have no live run; no
+  entry status moved on publication. No game run this leg.
+
+**Executed model:** Claude Opus 5.5 (`claude-opus-5-5`), from this session's model line; no
+subagents. Skills: doc-editing.
+
+---
+
 ## 2026-10-04 — FIRST PUBLICATION closed: v1.0.2 on Paradox Mods and the Steam Workshop
 
 tags: release first-publish batch-2026-10-04-01 optin-v1.0.2 OI-44 store-card site

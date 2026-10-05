@@ -35,3 +35,19 @@ gap.
 - Both store bodies, the public README and the site also carry the class-reference disclosure
   from `reports/SHIP_RESIDUAL_20261003.md` (`37aff24`, site `9d490ce`); the residual owners stay
   UNKNOWN by the owner's choice, and no clean removal or train recovery is claimed.
+
+### Released in v1.0.3 (2026-10-05) · batch `2026-10-05-02`, base `c3eb22f`
+
+#### Station rows: untouched rows keep the game's balancing without a hub (2026-10-05, D16)
+- Fixes a player report: with Station rows or the Train Hub on, trains on a line with no hub
+  stopped carrying cargo between stations left at their default settings, and worked again
+  with the modules off.
+- Now, on a line with no Train Hub, a resource row nobody has changed is balanced between
+  stations as in the base game. A row the player sets (Balanced amount, Export, Import) still
+  behaves as described. Lines on a hub's network, and lines ending at an Elevator Depot, are
+  unchanged.
+- Player surfaces touched: the row tooltip for an unchanged Balanced row on a no-hub line
+  (`Code/StationRows_45_TrainDistributionUI.lua`). The README and store bodies never described
+  the old pin behaviour, so only the change note is owed.
+- Ruling, build and limits: `docs/agent/bugs/D16.md` (owner 2026-10-05). Seen live once on the
+  reporter's save; the depot-line exception and sharing against a set row are desk-tested only.

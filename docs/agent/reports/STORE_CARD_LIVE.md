@@ -8,6 +8,13 @@ records what the portals were given.
 
 ## State: LIVE since 2026-10-04
 
+Latest upload: batch `2026-10-05-02` (base `c3eb22f`, tag `optin-v1.0.3`), the Station rows
+fix (D16). Store body unchanged; only the change note is new. The owner's receipt for both
+portals: "uploaded" (2026-10-05). The Steam changelog's newest entry, "Oct 4 @ 9:53pm", carries
+this batch's note. The formatting paste is the settled known state of every upload (owner,
+2026-09-12). This upload was packed from the working repo, not the launch tree (the Mods link
+was switched after both uploads); the Steam package still matches the batch, below.
+
 First publication, batch `2026-10-04-01` (base `03dfda8`, tag `optin-v1.0.2`). The owner's
 receipt for both portals: "Ok its uploaded and everything looks good". The upload auto-filled
 the base commit's body (module paragraphs as `·` bullets); the owner then pasted the current
@@ -15,10 +22,17 @@ the base commit's body (module paragraphs as `·` bullets); the owner then paste
 
 | portal | id | page | version live | platforms / approval | body as published |
 |---|---|---|---|---|---|
-| Paradox Mods | `pdx_id` 161911 | `https://mods.paradoxplaza.com/mods/161911/Any` | `metadata.lua` `version` 2; `pdx_version` "1" | owner, 2026-10-04: nothing was asked at upload and no approval step was shown (OI-44) | current copy below, pasted via `paradox_card.py` |
-| Steam Workshop | `steam_id` 3813142702 | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | `metadata.lua` `version` 2 | PC | current copy below, BBCode block pasted |
+| Paradox Mods | `pdx_id` 161911 | `https://mods.paradoxplaza.com/mods/161911/Any` | `metadata.lua` `version` 3; `pdx_version` "2" | owner, 2026-10-04: nothing was asked at upload and no approval step was shown (OI-44) | current copy below, pasted via `paradox_card.py` |
+| Steam Workshop | `steam_id` 3813142702 | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | `metadata.lua` `version` 3 | PC | current copy below, BBCode block pasted |
 
-**Packages.** Steam: snapshot `local/release/2026-10-04-01/steam-1`, sha256
+**Packages, batch `2026-10-05-02`.** Steam: snapshot `local/release/2026-10-05-02/steam-1`, sha256
+`cf10bf553f50beb6f7b215ef3c7759dc44189dd07181abdebf5be0c72ba2923d`, 22,601,344 bytes; 75 of 75
+members, 73 byte-identical to the launch tree and the 2 editor files byte-identical to the kept
+serializer output (`pack_list.py`, exit 0; `pack_predict.py` predicted 75 files, 102,624,145 raw
+bytes). Paradox: no snapshot and no verdict; the Steam upload deleted that package. The
+`pdx_version` writeback ("1" to "2") is written only after a successful publish.
+
+**Packages, batch `2026-10-04-01`.** Steam: snapshot `local/release/2026-10-04-01/steam-1`, sha256
 `7c709ca9aff86433c9d13b0ebadf84d48345e82b6dc1b776f513313db717db74`, 22,599,753 bytes, 75 of 75
 members byte-identical to the launch tree (`python tools/pack_list.py … --tree …`, exit 0).
 Paradox: no snapshot and no verdict; the Steam upload deleted that package before one was taken.
@@ -41,7 +55,7 @@ Paradox: no snapshot and no verdict; the Steam upload deleted that package befor
 |---|---|---|
 | Paradox Mods page | `https://mods.paradoxplaza.com/mods/161911/Any` | built from the `pdx_id` writeback; the page returns this mod's title (read 2026-10-04) |
 | Steam Workshop page | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | built from the `steam_id` writeback |
-| Steam changelog | `https://steamcommunity.com/sharedfiles/filedetails/changelog/3813142702` | one `Update:` entry, "Oct 3 @ 11:19pm", first-release note (read 2026-10-04) |
+| Steam changelog | `https://steamcommunity.com/sharedfiles/filedetails/changelog/3813142702` | newest `Update:` entry "Oct 4 @ 9:53pm", the D16 change note; the first-release "Oct 3 @ 11:19pm" below it (read 2026-10-05) |
 | Site section | `https://catt144.github.io/SMR-CommunityMods/opt-in/` | Pages deployment of site `6c02476`, status `success`; the live page carries both store links (read 2026-10-04) |
 | Repository | `https://github.com/catt144/SMR-CommunityOptInPack` | public |
 
