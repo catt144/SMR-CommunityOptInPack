@@ -37,7 +37,7 @@ return PlaceObj('ModDef', {
 	-- strings; `python tools/store_parity.py` proves Paradox == this string and Steam ==
 	-- the same words. The lede is OI-42's approved text plus the D15 clause; the last
 	-- section is OI-45's uninstall note (owner, 2026-10-03: at the bottom of each page).
-	'last_changes', "First release. Every module is off, or at its base setting, until you turn it on in Options → Mod Options: acknowledged warnings, more than one Artificial Sun, two Drone stat dials, service interest tags, and train logistics with station import/export rows, the Train Hub and the Elevator Depot. Read the uninstall note at the bottom of the page before you ever remove the mod.",
+	'last_changes', "Fixed: with Station import/export rows or the Train Hub on, trains on a line with no Train Hub could stop carrying cargo. On such a line, a resource row you have not changed now balances between stations as in the base game. Rows you have set, lines on a Train Hub's network and lines ending at an Elevator Depot work as before.",
 	'id', "SMR_CommunityOptInPack",
 	'author', "catt144",
 	-- ✅ SHIP VALUE 1.0.0, owner-ruled 2026-08-14 at launch prep ("we go 1.0,

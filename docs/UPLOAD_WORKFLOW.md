@@ -259,7 +259,7 @@ Usually auto-fills. If it is missing under **CHANGELOG** (Paradox) or **Change
 Notes** (Steam), paste this:
 
 ```
-First release. Every module is off, or at its base setting, until you turn it on in Options → Mod Options: acknowledged warnings, more than one Artificial Sun, two Drone stat dials, service interest tags, and train logistics with station import/export rows, the Train Hub and the Elevator Depot. Read the uninstall note at the bottom of the page before you ever remove the mod.
+Fixed: with Station import/export rows or the Train Hub on, trains on a line with no Train Hub could stop carrying cargo. On such a line, a resource row you have not changed now balances between stations as in the base game. Rows you have set, lines on a Train Hub's network and lines ending at an Elevator Depot work as before.
 ```
 
 ### Either way: the styling pass
