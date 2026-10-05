@@ -60,11 +60,52 @@ assert(s.supply.Metals.target==stock(s))
 assert(other.supply.Metals.target==stock(other))
 print('PASS Balanced pin, real reservation preserved, exact export floor and transient release')
 
--- Untouched rows stay absolute at the native dial; the first slider edit
--- selects a percent that follows capacity changes and native request rewrites.
+-- Owner 2026-10-05: an untouched hubless row keeps the game's balancing (an
+-- even split between equal stations, whatever the dial says), with no view.
 t,s,other=plain_fixture(80,0,100)
+local calls=D.calls
 checked_transfer(t); deliver(t,other)
-assert(stock(other)==10000 and not D.Get(other,'Metals'))
+assert(stock(s)==40000 and stock(other)==40000 and not D.Get(other,'Metals'))
+assert(D.calls==calls,'an untouched line must take the native path')
+-- The reporter's line: a drone-fed source sitting at its 10-unit dial, untouched,
+-- and an Import at the other end. The source shares as the game would.
+t,s,other=plain_fixture(10,0,100)
+assert(D.Set(other,'Metals','import',50))
+checked_transfer(t); deliver(t,other)
+assert(stock(s)==5000 and stock(other)==5000)
+t.current_station=other; checked_transfer(t)
+assert(stock(other)==5000 and t.stockpiled_amount.Metals==0,'an Import never becomes a source')
+-- A set Balanced pin sends its surplus to an untouched neighbour, up to that
+-- neighbour's share, and the neighbour does not send it back.
+t,s,other=plain_fixture(80,0,100)
+assert(D.Set(s,'Metals','balanced',50))
+checked_transfer(t); deliver(t,other)
+assert(stock(s)==50000 and stock(other)==30000)
+t.current_station=other; checked_transfer(t)
+assert(stock(other)==30000 and t.stockpiled_amount.Metals==0)
+-- A depot line keeps the dial pin on an untouched row.
+t,s,other=plain_fixture(80,0,100)
+SMRElevatorDepot={IsDepot=function(o) return o==other end, HubEntry=function() end}
+checked_transfer(t); deliver(t,other)
+assert(stock(s)==10000 and stock(other)==70000)
+SMRElevatorDepot=nil
+-- A hub elsewhere on the map does not own a line it has no track to: remote
+-- untouched stations still take the native path.
+t,s,other=plain_fixture(80,0,100)
+local far=station(0,400,true); far.handle=43; far.city=s.city; far.nodes={[far]=true}
+-- the fixture's colony label is the line's own member list; give the hub a list of its own
+local line_label=UIColony.labels.Station
+UIColony.labels.Station={s,other,far}
+D.Refresh()
+assert(not D.HubFor(s) and not D.HubFor(other))
+calls=D.calls
+checked_transfer(t); deliver(t,other)
+assert(stock(s)==40000 and stock(other)==40000 and D.calls==calls)
+UIColony.labels.Station=line_label; D.Refresh()
+print('PASS untouched hubless rows: native balance, share against a set row, depot line pinned')
+-- The first slider edit selects a percent that follows capacity changes and
+-- native request rewrites.
+t,s,other=plain_fixture(80,0,100)
 assert(D.Set(s,'Metals','export',20)); assert(D.Set(s,'Food','balanced',35))
 local function baselines(cap)
     assert(s.supply.Metals.desired==cap and s.demand.Metals.desired==0,'Export retains vanilla send baseline; pairing filter enforces source floor (34b)')
@@ -77,7 +118,7 @@ s:UpdateRequestCapacity('Food'); baselines(100000)
 s.max_storage_per_resource=200000; s:OnModifiableValueChanged('max_storage_per_resource'); baselines(200000)
 s.supply.Food=nil; s.demand.Food=nil; s:RecalculateAfterResourceListChange(); baselines(200000)
 SavegameFixups.RevertStationDesiredAmount(); baselines(200000)
-print('PASS untouched absolute dial, edited percentage, native rewrite paths and replacement requests')
+print('PASS edited percentage, native rewrite paths and replacement requests')
 
 -- Save snapshot is vanilla even with the mod removed: no custom policy,
 -- no standing claims, and native desired values instead of our runtime baseline.

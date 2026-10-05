@@ -225,6 +225,11 @@ Hubless rows use Balanced pins, Export floors and Import caps, with independent 
 that resume after leaving a hub. Hub settings remain separate; these design calls are delegated
 by brief 30 and remain subject to the owner's visual sitting.
 
+⚖️ **Owner ruling, 2026-10-05: on a line with no hub, an untouched row keeps the game's
+balancing.** Only a row the player has set is a pin, an Export floor or an Import cap (*"Ok lets
+go with your option 1"*, over a player report of idle trains). The ruling, the build and its
+limits are in `docs/agent/bugs/D16.md`. §4.8 item 5 still governs a hub's network.
+
 1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
 with an icon button at the left and `stored/max` plus the resource glyph at the right.

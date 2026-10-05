@@ -47,6 +47,8 @@ local local_help = {
 	balanced = "Balanced (vanilla default): trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
 	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
 	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
+	-- owner 2026-10-05: a row nobody has set keeps the game's balancing on a line with no hub
+	untouched = "Balanced (vanilla default): trains spread this resource between the stations on the line, as in the base game. Changing this row gives the station its own setting.",
 }
 function D.RowState(st, res)
 	local entry = D.Get(st, res)
@@ -104,7 +106,9 @@ local function install_station()
 		if not network(st) then return rollover(st, res, ...) end
 		local mode, percent, cap, target = D.RowState(st, res)
 		local hub = D.HubFor(st)
-		local text = (not hub and local_help[mode] or help[mode]) .. "<newline><newline>Slider: " .. tostring(percent)
+		local untouched = not hub and mode == "balanced" and not D.Get(st, res)
+		local text = (untouched and local_help.untouched or not hub and local_help[mode] or help[mode])
+			.. "<newline><newline>Slider: " .. tostring(percent)
 			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
 		if not hub then text = text .. "<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these." end
 		local parent = D.Parent(st)

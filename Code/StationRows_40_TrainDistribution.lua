@@ -551,6 +551,17 @@ end
 -- entry aboard if it no longer fits; the hub can receive it later. No custom
 -- writes to assigned_resources, request flags or transport_policy.
 local unload = Train.UnloadAll
+-- A hubless line that ends at an Elevator Depot keeps its dial pins on untouched rows
+-- (the depot's exchange was built and sat against them). Every other hubless line
+-- leaves an untouched row to the game (owner 2026-10-05).
+local function depot_line(train, st, track)
+	if not (IsValid(track) and train.city and train.city.train_track_routes[track]) then return false end
+	local found = false
+	ForEachStationAlongTrack(st, track, const.trfInclusive | const.trfBidirectional, function(o)
+		if is_depot(o) then found = true end
+	end)
+	return found
+end
 function Train:UnloadAll(...)
 	local st = self.current_station
 	local hub = IsValid(st) and D.HubFor(st)
@@ -561,8 +572,11 @@ function Train:UnloadAll(...)
 		local old = view
 		view = false
 		local answers, claims = { [st] = {} }, {}
+		local pinned = depot_line(self, st, self.track)
+		local rows = rawget(st, LOCAL_FIELD) or empty_table
 		for _, res in ipairs(st.storable_resources or empty_table) do
-			local entry = effective(st, res)
+			-- An untouched row unloads natively; only a set row caps the delivery.
+			local entry = pinned and effective(st, res) or rows[res]
 			if entry and ready(st, res) then
 				local d = st.demand[res]
 				local room = Max(Min(amount(st, res, entry), st:GetMaxStorage(res))
@@ -759,6 +773,11 @@ end
 -- No hub class, graph, parent tree, hub setting or scheduler is needed. A
 -- non-row endpoint (the Elevator Depot) keeps its native storage/row writers;
 -- only its exchange with an ordinary station is bounded by that station's row.
+-- Owner 2026-10-05: an untouched row keeps the game's balancing here. A resource
+-- no station on the line has set gets no answers or claims, so vanilla allocates
+-- it alone. Where a row is set, an untouched station holds and orders the share
+-- vanilla would leave it: line total by storage capacity (archived 1.1.1.405907
+-- Train.lua:894-897,931,946). A depot line keeps the dial pins it was built on.
 local function local_train_view(train, track)
 	if not hubless_on() then return end
 	local st = train.current_station
@@ -772,27 +791,69 @@ local function local_train_view(train, track)
 	for o in pairs(members) do
 		if is_hub(o) or D.HubFor(o) then return end
 	end
+	local pinned = false
+	for o in pairs(members) do
+		if is_depot(o) then pinned = true break end
+	end
 	ForEachStationAlongTrack(st, track, 0, function(o, mode)
 		if mode ~= "people" then can_receive[o] = true end
 	end)
+	local function saved(o, res)
+		local rows = D.IsRowStation(o) and rawget(o, LOCAL_FIELD)
+		return rows and rows[res] or nil
+	end
+	local function row(o, res)
+		if pinned then return effective(o, res) end
+		return saved(o, res)
+	end
+	local function configured(res)
+		if pinned then return true end
+		for o in pairs(members) do
+			if saved(o, res) then return true end
+		end
+		return false
+	end
+	local totals = {}
+	local function share(o, res)
+		local line = totals[res]
+		if not line then
+			line = { total = train.stockpiled_amount[res] or 0, storage = 0 }
+			for member in pairs(members) do
+				if member.supply and member.supply[res] then
+					line.total = line.total + member.supply[res]:GetActualAmount()
+					if ready(member, res) then line.storage = line.storage + member:GetMaxStorage(res) end
+				end
+			end
+			totals[res] = line
+		end
+		if line.storage <= 0 then return 0 end
+		return Min(MulDivRound(line.total, o:GetMaxStorage(res), line.storage), o:GetMaxStorage(res))
+	end
 	local function order(o, res)
 		if not ready(o, res) then return 0 end
-		local entry = effective(o, res)
-		if not entry then return Max(o.demand[res]:GetTargetAmount(), 0) end
-		if entry.mode == "export" then return 0 end
+		local entry = row(o, res)
 		local d = o.demand[res]
+		local target
+		if entry then
+			if entry.mode == "export" then return 0 end
+			target = amount(o, res, entry)
+		elseif D.IsRowStation(o) then
+			target = share(o, res)
+		else
+			return Max(d:GetTargetAmount(), 0)
+		end
 		local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
-		return Max(Min(amount(o, res, entry) - o.supply[res]:GetActualAmount() - reserved,
-			d:GetTargetAmount()), 0)
+		return Max(Min(target - o.supply[res]:GetActualAmount() - reserved, d:GetTargetAmount()), 0)
 	end
 	local function floor(o, res)
-		local entry = ready(o, res) and effective(o, res)
-		if not entry then return 0 end
+		if not ready(o, res) then return 0 end
+		local entry = row(o, res)
+		if not entry then return D.IsRowStation(o) and share(o, res) or 0 end
 		return entry.mode == "import" and o.supply[res]:GetActualAmount() or amount(o, res, entry)
 	end
 	local answers, claims, depart = {}, {}, false
 	for _, res in ipairs(st.storable_resources or empty_table) do
-		if st.supply and st.supply[res] then
+		if st.supply and st.supply[res] and configured(res) then
 			claims[#claims + 1] = { st.supply[res], floor(st, res) }
 			for dest in pairs(members) do
 				if dest.supply and dest.supply[res] and dest.demand and dest.demand[res] then
