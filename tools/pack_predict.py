@@ -56,6 +56,7 @@ IGNORE = [
     "*.gitattributes",
     "*/local/*",
     "*/scratch/*",
+    "*/zz-owner/*",
     "*/store_screenshots/*",
     "*/staging/*",
 ]

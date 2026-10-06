@@ -84,6 +84,9 @@ return PlaceObj('ModDef', {
 		-- README gate for local/ is local/README.md. Never ship either.
 		"*/local/*",
 		"*/scratch/*",
+		-- 2026-10-05: the owner's private folder, git-ignored; the packer walks
+		-- the whole mod folder. Never ship it. Same pattern as the fix pack's.
+		"*/zz-owner/*",
 		-- 2026-10-03 (Launch_Prep/03): the store GALLERY. Both uploaders read
 		-- screenshot1..5 from here (`Mod/`-prefixed paths), so the files must sit
 		-- inside the mod folder, but they are store art, not mod content:

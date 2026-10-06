@@ -24,6 +24,11 @@ Desktop.ini
 /Textures/
 /Fallbacks/
 
+# Owner-only scratch. NOT for agents: nothing in the repo points here, and no
+# session reads it unless the owner names it in a prompt. Mirrors the same folder
+# in the fix pack.
+zz-owner/
+
 # Agent/subagent working space: write freely, never committed, never cited.
 # The eviction prompt sweeps files older than 14 days (STATE_EVICTION.md).
 scratch/*
