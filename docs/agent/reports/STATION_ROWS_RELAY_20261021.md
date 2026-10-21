@@ -1025,3 +1025,69 @@ other two counterexamples are the §13.2 A and C rows above.
   takes stock down between visits, and whether a whole old assignment kept aboard can starve a
   line of its one train.
 - The prototype diff line by line, as before.
+
+## 15 · The build — Claude Fable 5.1, third session, 2026-10-21
+
+**Status: built and desk-verified against the archived native bodies at `83149ea`; audit pending
+(OI-53).** The owner fired `docs/agent/prompts/STATION_ROWS_RELAY_BUILD_high.md`, which ruled the
+six decisions of §12.6 as amended by §14.3 (R1–R6, recorded verbatim in `docs/agent/bugs/D16.md`
+and `D18.md`, the rule in the train spec §4.7). The prompt is deleted with this section. Nothing
+here is tested in game; no pack, upload or player reply was made.
+
+Commits, each verified before the next began (HEAD `5ba8f3f` at the start; `git pull` up to date):
+
+| commit | unit |
+|---|---|
+| `8490c5e` | R1–R6 recorded; this report, its four archive folders and the prompt filed |
+| `a731a20` | the 40 file: revision b's diff ported whole (prototype sha256 `336e911d…`, shipping before it `b0de6db1…255e` = `optin-v1.0.3`), its three prototype comments rewritten as the ruling's record; `hubless_smoke.py`'s two dial-pin assertions flipped; `proposal_check.py` promoted to `tools/trains/hub/tests/hubless_relay_smoke.py` without the temp-folder copy |
+| `00e2dff` | the 45 file: the Default state and the click defaults (R4); `D.Clear` in the 40 file; `distribution_ui_smoke.py` |
+| `83149ea` | the depot's unset targets (R5) and Export help; the stations' Import/Export help and the joining-station line; `wiring_smoke.py` |
+
+Before any code moved, both archived checks were re-run from the repo root at `5ba8f3f` and
+reproduced §14.2 (`proposal_check.py` PASS; `hubless_smoke_on_proposal.py` the same two FLIPs). The
+engine names the port relies on were re-derived by grep in the 406343 archive (build 25579348):
+`TrackConnectedObjBase:ForEachConnectedTrack(callback, ...)` passing `(track, destination)`
+(`Lua/TrainTransport.lua:68`), `ForEachTrainInRoute` (`:485`), `Msg("TrainRoutesRebuilt")` (`:357`),
+`routes[segment] = route` with the route a station list (`:328-332`, `:371-373`), and
+`Station:GetResAcceptIcon` returning `resource_storing.tga` (`Lua/Buildings/Station.lua:1003-1004`).
+
+### 15.1 Calls made within the authority
+
+- **The cycle** is Default, Export, Import, Not accepted, Default. Default is the absence of a row
+  in the set being edited (no new mode string in `SMROptIn_station_rows` or `SMROptIn_distribution`);
+  a saved Balanced row, made by the slider from Default, shows as Balanced and clicks on to Export.
+  Not accepted keeps the saved row, as before; the next click clears it. On a hub network Default
+  is the hub's own untouched default (Balanced at the dial) and the help says so.
+- **Icons:** Default keeps vanilla's own `resource_storing.tga`; a set Balanced row takes
+  `resource_accept.tga` (the storage depot's accept icon); Export, Import, Not accepted unchanged.
+- **Defaults:** Export 0 everywhere; Import 100 on a hub network and on a hubless station of one
+  cargo line, 50 on a hubless station `D.IsJunction` reports as joining lines. Ctrl+click copies the
+  clicked row's state and number, Default included (each station's own set is cleared).
+- **The depot's unset target** is Import 100 / Export 0 by the surface word (Not accepted 0, slider
+  disabled), on every depot; the `Pair()` witness prints `(default)` where it printed `(dial)`.
+- **Help:** Import and Export name the number as a share of this station's own store; Import says a
+  Default source shares as the base game would and Export there sends everything; a hubless joining
+  station gets the pass-through line and, at a full Import or Balanced number, the "nothing can pass"
+  sentence; the depot's Export help names the slider as what the depot keeps.
+- **Tests:** `hubless_relay_smoke.py` is `proposal_check.py` run against the shipping `Code/`;
+  `distribution_ui_smoke.py` gained the five-state cycle, the defaults, the scoped clear, the
+  joining-station default and lines; `wiring_smoke.py`'s unset target reads 100. Harness note kept
+  in the UI smoke: the fixture's colony label is the first line's member list, so a station added to
+  the label already sits on that route.
+
+### 15.2 Outside the scope, reported and not edited
+
+- The Mod Options help line for Station rows (`items.lua`, `Code/Opt_StationRows.lua`'s title) still
+  reads "Import, Export, Balanced or Not accepted"; Balanced is now reached by the slider, Default by
+  a click. Its wording, and the store copy's, belong to `release_prompt.md`.
+- §8 stands: Brad's tunnels and Xeryx's carry dial are untouched.
+- The hub's own allocation tree and §11's junction concerns inside a hub network are unchanged.
+
+### 15.3 Claim limits and the audit
+
+Supported: built and desk-verified against the archived native bodies at `83149ea`; audit pending.
+Not supported: tested in game; fixes any named player's save; any figure about throughput, drones,
+the panel or save and load. The owner runs the audit on a model of their choice (OI-53); it judges
+the port against §14 and the three player cases. **Executed model:** Claude Fable 5.1
+(`claude-fable-5-1`), no subagents; skills smr-orientation, doc-editing, smr-bug-library,
+smr-session-close.

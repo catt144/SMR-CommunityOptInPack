@@ -12,6 +12,20 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-21 — Station rows relay built (D16, D18): v1.0.4 staged, audit owed
+
+tags: build D16 D18 station-rows elevator-depot v1.0.4 audit-pending
+
+`STATION_ROWS_RELAY_BUILD_high.md`, fired by the owner; deleted at close.
+- **Rulings.** R1–R6 (the relay rule, the depot line, the dropped dial pin, the click defaults and
+  the Default state, the depot's unset targets, surplus draining) recorded verbatim in D16/D18 and
+  the spec §4.7 before any code moved (`8490c5e`, with the report and its four archive folders).
+- **Build.** `a731a20` the transport core (revision b ported whole), `00e2dff` the Default state and
+  defaults, `83149ea` the depot's targets and the help. Every train desk smoke, the parse sweep and
+  doccheck GREEN at each step; record in the report's §15.
+- **Owed.** The owner's independent audit (OI-53) before `release_prompt.md` packs v1.0.4; the three
+  player replies after it is live. Nothing tested in game.
+
 ## 2026-10-05 — v1.0.3 closed: the Station rows fix (D16) on both stores
 
 tags: release update batch-2026-10-05-02 optin-v1.0.3 D16 store-card

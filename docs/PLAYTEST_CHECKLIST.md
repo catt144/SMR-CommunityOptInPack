@@ -38,6 +38,16 @@ Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 
 ## Run
 
+### OI-53 · opened 2026-10-21
+When you next pick a model for an audit, run it on the Station rows relay build (v1.0.4, desk-verified only).
+- The diff: `git diff 5ba8f3f 83149ea -- Code/ tools/trains/`; commits `8490c5e`, `a731a20`, `00e2dff`, `83149ea`.
+- From the repo root: `python tools/trains/hub/tests/hubless_relay_smoke.py`, then `python tools/parsecheck.py`.
+- In `tools/trains/hub/tests`: `hubless_smoke.py`, `distribution_ui_smoke.py`, `module_gates_smoke.py`.
+- Also `python tools/trains/depot/tests/wiring_smoke.py`.
+- Judge the port against the report's §14 and the three player cases; nothing is tested in game until it returns.
+- Afterwards the release runs through `docs/agent/prompts/perma/release_prompt.md` (pack, upload, replies).
+Home: `docs/agent/reports/STATION_ROWS_RELAY_20261021.md`, `docs/agent/bugs/D16.md`, `docs/agent/bugs/D18.md`
+
 ### OI-52 · opened 2026-10-21
 When you next have an editor session, import the Arboretum's four entities and look at it in a colony.
 - The pavilion (collision walls, so colonists use the door) and the three bloom clumps; the steps are
