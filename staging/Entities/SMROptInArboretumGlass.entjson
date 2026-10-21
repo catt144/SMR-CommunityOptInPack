@@ -1,0 +1,24 @@
+{
+	"$persist_version": 0,
+	"$value": {
+		"strName": "SMROptInArboretumGlass",
+		"states": [{
+				"name": "idle",
+				"mesh_ref": "mesh",
+				"category": "All"
+			}],
+		"meshDescriptions": [{
+				"id": "mesh",
+				"lods": [{
+						"meshes_data": [{
+								"mesh": "Mod/SMR_CommunityOptInPack_Workbench/Meshes/SMROptInArboretumGlass_mesh.sub_0.hgrm",
+								"material": "Mod/SMR_CommunityOptInPack_Workbench/Materials/SMROptInArboretumGlass.mtljson"
+							}],
+						"boxMin": [-1600.0, -1810.0, 45.0],
+						"boxMax": [1600.0, 970.0, 1005.0],
+						"bsCenter": [-247.51031494140626, -582.2828979492188, 163.25648498535157],
+						"bsRadius": 2232.9716796875
+					}]
+			}]
+	}
+}

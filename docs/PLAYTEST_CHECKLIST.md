@@ -37,3 +37,13 @@ Should mechanized depot throughput become a post-launch module, and which shape 
 Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 
 ## Run
+
+### OI-52 · opened 2026-10-21
+When you next have an editor session, import the Arboretum's four entities and look at it in a colony.
+- The pavilion (collision walls, so colonists use the door) and the three bloom clumps; the steps are
+  at the end of `docs/agent/prompts/ARBORETUM_MODEL_high.md`.
+- Tell the agent before launching the game afterwards: the editor save rewrites the mod files.
+- Then: do colonists use the door; do the beds grow and change colour each sol; the panel readings
+  still owed from the first look.
+- The checkpoint is committed on your instruction and unaudited; the audit is still owed.
+Home: `docs/agent/reports/ARBORETUM_MODEL_20261004.md`

@@ -6,9 +6,9 @@ local T = SMRTK
 T.PreloadProbeSweep {
 	command = "grep -rln \"TEMP" .. "ORARY\" Code/ ../SMR-BugFixPack-TestKit/Code/",
 	output = "",
-	pack_head = "73d20d5c1def638df357d569614ec2a6b8843d00",
-	testkit_head = "b58ae189a5cf676069d03c6e25dad44fc754e7c3",
-	checked_at = "2026-10-03T21:59:38.931745+00:00",
+	pack_head = "0de88e6f2c4170e52be1dee283b11843c73e4a3b",
+	testkit_head = "ffc12496807b5a69189fb69cf07af81f109e05aa",
+	checked_at = "2026-10-05T16:37:52.359813+00:00",
 	brief = "Arboretum D19 attended sitting",
 	exit = 1, hits = {}, needed = {},
 }
@@ -71,6 +71,26 @@ end,{needs="selected"})
 T.Bind(3, "Read pinned Arboretum stock / dome coverage", function(ctx)
     local b,why=target(ctx); if not b then return false,why end
     local fields=reading(b); ctx.log("DUMP",fields); return fields
+end)
+
+T.Bind(9, "Read pavilion and visible Seeds stock", function(ctx)
+    local b,why=target(ctx); if not b then return false,why end
+    local v=b.consumption_resource_stockpile
+    local attached={}
+    b:ForEachAttach(function(o) attached[#attached+1]=o:GetEntity() end)
+    table.sort(attached)
+    local fields=reading(b)
+    fields.entity=b:GetEntity()
+    fields.prg_class=b.prg_class
+    fields.visual_stock=IsValid(v)
+    fields.visual_milli=IsValid(v) and v.stockpiled_amount or -1
+    fields.visual_units=IsValid(v) and v.count or -1
+    fields.attaches=table.concat(attached,",")
+    fields.stock_matches=IsValid(v) and v.stockpiled_amount==fields.stock_milli
+    ctx.log("DUMP",fields)
+    if fields.entity~="SMROptInArboretumPavilion" then return false,"Place a fresh imported pavilion" end
+    if not fields.stock_matches then return false,"Native visual stock missing or does not match stored Seeds" end
+    return fields
 end)
 
 T.Bind(4, "Start organic Seeds measure; run to sol +3", function(ctx)

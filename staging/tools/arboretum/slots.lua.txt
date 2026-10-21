@@ -64,6 +64,26 @@ T.Bind(3, "Read pinned Arboretum stock / dome coverage", function(ctx)
     local fields=reading(b); ctx.log("DUMP",fields); return fields
 end)
 
+T.Bind(9, "Read pavilion and visible Seeds stock", function(ctx)
+    local b,why=target(ctx); if not b then return false,why end
+    local v=b.consumption_resource_stockpile
+    local attached={}
+    b:ForEachAttach(function(o) attached[#attached+1]=o:GetEntity() end)
+    table.sort(attached)
+    local fields=reading(b)
+    fields.entity=b:GetEntity()
+    fields.prg_class=b.prg_class
+    fields.visual_stock=IsValid(v)
+    fields.visual_milli=IsValid(v) and v.stockpiled_amount or -1
+    fields.visual_units=IsValid(v) and v.count or -1
+    fields.attaches=table.concat(attached,",")
+    fields.stock_matches=IsValid(v) and v.stockpiled_amount==fields.stock_milli
+    ctx.log("DUMP",fields)
+    if fields.entity~="SMROptInArboretumPavilion" then return false,"Place a fresh imported pavilion" end
+    if not fields.stock_matches then return false,"Native visual stock missing or does not match stored Seeds" end
+    return fields
+end)
+
 T.Bind(4, "Start organic Seeds measure; run to sol +3", function(ctx)
     local b,why=target(ctx); if not b then return false,why end
     if sample then return false,"Measurement already running" end

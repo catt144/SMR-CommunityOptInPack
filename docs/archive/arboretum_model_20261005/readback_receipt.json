@@ -1,0 +1,126 @@
+{
+  "command": "python staging/tools/arboretum/readback.py C:/Users/stkot/AppData/Local/Temp/claude/b--Dev-SMR-SMR-OptInPack/a964b145-8f89-4e9e-b651-cd8d020ccbcc/scratchpad/fbx_dump.json",
+  "head": "0de88e6f2c4170e52be1dee283b11843c73e4a3b",
+  "proof_assets_head": "7d3275cc3c2d1fad90cefce4f4b5a09d439c4bae",
+  "game": "1.1.1.406343",
+  "entities": {
+    "SMROptInArboretumPavilion": {
+      "fbx_sha256": "669f1fbfa5aeb00eef4a5ffefa5af55854c89ab0f758a9bf3858ae446fe4e9ba",
+      "hgrm_sha256": "cc1a71c9a41eafe23eee87cf0629d804852db76923e9a1e8120e0ec5880f5f09",
+      "entjson_sha256": "1c6ad9981e7b0dc21165b1ec1cf50b6a86646cc4f2f8b859b3fbdbbcbc3adb42",
+      "compiled_vertices": 6531,
+      "compiled_triangles": 3204,
+      "scale_cm_per_unit": 0.04883,
+      "boxMin": [
+        -1600.0,
+        -1845.5267333984375,
+        0.0
+      ],
+      "boxMax": [
+        1600.0,
+        1290.0,
+        1018.1942749023438
+      ],
+      "proof_vertices": 6532,
+      "proof_faces": 1664,
+      "fbx_triangles": 3204,
+      "fbx_polygons": 1664,
+      "fbx_vertices": 6532,
+      "fit_max_cm": {
+        "(y,-x,z)": 1000000.0,
+        "(-y,-x,z)": 0.039
+      },
+      "frame": [
+        "(-y,-x,z)"
+      ],
+      "spots_in_mesh_frame": 267,
+      "spots": 267,
+      "spot_names": {
+        "Autolight": 32,
+        "Door": 1,
+        "Doorleaf": 2,
+        "Glazing": 1,
+        "Plant*": 217,
+        "Resourcepile": 1,
+        "Top": 1,
+        "Visitwarmup": 10,
+        "Workdrone": 1,
+        "Yard": 1
+      },
+      "attached_total": 220,
+      "attached": {
+        "BushArm_01": 1,
+        "BushArm_03": 1,
+        "Bush_01": 11,
+        "Bush_02": 13,
+        "Bush_03": 33,
+        "Bush_04": 38,
+        "Bush_05": 12,
+        "Bush_06": 33,
+        "DecorInt_03": 6,
+        "DomeDoorEntrance_01": 1,
+        "DomeDoorEntrance_02": 1,
+        "LampGroundInner_01": 20,
+        "LampInt_02": 10,
+        "LampInt_03": 11,
+        "RocksLightSmall_02": 1,
+        "RocksLightSmall_05": 1,
+        "SMROptInArboretumGlass": 1,
+        "TreeArm_02": 2,
+        "TreeArm_03": 5,
+        "TreeArm_04": 2,
+        "Tree_01": 2,
+        "Tree_02": 5,
+        "Tree_03": 3,
+        "Tree_04": 4,
+        "Tree_05": 3
+      },
+      "lights": 32,
+      "surfaces": {
+        "eCollision": 24,
+        "eHexShape": 4,
+        "eSelection": 132
+      }
+    },
+    "SMROptInArboretumGlass": {
+      "fbx_sha256": "2c296cfde71138de70980e9528c334e85d1493d2be0bbbb79e9784f3ded12a0a",
+      "hgrm_sha256": "cf51a43108aebcb30ee9e0e5e172002cec322aeea3b5c0071e9a1ea97c7a03b0",
+      "entjson_sha256": "fea3f756a306b0e980a92b5b8e9ba613ab472b8bf2f0ccb043fde51fee38c3ec",
+      "compiled_vertices": 6402,
+      "compiled_triangles": 2849,
+      "scale_cm_per_unit": 0.04883,
+      "boxMin": [
+        -1600.0,
+        -1810.0,
+        45.0
+      ],
+      "boxMax": [
+        1600.0,
+        970.0,
+        1005.0
+      ],
+      "proof_vertices": 1460,
+      "proof_faces": 1797,
+      "fbx_triangles": 2849,
+      "fbx_polygons": 1797,
+      "fbx_vertices": 1460,
+      "fit_max_cm": {
+        "(y,-x,z)": 0.039,
+        "(-y,-x,z)": 0.039
+      },
+      "frame": [
+        "(y,-x,z)",
+        "(-y,-x,z)"
+      ],
+      "spots_in_mesh_frame": 0,
+      "material": {
+        "BlendType": "blendGlass",
+        "DepthWrite": false,
+        "TwoSidedShading": true,
+        "CastShadow": false
+      }
+    }
+  },
+  "frame": "(-y,-x,z)",
+  "result": "compiled assets match the export proof"
+}

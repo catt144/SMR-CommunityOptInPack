@@ -1,0 +1,21 @@
+{
+	"$persist_version": 0,
+	"$value": [{
+			"BaseColor": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumGlass_BC.dds",
+			"BaseColorChannel": 0,
+			"BlendType": "blendGlass",
+			"CastContactShadow": false,
+			"CastShadow": false,
+			"DepthWrite": false,
+			"Name": "SMROptInArboretumGlass",
+			"Normal": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumGlass_NM.dds",
+			"NormalChannel": 0,
+			"RM": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumGlass_RM.dds",
+			"RMChannel": 0,
+			"ReceiveShadow": false,
+			"SI": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumGlass_SI.dds",
+			"SIChannel": 0,
+			"TwoSidedShading": true,
+			"VertexColorUsages": []
+		}]
+}

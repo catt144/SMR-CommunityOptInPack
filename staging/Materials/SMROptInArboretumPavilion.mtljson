@@ -1,0 +1,15 @@
+{
+	"$persist_version": 0,
+	"$value": [{
+			"BaseColor": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumPavilion_BC.dds",
+			"BaseColorChannel": 0,
+			"Name": "SMROptInArboretumPavilion",
+			"Normal": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumPavilion_NM.dds",
+			"NormalChannel": 0,
+			"RM": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumPavilion_RM.dds",
+			"RMChannel": 0,
+			"SI": "Mod/SMR_CommunityOptInPack_Workbench/Textures/SMROptInArboretumPavilion_SI.dds",
+			"SIChannel": 0,
+			"VertexColorUsages": []
+		}]
+}

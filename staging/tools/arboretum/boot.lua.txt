@@ -1,52 +1,269 @@
 -- TEMPORARY Arboretum menu-load check. Never loads or saves a colony.
--- Config prefix supplies ARB_ON, ARB_FIXPACK and ARB_NEXT_ORDER.
--- Changes only the next saved mod order when explicitly supplied; original
--- order is verified by the runner and restored with the final leg.
+-- Config prefix supplies ARB_MODE, ARB_ON, ARB_FIXPACK, ARB_ORIGINAL, ARB_NEXT_ORDER,
+-- ARB_ATTACHED and ARB_SPOTS. ARB_MODE "setup" only enables the workbench for the next
+-- boot, "check" runs the sections, "restored" confirms the captured order is back.
+-- Changes only the next saved mod order when explicitly supplied.
 ArboretumBoot = {}
 SMROptInPack_Optional = rawget(_G, "SMROptInPack_Optional") or {}
 SMROptInPack_Optional.Arboretum = ARB_ON
+
+local BODY, GLASS, DONOR = "SMROptInArboretumPavilion", "SMROptInArboretumGlass", "GardenLargeCP3"
 
 local function say(text)
     ModLog("[ARBORETUM-BOOT] " .. text:gsub("%%", "%%%%"))
 end
 
-function ArboretumBoot.Check()
+local function need(value, reason)
+    if not value then error(reason or "check failed", 0) end
+    return value
+end
+
+local function sorted_counts(t)
+    local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end
+    table.sort(keys)
+    local out = {}
+    for _, k in ipairs(keys) do out[#out+1] = k .. "=" .. tostring(t[k]) end
+    return table.concat(out, ",")
+end
+
+local function spot_count(entity, name)
+    local first, last = GetSpotRange(entity, "idle", name)
+    if not first or first < 0 then return 0 end
+    return last - first + 1
+end
+
+-- Same members in both lists of hex points, order ignored.
+local function same_members(a, b)
+    if #a ~= #b then return false end
+    for _, p in ipairs(a) do
+        if not table.find(b, p) then return false end
+    end
+    return true
+end
+
+local sections = {}
+
+function sections.mods()
     local loaded = {}
     for _, mod in ipairs(ModsLoaded) do loaded[#loaded+1] = mod.id end
     say("loaded=" .. table.concat(loaded, ","))
     say("saved=" .. table.concat(GetModsEnabledByUser(), ","))
-    local pack = rawget(_G, "SMROptInPack")
-    if not pack then return false, "opt-in pack absent" end
+    local pack = need(rawget(_G, "SMROptInPack"), "opt-in pack absent")
     local fix = rawget(_G, "SMRFixPack") ~= nil
-    if fix ~= ARB_FIXPACK then return false, "wrong fix-pack configuration" end
+    need(fix == ARB_FIXPACK, "wrong fix-pack configuration")
+    need(table.find(loaded, "SMR_CommunityOptInPack") < table.find(loaded, "SMR_CommunityOptInPack_Workbench"),
+        "dependency order wrong")
     local active = pack.IsActive("Arboretum")
     say("cold active=" .. tostring(active) .. " expected=" .. tostring(ARB_ON)
         .. " fixpack=" .. tostring(fix) .. " detail=" .. tostring(pack.fixes.Arboretum.detail))
-    if active ~= ARB_ON then return false, "wrong cold activation" end
-    local t = BuildingTemplates.SMROptInArboretum
-    local c = g_Classes.SMROptInArboretum
-    if not t or not c then return false, "template/class missing" end
-    local donor = BuildingTemplates.GardenNatural_Large
-    say("template=" .. tostring(t.template_name or t.class) .. " entity=" .. t.entity
-        .. " resource=" .. t.consumption_resource_type .. " stat_scale=" .. tostring(const.Scale.Stat))
-    if not donor or t.entity ~= donor.entity or t.consumption_resource_type ~= "Seeds" then
-        return false, "invalid donor entity/consumption"
+    need(active == ARB_ON, "wrong cold activation")
+end
+
+function sections.template()
+    local t = need(BuildingTemplates.SMROptInArboretum, "template missing")
+    local c = need(g_Classes.SMROptInArboretum, "class missing")
+    say("template=" .. tostring(t.template_name or t.class) .. " entity=" .. tostring(t.entity)
+        .. " stock_spot=" .. tostring(t.consumption_resource_stockpile_spot_name)
+        .. " prg_class=" .. tostring(t.prg_class)
+        .. " resource=" .. tostring(t.consumption_resource_type) .. " stat_scale=" .. tostring(const.Scale.Stat))
+    need(t.entity == BODY and c.entity == BODY, "template is not on the pavilion")
+    need(t.consumption_resource_stockpile_spot_name == "Resourcepile" and c.consumption_resource_stockpile_spot_name == "Resourcepile", "stock spot not set")
+    need(t.prg_class == "GardenNatural_Large" and c.prg_class == "GardenNatural_Large", "visitor program not set")
+    need(t.consumption_resource_type == "Seeds", "not consuming Seeds")
+    need(PrgAmbientLife["Visit" .. t.prg_class] and PrgAmbientLife["Visit" .. t.prg_class] ~= PrgAmbientLife.VisitDefault, "native visit program missing")
+    local warning = t:GetWarning()
+    need(not warning, "template warning: " .. tostring(warning))
+end
+
+function sections.entities()
+    -- A first load only queues mod entities; the game loads them with a map's assets
+    -- (CommonLua/Core/map.lua:245). The same native call is made here, at the menu.
+    say("queued_entities=" .. #EntityLoadEntities)
+    WaitDelayedLoadEntities()
+    need(IsValidEntity(BODY), "pavilion entity not loaded")
+    need(IsValidEntity(GLASS), "glass entity not loaded")
+    need(IsValidEntity(DONOR), "donor entity not loaded")
+    local data = EntityData[BODY]
+    need(data and data.entity and data.entity.class_parent == "BuildingEntityClass", "pavilion class parent")
+    need(table.find(GetStates(BODY), "idle") and table.find(GetStates(GLASS), "idle"), "idle state missing")
+    for _, surface in ipairs({"HexShape", "Selection", "Collision"}) do
+        need(HasAllSurfaces(BODY, EntitySurfaces[surface]), "pavilion lacks surface " .. surface)
     end
-    say("geometry deferred to loaded map; donor_entity=" .. donor.entity)
-    if t:GetWarning() then return false, tostring(t:GetWarning()) end
+    say("entities valid; build_surface pavilion=" .. tostring(HasAnySurfaces(BODY, EntitySurfaces.Build))
+        .. " donor=" .. tostring(HasAnySurfaces(DONOR, EntitySurfaces.Build)))
+    need(HasAnySurfaces(BODY, EntitySurfaces.Build) == HasAnySurfaces(DONOR, EntitySurfaces.Build), "Build surface differs from the Large Garden")
+end
+
+function sections.spots()
+    local got = {}
+    for name, want in pairs(ARB_SPOTS) do
+        got[name] = spot_count(BODY, name)
+    end
+    say("spots " .. sorted_counts(got))
+    for name, want in pairs(ARB_SPOTS) do
+        need(got[name] == want, "spot count " .. name .. " " .. tostring(got[name]) .. " ~= " .. tostring(want))
+    end
+    local first, last = GetAllSpots(BODY, "idle")
+    say("all_spots=" .. tostring(last - first + 1))
+end
+
+function sections.attaches()
+    local idle = need(Attaches[BODY] and Attaches[BODY].idle, "no auto-attach table for the pavilion")
+    local got, missing, total = {}, {}, 0
+    for _, item in ipairs(idle) do
+        local class = item[2]
+        got[class] = (got[class] or 0) + 1
+        total = total + 1
+        if not g_Classes[class] then missing[class] = true end
+        need(item.show_at_placement, "attach without show: " .. tostring(class))
+    end
+    say("attaches total=" .. total .. " " .. sorted_counts(got))
+    need(not next(missing), "attach classes unknown to the game: " .. sorted_counts(missing))
+    local want_total = 0
+    for class, want in pairs(ARB_ATTACHED) do
+        want_total = want_total + want
+        need(got[class] == want, "attach count " .. class .. " " .. tostring(got[class]) .. " ~= " .. tostring(want))
+    end
+    need(total == want_total, "attach total " .. total .. " ~= " .. want_total)
+    need(not (Attaches[GLASS] and Attaches[GLASS].idle and #Attaches[GLASS].idle > 0), "glass carries attaches")
+end
+
+function sections.lights()
+    local first, last = GetSpotRange(BODY, "idle", "Autolight")
+    local parsed, emissive = 0, 0
+    for spot = first, last do
+        local light = ProcessNightLightSpot(BODY, spot)
+        if light then
+            parsed = parsed + 1
+            if light.emissive then emissive = emissive + 1 end
+        end
+    end
+    local registry = 0
+    for _, state in pairs(NightLightSpecs[BODY] or {}) do registry = registry + #state end
+    say("lights parsed=" .. parsed .. " emissive=" .. emissive .. " registry=" .. registry)
+    need(parsed == ARB_SPOTS.Autolight and emissive == 1, "light annotations did not all parse")
+    need(registry == parsed, "the game's night-light registry does not hold the pavilion's lights")
+end
+
+function sections.reservation()
+    local kinds = {
+        outline = GetEntityOutlineShape, interior = GetEntityInteriorShape,
+        build = GetEntityBuildShape, inverse_build = GetEntityInverseBuildShape,
+        combined = function(e) return HexCombinedShapes[e] or {} end,
+        peripheral = function(e) return HexPeripheralShapes[e] or {} end,
+    }
+    local function members(list)
+        local out = {}
+        for _, p in ipairs(list) do out[#out+1] = p:x() .. ":" .. p:y() end
+        table.sort(out)
+        return table.concat(out, " ")
+    end
+    local counts, differ = {}, {}
+    for name, get in pairs(kinds) do
+        local mine, donor = get(BODY), get(DONOR)
+        counts[name] = #mine .. "/" .. #donor
+        if not same_members(mine, donor) then
+            differ[#differ+1] = name
+            say("reservation " .. name .. " pavilion=" .. members(mine))
+            say("reservation " .. name .. " donor=" .. members(donor))
+        end
+    end
+    say("reservation pavilion/donor " .. sorted_counts(counts) .. " own_outline=" .. tostring(HexOutlineShapes[BODY] ~= nil))
+    table.sort(differ)
+    need(#differ == 0, "reservation differs from the Large Garden: " .. table.concat(differ, ","))
+    need(HexOutlineShapes[BODY], "pavilion has no outline of its own (fallback)")
+end
+
+function sections.consumption()
+    local c = g_Classes.SMROptInArboretum
+    local native, n, own = g_Classes.HasConsumption, 0, {}
+    for name, value in pairs(native) do
+        if type(value) == "function" and (name:find("Consum") or name:find("Stockpile") or name:find("Request")) then
+            n = n + 1
+            -- The staffed Arboretum overrides consumption methods on its OWN class; the vanilla
+            -- classes must still hold their own functions, and the overrides are listed.
+            if c[name] ~= value and c[name] ~= g_Classes.ServiceWorkplace[name] then
+                own[#own+1] = name
+            end
+        end
+    end
+    table.sort(own)
+    say("own consumption overrides=" .. table.concat(own, ","))
+    need(table.concat(own, ",") == "CanConsume,Consume_Workshift", "unexpected consumption overrides")
+    need(IsKindOf(c, "ServiceWorkplace") and c.max_workers == 2 and (c.specialist or "none") == "none", "not a 2-worker unspecialized service")
+    say("staffing max_workers=" .. tostring(c.max_workers) .. " automation=" .. tostring(c.automation)
+        .. " auto_performance=" .. tostring(c.auto_performance) .. " capacity=" .. tostring(c.service_capacity)
+        .. " store=" .. tostring(c.consumption_max_storage) .. " type=" .. tostring(c.consumption_type))
+    for i = 1, 3 do
+        local id = c["upgrade" .. i .. "_id"]
+        say("upgrade" .. i .. "=" .. tostring(id))
+        need(id and id:find("^SMROptInArboretum_"), "upgrade " .. i .. " missing")
+    end
+    local states = {}
+    for _, crop in ipairs({"CropHerb", "CropRapeseed_SmallFarm", "CropQuinoa_SmallFarm", "CropPumpkinFarmArm_SmallFarm",
+                           "CropCucumber", "CropPotatoes_SmallFarm", "CropApples"}) do
+        states[#states+1] = crop .. ":" .. (IsValidEntity(crop) and (tostring(g_Classes[crop] ~= nil) .. ":" .. table.concat(GetStates(crop), "/")) or "INVALID")
+    end
+    say("crops " .. table.concat(states, " "))
+    say("consumption methods=" .. n .. " native=true default_spot=" .. tostring(native.consumption_resource_stockpile_spot_name))
+    -- Informational: the Art Store's stock spot (the report's unresolved comparison). Not a requirement.
+    local art = BuildingTemplates.ShopsJewelry
+    if art then
+        local line = "art_store spot_name=" .. tostring(art.consumption_resource_stockpile_spot_name)
+        for i = 1, 4 do
+            local entity = art["entity" .. (i == 1 and "" or i)]
+            if entity and entity ~= "" and IsValidEntity(entity) then
+                line = line .. " " .. entity .. ":Resourcepile=" .. spot_count(entity, "Resourcepile")
+                    .. ",Resourcepile2=" .. spot_count(entity, "Resourcepile2")
+            end
+        end
+        say(line)
+    end
+end
+
+function sections.toggles()
     -- Live reconciliation uses the production message; override is RAM-only.
+    local pack = SMROptInPack
     local opts = Mods.SMR_CommunityOptInPack.options
     local previous = opts.Arboretum
     for _, on in ipairs({false, true, false, true}) do
         SMROptInPack_Optional.Arboretum = false
         opts.Arboretum = on
         Msg("ApplyModOptions", "SMR_CommunityOptInPack")
-        if pack.IsActive("Arboretum") ~= on then return false, "live toggle failed" end
+        need(pack.IsActive("Arboretum") == on, "live toggle failed")
         say("live=" .. tostring(on) .. " reconciled=" .. tostring(pack.IsActive("Arboretum")))
     end
     opts.Arboretum = previous
     SMROptInPack_Optional.Arboretum = ARB_ON
     Msg("ApplyModOptions", "SMR_CommunityOptInPack")
+end
+
+function sections.order()
+    local loaded = {}
+    for _, mod in ipairs(ModsLoaded) do loaded[#loaded+1] = mod.id end
+    say("mode=" .. ARB_MODE .. " loaded=" .. table.concat(loaded, ","))
+    say("saved=" .. table.concat(GetModsEnabledByUser(), ","))
+    need(table.concat(GetModsEnabledByUser(), ",") == table.concat(ARB_ORIGINAL, ","), "saved order is not the captured original")
+    if ARB_MODE == "restored" then
+        need(table.concat(loaded, ",") == table.concat(ARB_ORIGINAL, ","), "loaded order is not the captured original")
+        need(not SMROptInPack.fixes.Arboretum, "production alone registers Arboretum")
+        need(not BuildingTemplates.SMROptInArboretum, "production alone loads the template")
+        need(not IsValidEntity(BODY) and not IsValidEntity(GLASS), "workbench entities loaded without the workbench")
+        say("production_only=true original_order_restored=true")
+    end
+end
+
+function ArboretumBoot.Check()
+    local failed = {}
+    local run = ARB_MODE == "check"
+        and {"mods", "template", "entities", "spots", "attaches", "lights", "reservation", "consumption", "toggles"}
+        or {"order"}
+    for _, name in ipairs(run) do
+        local ok, err = pcall(sections[name])
+        say("section=" .. name .. " ok=" .. tostring(ok) .. (ok and "" or " detail=" .. tostring(err)))
+        if not ok then failed[#failed+1] = name end
+    end
     if ARB_NEXT_ORDER then
         -- Preserve kit persistent bytes while triggering the native account writer.
         local err, data = ReadModPersistentData()
@@ -59,7 +276,8 @@ function ArboretumBoot.Check()
         if e then return false, e end
         say("next_order=" .. table.concat(GetModsEnabledByUser(), ","))
     end
-    return true, "menu class/template and toggles only; gameplay NOT RUN"
+    if #failed > 0 then return false, "failed sections: " .. table.concat(failed, ",") end
+    return true, "menu entity/template/toggle checks only; gameplay NOT RUN"
 end
 
 function ArboretumBoot.Boot()

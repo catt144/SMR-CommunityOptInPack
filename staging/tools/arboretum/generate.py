@@ -30,7 +30,8 @@ def outputs():
                 raise SystemExit(f"mod_handle collision: {path}")
     route = Path(__file__).resolve().parent.relative_to(REPO).as_posix()
     banner = f"-- GENERATED: python {route}/generate.py; source {route}/template.json\n\n"
-    mod_id = re.search(r"'id',\s*\"([^\"]+)\"", (ROOT / "metadata.lua").read_text(encoding="utf-8"))[1]
+    # The ModDef's own id is the one-tab field; a ModDependency's id sits deeper and may come first.
+    mod_id = re.search(r"^\t'id',\s*\"([^\"]+)\"", (ROOT / "metadata.lua").read_text(encoding="utf-8"), re.M)[1]
     fields = dict(Group="Decorations", Id=name, SaveIn="Mod/" + mod_id,
                   mod_handle=data["handle"], **props)
     preset = banner + "PlaceObj('ModItemBuildingTemplate', {\n"

@@ -1,0 +1,104 @@
+{
+  "command": "python staging/tools/arboretum/read_model_boots.py",
+  "head": "0de88e6f2c4170e52be1dee283b11843c73e4a3b",
+  "scope": "menu loads of the working tree; entities loaded by the probe with the game's own WaitDelayedLoadEntities; gameplay NOT RUN",
+  "not_run": [
+    "option-off legs (present_off, absent_off): did not run this round",
+    "restored leg: did not run this round; the next_order lines are the only order evidence"
+  ],
+  "findings": [
+    "reservation: pavilion equals the Large Garden, 10 hexes, all six shape kinds equal",
+    "OPEN: one startup Lua error per workbench boot, not a pass: [LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')",
+    "store=30000 is the engine value (stat_scale 1000), i.e. 30",
+    "ServiceWorkplace is enforced by the probe (section=consumption ok=true), not printed as a class name"
+  ],
+  "retained_failed_attempts": [
+    {
+      "log": "attempt1_present_on.log",
+      "sha256": "a531f4efa7ddd18587f8d7bfb3293a6b171f4821090e07b10fb46f289e457564",
+      "counted_as_leg": false,
+      "failed_sections": [
+        "section=mods ok=false detail=wrong cold activation",
+        "section=consumption ok=false detail=a vanilla class's consumption method changed"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "leg": "present_on_nochange",
+      "sha256": "e23798d382acb4c4fff0331666ddbeba71dd7f56a43e6b2406024d4b7041dfdf",
+      "controls": {
+        "Lua revision: 406343": 51,
+        "*** Debug::Done()": 292,
+        "[ARBORETUM-BOOT] loaded=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,qL8sA2m,SMR_CommunityOptInPack_Workbench": 239,
+        "[ARBORETUM-BOOT] cold active=true expected=true fixpack=true": 241,
+        "[ARBORETUM-BOOT] template=SMROptInArboretum entity=SMROptInArboretumPavilion stock_spot=Resourcepile prg_class=GardenNatural_Large resource=Seeds stat_scale=1000": 243,
+        "[ARBORETUM-BOOT] entities valid; build_surface pavilion=false donor=false": 247,
+        "[ARBORETUM-BOOT] spots Autolight=26,Cropbed=3,Door=1,Doorleaf=2,Glazing=1,Resourcepile=1,Specimen=2,Top=1,Visitwarmup=10,Workdrone=1,Yard=1": 249,
+        "[ARBORETUM-BOOT] attaches total=115 BushArm_03=1,Bush_01=2,Bush_02=2,Bush_03=23,Bush_04=22,Bush_05=4,Bush_06=22,DecorInt_03=6,DomeDoorEntrance_01=1,DomeDoorEntrance_02=1,LampGroundInner_01=10,LampInt_02=4,LampInt_03=6,SMROptInArboretumGlass=1,TreeArm_02=2,TreeArm_03=2,Tree_03=2,Tree_05=4": 252,
+        "[ARBORETUM-BOOT] lights parsed=26 emissive=1 registry=26": 254,
+        "[ARBORETUM-BOOT] own consumption overrides=CanConsume,Consume_Workshift": 258,
+        "[ARBORETUM-BOOT] staffing max_workers=2 automation=1 auto_performance=100 capacity=14 store=30000 type=5": 259,
+        "[ARBORETUM-BOOT] upgrade1=SMROptInArboretum_ServiceBots": 260,
+        "[ARBORETUM-BOOT] upgrade2=SMROptInArboretum_SeasonalBlooms": 261,
+        "[ARBORETUM-BOOT] upgrade3=SMROptInArboretum_RareSpecimens": 262,
+        "[ARBORETUM-BOOT] crops CropHerb:true:idle/idle2/idle3/idle4 CropRapeseed_SmallFarm:true:idle/idle2/idle3/idle4 CropQuinoa_SmallFarm:true:idle/idle2/idle3/idle4 CropPumpkinFarmArm_SmallFarm:true:idle/idle2/idle3 CropCucumber:true:idle/idle2/idle3/idle4/idle5 CropPotatoes_SmallFarm:true:idle/idle2/idle3/idle4 CropApples:true:idle/idle2/idle3/idle4": 264,
+        "[ARBORETUM-BOOT] consumption methods=41 native=true default_spot=Resourcepile2": 265,
+        "[ARBORETUM-BOOT] live=false reconciled=false": 269,
+        "[ARBORETUM-BOOT] live=true reconciled=true": 271,
+        "[ARBORETUM-BOOT] next_order=SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,qL8sA2m": 277,
+        "[ARBORETUM-BOOT] result=true detail=menu entity/template/toggle checks only; gameplay NOT RUN": 278,
+        "[ARBORETUM-BOOT] section=mods ok=true": 242,
+        "[ARBORETUM-BOOT] section=template ok=true": 244,
+        "[ARBORETUM-BOOT] section=entities ok=true": 248,
+        "[ARBORETUM-BOOT] section=spots ok=true": 251,
+        "[ARBORETUM-BOOT] section=attaches ok=true": 253,
+        "[ARBORETUM-BOOT] section=lights ok=true": 255,
+        "[ARBORETUM-BOOT] section=reservation ok=true": 257,
+        "[ARBORETUM-BOOT] section=consumption ok=true": 267,
+        "[ARBORETUM-BOOT] section=toggles ok=true": 276
+      },
+      "lua_error_lines": 1,
+      "known_error_lines": 1,
+      "braze_error_lines": 6
+    },
+    {
+      "leg": "absent_on",
+      "sha256": "43deb17ddb7797cc08d18ef913d90e3872868dc945091e010b08eb50f460c137",
+      "controls": {
+        "Lua revision: 406343": 52,
+        "*** Debug::Done()": 228,
+        "[ARBORETUM-BOOT] loaded=SMR_CommunityOptInPack,SMR_CommunityOptInPack_Workbench,SMR_CommunityFixPackTestKit,qL8sA2m": 175,
+        "[ARBORETUM-BOOT] cold active=true expected=true fixpack=false": 177,
+        "[ARBORETUM-BOOT] template=SMROptInArboretum entity=SMROptInArboretumPavilion stock_spot=Resourcepile prg_class=GardenNatural_Large resource=Seeds stat_scale=1000": 179,
+        "[ARBORETUM-BOOT] entities valid; build_surface pavilion=false donor=false": 183,
+        "[ARBORETUM-BOOT] spots Autolight=26,Cropbed=3,Door=1,Doorleaf=2,Glazing=1,Resourcepile=1,Specimen=2,Top=1,Visitwarmup=10,Workdrone=1,Yard=1": 185,
+        "[ARBORETUM-BOOT] attaches total=115 BushArm_03=1,Bush_01=2,Bush_02=2,Bush_03=23,Bush_04=22,Bush_05=4,Bush_06=22,DecorInt_03=6,DomeDoorEntrance_01=1,DomeDoorEntrance_02=1,LampGroundInner_01=10,LampInt_02=4,LampInt_03=6,SMROptInArboretumGlass=1,TreeArm_02=2,TreeArm_03=2,Tree_03=2,Tree_05=4": 189,
+        "[ARBORETUM-BOOT] lights parsed=26 emissive=1 registry=26": 191,
+        "[ARBORETUM-BOOT] own consumption overrides=CanConsume,Consume_Workshift": 195,
+        "[ARBORETUM-BOOT] staffing max_workers=2 automation=1 auto_performance=100 capacity=14 store=30000 type=5": 196,
+        "[ARBORETUM-BOOT] upgrade1=SMROptInArboretum_ServiceBots": 197,
+        "[ARBORETUM-BOOT] upgrade2=SMROptInArboretum_SeasonalBlooms": 198,
+        "[ARBORETUM-BOOT] upgrade3=SMROptInArboretum_RareSpecimens": 199,
+        "[ARBORETUM-BOOT] crops CropHerb:true:idle/idle2/idle3/idle4 CropRapeseed_SmallFarm:true:idle/idle2/idle3/idle4 CropQuinoa_SmallFarm:true:idle/idle2/idle3/idle4 CropPumpkinFarmArm_SmallFarm:true:idle/idle2/idle3 CropCucumber:true:idle/idle2/idle3/idle4/idle5 CropPotatoes_SmallFarm:true:idle/idle2/idle3/idle4 CropApples:true:idle/idle2/idle3/idle4": 200,
+        "[ARBORETUM-BOOT] consumption methods=41 native=true default_spot=Resourcepile2": 201,
+        "[ARBORETUM-BOOT] live=false reconciled=false": 205,
+        "[ARBORETUM-BOOT] live=true reconciled=true": 207,
+        "[ARBORETUM-BOOT] next_order=SMR_CommunityFixPack,SMR_CommunityFixPackTestKit,SMR_CommunityOptInPack,qL8sA2m,SMR_CommunityOptInPack_Workbench": 213,
+        "[ARBORETUM-BOOT] result=true detail=menu entity/template/toggle checks only; gameplay NOT RUN": 214,
+        "[ARBORETUM-BOOT] section=mods ok=true": 178,
+        "[ARBORETUM-BOOT] section=template ok=true": 180,
+        "[ARBORETUM-BOOT] section=entities ok=true": 184,
+        "[ARBORETUM-BOOT] section=spots ok=true": 187,
+        "[ARBORETUM-BOOT] section=attaches ok=true": 190,
+        "[ARBORETUM-BOOT] section=lights ok=true": 192,
+        "[ARBORETUM-BOOT] section=reservation ok=true": 194,
+        "[ARBORETUM-BOOT] section=consumption ok=true": 203,
+        "[ARBORETUM-BOOT] section=toggles ok=true": 212
+      },
+      "lua_error_lines": 1,
+      "known_error_lines": 1,
+      "braze_error_lines": 6
+    }
+  ]
+}

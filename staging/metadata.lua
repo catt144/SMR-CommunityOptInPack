@@ -27,6 +27,11 @@ return PlaceObj('ModDef', {
 		"Code/00_Workbench.lua",
 		"Code/Opt_Arboretum.lua",
 		"Code/BuildingTemplate/SMROptInArboretum.generated.lua",
+		"Code/_EntityData.generated.lua",
+	},
+	'entities', {
+		"SMROptInArboretumGlass",
+		"SMROptInArboretumPavilion",
 	},
 	'has_data', true,
 })

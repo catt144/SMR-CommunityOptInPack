@@ -16,9 +16,21 @@ local original_has_options = workbench.HasOptions
 local bridge = {}
 SMROptInWorkbench = bridge
 
+-- The Mod Options list shows a page for any mod whose options object has properties
+-- (Lua/XDef/OptionsContentWindow.generated.lua:472 @1.1.1.406343); it never asks HasOptions.
+-- An empty cached list keeps the workbench's own page out: a value set there would be stored
+-- under the workbench and never reach the module.
+local function hide_own_page()
+    if workbench.options then
+        workbench.options.properties = {}
+        workbench.options.__defaults = {}
+    end
+end
+
 local function clear_cache()
     production.options.properties = nil
     production.options.__defaults = nil
+    hide_own_page()
 end
 
 local function get_options(self, test)
@@ -45,7 +57,12 @@ clear_cache()
 function bridge.Detach()
     if production.GetOptionItems == get_options then production.GetOptionItems = original_items end
     if workbench.HasOptions == hidden_options then workbench.HasOptions = original_has_options end
-    clear_cache()
+    production.options.properties = nil
+    production.options.__defaults = nil
+    if workbench.options then
+        workbench.options.properties = nil
+        workbench.options.__defaults = nil
+    end
 end
 -- Items load after code. Rebuild the UI metadata once those items exist.
 function OnMsg.ModItemsLoaded() clear_cache() end
