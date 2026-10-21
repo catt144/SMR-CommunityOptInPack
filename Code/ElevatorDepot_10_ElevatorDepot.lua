@@ -1037,14 +1037,14 @@ end
 function D.State(o, res) return normal_state(rows_of(owner_of(o))[res]) end
 
 -- The row's target, percent of the surface half's capacity, set by the surface row's slider. Unset, it
--- is the hub's untouched-row default: the live dial as a percentage (45_TrainDistributionUI.lua:46-51,
--- D.RowState). A lone underground half reads its read-only copy, which a new surface twin adopts.
+-- takes the word's own default, as a station row does when clicked (owner 2026-10-21, R5, D18.md):
+-- Import 100, Export 0, on every depot, hub-managed ones included; the dial percentage it used to
+-- read is gone. A lone underground half reads its read-only copy, which a new surface twin adopts.
 function D.Target(o, res)
 	local owner = owner_of(o)
 	local t = (rawget(owner, TARGETS) or empty_table)[res]
 	if t then return t, true end
-	local cap = owner.GetMaxStorage and owner:GetMaxStorage(res) or 0
-	return cap > 0 and Clamp(MulDivRound(owner.desired_amount or 0, 100, cap), 0, 100) or 0, false
+	return D.State(owner, res) == "to_underground" and 100 or 0, false
 end
 
 -- A half's own flow, for the hub's read and the drones (never shown): "gather" where the cabin loads
@@ -1206,7 +1206,7 @@ end
 
 local surface_help = {
 	import = "this half gathers it for the cabin: trains (and drones, with Drone Access on) bring it here, and each down leg carries it to the underground half.",
-	export = "the cabin brings it up from the underground half on each up leg; trains (and drones, with Drone Access on) take it away from here.",
+	export = "the cabin brings it up from the underground half on each up leg; trains (and drones, with Drone Access on) take away what is above the slider, the amount this depot keeps.",
 	disabled = "the cabin never carries it; trains take away what is left here.",
 }
 -- the underground half's flow in words (owner: "its infotip say its current info")
@@ -1912,7 +1912,7 @@ function D.Pair()
 		local target, set = D.Target(half, res)
 		print(string.format("%s   row %-12s state=%-14s surface=%-8s underground=%-8s target=%d%%%s u_panel=%s stock_s=%d stock_u=%d vanilla_s=%s vanilla_u=%s",
 			log_prefix, res, D.State(half, res), s and half_word(s, res) or "-", u and half_word(u, res) or "-",
-			target, set and "" or "(dial)", panel, stock(s), stock(u), flag(s), flag(u)))
+			target, set and "" or "(default)", panel, stock(s), stock(u), flag(s), flag(u)))
 	end
 	if s and u then
 		out.underground_panel = differ == 0 and "matches" or "DIFFERENT"

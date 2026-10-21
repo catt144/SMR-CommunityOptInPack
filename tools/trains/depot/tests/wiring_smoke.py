@@ -224,7 +224,8 @@ assert(S:ShouldAddRequestToCommandCenter(S.demand.Metals, hub)==true and S:Shoul
   'on + gathering half: drones bring in only')
 assert(U:ShouldAddRequestToCommandCenter(U.supply.Metals, hub)==true and U:ShouldAddRequestToCommandCenter(U.demand.Metals, hub)==false,
   'on + handing-out half: drones take out only')
-local h = D.HubEntry(S,'Metals'); assert(h.mode=='import' and h.percent==17, 'hub reads the surface Import at its target (unset: the dial, 10 of 60)')
+local h = D.HubEntry(S,'Metals'); assert(h.mode=='import' and h.percent==100, 'hub reads the surface Import at its target (unset: Import 100, R5)')
+assert(select(2, D.Target(S,'Metals'))==false and D.Target(U,'Metals')==100, 'an unset target is the default, read on both halves')
 h = D.HubEntry(U,'Metals'); assert(h.mode=='export' and h.percent==0, 'the underground hands out everything')
 assert(D.HubEntry(S,'Concrete')==false, 'Not accepted: the hub default (vanilla storage is off)')
 -- the underground cannot write: console refused, a click does nothing

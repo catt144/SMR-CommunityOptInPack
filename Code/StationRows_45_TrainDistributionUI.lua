@@ -59,8 +59,8 @@ local local_help = {
 	-- owner 2026-10-05: a row nobody has set keeps the game's balancing on a line with no hub
 	default = "Default: trains spread this resource between the stations on the line, as in the base game. Changing this row gives the station its own setting.",
 	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
-	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
-	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
+	export = "Export: trains take what this station holds above the selected amount, a share of its own store, to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
+	import = "Import: trains bring stock from other stations up to the selected amount, a share of this station's own store, and never take it away. From a station left at Default they bring what the base game would share; set Export there to send everything. Local drones may drain this station to zero.",
 }
 function D.RowState(st, res)
 	local entry = D.Get(st, res)
@@ -125,6 +125,13 @@ local function install_station()
 			.. "<newline><newline>Slider: " .. tostring(percent)
 			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
 		if not hub then text = text .. "<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these." end
+		-- owner 2026-10-21 (R1): a joining station relays in the room above its number; a full number leaves none
+		if not hub and mode ~= "disabled" and D.IsJunction(st) then
+			text = text .. "<newline><newline>This station joins lines: cargo for its other lines passes through the room above its number, so its stock reads above the number on the way."
+			if mode ~= "default" and mode ~= "export" and percent >= 100 then
+				text = text .. " At 100 nothing can pass between its lines; lower the number to let cargo through."
+			end
+		end
 		local parent = D.Parent(st)
 		if parent and parent ~= D.HubFor(st) then
 			text = text .. "<newline><newline>Trains forward this resource through station "
