@@ -5,10 +5,10 @@
 > §13 is the second independent check (Codex, same day): diffusion is supported in the exercised
 > networks, but reproduced allocation and unload failures require another correction.
 
-**Latest independent verdict in §13: the revised prototype needs corrections.** This is the package the owner
-hands to a second model family (Codex) to confirm or refute before anything is authored as a fix.
-Nothing here is a ruling and no module behaviour has changed. The claims register in §9 is the
-checklist for that leg: every claim carries where it was read and how far it was verified.
+**Latest independent verdict in §16: corrections needed in the shipping relay build.**
+Sections 1–14 preserve the investigation and proposal stages; §15 records the owner-authorized
+build. Section 16 audits that build against R1–R6 and records its counterexamples and limits.
+No game run was made by the audit.
 
 Inputs: OptInPack HEAD `80766e7`; `git diff --stat optin-v1.0.3 -- Code/` prints nothing, so every
 `Code/` citation is the live v1.0.3. Game lines are from the archived tree
@@ -1091,3 +1091,212 @@ the panel or save and load. The owner runs the audit on a model of their choice 
 the port against §14 and the three player cases. **Executed model:** Claude Fable 5.1
 (`claude-fable-5-1`), no subagents; skills smr-orientation, doc-editing, smr-bug-library,
 smr-session-close.
+
+## 16 · Independent build audit — Codex, 2026-10-21
+
+**Verdict: corrections needed — cargo-inaccessible members still take a share of the pool;
+rounded shares do not conserve the allocation total; clicks can mix cached and refreshed hub
+ownership; joining-station help contradicts relay behavior; current records overstate or
+misdescribe the build.** The broader claim that this build is confirmed as desk-verified is
+not confirmed. The reproduced passing cases below remain valid within their fixtures.
+
+Audited shipping build `83149ea` at HEAD `922a22cbb1fa38bf9d53417c31ad12e573118e8c`.
+`git log --oneline -3` identified the audit prompt commit, the build record and the last code
+commit; `git pull` printed `Already up to date.`; `git status --short` was empty.
+`git diff --stat 83149ea HEAD -- Code/ tools/trains/` was empty. No shipping code or shipping
+tests were changed in this audit. The scope was the commits after `5ba8f3f`, R1–R6, §14 and
+the claims about that build, including the UI ownership seam requested by the audit prompt.
+
+Executed model: **Codex, GPT-6 per session instruction; exact runtime model identifier and
+effort not exposed in the transcript.** This is independent of the build's Claude Fable 5.1.
+No subagents or game launches. Skills used: smr-orientation, smr-bug-library, doc-editing,
+smr-session-close. The owner's invocation completes OI-53's model-selection/audit action;
+it does not supply playtest or release evidence.
+
+### 16.1 Commands, artifacts and evidence limits
+
+Run these from the repository root. Each script prints its command and HEAD; each output
+also records the process exit. **A**, **B**, and **C** below name these exact commands, not
+unrecorded manual tests. Their assertions deliberately preserve the counterexamples, so an
+exit of zero means the audit witnesses reproduced, not that the build passed the audit.
+
+| Key | Executed command | Archived output |
+|---|---|---|
+| A | `python docs/archive/station_rows_audit_20261021/adversarial.py` | [adversarial_output.txt](../../archive/station_rows_audit_20261021/adversarial_output.txt) |
+| B | `python docs/archive/station_rows_audit_20261021/baseline.py` | [baseline_output.txt](../../archive/station_rows_audit_20261021/baseline_output.txt) |
+| C | `python docs/archive/station_rows_audit_20261021/contract.py` | [contract_output.txt](../../archive/station_rows_audit_20261021/contract_output.txt) |
+| F | `python tools/doccheck.py --emit-fingerprint` | [fingerprint_output.txt](../../archive/station_rows_audit_20261021/fingerprint_output.txt) |
+| V | `python docs/archive/station_rows_audit_20261021/close_check.py` | [close_check_output.txt](../../archive/station_rows_audit_20261021/close_check_output.txt) |
+
+C's record-presence checks describe the pre-audit text and intentionally fail once that text
+is corrected; its archived output is the receipt at the audited HEAD. V verifies the completed
+record changes and enumerates every member of C's persisted-name token count. See the archive's
+[README](../../archive/station_rows_audit_20261021/README.md) for replay conditions.
+
+B runs every smoke named in the audit prompt plus parsecheck and doccheck, recording each
+command, its complete output and exit. Its reconciliation is `19 commands; 19 passed; 0 failed`,
+with the members listed at the end. Parsecheck reports `19 file(s) in Code, 0 error(s)`;
+doccheck is GREEN, `WRAP CHECK: 0 wrap site(s) outside Require`, `TEMPORARY SWEEP: 0 hit(s)`.
+F reads installed build **25579348**, corresponding to archived **1.1.1.406343**.
+
+A verifies byte parity between the harness's 405907 native Train, Station, MultiResourceDepot
+and MultiResourceCubeVisuals bodies and the 406343 archive before using them. Its added
+topology fixtures execute 406343's native `ForEachStationAlongTrack`,
+`ForEachTrainInRoute` and `TrackConnectedObjBase:ForEachConnectedTrack`; connector elements,
+tracks, requests, trains and scheduling are fixtures. Native route flags are set to their
+archived values, including bidirectional = 4. A debug upvalue read observes the unmodified
+local view; it does not replace that view. The separate UI runtime uses the existing compiled
+native constructors with window doubles. C checks the real depot Target/HubEntry readers in
+the wiring harness. These distinctions limit every result below.
+
+**NOT RUN:** engine scheduling, actual route rebuilding, save serialization or real save
+loading, the real cabin and drones, UI pixels/hit testing, player saves, either shipping
+configuration in game, packing, upload or player replies. No status becomes “tested” here.
+
+### 16.2 Corrections and bounded observations
+
+**A1 — Cargo-inaccessible members dilute the water-fill.** A prints:
+
+```text
+COUNTEREXAMPLE people-only tail on same route: Export0 source60 -> cargo receiver0 -> people-only receiver0; after 3 trips stock=30000,30000,0; 30000 stranded despite cargo receiver room30000
+CONTROL all-cargo tail: remaining30000 is booked and delivered, source reaches Export0
+COUNTEREXAMPLE inaccessible stock: Default source60 -> Import100 empty -> people-only stock60; cargo load=20000 instead of the reachable pair share30000
+```
+
+Printed stock is in internal units; 1000 is one resource. Every station has capacity 60 in
+these fixtures. This is one route with differently configured segments, not two routes at a
+junction. The native walker reports the people-only tail with its transport mode. SR:857–870
+puts it in `members` but excludes it from `can_receive`; SR:942–948 still gives its parts a
+share and counts its stock. Only SR:999 applies cargo reachability to the final order. An
+unreachable receiver therefore absorbs allocation that the reachable receiver cannot use.
+This refutes the general R6 drain claim and §14.1's claim that the pool is not promised to a
+part that cannot receive it. The all-cargo control shows that the source is not merely pinned
+by its Export setting. The next correction brief needs pool membership and receiving weights
+consistent with usable cargo connectivity, with both mixed-mode fixtures retained. It must
+also retain the all-train cargo and reservation controls. No choice outside R1/R6 was made.
+
+**A2 — Handle sorting is deterministic ordering, not remainder apportionment.** A prints:
+
+```text
+COUNTEREXAMPLE rounding: pool=2 internal units; source floor=1; orders=1+1; total allocation=3; handle sorting does not apportion remainder
+LIMIT rounding witness: native transfer conserves physical cargo; 1 internal unit = 0.001 resource; not a duplication claim
+PASS water-fill search seed20261021: 1200 cases, 3..8 Import parts, zero/partial/full rooms; instruction guard held; max deviation from rational oracle=0.500000 internal unit; max pool-sum error=2
+```
+
+SR:950–955 sorts by station handle and part key, but SR:961 and SR:969 round every share
+independently. The witness is a 0.002-resource source, two empty untouched receivers and an
+empty Export 0 leaf that activates the view without taking weight. The three receiving/floor
+shares add to 0.003. The search uses a separate rational water-level oracle sorted by
+room/weight, not a copy of the production loop. It covers Import weights, not every mixed
+row/topology. None of those sampled parts exceeded its room, and the instruction limit held.
+Each saturating production iteration removes at least one positive-room slot; the no-held
+branch breaks, so termination also follows from the finite slot set. A correction can
+apportion the integer remainder in the stated handle order while preserving room bounds.
+The numerical discrepancy is small; neither this search nor the witness proves a visible
+gameplay effect, cargo duplication or universal convergence.
+
+**A3 — A click reads one ownership snapshot and writes another.** A prints:
+
+```text
+COUNTEREXAMPLE UI leave-hub seam: cached Export0 click writes Import100 into local Import70; current local cycle would disable and retain70
+COUNTEREXAMPLE UI join-hub seam: cached local Default click overwrites saved hub Import77 with Export0; current hub cycle would disable and retain77
+```
+
+UI:91–94 reads the row and selects its successor/default through `D.HubFor`'s cached ownership.
+SR:416 and SR:471 refresh ownership inside `D.Set`/`D.Clear`. A changed hub graph inside the
+cache interval can therefore make a click choose from the old set and overwrite the newly
+active set. This is a synchronous fixture, not a claim about measured engine timing.
+C reruns the leaving-hub witness on both unmodified revisions and supplies the refresh control:
+
+```text
+5ba8f3f: UI SEAM refresh=false local=import/0 enabled=true
+5ba8f3f: UI SEAM refresh=true local=import/70 enabled=false
+83149ea: UI SEAM refresh=false local=import/100 enabled=true
+83149ea: UI SEAM refresh=true local=import/70 enabled=false
+```
+
+The underlying seam is **inherited**, not introduced by the relay port; R4 changes the value
+written in this example. The next brief needs a coherent ownership snapshot for mode read,
+default selection and write, retaining both dormant sets. Waiting for a refresh avoids the
+fixture but is not a UI guarantee.
+
+**A4 — Joining-station help contradicts its own exception.** A invokes the installed rollover
+callback and prints `COUNTEREXAMPLE joining import help combines terminal never-clause with
+passes-through clause`, and the corresponding Export line. C's scoped grep identifies
+UI:62–63 and :132. Import says trains “never take it away”; Export says they “never deliver
+here”; both then append the joining-station relay sentence. The passing relay fixtures show
+why those unqualified clauses are false at a joining station. Scope the terminal wording or
+describe the junction rule directly in the next shipping correction; adding the warning at
+100 does not fix the contradiction at lower settings. No UI pixels were inspected.
+
+**A5 — Empty-table cleanup is only partial.** A prints `OBSERVE Clear: active station entry
+removed, dormant local kept; empty hub root table remains {}`. The active hub's per-station
+table and an emptied local table are removed; the last removal leaves
+`SMROptIn_distribution = {}` on the hub (SR:476–480). This falls short if the audit brief's
+“emptied tables removed” includes the outer hub container. It is inert existing-field data,
+not a new persisted name or an observed save failure. The next brief can remove that empty
+outer container too, without touching another station or the dormant local set.
+
+### 16.3 What the desk checks do support
+
+| Subject | Command and output; scope |
+|---|---|
+| Port identity | C: `PASS a731a20/prototype equal after comment/blank normalization`; prototype SHA256 `336e911db3752289463bc96ea33d1dfee6cfa5d250d017ab8d649ec7ea4df5e9`. Pre-port bytes equal `optin-v1.0.3`, SHA256 `b0de6db1bac1ec618eac6a25d1432497566f508d3c6dc1c1d15c86960d21255e`. The implementation faithfully ports the prototype; that does not validate every prototype case. |
+| Weights and rooms | B, `hubless_relay_smoke.py`: Import 20 from Default 60 gives `48/12`; Import 100 gives `30/30`; empty Export 100 no longer consumes weight (`30/30/0`); a full Import no longer dilutes a receiver (`0/60/60`); a half-full Import books `30/30`. The code assigns Import reserve weight = capacity, Balanced = target, relay = capacity minus target, Export no reserve part. A's rational search bounds the sampled rounding error; A1 limits the set over which these otherwise matching formulas operate. |
+| Reservations and every train's cargo | A: `PASS all-train pool/alias dedup/reservation: view40, native new booking20, total bookings40`. A second train already carries/reserves 20; the native route iterator deduplicates it when indexed on two segments. A: `PASS competing lines reserved/delivered=38000; total stock=120000`. Reserve room is reduced first; only the remainder reduces relay demand. No duplicate booking or overfill appeared in those fixtures. |
+| Leaf Import and junction room | B's leaf Import never supplies its stock. B exercises Balanced/Import/Export 20 relay and Import 100's deliberate block. A's consecutive-junction and cycle fixtures each print `received=131000 last=13000` across their explicit 12-round replenishment/drain schedules, with capacity and conservation assertions. These are liveness witnesses under named service orders, not throughput or convergence guarantees. |
+| Junction definition and invalidation | A: `PASS native junction: three routes; people/construction/nonworking exclusion; Refresh, rebuild and HubFor at 1001ms invalidate`; `PASS native loop repeats/segment aliases count once; false route index returns false`. Actual connected-track iteration and native route walking exercise these cases. The one-second refresh occurs through callers of `D.HubFor`; `D.IsJunction` itself does not run a timer. The UI false-route-index click reaches Import 100 without error. Actual rebuild timing remains NOT RUN. |
+| Depot view with rows off; dial pin removed | B's relay smoke: Export 4% depot 250 beside receiver 60 reaches `190/60` with rows off and on; after draining the receiver it refills to 52; dial-zero receiver accepts 42; an empty receiver's pickup trip goes to the depot. An untouched line and a lone half retain native behavior. No policy remapping was added. |
+| Depot unload | B: Import target 10 with 42 loose aboard unloads `10`, leaves `32`; a whole old assigned 42 stays aboard; Export refuses loose cargo; a lone half unloads all 42 natively. A: `old42000 assignment vs depot cap10000, Export0 other stop; 3 unload visit-pairs leave all42000 aboard`. This is the specified whole-assignment rule's limitation: a fully occupied train has no unload at either of those stops. It is not a new correction authority, and actual scheduling/cabin interaction was NOT RUN. |
+| Depot unset targets, including a hub | C: `PASS real depot Target/HubEntry: absent Import100/Export0; underground inverse100/0; explicit37 survives row changes; no actual save load`. ED:1043–1048 reads row state when target data is absent; HubEntry uses that read on the hub path. Thus an existing hub-managed Import depot with no saved target presents 100 on its next read after loading this code, instead of its former dial percentage; Export presents 0. Explicit saved targets survive. This changes hub-network inputs under R5, while the hub solver's bytes stay unchanged. |
+| UI cycle, defaults and slider | B, `distribution_ui_smoke.py`: Default → Export → Import → Not accepted → Default; saved Balanced clicks to Export; Export 0; hub/one-line Import 100; hubless junction Import 50; slider from Default creates Balanced and preserves Import/Export. A adds disabled-with-no-saved-row broadcast and Default broadcast controls, and the false route index click. Not accepted retains the row on an ordinary click. These are callback/data checks, qualified by A3/A4 and NOT RUN pixels. |
+| Active versus dormant clear | B and A: only the active local or hub row is cleared, other resources and the dormant set survive, emptied local/per-station tables disappear; A5 records the outer-hub-table exception. Ctrl+click Default clears each enabled destination's active set. Disabled broadcast first copies or clears remembered settings, then disables through vanilla. |
+| Bans, shape and hub scope | C: unchanged persisted-name token set (`14 unique tokens; added=[] removed=[]`, filter and members computed in the script); unchanged `{mode, percent}` writer; Default is absence. `rg -n SMRFixPack Code/` produces 5 lines, reconciled as 2 comments and 3 existing string constants, with no executable reference after strings/comments are stripped. C finds only new named assignments `D.Clear` and additive `OnMsg.TrainRoutesRebuilt`; no new vanilla wrapper target. `branch_need`, `child_need`, `train_view` and the hub branch of `UnloadAll` compare byte-identical to `5ba8f3f`; B's hub smokes also pass. |
+
+The engine-name receipts in C are scoped `rg -n` calls over the decoded 406343 archive,
+build 25579348: TrainTransport:68 (connected-track callback), :328 (segment route alias),
+:357 (rebuild message), :371 (station walk), :485 (train iteration); Station:1004 (Default
+icon); City:33 (`train_track_routes = false`). They are source checks, not a new packed-engine
+parity or scheduling claim.
+
+### 16.4 Player cases, records and next action
+
+**Erion:** the old terminal-only mechanism is removed in the sampled usable cargo junctions
+below full reserve. Import/Balanced 100 intentionally still blocks; mixed-mode A1 remains.
+Neither the actual Concrete row nor causation in that save was established.
+**Xeryx:** new clicks no longer inherit the dial's low percent, and the low-target case behaves
+as a target, but saved Import 20 stays 20 and still targets 12 of a 60 store. Import 100 from
+an untouched equal source shares 30 in B; it is not a promise to fill to 60 or a throughput fix.
+**TheGodUncle:** the paired depot's row now reaches loading and unloading without D16/D17,
+and the dial pin is gone in the desk controls. The named player's settings/save and real
+train/drone/cabin service are unknown. A1 and the retained old-assignment rule bound the claim.
+
+C's record checks find `Fixes three Workshop reports` in the live outbox, `cycles Balanced`
+in D16's current description, and `cycles four states` with Balanced in the spec's historical
+2026-09-26 ruling. The first overpromises player-specific verification; the second is stale;
+the historical ruling must be read with R4's later amendment, not silently rewritten as a
+new owner quote. §15 accurately describes the intended UI/default changes and declares no
+game testing, but its general desk-verification status is qualified by this verdict. Its
+Ctrl+click “each station's own set” wording is bounded by the network gate and the depot skip.
+The report's old opening “no module behaviour has changed” was an investigation-era claim,
+not the state after §15; the opening now points at this verdict.
+
+The audit commit updates the current D16 description and the outbox's verification language,
+links the verdict from D16/D18, and consumes OI-53 and its fired prompt/map row. The spec's
+historical owner text and §§1–15 remain evidence of their stages. C confirms D16 and D18
+`status: "tested-attended"` are unchanged from before the build; those tags describe their
+previous attended acceptance, not this relay revision.
+
+**Next action:** the owner's next correction brief takes A1–A4 and the bounded A5 cleanup
+observation, retains the passing controls, and obtains a fresh desk verdict before a release
+claim. The unresolved shipping changes are recorded here and in the D16/D18 audit lines;
+they were not implemented by this audit. No new product ruling, playtest request, release,
+packing or upload was inferred. The whole-assignment behavior remains the recorded contract;
+altering it would require its own owner decision. Brad's tunnels, Xeryx's carry dial, store
+copy and Mod Options wording remain outside this audit's edit scope.
+
+Close-out: `python tools/doccheck.py` is GREEN on the staged audit records; the
+[final receipt](../../archive/station_rows_audit_20261021/final_doccheck_output.txt) records the
+command, HEAD and output. The initial unstaged-deletion run found the consumed prompt still
+listed by Git; staging its deletion resolved that bookkeeping failure. No gate or shipping
+file was changed. Whole-CRLF archive-file warnings are non-failing; the archive was preserved.

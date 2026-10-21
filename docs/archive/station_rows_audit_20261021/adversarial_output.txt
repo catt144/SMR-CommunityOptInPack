@@ -1,0 +1,59 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit_20261021/adversarial.py
+HEAD: 922a22cbb1fa38bf9d53417c31ad12e573118e8c
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit_20261021/adversarial.py
+HEAD: 922a22cbb1fa38bf9d53417c31ad12e573118e8c
+PASS archived body parity 405907 -> 406343: Units/Train.lua 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+PASS archived body parity 405907 -> 406343: Buildings/Station.lua 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceDepot.lua 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceCubeVisuals.lua 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 0f3a687e10f4cf15b6f309c5a622e1fdaffa03ebd74d417897d44d04e4bfbbe9
+PASS native junction: three routes; people/construction/nonworking exclusion; Refresh, rebuild and HubFor at 1001ms invalidate
+PASS native loop repeats/segment aliases count once; false route index returns false
+OBSERVE other train inbound20, source60, Import100: new booked=20000; receiver total reserved=40000
+PASS all-train pool/alias dedup/reservation: view40, native new booking20, total bookings40
+PASS competing lines reserved/delivered=38000; total stock=120000
+COUNTEREXAMPLE people-only tail on same route: Export0 source60 -> cargo receiver0 -> people-only receiver0; after 3 trips stock=30000,30000,0; 30000 stranded despite cargo receiver room30000
+CONTROL all-cargo tail: remaining30000 is booked and delivered, source reaches Export0
+COUNTEREXAMPLE inaccessible stock: Default source60 -> Import100 empty -> people-only stock60; cargo load=20000 instead of the reachable pair share30000
+COUNTEREXAMPLE rounding: pool=2 internal units; source floor=1; orders=1+1; total allocation=3; handle sorting does not apportion remainder
+LIMIT rounding witness: native transfer conserves physical cargo; 1 internal unit = 0.001 resource; not a duplication claim
+OBSERVE ruled whole-assignment limit: old42000 assignment vs depot cap10000, Export0 other stop; 3 unload visit-pairs leave all42000 aboard; scheduling/cabin NOT RUN
+PASS relay cyclic=false received=131000 last=13000; conservation/capacity hold
+PASS relay cyclic=true received=131000 last=13000; conservation/capacity hold
+NATIVE route build 1.1.1.406343 SHA256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+PASS water-fill search seed20261021: 1200 cases, 3..8 Import parts, zero/partial/full rooms; instruction guard held; max deviation from rational oracle=0.500000 internal unit; max pool-sum error=2
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 0f3a687e10f4cf15b6f309c5a622e1fdaffa03ebd74d417897d44d04e4bfbbe9
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: eefb030d6f2906219e6938843dd9f7fabd9f379c704adea0cb3f33d7c58097d3
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+COUNTEREXAMPLE UI leave-hub seam: cached Export0 click writes Import100 into local Import70; current local cycle would disable and retain70
+COUNTEREXAMPLE UI join-hub seam: cached local Default click overwrites saved hub Import77 with Export0; current hub cycle would disable and retain77
+OBSERVE Clear: active station entry removed, dormant local kept; empty hub root table remains {}
+PASS Clear local empty table removed; hub active per-station table removed; dormant set preserved
+PASS disabled/Default broadcast clears destination row; false route index click defaults Import100
+COUNTEREXAMPLE joining import help combines terminal never-clause with passes-through clause
+COUNTEREXAMPLE joining export help combines terminal never-clause with passes-through clause
+NOT RUN: engine scheduling, actual route rebuilding, cabin/drone operation, real UI pixels, save serialization, player saves.
+
+EXIT: 0

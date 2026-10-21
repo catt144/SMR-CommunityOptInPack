@@ -1,0 +1,99 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit_20261021/contract.py
+HEAD: 922a22cbb1fa38bf9d53417c31ad12e573118e8c
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit_20261021/contract.py
+HEAD: 922a22cbb1fa38bf9d53417c31ad12e573118e8c
+PASS git diff 83149ea HEAD -- Code/ tools/trains/: empty
+PASS a731a20/prototype equal after comment/blank normalization; prototype SHA256: 336e911db3752289463bc96ea33d1dfee6cfa5d250d017ab8d649ec7ea4df5e9
+PASS pre-port file equals optin-v1.0.3; git blob SHA256: b0de6db1bac1ec618eac6a25d1432497566f508d3c6dc1c1d15c86960d21255e
+PASS unchanged bytes: local function branch_need(
+PASS unchanged bytes: local function child_need(
+PASS unchanged bytes: local function train_view(
+PASS unchanged bytes: local rows = hub and rawget(hub, FIELD)
+	rows = rows and rows[st]
+PASS persisted-name token set unchanged: 14 unique tokens; added= [] removed= []
+COMMAND: rg -n SMRFixPack Code/; exit= 0
+Code/Opt_DroneStatDials.lua:48:-- ("SMRFixPack_DroneSpeedDial" / "SMRFixPack_DroneCarryDial") in UIColony's
+Code/Opt_DroneStatDials.lua:64:local SPEED_MOD_ID = "SMRFixPack_DroneSpeedDial"
+Code/Opt_DroneStatDials.lua:65:local CARRY_MOD_ID = "SMRFixPack_DroneCarryDial"
+Code/Opt_AcknowledgedWarnings.lua:60:-- Savegame footprint (FIX_POLICY §3): `SMRFixPack_ack_notworking = true` on
+Code/Opt_AcknowledgedWarnings.lua:79:local FLAG = "SMRFixPack_ack_notworking"
+PRESENCE: 5 lines; each is an existing persisted string; unchanged token set alone is not an executable-reference proof
+PASS new named method assignments Code/StationRows_40_TrainDistribution.lua ['D.Clear', 'OnMsg.TrainRoutesRebuilt'] (no new vanilla wrapper target)
+PASS new named method assignments Code/StationRows_45_TrainDistributionUI.lua [] (no new vanilla wrapper target)
+PASS new named method assignments Code/ElevatorDepot_10_ElevatorDepot.lua [] (no new vanilla wrapper target)
+COMMAND: rg -n "ForEachConnectedTrack\(callback|ForEachTrainInRoute|TrainRoutesRebuilt|routes\[segment\] = route|function ForEachStationAlongTrack" B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\TrainTransport.lua
+68:function TrackConnectedObjBase:ForEachConnectedTrack(callback, ...) -- callback receives <track>, <connected destination>, ...
+331:								routes[segment] = route
+357:	Msg("TrainRoutesRebuilt")
+371:function ForEachStationAlongTrack(station, track, flags, callback, ...)
+485:function ForEachTrainInRoute(track, callback, ...)
+PRESENCE: 5 matching lines in decoded archived source; build1.1.1.406343
+COMMAND: rg -n resource_storing.tga B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\Buildings\Station.lua
+1004:	return "UI/IconsRemaster/Sections/resource_storing.tga"
+PRESENCE: 1 matching lines in decoded archived source; build1.1.1.406343
+COMMAND: rg -n "train_track_routes = false" B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\City.lua
+33:	train_track_routes = false, -- routes are series of connected tracks that can be traversed in order
+PRESENCE: 1 matching lines in decoded archived source; build1.1.1.406343
+PASS unchanged status D16 status: "tested-attended"
+PASS unchanged status D18 status: "tested-attended"
+COMMAND: rg -n "Fixes three Workshop reports" docs/agent/prompts/perma/RELEASE_OUTBOX.md
+27:- Fixes three Workshop reports (Erion, Xeryx, TheGodUncle; the report's §1): on a line with no
+RECORD/TEXT REVIEW: quoted above for the verdict; presence is not correctness
+COMMAND: rg -n "never deliver here|never take it away|At 100 nothing can pass" Code/StationRows_45_TrainDistributionUI.lua
+62:	export = "Export: trains take what this station holds above the selected amount, a share of its own store, to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
+63:	import = "Import: trains bring stock from other stations up to the selected amount, a share of this station's own store, and never take it away. From a station left at Default they bring what the base game would share; set Export there to send everything. Local drones may drain this station to zero.",
+132:				text = text .. " At 100 nothing can pass between its lines; lower the number to let cargo through."
+RECORD/TEXT REVIEW: quoted above for the verdict; presence is not correctness
+COMMAND: rg -n "cycles Balanced" docs/agent/bugs/D16.md
+62:**What it does.** Each resource row on a vanilla train station's panel cycles Balanced / Export /
+RECORD/TEXT REVIEW: quoted above for the verdict; presence is not correctness
+COMMAND: rg -n "cycles four states" docs/agent/reports/TRAIN_LOGISTICS_DESIGN_20260917.md
+262:- **One left-click on the row's hex cycles four states: Balanced → Export → Import → Not accepted
+RECORD/TEXT REVIEW: quoted above for the verdict; presence is not correctness
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 2edce820aea5e57f2a0a6b76546dd1b6d2283e29e74cf9e85e51823b206eebd6
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 1c37443f37fce29d9c14e579f9ed48853850a72fda5fb169f8dc8be71ebb7726
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: 705fd1fd62e21a13db6aac5eb6e0b4864d0765c9c383ea1ea31062b31a1072cb
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+UI SEAM refresh=false local=import/0 enabled=true
+UI SEAM refresh=true local=import/70 enabled=false
+PASS seam provenance/control revision 5ba8f3f
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 2edce820aea5e57f2a0a6b76546dd1b6d2283e29e74cf9e85e51823b206eebd6
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: e2ce7646b7439869ae6df7b0fcceddc17ab4c2f3bb39b34be0c79f191a0d85d3
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: 0952a7571910671074a02ea3cf83bfdcae0dc6a0d723236eb89004aeb7e65d4d
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+UI SEAM refresh=false local=import/100 enabled=true
+UI SEAM refresh=true local=import/70 enabled=false
+PASS seam provenance/control revision 83149ea
+fit_title: depot and hub fit in all 116 cases across scale 800..2200
+wiring_smoke: PASS; HEAD=922a22cbb1fa38bf9d53417c31ad12e573118e8c + working tree; Lua 5.5
+Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, both actual twinless row tooltips, the staged slots, both title helpers hold two lines at every scale; no bare /.
+PASS real depot Target/HubEntry: absent Import100/Export0; underground inverse100/0; explicit37 survives row changes; no actual save load
+NOT RUN: engine scheduling/saves/drones/pixels/player saves.
+
+EXIT: 0

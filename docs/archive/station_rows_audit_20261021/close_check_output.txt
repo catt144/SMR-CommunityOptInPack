@@ -1,0 +1,24 @@
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit_20261021/close_check.py
+HEAD: 922a22cbb1fa38bf9d53417c31ad12e573118e8c
+PASS shipping Code/ and tools/trains/ unchanged from83149ea including working tree
+PERSISTED-NAME TOKEN FILTER: regex \bSMR(?:FixPack|OptIn)_[A-Za-z0-9_]+ over git ls-tree83149ea Code/ -> git show each member
+UNIQUE TOKENS: 14
+1 SMRFixPack_DroneCarryDial
+2 SMRFixPack_DroneSpeedDial
+3 SMRFixPack_ack_notworking
+4 SMROptIn_depot_cabin
+5 SMROptIn_depot_drones
+6 SMROptIn_depot_rows
+7 SMROptIn_depot_targets
+8 SMROptIn_distribution
+9 SMROptIn_floor_hold
+10 SMROptIn_hub_crossing
+11 SMROptIn_hub_native_waiter
+12 SMROptIn_hub_upgrades
+13 SMROptIn_station_rows
+14 SMROptIn_track_work
+PASS verdict/model/limits filed; D16/D18 status tags retained; OI-53/prompt/map row consumed
+PASS outbox names correction outcome and limits instead of pending audit or verified player fixes
+PASS prior evidence archives unchanged
+
+EXIT: 0

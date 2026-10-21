@@ -24,15 +24,16 @@ bumps one.
 ## Pending — goes out with the next upload
 
 ### Pending · Station rows without a hub: rows relay, Import/Export defaults, a Default state; the Elevator Depot's rows reach trains without a hub (2026-10-21, D16, D18)
-- Fixes three Workshop reports (Erion, Xeryx, TheGodUncle; the report's §1): on a line with no
-  Train Hub a set row made its station a dead end, so a Large Station joining two lines stopped
+- Targets mechanisms described in three Workshop reports (Erion, Xeryx, TheGodUncle; the report's
+  §1): on a line with no Train Hub a set row made its station a dead end, so a Large Station joining two lines stopped
   passing a resource between them, Import at a low number brought a trickle, and the Elevator
   Depot's Export half kept its stock because its rows were invisible to trains without a hub.
 - Now, on a line with no hub, a row keeps its amount for its own station and the rest balances
   as in the base game, so a station that joins lines passes cargo through (R1). A click to
-  Export sets 0, a click to Import sets 100, or 50 on a station that joins lines, and the row
-  can be put back to Default, the base game's balancing (R4). The depot's rows work without a
-  hub, loading and unloading, and its unset sliders mean Import 100 / Export 0 on every depot,
+  Export sets 0, a click to Import sets 100, or 50 on a hubless station that joins lines. The row
+  can return to Default: base-game balancing off a hub, the hub's untouched setting on its network
+  (R4). The depot's rows work without a hub, loading and unloading, and its unset sliders mean
+  Import 100 / Export 0 on every depot,
   hub-managed ones included, instead of the dial percentage (R2, R5): an existing depot with
   untouched sliders changes on load.
 - Player surfaces touched: the station row cycle (Default, Export, Import, Not accepted), its
@@ -41,8 +42,10 @@ bumps one.
   (`Code/ElevatorDepot_10_ElevatorDepot.lua`). The Mod Options help line still names the four
   words "Import, Export, Balanced or Not accepted" (`items.lua`); the release decides its wording.
 - Rulings, build and limits: `docs/agent/bugs/D16.md`, `D18.md` (owner 2026-10-21, R1–R6);
-  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §15. Desk-verified only; the owner's
-  independent audit (OI-53) is owed before this ships, and nothing is tested in game.
+  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–16. The independent audit requires
+  corrections: cargo-inaccessible allocation, rounding, the inherited hub-click seam and junction
+  help; §16 records the controls and limits. No named player's save is verified fixed; this
+  revision is not tested in game. A correction brief and fresh desk verdict precede release.
 
 ### Pending · Arboretum test build (2026-10-03, D19)
 - Adds an off-by-default in-dome service consuming Seeds, using vanilla Large Garden art.

@@ -42,7 +42,6 @@ The `declared class` values below are gate inputs, not conclusions inferred from
 | prompt | declared class | state |
 |---|---|---|
 | `ARBORETUM_MODEL_high.md` | `prompt` | In progress (2026-10-21): the custom model, staffing, upgrades and display beds are imported and menu-checked; the owner saw them in a colony on 2026-10-05 and ruled on the door and the beds. Built since and awaiting import: the pavilion's collision ring, grown and tinted beds, three custom bloom entities. Checkpoint committed on the owner's instruction, unaudited. Next: the import batch at the end of the prompt, then the audit. |
-| `STATION_ROWS_RELAY_AUDIT_high.md` | `prompt` | Authored 2026-10-21, not fired. The independent audit of the Station rows relay build (commits `8490c5e`…`504b08f`, v1.0.4 staged): judges the port against rulings R1–R6 and the report's §14, writes §16 of `STATION_ROWS_RELAY_20261021.md`, closes `OI-53`. Fire it on a model other than the build's (Claude Fable 5.1) |
 | `DRONE_REBUILD_BUILD_high.md` | `prompt` | ⛔ **LIVE, NOT FIRED — HELD, and its subject is PARKED.** `D06 DroneOverhaul` was RETIRED/PARKED 2026-09-17 (owner) and no longer ships. This brief and the spec it builds from were written against **1.0.7** and are **NOT re-based** on 1.1.0, which deleted `CalcLapTime` — the instrument the design's numbers came from. ⛔ Do not fire it: it must be re-based before its owner asks (spec §9) can go on `docs/PLAYTEST_CHECKLIST.md` (`bugs/D06.md`). Kept, not archived, because the owner parked the module rather than killing it |
 
 ## Chain folders
