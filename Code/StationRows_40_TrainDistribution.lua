@@ -834,6 +834,55 @@ local function train_view(train, track)
 	return answers, claims, depart
 end
 
+-- Split a pool among slots ({w = weight, c = room}) by weight, each held at its room: a slot
+-- whose share would exceed its room takes the room and the rest is split again among the
+-- others, until no slot is over its room. Shares floor to whole units of the pool's scale
+-- and the remainder goes one unit at a time down the slots' order, so the split sums to the
+-- pool, or to the rooms, never above (audit 2026-10-21, A2). The caller sorts the slots.
+local function mul_div_floor(a, b, c)
+	local q = MulDivRound(a, b, c)
+	if q * c > a * b then q = q - 1 end
+	return q
+end
+local function water_fill(pool, slots)
+	local active = {}
+	for _, s in ipairs(slots) do
+		s.alloc = 0
+		if s.c > 0 and s.w > 0 then active[#active + 1] = s end
+	end
+	local remaining = pool
+	while #active > 0 and remaining > 0 do
+		local total_w = 0
+		for _, s in ipairs(active) do total_w = total_w + s.w end
+		if total_w <= 0 then break end
+		local held, rest = 0, {}
+		for _, s in ipairs(active) do
+			if mul_div_floor(remaining, s.w, total_w) >= s.c then
+				s.alloc = s.c
+				held = held + s.c
+			else
+				rest[#rest + 1] = s
+			end
+		end
+		if held == 0 then
+			local given = 0
+			for _, s in ipairs(active) do
+				s.alloc = mul_div_floor(remaining, s.w, total_w)
+				given = given + s.alloc
+			end
+			local spare = remaining - given
+			for _, s in ipairs(active) do
+				if spare <= 0 then break end
+				if s.alloc < s.c then s.alloc, spare = s.alloc + 1, spare - 1 end
+			end
+			break
+		end
+		remaining, active = remaining - held, rest
+	end
+	return slots
+end
+D.WaterFill = water_fill
+
 -- Module A without a hub: orders belong to the stations on this train line.
 -- No hub class, graph, parent tree, hub setting or scheduler is needed.
 -- Owner 2026-10-05: an untouched row keeps the game's balancing here. A resource
@@ -938,8 +987,7 @@ local function local_train_view(train, track)
 		parts[o][res] = p
 		return p
 	end
-	-- Split the pool among the parts by weight, holding any part at its room and
-	-- splitting what it could not take among the rest, until no part is over its room.
+	-- Split the pool among the parts by weight (water_fill above).
 	local function line_of(res)
 		if totals[res] then return totals[res] end
 		local pool, slots = 0, {}
@@ -958,26 +1006,7 @@ local function local_train_view(train, track)
 			if ha ~= hb then return ha < hb end
 			return a.key < b.key
 		end)
-		local remaining, active = pool, slots
-		while #active > 0 do
-			local total_w = 0
-			for _, s in ipairs(active) do total_w = total_w + s.w end
-			if total_w <= 0 or remaining <= 0 then break end
-			local held, rest = 0, {}
-			for _, s in ipairs(active) do
-				if MulDivRound(remaining, s.w, total_w) >= s.c then
-					s.p[s.key] = s.c
-					held = held + s.c
-				else
-					rest[#rest + 1] = s
-				end
-			end
-			if held == 0 then
-				for _, s in ipairs(active) do s.p[s.key] = MulDivRound(remaining, s.w, total_w) end
-				break
-			end
-			remaining, active = remaining - held, rest
-		end
+		for _, s in ipairs(water_fill(pool, slots)) do s.p[s.key] = s.alloc end
 		totals[res] = { pool = pool }
 		return totals[res]
 	end

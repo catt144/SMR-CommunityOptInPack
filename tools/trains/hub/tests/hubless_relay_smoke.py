@@ -308,6 +308,44 @@ expect('lone half, rows off: native balance', stock(d) .. ',' .. stock(r) .. ','
 finish()
 print('PASS 3 depot')
 
+-- ===== 3b. The water-fill alone (audit A2): sums to the pool or the rooms, never above; rooms hold.
+do
+    local function fill(pool, spec)
+        local slots = {}
+        for i, sc in ipairs(spec) do slots[i] = { w = sc[1], c = sc[2] } end
+        D.WaterFill(pool, slots)
+        local out, sum = {}, 0
+        for i, s in ipairs(slots) do out[i] = s.alloc; sum = sum + s.alloc; assert(s.alloc <= s.c and s.alloc >= 0, 'room held') end
+        return table.concat(out, ','), sum
+    end
+    local got, sum = fill(2, { { 1, 10 }, { 1, 10 }, { 1, 10 } })
+    expect('A2 witness: pool 2 over three equal parts is 1,1,0 (was 1,1,1)', got, '1,1,0')
+    got = fill(5000, { { 60000, 60000 }, { 60000, 60000 }, { 60000, 60000 } })
+    expect('5 units over three stores: the remainder goes down the order', got, '1667,1667,1666')
+    got = fill(100, { { 1, 10 }, { 1, 100 } })
+    expect('a part held at its room; the rest takes what it could not', got, '10,90')
+    got = fill(100, { { 1, 10 }, { 1, 20 } })
+    expect('rooms cap the split; the surplus stays in the pool', got, '10,20')
+    got = fill(7, { { 3, 100 }, { 0, 100 }, { 2, 100 } })
+    expect('a weightless part takes nothing', got, '5,0,2')
+    -- a seeded search: sum == min(pool, rooms), every room held, same answer twice
+    local seed = 20261021
+    local function rnd(n) seed = (seed * 1103515245 + 12345) % 2147483648; return seed % n end
+    for case = 1, 600 do
+        local spec, rooms = {}, 0
+        for i = 1, 3 + rnd(6) do
+            local room = rnd(4) == 0 and 0 or rnd(90000)
+            spec[i] = { 1 + rnd(120000), room }; rooms = rooms + room
+        end
+        local pool = rnd(250000)
+        local a, sa = fill(pool, spec)
+        local b, sb = fill(pool, spec)
+        assert(a == b, 'deterministic')
+        assert(sa == math.min(pool, rooms), 'case ' .. case .. ': sum ' .. sa .. ' pool ' .. pool .. ' rooms ' .. rooms)
+    end
+end
+print('PASS 3b water-fill: conserving, room-bound, deterministic over 600 seeded cases')
+
 -- ===== 4. Save and hub seams unchanged
 t, s, d = plain(80, 0, 100); assert(D.Set(s, 'Metals', 'export', 20))
 OnMsg.SaveGameStart()
