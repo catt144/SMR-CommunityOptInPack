@@ -42,10 +42,11 @@ bumps one.
   (`Code/ElevatorDepot_10_ElevatorDepot.lua`). The Mod Options help line still names the four
   words "Import, Export, Balanced or Not accepted" (`items.lua`); the release decides its wording.
 - Rulings, build and limits: `docs/agent/bugs/D16.md`, `D18.md` (owner 2026-10-21, R1–R6);
-  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–16. The independent audit requires
-  corrections: cargo-inaccessible allocation, rounding, the inherited hub-click seam and junction
-  help; §16 records the controls and limits. No named player's save is verified fixed; this
-  revision is not tested in game. A correction brief and fresh desk verdict precede release.
+  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–17. The first independent audit's
+  corrections (cargo-inaccessible allocation, now R7; rounding; the inherited hub-click seam;
+  junction help; an emptied hub table) are built at `3aa5402`; the second audit (OI-54) is owed
+  before this ships. No named player's save is verified fixed; this revision is not tested in
+  game.
 
 ### Pending · Arboretum test build (2026-10-03, D19)
 - Adds an off-by-default in-dome service consuming Seeds, using vanilla Large Garden art.

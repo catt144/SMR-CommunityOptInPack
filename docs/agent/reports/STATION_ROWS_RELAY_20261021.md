@@ -1300,3 +1300,53 @@ Close-out: `python tools/doccheck.py` is GREEN on the staged audit records; the
 command, HEAD and output. The initial unstaged-deletion run found the consumed prompt still
 listed by Git; staging its deletion resolved that bookkeeping failure. No gate or shipping
 file was changed. Whole-CRLF archive-file warnings are non-failing; the archive was preserved.
+
+## 17 · The corrections — Claude Fable 5.1, fourth session, 2026-10-21 (answers §16)
+
+**Status: §16's A1–A5 built and desk-verified at `3aa5402`; the second audit is owed (OI-54,
+`docs/agent/prompts/STATION_ROWS_RELAY_AUDIT2_high.md`).** The owner fired
+`STATION_ROWS_RELAY_CORRECTIONS_high.md`, which ruled R7 (recorded in `docs/agent/bugs/D16.md`
+beside R1–R6 and in the train spec §4.7); the prompt is deleted with this section. Nothing here
+is tested in game; no pack, upload or player reply was made.
+
+| commit | unit |
+|---|---|
+| `eb1eaf9` | R7 recorded; A1: `local_train_view`'s `part()` gives a member that is not the current station and not in `can_receive` no parts and no pool stock; the relay smoke's harness walk takes a per-edge transport mode (`track.modes[i]`, restricting every member beyond as the native walk does); section 2c carries §16's two A1 fixtures (0 / 60 / 0 after three trips where §16 saw 30 stranded; a 30 load where §16 saw 20) and the all-cargo control |
+| `7c2bc4c` | A2: the splitter is a file-level `water_fill(pool, slots)`, exported as `D.WaterFill`; shares floor (`mul_div_floor`: `MulDivRound` corrected down, no bare division) and the integer remainder goes one unit at a time down the handle-sorted order to slots below their room; room-less and weightless slots are filtered first; section 3b: §16's witness (1, 1, 0), 5 units over three stores (1667, 1667, 1666), a held room, rooms capping the split, a weightless part, 600 seeded cases summing to `min(pool, rooms)` with every room held and the same answer twice |
+| `3aa5402` | A3: the click handler and the slider's `OnScroll` call `D.Refresh()` first, so the read, the choice of successor and default, and the write see one hub graph; A5: `D.Clear` removes the hub's emptied outer table; A4: the hubless Import help says trains "take none of that amount away" and the Export help "bring nothing for its own use"; the UI smoke carries §16's two seam fixtures with the cache stale by construction (leave-hub keeps the local Import 70 and the hub's Export 0; join-hub keeps the hub Import 77), the scroll variant, the A5 check and the A4 clause check. Units 3 and 4 of the brief in one commit: same file, same neighbourhood |
+
+### 17.1 Calls made within the authority
+
+- **R7's edge.** The current station is always in the balance; "cannot deliver to" is the view's
+  own `can_receive`, the flags-0 native walk with `mode ~= "people"`, which also stops at a leg
+  under construction. A set row on an unreachable station still makes the line "configured".
+- **A2's method.** Floor and remainder down the existing handle order, so rounding still falls
+  the same way on every call; the held-at-room pass is unchanged.
+- **A3's method.** One `D.Refresh()` at the top of the click and the scroll, rather than
+  threading a snapshot through `D.RowState`, `default_percent`, `D.Set` and `D.Clear`; the cost
+  is one route walk per click. Not measured on a large colony.
+- **A4's wording.** The clauses name what the station keeps (its amount, its own use); the
+  joining-station line and the warning at 100 are unchanged; the hub network's help is untouched.
+
+### 17.2 Desk evidence
+
+- `python docs/archive/station_rows_audit_20261021/baseline.py` at `3aa5402`: `RECONCILED: 19
+  commands; 19 passed; 0 failed`. Its one `[TrainHub] transient claim failed` line (in
+  `food_stream_smoke.py`'s output) is in §16's archived `baseline_output.txt` too: a harness-caught
+  message inside a passing test, not new.
+- `python docs/archive/station_rows_audit_20261021/adversarial.py` now exits 1 at its chunk line
+  90, the first A1 `COUNTEREXAMPLE` assertion, because that result no longer holds; its later
+  witnesses are not reached by that script. Each is a positive assertion in a shipping smoke
+  (the table above); `hubless_relay_smoke.py` still runs the harness walk, so the native-walk
+  variant of A1 is the second audit's to re-run.
+- Every smoke of §16.1's B list, `python tools/parsecheck.py` (19 files, 0 errors) and
+  `python tools/doccheck.py` (GREEN, `WRAP CHECK` 0 outside Require, `TEMPORARY SWEEP` 0) pass at
+  each of the three commits.
+
+### 17.3 Claim limits
+
+Supported: corrected and desk-verified against the archived native bodies at `3aa5402`; audit
+pending. Not supported: tested in game; fixes any named player's save; any figure about
+throughput, drones, the panel, save and load, or the cost of a refresh per click on a large
+colony. **Executed model:** Claude Fable 5.1 (`claude-fable-5-1`), no subagents; skills
+smr-orientation, smr-bug-library, doc-editing, prompt-authoring, smr-session-close.

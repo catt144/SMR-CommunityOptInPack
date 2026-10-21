@@ -38,6 +38,14 @@ Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 
 ## Run
 
+### OI-54 · opened 2026-10-21
+When you next pick a model for an audit, fire `docs/agent/prompts/STATION_ROWS_RELAY_AUDIT2_high.md` on it.
+- Not the build's model (Claude Fable 5.1): execution and audit on different models.
+- The final check pass on the corrections `eb1eaf9`, `7c2bc4c`, `3aa5402` (the first audit's A1–A5, R7).
+- Its verdict lands as the report's §18 and deletes this item; a confirmed verdict is what releases v1.0.4.
+- Afterwards the release runs through `docs/agent/prompts/perma/release_prompt.md` (pack, upload, replies).
+Home: `docs/agent/reports/STATION_ROWS_RELAY_20261021.md`, `docs/agent/bugs/D16.md`, `docs/agent/bugs/D18.md`
+
 ### OI-52 · opened 2026-10-21
 When you next have an editor session, import the Arboretum's four entities and look at it in a colony.
 - The pavilion (collision walls, so colonists use the door) and the three bloom clumps; the steps are

@@ -12,6 +12,20 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-21 — Relay corrections built after the first audit; second audit owed
+
+tags: build D16 D18 station-rows audit corrections v1.0.4 audit-pending
+
+The first independent audit (Codex, report §16, `963810a`) found five items; the owner fired
+`STATION_ROWS_RELAY_CORRECTIONS_high.md`, ruling R7 (a station past a people-only or unfinished leg
+takes no part in the hubless balance).
+- **Build.** `eb1eaf9` R7 and A1, `7c2bc4c` A2 (the water-fill conserves), `3aa5402` A3 (one
+  ownership snapshot per click and scroll), A4 (the help) and A5 (the emptied hub table). §16's
+  witnesses are positive assertions in the relay and UI smokes; the audit's own battery reads
+  19/19 at `3aa5402` and its adversarial script stops at its first refuted witness. Record: §17.
+- **Owed.** The second audit, `STATION_ROWS_RELAY_AUDIT2_high.md` (OI-54), on a model other than
+  the build's; a confirmed verdict releases v1.0.4 through `release_prompt.md`. Nothing tested in game.
+
 ## 2026-10-21 — Station rows relay built (D16, D18): v1.0.4 staged, audit owed
 
 tags: build D16 D18 station-rows elevator-depot v1.0.4 audit-pending
