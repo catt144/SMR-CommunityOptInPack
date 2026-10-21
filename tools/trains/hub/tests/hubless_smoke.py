@@ -83,11 +83,12 @@ checked_transfer(t); deliver(t,other)
 assert(stock(s)==50000 and stock(other)==30000)
 t.current_station=other; checked_transfer(t)
 assert(stock(other)==30000 and t.stockpiled_amount.Metals==0)
--- A depot line keeps the dial pin on an untouched row.
+-- Owner 2026-10-21 (R3): a depot line no longer pins an untouched row to the dial. A
+-- depot without a row of its own (the read answers nil) balances as the game does.
 t,s,other=plain_fixture(80,0,100)
 SMRElevatorDepot={IsDepot=function(o) return o==other end, HubEntry=function() end}
 checked_transfer(t); deliver(t,other)
-assert(stock(s)==10000 and stock(other)==70000)
+assert(stock(s)==40000 and stock(other)==40000,'a depot line without a depot row balances natively (R3)')
 SMRElevatorDepot=nil
 -- A hub elsewhere on the map does not own a line it has no track to: remote
 -- untouched stations still take the native path.
@@ -102,7 +103,7 @@ calls=D.calls
 checked_transfer(t); deliver(t,other)
 assert(stock(s)==40000 and stock(other)==40000 and D.calls==calls)
 UIColony.labels.Station=line_label; D.Refresh()
-print('PASS untouched hubless rows: native balance, share against a set row, depot line pinned')
+print('PASS untouched hubless rows: native balance, share against a set row, depot line unpinned (R3)')
 -- The first slider edit selects a percent that follows capacity changes and
 -- native request rewrites.
 t,s,other=plain_fixture(80,0,100)
@@ -174,22 +175,25 @@ assert(not D.error and not F.stats.last_error)
 print('PASS old cargo cap, native reassignment, empty pickup and satisfied-line stop')
 
 -- The live underground fixture's other endpoint is a depot, which owns its
--- own rows. Its native storage can exchange with the ordinary station without
--- calling HubEntry, migrating settings, or adding a station-row field to it.
+-- own rows. Owner 2026-10-21 (R2): the hubless path reads them through the hub's
+-- read; a lone half answers false and balances natively, without migrating
+-- settings or adding a station-row field to it.
 t,s,other=plain_fixture(80,0,100)
+local depot_reads=0
 SMRElevatorDepot={IsDepot=function(o) return o==other end,
-    HubEntry=function() error('hubless loading must not consume depot hub settings') end}
+    HubEntry=function() depot_reads=depot_reads+1 return false end}
 assert(D.Set(s,'Metals','export',20)); checked_transfer(t); deliver(t,other)
 assert(stock(s)==20000 and stock(other)==60000 and not rawget(other,D.LOCAL_FIELD))
 assert(D.Set(s,'Metals','import',50)); checked_transfer(t); deliver(t,s)
 assert(stock(s)==50000 and stock(other)==30000)
 assert(other.transport_policy.Metals==nil)
+assert(depot_reads>0,'the depot read is consulted on a hubless line (R2)')
 SMRElevatorDepot=nil
 -- Disabled remains vanilla-removable stock, including when it was an Import.
 assert(D.Set(s,'Metals','import',100)); s:SetAcceptResourceState('Metals','disabled')
 assert(D.Set(other,'Metals','import',100)); checked_transfer(t); deliver(t,other)
 assert(stock(s)==0 and not s:IsResourceEnabled('Metals'))
-print('PASS native depot endpoint without hub settings, and disabled-resource drain')
+print('PASS lone depot half read and left native (R2), and disabled-resource drain')
 ''')
     print("NOT RUN: native engine/save removal, drone scheduling and attended UI", flush=True)
 
