@@ -13,7 +13,7 @@ and A5 are corrections within them (an implementation that does not yet do what 
 and help that contradicts it). A1 is not: the base game's own allocator counts a station past a
 people-only leg in its line total and storage (archived 1.1.1.406343 `Lua/Units/Train.lua:884-895`,
 every station on the inclusive bidirectional walk; loading alone is gated by transport mode at
-`:912`), so excluding such a station goes one step past "as the base game balances". The owner
+`:920`), so excluding such a station goes one step past "as the base game balances". The owner
 rules it by firing this prompt; record it first, verbatim, in `docs/agent/bugs/D16.md` beside
 R1–R6 and in the train spec §4.7, before any code moves:
 
