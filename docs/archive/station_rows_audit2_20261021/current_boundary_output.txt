@@ -1,0 +1,54 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/current_boundary.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/current_boundary.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+PASS archived body parity 405907 -> 406343: Units/Train.lua 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+PASS archived body parity 405907 -> 406343: Buildings/Station.lua 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceDepot.lua 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceCubeVisuals.lua 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 6fe936a76321f28493b83dc73045d46d73ff163dee3387f00235fec8f30eed6f
+NATIVE route build 1.1.1.406343 SHA256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+BOUNDARY REVISION: 3aa5402
+BOUNDARY current working=true receiver view=60000
+BOUNDARY current working=true native load=42000
+BOUNDARY current working=false receiver view=0
+BOUNDARY current working=false native load=0
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 0f3a687e10f4cf15b6f309c5a622e1fdaffa03ebd74d417897d44d04e4bfbbe9
+BOUNDARY REVISION: 83149ea
+BOUNDARY current working=true receiver view=60000
+BOUNDARY current working=true native load=42000
+BOUNDARY current working=false receiver view=0
+BOUNDARY current working=false native load=0
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: b0de6db1bac1ec618eac6a25d1432497566f508d3c6dc1c1d15c86960d21255e
+BOUNDARY REVISION: 5ba8f3f
+BOUNDARY current working=true receiver view=60000
+BOUNDARY current working=true native load=42000
+BOUNDARY current working=false receiver view=60000
+BOUNDARY current working=false native load=0
+NOT RUN: actual inactive-station scheduling or engine reachability; this compares native-walk desk inputs only.
+
+EXIT: 0

@@ -1,0 +1,70 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/contract.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/contract.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+PASS git diff3aa5402 -- Code/ tools/trains/: empty including working tree
+PASS unchanged from5ba8f3f: local function branch_need(
+PASS unchanged from5ba8f3f: local function child_need(
+PASS unchanged from5ba8f3f: local function train_view(
+PASS unchanged from5ba8f3f: 	local rows = hub and rawget(hub, FIELD)
+PASS hub-network help byte-identical to83149ea
+PASS saved row writer unchanged {mode,percent}; Default clears active data, adds no mode string
+PASS unique persisted-name token regex set unchanged since release; members= 14
+1 SMRFixPack_DroneCarryDial
+2 SMRFixPack_DroneSpeedDial
+3 SMRFixPack_ack_notworking
+4 SMROptIn_depot_cabin
+5 SMROptIn_depot_drones
+6 SMROptIn_depot_rows
+7 SMROptIn_depot_targets
+8 SMROptIn_distribution
+9 SMROptIn_floor_hold
+10 SMROptIn_hub_crossing
+11 SMROptIn_hub_native_waiter
+12 SMROptIn_hub_upgrades
+13 SMROptIn_station_rows
+14 SMROptIn_track_work
+COMMAND: rg -n SMRFixPack Code/
+Code/Opt_DroneStatDials.lua:48:-- ("SMRFixPack_DroneSpeedDial" / "SMRFixPack_DroneCarryDial") in UIColony's
+Code/Opt_DroneStatDials.lua:64:local SPEED_MOD_ID = "SMRFixPack_DroneSpeedDial"
+Code/Opt_DroneStatDials.lua:65:local CARRY_MOD_ID = "SMRFixPack_DroneCarryDial"
+Code/Opt_AcknowledgedWarnings.lua:60:-- Savegame footprint (FIX_POLICY §3): `SMRFixPack_ack_notworking = true` on
+Code/Opt_AcknowledgedWarnings.lua:79:local FLAG = "SMRFixPack_ack_notworking"
+PASS executable-reference scan on plain decoded Code/: 5 matching lines = 2 comments + 3 existing string constants; zero executable matches
+RELEASE DIFF MEMBERS: 3 ['Code/ElevatorDepot_10_ElevatorDepot.lua', 'Code/StationRows_40_TrainDistribution.lua', 'Code/StationRows_45_TrainDistributionUI.lua']
+PASS new named callable assignments Code/ElevatorDepot_10_ElevatorDepot.lua [] no new vanilla wrapper target
+PASS new named callable assignments Code/StationRows_40_TrainDistribution.lua ['D.Clear', 'OnMsg.TrainRoutesRebuilt'] no new vanilla wrapper target
+PASS new named callable assignments Code/StationRows_45_TrainDistributionUI.lua [] no new vanilla wrapper target
+PASS D.WaterFill is an export of a synchronous local helper, not a vanilla wrap
+PASS status unchanged since release: D16 tested-attended
+PASS status unchanged since release: D18 tested-attended
+RECORD SCAN: aa7dac1 docs/agent/reports/STATION_ROWS_RELAY_20261021.md filter= The current station is always|cost\s+is one route walk per click|Not measured on a large colony matches= 3
+1320 'The current station is always'
+1326 'cost\n  is one route walk per click'
+1327 'Not measured on a large colony'
+RECORD SCAN: aa7dac1 docs/agent/bugs/D16.md filter= \*\*R7\*\*|Corrected 2026-10-21 matches= 2
+65 '**R7**'
+73 'Corrected 2026-10-21'
+RECORD SCAN: aa7dac1 docs/agent/bugs/D18.md filter= \*\*R7\*\*|Corrected 2026-10-21 matches= 1
+47 'Corrected 2026-10-21'
+RECORD QUALIFICATION: D18 has R1-R6 and correction pointer; R7 verbatim is in D16/spec, not D18
+RECORD SCAN: aa7dac1 docs/agent/prompts/perma/RELEASE_OUTBOX.md filter= Fixes three Workshop reports|No named player|second audit \(OI-54\) matches= 2
+47 'second audit (OI-54)'
+48 'No named player'
+PASS R7 canonical record in D16/spec; no owner ruling reopened
+COMMAND: rg -n "route\[idx\].working|function ForEachStationAlongTrack" B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\TrainTransport.lua
+371:function ForEachStationAlongTrack(station, track, flags, callback, ...)
+446:		if route[idx].working and not stations_visited[next_station] then
+COMMAND: rg -n "function Train:LoadTrain|function Train:TransferCargo|self:TransferCargo\(" B:\Dev\SMR\SMR-Shared\SMR-SrcArchive\1.1.1.406343\Src\Lua\Units\Train.lua
+230:function Train:LoadTrain()
+254:			has_work, next_stop, boarding_colonists = self:TransferCargo(next_track, should_move)
+260:				has_work, next_stop, boarding_colonists = self:TransferCargo(next_track, should_move)
+862:function Train:TransferCargo(next_track, train_inbound)
+PASS structural/contract controls; NOT RUN engine/save/UI/player-save behavior
+fit_title: depot and hub fit in all 116 cases across scale 800..2200
+wiring_smoke: PASS; HEAD=aa7dac14da6c622a07a5c0a45b5580ecbf891e27 + working tree; Lua 5.5
+Covered: pair/limits/lock, Drone Access filter and per-half toggles, surface-owned rows and the read-only underground panel (marks, infotip, row hook, witness) in both vocabularies, station-shaped rows (title, slider, targets, one word for the pair, no Balanced, scale floor), hourly cabin legs/capacity/room/hold, cabin art positions, Pair() read, half demolished/destroyed/re-placed, extra depot, old-save load, panel button order, both actual twinless row tooltips, the staged slots, both title helpers hold two lines at every scale; no bare /.
+PASS real depot Target/HubEntry: absent Import100/Export0; underground inverse100/0; explicit37 survives row changes; no actual save load
+NOT RUN: engine scheduling/saves/drones/pixels/player saves.
+
+EXIT: 0

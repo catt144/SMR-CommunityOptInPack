@@ -1,0 +1,53 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/native_math.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/native_math.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+PASS archived body parity 405907 -> 406343: Units/Train.lua 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+PASS archived body parity 405907 -> 406343: Buildings/Station.lua 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceDepot.lua 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+PASS archived body parity 405907 -> 406343: Buildings/MultiResourceCubeVisuals.lua 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 6fe936a76321f28493b83dc73045d46d73ff163dee3387f00235fec8f30eed6f
+NATIVE route build 1.1.1.406343 SHA256: 73b75c68bfe4599e291c3d0bb45e75dce0097f4c53d195ba00e4a9634a6aacb9
+FIXTURE SOURCE: audit1 adversarial.py normalized-UTF8 SHA256 9660bc4f0679d45e98139a7041b95c2c046379ede33a0fb29ce30271e9a99c65
+PASS A1 Export0 native all tailstock=0 final=0,42000,18000
+PASS A1 Default-to-Import native all tailstock=0 receiver=40000
+PASS A1 Export0 native all tailstock=60 final=0,60000,60000
+PASS A1 Default-to-Import native all tailstock=60 receiver=20000
+PASS A1 Export0 native people tailstock=0 final=0,60000,0
+PASS A1 Default-to-Import native people tailstock=0 receiver=30000
+PASS A1 Export0 native people tailstock=60 final=0,60000,60000
+PASS A1 Default-to-Import native people tailstock=60 receiver=30000
+PASS A1 Export0 native construction tailstock=0 final=0,60000,0
+PASS A1 Default-to-Import native construction tailstock=0 receiver=30000
+PASS A1 Export0 native construction tailstock=60 final=0,60000,60000
+PASS A1 Default-to-Import native construction tailstock=60 receiver=30000
+PASS A1 Export0 native nonworking tailstock=0 final=0,60000,0
+PASS A1 Default-to-Import native nonworking tailstock=0 receiver=30000
+PASS A1 Export0 native nonworking tailstock=60 final=0,60000,60000
+PASS A1 Default-to-Import native nonworking tailstock=60 receiver=30000
+RECONCILED native A1 matrix=16 (4 modes x 2 tail stocks x 2 source/row cases)
+PASS native reverse direction people:60000,60000,0
+PASS native reverse direction construction:60000,60000,0
+PASS nonworking middle excluded while reachable farther station retains share30
+PASS current station balance: source floor30000 and receiver order30000 from pool60000
+PASS unreachable saved row still configures resource; reachable pair shares30; tail unchanged
+PASS A2 integrated pool2: handle order1,2,3 ->1,1,0; swapping source/far handles ->0,1,1
+PASS native junction: three routes; people/construction/nonworking exclusion; Refresh, rebuild and HubFor at 1001ms invalidate
+PASS native loop repeats/segment aliases count once; false route index returns false
+OBSERVE other train inbound20, source60, Import100: new booked=20000; receiver total reserved=40000
+PASS all-train pool/alias dedup/reservation: view40, native new booking20, total bookings40
+PASS competing lines reserved/delivered=38000; total stock=120000
+PASS relay cyclic=false received=131000 last=13000; conservation/capacity hold
+PASS relay cyclic=true received=131000 last=13000; conservation/capacity hold
+PASS A2 rational oracle: original=1200, broader=4000, total=5200; max pool-sum error=0; max exact deviation=1 (<=1); deterministic repeat, room bounds, zero slots/weights/rooms and instruction guard hold
+NOT RUN: engine scheduling, actual route rebuilding, saves, cabin/drones, pixels, player saves.
+
+EXIT: 0

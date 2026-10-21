@@ -29,7 +29,8 @@ bumps one.
   passing a resource between them, Import at a low number brought a trickle, and the Elevator
   Depot's Export half kept its stock because its rows were invisible to trains without a hub.
 - Now, on a line with no hub, a row keeps its amount for its own station and the rest balances
-  as in the base game, so a station that joins lines passes cargo through (R1). A click to
+  by the ruled weights among cargo-reachable members (R1, R7), so a station that joins lines
+  passes cargo through below full reserve. A click to
   Export sets 0, a click to Import sets 100, or 50 on a hubless station that joins lines. The row
   can return to Default: base-game balancing off a hub, the hub's untouched setting on its network
   (R4). The depot's rows work without a hub, loading and unloading, and its unset sliders mean
@@ -41,12 +42,13 @@ bumps one.
   (`Code/StationRows_45_TrainDistributionUI.lua`); the depot's Export tooltip and unset slider
   (`Code/ElevatorDepot_10_ElevatorDepot.lua`). The Mod Options help line still names the four
   words "Import, Export, Balanced or Not accepted" (`items.lua`); the release decides its wording.
-- Rulings, build and limits: `docs/agent/bugs/D16.md`, `D18.md` (owner 2026-10-21, R1–R6);
-  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–17. The first independent audit's
+- Rulings, build and limits: `docs/agent/bugs/D16.md` (owner 2026-10-21, R1–R7), `D18.md`;
+  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–18. The first independent audit's
   corrections (cargo-inaccessible allocation, now R7; rounding; the inherited hub-click seam;
-  junction help; an emptied hub table) are built at `3aa5402`; the second audit (OI-54) is owed
-  before this ships. No named player's save is verified fixed; this revision is not tested in
-  game.
+  junction help; an emptied hub table) are built at `3aa5402` and confirmed as desk-verified
+  by the second audit. The audit gate for v1.0.4 is cleared; release proceeds through
+  `docs/agent/prompts/perma/release_prompt.md`. No named player's save is verified fixed;
+  this revision is not tested in game. Refresh latency on a large colony is unmeasured.
 
 ### Pending · Arboretum test build (2026-10-03, D19)
 - Adds an off-by-default in-dome service consuming Seeds, using vanilla Large Garden art.

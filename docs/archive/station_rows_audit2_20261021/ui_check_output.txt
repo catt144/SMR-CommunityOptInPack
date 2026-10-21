@@ -1,0 +1,35 @@
+ARCHIVE COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/ui_check.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+COMMAND: C:\Python313\python.exe docs/archive/station_rows_audit2_20261021/ui_check.py
+HEAD: aa7dac14da6c622a07a5c0a45b5580ecbf891e27
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 6fe936a76321f28493b83dc73045d46d73ff163dee3387f00235fec8f30eed6f
+[TrainDistribution] native storage-row UI registered
+StationRows_45_TrainDistributionUI.lua sha256: 0caec2a24cf1788c8b6be172237ef74b075f7af0b0a2cd695f651e207523b722
+native XDef: InfopanelSectionTitle sha256: 9b8d061de36594afdc302e74b69fd258c99a6fa83fcac4362aa58a5bfe20d0f6
+native XDef: InfopanelActiveSection sha256: 9c678c28eb9231149894837b07d762c730dfe6238430345b33598010be2c815b
+native XDef: sectionStorageRow sha256: a6fbb8ec77a15b539140188d7094b803568568963a3860e1a4903a4968121a1c
+native XDef: InfopanelSlider sha256: b73e8af350ec08d0e48c0d729850efd52284eba975b34a7da5aab632ebcaeae1
+native word wrapper sha256: af96cec7bb8b8733773ecdb45827a22bf346115073b34eaa9c34b7fcb6630c65
+source: ../CommonLua/X/XWindow.lua sha256: 0227f9fef223c2cd41d49874ca70087fec1eac267e00e3c36efa7e3b772c7846
+PASS leave-hub click: local Import70 kept disabled; dormant hub Export0 kept; refresh calls=1
+PASS join-hub click: hub Import77 kept disabled; dormant local absent; refresh calls=1
+PASS scroll joining=false active=export44; dormant kept; refresh calls=2
+PASS scroll joining=true active=import44; dormant kept; refresh calls=2
+PASS stale-ownership broadcast export: each destination active set updated; dormant sets/source hub/depot kept; refresh calls=3 (1 entry + 2 setters)
+PASS stale-ownership broadcast disabled: each destination active set updated; dormant sets/source hub/depot kept; refresh calls=3 (1 entry + 2 setters)
+PASS stale-ownership broadcast disabled_default: each destination active set updated; dormant sets/source hub/depot kept; refresh calls=3 (1 entry + 2 setters)
+PASS stale-ownership broadcast default: each destination active set updated; dormant sets/source hub/depot kept; refresh calls=3 (1 entry + 2 setters)
+PASS A5 clear: other resource/other station/dormant set kept; final hub root and final local table removed
+PASS false route index: Export0 then Import100; ordinary set click refresh calls=2
+PASS A4 rollover: joining Import/Export keep-amount clauses; relay line; Import/Balanced100 warning; Export100 no full-reserve warning
+NOT RUN: large-colony refresh latency, engine scheduling/rebuild timing, real UI pixels/hit tests, saves or player saves.
+
+EXIT: 0
