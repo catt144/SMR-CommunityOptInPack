@@ -39,12 +39,10 @@ Home: `docs/agent/reports/MECHANIZED_DEPOT_THROUGHPUT_20261003.md`
 ## Run
 
 ### OI-53 · opened 2026-10-21
-When you next pick a model for an audit, run it on the Station rows relay build (v1.0.4, desk-verified only).
-- The diff: `git diff 5ba8f3f 83149ea -- Code/ tools/trains/`; commits `8490c5e`, `a731a20`, `00e2dff`, `83149ea`.
-- From the repo root: `python tools/trains/hub/tests/hubless_relay_smoke.py`, then `python tools/parsecheck.py`.
-- In `tools/trains/hub/tests`: `hubless_smoke.py`, `distribution_ui_smoke.py`, `module_gates_smoke.py`.
-- Also `python tools/trains/depot/tests/wiring_smoke.py`.
-- Judge the port against the report's §14 and the three player cases; nothing is tested in game until it returns.
+When you next pick a model for an audit, fire `docs/agent/prompts/STATION_ROWS_RELAY_AUDIT_high.md` on it.
+- Not the build's model (Claude Fable 5.1): execution and audit on different models.
+- It judges commits `8490c5e`…`504b08f` (v1.0.4 staged, desk-verified only) against R1–R6 and the report's §14.
+- Its verdict lands as the report's §16 and deletes this item; nothing is tested in game until then.
 - Afterwards the release runs through `docs/agent/prompts/perma/release_prompt.md` (pack, upload, replies).
 Home: `docs/agent/reports/STATION_ROWS_RELAY_20261021.md`, `docs/agent/bugs/D16.md`, `docs/agent/bugs/D18.md`
 
