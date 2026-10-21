@@ -463,6 +463,34 @@ function D.Reset(st, res)
 	end
 end
 
+-- Owner 2026-10-21 (R4): a click to Default clears the row in the set being edited: the
+-- hub's entry for this station on a hub's network, else the station's own table. The
+-- dormant other set is kept; D.Reset above empties both.
+function D.Clear(st, res)
+	if not D.IsRowStation(st) then return false, "not a station resource row" end
+	D.Refresh()
+	local hub = D.HubFor(st)
+	local rows
+	if hub then
+		local all = rawget(hub, FIELD)
+		rows = all and all[st]
+		if rows then
+			rows[res] = nil
+			if not next(rows) then all[st] = nil end
+		end
+	else
+		rows = rawget(st, LOCAL_FIELD)
+		if rows then
+			rows[res] = nil
+			if not next(rows) then rawset(st, LOCAL_FIELD, nil) end
+		end
+	end
+	vanilla_baseline(st)
+	D.Apply(st)
+	ObjModified(st)
+	return true
+end
+
 local function after(previous)
 	return function(self, ...)
 		local result = table.pack(previous(self, ...))

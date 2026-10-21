@@ -30,25 +30,37 @@ local function network(st)
 	-- shipping gate allows (D.RowsOn: a hub's network always; hubless per the modules).
 	return D.RowsOn(st)
 end
-local titles = { balanced = "Balanced", export = "Export", import = "Import", disabled = "Not accepted" }
-local following = { balanced = "export", export = "import", import = "disabled", disabled = "balanced" }
+-- Owner 2026-10-21 (R4): Default is the absence of a row, the state a station is in until a
+-- row is set; the click cycle is Default, Export, Import, Not accepted, Default. A set
+-- Balanced row (the slider moved from Default) shows as Balanced and clicks on to Export.
+-- A click to Export sets 0, to Import 100, or 50 on a station that joins lines off a hub;
+-- the slider from Default makes Balanced at its value and from Export or Import keeps the
+-- mode. Rows already saved keep their numbers until clicked.
+local titles = { default = "Default", balanced = "Balanced", export = "Export", import = "Import", disabled = "Not accepted" }
+local following = { default = "export", balanced = "export", export = "import", import = "disabled", disabled = "default" }
+local function default_percent(st, mode)
+	if mode == "export" then return 0 end
+	if mode == "import" then return (not D.HubFor(st) and D.IsJunction(st)) and 50 or 100 end
+end
 local icons = {
-	balanced = "UI/IconsRemaster/Sections/resource_storing.tga",
+	default = "UI/IconsRemaster/Sections/resource_storing.tga",   -- vanilla's own row icon
+	balanced = "UI/IconsRemaster/Sections/resource_accept.tga",
 	export = "UI/IconsRemaster/Sections/elevator_resource_up.png",
 	import = "UI/IconsRemaster/Sections/elevator_resource_down.png",
 }
 local help = {
-	balanced = "Balanced (vanilla default): trains hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it to the hub.",
+	default = "Default: trains hold this station's Desired Amount, as every row on the hub's network does until it is set. Changing this row gives it its own setting.",
+	balanced = "Balanced: trains hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it to the hub.",
 	export = "Export: trains take stock above the selected minimum to the hub. Local drones bring in what nearby storage holds above its Desired Amount. A full hub refuses exports.",
 	import = "Import: trains bring stock from the hub up to the selected amount. Local drones may drain this station to zero.",
 	disabled = "Not accepted: vanilla storage is disabled for this resource. Trains and drones may carry its remaining stock away.",
 }
 local local_help = {
-	balanced = "Balanced (vanilla default): trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
+	-- owner 2026-10-05: a row nobody has set keeps the game's balancing on a line with no hub
+	default = "Default: trains spread this resource between the stations on the line, as in the base game. Changing this row gives the station its own setting.",
+	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
 	export = "Export: trains take stock above the selected minimum to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
 	import = "Import: trains bring stock from other stations up to the selected amount and never take it away. Local drones may drain this station to zero.",
-	-- owner 2026-10-05: a row nobody has set keeps the game's balancing on a line with no hub
-	untouched = "Balanced (vanilla default): trains spread this resource between the stations on the line, as in the base game. Changing this row gives the station its own setting.",
 }
 function D.RowState(st, res)
 	local entry = D.Get(st, res)
@@ -56,7 +68,7 @@ function D.RowState(st, res)
 	local percent = entry and entry.percent or (cap > 0
 		and Clamp(MulDivRound(st.desired_amount or 0, 100, cap), 0, 100) or 0)
 	local target = entry and MulDivRound(cap, percent, 100) or st.desired_amount or 0
-	return not st:IsResourceEnabled(res) and "disabled" or entry and entry.mode or "balanced", percent, cap, target
+	return not st:IsResourceEnabled(res) and "disabled" or entry and entry.mode or "default", percent, cap, target
 end
 
 local station_installed, row_installed
@@ -77,7 +89,10 @@ local function install_station()
 	Station.ToggleAcceptResource = function(st, res, broadcast, ...)
 		if not network(st) then return toggle(st, res, broadcast, ...) end
 		local mode, percent = D.RowState(st, res)
-		if not broadcast then mode = following[mode] end
+		if not broadcast then
+			mode = following[mode]
+			percent = default_percent(st, mode) or percent
+		end
 		-- Preserve vanilla's city-wide scope and its own disabled/request-flag path.
 		for _, target in ipairs(broadcast and st.city.labels.Station or { st }) do
 			-- an Elevator Depot's setting is written only on its surface panel (brief 27)
@@ -88,11 +103,11 @@ local function install_station()
 					-- then finish through vanilla's disabled path, without yielding.
 					local entry = D.Get(st, res)
 					set_accept(target, res, "store", false)
-					D.Set(target, res, entry and entry.mode or "balanced", percent)
+					if entry then D.Set(target, res, entry.mode, percent) else D.Clear(target, res) end
 				end
 				set_accept(target, res, mode == "disabled" and "disabled" or "store", false)
 				if network(target) and mode ~= "disabled" then
-					D.Set(target, res, mode, percent)
+					if mode == "default" then D.Clear(target, res) else D.Set(target, res, mode, percent) end
 				end
 				ObjModified(target)
 			end
@@ -106,8 +121,7 @@ local function install_station()
 		if not network(st) then return rollover(st, res, ...) end
 		local mode, percent, cap, target = D.RowState(st, res)
 		local hub = D.HubFor(st)
-		local untouched = not hub and mode == "balanced" and not D.Get(st, res)
-		local text = (untouched and local_help.untouched or not hub and local_help[mode] or help[mode])
+		local text = (not hub and local_help[mode] or help[mode])
 			.. "<newline><newline>Slider: " .. tostring(percent)
 			.. "% of current capacity (" .. tostring(target / const.ResourceScale) .. ")."
 		if not hub then text = text .. "<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these." end
@@ -186,6 +200,7 @@ local function make_slider(row, context)
 			local st, res = ctx[1], ctx.res
 			if not network(st) then return end
 			local mode = D.RowState(st, res)
+			if mode == "default" then mode = "balanced" end
 			if mode ~= "disabled" then D.Set(st, res, mode, value) end
 		end,
 		OnShortcut = function(self, shortcut, source)

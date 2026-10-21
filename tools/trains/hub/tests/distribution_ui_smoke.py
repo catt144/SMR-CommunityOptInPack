@@ -204,7 +204,8 @@ sectionStorageRow=old_class
 OnMsg.DialogOpen(dlg);OnMsg.DialogOpen(dlg)
 assert(not D.ui_error and #host==1 and not dlg.idTrainDistribution)
 assert(sectionStorageRow.new==native_row_constructor and sectionStorageRow.OnActivate==native_activate)
-assert(row.idSectionTitle.Text=='Metals · Balanced' and row.idSectionTitle.Translate)
+assert(row.idSectionTitle.Text=='Metals · Default' and row.idSectionTitle.Translate)
+assert(D.RowState(s,'Metals')=='default' and s:GetResAcceptIcon('Metals')=='UI/IconsRemaster/Sections/resource_storing.tga','an absent row is Default with vanilla\'s own icon (R4)')
 assert(row:GetTitleRight()==native_right and row.idSectionTitleRight.HAlign=='right')
 local slider=row.distribution_slider
 assert(slider and slider.parent==row.idSectionTitle.parent and #slider.parent==3)
@@ -252,10 +253,13 @@ print('PASS native narrow-line Balance/d reproduction; whole Electronics/Machine
 print('PASS late XDef load/retry/log-once; original native constructor/click/right-title retained; slider in original title line; 80% panel floor')
 
 local seen={}
-for _,mode in ipairs({'export','import','disabled','balanced'}) do
+for _,mode in ipairs({'export','import','disabled','default'}) do
     row:OnActivate(row.context);row:OnContextUpdate(row.context)
     assert(D.RowState(s,'Metals')==mode)
-    assert(row.idSectionTitle.Text=='Metals · '..({export='Export',import='Import',disabled='Not accepted',balanced='Balanced'})[mode])
+    assert(row.idSectionTitle.Text=='Metals · '..({export='Export',import='Import',disabled='Not accepted',default='Default'})[mode])
+    if mode=='export' then assert(D.Get(s,'Metals').percent==0,'a click to Export sets 0 (R4)') end
+    if mode=='import' then assert(D.Get(s,'Metals').percent==100,'a click to Import sets 100 on a hub network (R4)') end
+    if mode=='default' then assert(not D.Get(s,'Metals') and not rawget(h,D.FIELD)[s],'a click to Default clears the hub entry (R4)') end
     local icon=row.idIcon.Image;assert(not seen[icon]);seen[icon]=true
     assert(s:IsResourceEnabled('Metals')==(mode~='disabled'))
     assert(slider.enabled==(mode~='disabled'))
@@ -279,13 +283,15 @@ XScrollControl.OnMouseButtonDown(slider,20,'L')
 assert(#slider==children and not slider.distribution_bubble and not slider.threads)
 row:OnActivate(row.context);row:OnContextUpdate(row.context)
 assert(D.Get(s,'Metals').mode=='export' and s.supply.Metals.desired==120000 and s.demand.Metals.desired==0,'Export retains vanilla send baseline; pairing filter enforces source floor (34b)')
+assert(D.Get(s,'Metals').percent==0,'a click to Export sets 0 (R4)')
+slider:ScrollTo(20);assert(D.Get(s,'Metals').mode=='export' and D.Get(s,'Metals').percent==20,'the slider from Export keeps the mode (R4)')
 checked_transfer(t);assert(stock(s)==24000);deliver(t,h);t.current_station=s;checked_transfer(t);assert(stock(s)==24000)
 s.max_storage_per_resource=240000;s:OnModifiableValueChanged('max_storage_per_resource')
 row:OnContextUpdate(row.context);assert(D.Get(s,'Metals').percent==20)
 assert(s:ResourceRolloverText('Metals'):find('20% of current capacity (48',1,true))
 s.command_centers={{CanCommandDrones=function() return true end,IsInWorkRange=function() return true end}}
 assert(not s:ResourceRolloverText('Metals'):find('No drones in range',1,true))
-print('PASS four distinct native icons/titles; native disabled flags; Balanced slider; row-tooltip amount/percent readout without bubble/timer; UI-configured capacity-120 floor 24 and return; live capacity/coverage refresh')
+print('PASS five row states, four distinct native icons on the cycle; Export 0 / Import 100 / Default clears (R4); native disabled flags; Balanced slider; row-tooltip amount/percent readout without bubble/timer; UI-configured capacity-120 floor 24 and return; live capacity/coverage refresh')
 
 local outside=station(0,60);outside.city=s.city;outside.task_requests={outside.demand.Metals}
 table.insert(s.city.labels.Station,outside)
@@ -300,11 +306,11 @@ assert(peer.supply.Metals:GetDesiredAmount()==60000 and peer.demand.Metals:GetDe
 assert(D.Get(outside,'Metals').mode=='export' and D.Get(outside,'Metals').percent==20)
 assert(outside:IsResourceEnabled('Metals') and rawget(outside,D.LOCAL_FIELD))
 assert(D.Set(peer,'Metals','balanced',50))
-row:OnActivate(row.context) -- Import.
-assert(D.Get(s,'Metals').percent==20 and D.Get(peer,'Metals').percent==50) -- Plain click stays local.
+row:OnActivate(row.context) -- Import: 100 on a hub network (R4).
+assert(D.Get(s,'Metals').percent==100 and D.Get(peer,'Metals').percent==50) -- Plain click stays local.
 mass=true;row:OnActivate(row.context);mass=false
 assert(D.Get(s,'Metals').mode=='import' and D.Get(peer,'Metals').mode=='import')
-assert(D.Get(peer,'Metals').percent==20)
+assert(D.Get(peer,'Metals').percent==100)
 assert(D.Set(peer,'Metals','balanced',50))
 peer:SetAcceptResourceState('Metals','disabled') -- An already-disabled destination also gets the percent.
 row:OnActivate(row.context) -- Not accepted.
@@ -312,15 +318,21 @@ source_entry=D.Get(s,'Metals')
 mass=true;row:OnActivate(row.context);mass=false
 assert(not outside:IsResourceEnabled('Metals') and not peer:IsResourceEnabled('Metals') and not h:IsResourceEnabled('Metals'))
 assert(not s:IsResourceEnabled('Metals'))
-assert(D.Get(s,'Metals')==source_entry and D.Get(peer,'Metals').percent==20)
+assert(D.Get(s,'Metals')==source_entry and D.Get(peer,'Metals').percent==100)
 assert(peer.demand.Metals:IsAnyFlagSet(const.rfSuspended))
-row:OnActivate(row.context) -- Balanced.
-mass=true;row:OnActivate(row.context);mass=false
-assert(D.Get(s,'Metals').mode=='balanced' and D.Get(peer,'Metals').mode=='balanced')
-assert(D.Get(peer,'Metals').percent==20 and peer.supply.Metals:GetDesiredAmount()==12000)
-assert(peer.demand.Metals:GetDesiredAmount()==48000) -- Same percent, destination's own capacity.
-outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='export')
-outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='import')
+row:OnActivate(row.context) -- Default: clears the hub entry (R4).
+assert(not D.Get(s,'Metals') and s:IsResourceEnabled('Metals') and D.Get(peer,'Metals').mode=='import')
+mass=true;row:OnActivate(row.context);mass=false -- Ctrl: Default at every station, each in its own set.
+assert(not D.Get(s,'Metals') and not D.Get(peer,'Metals') and not D.Get(outside,'Metals'),'Ctrl+Default clears the row everywhere')
+assert(peer:IsResourceEnabled('Metals') and outside:IsResourceEnabled('Metals'))
+assert(peer.supply.Metals:GetDesiredAmount()==peer.desired_amount and peer.demand.Metals:GetDesiredAmount()==60000-peer.desired_amount) -- Vanilla's own dial again.
+assert(rawget(outside,D.LOCAL_FIELD)==nil and rawget(h,D.FIELD)[peer]==nil,'emptied sets are removed')
+assert(D.Set(peer,'Metals','balanced',50)) -- A set Balanced row shows and clicks on as before.
+assert(D.RowState(peer,'Metals')=='balanced' and peer:GetResAcceptIcon('Metals')=='UI/IconsRemaster/Sections/resource_accept.tga')
+peer:ToggleAcceptResource('Metals',false);assert(D.Get(peer,'Metals').mode=='export' and D.Get(peer,'Metals').percent==0)
+D.Clear(peer,'Metals')
+outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='export' and D.Get(outside,'Metals').percent==0)
+outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='import' and D.Get(outside,'Metals').percent==100,'Import starts at 100 on a station of one line')
 local vanilla,vr,vs=dialog(outside);OnMsg.DialogOpen(vanilla)
 assert(vr.distribution_slider and vr:GetTitle()=='Metals · Import' and vr:GetTitleRight()==native_right)
 x,y=vs:AdjustConstrainedScale(450,450);assert(x==800 and y==800)
@@ -328,16 +340,33 @@ assert(outside:GetResAcceptIcon('Metals')=='UI/IconsRemaster/Sections/elevator_r
 assert(outside:ResourceRolloverText('Metals'):find('No hub:',1,true))
 assert(outside:ResourceRolloverText('Metals'):find('from other stations',1,true))
 vr.distribution_slider:ScrollTo(40)
-assert(D.Get(outside,'Metals').percent==40 and outside.supply.Metals.desired==0)
+assert(D.Get(outside,'Metals').mode=='import' and D.Get(outside,'Metals').percent==40 and outside.supply.Metals.desired==0,'the slider from Import keeps the mode (R4)')
 outside:ToggleAcceptResource('Metals',false);vr:OnContextUpdate(vr.context)
 assert(not outside:IsResourceEnabled('Metals') and not vr.distribution_slider.enabled)
+assert(D.Get(outside,'Metals').mode=='import' and D.Get(outside,'Metals').percent==40,'Not accepted keeps the saved row')
 outside:ToggleAcceptResource('Metals',false);vr:OnContextUpdate(vr.context)
-assert(D.Get(outside,'Metals').mode=='balanced' and D.Get(outside,'Metals').percent==40)
+assert(not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals') and vr:GetTitle()=='Metals · Default','off then on lands on Default, not Import (R4)')
+assert(outside:ResourceRolloverText('Metals'):find('Default: trains spread',1,true))
+vr.distribution_slider:ScrollTo(35)
+assert(D.Get(outside,'Metals').mode=='balanced' and D.Get(outside,'Metals').percent==35,'the slider from Default makes Balanced at its value (R4)')
+D.Clear(outside,'Metals')
+-- A station that joins lines starts Import at 50 off a hub (R4): two routes through it, both cargo-capable.
+local far1,far2=station(0,60),station(0,60);far1.city=s.city;far2.city=s.city;far1.handle=7;far2.handle=8
+local lineA,lineB={members={far1,outside},trains={}},{members={outside,far2},trains={}}
+s.city.train_track_routes[lineA]=lineA.members;s.city.train_track_routes[lineB]=lineB.members
+D.Refresh();assert(D.IsJunction(outside) and not D.IsJunction(far1))
+outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='export' and D.Get(outside,'Metals').percent==0)
+outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='import' and D.Get(outside,'Metals').percent==50,'Import starts at 50 on a station that joins lines (R4)')
+outside:ToggleAcceptResource('Metals',false);outside:ToggleAcceptResource('Metals',false)
+assert(not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals'))
+-- (the fixture's colony label is the first line's member list, so outside already sits on that route)
+s.city.train_track_routes[lineB]=nil;D.Refresh();assert(D.IsJunction(outside),'two routes left: still a joining station')
+s.city.train_track_routes[lineA]=nil;D.Refresh();assert(not D.IsJunction(outside),'one route left: not a joining station')
 local hubdlg,hr=dialog(h);OnMsg.DialogOpen(hubdlg);assert(not hr.distribution_slider)
 local other=XControl:new({},nil,{class='OtherBuilding'});other.class='ipBuilding';OnMsg.DialogOpen(other)
 assert(not D.ui_error)
 h.nodes[s]=nil;D.Refresh();row:OnContextUpdate(row.context)
-assert(row.distribution_slider and row:GetTitle()=='Metals · Balanced' and #row.idSectionTitles==3)
+assert(row.distribution_slider and row:GetTitle()=='Metals · Default' and #row.idSectionTitles==3)
 x,y=scale:AdjustConstrainedScale(450,450);assert(x==800 and y==800)
 h.nodes[s]=true;D.Refresh();row:OnContextUpdate(row.context);assert(row.distribution_slider)
 local chained=station(0,60);chained.handle=6243;chained.city=s.city
@@ -347,7 +376,7 @@ s.city.train_track_routes[chainline]=chainline.members
 D.Refresh();assert(D.Parent(chained)==peer)
 assert(chained:ResourceRolloverText('Metals'):find('through station 3',1,true))
 assert(rawget(s,D.FIELD)==nil and not D.error)
-print('PASS Ctrl copies state/percent to hub and hubless stations without advancing source; hubless four-state cycle, slider and tooltip; hub excluded; disconnect/reconnect retain row layout')
+print('PASS Ctrl copies state/percent to hub and hubless stations without advancing source, Ctrl+Default clears each set; hubless five-state cycle, Import 50 on a joining station, slider keeps mode, Default tooltip; hub excluded; disconnect/reconnect retain row layout')
 ''')
     long_title_fit()
     print('NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus', flush=True)
