@@ -259,7 +259,7 @@ for _,mode in ipairs({'export','import','disabled','default'}) do
     assert(row.idSectionTitle.Text=='Metals · '..({export='Export',import='Import',disabled='Not accepted',default='Default'})[mode])
     if mode=='export' then assert(D.Get(s,'Metals').percent==0,'a click to Export sets 0 (R4)') end
     if mode=='import' then assert(D.Get(s,'Metals').percent==100,'a click to Import sets 100 on a hub network (R4)') end
-    if mode=='default' then assert(not D.Get(s,'Metals') and not rawget(h,D.FIELD)[s],'a click to Default clears the hub entry (R4)') end
+    if mode=='default' then assert(not D.Get(s,'Metals') and not (rawget(h,D.FIELD) or {})[s],'a click to Default clears the hub entry (R4)') end
     local icon=row.idIcon.Image;assert(not seen[icon]);seen[icon]=true
     assert(s:IsResourceEnabled('Metals')==(mode~='disabled'))
     assert(slider.enabled==(mode~='disabled'))
@@ -326,7 +326,7 @@ mass=true;row:OnActivate(row.context);mass=false -- Ctrl: Default at every stati
 assert(not D.Get(s,'Metals') and not D.Get(peer,'Metals') and not D.Get(outside,'Metals'),'Ctrl+Default clears the row everywhere')
 assert(peer:IsResourceEnabled('Metals') and outside:IsResourceEnabled('Metals'))
 assert(peer.supply.Metals:GetDesiredAmount()==peer.desired_amount and peer.demand.Metals:GetDesiredAmount()==60000-peer.desired_amount) -- Vanilla's own dial again.
-assert(rawget(outside,D.LOCAL_FIELD)==nil and rawget(h,D.FIELD)[peer]==nil,'emptied sets are removed')
+assert(rawget(outside,D.LOCAL_FIELD)==nil and (rawget(h,D.FIELD) or {})[peer]==nil,'emptied sets are removed')
 assert(D.Set(peer,'Metals','balanced',50)) -- A set Balanced row shows and clicks on as before.
 assert(D.RowState(peer,'Metals')=='balanced' and peer:GetResAcceptIcon('Metals')=='UI/IconsRemaster/Sections/resource_accept.tga')
 peer:ToggleAcceptResource('Metals',false);assert(D.Get(peer,'Metals').mode=='export' and D.Get(peer,'Metals').percent==0)
@@ -356,7 +356,11 @@ local lineA,lineB={members={far1,outside},trains={}},{members={outside,far2},tra
 s.city.train_track_routes[lineA]=lineA.members;s.city.train_track_routes[lineB]=lineB.members
 D.Refresh();assert(D.IsJunction(outside) and not D.IsJunction(far1))
 outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='export' and D.Get(outside,'Metals').percent==0)
+local tip=outside:ResourceRolloverText('Metals')
+assert(tip:find('joins lines',1,true) and not tip:find('never',1,true),'A4: no terminal never-clause beside the pass-through line (Export)')
 outside:ToggleAcceptResource('Metals',false);assert(D.Get(outside,'Metals').mode=='import' and D.Get(outside,'Metals').percent==50,'Import starts at 50 on a station that joins lines (R4)')
+tip=outside:ResourceRolloverText('Metals')
+assert(tip:find('joins lines',1,true) and not tip:find('never',1,true) and tip:find('take none of that amount',1,true),'A4: the Import clause names what the station keeps')
 assert(outside:ResourceRolloverText('Metals'):find('This station joins lines',1,true) and not outside:ResourceRolloverText('Metals'):find('At 100 nothing',1,true),'the joining-station line, no warning at 50')
 assert(outside:ResourceRolloverText('Metals'):find('a share of this station',1,true),'Import help names the number as a share of the store')
 vr.distribution_slider:ScrollTo(100)
@@ -367,6 +371,31 @@ assert(not D.Get(outside,'Metals') and outside:IsResourceEnabled('Metals'))
 -- (the fixture's colony label is the first line's member list, so outside already sits on that route)
 s.city.train_track_routes[lineB]=nil;D.Refresh();assert(D.IsJunction(outside),'two routes left: still a joining station')
 s.city.train_track_routes[lineA]=nil;D.Refresh();assert(not D.IsJunction(outside),'one route left: not a joining station')
+-- A3 (audit 2026-10-21): a click reads, chooses and writes against one ownership snapshot. The cache is
+-- stale by construction here (GameTime is 0, so D.HubFor never refreshes on its own).
+assert(D.HubFor(s)==h and D.Set(s,'Metals','export',0)) -- the hub's row for s
+rawset(s,D.LOCAL_FIELD,{Metals={mode='import',percent=70}}) -- a dormant local row
+h.nodes[s]=nil -- s leaves the hub; nothing refreshes
+assert(D.HubFor(s)==h,'the cache still says hub-owned')
+s:ToggleAcceptResource('Metals',false)
+assert(not s:IsResourceEnabled('Metals'),'the click cycled the local Import to Not accepted')
+assert(rawget(s,D.LOCAL_FIELD).Metals.mode=='import' and rawget(s,D.LOCAL_FIELD).Metals.percent==70,'A3 leave-hub: the local Import 70 is kept (the audit saw Import 100 written over it)')
+assert(rawget(h,D.FIELD)[s].Metals.mode=='export' and rawget(h,D.FIELD)[s].Metals.percent==0,'the dormant hub row is untouched')
+s:SetAcceptResourceState('Metals','store',false);D.Clear(s,'Metals');assert(not rawget(s,D.LOCAL_FIELD),'local set cleared while hubless')
+do local all=rawget(h,D.FIELD) or {};rawset(h,D.FIELD,all);all[s]={Metals={mode='import',percent=77}} end -- a saved hub row while s is off the hub
+h.nodes[s]=true -- s joins the hub; nothing refreshes
+assert(D.HubFor(s)==nil,'the cache still says hubless')
+s:ToggleAcceptResource('Metals',false)
+assert(not s:IsResourceEnabled('Metals') and rawget(h,D.FIELD)[s].Metals.percent==77 and rawget(h,D.FIELD)[s].Metals.mode=='import','A3 join-hub: the saved hub Import 77 is kept (the audit saw Export 0 written over it)')
+assert(not rawget(s,D.LOCAL_FIELD),'the dormant local set stays empty')
+s:SetAcceptResourceState('Metals','store',false)
+assert(D.HubFor(s)==h and D.Clear(s,'Metals'))
+assert(rawget(h,D.FIELD)==nil,'A5: the last cleared entry removes the emptied outer hub table too')
+-- the slider takes the same snapshot: a stale cache does not send a scroll into the wrong set
+rawset(s,D.LOCAL_FIELD,{Metals={mode='balanced',percent=33}});h.nodes[s]=nil
+row:OnContextUpdate(row.context);slider:ScrollTo(44)
+assert(rawget(s,D.LOCAL_FIELD).Metals.mode=='balanced' and rawget(s,D.LOCAL_FIELD).Metals.percent==44 and rawget(h,D.FIELD)==nil,'A3 scroll: the local row moves, no hub row appears')
+D.Clear(s,'Metals');h.nodes[s]=true;D.Refresh()
 local hubdlg,hr=dialog(h);OnMsg.DialogOpen(hubdlg);assert(not hr.distribution_slider)
 local other=XControl:new({},nil,{class='OtherBuilding'});other.class='ipBuilding';OnMsg.DialogOpen(other)
 assert(not D.ui_error)
@@ -381,7 +410,7 @@ s.city.train_track_routes[chainline]=chainline.members
 D.Refresh();assert(D.Parent(chained)==peer)
 assert(chained:ResourceRolloverText('Metals'):find('through station 3',1,true))
 assert(rawget(s,D.FIELD)==nil and not D.error)
-print('PASS Ctrl copies state/percent to hub and hubless stations without advancing source, Ctrl+Default clears each set; hubless five-state cycle, Import 50 on a joining station, slider keeps mode, Default tooltip; hub excluded; disconnect/reconnect retain row layout')
+print('PASS Ctrl copies state/percent to hub and hubless stations without advancing source, Ctrl+Default clears each set; hubless five-state cycle, Import 50 on a joining station, slider keeps mode, Default tooltip; one ownership snapshot per click and scroll (A3), emptied hub table removed (A5); hub excluded; disconnect/reconnect retain row layout')
 ''')
     long_title_fit()
     print('NOT TESTED: engine pixel layout/font metrics, mouse hit boxes and controller focus', flush=True)

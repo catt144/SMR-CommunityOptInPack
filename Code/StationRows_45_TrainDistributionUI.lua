@@ -59,8 +59,10 @@ local local_help = {
 	-- owner 2026-10-05: a row nobody has set keeps the game's balancing on a line with no hub
 	default = "Default: trains spread this resource between the stations on the line, as in the base game. Changing this row gives the station its own setting.",
 	balanced = "Balanced: trains exchange stock with other stations to hold the selected amount, and local drones use it as their desired amount. Surplus in nearby storage stays put; choose Export to send it out.",
-	export = "Export: trains take what this station holds above the selected amount, a share of its own store, to accepting stations and never deliver here. Local drones bring in what nearby storage holds above its Desired Amount.",
-	import = "Import: trains bring stock from other stations up to the selected amount, a share of this station's own store, and never take it away. From a station left at Default they bring what the base game would share; set Export there to send everything. Local drones may drain this station to zero.",
+	-- audit 2026-10-21 (A4): the clauses name what the station keeps, so the joining-station line below
+	-- (cargo for other lines passing through the room above the number) does not contradict them
+	export = "Export: trains take what this station holds above the selected amount, a share of its own store, to accepting stations, and bring nothing for its own use. Local drones bring in what nearby storage holds above its Desired Amount.",
+	import = "Import: trains bring stock from other stations up to the selected amount, a share of this station's own store, and take none of that amount away. From a station left at Default they bring what the base game would share; set Export there to send everything. Local drones may drain this station to zero.",
 }
 function D.RowState(st, res)
 	local entry = D.Get(st, res)
@@ -87,6 +89,10 @@ local function install_station()
 	local icon = Station.GetResAcceptIcon
 	local rollover = Station.ResourceRolloverText
 	Station.ToggleAcceptResource = function(st, res, broadcast, ...)
+		-- One ownership snapshot per click (audit 2026-10-21, A3): the row is read, its successor
+		-- chosen and the write made against the same hub graph; D.Set and D.Clear refresh too, so
+		-- a hub joining or leaving inside the cache's second cannot land the write in the other set.
+		D.Refresh()
 		if not network(st) then return toggle(st, res, broadcast, ...) end
 		local mode, percent = D.RowState(st, res)
 		if not broadcast then
@@ -205,6 +211,7 @@ local function make_slider(row, context)
 		OnScroll = function(self, value)
 			local ctx = row.context
 			local st, res = ctx[1], ctx.res
+			D.Refresh()   -- the same snapshot rule as the click (A3)
 			if not network(st) then return end
 			local mode = D.RowState(st, res)
 			if mode == "default" then mode = "balanced" end

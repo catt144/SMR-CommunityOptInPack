@@ -477,6 +477,7 @@ function D.Clear(st, res)
 		if rows then
 			rows[res] = nil
 			if not next(rows) then all[st] = nil end
+			if not next(all) then rawset(hub, FIELD, nil) end   -- the emptied outer table too (audit A5)
 		end
 	else
 		rows = rawget(st, LOCAL_FIELD)
