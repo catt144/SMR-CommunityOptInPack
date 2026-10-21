@@ -36,11 +36,15 @@ def main():
 debug.setmetatable(nil, {__len=function() return 0 end})
 local D = SMROptInTrainDistribution
 assert(SMROptInTrainHubBase == nil)
--- the harness walk, with a per-track transport mode and the native "break" (TrainTransport.lua:371-447)
+-- the harness walk, with a per-track transport mode (track.mode), a per-edge one (track.modes[i],
+-- the edge into member i, restricting every member beyond it as the native walk does) and the
+-- native "break" (TrainTransport.lua:371-447)
 ForEachStationAlongTrack = function(st, track, flags, fn, ...)
-    for _, s in ipairs(track.members) do
+    local mode = track.mode or 'cargo'
+    for i, s in ipairs(track.members) do
+        if track.modes and track.modes[i] then mode = track.modes[i] end
         if flags ~= 0 or s ~= st then
-            if fn(s, track.mode or 'cargo', ...) == 'break' then return end
+            if fn(s, mode, ...) == 'break' then return end
         end
     end
 end
@@ -202,6 +206,36 @@ do
     expect('the whole surplus is booked: Import takes its 30 room, the receiver the other 30', for_i .. ',' .. for_r, '30000,30000')
 end
 print('PASS 2b full and half-full Import beside an Export and an untouched receiver')
+
+-- ===== 2c. R7 (audit A1): a station past a people-only leg takes no part in the balance.
+do
+    -- Export 0 source 60 -> cargo receiver 0 -> people-only receiver 0: the receiver fills, nothing strands
+    local t, e, r = plain(60, 0, 60)
+    local p = add_station(e, 0, 60, 3)
+    table.insert(t.track.members, p); table.insert(UIColony.labels.Station, p); D.Refresh()
+    t.track.modes = { nil, nil, 'people' }
+    assert(D.Set(e, 'Metals', 'export', 0))
+    for _ = 1, 3 do t.current_station = e; checked_transfer(t); deliver(t, r) end
+    print('R7 people-only tail: source=' .. u(stock(e)) .. ' receiver=' .. u(stock(r)) .. ' people-only=' .. u(stock(p)))
+    expect('R7: the reachable receiver takes the whole surplus (audit A1 saw 30 stranded)', stock(e) .. ',' .. stock(r) .. ',' .. stock(p), '0,60000,0')
+    -- the all-cargo control: both receivers share it
+    t, e, r = plain(60, 0, 60)
+    p = add_station(e, 0, 60, 3)
+    table.insert(t.track.members, p); table.insert(UIColony.labels.Station, p); D.Refresh()
+    assert(D.Set(e, 'Metals', 'export', 0))
+    for _ = 1, 3 do t.current_station = e; checked_transfer(t); deliver(t, r); t.current_station = e; checked_transfer(t); deliver(t, p) end
+    expect('control: an all-cargo tail shares the surplus', stock(e) .. ',' .. stock(r) + stock(p), '0,60000')
+    -- Default source 60 -> Import 100 empty -> people-only station holding 60: the pair shares 30, the tail's stock does not count
+    t, e, r = plain(60, 0, 60)
+    p = add_station(e, 60, 60, 3)
+    table.insert(t.track.members, p); table.insert(UIColony.labels.Station, p); D.Refresh()
+    t.track.modes = { nil, nil, 'people' }
+    assert(D.Set(r, 'Metals', 'import', 100))
+    t.current_station = e; checked_transfer(t)
+    print('R7 inaccessible stock: load=' .. u(t.stockpiled_amount.Metals or 0))
+    expect('R7: the reachable pair shares as if alone (audit A1 saw 20)', t.stockpiled_amount.Metals or 0, 30000)
+end
+print('PASS 2c R7: stations past a people-only leg take no part')
 
 -- ===== 3. The depot (R2): TheGodUncle's line, a surface Export half (250) beside a vanilla station (60).
 local function depot_line(rows_on, mode, percent, depot_stock, receiver_stock)

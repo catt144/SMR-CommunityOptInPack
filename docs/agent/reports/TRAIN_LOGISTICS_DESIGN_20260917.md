@@ -240,7 +240,10 @@ network takes its rows. The six rulings of that day (R1 the rule; R2 the depot l
 2026-10-05 depot-line dial pin dropped; R4 the click defaults and the Default state; R5 the
 depot's unset targets; R6 surplus above a set number drains to untouched neighbours) are
 recorded verbatim in `docs/agent/bugs/D16.md` and `D18.md`; the derivation is
-`STATION_ROWS_RELAY_20261021.md` §12–§14. §4.8 item 5 still governs a hub's network.
+`STATION_ROWS_RELAY_20261021.md` §12–§14. **R7, the same day, over the independent audit (§16):** a
+station this train cannot deliver to on its walk, because a people-only leg or a leg under
+construction lies between, takes no part in the balance and its stock is not in the pool (the base
+game counts it; D16 has the wording). §4.8 item 5 still governs a hub's network.
 
 1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row

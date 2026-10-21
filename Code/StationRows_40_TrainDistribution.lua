@@ -850,7 +850,8 @@ end
 -- enter through the hub's read, and a line with a depot takes this view whatever
 -- the Station rows toggle says, as a hub's network takes its rows. Cargo aboard
 -- every train on the route counts in the pool, as the game counts it
--- (Train.lua:903-908 on 1.1.1.406343).
+-- (Train.lua:903-908 on 1.1.1.406343). A station this train cannot deliver to takes
+-- no part (R7).
 local function local_train_view(train, track)
 	local st = train.current_station
 	if not (train.city and train.city.train_track_routes[track]) then return end
@@ -903,7 +904,13 @@ local function local_train_view(train, track)
 		if by_res and by_res[res] then return by_res[res] end
 		local p = { o = o, reserve = 0, pool = 0, res_w = 0, res_c = 0, rel_w = 0, rel_c = 0,
 			rel_reserved = 0, res_alloc = 0, rel_alloc = 0, gives = true, ready = ready(o, res) }
-		if p.ready then
+		if o ~= st and not can_receive[o] then
+			-- Owner 2026-10-21 (R7): a station this train cannot deliver to on its walk, past a
+			-- people-only leg or one under construction, takes no part and its stock is not in
+			-- the pool. The game would count it (Train.lua:884-895 on 1.1.1.406343) and strand
+			-- its share at the source.
+			p.ready = false
+		elseif p.ready then
 			local cap, stock = o:GetMaxStorage(res), o.supply[res]:GetActualAmount()
 			local d = o.demand[res]
 			local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
