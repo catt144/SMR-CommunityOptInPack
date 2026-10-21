@@ -1,0 +1,37 @@
+command: C:\Python313\python.exe docs/archive/station_rows_proposal_20261021b/proposal_check.py
+HEAD: 5ba8f3f2a95be26d08f0edb4cfdd34a0ebfc8ed6
+PASS native-body archive parity: 1.1.1.405907 -> 1.1.1.406343
+prototype: StationRows_40_TrainDistribution.proposal.lua sha256: 336e911db3752289463bc96ea33d1dfee6cfa5d250d017ab8d649ec7ea4df5e9
+shipping 40 sha256: b0de6db1bac1ec618eac6a25d1432497566f508d3c6dc1c1d15c86960d21255e
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: 336e911db3752289463bc96ea33d1dfee6cfa5d250d017ab8d649ec7ea4df5e9
+JUNCTION untouched      source=30.0 junction=15.0 far=10.0
+JUNCTION balanced 20    source=30.0 junction=20.0 far=10.0
+JUNCTION import 20      source=27.0 junction=22.0 far=10.0
+JUNCTION export 20      source=34.0 junction=19.0 far=7.0
+JUNCTION import 100     source=30.0 junction=30.0 far=0.0
+JUNCTION balanced 20 x4 source=18.0 junction=23.0 far(kept 10)=10.0
+PASS 1 junction relay
+PASS 1b usable-cargo junctions
+LEAF Import 20 (12 of 60) from untouched 60/60: source=48.0 importer=12.0
+LEAF 13.2B untouched 60 | untouched 0 | Export 100 empty: 30.0 / 30.0 / 0.0
+PASS 2 leaf rows
+LEAF 13.2A Export 0 (60) | untouched 0 | Import 100 full: 0.0 / 60.0 / 60.0
+LEAF 13.2A half-full Import: aboard=60.0 for Import=30.0 for receiver=30.0
+PASS 2b full and half-full Import beside an Export and an untouched receiver
+DEPOT rows off, Export 4%: depot=190.0 receiver=60.0 (shipping: 202 / 48)
+DEPOT rows on,  Export 4%: depot=190.0 receiver=60.0 (shipping: 240 / 10)
+DEPOT Import 4% (dial default): depot=10.0 station=50.0
+DEPOT Import 100%: depot=42.0 station=18.0
+DEPOT 13.2C Import 4% (10), 42 aboard unassigned: depot=10.0 aboard=32.0
+DEPOT 13.2C same, assigned before the target was lowered: depot=0.0 aboard=42.0
+PASS 3 depot
+PASS 4 seams: save baseline and hub ownership as before
+PASS proposal (revision b) scenarios; NOT RUN: engine scheduling, saves, drones, UI, player saves

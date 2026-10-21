@@ -230,6 +230,18 @@ balancing.** Only a row the player has set is a pin, an Export floor or an Impor
 go with your option 1"*, over a player report of idle trains). The ruling, the build and its
 limits are in `docs/agent/bugs/D16.md`. §4.8 item 5 still governs a hub's network.
 
+⚖️ **Owner ruling, 2026-10-21: on a line with no Train Hub, a row keeps its amount for its own
+station; what a station holds beyond that balances with the line as the base game balances,
+split by weight and water-filled, so cargo for other lines passes through a station that joins
+lines.** A station joins lines when it can exchange cargo on two or more routes. The reserve
+wins: a full Import or Balanced on a joining station leaves no room to pass cargo through. A
+line with an Elevator Depot takes this view whatever the Station rows toggle says, as a hub's
+network takes its rows. The six rulings of that day (R1 the rule; R2 the depot line; R3 the
+2026-10-05 depot-line dial pin dropped; R4 the click defaults and the Default state; R5 the
+depot's unset targets; R6 surplus above a set number drains to untouched neighbours) are
+recorded verbatim in `docs/agent/bugs/D16.md` and `D18.md`; the derivation is
+`STATION_ROWS_RELAY_20261021.md` §12–§14. §4.8 item 5 still governs a hub's network.
+
 1.1.0's station infopanel groups resources into collapsible **Basic / Advanced / Delicacies /
 Other** headers, each carrying a `stored/max` total. Under each header, every resource is one row
 with an icon button at the left and `stored/max` plus the resource glyph at the right.

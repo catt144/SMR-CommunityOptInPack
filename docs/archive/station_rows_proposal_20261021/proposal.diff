@@ -1,0 +1,251 @@
+--- Code/StationRows_40_TrainDistribution.lua	2026-10-05 00:29:32.909216200 -0400
++++ docs/archive/station_rows_proposal_20261021/StationRows_40_TrainDistribution.proposal.lua	2026-10-21 13:04:25.752955600 -0400
+@@ -34,6 +34,7 @@
+ -- on the return trip. Runtime only: loading a save requires a new hub attempt.
+ local refused = setmetatable({}, { __mode = "k" })
+ function D.CallsFor(st) return calls_by_station[st] or 0 end
++local junction_cache = setmetatable({}, { __mode = "k" })
+ 
+ -- Standalone dev-mod Require: no dependency on the shipping pack. Include
+ -- declaring methods AND early-bound aliases; check before installing anything.
+@@ -159,6 +160,7 @@
+ 		end
+ 	end
+ 	cache_time = GameTime()
++	junction_cache = setmetatable({}, { __mode = "k" })
+ end
+ 
+ function D.Parent(st) return parents[st] end
+@@ -551,17 +553,27 @@
+ -- entry aboard if it no longer fits; the hub can receive it later. No custom
+ -- writes to assigned_resources, request flags or transport_policy.
+ local unload = Train.UnloadAll
+--- A hubless line that ends at an Elevator Depot keeps its dial pins on untouched rows
+--- (the depot's exchange was built and sat against them). Every other hubless line
+--- leaves an untouched row to the game (owner 2026-10-05).
+-local function depot_line(train, st, track)
+-	if not (IsValid(track) and train.city and train.city.train_track_routes[track]) then return false end
+-	local found = false
+-	ForEachStationAlongTrack(st, track, const.trfInclusive | const.trfBidirectional, function(o)
+-		if is_depot(o) then found = true end
+-	end)
+-	return found
++-- PROPOSAL 2026-10-21: a station that joins lines is a member of two or more of the
++-- city's routes. One route object serves every track segment of a line
++-- (TrainTransport.lua:328-332 on 1.1.1.406343), so routes are counted by identity.
++-- Rebuilt routes and D.Refresh clear the count.
++local function routes_of(st)
++	local n = junction_cache[st]
++	if n then return n end
++	n = 0
++	local seen = {}
++	for _, route in pairs(st.city and st.city.train_track_routes or empty_table) do
++		if not seen[route] then
++			seen[route] = true
++			if table.find(route, st) then n = n + 1 end
++		end
++	end
++	junction_cache[st] = n
++	return n
+ end
++local function is_junction(st) return routes_of(st) >= 2 end
++D.IsJunction = is_junction
++function OnMsg.TrainRoutesRebuilt() junction_cache = setmetatable({}, { __mode = "k" }) end
+ function Train:UnloadAll(...)
+ 	local st = self.current_station
+ 	local hub = IsValid(st) and D.HubFor(st)
+@@ -572,11 +584,11 @@
+ 		local old = view
+ 		view = false
+ 		local answers, claims = { [st] = {} }, {}
+-		local pinned = depot_line(self, st, self.track)
+ 		local rows = rawget(st, LOCAL_FIELD) or empty_table
+ 		for _, res in ipairs(st.storable_resources or empty_table) do
+-			-- An untouched row unloads natively; only a set row caps the delivery.
+-			local entry = pinned and effective(st, res) or rows[res]
++			-- An untouched row unloads natively; only a set row caps the delivery. A station
++			-- that joins lines unloads natively too: its order already bounded the load.
++			local entry = not is_junction(st) and rows[res] or nil
+ 			if entry and ready(st, res) then
+ 				local d = st.demand[res]
+ 				local room = Max(Min(amount(st, res, entry), st:GetMaxStorage(res))
+@@ -770,86 +782,132 @@
+ end
+ 
+ -- Module A without a hub: orders belong to the stations on this train line.
+--- No hub class, graph, parent tree, hub setting or scheduler is needed. A
+--- non-row endpoint (the Elevator Depot) keeps its native storage/row writers;
+--- only its exchange with an ordinary station is bounded by that station's row.
++-- No hub class, graph, parent tree, hub setting or scheduler is needed.
+ -- Owner 2026-10-05: an untouched row keeps the game's balancing here. A resource
+ -- no station on the line has set gets no answers or claims, so vanilla allocates
+--- it alone. Where a row is set, an untouched station holds and orders the share
+--- vanilla would leave it: line total by storage capacity (archived 1.1.1.405907
+--- Train.lua:894-897,931,946). A depot line keeps the dial pins it was built on.
++-- it alone.
++-- PROPOSAL 2026-10-21 (prototype; unaudited, no owner ruling): where a row is set,
++-- the line balances as the game balances it, among the parts of the stations that
++-- take part. A row keeps its amount for its own station. An untouched station
++-- balances whole. A station that joins lines balances what it holds beyond its
++-- row's amount, so cargo for its other lines passes through it as in the base
++-- game. An Elevator Depot's rows enter through the hub's read, and a line with a
++-- depot takes this view whatever the Station rows toggle says, as a hub's network
++-- takes its rows. Cargo aboard every train on the route counts in the pool, as
++-- the game counts it (Train.lua:903-908 on 1.1.1.406343).
+ local function local_train_view(train, track)
+-	if not hubless_on() then return end
+ 	local st = train.current_station
+ 	if not (train.city and train.city.train_track_routes[track]) then return end
+-	local members, can_receive, managed = {}, {}, false
++	local members, can_receive, managed, depot_line = {}, {}, false, false
+ 	ForEachStationAlongTrack(st, track, const.trfInclusive | const.trfBidirectional, function(o)
+ 		members[o] = true
+ 		if D.IsRowStation(o) then managed = true end
++		if is_depot(o) then depot_line = true end
+ 	end)
+ 	if not managed then return end
++	if not depot_line and not hubless_on() then return end
+ 	for o in pairs(members) do
+ 		if is_hub(o) or D.HubFor(o) then return end
+ 	end
+-	local pinned = false
+-	for o in pairs(members) do
+-		if is_depot(o) then pinned = true break end
+-	end
+ 	ForEachStationAlongTrack(st, track, 0, function(o, mode)
+ 		if mode ~= "people" then can_receive[o] = true end
+ 	end)
+-	local function saved(o, res)
++	-- The row that governs a member here: its saved row while the rows module allows,
++	-- a depot's own row through the hub's read (the surface slider; the underground
++	-- half's fixed 100/0), or nil for an untouched station and a lone depot half.
++	local function row(o, res)
++		if is_depot(o) then return depot_entry(o, res) or nil end
++		if not hubless_on() then return nil end
+ 		local rows = D.IsRowStation(o) and rawget(o, LOCAL_FIELD)
+ 		return rows and rows[res] or nil
+ 	end
+-	local function row(o, res)
+-		if pinned then return effective(o, res) end
+-		return saved(o, res)
+-	end
+ 	local function configured(res)
+-		if pinned then return true end
+ 		for o in pairs(members) do
+-			if saved(o, res) then return true end
++			if row(o, res) then return true end
+ 		end
+ 		return false
+ 	end
+-	local totals = {}
+-	local function share(o, res)
+-		local line = totals[res]
+-		if not line then
+-			line = { total = train.stockpiled_amount[res] or 0, storage = 0 }
+-			for member in pairs(members) do
+-				if member.supply and member.supply[res] then
+-					line.total = line.total + member.supply[res]:GetActualAmount()
+-					if ready(member, res) then line.storage = line.storage + member:GetMaxStorage(res) end
++	-- A member's part in the line's balance of one resource.
++	--   reserve  what its row keeps for the station itself (0 untouched)
++	--   own      what it still orders for that reserve (Import and Balanced below their amount)
++	--   pool     the stock it lets the line balance: everything untouched; the stock above the
++	--            reserve for Export, Balanced and any row on a joining station; nothing for an
++	--            Import on a station of one line; everything on a disabled resource
++	--   weight   the capacity it balances with: the whole store untouched or on Import (the
++	--            game's weight, so the line gives to it as to any station); a Balanced row's
++	--            shortfall; plus the store beyond the reserve on a joining station
++	--   relay    the part of the weight that is balanced stock beyond the reserve: the whole
++	--            store untouched, the store beyond the reserve on a joining station, else 0
++	--   gives    false only for an Import on a station of one line: its stock never leaves
++	local parts = {}
++	local function part(o, res)
++		local by_res = parts[o]
++		if by_res and by_res[res] then return by_res[res] end
++		local p = { reserve = 0, own = 0, pool = 0, weight = 0, relay = 0, gives = true, ready = ready(o, res) }
++		if p.ready then
++			local cap, stock = o:GetMaxStorage(res), o.supply[res]:GetActualAmount()
++			local entry = row(o, res)
++			if not entry then
++				p.pool, p.weight, p.relay = stock, cap, cap
++			else
++				local n = Clamp(amount(o, res, entry), 0, cap)
++				local joins = is_junction(o)
++				p.reserve = n
++				if entry.mode ~= "export" then p.own = Max(n - stock, 0) end
++				if entry.mode == "import" then
++					p.gives = joins
++					p.weight = cap
++				else
++					p.weight = Max(n - stock, 0)
++				end
++				if joins then
++					p.relay = cap - n
++					if entry.mode ~= "import" then p.weight = p.weight + p.relay end
+ 				end
++				if joins or entry.mode ~= "import" then p.pool = Max(stock - n, 0) end
+ 			end
+-			totals[res] = line
++		elseif o.supply and o.supply[res] then
++			p.pool = o.supply[res]:GetActualAmount()   -- disabled: the game drains it to the line
++		end
++		parts[o] = by_res or {}
++		parts[o][res] = p
++		return p
++	end
++	local totals = {}
++	local function line_of(res)
++		local line = totals[res]
++		if line then return line end
++		line = { pool = 0, weight = 0 }
++		ForEachTrainInRoute(track, function(t)
++			line.pool = line.pool + ((t.stockpiled_amount or empty_table)[res] or 0)
++		end)
++		for o in pairs(members) do
++			local p = part(o, res)
++			line.pool, line.weight = line.pool + p.pool, line.weight + p.weight
+ 		end
+-		if line.storage <= 0 then return 0 end
+-		return Min(MulDivRound(line.total, o:GetMaxStorage(res), line.storage), o:GetMaxStorage(res))
++		totals[res] = line
++		return line
++	end
++	-- the balanced stock a member holds beyond its reserve: its relay weight's share of the pool
++	local function share(o, res)
++		local p, line = part(o, res), line_of(res)
++		if p.relay <= 0 or line.weight <= 0 then return 0 end
++		return Min(MulDivRound(line.pool, p.relay, line.weight), p.relay)
+ 	end
+ 	local function order(o, res)
+-		if not ready(o, res) then return 0 end
+-		local entry = row(o, res)
++		local p = part(o, res)
++		if not p.ready then return 0 end
+ 		local d = o.demand[res]
+-		local target
+-		if entry then
+-			if entry.mode == "export" then return 0 end
+-			target = amount(o, res, entry)
+-		elseif D.IsRowStation(o) then
+-			target = share(o, res)
+-		else
+-			return Max(d:GetTargetAmount(), 0)
+-		end
++		local beyond = Max(o.supply[res]:GetActualAmount() - p.reserve, 0)
+ 		local reserved = Max(d:GetActualAmount() - d:GetTargetAmount(), 0)
+-		return Max(Min(target - o.supply[res]:GetActualAmount() - reserved, d:GetTargetAmount()), 0)
++		local want = p.own + Max(share(o, res) - beyond, 0)
++		return Max(Min(want - reserved, d:GetTargetAmount()), 0)
+ 	end
+ 	local function floor(o, res)
+-		if not ready(o, res) then return 0 end
+-		local entry = row(o, res)
+-		if not entry then return D.IsRowStation(o) and share(o, res) or 0 end
+-		return entry.mode == "import" and o.supply[res]:GetActualAmount() or amount(o, res, entry)
++		local p = part(o, res)
++		if not p.ready then return 0 end
++		if not p.gives then return o.supply[res]:GetActualAmount() end
++		return p.reserve + share(o, res)
+ 	end
+ 	local answers, claims, depart = {}, {}, false
+ 	for _, res in ipairs(st.storable_resources or empty_table) do

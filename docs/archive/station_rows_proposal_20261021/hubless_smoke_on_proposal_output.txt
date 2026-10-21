@@ -1,0 +1,29 @@
+command: C:\Python313\python.exe docs/archive/station_rows_proposal_20261021/hubless_smoke_on_proposal.py docs/archive/station_rows_proposal_20261021
+HEAD: 5ba8f3f2a95be26d08f0edb4cfdd34a0ebfc8ed6
+PASS native-body archive parity: 1.1.1.405907 -> 1.1.1.406343
+source: Buildings/MultiResourceCubeVisuals.lua sha256: 1322e58a1b52bc86726ed68b62233320edc477f24d52c6f92d47f6f78dd5ffad
+source: Buildings/MultiResourceDepot.lua sha256: 9c5559897c415beac4a318a4c0be4e42b51f1644fe00d9be3056799353625c5f
+source: Buildings/Station.lua sha256: 2c2dc5723d9514bf44d25a6497d8425fd5231123c4e96f9eb8821af5150d4bed
+source: Units/Train.lua sha256: 5c6d9b9888e3c4e66f3261307d60543b3c10ee8b11335cf2a0de591c218aab44
+arithmetic: Train.lua resource divisions use // scale (12 sites)
+[TrainHub] train export floor loaded (standing + transient holds)
+10_TrainFloor.lua sha256: 5f4fdb1283053633626922b907d46d16d85cc223ac9061b64e302921ede02b59
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+40_TrainDistribution.lua sha256: ecec2df95a2e9b80a83b0062a916a963a58f8b29b8b2bae42a80cb93a952d62a
+[TrainDistribution] station=1 res=Metals mode=import slider=50.000 stock=50.000 supply=50.000/0.000 demand=50.000/100.000 covered=false hub_full=false calls=3
+PASS no hub implementation: native export floor, import cap/refusal, drone baselines, separate saved row
+PASS Balanced pin, real reservation preserved, exact export floor and transient release
+FLIP depot line without an entry: stock(s)=40000 stock(other)=40000 (shipping asserted 10000/70000)
+PASS untouched hubless rows: native balance, share against a set row, depot line pinned
+PASS edited percentage, native rewrite paths and replacement requests
+PASS simulated save snapshot: native baseline and no claims/policy; save-done/load restore rows
+PASS hub join/leave/rejoin isolates settings, clears stale baselines, and resets individual rows
+PASS old cargo cap, native reassignment, empty pickup and satisfied-line stop
+FLIP the depot read IS consulted hubless now
+FLIP the depot read IS consulted hubless now
+FLIP? native depot endpoint (lone half) after Export 20: stock(s)=20000 stock(other)=60000
+FLIP the depot read IS consulted hubless now
+FLIP the depot read IS consulted hubless now
+FLIP? lone half after Import 50: stock(s)=50000 stock(other)=30000
+PASS native depot endpoint without hub settings, and disabled-resource drain
+NOT RUN: native engine/save removal, drone scheduling and attended UI
