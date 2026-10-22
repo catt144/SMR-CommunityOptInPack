@@ -1,0 +1,202 @@
+-- TEMPORARY station rows relay leg, second run (owner 2026-10-22: "you can proceed with that").
+-- Exercises the hubless view on SET rows at the hubless junction StationBig(9702) of SMRTK_A.sav:
+-- Metals Import 100 and Concrete Export 0, in memory only; three sols; then D.Clear on both.
+-- Writes no save (autosave suspended, no save call), no module option, no file. A popup's pause
+-- layer is resumed (logged), the popup itself is left open and nothing is chosen in it.
+RelayLeg2 = {}
+RelayLeg2.st = false
+RelayLeg2.forced = 0
+
+function RelayLeg2.Say(s)
+    ModLog("[RELAYLEG2] " .. tostring(s):gsub("%%", "%%%%"))
+    if FlushLogFile then FlushLogFile() end
+end
+
+function RelayLeg2.WaitFor(test, ms)
+    local limit = RealTime() + ms
+    while not test() and RealTime() < limit do Sleep(250) end
+    return test()
+end
+
+function RelayLeg2.Id(o)
+    if not o then return "nil" end
+    if type(o) ~= "table" then return tostring(o) end
+    return tostring(o.class) .. "(" .. tostring(o.handle) .. ")"
+end
+
+function RelayLeg2.Text(t)
+    if type(t) == "table" then
+        local ok, s = pcall(_InternalTranslate, t)
+        if ok then return tostring(s) end
+    end
+    return tostring(t)
+end
+
+function RelayLeg2.Stage(name, fn)
+    local ok, err = pcall(fn)
+    if not ok then RelayLeg2.Say("ERROR " .. name .. " " .. tostring(err)) end
+    if FlushLogFile then FlushLogFile() end
+    return ok
+end
+
+function RelayLeg2.Stock(st, res)
+    local req = st.supply and st.supply[res]
+    return req and req:GetActualAmount() or "none"
+end
+
+function RelayLeg2.Line(tag)
+    local D, st = SMROptInTrainDistribution, RelayLeg2.st
+    local parts = {}
+    for _, res in ipairs({ "Metals", "Concrete" }) do
+        local mode, percent, cap, target = D.RowState(st, res)
+        parts[#parts + 1] = res .. "=" .. tostring(RelayLeg2.Stock(st, res)) .. " row=" .. tostring(mode)
+            .. "/" .. tostring(percent) .. " target=" .. tostring(target)
+    end
+    RelayLeg2.Say(tag .. " day=" .. tostring(UIColony.day) .. " D.calls=" .. tostring(D.calls)
+        .. " CallsFor=" .. tostring(D.CallsFor(st)) .. " HubFor=" .. RelayLeg2.Id(D.HubFor(st))
+        .. " " .. table.concat(parts, " ") .. " saved=" .. tostring(rawget(st, D.LOCAL_FIELD) and true or false))
+    local colony = rawget(_G, "UIColony")
+    for _, t in ipairs(colony and colony.labels.Train or empty_table) do
+        local here = t.current_station == st
+        local m = (t.stockpiled_amount or empty_table).Metals or 0
+        local c = (t.stockpiled_amount or empty_table).Concrete or 0
+        if here or m > 0 or c > 0 then
+            RelayLeg2.Say(tag .. " train " .. RelayLeg2.Id(t) .. " command=" .. tostring(t.command)
+                .. " station=" .. RelayLeg2.Id(t.current_station) .. " Metals=" .. m .. " Concrete=" .. c)
+        end
+    end
+end
+
+-- A popup holds an XPauseLayer in PauseReasons; game speed cannot lift it. Resume that layer only.
+function RelayLeg2.Unstall()
+    for reason in pairs(rawget(_G, "PauseReasons") or empty_table) do
+        if type(reason) == "table" and IsKindOf(reason, "XPauseLayer") then
+            RelayLeg2.forced = RelayLeg2.forced + 1
+            local dlg = reason.parent
+            RelayLeg2.Say("UNSTALL resume pause layer of " .. tostring(dlg and dlg.class)
+                .. " preset=" .. tostring(dlg and dlg.context and dlg.context.id) .. " n=" .. RelayLeg2.forced)
+            Resume(reason)
+        end
+    end
+end
+
+function RelayLeg2.RunSols(n, cap_ms)
+    local start = UIColony.day
+    SetGameSpeed(const.GameSpeeds.fastest)
+    local limit, seen, last_tick = RealTime() + cap_ms, start, 0
+    while UIColony.day < start + n and RealTime() < limit do
+        Sleep(250)
+        RelayLeg2.Unstall()
+        if RealTime() - last_tick >= 10000 then
+            last_tick = RealTime()
+            RelayLeg2.Stage("TICK", function()
+                local reasons = {}
+                for r in pairs(rawget(_G, "PauseReasons") or empty_table) do
+                    reasons[#reasons + 1] = type(r) == "table" and tostring(r.class) or tostring(r)
+                end
+                RelayLeg2.Say("TICK time_factor=" .. tostring(GetTimeFactor()) .. " pause=" .. table.concat(reasons, ","))
+                RelayLeg2.Line("TICK")
+            end)
+        end
+        if UIColony.day ~= seen then
+            seen = UIColony.day
+            RelayLeg2.Stage("SOL", function() RelayLeg2.Line("SOL " .. (seen - start)) end)
+        end
+    end
+    SetGameSpeed(0)
+    RelayLeg2.Say("RUN done sols=" .. (UIColony.day - start) .. " capped=" .. tostring(UIColony.day < start + n)
+        .. " unstalls=" .. RelayLeg2.forced)
+end
+
+function RelayLeg2.Boot1()
+    RelayLeg2.Say("BOOT build=" .. tostring(rawget(_G, "BuildVersion")))
+    local P = rawget(_G, "SMROptInPack")
+    for _, id in ipairs({ "StationRows", "TrainHub", "ElevatorDepot" }) do
+        RelayLeg2.Say("BOOT module " .. id .. " active=" .. tostring(P and P.IsActive and P.IsActive(id)))
+    end
+    local D = rawget(_G, "SMROptInTrainDistribution")
+    for _, name in ipairs({ "WaterFill", "IsJunction", "Clear" }) do
+        RelayLeg2.Say("BOOT witness " .. name .. "=" .. type(D and D[name]))
+    end
+    RelayLeg2.Say("BOOT autosave_suspended=" .. tostring(config.AutosaveSuspended))
+end
+
+function RelayLeg2.Pick()
+    local D = SMROptInTrainDistribution
+    D.Refresh()
+    local st = HandleToObject[9702]
+    if not (st and D.IsRowStation(st) and not D.HubFor(st) and D.IsJunction(st)) then
+        st = false
+        for _, o in ipairs(UIColony.labels.Station or empty_table) do
+            if not st and D.IsRowStation(o) and not D.HubFor(o) and D.IsJunction(o) then st = o end
+        end
+    end
+    RelayLeg2.st = st
+    RelayLeg2.Say("PICK " .. RelayLeg2.Id(st) .. " junction=" .. tostring(st and D.IsJunction(st)))
+end
+
+function RelayLeg2.Set()
+    local D, st = SMROptInTrainDistribution, RelayLeg2.st
+    RelayLeg2.Line("PRE")
+    -- in memory only: no save follows, and D.Clear in RelayLeg2.Clear removes both rows again
+    local ok1, why1 = D.Set(st, "Metals", "import", 100)
+    local ok2, why2 = D.Set(st, "Concrete", "export", 0)
+    RelayLeg2.Say("SET Metals import 100 ok=" .. tostring(ok1) .. " why=" .. tostring(why1)
+        .. "; Concrete export 0 ok=" .. tostring(ok2) .. " why=" .. tostring(why2))
+    RelayLeg2.Line("POST")
+    for _, res in ipairs({ "Metals", "Concrete" }) do
+        local s = RelayLeg2.Text(st:ResourceRolloverText(res))
+        RelayLeg2.Say("TOOLTIP " .. res .. " len=" .. #s .. " text=" .. s)
+    end
+end
+
+function RelayLeg2.Clear()
+    local D, st = SMROptInTrainDistribution, RelayLeg2.st
+    local ok1, why1 = D.Clear(st, "Metals")
+    local ok2, why2 = D.Clear(st, "Concrete")
+    RelayLeg2.Say("CLEAR Metals ok=" .. tostring(ok1) .. " why=" .. tostring(why1)
+        .. " Concrete ok=" .. tostring(ok2) .. " why=" .. tostring(why2))
+    RelayLeg2.Line("CLEARED")
+end
+
+function RelayLeg2.Errors()
+    local K = rawget(_G, "SMRTK")
+    RelayLeg2.Say("ERRORS smrtk_error_count=" .. tostring(K and K.error_count))
+end
+
+function RelayLeg2.Run()
+    local err = LoadGame("SMRTK_A.sav", {})
+    if err then RelayLeg2.Say("LOADERR " .. tostring(err)); return end
+    if not RelayLeg2.WaitFor(function()
+        local colony = rawget(_G, "UIColony")
+        return rawget(_G, "MainCity") and colony and colony.labels
+    end, 120000) then RelayLeg2.Say("LOADERR city never came up"); return end
+    Sleep(5000)
+    SetGameSpeed(0)
+    RelayLeg2.Say("LOAD ok day=" .. tostring(UIColony.day))
+    RelayLeg2.Stage("PICK", RelayLeg2.Pick)
+    if not RelayLeg2.st then RelayLeg2.Say("SKIP no hubless junction row station"); return end
+    if not RelayLeg2.Stage("SET", RelayLeg2.Set) then return end
+    RelayLeg2.Stage("RUN", function() RelayLeg2.RunSols(3, 480000) end)
+    RelayLeg2.Stage("CLEAR", RelayLeg2.Clear)
+    RelayLeg2.Stage("ERRORS", RelayLeg2.Errors)
+end
+
+function RelayLeg2.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        config.AutosaveSuspended = true
+        RelayLeg2.Stage("BOOT", RelayLeg2.Boot1)
+        if not RelayLeg2.WaitFor(function() return GetPreGameMainMenu() end, 300000) then
+            RelayLeg2.Say("TIMEOUT menu"); RelayLeg2.Say("END"); quit(); return
+        end
+        Sleep(2000)
+        local ok, err = pcall(RelayLeg2.Run)
+        if not ok then RelayLeg2.Say("ERROR run " .. tostring(err)) end
+        RelayLeg2.Say("END")
+        Sleep(1000)
+        quit()
+    end)
+end
+
+RelayLeg2.Boot()

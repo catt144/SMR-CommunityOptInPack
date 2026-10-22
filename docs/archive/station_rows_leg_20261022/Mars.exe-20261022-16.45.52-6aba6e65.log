@@ -1,0 +1,386 @@
+					Render 0:00:00:006
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	48%
+Disk Free      	980370 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:073
+Steam initialized (AppId 3215050)
+					Render 0:00:00:076
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:01:590
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1742
+GPU Driver Package Version     	617.42
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:01:742
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:01:973
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:02:968
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+						Lua 0:00:02:969
+Lua revision: 406343
+Assets revision: 33225
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:16:475
+Account storage loaded successfully in 3 ms
+						Lua 0:00:16:476
+DLC norman loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:16:477
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:16:485
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-003) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Opt-In Modules Workbench (never upload) (id SMR_CommunityOptInPack_Workbench, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+						Lua 0:00:16:884
+[mod] [CommunityFixPack] LoadFirst: already first of 4 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack, SMR_CommunityOptInPack_Workbench); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+[mod] [CommunityFixPack] ShelterReflex: applied
+						Lua 0:00:16:885
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+[mod] [CommunityFixPack] LakeEntombment: applied
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+[mod] [CommunityFixPack] VacuumWalks: applied
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+[mod] [CommunityFixPack] HubLocalAccess: applied
+						Lua 0:00:16:886
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+[mod] [CommunityFixPack] RescueReturnText: applied
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+[mod] [CommunityFixPack] StaleReservations: applied
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:16:887
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:16:888
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+[mod] [CommunityFixPack] SequenceLatents: applied
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:16:889
+[mod] [CommunityFixPack] BombardmentSpread: applied
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+[mod] [CommunityFixPack] SaintBlessing: applied
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+[mod] [CommunityFixPack] SilentHitMomentFX: applied						Lua 0:00:16:890
+
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:16:891
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+[mod] [CommunityFixPack] WildfireCureVisit: applied
+[mod] [CommunityFixPack] GhostPowerCells: applied
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+[mod] [CommunityFixPack] SaveSanitizer: applied
+						Lua 0:00:16:892
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:16:896
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12293 id=1
+						Lua 0:00:16:901
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] MultipleSuns: applied
+[mod] [CommunityOptInPack] DroneStatDials: applied
+						Lua 0:00:16:902
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+[mod] [CommunityOptInPack] StationRows: applied
+[TrainHub] train export floor loaded (standing + transient holds)
+						Lua 0:00:16:903
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] TrainHub: applied
+						Lua 0:00:16:905
+[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:16:906
+[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility
+[mod] [CommunityOptInPack] ElevatorDepot: applied
+						Lua 0:00:16:908
+[mod] [CommunityOptInPack] DEV workbench loaded; staged options share the Opt-In Modules page
+[mod] [CommunityOptInPack] Arboretum: applied
+						Lua 0:00:17:617
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:17:690
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:17:783
+Reloading done in 1298 ms
+						Lua 0:00:17:785
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:17:829
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12293 id=2
+						Lua 0:00:18:233
+[preset] Preset postprocess took 171 ms.
+						Lua 0:00:18:289
+482 / 482 particle streams loaded in 50 ms.
+						Lua 0:00:18:290
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:18:292
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:18:504
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:18:592
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=3
+						Lua 0:00:18:606
+[mod] [RELAYLEG2] BOOT build=1.1.1.406343
+[mod] [RELAYLEG2] BOOT module StationRows active=true
+[mod] [RELAYLEG2] BOOT module TrainHub active=true
+[mod] [RELAYLEG2] BOOT module ElevatorDepot active=true
+[mod] [RELAYLEG2] BOOT witness WaterFill=function
+[mod] [RELAYLEG2] BOOT witness IsJunction=function
+[mod] [RELAYLEG2] BOOT witness Clear=function
+[mod] [RELAYLEG2] BOOT autosave_suspended=true
+						Lua 0:00:18:629
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=4
+						Lua 0:00:18:650
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):   <>
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2518):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInArboretumGlass'
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack, SMR_CommunityOptInPack_Workbench
+						Lua 0:00:18:898
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:18:899
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:18:995
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12293 id=5
+						Lua 0:00:19:430
+[PdxSDK] Started up. Took 1070
+						Lua 0:00:19:841
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:19:939
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:19:940
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:21:359
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:00:21:360
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:23:831
+*** Assets reloaded in 2.5 s, read 359.0 MB, read speed 145.3 MB/s, average read 8137 bytes.
+						Lua 0:00:24:873
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=14096 id=6
+						Lua 0:00:25:790
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14096 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=14096 id=7
+						Lua 0:00:26:490
+[mod] This savegame tries to load Mod Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000), which is loaded with a different version 1.00-003
+						Lua 0:00:27:878
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:28:130
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, Brazil, NASA
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:28:293
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=121
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:00:28:294
+Game Loaded in 6936 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=2 last=tab_Saves last_id=13 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=8
+[SMRTK] SMRTK_PROVENANCE actions=2 last=tab_Saves last_id=13 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=8
+						Lua 0:00:28:305
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=9
+						Lua 0:00:28:317
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=10
+						Lua 0:00:28:323
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:28:439
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:00:28:908
+Game loaded on map BlankBig_01 in 7692 ms
+						Lua 0:00:33:907
+[mod] [RELAYLEG2] LOAD ok day=50
+						Lua 0:00:33:918
+[mod] [RELAYLEG2] PICK StationBig(9702) junction=true
+[mod] [RELAYLEG2] PRE day=50 D.calls=0 CallsFor=0 HubFor=nil Metals=45157 row=default/4 target=10000 Concrete=9404 row=default/4 target=10000 saved=false
+[mod] [RELAYLEG2] PRE train Train(2000001846) command=GotoStation station=StationBig(7873) Metals=0 Concrete=1000
+[mod] [RELAYLEG2] PRE train Train(2000001851) command=GotoStation station=StationSmall(10650) Metals=25000 Concrete=4000
+						Lua 0:00:33:938
+[mod] [RELAYLEG2] SET Metals import 100 ok=true why=nil; Concrete export 0 ok=true why=nil
+[mod] [RELAYLEG2] POST day=50 D.calls=0 CallsFor=0 HubFor=nil Metals=45157 row=import/100 target=240000 Concrete=9404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] POST train Train(2000001846) command=GotoStation station=StationBig(7873) Metals=0 Concrete=1000
+[mod] [RELAYLEG2] POST train Train(2000001851) command=GotoStation station=StationSmall(10650) Metals=25000 Concrete=4000
+						Lua 0:00:33:939
+[mod] [RELAYLEG2] TOOLTIP Metals len=740 text=Import: trains bring stock from other stations up to the selected amount, a share of this station's own store, and take none of that amount away. From a station left at Default they bring what the base game would share; set Export there to send everything. Local drones may drain this station to zero.<newline><newline>Slider: 100% of current capacity (240).<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these.<newline><newline>This station joins lines: cargo for its other lines passes through the room above its number, so its stock reads above the number on the way. At 100 nothing can pass between its lines; lower the number to let cargo through.
+[mod] [RELAYLEG2] TOOLTIP Concrete len=581 text=Export: trains take what this station holds above the selected amount, a share of its own store, to accepting stations, and bring nothing for its own use. Local drones bring in what nearby storage holds above its Desired Amount.<newline><newline>Slider: 0% of current capacity (0).<newline><newline>No hub: these settings are kept at this station. Connecting a hub uses its separate settings; disconnecting restores these.<newline><newline>This station joins lines: cargo for its other lines passes through the room above its number, so its stock reads above the number on the way.
+						Lua 0:00:34:158
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=50 D.calls=0 CallsFor=0 HubFor=nil Metals=45157 row=import/100 target=240000 Concrete=9404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001846) command=GotoStation station=StationBig(7873) Metals=0 Concrete=1000
+[mod] [RELAYLEG2] TICK train Train(2000001851) command=GotoStation station=UniversalTunnel(10836) Metals=25000 Concrete=4000
+						Lua 0:00:35:410
+[mod] [RELAYLEG2] SOL 1 day=51 D.calls=15 CallsFor=1 HubFor=nil Metals=45157 row=import/100 target=240000 Concrete=9404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] SOL 1 train Train(2000001850) command=GotoStation station=StationSmall(10650) Metals=0 Concrete=4000
+[mod] [RELAYLEG2] SOL 1 train Train(2000001851) command=GotoStation station=StationBig(7873) Metals=25000 Concrete=4000
+[mod] [RELAYLEG2] SOL 1 train Train(2000002388) command=GotoStation station=SMROptInTrainHub6(6495) Metals=1000 Concrete=0
+[mod] [RELAYLEG2] SOL 1 train Train(2000003078) command=UnloadTrain station=StationBig(9702) Metals=0 Concrete=0
+[mod] [RELAYLEG2] SOL 1 train Train(2000003402) command=GotoStation station=StationBig(9702) Metals=0 Concrete=0
+						Lua 0:00:44:158
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+						Lua 0:00:44:169
+[mod] [RELAYLEG2] TICK day=51 D.calls=119 CallsFor=6 HubFor=nil Metals=96157 row=import/100 target=240000 Concrete=24404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001850) command=GotoStation station=SMROptInTrainHub6(6430) Metals=1000 Concrete=0
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=GotoStation station=StationSmall(10531) Metals=4000 Concrete=0
+						Lua 0:00:54:166
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=51 D.calls=245 CallsFor=12 HubFor=nil Metals=104157 row=import/100 target=240000 Concrete=11404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001845) command=GotoStation station=StationSmall(2007) Metals=1000 Concrete=8000
+[mod] [RELAYLEG2] TICK train Train(2000002658) command=GotoStation station=StationBig(7873) Metals=0 Concrete=8000
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=GotoStation station=StationSmall(10531) Metals=3000 Concrete=0
+						Lua 0:01:00:897
+Story bits: Triggered story bit - UndergroundDeepScanning_Water						Lua 0:01:04:166
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=51 D.calls=373 CallsFor=18 HubFor=nil Metals=110157 row=import/100 target=240000 Concrete=6404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000002658) command=GotoStation station=StationBig(7873) Metals=0 Concrete=8000
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=UnloadTrain station=StationBig(9702) Metals=3000 Concrete=0
+						Lua 0:01:11:407
+[mod] [RELAYLEG2] SOL 2 day=52 D.calls=473 CallsFor=23 HubFor=nil Metals=116157 row=import/100 target=240000 Concrete=5404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] SOL 2 train Train(2000001846) command=GotoStation station=SMROptInTrainHub6(6430) Metals=3000 Concrete=0
+[mod] [RELAYLEG2] SOL 2 train Train(2000001851) command=GotoStation station=UniversalTunnel(10836) Metals=3000 Concrete=4000
+						Lua 0:01:14:158
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=52 D.calls=500 CallsFor=25 HubFor=nil Metals=119157 row=import/100 target=240000 Concrete=5404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001851) command=GotoStation station=StationSmall(2007) Metals=3000 Concrete=4000
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=LoadTrain station=StationBig(9702) Metals=0 Concrete=0
+						Lua 0:01:24:157
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=52 D.calls=633 CallsFor=31 HubFor=nil Metals=121157 row=import/100 target=240000 Concrete=4404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001851) command=UnloadTrain station=SMROptInTrainHub6(6430) Metals=0 Concrete=12000
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=GotoStation station=StationBig(9702) Metals=0 Concrete=1000
+						Lua 0:01:34:157
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=52 D.calls=762 CallsFor=37 HubFor=nil Metals=125157 row=import/100 target=240000 Concrete=4404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=GotoStation station=StationBig(9702) Metals=0 Concrete=0
+						Lua 0:01:44:160
+[mod] [RELAYLEG2] TICK time_factor=20000 pause=
+[mod] [RELAYLEG2] TICK day=52 D.calls=892 CallsFor=43 HubFor=nil Metals=129157 row=import/100 target=240000 Concrete=4404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] TICK train Train(2000001850) command=GotoStation station=StationSmall(10650) Metals=0 Concrete=12000
+[mod] [RELAYLEG2] TICK train Train(2000003078) command=GotoStation station=StationBig(9702) Metals=0 Concrete=0
+[mod] [RELAYLEG2] TICK train Train(2000003402) command=GotoStation station=StationBig(9702) Metals=0 Concrete=0
+						Lua 0:01:46:657
+[mod] [RELAYLEG2] UNSTALL resume pause layer of PopupNotification preset=nil n=1
+						Lua 0:01:47:657
+[mod] [RELAYLEG2] SOL 3 day=53 D.calls=949 CallsFor=45 HubFor=nil Metals=131157 row=import/100 target=240000 Concrete=4404 row=export/0 target=0 saved=true
+[mod] [RELAYLEG2] SOL 3 train Train(2000001850) command=UnloadTrain station=SMROptInTrainHub6(6430) Metals=0 Concrete=12000
+[mod] [RELAYLEG2] SOL 3 train Train(2000003078) command=LoadTrain station=StationBig(9702) Metals=0 Concrete=0
+[mod] [RELAYLEG2] RUN done sols=3 capped=false unstalls=1
+						Lua 0:01:47:679
+[mod] [RELAYLEG2] CLEAR Metals ok=true why=nil Concrete ok=true why=nil
+						Lua 0:01:47:680
+[mod] [RELAYLEG2] CLEARED day=53 D.calls=949 CallsFor=45 HubFor=nil Metals=131157 row=default/4 target=10000 Concrete=4404 row=default/4 target=10000 saved=false
+[mod] [RELAYLEG2] CLEARED train Train(2000001850) command=UnloadTrain station=SMROptInTrainHub6(6430) Metals=0 Concrete=12000
+[mod] [RELAYLEG2] CLEARED train Train(2000003078) command=LoadTrain station=StationBig(9702) Metals=0 Concrete=0
+[mod] [RELAYLEG2] ERRORS smrtk_error_count=0
+[mod] [RELAYLEG2] END
+						Lua 0:01:48:657
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:01:48:672
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:01:49:033
+
+
+*** Debug::Done()
+Time (ms)	109033
+
+

@@ -1,0 +1,16 @@
+{
+  "leg": "station-rows-relay-leg-2",
+  "_what": "Second run (owner 2026-10-22): set rows on the hubless junction of SMRTK_A.sav, three sols, clear; writes no save.",
+  "kit": "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit",
+  "park": "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\relay_leg",
+  "stripPattern": "Code/98_RelayLeg",
+  "anchorAfter": "99_FixtureCarry.lua",
+  "bootSymbol": "RelayLeg2.Boot",
+  "symbolNamespace": "RelayLeg2",
+  "permanent": ["Code/70_SMRTK_Core.lua"],
+  "mustNotBeListed": ["Code/96_AutoRunFlag.lua", "Code/97_ForceInactive.lua", "Code/98_EnablePathLeg.lua"],
+  "mustNotBeListedWhy": "No competing autorun, forced-inactive override or enable-path driver may race the leg.",
+  "bannedPatterns": ["SaveGame\\s*\\(", "CurrentModOptions", "SetModOption"],
+  "requiredPresent": ["SMRTK_A.sav", "config.AutosaveSuspended = true", "in memory only", "D.Clear(st, \"Metals\")", "D.Clear(st, \"Concrete\")"],
+  "payloads": [{"src": "98_RelayLeg2.lua.txt", "dst": "98_RelayLeg2.lua", "selfDrives": true}]
+}

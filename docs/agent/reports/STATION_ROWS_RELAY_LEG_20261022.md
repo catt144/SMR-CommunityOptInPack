@@ -4,9 +4,12 @@
 `Code/` identical to `3aa5402`: `git diff --stat 3aa5402 e49a4e4 -- Code items.lua metadata.lua`
 prints nothing) on `SMRTK_A.sav`, log `Mars.exe-20261022-12.23.59-6aba6e65.log`: errors 0,
 depot targets as ruled, rows as saved, icons present, refresh 11.10 ms mean on 19 stations and
-2 hubs; the owner glanced and said "everything looks clean to me". Two parts fell short of the
-brief and are stated below: the main run reached 2 of 3 sols, and the hubless set row was never
-called on (`CallsFor` stayed 0), so the hubless view is witnessed only on default rows.
+2 hubs; the owner glanced and said "everything looks clean to me". The first run fell short in
+two parts: the main run reached 2 of 3 sols, and the hubless set row was never called on
+(`CallsFor` stayed 0). **A second run the same day (§15, owner: "you can proceed with that")
+closed both:** set rows on the hubless junction `StationBig(9702)` (Metals Import 100, Concrete
+Export 0) ran three full sols with errors 0, the hubless view read them (`CallsFor` 1 → 45) and
+Metals rose 45157 → 131157, against a fall of 1000 on default rows in the first run.
 
 This is a smoke, not `tested-attended`; that word is the owner's. Brief:
 `STATION_ROWS_RELAY_LEG_medium.md` (consumed by this commit). Executed model, from the
@@ -149,10 +152,9 @@ did in the game was recorded by the leg.
 
 ## 13 · NOT RUN and limits
 
-- Third sol of the main run (capped, §7).
-- The hubless view on a set row (§8). No claim about a hubless junction with a set row; 9702
-  ran on default rows only.
-- The hubless tooltip text and the joining-station line (§10).
+- Third sol of the first run's main stage (capped, §7); the second run ran three (§15).
+- The hubless view on a set row in the first run (§8); covered by the second run at 9702 (§15).
+- The hubless tooltip text and the joining-station line in the first run (§10); read in §15.
 - Saved Balanced pins: none in the fixture, so none could be shown (§6).
 - No figure here speaks to drones, throughput or pixels beyond the owner's sentence.
 
@@ -166,3 +168,60 @@ did in the game was recorded by the leg.
   integer division in the engine (EF-116). Display only; not a regression of this change set.
 - The DEV-ONLY Workbench mod (`SMR_CommunityOptInPack_Workbench`) was loaded in the standing
   config during this run.
+
+## 15 · Second run: set rows on the hubless junction
+
+Asked by the owner after §§1–14 ("are we good to deploy or should we do a second run?"; the agent
+recommended one targeted run; owner: "you can proceed with that"). Same rig, build and save;
+manifest `relay_leg2.json`, payload `98_RelayLeg2.lua.txt`, every gate passed before launch and after
+disarm; kit `metadata.lua` again restored to HEAD and clean. Launched 16:45:15, log
+`Mars.exe-20261022-16.45.52-6aba6e65.log`, the payload quit itself after `END`. Archived complete
+after exit: 386 lines; as written (CRLF) 23,949 B, sha256
+`17e596e781f51d584ea062ac1a6b2872a6845a93924164301006bd07c34f4790`; LF-normalised 23,735 B,
+sha256 `c16bfab3a67f85fe36d02c7e74c0428298b008ff0e1613094903fd7d6c590ce8`; 72 `[RELAYLEG2]` lines.
+No save written (the same `find -newermt` lists only `account.dat`, its `.bak`, `steam_autocloud.vdf`).
+
+The stall fix: a popup holds an `XPauseLayer` in `PauseReasons` that game speed cannot lift
+(`CommonLua/X/XLayers.lua`, `Lua/UI/PopupNotification.lua`, build 1.1.1.406343). The payload
+resumed that layer only, leaving the popup open and choosing nothing: `UNSTALL ... PopupNotification
+n=1`. Every 10-second tick read `time_factor=20000` with no pause reason (8 ticks).
+
+| check | logged |
+|---|---|
+| errors | `smrtk_error_count=0`; `Lua error` 0; `SMRTK_ERROR` 0; no `ERROR <stage>` |
+| modules, witnesses | all three active; `WaterFill`, `IsJunction`, `Clear` functions; autosave suspended |
+| pick | `StationBig(9702) junction=true`, `HubFor=nil` throughout |
+| set | `D.Set` Metals import 100 `ok=true`; Concrete export 0 `ok=true`; `saved=true` |
+
+| | day | `D.calls` | `CallsFor(9702)` | Metals | Concrete |
+|---|---|---|---|---|---|
+| before set (default/4 each) | 50 | 0 | 0 | 45157 | 9404 |
+| sol 1 | 51 | 15 | 1 | 45157 | 9404 |
+| sol 2 | 52 | 473 | 23 | 116157 | 5404 |
+| sol 3 | 53 | 949 | 45 | 131157 | 4404 |
+| after `D.Clear` both (default/4, `saved=false`) | 53 | 949 | 45 | 131157 | 4404 |
+
+`RUN done sols=3 capped=false unstalls=1`. Against the first run's default rows at the same days
+(§7: Metals 45157 → 44157, Concrete 9404 → 3570), Import 100 pulled Metals in; Concrete left the
+station in both runs, so the Concrete figures show Export 0 does not block outflow but do not
+distinguish Export 0 from Default. Trains unloaded at 9702 during the run (ticks show
+`Train(2000003078)` `UnloadTrain` there with Metals 3000 aboard).
+
+Tooltips at 9702 after the set, verbatim apart from `<newline><newline>` shown as ` / `:
+- Metals (len 740): `Import: trains bring stock from other stations up to the selected amount, a
+  share of this station's own store, and take none of that amount away. From a station left at
+  Default they bring what the base game would share; set Export there to send everything. Local
+  drones may drain this station to zero. / Slider: 100% of current capacity (240). / No hub: these
+  settings are kept at this station. Connecting a hub uses its separate settings; disconnecting
+  restores these. / This station joins lines: cargo for its other lines passes through the room
+  above its number, so its stock reads above the number on the way. At 100 nothing can pass
+  between its lines; lower the number to let cargo through.`
+- Concrete (len 581): `Export: trains take what this station holds above the selected amount, a
+  share of its own store, to accepting stations, and bring nothing for its own use. Local drones
+  bring in what nearby storage holds above its Desired Amount. / Slider: 0% of current capacity
+  (0). / No hub: ... restores these. / This station joins lines: cargo for its other lines passes
+  through the room above its number, so its stock reads above the number on the way.`
+
+Limits: one junction, two resources, three sols; no relay-through figure (cargo passing between
+9702's lines) was measured, and at Import 100 the help itself says none can pass. Nothing here
+speaks to drones, throughput or pixels.
