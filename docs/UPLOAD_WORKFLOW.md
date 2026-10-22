@@ -158,7 +158,7 @@ Shows which Colonist interests each service building satisfies (an Electronics S
 
 STATION IMPORT/EXPORT ROWS:
 
-Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. Off, stations go back to the game's own requests.
+Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. A row you leave at Default keeps the game's own balancing. On a line with no Train Hub, a station keeps its own amount and passes the rest along the line, so a station that joins two lines carries cargo between them. Off, stations go back to the game's own requests.
 
 TRAIN HUB:
 
@@ -166,7 +166,7 @@ A junction where three train lines cross and cargo changes lines. It stores reso
 
 ELEVATOR DEPOT:
 
-Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
+Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. Its rows reach trains with or without a Train Hub. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
 
 YOUR SAVE, AND REMOVING THE MOD
 
@@ -223,13 +223,13 @@ Two dials. Drone speed adds a multiple of base Drone movement speed on top of an
 Shows which Colonist interests each service building satisfies (an Electronics Store counts for Shopping and Gaming): in the build menu when you hover a service building, and as an "Interests" section on a placed building, whose popout lists the traits that gain or lose something there. Display only: how Colonists choose and use services does not change, and it stores nothing in your save.
 
 [h2]Station import/export rows:[/h2]
-Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. Off, stations go back to the game's own requests.
+Set each resource at a Train Station to Import, Export, Balanced or Not accepted, with a slider for the target. Works on every station, with or without a Train Hub, and is always on while the Train Hub module is on. A row you leave at Default keeps the game's own balancing. On a line with no Train Hub, a station keeps its own amount and passes the rest along the line, so a station that joins two lines carries cargo between them. Off, stations go back to the game's own requests.
 
 [h2]Train Hub:[/h2]
 A junction where three train lines cross and cargo changes lines. It stores resources for the stations on its lines, runs its own drones to build and repair track, and has upgrades of its own; stations served by a hub use the hub's Import/Export rows. While it is on, Train Stations don't spoil food. Off, no new hubs can be built and hubs already built keep working. ⚠️ Demolish every Train Hub before removing the mod.
 
 [h2]Elevator Depot:[/h2]
-Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
+Two halves, one on the surface and one underground, joined by a cabin that carries cargo between them: set each resource on the surface half to Import (goes down) or Export (comes up), and the cabin loads what the other side needs. Its rows reach trains with or without a Train Hub. One pair per colony; drones can be given access to either half; one upgrade doubles its capacity. Off, no new depot can be built and a pair already built keeps working. ⚠️ Demolish both halves before removing the mod.
 
 [h2]Your save, and removing the mod[/h2]
 Turning a module off puts the game's own behaviour back; what the module already did stays done, and buildings already placed keep working. Removing the whole mod is different, because the Train Hub and the Elevator Depot exist only while it is installed: follow the note at the bottom of this page first. The Drone dials are the other thing to know: a dial left off its base position keeps boosting your drones after the mod is gone, so put both back to base, press Apply and save before you uninstall.
@@ -259,7 +259,7 @@ Usually auto-fills. If it is missing under **CHANGELOG** (Paradox) or **Change
 Notes** (Steam), paste this:
 
 ```
-Fixed: with Station import/export rows or the Train Hub on, trains on a line with no Train Hub could stop carrying cargo. On such a line, a resource row you have not changed now balances between stations as in the base game. Rows you have set, lines on a Train Hub's network and lines ending at an Elevator Depot work as before.
+Station import/export rows: on a line with no Train Hub, a row you set now keeps its amount for its own station and passes the rest along the line, so a station joining two lines carries cargo between them. Clicking a row to Import sets 100 (50 on a station joining lines without a hub), Export sets 0, and a row can go back to Default. Elevator Depot: its rows now reach trains without a Train Hub, and sliders you have not moved mean Import 100 and Export 0 on every depot, including existing ones when the save loads.
 ```
 
 ### Either way: the styling pass
