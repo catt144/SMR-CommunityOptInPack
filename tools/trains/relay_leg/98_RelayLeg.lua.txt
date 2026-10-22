@@ -1,0 +1,316 @@
+-- TEMPORARY station rows relay leg (prompt STATION_ROWS_RELAY_LEG_medium.md, 2026-10-22).
+-- Unattended smoke of the shipping relay code on SMRTK_A.sav: reads, three sols of play,
+-- one in-memory hubless row (set, then D.Clear), icon and tooltip reads, a refresh timing,
+-- then the owner's glance on the depot panel. Writes no save (autosave suspended, no save
+-- call), no module option, no file. The hubless row exists in memory only.
+RelayLeg = {}
+RelayLeg.surface = false
+RelayLeg.underground = false
+RelayLeg.hubs = 0
+RelayLeg.count = 0
+
+function RelayLeg.Say(s)
+    ModLog("[RELAYLEG] " .. tostring(s):gsub("%%", "%%%%"))
+    if FlushLogFile then FlushLogFile() end
+end
+
+function RelayLeg.WaitFor(test, ms)
+    local limit = RealTime() + ms
+    while not test() and RealTime() < limit do Sleep(250) end
+    return test()
+end
+
+function RelayLeg.Id(o)
+    if not o then return "nil" end
+    if type(o) ~= "table" then return tostring(o) end
+    return tostring(o.class) .. "(" .. tostring(o.handle) .. ")"
+end
+
+function RelayLeg.Text(t)
+    if type(t) == "table" then
+        local ok, s = pcall(_InternalTranslate, t)
+        if ok then return tostring(s) end
+    end
+    return tostring(t)
+end
+
+function RelayLeg.Stage(name, fn)
+    local ok, err = pcall(fn)
+    if not ok then RelayLeg.Say("ERROR " .. name .. " " .. tostring(err)) end
+    if FlushLogFile then FlushLogFile() end
+    return ok
+end
+
+function RelayLeg.Stock(st, res)
+    local req = st.supply and st.supply[res]
+    return req and req:GetActualAmount() or "none"
+end
+
+function RelayLeg.Trains()
+    local list, seen = {}, {}
+    local colony = rawget(_G, "UIColony")
+    for _, t in ipairs(colony and colony.labels.Train or empty_table) do
+        if not seen[t] then seen[t] = true; list[#list + 1] = t end
+    end
+    for _, city in pairs(rawget(_G, "Cities") or empty_table) do
+        for _, t in ipairs(type(city) == "table" and city.labels and city.labels.Train or empty_table) do
+            if not seen[t] then seen[t] = true; list[#list + 1] = t end
+        end
+    end
+    return list
+end
+
+function RelayLeg.Cargo(t)
+    local parts = {}
+    for res, n in sorted_pairs(t.stockpiled_amount or empty_table) do
+        if n ~= 0 then parts[#parts + 1] = tostring(res) .. "=" .. tostring(n) end
+    end
+    return #parts > 0 and table.concat(parts, ",") or "empty"
+end
+
+function RelayLeg.Boot1()
+    RelayLeg.Say("BOOT build=" .. tostring(rawget(_G, "BuildVersion")) .. " lua_revision=" .. tostring(rawget(_G, "LuaRevision")))
+    for _, mod in ipairs(rawget(_G, "ModsLoaded") or empty_table) do
+        RelayLeg.Say("BOOT mod id=" .. tostring(type(mod) == "table" and mod.id or mod)
+            .. " version=" .. tostring(type(mod) == "table" and mod.version))
+    end
+    local P = rawget(_G, "SMROptInPack")
+    for _, id in ipairs({ "StationRows", "TrainHub", "ElevatorDepot" }) do
+        local on = P and type(P.IsActive) == "function" and P.IsActive(id)
+        RelayLeg.Say("BOOT module " .. id .. " active=" .. tostring(on))
+    end
+    local D = rawget(_G, "SMROptInTrainDistribution")
+    for _, name in ipairs({ "WaterFill", "IsJunction", "Clear" }) do
+        RelayLeg.Say("BOOT witness SMROptInTrainDistribution." .. name .. "=" .. type(D and D[name]))
+    end
+    RelayLeg.Say("BOOT distribution_error=" .. tostring(D and D.error))
+    RelayLeg.Say("BOOT autosave_suspended=" .. tostring(config.AutosaveSuspended))
+end
+
+function RelayLeg.Census()
+    local D, E = SMROptInTrainDistribution, rawget(_G, "SMRElevatorDepot")
+    local hubs, stations = 0, 0
+    RelayLeg.hubless, RelayLeg.ordinary, RelayLeg.surface = false, false, false
+    RelayLeg.stations = {}
+    D.Refresh()
+    for _, st in ipairs(UIColony.labels.Station or empty_table) do
+        stations = stations + 1
+        RelayLeg.stations[#RelayLeg.stations + 1] = st
+        local is_hub = IsKindOf(st, "SMROptInTrainHubBase")
+        if is_hub then hubs = hubs + 1 end
+        local depot = E and E.IsDepot and E.IsDepot(st) or false
+        local hub = D.HubFor(st)
+        local junction = (not is_hub) and D.IsJunction(st) or false
+        RelayLeg.Say("CENSUS station " .. RelayLeg.Id(st) .. " hub_class=" .. tostring(is_hub)
+            .. " HubFor=" .. RelayLeg.Id(hub) .. " IsJunction=" .. tostring(junction)
+            .. " depot=" .. tostring(depot) .. " row_station=" .. tostring(D.IsRowStation(st)))
+        if D.IsRowStation(st) then
+            if not hub then RelayLeg.hubless = RelayLeg.hubless or st end
+            RelayLeg.ordinary = RelayLeg.ordinary or st
+        end
+    end
+    if E and E.PairOf then
+        local s, u = E.PairOf()
+        RelayLeg.surface = s or false
+        RelayLeg.underground = u or false
+        RelayLeg.Say("CENSUS depot_pair surface=" .. RelayLeg.Id(s) .. " underground=" .. RelayLeg.Id(u))
+    end
+    for _, t in ipairs(RelayLeg.Trains()) do
+        RelayLeg.Say("CENSUS train " .. RelayLeg.Id(t) .. " command=" .. tostring(t.command)
+            .. " station=" .. RelayLeg.Id(t.current_station) .. " cargo=" .. RelayLeg.Cargo(t))
+    end
+    RelayLeg.hubs = hubs
+    RelayLeg.count = stations
+    RelayLeg.Say("CENSUS hubs=" .. hubs .. " stations=" .. stations .. " trains=" .. #RelayLeg.Trains()
+        .. " hubless_row_station=" .. RelayLeg.Id(RelayLeg.hubless))
+end
+
+function RelayLeg.Depot()
+    local E = SMRElevatorDepot
+    for _, half in ipairs({ { "surface", RelayLeg.surface }, { "underground", RelayLeg.underground } }) do
+        local o = half[2]
+        if not o then
+            RelayLeg.Say("DEPOT " .. half[1] .. " absent")
+        else
+            for _, res in ipairs(o.storable_resources or empty_table) do
+                local target, set = E.Target(o, res)
+                local entry = E.HubEntry(o, res)
+                local entry_s = type(entry) == "table" and (tostring(entry.mode) .. "/" .. tostring(entry.percent)) or tostring(entry)
+                RelayLeg.Say("DEPOT " .. half[1] .. " " .. RelayLeg.Id(o) .. " res=" .. tostring(res)
+                    .. " State=" .. tostring(E.State(o, res)) .. " Target=" .. tostring(target)
+                    .. " set=" .. tostring(set) .. " HubEntry=" .. entry_s)
+            end
+        end
+    end
+end
+
+function RelayLeg.Rows()
+    local D = SMROptInTrainDistribution
+    for _, st in ipairs(RelayLeg.stations) do
+        if IsKindOf(st, "SMROptInTrainHubBase") then
+            local all = rawget(st, D.FIELD)
+            if not all then RelayLeg.Say("ROWS hub " .. RelayLeg.Id(st) .. " table=nil") end
+            for station, rows in pairs(all or empty_table) do
+                for res, e in sorted_pairs(rows) do
+                    RelayLeg.Say("ROWS hub " .. RelayLeg.Id(st) .. " station=" .. RelayLeg.Id(station)
+                        .. " res=" .. tostring(res) .. " mode=" .. tostring(e.mode) .. " percent=" .. tostring(e.percent))
+                end
+            end
+        elseif D.IsRowStation(st) then
+            local rows = rawget(st, D.LOCAL_FIELD)
+            if not rows then RelayLeg.Say("ROWS station " .. RelayLeg.Id(st) .. " saved=nil") end
+            for res, e in sorted_pairs(rows or empty_table) do
+                RelayLeg.Say("ROWS station " .. RelayLeg.Id(st) .. " saved res=" .. tostring(res)
+                    .. " mode=" .. tostring(e.mode) .. " percent=" .. tostring(e.percent))
+            end
+            for _, res in ipairs({ "Metals", "Concrete" }) do
+                local mode, percent, cap, target = D.RowState(st, res)
+                RelayLeg.Say("ROWS station " .. RelayLeg.Id(st) .. " RowState res=" .. res .. " mode=" .. tostring(mode)
+                    .. " percent=" .. tostring(percent) .. " cap=" .. tostring(cap) .. " target=" .. tostring(target))
+            end
+        end
+    end
+end
+
+function RelayLeg.SolLine(tag)
+    local D = SMROptInTrainDistribution
+    RelayLeg.Say(tag .. " day=" .. tostring(UIColony.day) .. " D.calls=" .. tostring(D.calls)
+        .. " time_factor=" .. tostring(GetTimeFactor()))
+    for _, st in ipairs(RelayLeg.stations) do
+        if IsValid(st) then
+            RelayLeg.Say(tag .. " station " .. RelayLeg.Id(st) .. " CallsFor=" .. tostring(D.CallsFor(st))
+                .. " Metals=" .. tostring(RelayLeg.Stock(st, "Metals")) .. " Concrete=" .. tostring(RelayLeg.Stock(st, "Concrete")))
+        end
+    end
+    for _, t in ipairs(RelayLeg.Trains()) do
+        RelayLeg.Say(tag .. " train " .. RelayLeg.Id(t) .. " command=" .. tostring(t.command)
+            .. " station=" .. RelayLeg.Id(t.current_station) .. " cargo=" .. RelayLeg.Cargo(t))
+    end
+end
+
+-- Runs n sols at the game's top UI speed, capped in real time; logs at each sol boundary.
+function RelayLeg.RunSols(n, cap_ms, prefix)
+    local start = UIColony.day
+    SetGameSpeed(const.GameSpeeds.fastest)
+    local limit = RealTime() + cap_ms
+    local seen = start
+    while UIColony.day < start + n and RealTime() < limit do
+        Sleep(250)
+        if UIColony.day ~= seen then
+            seen = UIColony.day
+            RelayLeg.Stage(prefix .. "SOL", function() RelayLeg.SolLine(prefix .. "SOL " .. (seen - start)) end)
+        end
+    end
+    SetGameSpeed(0)
+    RelayLeg.Say(prefix .. "RUN done sols=" .. (UIColony.day - start) .. " capped=" .. tostring(UIColony.day < start + n))
+end
+
+function RelayLeg.Hubless()
+    local D, st = SMROptInTrainDistribution, RelayLeg.hubless
+    if not st then RelayLeg.Say("HUBLESS skip: every row station is hub-owned"); return end
+    -- in memory only: no save follows, and D.Clear below removes the row again
+    local ok, why = D.Set(st, "Metals", "import", 100)
+    RelayLeg.Say("HUBLESS set " .. RelayLeg.Id(st) .. " ok=" .. tostring(ok) .. " why=" .. tostring(why)
+        .. " CallsFor=" .. tostring(D.CallsFor(st)) .. " Metals=" .. tostring(RelayLeg.Stock(st, "Metals")))
+    RelayLeg.RunSols(2, 240000, "HUBLESS ")
+    RelayLeg.Say("HUBLESS after " .. RelayLeg.Id(st) .. " CallsFor=" .. tostring(D.CallsFor(st))
+        .. " Metals=" .. tostring(RelayLeg.Stock(st, "Metals")))
+    local cok, cwhy = D.Clear(st, "Metals")
+    RelayLeg.Say("HUBLESS cleared ok=" .. tostring(cok) .. " why=" .. tostring(cwhy)
+        .. " saved=" .. tostring(rawget(st, D.LOCAL_FIELD)))
+end
+
+function RelayLeg.Icon()
+    for _, name in ipairs({ "resource_accept.tga", "resource_storing.tga", "elevator_resource_up.png",
+        "elevator_resource_down.png", "resource_no_accept.png" }) do
+        local w, h = UIL.MeasureImage("UI/IconsRemaster/Sections/" .. name)
+        RelayLeg.Say("ICON " .. name .. " w=" .. tostring(w) .. " h=" .. tostring(h))
+    end
+end
+
+function RelayLeg.Tooltip()
+    for _, pick in ipairs({ { "station", RelayLeg.ordinary }, { "depot_surface", RelayLeg.surface } }) do
+        local st = pick[2]
+        if not st then
+            RelayLeg.Say("TOOLTIP " .. pick[1] .. " absent")
+        else
+            local s = RelayLeg.Text(st:ResourceRolloverText("Metals"))
+            RelayLeg.Say("TOOLTIP " .. pick[1] .. " " .. RelayLeg.Id(st) .. " len=" .. #s .. " text=" .. s:sub(1, 300))
+        end
+    end
+end
+
+function RelayLeg.Refresh()
+    local D = SMROptInTrainDistribution
+    local t0 = GetPreciseTicks(1000000)
+    for i = 1, 100 do D.Refresh() end
+    local us = GetPreciseTicks(1000000) - t0
+    -- no in-game division: engine int/int is int (EF-116); the agent computes the mean
+    RelayLeg.Say("REFRESH n=100 total_us=" .. tostring(us)
+        .. " hubs=" .. tostring(RelayLeg.hubs) .. " stations=" .. tostring(RelayLeg.count))
+end
+
+function RelayLeg.Errors()
+    local K = rawget(_G, "SMRTK")
+    RelayLeg.Say("ERRORS smrtk_error_count=" .. tostring(K and K.error_count))
+    local shown = 0
+    for _, rec in ipairs(K and K.ring or empty_table) do
+        if tostring(rec.text):find("SMRTK_ERROR", 1, true) and shown < 20 then
+            shown = shown + 1
+            RelayLeg.Say("ERRORS ring n=" .. tostring(rec.n) .. " " .. tostring(rec.text):sub(1, 600))
+        end
+    end
+end
+
+function RelayLeg.Run()
+    local err = LoadGame("SMRTK_A.sav", {})
+    if err then RelayLeg.Say("LOADERR " .. tostring(err)); return end
+    if not RelayLeg.WaitFor(function()
+        local colony = rawget(_G, "UIColony")
+        return rawget(_G, "MainCity") and colony and colony.labels
+    end, 120000) then RelayLeg.Say("LOADERR city never came up"); return end
+    Sleep(5000)
+    SetGameSpeed(0)
+    RelayLeg.Say("LOAD ok day=" .. tostring(UIColony.day) .. " map=" .. tostring(rawget(_G, "CurrentMap")))
+    RelayLeg.Stage("CENSUS", RelayLeg.Census)
+    RelayLeg.Stage("DEPOT", RelayLeg.Depot)
+    RelayLeg.Stage("ROWS", RelayLeg.Rows)
+    RelayLeg.Stage("RUN", function() RelayLeg.RunSols(3, 360000, "") end)
+    RelayLeg.Stage("HUBLESS", RelayLeg.Hubless)
+    RelayLeg.Stage("ICON", RelayLeg.Icon)
+    RelayLeg.Stage("TOOLTIP", RelayLeg.Tooltip)
+    RelayLeg.Stage("REFRESH", RelayLeg.Refresh)
+    RelayLeg.Stage("ERRORS", RelayLeg.Errors)
+    RelayLeg.Stage("READY", function()
+        SetGameSpeed(0)
+        local s = RelayLeg.surface
+        if s then
+            ViewObjectAndChangeMap(s)
+            Sleep(3000)
+            SelectObj(s)
+        end
+        RelayLeg.Say("READY handle=" .. tostring(s and s.handle))
+    end)
+    -- the owner's glance: wait for them to close the game, else time out
+    Sleep(30 * 60 * 1000)
+    RelayLeg.Say("TIMEOUT glance window passed")
+end
+
+function RelayLeg.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        config.AutosaveSuspended = true
+        RelayLeg.Stage("BOOT", RelayLeg.Boot1)
+        if not RelayLeg.WaitFor(function() return GetPreGameMainMenu() end, 300000) then
+            RelayLeg.Say("TIMEOUT menu"); RelayLeg.Say("END"); quit(); return
+        end
+        Sleep(2000)
+        local ok, err = pcall(RelayLeg.Run)
+        if not ok then RelayLeg.Say("ERROR run " .. tostring(err)) end
+        RelayLeg.Say("END")
+        Sleep(1000)
+        quit()
+    end)
+end
+
+RelayLeg.Boot()

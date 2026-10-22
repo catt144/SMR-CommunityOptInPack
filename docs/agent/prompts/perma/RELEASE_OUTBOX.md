@@ -49,6 +49,9 @@ bumps one.
   by the second audit. The audit gate for v1.0.4 is cleared; release proceeds through
   `docs/agent/prompts/perma/release_prompt.md`. No named player's save is verified fixed;
   this revision is not tested in game. Refresh latency on a large colony is unmeasured.
+  An unattended in-game smoke on `SMRTK_A.sav` (2026-10-22) logged no error and the depot targets as
+  ruled, with `D.Refresh()` at 11.10 ms on 19 stations, and the owner's glance found it clean
+  (`docs/agent/reports/STATION_ROWS_RELAY_LEG_20261022.md`).
 
 ### Pending · Arboretum test build (2026-10-03, D19)
 - Adds an off-by-default in-dome service consuming Seeds, using vanilla Large Garden art.

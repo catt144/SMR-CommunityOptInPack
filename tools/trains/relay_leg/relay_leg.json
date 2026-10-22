@@ -1,0 +1,16 @@
+{
+  "leg": "station-rows-relay-leg",
+  "_what": "Unattended smoke of the relay code on SMRTK_A.sav plus the owner's glance; writes no save. Prompt STATION_ROWS_RELAY_LEG_medium.md.",
+  "kit": "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit",
+  "park": "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\relay_leg",
+  "stripPattern": "Code/98_RelayLeg",
+  "anchorAfter": "99_FixtureCarry.lua",
+  "bootSymbol": "RelayLeg.Boot",
+  "symbolNamespace": "RelayLeg",
+  "permanent": ["Code/70_SMRTK_Core.lua"],
+  "mustNotBeListed": ["Code/96_AutoRunFlag.lua", "Code/97_ForceInactive.lua", "Code/98_EnablePathLeg.lua"],
+  "mustNotBeListedWhy": "No competing autorun, forced-inactive override or enable-path driver may race the leg.",
+  "bannedPatterns": ["SaveGame\\s*\\(", "CurrentModOptions", "SetModOption"],
+  "requiredPresent": ["SMRTK_A.sav", "config.AutosaveSuspended = true", "in memory only", "D.Clear(st, \"Metals\")"],
+  "payloads": [{"src": "98_RelayLeg.lua.txt", "dst": "98_RelayLeg.lua", "selfDrives": true}]
+}

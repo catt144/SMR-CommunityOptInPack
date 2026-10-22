@@ -1,0 +1,671 @@
+					Render 0:00:00:007
+*** executable info
+Timestamp:     	6aba6e65
+Date:          	Mon Sep 28 09:40:53 2026
+Command line:  	
+Compiler:      	195136247, 142 (VS 2019) or newer
+
+
+*** hardware info
+CPU name      	Intel(R) Core(TM) i7-14700K
+CPU MHz       	3418
+CPU cores     	20/28
+Phys. Memory   	65278 MBytes
+Memory In Use  	48%
+Disk Free      	972171 MBytes
+
+
+*** OS info
+OS:            	Windows 11
+Version:       	10.0.26100 
+
+
+*** Debug::Init()
+
+
+					Render 0:00:00:089
+Steam initialized (AppId 3215050)
+					Render 0:00:00:093
+Drive type for game installation: SSD, savegames: SSD
+Language: English
+					Render 0:00:02:537
+*** graphics info
+GPU                            	NVIDIA GeForce RTX 4080 Feature Level: 12.1 {  DoublePrecisionFloatShaderOps: 1 OutputMergerLogicOp: 1 MinPrecisionSupport: 2 TiledResourcesTier: 4 ResourceBindingTier: 3 PSSpecifiedStencilRefSupported: 0 TypedUAVLoadAdditionalFormats: 1 ROVsSupported: 1 ConservativeRasterizationTier: 3 MaxGPUVirtualAddressBitsPerResource: 40 StandardSwizzle64KBSupported: 0 CrossNodeSharingTier: 0 CrossAdapterRowMajorTextureSupported: 0 VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation: 1 ResourceHeapTier: 2 NotZeroedPools: 1 UMA: 0 UnalignedBlockTextures: 1}
+API                            	d3d12
+GPU Driver Version             	32.0.16.1742
+GPU Driver Package Version     	617.42
+GPU Dedicated Video Memory     	16048 MB
+					Render 0:00:02:799
+
+Libs: Network, Sequences, MouseTrackWin, DumbAI, MapGen, Paradox, TriggersAndEvents, Notifications, Research, Resources, Tutorial, Objectives 
+
+					Render 0:00:03:240
+
+Platform: desktop, editor, goldmaster, paradox, pc, steam
+
+					Render 0:00:05:638
+*** audio info
+Audio Endpoint                 	Headphones (3- A50 Game)
+						Lua 0:00:05:639
+Lua revision: 406343
+Assets revision: 33225
+						Lua 0:00:05:640
+Steam AppID: 3215050
+Build version: 1.1.1.406343
+Build branch:  Release
+						Lua 0:00:19:148
+Account storage loaded successfully in 4 ms
+						Lua 0:00:19:159
+DLC norman loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:19:160
+DLC thomas loaded, lua revision 406343, assets revision 33225
+						Lua 0:00:19:193
+[mod] Loaded mod def Relaunched Fix Pack (id SMR_CommunityFixPack, v1.00-026) unpacked from appdata
+[mod] Loaded mod def Community Fix Pack — Test Kit (id SMR_CommunityFixPackTestKit, v0.00-001) unpacked from appdata
+[mod] Loaded mod def DEV ONLY - Opt-In Modules Workbench (never upload) (id SMR_CommunityOptInPack_Workbench, v1.00-000) unpacked from appdata
+[mod] Loaded mod def Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-003) unpacked from appdata
+[mod] Loaded mod def Save Buffer Fix (id SMR_SaveBufferFix, v0.00-001) unpacked from appdata
+[mod] Loaded mod def TEMPORARY - Linux NVIDIA 580 Crash Workaround (id SMR_FR1TempWorkaround, v0.00-003) unpacked from appdata
+						Lua 0:00:19:692
+[mod] [CommunityFixPack] LoadFirst: already first of 5 (SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack, qL8sA2m, SMR_CommunityOptInPack_Workbench); nothing written
+[mod] [CommunityFixPack] LoadFirst: applied
+						Lua 0:00:19:702
+[mod] [CommunityFixPack] LanderEmptyLaunch: applied
+						Lua 0:00:19:707
+[mod] [CommunityFixPack] ShelterReflex: applied
+						Lua 0:00:19:713
+[mod] [CommunityFixPack] TrackSalvageWipe: applied
+						Lua 0:00:19:720
+[mod] [CommunityFixPack] LakeEntombment: applied
+						Lua 0:00:19:725
+[mod] [CommunityFixPack] RocketDroneChurn: applied
+						Lua 0:00:19:730
+[mod] [CommunityFixPack] ShuttleTransportCache: applied
+						Lua 0:00:19:736
+[mod] [CommunityFixPack] VacuumWalks: applied
+						Lua 0:00:19:741
+[mod] [CommunityFixPack] ArrivalDeaths: applied
+						Lua 0:00:19:747
+[mod] [CommunityFixPack] PassageHubSalvageDrain: applied
+						Lua 0:00:19:753
+[mod] [CommunityFixPack] HubLocalAccess: applied
+						Lua 0:00:19:760
+[mod] [CommunityFixPack] HubMarkerDeparture: applied
+						Lua 0:00:19:765
+[mod] [CommunityFixPack] RescueReturnText: applied
+						Lua 0:00:19:770
+[mod] [CommunityFixPack] ObsoleteHomeRescue: applied
+						Lua 0:00:19:775
+[mod] [CommunityFixPack] StaleReservations: applied
+						Lua 0:00:19:780
+[mod] [CommunityFixPack] CrystalMysteryHang: applied
+						Lua 0:00:19:786
+[mod] [CommunityFixPack] DustSicknessBiorobots: applied
+						Lua 0:00:19:792
+[mod] [CommunityFixPack] PayloadTemplateRefill: applied
+						Lua 0:00:19:797
+[mod] [CommunityFixPack] ShuttleHubOffAvailable: applied
+						Lua 0:00:19:802
+[mod] [CommunityFixPack] FreedHousingNotice: applied
+						Lua 0:00:19:808
+[mod] [CommunityFixPack] LandscapeUnitFilter: applied
+						Lua 0:00:19:814
+[mod] [CommunityFixPack] RocketInteractGuard: applied
+						Lua 0:00:19:819
+[mod] [CommunityFixPack] TrackConnectorPingPong: applied
+						Lua 0:00:19:824
+[mod] [CommunityFixPack] TrackTunnelPowerBridge: applied
+						Lua 0:00:19:829
+[mod] [CommunityFixPack] SequenceLatents: applied
+						Lua 0:00:19:835
+[mod] [CommunityFixPack] TrackSalvageRefund: applied
+						Lua 0:00:19:841
+[mod] [CommunityFixPack] DroneTransportMinors: applied
+						Lua 0:00:19:845
+[mod] [CommunityFixPack] ScanDowngrade: applied
+						Lua 0:00:19:851
+[mod] [CommunityFixPack] BombardmentSpread: applied
+						Lua 0:00:19:856
+[mod] [CommunityFixPack] ExtenderFlapChurn: applied
+						Lua 0:00:19:861
+[mod] [CommunityFixPack] SaintBlessing: applied
+						Lua 0:00:19:866
+[mod] [CommunityFixPack] ExoticDepositSign: applied
+						Lua 0:00:19:872
+[mod] [CommunityFixPack] JumboCaveReinforcementWedge: applied
+						Lua 0:00:19:878
+[mod] [CommunityFixPack] SilentHitMomentFX: applied						Lua 0:00:19:879
+
+						Lua 0:00:19:886
+[mod] [CommunityFixPack] CloggedBuildingRelease: applied
+						Lua 0:00:19:891
+[mod] [CommunityFixPack] FactionDomeSizeGate: applied
+						Lua 0:00:19:897
+[mod] [CommunityFixPack] HabitatExpeditionReturn: applied
+						Lua 0:00:19:902
+[mod] [CommunityFixPack] HabitatExpeditionDraft: applied
+						Lua 0:00:19:907
+[mod] [CommunityFixPack] RoverSubclassManifest: applied
+						Lua 0:00:19:912
+[mod] [CommunityFixPack] DryFarmingFarms: applied
+						Lua 0:00:19:918
+[mod] [CommunityFixPack] WildfireCureVisit: applied						Lua 0:00:19:919
+
+						Lua 0:00:19:925
+[mod] [CommunityFixPack] GhostPowerCells: applied
+						Lua 0:00:19:930
+[mod] [CommunityFixPack] DeportRocketLaunch: applied
+						Lua 0:00:19:936
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: applied
+						Lua 0:00:19:942
+[mod] [CommunityFixPack] SaveSanitizer: applied
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[mod] [SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[SMRTest] no debug.getinfo (mod sandbox) — [install] probes will SKIP
+[mod] [SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+[SMRTest] test kit loaded — SMRTest.RunAll(), SMRTest.List(), SMRTest.<ProbeId>()
+						Lua 0:00:19:947
+[mod] [SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+[SMRTK] SMRTK_CORE loaded=true tee=false t=12294 id=1
+						Lua 0:00:19:952
+[mod] [SMRTest][carry] fixture-carry dump available — run SMRTest.FixtureCarry()
+[mod] [CommunityOptInPack] AcknowledgedWarnings: applied
+[mod] [CommunityOptInPack] MultipleSuns: applied
+						Lua 0:00:19:953
+[mod] [CommunityOptInPack] DroneStatDials: applied
+[mod] [CommunityOptInPack] ServiceInterestTags: applied
+[mod] [CommunityOptInPack] StationRows: applied
+[TrainHub] train export floor loaded (standing + transient holds)
+						Lua 0:00:19:954
+[TrainDistribution] station rows loaded (brief 30: hub + hubless)
+[TrainDistribution] native storage-row UI registered
+[mod] [CommunityOptInPack] TrainHub: applied
+						Lua 0:00:19:956
+[TrainHub] hub classes loaded: six-connector hub, built-in drone controller, maintenance reserve
+						Lua 0:00:19:958
+[TrainBay] loaded: the hub refuses add-train; legacy HubTrain compatibility
+[mod] [CommunityOptInPack] ElevatorDepot: applied
+						Lua 0:00:19:959
+[mod] [CommunityOptInPack] DEV workbench loaded; staged options share the Opt-In Modules page						Lua 0:00:19:960
+
+[mod] [CommunityOptInPack] Arboretum: applied
+						Lua 0:00:20:685
+[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained
+						Lua 0:00:20:757
+[mod] [CommunityFixPack] SaintBlessing: inactive (no dome-colonists trait presets)
+						Lua 0:00:20:851
+Reloading done in 1658 ms
+						Lua 0:00:20:853
+Available DLCs: norman(Feeding the Future),thomas(Interplanetary Codex) 
+						Lua 0:00:20:900
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=2
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=DataLoading t=12294 id=2
+						Lua 0:00:21:449
+[preset] Preset postprocess took 249 ms.
+						Lua 0:00:21:520
+482 / 482 particle streams loaded in 64 ms.
+						Lua 0:00:21:521
+5 / 5 particle streams loaded in 1 ms.
+						Lua 0:00:21:523
+[mod] [CommunityFixPack] SilentHitMomentFX: registered 11 missing animation-moment preset(s)
+						Lua 0:00:21:524
+[mod] [CommunityFixPack] FactionDomeSizeGate: 7 faction dislike(s) now wait for 10 colonists in a dome
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityFixPack] DryFarmingFarms: added 2 water entr(y/ies) at -50% to DryFarming (1 adopted, 4 of 4 farms loaded)
+[mod] [CommunityOptInPack] MultipleSuns: BuildingTemplates.ArtificialSun not found — build limit NOT lifted (binding fix still active)
+						Lua 0:00:21:788
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+						Lua 0:00:21:789
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+[mod] [CommunityOptInPack] MultipleSuns: Artificial Sun build-once limit lifted
+						Lua 0:00:21:883
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=3
+						Lua 0:00:21:896
+[mod] [RELAYLEG] BOOT build=1.1.1.406343 lua_revision=406343
+[mod] [RELAYLEG] BOOT mod id=SMR_CommunityFixPack version=26
+[mod] [RELAYLEG] BOOT mod id=SMR_CommunityFixPackTestKit version=1
+[mod] [RELAYLEG] BOOT mod id=SMR_CommunityOptInPack version=3
+[mod] [RELAYLEG] BOOT mod id=SMR_CommunityOptInPack_Workbench version=0
+[mod] [RELAYLEG] BOOT module StationRows active=true
+[mod] [RELAYLEG] BOOT module TrainHub active=true
+[mod] [RELAYLEG] BOOT module ElevatorDepot active=true
+[mod] [RELAYLEG] BOOT witness SMROptInTrainDistribution.WaterFill=function
+[mod] [RELAYLEG] BOOT witness SMROptInTrainDistribution.IsJunction=function
+[mod] [RELAYLEG] BOOT witness SMROptInTrainDistribution.Clear=function
+[mod] [RELAYLEG] BOOT distribution_error=nil
+[mod] [RELAYLEG] BOOT autosave_suspended=true
+						Lua 0:00:21:927
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=4
+						Lua 0:00:22:131
+[LUA ERROR] CommonLua/Editor/ArtSpecEditor.lua:573: attempt to call a nil value (global 'EntitySpecPathToEntity')
+  CommonLua/Editor/ArtSpecEditor.lua(573):   <>
+  CommonLua/Preset.lua(541):  upvalue f1
+  CommonLua/Core/classes.lua(170):  method PostLoad
+  CommonLua/Modding/ModItem.lua(2518):   <>
+  [C](-1):  global sprocall
+  CommonLua/Modding/Mod.lua(666):   <>
+  CommonLua/Modding/Mod.lua(740):   <>
+  CommonLua/Modding/Mod.lua(664):  method LoadItems
+  CommonLua/Modding/Mod.lua(2185):  global ContinueModsReloadItems
+  CommonLua/Dlc.lua(603):  global LoadDlcs
+  CommonLua/Core/autorun.lua(447):  local StartupSequence
+  CommonLua/Core/autorun.lua(516):   <>
+        --- end of stack
+Locals:
+	                self |   object EntitySpec 'SMROptInArboretumGlass'
+[mod] Loaded mod items for: SMR_CommunityFixPack, SMR_CommunityFixPackTestKit, SMR_CommunityOptInPack, SMR_CommunityOptInPack_Workbench
+						Lua 0:00:22:388
+[mod] [CommunityFixPack] SaintBlessing: the shipped code resolves the trait label itself — data left untouched; save re-base armed for 1 preset(s) of 2
+[mod] [CommunityFixPack] DryFarmingFarms: left 1 farm(s) alone because DryFarming already reaches them (FarmUnderground via Farm)
+						Lua 0:00:22:486
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=12294 id=5
+						Lua 0:00:23:416
+[PdxSDK] Started up. Took 1776
+						Lua 0:00:23:824
+[Braze] SessionStart error The server name or address could not be resolved
+
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:24:098
+[Braze] SessionStart error The server name or address could not be resolved
+
+						Lua 0:00:24:099
+[Braze] Failed sending launcher ev The server name or address could not be resolved
+
+[Braze] Failed to init
+						Lua 0:00:24:847
+Load Game: 
+	lua_revision: 406343 (last saved with) 
+	orig_lua_revision: 403908 (created with) 
+	assets_revision: 33225 
+
+	dlcs: norman, thomas 
+
+	mods: SMR_CommunityOptInPack, SMR_CommunityFixPackTestKit, SMR_CommunityFixPack, SMR_TrainHubDev_20260918, SMR_RailShaftDev_20260923, SMR_SaveBufferFix, SMR_ElevatorStationDev_20260929, SMR_TrainHubPrototype_20260918 
+						Lua 0:00:24:869
+*** Reloading assets from folder 'BinAssets/'
+						Lua 0:00:28:169
+*** Assets reloaded in 3.3 s, read 359.0 MB, read speed 108.8 MB/s, average read 8137 bytes.
+						Lua 0:00:29:287
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=13604 id=6
+						Lua 0:00:30:164
+[mod] [SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=13604 id=7
+[SMRTK] SMRTK_CONSOLE_ARM enabled=true hook=PreLoadGame t=13604 id=7
+						Lua 0:00:30:879
+[mod] This savegame tries to load Mod Relaunched Fix Pack: Opt-In Modules (id SMR_CommunityOptInPack, v1.00-000), which is loaded with a different version 1.00-003
+						Lua 0:00:32:553
+[mod] [CommunityFixPack] SilentHitMomentFX: restored 5 missing hit-moment tracker(s) on load
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:32:818
+game_settings:
+    sponsor: SpaceY
+    profile: politician
+    founding_faction: UnitedColonistFront
+    rival_colonies: paradox, NASA, Brazil
+    mystery_random: 
+    game_rules: (none)
+more_game_settings: save_game_id: IsDKXg6Ddmz3wE5g, mystery: UnitedEarthMystery, coordinates: 15N179E, landing_spot: , logo: SpaceY
+map_conditions: altitude: -3699, temperature: -43, cold_wave: 109, dust_devils: 39, dust_storm: 0, meteors: 37
+map_resources: concrete: 243, metals: 147, precious_metals: 147, water: 147
+						Lua 0:00:32:980
+[mod] [CommunityFixPack] GhostPowerCells: maps=2 cleared=0 tunnel_skipped=38 shape_protected=0 reconnected=0 retry_failed=0 unbuilt_skipped=0 map_failed=0 elapsed_ms=122
+[mod] [CommunityFixPack] UniversalDepotSeedsToggle: load pass updated the resource toggles on 0 Universal Depot(s)
+[mod] [CommunityFixPack] SaveSanitizer: F95 astrogeologist-residue pass removed 0 modifier(s), left 0 unidentified
+						Lua 0:00:32:981
+Game Loaded in 8134 ms
+[mod] [SMRTK] SMRTK_PROVENANCE actions=2 last=tab_Saves last_id=13 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=8
+[SMRTK] SMRTK_PROVENANCE actions=2 last=tab_Saves last_id=13 present=true session=1791046548:158077098:67966858:460623979 t=35790404 id=8
+						Lua 0:00:32:992
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=9
+						Lua 0:00:33:005
+[mod] [SMRTK] SMRTK_DOCK action=dock_attach attached=true route="idBottom sibling" status=OK surface=one-toggle+tasks t=35790404 id=10
+						Lua 0:00:33:012
+[mod] [SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+[SMRTest] console enable requested (flag set, no overlay) — press Enter (or Alt-Shift-C) once in a colony
+						Lua 0:00:33:138
+[mod] [SMRTK] SMRTK_SHORTCUT console=true key=Ctrl-Shift-F11 t=35790404 id=11
+						Lua 0:00:37:454
+Game loaded on map BlankBig_01 in 12745 ms
+						Lua 0:00:42:453
+[mod] [RELAYLEG] LOAD ok day=50 map=table: 0000019F5EEE07F0
+						Lua 0:00:42:465
+[mod] [RELAYLEG] CENSUS station StationSmall(2007) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(2008) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationBig(2009) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=true depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(2011) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(2012) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(6243) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station SMROptInTrainHub6(6430) hub_class=true HubFor=nil IsJunction=false depot=false row_station=false
+[mod] [RELAYLEG] CENSUS station SMROptInTrainHub6(6495) hub_class=true HubFor=nil IsJunction=false depot=false row_station=false
+[mod] [RELAYLEG] CENSUS station StationSmall(6827) hub_class=nil HubFor=SMROptInTrainHub6(6495) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(6883) hub_class=nil HubFor=SMROptInTrainHub6(6495) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(6951) hub_class=nil HubFor=SMROptInTrainHub6(6495) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(7411) hub_class=nil HubFor=SMROptInTrainHub6(6495) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(7861) hub_class=nil HubFor=nil IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationBig(7873) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=true depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station SMROptInElevatorDepotDev(9036) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=true row_station=false
+[mod] [RELAYLEG] CENSUS station SMROptInElevatorDepotDev(9041) hub_class=nil HubFor=nil IsJunction=false depot=true row_station=false
+[mod] [RELAYLEG] CENSUS station StationBig(9702) hub_class=nil HubFor=nil IsJunction=true depot=false row_station=true
+[mod] [RELAYLEG] CENSUS station StationSmall(10531) hub_class=nil HubFor=nil IsJunction=false depot=false row_station=true
+						Lua 0:00:42:466
+[mod] [RELAYLEG] CENSUS station StationSmall(10650) hub_class=nil HubFor=SMROptInTrainHub6(6430) IsJunction=false depot=false row_station=true
+[mod] [RELAYLEG] CENSUS depot_pair surface=SMROptInElevatorDepotDev(9036) underground=SMROptInElevatorDepotDev(9041)
+[mod] [RELAYLEG] CENSUS train Train(2000001844) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000001845) command=LoadTrain station=StationSmall(10650) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000001846) command=GotoStation station=StationBig(7873) cargo=Concrete=1000,Electronics=9000,MachineParts=9000,Polymers=9000
+[mod] [RELAYLEG] CENSUS train Train(2000001848) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000001849) command=LoadTrain station=StationSmall(2012) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000001850) command=GotoStation station=UniversalTunnel(10835) cargo=Butter=1000,Meat=1000
+[mod] [RELAYLEG] CENSUS train Train(2000001851) command=GotoStation station=StationSmall(10650) cargo=Concrete=4000,Metals=25000
+[mod] [RELAYLEG] CENSUS train Train(2000002387) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002388) command=GotoStation station=StationSmall(7411) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002389) command=GotoStation station=StationSmall(6883) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002390) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002391) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002392) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002658) command=GotoStation station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] CENSUS train Train(2000002659) command=GotoStation station=SMROptInElevatorDepotDev(9036) cargo=Food=13000,PreciousMetals=9000,Sugar=17000
+[mod] [RELAYLEG] CENSUS train Train(2000003078) command=GotoStation station=StationSmall(10531) cargo=PreciousMetals=1000
+[mod] [RELAYLEG] CENSUS train Train(2000003402) command=LoadTrain station=SMROptInElevatorDepotDev(9041) cargo=Electronics=1000,MachineParts=1000,Polymers=1000
+[mod] [RELAYLEG] CENSUS hubs=2 stations=19 trains=17 hubless_row_station=StationSmall(7861)
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=BlackCube State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=MysteryResource State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Herbs State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Metals State=to_underground Target=21 set=true HubEntry=import/21
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Concrete State=to_underground Target=21 set=true HubEntry=import/21
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Spices State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Food State=to_surface Target=0 set=true HubEntry=export/0
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Sugar State=to_surface Target=0 set=true HubEntry=export/0
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Butter State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=PreciousMetals State=to_surface Target=0 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Bread State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=PreciousMinerals State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Cheese State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Polymers State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Coffee State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=MachineParts State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Electronics State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Meat State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Fuel State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=Seeds State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT surface SMROptInElevatorDepotDev(9036) res=WasteRock State=to_underground Target=100 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=BlackCube State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=MysteryResource State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Herbs State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Metals State=to_underground Target=21 set=true HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Concrete State=to_underground Target=21 set=true HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Spices State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Food State=to_surface Target=0 set=true HubEntry=import/100
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Sugar State=to_surface Target=0 set=true HubEntry=import/100
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Butter State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=PreciousMetals State=to_surface Target=0 set=false HubEntry=import/100
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Bread State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=PreciousMinerals State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Cheese State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Polymers State=to_underground Target=100 set=false HubEntry=export/0
+						Lua 0:00:42:467
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Coffee State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=MachineParts State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Electronics State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Meat State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Fuel State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=Seeds State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] DEPOT underground SMROptInElevatorDepotDev(9041) res=WasteRock State=to_underground Target=100 set=false HubEntry=export/0
+[mod] [RELAYLEG] ROWS station StationSmall(2007) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(2007) RowState res=Metals mode=export percent=9 cap=120000 target=10800
+[mod] [RELAYLEG] ROWS station StationSmall(2007) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(2008) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(2008) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(2008) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationBig(2009) saved=nil
+[mod] [RELAYLEG] ROWS station StationBig(2009) RowState res=Metals mode=import percent=100 cap=240000 target=240000
+[mod] [RELAYLEG] ROWS station StationBig(2009) RowState res=Concrete mode=default percent=4 cap=240000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(2011) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(2011) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(2011) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(2012) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(2012) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(2012) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(6243) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(6243) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(6243) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationBig(2009) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationSmall(2007) res=Metals mode=export percent=9
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationSmall(2011) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationBig(7873) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=SMROptInElevatorDepotDev(9036) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationSmall(2008) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationSmall(6243) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6430) station=StationSmall(2012) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6495) station=StationSmall(6883) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6495) station=StationSmall(6951) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6495) station=StationSmall(6827) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS hub SMROptInTrainHub6(6495) station=StationSmall(7411) res=Metals mode=import percent=100
+[mod] [RELAYLEG] ROWS station StationSmall(6827) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(6827) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(6827) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(6883) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(6883) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(6883) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(6951) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(6951) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(6951) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(7411) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(7411) RowState res=Metals mode=import percent=100 cap=120000 target=120000
+[mod] [RELAYLEG] ROWS station StationSmall(7411) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(7861) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(7861) RowState res=Metals mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(7861) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationBig(7873) saved=nil
+[mod] [RELAYLEG] ROWS station StationBig(7873) RowState res=Metals mode=import percent=100 cap=240000 target=240000
+[mod] [RELAYLEG] ROWS station StationBig(7873) RowState res=Concrete mode=default percent=4 cap=240000 target=10000
+[mod] [RELAYLEG] ROWS station StationBig(9702) saved=nil
+[mod] [RELAYLEG] ROWS station StationBig(9702) RowState res=Metals mode=default percent=4 cap=240000 target=10000
+[mod] [RELAYLEG] ROWS station StationBig(9702) RowState res=Concrete mode=default percent=4 cap=240000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(10531) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(10531) RowState res=Metals mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(10531) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(10650) saved=nil
+[mod] [RELAYLEG] ROWS station StationSmall(10650) RowState res=Metals mode=default percent=8 cap=120000 target=10000
+[mod] [RELAYLEG] ROWS station StationSmall(10650) RowState res=Concrete mode=default percent=8 cap=120000 target=10000
+						Lua 0:00:43:983
+[mod] [RELAYLEG] SOL 1 day=51 D.calls=15 time_factor=20000
+[mod] [RELAYLEG] SOL 1 station StationSmall(2007) CallsFor=2 Metals=120000 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(2008) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationBig(2009) CallsFor=0 Metals=240000 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(2011) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(2012) CallsFor=0 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(6243) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station SMROptInTrainHub6(6430) CallsFor=3 Metals=3974400 Concrete=1993000
+[mod] [RELAYLEG] SOL 1 station SMROptInTrainHub6(6495) CallsFor=6 Metals=1515000 Concrete=1960000
+[mod] [RELAYLEG] SOL 1 station StationSmall(6827) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(6883) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(6951) CallsFor=0 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(7411) CallsFor=0 Metals=118900 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station StationSmall(7861) CallsFor=0 Metals=11300 Concrete=12000
+[mod] [RELAYLEG] SOL 1 station StationBig(7873) CallsFor=1 Metals=240000 Concrete=10000
+[mod] [RELAYLEG] SOL 1 station SMROptInElevatorDepotDev(9036) CallsFor=1 Metals=0 Concrete=0
+[mod] [RELAYLEG] SOL 1 station SMROptInElevatorDepotDev(9041) CallsFor=0 Metals=22166 Concrete=5614
+[mod] [RELAYLEG] SOL 1 station StationBig(9702) CallsFor=1 Metals=45157 Concrete=9404
+[mod] [RELAYLEG] SOL 1 station StationSmall(10531) CallsFor=0 Metals=6603 Concrete=0
+[mod] [RELAYLEG] SOL 1 station StationSmall(10650) CallsFor=1 Metals=114300 Concrete=10000
+[mod] [RELAYLEG] SOL 1 train Train(2000001844) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000001845) command=GotoStation station=UniversalTunnel(10836) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000001846) command=GotoStation station=SMROptInElevatorDepotDev(9036) cargo=PreciousMetals=10000
+[mod] [RELAYLEG] SOL 1 train Train(2000001848) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000001849) command=GotoStation station=StationSmall(2012) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000001850) command=GotoStation station=StationSmall(10650) cargo=Concrete=4000
+[mod] [RELAYLEG] SOL 1 train Train(2000001851) command=GotoStation station=StationBig(7873) cargo=Concrete=4000,Metals=25000
+[mod] [RELAYLEG] SOL 1 train Train(2000002387) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002388) command=GotoStation station=SMROptInTrainHub6(6495) cargo=Metals=1000
+						Lua 0:00:43:984
+[mod] [RELAYLEG] SOL 1 train Train(2000002389) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002390) command=GotoStation station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002391) command=UnloadTrain station=StationSmall(7411) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002392) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002658) command=GotoStation station=StationSmall(2007) cargo=empty
+[mod] [RELAYLEG] SOL 1 train Train(2000002659) command=LoadTrain station=StationBig(7873) cargo=Food=12000,PreciousMetals=9000,Sugar=16000
+[mod] [RELAYLEG] SOL 1 train Train(2000003078) command=UnloadTrain station=StationBig(9702) cargo=PreciousMetals=1000
+[mod] [RELAYLEG] SOL 1 train Train(2000003402) command=GotoStation station=StationBig(9702) cargo=Food=1000,PreciousMetals=4000,Sugar=2000
+						Lua 0:01:09:453
+Story bits: Triggered story bit - UndergroundDeepScanning_Water						Lua 0:01:19:960
+[mod] [RELAYLEG] SOL 2 day=52 D.calls=465 time_factor=20000
+[mod] [RELAYLEG] SOL 2 station StationSmall(2007) CallsFor=11 Metals=120000 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(2008) CallsFor=6 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationBig(2009) CallsFor=8 Metals=236500 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(2011) CallsFor=21 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(2012) CallsFor=18 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(6243) CallsFor=1 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station SMROptInTrainHub6(6430) CallsFor=134 Metals=3996400 Concrete=2033000
+[mod] [RELAYLEG] SOL 2 station SMROptInTrainHub6(6495) CallsFor=165 Metals=1514000 Concrete=1960000
+[mod] [RELAYLEG] SOL 2 station StationSmall(6827) CallsFor=3 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(6883) CallsFor=7 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(6951) CallsFor=7 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(7411) CallsFor=13 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station StationSmall(7861) CallsFor=0 Metals=11300 Concrete=12000
+[mod] [RELAYLEG] SOL 2 station StationBig(7873) CallsFor=26 Metals=240000 Concrete=10000
+[mod] [RELAYLEG] SOL 2 station SMROptInElevatorDepotDev(9036) CallsFor=7 Metals=0 Concrete=0
+[mod] [RELAYLEG] SOL 2 station SMROptInElevatorDepotDev(9041) CallsFor=14 Metals=166 Concrete=614						Lua 0:01:19:961
+
+[mod] [RELAYLEG] SOL 2 station StationBig(9702) CallsFor=15 Metals=45157 Concrete=6313
+[mod] [RELAYLEG] SOL 2 station StationSmall(10531) CallsFor=0 Metals=23241 Concrete=300
+[mod] [RELAYLEG] SOL 2 station StationSmall(10650) CallsFor=9 Metals=120000 Concrete=14000
+[mod] [RELAYLEG] SOL 2 train Train(2000001844) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000001845) command=GotoStation station=StationSmall(2007) cargo=Concrete=4000,WasteRock=4000
+[mod] [RELAYLEG] SOL 2 train Train(2000001846) command=GotoStation station=StationBig(2009) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000001848) command=LoadTrain station=StationSmall(2008) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000001849) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000001850) command=GotoStation station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000001851) command=UnloadTrain station=StationBig(7873) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002387) command=LoadTrain station=StationSmall(6951) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002388) command=UnloadTrain station=StationSmall(7411) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002389) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002390) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002391) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002392) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] SOL 2 train Train(2000002658) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=Metals=3000
+[mod] [RELAYLEG] SOL 2 train Train(2000002659) command=GotoStation station=StationBig(7873) cargo=PreciousMetals=3000
+[mod] [RELAYLEG] SOL 2 train Train(2000003078) command=UnloadTrain station=StationSmall(10531) cargo=Bread=2000,Butter=1000,Concrete=2000,Herbs=5000,Meat=1000,Polymers=1000,Spices=2000
+[mod] [RELAYLEG] SOL 2 train Train(2000003402) command=UnloadTrain station=SMROptInElevatorDepotDev(9041) cargo=PreciousMetals=1000
+						Lua 0:06:42:455
+[mod] [RELAYLEG] RUN done sols=2 capped=true
+						Lua 0:06:42:466
+[mod] [RELAYLEG] HUBLESS set StationSmall(7861) ok=true why=nil CallsFor=0 Metals=11300
+						Lua 0:09:18:414
+Stop sequence Mystery 9 - Update Mystery Log : Finished						Lua 0:09:19:455
+[mod] [RELAYLEG] HUBLESS SOL 1 day=53 D.calls=923 time_factor=20000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(2007) CallsFor=13 Metals=120000 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(2008) CallsFor=11 Metals=119600 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationBig(2009) CallsFor=11 Metals=239500 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(2011) CallsFor=30 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(2012) CallsFor=28 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(6243) CallsFor=1 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station SMROptInTrainHub6(6430) CallsFor=270 Metals=3999400 Concrete=2069000
+[mod] [RELAYLEG] HUBLESS SOL 1 station SMROptInTrainHub6(6495) CallsFor=311 Metals=1512000 Concrete=1960000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(6827) CallsFor=7 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(6883) CallsFor=13 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(6951) CallsFor=14 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(7411) CallsFor=26 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(7861) CallsFor=0 Metals=11300 Concrete=12000
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationBig(7873) CallsFor=100 Metals=240000 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 station SMROptInElevatorDepotDev(9036) CallsFor=13 Metals=0 Concrete=0
+[mod] [RELAYLEG] HUBLESS SOL 1 station SMROptInElevatorDepotDev(9041) CallsFor=29 Metals=166 Concrete=614
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationBig(9702) CallsFor=29 Metals=44157 Concrete=3570
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(10531) CallsFor=0 Metals=22141 Concrete=1020
+[mod] [RELAYLEG] HUBLESS SOL 1 station StationSmall(10650) CallsFor=17 Metals=120000 Concrete=14000
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001844) command=GotoStation station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001845) command=GotoStation station=UniversalTunnel(10836) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001846) command=GotoStation station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001848) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001849) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001850) command=UnloadTrain station=SMROptInTrainHub6(6430) cargo=Concrete=4000,Electronics=3000,Spices=3000,WasteRock=10000
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000001851) command=LoadTrain station=StationBig(7873) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002387) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002388) command=LoadTrain station=StationSmall(7411) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002389) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002390) command=GotoStation station=StationSmall(6883) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002391) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+						Lua 0:09:19:456
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002392) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002658) command=GotoStation station=StationSmall(2007) cargo=Butter=1000,Meat=1000
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000002659) command=GotoStation station=StationBig(7873) cargo=PreciousMetals=2000
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000003078) command=GotoStation station=StationSmall(10531) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 1 train Train(2000003402) command=GotoStation station=SMROptInElevatorDepotDev(9041) cargo=Spices=25000
+						Lua 0:09:55:453
+[mod] [RELAYLEG] HUBLESS SOL 2 day=54 D.calls=1402 time_factor=20000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(2007) CallsFor=26 Metals=120000 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(2008) CallsFor=18 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationBig(2009) CallsFor=14 Metals=239500 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(2011) CallsFor=38 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(2012) CallsFor=40 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(6243) CallsFor=1 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station SMROptInTrainHub6(6430) CallsFor=401 Metals=3999400 Concrete=2097000
+[mod] [RELAYLEG] HUBLESS SOL 2 station SMROptInTrainHub6(6495) CallsFor=467 Metals=1512000 Concrete=1960000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(6827) CallsFor=10 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(6883) CallsFor=19 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(6951) CallsFor=20 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(7411) CallsFor=38 Metals=119900 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(7861) CallsFor=0 Metals=11300 Concrete=12000
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationBig(7873) CallsFor=180 Metals=240000 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 station SMROptInElevatorDepotDev(9036) CallsFor=18 Metals=0 Concrete=0
+[mod] [RELAYLEG] HUBLESS SOL 2 station SMROptInElevatorDepotDev(9041) CallsFor=43 Metals=166 Concrete=614
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationBig(9702) CallsFor=43 Metals=44157 Concrete=3570
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(10531) CallsFor=0 Metals=22141 Concrete=1020
+[mod] [RELAYLEG] HUBLESS SOL 2 station StationSmall(10650) CallsFor=26 Metals=120000 Concrete=10000
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001844) command=LoadTrain station=StationSmall(2008) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001845) command=GotoStation station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001846) command=GotoStation station=SMROptInTrainHub6(6430) cargo=Butter=101000
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001848) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001849) command=LoadTrain station=SMROptInTrainHub6(6430) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001850) command=GotoStation station=StationSmall(10650) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000001851) command=LoadTrain station=StationBig(7873) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002387) command=GotoStation station=StationSmall(6883) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002388) command=LoadTrain station=StationSmall(7411) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002389) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002390) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002391) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002392) command=LoadTrain station=SMROptInTrainHub6(6495) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002658) command=UnloadTrain station=StationSmall(2007) cargo=empty
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000002659) command=GotoStation station=StationBig(7873) cargo=Butter=101000
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000003078) command=GotoStation station=StationBig(9702) cargo=Bread=1000,Butter=34000,Herbs=2000,Meat=1000,Spices=2000
+[mod] [RELAYLEG] HUBLESS SOL 2 train Train(2000003402) command=UnloadTrain station=StationBig(9702) cargo=empty
+						Lua 0:09:55:454
+[mod] [RELAYLEG] HUBLESS RUN done sols=2 capped=false
+[mod] [RELAYLEG] HUBLESS after StationSmall(7861) CallsFor=0 Metals=11300
+						Lua 0:09:55:465
+[mod] [RELAYLEG] HUBLESS cleared ok=true why=nil saved=nil
+[mod] [RELAYLEG] ICON resource_accept.tga w=72 h=62
+[mod] [RELAYLEG] ICON resource_storing.tga w=72 h=62
+						Lua 0:09:55:466
+[mod] [RELAYLEG] ICON elevator_resource_up.png w=72 h=62
+[mod] [RELAYLEG] ICON elevator_resource_down.png w=72 h=62
+[mod] [RELAYLEG] ICON resource_no_accept.png w=72 h=62
+[mod] [RELAYLEG] TOOLTIP station StationSmall(2007) len=220 text=Export: trains take stock above the selected minimum to the hub. Local drones bring in what nearby storage holds above its Desired Amount. A full hub refuses exports.<newline><newline>Slider: 9% of current capacity (10).
+[mod] [RELAYLEG] TOOLTIP depot_surface SMROptInElevatorDepotDev(9036) len=352 text=Import: this half gathers it for the cabin: trains (and drones, with Drone Access on) bring it here, and each down leg carries it to the underground half.<newline>The underground half shows the same word, read-only.<newline>Vanilla elevator's word: Underground.<newline><newline>Slider: 21% of curren
+						Lua 0:09:56:576
+[mod] [RELAYLEG] REFRESH n=100 total_us=1109771 hubs=2 stations=19
+[mod] [RELAYLEG] ERRORS smrtk_error_count=0
+						Lua 0:09:56:598
+[mod] [SMRTK] SMRTK_SECTION action=section_attach attached=true dialog=ipBuilding object=SMROptInElevatorDepotDev(9036) status=OK t=37982924 id=12
+						Lua 0:09:59:626
+[mod] [RELAYLEG] READY handle=9036
+						Lua 0:30:35:119
+
+
+Stopping the game threads from the Lua side with exit code 0.
+
+					Render 0:30:35:123
+
+
+Stopping the game threads after receiving WM_QUIT.
+
+					Render 0:30:35:467
+
+
+*** Debug::Done()
+Time (ms)	1835467
+
+
