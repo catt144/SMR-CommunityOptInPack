@@ -476,11 +476,44 @@
   "portals": {
    "paradox": {
     "snapshots": [],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-22",
+      "result": "uploaded",
+      "owner_words": "uploaded (owner, 2026-10-22). Evidence: editor writeback pdx_version 2->3 (written only after a successful publish), and the Steam package built afterwards already carries it. No package kept: the Steam upload at 20:05 deleted the Paradox package before any snapshot; packed from the working repo, not the launch tree (see steam-1 note)."
+     }
+    ]
    },
    "steam": {
-    "snapshots": [],
-    "receipts": []
+    "snapshots": [
+     {
+      "taken": "2026-10-22",
+      "dir": "local/release/2026-10-22-03/steam-1",
+      "pack_sha256": "928c32e5ebf593f2375dd8d5d413dda93d7f041380e26e3d2c7f1fe7d3ac8d3a",
+      "pack_bytes": 22607409,
+      "pack_mtime": "2026-10-22T20:05:24",
+      "serializer": {
+       "metadata.lua": "9e0a2c8196d60ea2bd3a4c1d0a0572b08148075317a6b866c15c7b3eac0cb231",
+       "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
+      },
+      "fields": {
+       "version_major": 1,
+       "version_minor": null,
+       "version": 4,
+       "pdx_id": 161911,
+       "pdx_version": "3",
+       "steam_id": "3813142702"
+      },
+      "note": "Uploaded from the working repo, not the launch tree: the Mods link pointed at the repo throughout, and the editor's upload save rewrote the REPO's metadata.lua and items.lua at 20:05:15 (launch tree copies untouched, 17:07:59). The serializer files kept here are those repo copies as the editor left them, byte-identical to the package's own members. Package vs launch tree: pack_list EXACT MATCH, 75/75 names, 73 byte-identical, only metadata.lua and items.lua differ."
+     }
+    ],
+    "receipts": [
+     {
+      "date": "2026-10-22",
+      "result": "uploaded",
+      "owner_words": "uploaded (owner, 2026-10-22). Steam changelog read 2026-10-22: newest 'Update: Oct 22 @ 5:05pm' (1792713936) carries this batch's change note. Package kept as steam-1, pack_list EXACT MATCH vs launch tree."
+     }
+    ]
    }
   },
   "close": {
