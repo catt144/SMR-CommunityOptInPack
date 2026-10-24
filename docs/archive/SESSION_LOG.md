@@ -12,6 +12,34 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-24 — v1.0.4 closed: station rows relay and depot rows (D16, D18) on both stores
+
+tags: release update batch-2026-10-22-03 optin-v1.0.4 D16 D18 store-card site-deploy-owed
+
+`perma/release_prompt.md`, entered at `CLOSE_OWED` (receipts `37d7c13`, writeback `362bb00`/`f08918d`
+from the 2026-10-22 leg).
+- **Verified.** `verify`: launch tree is the pinned batch (75 files, 0 changed/missing/extra,
+  Arboretum 0 hits). `writeback` runs backward (repo 4/"3", launch 3/"2") because the editor saved
+  the repo copy; 362bb00 already holds the editor's values. Steam `steam-1` rerun: sha256
+  `928c32e5…8d3a`, 22,607,409 B, `pack_list` exact match with only the two editor files allowed;
+  `pack_predict` 75 files, 102,635,075 B. Paradox: no snapshot, no package verdict. Steam changelog
+  read today: newest "Oct 22 @ 5:05pm" carries the v1.0.4 note (3 entries).
+- **Close.** Store card: v1.0.3 bodies moved to a dated `⭐` section, the shipped §3 blocks installed
+  (two paragraphs changed), `--confirm-live` 0 FAIL. Tag `optin-v1.0.4` on `62d3e41`, pushed.
+  `drain` was run with the repo's `metadata.lua` as its version source, so it wrote v1.0.4 directly
+  (the launch tree would have given v1.0.3, as in the v1.0.3 close); D14 and Arboretum stay Pending.
+- **Deviation, second time.** Packed from the working repo, not the launch tree, as in v1.0.3. The
+  tools' launch-tree reads (`snapshot`, `writeback`, `drain`) are wrong whenever this happens.
+- **Site.** Live Pages deployment is `6c02476`; v1.0.4 page text (`11e447c`) is committed, builds
+  `--strict` clean and is absent from the live page (new phrase 0 live / 1 at HEAD, control phrase
+  1/1). Deployment owed to the owner. Store links unchanged.
+- **Limits.** No entry status moved on publication. No game run this leg.
+
+**Executed model:** Claude Opus 5.5 (`claude-opus-5-5`), from this session's model line; no
+subagents. Skills: doc-editing.
+
+---
+
 ## 2026-10-21 — Relay corrections built after the first audit; second audit owed
 
 tags: build D16 D18 station-rows audit corrections v1.0.4 audit-pending

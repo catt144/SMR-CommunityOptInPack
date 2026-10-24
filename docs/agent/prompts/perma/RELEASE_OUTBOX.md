@@ -23,37 +23,6 @@ bumps one.
 
 ## Pending — goes out with the next upload
 
-### Pending · Station rows without a hub: rows relay, Import/Export defaults, a Default state; the Elevator Depot's rows reach trains without a hub (2026-10-21, D16, D18)
-- Targets mechanisms described in three Workshop reports (Erion, Xeryx, TheGodUncle; the report's
-  §1): on a line with no Train Hub a set row made its station a dead end, so a Large Station joining two lines stopped
-  passing a resource between them, Import at a low number brought a trickle, and the Elevator
-  Depot's Export half kept its stock because its rows were invisible to trains without a hub.
-- Now, on a line with no hub, a row keeps its amount for its own station and the rest balances
-  by the ruled weights among cargo-reachable members (R1, R7), so a station that joins lines
-  passes cargo through below full reserve. A click to
-  Export sets 0, a click to Import sets 100, or 50 on a hubless station that joins lines. The row
-  can return to Default: base-game balancing off a hub, the hub's untouched setting on its network
-  (R4). The depot's rows work without a hub, loading and unloading, and its unset sliders mean
-  Import 100 / Export 0 on every depot,
-  hub-managed ones included, instead of the dial percentage (R2, R5): an existing depot with
-  untouched sliders changes on load.
-- Player surfaces touched: the station row cycle (Default, Export, Import, Not accepted), its
-  icons for Default and Balanced, the Import/Export/Default tooltips and a joining-station line
-  (`Code/StationRows_45_TrainDistributionUI.lua`); the depot's Export tooltip and unset slider
-  (`Code/ElevatorDepot_10_ElevatorDepot.lua`). The Mod Options help line still names the four
-  words "Import, Export, Balanced or Not accepted" (`items.lua`); the release decides its wording.
-- Rulings, build and limits: `docs/agent/bugs/D16.md` (owner 2026-10-21, R1–R7), `D18.md`;
-  `docs/agent/reports/STATION_ROWS_RELAY_20261021.md` §§15–18. The first independent audit's
-  corrections (cargo-inaccessible allocation, now R7; rounding; the inherited hub-click seam;
-  junction help; an emptied hub table) are built at `3aa5402` and confirmed as desk-verified
-  by the second audit. The audit gate for v1.0.4 is cleared; release proceeds through
-  `docs/agent/prompts/perma/release_prompt.md`. No named player's save is verified fixed;
-  this revision is not tested in game. Refresh latency on a large colony is unmeasured.
-  Two unattended in-game smokes on `SMRTK_A.sav` (2026-10-22) logged no error, the depot targets as
-  ruled and set rows on a hubless junction pulling stock in, with `D.Refresh()` at 11.10 ms on 19
-  stations, and the owner's glance found it clean
-  (`docs/agent/reports/STATION_ROWS_RELAY_LEG_20261022.md`).
-
 ### Pending · The Train Hub no longer replaces the game's WaitWakeup (2026-10-23, D14)
 - Targets a field crash report received privately (its source is not named in release notes,
   owner 2026-10-24). With the mod installed, hub module on or off, the game's C `WaitWakeup`
@@ -81,4 +50,4 @@ bumps one.
 
 ## Last released
 
-**v1.0.3, 2026-10-05** — batch `2026-10-05-02`, base `c3eb22f`. Its entries are in `docs/archive/RELEASE_HISTORY.md`.
+**v1.0.4, 2026-10-24** — batch `2026-10-22-03`, base `62d3e41`. Its entries are in `docs/archive/RELEASE_HISTORY.md`.

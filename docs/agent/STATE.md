@@ -7,8 +7,11 @@ Pre-2026-08-31 STATE: `git show e8d8cee:docs/agent/STATE.md`.
 ## Now
 
 - LIVE since 2026-10-04 on Paradox Mods (`pdx_id` 161911) and the Steam Workshop (`steam_id`
-  3813142702); latest upload v1.0.3 (2026-10-05, the D16 Station rows fix), tag `optin-v1.0.3`.
-  What is live: `docs/agent/reports/STORE_CARD_LIVE.md`.
+  3813142702); latest upload v1.0.4 (2026-10-22, station rows relay without a hub and depot
+  rows with or without one, D16/D18), tag `optin-v1.0.4`. What is live:
+  `docs/agent/reports/STORE_CARD_LIVE.md`.
+- Site deployment owed: the v1.0.4 Opt-In page text (site `11e447c`) is committed, not deployed;
+  the live Pages deployment is `6c02476` (read 2026-10-24). The owner runs it.
 
 ## Build state — pulled, not stored
 
