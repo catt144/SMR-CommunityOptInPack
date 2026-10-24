@@ -1,6 +1,6 @@
 -- Sitting-owned: train hub centre/transition prototype, 2026-09-20.
 -- Record: Opt-In Modules docs/agent/reports/TRAIN_HUB_BUILD_20260918.md.
--- 1 reads reservations/poses/power; 2/5 tune the selected movement or dwell parameter;
+-- 1 reads reservations/poses/power; 2/5 tune the selected movement parameter;
 -- 3 sends a selected parked train by straight/60/120/reverse in that order;
 -- 4 pauses during an acquired crossing; 6 switches the tuning target.
 -- Nothing arms or mutates at load. All setup mutations use the dispatcher.
@@ -15,7 +15,6 @@ local tunables = {
     {key="HubSidingEntryDistance", label="siding entry", step=guim},
     {key="HubSidingRejoinDistance", label="inward rejoin", step=guim},
     {key="HubSidingReverseRejoinDistance", label="reverse rejoin", step=guim},
-    {key="HubDwellTime", label="dwell (game ms)", step=500},
 }
 local function tuning() return tunables[tune_index] end
 local function name(o) return IsValid(o) and tostring(o.class).."("..tostring(o.handle)..")" or "none" end
@@ -87,9 +86,6 @@ local function tune(ctx,delta)
     if new<=0 or not (rejoin<park and park<entry and entry<pause and park<reverse and reverse<exit and pause<limit and exit<limit) then
         return false,"keep rejoin < park < entry < arrival pause < connector; park < reverse rejoin < exit slide < connector"
     end
-    if item.key=="HubDwellTime" and (new<100 or new>const.HourDuration/5) then
-        return false,"dwell must be between 100 ms and vanilla's 12 game seconds"
-    end
     f[item.key]=new
     local reposition=item.key=="HubParkDistance" or item.key=="HubSidingOffset"
     if reposition then h:HubRestoreParkedTrains() end
@@ -156,7 +152,7 @@ T.Bind(4,"Pause on next crossing (re-arm after save)",function(ctx)
     return {watch="hub3b_crossing",cadence=50}
 end,{mode="once"})
 
-T.Bind(6,"Select arrival / exit / park / siding / entry / rejoins / dwell",function(ctx)
+T.Bind(6,"Select arrival / exit / park / siding / entry / rejoins",function(ctx)
     tune_index=tune_index%#tunables+1
     return {tuning=tuning().label,value=SMROptInTrainFloor[tuning().key],step=tuning().step,pause=SMROptInTrainFloor.HubTransitionPauseDistance,
         park=SMROptInTrainFloor.HubParkDistance}

@@ -7,7 +7,7 @@ from lupa import LuaRuntime
 root = Path(__file__).resolve().parents[4]
 source = (root / "Code/TrainHub_20_TrainHub.lua").read_text(encoding="utf8")
 guard = source[source.index("local function install_hub_art_spec_guard()"):
-               source.index("function OnMsg.ChangeMap()")]
+               source.index("-- Persisted-name row 12:")]
 lua = LuaRuntime(unpack_returned_tuples=True)
 lua.execute("""
 SMROptInTrainFloor = {}

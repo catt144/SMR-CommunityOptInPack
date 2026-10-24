@@ -1,0 +1,16 @@
+{
+  "leg": "ww-withdrawal",
+  "_what": "D14(a), owner 2026-10-23: WaitWakeup wrapper withdrawal. One self-driving payload; WWLeg.PHASE selects the launch (L0 old-code fixtures, L1 old->new save/reload, L2/L3 cold reloads, OFF/L5/RESTORE/READ the opt-in-absent loads and the mod-order round trip). Writes only SMRTK_WW_* saves and, in OFF/RESTORE, the saved enable order through the kit's slot.",
+  "kit": "B:\\Dev\\SMR\\SMR-BugFixPack-TestKit",
+  "park": "B:\\Dev\\SMR\\SMR-OptInPack\\tools\\trains\\hub\\tests",
+  "stripPattern": "Code/98_WWLeg",
+  "anchorAfter": "99_FixtureCarry.lua",
+  "bootSymbol": "WWLeg.Boot",
+  "symbolNamespace": "WWLeg",
+  "permanent": ["Code/00_TestCore.lua"],
+  "mustNotBeListed": ["Code/96_AutoRunFlag.lua", "Code/97_ForceInactive.lua", "Code/98_EnablePathLeg.lua", "Code/98_LoadFirstSet.lua", "Code/98_LoadFirstRead.lua"],
+  "mustNotBeListedWhy": "The autorun would start a colony and race the menu; forced-inactive changes module state; the LoadFirst and enable-path legs also quit or rewrite the enable order and would race this one.",
+  "bannedPatterns": ["DeleteGame\\s*\\(", "RequestAutosave", "(^|[^A-Za-z])Autosave\\s*\\("],
+  "requiredPresent": ["SMRTK_WW_", "config.AutosaveSuspended = true", "SaveAutosaveGame", "WWLeg.PHASE = "],
+  "payloads": [{"src": "98_WWLeg.lua.txt", "dst": "98_WWLeg.lua", "selfDrives": true}]
+}

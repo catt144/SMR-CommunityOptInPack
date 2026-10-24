@@ -301,7 +301,7 @@ h.electricity.production=0; h:OnModifiableValueChanged('electricity_production')
 assert(h.electricity.production==70000)
 ''')
 # Exercise the archived command bodies, including time consumed before their wait.
-lua.execute("local Floor=SMROptInTrainFloor\n" + between(code, "local function hub_dwell_train(", "local hub_work_radius") + "\nInstallHubDwell=install_hub_dwell")
+# D14(a), owner 2026-10-23: a hub stop keeps vanilla's HourDuration / 5 deadline.
 lua.execute(between(train, "function Train:LoadTrain()", "function Train:WaitForTrack("))
 lua.execute(between(train, "function Train:UnloadTrain()", "function Train:IsStoppingOn("))
 lua.execute(r'''
@@ -311,19 +311,10 @@ function GameTime() return clock end
 function PlayFX() end
 function IsBeingDestructed() return false end
 function ripairs(t) local i=#t+1; return function() i=i-1; if i>0 then return i,t[i] end end end
-local original_waits={}
-function WaitWakeup(timeout,...)
- original_waits[#original_waits+1]=timeout
- clock=clock+timeout
- return 'delegated',42
-end
+function WaitWakeup(timeout) clock=clock+timeout end
 local hub=newhub(0,true)
 local train=newtrain(hub,1)
 hub.city={labels={Train={train}}}
-function AllMapsForEach(_,class,fn,...) assert(class=='SMROptInTrainHubBase'); fn(hub,...) end
-InstallHubDwell()
-local installed=WaitWakeup
-InstallHubDwell(); assert(WaitWakeup==installed,'double installation')
 train.at_station=true; train.at_spawn_track=true; train.units={}
 train.current_station=hub; active_thread=train.command_thread
 local transfer_time=0
@@ -336,23 +327,16 @@ for _,elapsed in ipairs({0,4000,7000,13000}) do
  for _,command in ipairs({'LoadTrain','UnloadTrain'}) do
   clock=0; transfer_time=elapsed; train.command=command
   Train[command](train)
-  assert(clock==math.max(6000,elapsed+100),'hub deadline/floor changed')
+  assert(clock==math.max(12000,elapsed+100),'hub stop no longer vanilla')
  end
 end
--- Foreign station, foreign command and another thread retain vanilla wait.
+-- A foreign station keeps the same vanilla wait.
 local foreign={valid=true}
 train.track.GetStartStation=function() return foreign end
 train.current_station=foreign
 clock=0; transfer_time=0; train.command='LoadTrain'
 Train.LoadTrain(train); assert(clock==12000,'vanilla station dwell changed')
-train.current_station=hub; train.command='Idle'; clock=0
-local a,b=WaitWakeup(12000); assert(clock==12000 and a=='delegated' and b==42)
-train.command='LoadTrain'; active_thread={}; clock=0
-WaitWakeup(12000); assert(clock==12000,'foreign thread changed')
-active_thread=train.command_thread; clock=0; SMROptInTrainFloor.HubDwellTime=5000
-WaitWakeup(12000); assert(clock==5000,'live dwell tuning ignored')
-SMROptInTrainFloor.HubDwellTime=6000
 ''')
 print("HEAD", subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
-print("PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived dwell commands and vanilla control.")
+print("PASS: mocked movement/reservations, exit handoff without displacement on vanilla teleport, occupied-exit exclusion, paired siding departures, same-line reverse/release, power gating, archived load/unload commands at vanilla deadlines.")
 print("This test does not certify native clearance or save/load; owner results are recorded in D14.")

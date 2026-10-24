@@ -1,0 +1,282 @@
+-- TEMPORARY D14(a) WaitWakeup-withdrawal leg (Opt-In Modules, owner 2026-10-23).
+-- One driver; PHASE selects the launch (edit before each arm):
+--   L0  old hub code: FINAL35 -> SMRTK_WW_OLD_HUB
+--   L0B old hub code: a new default colony -> SMRTK_WW_OLD_BARE
+--   L1  new code: OLD_HUB -> NEW_HUB + NEW_AUTO; OLD_BARE -> NEW_BARE
+--   L2  new code, cold: NEW_HUB      L3  new code, cold: NEW_AUTO
+--   OFF menu only: turn SMR_CommunityOptInPack off in the saved order
+--   L5  opt-in pack absent: OLD_BARE, NEW_BARE
+--   RESTORE menu only: saved order = ORDER     READ menu only: log the order
+-- Writes only SMRTK_WW_* saves and, in OFF/RESTORE, the saved enable order.
+-- FINAL35 is read, never written.
+-- Monitoring and saving run on a real-time thread: no leg frame below a
+-- game-time yield enters any save.
+WWLeg = {}
+WWLeg.PHASE = "READ"
+WWLeg.ORDER = {"SMR_CommunityFixPack", "SMR_CommunityFixPackTestKit", "SMR_CommunityOptInPack", "SMR_CommunityOptInPack_Workbench"}
+WWLeg.boot_waiter = rawget(_G, "WaitWakeup")
+WWLeg.WATCH = 90000
+if WWLeg.PHASE == "OFF" or WWLeg.PHASE == "RESTORE" then
+    SMRFixPack_Disabled = rawget(_G, "SMRFixPack_Disabled") or {}
+    SMRFixPack_Disabled.LoadFirst = true
+end
+
+local function say(s)
+    ModLog("[WWLEG] " .. tostring(s):gsub("%%", "%%%%"))
+    local flush = rawget(_G, "FlushLogFile")
+    if flush then pcall(flush) end
+end
+
+local function wait_until(test, ms)
+    local limit = RealTime() + ms
+    while not test() and RealTime() < limit do Sleep(100) end
+    return test()
+end
+
+local function ids(list)
+    local out = {}
+    for i, v in ipairs(list or {}) do out[i] = tostring(type(v) == "table" and v.id or v) end
+    return table.concat(out, ",")
+end
+
+local function prefix(f) return (tostring(f):gsub("0x", ""):gsub("%x%x%x%x%x%x+", "#")) end
+
+local function fn_kind(f)
+    local c, l = prefix(GameTime), prefix(function() end)
+    local by_name = c ~= l and (prefix(f) == c and "C" or prefix(f) == l and "Lua" or "other") or "undiscriminated"
+    local dump = rawget(string, "dump")
+    local by_dump = "nodump"
+    if type(dump) == "function" then by_dump = pcall(dump, f) and "Lua" or "C" end
+    return "tostring=" .. by_name .. " dump=" .. by_dump .. " text=" .. tostring(f)
+end
+
+function WWLeg.Waiter(label)
+    local w = rawget(_G, "WaitWakeup")
+    say("WAITER " .. label .. " boot_native=" .. tostring(w == WWLeg.boot_waiter) .. " " .. fn_kind(w))
+end
+
+function WWLeg.Stacks(label)
+    local gs, reg = rawget(_G, "GetStack"), rawget(_G, "ThreadsRegister")
+    if type(gs) ~= "function" or type(reg) ~= "table" then
+        say("STACKS " .. label .. " SKIP GetStack=" .. type(gs) .. " ThreadsRegister=" .. type(reg))
+        return
+    end
+    local threads, readable, waiting, hub_threads, tally = 0, 0, 0, 0, {}
+    for thread in pairs(reg) do
+        threads = threads + 1
+        local ok, st = pcall(gs, thread)
+        if ok and type(st) == "string" then
+            readable = readable + 1
+            if st:find("WaitWakeup", 1, true) then waiting = waiting + 1 end
+            if not WWLeg.sampled and st:find("TrainHub", 1, true) and st:find("WaitWakeup", 1, true) then
+                WWLeg.sampled = true
+                say("STACKSAMPLE " .. (st:sub(1, 900):gsub("[\r\n]+", " | ")))
+            end
+            local hit = false
+            for tok in st:gmatch("[%w_]*TrainHub[%w_]*%.lua%W%d+") do
+                tally[tok] = (tally[tok] or 0) + 1
+                hit = true
+            end
+            if hit then hub_threads = hub_threads + 1 end
+        end
+    end
+    local keys = {}
+    for k in pairs(tally) do keys[#keys + 1] = k end
+    table.sort(keys)
+    local parts = {}
+    for _, k in ipairs(keys) do parts[#parts + 1] = k .. "=" .. tally[k] end
+    say("STACKS " .. label .. " threads=" .. threads .. " readable=" .. readable .. " waitwakeup=" .. waiting
+        .. " trainhub_threads=" .. hub_threads .. " frames: " .. table.concat(parts, " "))
+end
+
+local function each_city_label(label, fn)
+    for _, city in ipairs(rawget(_G, "Cities") or {}) do
+        for _, o in ipairs(city.labels and city.labels[label] or empty_table) do fn(o) end
+    end
+end
+
+local function median(t)
+    if #t == 0 then return "none" end
+    table.sort(t)
+    return tostring(t[(#t + 1) // 2]) .. " min=" .. t[1] .. " max=" .. t[#t]
+end
+
+function WWLeg.Watch(label, ms)
+    local open, hub, station, departs, drone_changes = {}, {}, {}, 0, 0
+    local last_cmd, last_drone = {}, {}
+    local gt0, rt_end, next_drone = GameTime(), RealTime() + ms, 0
+    local trains = 0
+    each_city_label("Train", function() trains = trains + 1 end)
+    while RealTime() < rt_end do
+        local now = GameTime()
+        each_city_label("Train", function(t)
+            local cmd = t.command
+            if last_cmd[t] and last_cmd[t] ~= cmd then departs = departs + 1 end
+            last_cmd[t] = cmd
+            local stop = cmd == "LoadTrain" or cmd == "UnloadTrain"
+            local o = open[t]
+            if o and o.cmd ~= cmd then
+                local list = o.hub and hub or station
+                list[#list + 1] = now - o.start
+                open[t] = nil
+            end
+            if stop and not open[t] then
+                local st = t.current_station
+                open[t] = {cmd = cmd, start = now,
+                    hub = IsValid(st) and IsKindOf(st, "SMROptInTrainHubBase") or false}
+            end
+        end)
+        if RealTime() >= next_drone then
+            next_drone = RealTime() + 1000
+            each_city_label("Drone", function(d)
+                if last_drone[d] and last_drone[d] ~= d.command then drone_changes = drone_changes + 1 end
+                last_drone[d] = d.command
+            end)
+        end
+        Sleep(100)
+    end
+    local errs = 0
+    for _ in pairs(rawget(_G, "LuaErrors") or {}) do errs = errs + 1 end
+    say("WATCH " .. label .. " game_ms=" .. (GameTime() - gt0) .. " trains=" .. trains
+        .. " command_changes=" .. departs .. " drone_command_changes=" .. drone_changes
+        .. " lua_error_keys=" .. errs)
+    say("STOPS " .. label .. " hub_n=" .. #hub .. " hub_median=" .. median(hub)
+        .. " station_n=" .. #station .. " station_median=" .. median(station))
+end
+
+function WWLeg.Load(name)
+    local err = LoadGame(name, {})
+    say("LOAD " .. name .. " err=" .. tostring(err) .. " map=" .. tostring(CurrentMap and CurrentMap.name))
+    if err then return false end
+    Resume("WWLeg")
+    SetGameSpeed(3)
+    WWLeg.Waiter("after_load " .. name)
+    WWLeg.Stacks("after_load " .. name)
+    return true
+end
+
+function WWLeg.Save(name, auto)
+    Pause("WWLeg")
+    local err, nm
+    if auto then
+        err, nm = SaveAutosaveGame("SMRTK WW autosave", {savename = name, no_screenshot = true})
+    else
+        err, nm = SaveGame(name, {savename = name, silent = true, no_screenshot = true})
+    end
+    say("SAVE " .. name .. " autosave=" .. tostring(auto and true or false) .. " err=" .. tostring(err) .. " name=" .. tostring(nm))
+    Resume("WWLeg")
+    WWLeg.Waiter("after_save " .. name)
+end
+
+function WWLeg.Cycle(load_name, save_name, extra)
+    if not WWLeg.Load(load_name) then return end
+    WWLeg.Watch("first " .. load_name, WWLeg.WATCH)
+    WWLeg.Stacks("after_watch " .. load_name)
+    if extra then extra() end
+    if save_name then
+        WWLeg.Stacks("pre_save " .. save_name)
+        WWLeg.Save(save_name)
+        WWLeg.Stacks("post_save " .. save_name)
+    end
+end
+
+local function colony_live()
+    local city, colony = rawget(_G, "MainCity"), rawget(_G, "UIColony")
+    return not not (city and city.labels and colony and colony.labels)
+end
+
+-- The kit autorun's headless colony start (95_AutoRun.lua start_colony).
+function WWLeg.NewColony(save_name)
+    if rawget(_G, "ShowStartGamePopup") then ShowStartGamePopup = function() end end
+    NewGame()
+    InitNewGameMissionParams()
+    SetNewGameDefaultSettings("regular", GetDefaultGameRules())
+    GenerateRandomMapParams()
+    g_CurrentMapParams.map = g_CurrentMapParams.map or ""
+    GenerateRocketCargo()
+    GenerateCurrentRandomMap()
+    if not wait_until(colony_live, 300000) then say("NEWCOLONY TIMEOUT"); return end
+    Sleep(5000)
+    say("NEWCOLONY live map=" .. tostring(CurrentMap and CurrentMap.name))
+    Resume("WWLeg")
+    SetGameSpeed(3)
+    WWLeg.Waiter("new_colony")
+    WWLeg.Watch("new_colony", WWLeg.WATCH)
+    WWLeg.Stacks("pre_save " .. save_name)
+    WWLeg.Save(save_name)
+    WWLeg.Stacks("post_save " .. save_name)
+end
+
+local function map_switch()
+    local under, main = rawget(_G, "UndergroundMap"), rawget(_G, "MainMap")
+    if not (under and main and under.slot and main.slot) then say("MAPSWITCH SKIP no underground map"); return end
+    ChangeCurrentMapSlot(under.slot)
+    say("MAPSWITCH underground slot=" .. tostring(GetCurrentMapSlot()) .. " want=" .. tostring(under.slot))
+    WWLeg.Waiter("underground")
+    WWLeg.Watch("underground", 30000)
+    ChangeCurrentMapSlot(main.slot)
+    say("MAPSWITCH surface slot=" .. tostring(GetCurrentMapSlot()) .. " want=" .. tostring(main.slot))
+    WWLeg.Waiter("surface")
+    WWLeg.Watch("surface_after_switch", 30000)
+end
+
+local function mods_line(label)
+    local loaded = {}
+    for _, m in ipairs(rawget(_G, "ModsLoaded") or {}) do loaded[#loaded + 1] = tostring(m.id) end
+    say("MODS " .. label .. " saved=" .. ids(GetModsEnabledByUser()) .. " loaded=" .. table.concat(loaded, ",")
+        .. " optin_global=" .. type(rawget(_G, "SMROptInPack")))
+end
+
+function WWLeg.Run()
+    local p = WWLeg.PHASE
+    say("PHASE " .. p .. " build=" .. tostring(rawget(_G, "BuildVersion")))
+    mods_line("boot")
+    WWLeg.Waiter("menu")
+    if p == "L0" then
+        WWLeg.Cycle("FINAL35_P_20261002.savegame.sav", "SMRTK_WW_OLD_HUB.savegame.sav")
+    elseif p == "L0B" then
+        WWLeg.NewColony("SMRTK_WW_OLD_BARE.savegame.sav")
+    elseif p == "L1" then
+        WWLeg.Cycle("SMRTK_WW_OLD_HUB.savegame.sav", "SMRTK_WW_NEW_HUB.savegame.sav", function()
+            map_switch()
+            WWLeg.Stacks("after_switch")
+        end)
+        WWLeg.Save("SMRTK_WW_NEW_AUTO.savegame.sav", true)
+        WWLeg.Cycle("SMRTK_WW_OLD_BARE.savegame.sav", "SMRTK_WW_NEW_BARE.savegame.sav")
+    elseif p == "L2" then
+        WWLeg.Cycle("SMRTK_WW_NEW_HUB.savegame.sav")
+    elseif p == "L3" then
+        WWLeg.Cycle("SMRTK_WW_NEW_AUTO.savegame.sav")
+    elseif p == "L5" then
+        WWLeg.Cycle("SMRTK_WW_OLD_BARE.savegame.sav")
+        WWLeg.Cycle("SMRTK_WW_NEW_BARE.savegame.sav")
+    elseif p == "OFF" then
+        TurnModOff("SMR_CommunityOptInPack")
+        TurnModOff("SMR_CommunityOptInPack_Workbench")
+        mods_line("after_off")
+        say("SAVE_REQUEST err=" .. tostring((WriteModPersistentData("wwleg off " .. tostring(os.time())))))
+    elseif p == "RESTORE" then
+        if #WWLeg.ORDER == 0 then say("RESTORE SKIP empty ORDER"); return end
+        for _, id in ipairs(GetModsEnabledByUser()) do TurnModOff(type(id) == "table" and id.id or id) end
+        for _, id in ipairs(WWLeg.ORDER) do TurnModOn(id) end
+        mods_line("after_restore")
+        say("RESTORE matched=" .. tostring(ids(GetModsEnabledByUser()) == table.concat(WWLeg.ORDER, ",")))
+        say("SAVE_REQUEST err=" .. tostring((WriteModPersistentData("wwleg restore " .. tostring(os.time())))))
+    end
+end
+
+function WWLeg.Boot()
+    CreateRealTimeThread(function()
+        Sleep(1)
+        config.AutosaveSuspended = true
+        if not wait_until(function() return GetPreGameMainMenu() end, 300000) then say("TIMEOUT menu"); quit(); return end
+        Sleep(3000)
+        local ok, err = sprocall(WWLeg.Run)
+        say("DONE phase=" .. WWLeg.PHASE .. " ok=" .. tostring(ok) .. " err=" .. tostring(err))
+        Resume("WWLeg")
+        Sleep(5000)
+        quit()
+    end)
+end
+
+WWLeg.Boot()

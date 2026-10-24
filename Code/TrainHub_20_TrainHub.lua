@@ -57,68 +57,15 @@ Floor.HubSidingOffset = 4.5 * guim -- next lateral trial: 5.0 m, by eye
 Floor.HubSidingEntryDistance = 17 * guim -- first decoupled-rate trial: 2 m farther straight
 Floor.HubSidingRejoinDistance = 1.5 * guim -- retain the original 9.5 m inward rejoin
 Floor.HubSidingReverseRejoinDistance = 23 * guim -- retain the original 12 m reverse rejoin
-Floor.HubDwellTime = 6000 -- game ms, each of LoadTrain and UnloadTrain
 
--- D14(a), 2026-09-24: rollback of 3a0faff after owner loads asserted in
--- luaSPersist.cpp:1272 and crashed, including known-good template saves.
--- Keep the legacy wrapper's body unchanged: older hub saves resolve its Lua
--- frames through cthread.WaitWakeup. The snapshot guard below temporarily
--- publishes the native waiter and marks new metadata for the matching loader.
--- Native old -> new -> save -> reload verification is required for that guard.
--- See docs/agent/reports/TRAIN_HUB_AUDIT_111_20260923.md, load-crash follow-up.
--- SOURCE: archived 1.1.0.403908 Train.lua:281,450. These commands each
--- issue exactly one WaitWakeup, after transfer/boarding, with the remaining
--- portion of a 12-second deadline. Subtract the difference from that input:
--- max(max(12000-elapsed,100)-6000,100) == max(6000-elapsed,100).
--- Layer 3 input adjustment; tail delegation has no post-yield work. No new
--- timer, saved timestamp, command replacement or early boarding wakeup.
-local function hub_dwell_train(hub, thread, result)
-	for _, train in ipairs(hub.city.labels.Train or empty_table) do
-		if train.current_station == hub and train.at_station
-			and train.command_thread == thread
-			and (train.command == "LoadTrain" or train.command == "UnloadTrain") then
-			result.train = train
-			return
-		end
-	end
-end
-
-local function install_hub_dwell()
-	if Floor.HubDwellInstalled then return end
-	local previous = rawget(_G, "WaitWakeup")
-	if type(previous) ~= "function" or type(AllMapsForEach) ~= "function" then
-		print("[TrainHub] hub dwell unavailable: wait/map API missing")
-		return
-	end
-	local wrapper = function(timeout, ...)
-		if rawget(_G, "SMROptInTrainFloor") and type(timeout) == "number"
-			and timeout >= 100 and timeout <= const.HourDuration / 5 then
-			local result = {}
-			AllMapsForEach("map", "SMROptInTrainHubBase", hub_dwell_train, CurrentThread(), result)
-			if result.train then
-				local dwell = Max(100, Min(SMROptInTrainFloor.HubDwellTime, const.HourDuration / 5))
-				timeout = Max(timeout - (const.HourDuration / 5 - dwell), 100)
-			end
-		end
-		return previous(timeout, ...)
-	end
-	_G.WaitWakeup = wrapper
-	Floor.HubDwellInstalled = rawget(_G, "WaitWakeup") == wrapper
-	Floor.HubDwellNativeWait = previous
-	Floor.HubDwellWrapper = wrapper
-end
-
--- Keep the legacy wrapper body stable for saved wait frames. Publish the native
--- waiter while a map is absent or changing: AllMapsForEach can see a map object
--- before EngineChangeMap has installed its native map (map.lua:355-368).
-local function set_hub_dwell_waiter(active)
-	if not Floor.HubDwellInstalled then return end
-	local native, wrapper = Floor.HubDwellNativeWait, Floor.HubDwellWrapper
-	local current = rawget(_G, "WaitWakeup")
-	if current == native or current == wrapper then
-		_G.WaitWakeup = active and wrapper or native
-	end
-end
+-- D14(a), owner 2026-10-23: the hub's stop-dwell hook is withdrawn, and
+-- nothing in this mod replaces the game's C WaitWakeup (field load crashes
+-- came from saves whose thread stacks held our Lua wrapper). Hub
+-- stops keep vanilla's const.HourDuration / 5 (archived 1.1.1.406343
+-- Train.lua:281,450), 6000 game ms as measured: the old 6000 ms dwell equalled
+-- it. An earlier version's save can still hold that wrapper below a paused
+-- wait, by value, and it loads with or without this mod (D14(a), measured
+-- 2026-10-23). Unmarked pre-guard dev-hub saves are not supported.
 
 -- Archived 1.1.0.403908 ArtSpecEditor.lua:565-612 calls the editor-only
 -- EntitySpecPathToEntity from OnPresetPostLoad, including on retail mod load.
@@ -139,74 +86,11 @@ local function install_hub_art_spec_guard()
 	Floor.HubArtSpecGuard = wrapper
 end
 
-function OnMsg.ChangeMap()
-	set_hub_dwell_waiter(false)
-end
-
-function OnMsg.ChangeMapDone()
-	set_hub_dwell_waiter(CurrentMap and not ChangingMap)
-end
-
-function OnMsg.ApplicationQuit()
-	set_hub_dwell_waiter(false)
-end
-
--- D14(a): owner 2026-09-24 proposed removing our replacement around saving.
--- Scope it to the actual snapshot, not SaveGameStart: autosaves keep running
--- during earlier yields, and in-memory/bug-report saves skip those messages.
--- SOURCE: archived 1.1.1.405907 CommonLua/Savegame.lua:853-867,1004-1033,
--- 1117-1153; SavegameMetadata.lua:50-82; Core/cthreads.lua:466-478.
--- New save contract: metadata.SMROptIn_hub_native_waiter = 1. Keep unmarked
--- existing hub saves on their legacy mapping; do not infer it from mod version.
--- Pre-wrapper hub saves are an older ambiguous case, not classified here.
-local function install_hub_save_guard()
-	if Floor.HubSaveGuardInstalled then return end
-	local previous = rawget(_G, "PersistGame")
-	if type(previous) ~= "function" or not Floor.HubDwellInstalled
-		or type(Floor.HubDwellNativeWait) ~= "function"
-		or type(Floor.HubDwellWrapper) ~= "function" then return end
-	local wrapper = function(...)
-		local before = rawget(_G, "WaitWakeup")
-		local native = Floor.HubDwellNativeWait
-		if before ~= Floor.HubDwellWrapper and before ~= native then
-			return "Train hub save waiter changed; snapshot cancelled"
-		end
-		_G.WaitWakeup = native
-		local result = table.pack(pcall(previous, ...))
-		if rawget(_G, "WaitWakeup") == native then _G.WaitWakeup = before end
-		if not result[1] then error(result[2], 0) end
-		return table.unpack(result, 2, result.n)
-	end
-	_G.PersistGame = wrapper
-	Floor.HubSaveGuardInstalled = rawget(_G, "PersistGame") == wrapper
-	if Floor.HubSaveGuardInstalled then
-		print("[TrainHub] save guard: native waiter snapshot; legacy hub load mapping retained")
-	end
-end
-
+-- Persisted-name row 12: every save since the 2026-09-24 snapshot guard maps
+-- cthread.WaitWakeup to the native waiter; with no wrapper that is always true.
+-- Older mod versions read the marker at load and keep the native mapping.
 function OnMsg.GatherGameMetadata(metadata)
-	if Floor.HubSaveGuardInstalled then metadata.SMROptIn_hub_native_waiter = 1 end
-end
-
-function OnMsg.PreLoadGame(metadata)
-	if not Floor.HubSaveGuardInstalled then return end
-	local has_hub
-	for _, mod in ipairs(metadata.active_mods or empty_table) do
-		local id = type(mod) == "table" and mod.id or mod
-		if id == "SMR_TrainHubDev_20260918" then has_hub = true; break end
-	end
-	local target = (metadata.SMROptIn_hub_native_waiter == 1 or not has_hub)
-		and Floor.HubDwellNativeWait or Floor.HubDwellWrapper
-	Floor.HubWaitLoadRestore = { before = rawget(_G, "WaitWakeup"), target = target }
-	_G.WaitWakeup = target
-end
-
-function OnMsg.UnpersistEnd()
-	local restore = Floor.HubWaitLoadRestore
-	Floor.HubWaitLoadRestore = nil
-	if restore and rawget(_G, "WaitWakeup") == restore.target then
-		_G.WaitWakeup = restore.before
-	end
+	metadata.SMROptIn_hub_native_waiter = 1
 end
 
 local hub_work_radius = 15
@@ -3463,9 +3347,6 @@ DefineClass.SMROptInTrainHub6Base = {
 -- authoritative and now names the imported entity; this postprocess keeps the
 -- dev build runnable until the next editor save regenerates the companion.
 function OnMsg.ClassesPostprocess()
-	install_hub_dwell()
-	set_hub_dwell_waiter(CurrentMap and not ChangingMap)
-	install_hub_save_guard()
 	install_hub_art_spec_guard()
 	local class = g_Classes and g_Classes.SMROptInTrainHub6
 	if class then
