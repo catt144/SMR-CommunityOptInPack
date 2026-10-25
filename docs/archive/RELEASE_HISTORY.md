@@ -84,3 +84,23 @@ gap.
   ruled and set rows on a hubless junction pulling stock in, with `D.Refresh()` at 11.10 ms on 19
   stations, and the owner's glance found it clean
   (`docs/agent/reports/STATION_ROWS_RELAY_LEG_20261022.md`).
+
+### Released in v1.0.6 (2026-10-25) · batch `2026-10-25-04`, base `8ddf8e2`
+
+#### The Train Hub no longer replaces the game's WaitWakeup (2026-10-23, D14)
+- Targets a field crash report received privately (its source is not named in release notes,
+  owner 2026-10-24). With the mod installed, hub module on or off, the game's C `WaitWakeup`
+  was replaced by a Lua wrapper. Paused threads therefore carried that wrapper into saves, and
+  a load after the wrapper was gone could crash.
+- Now nothing in this mod replaces a C function: the wrapper, its map-change swaps, the save
+  guard and the load mapping are removed. Train stops do not change: the wrapper's 6000 game ms
+  equalled vanilla's, measured at 6000. Saves from earlier versions can keep old frames in
+  indefinitely waiting threads; measured, those saves load with and without the mod.
+- Player surfaces touched: none. No option, tooltip, store or README claim changes. The change
+  note's wording is the release's: one line that the Train Hub no longer replaces a game
+  function, with no reporter named.
+- Rulings, build and limits: `docs/agent/bugs/D14.md` (a), owner 2026-10-23 (option 1; unmarked
+  pre-guard dev-hub saves unsupported) and 2026-10-24 (reporter unnamed). Unattended native leg
+  on 1.1.1.406343 (`tools/trains/hub/tests/ww_leg.json`): old→new load, manual save, autosave
+  and cold reloads clean; mod-absent loads clean. No leftover frame was seen resuming, and the
+  reported failing saves were not reproduced.

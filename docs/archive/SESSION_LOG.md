@@ -12,6 +12,35 @@ archive; `docs/agent/PROVENANCE.md` is the bridge between the two records.
 
 ---
 
+## 2026-10-25 — v1.0.6 closed: WaitWakeup withdrawal (D14(a)); the link step automated
+
+tags: release update batch-2026-10-25-04 optin-v1.0.6 D14 link-automation owner-ruling
+
+`perma/release_prompt.md`, entered at `NEW_BATCH` the day after the v1.0.4 close.
+- **Batch.** D14(a)'s entry only; Arboretum held. Change note per D14's ruling, one line, no
+  reporter (`8ddf8e2`); no other player surface. Pinned at `8ddf8e2` (`d1783ec`); verify,
+  preflight (41/0 FAIL/1 uncheckable), pack_predict (75 files, 102,629,849 B) and parity on the
+  launch tree; `dwell_smoke.py` PASS on Code/ and its f08918d control FAILS.
+- **Upload.** Owner: "stores are ddone". Packed from the working repo a third time: the owner's
+  `link launch` step was missed again. Writeback `version` 4 → 6, `pdx_version` "3" → "4", merged
+  in `8693514`. Steam `steam-1` (sha256 `2e744c21…8ff4`, 22,604,789 B): `pack_list` exact match, 73
+  non-editor members. Paradox: no snapshot, no package verdict. Steam changelog newest "Oct 25 @
+  12:09pm" carries the note.
+- **Owner ruling 2026-10-25:** "this needs to be automated by the release prompt before it tells me
+  to upload". Built in `afa58f4`: the agent runs `link launch`/`link repo`; `verify` fails before an
+  upload unless the Mods link is the launch tree; `link` refuses while Mars.exe runs; `close`
+  refuses while still linked; the owner's two link commands left `UPLOAD_WORKFLOW.md`. Selftest
+  57 legs, 0 FAIL.
+- **Close.** Store card (body unchanged, `--confirm-live` 0 FAIL); tag `optin-v1.0.6` on `8ddf8e2`,
+  pushed; `drain` again read its version from the repo's `metadata.lua`. Site v1.0.4 deployment
+  still owed (live `6c02476`).
+- **Limits.** No game run this leg; D14's reported failing saves remain unreproduced.
+
+**Executed model:** Claude Opus 5.5 (`claude-opus-5-5`), from this session's model line; no
+subagents. Skills: doc-editing.
+
+---
+
 ## 2026-10-24 — v1.0.4 closed: station rows relay and depot rows (D16, D18) on both stores
 
 tags: release update batch-2026-10-22-03 optin-v1.0.4 D16 D18 store-card site-deploy-owed

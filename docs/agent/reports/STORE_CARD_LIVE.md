@@ -8,7 +8,14 @@ records what the portals were given.
 
 ## State: LIVE since 2026-10-04
 
-Latest upload: batch `2026-10-22-03` (base `62d3e41`, tag `optin-v1.0.4`), station rows relay
+Latest upload: batch `2026-10-25-04` (base `8ddf8e2`, tag `optin-v1.0.6`), the Train Hub no
+longer replaces the game's `WaitWakeup` (D14(a)). Store body unchanged; only the change note is
+new. The owner's receipt: "stores are ddone" (2026-10-25). The Steam changelog's newest entry,
+"Oct 25 @ 12:09pm", carries this batch's note. Packed from the working repo, not the launch
+tree, for the third time; the link step is the agent's from the next release (owner
+2026-10-25). `version` moved 4 to 6 across the two uploads; the editor's values are recorded.
+
+Previous upload: batch `2026-10-22-03` (base `62d3e41`, tag `optin-v1.0.4`), station rows relay
 without a hub and depot rows with or without one (D16, D18). Both bodies changed in two
 paragraphs, Station import/export rows and Elevator Depot; the earlier bodies are in the dated
 section at the end. The owner's receipt for both portals: "uploaded" (2026-10-22). The Steam
@@ -29,8 +36,15 @@ the base commit's body (module paragraphs as `·` bullets); the owner then paste
 
 | portal | id | page | version live | platforms / approval | body as published |
 |---|---|---|---|---|---|
-| Paradox Mods | `pdx_id` 161911 | `https://mods.paradoxplaza.com/mods/161911/Any` | `metadata.lua` `version` 4; `pdx_version` "3" | owner, 2026-10-04: nothing was asked at upload and no approval step was shown (OI-44) | current copy below, pasted via `paradox_card.py` |
-| Steam Workshop | `steam_id` 3813142702 | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | `metadata.lua` `version` 4 | PC | current copy below, BBCode block pasted |
+| Paradox Mods | `pdx_id` 161911 | `https://mods.paradoxplaza.com/mods/161911/Any` | `metadata.lua` `version` 6; `pdx_version` "4" | owner, 2026-10-04: nothing was asked at upload and no approval step was shown (OI-44) | current copy below, pasted via `paradox_card.py` |
+| Steam Workshop | `steam_id` 3813142702 | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | `metadata.lua` `version` 6 | PC | current copy below, BBCode block pasted |
+
+**Packages, batch `2026-10-25-04`.** Steam: snapshot `local/release/2026-10-25-04/steam-1`, sha256
+`2e744c21a9c34e834b04d8713929ec79bec0dfd5ba3ff9bf7a26fad632d38ff4`, 22,604,789 bytes; 75 of 75
+members, 73 byte-identical to the launch tree and the 2 editor files allowed to differ
+(`pack_list.py`, exit 0; `pack_predict.py` predicted 75 files, 102,629,849 raw bytes). Paradox:
+no snapshot and no verdict; the Steam upload deleted that package. The `pdx_version` writeback
+("3" to "4") is written only after a successful publish.
 
 **Packages, batch `2026-10-22-03`.** Steam: snapshot `local/release/2026-10-22-03/steam-1`, sha256
 `928c32e5ebf593f2375dd8d5d413dda93d7f041380e26e3d2c7f1fe7d3ac8d3a`, 22,607,409 bytes; 75 of 75
@@ -71,8 +85,8 @@ Paradox: no snapshot and no verdict; the Steam upload deleted that package befor
 |---|---|---|
 | Paradox Mods page | `https://mods.paradoxplaza.com/mods/161911/Any` | built from the `pdx_id` writeback; the page returns this mod's title (read 2026-10-04) |
 | Steam Workshop page | `https://steamcommunity.com/sharedfiles/filedetails/?id=3813142702` | built from the `steam_id` writeback |
-| Steam changelog | `https://steamcommunity.com/sharedfiles/filedetails/changelog/3813142702` | newest `Update:` entry "Oct 22 @ 5:05pm", the v1.0.4 change note; "Oct 4 @ 9:53pm" (v1.0.3) and the first-release "Oct 3 @ 11:19pm" below it (read 2026-10-24) |
-| Site section | `https://catt144.github.io/SMR-CommunityMods/opt-in/` | Pages deployment of site `6c02476`, status `success`; the live page carries both store links (read 2026-10-04). The v1.0.4 page text, site `11e447c`, is committed and not deployed (read 2026-10-24) |
+| Steam changelog | `https://steamcommunity.com/sharedfiles/filedetails/changelog/3813142702` | newest `Update:` entry "Oct 25 @ 12:09pm", the v1.0.6 change note; below it "Oct 22 @ 5:05pm" (v1.0.4), "Oct 4 @ 9:53pm" (v1.0.3) and the first-release "Oct 3 @ 11:19pm" (read 2026-10-25) |
+| Site section | `https://catt144.github.io/SMR-CommunityMods/opt-in/` | Pages deployment of site `6c02476`, status `success`; the live page carries both store links (read 2026-10-04). The v1.0.4 page text, site `11e447c`, is committed and not deployed (read 2026-10-25) |
 | Repository | `https://github.com/catt144/SMR-CommunityOptInPack` | public |
 
 ## Later releases
