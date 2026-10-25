@@ -479,7 +479,28 @@
     "receipts": []
    },
    "steam": {
-    "snapshots": [],
+    "snapshots": [
+     {
+      "taken": "2026-10-25",
+      "dir": "local/release/2026-10-25-04/steam-1",
+      "pack_sha256": "2e744c21a9c34e834b04d8713929ec79bec0dfd5ba3ff9bf7a26fad632d38ff4",
+      "pack_bytes": 22604789,
+      "pack_mtime": "2026-10-25T15:09:21",
+      "serializer": {
+       "metadata.lua": "d3425dd4f39a9e1b65e89691e79f4b0b1032d83f8e3a4d734e2475fe30e8b0ed",
+       "items.lua": "366c6202a5e385414c350bbbbe4334d3621a4aa3d231c3bc909e62ab53538a0f"
+      },
+      "fields": {
+       "version_major": 1,
+       "version_minor": null,
+       "version": 6,
+       "pdx_id": 161911,
+       "pdx_version": "4",
+       "steam_id": "3813142702"
+      },
+      "note": "Uploaded from the working repo, not the launch tree: the Mods link pointed at the repo (link launch was not run), and the editor upload save rewrote the REPO metadata.lua and items.lua at 15:09:10 (launch tree copies untouched). Serializer files and fields here are those repo copies. Package vs launch tree: pack_list EXACT MATCH, 73 byte-identical, only metadata.lua and items.lua differ. version 4 -> 6 across the two uploads."
+     }
+    ],
     "receipts": []
    }
   },
