@@ -37,7 +37,7 @@ return PlaceObj('ModDef', {
 	-- strings; `python tools/store_parity.py` proves Paradox == this string and Steam ==
 	-- the same words. The lede is OI-42's approved text plus the D15 clause; the last
 	-- section is OI-45's uninstall note (owner, 2026-10-03: at the bottom of each page).
-	'last_changes', "Station import/export rows: on a line with no Train Hub, a row you set now keeps its amount for its own station and passes the rest along the line, so a station joining two lines carries cargo between them. Clicking a row to Import sets 100 (50 on a station joining lines without a hub), Export sets 0, and a row can go back to Default. Elevator Depot: its rows now reach trains without a Train Hub, and sliders you have not moved mean Import 100 and Export 0 on every depot, including existing ones when the save loads.",
+	'last_changes', "Train Hub: the mod no longer replaces one of the game's own functions. Trains stop at stations exactly as before.",
 	'id', "SMR_CommunityOptInPack",
 	'author', "catt144",
 	-- ✅ SHIP VALUE 1.0.0, owner-ruled 2026-08-14 at launch prep ("we go 1.0,

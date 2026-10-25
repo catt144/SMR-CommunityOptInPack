@@ -259,7 +259,7 @@ Usually auto-fills. If it is missing under **CHANGELOG** (Paradox) or **Change
 Notes** (Steam), paste this:
 
 ```
-Station import/export rows: on a line with no Train Hub, a row you set now keeps its amount for its own station and passes the rest along the line, so a station joining two lines carries cargo between them. Clicking a row to Import sets 100 (50 on a station joining lines without a hub), Export sets 0, and a row can go back to Default. Elevator Depot: its rows now reach trains without a Train Hub, and sliders you have not moved mean Import 100 and Export 0 on every depot, including existing ones when the save loads.
+Train Hub: the mod no longer replaces one of the game's own functions. Trains stop at stations exactly as before.
 ```
 
 ### Either way: the styling pass
