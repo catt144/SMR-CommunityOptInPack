@@ -222,7 +222,8 @@ def batch_legs(tmp):
                             pack=os.path.join(tmp, "Pack", "ModContent.fpk"),
                             mods_link=os.path.join(tmp, "Mods", "link"),
                             held_out={"Code/Opt_Held.lua": "fixture ruling"},
-                            held_tokens=("HeldThing",), untracked=())
+                            held_tokens=("HeldThing",), untracked=(),
+                            game_running=lambda: False)
     write(os.path.join(repo, "metadata.lua"), META % "")
     write(os.path.join(repo, "items.lua"), "return {\n}\n")
     write(os.path.join(repo, "Code", "Opt_A.lua"), 'SMROptInPack.Register("A", {})\n')
@@ -251,7 +252,8 @@ def batch_legs(tmp):
     code, out = rb("status")
     leg("batch: Pending with no open batch is NEW_BATCH", "RELEASE STATE: NEW_BATCH" in out, out)
     stale = release_batch.Ctx(repo=repo, launch=ctx.launch, pack=ctx.pack, mods_link=ctx.mods_link,
-                              held_out={"Code/Gone.lua": "x"}, held_tokens=(), untracked=())
+                              held_out={"Code/Gone.lua": "x"}, held_tokens=(), untracked=(),
+                              game_running=lambda: False)
     code, out = run(release_batch.main, ["begin"], stale)
     leg("batch: a held-out row naming an untracked path refuses begin", code == 1 and "HELD_OUT" in out, out)
 
@@ -263,6 +265,18 @@ def batch_legs(tmp):
     dirty_absent = not os.path.exists(os.path.join(ctx.launch, "Code", "Opt_Dirty.lua"))
     leg("batch: launch tree omits held-out and uncommitted files, keeps the rest",
         held_absent and dirty_absent and os.path.isfile(os.path.join(ctx.launch, "Code", "Opt_A.lua")))
+    code, out = rb("verify")
+    leg("batch: verify FAILS before upload while the Mods link is not the launch tree",
+        code == 1 and "NOT the launch tree" in out, out)
+    running = release_batch.Ctx(repo=repo, launch=ctx.launch, pack=ctx.pack, mods_link=ctx.mods_link,
+                                held_out=ctx.held_out, held_tokens=ctx.held_tokens, untracked=(),
+                                game_running=lambda: True)
+    code, out = run(release_batch.main, ["link", "launch"], running)
+    leg("batch: link is refused while the game is running",
+        code == 1 and "Mars.exe" in out and not os.path.lexists(ctx.mods_link), out)
+    code, out = rb("link", "launch")
+    leg("batch: link launch points the Mods link at the launch tree", code == 0 and
+        release_batch.link_target(ctx) == os.path.normcase(os.path.realpath(ctx.launch)), out)
     code, out = rb("verify")
     leg("batch: verify passes on the pinned tree", code == 0 and "registered modules (1): A" in out, out)
     write(os.path.join(ctx.launch, "Code", "Opt_Stray.lua"), "-- stray\n")
@@ -340,6 +354,10 @@ def batch_legs(tmp):
         code == 0 and read(ctx.history) == first_history and "Later thing" in read(ctx.outbox), out)
     rb("mark", "writeback", "abc1234")
     rb("mark", "tag", "optin-v1.0.1")
+    code, out = rb("close")
+    leg("batch: close is refused while the Mods link is the launch tree",
+        code == 1 and "link repo" in out, out)
+    rb("link", "repo")
     code, out = rb("close")
     leg("batch: close succeeds once every step is recorded", code == 0, out)
     code, out = rb("status")

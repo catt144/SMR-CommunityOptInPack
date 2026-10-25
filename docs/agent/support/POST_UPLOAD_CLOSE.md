@@ -34,6 +34,10 @@ python tools/release_batch.py verify
 python tools/release_batch.py writeback
 ```
 
+Once both snapshots are kept, point the game back with `python tools/release_batch.py link
+repo` (it refuses while `Mars.exe` runs; ask the owner to close the game). `close`
+refuses while the link is still the launch tree.
+
 `verify` must show the launch tree unchanged apart from the editor's `metadata.lua` and
 `items.lua`; any other changed, missing or extra file is a finding to resolve before
 anything is merged. `writeback` lists each field the editor's copy holds that the repo's

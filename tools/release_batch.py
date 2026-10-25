@@ -9,8 +9,9 @@ upload, or its own Pending entries from a later one. This tool makes those state
 
 THE LAUNCH TREE. `begin` exports a pinned commit into a sibling folder, minus the HELD_OUT
 paths, plus the shipping folders git ignores (UNTRACKED_SHIPPING), and records a sha256 per
-member. The owner points the game's Mods link at that folder, uploads from it, and points the
-link back (`link launch` / `link repo`). The repo's own `metadata.lua` and `items.lua` are
+member. The agent points the game's Mods link at that folder before "ready to upload" and
+back at close (`link launch` / `link repo`, game closed); `verify` fails before an upload
+until the link is the launch tree, and `close` refuses while it still is. The repo's own `metadata.lua` and `items.lua` are
 never opened by the editor, so their comments are never stripped; the close-out copies the
 writeback FIELDS across (`writeback`).
 
@@ -29,7 +30,7 @@ serializer's output out of the temp folder before the next upload deletes it.
     python tools/release_batch.py assemble --out DIR  dry assembly of HEAD (no batch is opened)
     python tools/release_batch.py begin               pin a batch at HEAD and build the launch tree
     python tools/release_batch.py verify              launch tree vs its manifest, membership, held tokens
-    python tools/release_batch.py link launch|repo    point the game's Mods link (owner runs this)
+    python tools/release_batch.py link launch|repo    point the game's Mods link (agent, game closed)
     python tools/release_batch.py snapshot paradox|steam   keep the package just uploaded + serializer output
     python tools/release_batch.py receipt paradox|steam uploaded|failed "<owner's words>"
     python tools/release_batch.py writeback           the fields the editor wrote, against the repo's copy
@@ -89,7 +90,8 @@ class Ctx:
     """Every path the tool touches, so the selftest can run it against a scratch repo."""
 
     def __init__(self, repo=REPO, launch=None, pack=None, mods_link=None,
-                 held_out=None, held_tokens=None, untracked=UNTRACKED_SHIPPING):
+                 held_out=None, held_tokens=None, untracked=UNTRACKED_SHIPPING,
+                 game_running=None):
         self.repo = repo
         self.launch = launch or os.path.join(os.path.dirname(repo),
                                              os.path.basename(repo) + "-launch")
@@ -101,6 +103,7 @@ class Ctx:
         self.held_out = HELD_OUT if held_out is None else held_out
         self.held_tokens = HELD_TOKENS if held_tokens is None else held_tokens
         self.untracked = untracked
+        self.game_running = game_running or mars_running
         self.state = os.path.join(repo, "docs", "agent", "support", "RELEASE_BATCH.json")
         self.outbox = os.path.join(repo, "docs", "agent", "prompts", "perma", "RELEASE_OUTBOX.md")
         self.history = os.path.join(repo, "docs", "archive", "RELEASE_HISTORY.md")
@@ -116,6 +119,19 @@ class Refuse(Exception):
 
 
 # ── small helpers ────────────────────────────────────────────────────────────
+def mars_running():
+    out = subprocess.run(["tasklist", "/FI", "IMAGENAME eq Mars.exe", "/NH"],
+                         capture_output=True, text=True).stdout
+    return "mars.exe" in out.lower()
+
+
+def link_target(ctx):
+    """-> normalised realpath the Mods link resolves to, or None when there is no link."""
+    if not os.path.lexists(ctx.mods_link):
+        return None
+    return os.path.normcase(os.path.realpath(ctx.mods_link))
+
+
 def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
@@ -455,6 +471,13 @@ def cmd_verify(ctx, args):
         any(not pat for _rel, pat in rep["links"])
     if rep["changed"] and not unexpected:
         print("  changed files are the editor's writeback set only: %s" % ", ".join(rep["changed"]))
+    # Two uploads (2026-10-05, 2026-10-25) were packed from the working repo because the link
+    # step was the owner's to remember (owner 2026-10-25: automate it before "ready to upload").
+    if not (uploaded or moved):
+        linked = link_target(ctx) == os.path.normcase(os.path.realpath(batch["launch_tree"]))
+        print("  Mods link: %s" % ("-> launch tree" if linked else
+                                   "NOT the launch tree — run `link launch` with the game closed"))
+        bad = bad or not linked
     print("  VERDICT: %s" % ("FAIL — the launch tree is not the pinned one" if bad
                              else "the launch tree is the pinned batch" +
                              (" plus the editor's writeback" if rep["changed"] else "")))
@@ -467,7 +490,10 @@ def cmd_link(ctx, args):
         raise Refuse("link needs `launch` or `repo`")
     if args[0] == "launch":
         target = need_batch(load_state(ctx))["launch_tree"]
+    if ctx.game_running():
+        raise Refuse("Mars.exe is running; the game must be closed before the Mods link moves")
     link = ctx.mods_link
+    os.makedirs(os.path.dirname(link), exist_ok=True)
     if os.path.lexists(link):
         try:
             current = os.path.normcase(os.path.realpath(link))
@@ -605,6 +631,9 @@ def cmd_close(ctx, args):
     owed = [t for key, t in CLOSE_STEPS if not batch["close"].get(key)]
     if code != "CLOSE_OWED" or owed:
         raise Refuse("close refused in state %s%s" % (code, "".join("\n  owed: " + t for t in owed)))
+    if link_target(ctx) == os.path.normcase(os.path.realpath(batch["launch_tree"])):
+        raise Refuse("close refused: the Mods link still points at the launch tree; run "
+                     "`link repo` with the game closed")
     batch["closed"] = today()
     batch.pop("manifest", None)      # the sibling .manifest.json and the snapshots keep it
     state.setdefault("closed", []).append(batch)

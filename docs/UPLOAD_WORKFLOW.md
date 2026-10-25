@@ -44,9 +44,8 @@ The upload comes from a clean copy of the mod, the **launch tree**
 every file in the mod folder, so uploading from the working folder would ship work in
 progress.
 
-0. With the game closed, in a terminal in this repo:
-   `python tools/release_batch.py link launch`
-   This points the game's mod folder at the launch tree. Then start the game.
+0. Nothing to switch: before "ready to upload" the agent has already pointed the game's
+   mod folder at the launch tree, and its check fails if it has not. Start the game.
 1. Main menu → **MOD EDITOR**.
 2. It asks to restart the game. **Yes.** It reopens into the editor.
 3. On the right, read the **Last changes** box. That text is the change note players
@@ -282,11 +281,9 @@ Say **"stores done"**, plus:
 2. **First publish only:** the two store page links as your browser shows them, and
    what Paradox said about platforms or approval.
 
-Then, with the game closed, run `python tools/release_batch.py link repo` to point the
-game back at the working folder.
-
-The agent reads the ids and version from the editor's files, puts the real store links on
-the site and the README, and tells you when the site is ready to publish.
+Close the game. The agent points it back at the working folder, reads the ids and version
+from the editor's files, puts the real store links on the site and the README, and tells
+you when the site is ready to publish.
 
 The site does **not** update when the agent commits. It only updates when you run this:
 

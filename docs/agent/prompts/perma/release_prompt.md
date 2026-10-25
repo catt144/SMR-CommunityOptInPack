@@ -105,16 +105,21 @@ not continue while doccheck, `store_parity.py` or `upload_preflight.py` reports 
    It refuses while a batch is open, and while a `HELD_OUT` row in the tool names a path
    the base commit no longer tracks: remove a stale row in the same commit that moved the
    work. Commit `docs/agent/support/RELEASE_BATCH.json`.
-2. `python tools/release_batch.py verify` and, on the launch tree it names,
+2. Point the game at the launch tree yourself: `python tools/release_batch.py link launch`
+   (owner, 2026-10-25, after two uploads were packed from the working repo). It refuses
+   while `Mars.exe` runs; ask the owner to close the game, never end it. Until the close,
+   the game loads the launch tree, not the working repo.
+3. `python tools/release_batch.py verify` (it fails before an upload unless the Mods link
+   is the launch tree) and, on the launch tree it names,
    `python tools/upload_preflight.py <launch tree>`, `python tools/pack_predict.py <launch tree>`
    and `python tools/store_parity.py --metadata <launch tree>/metadata.lua`. Reconcile the
    registered modules, option items, Data templates and generated files that `verify`
    prints against the batch's entries. These runs, on this tree, are the release gates;
    a GREEN on the working repo is not.
-3. Tell the owner "ready to upload", state the batch and the change note, name every
+4. Tell the owner "ready to upload", state the batch and the change note, name every
    owner-only step that remains (first publish: §0 of the owner file), and point to
-   `docs/UPLOAD_WORKFLOW.md`.
-4. Say exactly how to resume: **"Say 'paradox done' after the Paradox upload and 'stores
+   `docs/UPLOAD_WORKFLOW.md`. Never hand the owner a link step.
+5. Say exactly how to resume: **"Say 'paradox done' after the Paradox upload and 'stores
    done' after Steam. I keep each package, read the ids and version from the writeback,
    and put the real store links on the site before you publish it."**
 
@@ -151,7 +156,8 @@ a first publish, the two store links and what Paradox said about platforms or ap
 ## 4 · Close, often in a fresh session
 
 Run §0, then execute `docs/agent/support/POST_UPLOAD_CLOSE.md` from the first close step
-`status` lists as owed. Verify from the batch record, the snapshots and the receipts; do
+`status` lists as owed; it points the Mods link back with `link repo`, and `close`
+refuses until it has. Verify from the batch record, the snapshots and the receipts; do
 not trust a handoff claim by itself.
 
 The repo's `metadata.lua` and `items.lua` were never opened by the editor, so their
