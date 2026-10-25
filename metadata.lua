@@ -44,7 +44,7 @@ return PlaceObj('ModDef', {
 	-- especially with the amount of QA we have done") — matches the changelog's
 	-- "Initial release" and the sibling pack. PackVersion reads
 	-- major.minor.version.
-	'version', 4,
+	'version', 6,
 	'version_major', 1,
 	'version_minor', 0,
 	'lua_revision', 350453,
@@ -181,7 +181,7 @@ return PlaceObj('ModDef', {
 	-- `pdx_version` last updated from batch 2026-10-22-03's editor save (kept as its
 	-- steam-1 snapshot), never typed. `version` above is the editor's too.
 	'pdx_id', 161911,
-	'pdx_version', "3",
+	'pdx_version', "4",
 	'steam_id', "3813142702",
 	'TagGameplay', true,
 	'TagBuildings', true,

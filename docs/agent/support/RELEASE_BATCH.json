@@ -476,7 +476,13 @@
   "portals": {
    "paradox": {
     "snapshots": [],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-25",
+      "result": "uploaded",
+      "owner_words": "stores are ddone (owner, 2026-10-25). Evidence: editor writeback pdx_version 3->4, written only after a successful publish. No package kept: the Steam upload deleted it; packed from the working repo (link launch not run)."
+     }
+    ]
    },
    "steam": {
     "snapshots": [
@@ -501,7 +507,13 @@
       "note": "Uploaded from the working repo, not the launch tree: the Mods link pointed at the repo (link launch was not run), and the editor upload save rewrote the REPO metadata.lua and items.lua at 15:09:10 (launch tree copies untouched). Serializer files and fields here are those repo copies. Package vs launch tree: pack_list EXACT MATCH, 73 byte-identical, only metadata.lua and items.lua differ. version 4 -> 6 across the two uploads."
      }
     ],
-    "receipts": []
+    "receipts": [
+     {
+      "date": "2026-10-25",
+      "result": "uploaded",
+      "owner_words": "stores are ddone (owner, 2026-10-25). Steam changelog newest 'Update: Oct 25 @ 12:09pm'. Package kept as steam-1, pack_list EXACT MATCH vs launch tree."
+     }
+    ]
    }
   },
   "close": {
